@@ -37,11 +37,11 @@
     "html-webpack-plugin": "^5.6.0",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.7.0-dev.20240904",
-    "typescript-eslint": "^8.4.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.5.0",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
   },
-  "packageManager": "pnpm@9.9.0"
+  "packageManager": "pnpm@9.10.0"
 }

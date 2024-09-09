@@ -1,9 +1,13 @@
-## v1.13.2 (Draft)
+## v1.14.0 (Draft)
 
 ### 🐞 Fixes
 
 - Fixed mono plugins missing default export.
 - Fixed component name detection when the component name starts with a underscore.
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `^8.5.0`.
 
 ## v1.13.1 (Mon 09 Sep 2024)
 
