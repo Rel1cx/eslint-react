@@ -31,4 +31,4 @@ run = "git add ."
 parallel = false
 
 [post-merge.commands."verify:lockfile"]
-run = "pnpm bun run --bun ./scripts/verify-lockfile.ts"
+run = "pnpm tsx ./scripts/verify-lockfile.ts"
