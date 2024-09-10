@@ -11,7 +11,7 @@
   "dependencies": {
     "next": "^14.2.9",
     "nextra": "3.0.0-alpha.37",
-    "nextra-theme-docs": "3.0.0-alpha.36",
+    "nextra-theme-docs": "3.0.0-alpha.37",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "ts-pattern": "^5.3.1"
