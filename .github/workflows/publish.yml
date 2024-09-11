@@ -26,10 +26,11 @@ jobs:
       # Workaround for GitHub Actions bug
       - name: Enable Corepack
         run: corepack enable
-      - name: Setup node@22
+      - name: Setup node@20
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
