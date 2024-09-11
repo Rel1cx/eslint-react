@@ -1,3 +1,9 @@
+## v1.14.1 (Draft)
+
+### 🐞 Fixes
+
+- Fixed false positives in rule `web-api/no-leaked-resize-observer`.
+
 ## v1.14.0 (Tue 10 Sep 2024)
 
 ### 🐞 Fixes
