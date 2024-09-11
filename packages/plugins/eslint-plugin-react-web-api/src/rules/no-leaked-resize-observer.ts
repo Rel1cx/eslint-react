@@ -1,7 +1,7 @@
-import type * as AST from "@eslint-react/ast";
+import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
-import { F, O } from "@eslint-react/tools";
+import { F, not, O, or } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -17,7 +17,8 @@ import { ObserverEntry } from "./../models";
 export const RULE_NAME = "no-leaked-resize-observer";
 
 export type MessageID =
-  | "noLeakedResizeObserverInEffect"
+  | "noLeakedResizeObserver"
+  | "noLeakedResizeObserverInControlFlow"
   | "noLeakedResizeObserverNoFloatingInstance";
 
 // #endregion
@@ -89,8 +90,10 @@ export default createRule<[], MessageID>({
       description: "enforce cleanup of 'ResizeObserver' instances in components and custom hooks.",
     },
     messages: {
-      noLeakedResizeObserverInEffect:
+      noLeakedResizeObserver:
         "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+      noLeakedResizeObserverInControlFlow:
+        "Dynamically added 'ResizeObserver.observe' should be cleared all at once using 'ResizeObserver.disconnect' in the cleanup function.",
       noLeakedResizeObserverNoFloatingInstance:
         "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
@@ -100,7 +103,12 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("ResizeObserver")) return {};
     const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
-    const observers: [node: TSESTree.NewExpression, id: TSESTree.Node, phase: ERPhaseKind][] = [];
+    const observers: [
+      node: TSESTree.NewExpression,
+      id: TSESTree.Node,
+      phase: ERPhaseKind,
+      phaseNode: AST.TSESTreeFunction,
+    ][] = [];
     const oEntries: OEntry[] = [];
     const uEntries: UEntry[] = [];
     const dEntries: DEntry[] = [];
@@ -113,7 +121,7 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const [_, fKind] = fStack.at(-1) ?? [];
+        const [_, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return;
         if (!PHASE_RELEVANCE.has(fKind)) return;
         const { object } = node.callee;
@@ -160,8 +168,8 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       ["NewExpression"](node) {
-        const [_, fKind] = fStack.at(-1) ?? [];
-        if (!PHASE_RELEVANCE.has(fKind)) return;
+        const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        if (!fNode || !PHASE_RELEVANCE.has(fKind)) return;
         if (!isNewResizeObserver(node)) return;
         const id = getInstanceID(node);
         if (O.isNone(id)) {
@@ -171,12 +179,25 @@ export default createRule<[], MessageID>({
           });
           return;
         }
-        observers.push([node, id.value, fKind]);
+        observers.push([node, id.value, fKind, fNode]);
       },
       ["Program:exit"]() {
-        for (const [node, id] of observers) {
+        for (const [node, id, _, phaseNode] of observers) {
           if (dEntries.some(e => isInstanceIDEqual(e.observer, id, context))) continue;
-          context.report({ messageId: "noLeakedResizeObserverInEffect", node });
+          const oentries = oEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
+          const uentries = uEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
+          const isDynamic = or(AST.isConditional, AST.is(AST_NODE_TYPES.CallExpression));
+          const isPhaseNode = (node: TSESTree.Node) => node === phaseNode;
+          const hasDynamicallyAdded = oentries
+            .some(e => O.exists(AST.traverseUp(e.node, or(isDynamic, isPhaseNode)), not(isPhaseNode)));
+          if (hasDynamicallyAdded) {
+            context.report({ messageId: "noLeakedResizeObserverInControlFlow", node });
+            continue;
+          }
+          for (const oEntry of oentries) {
+            if (uentries.some(uEntry => isInstanceIDEqual(uEntry.element, oEntry.element, context))) continue;
+            context.report({ messageId: "noLeakedResizeObserver", node: oEntry.node });
+          }
         }
       },
     };

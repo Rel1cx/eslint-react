@@ -87,12 +87,11 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const callKind = getCallKind(node);
-        switch (callKind) {
+        const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        if (!fNode || !fKind) return;
+        if (!PHASE_RELEVANCE.has(fKind)) return;
+        switch (getCallKind(node)) {
           case "setTimeout": {
-            const [fNode, fKind] = fStack.at(-1) ?? [];
-            if (!fNode || !fKind) break;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
             const timeoutIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
             if (!timeoutIdNode) {
               context.report({
@@ -111,9 +110,6 @@ export default createRule<[], MessageID>({
             break;
           }
           case "clearTimeout": {
-            const [fNode, fKind] = fStack.at(-1) ?? [];
-            if (!fNode || !fKind) break;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
             const [timeoutIdNode] = node.arguments;
             if (!timeoutIdNode) break;
             rEntries.push({

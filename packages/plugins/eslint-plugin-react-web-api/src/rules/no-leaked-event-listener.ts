@@ -195,12 +195,13 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
+        const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        if (!fNode || !fKind) return;
+        if (!PHASE_RELEVANCE.has(fKind)) return;
         match(getCallKind(node))
           .with("addEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
-            const [fNode, fKind] = fStack.at(-1) ?? [];
-            if (!type || !listener || !fNode || !fKind) return;
-            if (!PHASE_RELEVANCE.has(fKind)) return;
+            if (!type || !listener) return;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
@@ -215,9 +216,7 @@ export default createRule<[], MessageID>({
           })
           .with("removeEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
-            const [fNode, fKind] = fStack.at(-1) ?? [];
-            if (!type || !listener || !fNode || !fKind) return;
-            if (!PHASE_RELEVANCE.has(fKind)) return;
+            if (!type || !listener) return;
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);

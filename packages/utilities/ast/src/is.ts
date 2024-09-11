@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { or } from "@eslint-react/tools";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
@@ -34,6 +35,22 @@ export const isLoop = isOneOf([
   AST_NODE_TYPES.ForStatement,
   AST_NODE_TYPES.WhileStatement,
 ]);
+
+export const isControlFlow = or(
+  isLoop,
+  isOneOf([
+    AST_NODE_TYPES.IfStatement,
+    AST_NODE_TYPES.SwitchStatement,
+  ]),
+);
+
+export const isConditional = or(
+  isControlFlow,
+  isOneOf([
+    AST_NODE_TYPES.LogicalExpression,
+    AST_NODE_TYPES.ConditionalExpression,
+  ]),
+);
 
 export const isArrayTupleType = isOneOf([AST_NODE_TYPES.TSArrayType, AST_NODE_TYPES.TSTupleType]);
 

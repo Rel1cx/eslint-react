@@ -90,7 +90,7 @@ export default createRule<[], MessageID>({
       ["CallExpression"](node) {
         switch (getCallKind(node)) {
           case "setInterval": {
-            const [fNode, fKind] = fStack.at(-1) ?? [];
+            const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
             if (!fNode || !fKind) break;
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const intervalIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
@@ -111,7 +111,7 @@ export default createRule<[], MessageID>({
             break;
           }
           case "clearInterval": {
-            const [fNode, fKind] = fStack.at(-1) ?? [];
+            const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
             if (!fNode || !fKind) break;
             if (!PHASE_RELEVANCE.has(fKind)) break;
             const [intervalIdNode] = node.arguments;

@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverInEffect",
+          messageId: "noLeakedResizeObserver",
         },
       ],
     },
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverInEffect",
+          messageId: "noLeakedResizeObserver",
         },
       ],
     },
@@ -81,7 +81,59 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverInEffect",
+          messageId: "noLeakedResizeObserver",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            for (const element of document.querySelectorAll('.selector')) {
+              observer.observe(element);
+            }
+            return () => {
+              for (const element of document.querySelectorAll('.selector')) {
+                observer.unobserve(element);
+              }
+            }
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedResizeObserverInControlFlow",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            Array.from(document.querySelectorAll('.selector')).forEach(element => {
+              observer.observe(element);
+            });
+            return () => {
+              Array.from(document.querySelectorAll('.selector')).forEach(element => {
+                observer.unobserve(element);
+              });
+            }
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noLeakedResizeObserverInControlFlow",
         },
       ],
     },
@@ -182,6 +234,76 @@ ruleTester.run(RULE_NAME, rule, {
           return () => {
             observer.unobserve(document.body);
             observer.unobserve(document.querySelector('.selector')!);
+            observer.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          return () => {
+            observer.unobserve(document.body);
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const scrollRoot = scrollRootRef.current;
+          if (!scrollRoot) {
+            return undefined;
+          }
+
+          const resizeObserver = new ResizeObserver(getAndSetScrollOffsets);
+          resizeObserver.observe(scrollRoot);
+
+          return () => {
+            resizeObserver.unobserve(scrollRoot);
+          };
+        }, [elementRef, scrollRootRef]);
+
+        return <div />;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          for (const element of document.querySelectorAll('.selector')) {
+            observer.observe(element);
+          }
+          return () => {
+            observer.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    /* tsx */ `
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          Array.from(document.querySelectorAll('.selector')).forEach(element => {
+            observer.observe(element);
+          });
+          return () => {
             observer.disconnect();
           }
         }, []);
