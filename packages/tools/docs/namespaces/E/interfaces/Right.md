@@ -22,6 +22,18 @@
 
 ## Properties
 
+### \_op
+
+> `readonly` **\_op**: `"Right"`
+
+***
+
+### \_tag
+
+> `readonly` **\_tag**: `"Right"`
+
+***
+
 ### \[ChannelTypeId\]
 
 > `readonly` **\[ChannelTypeId\]**: `VarianceStruct`\<`never`, `unknown`, `L`, `unknown`, `R`, `unknown`, `never`\>
@@ -31,6 +43,12 @@
 ### \[EffectTypeId\]
 
 > `readonly` **\[EffectTypeId\]**: `VarianceStruct`\<`R`, `L`, `never`\>
+
+***
+
+### \[ignoreSymbol\]?
+
+> `optional` **\[ignoreSymbol\]**: [`EitherUnifyIgnore`](EitherUnifyIgnore.md)
 
 ***
 
@@ -60,12 +78,6 @@
 
 ***
 
-### \[ignoreSymbol\]?
-
-> `optional` **\[ignoreSymbol\]**: [`EitherUnifyIgnore`](EitherUnifyIgnore.md)
-
-***
-
 ### \[typeSymbol\]?
 
 > `optional` **\[typeSymbol\]**: `unknown`
@@ -78,23 +90,21 @@
 
 ***
 
-### \_op
-
-> `readonly` **\_op**: `"Right"`
-
-***
-
-### \_tag
-
-> `readonly` **\_tag**: `"Right"`
-
-***
-
 ### right
 
 > `readonly` **right**: `R`
 
 ## Methods
+
+### \[iterator\]()
+
+> **\[iterator\]**(): `EffectGenerator`\<[`Right`](Right.md)\<`L`, `R`\>\>
+
+#### Returns
+
+`EffectGenerator`\<[`Right`](Right.md)\<`L`, `R`\>\>
+
+***
 
 ### \[NodeInspectSymbol\]()
 
@@ -107,16 +117,6 @@
 #### Inherited from
 
 `Inspectable.[NodeInspectSymbol]`
-
-***
-
-### \[iterator\]()
-
-> **\[iterator\]**(): `EffectGenerator`\<[`Right`](Right.md)\<`L`, `R`\>\>
-
-#### Returns
-
-`EffectGenerator`\<[`Right`](Right.md)\<`L`, `R`\>\>
 
 ***
 

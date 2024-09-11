@@ -1,12 +1,15 @@
 import url from "node:url";
 
+// @ts-expect-error - missing types
 import eslint from "@eslint/js";
 import stylisticJs from "@stylistic/eslint-plugin-js";
 import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
 import { Record } from "effect";
 import type { Linter } from "eslint";
 import gitignore from "eslint-config-flat-gitignore";
+// @ts-expect-error - missing types
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
+// @ts-expect-error - missing types
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
 import importPlugin from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";

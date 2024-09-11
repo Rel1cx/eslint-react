@@ -20,6 +20,18 @@
 
 ## Properties
 
+### \_op
+
+> `readonly` **\_op**: `"None"`
+
+***
+
+### \_tag
+
+> `readonly` **\_tag**: `"None"`
+
+***
+
 ### \[ChannelTypeId\]
 
 > `readonly` **\[ChannelTypeId\]**: `VarianceStruct`\<`never`, `unknown`, `NoSuchElementException`, `unknown`, `A`, `unknown`, `never`\>
@@ -29,6 +41,12 @@
 ### \[EffectTypeId\]
 
 > `readonly` **\[EffectTypeId\]**: `VarianceStruct`\<`A`, `NoSuchElementException`, `never`\>
+
+***
+
+### \[ignoreSymbol\]?
+
+> `optional` **\[ignoreSymbol\]**: [`OptionUnifyIgnore`](OptionUnifyIgnore.md)
 
 ***
 
@@ -54,12 +72,6 @@
 
 ***
 
-### \[ignoreSymbol\]?
-
-> `optional` **\[ignoreSymbol\]**: [`OptionUnifyIgnore`](OptionUnifyIgnore.md)
-
-***
-
 ### \[typeSymbol\]?
 
 > `optional` **\[typeSymbol\]**: `unknown`
@@ -70,19 +82,17 @@
 
 > `optional` **\[unifySymbol\]**: [`OptionUnify`](OptionUnify.md)\<[`None`](None.md)\<`A`\>\>
 
-***
-
-### \_op
-
-> `readonly` **\_op**: `"None"`
-
-***
-
-### \_tag
-
-> `readonly` **\_tag**: `"None"`
-
 ## Methods
+
+### \[iterator\]()
+
+> **\[iterator\]**(): `EffectGenerator`\<[`None`](None.md)\<`A`\>\>
+
+#### Returns
+
+`EffectGenerator`\<[`None`](None.md)\<`A`\>\>
+
+***
 
 ### \[NodeInspectSymbol\]()
 
@@ -95,16 +105,6 @@
 #### Inherited from
 
 `Inspectable.[NodeInspectSymbol]`
-
-***
-
-### \[iterator\]()
-
-> **\[iterator\]**(): `EffectGenerator`\<[`None`](None.md)\<`A`\>\>
-
-#### Returns
-
-`EffectGenerator`\<[`None`](None.md)\<`A`\>\>
 
 ***
 

@@ -20,15 +20,15 @@
     ]
   },
   "include": [
-    "*.d.ts",
-    "*.config.ts",
-    "*.config.mts",
-    "test/*.ts",
-    "scripts/**/*.ts",
-    "packages/**/*.config.ts",
-    "packages/**/scripts/**/*.ts"
+    "."
   ],
   "exclude": [
-    "eslint.config.mts"
+    "website",
+    "examples",
+    "node_modules",
+    "packages/*/dist",
+    "packages/*/*/dist",
+    "packages/*/src",
+    "packages/*/*/src"
   ]
 }
