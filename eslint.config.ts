@@ -18,10 +18,8 @@ import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
 import vitest from "eslint-plugin-vitest";
-import eslintPluginYml from "eslint-plugin-yml";
 // import { isCI } from "std-env";
 import tseslint from "typescript-eslint";
-import YamlParser from "yaml-eslint-parser";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -33,7 +31,7 @@ const GLOB_TEST = [
   "**/spec.{ts,tsx,cts,mts}",
   "**/test.{ts,tsx,cts,mts}",
 ] as const;
-const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"] as const;
+// const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"] as const;
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"] as const;
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"] as const;
 
@@ -375,27 +373,6 @@ export default [
     },
     rules: {
       ...disableTypeCheckedRules,
-    },
-  },
-  {
-    files: GLOB_YAML,
-    ignores: [
-      "pnpm-lock.yaml",
-    ],
-    languageOptions: {
-      parser: YamlParser,
-    },
-    plugins: {
-      yml: eslintPluginYml,
-    },
-    rules: {
-      // Part: ESLint core rules known to cause problems with YAML
-      "no-irregular-whitespace": "off",
-      "no-unused-vars": "off",
-      "spaced-comment": "off",
-      // Part: eslint-plugin-yml rules
-      ...disableTypeCheckedRules,
-      ...eslintPluginYml.configs.recommended.rules,
     },
   },
 ] satisfies Linter.Config[];
