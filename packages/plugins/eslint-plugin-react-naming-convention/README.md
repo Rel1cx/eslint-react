@@ -31,8 +31,8 @@ export default [
     },
     rules: {
       // react-naming-convention recommended rules
-      "naming-convention/filename-extension": ["warn", "as-needed"],
-      "naming-convention/use-state": "warn",
+      "react-naming-convention/filename-extension": ["warn", "as-needed"],
+      "react-naming-convention/use-state": "warn",
     },
   },
 ];

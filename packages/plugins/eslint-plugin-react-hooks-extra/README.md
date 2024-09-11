@@ -31,9 +31,9 @@ export default [
     },
     rules: {
       // react-hooks-extra recommended rules
-      "hooks-extra/no-redundant-custom-hook": "warn",
-      "hooks-extra/no-direct-set-state-in-use-effect": "warn",
-      "hooks-extra/prefer-use-state-lazy-initialization": "warn",
+      "react-hooks-extra/no-redundant-custom-hook": "warn",
+      "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
+      "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
     },
   },
 ];
