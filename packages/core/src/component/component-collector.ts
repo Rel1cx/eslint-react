@@ -1,3 +1,4 @@
+/* eslint-disable better-mutation/no-mutation, better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";

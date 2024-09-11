@@ -1,3 +1,4 @@
+/* eslint-disable better-mutation/no-mutating-methods */
 import { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

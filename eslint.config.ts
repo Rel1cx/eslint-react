@@ -8,6 +8,8 @@ import { Record } from "effect";
 import type { Linter } from "eslint";
 import gitignore from "eslint-config-flat-gitignore";
 // @ts-expect-error - missing types
+import pluginBetterMutation from "eslint-plugin-better-mutation";
+// @ts-expect-error - missing types
 import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
 // @ts-expect-error - missing types
 import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
@@ -112,6 +114,7 @@ export default [
       ["@stylistic/js"]: stylisticJs,
       ["@susisu/safe-typescript"]: safeTsPlugin,
       ["@typescript-eslint"]: tseslint.plugin,
+      ["better-mutation"]: pluginBetterMutation,
       ["eslint-comments"]: eslintCommentsPlugin,
       ["eslint-plugin"]: eslintPluginPlugin,
       ["import-x"]: importPlugin,
@@ -220,6 +223,7 @@ export default [
       ...typeCheckedRules,
       // Part: functional rules
       "functional/no-return-void": "off",
+      ...pluginBetterMutation.configs.recommended.rules,
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",

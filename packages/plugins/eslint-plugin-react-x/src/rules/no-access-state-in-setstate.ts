@@ -1,3 +1,4 @@
+/* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";

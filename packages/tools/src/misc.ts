@@ -1,4 +1,4 @@
-/* eslint-disable @susisu/safe-typescript/no-type-assertion */
+/* eslint-disable @susisu/safe-typescript/no-type-assertion, better-mutation/no-mutation */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
 // #region Types

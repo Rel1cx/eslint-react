@@ -1,3 +1,4 @@
+/* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { unsafeReadSettings } from "@eslint-react/shared";
