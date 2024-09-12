@@ -207,7 +207,7 @@ function getVariableInitExpression(at: number) {
 
 // #endregion
 
-// #region Rule Definition
+// #region Rule Implementation
 
 export default createRule<[], MessageID>({
   meta: {

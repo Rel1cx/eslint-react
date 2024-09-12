@@ -116,9 +116,8 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
 
 // #endregion
 
-// #region Rule Definition
+// #region Rule Implementation
 
-// TODO: Add support for detecting event listeners removed by abort signal.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -131,7 +130,6 @@ export default createRule<[], MessageID>({
         "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
       noLeakedEventListenerInLifecycle:
         "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
-      // TODO: After adding support for abort signal, perform additional checks on inline functions before reporting this message.
       noLeakedEventListenerOfInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],

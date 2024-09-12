@@ -95,7 +95,7 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
 
 // #endregion
 
-// #region Rule Definition
+// #region Rule Implementation
 
 export default createRule<[], MessageID>({
   meta: {
