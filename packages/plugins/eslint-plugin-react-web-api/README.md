@@ -11,8 +11,6 @@ npm install --save-dev eslint-plugin-react-web-api
 
 ## Setup
 
-Add the plugin to your `eslint.config.js`:
-
 ```js
 // @ts-check
 

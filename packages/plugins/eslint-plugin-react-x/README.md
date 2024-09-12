@@ -14,8 +14,6 @@ npm install --save-dev eslint-plugin-react-x
 
 ## Setup
 
-Add the plugin to your `eslint.config.js`:
-
 ```js
 // @ts-check
 

@@ -76,11 +76,10 @@ pnpm add --save-dev @eslint-react/eslint-plugin
 
 ### Flat Config
 
-Add the plugin to your `eslint.config.js`:
-
 ```js
-// @ts-check
+// eslint.config.js
 
+// @ts-check
 import js from "@eslint/js";
 import react from "@eslint-react/eslint-plugin";
 import * as tsParser from "@typescript-eslint/parser";
@@ -95,29 +94,6 @@ export default [
     },
   },
 ];
-```
-
-### Legacy Config
-
-<details>
-<summary>Click to toggle contents</summary>
-
-Add the plugin to your `.eslintrc.json`:
-
-```json
-{
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@eslint-react/eslint-plugin"],
-  "extends": ["eslint:recommended"],
-  "overrides": [
-    {
-      "files": ["**/*.{ts,tsx}"],
-      "extends": [
-        "plugin:@eslint-react/recommended-legacy"
-      ]
-    }
-  ]
-}
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
@@ -140,26 +116,6 @@ Add the plugin to your `.eslintrc.json`:
 - **recommended-type-checked**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.\
   _This preset includes the `recommended` preset._
-
-### Legacy Config
-
-<details>
-<summary>Click to toggle contents</summary>
-
-- **core-legacy**\
-  Enable rules that are renderer-agnostic.
-- **dom-legacy**\
-  Enable rules that are specific to React DOM.
-- **web-api-legacy**\
-  Enable rules for interacting with Web APIs.
-- **recommended-legacy**\
-  Enable rules that are recommended by ESLint React.\
-  _This preset includes the `core-legacy`, `dom-legacy`, and `web-api-legacy` presets._
-- **recommended-type-checked-legacy**\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.\
-  _This preset includes the `recommended-legacy` preset._
-
-</details>
 
 [Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
