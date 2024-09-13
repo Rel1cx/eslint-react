@@ -2,7 +2,7 @@ import "./App.css";
 
 import { useState } from "react";
 
-import reactLogo from "./assets/react.svg";
+import logo from "./assets/eslint-react.svg";
 
 function App() {
   const [count, setCount] = useState(0n);
@@ -10,8 +10,8 @@ function App() {
   return (
     <div>
       <div>
-        <a href="https://react.dev" target="_blank" rel="noopener noreferrer">
-          <img alt="React logo" className="logo react" src={reactLogo} />
+        <a href="https://eslint-react.xyz" target="_blank" rel="noopener noreferrer">
+          <img alt="logo" className="logo" src={logo} />
         </a>
       </div>
       <div className="card">
