@@ -26,17 +26,17 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@effect/platform':
-        specifier: ^0.64.0
-        version: 0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2)
+        specifier: ^0.64.1
+        version: 0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3)
       '@effect/platform-bun':
-        specifier: ^0.44.0
-        version: 0.44.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)
+        specifier: ^0.44.1
+        version: 0.44.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)
       '@effect/platform-node':
-        specifier: ^0.59.0
-        version: 0.59.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)
+        specifier: ^0.59.1
+        version: 0.59.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)
       '@effect/schema':
-        specifier: ^0.72.3
-        version: 0.72.3(effect@3.7.2)
+        specifier: ^0.72.4
+        version: 0.72.4(effect@3.7.3)
       '@eslint/js':
         specifier: 9.9.1
         version: 9.9.1
@@ -89,8 +89,8 @@ importers:
         specifier: ^0.47.2
         version: 0.47.2
       effect:
-        specifier: ^3.7.2
-        version: 3.7.2
+        specifier: ^3.7.3
+        version: 3.7.3
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -173,8 +173,8 @@ importers:
         specifier: ^4.19.1
         version: 4.19.1
       turbo:
-        specifier: ^2.1.1
-        version: 2.1.1
+        specifier: ^2.1.2
+        version: 2.1.2
       type-fest:
         specifier: ^4.26.1
         version: 4.26.1
@@ -863,8 +863,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: ^3.7.2
-        version: 3.7.2
+        specifier: ^3.7.3
+        version: 3.7.3
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(@swc/core@1.7.26(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.45)(tsx@4.19.1)(typescript@5.6.2)(yaml@2.5.1)
@@ -1042,8 +1042,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.45)
       effect:
-        specifier: ^3.7.2
-        version: 3.7.2
+        specifier: ^3.7.3
+        version: 3.7.3
       eslint:
         specifier: ^9.10.0
         version: 9.10.0(jiti@1.21.6)
@@ -2046,34 +2046,34 @@ packages:
   '@effect/language-service@0.1.0':
     resolution: {integrity: sha512-BnlM8LlaqCAYgdRfxlbR7gXGh/FD1scL1fPgNVJEPoOM08od1jtJz+iKhwfaud8TPnnhZR+TED2h5ynjanLeCQ==}
 
-  '@effect/platform-bun@0.44.0':
-    resolution: {integrity: sha512-qgPsw/6HcsVaQv1zx4e6mr8niZknnZYwIaiyIQAr4dBaaJ8BQFPe4wjBHHJsaLRPLaqKd81nnnDr2ceFzNTlaw==}
+  '@effect/platform-bun@0.44.1':
+    resolution: {integrity: sha512-GaZj3R8VJ3dhhrTtwkVorKh5yHKZF3/XcAvMyrDFvTSYQii7QrxFIy3uBoaDxwJqa8qPjLYj5l/SZZ/HFfXi4Q==}
     peerDependencies:
-      '@effect/platform': ^0.64.0
-      effect: ^3.7.2
+      '@effect/platform': ^0.64.1
+      effect: ^3.7.3
 
-  '@effect/platform-node-shared@0.14.0':
-    resolution: {integrity: sha512-3g1vr7Mq/9PsM39WQsEGyY3cfGTJ8p1XtLGLv2p4S5tM3x0dPTfQa+E/bW8H33wuaNbj3smfSmVRJrmWsGwb6g==}
+  '@effect/platform-node-shared@0.14.1':
+    resolution: {integrity: sha512-p8elsccYuxyVWX9GKMIZm3tINS08E6CQV19rzIzu1fygD0wPSyIAzgMUEA1E/tpUStSsE8LO43DY8gKOQFBzzw==}
     peerDependencies:
-      '@effect/platform': ^0.64.0
-      effect: ^3.7.2
+      '@effect/platform': ^0.64.1
+      effect: ^3.7.3
 
-  '@effect/platform-node@0.59.0':
-    resolution: {integrity: sha512-qTZvD3eaW2mJRYXp1LkyzmiXAgAyil1OTQsKVmZ7qdMkuD184DN8ZYnZ79X0eM3EXgLIgE8QlCmViCgJlevJDQ==}
+  '@effect/platform-node@0.59.1':
+    resolution: {integrity: sha512-GEKajwItz2m2a6mXaYCS6KOooPzZAWmnYQjXq9JGnXeBHJImktALD8cGtgJnkUimZUFkf7j++5ejlZW1XmLc6A==}
     peerDependencies:
-      '@effect/platform': ^0.64.0
-      effect: ^3.7.2
+      '@effect/platform': ^0.64.1
+      effect: ^3.7.3
 
-  '@effect/platform@0.64.0':
-    resolution: {integrity: sha512-Q2gwiY69ka5OF29bsc+7ENjLQa4hiedJf7mjf/JKx3fFcvq1vRkyCB5+neVDCsDrEPHYAHLZyjur0AiiML2l7A==}
+  '@effect/platform@0.64.1':
+    resolution: {integrity: sha512-KaAp1FktSKqFkDo8XQsoTwF+An3KwxrKxaqoGf8SR+Sg1PvXKDJZLZ6TidxN53Ake753kA6jwR9Q5Ny8K17mqQ==}
     peerDependencies:
-      '@effect/schema': ^0.72.3
-      effect: ^3.7.2
+      '@effect/schema': ^0.72.4
+      effect: ^3.7.3
 
-  '@effect/schema@0.72.3':
-    resolution: {integrity: sha512-T1TV/8TMnEm5RSYQXOPmkqEWt8NfRd8E6FSJh9+eZ+jDc8bhAmh3K4J0BQZZcdqaftH21GdflAUbYScy8DZ71Q==}
+  '@effect/schema@0.72.4':
+    resolution: {integrity: sha512-DCAOuLmfFf18ci/LeFaweN1uaYbgmbPwSFALHhS/Hj3seB4BPneGzZnNwBnI7kZ8NXFDhei7uuhXLvDjMCwphQ==}
     peerDependencies:
-      effect: ^3.7.2
+      effect: ^3.7.3
 
   '@emnapi/core@1.2.0':
     resolution: {integrity: sha512-E7Vgw78I93we4ZWdYCb4DGAwRROGkMIXk7/y87UmANR+J6qsWusmC3gLt0H+O0KOt5e6O38U8oJamgbudrES/w==}
@@ -4368,8 +4368,8 @@ packages:
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
 
-  effect@3.7.2:
-    resolution: {integrity: sha512-pV7l1+LSZFvVObj4zuy4nYiBaC7qZOfrKV6s/Ef4p3KueiQwZFgamazklwyZ+x7Nyj2etRDFvHE/xkThTfQD1w==}
+  effect@3.7.3:
+    resolution: {integrity: sha512-XHz8wfO2l+S0v14NnwbJZV77U1w6XWv2y4TH8tP2s6c2TMkHLkh7QJ7IfWv+bRcAIotI1+gNZFr564c2hLV5+Q==}
 
   electron-to-chromium@1.5.13:
     resolution: {integrity: sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==}
@@ -4948,7 +4948,6 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -5206,7 +5205,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
@@ -7306,38 +7304,38 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  turbo-darwin-64@2.1.1:
-    resolution: {integrity: sha512-aYNuJpZlCoi0Htd79fl/2DywpewGKijdXeOfg9KzNuPVKzSMYlAXuAlNGh0MKjiOcyqxQGL7Mq9LFhwA0VpDpQ==}
+  turbo-darwin-64@2.1.2:
+    resolution: {integrity: sha512-3TEBxHWh99h2yIzkuIigMEOXt/ItYQp0aPiJjPd1xN4oDcsKK5AxiFKPH9pdtfIBzYsY59kQhZiFj0ELnSP7Bw==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.1.1:
-    resolution: {integrity: sha512-tifJKD8yHY48rHXPMcM8o1jI/Jk2KCaXiNjTKvvy9Zsim61BZksNVLelIbrRoCGwAN6PUBZO2lGU5iL/TQJ5Pw==}
+  turbo-darwin-arm64@2.1.2:
+    resolution: {integrity: sha512-he0miWNq2WxJzsH82jS2Z4MXpnkzn9SH8a79iPXiJkq25QREImucscM4RPasXm8wARp91pyysJMq6aasD45CeA==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.1.1:
-    resolution: {integrity: sha512-Js6d/bSQe9DuV9c7ITXYpsU/ADzFHABdz1UIHa7Oqjj9VOEbFeA9WpAn0c+mdJrVD+IXJFbbDZUjN7VYssmtcg==}
+  turbo-linux-64@2.1.2:
+    resolution: {integrity: sha512-fKUBcc0rK8Vdqv5a/E3CSpMBLG1bzwv+Q0Q83F8fG2ZfNCNKGbcEYABdonNZkkx141Rj03cZQFCgxu3MVEGU+A==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.1.1:
-    resolution: {integrity: sha512-LidzTCq0yvQ+N8w8Qub9FmhQ/mmEIeoqFi7DSupekEV2EjvE9jw/zYc9Pk67X+g7dHVfgOnvVzmrjChdxpFePw==}
+  turbo-linux-arm64@2.1.2:
+    resolution: {integrity: sha512-sV8Bpmm0WiuxgbhxymcC7wSsuxfBBieI98GegSwbr/bs1ANAgzCg93urIrdKdQ3/b31zZxQwcaP4FBF1wx1Qdg==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.1.1:
-    resolution: {integrity: sha512-GKc9ZywKwy4xLDhwXd6H07yzl0TB52HjXMrFLyHGhCVnf/w0oq4sLJv2sjbvuarPjsyx4xnCBJ3m3oyL2XmFtA==}
+  turbo-windows-64@2.1.2:
+    resolution: {integrity: sha512-wcmIJZI9ORT9ykHGliFE6kWRQrlH930QGSjSgWC8uFChFFuOyUlvC7ttcxuSvU9VqC7NF4C+GVAcFJQ8lTjN7g==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.1.1:
-    resolution: {integrity: sha512-oFKkMj11KKUv3xSK9/fhAEQTxLUp1Ol1EOktwc32+SFtEU0uls7kosAz0b+qe8k3pJGEMFdDPdqoEjyJidbxtQ==}
+  turbo-windows-arm64@2.1.2:
+    resolution: {integrity: sha512-zdnXjrhk7YO6CP+Q5wPueEvOCLH4lDa6C4rrwiakcWcPgcQGbVozJlo4uaQ6awo8HLWQEvOwu84RkWTdLAc/Hw==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.1.1:
-    resolution: {integrity: sha512-u9gUDkmR9dFS8b5kAYqIETK4OnzsS4l2ragJ0+soSMHh6VEeNHjTfSjk1tKxCqLyziCrPogadxP680J+v6yGHw==}
+  turbo@2.1.2:
+    resolution: {integrity: sha512-Jb0rbU4iHEVQ18An/YfakdIv9rKnd3zUfSE117EngrfWXFHo3RndVH96US3GsT8VHpwTncPePDBT2t06PaFLrw==}
     hasBin: true
 
   twoslash-protocol@0.2.9:
@@ -9103,24 +9101,24 @@ snapshots:
 
   '@effect/language-service@0.1.0': {}
 
-  '@effect/platform-bun@0.44.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)':
+  '@effect/platform-bun@0.44.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)':
     dependencies:
-      '@effect/platform': 0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2)
-      '@effect/platform-node-shared': 0.14.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)
-      effect: 3.7.2
+      '@effect/platform': 0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3)
+      '@effect/platform-node-shared': 0.14.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)
+      effect: 3.7.3
 
-  '@effect/platform-node-shared@0.14.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)':
+  '@effect/platform-node-shared@0.14.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)':
     dependencies:
-      '@effect/platform': 0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2)
+      '@effect/platform': 0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3)
       '@parcel/watcher': 2.4.1
-      effect: 3.7.2
+      effect: 3.7.3
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.59.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)':
+  '@effect/platform-node@0.59.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)':
     dependencies:
-      '@effect/platform': 0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2)
-      '@effect/platform-node-shared': 0.14.0(@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2))(effect@3.7.2)
-      effect: 3.7.2
+      '@effect/platform': 0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3)
+      '@effect/platform-node-shared': 0.14.1(@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3))(effect@3.7.3)
+      effect: 3.7.3
       mime: 3.0.0
       undici: 6.19.8
       ws: 8.18.0
@@ -9128,16 +9126,16 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.64.0(@effect/schema@0.72.3(effect@3.7.2))(effect@3.7.2)':
+  '@effect/platform@0.64.1(@effect/schema@0.72.4(effect@3.7.3))(effect@3.7.3)':
     dependencies:
-      '@effect/schema': 0.72.3(effect@3.7.2)
-      effect: 3.7.2
+      '@effect/schema': 0.72.4(effect@3.7.3)
+      effect: 3.7.3
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.72.3(effect@3.7.2)':
+  '@effect/schema@0.72.4(effect@3.7.3)':
     dependencies:
-      effect: 3.7.2
+      effect: 3.7.3
       fast-check: 3.22.0
 
   '@emnapi/core@1.2.0':
@@ -11606,7 +11604,7 @@ snapshots:
 
   effect@3.3.2: {}
 
-  effect@3.7.2: {}
+  effect@3.7.3: {}
 
   electron-to-chromium@1.5.13: {}
 
@@ -15199,32 +15197,32 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  turbo-darwin-64@2.1.1:
+  turbo-darwin-64@2.1.2:
     optional: true
 
-  turbo-darwin-arm64@2.1.1:
+  turbo-darwin-arm64@2.1.2:
     optional: true
 
-  turbo-linux-64@2.1.1:
+  turbo-linux-64@2.1.2:
     optional: true
 
-  turbo-linux-arm64@2.1.1:
+  turbo-linux-arm64@2.1.2:
     optional: true
 
-  turbo-windows-64@2.1.1:
+  turbo-windows-64@2.1.2:
     optional: true
 
-  turbo-windows-arm64@2.1.1:
+  turbo-windows-arm64@2.1.2:
     optional: true
 
-  turbo@2.1.1:
+  turbo@2.1.2:
     optionalDependencies:
-      turbo-darwin-64: 2.1.1
-      turbo-darwin-arm64: 2.1.1
-      turbo-linux-64: 2.1.1
-      turbo-linux-arm64: 2.1.1
-      turbo-windows-64: 2.1.1
-      turbo-windows-arm64: 2.1.1
+      turbo-darwin-64: 2.1.2
+      turbo-darwin-arm64: 2.1.2
+      turbo-linux-64: 2.1.2
+      turbo-linux-arm64: 2.1.2
+      turbo-windows-64: 2.1.2
+      turbo-windows-arm64: 2.1.2
 
   twoslash-protocol@0.2.9: {}
 
