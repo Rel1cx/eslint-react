@@ -238,7 +238,7 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-94e652d5-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.10.0(jiti@1.21.6))
@@ -284,7 +284,7 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-94e652d5-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.10.0(jiti@1.21.6))
@@ -348,7 +348,7 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-94e652d5-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.10.0(jiti@1.21.6))
@@ -1052,7 +1052,7 @@ importers:
         version: 3.1.5(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-94e652d5-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.11
         version: 0.4.11(eslint@9.10.0(jiti@1.21.6))
@@ -4545,8 +4545,8 @@ packages:
       vue-eslint-parser:
         optional: true
 
-  eslint-plugin-react-hooks@5.1.0-rc-94e652d5-20240912:
-    resolution: {integrity: sha512-m9GVeutJUdvfTIC/1f21NurvYm4daYbVZRfNOJEhL6oFB42uxrOBU2LJQSfixzm1px5QskS6rKInuadut4BYtQ==}
+  eslint-plugin-react-hooks@5.1.0-rc-206df66e-20240912:
+    resolution: {integrity: sha512-7ApoGzoavioLFz1Vb2eQKnA6S9zdCWFkMNe17uBHQ0n0o9j1UiZxzaQumHrPNXMJwvCR1nuvpHxHOg7tRKw81g==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^9.10.0
@@ -4948,6 +4948,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -5205,6 +5206,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
@@ -11825,7 +11827,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-react-hooks@5.1.0-rc-94e652d5-20240912(eslint@9.10.0(jiti@1.21.6)):
+  eslint-plugin-react-hooks@5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 
