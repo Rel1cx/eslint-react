@@ -20,6 +20,8 @@
 
 - [Ref](namespaces/Ref/README.md)
 - [Ref](interfaces/Ref.md)
+- [RefUnify](interfaces/RefUnify.md)
+- [RefUnifyIgnore](interfaces/RefUnifyIgnore.md)
 
 ### symbols
 

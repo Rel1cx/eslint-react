@@ -12,13 +12,43 @@
 
 ## Extends
 
-- [`Variance`](../namespaces/Ref/interfaces/Variance.md)\<`A`\>.`Readable`\<`A`\>
+- [`Variance`](../namespaces/Ref/interfaces/Variance.md)\<`A`\>.`Effect`\<`A`\>.`Readable`\<`A`\>
 
 ## Type Parameters
 
 • **A**
 
 ## Properties
+
+### \[ChannelTypeId\]
+
+> `readonly` **\[ChannelTypeId\]**: `VarianceStruct`\<`never`, `unknown`, `never`, `unknown`, `A`, `unknown`, `never`\>
+
+#### Inherited from
+
+`Effect.Effect.[ChannelTypeId]`
+
+***
+
+### \[EffectTypeId\]
+
+> `readonly` **\[EffectTypeId\]**: `VarianceStruct`\<`A`, `never`, `never`\>
+
+#### Inherited from
+
+`Effect.Effect.[EffectTypeId]`
+
+***
+
+### \[ignoreSymbol\]?
+
+> `readonly` `optional` **\[ignoreSymbol\]**: [`RefUnifyIgnore`](RefUnifyIgnore.md)
+
+#### Overrides
+
+`Effect.Effect.[ignoreSymbol]`
+
+***
 
 ### \[RefTypeId\]
 
@@ -34,13 +64,53 @@
 
 ***
 
+### \[SinkTypeId\]
+
+> `readonly` **\[SinkTypeId\]**: `VarianceStruct`\<`A`, `unknown`, `never`, `never`, `never`\>
+
+#### Inherited from
+
+`Effect.Effect.[SinkTypeId]`
+
+***
+
+### \[StreamTypeId\]
+
+> `readonly` **\[StreamTypeId\]**: `VarianceStruct`\<`A`, `never`, `never`\>
+
+#### Inherited from
+
+`Effect.Effect.[StreamTypeId]`
+
+***
+
 ### \[TypeId\]
 
 > `readonly` **\[TypeId\]**: *typeof* `TypeId`
 
 #### Inherited from
 
-`Readable.[TypeId]`
+`Readable.Readable.[TypeId]`
+
+***
+
+### \[typeSymbol\]?
+
+> `readonly` `optional` **\[typeSymbol\]**: `unknown`
+
+#### Overrides
+
+`Effect.Effect.[typeSymbol]`
+
+***
+
+### \[unifySymbol\]?
+
+> `readonly` `optional` **\[unifySymbol\]**: [`RefUnify`](RefUnify.md)\<[`Ref`](Ref.md)\<`A`\>\>
+
+#### Overrides
+
+`Effect.Effect.[unifySymbol]`
 
 ***
 
@@ -50,9 +120,23 @@
 
 #### Inherited from
 
-`Readable.get`
+`Readable.Readable.get`
 
 ## Methods
+
+### \[iterator\]()
+
+> **\[iterator\]**(): `EffectGenerator`\<`Effect`\<`A`, `never`, `never`\>\>
+
+#### Returns
+
+`EffectGenerator`\<`Effect`\<`A`, `never`, `never`\>\>
+
+#### Inherited from
+
+`Effect.Effect.[iterator]`
+
+***
 
 ### modify()
 
@@ -92,7 +176,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab)
 
@@ -116,7 +200,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc)
 
@@ -144,7 +228,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd)
 
@@ -176,7 +260,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de)
 
@@ -212,7 +296,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef)
 
@@ -252,7 +336,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg)
 
@@ -296,7 +380,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh)
 
@@ -344,7 +428,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi)
 
@@ -396,7 +480,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij)
 
@@ -452,7 +536,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk)
 
@@ -512,7 +596,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl)
 
@@ -576,7 +660,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm)
 
@@ -644,7 +728,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn)
 
@@ -716,7 +800,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no)
 
@@ -792,7 +876,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op)
 
@@ -872,7 +956,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq)
 
@@ -956,7 +1040,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr)
 
@@ -1044,7 +1128,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs)
 
@@ -1136,7 +1220,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st)
 
@@ -1232,7 +1316,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st, tu)
 
@@ -1332,7 +1416,7 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
 
 #### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st, tu)
 
@@ -1432,4 +1516,4 @@
 
 ##### Inherited from
 
-`Readable.pipe`
+`Effect.Effect.pipe`
