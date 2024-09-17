@@ -68,7 +68,7 @@
     "@typescript-eslint/types": "^8.6.0",
     "@vitest/ui": "^2.1.1",
     "concurrently": "^9.0.1",
-    "cspell": "^8.14.2",
+    "cspell": "^8.14.3",
     "dprint": "^0.47.2",
     "effect": "^3.8.0",
     "esbuild": "^0.23.1",
