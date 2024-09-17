@@ -27,16 +27,16 @@ importers:
         version: 0.1.0
       '@effect/platform':
         specifier: ^0.65.1
-        version: 0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0)
+        version: 0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1)
       '@effect/platform-bun':
         specifier: ^0.45.1
-        version: 0.45.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)
+        version: 0.45.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
       '@effect/platform-node':
         specifier: ^0.60.1
-        version: 0.60.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)
+        version: 0.60.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
       '@effect/schema':
         specifier: ^0.73.0
-        version: 0.73.0(effect@3.8.0)
+        version: 0.73.0(effect@3.8.1)
       '@eslint/js':
         specifier: 9.9.1
         version: 9.9.1
@@ -89,8 +89,8 @@ importers:
         specifier: ^0.47.2
         version: 0.47.2
       effect:
-        specifier: ^3.8.0
-        version: 3.8.0
+        specifier: ^3.8.1
+        version: 3.8.1
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -238,7 +238,7 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-a99d8e8d-20240916(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.12
         version: 0.4.12(eslint@9.10.0(jiti@1.21.6))
@@ -284,7 +284,7 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-a99d8e8d-20240916(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.12
         version: 0.4.12(eslint@9.10.0(jiti@1.21.6))
@@ -348,7 +348,7 @@ importers:
         version: 9.10.0(jiti@1.21.6)
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-a99d8e8d-20240916(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.12
         version: 0.4.12(eslint@9.10.0(jiti@1.21.6))
@@ -1042,8 +1042,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       effect:
-        specifier: ^3.8.0
-        version: 3.8.0
+        specifier: ^3.8.1
+        version: 3.8.1
       eslint:
         specifier: ^9.10.0
         version: 9.10.0(jiti@1.21.6)
@@ -1052,7 +1052,7 @@ importers:
         version: 3.1.5(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-hooks:
         specifier: canary
-        version: 5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-a99d8e8d-20240916(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.12
         version: 0.4.12(eslint@9.10.0(jiti@1.21.6))
@@ -4371,6 +4371,9 @@ packages:
   effect@3.8.0:
     resolution: {integrity: sha512-9ouAF51iUYMhbWOSQjWayfoyDDMziQCr2Y8VfhnUmRdfi44n+91VplTA5qqV2mWvFNM3ZV4R6bcfW2js9fK7IA==}
 
+  effect@3.8.1:
+    resolution: {integrity: sha512-FjzM1brevTD9aONWVBwWDY6+K5FR5JXJJuWoZlJM2OcnfjRRyrbbzi+wjRGw8QbRIIL44P6bEhMeBo9IGZyXiQ==}
+
   electron-to-chromium@1.5.13:
     resolution: {integrity: sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==}
 
@@ -4545,8 +4548,8 @@ packages:
       vue-eslint-parser:
         optional: true
 
-  eslint-plugin-react-hooks@5.1.0-rc-206df66e-20240912:
-    resolution: {integrity: sha512-7ApoGzoavioLFz1Vb2eQKnA6S9zdCWFkMNe17uBHQ0n0o9j1UiZxzaQumHrPNXMJwvCR1nuvpHxHOg7tRKw81g==}
+  eslint-plugin-react-hooks@5.1.0-rc-a99d8e8d-20240916:
+    resolution: {integrity: sha512-8sJ7eyk9p+Ph7hde05UPm0FGp1TCcEqPQ0EndQpxHrpo3O4PEq178dWmtVs9Ys9ym3+zNijv3b/SryF65R5SJQ==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^9.10.0
@@ -9107,24 +9110,24 @@ snapshots:
 
   '@effect/language-service@0.1.0': {}
 
-  '@effect/platform-bun@0.45.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)':
+  '@effect/platform-bun@0.45.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)':
     dependencies:
-      '@effect/platform': 0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0)
-      '@effect/platform-node-shared': 0.15.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)
-      effect: 3.8.0
+      '@effect/platform': 0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1)
+      '@effect/platform-node-shared': 0.15.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
+      effect: 3.8.1
 
-  '@effect/platform-node-shared@0.15.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)':
+  '@effect/platform-node-shared@0.15.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)':
     dependencies:
-      '@effect/platform': 0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0)
+      '@effect/platform': 0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1)
       '@parcel/watcher': 2.4.1
-      effect: 3.8.0
+      effect: 3.8.1
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.60.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)':
+  '@effect/platform-node@0.60.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)':
     dependencies:
-      '@effect/platform': 0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0)
-      '@effect/platform-node-shared': 0.15.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0))(effect@3.8.0)
-      effect: 3.8.0
+      '@effect/platform': 0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1)
+      '@effect/platform-node-shared': 0.15.1(@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
+      effect: 3.8.1
       mime: 3.0.0
       undici: 6.19.8
       ws: 8.18.0
@@ -9132,16 +9135,16 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.0))(effect@3.8.0)':
+  '@effect/platform@0.65.1(@effect/schema@0.73.0(effect@3.8.1))(effect@3.8.1)':
     dependencies:
-      '@effect/schema': 0.73.0(effect@3.8.0)
-      effect: 3.8.0
+      '@effect/schema': 0.73.0(effect@3.8.1)
+      effect: 3.8.1
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.73.0(effect@3.8.0)':
+  '@effect/schema@0.73.0(effect@3.8.1)':
     dependencies:
-      effect: 3.8.0
+      effect: 3.8.1
       fast-check: 3.22.0
 
   '@emnapi/core@1.2.0':
@@ -11612,6 +11615,8 @@ snapshots:
 
   effect@3.8.0: {}
 
+  effect@3.8.1: {}
+
   electron-to-chromium@1.5.13: {}
 
   emoji-regex@10.4.0: {}
@@ -11831,7 +11836,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-react-hooks@5.1.0-rc-206df66e-20240912(eslint@9.10.0(jiti@1.21.6)):
+  eslint-plugin-react-hooks@5.1.0-rc-a99d8e8d-20240916(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 

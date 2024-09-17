@@ -70,7 +70,7 @@
     "concurrently": "^9.0.1",
     "cspell": "^8.14.2",
     "dprint": "^0.47.2",
-    "effect": "^3.8.0",
+    "effect": "^3.8.1",
     "esbuild": "^0.23.1",
     "eslint": "^9.10.0",
     "eslint-config-flat-gitignore": "^0.3.0",
