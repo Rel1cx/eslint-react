@@ -44,13 +44,13 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.5.0",
-    "@typescript-eslint/types": "^8.5.0",
-    "@typescript-eslint/utils": "^8.5.0",
+    "@typescript-eslint/scope-manager": "^8.6.0",
+    "@typescript-eslint/types": "^8.6.0",
+    "@typescript-eslint/utils": "^8.6.0",
     "ts-pattern": "^5.3.1"
   },
   "devDependencies": {
     "string-ts": "^2.2.0",
-    "tsup": "^8.2.4"
+    "tsup": "^8.3.0"
   }
 }
