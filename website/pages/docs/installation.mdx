@@ -111,7 +111,7 @@ Then, you can enable the rules that require type information.
 
 import js from "@eslint/js";
 import react from "@eslint-react/eslint-plugin";
-import * as parser from "@typescript-eslint/parser";
+import * as tsParser from "@typescript-eslint/parser";
 
 export default [
   js.configs.recommended,
@@ -123,7 +123,7 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
-  }
+  },
   {
     files: ["**/*.{ts,tsx}"],
     ...react.configs["recommended-type-checked"], // <-- Requires type information
