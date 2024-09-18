@@ -6,13 +6,13 @@ settings:
 
 overrides:
   '@eslint/js': 9.9.1
+  esbuild: ^0.23.1
+  eslint: ^9.10.0
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   isarray: npm:@nolyfill/isarray@^1.0.29
   side-channel: npm:@nolyfill/side-channel@^1.0.29
-  typedarray: npm:@nolyfill/typedarray@^1.0.29
-  esbuild: ^0.23.1
-  eslint: ^9.10.0
   ts-api-utils: ^1.3.0
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   typescript: ^5.6.2
 
 importers:
@@ -26,17 +26,17 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@effect/platform':
-        specifier: ^0.65.2
-        version: 0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1)
+        specifier: ^0.65.3
+        version: 0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2)
       '@effect/platform-bun':
-        specifier: ^0.45.2
-        version: 0.45.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
+        specifier: ^0.45.3
+        version: 0.45.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)
       '@effect/platform-node':
-        specifier: ^0.60.2
-        version: 0.60.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
+        specifier: ^0.60.3
+        version: 0.60.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)
       '@effect/schema':
-        specifier: ^0.73.1
-        version: 0.73.1(effect@3.8.1)
+        specifier: ^0.73.2
+        version: 0.73.2(effect@3.8.2)
       '@eslint/js':
         specifier: 9.9.1
         version: 9.9.1
@@ -83,14 +83,14 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       cspell:
-        specifier: ^8.14.3
-        version: 8.14.3
+        specifier: ^8.14.4
+        version: 8.14.4
       dprint:
         specifier: ^0.47.2
         version: 0.47.2
       effect:
-        specifier: ^3.8.1
-        version: 3.8.1
+        specifier: ^3.8.2
+        version: 3.8.2
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -863,8 +863,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: ^3.8.1
-        version: 3.8.1
+        specifier: ^3.8.2
+        version: 3.8.2
       tsup:
         specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.26(@swc/helpers@0.5.5))(jiti@1.21.6)(postcss@8.4.47)(tsx@4.19.1)(typescript@5.6.2)(yaml@2.5.1)
@@ -984,11 +984,11 @@ importers:
         specifier: ^14.2.12
         version: 14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1)
       nextra:
-        specifier: 3.0.0-alpha.38
-        version: 3.0.0-alpha.38(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
+        specifier: 3.0.0-alpha.40
+        version: 3.0.0-alpha.40(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
       nextra-theme-docs:
-        specifier: 3.0.0-alpha.38
-        version: 3.0.0-alpha.38(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(nextra@3.0.0-alpha.38(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.0-alpha.40
+        version: 3.0.0-alpha.40(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(nextra@3.0.0-alpha.40(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1042,8 +1042,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       effect:
-        specifier: ^3.8.1
-        version: 3.8.1
+        specifier: ^3.8.2
+        version: 3.8.2
       eslint:
         specifier: ^9.10.0
         version: 9.10.0(jiti@1.21.6)
@@ -1800,28 +1800,28 @@ packages:
   '@chevrotain/utils@11.0.3':
     resolution: {integrity: sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==}
 
-  '@cspell/cspell-bundled-dicts@8.14.3':
-    resolution: {integrity: sha512-O0QA2OD0IDatIxNinr5woWJ8uC3/fbMaOdu3R+142wMX3f2hB08Wfvk+anFgFVTgo90JQnmKEvlCZD1Q8QlWig==}
+  '@cspell/cspell-bundled-dicts@8.14.4':
+    resolution: {integrity: sha512-JHZOpCJzN6fPBapBOvoeMxZbr0ZA11ZAkwcqM4w0lKoacbi6TwK8GIYf66hHvwLmMeav75TNXWE6aPTvBLMMqA==}
     engines: {node: '>=18'}
 
-  '@cspell/cspell-json-reporter@8.14.3':
-    resolution: {integrity: sha512-xJbIhSVL1LrwtIpFYvfbXMXv0GUqp2mFkTdG652zb4ZCjQUitmAN1eOhpUt2WHqyCdsMNjMcoJ05PNAN1LrLBQ==}
+  '@cspell/cspell-json-reporter@8.14.4':
+    resolution: {integrity: sha512-gJ6tQbGCNLyHS2iIimMg77as5MMAFv3sxU7W6tjLlZp8htiNZS7fS976g24WbT/hscsTT9Dd0sNHkpo8K3nvVw==}
     engines: {node: '>=18'}
 
-  '@cspell/cspell-pipe@8.14.3':
-    resolution: {integrity: sha512-vc4gcsQ/qLHcHHz1EmTLe0x1aZYUzkQAyIOTLRWFlsWrdztXQ3zSEaPB2JzgLNCaqJrYJPs5Wh/Uo+6w9ZaIeA==}
+  '@cspell/cspell-pipe@8.14.4':
+    resolution: {integrity: sha512-CLLdouqfrQ4rqdQdPu0Oo+HHCU/oLYoEsK1nNPb28cZTFxnn0cuSPKB6AMPBJmMwdfJ6fMD0BCKNbEe1UNLHcw==}
     engines: {node: '>=18'}
 
-  '@cspell/cspell-resolver@8.14.3':
-    resolution: {integrity: sha512-SOG4LQS4rt93FnCyCsDfCxOuq+uTzco6zpncwMU1GgH8bSEEeiDphGsgmdgK7XxKNlr59o8JFeD+45AkJWHm5w==}
+  '@cspell/cspell-resolver@8.14.4':
+    resolution: {integrity: sha512-s3uZyymJ04yn8+zlTp7Pt1WRSlAel6XVo+iZRxls3LSvIP819KK64DoyjCD2Uon0Vg9P/K7aAPt8GcxDcnJtgA==}
     engines: {node: '>=18'}
 
-  '@cspell/cspell-service-bus@8.14.3':
-    resolution: {integrity: sha512-bqb+6KlFMVEprBlga1olLmZFWmsT267hmLZHhQoNKTlZJlzyQjmAd4XYUJyH9oEYOOt4t5PgqtZJSxudmq2SIw==}
+  '@cspell/cspell-service-bus@8.14.4':
+    resolution: {integrity: sha512-i3UG+ep63akNsDXZrtGgICNF3MLBHtvKe/VOIH6+L+NYaAaVHqqQvOY9MdUwt1HXh8ElzfwfoRp36wc5aAvt6g==}
     engines: {node: '>=18'}
 
-  '@cspell/cspell-types@8.14.3':
-    resolution: {integrity: sha512-t8cvWSLVmgoAnmwMKXf0W1k3aWPPksTIqcNFMVF2f3m4dZh9HBh+M+xK9mXXScALmQev+psbvbiTjRlKD52ZnQ==}
+  '@cspell/cspell-types@8.14.4':
+    resolution: {integrity: sha512-VXwikqdHgjOVperVVCn2DOe8W3rPIswwZtMHfRYnagpzZo/TOntIjkXPJSfTtl/cFyx5DnCBsDH8ytKGlMeHkw==}
     engines: {node: '>=18'}
 
   '@cspell/dict-ada@4.0.2':
@@ -1986,20 +1986,20 @@ packages:
   '@cspell/dict-vue@3.0.0':
     resolution: {integrity: sha512-niiEMPWPV9IeRBRzZ0TBZmNnkK3olkOPYxC1Ny2AX4TGlYRajcW0WUtoSHmvvjZNfWLSg2L6ruiBeuPSbjnG6A==}
 
-  '@cspell/dynamic-import@8.14.3':
-    resolution: {integrity: sha512-LlWDTfQO2V3CAwax5PlQnS2prLs0icWfaROaNrIoSe8X6OUerfoxJ9p3Bpx0AxSKv4FtvYQraRV/UNPWRhhHag==}
+  '@cspell/dynamic-import@8.14.4':
+    resolution: {integrity: sha512-GjKsBJvPXp4dYRqsMn7n1zpnKbnpfJnlKLOVeoFBh8fi4n06G50xYr+G25CWX1WT3WFaALAavvVICEUPrVsuqg==}
     engines: {node: '>=18.0'}
 
-  '@cspell/filetypes@8.14.3':
-    resolution: {integrity: sha512-a1BbKi3BcSju9owpa37x6I3sZtwpnzpRslSsV7IUBI8k85nfH+TiFm0toEEj/8jFJKehBWr83kMjZFHQReV13g==}
+  '@cspell/filetypes@8.14.4':
+    resolution: {integrity: sha512-qd68dD7xTA4Mnf/wjIKYz2SkiTBshIM+yszOUtLa06YJm0aocoNQ25FHXyYEQYm9NQXCYnRWWA02sFMGs8Sv/w==}
     engines: {node: '>=18'}
 
-  '@cspell/strong-weak-map@8.14.3':
-    resolution: {integrity: sha512-ZC5HiGbvD3vCA1pj7FL5gwyOi3OeXa51TDDRSjMW5A9XOpr57ptKxlSCwFVxNfszPTfMKP19a81rz1jo3GyFMg==}
+  '@cspell/strong-weak-map@8.14.4':
+    resolution: {integrity: sha512-Uyfck64TfVU24wAP3BLGQ5EsAfzIZiLfN90NhttpEM7GlOBmbGrEJd4hNOwfpYsE/TT80eGWQVPRTLr5SDbXFA==}
     engines: {node: '>=18'}
 
-  '@cspell/url@8.14.3':
-    resolution: {integrity: sha512-r7fVsgOBu1qpt4UH45mE3TZfW7H+CHzK3INRUjSsrWKaiyE57mD6IIoqYdjCDoP4xaMRrHGC5SBKy+eX3prsBQ==}
+  '@cspell/url@8.14.4':
+    resolution: {integrity: sha512-htHhNF8WrM/NfaLSWuTYw0NqVgFRVHYSyHlRT3i/Yv5xvErld8Gw7C6ldm+0TLjoGlUe6X1VV72JSir7+yLp/Q==}
     engines: {node: '>=18.0'}
 
   '@discoveryjs/json-ext@0.5.7':
@@ -2049,34 +2049,34 @@ packages:
   '@effect/language-service@0.1.0':
     resolution: {integrity: sha512-BnlM8LlaqCAYgdRfxlbR7gXGh/FD1scL1fPgNVJEPoOM08od1jtJz+iKhwfaud8TPnnhZR+TED2h5ynjanLeCQ==}
 
-  '@effect/platform-bun@0.45.2':
-    resolution: {integrity: sha512-XLjWj64kRcCLIE0nA/MHYdcF7oXSrTCYKngsbVUi/EeuWqV5kFOVCJwUkFZhkGvkNleSmFqgVkqJq+23MjJ7FA==}
+  '@effect/platform-bun@0.45.3':
+    resolution: {integrity: sha512-Hs88w3uVufZUjW/vnfuHSwCzVVc5yKHsPeLv1Fsp2ooPs39qsVpjn2Z17scZIG12lxPg+FLbZUJw5GRzSU+rng==}
     peerDependencies:
-      '@effect/platform': ^0.65.2
-      effect: ^3.8.1
+      '@effect/platform': ^0.65.3
+      effect: ^3.8.2
 
-  '@effect/platform-node-shared@0.15.2':
-    resolution: {integrity: sha512-KysEuyLeuTz65abP1xAKAaIjWAQVdLVxsWKXqKFEMSCasTy2fsfTRs0aS/PqzQp8x5p6eNRz5qG5dGSB24MirA==}
+  '@effect/platform-node-shared@0.15.3':
+    resolution: {integrity: sha512-ZZ2qZX13a3RIcvTMLZ1l8V575ei3YauhocibAJ/K+Me7EfMXUTxXT8gTdpO/MwyJshsG7oWweGvpbGIBxSnWtQ==}
     peerDependencies:
-      '@effect/platform': ^0.65.2
-      effect: ^3.8.1
+      '@effect/platform': ^0.65.3
+      effect: ^3.8.2
 
-  '@effect/platform-node@0.60.2':
-    resolution: {integrity: sha512-PK+6aQJbfFPsjoLA32eh5omnPjZ6c2d7BbjSmkHMHgWX+lIxw6v+Auac2K38E7ccHPhCWuYbJmF5rG2FOefEhg==}
+  '@effect/platform-node@0.60.3':
+    resolution: {integrity: sha512-wANRvXba8Zwx0FaJZdCuFi9wDYK+tnbMA42O+cOeYbunHJsXlRU2/qAc/JDbW7oaMKNOY7KljU3yE4/WSgL/Yw==}
     peerDependencies:
-      '@effect/platform': ^0.65.2
-      effect: ^3.8.1
+      '@effect/platform': ^0.65.3
+      effect: ^3.8.2
 
-  '@effect/platform@0.65.2':
-    resolution: {integrity: sha512-p13D8HMw6gEEjKEIhikxiaAHJNzbCsSijq3xM6nvAhLsSvHXFx6giFmfFLpBspPy9x5K/0p29g5MDWZ6UCQS/A==}
+  '@effect/platform@0.65.3':
+    resolution: {integrity: sha512-mDlK69IO+4xGoUJHHg0zFiR/M3jtP+Kl9+aWmrXp6d4j67/deKAhzgb9tHRs/qrzAJQY4bOLV5OWkSjkzGcsmQ==}
     peerDependencies:
-      '@effect/schema': ^0.73.1
-      effect: ^3.8.1
+      '@effect/schema': ^0.73.2
+      effect: ^3.8.2
 
-  '@effect/schema@0.73.1':
-    resolution: {integrity: sha512-1poln6ZSPlkZuKFDfdW2+iRFIht+JOX9TPtmjQgXxsBJNqRQsoe2RLgBNLlA3lhum6gQtJDF9PcSz9+miGwquA==}
+  '@effect/schema@0.73.2':
+    resolution: {integrity: sha512-nzDAiyGzqr6dSLeI7FyYyYLkdcQBopZbkhr6f/VDutHATE2NgA/hxg6Z9lFJxI1PWo5OUE5YgeM+Pqpy3+cqDw==}
     peerDependencies:
-      effect: ^3.8.1
+      effect: ^3.8.2
 
   '@emnapi/core@1.2.0':
     resolution: {integrity: sha512-E7Vgw78I93we4ZWdYCb4DGAwRROGkMIXk7/y87UmANR+J6qsWusmC3gLt0H+O0KOt5e6O38U8oJamgbudrES/w==}
@@ -3962,42 +3962,42 @@ packages:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
 
-  cspell-config-lib@8.14.3:
-    resolution: {integrity: sha512-uQFhEvnMJBpZBoi5U5jcMdykze5Cng28RDq4jzM2bYR2aE0HKZfFS8Hsjf5SLDxxS7TAKhnDh5a0r+6T/G6+qw==}
+  cspell-config-lib@8.14.4:
+    resolution: {integrity: sha512-cnUeJfniTiebqCaQmIUnbSrPrTH7xzKRQjJDHAEV0WYnOG2MhRXI13OzytdFdhkVBdStmgTzTCJKE7x+kmU2NA==}
     engines: {node: '>=18'}
 
-  cspell-dictionary@8.14.3:
-    resolution: {integrity: sha512-FiTas0KXWXKyTJIRYZF7USp7Cjjq6RmzLKcDKAvJhc0XmbRaoYHW20IRkHVsrfO6bHTmo1fLoJQpvuDCkBiojg==}
+  cspell-dictionary@8.14.4:
+    resolution: {integrity: sha512-pZvQHxpAW5fZAnt3ZKKy3s7M+3CX2t8tCS3uJrpEHIynlCawpG0fPF78rVE5o+g0dON36Lguc/BUuSN4IWKLmQ==}
     engines: {node: '>=18'}
 
-  cspell-gitignore@8.14.3:
-    resolution: {integrity: sha512-SOPYlaOh2tPSYZ48zGN9TzjaxnO05/AJMpvlvxUf0uASa2BOeogl11KvzcS7ig5MUnB/+s/2YsShcF+YjfptEw==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  cspell-glob@8.14.3:
-    resolution: {integrity: sha512-d12Dn/i6BRKQrvq0ikcBPBsjPdyemu2Ggw1WgWvxAlaGGZsoyC6Hn5ElQt6tQt2CruwUfPPXVm2+UMyHlRMt4g==}
-    engines: {node: '>=18'}
-
-  cspell-grammar@8.14.3:
-    resolution: {integrity: sha512-clb5HCVJn6wW/v7dC3CGuo1YmmXIVpvpz7BGwt2Rvybk/8o6CD3i4aF8TqnHc0FIWP0iHCwMhqnCyiOJtYI9Mg==}
+  cspell-gitignore@8.14.4:
+    resolution: {integrity: sha512-RwfQEW5hD7CpYwS7m3b0ONG0nTLKP6bL2tvMdl7qtaYkL7ztGdsBTtLD1pmwqUsCbiN5RuaOxhYOYeRcpFRIkQ==}
     engines: {node: '>=18'}
     hasBin: true
 
-  cspell-io@8.14.3:
-    resolution: {integrity: sha512-8SWe553kpSsQ039SiFQ+G/87KoJn51W1yc42aGUwkuagglspEiUVj3bTlD3eVswZAT3KbG26Mti49L37Lecj/g==}
+  cspell-glob@8.14.4:
+    resolution: {integrity: sha512-C/xTS5nujMRMuguibq92qMVP767mtxrur7DcVolCvpzcivm1RB5NtIN0OctQxTyMbnmKeQv1t4epRKQ9A8vWRg==}
     engines: {node: '>=18'}
 
-  cspell-lib@8.14.3:
-    resolution: {integrity: sha512-hcpxyX+xZ1LbcuvT1H+zCjfmW04on6nsdkKTT0bRdsgxyw6O08hR2OVqQ9+oYiXdp6QccjOl6UPOS6dEZajOmw==}
+  cspell-grammar@8.14.4:
+    resolution: {integrity: sha512-yaSKAAJDiamsw3FChbw4HXb2RvTQrDsLelh1+T4MavarOIcAxXrqAJ8ysqm++g+S/ooJz2YO8YWIyzJKxcMf8g==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  cspell-io@8.14.4:
+    resolution: {integrity: sha512-o6OTWRyx/Az+PFhr1B0wMAwqG070hFC9g73Fkxd8+rHX0rfRS69QZH7LgSmZytqbZIMxCTDGdsLl33MFGWCbZQ==}
     engines: {node: '>=18'}
 
-  cspell-trie-lib@8.14.3:
-    resolution: {integrity: sha512-90Rwt8Kzcv2HB2uuwUqMlCQVa7tpsqHtSFiGox3DTDUZWTikMiOwUigRvO17FsxxQL+qW4fIH4PUi4SGwins9Q==}
+  cspell-lib@8.14.4:
+    resolution: {integrity: sha512-qdkUkKtm+nmgpA4jQbmQTuepDfjHBDWvs3zDuEwVIVFq/h8gnXrRr75gJ3RYdTy+vOOqHPoLLqgxyqkUUrUGXA==}
     engines: {node: '>=18'}
 
-  cspell@8.14.3:
-    resolution: {integrity: sha512-GTok3s0J6hb8lXPgOkFcJ6+i91YS99AD5t60htNrq7Ae89BZByG20XPZc/6zbRN9eEQvtCx4OAIXnnfxP5QENw==}
+  cspell-trie-lib@8.14.4:
+    resolution: {integrity: sha512-zu8EJ33CH+FA5lwTRGqS//Q6phO0qtgEmODMR1KPlD7WlrfTFMb3bWFsLo/tiv5hjpsn7CM6dYDAAgBOSkoyhQ==}
+    engines: {node: '>=18'}
+
+  cspell@8.14.4:
+    resolution: {integrity: sha512-R5Awb3i/RKaVVcZzFt8dkN3M6VnifIEDYBcbzbmYjZ/Eq+ASF+QTmI0E9WPhMEcFM1nd7YOyXnETo560yRdoKw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4375,8 +4375,8 @@ packages:
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
 
-  effect@3.8.1:
-    resolution: {integrity: sha512-FjzM1brevTD9aONWVBwWDY6+K5FR5JXJJuWoZlJM2OcnfjRRyrbbzi+wjRGw8QbRIIL44P6bEhMeBo9IGZyXiQ==}
+  effect@3.8.2:
+    resolution: {integrity: sha512-MuzjpmffWLUfXz0mzYikaHxbU5J4pYNg83/LAMQAwhD6SR9V35JxLQbqjwnhNkzeMV5jl6/ObDY3WqwtKp1OLg==}
 
   electron-to-chromium@1.5.13:
     resolution: {integrity: sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==}
@@ -6063,16 +6063,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.0.0-alpha.38:
-    resolution: {integrity: sha512-I+x5fQpg9O4aNd8DBRSxPlIcf8U/VyK4RQCi7j4z3GEmfmttdGT0EksPRG2G3zbVtfJn8C31tdk0vI2/4gEu0A==}
+  nextra-theme-docs@3.0.0-alpha.40:
+    resolution: {integrity: sha512-xpCDCm+DFQr/hw/8uLx7w7u02pM6odaNK1Y+GzUIXgmRZtpaifvX6UpvdsAPu4Tvkhy1LbfPw9Qtcl9QM9e9Hg==}
     peerDependencies:
       next: '>=13'
-      nextra: 3.0.0-alpha.38
+      nextra: 3.0.0-alpha.40
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
 
-  nextra@3.0.0-alpha.38:
-    resolution: {integrity: sha512-O0HnxHboLt7y4Opr33mAcLNZ+DQWD59K/P5D2ZukGi0nRcpRPuYApQdE4a8mKKJBONFKo6Xf/5+dlsls0ZZD9w==}
+  nextra@3.0.0-alpha.40:
+    resolution: {integrity: sha512-8/JfKASmsCV2mEH0eaJRfvxjwq5XSuUDAP8ByqQScgHQGqiZkmUYkve3zElm/n0v1e3Ksjs3wdz1YMKO4eqYXA==}
     engines: {node: '>=18'}
     peerDependencies:
       next: '>=13'
@@ -8901,7 +8901,7 @@ snapshots:
 
   '@chevrotain/utils@11.0.3': {}
 
-  '@cspell/cspell-bundled-dicts@8.14.3':
+  '@cspell/cspell-bundled-dicts@8.14.4':
     dependencies:
       '@cspell/dict-ada': 4.0.2
       '@cspell/dict-aws': 4.0.4
@@ -8957,19 +8957,19 @@ snapshots:
       '@cspell/dict-typescript': 3.1.6
       '@cspell/dict-vue': 3.0.0
 
-  '@cspell/cspell-json-reporter@8.14.3':
+  '@cspell/cspell-json-reporter@8.14.4':
     dependencies:
-      '@cspell/cspell-types': 8.14.3
+      '@cspell/cspell-types': 8.14.4
 
-  '@cspell/cspell-pipe@8.14.3': {}
+  '@cspell/cspell-pipe@8.14.4': {}
 
-  '@cspell/cspell-resolver@8.14.3':
+  '@cspell/cspell-resolver@8.14.4':
     dependencies:
       global-directory: 4.0.1
 
-  '@cspell/cspell-service-bus@8.14.3': {}
+  '@cspell/cspell-service-bus@8.14.4': {}
 
-  '@cspell/cspell-types@8.14.3': {}
+  '@cspell/cspell-types@8.14.4': {}
 
   '@cspell/dict-ada@4.0.2': {}
 
@@ -9081,15 +9081,15 @@ snapshots:
 
   '@cspell/dict-vue@3.0.0': {}
 
-  '@cspell/dynamic-import@8.14.3':
+  '@cspell/dynamic-import@8.14.4':
     dependencies:
       import-meta-resolve: 4.1.0
 
-  '@cspell/filetypes@8.14.3': {}
+  '@cspell/filetypes@8.14.4': {}
 
-  '@cspell/strong-weak-map@8.14.3': {}
+  '@cspell/strong-weak-map@8.14.4': {}
 
-  '@cspell/url@8.14.3': {}
+  '@cspell/url@8.14.4': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
@@ -9119,24 +9119,24 @@ snapshots:
 
   '@effect/language-service@0.1.0': {}
 
-  '@effect/platform-bun@0.45.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)':
+  '@effect/platform-bun@0.45.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)':
     dependencies:
-      '@effect/platform': 0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1)
-      '@effect/platform-node-shared': 0.15.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
-      effect: 3.8.1
+      '@effect/platform': 0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2)
+      '@effect/platform-node-shared': 0.15.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)
+      effect: 3.8.2
 
-  '@effect/platform-node-shared@0.15.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)':
+  '@effect/platform-node-shared@0.15.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)':
     dependencies:
-      '@effect/platform': 0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1)
+      '@effect/platform': 0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2)
       '@parcel/watcher': 2.4.1
-      effect: 3.8.1
+      effect: 3.8.2
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.60.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)':
+  '@effect/platform-node@0.60.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)':
     dependencies:
-      '@effect/platform': 0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1)
-      '@effect/platform-node-shared': 0.15.2(@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1))(effect@3.8.1)
-      effect: 3.8.1
+      '@effect/platform': 0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2)
+      '@effect/platform-node-shared': 0.15.3(@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2))(effect@3.8.2)
+      effect: 3.8.2
       mime: 3.0.0
       undici: 6.19.8
       ws: 8.18.0
@@ -9144,16 +9144,16 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.65.2(@effect/schema@0.73.1(effect@3.8.1))(effect@3.8.1)':
+  '@effect/platform@0.65.3(@effect/schema@0.73.2(effect@3.8.2))(effect@3.8.2)':
     dependencies:
-      '@effect/schema': 0.73.1(effect@3.8.1)
-      effect: 3.8.1
+      '@effect/schema': 0.73.2(effect@3.8.2)
+      effect: 3.8.2
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.73.1(effect@3.8.1)':
+  '@effect/schema@0.73.2(effect@3.8.2)':
     dependencies:
-      effect: 3.8.1
+      effect: 3.8.2
       fast-check: 3.22.0
 
   '@emnapi/core@1.2.0':
@@ -11151,59 +11151,59 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  cspell-config-lib@8.14.3:
+  cspell-config-lib@8.14.4:
     dependencies:
-      '@cspell/cspell-types': 8.14.3
+      '@cspell/cspell-types': 8.14.4
       comment-json: 4.2.5
       yaml: 2.5.1
 
-  cspell-dictionary@8.14.3:
+  cspell-dictionary@8.14.4:
     dependencies:
-      '@cspell/cspell-pipe': 8.14.3
-      '@cspell/cspell-types': 8.14.3
-      cspell-trie-lib: 8.14.3
+      '@cspell/cspell-pipe': 8.14.4
+      '@cspell/cspell-types': 8.14.4
+      cspell-trie-lib: 8.14.4
       fast-equals: 5.0.1
 
-  cspell-gitignore@8.14.3:
+  cspell-gitignore@8.14.4:
     dependencies:
-      '@cspell/url': 8.14.3
-      cspell-glob: 8.14.3
-      cspell-io: 8.14.3
+      '@cspell/url': 8.14.4
+      cspell-glob: 8.14.4
+      cspell-io: 8.14.4
       find-up-simple: 1.0.0
 
-  cspell-glob@8.14.3:
+  cspell-glob@8.14.4:
     dependencies:
-      '@cspell/url': 8.14.3
+      '@cspell/url': 8.14.4
       micromatch: 4.0.8
 
-  cspell-grammar@8.14.3:
+  cspell-grammar@8.14.4:
     dependencies:
-      '@cspell/cspell-pipe': 8.14.3
-      '@cspell/cspell-types': 8.14.3
+      '@cspell/cspell-pipe': 8.14.4
+      '@cspell/cspell-types': 8.14.4
 
-  cspell-io@8.14.3:
+  cspell-io@8.14.4:
     dependencies:
-      '@cspell/cspell-service-bus': 8.14.3
-      '@cspell/url': 8.14.3
+      '@cspell/cspell-service-bus': 8.14.4
+      '@cspell/url': 8.14.4
 
-  cspell-lib@8.14.3:
+  cspell-lib@8.14.4:
     dependencies:
-      '@cspell/cspell-bundled-dicts': 8.14.3
-      '@cspell/cspell-pipe': 8.14.3
-      '@cspell/cspell-resolver': 8.14.3
-      '@cspell/cspell-types': 8.14.3
-      '@cspell/dynamic-import': 8.14.3
-      '@cspell/filetypes': 8.14.3
-      '@cspell/strong-weak-map': 8.14.3
-      '@cspell/url': 8.14.3
+      '@cspell/cspell-bundled-dicts': 8.14.4
+      '@cspell/cspell-pipe': 8.14.4
+      '@cspell/cspell-resolver': 8.14.4
+      '@cspell/cspell-types': 8.14.4
+      '@cspell/dynamic-import': 8.14.4
+      '@cspell/filetypes': 8.14.4
+      '@cspell/strong-weak-map': 8.14.4
+      '@cspell/url': 8.14.4
       clear-module: 4.1.2
       comment-json: 4.2.5
-      cspell-config-lib: 8.14.3
-      cspell-dictionary: 8.14.3
-      cspell-glob: 8.14.3
-      cspell-grammar: 8.14.3
-      cspell-io: 8.14.3
-      cspell-trie-lib: 8.14.3
+      cspell-config-lib: 8.14.4
+      cspell-dictionary: 8.14.4
+      cspell-glob: 8.14.4
+      cspell-grammar: 8.14.4
+      cspell-io: 8.14.4
+      cspell-trie-lib: 8.14.4
       env-paths: 3.0.0
       fast-equals: 5.0.1
       gensequence: 7.0.0
@@ -11213,27 +11213,27 @@ snapshots:
       vscode-uri: 3.0.8
       xdg-basedir: 5.1.0
 
-  cspell-trie-lib@8.14.3:
+  cspell-trie-lib@8.14.4:
     dependencies:
-      '@cspell/cspell-pipe': 8.14.3
-      '@cspell/cspell-types': 8.14.3
+      '@cspell/cspell-pipe': 8.14.4
+      '@cspell/cspell-types': 8.14.4
       gensequence: 7.0.0
 
-  cspell@8.14.3:
+  cspell@8.14.4:
     dependencies:
-      '@cspell/cspell-json-reporter': 8.14.3
-      '@cspell/cspell-pipe': 8.14.3
-      '@cspell/cspell-types': 8.14.3
-      '@cspell/dynamic-import': 8.14.3
-      '@cspell/url': 8.14.3
+      '@cspell/cspell-json-reporter': 8.14.4
+      '@cspell/cspell-pipe': 8.14.4
+      '@cspell/cspell-types': 8.14.4
+      '@cspell/dynamic-import': 8.14.4
+      '@cspell/url': 8.14.4
       chalk: 5.3.0
       chalk-template: 1.1.0
       commander: 12.1.0
-      cspell-dictionary: 8.14.3
-      cspell-gitignore: 8.14.3
-      cspell-glob: 8.14.3
-      cspell-io: 8.14.3
-      cspell-lib: 8.14.3
+      cspell-dictionary: 8.14.4
+      cspell-gitignore: 8.14.4
+      cspell-glob: 8.14.4
+      cspell-io: 8.14.4
+      cspell-lib: 8.14.4
       fast-glob: 3.3.2
       fast-json-stable-stringify: 2.1.0
       file-entry-cache: 9.1.0
@@ -11626,7 +11626,7 @@ snapshots:
 
   effect@3.3.2: {}
 
-  effect@3.8.1: {}
+  effect@3.8.2: {}
 
   electron-to-chromium@1.5.13: {}
 
@@ -13748,7 +13748,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.0.0-alpha.38(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(nextra@3.0.0-alpha.38(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  nextra-theme-docs@3.0.0-alpha.40(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(nextra@3.0.0-alpha.40(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@headlessui/react': 2.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@popperjs/core': 2.11.8
@@ -13757,13 +13757,13 @@ snapshots:
       flexsearch: 0.7.43
       next: 14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1)
       next-themes: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 3.0.0-alpha.38(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
+      nextra: 3.0.0-alpha.40(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.23.8
 
-  nextra@3.0.0-alpha.38(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2):
+  nextra@3.0.0-alpha.40(@types/react@18.3.7)(next@14.2.12(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2):
     dependencies:
       '@headlessui/react': 2.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mdx-js/mdx': 3.0.1
