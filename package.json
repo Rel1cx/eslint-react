@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.14.2-next.3",
+  "version": "1.14.2-next.4",
   "private": true,
   "description": "A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
