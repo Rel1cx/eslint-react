@@ -1,3 +1,9 @@
+## v1.14.2 (Draft)
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `^8.6.0`.
+
 ## v1.14.1 (Thu 12 Sep 2024)
 
 ### 🐞 Fixes
