@@ -52,6 +52,6 @@
     "micro-memoize": "^4.1.2",
     "tsup": "^8.3.0",
     "type-fest": "^4.26.1",
-    "valibot": "^0.42.0"
+    "valibot": "^0.42.1"
   }
 }

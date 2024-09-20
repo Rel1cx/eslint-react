@@ -4,6 +4,13 @@ import rule, { RULE_NAME } from "./avoid-shorthand-boolean";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      code: /* tsx */ `<input disabled />`,
+      errors: [{
+        messageId: "avoidShorthandBoolean",
+        data: { propName: "disabled" },
+      }],
+    },
+    {
       code: /* tsx */ `<App foo />`,
       errors: [{
         messageId: "avoidShorthandBoolean",
@@ -26,6 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
+    /* tsx */ `<input disabled={true} />`,
     /* tsx */ `<App foo={true} />`,
     /* tsx */ `<App foo={true} bar={true} />`,
     /* tsx */ `<App foo={false} bar={false} />`,
