@@ -71,7 +71,7 @@
     "cspell": "^8.14.4",
     "dprint": "^0.47.2",
     "effect": "^3.8.3",
-    "esbuild": "^0.23.1",
+    "esbuild": "^0.24.0",
     "eslint": "^9.11.0",
     "eslint-config-flat-gitignore": "^0.3.0",
     "eslint-import-resolver-oxc": "^0.3.0",
@@ -115,7 +115,7 @@
   "pnpm": {
     "overrides": {
       "@eslint/js": "9.9.1",
-      "esbuild": "^0.23.1",
+      "esbuild": "^0.24.0",
       "eslint": "^9.11.0",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",
