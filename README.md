@@ -44,6 +44,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
 - [`RebeccaStevens/eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - RebeccaStevens' ESLint config preset.
 - [`refined-github/refined-github`](https://github.com/refined-github/refined-github) - :octocat: Browser extension that simplifies the GitHub interface and adds useful features.
+- [`RightCapitalHQ/frontend-style-guide`](https://github.com/RightCapitalHQ/frontend-style-guide) - RightCapital's frontend style guide.
 - [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
 - [`satya164/PocketGear`](https://github.com/satya164/PocketGear) - A clean and simple Pokédex app for Pokémon GO.
 - [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.
