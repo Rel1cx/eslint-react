@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-hooks-extra",
-  "version": "1.14.3-next.4",
+  "version": "1.14.3-beta.4",
   "description": "ESLint React's ESLint plugin for React Hooks related rules.",
   "keywords": [
     "eslint",
