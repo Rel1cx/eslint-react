@@ -97,3 +97,8 @@ html.light {
     }
   }
 }
+
+// TODO: Remove this once https: //github.com/shuding/nextra/issues/3313 is fixed and released
+div._bg-transparent:has(+ aside.nextra-sidebar-container) {
+  pointer-events: none;
+}
