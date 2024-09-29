@@ -152,4 +152,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
 - [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
 - [rome/tools](https://github.com/rome/tools)
-- [rust-clippy](https://github.com/rust-lang/rust-clippy)
