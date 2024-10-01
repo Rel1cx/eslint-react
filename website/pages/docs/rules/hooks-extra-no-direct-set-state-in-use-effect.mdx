@@ -14,17 +14,6 @@ This rule only checks for **direct** calls to the `set` function of `useState` i
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
 
-## Why is this bad?
-
-Calling `setState` directly in `useEffect` can lead to infinite update loops and other side effects in an imperceptible way.
-
-## Known limitations
-
-- The `set` call to `useState` in the `cleanup` function of `useEffect` will not be checked.
-- The current implementation does not support determining whether a `set` function called in an `async` function is actually at least one `await` after.
-
-The limitation may be lifted in the future.
-
 ## Examples
 
 <Info>
@@ -91,81 +80,6 @@ export default function RemoteContent() {
   return <h1>{count}</h1>;
 }
 ```
-
-<Info>
-The following example is a case with three different depths of "Circular Effect" (aka. "Effect Loop") in the component, where the `useEffect` hooks in each component will trigger each other infinitely. This rule helps you catch this kind of problem by flagging the direct `set` calls in them.\
-(A more specific rule for this is under development: [`no-circular-effect`](https://github.com/Rel1cx/eslint-react/issues/755))
-</Info>
-
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-/**
- * @component
- * @description CircularEffect1 has a circular effect with a depth of 1
- */
-export function CircularEffect1() {
-  const [items, setItems] = useState([0, 1, 2, 3, 4]);
-
-  useEffect(() => {
-    setItems(x => [...x].reverse());
-  }, [items]);
-
-  return null;
-}
-
-/**
- * @component
- * @description CircularEffect2 has a circular effect with a depth of 2
- */
-export function CircularEffect2() {
-  const [items, setItems] = useState([0, 1, 2, 3, 4]);
-  const [limit, setLimit] = useState(false);
-
-  useEffect(() => {
-    setItems(x => [...x].reverse());
-  }, [limit]);
-
-  // ...Many other hooks between the two `useEffect` calls
-
-  useEffect(() => {
-    setLimit(x => !x);
-  }, [items]);
-  // ...
-
-  return null;
-}
-
-/**
- * @component
- * @description CircularEffect3 has a circular effect with a depth of 3
- */
-export function CircularEffect3() {
-  const [items, setItems] = useState([0, 1, 2, 3, 4]);
-  const [limit, setLimit] = useState(false);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    setItems(x => [...x].reverse());
-  }, [limit]);
-
-  useEffect(() => {
-    setCount(x => x + 1);
-  }, [items]);
-
-  useEffect(() => {
-    setLimit(x => !x);
-  }, [count]);
-
-  return null;
-}
-```
-
-<Info>
-For the examples below, the error message of this rule is less obvious in pointing out the problem, but it may also be helpful in exposing the problem until there is a dedicated rule to detect it.
-</Info>
 
 ### Failing
 
@@ -314,6 +228,13 @@ function List({ items }) {
   // ...
 }
 ```
+
+## Known limitations
+
+- The `set` call to `useState` in the `cleanup` function of `useEffect` will not be checked.
+- The current implementation does not support determining whether a `set` function called in an `async` function is actually at least one `await` after.
+
+The limitation may be lifted in the future.
 
 ### Further Reading
 
