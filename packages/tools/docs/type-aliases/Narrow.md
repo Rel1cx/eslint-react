@@ -22,6 +22,10 @@ Infers embedded primitive type of any type
 
 Type to infer
 
+## Returns
+
+Embedded type of [TType](Narrow.md)
+
 ## Example
 
 ```ts
