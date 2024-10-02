@@ -29,8 +29,9 @@ export default function Counter() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    window.addEventListener("click", () => setCount(c => c + 1));
-    return () => window.removeEventListener("click", () => setCount(c => c + 1));
+    const handler = () => setCount(c => c + 1);
+    window.addEventListener("click", handler);
+    return () => window.removeEventListener("click", handler);
   }, []);
 
   return <h1>{count}</h1>;
