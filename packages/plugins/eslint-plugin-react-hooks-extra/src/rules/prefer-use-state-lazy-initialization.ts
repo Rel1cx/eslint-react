@@ -5,6 +5,7 @@ import { decodeSettings } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
+import { TSESTree } from "@typescript-eslint/utils";
 
 export const RULE_NAME = "prefer-use-state-lazy-initialization";
 
@@ -41,7 +42,11 @@ export default createRule<[], MessageID>({
           return "name" in n.callee
             && !ALLOW_LIST.includes(n.callee.name);
         });
-        if (!hasFunctionCall) return;
+        const hasNewCall = AST.getNestedNewExpressions(useStateInput).some((n) => {
+          return "name" in n.callee
+            && !ALLOW_LIST.includes(n.callee.name);
+        });
+        if (!hasFunctionCall && !hasNewCall) return;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: useStateInput,

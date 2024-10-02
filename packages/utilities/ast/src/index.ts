@@ -4,6 +4,7 @@ export * from "./get-function-identifier";
 export * from "./get-identifiers-from-binary-expression";
 export * from "./get-literal-value-type";
 export * from "./get-nested-call-expressions";
+export * from "./get-nested-new-expressions";
 export * from "./get-nested-identifiers";
 export * from "./get-nested-return-statements";
 export * from "./get-top-level-identifier";

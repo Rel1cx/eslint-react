@@ -25,3 +25,7 @@ type of the array elements.
 ## Param
 
 The array to get the element type from.
+
+## Returns
+
+The element type of the array.
