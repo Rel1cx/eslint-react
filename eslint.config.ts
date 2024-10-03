@@ -162,10 +162,6 @@ export default [
       "no-restricted-syntax": [
         "error",
         {
-          message: "no else",
-          selector: "IfStatement[alternate]",
-        },
-        {
           message: "no optional",
           selector: "TSPropertySignature[optional=true]",
         },
