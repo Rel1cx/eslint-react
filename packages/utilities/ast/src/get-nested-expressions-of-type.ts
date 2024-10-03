@@ -4,6 +4,7 @@ import { ASTUtils } from "@typescript-eslint/utils";
 
 /**
  * Get all nested expressions of type T in an expression like node
+ * @param type The type of the expression to retrieve within the node
  * @returns A partially applied function bound to a predicate of type T. The returned function can be called passing a
  * node, and it will return an array of all nested expressions of type T.
  */

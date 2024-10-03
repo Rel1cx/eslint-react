@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/typescript-estree";
+
 import { getNestedExpressionsOfType } from "./get-nested-expressions-of-type";
 
 /**

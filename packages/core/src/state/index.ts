@@ -1,2 +1,2 @@
 export * from "./set-state";
-export * from "./state-kind";
+export type * from "./state-kind";

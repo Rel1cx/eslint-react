@@ -1,3 +1,3 @@
 export * from "./EventListener";
 export * from "./Observer";
-export * from "./Timer";
+export type * from "./Timer";

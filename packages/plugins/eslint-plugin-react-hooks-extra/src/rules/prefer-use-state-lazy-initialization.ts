@@ -5,7 +5,6 @@ import { decodeSettings } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
-import { TSESTree } from "@typescript-eslint/utils";
 
 export const RULE_NAME = "prefer-use-state-lazy-initialization";
 

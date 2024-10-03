@@ -1,3 +1,3 @@
 export * from "./ObserverEntry";
-export * from "./ObserverKind";
-export * from "./ObserverMethod";
+export type * from "./ObserverKind";
+export type * from "./ObserverMethod";

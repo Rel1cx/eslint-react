@@ -1,2 +1,2 @@
-export * from "./TimerEntry";
-export * from "./TimerKind";
+export type * from "./TimerEntry";
+export type * from "./TimerKind";
