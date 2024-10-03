@@ -38,12 +38,11 @@ export default createRule<[], MessageID>({
             }
 
             // remove the default specifier and prepend the namespace import specifier
-            const specifiers = node.parent.specifiers.slice(1).map((n) => {
-              return context.sourceCode.getText(n);
-            }).join(",");
+            const sourceCode = context.sourceCode.getText(node.parent);
+            const specifiers = sourceCode.slice(sourceCode.indexOf("{"), sourceCode.indexOf("}") + 1);
             return fixer.replaceText(
               node.parent,
-              `${importStringPrefix} * as ${node.local.name} from 'react';\n${importStringPrefix} {${specifiers}} from 'react';`,
+              `${importStringPrefix} * as ${node.local.name} from 'react';\n${importStringPrefix} ${specifiers} from 'react';`,
             );
           },
         });

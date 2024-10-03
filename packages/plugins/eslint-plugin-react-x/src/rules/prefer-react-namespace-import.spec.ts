@@ -26,6 +26,11 @@ ruleTester.run(RULE_NAME, rule, {
       output: `import * as React from 'react';\nimport {useState} from 'react';`,
     },
     {
+      code: `import React, {useState, useReducer} from 'react';`,
+      errors: [{ type: AST_NODE_TYPES.ImportDefaultSpecifier, messageId: "preferReactNamespaceImport" }],
+      output: `import * as React from 'react';\nimport {useState, useReducer} from 'react';`,
+    },
+    {
       code: `import REACT, {useState} from 'react';`,
       errors: [{ type: AST_NODE_TYPES.ImportDefaultSpecifier, messageId: "preferReactNamespaceImport" }],
       output: `import * as REACT from 'react';\nimport {useState} from 'react';`,
