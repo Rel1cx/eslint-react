@@ -53,6 +53,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`TanStack/​query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query.
 - [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
 - [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
+- [`timkurvers/wine-log-explorer`](https://github.com/timkurvers/wine-log-explorer) - Explorer for Wine logs.
 - [`toss/suspensive`](https://github.com/toss/suspensive) - Manage asynchronous operations, timing, error handling, detecting intersection of elements, and caching easily and declaratively (One of TanStack Query community resources).
 - [`upleveled/eslint-config-upleveled`](https://github.com/upleveled/eslint-config-upleveled) - UpLeveled ESLint defaults for programming in JavaScript, TypeScript, React, Next.js, Node.js, Postgres.js.
 
