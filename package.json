@@ -47,7 +47,7 @@
     "update:version": "tsx ./scripts/update-version.ts && pnpm run format:package-json"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.8",
+    "@changesets/cli": "^2.27.9",
     "@effect/language-service": "^0.1.0",
     "@effect/platform": "^0.66.2",
     "@effect/platform-bun": "^0.46.3",
@@ -84,7 +84,7 @@
     "eslint-plugin-perfectionist": "^3.8.0",
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-unicorn": "^55.0.0",
+    "eslint-plugin-unicorn": "^56.0.0",
     "eslint-plugin-vitest": "^0.5.4",
     "importx": "^0.5.0",
     "lefthook": "^1.7.18",

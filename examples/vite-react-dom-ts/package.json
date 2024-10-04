@@ -6,9 +6,9 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
+    "inspect:eslint-config": "eslint-config-inspector",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "inspect:eslint-config": "eslint-config-inspector"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^18.3.1",
