@@ -48,5 +48,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: `import {useState} from "react";`,
     },
+    {
+      code: `import {} from "react";`,
+    },
   ],
 });
