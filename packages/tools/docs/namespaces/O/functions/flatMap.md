@@ -44,6 +44,10 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## flatMap(self, f)
 
 > **flatMap**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -65,6 +69,10 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
+
+### Since
+
+2.0.0
 
 ### Since
 

@@ -46,6 +46,8 @@ If a default error is sufficient for your use case and you don't need to configu
 
 • **onNone**
 
+A function that will be called if the `Option` is `None`. It returns the error to be thrown.
+
 ### Returns
 
 `Function`
@@ -70,7 +72,7 @@ The `Option` to extract the value from.
 
 A function that will be called if the `Option` is `None`. It returns the error to be thrown.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -81,6 +83,20 @@ assert.deepStrictEqual(
 )
 assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
 ```
+
+```ts
+import { Option } from "effect"
+
+assert.deepStrictEqual(
+  Option.getOrThrowWith(Option.some(1), () => new Error('Unexpected None')),
+  1
+)
+assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -102,7 +118,11 @@ If a default error is sufficient for your use case and you don't need to configu
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The `Option` to extract the value from.
+
 • **onNone**
+
+A function that will be called if the `Option` is `None`. It returns the error to be thrown.
 
 ### Returns
 
@@ -116,7 +136,7 @@ The `Option` to extract the value from.
 
 A function that will be called if the `Option` is `None`. It returns the error to be thrown.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -127,6 +147,20 @@ assert.deepStrictEqual(
 )
 assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
 ```
+
+```ts
+import { Option } from "effect"
+
+assert.deepStrictEqual(
+  Option.getOrThrowWith(Option.some(1), () => new Error('Unexpected None')),
+  1
+)
+assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

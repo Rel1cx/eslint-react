@@ -38,6 +38,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## set(self, value)
 
 > **set**\<`T`\>(`self`, `value`): [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
@@ -55,6 +59,10 @@
 ### Returns
 
 [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
+
+### Since
+
+2.0.0
 
 ### Since
 

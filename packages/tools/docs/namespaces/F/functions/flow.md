@@ -18,7 +18,7 @@ See also [`pipe`](#pipe).
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
 ### Parameters
 
@@ -61,9 +61,9 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
 ### Parameters
 
@@ -91,11 +91,11 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
 ### Parameters
 
@@ -125,13 +125,13 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
 ### Parameters
 
@@ -163,15 +163,15 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
 ### Parameters
 
@@ -205,17 +205,17 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
 ### Parameters
 
@@ -251,19 +251,19 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
 ### Parameters
 
@@ -301,21 +301,21 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
 ### Parameters
 
@@ -355,23 +355,23 @@ assert.strictEqual(f('aaa'), 6)
 
 • **A** *extends* readonly `unknown`[]
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
 ### Parameters
 

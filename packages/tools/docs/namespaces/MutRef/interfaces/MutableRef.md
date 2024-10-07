@@ -26,6 +26,20 @@
 
 ## Methods
 
+### \[DenoInspectSymbol\]()
+
+> **\[DenoInspectSymbol\]**(): `unknown`
+
+#### Returns
+
+`unknown`
+
+#### Inherited from
+
+`Inspectable.[DenoInspectSymbol]`
+
+***
+
 ### \[NodeInspectSymbol\]()
 
 > **\[NodeInspectSymbol\]**(): `unknown`
@@ -70,7 +84,7 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
 ##### Parameters
 
@@ -94,9 +108,9 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
 ##### Parameters
 
@@ -122,11 +136,11 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
 ##### Parameters
 
@@ -154,13 +168,13 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
 ##### Parameters
 
@@ -190,15 +204,15 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
 ##### Parameters
 
@@ -230,17 +244,17 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
 ##### Parameters
 
@@ -274,19 +288,19 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
 ##### Parameters
 
@@ -322,21 +336,21 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
 ##### Parameters
 
@@ -374,23 +388,23 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
 ##### Parameters
 
@@ -430,25 +444,25 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
 ##### Parameters
 
@@ -490,27 +504,27 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
 ##### Parameters
 
@@ -554,29 +568,29 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
 ##### Parameters
 
@@ -622,31 +636,31 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
 ##### Parameters
 
@@ -694,33 +708,33 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
 ##### Parameters
 
@@ -770,35 +784,35 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
 ##### Parameters
 
@@ -850,37 +864,37 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
-• **Q**
+• **Q** = `never`
 
 ##### Parameters
 
@@ -934,39 +948,39 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
-• **Q**
+• **Q** = `never`
 
-• **R**
+• **R** = `never`
 
 ##### Parameters
 
@@ -1022,41 +1036,41 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
-• **Q**
+• **Q** = `never`
 
-• **R**
+• **R** = `never`
 
-• **S**
+• **S** = `never`
 
 ##### Parameters
 
@@ -1114,43 +1128,43 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
-• **Q**
+• **Q** = `never`
 
-• **R**
+• **R** = `never`
 
-• **S**
+• **S** = `never`
 
-• **T**
+• **T** = `never`
 
 ##### Parameters
 
@@ -1210,45 +1224,45 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
-• **Q**
+• **Q** = `never`
 
-• **R**
+• **R** = `never`
 
-• **S**
+• **S** = `never`
 
-• **T**
+• **T** = `never`
 
-• **U**
+• **U** = `never`
 
 ##### Parameters
 
@@ -1310,45 +1324,45 @@
 
 • **A**
 
-• **B**
+• **B** = `never`
 
-• **C**
+• **C** = `never`
 
-• **D**
+• **D** = `never`
 
-• **E**
+• **E** = `never`
 
-• **F**
+• **F** = `never`
 
-• **G**
+• **G** = `never`
 
-• **H**
+• **H** = `never`
 
-• **I**
+• **I** = `never`
 
-• **J**
+• **J** = `never`
 
-• **K**
+• **K** = `never`
 
-• **L**
+• **L** = `never`
 
-• **M**
+• **M** = `never`
 
-• **N**
+• **N** = `never`
 
-• **O**
+• **O** = `never`
 
-• **P**
+• **P** = `never`
 
-• **Q**
+• **Q** = `never`
 
-• **R**
+• **R** = `never`
 
-• **S**
+• **S** = `never`
 
-• **T**
+• **T** = `never`
 
-• **U**
+• **U** = `never`
 
 ##### Parameters
 

@@ -12,7 +12,7 @@
 
 ### None
 
-> **None**: `bigint`
+> **None**: `bigint` = `0n`
 
 ### PureComponent
 

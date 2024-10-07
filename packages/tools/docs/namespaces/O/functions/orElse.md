@@ -69,6 +69,8 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 • **that**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
 
+The `Option` to return if `self` is `None`.
+
 ### Returns
 
 `Function`
@@ -93,7 +95,40 @@ The first `Option` to be checked.
 
 The `Option` to return if `self` is `None`.
 
-### Example
+### Examples
+
+```ts
+import { pipe, Option } from "effect"
+
+assert.deepStrictEqual(
+  pipe(
+    Option.none(),
+    Option.orElse(() => Option.none())
+  ),
+  Option.none()
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.some('a'),
+    Option.orElse(() => Option.none())
+  ),
+  Option.some('a')
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.none(),
+    Option.orElse(() => Option.some('b'))
+  ),
+  Option.some('b')
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.some('a'),
+    Option.orElse(() => Option.some('b'))
+  ),
+  Option.some('a')
+)
+```
 
 ```ts
 import { pipe, Option } from "effect"
@@ -132,6 +167,10 @@ assert.deepStrictEqual(
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## orElse(self, that)
 
 > **orElse**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`A` \| `B`\>
@@ -148,7 +187,11 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The first `Option` to be checked.
+
 • **that**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
+
+The `Option` to return if `self` is `None`.
 
 ### Returns
 
@@ -162,7 +205,7 @@ The first `Option` to be checked.
 
 The `Option` to return if `self` is `None`.
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Option } from "effect"
@@ -196,6 +239,43 @@ assert.deepStrictEqual(
   Option.some('a')
 )
 ```
+
+```ts
+import { pipe, Option } from "effect"
+
+assert.deepStrictEqual(
+  pipe(
+    Option.none(),
+    Option.orElse(() => Option.none())
+  ),
+  Option.none()
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.some('a'),
+    Option.orElse(() => Option.none())
+  ),
+  Option.some('a')
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.none(),
+    Option.orElse(() => Option.some('b'))
+  ),
+  Option.some('b')
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.some('a'),
+    Option.orElse(() => Option.some('b'))
+  ),
+  Option.some('a')
+)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

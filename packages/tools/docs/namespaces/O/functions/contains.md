@@ -42,6 +42,10 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## contains(self, a)
 
 > **contains**\<`A`\>(`self`, `a`): `boolean`
@@ -61,6 +65,10 @@ Returns a function that checks if an `Option` contains a given value using the d
 ### Returns
 
 `boolean`
+
+### Since
+
+2.0.0
 
 ### Since
 

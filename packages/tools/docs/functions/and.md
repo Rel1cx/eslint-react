@@ -51,6 +51,8 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 • **that**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
 
+A predicate.
+
 ### Returns
 
 `Function`
@@ -75,7 +77,7 @@ A predicate.
 
 A predicate.
 
-### Example
+### Examples
 
 ```ts
 import { Predicate } from "effect"
@@ -89,6 +91,23 @@ assert.deepStrictEqual(length(2)("aa"), true)
 assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
+
+```ts
+import { Predicate } from "effect"
+
+const minLength = (n: number) => (s: string) => s.length >= n
+const maxLength = (n: number) => (s: string) => s.length <= n
+
+const length = (n: number) => Predicate.and(minLength(n), maxLength(n))
+
+assert.deepStrictEqual(length(2)("aa"), true)
+assert.deepStrictEqual(length(2)("a"), false)
+assert.deepStrictEqual(length(2)("aaa"), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -112,7 +131,11 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 • **self**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
+A predicate.
+
 • **that**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
+
+A predicate.
 
 ### Returns
 
@@ -126,7 +149,20 @@ A predicate.
 
 A predicate.
 
-### Example
+### Examples
+
+```ts
+import { Predicate } from "effect"
+
+const minLength = (n: number) => (s: string) => s.length >= n
+const maxLength = (n: number) => (s: string) => s.length <= n
+
+const length = (n: number) => Predicate.and(minLength(n), maxLength(n))
+
+assert.deepStrictEqual(length(2)("aa"), true)
+assert.deepStrictEqual(length(2)("a"), false)
+assert.deepStrictEqual(length(2)("aaa"), false)
+```
 
 ```ts
 import { Predicate } from "effect"
@@ -145,6 +181,10 @@ assert.deepStrictEqual(length(2)("aaa"), false)
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## and(that)
 
 > **and**\<`A`\>(`that`): (`self`) => [`Predicate`](../interfaces/Predicate.md)\<`A`\>
@@ -158,6 +198,8 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 ### Parameters
 
 • **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+
+A predicate.
 
 ### Returns
 
@@ -179,7 +221,7 @@ A predicate.
 
 A predicate.
 
-### Example
+### Examples
 
 ```ts
 import { Predicate } from "effect"
@@ -193,6 +235,23 @@ assert.deepStrictEqual(length(2)("aa"), true)
 assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
+
+```ts
+import { Predicate } from "effect"
+
+const minLength = (n: number) => (s: string) => s.length >= n
+const maxLength = (n: number) => (s: string) => s.length <= n
+
+const length = (n: number) => Predicate.and(minLength(n), maxLength(n))
+
+assert.deepStrictEqual(length(2)("aa"), true)
+assert.deepStrictEqual(length(2)("a"), false)
+assert.deepStrictEqual(length(2)("aaa"), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -212,7 +271,11 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 • **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
+A predicate.
+
 • **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+
+A predicate.
 
 ### Returns
 
@@ -226,7 +289,7 @@ A predicate.
 
 A predicate.
 
-### Example
+### Examples
 
 ```ts
 import { Predicate } from "effect"
@@ -240,6 +303,23 @@ assert.deepStrictEqual(length(2)("aa"), true)
 assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
+
+```ts
+import { Predicate } from "effect"
+
+const minLength = (n: number) => (s: string) => s.length >= n
+const maxLength = (n: number) => (s: string) => s.length <= n
+
+const length = (n: number) => Predicate.and(minLength(n), maxLength(n))
+
+assert.deepStrictEqual(length(2)("aa"), true)
+assert.deepStrictEqual(length(2)("a"), false)
+assert.deepStrictEqual(length(2)("aaa"), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

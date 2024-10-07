@@ -42,6 +42,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## partitionMap(self, f)
 
 > **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
@@ -63,6 +67,10 @@
 ### Returns
 
 [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
+
+### Since
+
+2.0.0
 
 ### Since
 

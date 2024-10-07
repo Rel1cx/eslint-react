@@ -54,6 +54,8 @@ This function is useful for performing additional computations on the value of t
 
 • **f**
 
+Function to apply to the value of the `Option` if it is `Some`
+
 ### Returns
 
 `Function`
@@ -74,7 +76,7 @@ Function to apply to the value of the `Option` if it is `Some`
 
 The `Option` to apply the function to
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -85,6 +87,20 @@ assert.deepStrictEqual(Option.tap(Option.none(), getInteger), Option.none())
 assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
 assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
 ```
+
+```ts
+import { Option } from "effect"
+
+const getInteger = (n: number) => Number.isInteger(n) ? Option.some(n) : Option.none()
+
+assert.deepStrictEqual(Option.tap(Option.none(), getInteger), Option.none())
+assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
+assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -109,7 +125,11 @@ This function is useful for performing additional computations on the value of t
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The `Option` to apply the function to
+
 • **f**
+
+Function to apply to the value of the `Option` if it is `Some`
 
 ### Returns
 
@@ -123,7 +143,7 @@ Function to apply to the value of the `Option` if it is `Some`
 
 The `Option` to apply the function to
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -134,6 +154,20 @@ assert.deepStrictEqual(Option.tap(Option.none(), getInteger), Option.none())
 assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
 assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
 ```
+
+```ts
+import { Option } from "effect"
+
+const getInteger = (n: number) => Number.isInteger(n) ? Option.some(n) : Option.none()
+
+assert.deepStrictEqual(Option.tap(Option.none(), getInteger), Option.none())
+assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
+assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

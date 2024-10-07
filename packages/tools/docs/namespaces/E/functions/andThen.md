@@ -50,6 +50,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## andThen(f)
 
 > **andThen**\<`R2`, `L2`\>(`f`): \<`L`, `R1`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
@@ -83,6 +87,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -124,6 +132,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## andThen(right)
 
 > **andThen**\<`R2`\>(`right`): \<`R1`, `L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
@@ -160,6 +172,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## andThen(self, f)
 
 > **andThen**\<`R`, `L`, `R2`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
@@ -185,6 +201,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -220,6 +240,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## andThen(self, f)
 
 > **andThen**\<`R`, `L`, `R2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
@@ -248,6 +272,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## andThen(self, f)
 
 > **andThen**\<`R`, `L`, `R2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
@@ -271,6 +299,10 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
+
+### Since
+
+2.0.0
 
 ### Since
 

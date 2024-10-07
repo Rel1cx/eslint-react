@@ -36,6 +36,8 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 • **f**
 
+A transformation function to apply to the `Left` value of the input `Either`.
+
 ### Returns
 
 `Function`
@@ -64,6 +66,10 @@ A transformation function to apply to the `Left` value of the input `Either`.
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## mapLeft(self, f)
 
 > **mapLeft**\<`R`, `L`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
@@ -82,7 +88,11 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 • **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
+The input `Either` value to map.
+
 • **f**
+
+A transformation function to apply to the `Left` value of the input `Either`.
 
 ### Returns
 
@@ -95,6 +105,10 @@ The input `Either` value to map.
 ### Param
 
 A transformation function to apply to the `Left` value of the input `Either`.
+
+### Since
+
+2.0.0
 
 ### Since
 

@@ -55,6 +55,8 @@ Returns the provided default value as `Some` if `self` is `None`, otherwise retu
 
 • **onNone**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<`B`\>
 
+Function that returns the default value to return if the `Option` is `None`.
+
 ### Returns
 
 `Function`
@@ -79,7 +81,26 @@ The first `Option` to be checked.
 
 Function that returns the default value to return if the `Option` is `None`.
 
-### Example
+### Examples
+
+```ts
+import { pipe, Option } from "effect"
+
+assert.deepStrictEqual(
+  pipe(
+    Option.none(),
+    Option.orElseSome(() => 'b')
+  ),
+  Option.some('b')
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.some('a'),
+    Option.orElseSome(() => 'b')
+  ),
+  Option.some('a')
+)
+```
 
 ```ts
 import { pipe, Option } from "effect"
@@ -104,6 +125,10 @@ assert.deepStrictEqual(
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## orElseSome(self, onNone)
 
 > **orElseSome**\<`A`, `B`\>(`self`, `onNone`): [`Option`](../type-aliases/Option.md)\<`A` \| `B`\>
@@ -120,7 +145,11 @@ Returns the provided default value as `Some` if `self` is `None`, otherwise retu
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The first `Option` to be checked.
+
 • **onNone**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<`B`\>
+
+Function that returns the default value to return if the `Option` is `None`.
 
 ### Returns
 
@@ -134,7 +163,7 @@ The first `Option` to be checked.
 
 Function that returns the default value to return if the `Option` is `None`.
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Option } from "effect"
@@ -154,6 +183,29 @@ assert.deepStrictEqual(
   Option.some('a')
 )
 ```
+
+```ts
+import { pipe, Option } from "effect"
+
+assert.deepStrictEqual(
+  pipe(
+    Option.none(),
+    Option.orElseSome(() => 'b')
+  ),
+  Option.some('b')
+)
+assert.deepStrictEqual(
+  pipe(
+    Option.some('a'),
+    Option.orElseSome(() => 'b')
+  ),
+  Option.some('a')
+)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
