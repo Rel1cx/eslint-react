@@ -1,3 +1,4 @@
+import { decodeSettings } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
@@ -15,25 +16,31 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      preferReactNamespaceImport: "Prefer importing React as `import * as React from 'react';`",
+      preferReactNamespaceImport: 'Prefer importing React as `import * as React from "{{importSource}}";`',
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
+    const importSource = decodeSettings(context.settings).importSource ?? "react";
     return {
-      'ImportDeclaration[source.value="react"] ImportDefaultSpecifier'(node: TSESTree.ImportDefaultSpecifier) {
+      [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](
+        node: TSESTree.ImportDefaultSpecifier,
+      ) {
         const hasOtherSpecifiers = node.parent.specifiers.length > 1;
         context.report({
           messageId: "preferReactNamespaceImport",
           node: hasOtherSpecifiers ? node : node.parent,
+          data: { importSource },
           fix(fixer) {
+            const quote = node.parent.source.raw.at(0) ?? "'";
             const isTypeImport = node.parent.importKind === "type";
             const importStringPrefix = `import${isTypeImport ? " type" : ""}`;
+            const importSourceQuoted = `${quote}${importSource}${quote}`;
             if (!hasOtherSpecifiers) {
               return fixer.replaceText(
                 node.parent,
-                `${importStringPrefix} * as ${node.local.name} from 'react';`,
+                `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted};`,
               );
             }
 
@@ -42,7 +49,7 @@ export default createRule<[], MessageID>({
             const specifiers = sourceCode.slice(sourceCode.indexOf("{"), sourceCode.indexOf("}") + 1);
             return fixer.replaceText(
               node.parent,
-              `${importStringPrefix} * as ${node.local.name} from 'react';\n${importStringPrefix} ${specifiers} from 'react';`,
+              `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted};\n${importStringPrefix} ${specifiers} from ${importSourceQuoted};`,
             );
           },
         });
