@@ -1,0 +1,35 @@
+# prefer-react-namespace-import
+
+## Rule category
+
+Style.
+
+## What it does
+
+Enforce React is imported via a namespace import.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+import type React from "react";
+
+import React, { useState } from "react";
+
+import type React, { useState } from "react";
+```
+
+### Passing
+
+```tsx
+import * as React from "react";
+
+import type * as React from "react";
+
+import { useState } from "react";
+
+import type { useState } from "react";
+```

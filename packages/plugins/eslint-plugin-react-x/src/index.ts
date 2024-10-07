@@ -44,6 +44,7 @@ import noUnusedClassComponentMembers from "./rules/no-unused-class-component-mem
 import noUnusedState from "./rules/no-unused-state";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
+import preferReactNamespaceImport from "./rules/prefer-react-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
@@ -108,6 +109,7 @@ export default {
     "no-unused-state": noUnusedState,
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
+    "prefer-react-namespace-import": preferReactNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-shorthand-boolean": preferShorthandBoolean,
     "prefer-shorthand-fragment": preferShorthandFragment,
