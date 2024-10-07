@@ -40,6 +40,17 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ type: AST_NODE_TYPES.ImportDefaultSpecifier, messageId: "preferReactNamespaceImport" }],
       output: `import type * as React from 'react';\nimport type {useState} from 'react';`,
     },
+    // TODO: Add support for custom import source (https://eslint-react.xyz/docs/configuration#importsource)
+    {
+      code: `import type React, {useState} from '@pika/react';`,
+      errors: [{ type: AST_NODE_TYPES.ImportDefaultSpecifier, messageId: "preferReactNamespaceImport" }],
+      output: `import type * as React from '@pika/react';\nimport type {useState} from '@pika/react';`,
+      settings: {
+        "react-x": {
+          importSource: "@pika/react",
+        },
+      },
+    },
   ],
   valid: [
     {
@@ -50,6 +61,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `import {} from "react";`,
+    },
+    {
+      code: `import type React, {useState} from "@pika/react";`,
+      settings: {
+        "react-x": {
+          importSource: "@pika/react",
+        },
+      },
     },
   ],
 });
