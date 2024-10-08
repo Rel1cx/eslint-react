@@ -5,7 +5,7 @@ import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
-import { isInitializedFromReact } from "../internal";
+import { isInitializedFromReact } from "../is-initialized-from-react";
 import { isReactHookName } from "./hook-name";
 
 export function isReactHook(node: AST.TSESTreeFunction) {

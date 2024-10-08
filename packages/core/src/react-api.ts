@@ -1,7 +1,7 @@
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isReactAPICallWithName, isReactAPIWithName } from "./internal";
+import { isReactAPICallWithName, isReactAPIWithName } from "./is-react-api";
 
 // Workaround for @typescript-eslint/utils's TS2742 error.
 type A = (node: TSESTree.Identifier | TSESTree.MemberExpression, context: RuleContext) => boolean;

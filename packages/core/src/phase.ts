@@ -5,7 +5,11 @@ import { match } from "ts-pattern";
 
 import { isComponentDidMountFunction, isComponentWillUnmountFunction } from "./component";
 import { isCleanupFunction, isSetupFunction } from "./effect";
-import type { ERPhaseKind } from "./internal";
+
+export type EREffectPhaseKind = "cleanup" | "setup";
+export type ERLifecyclePhaseKind = "mount" | "unmount";
+
+export type ERPhaseKind = EREffectPhaseKind | ERLifecyclePhaseKind;
 
 export const PHASE_RELEVANCE = birecord({
   mount: "unmount",

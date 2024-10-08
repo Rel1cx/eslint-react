@@ -2,7 +2,7 @@ import type * as AST from "@eslint-react/ast";
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ERSemanticNode } from "../internal";
+import type { ERSemanticNode } from "../semantic-node";
 
 /* eslint-disable perfectionist/sort-interfaces */
 export interface ERHook extends ERSemanticNode {

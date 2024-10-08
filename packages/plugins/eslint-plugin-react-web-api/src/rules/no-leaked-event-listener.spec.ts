@@ -753,5 +753,18 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // FIXME: This case is not supported yet.
+    // /* tsx */ `
+    //   const { signal, abort } = new AbortController();
+    //   function Example() {
+    //     const rHandleResize = useRef(() => {});
+    //     useEffect(() => {
+    //       window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal });
+    //       return () => {
+    //         abort();
+    //       };
+    //     }, []);
+    //   }
+    // `,
   ],
 });

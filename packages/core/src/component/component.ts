@@ -2,7 +2,7 @@ import type * as AST from "@eslint-react/ast";
 import type { O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ERSemanticNode } from "../internal";
+import type { ERSemanticNode } from "../semantic-node";
 import type { ERComponentHint } from "./component-collector-hint";
 import type { ERClassComponentFlag, ERFunctionComponentFlag } from "./component-flag";
 
