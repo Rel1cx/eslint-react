@@ -9,9 +9,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^14.2.14",
-    "nextra": "3.0.5",
-    "nextra-theme-docs": "3.0.5",
+    "next": "^14.2.15",
+    "nextra": "3.0.7",
+    "nextra-theme-docs": "3.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "ts-pattern": "^5.4.0"
@@ -20,18 +20,18 @@
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^9.12.0",
     "@mdx-js/mdx": "^3.0.1",
-    "@next/bundle-analyzer": "^14.2.14",
+    "@next/bundle-analyzer": "^14.2.15",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.7.5",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
     "@vanilla-extract/css": "^1.16.0",
     "@vanilla-extract/next-plugin": "^2.4.6",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
-    "effect": "^3.9.0",
+    "effect": "^3.9.1",
     "eslint": "^9.12.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react-hooks": "rc",
@@ -42,8 +42,8 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "sass": "^1.79.4",
-    "typescript": "^5.6.2",
-    "typescript-eslint": "^8.8.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.8.1",
     "vite": "^5.4.8"
   }
 }

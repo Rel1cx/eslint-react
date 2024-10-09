@@ -26,20 +26,6 @@
 
 ## Methods
 
-### \[DenoInspectSymbol\]()
-
-> **\[DenoInspectSymbol\]**(): `unknown`
-
-#### Returns
-
-`unknown`
-
-#### Inherited from
-
-`Inspectable.[DenoInspectSymbol]`
-
-***
-
 ### \[NodeInspectSymbol\]()
 
 > **\[NodeInspectSymbol\]**(): `unknown`

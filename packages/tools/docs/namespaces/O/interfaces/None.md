@@ -84,20 +84,6 @@
 
 ## Methods
 
-### \[DenoInspectSymbol\]()
-
-> **\[DenoInspectSymbol\]**(): `unknown`
-
-#### Returns
-
-`unknown`
-
-#### Inherited from
-
-`Inspectable.[DenoInspectSymbol]`
-
-***
-
 ### \[iterator\]()
 
 > **\[iterator\]**(): `EffectGenerator`\<[`None`](None.md)\<`A`\>\>

@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/utils": "^8.8.0",
+    "@typescript-eslint/utils": "^8.8.1",
     "picomatch": "^4.0.2"
   },
   "devDependencies": {

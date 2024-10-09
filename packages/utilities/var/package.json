@@ -44,9 +44,9 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.8.0",
-    "@typescript-eslint/types": "^8.8.0",
-    "@typescript-eslint/utils": "^8.8.0",
+    "@typescript-eslint/scope-manager": "^8.8.1",
+    "@typescript-eslint/types": "^8.8.1",
+    "@typescript-eslint/utils": "^8.8.1",
     "ts-pattern": "^5.4.0"
   },
   "devDependencies": {
