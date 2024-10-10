@@ -18,20 +18,21 @@ import {
   isVariableDeclaratorFromHookCall,
 } from "../utils";
 
-export const RULE_NAME = "no-direct-set-state-in-use-effect";
+export const RULE_NAME = "no-direct-set-state-in-use-layout-effect";
 
 type MessageID = CamelCase<typeof RULE_NAME>;
-type CallKind = "other" | "setState" | "then" | "useEffect" | "useState";
+type CallKind = "other" | "setState" | "then" | "useLayoutEffect" | "useState";
 type FunctionKind = "cleanup" | "deferred" | "immediate" | "other" | "setup";
 
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'",
+      description: "disallow direct calls to the 'set' function of 'useState' in 'useLayoutEffect'",
     },
     messages: {
-      noDirectSetStateInUseEffect: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",
+      noDirectSetStateInUseLayoutEffect:
+        "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useLayoutEffect'.",
     },
     schema: [],
   },
@@ -40,7 +41,11 @@ export default createRule<[], MessageID>({
     if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
     const settings = decodeSettings(context.settings);
     const additionalHooks = settings.additionalHooks ?? {};
-    const isUseEffectLikeCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);
+    const isUseEffectLikeCall = isReactHookCallWithNameAlias(
+      "useLayoutEffect",
+      context,
+      additionalHooks.useLayoutEffect ?? [],
+    );
     const isUseStateCall = isReactHookCallWithNameAlias("useState", context, additionalHooks.useState ?? []);
     const isUseMemoCall = isReactHookCallWithNameAlias("useMemo", context, additionalHooks.useMemo ?? []);
     const isUseCallbackCall = isReactHookCallWithNameAlias("useCallback", context, additionalHooks.useCallback ?? []);
@@ -71,7 +76,7 @@ export default createRule<[], MessageID>({
     function getCallKind(node: TSESTree.CallExpression) {
       return match<TSESTree.CallExpression, CallKind>(node)
         .when(isUseStateCall, () => "useState")
-        .when(isUseEffectLikeCall, () => "useEffect")
+        .when(isUseEffectLikeCall, () => "useLayoutEffect")
         .when(isSetStateCall, () => "setState")
         .when(isThenCall, () => "then")
         .otherwise(() => "other");
@@ -113,13 +118,13 @@ export default createRule<[], MessageID>({
               return;
             }
             context.report({
-              messageId: "noDirectSetStateInUseEffect",
+              messageId: "noDirectSetStateInUseLayoutEffect",
               node,
               data: { name: context.sourceCode.getText(node.callee) },
             });
           })
           // .with(P.union("useMemo", "useCallback"), () => {})
-          .with("useEffect", () => {
+          .with("useLayoutEffect", () => {
             const [firstArg] = node.arguments;
             if (AST.isFunction(firstArg)) return;
             const identifiers = AST.getNestedIdentifiers(node);
@@ -141,7 +146,7 @@ export default createRule<[], MessageID>({
             if (node !== firstArg) break;
             // const [state, setState] = useState();
             // const set = useCallback(setState, []);
-            // useEffect(set, []);
+            // useLayoutEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
               const maybeVd = AST.traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
               if (O.isNone(maybeVd)) break;
@@ -150,7 +155,7 @@ export default createRule<[], MessageID>({
               indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
             }
             // const [state, setState] = useState();
-            // useEffect(setState);
+            // useLayoutEffect(setState);
             if (isUseEffectLikeCall(node.parent)) {
               const calls = indirectSetStateCallsAsArgs.get(node.parent) ?? [];
               indirectSetStateCallsAsSetups.set(node.parent, [...calls, node]);
@@ -162,7 +167,7 @@ export default createRule<[], MessageID>({
             if (parent.type !== AST_NODE_TYPES.CallExpression) break;
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
-            // useEffect(set, []);
+            // useLayoutEffect(set, []);
             if (!isUseMemoCall(parent)) break;
             const maybeVd = AST.traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
             if (O.isNone(maybeVd)) break;
@@ -191,7 +196,7 @@ export default createRule<[], MessageID>({
         for (const [_, calls] of indirectSetStateCallsAsSetups) {
           for (const call of calls) {
             context.report({
-              messageId: "noDirectSetStateInUseEffect",
+              messageId: "noDirectSetStateInUseLayoutEffect",
               node: call,
               data: { name: call.name },
             });
@@ -203,7 +208,7 @@ export default createRule<[], MessageID>({
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
           for (const setStateCall of setStateCalls) {
             context.report({
-              messageId: "noDirectSetStateInUseEffect",
+              messageId: "noDirectSetStateInUseLayoutEffect",
               node: setStateCall,
               data: {
                 name: AST.toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),
@@ -215,7 +220,7 @@ export default createRule<[], MessageID>({
           const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
           for (const setStateCall of setStateCalls) {
             context.report({
-              messageId: "noDirectSetStateInUseEffect",
+              messageId: "noDirectSetStateInUseLayoutEffect",
               node: setStateCall,
               data: {
                 name: AST.toReadableNodeName(setStateCall, (n) => context.sourceCode.getText(n)),

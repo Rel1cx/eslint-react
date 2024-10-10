@@ -83,6 +83,7 @@ const allPreset = {
 
   // Part: Hooks Extra
   "hooks-extra/no-direct-set-state-in-use-effect": "warn",
+  "hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "hooks-extra/no-redundant-custom-hook": "warn",
   "hooks-extra/no-unnecessary-use-callback": "warn",
   "hooks-extra/no-unnecessary-use-memo": "warn",
