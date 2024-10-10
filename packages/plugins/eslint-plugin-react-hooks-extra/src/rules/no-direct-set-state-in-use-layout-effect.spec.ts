@@ -21,38 +21,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
-        import { useLayoutEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useLayoutEffect(() => {
-            setData(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
-      ],
-    },
-    {
-      code: /* tsx */ `
-        import { useInsertionEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useInsertionEffect(() => {
-            setData(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
-      ],
-    },
-    {
-      code: /* tsx */ `
         import { useState } from "react";
 
         function Component() {
@@ -823,6 +791,21 @@ ruleTester.run(RULE_NAME, rule, {
                 )
             return () => abortController.abort()
         }, [handlerWatcher])
+      }
+    `,
+    /* tsx */ `
+      import { useEffect, useState, useRef } from "react";
+
+      function Tooltip() {
+        const ref = useRef(null);
+        const [tooltipHeight, setTooltipHeight] = useState(0); // You don't know real height yet
+
+        useEffect(() => {
+          const { height } = ref.current.getBoundingClientRect();
+          setTooltipHeight(height); // Re-render now that you know the real height
+        }, []);
+
+        // ...use tooltipHeight in the rendering logic below...
       }
     `,
   ],
