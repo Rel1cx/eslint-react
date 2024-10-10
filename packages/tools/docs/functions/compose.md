@@ -42,10 +42,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## compose(bc)
 
 > **compose**\<`A`, `B`\>(`bc`): (`ab`) => [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
@@ -71,10 +67,6 @@
 #### Returns
 
 [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -106,10 +98,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## compose(ab, bc)
 
 > **compose**\<`A`, `B`\>(`ab`, `bc`): [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
@@ -129,10 +117,6 @@
 ### Returns
 
 [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

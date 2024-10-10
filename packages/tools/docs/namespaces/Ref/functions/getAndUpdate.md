@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## getAndUpdate(self, f)
 
 > **getAndUpdate**\<`A`\>(`self`, `f`): `Effect`\<`A`, `never`, `never`\>
@@ -59,10 +55,6 @@
 ### Returns
 
 `Effect`\<`A`, `never`, `never`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

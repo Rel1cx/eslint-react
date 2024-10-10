@@ -56,7 +56,7 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
 ### Parameters
 
@@ -76,9 +76,9 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
 ### Parameters
 
@@ -100,11 +100,11 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
 ### Parameters
 
@@ -128,13 +128,13 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
 ### Parameters
 
@@ -160,15 +160,15 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
 ### Parameters
 
@@ -196,17 +196,17 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
 ### Parameters
 
@@ -236,19 +236,19 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
 ### Parameters
 
@@ -280,21 +280,21 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
 ### Parameters
 
@@ -328,23 +328,23 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
 ### Parameters
 
@@ -380,25 +380,25 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
 ### Parameters
 
@@ -436,27 +436,27 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
 ### Parameters
 
@@ -496,29 +496,29 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
 ### Parameters
 
@@ -560,31 +560,31 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
 ### Parameters
 
@@ -628,33 +628,33 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
-• **O** = `never`
+• **O**
 
 ### Parameters
 
@@ -700,35 +700,35 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
-• **O** = `never`
+• **O**
 
-• **P** = `never`
+• **P**
 
 ### Parameters
 
@@ -776,37 +776,37 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
-• **O** = `never`
+• **O**
 
-• **P** = `never`
+• **P**
 
-• **Q** = `never`
+• **Q**
 
 ### Parameters
 
@@ -856,39 +856,39 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
-• **O** = `never`
+• **O**
 
-• **P** = `never`
+• **P**
 
-• **Q** = `never`
+• **Q**
 
-• **R** = `never`
+• **R**
 
 ### Parameters
 
@@ -940,41 +940,41 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
-• **O** = `never`
+• **O**
 
-• **P** = `never`
+• **P**
 
-• **Q** = `never`
+• **Q**
 
-• **R** = `never`
+• **R**
 
-• **S** = `never`
+• **S**
 
 ### Parameters
 
@@ -1028,43 +1028,43 @@ assert.deepStrictEqual(pipe(length("hello"), double, decrement), 9)
 
 • **A**
 
-• **B** = `never`
+• **B**
 
-• **C** = `never`
+• **C**
 
-• **D** = `never`
+• **D**
 
-• **E** = `never`
+• **E**
 
-• **F** = `never`
+• **F**
 
-• **G** = `never`
+• **G**
 
-• **H** = `never`
+• **H**
 
-• **I** = `never`
+• **I**
 
-• **J** = `never`
+• **J**
 
-• **K** = `never`
+• **K**
 
-• **L** = `never`
+• **L**
 
-• **M** = `never`
+• **M**
 
-• **N** = `never`
+• **N**
 
-• **O** = `never`
+• **O**
 
-• **P** = `never`
+• **P**
 
-• **Q** = `never`
+• **Q**
 
-• **R** = `never`
+• **R**
 
-• **S** = `never`
+• **S**
 
-• **T** = `never`
+• **T**
 
 ### Parameters
 

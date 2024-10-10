@@ -40,10 +40,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## compareAndSet(self, oldValue, newValue)
 
 > **compareAndSet**\<`T`\>(`self`, `oldValue`, `newValue`): `boolean`
@@ -63,10 +59,6 @@
 ### Returns
 
 `boolean`
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -20,4 +20,4 @@
 
 ### None
 
-> **None**: `bigint` = `0n`
+> **None**: `bigint`

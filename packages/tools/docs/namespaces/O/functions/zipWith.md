@@ -59,11 +59,7 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 • **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
 
-The right-hand side of the zip operation
-
 • **f**
-
-The function used to combine the values of the two `Option`s
 
 ### Returns
 
@@ -89,7 +85,7 @@ The right-hand side of the zip operation
 
 The function used to combine the values of the two `Option`s
 
-### Examples
+### Example
 
 ```ts
 import { Option } from "effect"
@@ -105,25 +101,6 @@ assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), 
 
 assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
 ```
-
-```ts
-import { Option } from "effect"
-
-type Complex = [real: number, imaginary: number]
-
-const complex = (real: number, imaginary: number): Complex => [real, imaginary]
-
-assert.deepStrictEqual(Option.zipWith(Option.none(), Option.none(), complex), Option.none())
-assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.none(), complex), Option.none())
-assert.deepStrictEqual(Option.zipWith(Option.none(), Option.some(1), complex), Option.none())
-assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), Option.some([1, 2]))
-
-assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -147,15 +124,9 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-The left-hand side of the zip operation
-
 • **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
 
-The right-hand side of the zip operation
-
 • **f**
-
-The function used to combine the values of the two `Option`s
 
 ### Returns
 
@@ -173,7 +144,7 @@ The right-hand side of the zip operation
 
 The function used to combine the values of the two `Option`s
 
-### Examples
+### Example
 
 ```ts
 import { Option } from "effect"
@@ -189,25 +160,6 @@ assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), 
 
 assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
 ```
-
-```ts
-import { Option } from "effect"
-
-type Complex = [real: number, imaginary: number]
-
-const complex = (real: number, imaginary: number): Complex => [real, imaginary]
-
-assert.deepStrictEqual(Option.zipWith(Option.none(), Option.none(), complex), Option.none())
-assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.none(), complex), Option.none())
-assert.deepStrictEqual(Option.zipWith(Option.none(), Option.some(1), complex), Option.none())
-assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), Option.some([1, 2]))
-
-assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

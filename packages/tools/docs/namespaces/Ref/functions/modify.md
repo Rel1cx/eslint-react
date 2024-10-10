@@ -40,10 +40,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## modify(self, f)
 
 > **modify**\<`A`, `B`\>(`self`, `f`): `Effect`\<`B`, `never`, `never`\>
@@ -63,10 +59,6 @@
 ### Returns
 
 `Effect`\<`B`, `never`, `never`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

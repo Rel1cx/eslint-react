@@ -80,10 +80,6 @@ assert.deepStrictEqual(
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## match(self, options)
 
 > **match**\<`R`, `L`, `B`, `C`\>(`self`, `options`): `B` \| `C`
@@ -127,10 +123,6 @@ assert.deepStrictEqual(
 ### Returns
 
 `B` \| `C`
-
-### Since
-
-2.0.0
 
 ### Since
 

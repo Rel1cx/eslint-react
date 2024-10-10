@@ -82,13 +82,7 @@ function is being used in a data-first or data-last style.
 
 • **arity**: `Parameters`\<`DataFirst`\>\[`"length"`\]
 
-Either the arity of the uncurried function or a predicate
-               which determines if the function is being used in a data-first
-               or data-last style.
-
 • **body**: `DataFirst`
-
-The definition of the uncurried function.
 
 ### Returns
 
@@ -104,7 +98,7 @@ Either the arity of the uncurried function or a predicate
 
 The definition of the uncurried function.
 
-### Examples
+### Example
 
 ```ts
 import { dual, pipe } from "effect/Function"
@@ -127,32 +121,6 @@ const sum2: {
 assert.deepStrictEqual(sum(2, 3), 5)
 assert.deepStrictEqual(pipe(2, sum(3)), 5)
 ```
-
-```ts
-import { dual, pipe } from "effect/Function"
-
-// Exampe using arity to determine data-first or data-last style
-const sum: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = dual(2, (self: number, that: number): number => self + that)
-
-assert.deepStrictEqual(sum(2, 3), 5)
-assert.deepStrictEqual(pipe(2, sum(3)), 5)
-
-// Example using a predicate to determine data-first or data-last style
-const sum2: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = dual((args) => args.length === 1, (self: number, that: number): number => self + that)
-
-assert.deepStrictEqual(sum(2, 3), 5)
-assert.deepStrictEqual(pipe(2, sum(3)), 5)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -186,8 +154,6 @@ function is being used in a data-first or data-last style.
 
 • **body**: `DataFirst`
 
-The definition of the uncurried function.
-
 ### Returns
 
 `DataLast` & `DataFirst`
@@ -202,7 +168,7 @@ Either the arity of the uncurried function or a predicate
 
 The definition of the uncurried function.
 
-### Examples
+### Example
 
 ```ts
 import { dual, pipe } from "effect/Function"
@@ -225,32 +191,6 @@ const sum2: {
 assert.deepStrictEqual(sum(2, 3), 5)
 assert.deepStrictEqual(pipe(2, sum(3)), 5)
 ```
-
-```ts
-import { dual, pipe } from "effect/Function"
-
-// Exampe using arity to determine data-first or data-last style
-const sum: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = dual(2, (self: number, that: number): number => self + that)
-
-assert.deepStrictEqual(sum(2, 3), 5)
-assert.deepStrictEqual(pipe(2, sum(3)), 5)
-
-// Example using a predicate to determine data-first or data-last style
-const sum2: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = dual((args) => args.length === 1, (self: number, that: number): number => self + that)
-
-assert.deepStrictEqual(sum(2, 3), 5)
-assert.deepStrictEqual(pipe(2, sum(3)), 5)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -47,8 +47,6 @@ Tests if a value is an `object` with a property `_tag` that matches the given ta
 
 • **tag**: `K`
 
-The tag to test for.
-
 ### Returns
 
 `Function`
@@ -69,7 +67,7 @@ The value to test.
 
 The tag to test for.
 
-### Examples
+### Example
 
 ```ts
 import { isTagged } from "effect/Predicate"
@@ -81,21 +79,6 @@ assert.deepStrictEqual(isTagged({ a: "a" }, "a"), false)
 assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
-
-```ts
-import { isTagged } from "effect/Predicate"
-
-assert.deepStrictEqual(isTagged(1, "a"), false)
-assert.deepStrictEqual(isTagged(null, "a"), false)
-assert.deepStrictEqual(isTagged({}, "a"), false)
-assert.deepStrictEqual(isTagged({ a: "a" }, "a"), false)
-assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
-assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -117,8 +100,6 @@ Tests if a value is an `object` with a property `_tag` that matches the given ta
 
 • **tag**: `K`
 
-The tag to test for.
-
 ### Returns
 
 `self is Object`
@@ -131,7 +112,7 @@ The value to test.
 
 The tag to test for.
 
-### Examples
+### Example
 
 ```ts
 import { isTagged } from "effect/Predicate"
@@ -143,21 +124,6 @@ assert.deepStrictEqual(isTagged({ a: "a" }, "a"), false)
 assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
-
-```ts
-import { isTagged } from "effect/Predicate"
-
-assert.deepStrictEqual(isTagged(1, "a"), false)
-assert.deepStrictEqual(isTagged(null, "a"), false)
-assert.deepStrictEqual(isTagged({}, "a"), false)
-assert.deepStrictEqual(isTagged({ a: "a" }, "a"), false)
-assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
-assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -38,8 +38,6 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 • **that**: [`Option`](../type-aliases/Option.md)\<`_`\>
 
-The `Option` that will be ignored in the chain and discarded
-
 ### Returns
 
 `Function`
@@ -68,10 +66,6 @@ The `Option` we care about
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## zipLeft(self, that)
 
 > **zipLeft**\<`A`, `X`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`A`\>
@@ -90,11 +84,7 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-The `Option` we care about
-
 • **that**: [`Option`](../type-aliases/Option.md)\<`X`\>
-
-The `Option` that will be ignored in the chain and discarded
 
 ### Returns
 
@@ -107,10 +97,6 @@ The `Option` that will be ignored in the chain and discarded
 ### Param
 
 The `Option` we care about
-
-### Since
-
-2.0.0
 
 ### Since
 

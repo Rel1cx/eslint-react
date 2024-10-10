@@ -37,7 +37,3 @@ Maps the `Some` value of this `Option` to the specified constant value.
 ## Since
 
 2.0.0
-
-## Since
-
-2.0.0

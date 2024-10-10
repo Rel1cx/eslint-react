@@ -80,7 +80,7 @@ A predicate function to apply to the `Option` value.
 
 The `Option` to filter.
 
-### Examples
+### Example
 
 ```ts
 import { Option } from "effect"
@@ -99,28 +99,6 @@ assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
-
-```ts
-import { Option } from "effect"
-
-// predicate
-const isEven = (n: number) => n % 2 === 0
-
-assert.deepStrictEqual(Option.filter(Option.none(), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(3), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isEven), Option.some(2))
-
-// refinement
-const isNumber = (v: unknown): v is number => typeof v === "number"
-
-assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -142,8 +120,6 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
-A predicate function to apply to the `Option` value.
-
 ### Returns
 
 `Function`
@@ -164,7 +140,7 @@ A predicate function to apply to the `Option` value.
 
 The `Option` to filter.
 
-### Examples
+### Example
 
 ```ts
 import { Option } from "effect"
@@ -183,28 +159,6 @@ assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
-
-```ts
-import { Option } from "effect"
-
-// predicate
-const isEven = (n: number) => n % 2 === 0
-
-assert.deepStrictEqual(Option.filter(Option.none(), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(3), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isEven), Option.some(2))
-
-// refinement
-const isNumber = (v: unknown): v is number => typeof v === "number"
-
-assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -242,7 +196,7 @@ A predicate function to apply to the `Option` value.
 
 The `Option` to filter.
 
-### Examples
+### Example
 
 ```ts
 import { Option } from "effect"
@@ -261,28 +215,6 @@ assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
-
-```ts
-import { Option } from "effect"
-
-// predicate
-const isEven = (n: number) => n % 2 === 0
-
-assert.deepStrictEqual(Option.filter(Option.none(), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(3), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isEven), Option.some(2))
-
-// refinement
-const isNumber = (v: unknown): v is number => typeof v === "number"
-
-assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -306,8 +238,6 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
 
-A predicate function to apply to the `Option` value.
-
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`A`\>
@@ -320,7 +250,7 @@ A predicate function to apply to the `Option` value.
 
 The `Option` to filter.
 
-### Examples
+### Example
 
 ```ts
 import { Option } from "effect"
@@ -339,28 +269,6 @@ assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
-
-```ts
-import { Option } from "effect"
-
-// predicate
-const isEven = (n: number) => n % 2 === 0
-
-assert.deepStrictEqual(Option.filter(Option.none(), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(3), isEven), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isEven), Option.some(2))
-
-// refinement
-const isNumber = (v: unknown): v is number => typeof v === "number"
-
-assert.deepStrictEqual(Option.filter(Option.none(), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.none())
-assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

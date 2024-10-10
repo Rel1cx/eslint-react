@@ -49,11 +49,7 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 • **b**: `B`
 
-The initial value of the accumulator.
-
 • **f**
-
-The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`.
 
 ### Returns
 
@@ -79,7 +75,7 @@ The initial value of the accumulator.
 
 The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`.
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Option } from "effect"
@@ -87,17 +83,6 @@ import { pipe, Option } from "effect"
 const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
 assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
 ```
-
-```ts
-import { pipe, Option } from "effect"
-
-const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
-assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -119,15 +104,9 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 • **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
 
-The Iterable of `Option<A>` to be reduced.
-
 • **b**: `B`
 
-The initial value of the accumulator.
-
 • **f**
-
-The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`.
 
 ### Returns
 
@@ -145,7 +124,7 @@ The initial value of the accumulator.
 
 The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`.
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Option } from "effect"
@@ -153,17 +132,6 @@ import { pipe, Option } from "effect"
 const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
 assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
 ```
-
-```ts
-import { pipe, Option } from "effect"
-
-const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
-assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -77,7 +77,6 @@
 - [isPromiseLike](functions/isPromiseLike.md)
 - [isReadonlyRecord](functions/isReadonlyRecord.md)
 - [isRecord](functions/isRecord.md)
-- [isRegExp](functions/isRegExp.md)
 - [isSet](functions/isSet.md)
 - [isString](functions/isString.md)
 - [isSymbol](functions/isSymbol.md)

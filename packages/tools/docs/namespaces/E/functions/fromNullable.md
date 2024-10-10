@@ -51,7 +51,7 @@ the provided default as a `Left`.
 
 [`Either`](../type-aliases/Either.md)\<`NonNullable`\<`R`\>, `L`\>
 
-### Examples
+### Example
 
 ```ts
 import { Either } from "effect"
@@ -59,17 +59,6 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1))
 assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
 ```
-
-```ts
-import { Either } from "effect"
-
-assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1))
-assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -98,7 +87,7 @@ the provided default as a `Left`.
 
 [`Either`](../type-aliases/Either.md)\<`NonNullable`\<`R`\>, `L`\>
 
-### Examples
+### Example
 
 ```ts
 import { Either } from "effect"
@@ -106,17 +95,6 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1))
 assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
 ```
-
-```ts
-import { Either } from "effect"
-
-assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1))
-assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

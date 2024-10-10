@@ -49,8 +49,6 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 • **bc**
 
-A function that maps from `B` to `C`.
-
 ### Returns
 
 `Function`
@@ -83,7 +81,7 @@ A function that maps from `A` to `B`.
 
 A function that maps from `B` to `C`.
 
-### Examples
+### Example
 
 ```ts
 import { compose } from "effect/Function"
@@ -93,19 +91,6 @@ const square = (n: number) => n * n;
 
 assert.strictEqual(compose(increment, square)(2), 9);
 ```
-
-```ts
-import { compose } from "effect/Function"
-
-const increment = (n: number) => n + 1;
-const square = (n: number) => n * n;
-
-assert.strictEqual(compose(increment, square)(2), 9);
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -132,8 +117,6 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 • **bc**
 
-A function that maps from `B` to `C`.
-
 ### Returns
 
 `Function`
@@ -154,7 +137,7 @@ A function that maps from `A` to `B`.
 
 A function that maps from `B` to `C`.
 
-### Examples
+### Example
 
 ```ts
 import { compose } from "effect/Function"
@@ -164,19 +147,6 @@ const square = (n: number) => n * n;
 
 assert.strictEqual(compose(increment, square)(2), 9);
 ```
-
-```ts
-import { compose } from "effect/Function"
-
-const increment = (n: number) => n + 1;
-const square = (n: number) => n * n;
-
-assert.strictEqual(compose(increment, square)(2), 9);
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

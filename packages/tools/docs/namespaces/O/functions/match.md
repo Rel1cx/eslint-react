@@ -88,7 +88,7 @@ The value to be returned if the `Option` is `None`
 
 The function to be called if the `Option` is `Some`, it will be passed the `Option`'s value and its result will be returned
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Option } from "effect"
@@ -103,24 +103,6 @@ assert.deepStrictEqual(
   'a none'
 )
 ```
-
-```ts
-import { pipe, Option } from "effect"
-
-assert.deepStrictEqual(
-  pipe(Option.some(1), Option.match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
-  'a some containing 1'
-)
-
-assert.deepStrictEqual(
-  pipe(Option.none(), Option.match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
-  'a none'
-)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -145,8 +127,6 @@ function when passed the `Option`'s value.
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-The `Option` to match
-
 • **options**
 
 • **options.onNone**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<`B`\>
@@ -169,7 +149,7 @@ The value to be returned if the `Option` is `None`
 
 The function to be called if the `Option` is `Some`, it will be passed the `Option`'s value and its result will be returned
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Option } from "effect"
@@ -184,24 +164,6 @@ assert.deepStrictEqual(
   'a none'
 )
 ```
-
-```ts
-import { pipe, Option } from "effect"
-
-assert.deepStrictEqual(
-  pipe(Option.some(1), Option.match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
-  'a some containing 1'
-)
-
-assert.deepStrictEqual(
-  pipe(Option.none(), Option.match({ onNone: () => 'a none', onSome: (a) => `a some containing ${a}` })),
-  'a none'
-)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

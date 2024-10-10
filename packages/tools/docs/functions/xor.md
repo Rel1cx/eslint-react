@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## xor(self, that)
 
 > **xor**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Predicate.md)\<`A`\>
@@ -59,10 +55,6 @@
 ### Returns
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-### Since
-
-2.0.0
 
 ### Since
 
