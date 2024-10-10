@@ -31,3 +31,7 @@ Similar to `Promise.all` but operates on `Predicate`s.
 ## Since
 
 2.0.0
+
+## Since
+
+2.0.0

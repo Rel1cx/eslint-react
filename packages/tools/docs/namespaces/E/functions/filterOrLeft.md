@@ -73,7 +73,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 [`Either`](../type-aliases/Either.md)\<`B`, `L2` \| `L`\>
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Either } from "effect"
@@ -95,6 +95,31 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
+
+```ts
+import { pipe, Either } from "effect"
+
+const isPositive = (n: number): boolean => n > 0
+
+assert.deepStrictEqual(
+  pipe(
+    Either.right(1),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.right(1)
+)
+assert.deepStrictEqual(
+  pipe(
+    Either.right(0),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.left("0 is not positive")
+)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -135,7 +160,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 [`Either`](../type-aliases/Either.md)\<`R`, `L2` \| `L`\>
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Either } from "effect"
@@ -157,6 +182,31 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
+
+```ts
+import { pipe, Either } from "effect"
+
+const isPositive = (n: number): boolean => n > 0
+
+assert.deepStrictEqual(
+  pipe(
+    Either.right(1),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.right(1)
+)
+assert.deepStrictEqual(
+  pipe(
+    Either.right(0),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.left("0 is not positive")
+)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -191,7 +241,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 [`Either`](../type-aliases/Either.md)\<`B`, `L` \| `L2`\>
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Either } from "effect"
@@ -213,6 +263,31 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
+
+```ts
+import { pipe, Either } from "effect"
+
+const isPositive = (n: number): boolean => n > 0
+
+assert.deepStrictEqual(
+  pipe(
+    Either.right(1),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.right(1)
+)
+assert.deepStrictEqual(
+  pipe(
+    Either.right(0),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.left("0 is not positive")
+)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -245,7 +320,7 @@ If the predicate fails, set the left value with the result of the provided funct
 
 [`Either`](../type-aliases/Either.md)\<`R`, `L` \| `E2`\>
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Either } from "effect"
@@ -267,6 +342,31 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
+
+```ts
+import { pipe, Either } from "effect"
+
+const isPositive = (n: number): boolean => n > 0
+
+assert.deepStrictEqual(
+  pipe(
+    Either.right(1),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.right(1)
+)
+assert.deepStrictEqual(
+  pipe(
+    Either.right(0),
+    Either.filterOrLeft(isPositive, n => `${n} is not positive`)
+  ),
+  Either.left("0 is not positive")
+)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

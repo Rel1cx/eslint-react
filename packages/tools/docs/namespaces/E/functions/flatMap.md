@@ -46,6 +46,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## flatMap(self, f)
 
 > **flatMap**\<`R`, `L`, `R2`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
@@ -69,6 +73,10 @@
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
+
+### Since
+
+2.0.0
 
 ### Since
 

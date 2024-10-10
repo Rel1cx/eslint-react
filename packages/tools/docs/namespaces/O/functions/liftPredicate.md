@@ -93,6 +93,8 @@ if the predicate returns `false`.
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
 
+A `Predicate` function that takes in a value of type `A` and returns a boolean.
+
 ### Returns
 
 `Function`
@@ -109,7 +111,7 @@ if the predicate returns `false`.
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -119,6 +121,19 @@ const getOption = Option.liftPredicate((n: number) => n >= 0)
 assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
+
+```ts
+import { Option } from "effect"
+
+const getOption = Option.liftPredicate((n: number) => n >= 0)
+
+assert.deepStrictEqual(getOption(-1), Option.none())
+assert.deepStrictEqual(getOption(1), Option.some(1))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -151,7 +166,7 @@ if the predicate returns `false`.
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -161,6 +176,19 @@ const getOption = Option.liftPredicate((n: number) => n >= 0)
 assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
+
+```ts
+import { Option } from "effect"
+
+const getOption = Option.liftPredicate((n: number) => n >= 0)
+
+assert.deepStrictEqual(getOption(-1), Option.none())
+assert.deepStrictEqual(getOption(1), Option.some(1))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -185,6 +213,8 @@ if the predicate returns `false`.
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
 
+A `Predicate` function that takes in a value of type `A` and returns a boolean.
+
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -193,7 +223,7 @@ if the predicate returns `false`.
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -203,6 +233,19 @@ const getOption = Option.liftPredicate((n: number) => n >= 0)
 assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
+
+```ts
+import { Option } from "effect"
+
+const getOption = Option.liftPredicate((n: number) => n >= 0)
+
+assert.deepStrictEqual(getOption(-1), Option.none())
+assert.deepStrictEqual(getOption(1), Option.some(1))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

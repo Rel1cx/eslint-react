@@ -46,6 +46,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## ap(self, that)
 
 > **ap**\<`R`, `R2`, `L`, `L2`\>(`self`, `that`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
@@ -69,6 +73,10 @@
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
+
+### Since
+
+2.0.0
 
 ### Since
 

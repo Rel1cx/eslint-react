@@ -47,7 +47,7 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.l
 
 [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-### Example
+### Examples
 
 ```ts
 import { Either, Option } from "effect"
@@ -55,6 +55,17 @@ import { Either, Option } from "effect"
 assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.right(1))
 assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
 ```
+
+```ts
+import { Either, Option } from "effect"
+
+assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.right(1))
+assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -80,7 +91,7 @@ assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.l
 
 [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-### Example
+### Examples
 
 ```ts
 import { Either, Option } from "effect"
@@ -88,6 +99,17 @@ import { Either, Option } from "effect"
 assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.right(1))
 assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
 ```
+
+```ts
+import { Either, Option } from "effect"
+
+assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.right(1))
+assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

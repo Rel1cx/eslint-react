@@ -68,7 +68,7 @@ The `Option` to check.
 
 The condition to check.
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Option } from "effect"
@@ -79,6 +79,20 @@ assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
 assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
 assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 ```
+
+```ts
+import { pipe, Option } from "effect"
+
+const isEven = (n: number) => n % 2 === 0
+
+assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
+assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
+assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -97,6 +111,8 @@ Check if a value in an `Option` type meets a certain predicate.
 ### Parameters
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+
+The condition to check.
 
 ### Returns
 
@@ -118,7 +134,7 @@ The `Option` to check.
 
 The condition to check.
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Option } from "effect"
@@ -129,6 +145,20 @@ assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
 assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
 assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 ```
+
+```ts
+import { pipe, Option } from "effect"
+
+const isEven = (n: number) => n % 2 === 0
+
+assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
+assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
+assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -150,6 +180,8 @@ Check if a value in an `Option` type meets a certain predicate.
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The `Option` to check.
+
 • **refinement**: [`Refinement`](../../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
@@ -164,7 +196,7 @@ The `Option` to check.
 
 The condition to check.
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Option } from "effect"
@@ -175,6 +207,20 @@ assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
 assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
 assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 ```
+
+```ts
+import { pipe, Option } from "effect"
+
+const isEven = (n: number) => n % 2 === 0
+
+assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
+assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
+assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -194,7 +240,11 @@ Check if a value in an `Option` type meets a certain predicate.
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The `Option` to check.
+
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`A`\>
+
+The condition to check.
 
 ### Returns
 
@@ -208,7 +258,7 @@ The `Option` to check.
 
 The condition to check.
 
-### Example
+### Examples
 
 ```ts
 import { pipe, Option } from "effect"
@@ -219,6 +269,20 @@ assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
 assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
 assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 ```
+
+```ts
+import { pipe, Option } from "effect"
+
+const isEven = (n: number) => n % 2 === 0
+
+assert.deepStrictEqual(pipe(Option.some(2), Option.exists(isEven)), true)
+assert.deepStrictEqual(pipe(Option.some(1), Option.exists(isEven)), false)
+assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

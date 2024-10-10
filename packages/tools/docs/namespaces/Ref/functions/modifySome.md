@@ -42,6 +42,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## modifySome(self, fallback, pf)
 
 > **modifySome**\<`A`, `B`\>(`self`, `fallback`, `pf`): `Effect`\<`B`, `never`, `never`\>
@@ -63,6 +67,10 @@
 ### Returns
 
 `Effect`\<`B`, `never`, `never`\>
+
+### Since
+
+2.0.0
 
 ### Since
 

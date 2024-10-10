@@ -88,6 +88,36 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
+```ts
+import { Data } from "effect"
+
+const { BadRequest, NotFound } = Data.taggedEnum<
+  | { readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }
+  | { readonly _tag: "NotFound"; readonly status: 404; readonly message: string }
+>()
+
+const notFound = NotFound({ status: 404, message: "Not Found" })
+```
+
+```ts
+import { Data } from "effect"
+
+type MyResult<E, A> = Data.TaggedEnum<{
+  Failure: { readonly error: E }
+  Success: { readonly value: A }
+}>
+interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
+  readonly taggedEnum: MyResult<this["A"], this["B"]>
+}
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
+
+const success = Success({ value: 1 })
+```
+
+### Since
+
+2.0.0
+
 ### Since
 
 2.0.0
@@ -136,6 +166,36 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 
 const success = Success({ value: 1 })
 ```
+
+```ts
+import { Data } from "effect"
+
+const { BadRequest, NotFound } = Data.taggedEnum<
+  | { readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }
+  | { readonly _tag: "NotFound"; readonly status: 404; readonly message: string }
+>()
+
+const notFound = NotFound({ status: 404, message: "Not Found" })
+```
+
+```ts
+import { Data } from "effect"
+
+type MyResult<E, A> = Data.TaggedEnum<{
+  Failure: { readonly error: E }
+  Success: { readonly value: A }
+}>
+interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
+  readonly taggedEnum: MyResult<this["A"], this["B"]>
+}
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
+
+const success = Success({ value: 1 })
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -186,6 +246,36 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
+```ts
+import { Data } from "effect"
+
+const { BadRequest, NotFound } = Data.taggedEnum<
+  | { readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }
+  | { readonly _tag: "NotFound"; readonly status: 404; readonly message: string }
+>()
+
+const notFound = NotFound({ status: 404, message: "Not Found" })
+```
+
+```ts
+import { Data } from "effect"
+
+type MyResult<E, A> = Data.TaggedEnum<{
+  Failure: { readonly error: E }
+  Success: { readonly value: A }
+}>
+interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
+  readonly taggedEnum: MyResult<this["A"], this["B"]>
+}
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
+
+const success = Success({ value: 1 })
+```
+
+### Since
+
+2.0.0
+
 ### Since
 
 2.0.0
@@ -235,6 +325,36 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
+```ts
+import { Data } from "effect"
+
+const { BadRequest, NotFound } = Data.taggedEnum<
+  | { readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }
+  | { readonly _tag: "NotFound"; readonly status: 404; readonly message: string }
+>()
+
+const notFound = NotFound({ status: 404, message: "Not Found" })
+```
+
+```ts
+import { Data } from "effect"
+
+type MyResult<E, A> = Data.TaggedEnum<{
+  Failure: { readonly error: E }
+  Success: { readonly value: A }
+}>
+interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
+  readonly taggedEnum: MyResult<this["A"], this["B"]>
+}
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
+
+const success = Success({ value: 1 })
+```
+
+### Since
+
+2.0.0
+
 ### Since
 
 2.0.0
@@ -283,6 +403,36 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 
 const success = Success({ value: 1 })
 ```
+
+```ts
+import { Data } from "effect"
+
+const { BadRequest, NotFound } = Data.taggedEnum<
+  | { readonly _tag: "BadRequest"; readonly status: 400; readonly message: string }
+  | { readonly _tag: "NotFound"; readonly status: 404; readonly message: string }
+>()
+
+const notFound = NotFound({ status: 404, message: "Not Found" })
+```
+
+```ts
+import { Data } from "effect"
+
+type MyResult<E, A> = Data.TaggedEnum<{
+  Failure: { readonly error: E }
+  Success: { readonly value: A }
+}>
+interface MyResultDefinition extends Data.TaggedEnum.WithGenerics<2> {
+  readonly taggedEnum: MyResult<this["A"], this["B"]>
+}
+const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
+
+const success = Success({ value: 1 })
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

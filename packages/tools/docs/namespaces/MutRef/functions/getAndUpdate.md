@@ -38,6 +38,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## getAndUpdate(self, f)
 
 > **getAndUpdate**\<`T`\>(`self`, `f`): `T`
@@ -55,6 +59,10 @@
 ### Returns
 
 `T`
+
+### Since
+
+2.0.0
 
 ### Since
 

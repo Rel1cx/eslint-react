@@ -36,6 +36,8 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 • **f**
 
+The function to map over the value of the `Option`
+
 ### Returns
 
 `Function`
@@ -60,6 +62,10 @@ The function to map over the value of the `Option`
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## map(self, f)
 
 > **map**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -76,7 +82,11 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+An `Option` to map
+
 • **f**
+
+The function to map over the value of the `Option`
 
 ### Returns
 
@@ -89,6 +99,10 @@ An `Option` to map
 ### Param
 
 The function to map over the value of the `Option`
+
+### Since
+
+2.0.0
 
 ### Since
 

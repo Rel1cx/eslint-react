@@ -52,6 +52,8 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 • **f**
 
+A function to apply to the value of the `Option`.
+
 ### Returns
 
 `Function`
@@ -72,7 +74,7 @@ The `Option` to map over.
 
 A function to apply to the value of the `Option`.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -83,6 +85,20 @@ assert.deepStrictEqual(Option.filterMap(Option.none(), evenNumber), Option.none(
 assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none())
 assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
 ```
+
+```ts
+import { Option } from "effect"
+
+const evenNumber = (n: number) => n % 2 === 0 ? Option.some(n) : Option.none()
+
+assert.deepStrictEqual(Option.filterMap(Option.none(), evenNumber), Option.none())
+assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none())
+assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -106,7 +122,11 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
+The `Option` to map over.
+
 • **f**
+
+A function to apply to the value of the `Option`.
 
 ### Returns
 
@@ -120,7 +140,7 @@ The `Option` to map over.
 
 A function to apply to the value of the `Option`.
 
-### Example
+### Examples
 
 ```ts
 import { Option } from "effect"
@@ -131,6 +151,20 @@ assert.deepStrictEqual(Option.filterMap(Option.none(), evenNumber), Option.none(
 assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none())
 assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
 ```
+
+```ts
+import { Option } from "effect"
+
+const evenNumber = (n: number) => n % 2 === 0 ? Option.some(n) : Option.none()
+
+assert.deepStrictEqual(Option.filterMap(Option.none(), evenNumber), Option.none())
+assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none())
+assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

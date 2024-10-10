@@ -53,7 +53,7 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 `R2` \| `R`
 
-### Example
+### Examples
 
 ```ts
 import { Either } from "effect"
@@ -61,6 +61,17 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!"), 1)
 assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
 ```
+
+```ts
+import { Either } from "effect"
+
+assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!"), 1)
+assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -90,7 +101,7 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 `R` \| `R2`
 
-### Example
+### Examples
 
 ```ts
 import { Either } from "effect"
@@ -98,6 +109,17 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!"), 1)
 assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
 ```
+
+```ts
+import { Either } from "effect"
+
+assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!"), 1)
+assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

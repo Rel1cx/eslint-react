@@ -97,7 +97,7 @@ must be true.
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
-### Example
+### Examples
 
 ```ts
 import { Predicate } from "effect"
@@ -119,6 +119,31 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 // antecedent is `false`, so the result is `true`
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
+
+```ts
+import { Predicate } from "effect"
+
+type Triple = {
+  readonly a: number
+  readonly b: number
+  readonly c: number
+}
+
+const transitivity = Predicate.implies(
+  // antecedent
+  (input: Triple) => input.a <= input.b && input.b <= input.c,
+  // consequent
+  (input: Triple) => input.a <= input.c
+)
+
+assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
+// antecedent is `false`, so the result is `true`
+assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 
@@ -162,7 +187,7 @@ must be true.
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
-### Example
+### Examples
 
 ```ts
 import { Predicate } from "effect"
@@ -184,6 +209,31 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 // antecedent is `false`, so the result is `true`
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
+
+```ts
+import { Predicate } from "effect"
+
+type Triple = {
+  readonly a: number
+  readonly b: number
+  readonly c: number
+}
+
+const transitivity = Predicate.implies(
+  // antecedent
+  (input: Triple) => input.a <= input.b && input.b <= input.c,
+  // consequent
+  (input: Triple) => input.a <= input.c
+)
+
+assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
+// antecedent is `false`, so the result is `true`
+assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
+```
+
+### Since
+
+2.0.0
 
 ### Since
 

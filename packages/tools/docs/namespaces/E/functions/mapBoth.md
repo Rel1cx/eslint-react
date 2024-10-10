@@ -48,6 +48,10 @@
 
 2.0.0
 
+### Since
+
+2.0.0
+
 ## mapBoth(self, options)
 
 > **mapBoth**\<`L`, `R`, `L2`, `R2`\>(`self`, `options`): [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
@@ -75,6 +79,10 @@
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+
+### Since
+
+2.0.0
 
 ### Since
 
