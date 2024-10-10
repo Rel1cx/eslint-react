@@ -762,7 +762,6 @@ ruleTester.run(RULE_NAME, rule, {
         }, [])
       }
     `,
-    // FIXME: This case is not supported yet.
     /* tsx */ `
       function Example() {
         useEffect(() => {
