@@ -1,12 +1,12 @@
 import * as AST from "@eslint-react/ast";
-import { isFragmentElement } from "@eslint-react/core";
+import {isFragmentElement} from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
-import { isMatching, P } from "ts-pattern";
+import type {RuleContext} from "@eslint-react/types";
+import {AST_NODE_TYPES} from "@typescript-eslint/types";
+import type {TSESTree} from "@typescript-eslint/utils";
+import {isMatching, P} from "ts-pattern";
 
-import { createRule } from "../utils";
+import {createRule} from "../utils";
 
 export const RULE_NAME = "no-useless-fragment";
 
@@ -27,7 +27,7 @@ function check(
   const isChildren = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
   const [firstChildren] = node.children;
   // <Foo content={<>ee eeee eeee ...</>} />
-  if (node.children.length === 1 && JSX.isLiteral(firstChildren) && !isChildren) return;
+  if (allowExpressions && node.children.length === 1 && JSX.isLiteral(firstChildren) && !isChildren) return;
   if (!allowExpressions && isChildren) {
     // <Foo><>hello, world</></Foo>
     return context.report({ messageId: "noUselessFragment", node });
