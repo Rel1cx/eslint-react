@@ -763,16 +763,27 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // FIXME: This case is not supported yet.
-    // /* tsx */ `
-    //   function Example() {
-    //     useEffect(() => {
-    //         const ac = new AbortController()
-    //         const signal = ac.signal
-    //         x.addEventListener("resize", () => {}, { signal })
-    //         return () => ac.abort()
-    //     }, [])
-    //   }
-    // `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+            const ac = new AbortController()
+            const signal = ac.signal
+            x.addEventListener("resize", () => {}, { signal })
+            return () => ac.abort()
+        }, [])
+      }
+    `,
+    /* tsx */ `
+      function Example() {
+        useEffect(() => {
+            const ac = new AbortController()
+            const signal = ac.signal
+            const sig = signal
+            x.addEventListener("resize", () => {}, { signal: sig })
+            return () => ac.abort()
+        }, [])
+      }
+    `,
     // FIXME: This case is not supported yet.
     // /* tsx */ `
     //   function Example() {

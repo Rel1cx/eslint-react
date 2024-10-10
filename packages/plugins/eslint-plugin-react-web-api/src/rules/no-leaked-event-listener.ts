@@ -94,7 +94,25 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         const pCapture = findProp(node.properties, "capture");
         const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
         const pSignal = findProp(node.properties, "signal");
-        const vSignal = O.flatMapNullable(pSignal, prop => prop.type === AST_NODE_TYPES.Property ? prop.value : null);
+        const vSignal = O.flatMap(pSignal, prop => {
+          if (prop.type !== AST_NODE_TYPES.Property) return O.none();
+          const { value } = prop;
+          const getSignalExp = (node: TSESTree.Node): O.Option<TSESTree.Node> => {
+            switch (node.type) {
+              case AST_NODE_TYPES.MemberExpression:
+                return O.some(node);
+              case AST_NODE_TYPES.Identifier:
+                return F.pipe(
+                  VAR.findVariable(node, initialScope),
+                  O.flatMap(VAR.getVariableNode(0)),
+                  O.flatMap(getSignalExp),
+                );
+              default:
+                return O.none();
+            }
+          };
+          return getSignalExp(value);
+        });
         return Data.struct({ capture: vCapture, once: vOnce, signal: vSignal });
       }
       case AST_NODE_TYPES.Identifier: {
