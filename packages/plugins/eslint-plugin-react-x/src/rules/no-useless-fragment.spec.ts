@@ -141,6 +141,11 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowExpressions: false }],
       errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
+    {
+      code: /* tsx */ `<Foo><><Bar/><Baz/></></Foo>`,
+      options: [{ allowExpressions: false }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+    },
   ],
   valid: [
     ...allValid,

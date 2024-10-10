@@ -1,12 +1,12 @@
 import * as AST from "@eslint-react/ast";
-import {isFragmentElement} from "@eslint-react/core";
+import { isFragmentElement } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import type {RuleContext} from "@eslint-react/types";
-import {AST_NODE_TYPES} from "@typescript-eslint/types";
-import type {TSESTree} from "@typescript-eslint/utils";
-import {isMatching, P} from "ts-pattern";
+import type { RuleContext } from "@eslint-react/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { isMatching, P } from "ts-pattern";
 
-import {createRule} from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-useless-fragment";
 
