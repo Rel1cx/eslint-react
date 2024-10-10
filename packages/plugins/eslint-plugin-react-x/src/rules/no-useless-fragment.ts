@@ -64,17 +64,14 @@ export default createRule<Options, MessageID>({
     },
     schema: [{
       type: "object",
+      additionalProperties: false,
       properties: {
         allowExpressions: {
           type: "boolean",
         },
       },
-      additionalProperties: false,
     }],
   },
-  defaultOptions: [{
-    allowExpressions: true,
-  }],
   name: RULE_NAME,
   create(context, [option]) {
     const { allowExpressions = true } = option;
@@ -88,4 +85,7 @@ export default createRule<Options, MessageID>({
       },
     };
   },
+  defaultOptions: [{
+    allowExpressions: true,
+  }],
 });

@@ -120,31 +120,31 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `<>{moo}</>`,
-      options: [{ allowExpressions: false }],
       errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+      options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<Foo><>{moo}</></Foo>`,
-      options: [{ allowExpressions: false }],
       errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+      options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<React.Fragment><>{moo}</></React.Fragment>`,
-      options: [{ allowExpressions: false }],
       errors: [{ type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragment" }, {
         type: AST_NODE_TYPES.JSXFragment,
         messageId: "noUselessFragment",
       }],
+      options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<Foo bar={<>baz</>}/>`,
-      options: [{ allowExpressions: false }],
       errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+      options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<Foo><><Bar/><Baz/></></Foo>`,
-      options: [{ allowExpressions: false }],
       errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+      options: [{ allowExpressions: false }],
     },
   ],
   valid: [
