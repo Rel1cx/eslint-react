@@ -118,6 +118,24 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<><Foo>{moo}</Foo></>`,
       errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
     },
+    {
+      code: /* tsx */ `<>{moo}</>`,
+      options: [{ allowExpressions: false }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+    },
+    {
+      code: /* tsx */ `<Foo><>{moo}</></Foo>`,
+      options: [{ allowExpressions: false }],
+      errors: [{ type: AST_NODE_TYPES.JSXFragment, messageId: "noUselessFragment" }],
+    },
+    {
+      code: /* tsx */ `<React.Fragment><>{moo}</></React.Fragment>`,
+      options: [{ allowExpressions: false }],
+      errors: [{ type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragment" }, {
+        type: AST_NODE_TYPES.JSXFragment,
+        messageId: "noUselessFragment",
+      }],
+    },
   ],
   valid: [
     ...allValid,
@@ -177,6 +195,14 @@ ruleTester.run(RULE_NAME, rule, {
           skipImportCheck: false,
         },
       },
+    },
+    {
+      code: /* tsx */ `{foo}`,
+      options: [{ allowExpressions: false }],
+    },
+    {
+      code: /* tsx */ `<Foo bar={<><Bar/><Baz/></>} />`,
+      options: [{ allowExpressions: false }],
     },
   ],
 });
