@@ -77,7 +77,7 @@ or `Left` of the result of the provided function if the predicate returns false
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Either } from "effect"
@@ -99,31 +99,6 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
-
-```ts
-import { pipe, Either } from "effect"
-
-const isPositive = (n: number): boolean => n > 0
-
-assert.deepStrictEqual(
-  pipe(
-    1,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.right(1)
-)
-assert.deepStrictEqual(
-  pipe(
-    0,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.left("0 is not positive")
-)
-```
-
-### Since
-
-3.4.0
 
 ### Since
 
@@ -146,8 +121,6 @@ or `Left` of the result of the provided function if the predicate returns false
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
-A `Predicate` function that takes in a value of type `A` and returns a boolean.
-
 • **orLeftWith**
 
 ### Returns
@@ -166,7 +139,7 @@ A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Either } from "effect"
@@ -188,31 +161,6 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
-
-```ts
-import { pipe, Either } from "effect"
-
-const isPositive = (n: number): boolean => n > 0
-
-assert.deepStrictEqual(
-  pipe(
-    1,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.right(1)
-)
-assert.deepStrictEqual(
-  pipe(
-    0,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.left("0 is not positive")
-)
-```
-
-### Since
-
-3.4.0
 
 ### Since
 
@@ -249,7 +197,7 @@ or `Left` of the result of the provided function if the predicate returns false
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Either } from "effect"
@@ -271,31 +219,6 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
-
-```ts
-import { pipe, Either } from "effect"
-
-const isPositive = (n: number): boolean => n > 0
-
-assert.deepStrictEqual(
-  pipe(
-    1,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.right(1)
-)
-assert.deepStrictEqual(
-  pipe(
-    0,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.left("0 is not positive")
-)
-```
-
-### Since
-
-3.4.0
 
 ### Since
 
@@ -320,8 +243,6 @@ or `Left` of the result of the provided function if the predicate returns false
 
 • **predicate**: [`Predicate`](../../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
-A `Predicate` function that takes in a value of type `A` and returns a boolean.
-
 • **orLeftWith**
 
 ### Returns
@@ -332,7 +253,7 @@ A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-### Examples
+### Example
 
 ```ts
 import { pipe, Either } from "effect"
@@ -354,31 +275,6 @@ assert.deepStrictEqual(
   Either.left("0 is not positive")
 )
 ```
-
-```ts
-import { pipe, Either } from "effect"
-
-const isPositive = (n: number): boolean => n > 0
-
-assert.deepStrictEqual(
-  pipe(
-    1,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.right(1)
-)
-assert.deepStrictEqual(
-  pipe(
-    0,
-    Either.liftPredicate(isPositive, n => `${n} is not positive`)
-  ),
-  Either.left("0 is not positive")
-)
-```
-
-### Since
-
-3.4.0
 
 ### Since
 

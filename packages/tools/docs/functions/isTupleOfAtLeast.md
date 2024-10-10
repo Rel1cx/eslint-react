@@ -54,8 +54,6 @@ An `Array` is considered to be a `TupleOfAtLeast` if its length is at least `N`.
 
 • **n**: `N`
 
-The minimum number of elements that the `Array` should have to be considered a `TupleOfAtLeast`.
-
 ### Returns
 
 `Function`
@@ -80,7 +78,7 @@ The `Array` to check.
 
 The minimum number of elements that the `Array` should have to be considered a `TupleOfAtLeast`.
 
-### Examples
+### Example
 
 ```ts
 import { isTupleOfAtLeast } from "effect/Predicate"
@@ -95,24 +93,6 @@ if (isTupleOfAtLeast(arr, 3)) {
   // ^? [number, number, number, ...number[]]
 }
 ```
-
-```ts
-import { isTupleOfAtLeast } from "effect/Predicate"
-
-assert.deepStrictEqual(isTupleOfAtLeast([1, 2, 3], 3), true);
-assert.deepStrictEqual(isTupleOfAtLeast([1, 2, 3], 2), true);
-assert.deepStrictEqual(isTupleOfAtLeast([1, 2, 3], 4), false);
-
-const arr: number[] = [1, 2, 3, 4];
-if (isTupleOfAtLeast(arr, 3)) {
-  console.log(arr);
-  // ^? [number, number, number, ...number[]]
-}
-```
-
-### Since
-
-3.3.0
 
 ### Since
 
@@ -136,11 +116,7 @@ An `Array` is considered to be a `TupleOfAtLeast` if its length is at least `N`.
 
 • **self**: readonly `T`[]
 
-The `Array` to check.
-
 • **n**: `N`
-
-The minimum number of elements that the `Array` should have to be considered a `TupleOfAtLeast`.
 
 ### Returns
 
@@ -154,7 +130,7 @@ The `Array` to check.
 
 The minimum number of elements that the `Array` should have to be considered a `TupleOfAtLeast`.
 
-### Examples
+### Example
 
 ```ts
 import { isTupleOfAtLeast } from "effect/Predicate"
@@ -169,24 +145,6 @@ if (isTupleOfAtLeast(arr, 3)) {
   // ^? [number, number, number, ...number[]]
 }
 ```
-
-```ts
-import { isTupleOfAtLeast } from "effect/Predicate"
-
-assert.deepStrictEqual(isTupleOfAtLeast([1, 2, 3], 3), true);
-assert.deepStrictEqual(isTupleOfAtLeast([1, 2, 3], 2), true);
-assert.deepStrictEqual(isTupleOfAtLeast([1, 2, 3], 4), false);
-
-const arr: number[] = [1, 2, 3, 4];
-if (isTupleOfAtLeast(arr, 3)) {
-  console.log(arr);
-  // ^? [number, number, number, ...number[]]
-}
-```
-
-### Since
-
-3.3.0
 
 ### Since
 

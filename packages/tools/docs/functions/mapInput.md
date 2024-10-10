@@ -49,8 +49,6 @@ Given a `Predicate<A>` returns a `Predicate<B>`
 
 • **f**
 
-a function to transform `B` to `A`.
-
 ### Returns
 
 `Function`
@@ -71,7 +69,7 @@ the `Predicate<A>` to be transformed to `Predicate<B>`.
 
 a function to transform `B` to `A`.
 
-### Examples
+### Example
 
 ```ts
 import { Predicate, Number } from "effect"
@@ -83,21 +81,6 @@ assert.deepStrictEqual(minLength3("aa"), false)
 assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const minLength3 = Predicate.mapInput(Number.greaterThan(2), (s: string) => s.length)
-
-assert.deepStrictEqual(minLength3("a"), false)
-assert.deepStrictEqual(minLength3("aa"), false)
-assert.deepStrictEqual(minLength3("aaa"), true)
-assert.deepStrictEqual(minLength3("aaaa"), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -119,11 +102,7 @@ Given a `Predicate<A>` returns a `Predicate<B>`
 
 • **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
-the `Predicate<A>` to be transformed to `Predicate<B>`.
-
 • **f**
-
-a function to transform `B` to `A`.
 
 ### Returns
 
@@ -137,7 +116,7 @@ the `Predicate<A>` to be transformed to `Predicate<B>`.
 
 a function to transform `B` to `A`.
 
-### Examples
+### Example
 
 ```ts
 import { Predicate, Number } from "effect"
@@ -149,21 +128,6 @@ assert.deepStrictEqual(minLength3("aa"), false)
 assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const minLength3 = Predicate.mapInput(Number.greaterThan(2), (s: string) => s.length)
-
-assert.deepStrictEqual(minLength3("a"), false)
-assert.deepStrictEqual(minLength3("aa"), false)
-assert.deepStrictEqual(minLength3("aaa"), true)
-assert.deepStrictEqual(minLength3("aaaa"), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

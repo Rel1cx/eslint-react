@@ -84,7 +84,7 @@ Here's how the do simulation works:
  - [bind](bind.md)
  - [let](let.md)
 
-### Examples
+### Example
 
 ```ts
 import { Either, pipe } from "effect"
@@ -97,28 +97,6 @@ const result = pipe(
 )
 assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 ```
-
-```ts
-import { Either, pipe } from "effect"
-
-const result = pipe(
-  Either.Do,
-  Either.bind("x", () => Either.right(2)),
-  Either.bind("y", () => Either.right(3)),
-  Either.let("sum", ({ x, y }) => x + y)
-)
-assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
-```
-
-### Since
-
-2.0.0
-
-### See
-
- - [Do](../variables/Do.md)
- - [bind](bind.md)
- - [let](let.md)
 
 ### Since
 
@@ -161,7 +139,7 @@ Here's how the do simulation works:
  - [bind](bind.md)
  - [let](let.md)
 
-### Examples
+### Example
 
 ```ts
 import { Either, pipe } from "effect"
@@ -174,28 +152,6 @@ const result = pipe(
 )
 assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 ```
-
-```ts
-import { Either, pipe } from "effect"
-
-const result = pipe(
-  Either.Do,
-  Either.bind("x", () => Either.right(2)),
-  Either.bind("y", () => Either.right(3)),
-  Either.let("sum", ({ x, y }) => x + y)
-)
-assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
-```
-
-### Since
-
-2.0.0
-
-### See
-
- - [Do](../variables/Do.md)
- - [bind](bind.md)
- - [let](let.md)
 
 ### Since
 

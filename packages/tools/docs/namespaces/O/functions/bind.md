@@ -87,7 +87,7 @@ Here's how the do simulation works:
  - [bindTo](bindTo.md)
  - [let](let.md)
 
-### Examples
+### Example
 
 ```ts
 import { Option, pipe } from "effect"
@@ -101,29 +101,6 @@ const result = pipe(
 )
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
-
-```ts
-import { Option, pipe } from "effect"
-
-const result = pipe(
-  Option.Do,
-  Option.bind("x", () => Option.some(2)),
-  Option.bind("y", () => Option.some(3)),
-  Option.let("sum", ({ x, y }) => x + y),
-  Option.filter(({ x, y }) => x * y > 5)
-)
-assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
-```
-
-### Since
-
-2.0.0
-
-### See
-
- - [Do](../variables/Do.md)
- - [bindTo](bindTo.md)
- - [let](let.md)
 
 ### Since
 
@@ -169,7 +146,7 @@ Here's how the do simulation works:
  - [bindTo](bindTo.md)
  - [let](let.md)
 
-### Examples
+### Example
 
 ```ts
 import { Option, pipe } from "effect"
@@ -183,29 +160,6 @@ const result = pipe(
 )
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
-
-```ts
-import { Option, pipe } from "effect"
-
-const result = pipe(
-  Option.Do,
-  Option.bind("x", () => Option.some(2)),
-  Option.bind("y", () => Option.some(3)),
-  Option.let("sum", ({ x, y }) => x + y),
-  Option.filter(({ x, y }) => x * y > 5)
-)
-assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
-```
-
-### Since
-
-2.0.0
-
-### See
-
- - [Do](../variables/Do.md)
- - [bindTo](bindTo.md)
- - [let](let.md)
 
 ### Since
 

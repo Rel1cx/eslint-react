@@ -52,10 +52,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## composeK(afb, bfc)
 
 > **composeK**\<`A`, `B`, `C`\>(`afb`, `bfc`): (`a`) => [`Option`](../type-aliases/Option.md)\<`C`\>
@@ -85,10 +81,6 @@
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`C`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

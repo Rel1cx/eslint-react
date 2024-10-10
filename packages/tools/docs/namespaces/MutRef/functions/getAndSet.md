@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## getAndSet(self, value)
 
 > **getAndSet**\<`T`\>(`self`, `value`): `T`
@@ -59,10 +55,6 @@
 ### Returns
 
 `T`
-
-### Since
-
-2.0.0
 
 ### Since
 

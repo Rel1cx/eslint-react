@@ -50,10 +50,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## zipWith(self, that, f)
 
 > **zipWith**\<`R`, `L`, `R2`, `L2`, `B`\>(`self`, `that`, `f`): [`Either`](../type-aliases/Either.md)\<`B`, `L` \| `L2`\>
@@ -81,10 +77,6 @@
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`B`, `L` \| `L2`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -36,8 +36,6 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 • **f**
 
-The function to map over the value of the `Either`
-
 ### Returns
 
 `Function`
@@ -66,10 +64,6 @@ The function to map over the value of the `Either`
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## map(self, f)
 
 > **map**\<`R`, `L`, `R2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
@@ -88,11 +82,7 @@ Maps the `Right` side of an `Either` value to a new `Either` value.
 
 • **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-An `Either` to map
-
 • **f**
-
-The function to map over the value of the `Either`
 
 ### Returns
 
@@ -105,10 +95,6 @@ An `Either` to map
 ### Param
 
 The function to map over the value of the `Either`
-
-### Since
-
-2.0.0
 
 ### Since
 

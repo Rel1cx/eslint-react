@@ -50,8 +50,6 @@ If a default error is sufficient for your use case and you don't need to configu
 
 • **onLeft**
 
-A function that will be called if the `Either` is `Left`. It returns the error to be thrown.
-
 ### Returns
 
 `Function`
@@ -76,7 +74,7 @@ The `Either` to extract the value from.
 
 A function that will be called if the `Either` is `Left`. It returns the error to be thrown.
 
-### Examples
+### Example
 
 ```ts
 import { Either } from "effect"
@@ -87,20 +85,6 @@ assert.deepStrictEqual(
 )
 assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
 ```
-
-```ts
-import { Either } from "effect"
-
-assert.deepStrictEqual(
-  Either.getOrThrowWith(Either.right(1), () => new Error('Unexpected Left')),
-  1
-)
-assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -124,11 +108,7 @@ If a default error is sufficient for your use case and you don't need to configu
 
 • **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-The `Either` to extract the value from.
-
 • **onLeft**
-
-A function that will be called if the `Either` is `Left`. It returns the error to be thrown.
 
 ### Returns
 
@@ -142,7 +122,7 @@ The `Either` to extract the value from.
 
 A function that will be called if the `Either` is `Left`. It returns the error to be thrown.
 
-### Examples
+### Example
 
 ```ts
 import { Either } from "effect"
@@ -153,20 +133,6 @@ assert.deepStrictEqual(
 )
 assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
 ```
-
-```ts
-import { Either } from "effect"
-
-assert.deepStrictEqual(
-  Either.getOrThrowWith(Either.right(1), () => new Error('Unexpected Left')),
-  1
-)
-assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
-```
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## update(self, f)
 
 > **update**\<`T`\>(`self`, `f`): [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
@@ -59,10 +55,6 @@
 ### Returns
 
 [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

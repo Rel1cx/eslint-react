@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## setAndGet(self, value)
 
 > **setAndGet**\<`A`\>(`self`, `value`): `Effect`\<`A`, `never`, `never`\>
@@ -59,10 +55,6 @@
 ### Returns
 
 `Effect`\<`A`, `never`, `never`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

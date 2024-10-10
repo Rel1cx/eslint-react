@@ -44,10 +44,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## andThen(f)
 
 > **andThen**\<`B`\>(`f`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -77,10 +73,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -118,10 +110,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## andThen(f)
 
 > **andThen**\<`B`\>(`f`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -156,10 +144,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## andThen(self, f)
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -181,10 +165,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -216,10 +196,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## andThen(self, f)
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -246,10 +222,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## andThen(self, f)
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -271,10 +243,6 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

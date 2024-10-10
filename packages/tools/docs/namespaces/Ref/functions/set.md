@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## set(self, value)
 
 > **set**\<`A`\>(`self`, `value`): `Effect`\<`void`, `never`, `never`\>
@@ -59,10 +55,6 @@
 ### Returns
 
 `Effect`\<`void`, `never`, `never`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

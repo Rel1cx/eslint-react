@@ -38,10 +38,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## updateSome(self, f)
 
 > **updateSome**\<`A`\>(`self`, `f`): `Effect`\<`void`, `never`, `never`\>
@@ -59,10 +55,6 @@
 ### Returns
 
 `Effect`\<`void`, `never`, `never`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

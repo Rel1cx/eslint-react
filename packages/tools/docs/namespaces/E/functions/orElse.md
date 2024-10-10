@@ -38,8 +38,6 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 • **that**
 
-A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
-
 ### Returns
 
 `Function`
@@ -68,10 +66,6 @@ A function that takes the error value from `self` (if it's a `Left`) and returns
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## orElse(self, that)
 
 > **orElse**\<`R`, `L`, `R2`, `L2`\>(`self`, `that`): [`Either`](../type-aliases/Either.md)\<`R` \| `R2`, `L2`\>
@@ -92,11 +86,7 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 • **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-The input `Either` value to check and potentially return.
-
 • **that**
-
-A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
 
 ### Returns
 
@@ -109,10 +99,6 @@ The input `Either` value to check and potentially return.
 ### Param
 
 A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -42,10 +42,6 @@
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## zipRight(self, that)
 
 > **zipRight**\<`X`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`B`\>
@@ -65,10 +61,6 @@
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
-
-### Since
-
-2.0.0
 
 ### Since
 

@@ -34,8 +34,6 @@ Checks whether a value is an `object` containing a specified property key.
 
 • **property**: `P`
 
-The field to check within the object.
-
 ### Returns
 
 `Function`
@@ -60,10 +58,6 @@ The value to examine.
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## hasProperty(self, property)
 
 > **hasProperty**\<`P`\>(`self`, `property`): `self is { [K in PropertyKey]: unknown }`
@@ -78,11 +72,7 @@ Checks whether a value is an `object` containing a specified property key.
 
 • **self**: `unknown`
 
-The value to examine.
-
 • **property**: `P`
-
-The field to check within the object.
 
 ### Returns
 
@@ -95,10 +85,6 @@ The field to check within the object.
 ### Param
 
 The value to examine.
-
-### Since
-
-2.0.0
 
 ### Since
 

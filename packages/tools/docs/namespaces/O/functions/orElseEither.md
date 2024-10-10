@@ -40,8 +40,6 @@ This is useful when it's important to know whether the value was retrieved from 
 
 • **that**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
 
-The second `Option` to be considered if the first `Option` is `None`.
-
 ### Returns
 
 `Function`
@@ -70,10 +68,6 @@ The second `Option` to be considered if the first `Option` is `None`.
 
 2.0.0
 
-### Since
-
-2.0.0
-
 ## orElseEither(self, that)
 
 > **orElseEither**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<[`Either`](../../E/type-aliases/Either.md)\<`B`, `A`\>\>
@@ -93,11 +87,7 @@ This is useful when it's important to know whether the value was retrieved from 
 
 • **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
 
-The first `Option` to be checked.
-
 • **that**: [`LazyArg`](../../F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
-
-The second `Option` to be considered if the first `Option` is `None`.
 
 ### Returns
 
@@ -110,10 +100,6 @@ The first `Option` to be checked.
 ### Param
 
 The second `Option` to be considered if the first `Option` is `None`.
-
-### Since
-
-2.0.0
 
 ### Since
 

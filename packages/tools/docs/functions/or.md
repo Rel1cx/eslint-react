@@ -48,8 +48,6 @@ Combines two predicates into a new predicate that returns `true` if at least one
 
 • **that**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
 
-A predicate.
-
 ### Returns
 
 `Function`
@@ -74,7 +72,7 @@ A predicate.
 
 A predicate.
 
-### Examples
+### Example
 
 ```ts
 import { Predicate, Number } from "effect"
@@ -85,20 +83,6 @@ assert.deepStrictEqual(nonZero(-1), true)
 assert.deepStrictEqual(nonZero(0), false)
 assert.deepStrictEqual(nonZero(1), true)
 ```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -122,11 +106,7 @@ Combines two predicates into a new predicate that returns `true` if at least one
 
 • **self**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
-A predicate.
-
 • **that**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
-
-A predicate.
 
 ### Returns
 
@@ -140,7 +120,7 @@ A predicate.
 
 A predicate.
 
-### Examples
+### Example
 
 ```ts
 import { Predicate, Number } from "effect"
@@ -151,20 +131,6 @@ assert.deepStrictEqual(nonZero(-1), true)
 assert.deepStrictEqual(nonZero(0), false)
 assert.deepStrictEqual(nonZero(1), true)
 ```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -183,8 +149,6 @@ Combines two predicates into a new predicate that returns `true` if at least one
 ### Parameters
 
 • **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-A predicate.
 
 ### Returns
 
@@ -206,7 +170,7 @@ A predicate.
 
 A predicate.
 
-### Examples
+### Example
 
 ```ts
 import { Predicate, Number } from "effect"
@@ -217,20 +181,6 @@ assert.deepStrictEqual(nonZero(-1), true)
 assert.deepStrictEqual(nonZero(0), false)
 assert.deepStrictEqual(nonZero(1), true)
 ```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
@@ -250,11 +200,7 @@ Combines two predicates into a new predicate that returns `true` if at least one
 
 • **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
-A predicate.
-
 • **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-A predicate.
 
 ### Returns
 
@@ -268,7 +214,7 @@ A predicate.
 
 A predicate.
 
-### Examples
+### Example
 
 ```ts
 import { Predicate, Number } from "effect"
@@ -279,20 +225,6 @@ assert.deepStrictEqual(nonZero(-1), true)
 assert.deepStrictEqual(nonZero(0), false)
 assert.deepStrictEqual(nonZero(1), true)
 ```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
 
 ### Since
 
