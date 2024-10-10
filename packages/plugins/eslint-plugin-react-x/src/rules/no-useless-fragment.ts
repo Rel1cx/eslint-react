@@ -18,6 +18,7 @@ export type MessageID =
 function check(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   context: RuleContext,
+  allowExpressions: boolean,
 ) {
   const initialScope = context.sourceCode.getScope(node);
   if (JSX.isKeyedElement(node, initialScope)) return;
@@ -26,7 +27,15 @@ function check(
   const isChildren = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
   const [firstChildren] = node.children;
   // <Foo content={<>ee eeee eeee ...</>} />
-  if (node.children.length === 1 && JSX.isLiteral(firstChildren) && !isChildren) return;
+  if (allowExpressions && node.children.length === 1 && JSX.isLiteral(firstChildren) && !isChildren) return;
+  if (!allowExpressions && isChildren) {
+    // <Foo><>hello, world</></Foo>
+    return context.report({ messageId: "noUselessFragment", node });
+  } else if (!allowExpressions && !isChildren && node.children.length === 1) {
+    // const foo = <>{children}</>;
+    // return <>{children}</>;
+    return context.report({ messageId: "noUselessFragment", node });
+  }
   const nonPaddingChildren = node.children.filter((child) => !JSX.isPaddingSpaces(child));
   if (nonPaddingChildren.length > 1) return;
   if (nonPaddingChildren.length === 0) return context.report({ messageId: "noUselessFragment", node });
@@ -37,7 +46,13 @@ function check(
   context.report({ messageId: "noUselessFragment", node });
 }
 
-export default createRule<[], MessageID>({
+type Options = [
+  {
+    allowExpressions: boolean;
+  },
+];
+
+export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
@@ -47,19 +62,30 @@ export default createRule<[], MessageID>({
       noUselessFragment: "A fragment contains less than two children is unnecessary.",
       noUselessFragmentInBuiltIn: "A fragment placed inside a built-in component is unnecessary.",
     },
-    schema: [],
+    schema: [{
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        allowExpressions: {
+          type: "boolean",
+        },
+      },
+    }],
   },
   name: RULE_NAME,
-  create(context) {
+  create(context, [option]) {
+    const { allowExpressions = true } = option;
     return {
       JSXElement(node) {
         if (!isFragmentElement(node, context)) return;
-        check(node, context);
+        check(node, context, allowExpressions);
       },
       JSXFragment(node) {
-        check(node, context);
+        check(node, context, allowExpressions);
       },
     };
   },
-  defaultOptions: [],
+  defaultOptions: [{
+    allowExpressions: true,
+  }],
 });
