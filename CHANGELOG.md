@@ -1,3 +1,28 @@
+## 1.15.0 (Sat 12 Oct 2024)
+
+### ✨ New
+
+- feat: add support for constructors in `hooks-extra/prefer-use-state-lazy-initialization` by @imjordanxd in https://github.com/Rel1cx/eslint-react/pull/829
+- feat: add `prefer-react-namespace-import`, closes #803 by @imjordanxd in https://github.com/Rel1cx/eslint-react/pull/832
+- feat: add support for `allowExpressions` in `no-useless-fragment` by @imjordanxd in https://github.com/Rel1cx/eslint-react/pull/836
+
+### 🐞 Fixes
+
+- fix: Fix false positives when 'web-api/no-leaked-event-listener' passes a signal to an intermediate variable, closes #838
+
+### 🪄 Improvements
+
+- docs: Update `hooks-extra-no-direct-set-state-in-use-effect.mdx` by @neovov in https://github.com/Rel1cx/eslint-react/pull/831
+- docs: use a standard mono-width font for the docs, closes #835 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/837
+- Undeprecate `hooks-extra-no-direct-set-state-in-use-layout-effect` and remove it from recommended presets, closes #839 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/840
+
+## New Contributors
+
+- @imjordanxd made their first contribution in https://github.com/Rel1cx/eslint-react/pull/829
+- @neovov made their first contribution in https://github.com/Rel1cx/eslint-react/pull/831
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.14.3...v1.15.0
+
 ## v1.14.3 (Sat 29 Sep 2024)
 
 ### 🪄 Improvements
