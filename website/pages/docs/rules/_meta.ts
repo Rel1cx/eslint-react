@@ -48,6 +48,7 @@ export default {
   "no-unused-state": "no-unused-state",
   "no-useless-fragment": "no-useless-fragment",
   "prefer-destructuring-assignment": "prefer-destructuring-assignment",
+  "prefer-react-namespace-import": "prefer-react-namespace-import",
   "prefer-read-only-props": "prefer-read-only-props",
   "prefer-shorthand-boolean": "prefer-shorthand-boolean",
   "prefer-shorthand-fragment": "prefer-shorthand-fragment",
