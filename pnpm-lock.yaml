@@ -865,8 +865,8 @@ importers:
         specifier: ^4.26.1
         version: 4.26.1
       valibot:
-        specifier: ^1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.6.3)
+        specifier: ^1.0.0-beta.1
+        version: 1.0.0-beta.1(typescript@5.6.3)
 
   packages/tools:
     devDependencies:
@@ -992,11 +992,11 @@ importers:
         specifier: ^14.2.15
         version: 14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5)
       nextra:
-        specifier: 3.0.10
-        version: 3.0.10(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+        specifier: 3.0.11
+        version: 3.0.11(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       nextra-theme-docs:
-        specifier: 3.0.10
-        version: 3.0.10(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(nextra@3.0.10(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.11
+        version: 3.0.11(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(nextra@3.0.11(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2575,6 +2575,9 @@ packages:
 
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
+
+  '@formatjs/intl-localematcher@0.5.5':
+    resolution: {integrity: sha512-t5tOGMgZ/i5+ALl2/offNqAQq/lfUnKLEw0mXQI4N4bqpedhrSE+fyKLpwnd22sK0dif6AV+ufQcTsKShB9J1g==}
 
   '@headlessui/react@2.1.8':
     resolution: {integrity: sha512-uajqVkAcVG/wHwG9Fh5PFMcFpf2VxM4vNRNKxRjuK009kePVur8LkuuygHfIE+2uZ7z7GnlTtYsyUe6glPpTLg==}
@@ -6458,16 +6461,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.0.10:
-    resolution: {integrity: sha512-IpQeZq8Xm2lE0BpZ3bEGif8U2cnF0UxexQFYwYy9uNWdCtaGj/onJ5IUjF3yjaxyI6z8cxOTqZ0Ve5dXawk46g==}
+  nextra-theme-docs@3.0.11:
+    resolution: {integrity: sha512-yRWVw5d9MDn0olgaZ1mEcMUOIkxtHce4lJLpkYo6YgPnrXvwO3wRLEry5zU4aWUUJGTfxkGOWcOgFqVFcOq7XA==}
     peerDependencies:
       next: '>=13'
-      nextra: 3.0.10
+      nextra: 3.0.11
       react: '>=18'
       react-dom: '>=18'
 
-  nextra@3.0.10:
-    resolution: {integrity: sha512-bT6BguJYl2kmEomYWYDnIV8YR3hFHyVjM++6s6+aP2weav0PV/jdCTd+yc96WaHobtVx9Ui3w3LoijAvf/nCJQ==}
+  nextra@3.0.11:
+    resolution: {integrity: sha512-P/YidS1aQHrMAHrEbX1skSrOv0T/SFwCaffVt5nSpV+mDgPTUmJXP992GZAarUIAYGKR07mYrfDiEegp6PNQvg==}
     engines: {node: '>=18'}
     peerDependencies:
       next: '>=13'
@@ -7964,8 +7967,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@1.0.0-beta.0:
-    resolution: {integrity: sha512-Q/oine+NPMXdIy3vwluw0vidHLk0mTPUQBRHc+EHZXnEWF3KzLx1YLsVHPVrgHaMGRfV58P9eGOgxJvi0a059w==}
+  valibot@1.0.0-beta.1:
+    resolution: {integrity: sha512-lQGnVdicMX/G+gicL2aYZcqhn5brXmjx6UvB5wfPcoM0IOk8tzbrP/TQc6hSs156fTeklVd07+fnlirRgT2Tig==}
     peerDependencies:
       typescript: ^5.6.3
     peerDependenciesMeta:
@@ -9893,6 +9896,10 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.8': {}
+
+  '@formatjs/intl-localematcher@0.5.5':
+    dependencies:
+      tslib: 2.7.0
 
   '@headlessui/react@2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -14552,7 +14559,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.0.10(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(nextra@3.0.10(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  nextra-theme-docs@3.0.11(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(nextra@3.0.11(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@headlessui/react': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
@@ -14560,14 +14567,15 @@ snapshots:
       flexsearch: 0.7.43
       next: 14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5)
       next-themes: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 3.0.10(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+      nextra: 3.0.11(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.23.8
 
-  nextra@3.0.10(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
+  nextra@3.0.11(@types/react@18.3.11)(next@14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
     dependencies:
+      '@formatjs/intl-localematcher': 0.5.5
       '@headlessui/react': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mdx-js/mdx': 3.0.1
       '@mdx-js/react': 3.0.1(@types/react@18.3.11)(react@18.3.1)
@@ -14584,6 +14592,7 @@ snapshots:
       gray-matter: 4.0.3
       hast-util-to-estree: 3.1.0
       katex: 0.16.11
+      negotiator: 0.6.3
       next: 14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.79.5)
       p-limit: 6.1.0
       react: 18.3.1
@@ -16278,7 +16287,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@1.0.0-beta.0(typescript@5.6.3):
+  valibot@1.0.0-beta.1(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
 
