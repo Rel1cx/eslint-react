@@ -28,39 +28,6 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
-## Who is using?
-
-- [`AndreaPontrandolfo/sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
-- [`antfu/​eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
-- [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
-- [`DimensionDev/Maskbook`](https://github.com/DimensionDev/Maskbook) - The portal to the new, open Internet. ([I:b]).
-- [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs.
-- [`electric-sql/pglite`](https://github.com/electric-sql/pglite) - Lightweight Postgres packaged as WASM into a TypeScript library for the browser, Node.js, Bun and Deno.
-- [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
-- [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
-- [`hipstersmoothie/react-window-splitter`](https://github.com/hipstersmoothie/react-window-splitter) - A full featured window splitter for React.
-- [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - Universal lazy loading library for placeholder images leveraging native browser APIs.
-- [`npmgraph/npmgraph`](https://github.com/npmgraph/npmgraph) - A tool for exploring NPM modules and dependencies.
-- [`react-navigation/​react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
-- [`RebeccaStevens/eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - RebeccaStevens' ESLint config preset.
-- [`refined-github/refined-github`](https://github.com/refined-github/refined-github) - :octocat: Browser extension that simplifies the GitHub interface and adds useful features.
-- [`RightCapitalHQ/frontend-style-guide`](https://github.com/RightCapitalHQ/frontend-style-guide) - RightCapital's frontend style guide.
-- [`RSSNext/​follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
-- [`satya164/PocketGear`](https://github.com/satya164/PocketGear) - A clean and simple Pokédex app for Pokémon GO.
-- [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.
-- [`SukkaW/foxact`](https://github.com/SukkaW/foxact) - React Hooks/Utils done right. For Browser, SSR, and React Server Components.
-- [`TanStack/​form`](https://github.com/TanStack/form) - 🤖 Powerful and type-safe form state management for the web. TS/JS, React Form, Solid Form, Lit Form and Vue Form.
-- [`TanStack/​query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query.
-- [`TanStack/​router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
-- [`TanStack/​store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
-- [`timkurvers/wine-log-explorer`](https://github.com/timkurvers/wine-log-explorer) - Explorer for Wine logs.
-- [`toss/suspensive`](https://github.com/toss/suspensive) - Manage asynchronous operations, timing, error handling, detecting intersection of elements, and caching easily and declaratively (One of TanStack Query community resources).
-- [`upleveled/eslint-config-upleveled`](https://github.com/upleveled/eslint-config-upleveled) - UpLeveled ESLint defaults for programming in JavaScript, TypeScript, React, Next.js, Node.js, Postgres.js.
-
-_Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
-
-Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/dependents).
-
 ## Install
 
 ```sh
@@ -133,6 +100,40 @@ export default [
 
 - [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
 - [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
+
+## Who is using?
+
+- [`AndreaPontrandolfo/sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
+- [`antfu/eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
+- [`christopher-buss/roblox-ts-eslint-config`](https://github.com/christopher-buss/roblox-ts-eslint-config) - iSentinel's ESLint config preset for Roblox-TS.
+- [`DimensionDev/Maskbook`](https://github.com/DimensionDev/Maskbook) - The portal to the new, open Internet. ([I:b]).
+- [`dream-num/univer`](https://github.com/dream-num/univer) - Univer is an open-source alternative to Google Sheets, Slides, and Docs.
+- [`electric-sql/pglite`](https://github.com/electric-sql/pglite) - Lightweight Postgres packaged as WASM into a TypeScript library for the browser, Node.js, Bun and Deno.
+- [`ensdomains/ensdomains-landing`](https://github.com/ensdomains/ensdomains-landing) - ENS Homepage V2, the main homepage of the ENS protocol.
+- [`hairyf/overlastic`](https://github.com/hairyf/overlastic) - A universal overlays utils, support react, vue, vanilla, svelte.
+- [`hipstersmoothie/react-window-splitter`](https://github.com/hipstersmoothie/react-window-splitter) - A full featured window splitter for React.
+- [`johannschopplich/unlazy`](https://github.com/johannschopplich/unlazy) - Universal lazy loading library for placeholder images leveraging native browser APIs.
+- [`luxdotdev/parsertime`](https://github.com/luxdotdev/parsertime) - A web app written to help collegiate Overwatch players track their performance in scrims.
+- [`npmgraph/npmgraph`](https://github.com/npmgraph/npmgraph) - A tool for exploring NPM modules and dependencies.
+- [`react-navigation/react-navigation`](https://github.com/react-navigation/react-navigation) - Routing and navigation for your React Native apps.
+- [`RebeccaStevens/eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - RebeccaStevens' ESLint config preset.
+- [`refined-github/refined-github`](https://github.com/refined-github/refined-github) - :octocat: Browser extension that simplifies the GitHub interface and adds useful features.
+- [`RightCapitalHQ/frontend-style-guide`](https://github.com/RightCapitalHQ/frontend-style-guide) - RightCapital's frontend style guide.
+- [`RSSNext/follow`](https://github.com/RSSNext/follow) - 🧡 Next generation information browser.
+- [`satya164/PocketGear`](https://github.com/satya164/PocketGear) - A clean and simple Pokédex app for Pokémon GO.
+- [`SukkaW/eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - ESLint configuration of Sukka.
+- [`SukkaW/foxact`](https://github.com/SukkaW/foxact) - React Hooks/Utils done right. For Browser, SSR, and React Server Components.
+- [`TanStack/form`](https://github.com/TanStack/form) - 🤖 Powerful and type-safe form state management for the web. TS/JS, React Form, Solid Form, Lit Form and Vue Form.
+- [`TanStack/query`](https://github.com/TanStack/query) - 🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query.
+- [`TanStack/router`](https://github.com/TanStack/router) - 🤖 Fully typesafe Router for React (and friends) w/ built-in caching, 1st class search-param APIs, client-side cache integration and isomorphic rendering.
+- [`TanStack/store`](https://github.com/TanStack/store) - 🤖 Framework agnostic, type-safe store w/ reactive framework adapters.
+- [`timkurvers/wine-log-explorer`](https://github.com/timkurvers/wine-log-explorer) - Explorer for Wine logs.
+- [`toss/suspensive`](https://github.com/toss/suspensive) - Manage asynchronous operations, timing, error handling, detecting intersection of elements, and caching easily and declaratively (One of TanStack Query community resources).
+- [`upleveled/eslint-config-upleveled`](https://github.com/upleveled/eslint-config-upleveled) - UpLeveled ESLint defaults for programming in JavaScript, TypeScript, React, Next.js, Node.js, Postgres.js.
+
+_Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
+
+Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/dependents).
 
 ## Contributing
 
