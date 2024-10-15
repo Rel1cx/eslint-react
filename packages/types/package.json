@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/types",
-  "version": "1.15.0",
+  "version": "1.15.1-next.0",
   "description": "ESLint React's type definitions.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -43,8 +43,8 @@
   },
   "dependencies": {
     "@eslint-react/tools": "workspace:*",
-    "@typescript-eslint/types": "^8.8.1",
-    "@typescript-eslint/utils": "^8.8.1"
+    "@typescript-eslint/types": "^8.9.0",
+    "@typescript-eslint/utils": "^8.9.0"
   },
   "devDependencies": {
     "tsup": "^8.3.0"
