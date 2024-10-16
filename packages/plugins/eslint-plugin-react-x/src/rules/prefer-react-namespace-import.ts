@@ -37,19 +37,20 @@ export default createRule<[], MessageID>({
             const isTypeImport = node.parent.importKind === "type";
             const importStringPrefix = `import${isTypeImport ? " type" : ""}`;
             const importSourceQuoted = `${quote}${importSource}${quote}`;
+            const sourceCode = context.sourceCode.getText(node.parent);
+            const semiColon = sourceCode.endsWith(";") ? ";" : "";
             if (!hasOtherSpecifiers) {
               return fixer.replaceText(
                 node.parent,
-                `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted};`,
+                `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semiColon}`,
               );
             }
 
             // remove the default specifier and prepend the namespace import specifier
-            const sourceCode = context.sourceCode.getText(node.parent);
             const specifiers = sourceCode.slice(sourceCode.indexOf("{"), sourceCode.indexOf("}") + 1);
             return fixer.replaceText(
               node.parent,
-              `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted};\n${importStringPrefix} ${specifiers} from ${importSourceQuoted};`,
+              `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semiColon}\n${importStringPrefix} ${specifiers} from ${importSourceQuoted}${semiColon}`,
             );
           },
         });
