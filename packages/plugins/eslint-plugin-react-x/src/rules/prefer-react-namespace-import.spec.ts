@@ -96,9 +96,9 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: `import React from 'react'   `,
+      code: `import React from 'react'`,
       errors: [{ type: AST_NODE_TYPES.ImportDeclaration, messageId: "preferReactNamespaceImport" }],
-      output: `import * as React from 'react'   `,
+      output: `import * as React from 'react'`,
     },
   ],
   valid: [
