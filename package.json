@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.15.1-next.3",
+  "version": "1.15.1-beta.3",
   "private": true,
   "description": "A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -115,11 +115,11 @@
   },
   "pnpm": {
     "overrides": {
-      "@effect/platform": "0.68.2",
-      "@effect/platform-bun": "0.48.2",
-      "@effect/platform-node": "0.63.2",
+      "array-flatten": "npm:@nolyfill/array-flatten@^1",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
       "side-channel": "npm:@nolyfill/side-channel@^1.0.29",
       "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "typescript": "^5.6.3"
