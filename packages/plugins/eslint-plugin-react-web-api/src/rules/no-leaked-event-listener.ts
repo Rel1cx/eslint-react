@@ -84,6 +84,15 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   };
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
+      case AST_NODE_TYPES.Identifier: {
+        return F.pipe(
+          VAR.findVariable(node, initialScope),
+          O.flatMap(VAR.getVariableNode(0)),
+          O.filter(AST.is(AST_NODE_TYPES.ObjectExpression)),
+          O.map(getOpts),
+          O.getOrElse(() => defaultOptions),
+        );
+      }
       case AST_NODE_TYPES.Literal: {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return Data.struct({ ...defaultOptions, capture: O.some(!!node.value) });
@@ -99,14 +108,14 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
           const { value } = prop;
           const getSignalExp = (node: TSESTree.Node): O.Option<TSESTree.Node> => {
             switch (node.type) {
-              case AST_NODE_TYPES.MemberExpression:
-                return O.some(node);
               case AST_NODE_TYPES.Identifier:
                 return F.pipe(
                   VAR.findVariable(node, initialScope),
                   O.flatMap(VAR.getVariableNode(0)),
                   O.flatMap(getSignalExp),
                 );
+              case AST_NODE_TYPES.MemberExpression:
+                return O.some(node);
               default:
                 return O.none();
             }
@@ -114,15 +123,6 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
           return getSignalExp(value);
         });
         return Data.struct({ capture: vCapture, once: vOnce, signal: vSignal });
-      }
-      case AST_NODE_TYPES.Identifier: {
-        return F.pipe(
-          VAR.findVariable(node, initialScope),
-          O.flatMap(VAR.getVariableNode(0)),
-          O.filter(AST.is(AST_NODE_TYPES.ObjectExpression)),
-          O.map(getOpts),
-          O.getOrElse(() => defaultOptions),
-        );
       }
       default: {
         return defaultOptions;

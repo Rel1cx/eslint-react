@@ -92,6 +92,18 @@ export default createRule<[], MessageID>({
         if (!fNode || !fKind) return;
         if (!PHASE_RELEVANCE.has(fKind)) return;
         switch (getCallKind(node)) {
+          case "clearTimeout": {
+            const [timeoutIdNode] = node.arguments;
+            if (!timeoutIdNode) break;
+            rEntries.push({
+              kind: "timeout",
+              node,
+              callee: node.callee,
+              phase: fKind,
+              timerID: timeoutIdNode,
+            });
+            break;
+          }
           case "setTimeout": {
             const timeoutIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
             if (!timeoutIdNode) {
@@ -102,18 +114,6 @@ export default createRule<[], MessageID>({
               break;
             }
             sEntries.push({
-              kind: "timeout",
-              node,
-              callee: node.callee,
-              phase: fKind,
-              timerID: timeoutIdNode,
-            });
-            break;
-          }
-          case "clearTimeout": {
-            const [timeoutIdNode] = node.arguments;
-            if (!timeoutIdNode) break;
-            rEntries.push({
               kind: "timeout",
               node,
               callee: node.callee,

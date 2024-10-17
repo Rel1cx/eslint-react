@@ -141,6 +141,20 @@ export default createRule<[], MessageID>({
         if (node.parent.type === AST_NODE_TYPES.CallExpression && node.parent.callee === node) return;
         if (!isIdFromUseStateCall(node)) return;
         switch (node.parent.type) {
+          case AST_NODE_TYPES.ArrowFunctionExpression: {
+            const parent = node.parent.parent;
+            if (parent.type !== AST_NODE_TYPES.CallExpression) break;
+            // const [state, setState] = useState();
+            // const set = useMemo(() => setState, []);
+            // useLayoutEffect(set, []);
+            if (!isUseMemoCall(parent)) break;
+            const maybeVd = AST.traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
+            if (O.isNone(maybeVd)) break;
+            const vd = maybeVd.value;
+            const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
+            indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
+            break;
+          }
           case AST_NODE_TYPES.CallExpression: {
             const [firstArg] = node.parent.arguments;
             if (node !== firstArg) break;
@@ -162,19 +176,6 @@ export default createRule<[], MessageID>({
             }
             break;
           }
-          case AST_NODE_TYPES.ArrowFunctionExpression: {
-            const parent = node.parent.parent;
-            if (parent.type !== AST_NODE_TYPES.CallExpression) break;
-            // const [state, setState] = useState();
-            // const set = useMemo(() => setState, []);
-            // useLayoutEffect(set, []);
-            if (!isUseMemoCall(parent)) break;
-            const maybeVd = AST.traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
-            if (O.isNone(maybeVd)) break;
-            const vd = maybeVd.value;
-            const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
-            indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
-          }
         }
       },
       "Program:exit"() {
@@ -184,9 +185,9 @@ export default createRule<[], MessageID>({
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
           const node = O.flatMap(VAR.findVariable(id, initialScope), VAR.getVariableNode(0)).pipe(O.getOrNull);
           switch (node?.type) {
+            case AST_NODE_TYPES.ArrowFunctionExpression:
             case AST_NODE_TYPES.FunctionDeclaration:
             case AST_NODE_TYPES.FunctionExpression:
-            case AST_NODE_TYPES.ArrowFunctionExpression:
               return indirectSetStateCalls.get(node) ?? [];
             case AST_NODE_TYPES.CallExpression:
               return indirectSetStateCallsInHooks.get(node) ?? indirectSetStateCallsAsArgs.get(node) ?? [];

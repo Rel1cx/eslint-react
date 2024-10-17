@@ -90,6 +90,21 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         switch (getCallKind(node)) {
+          case "clearInterval": {
+            const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+            if (!fNode || !fKind) break;
+            if (!PHASE_RELEVANCE.has(fKind)) break;
+            const [intervalIdNode] = node.arguments;
+            if (!intervalIdNode) break;
+            cEntries.push({
+              kind: "interval",
+              node,
+              callee: node.callee,
+              phase: fKind,
+              timerID: intervalIdNode,
+            });
+            break;
+          }
           case "setInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
             if (!fNode || !fKind) break;
@@ -103,21 +118,6 @@ export default createRule<[], MessageID>({
               break;
             }
             sEntries.push({
-              kind: "interval",
-              node,
-              callee: node.callee,
-              phase: fKind,
-              timerID: intervalIdNode,
-            });
-            break;
-          }
-          case "clearInterval": {
-            const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-            if (!fNode || !fKind) break;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
-            const [intervalIdNode] = node.arguments;
-            if (!intervalIdNode) break;
-            cEntries.push({
               kind: "interval",
               node,
               callee: node.callee,

@@ -133,6 +133,9 @@ export function findPropInAttributes(
             return getPropName(attr) === propName;
           case AST_NODE_TYPES.JSXSpreadAttribute:
             switch (attr.argument.type) {
+              case AST_NODE_TYPES.CallExpression:
+                // Not implemented
+                return false;
               case AST_NODE_TYPES.Identifier: {
                 const { name } = attr.argument;
                 const maybeInit = O.flatMap(
@@ -144,14 +147,11 @@ export function findPropInAttributes(
                 if (!AST.is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
                 return O.isSome(findPropInProperties(init.properties, initialScope)(propName));
               }
-              case AST_NODE_TYPES.ObjectExpression:
-                return O.isSome(findPropInProperties(attr.argument.properties, initialScope)(propName));
               case AST_NODE_TYPES.MemberExpression:
                 // Not implemented
                 return false;
-              case AST_NODE_TYPES.CallExpression:
-                // Not implemented
-                return false;
+              case AST_NODE_TYPES.ObjectExpression:
+                return O.isSome(findPropInProperties(attr.argument.properties, initialScope)(propName));
               default:
                 return false;
             }

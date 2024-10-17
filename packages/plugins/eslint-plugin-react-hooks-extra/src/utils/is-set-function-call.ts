@@ -11,20 +11,6 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
   const isIdFromUseStateCall = isFromUseStateCall(context, settings);
   return (node: TSESTree.CallExpression) => {
     switch (node.callee.type) {
-      // const [data, setData] = useState();
-      // setData();
-      case AST_NODE_TYPES.Identifier: {
-        return isIdFromUseStateCall(node.callee);
-      }
-      // const data = useState();
-      // data[1]();
-      case AST_NODE_TYPES.MemberExpression: {
-        if (!("name" in node.callee.object)) return false;
-        const initialScope = context.sourceCode.getScope(node);
-        const property = getStaticValue(node.callee.property, initialScope);
-        if (property?.value === 1) return isIdFromUseStateCall(node.callee.object);
-        return false;
-      }
       // const data = useState();
       // data.at(1)();
       case AST_NODE_TYPES.CallExpression: {
@@ -43,6 +29,20 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
         const initialScope = context.sourceCode.getScope(node);
         const value = getStaticValue(index, initialScope);
         if (value?.value === 1) return isIdFromUseStateCall(callee.object);
+        return false;
+      }
+      // const [data, setData] = useState();
+      // setData();
+      case AST_NODE_TYPES.Identifier: {
+        return isIdFromUseStateCall(node.callee);
+      }
+      // const data = useState();
+      // data[1]();
+      case AST_NODE_TYPES.MemberExpression: {
+        if (!("name" in node.callee.object)) return false;
+        const initialScope = context.sourceCode.getScope(node);
+        const property = getStaticValue(node.callee.property, initialScope);
+        if (property?.value === 1) return isIdFromUseStateCall(node.callee.object);
         return false;
       }
       default: {

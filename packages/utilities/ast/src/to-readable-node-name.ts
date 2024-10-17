@@ -9,14 +9,10 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
  */
 export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
   switch (node.type) {
-    case AST_NODE_TYPES.Literal:
-      return node.raw;
-    case AST_NODE_TYPES.Identifier:
-      return node.name;
-    case AST_NODE_TYPES.MemberExpression:
-      return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
     case AST_NODE_TYPES.CallExpression:
       return toReadableNodeName(node.callee, getText);
+    case AST_NODE_TYPES.Identifier:
+      return node.name;
     case AST_NODE_TYPES.JSXIdentifier:
       return `<${node.name}>`;
     case AST_NODE_TYPES.JSXMemberExpression:
@@ -25,6 +21,10 @@ export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree
       return `${node.namespace.name}:${node.name.name}`;
     case AST_NODE_TYPES.JSXText:
       return node.value;
+    case AST_NODE_TYPES.Literal:
+      return node.raw;
+    case AST_NODE_TYPES.MemberExpression:
+      return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
     default:
       return getText(node);
   }

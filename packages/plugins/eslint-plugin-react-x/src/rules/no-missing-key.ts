@@ -55,12 +55,12 @@ export default createRule<[], MessageID>({
 
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       switch (node.type) {
-        case AST_NODE_TYPES.JSXElement:
-        case AST_NODE_TYPES.JSXFragment:
-          return checkIteratorElement(node);
         case AST_NODE_TYPES.ConditionalExpression:
           if (!("consequent" in node)) return O.none();
           return O.orElse(checkIteratorElement(node.consequent), () => checkIteratorElement(node.alternate));
+        case AST_NODE_TYPES.JSXElement:
+        case AST_NODE_TYPES.JSXFragment:
+          return checkIteratorElement(node);
         case AST_NODE_TYPES.LogicalExpression:
           if (!("left" in node)) return O.none();
           return O.orElse(checkIteratorElement(node.left), () => checkIteratorElement(node.right));
