@@ -1,23 +1,23 @@
 {
   "[json]": {
-    "editor.defaultFormatter": "dprint.dprint",
+    "editor.defaultFormatter": "gplane.dprint2",
     "editor.quickSuggestions": {
       "strings": true
     }
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "dprint.dprint",
+    "editor.defaultFormatter": "gplane.dprint2",
     "editor.quickSuggestions": {
       "strings": true
     }
   },
   "[typescript]": {
-    "editor.defaultFormatter": "dprint.dprint"
+    "editor.defaultFormatter": "gplane.dprint2"
   },
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.autoIndent": "keep",
-    "editor.defaultFormatter": "dprint.dprint",
+    "editor.defaultFormatter": "gplane.dprint2",
     "editor.insertSpaces": true,
     "editor.quickSuggestions": {
       "comments": false,

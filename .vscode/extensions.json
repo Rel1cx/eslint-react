@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "dprint.dprint",
+    "gplane.dprint2",
     "dbaeumer.vscode-eslint",
     "bierner.comment-tagged-templates"
   ]
