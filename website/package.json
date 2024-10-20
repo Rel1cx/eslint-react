@@ -35,7 +35,7 @@
     "eslint": "^9.13.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.12",
+    "eslint-plugin-react-refresh": "^0.4.13",
     "postcss": "^8.4.47",
     "rehype-raw": "^7.0.0",
     "remark-code-import": "^1.2.0",
