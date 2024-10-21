@@ -115,6 +115,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@typescript-eslint/rule-tester": "8.10.0",
       "array-flatten": "npm:@nolyfill/array-flatten@^1",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",

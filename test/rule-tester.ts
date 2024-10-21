@@ -13,6 +13,8 @@ export const defaultLanguageOptions = {
   ecmaVersion: "latest",
   parserOptions: {
     ecmaFeatures: { jsx: true },
+    project: false,
+    projectService: false,
     warnOnUnsupportedTypeScriptVersion: false,
   },
 } as const satisfies RuleTesterConfig["languageOptions"];
