@@ -14,10 +14,10 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isOneOf } from "./is";
 import type { TSESTreeFunction } from "./types";
 
-export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree.Identifier> {
+export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFunction): O.Option<TSESTree.Identifier> {
   // function MaybeComponent() {}
   // const whatever = function MaybeComponent() {};
-  if (node.id) return O.some(node.id);
+  if ("id" in node && node.id) return O.some(node.id);
   // const MaybeComponent = () => {};
   if (
     node.parent.type === AST_NODE_TYPES.VariableDeclarator
@@ -67,5 +67,11 @@ export function getFunctionIdentifier(node: TSESTreeFunction): O.Option<TSESTree
     return O.some(node.parent.left);
   }
 
+  if (
+    isOneOf([AST_NODE_TYPES.TSAsExpression, AST_NODE_TYPES.TSSatisfiesExpression])(node.parent)
+    && node.parent.expression === node
+  ) {
+    return getFunctionIdentifier(node.parent);
+  }
   return O.none();
 }

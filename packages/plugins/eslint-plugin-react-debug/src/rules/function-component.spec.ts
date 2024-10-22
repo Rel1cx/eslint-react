@@ -1373,5 +1373,23 @@ ruleTester.run(RULE_NAME, rule, {
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
     "const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
+    /* tsx */ `
+      export const action = (() => {
+        //             ^?
+        return null;
+      });
+    `,
+    /* tsx */ `
+      export const action = (() => {
+        //             ^?
+        return null;
+      }) as ActionFUnction;
+    `,
+    /* tsx */ `
+      export const action = (() => {
+        //             ^?
+        return null;
+      }) satisfies ActionFUnction;
+    `,
   ],
 });
