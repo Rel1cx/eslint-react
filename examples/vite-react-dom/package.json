@@ -15,10 +15,10 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.8",
-    "@babel/eslint-parser": "^7.25.8",
-    "@babel/preset-env": "^7.25.8",
-    "@babel/preset-react": "^7.25.7",
+    "@babel/core": "^7.25.9",
+    "@babel/eslint-parser": "^7.25.9",
+    "@babel/preset-env": "^7.25.9",
+    "@babel/preset-react": "^7.25.9",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/config-inspector": "^0.5.5",
     "@eslint/js": "^9.13.0",
