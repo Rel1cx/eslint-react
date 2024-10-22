@@ -12,7 +12,7 @@
 
 ## Extends
 
-- `Pipeable`.`Inspectable`.`Effect`\<`R`, `L`\>
+- `Pipeable`.`Inspectable`.`Effect`\<`R`, `L`\>.`STM`\<`R`, `L`\>
 
 ## Type Parameters
 
@@ -55,6 +55,24 @@
 ### \[SinkTypeId\]
 
 > `readonly` **\[SinkTypeId\]**: `VarianceStruct`\<`R`, `unknown`, `never`, `L`, `never`\>
+
+***
+
+### \[STMTypeId\]
+
+> `readonly` **\[STMTypeId\]**: `object`
+
+#### \_A
+
+> `readonly` **\_A**: `Covariant`\<`R`\>
+
+#### \_E
+
+> `readonly` **\_E**: `Covariant`\<`L`\>
+
+#### \_R
+
+> `readonly` **\_R**: `Covariant`\<`never`\>
 
 ***
 

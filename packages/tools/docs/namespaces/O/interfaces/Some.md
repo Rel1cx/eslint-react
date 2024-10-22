@@ -12,7 +12,7 @@
 
 ## Extends
 
-- `Pipeable`.`Inspectable`.`Effect`\<`A`, `Cause.NoSuchElementException`\>
+- `Pipeable`.`Inspectable`.`Effect`\<`A`, `Cause.NoSuchElementException`\>.`STM`\<`A`, `Cause.NoSuchElementException`\>
 
 ## Type Parameters
 
@@ -53,6 +53,24 @@
 ### \[SinkTypeId\]
 
 > `readonly` **\[SinkTypeId\]**: `VarianceStruct`\<`A`, `unknown`, `never`, `NoSuchElementException`, `never`\>
+
+***
+
+### \[STMTypeId\]
+
+> `readonly` **\[STMTypeId\]**: `object`
+
+#### \_A
+
+> `readonly` **\_A**: `Covariant`\<`A`\>
+
+#### \_E
+
+> `readonly` **\_E**: `Covariant`\<`NoSuchElementException`\>
+
+#### \_R
+
+> `readonly` **\_R**: `Covariant`\<`never`\>
 
 ***
 
