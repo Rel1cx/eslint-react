@@ -1,3 +1,9 @@
+## 1.15.1 (Draft)
+
+### 🐞 Fixes
+
+- Added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier`, closes #843
+
 ## 1.15.0 (Sat 12 Oct 2024)
 
 ### ✨ New
