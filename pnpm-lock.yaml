@@ -37,17 +37,17 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
       '@effect/platform':
-        specifier: ^0.69.2
-        version: 0.69.2(effect@3.10.0)
+        specifier: ^0.69.5
+        version: 0.69.5(effect@3.10.1)
       '@effect/platform-bun':
-        specifier: ^0.49.3
-        version: 0.49.3(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)
+        specifier: ^0.49.6
+        version: 0.49.6(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)
       '@effect/platform-node':
-        specifier: ^0.64.3
-        version: 0.64.3(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)
+        specifier: ^0.64.6
+        version: 0.64.6(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)
       '@effect/schema':
         specifier: ^0.75.5
-        version: 0.75.5(effect@3.10.0)
+        version: 0.75.5(effect@3.10.1)
       '@eslint/config-inspector':
         specifier: ^0.5.5
         version: 0.5.5(eslint@9.13.0(jiti@2.3.3))
@@ -103,8 +103,8 @@ importers:
         specifier: ^0.47.4
         version: 0.47.4
       effect:
-        specifier: ^3.10.0
-        version: 3.10.0
+        specifier: ^3.10.1
+        version: 3.10.1
       esbuild:
         specifier: ^0.24.0
         version: 0.24.0
@@ -382,8 +382,8 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0(webpack@5.95.0)
       html-webpack-plugin:
-        specifier: ^5.6.2
-        version: 5.6.2(webpack@5.95.0)
+        specifier: ^5.6.3
+        version: 5.6.3(webpack@5.95.0)
       style-loader:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.95.0)
@@ -886,8 +886,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: ^3.10.0
-        version: 3.10.0
+        specifier: ^3.10.1
+        version: 3.10.1
       tsup:
         specifier: ^8.3.0
         version: 8.3.0(@swc/core@1.7.39(@swc/helpers@0.5.13))(jiti@2.3.3)(postcss@8.4.47)(tsx@4.19.1)(typescript@5.6.3)(yaml@2.6.0)
@@ -1007,11 +1007,11 @@ importers:
         specifier: ^15.0.0
         version: 15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3)
       nextra:
-        specifier: 3.0.15
-        version: 3.0.15(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+        specifier: 3.1.0
+        version: 3.1.0(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       nextra-theme-docs:
-        specifier: 3.0.15
-        version: 3.0.15(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(nextra@3.0.15(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.1.0
+        version: 3.1.0(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(nextra@3.1.0(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1065,8 +1065,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       effect:
-        specifier: ^3.10.0
-        version: 3.10.0
+        specifier: ^3.10.1
+        version: 3.10.1
       eslint:
         specifier: ^9.13.0
         version: 9.13.0(jiti@2.3.3)
@@ -2048,28 +2048,28 @@ packages:
   '@effect/language-service@0.2.0':
     resolution: {integrity: sha512-DoK41yKGyQv79o0ca8gxEogMlt+IphXkdCXwgenbQjH1BXKD7tJAr0+VsDhblycQcvQ39f1l9NZN9CBqjM9ALA==}
 
-  '@effect/platform-bun@0.49.3':
-    resolution: {integrity: sha512-UIBABuXkvbsGdjYu9uOZAzEur1PpQAonyGZLejn1hVRKsEVkFR3HqoLBD3dM3UngNiVOXqU+yskt5C6Ao7T3yA==}
+  '@effect/platform-bun@0.49.6':
+    resolution: {integrity: sha512-fxeiutPwcsObwXU3l6ZOWxMQVcRmZma5dvgt2b2c4i2369BLEaRapqfDV4VlleIIVFZX/uDArhdOrK7EPgAAFw==}
     peerDependencies:
-      '@effect/platform': ^0.69.2
-      effect: ^3.10.0
+      '@effect/platform': ^0.69.5
+      effect: ^3.10.1
 
-  '@effect/platform-node-shared@0.19.2':
-    resolution: {integrity: sha512-k+3bDtFXHkN21cQ4Hp6rQs/yoEjmSX4voWkftK1PsDK3iJRG+wlumwxcdnjJ9U+CU9TseXYeBt6hS5yZMw8/Fg==}
+  '@effect/platform-node-shared@0.19.5':
+    resolution: {integrity: sha512-+BPCoYVqdhlBxozJP0bfIIzneA8L3N+2+tjLgleNA9yHrKoYzeyEkF4DJ5/WifPa80o78FqU0TP94HQQypZDRA==}
     peerDependencies:
-      '@effect/platform': ^0.69.2
-      effect: ^3.10.0
+      '@effect/platform': ^0.69.5
+      effect: ^3.10.1
 
-  '@effect/platform-node@0.64.3':
-    resolution: {integrity: sha512-p+pPYKw5urWsBwynEVVGQNFW4URO5SlHDj1m8yZmAZCwt/nDdDnlIjipxzpen0IL8hYlbD03q7pleg4yKjGavQ==}
+  '@effect/platform-node@0.64.6':
+    resolution: {integrity: sha512-GRRBxkGhZR2lEVHuQsFoeVLhJ/c5GNKvMpKnFKMitXr/0R2pouanwRMYufnNcRlf1FpeRTvRz4QzuR8iKGeXQQ==}
     peerDependencies:
-      '@effect/platform': ^0.69.2
-      effect: ^3.10.0
+      '@effect/platform': ^0.69.5
+      effect: ^3.10.1
 
-  '@effect/platform@0.69.2':
-    resolution: {integrity: sha512-2hUmLDyXeeRv4icjQQ2t50JCYVdg2vxmsb9A5hxVUelEvPP0X/UF9oqMdP9W+c5x19TEVXDrdyGIg4lN8srKsA==}
+  '@effect/platform@0.69.5':
+    resolution: {integrity: sha512-1CLhrXbZPyqRdtbZQc4dOzTXLnJEwwhF9BBEQoMK5aGBpp7sCtzOyF/MPbFNTVaK+7jO338YsOiY6sMX2ao3Mg==}
     peerDependencies:
-      effect: ^3.10.0
+      effect: ^3.10.1
 
   '@effect/schema@0.75.5':
     resolution: {integrity: sha512-TQInulTVCuF+9EIbJpyLP6dvxbQJMphrnRqgexm/Ze39rSjfhJuufF7XvU3SxTgg3HnL7B/kpORTJbHhlE6thw==}
@@ -4816,8 +4816,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect@3.10.0:
-    resolution: {integrity: sha512-J9rsJBXNHZxklJTbHriY8D9wIHhmvXDamExW4pPZ2kPNZ+XRfstXeHBqpXAIK+B42ASVbuDswAXyup5WHWK6jg==}
+  effect@3.10.1:
+    resolution: {integrity: sha512-Ny0I3WvGykUnlgmQVkNVbkXHE/pPTWVwmnYfpVZYyLlpe53LVyWViY9+a/7iS/Rqml0xUwJoXx5HK6ksK09Y2Q==}
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
@@ -5581,8 +5581,8 @@ packages:
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
 
-  html-webpack-plugin@5.6.2:
-    resolution: {integrity: sha512-q7xp/FO9RGBVoTKNItkdX1jKLscLFkgn/dLVFNYbHVbfHLBk6DYW5nsQ8kCzIWcgKP/kUBocetjvav6lD8YfCQ==}
+  html-webpack-plugin@5.6.3:
+    resolution: {integrity: sha512-QSf1yjtSAsmf7rYBV7XX86uua4W/vkhIt0xNXKbsi2foEeW7vjJQz4bhnpL3xH+l1ryl1680uNv968Z+X6jSYg==}
     engines: {node: '>=10.13.0'}
     peerDependencies:
       '@rspack/core': 0.x || 1.x
@@ -6520,8 +6520,8 @@ packages:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
 
-  negotiator@0.6.4:
-    resolution: {integrity: sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==}
+  negotiator@1.0.0:
+    resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
 
   neo-async@2.6.2:
@@ -6554,16 +6554,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.0.15:
-    resolution: {integrity: sha512-AhvmgcjFYi7aT5nRjdozqCt1hW39tqCIRKi4+pIR62ri26miB3VxREBYlCTHezcML2VLunyYIjFiiQGUan09gA==}
+  nextra-theme-docs@3.1.0:
+    resolution: {integrity: sha512-2zAC+xnqLzl/kLYCaoVfdupyA6pD5OgF+4iR3zQiPOzfnwJikPQePnr3SCT+tPPgYVuoqSDA5GNc9DvvAHtefQ==}
     peerDependencies:
       next: '>=13'
-      nextra: 3.0.15
+      nextra: 3.1.0
       react: '>=18'
       react-dom: '>=18'
 
-  nextra@3.0.15:
-    resolution: {integrity: sha512-iLKFNYwq8sciXPK9RPRmgifELSA2JLgEfL5y54stq7MvXuKn44MZJNzdhkJF4MXvx1HobzYLHl3/e37/Yf2htA==}
+  nextra@3.1.0:
+    resolution: {integrity: sha512-IvG8Q/yLAqSju1zwRPUqC/6WpzAgfmNo6gDw6CIBZJ+3RKdJDsirM/v3BNeN6vx3tSjLFybytOt3spNXHFy/WQ==}
     engines: {node: '>=18'}
     peerDependencies:
       next: '>=13'
@@ -9602,24 +9602,24 @@ snapshots:
 
   '@effect/language-service@0.2.0': {}
 
-  '@effect/platform-bun@0.49.3(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)':
+  '@effect/platform-bun@0.49.6(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)':
     dependencies:
-      '@effect/platform': 0.69.2(effect@3.10.0)
-      '@effect/platform-node-shared': 0.19.2(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)
-      effect: 3.10.0
+      '@effect/platform': 0.69.5(effect@3.10.1)
+      '@effect/platform-node-shared': 0.19.5(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)
+      effect: 3.10.1
 
-  '@effect/platform-node-shared@0.19.2(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)':
+  '@effect/platform-node-shared@0.19.5(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)':
     dependencies:
-      '@effect/platform': 0.69.2(effect@3.10.0)
+      '@effect/platform': 0.69.5(effect@3.10.1)
       '@parcel/watcher': 2.4.1
-      effect: 3.10.0
+      effect: 3.10.1
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.64.3(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)':
+  '@effect/platform-node@0.64.6(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)':
     dependencies:
-      '@effect/platform': 0.69.2(effect@3.10.0)
-      '@effect/platform-node-shared': 0.19.2(@effect/platform@0.69.2(effect@3.10.0))(effect@3.10.0)
-      effect: 3.10.0
+      '@effect/platform': 0.69.5(effect@3.10.1)
+      '@effect/platform-node-shared': 0.19.5(@effect/platform@0.69.5(effect@3.10.1))(effect@3.10.1)
+      effect: 3.10.1
       mime: 3.0.0
       undici: 6.20.1
       ws: 8.18.0
@@ -9627,15 +9627,15 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.69.2(effect@3.10.0)':
+  '@effect/platform@0.69.5(effect@3.10.1)':
     dependencies:
-      effect: 3.10.0
+      effect: 3.10.1
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.75.5(effect@3.10.0)':
+  '@effect/schema@0.75.5(effect@3.10.1)':
     dependencies:
-      effect: 3.10.0
+      effect: 3.10.1
       fast-check: 3.22.0
 
   '@emnapi/core@1.3.1':
@@ -12391,7 +12391,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect@3.10.0:
+  effect@3.10.1:
     dependencies:
       fast-check: 3.22.0
 
@@ -13436,7 +13436,7 @@ snapshots:
 
   html-void-elements@3.0.0: {}
 
-  html-webpack-plugin@5.6.2(webpack@5.95.0):
+  html-webpack-plugin@5.6.3(webpack@5.95.0):
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
@@ -14605,7 +14605,7 @@ snapshots:
 
   negotiator@0.6.3: {}
 
-  negotiator@0.6.4: {}
+  negotiator@1.0.0: {}
 
   neo-async@2.6.2: {}
 
@@ -14640,7 +14640,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.0.15(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(nextra@3.0.15(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  nextra-theme-docs@3.1.0(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(nextra@3.1.0(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@headlessui/react': 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
@@ -14648,13 +14648,13 @@ snapshots:
       flexsearch: 0.7.43
       next: 15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3)
       next-themes: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 3.0.15(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+      nextra: 3.1.0(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.23.8
 
-  nextra@3.0.15(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
+  nextra@3.1.0(@types/react@18.3.11)(acorn@8.13.0)(next@15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.5
       '@headlessui/react': 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -14673,7 +14673,7 @@ snapshots:
       gray-matter: 4.0.3
       hast-util-to-estree: 3.1.0
       katex: 0.16.11
-      negotiator: 0.6.4
+      negotiator: 1.0.0
       next: 15.0.0(@babel/core@7.25.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.3)
       p-limit: 6.1.0
       react: 18.3.1
