@@ -16,6 +16,7 @@ export default createRule<[], MessageID>({
     docs: {
       description: "disallow using shorthand boolean attributes",
     },
+    fixable: "code",
     messages: {
       avoidShorthandBoolean:
         "Avoid using shorthand boolean attribute '{{propName}}'. Use '{{propName}}={true}' instead.",
@@ -33,6 +34,7 @@ export default createRule<[], MessageID>({
           data: {
             propName: JSX.getPropName(node),
           },
+          fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
         });
     }
     return {

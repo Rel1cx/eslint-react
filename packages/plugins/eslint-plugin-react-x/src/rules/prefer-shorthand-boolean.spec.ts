@@ -9,6 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "preferShorthandBoolean",
         data: { propName: "disabled" },
       }],
+      output: /* tsx */ `<input disabled />`,
     },
     {
       code: /* tsx */ `<App foo={true} />`,
@@ -16,6 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "preferShorthandBoolean",
         data: { propName: "foo" },
       }],
+      output: /* tsx */ `<App foo />`,
     },
     {
       code: /* tsx */ `<App foo={true} bar />`,
@@ -23,6 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "preferShorthandBoolean",
         data: { propName: "foo" },
       }],
+      output: /* tsx */ `<App foo bar />`,
     },
   ],
   valid: [

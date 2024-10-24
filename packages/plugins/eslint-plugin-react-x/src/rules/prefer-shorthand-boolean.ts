@@ -17,6 +17,7 @@ export default createRule<[], MessageID>({
     docs: {
       description: "enforce using shorthand boolean attributes",
     },
+    fixable: "code",
     messages: {
       preferShorthandBoolean: "Use shorthand boolean attribute '{{propName}}'.",
     },
@@ -37,6 +38,7 @@ export default createRule<[], MessageID>({
         data: {
           propName,
         },
+        fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
       });
     }
     return {
