@@ -68,6 +68,7 @@ export default createRule<Options, MessageID>({
       properties: {
         allowExpressions: {
           type: "boolean",
+          description: "Allow fragments with a single expression child",
         },
       },
     }],
