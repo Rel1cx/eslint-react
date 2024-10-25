@@ -50,7 +50,7 @@
     "@types/picomatch": "^3.0.1",
     "fast-equals": "^5.0.1",
     "micro-memoize": "^4.1.2",
-    "tsup": "^8.3.0",
+    "tsup": "^8.3.4",
     "type-fest": "^4.26.1",
     "valibot": "^1.0.0-beta.1"
   }
