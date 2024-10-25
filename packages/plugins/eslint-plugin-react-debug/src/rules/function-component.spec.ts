@@ -1391,5 +1391,11 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }) satisfies ActionFUnction;
     `,
+    /* tsx */ `
+      export const action = (() => {
+        //             ^?
+        return null;
+      }) as ActionFUnction satisfies ActionFUnction;
+    `,
   ],
 });
