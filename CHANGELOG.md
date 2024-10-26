@@ -1,8 +1,9 @@
-## 1.15.1 (Draft)
+## 1.15.1 (Sat 26 Oct 2024)
 
 ### 🐞 Fixes
 
-- Added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier`, closes #843
+- fix(plugins/react-x): respect semicolon by @hyoban in https://github.com/Rel1cx/eslint-react/pull/841
+- fix(utilities/ast): added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier` by @Rel1cx , closes https://github.com/Rel1cx/eslint-react/issues/843
 
 ## 1.15.0 (Sat 12 Oct 2024)
 
