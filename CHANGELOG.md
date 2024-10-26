@@ -1,5 +1,9 @@
 ## 1.15.1 (Sat 26 Oct 2024)
 
+### ✨ New
+
+- feat: added code fixer to `avoid-shorthand-boolean` and `prefer-shorthand-fragment` by @Rel1cx
+
 ### 🐞 Fixes
 
 - fix(plugins/react-x): respect semicolon by @hyoban in https://github.com/Rel1cx/eslint-react/pull/841
