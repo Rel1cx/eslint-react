@@ -2,7 +2,7 @@
 
 ### ✨ New
 
-- feat: added code fixer to `avoid-shorthand-boolean` and `prefer-shorthand-fragment` by @Rel1cx
+- feat: added code fixer to `react-x/avoid-shorthand-boolean` and `react-x/prefer-shorthand-fragment` by @Rel1cx
 
 ### 🐞 Fixes
 
