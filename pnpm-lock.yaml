@@ -16,11 +16,11 @@ overrides:
   '@typescript-eslint/typescript-estree': 8.10.0
   '@typescript-eslint/utils': 8.10.0
   '@typescript-eslint/vistor-keys': 8.10.0
+  nextra: 3.1.0
+  nextra-theme-docs: 3.1.0
   array-flatten: npm:@nolyfill/array-flatten@^1
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   isarray: npm:@nolyfill/isarray@^1.0.29
-  nextra: 3.1.0
-  nextra-theme-docs: 3.1.0
   safe-buffer: npm:@nolyfill/safe-buffer@^1
   safer-buffer: npm:@nolyfill/safer-buffer@^1
   side-channel: npm:@nolyfill/side-channel@^1.0.29
