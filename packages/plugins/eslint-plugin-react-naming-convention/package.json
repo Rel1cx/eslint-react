@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-naming-convention",
-  "version": "1.15.2-next.2",
+  "version": "1.15.2-beta.2",
   "description": "ESLint React's ESLint plugin for naming convention related rules.",
   "keywords": [
     "eslint",
@@ -53,10 +53,10 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.11.0",
-    "@typescript-eslint/type-utils": "^8.11.0",
-    "@typescript-eslint/types": "^8.11.0",
-    "@typescript-eslint/utils": "^8.11.0",
+    "@typescript-eslint/scope-manager": "^8.12.1",
+    "@typescript-eslint/type-utils": "^8.12.1",
+    "@typescript-eslint/types": "^8.12.1",
+    "@typescript-eslint/utils": "^8.12.1",
     "ts-pattern": "^5.5.0"
   },
   "devDependencies": {
