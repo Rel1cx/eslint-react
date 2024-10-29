@@ -1,4 +1,10 @@
-## 1.15.1 (Sat 26 Oct 2024)
+## v1.15.2 (Tue 29 Oct 2024)
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `^8.12.1`.
+
+## v1.15.1 (Sat 26 Oct 2024)
 
 ### ✨ New
 
@@ -9,7 +15,7 @@
 - fix(plugins/react-x): respect semicolon by @hyoban in https://github.com/Rel1cx/eslint-react/pull/841
 - fix(utilities/ast): added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier` by @Rel1cx , closes https://github.com/Rel1cx/eslint-react/issues/843
 
-## 1.15.0 (Sat 12 Oct 2024)
+## v1.15.0 (Sat 12 Oct 2024)
 
 ### ✨ New
 
