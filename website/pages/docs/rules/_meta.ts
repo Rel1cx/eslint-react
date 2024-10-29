@@ -9,6 +9,7 @@ export default {
     type: "separator",
   },
   "ensure-forward-ref-using-ref": "ensure-forward-ref-using-ref",
+  "jsx-uses-vars": "jsx-uses-vars",
   "no-access-state-in-setstate": "no-access-state-in-setstate",
   "no-array-index-key": "no-array-index-key",
   "no-children-count": "no-children-count",

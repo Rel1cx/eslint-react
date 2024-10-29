@@ -1,0 +1,27 @@
+# jsx-uses-vars
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+## Examples
+
+Since 0.17.0 the eslint `no-unused-var`s rule does not detect variables used in JSX (see details). This rule will find variables used in JSX and mark them as used.
+
+This rule only has an effect when the `no-unused-vars` rule is enabled.
+
+### Failing
+
+```tsx
+const Hello = require('./Hello');
+```
+
+### Passing
+
+```tsx
+const Hello = require('./Hello');
+
+<Hello name="John" />;
+```
