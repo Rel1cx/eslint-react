@@ -1,3 +1,13 @@
+## v1.16.0 (Wed 30 Oct 2024)
+
+### ✨ New
+
+- feat(plugins/react-x): add `jsx-uses-vars`, closes #834 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/845
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `^8.12.2`.
+
 ## v1.15.2 (Tue 29 Oct 2024)
 
 ### 🪄 Improvements
