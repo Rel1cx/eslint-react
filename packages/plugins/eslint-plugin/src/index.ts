@@ -15,7 +15,10 @@ import { padKeysLeft } from "./utils";
 
 const allPreset = {
   // Part: Core
+  "avoid-shorthand-boolean": "warn",
+  "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
+  "jsx-uses-vars": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
   "no-children-count": "warn",
@@ -58,9 +61,6 @@ const allPreset = {
   // "prefer-read-only-props": "warn", // This rule requires type information
   "prefer-shorthand-boolean": "warn",
   "prefer-shorthand-fragment": "warn",
-  // eslint-disable-next-line perfectionist/sort-objects
-  "avoid-shorthand-boolean": "warn",
-  "avoid-shorthand-fragment": "warn",
 
   // Part: DOM
   "dom/no-children-in-void-dom-elements": "warn",
@@ -96,9 +96,10 @@ const allPreset = {
 } as const satisfies RulePreset;
 
 const corePreset = {
+  "ensure-forward-ref-using-ref": "warn",
   // "avoid-shorthand-boolean": "warn",
   // "avoid-shorthand-fragment": "warn",
-  "ensure-forward-ref-using-ref": "warn",
+  "jsx-uses-vars": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
   "no-children-count": "warn",

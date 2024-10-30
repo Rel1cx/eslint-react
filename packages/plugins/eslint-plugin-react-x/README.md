@@ -30,6 +30,7 @@ export default [
     rules: {
       // react-x recommended rules
       "react-x/ensure-forward-ref-using-ref": "warn",
+      "react-x/jsx-uses-vars": "warn",
       "react-x/no-access-state-in-setstate": "error",
       "react-x/no-array-index-key": "warn",
       "react-x/no-children-count": "warn",
@@ -74,6 +75,7 @@ export default [
 | `avoid-shorthand-boolean`                | Prevents using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
 | `avoid-shorthand-fragment`               | Prevents using shorthand syntax for fragments.                                                       | 🎨  |     |     |
 | `ensure-forward-ref-using-ref`           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |  ✔️  |     |     |
+| `jsx-uses-vars                           | Prevents variables used in JSX to be marked as unused.                                               |  ✔️  |     |     |
 | `no-access-state-in-setstate`            | Prevents accessing `this.state` inside `setState` calls.                                             |  ✔️  |     |     |
 | `no-array-index-key`                     | Prevents using array `index` as `key`.                                                               | 🧐  |     |     |
 | `no-children-count`                      | Prevents using `Children.count`.                                                                     | ⛔  |     |     |

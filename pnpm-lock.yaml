@@ -27,17 +27,17 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
       '@effect/platform':
-        specifier: ^0.69.9
-        version: 0.69.9(effect@3.10.4)
+        specifier: ^0.69.10
+        version: 0.69.10(effect@3.10.5)
       '@effect/platform-bun':
-        specifier: ^0.49.10
-        version: 0.49.10(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)
+        specifier: ^0.49.11
+        version: 0.49.11(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)
       '@effect/platform-node':
-        specifier: ^0.64.10
-        version: 0.64.10(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)
+        specifier: ^0.64.11
+        version: 0.64.11(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)
       '@effect/schema':
         specifier: ^0.75.5
-        version: 0.75.5(effect@3.10.4)
+        version: 0.75.5(effect@3.10.5)
       '@eslint/config-inspector':
         specifier: ^0.5.5
         version: 0.5.5(eslint@9.13.0(jiti@2.3.3))
@@ -93,8 +93,8 @@ importers:
         specifier: ^0.47.5
         version: 0.47.5
       effect:
-        specifier: ^3.10.4
-        version: 3.10.4
+        specifier: ^3.10.5
+        version: 3.10.5
       esbuild:
         specifier: ^0.24.0
         version: 0.24.0
@@ -141,8 +141,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       lefthook:
-        specifier: ^1.8.1
-        version: 1.8.1
+        specifier: ^1.8.2
+        version: 1.8.2
       markdownlint:
         specifier: ^0.36.1
         version: 0.36.1
@@ -876,8 +876,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: ^3.10.4
-        version: 3.10.4
+        specifier: ^3.10.5
+        version: 3.10.5
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.7.40(@swc/helpers@0.5.13))(jiti@2.3.3)(postcss@8.4.47)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.0)
@@ -1055,8 +1055,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       effect:
-        specifier: ^3.10.4
-        version: 3.10.4
+        specifier: ^3.10.5
+        version: 3.10.5
       eslint:
         specifier: ^9.13.0
         version: 9.13.0(jiti@2.3.3)
@@ -2032,28 +2032,28 @@ packages:
   '@effect/language-service@0.2.0':
     resolution: {integrity: sha512-DoK41yKGyQv79o0ca8gxEogMlt+IphXkdCXwgenbQjH1BXKD7tJAr0+VsDhblycQcvQ39f1l9NZN9CBqjM9ALA==}
 
-  '@effect/platform-bun@0.49.10':
-    resolution: {integrity: sha512-YY1di/7d3uexcnlPJ6KFhFxyu4OBDQdCxqAQs1aC/EDMUkl4qUQ6pgKDB2+L1LtbuIvYyNjyGkdUhMtOeG8TZw==}
+  '@effect/platform-bun@0.49.11':
+    resolution: {integrity: sha512-1OCkJuJ+sVMM1LusTXe0HD8KyZ7TelzyiHG9SWPGvwpSJI7dfcAsHy0TTZCptuGe2FNtWgTikCx/+DPtSVvOSA==}
     peerDependencies:
-      '@effect/platform': ^0.69.9
-      effect: ^3.10.4
+      '@effect/platform': ^0.69.10
+      effect: ^3.10.5
 
-  '@effect/platform-node-shared@0.19.9':
-    resolution: {integrity: sha512-XR5EraZRIJ9Uhgh/A6u3cuOH0uVfKdD7DhpStpjJAw8ShntDLjRwI0QKWrJTL3Z3zDqVkGvdZoFSxBeF4cOcxA==}
+  '@effect/platform-node-shared@0.19.10':
+    resolution: {integrity: sha512-vGBriNQ69XE+eMdg8gAAocpPRXjJxKArgO2CvdQ7+O0/0Ph2+0Edq0LEhpXNVnjmfUDRPYGLD9TS+AIquKARDA==}
     peerDependencies:
-      '@effect/platform': ^0.69.9
-      effect: ^3.10.4
+      '@effect/platform': ^0.69.10
+      effect: ^3.10.5
 
-  '@effect/platform-node@0.64.10':
-    resolution: {integrity: sha512-V8dC6GGxC5VBGEoTApSX5+MJTKDNPeSFzdQiZroDvAulOoA18hTj3jVz2pgtP9DjlJ8EIUEW8lMETD149FMbWA==}
+  '@effect/platform-node@0.64.11':
+    resolution: {integrity: sha512-oUhGB0YlZJvv0USTMQXDT0dc9VuGuoWeCanhMvL/J1YVSLWwMMinkxchNQCawyJNiOBBaRXstHR4lPJaT6Z6ZA==}
     peerDependencies:
-      '@effect/platform': ^0.69.9
-      effect: ^3.10.4
+      '@effect/platform': ^0.69.10
+      effect: ^3.10.5
 
-  '@effect/platform@0.69.9':
-    resolution: {integrity: sha512-gdp5rLxKLBBI895ycBRkuwCQHnYf8g6+Sdg5tFhuH+axIdgP4J8dGzIvYBGAkRMw/4k2BYeSKKf8ZONYnNWcWg==}
+  '@effect/platform@0.69.10':
+    resolution: {integrity: sha512-GhCB9WFajOQzzpU4X0IE8L8slx4ALfuTA5iK/36fXp8CyUbp88ZYhic6jt6b8L0u14qPHYLrkxO/2pSBXRgcZA==}
     peerDependencies:
-      effect: ^3.10.4
+      effect: ^3.10.5
 
   '@effect/schema@0.75.5':
     resolution: {integrity: sha512-TQInulTVCuF+9EIbJpyLP6dvxbQJMphrnRqgexm/Ze39rSjfhJuufF7XvU3SxTgg3HnL7B/kpORTJbHhlE6thw==}
@@ -4856,8 +4856,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect@3.10.4:
-    resolution: {integrity: sha512-D7Mryq8jylT0fIGrgXEn2TublO/BhduRwzlqV5z1l/QFY6grs7UOyyomlAOFMK9ArSYiLgrOSMQ/Cr/cIOeU2Q==}
+  effect@3.10.5:
+    resolution: {integrity: sha512-Um6eCaBAXqNLO+lQy3t7fop+OX3+r5JqfCTwW/nD7mce7K0Crdpwf/k74ScD5ONg4yRit6xqUkRhR9ubPcPAtg==}
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
@@ -6025,58 +6025,58 @@ packages:
   layout-base@2.0.1:
     resolution: {integrity: sha512-dp3s92+uNI1hWIpPGH3jK2kxE2lMjdXdr+DH8ynZHpd6PUlH6x6cbuXnoMmiNumznqaNO31xu9e79F0uuZ0JFg==}
 
-  lefthook-darwin-arm64@1.8.1:
-    resolution: {integrity: sha512-zTUb0NcMWKDqck9UobqJZCzihksk5Dv/D+zD3jrxi50vQvgl4wfTO3sP78WmVdhGkMCyHy5udOB+L72fyJqcdw==}
+  lefthook-darwin-arm64@1.8.2:
+    resolution: {integrity: sha512-g41SoFUv8SzHpG1NOPkHUEPhC1tJM5FF3Vo+HESmLmL9cDfd7JncHFPy59rVnC9Q8nOS0rvoik5HTq+3/wcfww==}
     cpu: [arm64]
     os: [darwin]
 
-  lefthook-darwin-x64@1.8.1:
-    resolution: {integrity: sha512-f9DY+UBd+g6TZ/nHdNZnfGeWT/0n18bkYi56biKEBXIgRlnuTNCrk0TUiSxlWF2GUQdxHM8YSWDkPRtHLg+3zg==}
+  lefthook-darwin-x64@1.8.2:
+    resolution: {integrity: sha512-IlCm4PrA/aAZ1MChiExYTbladC87GaxmYHOMHCeChLecqn+lypAuiYLgf7w5r2s3MjH5rbXImfU925NRKi6RXQ==}
     cpu: [x64]
     os: [darwin]
 
-  lefthook-freebsd-arm64@1.8.1:
-    resolution: {integrity: sha512-ZWx0PtYRtd0tlygUjLKP1eSztyLx2pOnI06h5/PyxWcmF+1/WjYPZM7Mt1nBwpqZcFNYkQ3VefFfg1f0URuLJQ==}
+  lefthook-freebsd-arm64@1.8.2:
+    resolution: {integrity: sha512-f7AIvuIEXUUR1ZutIFxjYKFDAVUBrdsLm+cbwOCjdfpJh7j2Fjg6nKXbDcglPXlX9Ix+nw9pHbJE2DAgzkI1Vw==}
     cpu: [arm64]
     os: [freebsd]
 
-  lefthook-freebsd-x64@1.8.1:
-    resolution: {integrity: sha512-F5rd7JMwQJosZclsyqJciAn5CBZCZGTGEXLWEwOhgFZbbsUubGSekAhJNoHFm4eJZaDhhWnckghCjXCfBjDSYg==}
+  lefthook-freebsd-x64@1.8.2:
+    resolution: {integrity: sha512-DSDL64fRLSNSWOa1y2bGXwXPiwU1fbAXpj63j6jeQ0jkgu6k+3XL/PBXKh80cI6MvCKz/KQKCtIencXZZ2Ua4Q==}
     cpu: [x64]
     os: [freebsd]
 
-  lefthook-linux-arm64@1.8.1:
-    resolution: {integrity: sha512-CTsqVHW2B291wLXonod1AMUJEOZqtG8lY+la97Id301kY4TzgbBKQvU2LF/hBIS8c62DjPMzEM4NYfbVzrK1QA==}
+  lefthook-linux-arm64@1.8.2:
+    resolution: {integrity: sha512-sJ95X+ZH8ayIE7ApiGEq5ZF9KGA+eKiocJU+536bLbAIHw5WjGmv2x3llFqUxH/zAmLe3k542oZ4d84wEO0EGQ==}
     cpu: [arm64]
     os: [linux]
 
-  lefthook-linux-x64@1.8.1:
-    resolution: {integrity: sha512-fw8WwUjr+mCfH/Gbmfj/7J0oX8NjfaACUQlYr3kVHz3c+LYMoRv7O/7dn2OXVO5vEdK5zH/NZlMml4C4qhxwEA==}
+  lefthook-linux-x64@1.8.2:
+    resolution: {integrity: sha512-2eirc61M0WjlbSHamAgGf9iWsQTYz4IT6PAPm66vUaeG34+5D66xFicIV6pK2niRGUOPtNs8Kt4lboKtW+ba5g==}
     cpu: [x64]
     os: [linux]
 
-  lefthook-openbsd-arm64@1.8.1:
-    resolution: {integrity: sha512-Za9K1ZAoRRM2Pq0eXZHbUppUZArZfgVcTDawKf/FRkbvAsTnBPEcH8Qtjcsm12qLQZ45KtPzZ/GEl/nxnWpeVQ==}
+  lefthook-openbsd-arm64@1.8.2:
+    resolution: {integrity: sha512-ZMop7htaSwP3MiL06WHUV36EX05N33o0WzNzC8NO5KEubn8Z74vbXcaq6qYezmgi+erkG6dtTnlbcZy5PFvFIA==}
     cpu: [arm64]
     os: [openbsd]
 
-  lefthook-openbsd-x64@1.8.1:
-    resolution: {integrity: sha512-NgzcIouZobNZw1eEIC3Vh3z4bzVgIGIyJ41g5PGe6d1IXVkmnc5qpFP7jgnaaLK7TPahzIOREQrtYgR62Hg5bw==}
+  lefthook-openbsd-x64@1.8.2:
+    resolution: {integrity: sha512-jXFoxmpYXO6ZafgQJVvk3MYlRgOBJD3n7H8A1Bj1E2yrLzOhKevUKlTNwZTxQdxlnvoo33yD6SjVSujZavEGpw==}
     cpu: [x64]
     os: [openbsd]
 
-  lefthook-windows-arm64@1.8.1:
-    resolution: {integrity: sha512-NUIwnV56YLUmHZf+C5gQA9tIdWjdHu5Ql6hNdFbYYrGxNvNFh2juHRaPKHUGjYk5iu9bxgjogw7mHfN+LanBcQ==}
+  lefthook-windows-arm64@1.8.2:
+    resolution: {integrity: sha512-hsQUSk6kmB8E0UMD3Mk6ROoa7qv6XmigfPsn9tFjmbZ2aO+kpBfWitZ5v+gcjNp44yaECs3YTMIfv3QFwXlRCw==}
     cpu: [arm64]
     os: [win32]
 
-  lefthook-windows-x64@1.8.1:
-    resolution: {integrity: sha512-9cnvWe8tYBwUxJFvW/TJ3P4Al+52QJcLdkJJ1aKgr3F7EydPPZk+jWFy0b1SSan1S7M7OuoPC9jcKS3PGjB6tw==}
+  lefthook-windows-x64@1.8.2:
+    resolution: {integrity: sha512-YypbMhvgAtkL7y+O3OlF81vwua7X4jloBz5hO3fILAuzaGAiPE1VbeuqRweV8VuKK4L/ZVVKqmpesygBUNDp9w==}
     cpu: [x64]
     os: [win32]
 
-  lefthook@1.8.1:
-    resolution: {integrity: sha512-DTm2F7kf+mQ0UgxSOuCSIwAMC4RJOH5x77okcsFfeJOJ0y7/xGgpfmPb9ZPBDXeJ6UxfI0ngRgWoEctYMlMr4A==}
+  lefthook@1.8.2:
+    resolution: {integrity: sha512-lMXbcFHNDr+gzy/7ghuJDVB/Yyycj+ZL/7pN3Gm/s5Xqrc9+5sj3IrDAPylcEJ1cKCbUnXbwESrhhqpcYv4d4g==}
     hasBin: true
 
   levn@0.4.1:
@@ -9608,24 +9608,24 @@ snapshots:
 
   '@effect/language-service@0.2.0': {}
 
-  '@effect/platform-bun@0.49.10(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)':
+  '@effect/platform-bun@0.49.11(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)':
     dependencies:
-      '@effect/platform': 0.69.9(effect@3.10.4)
-      '@effect/platform-node-shared': 0.19.9(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)
-      effect: 3.10.4
+      '@effect/platform': 0.69.10(effect@3.10.5)
+      '@effect/platform-node-shared': 0.19.10(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)
+      effect: 3.10.5
 
-  '@effect/platform-node-shared@0.19.9(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)':
+  '@effect/platform-node-shared@0.19.10(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)':
     dependencies:
-      '@effect/platform': 0.69.9(effect@3.10.4)
+      '@effect/platform': 0.69.10(effect@3.10.5)
       '@parcel/watcher': 2.4.1
-      effect: 3.10.4
+      effect: 3.10.5
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.64.10(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)':
+  '@effect/platform-node@0.64.11(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)':
     dependencies:
-      '@effect/platform': 0.69.9(effect@3.10.4)
-      '@effect/platform-node-shared': 0.19.9(@effect/platform@0.69.9(effect@3.10.4))(effect@3.10.4)
-      effect: 3.10.4
+      '@effect/platform': 0.69.10(effect@3.10.5)
+      '@effect/platform-node-shared': 0.19.10(@effect/platform@0.69.10(effect@3.10.5))(effect@3.10.5)
+      effect: 3.10.5
       mime: 3.0.0
       undici: 6.20.1
       ws: 8.18.0
@@ -9633,15 +9633,15 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.69.9(effect@3.10.4)':
+  '@effect/platform@0.69.10(effect@3.10.5)':
     dependencies:
-      effect: 3.10.4
+      effect: 3.10.5
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.75.5(effect@3.10.4)':
+  '@effect/schema@0.75.5(effect@3.10.5)':
     dependencies:
-      effect: 3.10.4
+      effect: 3.10.5
       fast-check: 3.22.0
 
   '@emnapi/core@1.3.1':
@@ -12459,7 +12459,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect@3.10.4:
+  effect@3.10.5:
     dependencies:
       fast-check: 3.22.0
 
@@ -13845,48 +13845,48 @@ snapshots:
 
   layout-base@2.0.1: {}
 
-  lefthook-darwin-arm64@1.8.1:
+  lefthook-darwin-arm64@1.8.2:
     optional: true
 
-  lefthook-darwin-x64@1.8.1:
+  lefthook-darwin-x64@1.8.2:
     optional: true
 
-  lefthook-freebsd-arm64@1.8.1:
+  lefthook-freebsd-arm64@1.8.2:
     optional: true
 
-  lefthook-freebsd-x64@1.8.1:
+  lefthook-freebsd-x64@1.8.2:
     optional: true
 
-  lefthook-linux-arm64@1.8.1:
+  lefthook-linux-arm64@1.8.2:
     optional: true
 
-  lefthook-linux-x64@1.8.1:
+  lefthook-linux-x64@1.8.2:
     optional: true
 
-  lefthook-openbsd-arm64@1.8.1:
+  lefthook-openbsd-arm64@1.8.2:
     optional: true
 
-  lefthook-openbsd-x64@1.8.1:
+  lefthook-openbsd-x64@1.8.2:
     optional: true
 
-  lefthook-windows-arm64@1.8.1:
+  lefthook-windows-arm64@1.8.2:
     optional: true
 
-  lefthook-windows-x64@1.8.1:
+  lefthook-windows-x64@1.8.2:
     optional: true
 
-  lefthook@1.8.1:
+  lefthook@1.8.2:
     optionalDependencies:
-      lefthook-darwin-arm64: 1.8.1
-      lefthook-darwin-x64: 1.8.1
-      lefthook-freebsd-arm64: 1.8.1
-      lefthook-freebsd-x64: 1.8.1
-      lefthook-linux-arm64: 1.8.1
-      lefthook-linux-x64: 1.8.1
-      lefthook-openbsd-arm64: 1.8.1
-      lefthook-openbsd-x64: 1.8.1
-      lefthook-windows-arm64: 1.8.1
-      lefthook-windows-x64: 1.8.1
+      lefthook-darwin-arm64: 1.8.2
+      lefthook-darwin-x64: 1.8.2
+      lefthook-freebsd-arm64: 1.8.2
+      lefthook-freebsd-x64: 1.8.2
+      lefthook-linux-arm64: 1.8.2
+      lefthook-linux-x64: 1.8.2
+      lefthook-openbsd-arm64: 1.8.2
+      lefthook-openbsd-x64: 1.8.2
+      lefthook-windows-arm64: 1.8.2
+      lefthook-windows-x64: 1.8.2
 
   levn@0.4.1:
     dependencies:
