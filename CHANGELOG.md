@@ -4,6 +4,7 @@
 
 - feat(plugins/react-x): add `jsx-uses-vars`, closes #834 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/845
 - feat(plugins/react-dom): add `no-unknown-property`, closes #846 by @Rel1cx
+- feat: add `recommended-typescript` and `recommended-typescript-legacy` presets by @Rel1cx
 
 ### 🪄 Improvements
 
