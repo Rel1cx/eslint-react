@@ -50,7 +50,7 @@ export default [
 
 | Rule                                         | Description                                                                             | 💼  | 💭  |     |
 | :------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| `no-children-in-void-dom-elements`           | Prevents the use of `children` in void `DOM elements`.                                  |  ✔️  |     |     |
+| `no-children-in-void-dom-elements`           | Prevents usage of `children` in void `DOM elements`.                                    |  ✔️  |     |     |
 | `no-dangerously-set-innerhtml-with-children` | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
 | `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
 | `no-find-dom-node`                           | Prevents usage of `findDOMNode`.                                                        | ⛔  |     |     |
@@ -61,4 +61,4 @@ export default [
 | `no-script-url`                              | Prevents usage of `javascript:` URLs as the value of certain attributes.                | 🔒  |     |     |
 | `no-unknown-property`                        | Prevents usage of unknown DOM property.                                                 |  ✔️  |     |     |
 | `no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
-| `no-unsafe-target-blank`                     | Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.              | 🔒  |     |     |
+| `no-unsafe-target-blank`                     | Prevents usage of `target="_blank"` without `rel="noreferrer noopener"`.                | 🔒  |     |     |
