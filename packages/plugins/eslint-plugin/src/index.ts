@@ -180,8 +180,13 @@ const recommendedPreset = {
   ...hooksExtraPreset,
 } as const satisfies RulePreset;
 
-const recommendedTypeCheckedPreset = {
+const recommendedTypeScriptPreset = {
   ...recommendedPreset,
+  "dom/no-unknown-property": "off",
+} as const satisfies RulePreset;
+
+const recommendedTypeCheckedPreset = {
+  ...recommendedTypeScriptPreset,
   "no-leaked-conditional-rendering": "warn",
 } as const satisfies RulePreset;
 
@@ -278,6 +283,8 @@ export default {
     ["dom-legacy"]: createLegacyConfig(domPreset),
     ["recommended"]: createFlatConfig(recommendedPreset),
     ["recommended-legacy"]: createLegacyConfig(recommendedPreset),
+    ["recommended-typescript"]: createFlatConfig(recommendedTypeScriptPreset),
+    ["recommended-typescript-legacy"]: createLegacyConfig(recommendedTypeScriptPreset),
     ["recommended-type-checked"]: createFlatConfig(recommendedTypeCheckedPreset),
     ["recommended-type-checked-legacy"]: createLegacyConfig(recommendedTypeCheckedPreset),
     // Part: disable presets
