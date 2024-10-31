@@ -64,6 +64,7 @@ export default {
   "dom-no-namespace": "dom/no-namespace",
   "dom-no-render-return-value": "dom/no-render-return-value",
   "dom-no-script-url": "dom/no-script-url",
+  "dom-no-unknown-property": "dom/no-unknown-property",
   "dom-no-unsafe-iframe-sandbox": "dom/no-unsafe-iframe-sandbox",
   "dom-no-unsafe-target-blank": "dom/no-unsafe-target-blank",
   "web-api-no-leaked-event-listener": "web-api/no-leaked-event-listener",
