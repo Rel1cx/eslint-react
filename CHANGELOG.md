@@ -1,8 +1,9 @@
-## v1.16.0 (Wed 30 Oct 2024)
+## v1.16.0 (next)
 
 ### ✨ New
 
 - feat(plugins/react-x): add `jsx-uses-vars`, closes #834 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/845
+- feat(plugins/react-dom): add `no-unknown-property`, closes #846 by @Rel1cx
 
 ### 🪄 Improvements
 
