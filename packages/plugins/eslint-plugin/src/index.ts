@@ -72,6 +72,7 @@ const allPreset = {
   "dom/no-namespace": "error",
   "dom/no-render-return-value": "error",
   "dom/no-script-url": "warn",
+  "dom/no-unknown-property": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
 
@@ -154,6 +155,7 @@ const domPreset = {
   "dom/no-namespace": "error",
   "dom/no-render-return-value": "error",
   "dom/no-script-url": "warn",
+  "dom/no-unknown-property": "warn",
   "dom/no-unsafe-iframe-sandbox": "warn",
   "dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;

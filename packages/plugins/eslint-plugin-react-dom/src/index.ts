@@ -10,6 +10,7 @@ import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox";
 import noNamespace from "./rules/no-namespace";
 import noRenderReturnValue from "./rules/no-render-return-value";
 import noScriptUrl from "./rules/no-script-url";
+import noUnknownProperty from "./rules/no-unknown-property";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 
@@ -44,6 +45,7 @@ export default {
     "no-namespace": noNamespace,
     "no-render-return-value": noRenderReturnValue,
     "no-script-url": noScriptUrl,
+    "no-unknown-property": noUnknownProperty,
     "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
     "no-unsafe-target-blank": noUnsafeTargetBlank,
   },

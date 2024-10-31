@@ -76,14 +76,15 @@
 | Rule                                                                                               | Description                                                                             | 💼  | 💭  |     |
 | :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: | :-: |
 | [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents using `children` in void `DOM elements`.                                       |  ✔️  |     |     |
-| [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
 | [`dom/no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |  ✔️  |     |     |
+| [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 | 🔒  |     |     |
 | [`dom/no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents using `findDOMNode`.                                                           | ⛔  |     |     |
 | [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |  ✔️  |     | 📐  |
 | [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            | 🔒  |     |     |
 | [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
 | [`dom/no-render-return-value`](dom-no-render-return-value)                                         | Prevents using the return value of `ReactDOM.render`.                                   | ⛔  |     |     |
 | [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents using `javascript:` URLs as the value of certain attributes.                   | 🔒  |     |     |
+| [`dom/no-unknown-property`](dom-no-unknown-property)                                               | Prevents using unknown `DOM` property                                                   | 🧐  |     |     |
 | [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
 | [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   | 🔒  |     |     |
 
