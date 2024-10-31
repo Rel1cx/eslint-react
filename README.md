@@ -82,9 +82,12 @@ export default [
 - **recommended**\
   Enable rules that are recommended by ESLint React.\
   _This preset includes the `core`, `dom`, and `web-api` presets._
+- **recommended-typescript**\
+  Enable rules that are recommended by ESLint React and disable rules that can be covered by TypeScript.\
+  _This preset includes the `recommended` preset._
 - **recommended-type-checked**\
   Enable rules that are recommended by ESLint React with additional rules that require type information.\
-  _This preset includes the `recommended` preset._
+  _This preset includes the `recommended-typescript` preset._
 
 [Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
