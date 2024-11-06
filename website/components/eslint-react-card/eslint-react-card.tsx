@@ -4,13 +4,11 @@ import React from "react";
 import logo from "#/assets/logo.svg";
 import { Image } from "#/components/image";
 
-import * as css from "./styles.css";
-
 export function ESLintReactCard() {
   return (
-    <div className={css.root}>
+    <div className="flex flex-col items-center gap-4 m-0 mx-auto p-8 w-fit">
       <Image src={logo} alt="logo" width="150" height="150" />
-      <h1>ESLint React</h1>
+      <h1 className="text-2xl">ESLint React</h1>
     </div>
   );
 }

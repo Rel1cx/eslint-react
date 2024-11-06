@@ -1,9 +1,6 @@
-import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 import nextra from "nextra";
 import codeImport from "remark-code-import";
 import remarkGFM from "remark-gfm";
-
-const withVanillaExtract = createVanillaExtractPlugin();
 
 const withNextra = nextra({
   theme: "nextra-theme-docs",
@@ -71,4 +68,4 @@ const nextConfig = {
   },
 };
 
-export default withVanillaExtract(withNextra(nextConfig));
+export default withNextra(nextConfig);
