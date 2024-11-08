@@ -18,6 +18,7 @@ const allPreset = {
   "avoid-shorthand-boolean": "warn",
   "avoid-shorthand-fragment": "warn",
   "ensure-forward-ref-using-ref": "warn",
+  "jsx-no-duplicate-props": "warn",
   "jsx-uses-vars": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
@@ -100,6 +101,7 @@ const corePreset = {
   "ensure-forward-ref-using-ref": "warn",
   // "avoid-shorthand-boolean": "warn",
   // "avoid-shorthand-fragment": "warn",
+  "jsx-no-duplicate-props": "warn",
   "jsx-uses-vars": "warn",
   "no-access-state-in-setstate": "error",
   "no-array-index-key": "warn",
@@ -183,6 +185,8 @@ const recommendedPreset = {
 const recommendedTypeScriptPreset = {
   ...recommendedPreset,
   "dom/no-unknown-property": "off",
+  "jsx-no-duplicate-props": "off",
+  "jsx-uses-vars": "off",
 } as const satisfies RulePreset;
 
 const recommendedTypeCheckedPreset = {
