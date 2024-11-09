@@ -5,6 +5,7 @@ import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
 import forwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
+import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
 import jsxUsesVars from "./rules/jsx-uses-vars";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key";
@@ -71,6 +72,7 @@ export default {
     "avoid-shorthand-boolean": avoidShorthandBoolean,
     "avoid-shorthand-fragment": avoidShorthandFragment,
     "ensure-forward-ref-using-ref": forwardRefUsingRef,
+    "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-uses-vars": jsxUsesVars,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,

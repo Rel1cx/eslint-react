@@ -1,0 +1,23 @@
+# jsx-no-duplicate-props
+
+## Rule category
+
+Correctness.
+
+## What it does
+
+This rule prevents the use of duplicate props in JSX elements.
+
+## Examples
+
+### Failing
+
+```tsx
+<Hello name="John" name="Doe" />;
+```
+
+### Passing
+
+```tsx
+<Hello name="John" />;
+```
