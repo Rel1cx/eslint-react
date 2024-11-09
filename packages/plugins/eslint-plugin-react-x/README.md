@@ -30,6 +30,7 @@ export default [
     rules: {
       // react-x recommended rules
       "react-x/ensure-forward-ref-using-ref": "warn",
+      "react-x/jsx-no-duplicate-props": "warn",
       "react-x/jsx-uses-vars": "warn",
       "react-x/no-access-state-in-setstate": "error",
       "react-x/no-array-index-key": "warn",
@@ -75,6 +76,7 @@ export default [
 | `avoid-shorthand-boolean`                | Prevents using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
 | `avoid-shorthand-fragment`               | Prevents using shorthand syntax for fragments.                                                       | 🎨  |     |     |
 | `ensure-forward-ref-using-ref`           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |  ✔️  |     |     |
+| `jsx-no-duplicate-props`                 | Prevents duplicate props in JSX.                                                                     |  ✔️  |     |     |
 | `jsx-uses-vars`                          | Prevents variables used in JSX to be marked as unused.                                               |  ✔️  |     |     |
 | `no-access-state-in-setstate`            | Prevents accessing `this.state` inside `setState` calls.                                             |  ✔️  |     |     |
 | `no-array-index-key`                     | Prevents using array `index` as `key`.                                                               | 🧐  |     |     |
