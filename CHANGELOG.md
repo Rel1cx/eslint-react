@@ -1,3 +1,13 @@
+## v1.16.1 (Sun 10 Nov 2024)
+
+### ✨ New
+
+- feat(plugins/x): add `jsx-no-duplicate-props` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/851
+
+### 🪄 Improvements
+
+- docs: use correct link for `prefer-react-namespace-import` in rule list by @rakleed in https://github.com/Rel1cx/eslint-react/pull/849
+
 ## v1.16.0 (Fri 1 Nov 2024)
 
 ### ✨ New
