@@ -3,7 +3,7 @@ import reactWebApi from "eslint-plugin-react-web-api";
 
 import * as dom from "./dom";
 
-export const name = "@eslint-react/disable-web-api";
+export const name = "@eslint-react/web-api";
 
 export const rules = {
   "@eslint-react/web-api/no-leaked-event-listener": "warn",

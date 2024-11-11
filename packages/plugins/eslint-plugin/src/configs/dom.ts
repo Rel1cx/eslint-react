@@ -1,7 +1,7 @@
 import type { RulePreset } from "@eslint-react/types";
 import reactDom from "eslint-plugin-react-dom";
 
-export const name = "@eslint-react/all";
+export const name = "@eslint-react/dom";
 
 export const rules = {
   "@eslint-react/dom/no-children-in-void-dom-elements": "warn",
