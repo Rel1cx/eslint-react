@@ -1,11 +1,11 @@
-import { Data, F, O } from "@eslint-react/tools";
+import { Data, F } from "@eslint-react/tools";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";
 import type { PartialDeep } from "type-fest";
 import { parse } from "valibot";
 
-import type { CustomAttribute, ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
+import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
 
 // #region Constants
@@ -80,14 +80,6 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
 // #endregion
 
 // #region Helper Functions
-
-export function findAttrInCustomAttributes(name: string, attributes: CustomAttribute[]) {
-  return F.pipe(
-    O.fromNullable(attributes.findLast(a => a.as === name)),
-    O.map(a => [a.name, a.defaultValue] as const),
-    O.getOrElse(() => [name] as const),
-  );
-}
 
 /**
  * A helper function to define settings for "react-x" with type checking in JavaScript files.

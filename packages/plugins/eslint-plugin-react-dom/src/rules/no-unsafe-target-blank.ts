@@ -1,12 +1,12 @@
 import * as JSX from "@eslint-react/jsx";
-import { decodeSettings, findAttrInCustomAttributes, normalizeSettings } from "@eslint-react/shared";
+import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, findAttrInCustomAttributes } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 

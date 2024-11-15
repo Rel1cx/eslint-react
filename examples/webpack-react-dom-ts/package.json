@@ -46,5 +46,5 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
   },
-  "packageManager": "pnpm@9.13.0"
+  "packageManager": "pnpm@9.13.2"
 }

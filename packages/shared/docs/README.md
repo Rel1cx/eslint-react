@@ -31,4 +31,3 @@
 ## Functions
 
 - [defineSettings](functions/defineSettings.md)
-- [findAttrInCustomAttributes](functions/findAttrInCustomAttributes.md)
