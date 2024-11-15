@@ -13,7 +13,8 @@ export const rules = {
   "@eslint-react/dom/no-namespace": "error",
   "@eslint-react/dom/no-render-return-value": "error",
   "@eslint-react/dom/no-script-url": "warn",
-  "@eslint-react/dom/no-unknown-property": "warn",
+  // TODO: Re-enable when the rule is refactored to use the data from the `@types/react` package
+  // "@eslint-react/dom/no-unknown-property": "warn",
   "@eslint-react/dom/no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom/no-unsafe-target-blank": "warn",
 } as const satisfies RulePreset;
