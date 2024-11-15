@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/js": "^9.14.0",
+    "@eslint/js": "^9.15.0",
     "@mdx-js/mdx": "^3.1.0",
     "@next/bundle-analyzer": "^15.0.3",
     "@tsconfig/node22": "^22.0.0",
@@ -31,7 +31,7 @@
     "autoprefixer": "^10.4.20",
     "clsx": "2.1.1",
     "effect": "^3.10.15",
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
