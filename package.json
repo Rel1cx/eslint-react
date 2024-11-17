@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.16.2-beta.2",
+  "version": "1.16.2-next.3",
   "private": true,
   "description": "A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -116,6 +116,7 @@
   "pnpm": {
     "overrides": {
       "array-flatten": "npm:@nolyfill/array-flatten@^1.0.42",
+      "eslint": "9.14.0",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",
       "nextra": "3.1.0",
