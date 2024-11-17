@@ -73,7 +73,7 @@ export default [
 
 | Rule                                     | Description                                                                                          | 💼  | 💭  |     |
 | :--------------------------------------- | :--------------------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| `avoid-shorthand-boolean`                | Prevents using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
+| `avoid-shorthand-boolean`                | Prevents using shorthand syntax for boolean attributes.                                              | 🎨  |     | 🔧  |
 | `avoid-shorthand-fragment`               | Prevents using shorthand syntax for fragments.                                                       | 🎨  |     |     |
 | `ensure-forward-ref-using-ref`           | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |  ✔️  |     |     |
 | `jsx-no-duplicate-props`                 | Prevents duplicate props in JSX.                                                                     |  ✔️  |     |     |
@@ -117,6 +117,7 @@ export default [
 | `no-unused-state`                        | Warns unused class component state.                                                                  |  ✔️  |     |     |
 | `no-useless-fragment`                    | Prevents using useless `fragment` components or `<>` syntax.                                         |  ✔️  |     |     |
 | `prefer-destructuring-assignment`        | Enforces using destructuring assignment over property assignment.                                    | 🎨  |     |     |
+| `prefer-react-namespace-import`          | Enforces using `React` namespace import over default import.                                         | 🎨  |     | 🔧  |
 | `prefer-read-only-props`                 | Enforce read-only props in components.                                                               |  ✔️  | 💭  |     |
-| `prefer-shorthand-boolean`               | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     |     |
+| `prefer-shorthand-boolean`               | Enforces using shorthand syntax for boolean attributes.                                              | 🎨  |     | 🔧  |
 | `prefer-shorthand-fragment`              | Enforces using shorthand syntax for fragments.                                                       | 🎨  |     |     |

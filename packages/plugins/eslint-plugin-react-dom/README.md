@@ -59,6 +59,6 @@ export default [
 | `no-namespace`                               | Enforces the absence of a `namespace` in React elements.                                |  ✔️  |     |     |
 | `no-render-return-value`                     | Prevents usage of the return value of `ReactDOM.render`.                                | ⛔  |     |     |
 | `no-script-url`                              | Prevents usage of `javascript:` URLs as the value of certain attributes.                | 🔒  |     |     |
-| `no-unknown-property`                        | Prevents usage of unknown DOM property.                                                 |  ✔️  |     |     |
+| `no-unknown-property`                        | Prevents usage of unknown DOM property.                                                 |  ✔️  |     | 🔧  |
 | `no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   | 🔒  |     |     |
 | `no-unsafe-target-blank`                     | Prevents usage of `target="_blank"` without `rel="noreferrer noopener"`.                | 🔒  |     |     |
