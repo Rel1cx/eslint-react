@@ -5,6 +5,7 @@ import { typeOf } from "@eslint-react/tools";
 
 export function transformKeys<T>(obj: T, transform: (s: string) => string): T {
   if (typeOf(obj) !== "object") return obj;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
   const res = {} as T;
   for (const key in obj) {
     res[transform(key) as keyof T] = obj[key];

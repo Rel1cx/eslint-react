@@ -203,6 +203,7 @@ export function zip<T>(...arrs: Array<readonly T[]>): T[][] {
     const element: T[] = [];
 
     for (const arr of arrs) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
       element.push(arr[i] as T);
     }
 

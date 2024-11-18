@@ -29,7 +29,7 @@ export const INITIAL_ESLINT_REACT_SETTINGS = {
  */
 export function unsafeReadSettings(data: unknown): PartialDeep<ESLintReactSettings> {
   // @ts-expect-error - skip type checking for unsafe cast
-  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
+  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion, @typescript-eslint/no-unsafe-type-assertion
   return Data.struct(data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
 }
 

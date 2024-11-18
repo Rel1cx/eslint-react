@@ -63,10 +63,10 @@
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.14.0",
-    "@typescript-eslint/parser": "^8.14.0",
-    "@typescript-eslint/rule-tester": "^8.14.0",
-    "@typescript-eslint/types": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "@typescript-eslint/rule-tester": "^8.15.0",
+    "@typescript-eslint/types": "^8.15.0",
     "@vitest/ui": "^2.1.5",
     "concurrently": "^9.1.0",
     "cspell": "^8.16.0",
@@ -105,7 +105,7 @@
     "typedoc-plugin-markdown": "^4.2.10",
     "typedoc-plugin-rename-defaults": "^0.7.1",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.14.0",
+    "typescript-eslint": "^8.15.0",
     "vitest": "^2.1.5"
   },
   "packageManager": "pnpm@9.13.2",
@@ -115,7 +115,6 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/eslint-plugin": "canary",
       "array-flatten": "npm:@nolyfill/array-flatten@^1.0.42",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",
