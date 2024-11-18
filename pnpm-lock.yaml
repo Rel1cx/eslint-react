@@ -5,16 +5,16 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@typescript-eslint/eslint-plugin': canary
   array-flatten: npm:@nolyfill/array-flatten@^1.0.42
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   isarray: npm:@nolyfill/isarray@^1.0.29
-  nextra: 3.1.0
-  nextra-theme-docs: 3.1.0
   safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
   safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
   side-channel: npm:@nolyfill/side-channel@^1.0.29
   typedarray: npm:@nolyfill/typedarray@^1.0.29
+  '@typescript-eslint/eslint-plugin': canary
+  nextra: 3.1.0
+  nextra-theme-docs: 3.1.0
   typescript: ^5.6.3
   valibot: 0.42.1
 
@@ -116,8 +116,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(eslint@9.15.0(jiti@2.3.3))
       eslint-plugin-eslint-plugin:
-        specifier: ^6.3.1
-        version: 6.3.1(eslint@9.15.0(jiti@2.3.3))
+        specifier: ^6.3.2
+        version: 6.3.2(eslint@9.15.0(jiti@2.3.3))
       eslint-plugin-import-x:
         specifier: ^4.4.2
         version: 4.4.2(eslint@9.15.0(jiti@2.3.3))(typescript@5.6.3)
@@ -5047,8 +5047,8 @@ packages:
     peerDependencies:
       eslint: '>=4.19.1'
 
-  eslint-plugin-eslint-plugin@6.3.1:
-    resolution: {integrity: sha512-5OUvS+kzpfbX3Pyt7ULYLJBGdjM/tGPdjePGFE50Lqdqcn/dB0f9ifbRCrCGWBt10Ljk7O6ajj3BPOZ8vmD50g==}
+  eslint-plugin-eslint-plugin@6.3.2:
+    resolution: {integrity: sha512-s1uCANS+Keha58j25OvirQZsxlu3yrmWzcGuotOjUmqIeEFrDDar0cobAuYjLRLzwfjMKICKoPTCbK1pDleqiw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0'
@@ -12756,7 +12756,7 @@ snapshots:
       eslint: 9.15.0(jiti@2.3.3)
       ignore: 5.3.2
 
-  eslint-plugin-eslint-plugin@6.3.1(eslint@9.15.0(jiti@2.3.3)):
+  eslint-plugin-eslint-plugin@6.3.2(eslint@9.15.0(jiti@2.3.3)):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.15.0(jiti@2.3.3))
       eslint: 9.15.0(jiti@2.3.3)

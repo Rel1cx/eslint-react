@@ -55,7 +55,6 @@ const allowedVariants = [
   "nullish",
   "object",
   "string",
-  "falsy string",
   "falsy boolean",
   "truthy bigint",
   "truthy boolean",
