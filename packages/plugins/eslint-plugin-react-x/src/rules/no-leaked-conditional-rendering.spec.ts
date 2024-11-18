@@ -8,6 +8,29 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
+        const a = <>{"" && <Something />}</>;
+      `,
+      errors: [
+        { messageId: "noLeakedConditionalRendering" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const someString = "";
+        const a = <>{someString && <Something />}</>;
+      `,
+      errors: [
+        { messageId: "noLeakedConditionalRendering" },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
         const a = <>{0 && <Foo />}</>;
         const b = <>{NaN && <Foo />}</>;
       `,
@@ -400,7 +423,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       const a = <>
                 {0 ? <Foo /> : null}
-                {'' && <Foo />}
+                {'0' && <Foo />}
                 {NaN ? <Foo /> : null}
                 </>
     `,
