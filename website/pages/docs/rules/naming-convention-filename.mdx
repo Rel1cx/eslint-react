@@ -15,8 +15,8 @@ Enforces naming convention for JSX files. Can be used to enforce PascalCase, cam
 ```bash filename="Terminal" {3}
 npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
 
-src/components/Component.tsx
-    1:1  error  "File name `component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  react/jsx-filename-naming-convention
+src/components/component.tsx
+    1:1  error  "File name `component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  @eslint-react/naming-convention/filename
 
 ✖ 1 problems (0 errors, 1 warnings)
 ```
@@ -25,7 +25,7 @@ src/components/Component.tsx
 npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "kebab-case" }]' .
 
 src/components/example_component.tsx
-    1:1  error  "File name `example_component.tsx` does not match `kebab-case`. Should rename to `example-component.tsx`  react/jsx-filename-naming-convention
+    1:1  error  "File name `example_component.tsx` does not match `kebab-case`. Should rename to `example-component.tsx`  @eslint-react/naming-convention/filename
 
 ✖ 1 problems (0 errors, 1 warnings)
 ```
