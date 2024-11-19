@@ -59,7 +59,7 @@ const DEFAULT_ESLINT_REACT_SETTINGS = {
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
   polymorphicPropName: "as",
-  skipImportCheck: false,
+  strictImportCheck: true,
   version: "detect",
 } as const satisfies ESLintReactSettings;
 

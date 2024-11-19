@@ -92,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         "react-x": {
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },

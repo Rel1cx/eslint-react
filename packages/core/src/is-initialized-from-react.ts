@@ -15,9 +15,9 @@ import { isMatching, match } from "ts-pattern";
 export function isInitializedFromReact(
   name: string,
   initialScope: Scope,
-  settings: Partial<Pick<ESLintReactSettings, "importSource" | "skipImportCheck">>,
+  settings: Partial<Pick<ESLintReactSettings, "importSource" | "strictImportCheck">>,
 ): boolean {
-  if (settings.skipImportCheck) return true;
+  if (!settings.strictImportCheck) return true;
   // Optimistic assertion when identifier is named react
   if (name.toLowerCase() === "react") return true;
   const { importSource = "react" } = settings;

@@ -13,9 +13,7 @@ import { ESLintSettingsSchema } from "./schemas";
 /**
  * The initial settings for "react-x".
  */
-export const INITIAL_ESLINT_REACT_SETTINGS = {
-  skipImportCheck: false,
-} as const satisfies ESLintReactSettings;
+export const INITIAL_ESLINT_REACT_SETTINGS = {} as const satisfies ESLintReactSettings;
 
 // #endregion
 
