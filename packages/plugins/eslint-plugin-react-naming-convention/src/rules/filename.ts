@@ -1,7 +1,7 @@
 import path from "node:path";
 
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
-import { isObject, isString } from "@eslint-react/tools";
+import { isString } from "@eslint-react/tools";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -38,7 +38,7 @@ type Options = readonly [
 const defaultOptions = [
   {
     excepts: ["^index$"],
-    extensions: [".jsx", ".tsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
     rule: "PascalCase",
   },
 ] as const satisfies Options;
@@ -93,15 +93,15 @@ export default createRule<Options, MessageID>({
     const rule = isString(options) ? options : options.rule ?? "PascalCase";
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const excepts = isString(options) ? [] : options.excepts ?? [];
-    const extensions = isObject(options) && "extensions" in options
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      ? options.extensions
-      : defaultOptions[0].extensions;
+    // const extensions = isObject(options) && "extensions" in options
+    //   // eslint-disable-next-line @typescript-eslint/no-deprecated
+    //   ? options.extensions
+    //   : defaultOptions[0].extensions;
 
     const filename = context.filename;
-    const fileNameExt = filename
-      .slice(filename.lastIndexOf("."));
-    if (!extensions.includes(fileNameExt)) return {};
+    // const fileNameExt = filename
+    //   .slice(filename.lastIndexOf("."));
+    // if (!extensions.includes(fileNameExt)) return {};
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
       if (ignores.map((pattern) => new RegExp(pattern, "u")).some((pattern) => pattern.test(name))) {
