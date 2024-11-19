@@ -6,9 +6,7 @@ import noLeakedInterval from "./rules/no-leaked-interval";
 import noLeakedResizeObserver from "./rules/no-leaked-resize-observer";
 import noLeakedTimeout from "./rules/no-leaked-timeout";
 
-const DEFAULT_ESLINT_REACT_SETTINGS = {
-  skipImportCheck: true,
-} as const satisfies ESLintReactSettings;
+const DEFAULT_ESLINT_REACT_SETTINGS = {} as const satisfies ESLintReactSettings;
 
 export default {
   meta: {

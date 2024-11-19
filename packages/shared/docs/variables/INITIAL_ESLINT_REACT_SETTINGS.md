@@ -9,9 +9,3 @@
 > `const` **INITIAL\_ESLINT\_REACT\_SETTINGS**: `object`
 
 The initial settings for "react-x".
-
-## Type declaration
-
-### skipImportCheck
-
-> `readonly` **skipImportCheck**: `false` = `false`

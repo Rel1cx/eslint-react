@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<NotReact.Fragment />`,
       settings: {
         "react-x": {
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },

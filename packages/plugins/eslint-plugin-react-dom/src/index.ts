@@ -27,7 +27,6 @@ const DEFAULT_ESLINT_REACT_SETTINGS = {
       ],
     },
   ],
-  skipImportCheck: false,
 } as const satisfies ESLintReactSettings;
 
 export default {

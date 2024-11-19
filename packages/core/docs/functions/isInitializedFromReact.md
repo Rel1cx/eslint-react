@@ -20,7 +20,7 @@ The top-level identifier's name
 
 Initial scope to search for the identifier
 
-• **settings**: `Partial`\<`Pick`\<`object`, `"importSource"` \| `"skipImportCheck"`\>\>
+• **settings**: `Partial`\<`Pick`\<`object`, `"importSource"` \| `"strictImportCheck"`\>\>
 
 ESLint React settings
 

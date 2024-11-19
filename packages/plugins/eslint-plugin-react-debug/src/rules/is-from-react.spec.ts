@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -66,7 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -107,7 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -154,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -171,7 +171,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -189,7 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -210,7 +210,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -229,7 +229,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -251,7 +251,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -276,7 +276,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -296,7 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -316,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -330,7 +330,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -342,7 +342,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -354,7 +354,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -366,7 +366,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -380,7 +380,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
@@ -396,7 +396,7 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          skipImportCheck: false,
+          strictImportCheck: true,
         },
       },
     },
