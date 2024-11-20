@@ -1,3 +1,13 @@
+## v1.16.2 (Wed 20 Nov 2024)
+
+### 🐞 Fixes
+
+- fix(plugins/x): 'no-leaked-conditional-rendering' report empty string, closes #853 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/857
+
+### 🪄 Improvements
+
+- refactor: update the default behavior of import check, closes #858 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/860
+
 ## v1.16.1 (Sun 10 Nov 2024)
 
 ### ✨ New
