@@ -47,7 +47,7 @@
     "update:version": "tsx ./scripts/update-version.ts && pnpm run format:package-json"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.9",
+    "@changesets/cli": "^2.27.10",
     "@effect/language-service": "^0.2.0",
     "@effect/platform": "^0.69.24",
     "@effect/platform-bun": "^0.49.26",
@@ -79,7 +79,7 @@
     "eslint-plugin-better-mutation": "^1.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-eslint-plugin": "^6.3.2",
-    "eslint-plugin-import-x": "^4.4.2",
+    "eslint-plugin-import-x": "^4.4.3",
     "eslint-plugin-jsdoc": "^50.5.0",
     "eslint-plugin-perfectionist": "^4.0.3",
     "eslint-plugin-regexp": "^2.7.0",
@@ -108,7 +108,7 @@
     "typescript-eslint": "^8.15.0",
     "vitest": "^2.1.5"
   },
-  "packageManager": "pnpm@9.14.1",
+  "packageManager": "pnpm@9.14.2",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
