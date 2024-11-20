@@ -91,7 +91,7 @@ describe("get nested return statements from function", () => {
       ],
     ],
   ])("should return the nested return statements from %s", (code, expected) => {
-    const n = MutRef.make<TSESTreeFunction | null>(null);
+    const n = MutRef.make<null | TSESTreeFunction>(null);
     const { ast } = parse(code);
     simpleTraverse(ast, {
       enter(node) {

@@ -56,21 +56,20 @@ const rootTsConfigs = [
 const p11tOptions = {
   type: "natural",
   ignoreCase: false,
-  order: "asc",
 } as const;
 
 const p11tGroups = {
   customGroups: {
-    id: ["_", "id", "key", "self"],
-    type: ["type", "kind"],
+    id: ["^_$", "^id$", "^key$", "^self$"],
+    type: ["^type$", "^kind$"],
     meta: [
-      "name",
-      "meta",
-      "title",
-      "description",
+      "^name$",
+      "^meta$",
+      "^title$",
+      "^description$",
     ],
-    alias: ["alias", "as"],
-    rules: ["node", "messageId"],
+    alias: ["^alias$", "^as$"],
+    rules: ["^node$", "^messageId$"],
   },
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 } as const;
@@ -257,6 +256,7 @@ export default [
         },
       ],
       "perfectionist/sort-intersection-types": "off",
+      "perfectionist/sort-modules": "off",
       "perfectionist/sort-named-exports": "off",
       "perfectionist/sort-named-imports": "off",
       "perfectionist/sort-object-types": [
@@ -271,10 +271,10 @@ export default [
         {
           ...p11tOptions,
           ...p11tGroups,
-          partitionByComment: "Part:**",
+          partitionByComment: "^Part:.*",
         },
       ],
-      "perfectionist/sort-union-types": ["warn", p11tOptions],
+      "perfectionist/sort-union-types": "warn",
       // Part: unicorn rules
       "unicorn/template-indent": [
         "warn",

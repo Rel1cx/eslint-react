@@ -15,10 +15,12 @@ export type MessageID =
   | "filenameCaseMismatchSuggestion"
   | "filenameEmpty";
 
-type Case = "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
+  | Case
+  | undefined
   | {
     /**
      * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
@@ -29,9 +31,7 @@ type Options = readonly [
      */
     extensions?: readonly string[];
     rule?: Case;
-  }
-  | Case
-  | undefined,
+  },
 ];
 /* eslint-enable no-restricted-syntax */
 

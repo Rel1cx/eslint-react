@@ -57,7 +57,7 @@ export type Pretty<T> =
  * We would've named this `ArrayLike`, but that's already used by typescript...
  * @see This was inspired by the type-definition of Promise.all (https://github.com/microsoft/TypeScript/blob/1df5717b120cddd325deab8b0f2b2c3eecaf2b01/src/lib/es2015.promise.d.ts#L21)
  */
-export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
+export type IterableContainer<T = unknown> = readonly [] | ReadonlyArray<T>;
 
 /**
  * Returns the element type of an array.
@@ -85,10 +85,10 @@ export type LooseRecord<T> = Record<PropertyKey, T>;
  * @see https://twitter.com/hd_nvim/status/1578567206190780417
  */
 export type Narrow<TType> =
-  | { [K in keyof TType]: Narrow<TType[K]> }
   | (TType extends [] ? [] : never)
+  | (TType extends bigint | boolean | number | string ? TType : never)
   | (TType extends Function ? TType : never)
-  | (TType extends bigint | boolean | number | string ? TType : never);
+  | { [K in keyof TType]: Narrow<TType[K]> };
 
 // #endregion
 

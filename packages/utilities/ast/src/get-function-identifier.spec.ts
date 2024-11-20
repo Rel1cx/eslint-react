@@ -24,7 +24,7 @@ describe("get function identifier from function declaration", () => {
     ["function bar() {}", "bar"],
     ["function baz<T>() {}", "baz"],
   ])("should return the function name from %s", (code, expected) => {
-    const n = MutRef.make<TSESTreeFunction | null>(null);
+    const n = MutRef.make<null | TSESTreeFunction>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) return;
@@ -53,7 +53,7 @@ describe("get function identifier from function expression", () => {
     ["class Clazz { Foo = function() {} }", "Foo"],
     ["class Clazz { Foo = () => {} }", "Foo"],
   ])("should return the function name from %s", (code, expected) => {
-    const n = MutRef.make<TSESTreeFunction | null>(null);
+    const n = MutRef.make<null | TSESTreeFunction>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) return;

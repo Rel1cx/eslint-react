@@ -24,7 +24,7 @@ describe("get class identifier from class declaration", () => {
     ["class Foo<T> {}", "Foo"],
     ["class Foo<T extends Bar> {}", "Foo"],
   ])("should return the class name from %s", (code, expected) => {
-    const n = MutRef.make<TSESTreeClass | null>(null);
+    const n = MutRef.make<null | TSESTreeClass>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type !== AST_NODE_TYPES.ClassDeclaration) return;
@@ -44,7 +44,7 @@ describe("get class identifier from class expression", () => {
     ["const Foo = class<T> {};", "Foo"],
     ["const Foo = class<T extends Bar> {};", "Foo"],
   ])("should return the class name from %s", (code, expected) => {
-    const n = MutRef.make<TSESTreeClass | null>(null);
+    const n = MutRef.make<null | TSESTreeClass>(null);
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type !== AST_NODE_TYPES.ClassExpression) return;

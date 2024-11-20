@@ -13,12 +13,12 @@ type Allow = "always" | "as-needed";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
+  | Allow
+  | undefined
   | {
     allow?: Allow;
     extensions?: readonly string[];
-  }
-  | Allow
-  | undefined,
+  },
 ];
 /* eslint-enable no-restricted-syntax */
 

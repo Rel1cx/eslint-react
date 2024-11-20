@@ -17,7 +17,7 @@ export type RuleCategoryEmoji =
   | "🐞" // debug
   | "📖" // convention
   | "🔒" // security
-  | "🚀" // perf
   | "🤔" // pedantic
   | "🤯" // complexity
-  | "🧐"; // suspicious
+  | "🧐" // suspicious
+  | "🚀"; // perf

@@ -256,8 +256,8 @@ export default createRule<[], MessageID>({
           if (O.exists(aEntry.signal, signal => abortedSignals.some(isSameObject(signal)))) continue;
           if (rEntries.some(isInverseEntry(aEntry))) continue;
           switch (aEntry.phase) {
-            case "setup":
             case "cleanup":
+            case "setup":
               context.report({
                 messageId: "noLeakedEventListenerInEffect",
                 node: aEntry.node,

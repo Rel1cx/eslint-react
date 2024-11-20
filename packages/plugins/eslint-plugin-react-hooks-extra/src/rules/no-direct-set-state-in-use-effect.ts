@@ -175,7 +175,7 @@ export default createRule<[], MessageID>({
       },
       "Program:exit"() {
         const getSetStateCalls = (
-          id: TSESTree.Identifier | string,
+          id: string | TSESTree.Identifier,
           initialScope: Scope.Scope,
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
           const node = O.flatMap(VAR.findVariable(id, initialScope), VAR.getVariableNode(0)).pipe(O.getOrNull);

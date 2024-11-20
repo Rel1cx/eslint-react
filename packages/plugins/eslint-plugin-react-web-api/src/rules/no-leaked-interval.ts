@@ -132,8 +132,8 @@ export default createRule<[], MessageID>({
         for (const sEntry of sEntries) {
           if (cEntries.some(isInverseEntry(sEntry))) continue;
           switch (sEntry.phase) {
-            case "setup":
             case "cleanup":
+            case "setup":
               context.report({
                 messageId: "noLeakedIntervalInEffect",
                 node: sEntry.node,

@@ -17,15 +17,15 @@ type Case = "CONSTANT_CASE" | "PascalCase";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
+  | Case
+  | undefined
   | {
     allowAllCaps?: boolean;
     allowLeadingUnderscore?: boolean;
     allowNamespace?: boolean;
     excepts?: readonly string[];
     rule?: Case;
-  }
-  | Case
-  | undefined,
+  },
 ];
 /* eslint-enable no-restricted-syntax */
 

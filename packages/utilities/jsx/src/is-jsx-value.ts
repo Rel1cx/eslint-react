@@ -48,7 +48,7 @@ export const DEFAULT_JSX_VALUE_HINT = 0n
  * @returns boolean
  */
 export function isJSXValue(
-  node: TSESTree.Node | null | undefined,
+  node: null | TSESTree.Node | undefined,
   jsxCtx: { getScope: (node: TSESTree.Node) => Scope },
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
