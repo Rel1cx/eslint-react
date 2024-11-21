@@ -14,10 +14,11 @@ This rule enforces consistent file extensions for JSX files.
 
 ## Rule Options
 
-- `allow`: When to allow a JSX filename extension.
+- `allow`: When to allow a JSX filename extension. Default is `"as-needed"`. Possible values:
   1. `"always"`: allow all file use JSX file extension.
-  2. `"as-needed"`: (default) allow JSX file extension only if the file contains JSX syntax.
-- `extensions`: List of file extensions that should be checked by this rule. By default, The default value is `[".jsx", ".tsx"]` which checks only `.jsx` and `.tsx` files.
+  2. `"as-needed"`: allow JSX file extension only if the file contains JSX syntax.
+- `extensions`: List of file extensions that should be treated as JSX files. Default is `[".jsx", ".tsx"]`.
+- `ignoreFilesWithoutCode`: When set to `true`, this rule will ignore files that do not contain JSX syntax. Default is `true`.
 
 ## Rule Options Examples
 

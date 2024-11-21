@@ -18,6 +18,7 @@ type Options = readonly [
   | {
     allow?: Allow;
     extensions?: readonly string[];
+    ignoreFilesWithoutCode?: boolean;
   },
 ];
 /* eslint-enable no-restricted-syntax */
@@ -25,6 +26,7 @@ type Options = readonly [
 const defaultOptions = [{
   allow: "as-needed",
   extensions: [".jsx", ".tsx"],
+  ignoreFilesWithoutCode: false,
 }] as const satisfies Options;
 
 const schema = [
@@ -48,6 +50,9 @@ const schema = [
               type: "string",
             },
             uniqueItems: true,
+          },
+          ignoreFilesWithoutCode: {
+            type: "boolean",
           },
         },
       },
@@ -98,6 +103,9 @@ export default createRule<Options, MessageID>({
           return;
         }
 
+        const hasCode = node.body.length > 0;
+        const ignoreFilesWithoutCode = isObject(options) && options.ignoreFilesWithoutCode;
+        if (!hasCode && ignoreFilesWithoutCode) return;
         if (
           !hasJSXCode
           && isJSXExt
