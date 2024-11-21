@@ -6,7 +6,7 @@
 
 # Type Alias: IterableContainer\<T\>
 
-> **IterableContainer**\<`T`\>: `ReadonlyArray`\<`T`\> \| readonly []
+> **IterableContainer**\<`T`\>: readonly [] \| `ReadonlyArray`\<`T`\>
 
 This should only be used for defining generics which extend any kind of JS
 array under the hood, this includes arrays *AND* tuples (of the form [x, y],
