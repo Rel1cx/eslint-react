@@ -24,6 +24,7 @@ function check(
   if (JSX.isKeyedElement(node, initialScope)) return;
   if (JSX.isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
   if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
+  if (node.children.some((child) => JSX.isLiteral(child) && child.value !== child.raw)) return;
   const isChildren = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
   const [firstChildren] = node.children;
   // <Foo content={<>ee eeee eeee ...</>} />
