@@ -84,6 +84,7 @@ export const rules = {
   "@eslint-react/hooks-extra/no-unnecessary-use-memo": "warn",
   "@eslint-react/hooks-extra/prefer-use-state-lazy-initialization": "warn",
 
+  // Part: Naming Convention
   "@eslint-react/naming-convention/component-name": "warn",
   "@eslint-react/naming-convention/filename": "warn",
   "@eslint-react/naming-convention/filename-extension": "warn",
