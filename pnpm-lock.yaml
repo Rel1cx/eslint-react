@@ -257,6 +257,61 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.9.1)(sass@1.81.0)(terser@5.36.0)
 
+  examples/vite-react-dom-legacy:
+    dependencies:
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.26.0
+        version: 7.26.0
+      '@babel/eslint-parser':
+        specifier: ^7.25.9
+        version: 7.25.9(@babel/core@7.26.0)(eslint@9.15.0(jiti@2.3.3))
+      '@babel/preset-env':
+        specifier: ^7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@babel/preset-react':
+        specifier: ^7.25.9
+        version: 7.25.9(@babel/core@7.26.0)
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin
+      '@eslint/config-inspector':
+        specifier: ^0.5.6
+        version: 0.5.6(eslint@9.15.0(jiti@2.3.3))
+      '@eslint/js':
+        specifier: ^9.15.0
+        version: 9.15.0
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: ^18.3.1
+        version: 18.3.1
+      '@vitejs/plugin-react':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.1)(sass@1.81.0)(terser@5.36.0))
+      eslint:
+        specifier: ^9.15.0
+        version: 9.15.0(jiti@2.3.3)
+      eslint-plugin-react-hooks:
+        specifier: rc
+        version: 5.1.0-rc.1(eslint@9.15.0(jiti@2.3.3))
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.14
+        version: 0.4.14(eslint@9.15.0(jiti@2.3.3))
+      globals:
+        specifier: ^15.12.0
+        version: 15.12.0
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.9.1)(sass@1.81.0)(terser@5.36.0)
+
   examples/vite-react-dom-ts:
     dependencies:
       react:
@@ -5053,6 +5108,12 @@ packages:
 
   eslint-plugin-react-hooks@5.1.0-rc-69d4b800-20241021:
     resolution: {integrity: sha512-BlHwxPe59W888jvcwa2dRJXzJf2DWJm9ZMwlpaeobPzW1gaghptM+ISk/E2UK/PTVuDmdkuqZ4je/9v3QE99Gg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
+
+  eslint-plugin-react-hooks@5.1.0-rc.1:
+    resolution: {integrity: sha512-nAD017D/00XFwjP4F7cXaIbCxQ9A4pGaqjLs5347px37w/WclOtPqz8bBiTQFoj+teVQei6Ahr1h1aZiuaXMSw==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -12727,6 +12788,10 @@ snapshots:
     dependencies:
       eslint: 9.15.0(jiti@2.3.3)
 
+  eslint-plugin-react-hooks@5.1.0-rc.1(eslint@9.15.0(jiti@2.3.3)):
+    dependencies:
+      eslint: 9.15.0(jiti@2.3.3)
+
   eslint-plugin-react-refresh@0.4.14(eslint@9.15.0(jiti@2.3.3)):
     dependencies:
       eslint: 9.15.0(jiti@2.3.3)
@@ -12854,8 +12919,8 @@ snapshots:
 
   espree@9.6.1:
     dependencies:
-      acorn: 8.13.0
-      acorn-jsx: 5.3.2(acorn@8.13.0)
+      acorn: 8.14.0
+      acorn-jsx: 5.3.2(acorn@8.14.0)
       eslint-visitor-keys: 3.4.3
 
   esprima@4.0.1: {}

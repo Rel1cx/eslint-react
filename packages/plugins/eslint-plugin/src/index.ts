@@ -27,9 +27,9 @@ type Config = {
 };
 
 function makeLegacyConfig<T extends Config>(config: T) {
+  const { name: _, ...rest } = config;
   return {
-    ...config,
-    name: `${config.name}-legacy`,
+    ...rest,
     plugins: ["@eslint-react"],
   };
 }
