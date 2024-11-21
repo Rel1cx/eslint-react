@@ -81,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ type: AST_NODE_TYPES.JSXElement, messageId: "noUselessFragmentInBuiltIn" }],
     },
     {
-      // whitepace tricky case
+      // whitespace tricky case
       code: /* tsx */ `
         <section>
           git<>
@@ -162,6 +162,16 @@ ruleTester.run(RULE_NAME, rule, {
     "<>{foos.map(foo => foo)}</>",
     "<>{moo}</>",
     /* tsx */ `
+      function Foo() {
+      	return <>&nbsp;</>;
+      }
+    `,
+    /* tsx */ `
+      function Foo() {
+      	return <>a&nbsp;b</>;
+      }
+    `,
+    /* tsx */ `
       <>
         {moo}
       </>
@@ -183,16 +193,6 @@ ruleTester.run(RULE_NAME, rule, {
         {props.children}
         {moo}
       </>
-    `,
-    /* tsx */ `
-      function Foo() {
-      	return <Bar><>&nbsp;</></Bar>;
-      }
-    `,
-    /* tsx */ `
-      function Foo() {
-      	return <Bar><>a&nbsp;b</></Bar>;
-      }
     `,
     /* tsx */ `<>{cloneElement(children, { ref: childrenRef })}</>`,
     {
