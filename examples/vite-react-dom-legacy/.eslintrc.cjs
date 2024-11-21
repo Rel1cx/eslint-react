@@ -7,7 +7,7 @@ module.exports = {
   extends: ["eslint:recommended"],
   overrides: [
     {
-      files: ["src/**/*.{ts, tsx}"],
+      files: ["src/**/*.{js, jsx}"],
       extends: [
         "plugin:@eslint-react/recommended-legacy",
       ],
