@@ -1,3 +1,15 @@
+## v1.17.0 (Thu 21 Nov 2024)
+
+### ✨ New
+
+- feat(plugins/naming-convention): add 'ignoreFilesWithoutCode' option to 'filename-extension'
+
+### 🐞 Fixes
+
+- refactor(plugins/x): xhtml entities should be allowed inside of 'no-useless-fragment', closes: #850
+- fix(plugins/eslint-plugin): unexpected top-level property 'name' in legacy presets, closes #863
+- fix(plugins/eslint-plugin): rules list in 'debug' and 'disable-debug' presets
+
 ## v1.16.2 (Wed 20 Nov 2024)
 
 ### 🐞 Fixes
