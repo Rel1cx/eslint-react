@@ -184,6 +184,16 @@ ruleTester.run(RULE_NAME, rule, {
         {moo}
       </>
     `,
+    /* tsx */ `
+      function Foo() {
+      	return <Bar><>&nbsp;</></Bar>;
+      }
+    `,
+    /* tsx */ `
+      function Foo() {
+      	return <Bar><>a&nbsp;b</></Bar>;
+      }
+    `,
     /* tsx */ `<>{cloneElement(children, { ref: childrenRef })}</>`,
     {
       code: /* tsx */ `
