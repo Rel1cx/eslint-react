@@ -9,7 +9,7 @@ module.exports = {
     {
       files: ["src/**/*.{js, jsx}"],
       extends: [
-        "plugin:@eslint-react/debug-legacy",
+        "plugin:@eslint-react/recommended-legacy",
       ],
     },
   ],
