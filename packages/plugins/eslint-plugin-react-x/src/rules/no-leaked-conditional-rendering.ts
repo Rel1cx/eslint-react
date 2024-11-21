@@ -1,4 +1,5 @@
 import * as AST from "@eslint-react/ast";
+import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";
@@ -8,6 +9,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
@@ -47,20 +49,6 @@ type VariantType =
   | "truthy number"
   | "truthy string";
 /* eslint-enable perfectionist/sort-union-types */
-
-// Allowed left node type variants
-const allowedVariants = [
-  "any",
-  "boolean",
-  "nullish",
-  "object",
-  "string",
-  "falsy boolean",
-  "truthy bigint",
-  "truthy boolean",
-  "truthy number",
-  "truthy string",
-] as const satisfies VariantType[];
 
 // #endregion
 
@@ -223,6 +211,25 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) return {};
+
+    const { version } = normalizeSettings(decodeSettings(context.settings));
+
+    // Allowed left node type variants
+    const allowedVariants = [
+      "any",
+      "boolean",
+      "nullish",
+      "object",
+      "falsy boolean",
+      "truthy bigint",
+      "truthy boolean",
+      "truthy number",
+      "truthy string",
+      ...compare(version, "18.0.0", "<")
+        ? []
+        : ["string", "falsy string"] as const,
+    ] as const satisfies VariantType[];
+
     const services = ESLintUtils.getParserServices(context, false);
     function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)

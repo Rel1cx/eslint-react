@@ -13,6 +13,11 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [
         { messageId: "noLeakedConditionalRendering" },
       ],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
     },
     {
       code: /* tsx */ `
@@ -25,6 +30,28 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [
         { messageId: "noLeakedConditionalRendering" },
       ],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const anyString = Math.random() > 0.5 ? "" : "foo";
+        const a = <>{anyString && <Something />}</>;
+      `,
+      errors: [
+        { messageId: "noLeakedConditionalRendering" },
+      ],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
     },
     {
       code: /* tsx */ `
@@ -683,5 +710,33 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       };
     `,
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const someString = "";
+        const a = <>{someString && <Something />}</>;
+      `,
+      settings: {
+        "react-x": {
+          version: "18.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const anyString = Math.random() > 0.5 ? "" : "foo";
+        const a = <>{anyString && <Something />}</>;
+      `,
+      settings: {
+        "react-x": {
+          version: "18.0.0",
+        },
+      },
+    },
   ],
 });
