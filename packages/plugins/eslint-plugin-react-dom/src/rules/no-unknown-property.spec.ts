@@ -655,6 +655,25 @@ ruleTester.run(RULE_NAME, rule, {
           <div popover id="my-popover">Greetings, one and all!</div>
         </div>
       `,
+      settings: {
+        "react-x": {
+          version: "18.3.1",
+        },
+      },
+    },
+    {
+      code: `
+        <div>
+          <button popoverTarget="my-popover" popoverTargetAction="toggle">Open Popover</button>
+
+          <div popover id="my-popover">Greetings, one and all!</div>
+        </div>
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0-rc.0",
+        },
+      },
     },
   ],
 });

@@ -58,6 +58,7 @@
     "@typescript-eslint/scope-manager": "^8.15.0",
     "@typescript-eslint/types": "^8.15.0",
     "@typescript-eslint/utils": "^8.15.0",
+    "compare-versions": "^6.1.1",
     "ts-pattern": "^5.5.0"
   },
   "devDependencies": {
