@@ -1,7 +1,9 @@
 import { Data, F } from "@eslint-react/tools";
 import { shallowEqual } from "fast-equals";
+import { getPackageInfoSync } from "local-pkg";
 import memoize from "micro-memoize";
 import pm from "picomatch";
+import { match, P } from "ts-pattern";
 import type { PartialDeep } from "type-fest";
 import { parse } from "valibot";
 
@@ -72,6 +74,9 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
       if (!/^[\w-]+$/u.test(name)) return acc;
       return acc.set(name, as);
     }, new Map<string, string>()),
+    version: match(settings.version)
+      .with(P.union(P.nullish, "", "detect"), () => getPackageInfoSync("react")?.version)
+      .otherwise(F.identity) ?? "18.3.1",
   });
 }, { isEqual: shallowEqual });
 

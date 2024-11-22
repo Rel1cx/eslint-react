@@ -195,4 +195,5 @@ export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
 export interface ESLintReactSettingsNormalized extends ESLintReactSettings {
   additionalComponents: CustomComponentNormalized[];
   components: Map<string, string>;
+  version: string;
 }
