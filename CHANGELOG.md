@@ -1,3 +1,15 @@
+## v1.17.1 (Fri 22 Nov 2024)
+
+### ✨ New
+
+- feat(shared): add version detection logic;
+
+### 🐞 Fixes
+
+- fix(plugins/x): 'no-leaked-conditional-rendering' should also warn 'anyStringVar' when react version is lower than 18, closes #853 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/864
+- fix(plugins/dom): add popover api props to 'no-unknown-property', closes #855 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/865
+- fix(plugins/debug): 'is-from-react' use correct settings when calling 'isInitializedFromReact', by @Rel1cx
+
 ## v1.17.0 (Thu 21 Nov 2024)
 
 ### ✨ New
