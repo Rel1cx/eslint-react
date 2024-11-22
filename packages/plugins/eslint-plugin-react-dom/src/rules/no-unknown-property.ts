@@ -4,7 +4,9 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 // TODO: Port to TypeScript
 
+import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { createRule } from "../utils";
+import { compare, compareVersions } from "compare-versions";
 
 // ------------------------------------------------------------------------------
 // Constants
@@ -419,10 +421,6 @@ const DOM_PROPERTY_NAMES_ONE_WORD = [
   "security",
   // Video specific
   "controls",
-  // popovers
-  "popover",
-  "popovertarget",
-  "popovertargetaction",
 ];
 
 const DOM_PROPERTY_NAMES_TWO_WORDS = [
@@ -890,16 +888,29 @@ const REACT_ON_PROPS = [
   "onPointerUpCapture",
 ];
 
+const POPOVER_API_PROPS = [
+  "popover",
+  "popoverTarget",
+  "popoverTargetAction",
+  "onToggle",
+  "onBeforeToggle",
+];
+
 function getDOMPropertyNames(context) {
   const ALL_DOM_PROPERTY_NAMES = DOM_PROPERTY_NAMES_TWO_WORDS.concat(DOM_PROPERTY_NAMES_ONE_WORD);
   // this was removed in React v16.1+, see https://github.com/facebook/react/pull/10823
-  if (!testReactVersion(context, ">= 16.1.0")) {
-    return ALL_DOM_PROPERTY_NAMES.concat("allowTransparency");
+  if (testReactVersion(context, "<=", "16.1.0")) {
+    ALL_DOM_PROPERTY_NAMES.push("allowTransparency");
+    return ALL_DOM_PROPERTY_NAMES;
   }
   // these were added in React v16.4.0, see https://reactjs.org/blog/2018/05/23/react-v-16-4.html and https://github.com/facebook/react/pull/12507
-  if (testReactVersion(context, ">= 16.4.0")) {
-    return ALL_DOM_PROPERTY_NAMES.concat(REACT_ON_PROPS);
+  if (testReactVersion(context, ">=", "16.4.0")) {
+    ALL_DOM_PROPERTY_NAMES.push(...REACT_ON_PROPS);
   }
+  // these were added in React v19.0.0-rc.0, see https://github.com/facebook/react/pull/27981
+  testReactVersion(context, ">=", "19.0.0-rc.0")
+    ? ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS)
+    : ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS.map((prop) => prop.toLowerCase()));
   return ALL_DOM_PROPERTY_NAMES;
 }
 
@@ -1185,6 +1196,8 @@ function report(context, message, messageId, data) {
   });
 }
 
-function testReactVersion(context, version) {
-  return true;
+function testReactVersion(context, comparator, version) {
+  const { version: localVersion } = normalizeSettings(decodeSettings(context.settings));
+  console.log(localVersion, version, comparator);
+  return compare(localVersion, version, comparator);
 }
