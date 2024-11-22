@@ -1198,6 +1198,5 @@ function report(context, message, messageId, data) {
 
 function testReactVersion(context, comparator, version) {
   const { version: localVersion } = normalizeSettings(decodeSettings(context.settings));
-  console.log(localVersion, version, comparator);
   return compare(localVersion, version, comparator);
 }
