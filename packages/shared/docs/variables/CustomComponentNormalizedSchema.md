@@ -12,7 +12,7 @@
 
 ### as
 
-> `readonly` **as**: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `never`\>
+> `readonly` **as**: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>
 
 ### attributes
 
@@ -28,4 +28,4 @@
 
 ### selector
 
-> `readonly` **selector**: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `never`\>
+> `readonly` **selector**: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>
