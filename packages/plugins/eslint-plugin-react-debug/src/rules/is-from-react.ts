@@ -28,6 +28,10 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = decodeSettings(context.settings);
+    const finalSettings = {
+      ...settings,
+      strictImportCheck: true,
+    } satisfies typeof settings;
     function isFromReact(
       node: TSESTree.Identifier | TSESTree.JSXIdentifier,
       initialScope: Scope,
@@ -37,13 +41,13 @@ export default createRule<[], MessageID>({
         case node.parent.type === AST_NODE_TYPES.MemberExpression
           && node.parent.property === node
           && node.parent.object.type === AST_NODE_TYPES.Identifier:
-          return isInitializedFromReact(node.parent.object.name, initialScope, settings);
+          return isInitializedFromReact(node.parent.object.name, initialScope, finalSettings);
         case node.parent.type === AST_NODE_TYPES.JSXMemberExpression
           && node.parent.property === node
           && node.parent.object.type === AST_NODE_TYPES.JSXIdentifier:
-          return isInitializedFromReact(node.parent.object.name, initialScope, settings);
+          return isInitializedFromReact(node.parent.object.name, initialScope, finalSettings);
         default:
-          return isInitializedFromReact(name, initialScope, settings);
+          return isInitializedFromReact(name, initialScope, finalSettings);
       }
     }
     function getReportDescriptor(

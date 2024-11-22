@@ -11,6 +11,9 @@ module.exports = {
       extends: [
         "plugin:@eslint-react/recommended-legacy",
       ],
+      rules: {
+        "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
+      },
     },
   ],
 };
