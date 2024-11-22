@@ -57,7 +57,7 @@
     "@eslint/js": "^9.15.0",
     "@stylistic/eslint-plugin-js": "^2.11.0",
     "@susisu/eslint-plugin-safe-typescript": "^0.9.1",
-    "@swc/core": "^1.9.2",
+    "@swc/core": "^1.9.3",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.9.1",
@@ -116,6 +116,7 @@
   "pnpm": {
     "overrides": {
       "array-flatten": "npm:@nolyfill/array-flatten@^1.0.42",
+      "cross-spawn": "7.0.6",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",
       "nextra": "3.1.0",
