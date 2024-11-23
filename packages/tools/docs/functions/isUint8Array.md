@@ -6,7 +6,7 @@
 
 # Function: isUint8Array()
 
-> **isUint8Array**(`input`): `input is Uint8Array`
+> **isUint8Array**(`input`): `input is Uint8Array<ArrayBufferLike>`
 
 A guard that succeeds when the input is a `Uint8Array`.
 
@@ -18,7 +18,7 @@ The value to test.
 
 ## Returns
 
-`input is Uint8Array`
+`input is Uint8Array<ArrayBufferLike>`
 
 ## Example
 
