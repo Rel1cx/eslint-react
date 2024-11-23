@@ -60,7 +60,7 @@
     "@swc/core": "^1.9.3",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.9.1",
+    "@types/node": "^22.9.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
@@ -92,7 +92,7 @@
     "publint": "^0.2.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "skott": "^0.35.3",
+    "skott": "^0.35.4",
     "sort-package-json": "^2.11.0",
     "std-env": "^3.8.0",
     "tinyglobby": "^0.2.10",
@@ -104,7 +104,7 @@
     "typedoc": "^0.26.11",
     "typedoc-plugin-markdown": "^4.2.10",
     "typedoc-plugin-rename-defaults": "^0.7.1",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.15.0",
     "vitest": "^2.1.5"
   },
@@ -125,7 +125,7 @@
       "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
       "side-channel": "npm:@nolyfill/side-channel@^1.0.29",
       "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
-      "typescript": "^5.6.3"
+      "typescript": "^5.7.2"
     }
   }
 }

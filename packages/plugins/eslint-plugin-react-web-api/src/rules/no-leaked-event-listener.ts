@@ -3,7 +3,7 @@ import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import { Data, F, isBoolean, O } from "@eslint-react/tools";
+import { F, isBoolean, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -42,11 +42,11 @@ export type REntry = EventListenerEntry & { _tag: "RemoveEventListener" };
 
 // #region Helpers
 
-const defaultOptions = Data.struct({
+const defaultOptions = {
   capture: O.some<boolean>(false),
   once: O.some<boolean>(false),
   signal: O.none<TSESTree.Node>(),
-});
+};
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
@@ -95,7 +95,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
       }
       case AST_NODE_TYPES.Literal: {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        return Data.struct({ ...defaultOptions, capture: O.some(!!node.value) });
+        return { ...defaultOptions, capture: O.some(!!node.value) };
       }
       case AST_NODE_TYPES.ObjectExpression: {
         const pOnce = findProp(node.properties, "once");
@@ -122,7 +122,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
           };
           return getSignalExp(value);
         });
-        return Data.struct({ capture: vCapture, once: vOnce, signal: vSignal });
+        return { capture: vCapture, once: vOnce, signal: vSignal };
       }
       default: {
         return defaultOptions;
