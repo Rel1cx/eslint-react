@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.17.2-next.1",
+  "version": "1.17.2-beta.1",
   "private": true,
   "description": "A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -100,7 +100,7 @@
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "turbo": "^2.3.1",
-    "type-fest": "^4.27.1",
+    "type-fest": "^4.28.0",
     "typedoc": "^0.26.11",
     "typedoc-plugin-markdown": "^4.2.10",
     "typedoc-plugin-rename-defaults": "^0.7.1",

@@ -181,8 +181,8 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1
       type-fest:
-        specifier: ^4.27.1
-        version: 4.27.1
+        specifier: ^4.28.0
+        version: 4.28.0
       typedoc:
         specifier: ^0.26.11
         version: 0.26.11(typescript@5.7.2)
@@ -935,8 +935,8 @@ importers:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.9.3(@swc/helpers@0.5.13))(jiti@2.3.3)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.0)
       type-fest:
-        specifier: ^4.27.1
-        version: 4.27.1
+        specifier: ^4.28.0
+        version: 4.28.0
       valibot:
         specifier: ^1.0.0-beta.8
         version: 1.0.0-beta.8(typescript@5.7.2)
@@ -7964,8 +7964,8 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.27.1:
-    resolution: {integrity: sha512-3Ta7CyV6daqpwuGJMJKABaUChZZejpzysZkQg1//bLRg2wKQ4duwsg3MMIsHuElq58iDqizg4DBUmK8H8wExJg==}
+  type-fest@4.28.0:
+    resolution: {integrity: sha512-jXMwges/FVbFRe5lTMJZVEZCrO9kI9c8k0PA/z7nF3bo0JSCCLysvokFjNPIUK/itEMas10MQM+AiHoHt/T/XA==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -16224,7 +16224,7 @@ snapshots:
 
   type-fest@3.13.1: {}
 
-  type-fest@4.27.1: {}
+  type-fest@4.28.0: {}
 
   type-is@1.6.18:
     dependencies:
