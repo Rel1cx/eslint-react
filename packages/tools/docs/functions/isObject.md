@@ -32,6 +32,10 @@ assert.deepStrictEqual(isObject(null), false)
 assert.deepStrictEqual(isObject(undefined), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

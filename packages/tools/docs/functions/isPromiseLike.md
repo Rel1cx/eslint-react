@@ -16,6 +16,10 @@
 
 `input is PromiseLike<unknown>`
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

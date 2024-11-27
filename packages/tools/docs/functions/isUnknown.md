@@ -30,6 +30,10 @@ assert.deepStrictEqual(isUnknown({}), true)
 assert.deepStrictEqual(isUnknown([]), true)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

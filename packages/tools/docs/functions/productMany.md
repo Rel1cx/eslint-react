@@ -22,6 +22,10 @@
 
 [`Predicate`](../interfaces/Predicate.md)\<readonly [`A`, `A`]\>
 
+## Category
+
+combining
+
 ## Since
 
 2.0.0

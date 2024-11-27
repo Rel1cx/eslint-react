@@ -6,6 +6,10 @@
 
 # Interface: Predicate()\<A\>
 
+## Category
+
+models
+
 ## Since
 
 2.0.0
@@ -23,6 +27,10 @@
 ## Returns
 
 `boolean`
+
+## Category
+
+models
 
 ## Since
 

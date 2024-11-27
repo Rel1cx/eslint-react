@@ -36,6 +36,10 @@ assert.deepStrictEqual(isNotNullable(null), false)
 assert.deepStrictEqual(isNotNullable(undefined), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

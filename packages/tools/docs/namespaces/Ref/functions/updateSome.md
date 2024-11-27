@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+utils
+
 ## updateSome(f)
 
 > **updateSome**\<`A`\>(`f`): (`self`) => `Effect`\<`void`, `never`, `never`\>
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils
 
 ## updateSome(self, f)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils

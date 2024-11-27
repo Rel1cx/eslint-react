@@ -6,12 +6,12 @@
 
 ## Other
 
+- [./Either.js](Either.js/README.md)
+- [./Option.js](Option.js/README.md)
 - [Data](namespaces/Data/README.md)
-- [E](namespaces/E/README.md)
 - [Equal](namespaces/Equal/README.md)
 - [F](namespaces/F/README.md)
 - [MutRef](namespaces/MutRef/README.md)
-- [O](namespaces/O/README.md)
 - [Ref](namespaces/Ref/README.md)
 - [ArrayElement](type-aliases/ArrayElement.md)
 - [Cast](type-aliases/Cast.md)

@@ -29,6 +29,10 @@ assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
 
+## Category
+
+combinators
+
 ## Since
 
 2.0.0
@@ -95,9 +99,17 @@ assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 
@@ -161,9 +173,17 @@ assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 

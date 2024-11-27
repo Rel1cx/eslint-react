@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+utils
+
 ## modifySome(fallback, pf)
 
 > **modifySome**\<`B`, `A`\>(`fallback`, `pf`): (`self`) => `Effect`\<`B`, `never`, `never`\>
@@ -42,9 +46,17 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils
 
 ## modifySome(self, fallback, pf)
 
@@ -72,6 +84,14 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils

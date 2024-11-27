@@ -32,6 +32,10 @@ assert.deepStrictEqual(isIterable(null), false)
 assert.deepStrictEqual(isIterable({}), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

@@ -38,3 +38,7 @@ assert.deepStrictEqual(Equal.equals(mike1, john), false)
 ## Since
 
 2.0.0
+
+## Category
+
+constructors

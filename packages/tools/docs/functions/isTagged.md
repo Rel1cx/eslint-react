@@ -29,13 +29,17 @@ assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0
 
 ## isTagged(tag)
 
-> **isTagged**\<`K`\>(`tag`): (`self`) => `self is Object`
+> **isTagged**\<`K`\>(`tag`): (`self`) => `self is { _tag: K }`
 
 Tests if a value is an `object` with a property `_tag` that matches the given tag.
 
@@ -59,7 +63,7 @@ The tag to test for.
 
 #### Returns
 
-`self is Object`
+`self is { _tag: K }`
 
 ### Param
 
@@ -93,9 +97,17 @@ assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
 
+### Category
+
+guards
+
 ### Since
 
 2.0.0
+
+### Category
+
+guards
 
 ### Since
 
@@ -103,7 +115,7 @@ assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 
 ## isTagged(self, tag)
 
-> **isTagged**\<`K`\>(`self`, `tag`): `self is Object`
+> **isTagged**\<`K`\>(`self`, `tag`): `self is { _tag: K }`
 
 Tests if a value is an `object` with a property `_tag` that matches the given tag.
 
@@ -121,7 +133,7 @@ The tag to test for.
 
 ### Returns
 
-`self is Object`
+`self is { _tag: K }`
 
 ### Param
 
@@ -155,9 +167,17 @@ assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
 
+### Category
+
+guards
+
 ### Since
 
 2.0.0
+
+### Category
+
+guards
 
 ### Since
 

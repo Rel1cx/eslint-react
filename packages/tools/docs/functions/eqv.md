@@ -6,6 +6,10 @@
 
 # Function: eqv()
 
+## Category
+
+combinators
+
 ## Since
 
 2.0.0
@@ -34,9 +38,17 @@
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 
@@ -60,9 +72,17 @@
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 

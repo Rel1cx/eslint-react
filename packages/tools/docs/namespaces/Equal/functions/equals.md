@@ -38,6 +38,10 @@
 
 2.0.0
 
+### Category
+
+equality
+
 ## equals(self, that)
 
 > **equals**\<`A`, `B`\>(`self`, `that`): `boolean`
@@ -57,3 +61,11 @@
 ### Returns
 
 `boolean`
+
+### Since
+
+2.0.0
+
+### Category
+
+equality

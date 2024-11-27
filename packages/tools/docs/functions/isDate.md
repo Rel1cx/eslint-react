@@ -31,6 +31,10 @@ assert.deepStrictEqual(isDate(null), false)
 assert.deepStrictEqual(isDate({}), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

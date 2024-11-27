@@ -30,6 +30,10 @@ assert.deepStrictEqual(isFunction(isFunction), true)
 assert.deepStrictEqual(isFunction("function"), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

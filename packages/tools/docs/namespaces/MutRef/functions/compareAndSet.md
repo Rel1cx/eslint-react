@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+general
+
 ## compareAndSet(oldValue, newValue)
 
 > **compareAndSet**\<`T`\>(`oldValue`, `newValue`): (`self`) => `boolean`
@@ -40,9 +44,17 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general
 
 ## compareAndSet(self, oldValue, newValue)
 
@@ -68,6 +80,14 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general

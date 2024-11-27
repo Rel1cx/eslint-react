@@ -36,6 +36,10 @@ assert.deepStrictEqual(isPositive(0), true)
 assert.deepStrictEqual(isPositive(1), true)
 ```
 
+## Category
+
+combinators
+
 ## Since
 
 2.0.0

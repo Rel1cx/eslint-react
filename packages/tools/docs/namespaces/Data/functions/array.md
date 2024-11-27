@@ -42,6 +42,10 @@ assert.deepStrictEqual(
 )
 ```
 
+## Category
+
+constructors
+
 ## Since
 
 2.0.0

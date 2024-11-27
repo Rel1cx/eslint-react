@@ -18,7 +18,7 @@
 
 ### $is()
 
-> `readonly` **$is**: \<`Tag`\>(`tag`) => \<`T`\>(`u`) => `u is T & Object`(`u`) => `u is Extract<Kind<Z, unknown, unknown, unknown, unknown>, Object>`
+> `readonly` **$is**: \<`Tag`\>(`tag`) => \<`T`\>(`u`) => `u is T & { _tag: Tag }`(`u`) => `u is Extract<Kind<Z, unknown, unknown, unknown, unknown>, { _tag: Tag }>`
 
 #### Type Parameters
 
@@ -42,7 +42,7 @@
 
 ##### Returns
 
-`u is T & Object`
+`u is T & { _tag: Tag }`
 
 ##### Parameters
 
@@ -50,7 +50,7 @@
 
 ##### Returns
 
-`u is Extract<Kind<Z, unknown, unknown, unknown, unknown>, Object>`
+`u is Extract<Kind<Z, unknown, unknown, unknown, unknown>, { _tag: Tag }>`
 
 ***
 
@@ -68,7 +68,7 @@
 
 • **D**
 
-• **Cases** *extends* `{ readonly [Tag in string]: Function }`
+• **Cases** *extends* `{ readonly [Tag in string]: (args: Extract<Kind<Z, A, B, C, D>, { _tag: Tag }>) => any }`
 
 #### Parameters
 
@@ -96,7 +96,7 @@
 
 • **D**
 
-• **Cases** *extends* `{ readonly [Tag in string]: Function }`
+• **Cases** *extends* `{ readonly [Tag in string]: (args: Extract<Kind<Z, A, B, C, D>, { _tag: Tag }>) => any }`
 
 #### Parameters
 

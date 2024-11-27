@@ -30,6 +30,10 @@ assert.deepStrictEqual(isNumber(2), true)
 assert.deepStrictEqual(isNumber("2"), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

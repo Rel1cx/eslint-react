@@ -42,3 +42,7 @@ assert.deepEqual(mike, { _tag: "Person", name: "Mike" })
 ## Since
 
 2.0.0
+
+## Category
+
+constructors

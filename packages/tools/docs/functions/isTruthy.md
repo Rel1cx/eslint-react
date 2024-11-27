@@ -30,6 +30,10 @@ assert.deepStrictEqual(isTruthy(0), false)
 assert.deepStrictEqual(isTruthy(""), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

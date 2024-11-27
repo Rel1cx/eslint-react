@@ -31,3 +31,7 @@
 ## Since
 
 2.0.0
+
+## Category
+
+constructors

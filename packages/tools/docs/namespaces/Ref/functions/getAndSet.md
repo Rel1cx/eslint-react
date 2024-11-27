@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+utils
+
 ## getAndSet(value)
 
 > **getAndSet**\<`A`\>(`value`): (`self`) => `Effect`\<`A`, `never`, `never`\>
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils
 
 ## getAndSet(self, value)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils

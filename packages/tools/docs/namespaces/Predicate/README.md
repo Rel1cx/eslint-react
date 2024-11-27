@@ -10,6 +10,10 @@
 
 3.6.0
 
+## Category
+
+type-level
+
 ## Index
 
 ### type-level

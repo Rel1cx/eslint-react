@@ -49,6 +49,10 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
 
+## Category
+
+combinators
+
 ## Since
 
 2.0.0
@@ -141,9 +145,17 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 
@@ -231,9 +243,17 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 

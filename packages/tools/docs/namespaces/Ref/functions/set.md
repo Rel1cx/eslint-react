@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+utils
+
 ## set(value)
 
 > **set**\<`A`\>(`value`): (`self`) => `Effect`\<`void`, `never`, `never`\>
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils
 
 ## set(self, value)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils

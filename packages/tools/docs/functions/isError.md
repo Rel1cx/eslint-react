@@ -31,6 +31,10 @@ assert.deepStrictEqual(isError(null), false)
 assert.deepStrictEqual(isError({}), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

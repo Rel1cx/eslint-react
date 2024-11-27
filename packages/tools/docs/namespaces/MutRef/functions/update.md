@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+general
+
 ## update(f)
 
 > **update**\<`T`\>(`f`): (`self`) => [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general
 
 ## update(self, f)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general

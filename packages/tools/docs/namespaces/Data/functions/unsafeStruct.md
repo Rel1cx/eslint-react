@@ -20,6 +20,10 @@
 
 \{ readonly \[P in string \| number \| symbol\]: A\[P\] \}
 
+## Category
+
+constructors
+
 ## Since
 
 2.0.0

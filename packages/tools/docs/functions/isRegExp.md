@@ -29,6 +29,10 @@ assert.deepStrictEqual(Predicate.isRegExp(/a/), true)
 assert.deepStrictEqual(Predicate.isRegExp("a"), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 3.9.0

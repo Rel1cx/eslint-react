@@ -21,3 +21,7 @@ Provides a constructor for a Case Class.
 ## Since
 
 2.0.0
+
+## Category
+
+constructors

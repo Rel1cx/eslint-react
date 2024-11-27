@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+utils
+
 ## modify(f)
 
 > **modify**\<`A`, `B`\>(`f`): (`self`) => `Effect`\<`B`, `never`, `never`\>
@@ -40,9 +44,17 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils
 
 ## modify(self, f)
 
@@ -68,6 +80,14 @@
 
 2.0.0
 
+### Category
+
+utils
+
 ### Since
 
 2.0.0
+
+### Category
+
+utils

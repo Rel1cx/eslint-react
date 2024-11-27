@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+general
+
 ## set(value)
 
 > **set**\<`T`\>(`value`): (`self`) => [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general
 
 ## set(self, value)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general

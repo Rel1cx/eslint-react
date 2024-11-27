@@ -6,7 +6,7 @@
 
 # Function: isReadonlyRecord()
 
-> **isReadonlyRecord**(`input`): `input is Object`
+> **isReadonlyRecord**(`input`): input is (x: string \| symbol) =\> unknown
 
 A guard that succeeds when the input is a readonly record.
 
@@ -18,7 +18,7 @@ The value to test.
 
 ## Returns
 
-`input is Object`
+input is (x: string \| symbol) =\> unknown
 
 ## Example
 
@@ -33,6 +33,10 @@ assert.deepStrictEqual(isReadonlyRecord([1, 2, 3]), false)
 assert.deepStrictEqual(isReadonlyRecord(null), false)
 assert.deepStrictEqual(isReadonlyRecord(undefined), false)
 ```
+
+## Category
+
+guards
 
 ## Since
 

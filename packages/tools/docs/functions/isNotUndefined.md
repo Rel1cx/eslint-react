@@ -35,6 +35,10 @@ assert.deepStrictEqual(isNotUndefined("undefined"), true)
 assert.deepStrictEqual(isNotUndefined(undefined), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

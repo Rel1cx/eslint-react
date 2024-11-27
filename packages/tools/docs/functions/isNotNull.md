@@ -35,6 +35,10 @@ assert.deepStrictEqual(isNotNull("null"), true)
 assert.deepStrictEqual(isNotNull(null), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

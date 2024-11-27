@@ -34,6 +34,10 @@ if (isTupleOfAtLeast(arr, 3)) {
 }
 ```
 
+## Category
+
+guards
+
 ## Since
 
 3.3.0
@@ -110,9 +114,17 @@ if (isTupleOfAtLeast(arr, 3)) {
 }
 ```
 
+### Category
+
+guards
+
 ### Since
 
 3.3.0
+
+### Category
+
+guards
 
 ### Since
 
@@ -184,9 +196,17 @@ if (isTupleOfAtLeast(arr, 3)) {
 }
 ```
 
+### Category
+
+guards
+
 ### Since
 
 3.3.0
+
+### Category
+
+guards
 
 ### Since
 

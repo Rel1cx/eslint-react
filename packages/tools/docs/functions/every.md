@@ -20,6 +20,10 @@
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
+## Category
+
+elements
+
 ## Since
 
 2.0.0

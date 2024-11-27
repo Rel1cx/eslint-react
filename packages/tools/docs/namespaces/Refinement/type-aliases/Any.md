@@ -11,3 +11,7 @@
 ## Since
 
 3.6.0
+
+## Category
+
+type-level

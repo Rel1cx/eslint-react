@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+models
+
 ## Index
 
 ### Interfaces

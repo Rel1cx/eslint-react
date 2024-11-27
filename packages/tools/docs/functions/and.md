@@ -31,6 +31,10 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
+## Category
+
+combinators
+
 ## Since
 
 2.0.0
@@ -105,9 +109,17 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 
@@ -177,9 +189,17 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 
@@ -249,9 +269,17 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 
@@ -317,9 +345,17 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
+### Category
+
+combinators
+
 ### Since
 
 2.0.0
+
+### Category
+
+combinators
 
 ### Since
 

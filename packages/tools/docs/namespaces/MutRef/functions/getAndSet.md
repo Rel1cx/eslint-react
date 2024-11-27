@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+general
+
 ## getAndSet(value)
 
 > **getAndSet**\<`T`\>(`value`): (`self`) => `T`
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general
 
 ## getAndSet(self, value)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general

@@ -20,6 +20,10 @@
 
 `Readonly`\<`As`\>
 
+## Category
+
+constructors
+
 ## Since
 
 2.0.0

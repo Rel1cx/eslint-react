@@ -30,6 +30,10 @@ assert.deepStrictEqual(isSymbol(Symbol.for("a")), true)
 assert.deepStrictEqual(isSymbol("a"), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

@@ -29,6 +29,10 @@ assert.deepStrictEqual(isPromise({}), false)
 assert.deepStrictEqual(isPromise(Promise.resolve("hello")), true)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

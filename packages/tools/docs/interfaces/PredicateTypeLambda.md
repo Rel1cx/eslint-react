@@ -6,6 +6,10 @@
 
 # Interface: PredicateTypeLambda
 
+## Category
+
+type lambdas
+
 ## Since
 
 2.0.0

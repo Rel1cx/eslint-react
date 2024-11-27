@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+models
+
 ## Extends
 
 - [`Variance`](../namespaces/Ref/interfaces/Variance.md)\<`A`\>.`Effect`\<`A`\>.`Readable`\<`A`\>

@@ -36,6 +36,10 @@ assert.deepStrictEqual(Equal.equals(alice, { name: "Alice", age: 30 }), false)
 assert.deepStrictEqual(Equal.equals(alice, bob), false)
 ```
 
+## Category
+
+constructors
+
 ## Since
 
 2.0.0

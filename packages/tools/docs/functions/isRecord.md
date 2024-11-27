@@ -6,7 +6,7 @@
 
 # Function: isRecord()
 
-> **isRecord**(`input`): `input is Object`
+> **isRecord**(`input`): input is (x: string \| symbol) =\> unknown
 
 A guard that succeeds when the input is a record.
 
@@ -18,7 +18,7 @@ The value to test.
 
 ## Returns
 
-`input is Object`
+input is (x: string \| symbol) =\> unknown
 
 ## Example
 
@@ -34,6 +34,10 @@ assert.deepStrictEqual(isRecord(null), false)
 assert.deepStrictEqual(isRecord(undefined), false)
 assert.deepStrictEqual(isRecord(() => null), false)
 ```
+
+## Category
+
+guards
 
 ## Since
 

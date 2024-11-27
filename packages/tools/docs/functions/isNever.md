@@ -29,6 +29,10 @@ assert.deepStrictEqual(isNever({}), false)
 assert.deepStrictEqual(isNever([]), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

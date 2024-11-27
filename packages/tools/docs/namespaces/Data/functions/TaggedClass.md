@@ -52,3 +52,7 @@ assert.deepStrictEqual(mike1._tag, "Person")
 ## Since
 
 2.0.0
+
+## Category
+
+constructors

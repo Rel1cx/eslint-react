@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+general
+
 ## updateAndGet(f)
 
 > **updateAndGet**\<`T`\>(`f`): (`self`) => `T`
@@ -38,9 +42,17 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general
 
 ## updateAndGet(self, f)
 
@@ -64,6 +76,14 @@
 
 2.0.0
 
+### Category
+
+general
+
 ### Since
 
 2.0.0
+
+### Category
+
+general

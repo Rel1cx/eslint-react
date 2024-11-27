@@ -10,6 +10,10 @@
 
 2.0.0
 
+## Category
+
+models
+
 ## Type Parameters
 
 • **A**
@@ -29,3 +33,7 @@
 ## Since
 
 2.0.0
+
+## Category
+
+models

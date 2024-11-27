@@ -6,7 +6,7 @@
 
 # Type Alias: Constructor\<A\>
 
-> **Constructor**\<`A`\>: `Types.Simplify`\<`{ readonly [Tag in A["_tag"]]: Constructor<Extract<A, Object>, "_tag"> }` & `object`\>
+> **Constructor**\<`A`\>: `Types.Simplify`\<`{ readonly [Tag in A["_tag"]]: Constructor<Extract<A, { _tag: Tag }>, "_tag"> }` & `object`\>
 
 ## Type Parameters
 

@@ -30,6 +30,10 @@ assert.deepStrictEqual(isBigInt(1n), true)
 assert.deepStrictEqual(isBigInt(1), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

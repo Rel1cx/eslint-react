@@ -30,6 +30,10 @@ assert.deepStrictEqual(isString("a"), true)
 assert.deepStrictEqual(isString(1), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0

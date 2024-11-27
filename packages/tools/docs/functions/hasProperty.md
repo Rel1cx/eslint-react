@@ -16,6 +16,10 @@ The field to check within the object.
 
 The value to examine.
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0
@@ -56,9 +60,17 @@ The field to check within the object.
 
 The value to examine.
 
+### Category
+
+guards
+
 ### Since
 
 2.0.0
+
+### Category
+
+guards
 
 ### Since
 
@@ -96,9 +108,17 @@ The field to check within the object.
 
 The value to examine.
 
+### Category
+
+guards
+
 ### Since
 
 2.0.0
+
+### Category
+
+guards
 
 ### Since
 

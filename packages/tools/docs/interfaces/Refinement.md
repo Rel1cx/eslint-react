@@ -6,6 +6,10 @@
 
 # Interface: Refinement()\<A, B\>
 
+## Category
+
+models
+
 ## Since
 
 2.0.0
@@ -25,6 +29,10 @@
 ## Returns
 
 `a is B`
+
+## Category
+
+models
 
 ## Since
 

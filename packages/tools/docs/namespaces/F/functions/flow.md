@@ -57,6 +57,10 @@ assert.strictEqual(f('aaa'), 6)
 
 > **flow**\<`A`, `B`, `C`\>(`ab`, `bc`): (...`a`) => `C`
 
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
+
 ### Type Parameters
 
 • **A** *extends* readonly `unknown`[]
@@ -83,9 +87,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `C`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd)
 
 > **flow**\<`A`, `B`, `C`, `D`\>(`ab`, `bc`, `cd`): (...`a`) => `D`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -117,9 +142,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `D`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd, de)
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`\>(`ab`, `bc`, `cd`, `de`): (...`a`) => `E`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -155,9 +201,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `E`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd, de, ef)
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`ab`, `bc`, `cd`, `de`, `ef`): (...`a`) => `F`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -197,9 +264,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `F`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd, de, ef, fg)
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`): (...`a`) => `G`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -243,9 +331,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `G`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd, de, ef, fg, gh)
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): (...`a`) => `H`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -293,9 +402,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `H`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd, de, ef, fg, gh, hi)
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): (...`a`) => `I`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -347,9 +477,30 @@ assert.strictEqual(f('aaa'), 6)
 
 `I`
 
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0
+
 ## flow(ab, bc, cd, de, ef, fg, gh, hi, ij)
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): (...`a`) => `J`
+
+Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+
+See also [`pipe`](#pipe).
 
 ### Type Parameters
 
@@ -404,3 +555,20 @@ assert.strictEqual(f('aaa'), 6)
 #### Returns
 
 `J`
+
+### Example
+
+```ts
+import { flow } from "effect/Function"
+
+const len = (s: string): number => s.length
+const double = (n: number): number => n * 2
+
+const f = flow(len, double)
+
+assert.strictEqual(f('aaa'), 6)
+```
+
+### Since
+
+2.0.0

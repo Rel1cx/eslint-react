@@ -6,6 +6,10 @@
 
 # Interface: RefUnify\<A\>
 
+## Category
+
+models
+
 ## Since
 
 3.8.0
@@ -36,11 +40,11 @@
 
 ### Either()?
 
-> `optional` **Either**: () => `A`\[*typeof* `typeSymbol`\] *extends* [`Either`](../../E/type-aliases/Either.md)\<`R0`, `L0`\> \| `_` ? [`Either`](../../E/type-aliases/Either.md)\<`R0`, `L0`\> : `never`
+> `optional` **Either**: () => `A`\[*typeof* `typeSymbol`\] *extends* [`Either`](../../../Either.js/type-aliases/Either.md)\<`R0`, `L0`\> \| `_` ? [`Either`](../../../Either.js/type-aliases/Either.md)\<`R0`, `L0`\> : `never`
 
 #### Returns
 
-`A`\[*typeof* `typeSymbol`\] *extends* [`Either`](../../E/type-aliases/Either.md)\<`R0`, `L0`\> \| `_` ? [`Either`](../../E/type-aliases/Either.md)\<`R0`, `L0`\> : `never`
+`A`\[*typeof* `typeSymbol`\] *extends* [`Either`](../../../Either.js/type-aliases/Either.md)\<`R0`, `L0`\> \| `_` ? [`Either`](../../../Either.js/type-aliases/Either.md)\<`R0`, `L0`\> : `never`
 
 #### Inherited from
 
@@ -50,11 +54,11 @@
 
 ### Option()?
 
-> `optional` **Option**: () => `A`\[*typeof* `typeSymbol`\] *extends* [`Option`](../../O/type-aliases/Option.md)\<`A0`\> \| `_` ? [`Option`](../../O/type-aliases/Option.md)\<`A0`\> : `never`
+> `optional` **Option**: () => `A`\[*typeof* `typeSymbol`\] *extends* [`Option`](../../../Option.js/type-aliases/Option.md)\<`A0`\> \| `_` ? [`Option`](../../../Option.js/type-aliases/Option.md)\<`A0`\> : `never`
 
 #### Returns
 
-`A`\[*typeof* `typeSymbol`\] *extends* [`Option`](../../O/type-aliases/Option.md)\<`A0`\> \| `_` ? [`Option`](../../O/type-aliases/Option.md)\<`A0`\> : `never`
+`A`\[*typeof* `typeSymbol`\] *extends* [`Option`](../../../Option.js/type-aliases/Option.md)\<`A0`\> \| `_` ? [`Option`](../../../Option.js/type-aliases/Option.md)\<`A0`\> : `never`
 
 #### Inherited from
 

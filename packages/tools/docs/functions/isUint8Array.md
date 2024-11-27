@@ -31,6 +31,10 @@ assert.deepStrictEqual(isUint8Array(null), false)
 assert.deepStrictEqual(isUint8Array({}), false)
 ```
 
+## Category
+
+guards
+
 ## Since
 
 2.0.0
