@@ -81,8 +81,7 @@ export function useComponentCollector(
     const [key, fn, isComponent] = functionStack.at(-1) ?? [];
     if (!key || !fn || !isComponent) return functionStack.pop();
     const shouldDrop = AST.getNestedReturnStatements(fn.body)
-      .slice()
-      .reverse()
+      .toReversed()
       .some(r => {
         return context.sourceCode.getScope(r).block === fn
           && r.argument !== null
