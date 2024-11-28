@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Apply a function to a given value.
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 The value that the function will be applied to.
 
@@ -30,7 +32,9 @@ The value that the function will be applied to.
 
 ### Parameters
 
-• **self**
+#### self
+
+(`a`) => `B`
 
 ### Returns
 

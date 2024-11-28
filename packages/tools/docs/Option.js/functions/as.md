@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 ## Parameters
 
-• **b**: `B`
+### b
+
+`B`
 
 ## Returns
 
@@ -28,23 +30,17 @@ Maps the `Some` value of this `Option` to the specified constant value.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`X`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`X`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-## Category
-
-mapping
-
 ## Since
 
 2.0.0
-
-## Category
-
-mapping
 
 ## Since
 

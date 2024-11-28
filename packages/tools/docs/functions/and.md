@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -31,15 +31,11 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
-## Category
-
-combinators
-
 ## Since
 
 2.0.0
 
-## and(that)
+## Call Signature
 
 > **and**\<`A`, `C`\>(`that`): \<`B`\>(`self`) => [`Refinement`](../interfaces/Refinement.md)\<`A`, `B` & `C`\>
 
@@ -53,7 +49,9 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 ### Parameters
 
-• **that**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
+#### that
+
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
 
 A predicate.
 
@@ -67,7 +65,9 @@ A predicate.
 
 #### Parameters
 
-• **self**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+##### self
+
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
 #### Returns
 
@@ -109,23 +109,15 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
-### Category
+### Since
 
-combinators
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combinators
-
-### Since
-
-2.0.0
-
-## and(self, that)
+## Call Signature
 
 > **and**\<`A`, `B`, `C`\>(`self`, `that`): [`Refinement`](../interfaces/Refinement.md)\<`A`, `B` & `C`\>
 
@@ -141,11 +133,15 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 ### Parameters
 
-• **self**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+#### self
+
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
 A predicate.
 
-• **that**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
+#### that
+
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
 
 A predicate.
 
@@ -189,23 +185,15 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
-### Category
+### Since
 
-combinators
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combinators
-
-### Since
-
-2.0.0
-
-## and(that)
+## Call Signature
 
 > **and**\<`A`\>(`that`): (`self`) => [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
@@ -217,7 +205,9 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 ### Parameters
 
-• **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### that
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 A predicate.
 
@@ -227,7 +217,9 @@ A predicate.
 
 #### Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+##### self
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 #### Returns
 
@@ -269,23 +261,15 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
-### Category
+### Since
 
-combinators
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combinators
-
-### Since
-
-2.0.0
-
-## and(self, that)
+## Call Signature
 
 > **and**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
@@ -297,11 +281,15 @@ Combines two predicates into a new predicate that returns `true` if both of the 
 
 ### Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### self
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 A predicate.
 
-• **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### that
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 A predicate.
 
@@ -345,17 +333,9 @@ assert.deepStrictEqual(length(2)("a"), false)
 assert.deepStrictEqual(length(2)("aaa"), false)
 ```
 
-### Category
-
-combinators
-
 ### Since
 
 2.0.0
-
-### Category
-
-combinators
 
 ### Since
 

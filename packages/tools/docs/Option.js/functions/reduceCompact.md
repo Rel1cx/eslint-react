@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -29,15 +29,11 @@ const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
 assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
 ```
 
-## Category
-
-folding
-
 ## Since
 
 2.0.0
 
-## reduceCompact(b, f)
+## Call Signature
 
 > **reduceCompact**\<`B`, `A`\>(`b`, `f`): (`self`) => `B`
 
@@ -51,11 +47,15 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 ### Parameters
 
-• **b**: `B`
+#### b
+
+`B`
 
 The initial value of the accumulator.
 
-• **f**
+#### f
+
+(`b`, `a`) => `B`
 
 The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`.
 
@@ -65,7 +65,9 @@ The reducing function that takes the current accumulator value and the unwrapped
 
 #### Parameters
 
-• **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+##### self
+
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
 
 #### Returns
 
@@ -99,23 +101,15 @@ const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
 assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
 ```
 
-### Category
+### Since
 
-folding
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-folding
-
-### Since
-
-2.0.0
-
-## reduceCompact(self, b, f)
+## Call Signature
 
 > **reduceCompact**\<`A`, `B`\>(`self`, `b`, `f`): `B`
 
@@ -129,15 +123,21 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 ### Parameters
 
-• **self**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+#### self
+
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
 
 The Iterable of `Option<A>` to be reduced.
 
-• **b**: `B`
+#### b
+
+`B`
 
 The initial value of the accumulator.
 
-• **f**
+#### f
+
+(`b`, `a`) => `B`
 
 The reducing function that takes the current accumulator value and the unwrapped value of an `Option<A>`.
 
@@ -173,17 +173,9 @@ const iterable = [Option.some(1), Option.none(), Option.some(2), Option.none()]
 assert.deepStrictEqual(pipe(iterable, Option.reduceCompact(0, (b, a) => b + a)), 3)
 ```
 
-### Category
-
-folding
-
 ### Since
 
 2.0.0
-
-### Category
-
-folding
 
 ### Since
 

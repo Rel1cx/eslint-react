@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -25,15 +25,11 @@ assert.deepStrictEqual(pipe(Option.some(1), Option.getOrElse(() => 0)), 1)
 assert.deepStrictEqual(pipe(Option.none(), Option.getOrElse(() => 0)), 0)
 ```
 
-## Category
-
-getters
-
 ## Since
 
 2.0.0
 
-## getOrElse(onNone)
+## Call Signature
 
 > **getOrElse**\<`B`\>(`onNone`): \<`A`\>(`self`) => `B` \| `A`
 
@@ -45,7 +41,9 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
 ### Parameters
 
-• **onNone**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+#### onNone
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
 
 Function that returns the default value to return if the `Option` is `None`.
 
@@ -59,7 +57,9 @@ Function that returns the default value to return if the `Option` is `None`.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -89,23 +89,15 @@ assert.deepStrictEqual(pipe(Option.some(1), Option.getOrElse(() => 0)), 1)
 assert.deepStrictEqual(pipe(Option.none(), Option.getOrElse(() => 0)), 0)
 ```
 
-### Category
+### Since
 
-getters
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-getters
-
-### Since
-
-2.0.0
-
-## getOrElse(self, onNone)
+## Call Signature
 
 > **getOrElse**\<`A`, `B`\>(`self`, `onNone`): `A` \| `B`
 
@@ -119,11 +111,15 @@ Returns the value of the `Option` if it is `Some`, otherwise returns `onNone`
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to get the value of.
 
-• **onNone**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+#### onNone
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
 
 Function that returns the default value to return if the `Option` is `None`.
 
@@ -155,17 +151,9 @@ assert.deepStrictEqual(pipe(Option.some(1), Option.getOrElse(() => 0)), 1)
 assert.deepStrictEqual(pipe(Option.none(), Option.getOrElse(() => 0)), 0)
 ```
 
-### Category
-
-getters
-
 ### Since
 
 2.0.0
-
-### Category
-
-getters
 
 ### Since
 

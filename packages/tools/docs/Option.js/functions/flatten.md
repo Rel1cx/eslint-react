@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -14,15 +14,13 @@
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
 
 ## Returns
 
 [`Option`](../type-aliases/Option.md)\<`A`\>
-
-## Category
-
-sequencing
 
 ## Since
 

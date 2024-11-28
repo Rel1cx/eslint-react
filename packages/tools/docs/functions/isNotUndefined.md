@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Tests if a value is not `undefined`.
 
 ## Parameters
 
-• **input**: `A`
+### input
+
+`A`
 
 The value to test.
 
@@ -34,10 +36,6 @@ assert.deepStrictEqual(isNotUndefined("undefined"), true)
 
 assert.deepStrictEqual(isNotUndefined(undefined), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

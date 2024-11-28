@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,19 +16,19 @@
 
 ## Parameters
 
-• **\_\_namedParameters**
+### \_\_namedParameters
 
-• **\_\_namedParameters.left**: `Equivalence`\<`L`\>
+#### __namedParameters.left
 
-• **\_\_namedParameters.right**: `Equivalence`\<`R`\>
+`Equivalence`\<`L`\>
+
+#### __namedParameters.right
+
+`Equivalence`\<`R`\>
 
 ## Returns
 
 `Equivalence`\<[`Either`](../type-aliases/Either.md)\<`R`, `L`\>\>
-
-## Category
-
-equivalence
 
 ## Since
 

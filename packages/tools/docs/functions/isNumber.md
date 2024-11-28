@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `number`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(isNumber(2), true)
 
 assert.deepStrictEqual(isNumber("2"), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

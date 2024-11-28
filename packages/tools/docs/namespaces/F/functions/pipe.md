@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: pipe()
 
-## pipe(a)
+## Call Signature
 
 > **pipe**\<`A`\>(`a`): `A`
 
@@ -64,7 +64,9 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
+
+`A`
 
 ### Returns
 
@@ -92,7 +94,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab)
+## Call Signature
 
 > **pipe**\<`A`, `B`\>(`a`, `ab`): `B`
 
@@ -152,9 +154,13 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
+
+#### ab
+
+(`a`) => `B`
 
 ### Returns
 
@@ -182,7 +188,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`\>(`a`, `ab`, `bc`): `C`
 
@@ -244,11 +250,17 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
+
+(`a`) => `B`
+
+#### bc
+
+(`b`) => `C`
 
 ### Returns
 
@@ -276,7 +288,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`\>(`a`, `ab`, `bc`, `cd`): `D`
 
@@ -340,13 +352,21 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
+
+#### bc
+
+(`b`) => `C`
+
+#### cd
+
+(`c`) => `D`
 
 ### Returns
 
@@ -374,7 +394,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`a`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -440,15 +460,25 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
+
+(`b`) => `C`
+
+#### cd
+
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
 
 ### Returns
 
@@ -476,7 +506,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -544,17 +574,29 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
+
+#### cd
+
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
 
 ### Returns
 
@@ -582,7 +624,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -652,19 +694,33 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
+
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
 
 ### Returns
 
@@ -692,7 +748,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -764,21 +820,37 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
 
 ### Returns
 
@@ -806,7 +878,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -880,23 +952,41 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
 
 ### Returns
 
@@ -924,7 +1014,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -1000,25 +1090,45 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
 
 ### Returns
 
@@ -1046,7 +1156,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -1124,27 +1234,49 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
 
 ### Returns
 
@@ -1172,7 +1304,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -1252,29 +1384,53 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
 
 ### Returns
 
@@ -1302,7 +1458,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -1384,31 +1540,57 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
 
 ### Returns
 
@@ -1436,7 +1618,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -1520,33 +1702,61 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
 
 ### Returns
 
@@ -1574,7 +1784,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -1660,35 +1870,65 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
 
-• **no**
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
+
+#### no
+
+(`n`) => `O`
 
 ### Returns
 
@@ -1716,7 +1956,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -1804,37 +2044,69 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
 
-• **no**
+#### gh
 
-• **op**
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
+
+#### no
+
+(`n`) => `O`
+
+#### op
+
+(`o`) => `P`
 
 ### Returns
 
@@ -1862,7 +2134,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -1952,39 +2224,73 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
 
-• **no**
+#### gh
 
-• **op**
+(`g`) => `H`
 
-• **pq**
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
+
+#### no
+
+(`n`) => `O`
+
+#### op
+
+(`o`) => `P`
+
+#### pq
+
+(`p`) => `Q`
 
 ### Returns
 
@@ -2012,7 +2318,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -2104,41 +2410,77 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
 
-• **no**
+#### gh
 
-• **op**
+(`g`) => `H`
 
-• **pq**
+#### hi
 
-• **qr**
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
+
+#### no
+
+(`n`) => `O`
+
+#### op
+
+(`o`) => `P`
+
+#### pq
+
+(`p`) => `Q`
+
+#### qr
+
+(`q`) => `R`
 
 ### Returns
 
@@ -2166,7 +2508,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -2260,43 +2602,81 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
 
-• **no**
+#### gh
 
-• **op**
+(`g`) => `H`
 
-• **pq**
+#### hi
 
-• **qr**
+(`h`) => `I`
 
-• **rs**
+#### ij
+
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
+
+#### no
+
+(`n`) => `O`
+
+#### op
+
+(`o`) => `P`
+
+#### pq
+
+(`p`) => `Q`
+
+#### qr
+
+(`q`) => `R`
+
+#### rs
+
+(`r`) => `S`
 
 ### Returns
 
@@ -2324,7 +2704,7 @@ console.log(result)
 
 2.0.0
 
-## pipe(a, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st)
+## Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -2420,45 +2800,85 @@ argument** because they are only called with a single argument.
 
 ### Parameters
 
-• **a**: `A`
+#### a
 
-• **ab**
+`A`
 
-• **bc**
+#### ab
 
-• **cd**
+(`a`) => `B`
 
-• **de**
+#### bc
 
-• **ef**
+(`b`) => `C`
 
-• **fg**
+#### cd
 
-• **gh**
+(`c`) => `D`
 
-• **hi**
+#### de
 
-• **ij**
+(`d`) => `E`
 
-• **jk**
+#### ef
 
-• **kl**
+(`e`) => `F`
 
-• **lm**
+#### fg
 
-• **mn**
+(`f`) => `G`
 
-• **no**
+#### gh
 
-• **op**
+(`g`) => `H`
 
-• **pq**
+#### hi
 
-• **qr**
+(`h`) => `I`
 
-• **rs**
+#### ij
 
-• **st**
+(`i`) => `J`
+
+#### jk
+
+(`j`) => `K`
+
+#### kl
+
+(`k`) => `L`
+
+#### lm
+
+(`l`) => `M`
+
+#### mn
+
+(`m`) => `N`
+
+#### no
+
+(`n`) => `O`
+
+#### op
+
+(`o`) => `P`
+
+#### pq
+
+(`p`) => `Q`
+
+#### qr
+
+(`q`) => `R`
+
+#### rs
+
+(`r`) => `S`
+
+#### st
+
+(`s`) => `T`
 
 ### Returns
 

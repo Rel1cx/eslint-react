@@ -1,4 +1,4 @@
-**@eslint-react/tools** • **Docs**
+**@eslint-react/tools**
 
 ***
 

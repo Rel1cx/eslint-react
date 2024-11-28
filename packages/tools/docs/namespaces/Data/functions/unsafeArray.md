@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,15 +14,13 @@
 
 ## Parameters
 
-• **as**: `As`
+### as
+
+`As`
 
 ## Returns
 
 `Readonly`\<`As`\>
-
-## Category
-
-constructors
 
 ## Since
 

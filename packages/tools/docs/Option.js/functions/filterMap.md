@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -30,15 +30,11 @@ assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none
 assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
 ```
 
-## Category
-
-filtering
-
 ## Since
 
 2.0.0
 
-## filterMap(f)
+## Call Signature
 
 > **filterMap**\<`A`, `B`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -54,7 +50,9 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 A function to apply to the value of the `Option`.
 
@@ -64,7 +62,9 @@ A function to apply to the value of the `Option`.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -100,23 +100,15 @@ assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none
 assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
 ```
 
-### Category
+### Since
 
-filtering
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-filtering
-
-### Since
-
-2.0.0
-
-## filterMap(self, f)
+## Call Signature
 
 > **filterMap**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -132,11 +124,15 @@ Useful when in addition to filtering you also want to change the type of the `Op
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to map over.
 
-• **f**
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 A function to apply to the value of the `Option`.
 
@@ -174,17 +170,9 @@ assert.deepStrictEqual(Option.filterMap(Option.some(3), evenNumber), Option.none
 assert.deepStrictEqual(Option.filterMap(Option.some(2), evenNumber), Option.some(2))
 ```
 
-### Category
-
-filtering
-
 ### Since
 
 2.0.0
-
-### Category
-
-filtering
 
 ### Since
 

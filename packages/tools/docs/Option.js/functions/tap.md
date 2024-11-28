@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -31,15 +31,11 @@ assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
 assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
 ```
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## tap(f)
+## Call Signature
 
 > **tap**\<`A`, `X`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`A`\>
 
@@ -56,7 +52,9 @@ This function is useful for performing additional computations on the value of t
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`X`\>
 
 Function to apply to the value of the `Option` if it is `Some`
 
@@ -66,7 +64,9 @@ Function to apply to the value of the `Option` if it is `Some`
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -102,23 +102,15 @@ assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
 assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
 ```
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## tap(self, f)
+## Call Signature
 
 > **tap**\<`A`, `X`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`A`\>
 
@@ -135,11 +127,15 @@ This function is useful for performing additional computations on the value of t
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to apply the function to
 
-• **f**
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`X`\>
 
 Function to apply to the value of the `Option` if it is `Some`
 
@@ -177,17 +173,9 @@ assert.deepStrictEqual(Option.tap(Option.some(1), getInteger), Option.some(1))
 assert.deepStrictEqual(Option.tap(Option.some(1.14), getInteger), Option.none())
 ```
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

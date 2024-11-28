@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 ## Returns
 
@@ -35,10 +37,6 @@ assert.deepStrictEqual(Equal.equals(alice, Data.struct({ name: "Alice", age: 30 
 assert.deepStrictEqual(Equal.equals(alice, { name: "Alice", age: 30 }), false)
 assert.deepStrictEqual(Equal.equals(alice, bob), false)
 ```
-
-## Category
-
-constructors
 
 ## Since
 

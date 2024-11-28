@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is a `Date`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -30,10 +32,6 @@ assert.deepStrictEqual(isDate(new Date()), true)
 assert.deepStrictEqual(isDate(null), false)
 assert.deepStrictEqual(isDate({}), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

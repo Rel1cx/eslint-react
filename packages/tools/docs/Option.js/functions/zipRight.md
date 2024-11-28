@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: zipRight()
 
-## Category
-
-zipping
-
 ## Since
 
 2.0.0
 
-## zipRight(that)
+## Call Signature
 
 > **zipRight**\<`B`\>(`that`): \<`_`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -24,7 +20,9 @@ zipping
 
 ### Parameters
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -36,29 +34,23 @@ zipping
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`_`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`_`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-zipping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-zipping
-
-### Since
-
-2.0.0
-
-## zipRight(self, that)
+## Call Signature
 
 > **zipRight**\<`X`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -70,25 +62,21 @@ zipping
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`X`\>
+#### self
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+[`Option`](../type-aliases/Option.md)\<`X`\>
+
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
-
-zipping
-
 ### Since
 
 2.0.0
-
-### Category
-
-zipping
 
 ### Since
 

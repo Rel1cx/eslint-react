@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,15 +18,11 @@ The `Option` that will be ignored in the chain and discarded
 
 The `Option` we care about
 
-## Category
-
-zipping
-
 ## Since
 
 2.0.0
 
-## zipLeft(that)
+## Call Signature
 
 > **zipLeft**\<`_`\>(`that`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`A`\>
 
@@ -40,7 +36,9 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 ### Parameters
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`_`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`_`\>
 
 The `Option` that will be ignored in the chain and discarded
 
@@ -54,7 +52,9 @@ The `Option` that will be ignored in the chain and discarded
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -68,23 +68,15 @@ The `Option` that will be ignored in the chain and discarded
 
 The `Option` we care about
 
-### Category
+### Since
 
-zipping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-zipping
-
-### Since
-
-2.0.0
-
-## zipLeft(self, that)
+## Call Signature
 
 > **zipLeft**\<`A`, `X`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`A`\>
 
@@ -100,11 +92,15 @@ It is useful when we want to chain multiple operations, but only care about the 
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` we care about
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`X`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`X`\>
 
 The `Option` that will be ignored in the chain and discarded
 
@@ -120,17 +116,9 @@ The `Option` that will be ignored in the chain and discarded
 
 The `Option` we care about
 
-### Category
-
-zipping
-
 ### Since
 
 2.0.0
-
-### Category
-
-zipping
 
 ### Since
 

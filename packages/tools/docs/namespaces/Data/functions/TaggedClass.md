@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Provides a Tagged constructor for a Case Class.
 
 ## Parameters
 
-• **tag**: `Tag`
+### tag
+
+`Tag`
 
 ## Returns
 
@@ -24,7 +26,9 @@ Provides a Tagged constructor for a Case Class.
 
 ### Parameters
 
-• **args**: `Equals`\<`A`, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends "\_tag" ? never : P\]: A\[P\] \}
+#### args
+
+`Equals`\<`A`, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends "\_tag" ? never : P\]: A\[P\] \}
 
 ### Returns
 
@@ -52,7 +56,3 @@ assert.deepStrictEqual(mike1._tag, "Person")
 ## Since
 
 2.0.0
-
-## Category
-
-constructors

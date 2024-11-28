@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Check if the given node is a React Hook call by its name.
 
 ## Parameters
 
-• **node**: `CallExpression`
+### node
+
+`CallExpression`
 
 The node to check.
 

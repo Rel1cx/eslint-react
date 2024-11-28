@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: nand()
 
-## Category
-
-combinators
-
 ## Since
 
 2.0.0
 
-## nand(that)
+## Call Signature
 
 > **nand**\<`A`\>(`that`): (`self`) => [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
@@ -24,7 +20,9 @@ combinators
 
 ### Parameters
 
-• **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### that
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 
@@ -32,29 +30,23 @@ combinators
 
 #### Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+##### self
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 #### Returns
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
-### Category
+### Since
 
-combinators
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combinators
-
-### Since
-
-2.0.0
-
-## nand(self, that)
+## Call Signature
 
 > **nand**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
@@ -64,25 +56,21 @@ combinators
 
 ### Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### self
 
-• **that**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+
+#### that
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
-### Category
-
-combinators
-
 ### Since
 
 2.0.0
-
-### Category
-
-combinators
 
 ### Since
 

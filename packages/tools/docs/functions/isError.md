@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is an `Error`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -30,10 +32,6 @@ assert.deepStrictEqual(isError(new Error()), true)
 assert.deepStrictEqual(isError(null), false)
 assert.deepStrictEqual(isError({}), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

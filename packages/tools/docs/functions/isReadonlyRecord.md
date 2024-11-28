@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is a readonly record.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -33,10 +35,6 @@ assert.deepStrictEqual(isReadonlyRecord([1, 2, 3]), false)
 assert.deepStrictEqual(isReadonlyRecord(null), false)
 assert.deepStrictEqual(isReadonlyRecord(undefined), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

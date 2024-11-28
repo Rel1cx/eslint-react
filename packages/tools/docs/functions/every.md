@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -14,15 +14,13 @@
 
 ## Parameters
 
-• **collection**: `Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>, `any`, `any`\>
+### collection
+
+`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>, `any`, `any`\>
 
 ## Returns
 
 [`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-## Category
-
-elements
 
 ## Since
 

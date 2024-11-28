@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,15 +16,11 @@ An `Option` to map
 
 The function to map over the value of the `Option`
 
-## Category
-
-mapping
-
 ## Since
 
 2.0.0
 
-## map(f)
+## Call Signature
 
 > **map**\<`A`, `B`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -38,7 +34,9 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => `B`
 
 The function to map over the value of the `Option`
 
@@ -48,7 +46,9 @@ The function to map over the value of the `Option`
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -62,23 +62,15 @@ An `Option` to map
 
 The function to map over the value of the `Option`
 
-### Category
+### Since
 
-mapping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-mapping
-
-### Since
-
-2.0.0
-
-## map(self, f)
+## Call Signature
 
 > **map**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -92,11 +84,15 @@ Maps the `Some` side of an `Option` value to a new `Option` value.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 An `Option` to map
 
-• **f**
+#### f
+
+(`a`) => `B`
 
 The function to map over the value of the `Option`
 
@@ -112,17 +108,9 @@ An `Option` to map
 
 The function to map over the value of the `Option`
 
-### Category
-
-mapping
-
 ### Since
 
 2.0.0
-
-### Category
-
-mapping
 
 ### Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,11 +10,7 @@
 
 2.0.0
 
-## Category
-
-utils
-
-## set(value)
+## Call Signature
 
 > **set**\<`A`\>(`value`): (`self`) => `Effect`\<`void`, `never`, `never`\>
 
@@ -24,7 +20,9 @@ utils
 
 ### Parameters
 
-• **value**: `A`
+#### value
+
+`A`
 
 ### Returns
 
@@ -32,7 +30,9 @@ utils
 
 #### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+##### self
+
+[`Ref`](../interfaces/Ref.md)\<`A`\>
 
 #### Returns
 
@@ -42,19 +42,11 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
 
-### Category
-
-utils
-
-## set(self, value)
+## Call Signature
 
 > **set**\<`A`\>(`self`, `value`): `Effect`\<`void`, `never`, `never`\>
 
@@ -64,9 +56,13 @@ utils
 
 ### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+#### self
 
-• **value**: `A`
+[`Ref`](../interfaces/Ref.md)\<`A`\>
+
+#### value
+
+`A`
 
 ### Returns
 
@@ -76,14 +72,6 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
-
-### Category
-
-utils

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -19,7 +19,9 @@ use all methods on the error channel, possibly before flipping back.
 
 ## Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 ## Returns
 
@@ -28,7 +30,3 @@ use all methods on the error channel, possibly before flipping back.
 ## Since
 
 2.0.0
-
-## Category
-
-mapping

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: fromEntries()
 
-## fromEntries(entries)
+## Call Signature
 
 > **fromEntries**\<`Entries`\>(`entries`): [`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>
 
@@ -16,13 +16,15 @@
 
 ### Parameters
 
-• **entries**: `Entries`
+#### entries
+
+`Entries`
 
 ### Returns
 
 [`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>
 
-## fromEntries()
+## Call Signature
 
 > **fromEntries**(): \<`Entries`\>(`entries`) => [`Pretty`](../type-aliases/Pretty.md)\<`FromEntries`\<`Entries`\>\>
 
@@ -36,7 +38,9 @@
 
 #### Parameters
 
-• **entries**: `Entries`
+##### entries
+
+`Entries`
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -19,7 +19,9 @@ and want that inner function to always use the same value, no matter how many ti
 
 ## Parameters
 
-• **value**: `A`
+### value
+
+`A`
 
 The constant value to be returned.
 

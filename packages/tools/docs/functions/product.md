@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -16,17 +16,17 @@
 
 ## Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+### self
 
-• **that**: [`Predicate`](../interfaces/Predicate.md)\<`B`\>
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+
+### that
+
+[`Predicate`](../interfaces/Predicate.md)\<`B`\>
 
 ## Returns
 
 [`Predicate`](../interfaces/Predicate.md)\<readonly [`A`, `B`]\>
-
-## Category
-
-combining
 
 ## Since
 

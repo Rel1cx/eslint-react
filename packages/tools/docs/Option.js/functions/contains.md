@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -8,15 +8,11 @@
 
 Returns a function that checks if an `Option` contains a given value using the default `Equivalence`.
 
-## Category
-
-elements
-
 ## Since
 
 2.0.0
 
-## contains(a)
+## Call Signature
 
 > **contains**\<`A`\>(`a`): (`self`) => `boolean`
 
@@ -28,7 +24,9 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 ### Parameters
 
-• **a**: `A`
+#### a
+
+`A`
 
 ### Returns
 
@@ -36,29 +34,23 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 `boolean`
 
-### Category
+### Since
 
-elements
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-elements
-
-### Since
-
-2.0.0
-
-## contains(self, a)
+## Call Signature
 
 > **contains**\<`A`\>(`self`, `a`): `boolean`
 
@@ -70,25 +62,21 @@ Returns a function that checks if an `Option` contains a given value using the d
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **a**: `A`
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### a
+
+`A`
 
 ### Returns
 
 `boolean`
 
-### Category
-
-elements
-
 ### Since
 
 2.0.0
-
-### Category
-
-elements
 
 ### Since
 

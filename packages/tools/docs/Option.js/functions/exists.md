@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -32,7 +32,7 @@ assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 
 2.0.0
 
-## exists(refinement)
+## Call Signature
 
 > **exists**\<`A`, `B`\>(`refinement`): (`self`) => `self is Option<B>`
 
@@ -46,7 +46,9 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
 
 ### Returns
 
@@ -54,7 +56,9 @@ Check if a value in an `Option` type meets a certain predicate.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -98,7 +102,7 @@ assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 
 2.0.0
 
-## exists(predicate)
+## Call Signature
 
 > **exists**\<`A`\>(`predicate`): (`self`) => `boolean`
 
@@ -110,7 +114,9 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
 The condition to check.
 
@@ -120,7 +126,9 @@ The condition to check.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -164,7 +172,7 @@ assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 
 2.0.0
 
-## exists(self, refinement)
+## Call Signature
 
 > **exists**\<`A`, `B`\>(`self`, `refinement`): `self is Option<B>`
 
@@ -178,11 +186,15 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to check.
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -226,7 +238,7 @@ assert.deepStrictEqual(pipe(Option.none(), Option.exists(isEven)), false)
 
 2.0.0
 
-## exists(self, predicate)
+## Call Signature
 
 > **exists**\<`A`\>(`self`, `predicate`): `boolean`
 
@@ -238,11 +250,15 @@ Check if a value in an `Option` type meets a certain predicate.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to check.
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`A`\>
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`A`\>
 
 The condition to check.
 

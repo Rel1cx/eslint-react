@@ -1,4 +1,4 @@
-[**@eslint-react/shared**](../README.md) • **Docs**
+[**@eslint-react/shared**](../README.md)
 
 ***
 
@@ -12,11 +12,13 @@ A helper function to define settings for "react-x" with type checking in JavaScr
 
 ## Parameters
 
-• **settings**
+### settings
 
 The settings.
 
-• **settings.additionalComponents?**: `object`[] = `...`
+#### settings.additionalComponents
+
+`object`[] = `...`
 
 An array of user-defined components
 
@@ -30,7 +32,9 @@ This is used to inform the ESLint React plugins how to treat these components du
 `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
 ```
 
-• **settings.additionalHooks?** = `...`
+#### settings.additionalHooks
+
+`object` = `...`
 
 A object of aliases for React built-in hooks.
 
@@ -44,43 +48,81 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
 ```
 
-• **settings.additionalHooks.use?**: `string`[] = `...`
+#### settings.additionalHooks.use
 
-• **settings.additionalHooks.useActionState?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useCallback?**: `string`[] = `...`
+#### settings.additionalHooks.useActionState
 
-• **settings.additionalHooks.useContext?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useDebugValue?**: `string`[] = `...`
+#### settings.additionalHooks.useCallback
 
-• **settings.additionalHooks.useDeferredValue?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useEffect?**: `string`[] = `...`
+#### settings.additionalHooks.useContext
 
-• **settings.additionalHooks.useId?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useImperativeHandle?**: `string`[] = `...`
+#### settings.additionalHooks.useDebugValue
 
-• **settings.additionalHooks.useInsertionEffect?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useLayoutEffect?**: `string`[] = `...`
+#### settings.additionalHooks.useDeferredValue
 
-• **settings.additionalHooks.useMemo?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useOptimistic?**: `string`[] = `...`
+#### settings.additionalHooks.useEffect
 
-• **settings.additionalHooks.useReducer?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useRef?**: `string`[] = `...`
+#### settings.additionalHooks.useId
 
-• **settings.additionalHooks.useState?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.additionalHooks.useSyncExternalStore?**: `string`[] = `...`
+#### settings.additionalHooks.useImperativeHandle
 
-• **settings.additionalHooks.useTransition?**: `string`[] = `...`
+`string`[] = `...`
 
-• **settings.importSource?**: `string` = `...`
+#### settings.additionalHooks.useInsertionEffect
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useLayoutEffect
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useMemo
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useOptimistic
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useReducer
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useRef
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useState
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useSyncExternalStore
+
+`string`[] = `...`
+
+#### settings.additionalHooks.useTransition
+
+`string`[] = `...`
+
+#### settings.importSource
+
+`string` = `...`
 
 The source where React is imported from.
 
@@ -98,7 +140,9 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-• **settings.jsxPragma?**: `string` = `...`
+#### settings.jsxPragma
+
+`string` = `...`
 
 The identifier that’s used for JSX Element creation.
 
@@ -106,7 +150,9 @@ The identifier that’s used for JSX Element creation.
 
 `"createElement"`
 
-• **settings.jsxPragmaFrag?**: `string` = `...`
+#### settings.jsxPragmaFrag
+
+`string` = `...`
 
 The identifier that’s used for JSX fragment elements.
 
@@ -118,7 +164,9 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 
 `"Fragment"`
 
-• **settings.polymorphicPropName?**: `string` = `...`
+#### settings.polymorphicPropName
+
+`string` = `...`
 
 The name of the prop that is used for polymorphic components.
 
@@ -132,7 +180,9 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
-• **settings.version?**: `string` = `...`
+#### settings.version
+
+`string` = `...`
 
 React version to use, "detect" means auto detect React version from the project’s dependencies.
 If `importSource` is specified, an equivalent version of React should be provided here.
@@ -185,75 +235,75 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
 ```
 
-### additionalHooks.use?
+#### additionalHooks.use?
 
 > `optional` **use**: `string`[]
 
-### additionalHooks.useActionState?
+#### additionalHooks.useActionState?
 
 > `optional` **useActionState**: `string`[]
 
-### additionalHooks.useCallback?
+#### additionalHooks.useCallback?
 
 > `optional` **useCallback**: `string`[]
 
-### additionalHooks.useContext?
+#### additionalHooks.useContext?
 
 > `optional` **useContext**: `string`[]
 
-### additionalHooks.useDebugValue?
+#### additionalHooks.useDebugValue?
 
 > `optional` **useDebugValue**: `string`[]
 
-### additionalHooks.useDeferredValue?
+#### additionalHooks.useDeferredValue?
 
 > `optional` **useDeferredValue**: `string`[]
 
-### additionalHooks.useEffect?
+#### additionalHooks.useEffect?
 
 > `optional` **useEffect**: `string`[]
 
-### additionalHooks.useId?
+#### additionalHooks.useId?
 
 > `optional` **useId**: `string`[]
 
-### additionalHooks.useImperativeHandle?
+#### additionalHooks.useImperativeHandle?
 
 > `optional` **useImperativeHandle**: `string`[]
 
-### additionalHooks.useInsertionEffect?
+#### additionalHooks.useInsertionEffect?
 
 > `optional` **useInsertionEffect**: `string`[]
 
-### additionalHooks.useLayoutEffect?
+#### additionalHooks.useLayoutEffect?
 
 > `optional` **useLayoutEffect**: `string`[]
 
-### additionalHooks.useMemo?
+#### additionalHooks.useMemo?
 
 > `optional` **useMemo**: `string`[]
 
-### additionalHooks.useOptimistic?
+#### additionalHooks.useOptimistic?
 
 > `optional` **useOptimistic**: `string`[]
 
-### additionalHooks.useReducer?
+#### additionalHooks.useReducer?
 
 > `optional` **useReducer**: `string`[]
 
-### additionalHooks.useRef?
+#### additionalHooks.useRef?
 
 > `optional` **useRef**: `string`[]
 
-### additionalHooks.useState?
+#### additionalHooks.useState?
 
 > `optional` **useState**: `string`[]
 
-### additionalHooks.useSyncExternalStore?
+#### additionalHooks.useSyncExternalStore?
 
 > `optional` **useSyncExternalStore**: `string`[]
 
-### additionalHooks.useTransition?
+#### additionalHooks.useTransition?
 
 > `optional` **useTransition**: `string`[]
 

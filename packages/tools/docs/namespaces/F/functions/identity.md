@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ The identity function, i.e. A function that returns its input argument.
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 The input argument.
 

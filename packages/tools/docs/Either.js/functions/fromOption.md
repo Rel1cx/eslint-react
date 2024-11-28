@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -15,15 +15,11 @@ assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.
 assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
 ```
 
-## Category
-
-constructors
-
 ## Since
 
 2.0.0
 
-## fromOption(onNone)
+## Call Signature
 
 > **fromOption**\<`L`\>(`onNone`): \<`R`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
@@ -33,7 +29,9 @@ constructors
 
 ### Parameters
 
-• **onNone**
+#### onNone
+
+() => `L`
 
 ### Returns
 
@@ -45,7 +43,9 @@ constructors
 
 #### Parameters
 
-• **self**: [`Option`](../../Option.js/type-aliases/Option.md)\<`R`\>
+##### self
+
+[`Option`](../../Option.js/type-aliases/Option.md)\<`R`\>
 
 #### Returns
 
@@ -67,23 +67,15 @@ assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.
 assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
 ```
 
-### Category
+### Since
 
-constructors
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-constructors
-
-### Since
-
-2.0.0
-
-## fromOption(self, onNone)
+## Call Signature
 
 > **fromOption**\<`R`, `L`\>(`self`, `onNone`): [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
@@ -95,9 +87,13 @@ constructors
 
 ### Parameters
 
-• **self**: [`Option`](../../Option.js/type-aliases/Option.md)\<`R`\>
+#### self
 
-• **onNone**
+[`Option`](../../Option.js/type-aliases/Option.md)\<`R`\>
+
+#### onNone
+
+() => `L`
 
 ### Returns
 
@@ -119,17 +115,9 @@ assert.deepStrictEqual(Either.fromOption(Option.some(1), () => 'error'), Either.
 assert.deepStrictEqual(Either.fromOption(Option.none(), () => 'error'), Either.left('error'))
 ```
 
-### Category
-
-constructors
-
 ### Since
 
 2.0.0
-
-### Category
-
-constructors
 
 ### Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,7 +10,9 @@
 
 ## Parameters
 
-• **u**: `unknown`
+### u
+
+`unknown`
 
 ## Returns
 
@@ -19,7 +21,3 @@
 ## Since
 
 2.0.0
-
-## Category
-
-guards

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -21,7 +21,9 @@ the exception in a more functional way.
 
 ## Parameters
 
-• **f**
+### f
+
+(...`a`) => `B`
 
 the function that can throw exceptions.
 
@@ -31,7 +33,9 @@ the function that can throw exceptions.
 
 ### Parameters
 
-• ...**a**: `A`
+#### a
+
+...`A`
 
 ### Returns
 
@@ -47,10 +51,6 @@ const parse = Option.liftThrowable(JSON.parse)
 assert.deepStrictEqual(parse("1"), Option.some(1))
 assert.deepStrictEqual(parse(""), Option.none())
 ```
-
-## Category
-
-conversions
 
 ## Since
 

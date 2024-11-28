@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,11 +10,7 @@
 
 2.0.0
 
-## Category
-
-general
-
-## compareAndSet(oldValue, newValue)
+## Call Signature
 
 > **compareAndSet**\<`T`\>(`oldValue`, `newValue`): (`self`) => `boolean`
 
@@ -24,9 +20,13 @@ general
 
 ### Parameters
 
-• **oldValue**: `T`
+#### oldValue
 
-• **newValue**: `T`
+`T`
+
+#### newValue
+
+`T`
 
 ### Returns
 
@@ -34,7 +34,9 @@ general
 
 #### Parameters
 
-• **self**: [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
+##### self
+
+[`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
 
 #### Returns
 
@@ -44,19 +46,11 @@ general
 
 2.0.0
 
-### Category
-
-general
-
 ### Since
 
 2.0.0
 
-### Category
-
-general
-
-## compareAndSet(self, oldValue, newValue)
+## Call Signature
 
 > **compareAndSet**\<`T`\>(`self`, `oldValue`, `newValue`): `boolean`
 
@@ -66,11 +60,17 @@ general
 
 ### Parameters
 
-• **self**: [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
+#### self
 
-• **oldValue**: `T`
+[`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
 
-• **newValue**: `T`
+#### oldValue
+
+`T`
+
+#### newValue
+
+`T`
 
 ### Returns
 
@@ -80,14 +80,6 @@ general
 
 2.0.0
 
-### Category
-
-general
-
 ### Since
 
 2.0.0
-
-### Category
-
-general

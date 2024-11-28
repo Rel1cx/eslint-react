@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: let()
 
-## let(name, f)
+## Call Signature
 
 > **let**\<`N`, `R`, `B`\>(`name`, `f`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof R ? R\[K\<K\>\] : B \}, `L`\>
 
@@ -20,9 +20,13 @@
 
 ### Parameters
 
-• **name**: `Exclude`\<`N`, keyof `R`\>
+#### name
 
-• **f**
+`Exclude`\<`N`, keyof `R`\>
+
+#### f
+
+(`r`) => `B`
 
 ### Returns
 
@@ -34,13 +38,15 @@
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof R ? R\[K\<K\>\] : B \}, `L`\>
 
-## let(self, name, f)
+## Call Signature
 
 > **let**\<`R`, `L`, `N`, `B`\>(`self`, `name`, `f`): [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof R ? R\[K\<K\>\] : B \}, `L`\>
 
@@ -56,11 +62,17 @@
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **name**: `Exclude`\<`N`, keyof `R`\>
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **f**
+#### name
+
+`Exclude`\<`N`, keyof `R`\>
+
+#### f
+
+(`r`) => `B`
 
 ### Returns
 

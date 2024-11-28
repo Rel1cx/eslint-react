@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -36,10 +36,6 @@ const result = pipe(
 )
 assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 ```
-
-## Category
-
-do notation
 
 ## Since
 

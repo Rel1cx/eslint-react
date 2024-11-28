@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -13,10 +13,6 @@
 • **R**
 
 • **L** = `never`
-
-## Category
-
-models
 
 ## Since
 

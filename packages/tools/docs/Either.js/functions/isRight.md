@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ Determine if a `Either` is a `Right`.
 
 ## Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 The `Either` to check.
 
@@ -34,10 +36,6 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.isRight(Either.right(1)), true)
 assert.deepStrictEqual(Either.isRight(Either.left("a")), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

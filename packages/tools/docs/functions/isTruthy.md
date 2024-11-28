@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is `truthy`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(isTruthy(1), true)
 assert.deepStrictEqual(isTruthy(0), false)
 assert.deepStrictEqual(isTruthy(""), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

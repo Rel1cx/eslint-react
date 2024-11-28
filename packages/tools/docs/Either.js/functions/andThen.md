@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -8,15 +8,11 @@
 
 Executes a sequence of two `Either`s. The second `Either` can be dependent on the result of the first `Either`.
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`R`, `R2`, `L2`\>(`f`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
@@ -32,7 +28,9 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **f**
+#### f
+
+(`right`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 ### Returns
 
@@ -44,29 +42,23 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`R2`, `L2`\>(`f`): \<`L`, `R1`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
@@ -80,7 +72,9 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **f**: [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+#### f
+
+[`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 ### Returns
 
@@ -94,29 +88,23 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R1`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R1`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`R`, `R2`\>(`f`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
@@ -130,7 +118,9 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **f**
+#### f
+
+(`right`) => `R2`
 
 ### Returns
 
@@ -142,29 +132,23 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(right)
+## Call Signature
 
 > **andThen**\<`R2`\>(`right`): \<`R1`, `L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
@@ -176,7 +160,9 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **right**: `NotFunction`\<`R2`\>
+#### right
+
+`NotFunction`\<`R2`\>
 
 ### Returns
 
@@ -190,29 +176,23 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R1`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R1`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`R`, `L`, `R2`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
@@ -230,31 +210,27 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **f**
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+
+#### f
+
+(`right`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`R`, `L`, `R2`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
@@ -272,31 +248,27 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **f**: [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+
+#### f
+
+[`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`R`, `L`, `R2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
@@ -312,31 +284,27 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **f**
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+
+#### f
+
+(`right`) => `R2`
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`R`, `L`, `R2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
@@ -352,25 +320,21 @@ Executes a sequence of two `Either`s. The second `Either` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **f**: `NotFunction`\<`R2`\>
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+
+#### f
+
+`NotFunction`\<`R2`\>
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L`\>
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

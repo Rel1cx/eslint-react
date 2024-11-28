@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is a Promise.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -28,10 +30,6 @@ import { isPromise } from "effect/Predicate"
 assert.deepStrictEqual(isPromise({}), false)
 assert.deepStrictEqual(isPromise(Promise.resolve("hello")), true)
 ```
-
-## Category
-
-guards
 
 ## Since
 

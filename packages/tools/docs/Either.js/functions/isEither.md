@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `Either`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(Either.isEither(Either.right(1)), true)
 assert.deepStrictEqual(Either.isEither(Either.left("a")), true)
 assert.deepStrictEqual(Either.isEither({ right: 1 }), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -37,15 +37,11 @@ assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), 
 assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
 ```
 
-## Category
-
-zipping
-
 ## Since
 
 2.0.0
 
-## zipWith(that, f)
+## Call Signature
 
 > **zipWith**\<`B`, `A`, `C`\>(`that`, `f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`C`\>
 
@@ -61,11 +57,15 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 ### Parameters
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 The right-hand side of the zip operation
 
-• **f**
+#### f
+
+(`a`, `b`) => `C`
 
 The function used to combine the values of the two `Option`s
 
@@ -75,7 +75,9 @@ The function used to combine the values of the two `Option`s
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -125,23 +127,15 @@ assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), 
 assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
 ```
 
-### Category
+### Since
 
-zipping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-zipping
-
-### Since
-
-2.0.0
-
-## zipWith(self, that, f)
+## Call Signature
 
 > **zipWith**\<`A`, `B`, `C`\>(`self`, `that`, `f`): [`Option`](../type-aliases/Option.md)\<`C`\>
 
@@ -157,15 +151,21 @@ Zips two `Option` values together using a provided function, returning a new `Op
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The left-hand side of the zip operation
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 The right-hand side of the zip operation
 
-• **f**
+#### f
+
+(`a`, `b`) => `C`
 
 The function used to combine the values of the two `Option`s
 
@@ -217,17 +217,9 @@ assert.deepStrictEqual(Option.zipWith(Option.some(1), Option.some(2), complex), 
 assert.deepStrictEqual(Option.zipWith(Option.some(1), complex)(Option.some(2)), Option.some([2, 1]))
 ```
 
-### Category
-
-zipping
-
 ### Since
 
 2.0.0
-
-### Category
-
-zipping
 
 ### Since
 

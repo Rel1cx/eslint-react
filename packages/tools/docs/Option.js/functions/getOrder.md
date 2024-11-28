@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -20,7 +20,9 @@ the type the `Option` contains.
 
 ## Parameters
 
-• **O**: `Order`\<`A`\>
+### O
+
+`Order`\<`A`\>
 
 ## Returns
 
@@ -38,10 +40,6 @@ assert.deepStrictEqual(O(Option.some(1), Option.none()), 1)
 assert.deepStrictEqual(O(Option.some(1), Option.some(2)), -1)
 assert.deepStrictEqual(O(Option.some(1), Option.some(1)), 0)
 ```
-
-## Category
-
-sorting
 
 ## Since
 

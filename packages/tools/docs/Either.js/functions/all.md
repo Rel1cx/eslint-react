@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -20,7 +20,9 @@ Takes a structure of `Either`s and returns an `Either` of values with the same s
 
 ## Parameters
 
-• **input**: `I`
+### input
+
+`I`
 
 ## Returns
 
@@ -35,10 +37,6 @@ assert.deepStrictEqual(Either.all([Either.right(1), Either.right(2)]), Either.ri
 assert.deepStrictEqual(Either.all({ right: Either.right(1), b: Either.right("hello") }), Either.right({ right: 1, b: "hello" }))
 assert.deepStrictEqual(Either.all({ right: Either.right(1), b: Either.left("error") }), Either.left("error"))
 ```
-
-## Category
-
-combining
 
 ## Since
 

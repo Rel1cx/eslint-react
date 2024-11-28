@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -22,7 +22,9 @@ Similar to `Promise.all` but operates on `Predicate`s.
 
 ## Parameters
 
-• ...**elements**: `T`
+### elements
+
+...`T`
 
 ## Returns
 

@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Check if a node is a React class component
 
 ## Parameters
 
-• **node**: `Node`
+### node
+
+`Node`
 
 The AST node to check
 

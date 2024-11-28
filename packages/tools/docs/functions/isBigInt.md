@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `bigint`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(isBigInt(1n), true)
 
 assert.deepStrictEqual(isBigInt(1), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

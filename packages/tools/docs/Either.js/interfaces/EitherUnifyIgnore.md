@@ -1,14 +1,10 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
 [@eslint-react/tools](../../README.md) / [./Either.js](../README.md) / EitherUnifyIgnore
 
 # Interface: EitherUnifyIgnore
-
-## Category
-
-models
 
 ## Since
 

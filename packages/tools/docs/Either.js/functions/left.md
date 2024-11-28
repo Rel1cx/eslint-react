@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -17,15 +17,13 @@ structure.
 
 ## Parameters
 
-• **left**: `L`
+### left
+
+`L`
 
 ## Returns
 
 [`Either`](../type-aliases/Either.md)\<`never`, `L`\>
-
-## Category
-
-constructors
 
 ## Since
 

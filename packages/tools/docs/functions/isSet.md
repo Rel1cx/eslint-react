@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `Set`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -31,10 +33,6 @@ assert.deepStrictEqual(isSet({}), false)
 assert.deepStrictEqual(isSet(null), false)
 assert.deepStrictEqual(isSet(undefined), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

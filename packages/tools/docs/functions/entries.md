@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: entries()
 
-## entries(data)
+## Call Signature
 
 > **entries**\<`T`\>(`data`): `EntriesEntry`\<`T`\>[]
 
@@ -16,13 +16,15 @@
 
 ### Parameters
 
-• **data**: `T`
+#### data
+
+`T`
 
 ### Returns
 
 `EntriesEntry`\<`T`\>[]
 
-## entries()
+## Call Signature
 
 > **entries**(): \<`T`\>(`data`) => `EntriesEntry`\<`T`\>[]
 
@@ -36,7 +38,9 @@
 
 #### Parameters
 
-• **data**: `T`
+##### data
+
+`T`
 
 #### Returns
 

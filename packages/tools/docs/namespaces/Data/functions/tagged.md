@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Provides a tagged constructor for the specified `Case`.
 
 ## Parameters
 
-• **tag**: `A`\[`"_tag"`\]
+### tag
+
+`A`\[`"_tag"`\]
 
 ## Returns
 
@@ -42,7 +44,3 @@ assert.deepEqual(mike, { _tag: "Person", name: "Mike" })
 ## Since
 
 2.0.0
-
-## Category
-
-constructors

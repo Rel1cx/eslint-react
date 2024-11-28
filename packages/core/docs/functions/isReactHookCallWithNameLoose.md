@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -10,7 +10,9 @@
 
 ## Parameters
 
-• **node**: `CallExpression`
+### node
+
+`CallExpression`
 
 ## Returns
 
@@ -18,7 +20,9 @@
 
 ### Parameters
 
-• **name**: `string`
+#### name
+
+`string`
 
 ### Returns
 

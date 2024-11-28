@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../../../README.md)
 
 ***
 
@@ -26,7 +26,9 @@
 
 #### Parameters
 
-• **tag**: `Tag`
+##### tag
+
+`Tag`
 
 #### Returns
 
@@ -38,7 +40,9 @@
 
 ##### Parameters
 
-• **u**: `T`
+###### u
+
+`T`
 
 ##### Returns
 
@@ -46,7 +50,9 @@
 
 ##### Parameters
 
-• **u**: `unknown`
+###### u
+
+`unknown`
 
 ##### Returns
 
@@ -72,7 +78,9 @@
 
 #### Parameters
 
-• **cases**: `Cases`
+##### cases
+
+`Cases`
 
 #### Returns
 
@@ -80,7 +88,9 @@
 
 ##### Parameters
 
-• **self**: [`Kind`](../type-aliases/Kind.md)\<`Z`, `A`, `B`, `C`, `D`\>
+###### self
+
+[`Kind`](../type-aliases/Kind.md)\<`Z`, `A`, `B`, `C`, `D`\>
 
 ##### Returns
 
@@ -100,9 +110,13 @@
 
 #### Parameters
 
-• **self**: [`Kind`](../type-aliases/Kind.md)\<`Z`, `A`, `B`, `C`, `D`\>
+##### self
 
-• **cases**: `Cases`
+[`Kind`](../type-aliases/Kind.md)\<`Z`, `A`, `B`, `C`, `D`\>
+
+##### cases
+
+`Cases`
 
 #### Returns
 

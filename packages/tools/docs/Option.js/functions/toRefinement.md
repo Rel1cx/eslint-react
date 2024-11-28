@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -19,7 +19,9 @@ This function ensures that a type guard definition is type-safe.
 
 ## Parameters
 
-• **f**
+### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ## Returns
 
@@ -27,7 +29,9 @@ This function ensures that a type guard definition is type-safe.
 
 ### Parameters
 
-• **a**: `A`
+#### a
+
+`A`
 
 ### Returns
 
@@ -46,10 +50,6 @@ const isPositive = Option.toRefinement(parsePositive)
 assert.deepStrictEqual(isPositive(1), true)
 assert.deepStrictEqual(isPositive(-1), false)
 ```
-
-## Category
-
-conversions
 
 ## Since
 

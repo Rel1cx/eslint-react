@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -6,27 +6,33 @@
 
 # Function: isReactAPICallWithName()
 
-## isReactAPICallWithName(name)
+## Call Signature
 
 > **isReactAPICallWithName**(`name`): `ReturnType`\<*typeof* [`isCallFromReact`](isCallFromReact.md)\>
 
 ### Parameters
 
-• **name**: `string`
+#### name
+
+`string`
 
 ### Returns
 
 `ReturnType`\<*typeof* [`isCallFromReact`](isCallFromReact.md)\>
 
-## isReactAPICallWithName(name, member)
+## Call Signature
 
 > **isReactAPICallWithName**(`name`, `member`): `ReturnType`\<*typeof* [`isCallFromReactMember`](isCallFromReactMember.md)\>
 
 ### Parameters
 
-• **name**: `string`
+#### name
 
-• **member**: `string`
+`string`
+
+#### member
+
+`string`
 
 ### Returns
 

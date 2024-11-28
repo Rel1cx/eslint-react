@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• ...**as**: `As`
+### as
+
+...`As`
 
 ## Returns
 
@@ -35,10 +37,6 @@ assert.deepStrictEqual(Equal.equals(alice, Data.tuple("Alice", 30)), true)
 assert.deepStrictEqual(Equal.equals(alice, ["Alice", 30]), false)
 assert.deepStrictEqual(Equal.equals(alice, bob), false)
 ```
-
-## Category
-
-constructors
 
 ## Since
 

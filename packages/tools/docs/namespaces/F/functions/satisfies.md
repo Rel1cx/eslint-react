@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -25,7 +25,9 @@ without changing the resulting type of that expression.
 
 ### Parameters
 
-• **b**: `B`
+#### b
+
+`B`
 
 ### Returns
 

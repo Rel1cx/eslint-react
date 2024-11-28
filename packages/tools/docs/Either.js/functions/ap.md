@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: ap()
 
-## Category
-
-combining
-
 ## Since
 
 2.0.0
 
-## ap(that)
+## Call Signature
 
 > **ap**\<`R`, `L2`\>(`that`): \<`R2`, `L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
@@ -26,7 +22,9 @@ combining
 
 ### Parameters
 
-• **that**: [`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
+#### that
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
 
 ### Returns
 
@@ -40,29 +38,23 @@ combining
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<(`right`) => `R2`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<(`right`) => `R2`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
-### Category
+### Since
 
-combining
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combining
-
-### Since
-
-2.0.0
-
-## ap(self, that)
+## Call Signature
 
 > **ap**\<`R`, `R2`, `L`, `L2`\>(`self`, `that`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
@@ -78,25 +70,21 @@ combining
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<(`right`) => `R2`, `L`\>
+#### self
 
-• **that**: [`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
+[`Either`](../type-aliases/Either.md)\<(`right`) => `R2`, `L`\>
+
+#### that
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
-### Category
-
-combining
-
 ### Since
 
 2.0.0
-
-### Category
-
-combining
 
 ### Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Tests if a value is not `null`.
 
 ## Parameters
 
-• **input**: `A`
+### input
+
+`A`
 
 The value to test.
 
@@ -34,10 +36,6 @@ assert.deepStrictEqual(isNotNull("null"), true)
 
 assert.deepStrictEqual(isNotNull(null), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

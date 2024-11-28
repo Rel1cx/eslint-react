@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: mapBoth()
 
-## Category
-
-mapping
-
 ## Since
 
 2.0.0
 
-## mapBoth(options)
+## Call Signature
 
 > **mapBoth**\<`L`, `L2`, `R`, `R2`\>(`options`): (`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
@@ -30,11 +26,15 @@ mapping
 
 ### Parameters
 
-• **options**
+#### options
 
-• **options.onLeft**
+##### options.onLeft
 
-• **options.onRight**
+(`left`) => `L2`
+
+##### options.onRight
+
+(`right`) => `R2`
 
 ### Returns
 
@@ -42,29 +42,23 @@ mapping
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
-### Category
+### Since
 
-mapping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-mapping
-
-### Since
-
-2.0.0
-
-## mapBoth(self, options)
+## Call Signature
 
 > **mapBoth**\<`L`, `R`, `L2`, `R2`\>(`self`, `options`): [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
@@ -80,29 +74,27 @@ mapping
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **options**
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **options.onLeft**
+#### options
 
-• **options.onRight**
+##### options.onLeft
+
+(`left`) => `L2`
+
+##### options.onRight
+
+(`right`) => `R2`
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
-### Category
-
-mapping
-
 ### Since
 
 2.0.0
-
-### Category
-
-mapping
 
 ### Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,11 +10,7 @@
 
 2.0.0
 
-## Category
-
-utils
-
-## updateSomeAndGet(pf)
+## Call Signature
 
 > **updateSomeAndGet**\<`A`\>(`pf`): (`self`) => `Effect`\<`A`, `never`, `never`\>
 
@@ -24,7 +20,9 @@ utils
 
 ### Parameters
 
-• **pf**
+#### pf
+
+(`a`) => [`Option`](../../../Option.js/type-aliases/Option.md)\<`A`\>
 
 ### Returns
 
@@ -32,7 +30,9 @@ utils
 
 #### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+##### self
+
+[`Ref`](../interfaces/Ref.md)\<`A`\>
 
 #### Returns
 
@@ -42,19 +42,11 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
 
-### Category
-
-utils
-
-## updateSomeAndGet(self, pf)
+## Call Signature
 
 > **updateSomeAndGet**\<`A`\>(`self`, `pf`): `Effect`\<`A`, `never`, `never`\>
 
@@ -64,9 +56,13 @@ utils
 
 ### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+#### self
 
-• **pf**
+[`Ref`](../interfaces/Ref.md)\<`A`\>
+
+#### pf
+
+(`a`) => [`Option`](../../../Option.js/type-aliases/Option.md)\<`A`\>
 
 ### Returns
 
@@ -76,14 +72,6 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
-
-### Category
-
-utils

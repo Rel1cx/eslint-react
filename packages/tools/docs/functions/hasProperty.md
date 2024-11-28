@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -16,15 +16,11 @@ The field to check within the object.
 
 The value to examine.
 
-## Category
-
-guards
-
 ## Since
 
 2.0.0
 
-## hasProperty(property)
+## Call Signature
 
 > **hasProperty**\<`P`\>(`property`): (`self`) => `self is { [K in PropertyKey]: unknown }`
 
@@ -36,7 +32,9 @@ Checks whether a value is an `object` containing a specified property key.
 
 ### Parameters
 
-• **property**: `P`
+#### property
+
+`P`
 
 The field to check within the object.
 
@@ -46,7 +44,9 @@ The field to check within the object.
 
 #### Parameters
 
-• **self**: `unknown`
+##### self
+
+`unknown`
 
 #### Returns
 
@@ -60,23 +60,15 @@ The field to check within the object.
 
 The value to examine.
 
-### Category
+### Since
 
-guards
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-guards
-
-### Since
-
-2.0.0
-
-## hasProperty(self, property)
+## Call Signature
 
 > **hasProperty**\<`P`\>(`self`, `property`): `self is { [K in PropertyKey]: unknown }`
 
@@ -88,11 +80,15 @@ Checks whether a value is an `object` containing a specified property key.
 
 ### Parameters
 
-• **self**: `unknown`
+#### self
+
+`unknown`
 
 The value to examine.
 
-• **property**: `P`
+#### property
+
+`P`
 
 The field to check within the object.
 
@@ -108,17 +104,9 @@ The field to check within the object.
 
 The value to examine.
 
-### Category
-
-guards
-
 ### Since
 
 2.0.0
-
-### Category
-
-guards
 
 ### Since
 

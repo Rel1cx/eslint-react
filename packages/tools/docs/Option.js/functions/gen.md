@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,15 +18,13 @@
 
 ## Parameters
 
-• ...**args**: [`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>] \| [(`resume`) => `Generator`\<`K`, `A`, `never`\>]
+### args
+
+[`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>] | [(`resume`) => `Generator`\<`K`, `A`, `never`\>]
 
 ## Returns
 
 [`Option`](../type-aliases/Option.md)\<`A`\>
-
-## Category
-
-generators
 
 ## Since
 

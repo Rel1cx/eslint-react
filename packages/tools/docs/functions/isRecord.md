@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is a record.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -34,10 +36,6 @@ assert.deepStrictEqual(isRecord(null), false)
 assert.deepStrictEqual(isRecord(undefined), false)
 assert.deepStrictEqual(isRecord(() => null), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

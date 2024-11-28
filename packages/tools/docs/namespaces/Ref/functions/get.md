@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+### self
+
+[`Ref`](../interfaces/Ref.md)\<`A`\>
 
 ## Returns
 
@@ -23,7 +25,3 @@
 ## Since
 
 2.0.0
-
-## Category
-
-getters

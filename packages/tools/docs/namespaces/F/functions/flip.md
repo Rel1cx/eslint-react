@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -20,7 +20,9 @@ Reverses the order of arguments for a curried function.
 
 ## Parameters
 
-• **f**
+### f
+
+(...`a`) => (...`b`) => `C`
 
 A curried function that takes multiple arguments.
 
@@ -30,7 +32,9 @@ A curried function that takes multiple arguments.
 
 ### Parameters
 
-• ...**b**: `B`
+#### b
+
+...`B`
 
 ### Returns
 
@@ -38,7 +42,9 @@ A curried function that takes multiple arguments.
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 

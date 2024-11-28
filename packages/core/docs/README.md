@@ -1,4 +1,4 @@
-**@eslint-react/core** • **Docs**
+**@eslint-react/core**
 
 ***
 

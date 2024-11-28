@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ## Parameters
 
-• **isEquivalent**
+### isEquivalent
+
+(`self`, `that`) => `boolean`
 
 ## Returns
 
@@ -24,7 +26,9 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ### Parameters
 
-• **a**: `A`
+#### a
+
+`A`
 
 ### Returns
 
@@ -32,7 +36,9 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -40,9 +46,13 @@ Returns a function that checks if a `Option` contains a given value using a prov
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **a**: `A`
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### a
+
+`A`
 
 ### Returns
 
@@ -57,10 +67,6 @@ assert.deepStrictEqual(pipe(Option.some(2), Option.containsWith(Number.Equivalen
 assert.deepStrictEqual(pipe(Option.some(1), Option.containsWith(Number.Equivalence)(2)), false)
 assert.deepStrictEqual(pipe(Option.none(), Option.containsWith(Number.Equivalence)(2)), false)
 ```
-
-## Category
-
-elements
 
 ## Since
 

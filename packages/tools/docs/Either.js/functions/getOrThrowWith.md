@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -30,15 +30,11 @@ assert.deepStrictEqual(
 assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
 ```
 
-## Category
-
-getters
-
 ## Since
 
 2.0.0
 
-## getOrThrowWith(onLeft)
+## Call Signature
 
 > **getOrThrowWith**\<`L`\>(`onLeft`): \<`A`\>(`self`) => `A`
 
@@ -52,7 +48,9 @@ If a default error is sufficient for your use case and you don't need to configu
 
 ### Parameters
 
-• **onLeft**
+#### onLeft
+
+(`left`) => `unknown`
 
 A function that will be called if the `Either` is `Left`. It returns the error to be thrown.
 
@@ -66,7 +64,9 @@ A function that will be called if the `Either` is `Left`. It returns the error t
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`A`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`A`, `L`\>
 
 #### Returns
 
@@ -102,23 +102,15 @@ assert.deepStrictEqual(
 assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
 ```
 
-### Category
+### Since
 
-getters
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-getters
-
-### Since
-
-2.0.0
-
-## getOrThrowWith(self, onLeft)
+## Call Signature
 
 > **getOrThrowWith**\<`R`, `L`\>(`self`, `onLeft`): `R`
 
@@ -134,11 +126,15 @@ If a default error is sufficient for your use case and you don't need to configu
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 The `Either` to extract the value from.
 
-• **onLeft**
+#### onLeft
+
+(`left`) => `unknown`
 
 A function that will be called if the `Either` is `Left`. It returns the error to be thrown.
 
@@ -176,17 +172,9 @@ assert.deepStrictEqual(
 assert.throws(() => Either.getOrThrowWith(Either.left("error"), () => new Error('Unexpected Left')))
 ```
 
-### Category
-
-getters
-
 ### Since
 
 2.0.0
-
-### Category
-
-getters
 
 ### Since
 

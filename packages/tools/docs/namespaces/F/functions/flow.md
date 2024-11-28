@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: flow()
 
-## flow(ab)
+## Call Signature
 
 > **flow**\<`A`, `B`\>(`ab`): (...`a`) => `B`
 
@@ -22,7 +22,9 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
+
+(...`a`) => `B`
 
 ### Returns
 
@@ -30,7 +32,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -53,7 +57,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`\>(`ab`, `bc`): (...`a`) => `C`
 
@@ -71,9 +75,13 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
+
+#### bc
+
+(`b`) => `C`
 
 ### Returns
 
@@ -81,7 +89,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -104,7 +114,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`\>(`ab`, `bc`, `cd`): (...`a`) => `D`
 
@@ -124,11 +134,17 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
+
+(`b`) => `C`
+
+#### cd
+
+(`c`) => `D`
 
 ### Returns
 
@@ -136,7 +152,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -159,7 +177,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd, de)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`\>(`ab`, `bc`, `cd`, `de`): (...`a`) => `E`
 
@@ -181,13 +199,21 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
 
-• **de**
+(`b`) => `C`
+
+#### cd
+
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
 
 ### Returns
 
@@ -195,7 +221,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -218,7 +246,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd, de, ef)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`ab`, `bc`, `cd`, `de`, `ef`): (...`a`) => `F`
 
@@ -242,15 +270,25 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
 
-• **de**
+(`b`) => `C`
 
-• **ef**
+#### cd
+
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
 
 ### Returns
 
@@ -258,7 +296,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -281,7 +321,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd, de, ef, fg)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`): (...`a`) => `G`
 
@@ -307,17 +347,29 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
 
-• **de**
+(`b`) => `C`
 
-• **ef**
+#### cd
 
-• **fg**
+(`c`) => `D`
+
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
 
 ### Returns
 
@@ -325,7 +377,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -348,7 +402,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd, de, ef, fg, gh)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): (...`a`) => `H`
 
@@ -376,19 +430,33 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
 
-• **de**
+(`b`) => `C`
 
-• **ef**
+#### cd
 
-• **fg**
+(`c`) => `D`
 
-• **gh**
+#### de
+
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
 
 ### Returns
 
@@ -396,7 +464,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -419,7 +489,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd, de, ef, fg, gh, hi)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): (...`a`) => `I`
 
@@ -449,21 +519,37 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
 
-• **de**
+(`b`) => `C`
 
-• **ef**
+#### cd
 
-• **fg**
+(`c`) => `D`
 
-• **gh**
+#### de
 
-• **hi**
+(`d`) => `E`
+
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
 
 ### Returns
 
@@ -471,7 +557,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 
@@ -494,7 +582,7 @@ assert.strictEqual(f('aaa'), 6)
 
 2.0.0
 
-## flow(ab, bc, cd, de, ef, fg, gh, hi, ij)
+## Call Signature
 
 > **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): (...`a`) => `J`
 
@@ -526,23 +614,41 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-• **ab**
+#### ab
 
-• **bc**
+(...`a`) => `B`
 
-• **cd**
+#### bc
 
-• **de**
+(`b`) => `C`
 
-• **ef**
+#### cd
 
-• **fg**
+(`c`) => `D`
 
-• **gh**
+#### de
 
-• **hi**
+(`d`) => `E`
 
-• **ij**
+#### ef
+
+(`e`) => `F`
+
+#### fg
+
+(`f`) => `G`
+
+#### gh
+
+(`g`) => `H`
+
+#### hi
+
+(`h`) => `I`
+
+#### ij
+
+(`i`) => `J`
 
 ### Returns
 
@@ -550,7 +656,9 @@ See also [`pipe`](#pipe).
 
 #### Parameters
 
-• ...**a**: `A`
+##### a
+
+...`A`
 
 #### Returns
 

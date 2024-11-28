@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,6 +12,7 @@
 
 - [Either](namespaces/Either/README.md)
 - [let](functions/let.md)
+- [match](functions/match.md)
 - [try](functions/try.md)
 
 ### combining
@@ -83,10 +84,6 @@
 - [Left](interfaces/Left.md)
 - [Right](interfaces/Right.md)
 - [Either](type-aliases/Either.md)
-
-### pattern matching
-
-- [match](functions/match.md)
 
 ### sequencing
 

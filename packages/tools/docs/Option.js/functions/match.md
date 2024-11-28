@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -37,15 +37,11 @@ assert.deepStrictEqual(
 )
 ```
 
-## Category
-
-pattern matching
-
 ## Since
 
 2.0.0
 
-## match(options)
+## Call Signature
 
 > **match**\<`B`, `A`, `C`\>(`options`): (`self`) => `B` \| `C`
 
@@ -62,11 +58,15 @@ function when passed the `Option`'s value.
 
 ### Parameters
 
-• **options**
+#### options
 
-• **options.onNone**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+##### options.onNone
 
-• **options.onSome**
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+
+##### options.onSome
+
+(`a`) => `C`
 
 ### Returns
 
@@ -74,7 +74,9 @@ function when passed the `Option`'s value.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -122,23 +124,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-pattern matching
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-pattern matching
-
-### Since
-
-2.0.0
-
-## match(self, options)
+## Call Signature
 
 > **match**\<`A`, `B`, `C`\>(`self`, `options`): `B` \| `C`
 
@@ -155,15 +149,21 @@ function when passed the `Option`'s value.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to match
 
-• **options**
+#### options
 
-• **options.onNone**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+##### options.onNone
 
-• **options.onSome**
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+
+##### options.onSome
+
+(`a`) => `C`
 
 ### Returns
 
@@ -211,17 +211,9 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
-
-pattern matching
-
 ### Since
 
 2.0.0
-
-### Category
-
-pattern matching
 
 ### Since
 

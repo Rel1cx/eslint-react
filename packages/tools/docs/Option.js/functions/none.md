@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -17,10 +17,6 @@ Creates a new `Option` that represents the absence of a value.
 ## Returns
 
 [`Option`](../type-aliases/Option.md)\<`A`\>
-
-## Category
-
-constructors
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is an `Iterable`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -31,10 +33,6 @@ assert.deepStrictEqual(isIterable(new Set()), true)
 assert.deepStrictEqual(isIterable(null), false)
 assert.deepStrictEqual(isIterable({}), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

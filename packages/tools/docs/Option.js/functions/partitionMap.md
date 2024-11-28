@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: partitionMap()
 
-## Category
-
-filtering
-
 ## Since
 
 2.0.0
 
-## partitionMap(f)
+## Call Signature
 
 > **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`) => [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
 
@@ -28,7 +24,9 @@ filtering
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => [`Either`](../../Either.js/type-aliases/Either.md)\<`C`, `B`\>
 
 ### Returns
 
@@ -36,29 +34,23 @@ filtering
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
 
-### Category
+### Since
 
-filtering
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-filtering
-
-### Since
-
-2.0.0
-
-## partitionMap(self, f)
+## Call Signature
 
 > **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
 
@@ -72,25 +64,21 @@ filtering
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+(`a`) => [`Either`](../../Either.js/type-aliases/Either.md)\<`C`, `B`\>
 
 ### Returns
 
 [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
 
-### Category
-
-filtering
-
 ### Since
 
 2.0.0
-
-### Category
-
-filtering
 
 ### Since
 

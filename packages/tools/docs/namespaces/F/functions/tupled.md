@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 
 ## Parameters
 
-• **f**
+### f
+
+(...`a`) => `B`
 
 ## Returns
 
@@ -26,7 +28,9 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 
 ### Parameters
 
-• **a**: `A`
+#### a
+
+`A`
 
 ### Returns
 

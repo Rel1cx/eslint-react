@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Checks if the given node is a call expression to the given function or method of
 
 ## Parameters
 
-• **name**: `string`
+### name
+
+`string`
 
 The name of the function or method to check
 
@@ -24,9 +26,13 @@ A predicate that checks if the given node is a call expression to the given func
 
 ### Parameters
 
-• **node**: `Identifier` \| `MemberExpression`
+#### node
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Identifier` | `MemberExpression`
+
+#### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 ### Returns
 

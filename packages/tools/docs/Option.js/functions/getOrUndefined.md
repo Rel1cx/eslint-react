@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Returns the value of the `Option` if it is a `Some`, otherwise returns `undefine
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to extract the value from.
 
@@ -32,10 +34,6 @@ import { Option } from "effect"
 assert.deepStrictEqual(Option.getOrUndefined(Option.some(1)), 1)
 assert.deepStrictEqual(Option.getOrUndefined(Option.none()), undefined)
 ```
-
-## Category
-
-getters
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -28,7 +28,9 @@ const sum: FunctionN<[number, number], number> = (a, b) => a + b
 
 ## Parameters
 
-• ...**args**: `A`
+### args
+
+...`A`
 
 ## Returns
 

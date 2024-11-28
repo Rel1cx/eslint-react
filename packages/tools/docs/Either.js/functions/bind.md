@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -35,15 +35,11 @@ const result = pipe(
 assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 ```
 
-## Category
-
-do notation
-
 ## Since
 
 2.0.0
 
-## bind(name, f)
+## Call Signature
 
 > **bind**\<`N`, `A`, `B`, `L2`\>(`name`, `f`): \<`L1`\>(`self`) => [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}, `L2` \| `L1`\>
 
@@ -68,9 +64,13 @@ Here's how the do simulation works:
 
 ### Parameters
 
-• **name**: `Exclude`\<`N`, keyof `A`\>
+#### name
 
-• **f**
+`Exclude`\<`N`, keyof `A`\>
+
+#### f
+
+(`a`) => [`Either`](../type-aliases/Either.md)\<`B`, `L2`\>
 
 ### Returns
 
@@ -82,7 +82,9 @@ Here's how the do simulation works:
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`A`, `L1`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`A`, `L1`\>
 
 #### Returns
 
@@ -120,10 +122,6 @@ const result = pipe(
 assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 ```
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
@@ -134,15 +132,11 @@ do notation
  - [bindTo](bindTo.md)
  - [let](let.md)
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
 
-## bind(self, name, f)
+## Call Signature
 
 > **bind**\<`A`, `L1`, `N`, `B`, `L2`\>(`self`, `name`, `f`): [`Either`](../type-aliases/Either.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}, `L1` \| `L2`\>
 
@@ -169,11 +163,17 @@ Here's how the do simulation works:
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`A`, `L1`\>
+#### self
 
-• **name**: `Exclude`\<`N`, keyof `A`\>
+[`Either`](../type-aliases/Either.md)\<`A`, `L1`\>
 
-• **f**
+#### name
+
+`Exclude`\<`N`, keyof `A`\>
+
+#### f
+
+(`a`) => [`Either`](../type-aliases/Either.md)\<`B`, `L2`\>
 
 ### Returns
 
@@ -211,10 +211,6 @@ const result = pipe(
 assert.deepStrictEqual(result, Either.right({ x: 2, y: 3, sum: 5 }))
 ```
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
@@ -224,10 +220,6 @@ do notation
  - [Do](../variables/Do.md)
  - [bindTo](bindTo.md)
  - [let](let.md)
-
-### Category
-
-do notation
 
 ### Since
 

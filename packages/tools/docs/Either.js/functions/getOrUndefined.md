@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@
 
 ## Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 ## Returns
 
@@ -30,10 +32,6 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.getOrUndefined(Either.right(1)), 1)
 assert.deepStrictEqual(Either.getOrUndefined(Either.left("a")), undefined)
 ```
-
-## Category
-
-getters
 
 ## Since
 

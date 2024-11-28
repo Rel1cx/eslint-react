@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -39,15 +39,11 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
-## Category
-
-constructors
-
 ## Since
 
 2.0.0
 
-## taggedEnum()
+## Call Signature
 
 > **taggedEnum**\<`Z`\>(): `Simplify`\<`{ readonly [Tag in string]: (args: Args<Kind<Z, A, unknown, unknown, unknown>, Tag, Extract<Kind<Z, A, unknown, unknown, unknown>, { _tag: Tag }>>) => Extract<Kind<Z, A, unknown, unknown, unknown>, { _tag: Tag }> }` & [`GenericMatchers`](../namespaces/TaggedEnum/interfaces/GenericMatchers.md)\<`Z`\>\>
 
@@ -118,23 +114,15 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
-### Category
+### Since
 
-constructors
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-constructors
-
-### Since
-
-2.0.0
-
-## taggedEnum()
+## Call Signature
 
 > **taggedEnum**\<`Z`\>(): `Simplify`\<`{ readonly [Tag in string]: (args: Args<Kind<Z, A, B, unknown, unknown>, Tag, Extract<Kind<Z, A, B, unknown, unknown>, { _tag: Tag }>>) => Extract<Kind<Z, A, B, unknown, unknown>, { _tag: Tag }> }` & [`GenericMatchers`](../namespaces/TaggedEnum/interfaces/GenericMatchers.md)\<`Z`\>\>
 
@@ -205,23 +193,15 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
-### Category
+### Since
 
-constructors
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-constructors
-
-### Since
-
-2.0.0
-
-## taggedEnum()
+## Call Signature
 
 > **taggedEnum**\<`Z`\>(): `Simplify`\<`{ readonly [Tag in string]: (args: Args<Kind<Z, A, B, C, unknown>, Tag, Extract<Kind<Z, A, B, C, unknown>, { _tag: Tag }>>) => Extract<Kind<Z, A, B, C, unknown>, { _tag: Tag }> }` & [`GenericMatchers`](../namespaces/TaggedEnum/interfaces/GenericMatchers.md)\<`Z`\>\>
 
@@ -292,23 +272,15 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
-### Category
+### Since
 
-constructors
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-constructors
-
-### Since
-
-2.0.0
-
-## taggedEnum()
+## Call Signature
 
 > **taggedEnum**\<`Z`\>(): `Simplify`\<`{ readonly [Tag in string]: (args: Args<Kind<Z, A, B, C, D>, Tag, Extract<Kind<Z, A, B, C, D>, { _tag: Tag }>>) => Extract<Kind<Z, A, B, C, D>, { _tag: Tag }> }` & [`GenericMatchers`](../namespaces/TaggedEnum/interfaces/GenericMatchers.md)\<`Z`\>\>
 
@@ -379,23 +351,15 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
-### Category
+### Since
 
-constructors
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-constructors
-
-### Since
-
-2.0.0
-
-## taggedEnum()
+## Call Signature
 
 > **taggedEnum**\<`A`\>(): `Simplify`\<`{ readonly [Tag in string]: Constructor<Extract<A, { _tag: Tag }>, "_tag"> }` & `object`\>
 
@@ -466,17 +430,9 @@ const { Failure, Success } = Data.taggedEnum<MyResultDefinition>()
 const success = Success({ value: 1 })
 ```
 
-### Category
-
-constructors
-
 ### Since
 
 2.0.0
-
-### Category
-
-constructors
 
 ### Since
 

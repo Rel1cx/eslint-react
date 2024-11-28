@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -17,7 +17,9 @@ Same as `as const` but without setting the object as readonly and without needin
 
 ## Parameters
 
-• **a**: [`Narrow`](../type-aliases/Narrow.md)\<`TType`\>
+### a
+
+[`Narrow`](../type-aliases/Narrow.md)\<`TType`\>
 
 Value to infer
 

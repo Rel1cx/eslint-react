@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,11 +10,7 @@
 
 2.0.0
 
-## Category
-
-utils
-
-## modifySome(fallback, pf)
+## Call Signature
 
 > **modifySome**\<`B`, `A`\>(`fallback`, `pf`): (`self`) => `Effect`\<`B`, `never`, `never`\>
 
@@ -26,9 +22,13 @@ utils
 
 ### Parameters
 
-• **fallback**: `B`
+#### fallback
 
-• **pf**
+`B`
+
+#### pf
+
+(`a`) => [`Option`](../../../Option.js/type-aliases/Option.md)\<readonly [`B`, `A`]\>
 
 ### Returns
 
@@ -36,7 +36,9 @@ utils
 
 #### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+##### self
+
+[`Ref`](../interfaces/Ref.md)\<`A`\>
 
 #### Returns
 
@@ -46,19 +48,11 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
 
-### Category
-
-utils
-
-## modifySome(self, fallback, pf)
+## Call Signature
 
 > **modifySome**\<`A`, `B`\>(`self`, `fallback`, `pf`): `Effect`\<`B`, `never`, `never`\>
 
@@ -70,11 +64,17 @@ utils
 
 ### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+#### self
 
-• **fallback**: `B`
+[`Ref`](../interfaces/Ref.md)\<`A`\>
 
-• **pf**
+#### fallback
+
+`B`
+
+#### pf
+
+(`a`) => [`Option`](../../../Option.js/type-aliases/Option.md)\<readonly [`B`, `A`]\>
 
 ### Returns
 
@@ -84,14 +84,6 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
-
-### Category
-
-utils

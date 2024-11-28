@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -10,9 +10,13 @@
 
 ## Parameters
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+### context
 
-• **hint**: `bigint` = `DEFAULT_COMPONENT_HINT`
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+### hint
+
+`bigint` = `DEFAULT_COMPONENT_HINT`
 
 ## Returns
 
@@ -22,33 +26,35 @@
 
 > **ctx**: `object`
 
-### ctx.getCurrentFunction()
+#### ctx.getCurrentFunction()
 
 > **getCurrentFunction**: () => `Option`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
-#### Returns
+##### Returns
 
 `Option`\<[`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]\>
 
-### ctx.getAllComponents()
+#### ctx.getAllComponents()
 
-#### Parameters
+##### Parameters
 
-• **\_**: `Program`
+###### \_
 
-#### Returns
+`Program`
 
-`Map`\<`string`, [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)\>
-
-### ctx.getCurrentComponents()
-
-#### Returns
+##### Returns
 
 `Map`\<`string`, [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)\>
 
-### ctx.getCurrentFunctionStack()
+#### ctx.getCurrentComponents()
 
-#### Returns
+##### Returns
+
+`Map`\<`string`, [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)\>
+
+#### ctx.getCurrentFunctionStack()
+
+##### Returns
 
 [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]][]
 
@@ -56,58 +62,66 @@
 
 > **listeners**: `object`
 
-### listeners.:function\[type\]()
+#### listeners.:function\[type\]()
 
 > `readonly` **:function\[type\]**: (`node`) => `number` = `onFunctionEnter`
 
-#### Parameters
+##### Parameters
 
-• **node**: `TSESTreeFunction`
+###### node
 
-#### Returns
+`TSESTreeFunction`
+
+##### Returns
 
 `number`
 
-### listeners.:function\[type\]:exit()
+#### listeners.:function\[type\]:exit()
 
 > `readonly` **:function\[type\]:exit**: () => `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]] = `onFunctionExit`
 
-#### Returns
+##### Returns
 
 `undefined` \| [`string`, `TSESTreeFunction`, `boolean`, `CallExpression`[]]
 
-### listeners.ArrowFunctionExpression\[type\]\[body.type!='BlockStatement'\]()
+#### listeners.ArrowFunctionExpression\[type\]\[body.type!='BlockStatement'\]()
 
-#### Returns
-
-`void`
-
-### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
-
-#### Parameters
-
-• **node**: `Node`
-
-#### Returns
+##### Returns
 
 `void`
 
-### listeners.CallExpression\[type\]:exit()
+#### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
 
-#### Parameters
+##### Parameters
 
-• **node**: `CallExpression`
+###### node
 
-#### Returns
+`Node`
+
+##### Returns
 
 `void`
 
-### listeners.ReturnStatement\[type\]()
+#### listeners.CallExpression\[type\]:exit()
 
-#### Parameters
+##### Parameters
 
-• **node**: `ReturnStatement`
+###### node
 
-#### Returns
+`CallExpression`
+
+##### Returns
+
+`void`
+
+#### listeners.ReturnStatement\[type\]()
+
+##### Parameters
+
+###### node
+
+`ReturnStatement`
+
+##### Returns
 
 `void`

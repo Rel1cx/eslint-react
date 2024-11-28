@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -51,15 +51,11 @@ assert.deepStrictEqual(
 )
 ```
 
-## Category
-
-error handling
-
 ## Since
 
 2.0.0
 
-## orElse(that)
+## Call Signature
 
 > **orElse**\<`B`\>(`that`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B` \| `A`\>
 
@@ -71,7 +67,9 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 ### Parameters
 
-• **that**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
+#### that
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
 
 The `Option` to return if `self` is `None`.
 
@@ -85,7 +83,9 @@ The `Option` to return if `self` is `None`.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -167,23 +167,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-error handling
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-error handling
-
-### Since
-
-2.0.0
-
-## orElse(self, that)
+## Call Signature
 
 > **orElse**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`A` \| `B`\>
 
@@ -197,11 +189,15 @@ Returns the provided `Option` `that` if `self` is `None`, otherwise returns `sel
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The first `Option` to be checked.
 
-• **that**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
+#### that
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
 
 The `Option` to return if `self` is `None`.
 
@@ -285,17 +281,9 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
-
-error handling
-
 ### Since
 
 2.0.0
-
-### Category
-
-error handling
 
 ### Since
 

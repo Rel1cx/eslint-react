@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 
 ## Parameters
 
-• **f**
+### f
+
+(...`a`) => `undefined` \| `null` \| `B`
 
 ## Returns
 
@@ -26,7 +28,9 @@ This API is useful for lifting a function that returns `null` or `undefined` int
 
 ### Parameters
 
-• ...**a**: `A`
+#### a
+
+...`A`
 
 ### Returns
 
@@ -47,10 +51,6 @@ const parseOption = Option.liftNullable(parse)
 assert.deepStrictEqual(parseOption('1'), Option.some(1))
 assert.deepStrictEqual(parseOption('not a number'), Option.none())
 ```
-
-## Category
-
-conversions
 
 ## Since
 

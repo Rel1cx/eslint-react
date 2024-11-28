@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: try()
 
-## try(options)
+## Call Signature
 
 > **try**\<`R`, `L`\>(`options`): [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
@@ -18,17 +18,21 @@
 
 ### Parameters
 
-• **options**
+#### options
 
-• **options.catch**
+##### options.catch
 
-• **options.try**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`R`\>
+(`error`) => `L`
+
+##### options.try
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`R`\>
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-## try(evaluate)
+## Call Signature
 
 > **try**\<`R`\>(`evaluate`): [`Either`](../type-aliases/Either.md)\<`R`, `unknown`\>
 
@@ -38,7 +42,9 @@
 
 ### Parameters
 
-• **evaluate**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`R`\>
+#### evaluate
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`R`\>
 
 ### Returns
 

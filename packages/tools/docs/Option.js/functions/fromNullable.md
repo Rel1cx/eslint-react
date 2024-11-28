@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -17,7 +17,9 @@ returns the value wrapped in a `Some`.
 
 ## Parameters
 
-• **nullableValue**: `A`
+### nullableValue
+
+`A`
 
 The nullable value to be converted to an `Option`.
 
@@ -34,10 +36,6 @@ assert.deepStrictEqual(Option.fromNullable(undefined), Option.none())
 assert.deepStrictEqual(Option.fromNullable(null), Option.none())
 assert.deepStrictEqual(Option.fromNullable(1), Option.some(1))
 ```
-
-## Category
-
-conversions
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `symbol`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(isSymbol(Symbol.for("a")), true)
 
 assert.deepStrictEqual(isSymbol("a"), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

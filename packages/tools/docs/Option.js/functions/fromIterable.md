@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -17,7 +17,9 @@ if the `Iterable` is not empty, otherwise returns `None`.
 
 ## Parameters
 
-• **collection**: `Iterable`\<`A`, `any`, `any`\>
+### collection
+
+`Iterable`\<`A`, `any`, `any`\>
 
 The `Iterable` to be converted to an `Option`.
 
@@ -33,10 +35,6 @@ import { Option } from "effect"
 assert.deepStrictEqual(Option.fromIterable([1, 2, 3]), Option.some(1))
 assert.deepStrictEqual(Option.fromIterable([]), Option.none())
 ```
-
-## Category
-
-constructors
 
 ## Since
 

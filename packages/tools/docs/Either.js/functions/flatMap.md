@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: flatMap()
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## flatMap(f)
+## Call Signature
 
 > **flatMap**\<`R`, `R2`, `L2`\>(`f`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
@@ -28,7 +24,9 @@ sequencing
 
 ### Parameters
 
-• **f**
+#### f
+
+(`right`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 ### Returns
 
@@ -40,29 +38,23 @@ sequencing
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L2` \| `L`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## flatMap(self, f)
+## Call Signature
 
 > **flatMap**\<`R`, `L`, `R2`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
@@ -78,25 +70,21 @@ sequencing
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **f**
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+
+#### f
+
+(`right`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`R2`, `L` \| `L2`\>
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

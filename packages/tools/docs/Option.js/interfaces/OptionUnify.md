@@ -1,14 +1,10 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
 [@eslint-react/tools](../../README.md) / [./Option.js](../README.md) / OptionUnify
 
 # Interface: OptionUnify\<A\>
-
-## Category
-
-models
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `Option`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to check.
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(Option.isOption(Option.some(1)), true)
 assert.deepStrictEqual(Option.isOption(Option.none()), true)
 assert.deepStrictEqual(Option.isOption({}), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

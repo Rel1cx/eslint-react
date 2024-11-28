@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ The thrown error is a default error. To configure the error thrown, see  [getOrT
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to extract the value from.
 
@@ -38,10 +40,6 @@ import { Option } from "effect"
 assert.deepStrictEqual(Option.getOrThrow(Option.some(1)), 1)
 assert.throws(() => Option.getOrThrow(Option.none()))
 ```
-
-## Category
-
-conversions
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -12,11 +12,15 @@ Check if a node is `<Fragment></Fragment>` or `<Pragma.Fragment></Pragma.Fragmen
 
 ## Parameters
 
-• **node**: `JSXElement`
+### node
+
+`JSXElement`
 
 The JSX element node to check
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 The rule context
 

@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -10,9 +10,13 @@
 
 ## Parameters
 
-• **node**: `Identifier` \| `MemberExpression`
+### node
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Identifier` | `MemberExpression`
+
+### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 ## Returns
 

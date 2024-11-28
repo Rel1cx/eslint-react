@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: composeK()
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## composeK(bfc)
+## Call Signature
 
 > **composeK**\<`B`, `C`\>(`bfc`): \<`A`\>(`afb`) => (`a`) => [`Option`](../type-aliases/Option.md)\<`C`\>
 
@@ -26,7 +22,9 @@ sequencing
 
 ### Parameters
 
-• **bfc**
+#### bfc
+
+(`b`) => [`Option`](../type-aliases/Option.md)\<`C`\>
 
 ### Returns
 
@@ -38,7 +36,9 @@ sequencing
 
 #### Parameters
 
-• **afb**
+##### afb
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 #### Returns
 
@@ -46,29 +46,23 @@ sequencing
 
 ##### Parameters
 
-• **a**: `A`
+###### a
+
+`A`
 
 ##### Returns
 
 [`Option`](../type-aliases/Option.md)\<`C`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## composeK(afb, bfc)
+## Call Signature
 
 > **composeK**\<`A`, `B`, `C`\>(`afb`, `bfc`): (`a`) => [`Option`](../type-aliases/Option.md)\<`C`\>
 
@@ -82,9 +76,13 @@ sequencing
 
 ### Parameters
 
-• **afb**
+#### afb
 
-• **bfc**
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
+
+#### bfc
+
+(`b`) => [`Option`](../type-aliases/Option.md)\<`C`\>
 
 ### Returns
 
@@ -92,23 +90,17 @@ sequencing
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`C`\>
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

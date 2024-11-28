@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -44,15 +44,11 @@ assert.deepStrictEqual(
 )
 ```
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## flatMapNullable(f)
+## Call Signature
 
 > **flatMapNullable**\<`A`, `B`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`NonNullable`\<`B`\>\>
 
@@ -66,7 +62,9 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => `undefined` \| `null` \| `B`
 
 ### Returns
 
@@ -74,7 +72,9 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -150,23 +150,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## flatMapNullable(self, f)
+## Call Signature
 
 > **flatMapNullable**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`NonNullable`\<`B`\>\>
 
@@ -180,9 +172,13 @@ This is `flatMap` + `fromNullable`, useful when working with optional values.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+(`a`) => `undefined` \| `null` \| `B`
 
 ### Returns
 
@@ -258,17 +254,9 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

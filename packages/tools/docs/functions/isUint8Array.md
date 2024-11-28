@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that succeeds when the input is a `Uint8Array`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -30,10 +32,6 @@ assert.deepStrictEqual(isUint8Array(new Uint8Array()), true)
 assert.deepStrictEqual(isUint8Array(null), false)
 assert.deepStrictEqual(isUint8Array({}), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

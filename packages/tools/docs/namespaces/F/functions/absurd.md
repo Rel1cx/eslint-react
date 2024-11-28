@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -19,7 +19,9 @@ This function is particularly when it's necessary to specify that certain cases 
 
 ## Parameters
 
-• **\_**: `never`
+### \_
+
+`never`
 
 ## Returns
 

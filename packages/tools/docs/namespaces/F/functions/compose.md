@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -32,7 +32,7 @@ assert.strictEqual(compose(increment, square)(2), 9);
 
 2.0.0
 
-## compose(bc)
+## Call Signature
 
 > **compose**\<`B`, `C`\>(`bc`): \<`A`\>(`self`) => (`a`) => `C`
 
@@ -47,7 +47,9 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 ### Parameters
 
-• **bc**
+#### bc
+
+(`b`) => `C`
 
 A function that maps from `B` to `C`.
 
@@ -61,7 +63,9 @@ A function that maps from `B` to `C`.
 
 #### Parameters
 
-• **self**
+##### self
+
+(`a`) => `B`
 
 #### Returns
 
@@ -69,7 +73,9 @@ A function that maps from `B` to `C`.
 
 ##### Parameters
 
-• **a**: `A`
+###### a
+
+`A`
 
 ##### Returns
 
@@ -111,7 +117,7 @@ assert.strictEqual(compose(increment, square)(2), 9);
 
 2.0.0
 
-## compose(self, bc)
+## Call Signature
 
 > **compose**\<`A`, `B`, `C`\>(`self`, `bc`): (`a`) => `C`
 
@@ -128,9 +134,13 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 ### Parameters
 
-• **self**
+#### self
 
-• **bc**
+(`a`) => `B`
+
+#### bc
+
+(`b`) => `C`
 
 A function that maps from `B` to `C`.
 
@@ -140,7 +150,9 @@ A function that maps from `B` to `C`.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 #### Returns
 

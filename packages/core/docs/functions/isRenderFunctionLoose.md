@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -18,11 +18,15 @@ _ = <Component renderRow={() => <div />} />
 
 ## Parameters
 
-• **node**: `TSESTreeFunction`
+### node
+
+`TSESTreeFunction`
 
 The AST node to check
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 The rule context
 

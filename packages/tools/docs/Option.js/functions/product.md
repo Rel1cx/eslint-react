@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,17 +16,17 @@
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ## Returns
 
 [`Option`](../type-aliases/Option.md)\<[`A`, `B`]\>
-
-## Category
-
-combining
 
 ## Since
 

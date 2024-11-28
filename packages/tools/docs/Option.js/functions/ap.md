@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: ap()
 
-## Category
-
-combining
-
 ## Since
 
 2.0.0
 
-## ap(that)
+## Call Signature
 
 > **ap**\<`A`\>(`that`): \<`B`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -24,7 +20,9 @@ combining
 
 ### Parameters
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 ### Returns
 
@@ -36,29 +34,23 @@ combining
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<(`a`) => `B`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<(`a`) => `B`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-combining
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combining
-
-### Since
-
-2.0.0
-
-## ap(self, that)
+## Call Signature
 
 > **ap**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -70,25 +62,21 @@ combining
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<(`a`) => `B`\>
+#### self
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`A`\>
+[`Option`](../type-aliases/Option.md)\<(`a`) => `B`\>
+
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
-
-combining
-
 ### Since
 
 2.0.0
-
-### Category
-
-combining
 
 ### Since
 

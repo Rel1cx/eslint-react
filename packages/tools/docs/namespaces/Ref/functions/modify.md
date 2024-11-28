@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,11 +10,7 @@
 
 2.0.0
 
-## Category
-
-utils
-
-## modify(f)
+## Call Signature
 
 > **modify**\<`A`, `B`\>(`f`): (`self`) => `Effect`\<`B`, `never`, `never`\>
 
@@ -26,7 +22,9 @@ utils
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => readonly [`B`, `A`]
 
 ### Returns
 
@@ -34,7 +32,9 @@ utils
 
 #### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+##### self
+
+[`Ref`](../interfaces/Ref.md)\<`A`\>
 
 #### Returns
 
@@ -44,19 +44,11 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
 
-### Category
-
-utils
-
-## modify(self, f)
+## Call Signature
 
 > **modify**\<`A`, `B`\>(`self`, `f`): `Effect`\<`B`, `never`, `never`\>
 
@@ -68,9 +60,13 @@ utils
 
 ### Parameters
 
-• **self**: [`Ref`](../interfaces/Ref.md)\<`A`\>
+#### self
 
-• **f**
+[`Ref`](../interfaces/Ref.md)\<`A`\>
+
+#### f
+
+(`a`) => readonly [`B`, `A`]
 
 ### Returns
 
@@ -80,14 +76,6 @@ utils
 
 2.0.0
 
-### Category
-
-utils
-
 ### Since
 
 2.0.0
-
-### Category
-
-utils

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ Inverse function of `tupled`
 
 ## Parameters
 
-• **f**
+### f
+
+(`a`) => `B`
 
 ## Returns
 
@@ -26,7 +28,9 @@ Inverse function of `tupled`
 
 ### Parameters
 
-• ...**a**: `A`
+#### a
+
+...`A`
 
 ### Returns
 

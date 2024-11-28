@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -20,7 +20,9 @@
 
 ## Parameters
 
-• **fields**: `R`
+### fields
+
+`R`
 
 ## Returns
 

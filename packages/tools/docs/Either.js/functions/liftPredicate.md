@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -36,15 +36,11 @@ assert.deepStrictEqual(
 )
 ```
 
-## Category
-
-lifting
-
 ## Since
 
 3.4.0
 
-## liftPredicate(refinement, orLeftWith)
+## Call Signature
 
 > **liftPredicate**\<`A`, `B`, `E`\>(`refinement`, `orLeftWith`): (`a`) => [`Either`](../type-aliases/Either.md)\<`B`, `E`\>
 
@@ -61,9 +57,13 @@ or `Left` of the result of the provided function if the predicate returns false
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
+#### refinement
 
-• **orLeftWith**
+[`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
+
+#### orLeftWith
+
+(`a`) => `E`
 
 ### Returns
 
@@ -71,7 +71,9 @@ or `Left` of the result of the provided function if the predicate returns false
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 #### Returns
 
@@ -125,23 +127,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-lifting
+3.4.0
 
 ### Since
 
 3.4.0
 
-### Category
-
-lifting
-
-### Since
-
-3.4.0
-
-## liftPredicate(predicate, orLeftWith)
+## Call Signature
 
 > **liftPredicate**\<`A`, `E`\>(`predicate`, `orLeftWith`): (`a`) => [`Either`](../type-aliases/Either.md)\<`A`, `E`\>
 
@@ -156,11 +150,15 @@ or `Left` of the result of the provided function if the predicate returns false
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-• **orLeftWith**
+#### orLeftWith
+
+(`a`) => `E`
 
 ### Returns
 
@@ -168,7 +166,9 @@ A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 #### Returns
 
@@ -222,23 +222,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-lifting
+3.4.0
 
 ### Since
 
 3.4.0
 
-### Category
-
-lifting
-
-### Since
-
-3.4.0
-
-## liftPredicate(self, refinement, orLeftWith)
+## Call Signature
 
 > **liftPredicate**\<`A`, `E`, `B`\>(`self`, `refinement`, `orLeftWith`): [`Either`](../type-aliases/Either.md)\<`B`, `E`\>
 
@@ -255,11 +247,17 @@ or `Left` of the result of the provided function if the predicate returns false
 
 ### Parameters
 
-• **self**: `A`
+#### self
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
+`A`
 
-• **orLeftWith**
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
+
+#### orLeftWith
+
+(`a`) => `E`
 
 ### Returns
 
@@ -313,23 +311,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-lifting
+3.4.0
 
 ### Since
 
 3.4.0
 
-### Category
-
-lifting
-
-### Since
-
-3.4.0
-
-## liftPredicate(self, predicate, orLeftWith)
+## Call Signature
 
 > **liftPredicate**\<`A`, `E`\>(`self`, `predicate`, `orLeftWith`): [`Either`](../type-aliases/Either.md)\<`A`, `E`\>
 
@@ -344,13 +334,19 @@ or `Left` of the result of the provided function if the predicate returns false
 
 ### Parameters
 
-• **self**: `A`
+#### self
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+`A`
+
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
-• **orLeftWith**
+#### orLeftWith
+
+(`a`) => `E`
 
 ### Returns
 
@@ -404,17 +400,9 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
-
-lifting
-
 ### Since
 
 3.4.0
-
-### Category
-
-lifting
 
 ### Since
 

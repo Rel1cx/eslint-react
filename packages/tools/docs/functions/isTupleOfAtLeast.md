@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -34,15 +34,11 @@ if (isTupleOfAtLeast(arr, 3)) {
 }
 ```
 
-## Category
-
-guards
-
 ## Since
 
 3.3.0
 
-## isTupleOfAtLeast(n)
+## Call Signature
 
 > **isTupleOfAtLeast**\<`N`\>(`n`): \<`T`\>(`self`) => `self is [...TupleOf<N, T>[], ...T[]]`
 
@@ -56,7 +52,9 @@ An `Array` is considered to be a `TupleOfAtLeast` if its length is at least `N`.
 
 ### Parameters
 
-• **n**: `N`
+#### n
+
+`N`
 
 The minimum number of elements that the `Array` should have to be considered a `TupleOfAtLeast`.
 
@@ -70,7 +68,9 @@ The minimum number of elements that the `Array` should have to be considered a `
 
 #### Parameters
 
-• **self**: readonly `T`[]
+##### self
+
+readonly `T`[]
 
 #### Returns
 
@@ -114,23 +114,15 @@ if (isTupleOfAtLeast(arr, 3)) {
 }
 ```
 
-### Category
+### Since
 
-guards
+3.3.0
 
 ### Since
 
 3.3.0
 
-### Category
-
-guards
-
-### Since
-
-3.3.0
-
-## isTupleOfAtLeast(self, n)
+## Call Signature
 
 > **isTupleOfAtLeast**\<`T`, `N`\>(`self`, `n`): `self is [...TupleOf<N, T>[], ...T[]]`
 
@@ -146,11 +138,15 @@ An `Array` is considered to be a `TupleOfAtLeast` if its length is at least `N`.
 
 ### Parameters
 
-• **self**: readonly `T`[]
+#### self
+
+readonly `T`[]
 
 The `Array` to check.
 
-• **n**: `N`
+#### n
+
+`N`
 
 The minimum number of elements that the `Array` should have to be considered a `TupleOfAtLeast`.
 
@@ -196,17 +192,9 @@ if (isTupleOfAtLeast(arr, 3)) {
 }
 ```
 
-### Category
-
-guards
-
 ### Since
 
 3.3.0
-
-### Category
-
-guards
 
 ### Since
 

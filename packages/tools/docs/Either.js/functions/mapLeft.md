@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,15 +16,11 @@ The input `Either` value to map.
 
 A transformation function to apply to the `Left` value of the input `Either`.
 
-## Category
-
-mapping
-
 ## Since
 
 2.0.0
 
-## mapLeft(f)
+## Call Signature
 
 > **mapLeft**\<`L`, `L2`\>(`f`): \<`R`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
 
@@ -38,7 +34,9 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 ### Parameters
 
-• **f**
+#### f
+
+(`left`) => `L2`
 
 A transformation function to apply to the `Left` value of the input `Either`.
 
@@ -52,7 +50,9 @@ A transformation function to apply to the `Left` value of the input `Either`.
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
@@ -66,23 +66,15 @@ The input `Either` value to map.
 
 A transformation function to apply to the `Left` value of the input `Either`.
 
-### Category
+### Since
 
-mapping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-mapping
-
-### Since
-
-2.0.0
-
-## mapLeft(self, f)
+## Call Signature
 
 > **mapLeft**\<`R`, `L`, `L2`\>(`self`, `f`): [`Either`](../type-aliases/Either.md)\<`R`, `L2`\>
 
@@ -98,11 +90,15 @@ Maps the `Left` side of an `Either` value to a new `Either` value.
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 The input `Either` value to map.
 
-• **f**
+#### f
+
+(`left`) => `L2`
 
 A transformation function to apply to the `Left` value of the input `Either`.
 
@@ -118,17 +114,9 @@ The input `Either` value to map.
 
 A transformation function to apply to the `Left` value of the input `Either`.
 
-### Category
-
-mapping
-
 ### Since
 
 2.0.0
-
-### Category
-
-mapping
 
 ### Since
 

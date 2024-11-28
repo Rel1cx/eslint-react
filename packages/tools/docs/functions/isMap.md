@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `Map`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -30,10 +32,6 @@ assert.deepStrictEqual(isMap({}), false)
 assert.deepStrictEqual(isMap(null), false)
 assert.deepStrictEqual(isMap(undefined), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

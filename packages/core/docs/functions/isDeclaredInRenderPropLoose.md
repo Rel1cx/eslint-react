@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ _ = <Component rows={ [{ render: "node" }] } />
 
 ## Parameters
 
-• **node**: `Node`
+### node
+
+`Node`
 
 The AST node to check
 

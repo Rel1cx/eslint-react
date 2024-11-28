@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,15 +16,11 @@ The input `Either` value to check and potentially return.
 
 A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
 
-## Category
-
-error handling
-
 ## Since
 
 2.0.0
 
-## orElse(that)
+## Call Signature
 
 > **orElse**\<`L`, `R2`, `L2`\>(`that`): \<`R`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R2` \| `R`, `L2`\>
 
@@ -40,7 +36,9 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 ### Parameters
 
-• **that**
+#### that
+
+(`left`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
 
@@ -54,7 +52,9 @@ A function that takes the error value from `self` (if it's a `Left`) and returns
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
@@ -68,23 +68,15 @@ The input `Either` value to check and potentially return.
 
 A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
 
-### Category
+### Since
 
-error handling
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-error handling
-
-### Since
-
-2.0.0
-
-## orElse(self, that)
+## Call Signature
 
 > **orElse**\<`R`, `L`, `R2`, `L2`\>(`self`, `that`): [`Either`](../type-aliases/Either.md)\<`R` \| `R2`, `L2`\>
 
@@ -102,11 +94,15 @@ Returns `self` if it is a `Right` or `that` otherwise.
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 The input `Either` value to check and potentially return.
 
-• **that**
+#### that
+
+(`left`) => [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
 
 A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
 
@@ -122,17 +118,9 @@ The input `Either` value to check and potentially return.
 
 A function that takes the error value from `self` (if it's a `Left`) and returns a new `Either` value.
 
-### Category
-
-error handling
-
 ### Since
 
 2.0.0
-
-### Category
-
-error handling
 
 ### Since
 

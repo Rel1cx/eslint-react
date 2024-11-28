@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is an `object`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -31,10 +33,6 @@ assert.deepStrictEqual(isObject([]), true)
 assert.deepStrictEqual(isObject(null), false)
 assert.deepStrictEqual(isObject(undefined), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

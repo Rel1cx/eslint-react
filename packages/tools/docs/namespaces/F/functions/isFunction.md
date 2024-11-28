@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `function`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -28,10 +30,6 @@ import { isFunction } from "effect/Predicate"
 assert.deepStrictEqual(isFunction(isFunction), true)
 assert.deepStrictEqual(isFunction("function"), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

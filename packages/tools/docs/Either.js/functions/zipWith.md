@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,15 +6,11 @@
 
 # Function: zipWith()
 
-## Category
-
-zipping
-
 ## Since
 
 2.0.0
 
-## zipWith(that, f)
+## Call Signature
 
 > **zipWith**\<`R2`, `L2`, `R`, `B`\>(`that`, `f`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`B`, `L2` \| `L`\>
 
@@ -30,9 +26,13 @@ zipping
 
 ### Parameters
 
-• **that**: [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+#### that
 
-• **f**
+[`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+
+#### f
+
+(`right`, `right2`) => `B`
 
 ### Returns
 
@@ -44,29 +44,23 @@ zipping
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 [`Either`](../type-aliases/Either.md)\<`B`, `L2` \| `L`\>
 
-### Category
+### Since
 
-zipping
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-zipping
-
-### Since
-
-2.0.0
-
-## zipWith(self, that, f)
+## Call Signature
 
 > **zipWith**\<`R`, `L`, `R2`, `L2`, `B`\>(`self`, `that`, `f`): [`Either`](../type-aliases/Either.md)\<`B`, `L` \| `L2`\>
 
@@ -84,27 +78,25 @@ zipping
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **that**: [`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **f**
+#### that
+
+[`Either`](../type-aliases/Either.md)\<`R2`, `L2`\>
+
+#### f
+
+(`right`, `right2`) => `B`
 
 ### Returns
 
 [`Either`](../type-aliases/Either.md)\<`B`, `L` \| `L2`\>
 
-### Category
-
-zipping
-
 ### Since
 
 2.0.0
-
-### Category
-
-zipping
 
 ### Since
 

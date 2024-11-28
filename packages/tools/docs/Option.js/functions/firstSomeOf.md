@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ Given an `Iterable` collection of `Option`s, returns the first `Some` found in t
 
 ## Parameters
 
-• **collection**: `C`
+### collection
+
+`C`
 
 An iterable collection of `Option` to be searched.
 
@@ -33,10 +35,6 @@ import { Option } from "effect"
 
 assert.deepStrictEqual(Option.firstSomeOf([Option.none(), Option.some(1), Option.some(2)]), Option.some(1))
 ```
-
-## Category
-
-error handling
 
 ## Since
 

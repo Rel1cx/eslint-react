@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -10,7 +10,7 @@
 
 2.0.0
 
-## compose(bc)
+## Call Signature
 
 > **compose**\<`A`, `B`, `C`\>(`bc`): (`ab`) => [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
 
@@ -24,7 +24,9 @@
 
 ### Parameters
 
-• **bc**: [`Refinement`](../interfaces/Refinement.md)\<`B`, `C`\>
+#### bc
+
+[`Refinement`](../interfaces/Refinement.md)\<`B`, `C`\>
 
 ### Returns
 
@@ -32,7 +34,9 @@
 
 #### Parameters
 
-• **ab**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+##### ab
+
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
 #### Returns
 
@@ -46,7 +50,7 @@
 
 2.0.0
 
-## compose(bc)
+## Call Signature
 
 > **compose**\<`A`, `B`\>(`bc`): (`ab`) => [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
@@ -58,7 +62,9 @@
 
 ### Parameters
 
-• **bc**: [`Predicate`](../interfaces/Predicate.md)\<`NoInfer`\<`B`\>\>
+#### bc
+
+[`Predicate`](../interfaces/Predicate.md)\<`NoInfer`\<`B`\>\>
 
 ### Returns
 
@@ -66,7 +72,9 @@
 
 #### Parameters
 
-• **ab**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+##### ab
+
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
 #### Returns
 
@@ -80,7 +88,7 @@
 
 2.0.0
 
-## compose(ab, bc)
+## Call Signature
 
 > **compose**\<`A`, `B`, `C`\>(`ab`, `bc`): [`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
 
@@ -94,9 +102,13 @@
 
 ### Parameters
 
-• **ab**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+#### ab
 
-• **bc**: [`Refinement`](../interfaces/Refinement.md)\<`B`, `C`\>
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+
+#### bc
+
+[`Refinement`](../interfaces/Refinement.md)\<`B`, `C`\>
 
 ### Returns
 
@@ -110,7 +122,7 @@
 
 2.0.0
 
-## compose(ab, bc)
+## Call Signature
 
 > **compose**\<`A`, `B`\>(`ab`, `bc`): [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
 
@@ -122,9 +134,13 @@
 
 ### Parameters
 
-• **ab**: [`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+#### ab
 
-• **bc**: [`Predicate`](../interfaces/Predicate.md)\<`NoInfer`\<`B`\>\>
+[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+
+#### bc
+
+[`Predicate`](../interfaces/Predicate.md)\<`NoInfer`\<`B`\>\>
 
 ### Returns
 

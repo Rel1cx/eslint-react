@@ -1,14 +1,10 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
 [@eslint-react/tools](../README.md) / Predicate
 
 # Interface: Predicate()\<A\>
-
-## Category
-
-models
 
 ## Since
 
@@ -22,15 +18,13 @@ models
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 ## Returns
 
 `boolean`
-
-## Category
-
-models
 
 ## Since
 

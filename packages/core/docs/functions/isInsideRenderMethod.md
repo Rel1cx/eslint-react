@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -22,7 +22,9 @@ class Component extends React.Component {
 
 ## Parameters
 
-• **node**: `Node`
+### node
+
+`Node`
 
 The AST node being checked
 

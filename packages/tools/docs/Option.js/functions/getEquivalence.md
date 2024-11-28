@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• **isEquivalent**: `Equivalence`\<`A`\>
+### isEquivalent
+
+`Equivalence`\<`A`\>
 
 ## Returns
 
@@ -32,10 +34,6 @@ assert.deepStrictEqual(isEquivalent(Option.some(1), Option.none()), false)
 assert.deepStrictEqual(isEquivalent(Option.some(1), Option.some(2)), false)
 assert.deepStrictEqual(isEquivalent(Option.some(1), Option.some(1)), true)
 ```
-
-## Category
-
-equivalence
 
 ## Since
 

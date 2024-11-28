@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -7,10 +7,6 @@
 # Variable: TypeId
 
 > `const` **TypeId**: unique `symbol`
-
-## Category
-
-symbols
 
 ## Since
 

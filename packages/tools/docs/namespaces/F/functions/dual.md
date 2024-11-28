@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -56,7 +56,7 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5)
 
 2.0.0
 
-## dual(arity, body)
+## Call Signature
 
 > **dual**\<`DataLast`, `DataFirst`\>(`arity`, `body`): `DataLast` & `DataFirst`
 
@@ -80,13 +80,17 @@ function is being used in a data-first or data-last style.
 
 ### Parameters
 
-• **arity**: `Parameters`\<`DataFirst`\>\[`"length"`\]
+#### arity
+
+`Parameters`\<`DataFirst`\>\[`"length"`\]
 
 Either the arity of the uncurried function or a predicate
                which determines if the function is being used in a data-first
                or data-last style.
 
-• **body**: `DataFirst`
+#### body
+
+`DataFirst`
 
 The definition of the uncurried function.
 
@@ -158,7 +162,7 @@ assert.deepStrictEqual(pipe(2, sum(3)), 5)
 
 2.0.0
 
-## dual(isDataFirst, body)
+## Call Signature
 
 > **dual**\<`DataLast`, `DataFirst`\>(`isDataFirst`, `body`): `DataLast` & `DataFirst`
 
@@ -182,9 +186,13 @@ function is being used in a data-first or data-last style.
 
 ### Parameters
 
-• **isDataFirst**
+#### isDataFirst
 
-• **body**: `DataFirst`
+(`args`) => `boolean`
+
+#### body
+
+`DataFirst`
 
 The definition of the uncurried function.
 

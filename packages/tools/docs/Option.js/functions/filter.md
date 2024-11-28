@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -38,15 +38,11 @@ assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.non
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
 
-## Category
-
-filtering
-
 ## Since
 
 2.0.0
 
-## filter(refinement)
+## Call Signature
 
 > **filter**\<`A`, `B`\>(`refinement`): (`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -62,7 +58,9 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`A`\>, `B`\>
 
 ### Returns
 
@@ -70,7 +68,9 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -122,23 +122,15 @@ assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.non
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
 
-### Category
+### Since
 
-filtering
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-filtering
-
-### Since
-
-2.0.0
-
-## filter(predicate)
+## Call Signature
 
 > **filter**\<`A`\>(`predicate`): (`self`) => [`Option`](../type-aliases/Option.md)\<`A`\>
 
@@ -152,7 +144,9 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`A`\>\>
 
 A predicate function to apply to the `Option` value.
 
@@ -162,7 +156,9 @@ A predicate function to apply to the `Option` value.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -214,23 +210,15 @@ assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.non
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
 
-### Category
+### Since
 
-filtering
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-filtering
-
-### Since
-
-2.0.0
-
-## filter(self, refinement)
+## Call Signature
 
 > **filter**\<`A`, `B`\>(`self`, `refinement`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -246,9 +234,13 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -300,23 +292,15 @@ assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.non
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
 
-### Category
+### Since
 
-filtering
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-filtering
-
-### Since
-
-2.0.0
-
-## filter(self, predicate)
+## Call Signature
 
 > **filter**\<`A`\>(`self`, `predicate`): [`Option`](../type-aliases/Option.md)\<`A`\>
 
@@ -330,9 +314,13 @@ If you need to change the type of the `Option` in addition to filtering, see `fi
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`A`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`A`\>
 
 A predicate function to apply to the `Option` value.
 
@@ -386,17 +374,9 @@ assert.deepStrictEqual(Option.filter(Option.some('hello'), isNumber), Option.non
 assert.deepStrictEqual(Option.filter(Option.some(2), isNumber), Option.some(2))
 ```
 
-### Category
-
-filtering
-
 ### Since
 
 2.0.0
-
-### Category
-
-filtering
 
 ### Since
 

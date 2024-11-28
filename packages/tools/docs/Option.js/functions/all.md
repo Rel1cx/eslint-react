@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -20,7 +20,9 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 ## Parameters
 
-• **input**: `I`
+### input
+
+`I`
 
 ## Returns
 
@@ -35,10 +37,6 @@ assert.deepStrictEqual(Option.all([Option.some(1), Option.some(2)]), Option.some
 assert.deepStrictEqual(Option.all({ a: Option.some(1), b: Option.some("hello") }), Option.some({ a: 1, b: "hello" }))
 assert.deepStrictEqual(Option.all({ a: Option.some(1), b: Option.none() }), Option.none())
 ```
-
-## Category
-
-combining
 
 ## Since
 

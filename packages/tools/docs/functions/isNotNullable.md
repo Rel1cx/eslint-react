@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ A guard that succeeds when the input is not `null` or `undefined`.
 
 ## Parameters
 
-• **input**: `A`
+### input
+
+`A`
 
 The value to test.
 
@@ -35,10 +37,6 @@ assert.deepStrictEqual(isNotNullable([]), true)
 assert.deepStrictEqual(isNotNullable(null), false)
 assert.deepStrictEqual(isNotNullable(undefined), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -34,15 +34,11 @@ if (isTupleOf(arr, 3)) {
 }
 ```
 
-## Category
-
-guards
-
 ## Since
 
 3.3.0
 
-## isTupleOf(n)
+## Call Signature
 
 > **isTupleOf**\<`N`\>(`n`): \<`T`\>(`self`) => `self is TupleOf<N, T>`
 
@@ -56,7 +52,9 @@ An `Array` is considered to be a `TupleOf` if its length is exactly `N`.
 
 ### Parameters
 
-• **n**: `N`
+#### n
+
+`N`
 
 The exact number of elements that the `Array` should have to be considered a `TupleOf`.
 
@@ -70,7 +68,9 @@ The exact number of elements that the `Array` should have to be considered a `Tu
 
 #### Parameters
 
-• **self**: readonly `T`[]
+##### self
+
+readonly `T`[]
 
 #### Returns
 
@@ -114,23 +114,15 @@ if (isTupleOf(arr, 3)) {
 }
 ```
 
-### Category
+### Since
 
-guards
+3.3.0
 
 ### Since
 
 3.3.0
 
-### Category
-
-guards
-
-### Since
-
-3.3.0
-
-## isTupleOf(self, n)
+## Call Signature
 
 > **isTupleOf**\<`T`, `N`\>(`self`, `n`): `self is TupleOf<N, T>`
 
@@ -146,11 +138,15 @@ An `Array` is considered to be a `TupleOf` if its length is exactly `N`.
 
 ### Parameters
 
-• **self**: readonly `T`[]
+#### self
+
+readonly `T`[]
 
 The `Array` to check.
 
-• **n**: `N`
+#### n
+
+`N`
 
 The exact number of elements that the `Array` should have to be considered a `TupleOf`.
 
@@ -196,17 +192,9 @@ if (isTupleOf(arr, 3)) {
 }
 ```
 
-### Category
-
-guards
-
 ### Since
 
 3.3.0
-
-### Category
-
-guards
 
 ### Since
 

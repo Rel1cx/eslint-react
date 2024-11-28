@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -9,10 +9,6 @@
 ## Since
 
 3.6.0
-
-## Category
-
-type-level
 
 ## Index
 

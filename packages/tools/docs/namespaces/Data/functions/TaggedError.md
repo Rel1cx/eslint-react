@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• **tag**: `Tag`
+### tag
+
+`Tag`
 
 ## Returns
 
@@ -22,7 +24,9 @@
 
 ### Parameters
 
-• **args**: `Equals`\<`A`, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends "\_tag" ? never : P\]: A\[P\] \}
+#### args
+
+`Equals`\<`A`, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends "\_tag" ? never : P\]: A\[P\] \}
 
 ### Returns
 
@@ -31,7 +35,3 @@
 ## Since
 
 2.0.0
-
-## Category
-
-constructors

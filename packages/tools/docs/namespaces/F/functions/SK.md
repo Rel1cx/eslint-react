@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -21,11 +21,15 @@ This function is useful for discarding the first argument passed to it and retur
 
 ## Parameters
 
-• **\_**: `A`
+### \_
+
+`A`
 
 The first argument to be discarded.
 
-• **b**: `B`
+### b
+
+`B`
 
 The second argument to be returned.
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -13,7 +13,9 @@ In this case we just mind about arrays and objects. We can add more on demand.
 
 ## Parameters
 
-• **t**: `unknown`
+### t
+
+`unknown`
 
 the value to be checked
 

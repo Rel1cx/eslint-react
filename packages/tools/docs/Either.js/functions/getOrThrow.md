@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -20,7 +20,9 @@ The thrown error is a default error. To configure the error thrown, see  [getOrT
 
 ## Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 The `Either` to extract the value from.
 
@@ -40,10 +42,6 @@ import { Either } from "effect"
 assert.deepStrictEqual(Either.getOrThrow(Either.right(1)), 1)
 assert.throws(() => Either.getOrThrow(Either.left("error")))
 ```
-
-## Category
-
-getters
 
 ## Since
 

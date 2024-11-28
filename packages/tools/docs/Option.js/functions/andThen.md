@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -8,15 +8,11 @@
 
 Executes a sequence of two `Option`s. The second `Option` can be dependent on the result of the first `Option`.
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`A`, `B`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -30,7 +26,9 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -38,29 +36,23 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`B`\>(`f`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -72,7 +64,9 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **f**: [`Option`](../type-aliases/Option.md)\<`B`\>
+#### f
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -84,29 +78,23 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`A`, `B`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -120,7 +108,9 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => `B`
 
 ### Returns
 
@@ -128,29 +118,23 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(f)
+## Call Signature
 
 > **andThen**\<`B`\>(`f`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -162,7 +146,9 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **f**: `NotFunction`\<`B`\>
+#### f
+
+`NotFunction`\<`B`\>
 
 ### Returns
 
@@ -174,29 +160,23 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -210,31 +190,27 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -248,31 +224,27 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**: [`Option`](../type-aliases/Option.md)\<`B`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -286,31 +258,27 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+(`a`) => `B`
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## andThen(self, f)
+## Call Signature
 
 > **andThen**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -324,25 +292,21 @@ Executes a sequence of two `Option`s. The second `Option` can be dependent on th
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**: `NotFunction`\<`B`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+`NotFunction`\<`B`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

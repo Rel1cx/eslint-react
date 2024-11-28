@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -36,11 +36,7 @@ assert.deepStrictEqual(
 
 2.0.0
 
-## Category
-
-filtering & conditionals
-
-## filterOrLeft(refinement, orLeftWith)
+## Call Signature
 
 > **filterOrLeft**\<`R`, `B`, `L2`\>(`refinement`, `orLeftWith`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`B`, `L2` \| `L`\>
 
@@ -57,9 +53,13 @@ If the predicate fails, set the left value with the result of the provided funct
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`R`\>, `B`\>
+#### refinement
 
-• **orLeftWith**
+[`Refinement`](../../interfaces/Refinement.md)\<`NoInfer`\<`R`\>, `B`\>
+
+#### orLeftWith
+
+(`right`) => `L2`
 
 ### Returns
 
@@ -71,7 +71,9 @@ If the predicate fails, set the left value with the result of the provided funct
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
@@ -125,19 +127,11 @@ assert.deepStrictEqual(
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
 ### Since
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
-## filterOrLeft(predicate, orLeftWith)
+## Call Signature
 
 > **filterOrLeft**\<`R`, `L2`\>(`predicate`, `orLeftWith`): \<`L`\>(`self`) => [`Either`](../type-aliases/Either.md)\<`R`, `L2` \| `L`\>
 
@@ -152,9 +146,13 @@ If the predicate fails, set the left value with the result of the provided funct
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`R`\>\>
+#### predicate
 
-• **orLeftWith**
+[`Predicate`](../../interfaces/Predicate.md)\<`NoInfer`\<`R`\>\>
+
+#### orLeftWith
+
+(`right`) => `L2`
 
 ### Returns
 
@@ -166,7 +164,9 @@ If the predicate fails, set the left value with the result of the provided funct
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
@@ -220,19 +220,11 @@ assert.deepStrictEqual(
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
 ### Since
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
-## filterOrLeft(self, refinement, orLeftWith)
+## Call Signature
 
 > **filterOrLeft**\<`R`, `L`, `B`, `L2`\>(`self`, `refinement`, `orLeftWith`): [`Either`](../type-aliases/Either.md)\<`B`, `L` \| `L2`\>
 
@@ -251,11 +243,17 @@ If the predicate fails, set the left value with the result of the provided funct
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`R`, `B`\>
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **orLeftWith**
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`R`, `B`\>
+
+#### orLeftWith
+
+(`right`) => `L2`
 
 ### Returns
 
@@ -309,19 +307,11 @@ assert.deepStrictEqual(
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
 ### Since
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
-## filterOrLeft(self, predicate, orLeftWith)
+## Call Signature
 
 > **filterOrLeft**\<`R`, `L`, `E2`\>(`self`, `predicate`, `orLeftWith`): [`Either`](../type-aliases/Either.md)\<`R`, `L` \| `E2`\>
 
@@ -338,11 +328,17 @@ If the predicate fails, set the left value with the result of the provided funct
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`R`\>
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **orLeftWith**
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`R`\>
+
+#### orLeftWith
+
+(`right`) => `E2`
 
 ### Returns
 
@@ -396,14 +392,6 @@ assert.deepStrictEqual(
 
 2.0.0
 
-### Category
-
-filtering & conditionals
-
 ### Since
 
 2.0.0
-
-### Category
-
-filtering & conditionals

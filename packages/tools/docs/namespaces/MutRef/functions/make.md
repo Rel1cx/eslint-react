@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• **value**: `T`
+### value
+
+`T`
 
 ## Returns
 
@@ -23,7 +25,3 @@
 ## Since
 
 2.0.0
-
-## Category
-
-constructors

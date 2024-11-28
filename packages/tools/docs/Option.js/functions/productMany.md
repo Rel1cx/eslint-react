@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -14,17 +14,17 @@
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
 
-• **collection**: `Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+### collection
+
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
 
 ## Returns
 
 [`Option`](../type-aliases/Option.md)\<[`A`, `...A[]`]\>
-
-## Category
-
-combining
 
 ## Since
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -9,10 +9,6 @@
 ## Since
 
 2.0.0
-
-## Category
-
-models
 
 ## Extends
 
@@ -152,7 +148,9 @@ models
 
 #### Parameters
 
-• **f**
+##### f
+
+(`a`) => readonly [`B`, `A`]
 
 #### Returns
 
@@ -162,7 +160,7 @@ models
 
 ### pipe()
 
-#### pipe(this)
+#### Call Signature
 
 > **pipe**\<`A`\>(`this`): `A`
 
@@ -172,7 +170,9 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
+
+`A`
 
 ##### Returns
 
@@ -182,7 +182,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab)
+#### Call Signature
 
 > **pipe**\<`A`, `B`\>(`this`, `ab`): `B`
 
@@ -194,9 +194,13 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
+
+###### ab
+
+(`_`) => `B`
 
 ##### Returns
 
@@ -206,7 +210,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`\>(`this`, `ab`, `bc`): `C`
 
@@ -220,11 +224,17 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
+
+(`_`) => `B`
+
+###### bc
+
+(`_`) => `C`
 
 ##### Returns
 
@@ -234,7 +244,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`\>(`this`, `ab`, `bc`, `cd`): `D`
 
@@ -250,13 +260,21 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
+
+###### bc
+
+(`_`) => `C`
+
+###### cd
+
+(`_`) => `D`
 
 ##### Returns
 
@@ -266,7 +284,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`this`, `ab`, `bc`, `cd`, `de`): `E`
 
@@ -284,15 +302,25 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
+
+(`_`) => `C`
+
+###### cd
+
+(`_`) => `D`
+
+###### de
+
+(`_`) => `E`
 
 ##### Returns
 
@@ -302,7 +330,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
 
@@ -322,17 +350,29 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
+
+###### cd
+
+(`_`) => `D`
+
+###### de
+
+(`_`) => `E`
+
+###### ef
+
+(`_`) => `F`
 
 ##### Returns
 
@@ -342,7 +382,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
 
@@ -364,19 +404,33 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
+
+(`_`) => `D`
+
+###### de
+
+(`_`) => `E`
+
+###### ef
+
+(`_`) => `F`
+
+###### fg
+
+(`_`) => `G`
 
 ##### Returns
 
@@ -386,7 +440,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
 
@@ -410,21 +464,37 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
+
+###### de
+
+(`_`) => `E`
+
+###### ef
+
+(`_`) => `F`
+
+###### fg
+
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
 
 ##### Returns
 
@@ -434,7 +504,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
 
@@ -460,23 +530,41 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
+
+(`_`) => `E`
+
+###### ef
+
+(`_`) => `F`
+
+###### fg
+
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
 
 ##### Returns
 
@@ -486,7 +574,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
 
@@ -514,25 +602,45 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
+
+###### ef
+
+(`_`) => `F`
+
+###### fg
+
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
 
 ##### Returns
 
@@ -542,7 +650,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
 
@@ -572,27 +680,49 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
+
+(`_`) => `F`
+
+###### fg
+
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
 
 ##### Returns
 
@@ -602,7 +732,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
 
@@ -634,29 +764,53 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
+
+###### fg
+
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
 
 ##### Returns
 
@@ -666,7 +820,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
 
@@ -700,31 +854,57 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
+
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
 
 ##### Returns
 
@@ -734,7 +914,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
 
@@ -770,33 +950,61 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
+
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
 
 ##### Returns
 
@@ -806,7 +1014,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
 
@@ -844,35 +1052,65 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
+
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
 
 ##### Returns
 
@@ -882,7 +1120,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
 
@@ -922,37 +1160,69 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
+
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
 
 ##### Returns
 
@@ -962,7 +1232,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
 
@@ -1004,39 +1274,73 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
 
-• **pq**
+###### hi
+
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
+
+###### pq
+
+(`_`) => `Q`
 
 ##### Returns
 
@@ -1046,7 +1350,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
 
@@ -1090,41 +1394,77 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
 
-• **pq**
+###### hi
 
-• **qr**
+(`_`) => `I`
+
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
+
+###### pq
+
+(`_`) => `Q`
+
+###### qr
+
+(`_`) => `R`
 
 ##### Returns
 
@@ -1134,7 +1474,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
 
@@ -1180,43 +1520,81 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
 
-• **pq**
+###### hi
 
-• **qr**
+(`_`) => `I`
 
-• **rs**
+###### ij
+
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
+
+###### pq
+
+(`_`) => `Q`
+
+###### qr
+
+(`_`) => `R`
+
+###### rs
+
+(`_`) => `S`
 
 ##### Returns
 
@@ -1226,7 +1604,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
 
@@ -1274,45 +1652,85 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
 
-• **pq**
+###### hi
 
-• **qr**
+(`_`) => `I`
 
-• **rs**
+###### ij
 
-• **st**
+(`_`) => `J`
+
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
+
+###### pq
+
+(`_`) => `Q`
+
+###### qr
+
+(`_`) => `R`
+
+###### rs
+
+(`_`) => `S`
+
+###### st
+
+(`_`) => `T`
 
 ##### Returns
 
@@ -1322,7 +1740,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st, tu)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1372,47 +1790,89 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
 
-• **pq**
+###### hi
 
-• **qr**
+(`_`) => `I`
 
-• **rs**
+###### ij
 
-• **st**
+(`_`) => `J`
 
-• **tu**
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
+
+###### pq
+
+(`_`) => `Q`
+
+###### qr
+
+(`_`) => `R`
+
+###### rs
+
+(`_`) => `S`
+
+###### st
+
+(`_`) => `T`
+
+###### tu
+
+(`_`) => `U`
 
 ##### Returns
 
@@ -1422,7 +1882,7 @@ models
 
 `Effect.Effect.pipe`
 
-#### pipe(this, ab, bc, cd, de, ef, fg, gh, hi, ij, jk, kl, lm, mn, no, op, pq, qr, rs, st, tu)
+#### Call Signature
 
 > **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`, `U`\>(`this`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`, `tu`): `U`
 
@@ -1472,47 +1932,89 @@ models
 
 ##### Parameters
 
-• **this**: `A`
+###### this
 
-• **ab**
+`A`
 
-• **bc**
+###### ab
 
-• **cd**
+(`_`) => `B`
 
-• **de**
+###### bc
 
-• **ef**
+(`_`) => `C`
 
-• **fg**
+###### cd
 
-• **gh**
+(`_`) => `D`
 
-• **hi**
+###### de
 
-• **ij**
+(`_`) => `E`
 
-• **jk**
+###### ef
 
-• **kl**
+(`_`) => `F`
 
-• **lm**
+###### fg
 
-• **mn**
+(`_`) => `G`
 
-• **no**
+###### gh
 
-• **op**
+(`_`) => `H`
 
-• **pq**
+###### hi
 
-• **qr**
+(`_`) => `I`
 
-• **rs**
+###### ij
 
-• **st**
+(`_`) => `J`
 
-• **tu**
+###### jk
+
+(`_`) => `K`
+
+###### kl
+
+(`_`) => `L`
+
+###### lm
+
+(`_`) => `M`
+
+###### mn
+
+(`_`) => `N`
+
+###### no
+
+(`_`) => `O`
+
+###### op
+
+(`_`) => `P`
+
+###### pq
+
+(`_`) => `Q`
+
+###### qr
+
+(`_`) => `R`
+
+###### rs
+
+(`_`) => `S`
+
+###### st
+
+(`_`) => `T`
+
+###### tu
+
+(`_`) => `U`
 
 ##### Returns
 

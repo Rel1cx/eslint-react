@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -6,13 +6,15 @@
 
 # Function: isInversePhase()
 
-## isInversePhase(a)
+## Call Signature
 
 > **isInversePhase**(`a`): (`b`) => `boolean`
 
 ### Parameters
 
-• **a**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+#### a
+
+[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
 ### Returns
 
@@ -20,21 +22,27 @@
 
 #### Parameters
 
-• **b**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+##### b
+
+[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
 #### Returns
 
 `boolean`
 
-## isInversePhase(a, b)
+## Call Signature
 
 > **isInversePhase**(`a`, `b`): `boolean`
 
 ### Parameters
 
-• **a**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+#### a
 
-• **b**: [`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+
+#### b
+
+[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
 
 ### Returns
 

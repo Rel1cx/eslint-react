@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,15 +18,13 @@
 
 ## Parameters
 
-• ...**args**: [`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>] \| [(`resume`) => `Generator`\<`K`, `A`, `never`\>]
+### args
+
+[`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>] | [(`resume`) => `Generator`\<`K`, `A`, `never`\>]
 
 ## Returns
 
 [`Either`](../type-aliases/Either.md)\<`A`, [`K`] *extends* [`Variance`\<[`EitherTypeLambda`](../interfaces/EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : [`K`] *extends* [`YieldWrap`\<[`Either`](../type-aliases/Either.md)\<`any`, `E`\>\>] ? `E` : `never`\>
-
-## Category
-
-generators
 
 ## Since
 

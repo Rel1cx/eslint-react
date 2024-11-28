@@ -1,14 +1,10 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
 [@eslint-react/tools](../README.md) / Refinement
 
 # Interface: Refinement()\<A, B\>
-
-## Category
-
-models
 
 ## Since
 
@@ -24,15 +20,13 @@ models
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 ## Returns
 
 `a is B`
-
-## Category
-
-models
 
 ## Since
 

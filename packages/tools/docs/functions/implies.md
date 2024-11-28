@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -49,15 +49,11 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
 
-## Category
-
-combinators
-
 ## Since
 
 2.0.0
 
-## implies(consequent)
+## Call Signature
 
 > **implies**\<`A`\>(`consequent`): (`antecedent`) => [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
@@ -87,7 +83,9 @@ must be true.
 
 ### Parameters
 
-• **consequent**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### consequent
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 
@@ -95,7 +93,9 @@ must be true.
 
 #### Parameters
 
-• **antecedent**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+##### antecedent
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 #### Returns
 
@@ -145,23 +145,15 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
 
-### Category
+### Since
 
-combinators
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combinators
-
-### Since
-
-2.0.0
-
-## implies(antecedent, consequent)
+## Call Signature
 
 > **implies**\<`A`\>(`antecedent`, `consequent`): [`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
@@ -191,9 +183,13 @@ must be true.
 
 ### Parameters
 
-• **antecedent**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### antecedent
 
-• **consequent**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+
+#### consequent
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 ### Returns
 
@@ -243,17 +239,9 @@ assert.equal(transitivity({ a: 1, b: 2, c: 3 }), true)
 assert.equal(transitivity({ a: 1, b: 0, c: 0 }), true)
 ```
 
-### Category
-
-combinators
-
 ### Since
 
 2.0.0
-
-### Category
-
-combinators
 
 ### Since
 

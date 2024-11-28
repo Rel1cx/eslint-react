@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: equals()
 
-## equals(that)
+## Call Signature
 
 > **equals**\<`B`\>(`that`): \<`A`\>(`self`) => `boolean`
 
@@ -16,7 +16,9 @@
 
 ### Parameters
 
-• **that**: `B`
+#### that
+
+`B`
 
 ### Returns
 
@@ -28,7 +30,9 @@
 
 #### Parameters
 
-• **self**: `A`
+##### self
+
+`A`
 
 #### Returns
 
@@ -38,11 +42,7 @@
 
 2.0.0
 
-### Category
-
-equality
-
-## equals(self, that)
+## Call Signature
 
 > **equals**\<`A`, `B`\>(`self`, `that`): `boolean`
 
@@ -54,9 +54,13 @@ equality
 
 ### Parameters
 
-• **self**: `A`
+#### self
 
-• **that**: `B`
+`A`
+
+#### that
+
+`B`
 
 ### Returns
 
@@ -65,7 +69,3 @@ equality
 ### Since
 
 2.0.0
-
-### Category
-
-equality

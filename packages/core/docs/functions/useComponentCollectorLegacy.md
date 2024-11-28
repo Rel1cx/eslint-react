@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -16,19 +16,21 @@
 
 > **ctx**: `object`
 
-### ctx.getAllComponents()
+#### ctx.getAllComponents()
 
-#### Parameters
+##### Parameters
 
-• **\_**: `Program`
+###### \_
 
-#### Returns
+`Program`
+
+##### Returns
 
 `Map`\<`string`, [`ERClassComponent`](../interfaces/ERClassComponent.md)\>
 
-### ctx.getCurrentComponents()
+#### ctx.getCurrentComponents()
 
-#### Returns
+##### Returns
 
 `Map`\<`string`, [`ERClassComponent`](../interfaces/ERClassComponent.md)\>
 
@@ -36,26 +38,30 @@
 
 > **listeners**: `object`
 
-### listeners.ClassDeclaration\[type\]()
+#### listeners.ClassDeclaration\[type\]()
 
 > `readonly` **ClassDeclaration\[type\]**: (`node`) => `void` = `collect`
 
-#### Parameters
+##### Parameters
 
-• **node**: `TSESTreeClass`
+###### node
 
-#### Returns
+`TSESTreeClass`
+
+##### Returns
 
 `void`
 
-### listeners.ClassExpression\[type\]()
+#### listeners.ClassExpression\[type\]()
 
 > `readonly` **ClassExpression\[type\]**: (`node`) => `void` = `collect`
 
-#### Parameters
+##### Parameters
 
-• **node**: `TSESTreeClass`
+###### node
 
-#### Returns
+`TSESTreeClass`
+
+##### Returns
 
 `void`

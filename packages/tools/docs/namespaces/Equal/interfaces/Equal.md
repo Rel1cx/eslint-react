@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -9,10 +9,6 @@
 ## Since
 
 2.0.0
-
-## Category
-
-models
 
 ## Extends
 
@@ -26,7 +22,9 @@ models
 
 #### Parameters
 
-• **that**: [`Equal`](Equal.md)
+##### that
+
+[`Equal`](Equal.md)
 
 #### Returns
 

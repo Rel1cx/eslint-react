@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Determine if a `Option` is a `None`.
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to check.
 
@@ -32,10 +34,6 @@ import { Option } from "effect"
 assert.deepStrictEqual(Option.isNone(Option.some(1)), false)
 assert.deepStrictEqual(Option.isNone(Option.none()), true)
 ```
-
-## Category
-
-guards
 
 ## Since
 

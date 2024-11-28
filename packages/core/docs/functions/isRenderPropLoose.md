@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -16,11 +16,15 @@ _ = <Component renderRow={() => <div />} />
 
 ## Parameters
 
-• **node**: `JSXAttribute`
+### node
+
+`JSXAttribute`
 
 The AST node to check
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 The rule context
 

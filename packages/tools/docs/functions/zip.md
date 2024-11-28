@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: zip()
 
-## zip(arr1)
+## Call Signature
 
 > **zip**\<`T`\>(`arr1`): [`T`][]
 
@@ -16,13 +16,15 @@
 
 ### Parameters
 
-• **arr1**: readonly `T`[]
+#### arr1
+
+readonly `T`[]
 
 ### Returns
 
 [`T`][]
 
-## zip(arr1, arr2)
+## Call Signature
 
 > **zip**\<`T`, `U`\>(`arr1`, `arr2`): [`T`, `U`][]
 
@@ -34,15 +36,19 @@
 
 ### Parameters
 
-• **arr1**: readonly `T`[]
+#### arr1
 
-• **arr2**: readonly `U`[]
+readonly `T`[]
+
+#### arr2
+
+readonly `U`[]
 
 ### Returns
 
 [`T`, `U`][]
 
-## zip(arr1, arr2, arr3)
+## Call Signature
 
 > **zip**\<`T`, `U`, `V`\>(`arr1`, `arr2`, `arr3`): [`T`, `U`, `V`][]
 
@@ -56,17 +62,23 @@
 
 ### Parameters
 
-• **arr1**: readonly `T`[]
+#### arr1
 
-• **arr2**: readonly `U`[]
+readonly `T`[]
 
-• **arr3**: readonly `V`[]
+#### arr2
+
+readonly `U`[]
+
+#### arr3
+
+readonly `V`[]
 
 ### Returns
 
 [`T`, `U`, `V`][]
 
-## zip(arr1, arr2, arr3, arr4)
+## Call Signature
 
 > **zip**\<`T`, `U`, `V`, `W`\>(`arr1`, `arr2`, `arr3`, `arr4`): [`T`, `U`, `V`, `W`][]
 
@@ -82,13 +94,21 @@
 
 ### Parameters
 
-• **arr1**: readonly `T`[]
+#### arr1
 
-• **arr2**: readonly `U`[]
+readonly `T`[]
 
-• **arr3**: readonly `V`[]
+#### arr2
 
-• **arr4**: readonly `W`[]
+readonly `U`[]
+
+#### arr3
+
+readonly `V`[]
+
+#### arr4
+
+readonly `W`[]
 
 ### Returns
 

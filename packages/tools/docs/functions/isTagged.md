@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -29,15 +29,11 @@ assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
 
-## Category
-
-guards
-
 ## Since
 
 2.0.0
 
-## isTagged(tag)
+## Call Signature
 
 > **isTagged**\<`K`\>(`tag`): (`self`) => `self is { _tag: K }`
 
@@ -49,7 +45,9 @@ Tests if a value is an `object` with a property `_tag` that matches the given ta
 
 ### Parameters
 
-• **tag**: `K`
+#### tag
+
+`K`
 
 The tag to test for.
 
@@ -59,7 +57,9 @@ The tag to test for.
 
 #### Parameters
 
-• **self**: `unknown`
+##### self
+
+`unknown`
 
 #### Returns
 
@@ -97,23 +97,15 @@ assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
 
-### Category
+### Since
 
-guards
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-guards
-
-### Since
-
-2.0.0
-
-## isTagged(self, tag)
+## Call Signature
 
 > **isTagged**\<`K`\>(`self`, `tag`): `self is { _tag: K }`
 
@@ -125,9 +117,13 @@ Tests if a value is an `object` with a property `_tag` that matches the given ta
 
 ### Parameters
 
-• **self**: `unknown`
+#### self
 
-• **tag**: `K`
+`unknown`
+
+#### tag
+
+`K`
 
 The tag to test for.
 
@@ -167,17 +163,9 @@ assert.deepStrictEqual(isTagged({ _tag: "a" }, "a"), true)
 assert.deepStrictEqual(isTagged("a")({ _tag: "a" }), true)
 ```
 
-### Category
-
-guards
-
 ### Since
 
 2.0.0
-
-### Category
-
-guards
 
 ### Since
 

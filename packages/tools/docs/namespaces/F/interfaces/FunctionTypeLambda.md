@@ -1,14 +1,10 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
 [@eslint-react/tools](../../../README.md) / [F](../README.md) / FunctionTypeLambda
 
 # Interface: FunctionTypeLambda
-
-## Category
-
-type lambdas
 
 ## Since
 
@@ -66,7 +62,9 @@ type lambdas
 
 #### Parameters
 
-• **a**: `unknown`
+##### a
+
+`unknown`
 
 #### Returns
 

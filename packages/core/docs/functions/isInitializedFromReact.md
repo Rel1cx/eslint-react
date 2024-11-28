@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -12,15 +12,21 @@ Check if an identifier is initialized from React
 
 ## Parameters
 
-• **name**: `string`
+### name
+
+`string`
 
 The top-level identifier's name
 
-• **initialScope**: `Scope`
+### initialScope
+
+`Scope`
 
 Initial scope to search for the identifier
 
-• **settings**: `Partial`\<`Pick`\<`object`, `"importSource"` \| `"strictImportCheck"`\>\>
+### settings
+
+`Partial`\<`Pick`\<`object`, `"importSource"` \| `"strictImportCheck"`\>\>
 
 ESLint React settings
 

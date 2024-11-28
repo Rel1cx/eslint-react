@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -24,20 +24,13 @@ assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
 
-## Category
-
-lifting
-
 ## Since
 
 2.0.0
 
-## liftPredicate(refinement)
+## Call Signature
 
 > **liftPredicate**\<`A`, `B`\>(`refinement`): (`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
-
-Transforms a `Predicate` function into a `Some` of the input value if the predicate returns `true` or `None`
-if the predicate returns `false`.
 
 ### Type Parameters
 
@@ -47,7 +40,9 @@ if the predicate returns `false`.
 
 ### Parameters
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -55,36 +50,15 @@ if the predicate returns `false`.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Param
-
-A `Predicate` function that takes in a value of type `A` and returns a boolean.
-
-### Example
-
-```ts
-import { Option } from "effect"
-
-const getOption = Option.liftPredicate((n: number) => n >= 0)
-
-assert.deepStrictEqual(getOption(-1), Option.none())
-assert.deepStrictEqual(getOption(1), Option.some(1))
-```
-
-### Category
-
-lifting
-
-### Since
-
-2.0.0
-
-## liftPredicate(predicate)
+## Call Signature
 
 > **liftPredicate**\<`B`, `A`\>(`predicate`): (`b`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -99,7 +73,9 @@ if the predicate returns `false`.
 
 ### Parameters
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`A`\>
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`A`\>
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
@@ -109,7 +85,9 @@ A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
 #### Parameters
 
-• **b**: `B`
+##### b
+
+`B`
 
 #### Returns
 
@@ -139,23 +117,15 @@ assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
 
-### Category
+### Since
 
-lifting
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-lifting
-
-### Since
-
-2.0.0
-
-## liftPredicate(self, refinement)
+## Call Signature
 
 > **liftPredicate**\<`A`, `B`\>(`self`, `refinement`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -170,9 +140,13 @@ if the predicate returns `false`.
 
 ### Parameters
 
-• **self**: `A`
+#### self
 
-• **refinement**: [`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
+`A`
+
+#### refinement
+
+[`Refinement`](../../interfaces/Refinement.md)\<`A`, `B`\>
 
 ### Returns
 
@@ -202,23 +176,15 @@ assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
 
-### Category
+### Since
 
-lifting
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-lifting
-
-### Since
-
-2.0.0
-
-## liftPredicate(self, predicate)
+## Call Signature
 
 > **liftPredicate**\<`B`, `A`\>(`self`, `predicate`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -233,9 +199,13 @@ if the predicate returns `false`.
 
 ### Parameters
 
-• **self**: `B`
+#### self
 
-• **predicate**: [`Predicate`](../../interfaces/Predicate.md)\<`A`\>
+`B`
+
+#### predicate
+
+[`Predicate`](../../interfaces/Predicate.md)\<`A`\>
 
 A `Predicate` function that takes in a value of type `A` and returns a boolean.
 
@@ -267,17 +237,9 @@ assert.deepStrictEqual(getOption(-1), Option.none())
 assert.deepStrictEqual(getOption(1), Option.some(1))
 ```
 
-### Category
-
-lifting
-
 ### Since
 
 2.0.0
-
-### Category
-
-lifting
 
 ### Since
 

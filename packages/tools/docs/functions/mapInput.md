@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -29,15 +29,11 @@ assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
 
-## Category
-
-combinators
-
 ## Since
 
 2.0.0
 
-## mapInput(f)
+## Call Signature
 
 > **mapInput**\<`B`, `A`\>(`f`): (`self`) => [`Predicate`](../interfaces/Predicate.md)\<`B`\>
 
@@ -51,7 +47,9 @@ Given a `Predicate<A>` returns a `Predicate<B>`
 
 ### Parameters
 
-• **f**
+#### f
+
+(`b`) => `A`
 
 a function to transform `B` to `A`.
 
@@ -61,7 +59,9 @@ a function to transform `B` to `A`.
 
 #### Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+##### self
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 #### Returns
 
@@ -99,23 +99,15 @@ assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
 
-### Category
+### Since
 
-combinators
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-combinators
-
-### Since
-
-2.0.0
-
-## mapInput(self, f)
+## Call Signature
 
 > **mapInput**\<`A`, `B`\>(`self`, `f`): [`Predicate`](../interfaces/Predicate.md)\<`B`\>
 
@@ -129,11 +121,15 @@ Given a `Predicate<A>` returns a `Predicate<B>`
 
 ### Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+#### self
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 the `Predicate<A>` to be transformed to `Predicate<B>`.
 
-• **f**
+#### f
+
+(`b`) => `A`
 
 a function to transform `B` to `A`.
 
@@ -173,17 +169,9 @@ assert.deepStrictEqual(minLength3("aaa"), true)
 assert.deepStrictEqual(minLength3("aaaa"), true)
 ```
 
-### Category
-
-combinators
-
 ### Since
 
 2.0.0
-
-### Category
-
-combinators
 
 ### Since
 

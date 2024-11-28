@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Negates the result of a given predicate.
 
 ## Parameters
 
-• **self**: [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+### self
+
+[`Predicate`](../interfaces/Predicate.md)\<`A`\>
 
 A predicate.
 
@@ -35,10 +37,6 @@ assert.deepStrictEqual(isPositive(-1), false)
 assert.deepStrictEqual(isPositive(0), true)
 assert.deepStrictEqual(isPositive(1), true)
 ```
-
-## Category
-
-combinators
 
 ## Since
 

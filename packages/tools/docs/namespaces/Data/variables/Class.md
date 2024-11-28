@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Provides a constructor for a Case Class.
 
 ## Parameters
 
-• **args**: `Types.Equals`\<`A`, `object`\> *extends* `true` ? `void` : `{ readonly [P in keyof A]: A[P] }`
+### args
+
+`Types.Equals`\<`A`, `object`\> *extends* `true` ? `void` : `{ readonly [P in keyof A]: A[P] }`
 
 ## Returns
 
@@ -38,7 +40,3 @@ assert.deepStrictEqual(Equal.equals(mike1, john), false)
 ## Since
 
 2.0.0
-
-## Category
-
-constructors

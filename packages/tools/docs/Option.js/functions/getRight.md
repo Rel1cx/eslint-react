@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ Converts a `Either` to an `Option` discarding the error.
 
 ## Parameters
 
-• **self**: [`Either`](../../Either.js/type-aliases/Either.md)\<`R`, `L`\>
+### self
+
+[`Either`](../../Either.js/type-aliases/Either.md)\<`R`, `L`\>
 
 ## Returns
 
@@ -32,10 +34,6 @@ import { Option, Either } from "effect"
 assert.deepStrictEqual(Option.getRight(Either.right('ok')), Option.some('ok'))
 assert.deepStrictEqual(Option.getRight(Either.left('err')), Option.none())
 ```
-
-## Category
-
-conversions
 
 ## Since
 

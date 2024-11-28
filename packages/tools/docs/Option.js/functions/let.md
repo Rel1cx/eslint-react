@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Function: let()
 
-## let(name, f)
+## Call Signature
 
 > **let**\<`N`, `A`, `B`\>(`name`, `f`): (`self`) => [`Option`](../type-aliases/Option.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}\>
 
@@ -20,9 +20,13 @@
 
 ### Parameters
 
-• **name**: `Exclude`\<`N`, keyof `A`\>
+#### name
 
-• **f**
+`Exclude`\<`N`, keyof `A`\>
+
+#### f
+
+(`a`) => `B`
 
 ### Returns
 
@@ -30,13 +34,15 @@
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}\>
 
-## let(self, name, f)
+## Call Signature
 
 > **let**\<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](../type-aliases/Option.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}\>
 
@@ -50,11 +56,17 @@
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **name**: `Exclude`\<`N`, keyof `A`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **f**
+#### name
+
+`Exclude`\<`N`, keyof `A`\>
+
+#### f
+
+(`a`) => `B`
 
 ### Returns
 

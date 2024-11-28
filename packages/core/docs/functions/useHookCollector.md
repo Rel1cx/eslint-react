@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -16,19 +16,21 @@
 
 > **ctx**: `object`
 
-### ctx.getAllHooks()
+#### ctx.getAllHooks()
 
-#### Parameters
+##### Parameters
 
-• **\_**: `Program`
+###### \_
 
-#### Returns
+`Program`
+
+##### Returns
 
 `Map`\<`string`, [`ERHook`](../interfaces/ERHook.md)\>
 
-### ctx.getCurrentHooks()
+#### ctx.getCurrentHooks()
 
-#### Returns
+##### Returns
 
 `Map`\<`string`, [`ERHook`](../interfaces/ERHook.md)\>
 
@@ -36,32 +38,36 @@
 
 > **listeners**: `object`
 
-### listeners.:function\[type\]()
+#### listeners.:function\[type\]()
 
 > `readonly` **:function\[type\]**: (`node`) => `void` = `onFunctionEnter`
 
-#### Parameters
+##### Parameters
 
-• **node**: `TSESTreeFunction`
+###### node
 
-#### Returns
+`TSESTreeFunction`
+
+##### Returns
 
 `void`
 
-### listeners.:function\[type\]:exit()
+#### listeners.:function\[type\]:exit()
 
 > `readonly` **:function\[type\]:exit**: () => `void` = `onFunctionExit`
 
-#### Returns
+##### Returns
 
 `void`
 
-### listeners.CallExpression\[type\]()
+#### listeners.CallExpression\[type\]()
 
-#### Parameters
+##### Parameters
 
-• **node**: `never`
+###### node
 
-#### Returns
+`never`
+
+##### Returns
 
 `void`

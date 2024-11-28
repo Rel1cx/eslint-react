@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../../../README.md)
 
 ***
 
@@ -10,10 +10,6 @@
 
 2.0.0
 
-## Category
-
-models
-
 ## Type Parameters
 
 • **A**
@@ -24,7 +20,9 @@ models
 
 ## Parameters
 
-• **args**: `Equals`\<`Omit`\<`A`, `Tag`\>, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends Tag ? never : P\]: A\[P\] \}
+### args
+
+`Equals`\<`Omit`\<`A`, `Tag`\>, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends Tag ? never : P\]: A\[P\] \}
 
 ## Returns
 
@@ -33,7 +31,3 @@ models
 ## Since
 
 2.0.0
-
-## Category
-
-models

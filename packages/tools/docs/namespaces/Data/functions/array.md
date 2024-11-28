@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -14,7 +14,9 @@
 
 ## Parameters
 
-• **as**: `As`
+### as
+
+`As`
 
 ## Returns
 
@@ -41,10 +43,6 @@ assert.deepStrictEqual(
   true
 )
 ```
-
-## Category
-
-constructors
 
 ## Since
 

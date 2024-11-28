@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -19,15 +19,11 @@ The first `Option` to be checked.
 
 The second `Option` to be considered if the first `Option` is `None`.
 
-## Category
-
-error handling
-
 ## Since
 
 2.0.0
 
-## orElseEither(that)
+## Call Signature
 
 > **orElseEither**\<`B`\>(`that`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<[`Either`](../../Either.js/type-aliases/Either.md)\<`B`, `A`\>\>
 
@@ -42,7 +38,9 @@ This is useful when it's important to know whether the value was retrieved from 
 
 ### Parameters
 
-• **that**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
+#### that
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
 
 The second `Option` to be considered if the first `Option` is `None`.
 
@@ -56,7 +54,9 @@ The second `Option` to be considered if the first `Option` is `None`.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -70,23 +70,15 @@ The first `Option` to be checked.
 
 The second `Option` to be considered if the first `Option` is `None`.
 
-### Category
+### Since
 
-error handling
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-error handling
-
-### Since
-
-2.0.0
-
-## orElseEither(self, that)
+## Call Signature
 
 > **orElseEither**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<[`Either`](../../Either.js/type-aliases/Either.md)\<`B`, `A`\>\>
 
@@ -103,11 +95,15 @@ This is useful when it's important to know whether the value was retrieved from 
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The first `Option` to be checked.
 
-• **that**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
+#### that
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<[`Option`](../type-aliases/Option.md)\<`B`\>\>
 
 The second `Option` to be considered if the first `Option` is `None`.
 
@@ -123,17 +119,9 @@ The first `Option` to be checked.
 
 The second `Option` to be considered if the first `Option` is `None`.
 
-### Category
-
-error handling
-
 ### Since
 
 2.0.0
-
-### Category
-
-error handling
 
 ### Since
 

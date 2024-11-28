@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -37,15 +37,11 @@ const result = pipe(
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
 
-## Category
-
-do notation
-
 ## Since
 
 2.0.0
 
-## bindTo(name)
+## Call Signature
 
 > **bindTo**\<`N`\>(`name`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`{ [K in string]: A }`\>
 
@@ -65,7 +61,9 @@ Here's how the do simulation works:
 
 ### Parameters
 
-• **name**: `N`
+#### name
+
+`N`
 
 ### Returns
 
@@ -77,7 +75,9 @@ Here's how the do simulation works:
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -117,10 +117,6 @@ const result = pipe(
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
@@ -131,15 +127,11 @@ do notation
  - [bind](bind.md)
  - [let](let.md)
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
 
-## bindTo(self, name)
+## Call Signature
 
 > **bindTo**\<`A`, `N`\>(`self`, `name`): [`Option`](../type-aliases/Option.md)\<`{ [K in string]: A }`\>
 
@@ -161,9 +153,13 @@ Here's how the do simulation works:
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **name**: `N`
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### name
+
+`N`
 
 ### Returns
 
@@ -203,10 +199,6 @@ const result = pipe(
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
@@ -216,10 +208,6 @@ do notation
  - [Do](../variables/Do.md)
  - [bind](bind.md)
  - [let](let.md)
-
-### Category
-
-do notation
 
 ### Since
 

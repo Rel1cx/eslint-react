@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -11,10 +11,6 @@
 ## Type Parameters
 
 • **A**
-
-## Category
-
-models
 
 ## Since
 

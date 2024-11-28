@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ If the input is `Some`, the value is wrapped in an array.
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to convert to an array.
 
@@ -34,10 +36,6 @@ import { Option } from "effect"
 assert.deepStrictEqual(Option.toArray(Option.some(1)), [1])
 assert.deepStrictEqual(Option.toArray(Option.none()), [])
 ```
-
-## Category
-
-conversions
 
 ## Since
 

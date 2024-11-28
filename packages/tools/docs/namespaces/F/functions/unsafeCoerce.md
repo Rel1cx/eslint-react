@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -18,7 +18,9 @@ Casts the result to the specified type.
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 The value to be casted to the target type.
 

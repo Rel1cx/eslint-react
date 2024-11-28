@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,15 +18,11 @@ assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1)
 assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
 ```
 
-## Category
-
-constructors
-
 ## Since
 
 2.0.0
 
-## fromNullable(onNullable)
+## Call Signature
 
 > **fromNullable**\<`R`, `L`\>(`onNullable`): (`self`) => [`Either`](../type-aliases/Either.md)\<`NonNullable`\<`R`\>, `L`\>
 
@@ -41,7 +37,9 @@ the provided default as a `Left`.
 
 ### Parameters
 
-• **onNullable**
+#### onNullable
+
+(`right`) => `L`
 
 ### Returns
 
@@ -49,7 +47,9 @@ the provided default as a `Left`.
 
 #### Parameters
 
-• **self**: `R`
+##### self
+
+`R`
 
 #### Returns
 
@@ -71,23 +71,15 @@ assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1)
 assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
 ```
 
-### Category
+### Since
 
-constructors
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-constructors
-
-### Since
-
-2.0.0
-
-## fromNullable(self, onNullable)
+## Call Signature
 
 > **fromNullable**\<`R`, `L`\>(`self`, `onNullable`): [`Either`](../type-aliases/Either.md)\<`NonNullable`\<`R`\>, `L`\>
 
@@ -102,9 +94,13 @@ the provided default as a `Left`.
 
 ### Parameters
 
-• **self**: `R`
+#### self
 
-• **onNullable**
+`R`
+
+#### onNullable
+
+(`right`) => `L`
 
 ### Returns
 
@@ -126,17 +122,9 @@ assert.deepStrictEqual(Either.fromNullable(1, () => 'fallback'), Either.right(1)
 assert.deepStrictEqual(Either.fromNullable(null, () => 'fallback'), Either.left('fallback'))
 ```
 
-### Category
-
-constructors
-
 ### Since
 
 2.0.0
-
-### Category
-
-constructors
 
 ### Since
 

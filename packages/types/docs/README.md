@@ -1,4 +1,4 @@
-**@eslint-react/types** • **Docs**
+**@eslint-react/types**
 
 ***
 

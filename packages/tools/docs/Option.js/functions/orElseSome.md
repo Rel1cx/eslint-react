@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -37,15 +37,11 @@ assert.deepStrictEqual(
 )
 ```
 
-## Category
-
-error handling
-
 ## Since
 
 2.0.0
 
-## orElseSome(onNone)
+## Call Signature
 
 > **orElseSome**\<`B`\>(`onNone`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`B` \| `A`\>
 
@@ -57,7 +53,9 @@ Returns the provided default value as `Some` if `self` is `None`, otherwise retu
 
 ### Parameters
 
-• **onNone**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+#### onNone
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
 
 Function that returns the default value to return if the `Option` is `None`.
 
@@ -71,7 +69,9 @@ Function that returns the default value to return if the `Option` is `None`.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -125,23 +125,15 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
+### Since
 
-error handling
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-error handling
-
-### Since
-
-2.0.0
-
-## orElseSome(self, onNone)
+## Call Signature
 
 > **orElseSome**\<`A`, `B`\>(`self`, `onNone`): [`Option`](../type-aliases/Option.md)\<`A` \| `B`\>
 
@@ -155,11 +147,15 @@ Returns the provided default value as `Some` if `self` is `None`, otherwise retu
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The first `Option` to be checked.
 
-• **onNone**: [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
+#### onNone
+
+[`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
 
 Function that returns the default value to return if the `Option` is `None`.
 
@@ -215,17 +211,9 @@ assert.deepStrictEqual(
 )
 ```
 
-### Category
-
-error handling
-
 ### Since
 
 2.0.0
-
-### Category
-
-error handling
 
 ### Since
 

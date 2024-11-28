@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -10,9 +10,13 @@
 
 ## Parameters
 
-• **node**: `CallExpression`
+### node
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`CallExpression`
+
+### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 ## Returns
 
@@ -20,7 +24,9 @@
 
 ### Parameters
 
-• **name**: `string`
+#### name
+
+`string`
 
 ### Returns
 

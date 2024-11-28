@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -8,15 +8,11 @@
 
 Applies a function to the value of an `Option` and flattens the result, if the input is `Some`.
 
-## Category
-
-sequencing
-
 ## Since
 
 2.0.0
 
-## flatMap(f)
+## Call Signature
 
 > **flatMap**\<`A`, `B`\>(`f`): (`self`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -30,7 +26,9 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 ### Parameters
 
-• **f**
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -38,29 +36,23 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
+### Since
 
-sequencing
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-sequencing
-
-### Since
-
-2.0.0
-
-## flatMap(self, f)
+## Call Signature
 
 > **flatMap**\<`A`, `B`\>(`self`, `f`): [`Option`](../type-aliases/Option.md)\<`B`\>
 
@@ -74,25 +66,21 @@ Applies a function to the value of an `Option` and flattens the result, if the i
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **f**
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`B`\>
 
-### Category
-
-sequencing
-
 ### Since
 
 2.0.0
-
-### Category
-
-sequencing
 
 ### Since
 

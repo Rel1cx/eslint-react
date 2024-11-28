@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -16,7 +16,9 @@ Determine if a `Option` is a `Some`.
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to check.
 
@@ -32,10 +34,6 @@ import { Option } from "effect"
 assert.deepStrictEqual(Option.isSome(Option.some(1)), true)
 assert.deepStrictEqual(Option.isSome(Option.none()), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

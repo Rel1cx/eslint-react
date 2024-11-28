@@ -1,14 +1,10 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
 [@eslint-react/tools](../../../README.md) / [Ref](../README.md) / RefUnifyIgnore
 
 # Interface: RefUnifyIgnore
-
-## Category
-
-models
 
 ## Since
 

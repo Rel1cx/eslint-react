@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -18,15 +18,13 @@ This is useful when the value of the `Option` is not needed, but the presence or
 
 ## Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`_`\>
+### self
+
+[`Option`](../type-aliases/Option.md)\<`_`\>
 
 ## Returns
 
 [`Option`](../type-aliases/Option.md)\<`void`\>
-
-## Category
-
-mapping
 
 ## Since
 

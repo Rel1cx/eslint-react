@@ -1,4 +1,4 @@
-[**@eslint-react/core**](../README.md) • **Docs**
+[**@eslint-react/core**](../README.md)
 
 ***
 
@@ -12,11 +12,15 @@ Determines whether inside createElement's props.
 
 ## Parameters
 
-• **node**: `Node`
+### node
+
+`Node`
 
 The AST node to check
 
-• **context**: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
 The rule context
 

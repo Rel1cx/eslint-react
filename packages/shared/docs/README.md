@@ -1,4 +1,4 @@
-**@eslint-react/shared** • **Docs**
+**@eslint-react/shared**
 
 ***
 

@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -10,15 +10,13 @@
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 ## Returns
 
 `input is PromiseLike<unknown>`
-
-## Category
-
-guards
 
 ## Since
 

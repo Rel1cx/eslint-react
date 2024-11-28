@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,11 +10,7 @@
 
 2.0.0
 
-## Category
-
-general
-
-## getAndUpdate(f)
+## Call Signature
 
 > **getAndUpdate**\<`T`\>(`f`): (`self`) => `T`
 
@@ -24,7 +20,9 @@ general
 
 ### Parameters
 
-• **f**
+#### f
+
+(`value`) => `T`
 
 ### Returns
 
@@ -32,7 +30,9 @@ general
 
 #### Parameters
 
-• **self**: [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
+##### self
+
+[`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
 
 #### Returns
 
@@ -42,19 +42,11 @@ general
 
 2.0.0
 
-### Category
-
-general
-
 ### Since
 
 2.0.0
 
-### Category
-
-general
-
-## getAndUpdate(self, f)
+## Call Signature
 
 > **getAndUpdate**\<`T`\>(`self`, `f`): `T`
 
@@ -64,9 +56,13 @@ general
 
 ### Parameters
 
-• **self**: [`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
+#### self
 
-• **f**
+[`MutableRef`](../interfaces/MutableRef.md)\<`T`\>
+
+#### f
+
+(`value`) => `T`
 
 ### Returns
 
@@ -76,14 +72,6 @@ general
 
 2.0.0
 
-### Category
-
-general
-
 ### Since
 
 2.0.0
-
-### Category
-
-general

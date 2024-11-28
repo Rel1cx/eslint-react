@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -17,15 +17,11 @@ assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!")
 assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
 ```
 
-## Category
-
-getters
-
 ## Since
 
 2.0.0
 
-## getOrElse(onLeft)
+## Call Signature
 
 > **getOrElse**\<`L`, `R2`\>(`onLeft`): \<`R`\>(`self`) => `R2` \| `R`
 
@@ -39,7 +35,9 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 ### Parameters
 
-• **onLeft**
+#### onLeft
+
+(`left`) => `R2`
 
 ### Returns
 
@@ -51,7 +49,9 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
@@ -73,23 +73,15 @@ assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!")
 assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
 ```
 
-### Category
+### Since
 
-getters
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-getters
-
-### Since
-
-2.0.0
-
-## getOrElse(self, onLeft)
+## Call Signature
 
 > **getOrElse**\<`R`, `L`, `R2`\>(`self`, `onLeft`): `R` \| `R2`
 
@@ -105,9 +97,13 @@ Returns the wrapped value if it's a `Right` or a default value if is a `Left`.
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **onLeft**
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+
+#### onLeft
+
+(`left`) => `R2`
 
 ### Returns
 
@@ -129,17 +125,9 @@ assert.deepStrictEqual(Either.getOrElse(Either.right(1), (error) => error + "!")
 assert.deepStrictEqual(Either.getOrElse(Either.left("not a number"), (error) => error + "!"), "not a number!")
 ```
 
-### Category
-
-getters
-
 ### Since
 
 2.0.0
-
-### Category
-
-getters
 
 ### Since
 

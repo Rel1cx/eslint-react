@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../../README.md) • **Docs**
+[**@eslint-react/tools**](../../../README.md)
 
 ***
 
@@ -10,7 +10,9 @@
 
 ## Parameters
 
-• **args**: `Types.Equals`\<`A`, `object`\> *extends* `true` ? `void` : `{ readonly [P in keyof A]: A[P] }`
+### args
+
+`Types.Equals`\<`A`, `object`\> *extends* `true` ? `void` : `{ readonly [P in keyof A]: A[P] }`
 
 ## Returns
 
@@ -19,7 +21,3 @@
 ## Since
 
 2.0.0
-
-## Category
-
-constructors

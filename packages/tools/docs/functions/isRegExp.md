@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ Tests if a value is a `RegExp`.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 The value to test.
 
@@ -28,10 +30,6 @@ import { Predicate } from "effect"
 assert.deepStrictEqual(Predicate.isRegExp(/a/), true)
 assert.deepStrictEqual(Predicate.isRegExp("a"), false)
 ```
-
-## Category
-
-guards
 
 ## Since
 

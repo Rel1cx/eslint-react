@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -20,7 +20,9 @@ Lifts a binary function into `Option`.
 
 ## Parameters
 
-• **f**
+### f
+
+(`a`, `b`) => `C`
 
 The function to lift.
 
@@ -30,7 +32,9 @@ The function to lift.
 
 ### Parameters
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -38,7 +42,9 @@ The function to lift.
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -46,17 +52,17 @@ The function to lift.
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **that**: [`Option`](../type-aliases/Option.md)\<`B`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
+
+#### that
+
+[`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
 [`Option`](../type-aliases/Option.md)\<`C`\>
-
-## Category
-
-lifting
 
 ## Since
 

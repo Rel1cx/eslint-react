@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../README.md) • **Docs**
+[**@eslint-react/tools**](../README.md)
 
 ***
 
@@ -12,7 +12,9 @@ A guard that always succeeds.
 
 ## Parameters
 
-• **input**: `unknown`
+### input
+
+`unknown`
 
 ## Returns
 
@@ -29,10 +31,6 @@ assert.deepStrictEqual(isUnknown(undefined), true)
 assert.deepStrictEqual(isUnknown({}), true)
 assert.deepStrictEqual(isUnknown([]), true)
 ```
-
-## Category
-
-guards
 
 ## Since
 

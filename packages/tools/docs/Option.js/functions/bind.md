@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -37,15 +37,11 @@ const result = pipe(
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
 
-## Category
-
-do notation
-
 ## Since
 
 2.0.0
 
-## bind(name, f)
+## Call Signature
 
 > **bind**\<`N`, `A`, `B`\>(`name`, `f`): (`self`) => [`Option`](../type-aliases/Option.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}\>
 
@@ -69,9 +65,13 @@ Here's how the do simulation works:
 
 ### Parameters
 
-• **name**: `Exclude`\<`N`, keyof `A`\>
+#### name
 
-• **f**
+`Exclude`\<`N`, keyof `A`\>
+
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -79,7 +79,9 @@ Here's how the do simulation works:
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -119,10 +121,6 @@ const result = pipe(
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
@@ -133,15 +131,11 @@ do notation
  - [bindTo](bindTo.md)
  - [let](let.md)
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
 
-## bind(self, name, f)
+## Call Signature
 
 > **bind**\<`A`, `N`, `B`\>(`self`, `name`, `f`): [`Option`](../type-aliases/Option.md)\<\{ \[K in string \| number \| symbol\]: K extends keyof A ? A\[K\<K\>\] : B \}\>
 
@@ -165,11 +159,17 @@ Here's how the do simulation works:
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
 
-• **name**: `Exclude`\<`N`, keyof `A`\>
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
-• **f**
+#### name
+
+`Exclude`\<`N`, keyof `A`\>
+
+#### f
+
+(`a`) => [`Option`](../type-aliases/Option.md)\<`B`\>
 
 ### Returns
 
@@ -209,10 +209,6 @@ const result = pipe(
 assert.deepStrictEqual(result, Option.some({ x: 2, y: 3, sum: 5 }))
 ```
 
-### Category
-
-do notation
-
 ### Since
 
 2.0.0
@@ -222,10 +218,6 @@ do notation
  - [Do](../variables/Do.md)
  - [bindTo](bindTo.md)
  - [let](let.md)
-
-### Category
-
-do notation
 
 ### Since
 

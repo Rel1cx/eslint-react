@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -30,15 +30,11 @@ assert.deepStrictEqual(
 assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
 ```
 
-## Category
-
-conversions
-
 ## Since
 
 2.0.0
 
-## getOrThrowWith(onNone)
+## Call Signature
 
 > **getOrThrowWith**(`onNone`): \<`A`\>(`self`) => `A`
 
@@ -48,7 +44,9 @@ If a default error is sufficient for your use case and you don't need to configu
 
 ### Parameters
 
-• **onNone**
+#### onNone
+
+() => `unknown`
 
 A function that will be called if the `Option` is `None`. It returns the error to be thrown.
 
@@ -62,7 +60,9 @@ A function that will be called if the `Option` is `None`. It returns the error t
 
 #### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+##### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 #### Returns
 
@@ -98,23 +98,15 @@ assert.deepStrictEqual(
 assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
 ```
 
-### Category
+### Since
 
-conversions
+2.0.0
 
 ### Since
 
 2.0.0
 
-### Category
-
-conversions
-
-### Since
-
-2.0.0
-
-## getOrThrowWith(self, onNone)
+## Call Signature
 
 > **getOrThrowWith**\<`A`\>(`self`, `onNone`): `A`
 
@@ -128,11 +120,15 @@ If a default error is sufficient for your use case and you don't need to configu
 
 ### Parameters
 
-• **self**: [`Option`](../type-aliases/Option.md)\<`A`\>
+#### self
+
+[`Option`](../type-aliases/Option.md)\<`A`\>
 
 The `Option` to extract the value from.
 
-• **onNone**
+#### onNone
+
+() => `unknown`
 
 A function that will be called if the `Option` is `None`. It returns the error to be thrown.
 
@@ -170,17 +166,9 @@ assert.deepStrictEqual(
 assert.throws(() => Option.getOrThrowWith(Option.none(), () => new Error('Unexpected None')))
 ```
 
-### Category
-
-conversions
-
 ### Since
 
 2.0.0
-
-### Category
-
-conversions
 
 ### Since
 

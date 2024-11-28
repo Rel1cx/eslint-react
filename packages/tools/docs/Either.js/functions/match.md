@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -10,6 +10,7 @@ Takes two functions and an `Either` value, if the value is a `Left` the inner va
 if the value is a `Right` the inner value is applied to the `onRight` function.
 
 @example
+```ts
 import { pipe, Either } from "effect"
 
 const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
@@ -21,16 +22,12 @@ assert.deepStrictEqual(
   pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
   'strings: string 1, string 2'
 )
+```
 
-## Category
+@category pattern matching
+@since 2.0.0
 
-pattern matching
-
-## Since
-
-2.0.0
-
-## match(options)
+## Call Signature
 
 > **match**\<`L`, `B`, `R`, `C`\>(`options`): (`self`) => `B` \| `C`
 
@@ -38,6 +35,7 @@ Takes two functions and an `Either` value, if the value is a `Left` the inner va
 if the value is a `Right` the inner value is applied to the `onRight` function.
 
 @example
+```ts
 import { pipe, Either } from "effect"
 
 const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
@@ -49,6 +47,10 @@ assert.deepStrictEqual(
   pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
   'strings: string 1, string 2'
 )
+```
+
+@category pattern matching
+@since 2.0.0
 
 ### Type Parameters
 
@@ -62,11 +64,15 @@ assert.deepStrictEqual(
 
 ### Parameters
 
-• **options**
+#### options
 
-• **options.onLeft**
+##### options.onLeft
 
-• **options.onRight**
+(`left`) => `B`
+
+##### options.onRight
+
+(`right`) => `C`
 
 ### Returns
 
@@ -74,29 +80,15 @@ assert.deepStrictEqual(
 
 #### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+##### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 #### Returns
 
 `B` \| `C`
 
-### Category
-
-pattern matching
-
-### Since
-
-2.0.0
-
-### Category
-
-pattern matching
-
-### Since
-
-2.0.0
-
-## match(self, options)
+## Call Signature
 
 > **match**\<`R`, `L`, `B`, `C`\>(`self`, `options`): `B` \| `C`
 
@@ -104,6 +96,7 @@ Takes two functions and an `Either` value, if the value is a `Left` the inner va
 if the value is a `Right` the inner value is applied to the `onRight` function.
 
 @example
+```ts
 import { pipe, Either } from "effect"
 
 const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
@@ -115,6 +108,10 @@ assert.deepStrictEqual(
   pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
   'strings: string 1, string 2'
 )
+```
+
+@category pattern matching
+@since 2.0.0
 
 ### Type Parameters
 
@@ -128,30 +125,20 @@ assert.deepStrictEqual(
 
 ### Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+#### self
 
-• **options**
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
-• **options.onLeft**
+#### options
 
-• **options.onRight**
+##### options.onLeft
+
+(`left`) => `B`
+
+##### options.onRight
+
+(`right`) => `C`
 
 ### Returns
 
 `B` \| `C`
-
-### Category
-
-pattern matching
-
-### Since
-
-2.0.0
-
-### Category
-
-pattern matching
-
-### Since
-
-2.0.0

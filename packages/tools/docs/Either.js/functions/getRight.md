@@ -1,4 +1,4 @@
-[**@eslint-react/tools**](../../README.md) • **Docs**
+[**@eslint-react/tools**](../../README.md)
 
 ***
 
@@ -10,8 +10,6 @@
 
 Converts a `Either` to an `Option` discarding the `Left`.
 
-Alias of toOption.
-
 ## Type Parameters
 
 • **R**
@@ -20,7 +18,9 @@ Alias of toOption.
 
 ## Parameters
 
-• **self**: [`Either`](../type-aliases/Either.md)\<`R`, `L`\>
+### self
+
+[`Either`](../type-aliases/Either.md)\<`R`, `L`\>
 
 ## Returns
 
@@ -34,10 +34,6 @@ import { Either, Option } from "effect"
 assert.deepStrictEqual(Either.getRight(Either.right('ok')), Option.some('ok'))
 assert.deepStrictEqual(Either.getRight(Either.left('err')), Option.none())
 ```
-
-## Category
-
-getters
 
 ## Since
 
