@@ -82,26 +82,30 @@ export default [
 ];
 ```
 
+### Applying different rules to different files
+
 ```js filename="eslint.config.js"
 // ...
 export default [
   // ...
   {
-    files: ["src/**/*.tsx"],
+    files: ["src/**/*.{ts,tsx}"],
+    ignore: ["**/index.{ts,tsx}"],
     rules: {
       "@eslint-react/naming-convention/filename": ["warn", "PascalCase"],
     },
   },
-  {
-    files: ["src/**/use*.tsx"],
+    {
+    files: ["src/pages/**/*.{ts,tsx}"],
+    ignore: ["**/index.{ts,tsx}"],
     rules: {
       "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
     },
   },
   {
-    files: ["fixtures/**/*.tsx"],
+    files: ["src/hooks/**/use*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": "off",
+      "@eslint-react/naming-convention/filename": ["warn", "camelCase"],
     },
   },
 ];
