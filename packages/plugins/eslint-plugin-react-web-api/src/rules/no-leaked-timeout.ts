@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
+import { PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -9,7 +9,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
-import { createRule, isInstanceIDEqual } from "../utils";
+import { createRule, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils";
 
 // #region Rule Metadata
 

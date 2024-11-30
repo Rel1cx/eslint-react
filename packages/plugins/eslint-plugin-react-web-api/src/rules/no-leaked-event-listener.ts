@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { getPhaseKindOfFunction, isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
+import { isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { F, isBoolean, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
@@ -12,7 +12,7 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, getPhaseKindOfFunction } from "../utils";
 import { EventListenerEntry } from "./../models";
 
 // #region Rule Metadata

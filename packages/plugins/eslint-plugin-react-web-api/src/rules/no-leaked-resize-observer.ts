@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { getPhaseKindOfFunction, PHASE_RELEVANCE } from "@eslint-react/core";
+import { PHASE_RELEVANCE } from "@eslint-react/core";
 import { F, not, O, or } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -9,7 +9,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
-import { createRule, getInstanceID, isInstanceIDEqual } from "../utils";
+import { createRule, getInstanceID, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils";
 import type { ObserverMethod } from "./../models";
 import { ObserverEntry } from "./../models";
 

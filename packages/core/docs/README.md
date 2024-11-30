@@ -42,7 +42,6 @@
 
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
-- [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)
 - [isCallFromReactMember](functions/isCallFromReactMember.md)

@@ -6,7 +6,7 @@
 
 # Function: isChildrenMap()
 
-> **isChildrenMap**(`node`, `context`, `pragma`?): `boolean`
+> **isChildrenMap**(`node`, `context`): `boolean`
 
 ## Parameters
 
@@ -17,10 +17,6 @@
 ### context
 
 `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-### pragma?
-
-`string`
 
 ## Returns
 

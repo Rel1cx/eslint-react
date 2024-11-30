@@ -6,7 +6,7 @@
 
 # Function: isChildrenToArrayCall()
 
-> **isChildrenToArrayCall**(`node`, `context`, `pragma`?): `boolean`
+> **isChildrenToArrayCall**(`node`, `context`): `boolean`
 
 ## Parameters
 
@@ -17,10 +17,6 @@
 ### context
 
 `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-### pragma?
-
-`string`
 
 ## Returns
 
