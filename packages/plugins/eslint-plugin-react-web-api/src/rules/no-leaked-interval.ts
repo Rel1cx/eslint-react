@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { PHASE_RELEVANCE } from "@eslint-react/core";
+import { ERPhaseRelevance } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
           case "clearInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
             if (!fNode || !fKind) break;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
+            if (!ERPhaseRelevance.has(fKind)) break;
             const [intervalIdNode] = node.arguments;
             if (!intervalIdNode) break;
             cEntries.push({
@@ -108,7 +108,7 @@ export default createRule<[], MessageID>({
           case "setInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
             if (!fNode || !fKind) break;
-            if (!PHASE_RELEVANCE.has(fKind)) break;
+            if (!ERPhaseRelevance.has(fKind)) break;
             const intervalIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
             if (!intervalIdNode) {
               context.report({

@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { isInversePhase, PHASE_RELEVANCE } from "@eslint-react/core";
+import { isInversePhase, ERPhaseRelevance } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { F, isBoolean, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
@@ -214,7 +214,7 @@ export default createRule<[], MessageID>({
       ["CallExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
         if (!fNode || !fKind) return;
-        if (!PHASE_RELEVANCE.has(fKind)) return;
+        if (!ERPhaseRelevance.has(fKind)) return;
         match(getCallKind(node))
           .with("addEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;

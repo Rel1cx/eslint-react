@@ -5,7 +5,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { isReactHookCallWithNameLoose } from "../hook";
-import { isForwardRefCall, isMemoCall } from "../react-api";
+import { isForwardRefCall, isMemoCall } from "../utils";
 
 function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
   if (node.type !== AST_NODE_TYPES.CallExpression) return false;

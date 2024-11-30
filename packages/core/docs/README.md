@@ -34,7 +34,7 @@
 - [ERClassComponentFlag](variables/ERClassComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)
 - [ERFunctionComponentFlag](variables/ERFunctionComponentFlag.md)
-- [PHASE\_RELEVANCE](variables/PHASE_RELEVANCE.md)
+- [ERPhaseRelevance](variables/ERPhaseRelevance.md)
 - [RE\_COMPONENT\_NAME](variables/RE_COMPONENT_NAME.md)
 - [RE\_HOOK\_NAME](variables/RE_HOOK_NAME.md)
 

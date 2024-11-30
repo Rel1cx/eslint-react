@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { PHASE_RELEVANCE } from "@eslint-react/core";
+import { ERPhaseRelevance } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -90,7 +90,7 @@ export default createRule<[], MessageID>({
       ["CallExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
         if (!fNode || !fKind) return;
-        if (!PHASE_RELEVANCE.has(fKind)) return;
+        if (!ERPhaseRelevance.has(fKind)) return;
         switch (getCallKind(node)) {
           case "clearTimeout": {
             const [timeoutIdNode] = node.arguments;

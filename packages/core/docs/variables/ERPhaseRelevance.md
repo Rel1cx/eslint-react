@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / PHASE\_RELEVANCE
+[@eslint-react/core](../README.md) / ERPhaseRelevance
 
-# Variable: PHASE\_RELEVANCE
+# Variable: ERPhaseRelevance
 
-> `const` **PHASE\_RELEVANCE**: `BiRecord`\<`object`\>
+> `const` **ERPhaseRelevance**: `BiRecord`\<`object`\>
 
 ## Type declaration
 

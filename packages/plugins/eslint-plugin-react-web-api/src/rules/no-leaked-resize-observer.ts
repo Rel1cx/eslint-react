@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { PHASE_RELEVANCE } from "@eslint-react/core";
+import { ERPhaseRelevance } from "@eslint-react/core";
 import { F, not, O, or } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -124,7 +124,7 @@ export default createRule<[], MessageID>({
       ["CallExpression"](node) {
         const [_, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return;
-        if (!PHASE_RELEVANCE.has(fKind)) return;
+        if (!ERPhaseRelevance.has(fKind)) return;
         const { object } = node.callee;
         match(getCallKind(node, context))
           .with("disconnect", () => {
@@ -170,7 +170,7 @@ export default createRule<[], MessageID>({
       },
       ["NewExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !PHASE_RELEVANCE.has(fKind)) return;
+        if (!fNode || !ERPhaseRelevance.has(fKind)) return;
         if (!isNewResizeObserver(node)) return;
         const id = getInstanceID(node);
         if (O.isNone(id)) {
