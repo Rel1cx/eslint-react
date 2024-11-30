@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.17.2-next.5",
+  "version": "1.17.2-beta.5",
   "private": true,
   "description": "A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
@@ -119,8 +119,8 @@
       "cross-spawn": "7.0.6",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "isarray": "npm:@nolyfill/isarray@^1.0.29",
-      "nextra": "3.1.1",
-      "nextra-theme-docs": "3.1.1",
+      "nextra": "3.1.0",
+      "nextra-theme-docs": "3.1.0",
       "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
       "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
       "side-channel": "npm:@nolyfill/side-channel@^1.0.29",

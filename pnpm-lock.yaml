@@ -5,6 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  nextra: 3.1.0
+  nextra-theme-docs: 3.1.0
   array-flatten: npm:@nolyfill/array-flatten@^1.0.42
   cross-spawn: 7.0.6
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
@@ -14,8 +16,6 @@ overrides:
   side-channel: npm:@nolyfill/side-channel@^1.0.29
   typedarray: npm:@nolyfill/typedarray@^1.0.29
   typescript: ^5.7.2
-  nextra: 3.1.1
-  nextra-theme-docs: 3.1.1
 
 importers:
 
@@ -1068,11 +1068,11 @@ importers:
         specifier: ^15.0.3
         version: 15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0)
       nextra:
-        specifier: 3.1.1
-        version: 3.1.1(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
+        specifier: 3.1.0
+        version: 3.1.0(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
       nextra-theme-docs:
-        specifier: 3.1.1
-        version: 3.1.1(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(nextra@3.1.1(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.1.0
+        version: 3.1.0(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(nextra@3.1.0(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -6470,16 +6470,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.1.1:
-    resolution: {integrity: sha512-EXkqO6IAdbZlvor+9CpnxnojxKrnuqlIplEZ+RRjV5rwBqOsCTxkHTFktOHa+HdRk6Gr5DffBmTBiJ4k16cl3Q==}
+  nextra-theme-docs@3.1.0:
+    resolution: {integrity: sha512-2zAC+xnqLzl/kLYCaoVfdupyA6pD5OgF+4iR3zQiPOzfnwJikPQePnr3SCT+tPPgYVuoqSDA5GNc9DvvAHtefQ==}
     peerDependencies:
       next: '>=13'
-      nextra: 3.1.1
+      nextra: 3.1.0
       react: '>=18'
       react-dom: '>=18'
 
-  nextra@3.1.1:
-    resolution: {integrity: sha512-IIhIZGSoLCVA/UTKA0Z+pmN64M4j/Ga9E9S7rrfPT44H+Ki1gALJJOahxhzAGllhvCvVOPm/KTzU66kKWAMrwg==}
+  nextra@3.1.0:
+    resolution: {integrity: sha512-IvG8Q/yLAqSju1zwRPUqC/6WpzAgfmNo6gDw6CIBZJ+3RKdJDsirM/v3BNeN6vx3tSjLFybytOt3spNXHFy/WQ==}
     engines: {node: '>=18'}
     peerDependencies:
       next: '>=13'
@@ -14493,7 +14493,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.1.1(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(nextra@3.1.1(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  nextra-theme-docs@3.1.0(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(nextra@3.1.0(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@headlessui/react': 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
@@ -14501,13 +14501,13 @@ snapshots:
       flexsearch: 0.7.43
       next: 15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0)
       next-themes: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nextra: 3.1.1(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
+      nextra: 3.1.0(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.23.8
 
-  nextra@3.1.1(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2):
+  nextra@3.1.0(@types/react@18.3.12)(acorn@8.13.0)(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.5
       '@headlessui/react': 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -14526,9 +14526,6 @@ snapshots:
       gray-matter: 4.0.3
       hast-util-to-estree: 3.1.0
       katex: 0.16.11
-      mdast-util-from-markdown: 2.0.1
-      mdast-util-gfm: 3.0.0
-      mdast-util-to-hast: 13.2.0
       negotiator: 1.0.0
       next: 15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0)
       p-limit: 6.1.0

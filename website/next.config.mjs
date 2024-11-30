@@ -1,17 +1,17 @@
 import nextra from "nextra";
-import codeImport from "remark-code-import";
-import remarkGFM from "remark-gfm";
+// import codeImport from "remark-code-import";
+// import remarkGFM from "remark-gfm";
 
 const withNextra = nextra({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.tsx",
-  defaultShowCopyCode: false,
-  mdxOptions: {
-    remarkPlugins: [
-      remarkGFM,
-      codeImport,
-    ],
-  },
+  // defaultShowCopyCode: false,
+  // mdxOptions: {
+  //   remarkPlugins: [
+  //     remarkGFM,
+  //     codeImport,
+  //   ],
+  // },
 });
 
 /** @type {import('next').NextConfig} */
