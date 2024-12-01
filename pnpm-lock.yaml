@@ -5,16 +5,17 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  ts-api-utils: ^2.0.0
   array-flatten: npm:@nolyfill/array-flatten@^1.0.42
-  cross-spawn: 7.0.6
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   isarray: npm:@nolyfill/isarray@^1.0.29
-  nextra: 3.1.0
-  nextra-theme-docs: 3.1.0
   safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
   safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
   side-channel: npm:@nolyfill/side-channel@^1.0.29
   typedarray: npm:@nolyfill/typedarray@^1.0.29
+  cross-spawn: 7.0.6
+  nextra: 3.1.0
+  nextra-theme-docs: 3.1.0
   typescript: ^5.7.2
 
 importers:
@@ -28,14 +29,14 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
       '@effect/platform':
-        specifier: ^0.69.30
-        version: 0.69.30(effect@3.10.19)
+        specifier: ^0.69.31
+        version: 0.69.31(effect@3.10.19)
       '@effect/platform-bun':
-        specifier: ^0.49.32
-        version: 0.49.32(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)
+        specifier: ^0.49.33
+        version: 0.49.33(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)
       '@effect/platform-node':
-        specifier: ^0.64.32
-        version: 0.64.32(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)
+        specifier: ^0.64.33
+        version: 0.64.33(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)
       '@effect/schema':
         specifier: ^0.75.5
         version: 0.75.5(effect@3.10.19)
@@ -898,8 +899,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       ts-api-utils:
-        specifier: ^1.4.3
-        version: 1.4.3(typescript@5.7.2)
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.7.2)
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.9.3(@swc/helpers@0.5.13))(jiti@2.3.3)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -2099,26 +2100,26 @@ packages:
   '@effect/language-service@0.2.0':
     resolution: {integrity: sha512-DoK41yKGyQv79o0ca8gxEogMlt+IphXkdCXwgenbQjH1BXKD7tJAr0+VsDhblycQcvQ39f1l9NZN9CBqjM9ALA==}
 
-  '@effect/platform-bun@0.49.32':
-    resolution: {integrity: sha512-arCDgUoKod83F+Qgev3CWePY8ObiVxdkC9kLAU0xSWj9/RUpRixACT1bxUYsEhMWNNlF0lPefkbH2ywxmDdklw==}
+  '@effect/platform-bun@0.49.33':
+    resolution: {integrity: sha512-IeBX5OorFXey6M0VM6/dmQP0kLir1iHgQGv5+lC64u6aIn5sFy0QT5XQ2M2+RjTCqOJ+oZpiY74jzRdjuWv24A==}
     peerDependencies:
-      '@effect/platform': ^0.69.30
+      '@effect/platform': ^0.69.31
       effect: ^3.10.19
 
-  '@effect/platform-node-shared@0.19.31':
-    resolution: {integrity: sha512-4IJk4ZMbS13iJ9wsnG5v/j9a9nbyPEjq9P/Yq0+UcdU120uIJi3+WcG+lzf+8Fd5nEr1qDBh5gBVjhDcwc5DFg==}
+  '@effect/platform-node-shared@0.19.32':
+    resolution: {integrity: sha512-qYimZLE2r3sqV8nCOVlOO8zVYozClpOeWbmZ9wtJ7gerEcYP/MRFaPVJ3YKuXvthVm8J/58HM5AE1IrT4VGgGg==}
     peerDependencies:
-      '@effect/platform': ^0.69.30
+      '@effect/platform': ^0.69.31
       effect: ^3.10.19
 
-  '@effect/platform-node@0.64.32':
-    resolution: {integrity: sha512-e+Px07Ik6PFFD1YmFX7xONy9bq9otw1pzJ/kjJ4d/kyJ1GP2eOXrft1KbdzP+wYe4UHZ/uhETrdUx+omT39/bA==}
+  '@effect/platform-node@0.64.33':
+    resolution: {integrity: sha512-75f3EwzQzLn4VSNAJnraRXveO2/v5vM/gzIDyYZqXQlhWokpsZt1Avm8ei3tE0r4bOxgRJXYvmNuvkvbuIxpeA==}
     peerDependencies:
-      '@effect/platform': ^0.69.30
+      '@effect/platform': ^0.69.31
       effect: ^3.10.19
 
-  '@effect/platform@0.69.30':
-    resolution: {integrity: sha512-70XFAmzARMqndVuhuM2O2OMb9EgcIRCw9CDvUeWcA66NFDu6h6lHhIOM4DAkDWkqAOs3O4tagvemQJ+D2/eV0w==}
+  '@effect/platform@0.69.31':
+    resolution: {integrity: sha512-a4JQHieGF/kxH8ZSfEpVrxbdX9haAKFyoOQT5tXiiWoXSgvm+iQ/41FhXqwkWeMddh0hbYJmvmkEljcXUuxWcQ==}
     peerDependencies:
       effect: ^3.10.19
 
@@ -7718,15 +7719,9 @@ packages:
     resolution: {integrity: sha512-kr8SKKw94OI+xTGOkfsvwZQ8mWoikZDd2n8XZHjJVZUARZT+4/VV6cacRS6CLsH9bNm+HFIPU1Zx4CnNnb4qlQ==}
     engines: {node: '>=6'}
 
-  ts-api-utils@1.4.2:
-    resolution: {integrity: sha512-ZF5gQIQa/UmzfvxbHZI3JXN0/Jt+vnAfAviNRAMc491laiK6YCLpCW9ft8oaCRFOTxCZtUTE6XB0ZQAe3olntw==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      typescript: ^5.7.2
-
-  ts-api-utils@1.4.3:
-    resolution: {integrity: sha512-i3eMG77UTMD0hZhgRS562pv83RC6ukSAC2GMNWc+9dieh/+jDM5u5YG+NHX6VNDRHQcHwmsTHctP9LhbC3WxVw==}
-    engines: {node: '>=16'}
+  ts-api-utils@2.0.0:
+    resolution: {integrity: sha512-xCt/TOAc+EOHS1XPnijD3/yzpH6qg2xppZO1YDqGoVsNXfQfzHpOdNuXwrwOU8u4ITXJyDCTyt8w5g1sZv9ynQ==}
+    engines: {node: '>=18.12'}
     peerDependencies:
       typescript: ^5.7.2
 
@@ -9544,23 +9539,23 @@ snapshots:
 
   '@effect/language-service@0.2.0': {}
 
-  '@effect/platform-bun@0.49.32(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)':
+  '@effect/platform-bun@0.49.33(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)':
     dependencies:
-      '@effect/platform': 0.69.30(effect@3.10.19)
-      '@effect/platform-node-shared': 0.19.31(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)
+      '@effect/platform': 0.69.31(effect@3.10.19)
+      '@effect/platform-node-shared': 0.19.32(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)
       effect: 3.10.19
 
-  '@effect/platform-node-shared@0.19.31(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)':
+  '@effect/platform-node-shared@0.19.32(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)':
     dependencies:
-      '@effect/platform': 0.69.30(effect@3.10.19)
+      '@effect/platform': 0.69.31(effect@3.10.19)
       '@parcel/watcher': 2.4.1
       effect: 3.10.19
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.64.32(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)':
+  '@effect/platform-node@0.64.33(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)':
     dependencies:
-      '@effect/platform': 0.69.30(effect@3.10.19)
-      '@effect/platform-node-shared': 0.19.31(@effect/platform@0.69.30(effect@3.10.19))(effect@3.10.19)
+      '@effect/platform': 0.69.31(effect@3.10.19)
+      '@effect/platform-node-shared': 0.19.32(@effect/platform@0.69.31(effect@3.10.19))(effect@3.10.19)
       effect: 3.10.19
       mime: 3.0.0
       undici: 6.20.1
@@ -9569,7 +9564,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.69.30(effect@3.10.19)':
+  '@effect/platform@0.69.31(effect@3.10.19)':
     dependencies:
       effect: 3.10.19
       find-my-way-ts: 0.1.5
@@ -10862,7 +10857,7 @@ snapshots:
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -10910,7 +10905,7 @@ snapshots:
       '@typescript-eslint/utils': 8.16.0(eslint@9.15.0(jiti@2.3.3))(typescript@5.7.2)
       debug: 4.3.7
       eslint: 9.15.0(jiti@2.3.3)
-      ts-api-utils: 1.4.2(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -10922,7 +10917,7 @@ snapshots:
       '@typescript-eslint/utils': 8.16.0(eslint@9.16.0(jiti@2.3.3))(typescript@5.7.2)
       debug: 4.3.7
       eslint: 9.16.0(jiti@2.3.3)
-      ts-api-utils: 1.4.2(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -10943,7 +10938,7 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -10958,7 +10953,7 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -10973,7 +10968,7 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -13500,7 +13495,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/type-utils': 8.16.0(eslint@9.15.0(jiti@2.3.3))(typescript@5.7.2)
       eslint: 9.15.0(jiti@2.3.3)
-      ts-api-utils: 1.4.3(typescript@5.7.2)
+      ts-api-utils: 2.0.0(typescript@5.7.2)
       ts-declaration-location: 1.0.4(typescript@5.7.2)
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -15986,11 +15981,7 @@ snapshots:
     dependencies:
       matchit: 1.1.0
 
-  ts-api-utils@1.4.2(typescript@5.7.2):
-    dependencies:
-      typescript: 5.7.2
-
-  ts-api-utils@1.4.3(typescript@5.7.2):
+  ts-api-utils@2.0.0(typescript@5.7.2):
     dependencies:
       typescript: 5.7.2
 

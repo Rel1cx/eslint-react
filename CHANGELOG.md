@@ -1,3 +1,11 @@
+## v1.17.2 (Sun 1 Dec 2024)
+
+### 🪄 Improvements
+
+- Update `eslint`'s packages to `^9.16.0`.
+- Update `@typescript-eslint`'s packages to `^8.16.0`.
+- Update `ts-api-utils` to `^2.0.0`.
+
 ## v1.17.1 (Fri 22 Nov 2024)
 
 ### ✨ New
