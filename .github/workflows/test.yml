@@ -29,14 +29,6 @@ jobs:
         run: pnpm run build
       - name: Test on node@22
         run: pnpm run test
-      - name: Setup node@21
-        uses: actions/setup-node@v4
-        with:
-          node-version: 21
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Test on node@21
-        run: pnpm run test
       - name: Setup node@20
         uses: actions/setup-node@v4
         with:
@@ -44,14 +36,6 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Test on node@20
-        run: pnpm run test
-      - name: Setup node@19
-        uses: actions/setup-node@v4
-        with:
-          node-version: 19
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Test on node@19
         run: pnpm run test
       - name: Setup node@18
         uses: actions/setup-node@v4
