@@ -5,7 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  ts-api-utils: ^2.0.0
   array-flatten: npm:@nolyfill/array-flatten@^1.0.42
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   isarray: npm:@nolyfill/isarray@^1.0.29
@@ -16,6 +15,7 @@ overrides:
   cross-spawn: 7.0.6
   nextra: 3.1.0
   nextra-theme-docs: 3.1.0
+  ts-api-utils: ^2.0.0
   typescript: ^5.7.2
 
 importers:
@@ -252,8 +252,8 @@ importers:
         specifier: ^0.4.14
         version: 0.4.14(eslint@9.16.0(jiti@2.3.3))
       globals:
-        specifier: ^15.12.0
-        version: 15.12.0
+        specifier: ^15.13.0
+        version: 15.13.0
       vite:
         specifier: ^6.0.1
         version: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(sass@1.81.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.1)
@@ -307,8 +307,8 @@ importers:
         specifier: ^0.4.14
         version: 0.4.14(eslint@9.16.0(jiti@2.3.3))
       globals:
-        specifier: ^15.12.0
-        version: 15.12.0
+        specifier: ^15.13.0
+        version: 15.13.0
       vite:
         specifier: ^6.0.1
         version: 6.0.1(@types/node@22.10.1)(jiti@2.3.3)(sass@1.81.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.1)
@@ -5382,8 +5382,8 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  globals@15.12.0:
-    resolution: {integrity: sha512-1+gLErljJFhbOVyaetcwJiJ4+eLe45S2E7P5UiZ9xGfeq3ATQf5DOv9G7MH3gGbKQLkzmNh2DxfZwLdw+j6oTQ==}
+  globals@15.13.0:
+    resolution: {integrity: sha512-49TewVEz0UxZjr1WYYsWpPrhyC/B/pA8Bq0fUmet2n+eR7yn0IvNzNaoBwnK6mdkzcN+se7Ez9zUgULTz2QH4g==}
     engines: {node: '>=18'}
 
   globby@11.1.0:
@@ -12560,7 +12560,7 @@ snapshots:
       core-js-compat: 3.38.1
       eslint: 9.16.0(jiti@2.3.3)
       esquery: 1.6.0
-      globals: 15.12.0
+      globals: 15.13.0
       indent-string: 4.0.0
       is-builtin-module: 3.2.1
       jsesc: 3.0.2
@@ -13059,7 +13059,7 @@ snapshots:
 
   globals@14.0.0: {}
 
-  globals@15.12.0: {}
+  globals@15.13.0: {}
 
   globby@11.1.0:
     dependencies:
