@@ -37,50 +37,49 @@ export function isNodeValueEqual(
   const bStatic = getStaticValue(b, bScope);
   if (aStatic && bStatic) return aStatic.value === bStatic.value;
   if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) {
-    const va = findVariable(a, aScope);
-    const vb = findVariable(b, bScope);
-    const da = O.flatMap(va, getVariableDef(0));
-    const db = O.flatMap(vb, getVariableDef(0));
-    const dapp = O.flatMapNullable(da, (d) => d.parent?.parent);
-    const dbpp = O.flatMapNullable(db, (d) => d.parent?.parent);
-    const na = O.flatMap(va, getVariableNode(0));
-    const nb = O.flatMap(vb, getVariableNode(0));
-    const nap = O.flatMapNullable(na, (n) => n.parent);
-    const nbp = O.flatMapNullable(nb, (n) => n.parent);
+    const aVar = findVariable(a, aScope);
+    const bVar = findVariable(b, bScope);
+    const aVarNode = O.flatMap(aVar, getVariableNode(0));
+    const bVarNode = O.flatMap(bVar, getVariableNode(0));
+    const aVarNodeParent = O.flatMapNullable(aVarNode, (n) => n.parent);
+    const bVarNodeParent = O.flatMapNullable(bVarNode, (n) => n.parent);
+    const aDef = O.flatMap(aVar, getVariableDef(0));
+    const bDef = O.flatMap(bVar, getVariableDef(0));
+    const aDefParentParent = O.flatMapNullable(aDef, (d) => d.parent?.parent);
+    const bDefParentParent = O.flatMapNullable(bDef, (d) => d.parent?.parent);
     switch (true) {
-      case O.exists(nap, AST.is(AST_NODE_TYPES.CallExpression))
-        && O.exists(nbp, AST.is(AST_NODE_TYPES.CallExpression))
-        && O.exists(na, AST.isFunction)
-        && O.exists(nb, AST.isFunction): {
+      case O.exists(aVarNodeParent, AST.is(AST_NODE_TYPES.CallExpression))
+        && O.exists(bVarNodeParent, AST.is(AST_NODE_TYPES.CallExpression))
+        && O.exists(aVarNode, AST.isFunction)
+        && O.exists(bVarNode, AST.isFunction): {
         const hasSameCallee = F.pipe(
           O.Do,
-          O.bind("ca", () => O.map(nap, (n) => n.callee)),
-          O.bind("cb", () => O.map(nbp, (n) => n.callee)),
-          O.exists(({ ca, cb }) => AST.isNodeEqual(ca, cb)),
+          O.bind("aCallee", () => O.map(aVarNodeParent, (n) => n.callee)),
+          O.bind("bCallee", () => O.map(bVarNodeParent, (n) => n.callee)),
+          O.exists(({ aCallee, bCallee }) => AST.isNodeEqual(aCallee, bCallee)),
         );
         if (!hasSameCallee) return false;
         return F.pipe(
           O.Do,
-          O.bind("paramsA", () => O.map(na, (n) => n.params)),
-          O.bind("paramsB", () => O.map(nb, (n) => n.params)),
-          O.let("posA", ({ paramsA }) => paramsA.findIndex((p) => AST.isNodeEqual(p, a))),
-          O.let("posB", ({ paramsB }) => paramsB.findIndex((p) => AST.isNodeEqual(p, b))),
-          O.filter(({ posA, posB }) => posA !== -1 && posB !== -1),
-          O.exists(({ posA, posB }) => posA === posB),
+          O.bind("aParams", () => O.map(aVarNode, (n) => n.params)),
+          O.bind("bParams", () => O.map(bVarNode, (n) => n.params)),
+          O.let("aPos", ({ aParams }) => aParams.findIndex((p) => AST.isNodeEqual(p, a))),
+          O.let("bPos", ({ bParams }) => bParams.findIndex((p) => AST.isNodeEqual(p, b))),
+          O.filter(({ aPos, bPos }) => aPos !== -1 && bPos !== -1),
+          O.exists(({ aPos, bPos }) => aPos === bPos),
         );
       }
-      case O.exists(dapp, AST.is(AST_NODE_TYPES.ForOfStatement))
-        && O.exists(dbpp, AST.is(AST_NODE_TYPES.ForOfStatement)): {
+      case O.exists(aDefParentParent, AST.is(AST_NODE_TYPES.ForOfStatement))
+        && O.exists(bDefParentParent, AST.is(AST_NODE_TYPES.ForOfStatement)): {
         return F.pipe(
           O.Do,
-          O.bind("rightA", () => O.map(dapp, (d) => d.right)),
-          O.bind("rightB", () => O.map(dbpp, (d) => d.right)),
-          O.exists(({ rightA, rightB }) => AST.isNodeEqual(rightA, rightB)),
+          O.bind("aRight", () => O.map(aDefParentParent, (d) => d.right)),
+          O.bind("bRight", () => O.map(bDefParentParent, (d) => d.right)),
+          O.exists(({ aRight, bRight }) => AST.isNodeEqual(aRight, bRight)),
         );
       }
       default: {
-        if (O.isNone(na) || O.isNone(nb)) return false;
-        return na.value === nb.value;
+        return O.isSome(aVar) && O.isSome(bVar) && aVar.value === bVar.value;
       }
     }
   }
