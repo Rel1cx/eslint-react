@@ -31,7 +31,7 @@ export type MessageID =
 /* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
-type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "forEach" | "other";
+type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
 export type AEntry = EventListenerEntry & { _tag: "AddEventListener" };
