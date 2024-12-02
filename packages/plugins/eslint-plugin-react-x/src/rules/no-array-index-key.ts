@@ -68,7 +68,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   const initialScope = context.sourceCode.getScope(node);
   if (callee.object.type === AST_NODE_TYPES.Identifier && callee.object.name === "Children") return true;
   if (callee.object.type === AST_NODE_TYPES.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, initialScope, settings);
+    return isInitializedFromReact(callee.object.object.name, initialScope, { ...settings, strictImportCheck: true });
   }
   return false;
 }
