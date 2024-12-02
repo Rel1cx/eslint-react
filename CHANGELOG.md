@@ -1,3 +1,15 @@
+## v1.17.3 (Tue 3 Dec 2024)
+
+### 🐞 Fixes
+
+- fix(plugins/web-api): add 'forEach' support to 'no-leaked-event-listener', closes #842 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/867
+- fix(plugins/web-api): add 'for of' support to 'no-leaked-event-listenner', closes #842 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/869
+- fix(plugins/x): 'no-array-index-key' mistaking 'foo.bar.map' for 'Rea… by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/868
+
+### 🪄 Improvements
+
+- Update `@typescript-eslint`'s packages to `^8.17.0`.
+
 ## v1.17.2 (Sun 1 Dec 2024)
 
 ### 🪄 Improvements
