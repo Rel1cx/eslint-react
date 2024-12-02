@@ -38,10 +38,24 @@ export function isNodeValueEqual(
   if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) {
     const va = findVariable(a, aScope);
     const vb = findVariable(b, bScope);
-    const ia = O.flatMap(va, getVariableNode(0));
-    const ib = O.flatMap(vb, getVariableNode(0));
-    if (O.isNone(ia) || O.isNone(ib)) return false;
-    return ia.value === ib.value;
+    const na = O.flatMap(va, getVariableNode(0));
+    const nb = O.flatMap(vb, getVariableNode(0));
+    if (O.isNone(na) || O.isNone(nb)) return false;
+    if (O.exists(na, AST.isFunction) && O.exists(nb, AST.isFunction)) {
+      const fa = na.value;
+      const fb = nb.value;
+      const pa = fa.parent;
+      const pb = fb.parent;
+      if (pa.type !== AST_NODE_TYPES.CallExpression || pb.type !== AST_NODE_TYPES.CallExpression) return false;
+      if (!AST.isNodeEqual(pa.callee, pb.callee)) return false;
+      const paramsA = fa.params;
+      const paramsB = fb.params;
+      const posA = paramsA.findIndex((p) => AST.isNodeEqual(p, a));
+      const posB = paramsB.findIndex((p) => AST.isNodeEqual(p, b));
+      if (posA === -1 || posB === -1) return false;
+      return posA === posB;
+    }
+    return na.value === nb.value;
   }
   if (a.type === AST_NODE_TYPES.MemberExpression && b.type === AST_NODE_TYPES.MemberExpression) {
     return AST.isNodeEqual(a.property, b.property) && isNodeValueEqual(a.object, b.object, initialScopes);

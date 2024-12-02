@@ -1,3 +1,4 @@
+import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/tools";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
@@ -28,16 +29,19 @@ export function getVariableNode(at: number) {
       O.flatMap(getVariableDef(at)),
       O.flatMapNullable(def => {
         switch (true) {
-          case "init" in def.node
-            && def.node.init
-            && !("declarations" in def.node.init):
-            return def.node.init;
           case def.type === DefinitionType.FunctionName
             && def.node.type === AST_NODE_TYPES.FunctionDeclaration:
             return def.node;
           case def.type === DefinitionType.ClassName
             && def.node.type === AST_NODE_TYPES.ClassDeclaration:
             return def.node;
+          case def.type === DefinitionType.Parameter
+            && AST.isFunction(def.node):
+            return def.node;
+          case "init" in def.node
+            && def.node.init
+            && !("declarations" in def.node.init):
+            return def.node.init;
           default:
             return null;
         }

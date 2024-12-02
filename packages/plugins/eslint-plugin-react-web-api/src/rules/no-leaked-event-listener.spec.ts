@@ -427,6 +427,98 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        import { useEffect } from "react";
+
+        export const Component = () => {
+          const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+          const handleActivity = () => {};
+
+          useEffect(() => {
+            events.forEach((evt) => {
+              window.addEventListener(event, handleActivity);
+            });
+
+            return () => {
+              events.forEach((event) => {
+                window.removeEventListener(evt, handleActivity);
+              });
+            };
+          }, []);
+
+          return null;
+        };
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect } from "react";
+
+        export const Component = () => {
+          const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+          const handleActivity1 = () => {};
+          const handleActivity2 = () => {};
+
+          useEffect(() => {
+            events.forEach((event) => {
+              window.addEventListener(event, handleActivity1);
+            });
+
+            return () => {
+              events.forEach((event) => {
+                window.removeEventListener(event, handleActivity2);
+              });
+            };
+          }, []);
+
+          return null;
+        };
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect } from "react";
+
+        export const Component = () => {
+          const events1 = ["mousemove", "mousedown", "keydown"];
+          const events2 = ["keydown", "scroll", "touchstart"];
+
+          const handleActivity = () => {};
+
+          useEffect(() => {
+            events1.forEach((event) => {
+              window.addEventListener(event, handleActivity);
+            });
+
+            return () => {
+              events2.forEach((event) => {
+                window.removeEventListener(event, handleActivity);
+              });
+            };
+          }, []);
+
+          return null;
+        };
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -796,5 +888,51 @@ ruleTester.run(RULE_NAME, rule, {
     //     }, []);
     //   }
     // `,
+    /* tsx */ `
+      import { useEffect } from "react";
+
+      export const Component = () => {
+        const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+        const handleActivity = () => {};
+
+        useEffect(() => {
+          events.forEach((event) => {
+            window.addEventListener(event, handleActivity);
+          });
+
+          return () => {
+            events.forEach((event) => {
+              window.removeEventListener(event, handleActivity);
+            });
+          };
+        }, []);
+
+        return null;
+      };
+    `,
+    /* tsx */ `
+      import { useEffect } from "react";
+
+      export const Component = () => {
+        const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+        const handleActivity = () => {};
+
+        useEffect(() => {
+          events.forEach((event) => {
+            window.addEventListener(event, handleActivity);
+          });
+
+          return () => {
+            events.forEach((evt) => {
+              window.removeEventListener(evt, handleActivity);
+            });
+          };
+        }, []);
+
+        return null;
+      };
+    `,
   ],
 });

@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
-import { isInversePhase, ERPhaseRelevance } from "@eslint-react/core";
+import { ERPhaseRelevance, isInversePhase } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { F, isBoolean, O } from "@eslint-react/tools";
 import * as VAR from "@eslint-react/var";
@@ -31,7 +31,7 @@ export type MessageID =
 /* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
-type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
+type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "forEach" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
 export type AEntry = EventListenerEntry & { _tag: "AddEventListener" };
@@ -168,7 +168,6 @@ export default createRule<[], MessageID>({
       const [_, listener] = node.arguments;
       if (!AST.isFunction(listener)) return O.none();
       if (O.isSome(options.signal)) return O.none();
-      // if (O.exists(options.once, F.identity)) return O.none();
       return O.some({
         messageId: "noLeakedEventListenerOfInlineFunction",
         node: listener,
@@ -249,6 +248,9 @@ export default createRule<[], MessageID>({
           .with("abort", () => {
             abortedSignals.push(node.callee);
           })
+          // .with("forEach", () => {
+          //   console.log("forEach() is not supported yet.");
+          // })
           .otherwise(F.constVoid);
       },
       ["Program:exit"]() {
