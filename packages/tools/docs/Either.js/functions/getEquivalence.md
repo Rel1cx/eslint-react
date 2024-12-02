@@ -18,11 +18,11 @@
 
 ### \_\_namedParameters
 
-#### __namedParameters.left
+#### left
 
 `Equivalence`\<`L`\>
 
-#### __namedParameters.right
+#### right
 
 `Equivalence`\<`R`\>
 
