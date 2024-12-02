@@ -66,11 +66,11 @@ assert.deepStrictEqual(
 
 #### options
 
-##### options.onLeft
+##### onLeft
 
 (`left`) => `B`
 
-##### options.onRight
+##### onRight
 
 (`right`) => `C`
 
@@ -131,11 +131,11 @@ assert.deepStrictEqual(
 
 #### options
 
-##### options.onLeft
+##### onLeft
 
 (`left`) => `B`
 
-##### options.onRight
+##### onRight
 
 (`right`) => `C`
 

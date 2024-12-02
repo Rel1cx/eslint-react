@@ -42,7 +42,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "devDependencies": {
-    "effect": "^3.10.19",
+    "effect": "^3.11.1",
     "tsup": "^8.3.5"
   }
 }

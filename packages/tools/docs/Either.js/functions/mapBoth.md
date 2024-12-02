@@ -28,11 +28,11 @@
 
 #### options
 
-##### options.onLeft
+##### onLeft
 
 (`left`) => `L2`
 
-##### options.onRight
+##### onRight
 
 (`right`) => `R2`
 
@@ -80,11 +80,11 @@
 
 #### options
 
-##### options.onLeft
+##### onLeft
 
 (`left`) => `L2`
 
-##### options.onRight
+##### onRight
 
 (`right`) => `R2`
 

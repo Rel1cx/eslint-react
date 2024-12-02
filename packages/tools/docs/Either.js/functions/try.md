@@ -20,11 +20,11 @@
 
 #### options
 
-##### options.catch
+##### catch
 
 (`error`) => `L`
 
-##### options.try
+##### try
 
 [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`R`\>
 

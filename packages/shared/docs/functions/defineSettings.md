@@ -16,7 +16,7 @@ A helper function to define settings for "react-x" with type checking in JavaScr
 
 The settings.
 
-#### settings.additionalComponents
+#### additionalComponents
 
 `object`[] = `...`
 
@@ -32,9 +32,9 @@ This is used to inform the ESLint React plugins how to treat these components du
 `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
 ```
 
-#### settings.additionalHooks
+#### additionalHooks
 
-`object` = `...`
+\{`use`: `string`[];`useActionState`: `string`[];`useCallback`: `string`[];`useContext`: `string`[];`useDebugValue`: `string`[];`useDeferredValue`: `string`[];`useEffect`: `string`[];`useId`: `string`[];`useImperativeHandle`: `string`[];`useInsertionEffect`: `string`[];`useLayoutEffect`: `string`[];`useMemo`: `string`[];`useOptimistic`: `string`[];`useReducer`: `string`[];`useRef`: `string`[];`useState`: `string`[];`useSyncExternalStore`: `string`[];`useTransition`: `string`[]; \} = `...`
 
 A object of aliases for React built-in hooks.
 
@@ -48,79 +48,79 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
 ```
 
-#### settings.additionalHooks.use
+#### additionalHooks.use
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useActionState
+#### additionalHooks.useActionState
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useCallback
+#### additionalHooks.useCallback
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useContext
+#### additionalHooks.useContext
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useDebugValue
+#### additionalHooks.useDebugValue
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useDeferredValue
+#### additionalHooks.useDeferredValue
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useEffect
+#### additionalHooks.useEffect
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useId
+#### additionalHooks.useId
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useImperativeHandle
+#### additionalHooks.useImperativeHandle
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useInsertionEffect
+#### additionalHooks.useInsertionEffect
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useLayoutEffect
+#### additionalHooks.useLayoutEffect
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useMemo
+#### additionalHooks.useMemo
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useOptimistic
+#### additionalHooks.useOptimistic
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useReducer
+#### additionalHooks.useReducer
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useRef
+#### additionalHooks.useRef
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useState
+#### additionalHooks.useState
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useSyncExternalStore
+#### additionalHooks.useSyncExternalStore
 
 `string`[] = `...`
 
-#### settings.additionalHooks.useTransition
+#### additionalHooks.useTransition
 
 `string`[] = `...`
 
-#### settings.importSource
+#### importSource
 
 `string` = `...`
 
@@ -140,7 +140,7 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-#### settings.jsxPragma
+#### jsxPragma
 
 `string` = `...`
 
@@ -150,7 +150,7 @@ The identifier that’s used for JSX Element creation.
 
 `"createElement"`
 
-#### settings.jsxPragmaFrag
+#### jsxPragmaFrag
 
 `string` = `...`
 
@@ -164,7 +164,7 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 
 `"Fragment"`
 
-#### settings.polymorphicPropName
+#### polymorphicPropName
 
 `string` = `...`
 
@@ -180,7 +180,7 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
-#### settings.version
+#### version
 
 `string` = `...`
 

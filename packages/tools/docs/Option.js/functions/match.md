@@ -60,11 +60,11 @@ function when passed the `Option`'s value.
 
 #### options
 
-##### options.onNone
+##### onNone
 
 [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
 
-##### options.onSome
+##### onSome
 
 (`a`) => `C`
 
@@ -157,11 +157,11 @@ The `Option` to match
 
 #### options
 
-##### options.onNone
+##### onNone
 
 [`LazyArg`](../../namespaces/F/interfaces/LazyArg.md)\<`B`\>
 
-##### options.onSome
+##### onSome
 
 (`a`) => `C`
 
