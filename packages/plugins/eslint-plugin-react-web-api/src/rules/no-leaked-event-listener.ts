@@ -248,9 +248,6 @@ export default createRule<[], MessageID>({
           .with("abort", () => {
             abortedSignals.push(node.callee);
           })
-          // .with("forEach", () => {
-          //   console.log("forEach() is not supported yet.");
-          // })
           .otherwise(F.constVoid);
       },
       ["Program:exit"]() {
