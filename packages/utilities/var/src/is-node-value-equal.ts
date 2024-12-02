@@ -41,10 +41,8 @@ export function isNodeValueEqual(
     const vb = findVariable(b, bScope);
     const da = O.flatMap(va, getVariableDef(0));
     const db = O.flatMap(vb, getVariableDef(0));
-    const dap = O.flatMapNullable(da, (d) => d.parent);
-    const dbp = O.flatMapNullable(db, (d) => d.parent);
-    const dapp = O.flatMapNullable(dap, (d) => d.parent);
-    const dbpp = O.flatMapNullable(dbp, (d) => d.parent);
+    const dapp = O.flatMapNullable(da, (d) => d.parent?.parent);
+    const dbpp = O.flatMapNullable(db, (d) => d.parent?.parent);
     const na = O.flatMap(va, getVariableNode(0));
     const nb = O.flatMap(vb, getVariableNode(0));
     const nap = O.flatMapNullable(na, (n) => n.parent);
