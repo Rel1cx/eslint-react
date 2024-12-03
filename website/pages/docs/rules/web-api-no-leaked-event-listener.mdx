@@ -172,11 +172,10 @@ function Example() {
 import { useEffect } from "react";
 
 function Example() {
-  const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
-
-  const handleActivity = () => {};
-
   useEffect(() => {
+    const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+    const handleActivity = () => {};
+
     events.forEach((event) => {
       window.addEventListener(event, handleActivity);
     });
@@ -200,9 +199,6 @@ function Example() {
     const events = [
       ["mousemove", () => {}],
       ["mousedown", () => {}],
-      ["keydown", () => {}],
-      ["scroll", () => {}],
-      ["touchstart", () => {}],
     ];
 
     for (const [event, handler] of events) {
