@@ -26,7 +26,10 @@ const thisBlockTypes = [
 export function isNodeValueEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
-  initialScopes: [Scope, Scope],
+  initialScopes: [
+    aScope: Scope,
+    bScope: Scope,
+  ],
 ): boolean {
   const [aScope, bScope] = initialScopes;
   switch (true) {
@@ -97,9 +100,9 @@ export function isNodeValueEqual(
     case a.type === AST_NODE_TYPES.ThisExpression
       && b.type === AST_NODE_TYPES.ThisExpression: {
       if (aScope.block === bScope.block) return true;
-      const fa = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
-      const fb = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
-      return O.isSome(fa) && O.isSome(fb) && fa.value === fb.value;
+      const aFunction = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
+      const bFunction = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
+      return O.isSome(aFunction) && O.isSome(bFunction) && aFunction.value === bFunction.value;
     }
     default: {
       const aStatic = getStaticValue(a, aScope);
