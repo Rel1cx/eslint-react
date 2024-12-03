@@ -76,6 +76,9 @@ export function isNodeValueEqual(
           && O.exists(bDefParentParent, AST.is(AST_NODE_TYPES.ForOfStatement)): {
           return F.pipe(
             O.Do,
+            O.bind("aLeft", () => O.map(aDefParentParent, (d) => d.left)),
+            O.bind("bLeft", () => O.map(bDefParentParent, (d) => d.left)),
+            O.filter(({ aLeft, bLeft }) => aLeft.type === bLeft.type),
             O.bind("aRight", () => O.map(aDefParentParent, (d) => d.right)),
             O.bind("bRight", () => O.map(bDefParentParent, (d) => d.right)),
             O.exists(({ aRight, bRight }) => AST.isNodeEqual(aRight, bRight)),

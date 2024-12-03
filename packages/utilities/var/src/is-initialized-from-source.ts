@@ -23,11 +23,11 @@ export function isInitializedFromSource(
   const { node, parent } = latestDef;
   if (node.type === AST_NODE_TYPES.VariableDeclarator && node.init) {
     const { init } = node;
-    // check for: `variable = React.variable`
+    // check for: `variable = Source.variable`
     if (init.type === AST_NODE_TYPES.MemberExpression && init.object.type === AST_NODE_TYPES.Identifier) {
       return isInitializedFromSource(init.object.name, source, initialScope);
     }
-    // check for: `{ variable } = React`
+    // check for: `{ variable } = Source`
     if (init.type === AST_NODE_TYPES.Identifier) {
       return isInitializedFromSource(init.name, source, initialScope);
     }
@@ -53,6 +53,6 @@ export function isInitializedFromSource(
     if (firstArg?.type !== AST_NODE_TYPES.Literal || !isString(firstArg.value)) return false;
     return firstArg.value === source || firstArg.value.startsWith(`${source}/`);
   }
-  // latest definition is an import declaration: import { variable } from 'react'
+  // latest definition is an import declaration: import { variable } from 'source'
   return isMatching({ type: "ImportDeclaration", source: { value: source } }, parent);
 }

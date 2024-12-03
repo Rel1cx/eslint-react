@@ -580,6 +580,68 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        import { useEffect } from "react";
+
+        export const Component = () => {
+          const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+          const handleActivity1 = () => {};
+          const handleActivity2 = () => {};
+
+          useEffect(() => {
+            for (const event of events) {
+              window.addEventListener(event, handleActivity1);
+            }
+
+            return () => {
+              for (const [event] of events) {
+                window.removeEventListener(event, handleActivity2);
+              }
+            };
+          }, []);
+
+          return null;
+        };
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+        import { useEffect } from "react";
+
+        export const Component = () => {
+          const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+          const handleActivity1 = () => {};
+          const handleActivity2 = () => {};
+
+          useEffect(() => {
+            for (const event of events) {
+              window.addEventListener(event, handleActivity1);
+            }
+
+            return () => {
+              for (const {event} of events) {
+                window.removeEventListener(event, handleActivity2);
+              }
+            };
+          }, []);
+
+          return null;
+        };
+      `,
+      errors: [
+        {
+          messageId: "noLeakedEventListenerInEffect",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
