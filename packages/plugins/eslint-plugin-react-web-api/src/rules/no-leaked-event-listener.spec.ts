@@ -1126,5 +1126,59 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
+    /* tsx */ `
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const events = [
+            ["mousemove", () => {}],
+            ["mousedown", () => {}],
+            ["keydown", () => {}],
+            ["scroll", () => {}],
+            ["touchstart", () => {}],
+          ];
+
+          for (const [event, handler] of events) {
+            window.addEventListener(event, handler);
+          }
+
+          return () => {
+            for (const [event, handler] of events) {
+              window.removeEventListener(event, handler);
+            }
+          };
+        }, []);
+
+        return null;
+      };
+    `,
+    /* tsx */ `
+      import { useEffect } from "react";
+
+      export const Component = () => {
+        const events = [
+          ["mousemove", () => {}],
+          ["mousedown", () => {}],
+          ["keydown", () => {}],
+          ["scroll", () => {}],
+          ["touchstart", () => {}],
+        ];
+
+        useEffect(() => {
+          for (const [event, handler] of events) {
+            window.addEventListener(event, handler);
+          }
+
+          return () => {
+            for (const [event, handler] of events) {
+              window.removeEventListener(event, handler);
+            }
+          };
+        }, []);
+
+        return null;
+      };
+    `,
   ],
 });

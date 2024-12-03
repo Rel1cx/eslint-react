@@ -169,6 +169,58 @@ function Example() {
 ```
 
 ```tsx
+import { useEffect } from "react";
+
+function Example() {
+  const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+  const handleActivity = () => {};
+
+  useEffect(() => {
+    events.forEach((event) => {
+      window.addEventListener(event, handleActivity);
+    });
+
+    return () => {
+      events.forEach((event) => {
+        window.removeEventListener(event, handleActivity);
+      });
+    };
+  }, []);
+
+  return null;
+};
+```
+
+```tsx
+import { useEffect } from "react";
+
+function Example() {
+  useEffect(() => {
+    const events = [
+      ["mousemove", () => {}],
+      ["mousedown", () => {}],
+      ["keydown", () => {}],
+      ["scroll", () => {}],
+      ["touchstart", () => {}],
+    ];
+
+    for (const [event, handler] of events) {
+      window.addEventListener(event, handler);
+    }
+
+    return () => {
+      for (const [event, handler] of events) {
+        window.removeEventListener(event, handler);
+      }
+    };
+  }, []);
+
+  return null;
+};
+```
+
+```tsx
 function useCustomHook() {
   useEffect(() => {
     const handleClick = () => {
