@@ -4,7 +4,6 @@ import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 /**
  * Get the name of a JSX attribute with namespace
@@ -42,16 +41,16 @@ export function getPropValue(
   if (attribute.type === AST_NODE_TYPES.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
     if (value === null) return O.none();
-    if (value.type === AST_NODE_TYPES.Literal) return O.some(getStaticValue(value, initialScope));
+    if (value.type === AST_NODE_TYPES.Literal) return VAR.getStaticValue(value, initialScope);
     if (value.type === AST_NODE_TYPES.JSXExpressionContainer) {
-      return O.some(getStaticValue(value.expression, initialScope));
+      return VAR.getStaticValue(value.expression, initialScope);
     }
 
     return O.none();
   }
   const { argument } = attribute;
 
-  return O.some(getStaticValue(argument, initialScope));
+  return VAR.getStaticValue(argument, initialScope);
 }
 
 /**

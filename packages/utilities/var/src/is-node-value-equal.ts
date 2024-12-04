@@ -1,11 +1,11 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { Equal, F, O } from "@eslint-react/tools";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 import { findVariable } from "./find-variable";
+import { getStaticValue } from "./get-static-value";
 import { getVariableDef } from "./get-variable-def";
 import { getVariableNode } from "./get-variable-node";
 
@@ -88,7 +88,7 @@ export function isNodeValueEqual(
           );
         }
         default: {
-          return O.isSome(aVar) && O.isSome(bVar) && aVar.value === bVar.value;
+          return O.isSome(aVar) && O.isSome(bVar) && Equal.equals(aVar, bVar);
         }
       }
     }
@@ -100,14 +100,20 @@ export function isNodeValueEqual(
     case a.type === AST_NODE_TYPES.ThisExpression
       && b.type === AST_NODE_TYPES.ThisExpression: {
       if (aScope.block === bScope.block) return true;
-      const aFunction = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
-      const bFunction = AST.traverseUp(a, AST.isOneOf(thisBlockTypes));
-      return O.isSome(aFunction) && O.isSome(bFunction) && aFunction.value === bFunction.value;
+      return F.pipe(
+        O.Do,
+        O.bind("aFunction", () => AST.traverseUp(a, AST.isOneOf(thisBlockTypes))),
+        O.bind("bFunction", () => AST.traverseUp(b, AST.isOneOf(thisBlockTypes))),
+        O.exists(({ aFunction, bFunction }) => aFunction === bFunction),
+      );
     }
     default: {
-      const aStatic = getStaticValue(a, aScope);
-      const bStatic = getStaticValue(b, bScope);
-      return !!aStatic && !!bStatic && aStatic.value === bStatic.value;
+      return F.pipe(
+        O.Do,
+        O.bind("aStatic", () => getStaticValue(a, aScope)),
+        O.bind("bStatic", () => getStaticValue(b, bScope)),
+        O.exists(({ aStatic, bStatic }) => aStatic === bStatic),
+      );
     }
   }
 }

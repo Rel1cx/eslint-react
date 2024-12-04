@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
         const isSafeSandboxValue = !F.pipe(
           JSX.getPropValue(maybeSandboxAttribute.value, context.sourceCode.getScope(maybeSandboxAttribute.value)),
           O.flatMapNullable(v =>
-            match(v?.value)
+            match(v)
               .with(P.string, F.identity)
               .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
               .otherwise(F.constNull)

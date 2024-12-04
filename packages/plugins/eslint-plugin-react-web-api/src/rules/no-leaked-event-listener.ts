@@ -78,7 +78,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         return O.some(value.value);
       }
       default: {
-        return O.fromNullable(getStaticValue(value, initialScope)?.value);
+        return VAR.getStaticValue(value, initialScope);
       }
     }
   };

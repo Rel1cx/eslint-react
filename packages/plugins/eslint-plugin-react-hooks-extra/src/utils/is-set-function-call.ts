@@ -1,8 +1,9 @@
 import type { ESLintReactSettings } from "@eslint-react/shared";
+import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
+import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { isMatching } from "ts-pattern";
 
 import { isFromUseStateCall } from "./is-from-use-state-call";
@@ -27,9 +28,8 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
         const [index] = node.callee.arguments;
         if (!isAt || !index) return false;
         const initialScope = context.sourceCode.getScope(node);
-        const value = getStaticValue(index, initialScope);
-        if (value?.value === 1) return isIdFromUseStateCall(callee.object);
-        return false;
+        return O.exists(VAR.getStaticValue(index, initialScope), (v) => v === 1)
+          && isIdFromUseStateCall(callee.object);
       }
       // const [data, setData] = useState();
       // setData();
@@ -41,9 +41,8 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
       case AST_NODE_TYPES.MemberExpression: {
         if (!("name" in node.callee.object)) return false;
         const initialScope = context.sourceCode.getScope(node);
-        const property = getStaticValue(node.callee.property, initialScope);
-        if (property?.value === 1) return isIdFromUseStateCall(node.callee.object);
-        return false;
+        return O.exists(VAR.getStaticValue(node.callee.property, initialScope), (v) => v === 1)
+          && isIdFromUseStateCall(node.callee.object);
       }
       default: {
         return false;

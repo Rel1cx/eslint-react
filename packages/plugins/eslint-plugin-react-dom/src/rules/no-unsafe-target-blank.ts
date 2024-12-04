@@ -63,7 +63,7 @@ export default createRule<[], MessageID>({
           targetProp,
           O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
-            match(v?.value)
+            match(v)
               .with(P.string, F.identity)
               .with({ [targetPropName]: P.string }, (v) => v[targetPropName])
               .otherwise(F.constNull)
@@ -82,7 +82,7 @@ export default createRule<[], MessageID>({
           hrefProp,
           O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
-            match(v?.value)
+            match(v)
               .with(P.string, F.identity)
               .with(P.shape({ [hrefPropName]: P.string }), (v) => v[hrefPropName])
               .otherwise(F.constNull)
@@ -101,7 +101,7 @@ export default createRule<[], MessageID>({
           relProp,
           O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
           O.flatMapNullable(v =>
-            match(v?.value)
+            match(v)
               .with(P.string, F.identity)
               .with(P.shape({ [relPropName]: P.string }), (v) => v[relPropName])
               .otherwise(F.constNull)

@@ -7,7 +7,6 @@ import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
@@ -239,7 +238,7 @@ export default createRule<[], MessageID>({
           if (isLeftUnaryNot) return getReportDescriptor(right);
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = isMatching({ type: AST_NODE_TYPES.Identifier, name: "NaN" }, left)
-            || getStaticValue(left, initialScope)?.value === "NaN";
+            || O.exists(VAR.getStaticValue(left, initialScope), v => v === "NaN");
           if (isLeftNan) {
             return O.some({
               messageId: "noLeakedConditionalRendering",

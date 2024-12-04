@@ -62,7 +62,6 @@ export default createRule<[], MessageID>({
         const sandboxAttribute = maybeSandboxAttribute.value;
         const hasValidSandbox = F.pipe(
           JSX.getPropValue(sandboxAttribute, context.sourceCode.getScope(sandboxAttribute)),
-          O.flatMapNullable(v => v?.value),
           O.filter(isString),
           O.map((value) => value.split(" ")),
           O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),

@@ -20,7 +20,6 @@ export function getElementType(
       O.fromNullable(polymorphicPropName),
       O.flatMap(findPropInAttributes(node.attributes, initialScope)),
       O.flatMap(attr => getPropValue(attr, jsxCtx.getScope(attr))),
-      O.flatMapNullable(v => v?.value),
       O.filter(isString),
       O.getOrElse(() => elementName),
     );
