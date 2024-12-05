@@ -149,6 +149,7 @@ export const ESLintReactSettingsSchema = object({
     useDebugValue: optional(array(string())),
     useDeferredValue: optional(array(string())),
     useEffect: optional(array(string())),
+    useFormStatus: optional(array(string())),
     useId: optional(array(string())),
     useImperativeHandle: optional(array(string())),
     useInsertionEffect: optional(array(string())),

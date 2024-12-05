@@ -34,7 +34,7 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 #### additionalHooks
 
-\{`use`: `string`[];`useActionState`: `string`[];`useCallback`: `string`[];`useContext`: `string`[];`useDebugValue`: `string`[];`useDeferredValue`: `string`[];`useEffect`: `string`[];`useId`: `string`[];`useImperativeHandle`: `string`[];`useInsertionEffect`: `string`[];`useLayoutEffect`: `string`[];`useMemo`: `string`[];`useOptimistic`: `string`[];`useReducer`: `string`[];`useRef`: `string`[];`useState`: `string`[];`useSyncExternalStore`: `string`[];`useTransition`: `string`[]; \} = `...`
+\{`use`: `string`[];`useActionState`: `string`[];`useCallback`: `string`[];`useContext`: `string`[];`useDebugValue`: `string`[];`useDeferredValue`: `string`[];`useEffect`: `string`[];`useFormStatus`: `string`[];`useId`: `string`[];`useImperativeHandle`: `string`[];`useInsertionEffect`: `string`[];`useLayoutEffect`: `string`[];`useMemo`: `string`[];`useOptimistic`: `string`[];`useReducer`: `string`[];`useRef`: `string`[];`useState`: `string`[];`useSyncExternalStore`: `string`[];`useTransition`: `string`[]; \} = `...`
 
 A object of aliases for React built-in hooks.
 
@@ -73,6 +73,10 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 `string`[] = `...`
 
 #### additionalHooks.useEffect
+
+`string`[] = `...`
+
+#### additionalHooks.useFormStatus
 
 `string`[] = `...`
 
@@ -262,6 +266,10 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 #### additionalHooks.useEffect?
 
 > `optional` **useEffect**: `string`[]
+
+#### additionalHooks.useFormStatus?
+
+> `optional` **useFormStatus**: `string`[]
 
 #### additionalHooks.useId?
 
