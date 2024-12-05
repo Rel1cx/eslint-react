@@ -12,8 +12,8 @@
     "next": "^15.0.3",
     "nextra": "3.2.4",
     "nextra-theme-docs": "3.2.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "ts-pattern": "^5.5.0"
   },
   "devDependencies": {
@@ -33,7 +33,7 @@
     "effect": "^3.11.3",
     "eslint": "^9.16.0",
     "eslint-plugin-mdx": "^3.1.5",
-    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "postcss": "^8.4.49",
     "remark-code-import": "^1.2.0",

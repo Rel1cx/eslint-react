@@ -76,7 +76,7 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
     }, new Map<string, string>()),
     version: match(settings.version)
       .with(P.union(P.nullish, "", "detect"), () => getPackageInfoSync("react")?.version)
-      .otherwise(F.identity) ?? "18.3.1",
+      .otherwise(F.identity) ?? "19.0.0",
   });
 }, { isEqual: shallowEqual });
 
