@@ -26,6 +26,7 @@ import noCreateRef from "./rules/no-create-ref";
 import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
 import noDuplicateKey from "./rules/no-duplicate-key";
+import noForwardRef from "./rules/no-forward-ref";
 import noImplicitKey from "./rules/no-implicit-key";
 import noLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
@@ -93,6 +94,7 @@ export default {
     "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
     "no-duplicate-key": noDuplicateKey,
+    "no-forward-ref": noForwardRef,
     "no-implicit-key": noImplicitKey,
     "no-leaked-conditional-rendering": noLeakedConditionalRendering,
     "no-missing-component-display-name": noMissingComponentDisplayName,

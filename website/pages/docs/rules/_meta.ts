@@ -30,6 +30,7 @@ export default {
   "no-default-props": "no-default-props",
   "no-direct-mutation-state": "no-direct-mutation-state",
   "no-duplicate-key": "no-duplicate-key",
+  "no-forward-ref": "no-forward-ref",
   "no-implicit-key": "no-implicit-key",
   "no-leaked-conditional-rendering": "no-leaked-conditional-rendering",
   "no-missing-component-display-name": "no-missing-component-display-name",

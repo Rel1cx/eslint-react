@@ -46,6 +46,7 @@
 | [`no-default-props`](no-default-props)                                             | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |  ✔️  |     |     |
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
 | [`no-duplicate-key`](no-duplicate-key)                                             | Prevents duplicate `key` on elements in the same array or a list of `children`.                      |  ✔️  |     |     |
+| [`no-forward-ref`](no-forward-ref)                                                 | Prevents using `React.forwardRef`.                                                                   | ⛔  |     |     |
 | [`no-implicit-key`](no-implicit-key)                                               | Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).              | 🧐  |     |     |
 | [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | Prevents problematic leaked values from being rendered.                                              | 🧐  | 💭  |     |
 | [`no-missing-component-display-name`](no-missing-component-display-name)           | Enforces that all components have a `displayName` which can be used in devtools.                     | 🐞  |     |     |
