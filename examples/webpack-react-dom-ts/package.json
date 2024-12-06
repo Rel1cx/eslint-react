@@ -26,8 +26,8 @@
     "@tsconfig/strictest": "2.0.5",
     "@types/dotenv-webpack": "7.0.8",
     "@types/node": "^22.10.1",
-    "@types/react": "^18.3.13",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.1.0",
     "dprint": "0.47.6",
@@ -46,5 +46,5 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
   },
-  "packageManager": "pnpm@9.14.4"
+  "packageManager": "pnpm@9.15.0"
 }
