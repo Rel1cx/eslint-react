@@ -9,7 +9,7 @@ export const RULE_NAME = "no-children-in-void-dom-elements";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const voidElements = new Set([
+const voidElements = [
   "area",
   "base",
   "br",
@@ -26,7 +26,7 @@ const voidElements = new Set([
   "source",
   "track",
   "wbr",
-]);
+];
 
 // TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use the void element internally
 export default createRule<[], MessageID>({
@@ -45,7 +45,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const elementName = getElementRepresentName(node.openingElement, context);
-        if (!elementName || !voidElements.has(elementName)) return;
+        if (!elementName || !voidElements.includes(elementName)) return;
         if (node.children.length > 0) {
           context.report({
             messageId: "noChildrenInVoidDomElements",
