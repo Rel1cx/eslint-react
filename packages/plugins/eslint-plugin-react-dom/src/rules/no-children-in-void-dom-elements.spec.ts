@@ -39,62 +39,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: /* tsx */ `<PolyComponent as="br">Foo</PolyComponent>;`,
-      errors: [
-        {
-          messageId: "noChildrenInVoidDomElements",
-          data: { element: "br" },
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
-    {
-      code: /* tsx */ `<PolyComponent as="br" children="Foo" />;`,
-      errors: [
-        {
-          messageId: "noChildrenInVoidDomElements",
-          data: { element: "br" },
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
-    {
-      code: /* tsx */ `<PolyComponent as="img" {...props} children="Foo" />;`,
-      errors: [
-        {
-          messageId: "noChildrenInVoidDomElements",
-          data: { element: "img" },
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
-    {
-      code: /* tsx */ `<PolyComponent as="br" dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
-      errors: [
-        {
-          messageId: "noChildrenInVoidDomElements",
-          data: { element: "br" },
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
   ],
   valid: [
     ...allValid,

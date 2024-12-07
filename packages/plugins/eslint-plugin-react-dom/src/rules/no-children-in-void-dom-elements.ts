@@ -1,4 +1,3 @@
-import { getElementRepresentName } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
@@ -44,7 +43,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const elementName = getElementRepresentName(node.openingElement, context);
+        const elementName = JSX.getElementName(node.openingElement);
         if (!elementName || !voidElements.includes(elementName)) return;
         if (node.children.length > 0) {
           context.report({
