@@ -6,6 +6,7 @@ import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
+import { getElementType } from "@eslint-react/core";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
@@ -30,11 +31,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const { components, polymorphicPropName } = normalizeSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
-        const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
-        const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
+        const elementType = getElementType(node.openingElement, context);
         if (elementType !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);

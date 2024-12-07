@@ -1,3 +1,4 @@
+import { getElementType } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
@@ -38,13 +39,10 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = normalizeSettings(decodeSettings(context.settings));
-    const polymorphicPropName = settings.polymorphicPropName;
-    const components = settings.components;
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = JSX.getElementName(node.openingElement);
-      const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) };
-      const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(node.openingElement);
+      const elementType = getElementType(node.openingElement, context);
       if (elementType !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
@@ -61,7 +59,7 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(targetPropDefaultValue)
         : F.pipe(
           targetProp,
-          O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
+          O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
           O.flatMapNullable(v =>
             match(v)
               .with(P.string, F.identity)
@@ -80,7 +78,7 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(hrefPropDefaultValue)
         : F.pipe(
           hrefProp,
-          O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
+          O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
           O.flatMapNullable(v =>
             match(v)
               .with(P.string, F.identity)
@@ -99,7 +97,7 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(relPropDefaultValue)
         : F.pipe(
           relProp,
-          O.flatMap(attr => JSX.getPropValue(attr, jsxCtx.getScope(attr))),
+          O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
           O.flatMapNullable(v =>
             match(v)
               .with(P.string, F.identity)

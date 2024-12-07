@@ -1,5 +1,4 @@
 export * from "./get-element-name";
-export * from "./get-element-type";
 export * from "./get-prop";
 export * from "./has-prop";
 export * from "./is-element";

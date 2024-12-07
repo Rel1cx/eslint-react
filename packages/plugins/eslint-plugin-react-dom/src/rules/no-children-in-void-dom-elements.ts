@@ -1,7 +1,6 @@
+import { getElementType } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
-import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -43,12 +42,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const { components, polymorphicPropName } = normalizeSettings(decodeSettings(context.settings));
     return {
       JSXElement(node) {
-        const openingElementNameExpression = node.openingElement;
-        const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
-        const elementType = JSX.getElementType(jsxCtx, components, polymorphicPropName)(openingElementNameExpression);
+        const elementType = getElementType(node.openingElement, context);
         if (!elementType || !voidElements.has(elementType)) return;
         if (node.children.length > 0) {
           context.report({
