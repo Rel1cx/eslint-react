@@ -3,10 +3,6 @@
     "@tsconfig/strictest/tsconfig.json"
   ],
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "@effect/language-service"
-      }
-    ]
+    "strict": true
   }
 }
