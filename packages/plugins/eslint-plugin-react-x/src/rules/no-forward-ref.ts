@@ -22,6 +22,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("forwardRef")) return {};
     const { version } = normalizeSettings(decodeSettings(context.settings));
     if (compare(version, "19.0.0", "<")) return {};
     return {
