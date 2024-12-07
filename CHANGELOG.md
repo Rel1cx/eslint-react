@@ -1,3 +1,13 @@
+## v1.17.4 (Sun 8 Dec 2024)
+
+### ✨ New
+
+- feat(plugins/x): add `no-forward-ref` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/870
+
+### 🪄 Improvements
+
+- perf(plugins/dom): improve performance of `no-children-in-void-dom-elements` by @Rel1cx
+
 ## v1.17.3 (Tue 3 Dec 2024)
 
 ### 🐞 Fixes
