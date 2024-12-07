@@ -1,4 +1,4 @@
-import { getElementType } from "@eslint-react/core";
+import { getElementRepresentName } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
@@ -42,8 +42,8 @@ export default createRule<[], MessageID>({
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = JSX.getElementName(node.openingElement);
-      const elementType = getElementType(node.openingElement, context);
-      if (elementType !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
+      const elementName = getElementRepresentName(node.openingElement, context);
+      if (elementName !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents

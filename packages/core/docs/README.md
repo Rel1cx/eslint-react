@@ -41,7 +41,7 @@
 ## Functions
 
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
-- [getElementType](functions/getElementType.md)
+- [getElementRepresentName](functions/getElementRepresentName.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)

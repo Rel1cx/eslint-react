@@ -1,12 +1,10 @@
 import * as JSX from "@eslint-react/jsx";
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
-import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
-import { getElementType } from "@eslint-react/core";
+import { getElementRepresentName } from "@eslint-react/core";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
@@ -33,8 +31,8 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const elementType = getElementType(node.openingElement, context);
-        if (elementType !== "iframe") return;
+        const elementName = getElementRepresentName(node.openingElement, context);
+        if (elementName !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
         const maybeSandboxAttribute = JSX.findPropInAttributes(attributes, initialScope)("sandbox");

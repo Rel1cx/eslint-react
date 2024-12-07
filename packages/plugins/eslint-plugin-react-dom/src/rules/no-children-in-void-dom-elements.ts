@@ -1,4 +1,4 @@
-import { getElementType } from "@eslint-react/core";
+import { getElementRepresentName } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
@@ -44,14 +44,14 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const elementType = getElementType(node.openingElement, context);
-        if (!elementType || !voidElements.has(elementType)) return;
+        const elementName = getElementRepresentName(node.openingElement, context);
+        if (!elementName || !voidElements.has(elementName)) return;
         if (node.children.length > 0) {
           context.report({
             messageId: "noChildrenInVoidDomElements",
             node,
             data: {
-              element: elementType,
+              element: elementName,
             },
           });
         }
@@ -65,7 +65,7 @@ export default createRule<[], MessageID>({
             messageId: "noChildrenInVoidDomElements",
             node,
             data: {
-              element: elementType,
+              element: elementName,
             },
           });
         }

@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / getElementType
+[@eslint-react/core](../README.md) / getElementRepresentName
 
-# Function: getElementType()
+# Function: getElementRepresentName()
 
-> **getElementType**(`node`, `context`): `string`
+> **getElementRepresentName**(`node`, `context`): `string`
 
 ## Parameters
 
