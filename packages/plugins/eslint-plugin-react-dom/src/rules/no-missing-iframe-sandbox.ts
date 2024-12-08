@@ -1,9 +1,9 @@
+import { getElementRepresentName } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { F, isString, O } from "@eslint-react/tools";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
-import { getElementRepresentName } from "@eslint-react/core";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
