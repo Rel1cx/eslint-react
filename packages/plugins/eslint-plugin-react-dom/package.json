@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-dom",
-  "version": "1.18.1-next.1",
+  "version": "1.18.1-beta.1",
   "description": "ESLint React's ESLint plugin for React DOM related rules.",
   "keywords": [
     "eslint",
