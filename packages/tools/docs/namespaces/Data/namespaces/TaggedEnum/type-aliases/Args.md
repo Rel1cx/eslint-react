@@ -14,7 +14,7 @@
 
 • **K** *extends* `A`\[`"_tag"`\]
 
-• **E** = `Extract`\<`A`, `object`\>
+• **E** = `Extract`\<`A`, \{ `_tag`: `K`; \}\>
 
 ## Since
 

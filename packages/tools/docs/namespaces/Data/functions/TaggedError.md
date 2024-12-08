@@ -26,7 +26,7 @@
 
 #### args
 
-`Equals`\<`A`, `object`\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends "\_tag" ? never : P\]: A\[P\] \}
+`Equals`\<`A`, \{\}\> *extends* `true` ? `void` : \{ readonly \[P in string \| number \| symbol as P extends "\_tag" ? never : P\]: A\[P\] \}
 
 ### Returns
 

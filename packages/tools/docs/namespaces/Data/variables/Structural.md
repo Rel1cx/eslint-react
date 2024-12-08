@@ -12,7 +12,7 @@
 
 ### args
 
-`Types.Equals`\<`A`, `object`\> *extends* `true` ? `void` : `{ readonly [P in keyof A]: A[P] }`
+`Types.Equals`\<`A`, \{\}\> *extends* `true` ? `void` : `{ readonly [P in keyof A]: A[P] }`
 
 ## Returns
 

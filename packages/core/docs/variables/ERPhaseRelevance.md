@@ -6,14 +6,4 @@
 
 # Variable: ERPhaseRelevance
 
-> `const` **ERPhaseRelevance**: `BiRecord`\<`object`\>
-
-## Type declaration
-
-### mount
-
-> `readonly` **mount**: `"unmount"` = `"unmount"`
-
-### setup
-
-> `readonly` **setup**: `"cleanup"` = `"cleanup"`
+> `const` **ERPhaseRelevance**: `BiRecord`\<\{ `mount`: `"unmount"`; `setup`: `"cleanup"`; \}\>

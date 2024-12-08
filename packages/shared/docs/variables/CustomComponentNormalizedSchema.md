@@ -6,26 +6,4 @@
 
 # Variable: CustomComponentNormalizedSchema
 
-> `const` **CustomComponentNormalizedSchema**: `ObjectSchema`\<`object`, `undefined`\>
-
-## Type declaration
-
-### as
-
-> `readonly` **as**: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>
-
-### attributes
-
-> `readonly` **attributes**: `OptionalSchema`\<`ArraySchema`\<`ObjectSchema`\<`object`, `undefined`\>, `undefined`\>, readonly []\>
-
-### name
-
-> `readonly` **name**: `StringSchema`\<`undefined`\>
-
-### re
-
-> `readonly` **re**: `InstanceSchema`\<`RegExpConstructor`, `undefined`\>
-
-### selector
-
-> `readonly` **selector**: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>
+> `const` **CustomComponentNormalizedSchema**: `ObjectSchema`\<\{ `as`: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>; `attributes`: `OptionalSchema`\<`ArraySchema`\<`ObjectSchema`\<\{ `as`: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>; `controlled`: `OptionalSchema`\<`BooleanSchema`\<`undefined`\>, `undefined`\>; `defaultValue`: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>; `name`: `StringSchema`\<`undefined`\>; \}, `undefined`\>, `undefined`\>, readonly []\>; `name`: `StringSchema`\<`undefined`\>; `re`: `InstanceSchema`\<`RegExpConstructor`, `undefined`\>; `selector`: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>; \}, `undefined`\>

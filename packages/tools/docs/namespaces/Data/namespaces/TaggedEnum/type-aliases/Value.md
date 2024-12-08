@@ -6,7 +6,7 @@
 
 # Type Alias: Value\<A, K\>
 
-> **Value**\<`A`, `K`\>: `Extract`\<`A`, `object`\>
+> **Value**\<`A`, `K`\>: `Extract`\<`A`, \{ `_tag`: `K`; \}\>
 
 ## Type Parameters
 
