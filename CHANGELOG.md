@@ -1,3 +1,9 @@
+## v1.18.1 (Draft)
+
+### 🪄 Improvements
+
+- feat(plugins/x): add autofix for `no-forward-ref` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/874
+
 ## v1.18.0 (Sun 8 Dec 2024)
 
 ### ✨ New

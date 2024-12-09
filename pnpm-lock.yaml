@@ -6,16 +6,16 @@ settings:
 
 overrides:
   array-flatten: npm:@nolyfill/array-flatten@^1.0.42
-  cross-spawn: 7.0.6
   is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   isarray: npm:@nolyfill/isarray@^1.0.29
-  nextra: 3.1.0
-  nextra-theme-docs: 3.1.0
   safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
   safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
   side-channel: npm:@nolyfill/side-channel@^1.0.29
-  ts-api-utils: ^2.0.0
   typedarray: npm:@nolyfill/typedarray@^1.0.29
+  cross-spawn: 7.0.6
+  nextra: 3.1.0
+  nextra-theme-docs: 3.1.0
+  ts-api-utils: ^2.0.0
   typescript: ^5.7.2
 
 importers:
@@ -26,17 +26,17 @@ importers:
         specifier: ^2.27.10
         version: 2.27.10
       '@effect/platform':
-        specifier: ^0.70.4
-        version: 0.70.4(effect@3.11.3)
+        specifier: ^0.70.6
+        version: 0.70.6(effect@3.11.4)
       '@effect/platform-bun':
-        specifier: ^0.50.4
-        version: 0.50.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)
+        specifier: ^0.50.6
+        version: 0.50.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)
       '@effect/platform-node':
-        specifier: ^0.65.4
-        version: 0.65.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)
+        specifier: ^0.65.6
+        version: 0.65.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)
       '@effect/schema':
         specifier: ^0.75.5
-        version: 0.75.5(effect@3.11.3)
+        version: 0.75.5(effect@3.11.4)
       '@eslint/config-inspector':
         specifier: ^0.5.6
         version: 0.5.6(eslint@9.16.0(jiti@2.3.3))
@@ -44,8 +44,8 @@ importers:
         specifier: ^9.16.0
         version: 9.16.0
       '@stylistic/eslint-plugin-js':
-        specifier: ^2.11.0
-        version: 2.11.0(eslint@9.16.0(jiti@2.3.3))
+        specifier: ^2.12.0
+        version: 2.12.0(eslint@9.16.0(jiti@2.3.3))
       '@susisu/eslint-plugin-safe-typescript':
         specifier: ^0.9.2
         version: 0.9.2(@typescript-eslint/parser@8.17.0(eslint@9.16.0(jiti@2.3.3))(typescript@5.7.2))(eslint@9.16.0(jiti@2.3.3))(typescript-eslint@8.17.0(eslint@9.16.0(jiti@2.3.3))(typescript@5.7.2))(typescript@5.7.2)
@@ -92,8 +92,8 @@ importers:
         specifier: ^0.47.6
         version: 0.47.6
       effect:
-        specifier: ^3.11.3
-        version: 3.11.3
+        specifier: ^3.11.4
+        version: 3.11.4
       esbuild:
         specifier: ^0.24.0
         version: 0.24.0
@@ -182,14 +182,14 @@ importers:
         specifier: ^4.30.0
         version: 4.30.0
       typedoc:
-        specifier: ^0.27.3
-        version: 0.27.3(typescript@5.7.2)
+        specifier: ^0.27.4
+        version: 0.27.4(typescript@5.7.2)
       typedoc-plugin-markdown:
         specifier: ^4.3.2
-        version: 4.3.2(typedoc@0.27.3(typescript@5.7.2))
+        version: 4.3.2(typedoc@0.27.4(typescript@5.7.2))
       typedoc-plugin-rename-defaults:
         specifier: ^0.7.2
-        version: 0.7.2(typedoc@0.27.3(typescript@5.7.2))
+        version: 0.7.2(typedoc@0.27.4(typescript@5.7.2))
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -942,8 +942,8 @@ importers:
   packages/tools:
     devDependencies:
       effect:
-        specifier: ^3.11.3
-        version: 3.11.3
+        specifier: ^3.11.4
+        version: 3.11.4
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.0(@swc/helpers@0.5.13))(jiti@2.3.3)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -1121,8 +1121,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       effect:
-        specifier: ^3.11.3
-        version: 3.11.3
+        specifier: ^3.11.4
+        version: 3.11.4
       eslint:
         specifier: ^9.16.0
         version: 9.16.0(jiti@2.3.3)
@@ -2099,28 +2099,28 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect/platform-bun@0.50.4':
-    resolution: {integrity: sha512-T6CIrzuQo4Ib7Xtq6edh/OE9q1prqPR+yyBq2K+9b85U5oSF/bWeN/m7zlwZIwkOyhessJCD+GL0dovTBwU6vg==}
+  '@effect/platform-bun@0.50.6':
+    resolution: {integrity: sha512-NDAOC0ssEhjAJB4hep0FwlVamoBsj4mb/9tHAlMhlaTuJqI9xAwvvInivxmD6WgYL0bDc6ys/r/RmeS7qrqHAw==}
     peerDependencies:
-      '@effect/platform': ^0.70.4
-      effect: ^3.11.3
+      '@effect/platform': ^0.70.6
+      effect: ^3.11.4
 
-  '@effect/platform-node-shared@0.20.4':
-    resolution: {integrity: sha512-r1xJVydHNujoBOIX4I4Z3bYPlYugpYrQo+EZ/ovsEgt1Y0hs7+X5ac5h7MwVGK8rLO+hCCqwkmWq1ch63U4U+A==}
+  '@effect/platform-node-shared@0.20.6':
+    resolution: {integrity: sha512-NhKgPwUCA99bvC3qfyWn8YHNh2onu7ieuRq+1iXBTfwI9rchrHqyB7ScgAZ7/0Q8rE1F6Ur4h0/+NwittMJGpQ==}
     peerDependencies:
-      '@effect/platform': ^0.70.4
-      effect: ^3.11.3
+      '@effect/platform': ^0.70.6
+      effect: ^3.11.4
 
-  '@effect/platform-node@0.65.4':
-    resolution: {integrity: sha512-ZCEbBhPmndCWj9wygPuFaJbxiDsUkoSEqdwJ507TbJzgIKJl6dzckADfK2Xt0DROMm1EaLZSwhgHFc1pq0jrXA==}
+  '@effect/platform-node@0.65.6':
+    resolution: {integrity: sha512-8Fb05OQY+6tzH6YFo2sX0iuf5nRyQF3jXT40EGioQxjvZYOaG73sYjFcr23ExGqygQcfoq++df3OJ0kMySofiA==}
     peerDependencies:
-      '@effect/platform': ^0.70.4
-      effect: ^3.11.3
+      '@effect/platform': ^0.70.6
+      effect: ^3.11.4
 
-  '@effect/platform@0.70.4':
-    resolution: {integrity: sha512-Lw9z9r8FUe4AtNYumW67ULCsuSLMQsBxknBzQTqyu54Hk6W0gpQsOJJ0YdsgDVVi+qWZrlnmg1h0j3TSuMMojQ==}
+  '@effect/platform@0.70.6':
+    resolution: {integrity: sha512-FChP5iR1GzMLaJNgvB5mAfdwk9ukhOuKsHeHuuuiihivReMf1Jmbpc+gGCvxSa8e/nmAl+6EsqmJsN4w3K0tjw==}
     peerDependencies:
-      effect: ^3.11.3
+      effect: ^3.11.4
 
   '@effect/schema@0.75.5':
     resolution: {integrity: sha512-TQInulTVCuF+9EIbJpyLP6dvxbQJMphrnRqgexm/Ze39rSjfhJuufF7XvU3SxTgg3HnL7B/kpORTJbHhlE6thw==}
@@ -3367,8 +3367,8 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
-  '@stylistic/eslint-plugin-js@2.11.0':
-    resolution: {integrity: sha512-btchD0P3iij6cIk5RR5QMdEhtCCV0+L6cNheGhGCd//jaHILZMTi/EOqgEDAf1s4ZoViyExoToM+S2Iwa3U9DA==}
+  '@stylistic/eslint-plugin-js@2.12.0':
+    resolution: {integrity: sha512-HMA+qhlDLmLiYC0nyLPEJT4CBq3BP9ri51WECRKmEjO6RZm41MVZCJl+IfUcp2sUvGSl3/FSK5gzgBKcVv8S3w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -4895,8 +4895,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect@3.11.3:
-    resolution: {integrity: sha512-pbdB97Ejdbu7YvnkOf5J8y9J0ZIveAK+uKUZJpZGqUyTfykpL9VqfzahjWfdkseDqsktEZS7bFuJ9IBowVWNpA==}
+  effect@3.11.4:
+    resolution: {integrity: sha512-0tooO72Ii109A1SUY2A73hnO3y4AoglWupbBwaUHitV/B13/EVWRhWfuEDpKjJaEDNj96fhkeU8UCWvFrh6aSg==}
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
@@ -7991,8 +7991,8 @@ packages:
     peerDependencies:
       typedoc: '>=0.22.x <0.28.x'
 
-  typedoc@0.27.3:
-    resolution: {integrity: sha512-oWT7zDS5oIaxYL5yOikBX4cL99CpNAZn6mI24JZQxsYuIHbtguSSwJ7zThuzNNwSE0wqhlfTSd99HgqKu2aQXQ==}
+  typedoc@0.27.4:
+    resolution: {integrity: sha512-wXPQs1AYC2Crk+1XFpNuutLIkNWleokZf1UNf/X8w9KsMnirkvT+LzxTXDvfF6ug3TSLf3Xu5ZXRKGfoXPX7IA==}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -9711,25 +9711,25 @@ snapshots:
   '@dprint/win32-x64@0.47.6':
     optional: true
 
-  '@effect/platform-bun@0.50.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)':
+  '@effect/platform-bun@0.50.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)':
     dependencies:
-      '@effect/platform': 0.70.4(effect@3.11.3)
-      '@effect/platform-node-shared': 0.20.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)
-      effect: 3.11.3
+      '@effect/platform': 0.70.6(effect@3.11.4)
+      '@effect/platform-node-shared': 0.20.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)
+      effect: 3.11.4
       multipasta: 0.2.5
 
-  '@effect/platform-node-shared@0.20.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)':
+  '@effect/platform-node-shared@0.20.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)':
     dependencies:
-      '@effect/platform': 0.70.4(effect@3.11.3)
+      '@effect/platform': 0.70.6(effect@3.11.4)
       '@parcel/watcher': 2.4.1
-      effect: 3.11.3
+      effect: 3.11.4
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.65.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)':
+  '@effect/platform-node@0.65.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)':
     dependencies:
-      '@effect/platform': 0.70.4(effect@3.11.3)
-      '@effect/platform-node-shared': 0.20.4(@effect/platform@0.70.4(effect@3.11.3))(effect@3.11.3)
-      effect: 3.11.3
+      '@effect/platform': 0.70.6(effect@3.11.4)
+      '@effect/platform-node-shared': 0.20.6(@effect/platform@0.70.6(effect@3.11.4))(effect@3.11.4)
+      effect: 3.11.4
       mime: 3.0.0
       undici: 6.20.1
       ws: 8.18.0
@@ -9737,15 +9737,15 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.70.4(effect@3.11.3)':
+  '@effect/platform@0.70.6(effect@3.11.4)':
     dependencies:
-      effect: 3.11.3
+      effect: 3.11.4
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.75.5(effect@3.11.3)':
+  '@effect/schema@0.75.5(effect@3.11.4)':
     dependencies:
-      effect: 3.11.3
+      effect: 3.11.4
       fast-check: 3.22.0
 
   '@emnapi/core@1.3.1':
@@ -10758,7 +10758,7 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@stylistic/eslint-plugin-js@2.11.0(eslint@9.16.0(jiti@2.3.3))':
+  '@stylistic/eslint-plugin-js@2.12.0(eslint@9.16.0(jiti@2.3.3))':
     dependencies:
       eslint: 9.16.0(jiti@2.3.3)
       eslint-visitor-keys: 4.2.0
@@ -12497,7 +12497,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect@3.11.3:
+  effect@3.11.4:
     dependencies:
       fast-check: 3.22.0
 
@@ -16395,16 +16395,16 @@ snapshots:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  typedoc-plugin-markdown@4.3.2(typedoc@0.27.3(typescript@5.7.2)):
+  typedoc-plugin-markdown@4.3.2(typedoc@0.27.4(typescript@5.7.2)):
     dependencies:
-      typedoc: 0.27.3(typescript@5.7.2)
+      typedoc: 0.27.4(typescript@5.7.2)
 
-  typedoc-plugin-rename-defaults@0.7.2(typedoc@0.27.3(typescript@5.7.2)):
+  typedoc-plugin-rename-defaults@0.7.2(typedoc@0.27.4(typescript@5.7.2)):
     dependencies:
       camelcase: 8.0.0
-      typedoc: 0.27.3(typescript@5.7.2)
+      typedoc: 0.27.4(typescript@5.7.2)
 
-  typedoc@0.27.3(typescript@5.7.2):
+  typedoc@0.27.4(typescript@5.7.2):
     dependencies:
       '@gerrit0/mini-shiki': 1.24.1
       lunr: 2.3.9
