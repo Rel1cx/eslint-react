@@ -205,14 +205,34 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `
         import * as React from 'react'
         const Component = React.forwardRef<HTMLElement, { foo: string }>(function Component(props, ref) {
-          return <div ref={ref} />;
+          return <div ref={ref}>{props.foo}</div>;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
       output: /* tsx */ `
         import * as React from 'react'
         const Component = function Component({ ref, ...props }: { foo: string } & { ref: React.RefObject<HTMLElement> }) {
-          return <div ref={ref} />;
+          return <div ref={ref}>{props.foo}</div>;
+        };
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import * as React from 'react'
+        const Component = React.forwardRef<HTMLElement, { foo: string }>(function Component({ foo }, ref) {
+          return <div ref={ref}>{foo}</div>;
+        });
+      `,
+      errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = function Component({ ref, foo }: { foo: string } & { ref: React.RefObject<HTMLElement> }) {
+          return <div ref={ref}>{foo}</div>;
         };
       `,
       settings: {
