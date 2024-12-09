@@ -1,8 +1,14 @@
 ## v1.18.1 (Draft)
 
+### ✨ New
+
+- feat(plugins/x): add `no-context-provider` rule by @Rel1cx
+- feat(plugins/x): add autofix for `no-forward-ref` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/874
+- feat(plugins/eslint-plugin): add `no-forward-ref` and `no-context-provider` to recommended presets by @Rel1cx
+
 ### 🪄 Improvements
 
-- feat(plugins/x): add autofix for `no-forward-ref` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/874
+- refactor(plugins/eslint-plugin): remove `prefer-read-only-props` from `recommended-type-checked` preset by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/872
 
 ## v1.18.0 (Sun 8 Dec 2024)
 
