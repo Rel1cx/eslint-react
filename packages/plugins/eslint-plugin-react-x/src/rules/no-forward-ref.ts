@@ -52,15 +52,17 @@ function getFix(node: TSESTree.CallExpression, context: RuleContext): (fixer: Ru
     const [componentNode] = node.arguments;
     if (!componentNode || !AST.isFunction(componentNode)) return [];
     return [
+      // unwrap component from forwardRef call
       fixer.removeRange([node.range[0], componentNode.range[0]]),
       fixer.removeRange([componentNode.range[1], node.range[1]]),
+      // update component props and ref arguments to match the new signature
       ...getComponentPropsFixes(
         componentNode,
         node.typeArguments?.params ?? [],
         fixer,
         context,
       ),
-    ];
+    ] as const;
   };
 }
 
@@ -69,7 +71,7 @@ function getComponentPropsFixes(
   typeArguments: TSESTree.TypeNode[],
   fixer: RuleFixer,
   context: RuleContext,
-): RuleFix[] {
+) {
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
