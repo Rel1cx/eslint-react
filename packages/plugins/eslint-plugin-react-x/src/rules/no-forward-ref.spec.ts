@@ -6,11 +6,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import { forwardRef } from 'react'
-        forwardRef((props) => {
+        const Component = forwardRef((props) => {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import { forwardRef } from 'react'
+        const Component = ({ ref, ...props }) => {
+          return null;
+        };
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -20,9 +26,13 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import { forwardRef } from 'react'
-        forwardRef((props) => null);
+        const Component = forwardRef((props) => null);
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import { forwardRef } from 'react'
+        const Component = ({ ref, ...props }) => null;
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -32,11 +42,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import { forwardRef } from 'react'
-        forwardRef(function (props) {
+        const Component = forwardRef(function (props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import { forwardRef } from 'react'
+        const Component = function ({ ref, ...props }) {
+          return null;
+        };
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -46,11 +62,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import { forwardRef } from 'react'
-        forwardRef(function Component(props) {
+        const Component = forwardRef(function Component(props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import { forwardRef } from 'react'
+        const Component = function Component({ ref, ...props }) {
+          return null;
+        };
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -60,11 +82,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import * as React from 'react'
-        React.forwardRef((props) => {
+        const Component = React.forwardRef((props) => {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = ({ ref, ...props }) => {
+          return null;
+        };
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -74,9 +102,13 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import * as React from 'react'
-        React.forwardRef((props) => null);
+        const Component = React.forwardRef((props) => null);
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = ({ ref, ...props }) => null;
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -86,11 +118,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import * as React from 'react'
-        React.forwardRef(function (props) {
+        const Component = React.forwardRef(function (props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = function ({ ref, ...props }) {
+          return null;
+        };
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -100,11 +138,83 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `
         import * as React from 'react'
-        React.forwardRef(function Component(props) {
+        const Component = React.forwardRef(function Component(props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = function Component({ ref, ...props }) {
+          return null;
+        };
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import * as React from 'react'
+        const Component = React.forwardRef(function Component(props, ref) {
+          return <div ref={ref} />;
+        });
+      `,
+      errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = function Component({ ref, ...props }) {
+          return <div ref={ref} />;
+        };
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import * as React from 'react'
+        interface ComponentProps {
+          foo: string;
+        }
+        const Component = React.forwardRef<HTMLElement, ComponentProps>(function Component(props, ref) {
+          return <div ref={ref} />;
+        });
+      `,
+      errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        interface ComponentProps {
+          foo: string;
+        }
+        const Component = function Component({ ref, ...props }: ComponentProps & { ref: React.RefObject<HTMLElement> }) {
+          return <div ref={ref} />;
+        };
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        import * as React from 'react'
+        const Component = React.forwardRef<HTMLElement, { foo: string }>(function Component(props, ref) {
+          return <div ref={ref} />;
+        });
+      `,
+      errors: [{ messageId: "noForwardRef" }],
+      output: /* tsx */ `
+        import * as React from 'react'
+        const Component = function Component({ ref, ...props }: { foo: string } & { ref: React.RefObject<HTMLElement> }) {
+          return <div ref={ref} />;
+        };
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",
