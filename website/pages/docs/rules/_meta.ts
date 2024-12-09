@@ -26,6 +26,7 @@ export default {
   "no-component-will-mount": "no-component-will-mount",
   "no-component-will-receive-props": "no-component-will-receive-props",
   "no-component-will-update": "no-component-will-update",
+  "no-context-provider": "no-context-provider",
   "no-create-ref": "no-create-ref",
   "no-default-props": "no-default-props",
   "no-direct-mutation-state": "no-direct-mutation-state",

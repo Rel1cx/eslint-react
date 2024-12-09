@@ -22,6 +22,7 @@ import noComplexConditionalRendering from "./rules/no-complex-conditional-render
 import noComponentWillMount from "./rules/no-component-will-mount";
 import noComponentWillReceiveProps from "./rules/no-component-will-receive-props";
 import noComponentWillUpdate from "./rules/no-component-will-update";
+import noContextProvider from "./rules/no-context-provider";
 import noCreateRef from "./rules/no-create-ref";
 import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
@@ -90,6 +91,7 @@ export default {
     "no-component-will-mount": noComponentWillMount,
     "no-component-will-receive-props": noComponentWillReceiveProps,
     "no-component-will-update": noComponentWillUpdate,
+    "no-context-provider": noContextProvider,
     "no-create-ref": noCreateRef,
     "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
