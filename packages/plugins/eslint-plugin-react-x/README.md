@@ -44,6 +44,7 @@ export default [
       "react-x/no-component-will-mount": "error",
       "react-x/no-component-will-receive-props": "error",
       "react-x/no-component-will-update": "error",
+      "react-x/no-context-provider": "warn",
       "react-x/no-create-ref": "error",
       "react-x/no-default-props": "error",
       "react-x/no-direct-mutation-state": "error",
@@ -94,6 +95,7 @@ export default [
 | `no-component-will-mount`                | Prevents using `componentWillMount`.                                                                 | ⛔  |     |     |
 | `no-component-will-receive-props`        | Prevents using `componentWillReceiveProps`.                                                          | ⛔  |     |     |
 | `no-component-will-update`               | Prevents using `componentWillUpdate`.                                                                | ⛔  |     |     |
+| `no-context-provider`                    | Prevents using `Context.Provider`.                                                                   | ⛔  |     |     |
 | `no-create-ref`                          | Prevents using `createRef`.                                                                          | ⛔  |     |     |
 | `no-default-props`                       | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |  ✔️  |     |     |
 | `no-direct-mutation-state`               | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |

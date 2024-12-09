@@ -19,6 +19,7 @@ export const rules = {
   "@eslint-react/no-component-will-mount": "error",
   "@eslint-react/no-component-will-receive-props": "error",
   "@eslint-react/no-component-will-update": "error",
+  "@eslint-react/no-context-provider": "warn",
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",

@@ -1,0 +1,47 @@
+# no-context-provider
+
+## Rule category
+
+Restriction.
+
+## What it does
+
+Disallows using `<Context.Provider>`.
+
+## Why is this bad?
+
+In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
+
+## Examples
+
+### Failing
+
+```tsx
+const ThemeContext = createContext('');
+
+function App({children}) {
+  return (
+    <ThemeContext.Provider value="light">
+      {children}
+    </ThemeContext>
+  );
+}
+```
+
+### Passing
+
+```tsx
+const ThemeContext = createContext('');
+
+function App({children}) {
+  return (
+    <ThemeContext value="dark">
+      {children}
+    </ThemeContext>
+  );
+}
+```
+
+## Further reading
+
+- [React: `<Context>` as a provider](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider)

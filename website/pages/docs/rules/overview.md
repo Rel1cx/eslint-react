@@ -42,6 +42,7 @@
 | [`no-component-will-mount`](no-component-will-mount)                               | Prevents using `componentWillMount`.                                                                 | ⛔  |     |     |
 | [`no-component-will-receive-props`](no-component-will-receive-props)               | Prevents using `componentWillReceiveProps`.                                                          | ⛔  |     |     |
 | [`no-component-will-update`](no-component-will-update)                             | Prevents using `componentWillUpdate`.                                                                | ⛔  |     |     |
+| [`no-context-provider`](no-context-provider)                                       | Prevents using `<Context.Provider>`.                                                                 | ⛔  |     |     |
 | [`no-create-ref`](no-create-ref)                                                   | Prevents using `createRef`.                                                                          | ⛔  |     |     |
 | [`no-default-props`](no-default-props)                                             | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |  ✔️  |     |     |
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | Prevents direct mutation of `this.state`.                                                            |  ✔️  |     |     |
