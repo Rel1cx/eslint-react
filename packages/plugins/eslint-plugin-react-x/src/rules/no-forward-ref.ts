@@ -52,16 +52,21 @@ function getFix(node: TSESTree.CallExpression, context: RuleContext): (fixer: Ru
     return [
       fixer.removeRange([node.range[0], componentNode.range[0]]),
       fixer.removeRange([componentNode.range[1], node.range[1]]),
-      ...getParamsFixes(componentNode, context, node.typeArguments?.params ?? [], fixer),
+      ...getComponentPropsFixes(
+        componentNode,
+        node.typeArguments?.params ?? [],
+        fixer,
+        context,
+      ),
     ];
   };
 }
 
-function getParamsFixes(
+function getComponentPropsFixes(
   node: AST.TSESTreeFunction,
-  context: RuleContext,
   typeArguments: TSESTree.TypeNode[],
   fixer: RuleFixer,
+  context: RuleContext,
 ): RuleFix[] {
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
