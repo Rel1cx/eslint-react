@@ -27,7 +27,7 @@
     "@types/dotenv-webpack": "7.0.8",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
     "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.1.0",
     "dprint": "0.47.6",
@@ -41,7 +41,7 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.17.0",
+    "typescript-eslint": "^8.18.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"

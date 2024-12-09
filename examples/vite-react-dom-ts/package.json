@@ -21,13 +21,13 @@
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.16.0",
     "eslint-plugin-react-hooks": "rc",
     "eslint-plugin-react-refresh": "^0.4.16",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.17.0",
+    "typescript-eslint": "^8.18.0",
     "vite": "^6.0.3"
   }
 }
