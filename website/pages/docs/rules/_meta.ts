@@ -56,8 +56,14 @@ export default {
   "prefer-read-only-props": "prefer-read-only-props",
   "prefer-shorthand-boolean": "prefer-shorthand-boolean",
   "prefer-shorthand-fragment": "prefer-shorthand-fragment",
-  "avoid-shorthand-boolean": "avoid-shorthand-boolean",
-  "avoid-shorthand-fragment": "avoid-shorthand-fragment",
+  "avoid-shorthand-boolean": {
+    title: "avoid-shorthand-boolean",
+    display: "hidden",
+  },
+  "avoid-shorthand-fragment": {
+    title: "avoid-shorthand-fragment",
+    display: "hidden",
+  },
   "dom-no-children-in-void-dom-elements": "dom/no-children-in-void-dom-elements",
   "dom-no-dangerously-set-innerhtml": "dom/no-dangerously-set-innerhtml",
   "dom-no-dangerously-set-innerhtml-with-children": "dom/no-dangerously-set-innerhtml-with-children",
