@@ -8,7 +8,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -78,35 +78,28 @@ function getComponentPropsFixes(
     .with({ type: AST_NODE_TYPES.Identifier }, (n) => O.some(`...${n.name}`))
     .with({ type: AST_NODE_TYPES.ObjectPattern }, (n) => O.some(n.properties.map(getText).join(", ")))
     .otherwise(O.none);
-  if (O.isNone(fixedArg0Text)) return [];
+  const fixedArg1Text = match(arg1)
+    .with(P.nullish, () => O.some("ref"))
+    .with({ type: AST_NODE_TYPES.Identifier, name: "ref" }, () => O.some("ref"))
+    .with({ type: AST_NODE_TYPES.Identifier, name: P.not("ref") }, (n) => O.some(`ref: ${n.name}`))
+    .otherwise(O.none);
+  if (O.isNone(fixedArg0Text) || O.isNone(fixedArg1Text)) return [];
   const fixedPropsText = fixedArg0Text.value;
-  if (!arg1) {
-    return [fixer.replaceText(
-      arg0,
-      [
-        "{",
-        "ref,",
-        fixedPropsText,
-        "}",
-      ].join(" "),
-    )] as const;
-  }
-  if (arg1.type !== AST_NODE_TYPES.Identifier) return [];
+  const fixedRefText = fixedArg1Text.value;
   if (!typeArg0 || !typeArg1) {
     return [
       fixer.replaceText(
         arg0,
         [
           "{",
-          arg1.name === "ref"
-            ? `ref,`
-            : `ref: ${arg1.name},`,
+          fixedRefText + ",",
           fixedPropsText,
           "}",
         ].join(" "),
       ),
-      fixer.remove(arg1),
-      fixer.removeRange([arg0.range[1], arg1.range[0]]),
+      ...arg1
+        ? [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])]
+        : [],
     ] as const;
   }
   return [
@@ -114,9 +107,7 @@ function getComponentPropsFixes(
       arg0,
       [
         "{",
-        arg1.name === "ref"
-          ? `ref,`
-          : `ref: ${arg1.name},`,
+        fixedRefText + ",",
         fixedPropsText,
         "}:",
         getText(typeArg1),
@@ -127,7 +118,8 @@ function getComponentPropsFixes(
         "}",
       ].join(" "),
     ),
-    fixer.remove(arg1),
-    fixer.removeRange([arg0.range[1], arg1.range[0]]),
+    ...arg1
+      ? [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])]
+      : [],
   ] as const;
 }
