@@ -1,4 +1,4 @@
-## v1.19.0 (Draft)
+## v1.19.0 (Tue 10 Dec 2024)
 
 ### ✨ New
 
@@ -9,6 +9,7 @@
 ### 🪄 Improvements
 
 - refactor(plugins/eslint-plugin): remove `prefer-read-only-props` from `recommended-type-checked` preset by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/872
+- Update `@typescript-eslint`'s packages to `^8.18.0`.
 
 ## v1.18.0 (Sun 8 Dec 2024)
 
