@@ -2,10 +2,9 @@
 
 ## Emoji Legend
 
-- 💭 - Requires Type Information
-- 🔧 - Fixable
 - 🗑️ - Deprecated
-- 🚧 - WIP
+- 🔧 - Fixable
+- 💭 - Requires Type Information
 
 ## Core Rules
 
