@@ -18,12 +18,10 @@ export default tseslint.config(
       "no-undef": "off",
     },
   },
-  // ESLint React rules
   {
     files: ["**/*.{ts,tsx}"],
     ...react.configs.recommended,
   },
-  // React hooks rules
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
@@ -32,10 +30,15 @@ export default tseslint.config(
     rules: reactHooks.configs.recommended.rules,
   },
   {
-    files: ["*.js"],
+    files: ["*.js", "*.cjs"],
     ...tseslint.configs.disableTypeChecked,
   },
-  // Ignore files
+  {
+    files: ["*.js", "*.cjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
   gitignore(),
   {
     ignores: ["*.config.mjs"],

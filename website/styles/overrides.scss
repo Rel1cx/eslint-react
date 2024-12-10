@@ -36,6 +36,14 @@
     }
   }
 
+  blockquote {
+    font-style: normal;
+  }
+
+  details {
+    border: none;
+  }
+
   div[role="tabpanel"] {
     >.nextra-callout:nth-child(1) {
       margin-top: 0;

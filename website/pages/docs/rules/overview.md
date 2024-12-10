@@ -61,55 +61,55 @@
 
 ## DOM Rules
 
-| Rule                                                                                               | Description                                                                             | 💭  |     |
-| :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: |
-| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents using `children` in void `DOM elements`.                                       |     |     |
-| [`dom/no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |     |     |
-| [`dom/no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |     |     |
-| [`dom/no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents using `findDOMNode`.                                                           |     |     |
-| [`dom/no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |     |     |
-| [`dom/no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            |     |     |
-| [`dom/no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |     |     |
-| [`dom/no-render-return-value`](dom-no-render-return-value)                                         | Prevents using the return value of `ReactDOM.render`.                                   |     |     |
-| [`dom/no-script-url`](dom-no-script-url)                                                           | Prevents using `javascript:` URLs as the value of certain attributes.                   |     |     |
-| [`dom/no-unknown-property`](dom-no-unknown-property)                                               | Prevents using unknown `DOM` property                                                   |     | 🔧  |
-| [`dom/no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |     |     |
-| [`dom/no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   |     |     |
+| Rule                                                                                           | Description                                                                             | 💭  |     |
+| :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :-: | :-: |
+| [`no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | Prevents using `children` in void `DOM elements`.                                       |     |     |
+| [`no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |     |     |
+| [`no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |     |     |
+| [`no-find-dom-node`](dom-no-find-dom-node)                                                     | Prevents using `findDOMNode`.                                                           |     |     |
+| [`no-missing-button-type`](dom-no-missing-button-type)                                         | Enforces explicit `type` attribute for `<button>` elements.                             |     |     |
+| [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | Enforces explicit `sandbox` attribute for `iframe` elements.                            |     |     |
+| [`no-namespace`](dom-no-namespace)                                                             | Enforces the absence of a `namespace` in React elements.                                |     |     |
+| [`no-render-return-value`](dom-no-render-return-value)                                         | Prevents using the return value of `ReactDOM.render`.                                   |     |     |
+| [`no-script-url`](dom-no-script-url)                                                           | Prevents using `javascript:` URLs as the value of certain attributes.                   |     |     |
+| [`no-unknown-property`](dom-no-unknown-property)                                               | Prevents using unknown `DOM` property                                                   |     | 🔧  |
+| [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |     |     |
+| [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   |     |     |
 
 ## Web API Rules
 
-| Rule                                                                     | Description                                                       | 💭  |     |
-| :----------------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: |
-| [`web-api/no-leaked-event-listener`](web-api-no-leaked-event-listener)   | Prevents leaked `addEventListener` in a component or custom hook. |     |     |
-| [`web-api/no-leaked-interval`](web-api-no-leaked-interval)               | Prevents leaked `setInterval` in a component or custom hook.      |     |     |
-| [`web-api/no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | Prevents leaked `ResizeObserver` in a component or custom hook.   |     |     |
-| [`web-api/no-leaked-timeout`](web-api-no-leaked-timeout)                 | Prevents leaked `setTimeout` in a component or custom hook.       |     |     |
+| Rule                                                             | Description                                                       | 💭  |     |
+| :--------------------------------------------------------------- | :---------------------------------------------------------------- | :-: | :-: |
+| [`no-leaked-event-listener`](web-api-no-leaked-event-listener)   | Prevents leaked `addEventListener` in a component or custom hook. |     |     |
+| [`no-leaked-interval`](web-api-no-leaked-interval)               | Prevents leaked `setInterval` in a component or custom hook.      |     |     |
+| [`no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | Prevents leaked `ResizeObserver` in a component or custom hook.   |     |     |
+| [`no-leaked-timeout`](web-api-no-leaked-timeout)                 | Prevents leaked `setTimeout` in a component or custom hook.       |     |     |
 
 ## Hooks Extra Rules
 
-| Rule                                                                                                           | Description                                                                     | 💭  |     |
-| :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :-: | :-: |
-| [`hooks-extra/no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)               | Disallow direct calls to the `set` function of `useState` in `useEffect`.       |     |     |
-| [`hooks-extra/no-direct-set-state-in-use-layout-effect`](hooks-extra-no-direct-set-state-in-use-layout-effect) | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`. |     |     |
-| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-redundant-custom-hook)                                 | Warns when custom Hooks that don't use other Hooks.                             |     |     |
-| [`hooks-extra/no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                           | Disallow unnecessary usage of `useCallback`.                                    |     |     |
-| [`hooks-extra/no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                                   | Disallow unnecessary usage of `useMemo`.                                        |     |     |
-| [`hooks-extra/prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)         | Warns function calls made inside `useState` calls.                              |     |     |
+| Rule                                                                                               | Description                                                                     | 💭  |     |
+| :------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :-: | :-: |
+| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)               | Disallow direct calls to the `set` function of `useState` in `useEffect`.       |     |     |
+| [`no-direct-set-state-in-use-layout-effect`](hooks-extra-no-direct-set-state-in-use-layout-effect) | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`. |     |     |
+| [`no-redundant-custom-hook`](hooks-extra-no-redundant-custom-hook)                                 | Warns when custom Hooks that don't use other Hooks.                             |     |     |
+| [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                           | Disallow unnecessary usage of `useCallback`.                                    |     |     |
+| [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                                   | Disallow unnecessary usage of `useMemo`.                                        |     |     |
+| [`prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)         | Warns function calls made inside `useState` calls.                              |     |     |
 
 ## Naming Convention Rules
 
-| Rule                                                                           | Description                                                                                | 💭  |     |
-| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: |
-| [`naming-convention/component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                |     |     |
-| [`naming-convention/filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  |     |     |
-| [`naming-convention/filename-extension`](naming-convention-filename-extension) | Enforces consistent use of the JSX file extension.                                         |     |     |
-| [`naming-convention/use-state`](naming-convention-use-state)                   | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |     |     |
+| Rule                                                         | Description                                                                                | 💭  |     |
+| :----------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: |
+| [`component-name`](naming-convention-component-name)         | Enforces naming conventions for components.                                                |     |     |
+| [`filename`](naming-convention-filename)                     | Enforces naming convention for JSX files.                                                  |     |     |
+| [`filename-extension`](naming-convention-filename-extension) | Enforces consistent use of the JSX file extension.                                         |     |     |
+| [`use-state`](naming-convention-use-state)                   | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |     |     |
 
 ## Debug Rules
 
-| Rule                                                   | Description                                              | 💭  |     |
-| :----------------------------------------------------- | :------------------------------------------------------- | :-: | :-: |
-| [`debug/class-component`](debug-class-component)       | Reports all class components.                            |     |     |
-| [`debug/function-component`](debug-function-component) | Reports all function components.                         |     |     |
-| [`debug/hook`](debug-hook)                             | Reports all react hooks.                                 |     |     |
-| [`debug/is-from-react`](debug-is-from-react)           | Reports all identifiers that are initialized from React. |     |     |
+| Rule                                             | Description                                              | 💭  |     |
+| :----------------------------------------------- | :------------------------------------------------------- | :-: | :-: |
+| [`class-component`](debug-class-component)       | Reports all class components.                            |     |     |
+| [`function-component`](debug-function-component) | Reports all function components.                         |     |     |
+| [`hook`](debug-hook)                             | Reports all react hooks.                                 |     |     |
+| [`is-from-react`](debug-is-from-react)           | Reports all identifiers that are initialized from React. |     |     |

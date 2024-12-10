@@ -16,11 +16,11 @@ export default {
   "---": {
     type: "separator",
   },
-  presets: {
-    title: "Presets",
-  },
   rules: {
     title: "Rules",
+  },
+  presets: {
+    title: "Presets",
   },
   "-Other": {
     title: "Other",
