@@ -39,9 +39,9 @@ export default [
 
 ## Rules
 
-| Rule                 | Description                                              | 💼  | 💭  |     |
-| :------------------- | :------------------------------------------------------- | :-: | :-: | :-: |
-| `class-component`    | Reports all class components.                            | 🐞  |     |     |
-| `function-component` | Reports all function components.                         | 🐞  |     |     |
-| `hook`               | Reports all react hooks.                                 | 🐞  |     |     |
-| `is-from-react`      | Reports all identifiers that are initialized from React. | 🐞  |     |     |
+| Rule                 | Description                                              | 💭  |     |
+| :------------------- | :------------------------------------------------------- | :-: | :-: |
+| `class-component`    | Reports all class components.                            |     |     |
+| `function-component` | Reports all function components.                         |     |     |
+| `hook`               | Reports all react hooks.                                 |     |     |
+| `is-from-react`      | Reports all identifiers that are initialized from React. |     |     |

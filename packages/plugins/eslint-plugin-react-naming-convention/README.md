@@ -38,9 +38,9 @@ export default [
 
 ## Rules
 
-| Rule                 | Description                                                                                | 💼  | 💭  |     |
-| :------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: | :-: |
-| `component-name`     | Enforces naming conventions for components.                                                | 📖  |     |     |
-| `filename`           | Enforces naming convention for JSX files.                                                  | 📖  |     |     |
-| `filename-extension` | Enforces consistent use of the JSX file extension.                                         | 📖  |     |     |
-| `use-state`          | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. | 📖  |     |     |
+| Rule                 | Description                                                                                | 💭  |     |
+| :------------------- | :----------------------------------------------------------------------------------------- | :-: | :-: |
+| `component-name`     | Enforces naming conventions for components.                                                |     |     |
+| `filename`           | Enforces naming convention for JSX files.                                                  |     |     |
+| `filename-extension` | Enforces consistent use of the JSX file extension.                                         |     |     |
+| `use-state`          | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |     |     |

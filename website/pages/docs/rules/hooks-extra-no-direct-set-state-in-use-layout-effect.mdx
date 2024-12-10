@@ -2,17 +2,11 @@ import { Info } from "#/components/callout"
 
 # no-direct-set-state-in-use-layout-effect
 
-## Rule category
-
-Correctness.
-
 ## What it does
 
-<Info>
-This rule only checks for **direct** calls to the `set` function of `useState` in `useLayoutEffect`. It does not check for calls to `set` function in callbacks, event handlers, or `Promise.then` functions.
-</Info>
-
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
+
+This rule only checks for **direct** calls to the `set` function of `useState` in `useEffect`. It does not check for calls to `set` function in callbacks, event handlers, or `Promise.then` functions.
 
 ## Examples
 
