@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.20.0-next.2",
+  "version": "1.20.0-next.3",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -47,7 +47,7 @@
     "prepare": "lefthook install && pnpm run build",
     "test": "vitest --run --logHeapUsage",
     "update:readme": "tsx ./scripts/update-readme.ts",
-    "update:version": "tsx ./scripts/update-version.ts && pnpm run format:package-json"
+    "update:version": "tsx ./scripts/update-version.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
