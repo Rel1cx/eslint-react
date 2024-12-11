@@ -2,6 +2,7 @@ import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import { Effect, Function as F, Predicate } from "effect";
 import { match, P } from "ts-pattern";
 
+import { ignores } from "./ignores";
 import { glob } from "./lib/glob";
 import { readJsonFile, writeJsonFile } from "./lib/json";
 import { version } from "./version";
@@ -31,7 +32,8 @@ const mkTask = (path: string) =>
   });
 
 const program = Effect.gen(function*() {
-  const paths = yield* glob(GLOB_PACKAGE_JSON);
+  const excludes = yield* ignores;
+  const paths = yield* glob(GLOB_PACKAGE_JSON, excludes);
   yield* Effect.all(paths.map(mkTask), { concurrency: "unbounded" });
 });
 
