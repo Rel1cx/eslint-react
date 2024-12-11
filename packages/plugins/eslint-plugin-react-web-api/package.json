@@ -3,11 +3,12 @@
   "version": "1.20.0-next.1",
   "description": "ESLint React's ESLint plugin for interacting with Web APIs",
   "keywords": [
-    "eslint",
-    "eslint-plugin",
-    "web-api",
     "react",
-    "dom"
+    "web-api",
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-web-api"
   ],
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {

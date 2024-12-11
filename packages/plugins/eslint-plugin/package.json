@@ -3,12 +3,15 @@
   "version": "1.20.0-next.1",
   "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
-    "eslint",
-    "eslint-plugin",
-    "eslint-react",
     "react",
-    "tsx",
-    "typescript-react"
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-x",
+    "eslint-plugin-react-dom",
+    "eslint-plugin-react-web-api",
+    "eslint-plugin-react-hooks-extra",
+    "eslint-plugin-react-naming-convention"
   ],
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {

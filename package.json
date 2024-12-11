@@ -4,12 +4,15 @@
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
-    "eslint",
-    "eslint-plugin",
-    "eslint-react",
     "react",
-    "tsx",
-    "typescript-react"
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-x",
+    "eslint-plugin-react-dom",
+    "eslint-plugin-react-web-api",
+    "eslint-plugin-react-hooks-extra",
+    "eslint-plugin-react-naming-convention"
   ],
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -59,7 +62,7 @@
     "@swc/core": "^1.10.1",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
