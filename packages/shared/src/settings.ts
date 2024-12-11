@@ -1,4 +1,4 @@
-import { Data, F } from "@eslint-react/tools";
+import { F } from "@eslint-react/tools";
 import { shallowEqual } from "fast-equals";
 import { getPackageInfoSync } from "local-pkg";
 import memoize from "micro-memoize";
@@ -40,10 +40,10 @@ export function unsafeReadSettings(data: unknown): PartialDeep<ESLintReactSettin
  * @returns settings The settings.
  */
 export const decodeSettings = memoize((data: unknown) => {
-  return Data.struct<ESLintReactSettings>({
+  return {
     ...INITIAL_ESLINT_REACT_SETTINGS,
     ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
-  });
+  } as const satisfies ESLintReactSettings;
 }, { isEqual: (a, b) => a === b });
 
 // #endregion
@@ -58,7 +58,7 @@ export const decodeSettings = memoize((data: unknown) => {
  */
 export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
   const additionalComponents = settings.additionalComponents ?? [];
-  return Data.struct<ESLintReactSettingsNormalized>({
+  return {
     ...settings,
     additionalComponents: additionalComponents.map((component) => ({
       ...component,
@@ -75,9 +75,9 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
       return acc.set(name, as);
     }, new Map<string, string>()),
     version: match(settings.version)
-      .with(P.union(P.nullish, "", "detect"), () => getPackageInfoSync("react")?.version)
-      .otherwise(F.identity) ?? "19.0.0",
-  });
+      .with(P.union(P.nullish, "", "detect"), () => getPackageInfoSync("react")?.version ?? "19.0.0")
+      .otherwise(F.identity),
+  } as const satisfies ESLintReactSettingsNormalized;
 }, { isEqual: shallowEqual });
 
 // #endregion
