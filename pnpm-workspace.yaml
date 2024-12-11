@@ -1,4 +1,5 @@
 packages:
+  - "workspace/*"
   - "packages/*/"
   - "packages/*/*/"
   - "examples/*"

@@ -372,6 +372,7 @@ export default [
     },
     rules: {
       ...disableTypeCheckedRules,
+      "import-x/no-extraneous-dependencies": "off",
     },
   },
 ] satisfies Linter.Config[];
