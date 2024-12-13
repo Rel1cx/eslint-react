@@ -7,16 +7,16 @@ import { PUBLIC_URL } from "#/constants";
 
 export default {
   docsRepositoryBase: "https://github.com/rel1cx/eslint-react/tree/main/website",
-  color: {
-    hue: {
-      light: 200,
-      dark: 200,
-    },
-    saturation: {
-      light: 0,
-      dark: 100,
-    },
-  },
+  // color: {
+  //   hue: {
+  //     light: 200,
+  //     dark: 200,
+  //   },
+  //   saturation: {
+  //     light: 0,
+  //     dark: 100,
+  //   },
+  // },
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
