@@ -72,15 +72,8 @@ export default [
 
 ### Flat Config
 
-- **core**\
-  Enable rules that are renderer-agnostic.
-- **dom**\
-  Enable rules that are specific to React DOM.
-- **web-api**\
-  Enable rules for interacting with Web APIs.
 - **recommended**\
-  Enable rules that are recommended by ESLint React.\
-  _This preset includes the `core`, `dom`, and `web-api` presets._
+  Enable rules that are recommended by ESLint React.
 - **recommended-typescript**\
   Enable rules that are recommended by ESLint React and disable rules that can be covered by TypeScript.\
   _This preset includes the `recommended` preset._
