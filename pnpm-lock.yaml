@@ -60,6 +60,9 @@ importers:
       '@vitest/ui':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:workspace/configs
       '@workspace/eslint-deps':
         specifier: workspace:*
         version: link:workspace/eslint-deps
@@ -431,6 +434,9 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../workspace/configs
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -483,6 +489,9 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -541,6 +550,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -596,6 +608,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -654,6 +669,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -709,6 +727,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -767,6 +788,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -831,6 +855,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.0.2(@types/react@19.0.1)
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -862,6 +889,9 @@ importers:
       '@types/picomatch':
         specifier: ^3.0.1
         version: 3.0.1
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../workspace/configs
       fast-equals:
         specifier: ^5.0.1
         version: 5.0.1
@@ -880,6 +910,9 @@ importers:
 
   packages/tools:
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../workspace/configs
       effect:
         specifier: ^3.11.6
         version: 3.11.6
@@ -899,6 +932,9 @@ importers:
         specifier: ^8.18.0
         version: 8.18.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2)
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../workspace/configs
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -930,6 +966,9 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -964,6 +1003,9 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -992,6 +1034,9 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
     devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -1053,6 +1098,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.3.4(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(sass@1.83.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.1))
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../workspace/configs
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -1104,6 +1152,8 @@ importers:
       vite:
         specifier: ^6.0.3
         version: 6.0.3(@types/node@22.10.2)(jiti@2.4.1)(sass@1.83.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.1)
+
+  workspace/configs: {}
 
   workspace/eslint-deps:
     dependencies:

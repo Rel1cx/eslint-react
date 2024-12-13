@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@types/picomatch": "^3.0.1",
+    "@workspace/configs": "workspace:*",
     "fast-equals": "^5.0.1",
     "micro-memoize": "^4.1.2",
     "tsup": "^8.3.5",

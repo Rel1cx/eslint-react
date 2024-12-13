@@ -1,8 +1,5 @@
 {
   "extends": [
     "@tsconfig/strictest/tsconfig.json"
-  ],
-  "compilerOptions": {
-    "strict": true
-  }
+  ]
 }

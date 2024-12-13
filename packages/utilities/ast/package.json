@@ -51,6 +51,7 @@
     "ts-pattern": "^5.5.0"
   },
   "devDependencies": {
+    "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5"
   }
 }

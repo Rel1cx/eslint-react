@@ -67,6 +67,7 @@
     "eslint-plugin-react-x": "workspace:*"
   },
   "devDependencies": {
+    "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {

@@ -61,7 +61,6 @@
   },
   "files.exclude": {
     "**/.turbo": true,
-    ".npmignore": true,
     "*.bundled_*.mjs": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
