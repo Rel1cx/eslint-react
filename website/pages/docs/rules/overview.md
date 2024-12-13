@@ -5,6 +5,8 @@
 - 💭 - Requires Type Information
 - 🔍 - Diagnostic
 - 🔧 - Fixable
+- ⚙️ - Configurable
+- 🐞 - Debug
 - 🗑️ - Deprecated
 
 ## Core Rules
@@ -53,7 +55,7 @@
 | [`no-unstable-default-props`](no-unstable-default-props)                           | `🔍`      | Prevents using referential-type values as default props in object destructuring.                     |
 | [`no-unused-class-component-members`](no-unused-class-component-members)           | `🔍`      | Warns unused class component methods and properties.                                                 |
 | [`no-unused-state`](no-unused-state)                                               | `🔍`      | Warns unused class component state.                                                                  |
-| [`no-useless-fragment`](no-useless-fragment)                                       | `🔍`      | Prevents using useless `fragment` components or `<>` syntax.                                         |
+| [`no-useless-fragment`](no-useless-fragment)                                       | `🔍` `⚙️`  | Prevents using useless `fragment` components or `<>` syntax.                                         |
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | `🔍`      | Enforces using destructuring assignment over property assignment.                                    |
 | [`prefer-react-namespace-import`](prefer-react-namespace-import)                   | `🔍` `🔧` | Enforce React is imported via a namespace import                                                     |
 | [`prefer-read-only-props`](prefer-read-only-props)                                 | `🔍` `💭` | Enforces read-only props in components.                                                              |
@@ -62,20 +64,20 @@
 
 ## DOM Rules
 
-| Rule                                                                                           | Features  | Description                                                                             |
-| :--------------------------------------------------------------------------------------------- | :-------- | :-------------------------------------------------------------------------------------- |
-| [`no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | `🔍`      | Prevents using `children` in void `DOM elements`.                                       |
-| [`no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | `🔍`      | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |
-| [`no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | `🔍`      | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
-| [`no-find-dom-node`](dom-no-find-dom-node)                                                     | `🔍`      | Prevents using `findDOMNode`.                                                           |
-| [`no-missing-button-type`](dom-no-missing-button-type)                                         | `🔍`      | Enforces explicit `type` attribute for `<button>` elements.                             |
-| [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | `🔍`      | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
-| [`no-namespace`](dom-no-namespace)                                                             | `🔍`      | Enforces the absence of a `namespace` in React elements.                                |
-| [`no-render-return-value`](dom-no-render-return-value)                                         | `🔍`      | Prevents using the return value of `ReactDOM.render`.                                   |
-| [`no-script-url`](dom-no-script-url)                                                           | `🔍`      | Prevents using `javascript:` URLs as the value of certain attributes.                   |
-| [`no-unknown-property`](dom-no-unknown-property)                                               | `🔍` `🔧` | Prevents using unknown `DOM` property                                                   |
-| [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | `🔍`      | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
-| [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | `🔍`      | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   |
+| Rule                                                                                           | Features      | Description                                                                             |
+| :--------------------------------------------------------------------------------------------- | :------------ | :-------------------------------------------------------------------------------------- |
+| [`no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | `🔍`          | Prevents using `children` in void `DOM elements`.                                       |
+| [`no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | `🔍`          | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |
+| [`no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | `🔍`          | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
+| [`no-find-dom-node`](dom-no-find-dom-node)                                                     | `🔍`          | Prevents using `findDOMNode`.                                                           |
+| [`no-missing-button-type`](dom-no-missing-button-type)                                         | `🔍`          | Enforces explicit `type` attribute for `<button>` elements.                             |
+| [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | `🔍`          | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
+| [`no-namespace`](dom-no-namespace)                                                             | `🔍`          | Enforces the absence of a `namespace` in React elements.                                |
+| [`no-render-return-value`](dom-no-render-return-value)                                         | `🔍`          | Prevents using the return value of `ReactDOM.render`.                                   |
+| [`no-script-url`](dom-no-script-url)                                                           | `🔍`          | Prevents using `javascript:` URLs as the value of certain attributes.                   |
+| [`no-unknown-property`](dom-no-unknown-property)                                               | `🔍` `🔧` `⚙️` | Prevents using unknown `DOM` property                                                   |
+| [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | `🔍`          | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
+| [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | `🔍`          | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   |
 
 ## Web API Rules
 
@@ -101,9 +103,9 @@
 
 | Rule                                                         | Features | Description                                                                                |
 | :----------------------------------------------------------- | :------- | :----------------------------------------------------------------------------------------- |
-| [`component-name`](naming-convention-component-name)         | `🔍`     | Enforces naming conventions for components.                                                |
-| [`filename`](naming-convention-filename)                     | `🔍`     | Enforces naming convention for JSX files.                                                  |
-| [`filename-extension`](naming-convention-filename-extension) | `🔍`     | Enforces consistent use of the JSX file extension.                                         |
+| [`component-name`](naming-convention-component-name)         | `🔍` `⚙️` | Enforces naming conventions for components.                                                |
+| [`filename`](naming-convention-filename)                     | `🔍` `⚙️` | Enforces naming convention for JSX files.                                                  |
+| [`filename-extension`](naming-convention-filename-extension) | `🔍` `⚙️` | Enforces consistent use of the JSX file extension.                                         |
 | [`use-state`](naming-convention-use-state)                   | `🔍`     | Enforces destructuring and symmetric naming of `useState` hook value and setter variables. |
 
 ## Debug Rules
