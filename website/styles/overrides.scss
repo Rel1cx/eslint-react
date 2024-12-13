@@ -53,11 +53,10 @@
   }
 
   table {
-    tbody {
-      tr td code {
-        font-family: var(--font-family-mono);
-        white-space: nowrap;
-      }
+    thead tr th code,
+    tbody tr td code {
+      font-family: var(--font-family-mono);
+      white-space: nowrap;
     }
   }
 
