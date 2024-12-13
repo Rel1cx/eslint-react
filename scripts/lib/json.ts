@@ -15,6 +15,7 @@ export const writeJsonFile = (
   path: string,
   data: unknown,
   indent = 2,
+  insertFinalNewline = true,
 ): Effect.Effect<unknown, never, FileSystem.FileSystem> =>
   Effect.gen(function*() {
     const fs = yield* FileSystem.FileSystem;
@@ -22,5 +23,6 @@ export const writeJsonFile = (
       catch: (error) => `[FileSystem] Unable to stringify JSON data: ${String(error)}`,
       try: () => JSON.stringify(data, null, indent),
     }));
-    yield* Effect.orDie(fs.writeFileString(path, content));
+    const finalContent = insertFinalNewline ? `${content}\n` : content;
+    yield* Effect.orDie(fs.writeFileString(path, finalContent));
   });

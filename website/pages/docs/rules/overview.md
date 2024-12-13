@@ -2,12 +2,12 @@
 
 ## Emoji Legend
 
-- 💭 - Requires Type Information
-- 🔍 - Diagnostic
-- 🔧 - Fixable
 - ⚙️ - Configurable
 - 🐞 - Debug
 - 🗑️ - Deprecated
+- 🔍 - Diagnostic
+- 🔧 - Fixable
+- 💭 - Type Chcking
 
 ## Core Rules
 
