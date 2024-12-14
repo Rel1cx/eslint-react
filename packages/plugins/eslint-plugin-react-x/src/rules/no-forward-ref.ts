@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
+import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
@@ -13,6 +13,11 @@ import { match, P } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-forward-ref";
+
+export const RULE_FEATURES = [
+  "LNT",
+  "FIX",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

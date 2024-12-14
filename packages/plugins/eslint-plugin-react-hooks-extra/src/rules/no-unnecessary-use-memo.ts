@@ -2,6 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -10,6 +11,10 @@ import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-memo";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

@@ -4,6 +4,7 @@ import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@es
 import { ERPhaseRelevance, isInversePhase } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { F, isBoolean, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -17,6 +18,10 @@ import { EventListenerEntry } from "./../models";
 // #region Rule Metadata
 
 export const RULE_NAME = "no-leaked-event-listener";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "noLeakedEventListenerInEffect"

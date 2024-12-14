@@ -3,6 +3,7 @@ import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, MutRef, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -19,6 +20,10 @@ import {
 } from "../utils";
 
 export const RULE_NAME = "no-direct-set-state-in-use-layout-effect";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 type MessageID = CamelCase<typeof RULE_NAME>;
 type CallKind = "other" | "setState" | "then" | "useLayoutEffect" | "useState";

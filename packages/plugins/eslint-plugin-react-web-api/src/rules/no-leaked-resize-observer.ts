@@ -3,7 +3,7 @@ import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
 import { F, not, O, or } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
+import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
@@ -16,6 +16,10 @@ import { ObserverEntry } from "./../models";
 // #region Rule Metadata
 
 export const RULE_NAME = "no-leaked-resize-observer";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "noLeakedResizeObserver"

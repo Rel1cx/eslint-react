@@ -1,12 +1,17 @@
 import * as JSX from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-script-url";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

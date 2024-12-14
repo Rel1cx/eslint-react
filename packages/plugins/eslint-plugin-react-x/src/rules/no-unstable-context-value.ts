@@ -1,12 +1,17 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unstable-context-value";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "noUnstableContextValue"

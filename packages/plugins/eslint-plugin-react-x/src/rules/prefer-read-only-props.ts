@@ -1,4 +1,5 @@
 import { useComponentCollector } from "@eslint-react/core";
+import type { RuleFeature } from "@eslint-react/types";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -9,6 +10,11 @@ import type ts from "typescript";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-read-only-props";
+
+export const RULE_FEATURES = [
+  "LNT",
+  "TSC",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

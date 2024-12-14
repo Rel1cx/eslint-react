@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isComponentName } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -10,6 +11,10 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-prop-types";
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export default createRule<[], MessageID>({
   meta: {

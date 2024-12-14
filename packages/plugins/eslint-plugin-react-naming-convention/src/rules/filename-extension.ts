@@ -1,9 +1,15 @@
 import { isObject, MutRef } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "filename-extension";
+
+export const RULE_FEATURES = [
+  "LNT",
+  "OPT",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "filenameExtensionInvalid"

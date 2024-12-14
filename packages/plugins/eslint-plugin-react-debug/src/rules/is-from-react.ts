@@ -1,6 +1,7 @@
 import { isInitializedFromReact } from "@eslint-react/core";
 import { decodeSettings } from "@eslint-react/shared";
 import { F, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
@@ -10,6 +11,10 @@ import type { CamelCase } from "string-ts";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "is-from-react";
+
+export const RULE_FEATURES = [
+  "DBG",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

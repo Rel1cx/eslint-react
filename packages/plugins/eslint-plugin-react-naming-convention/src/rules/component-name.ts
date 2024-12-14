@@ -3,6 +3,7 @@ import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-reac
 import * as JSX from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import { F, isNullable, isString, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -10,6 +11,11 @@ import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "component-name";
+
+export const RULE_FEATURES = [
+  "LNT",
+  "OPT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

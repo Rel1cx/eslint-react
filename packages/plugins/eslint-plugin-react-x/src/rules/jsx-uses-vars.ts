@@ -1,4 +1,5 @@
 import { O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -6,6 +7,10 @@ import type { CamelCase } from "string-ts";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-uses-vars";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

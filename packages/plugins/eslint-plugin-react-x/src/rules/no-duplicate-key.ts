@@ -2,6 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { F, MutRef, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -12,6 +13,10 @@ import { isMatching, match } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

@@ -2,6 +2,7 @@
 import * as AST from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -11,6 +12,10 @@ import { isMatching } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

@@ -3,6 +3,7 @@ import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
 import { F, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
@@ -14,6 +15,10 @@ import { createRule, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils"
 // #region Rule Metadata
 
 export const RULE_NAME = "no-leaked-timeout";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "noLeakedTimeoutInEffect"

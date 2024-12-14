@@ -11,12 +11,17 @@ import {
 } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-nested-components";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "nestedComponent"

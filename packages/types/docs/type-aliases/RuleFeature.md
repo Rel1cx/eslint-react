@@ -6,4 +6,4 @@
 
 # Type Alias: RuleFeature
 
-> **RuleFeature**: `"DBG"` \| `"FIX"` \| `"LNT"` \| `"TSC"`
+> **RuleFeature**: `"DBG"` \| `"FIX"` \| `"LNT"` \| `"OPT"` \| `"TSC"`

@@ -2,6 +2,7 @@ import { getElementRepresentName } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { F, isString, O } from "@eslint-react/tools";
+import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -10,6 +11,10 @@ import { match, P } from "ts-pattern";
 import { createRule, findAttrInCustomAttributes } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
+
+export const RULE_FEATURES = [
+  "LNT",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

@@ -7,12 +7,18 @@
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare, compareVersions } from "compare-versions";
+import type { RuleFeature } from "@eslint-react/types";
 
 // ------------------------------------------------------------------------------
 // Constants
 // ------------------------------------------------------------------------------
 
 export const RULE_NAME = "no-unknown-property";
+
+export const RULE_FEATURES = [
+  "LNT",
+  "FIX",
+] as const satisfies RuleFeature[];
 
 const DEFAULTS = {
   ignore: [],
