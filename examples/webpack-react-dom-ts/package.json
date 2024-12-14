@@ -34,6 +34,7 @@
     "dprint": "0.47.6",
     "esbuild-register": "3.6.0",
     "eslint": "^9.17.0",
+    "eslint-config-flat-gitignore": "^0.3.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "eslint-webpack-plugin": "4.2.0",
