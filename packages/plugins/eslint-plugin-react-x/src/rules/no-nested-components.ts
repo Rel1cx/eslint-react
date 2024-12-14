@@ -32,6 +32,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using unstable nested components",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       nestedComponent: "Do not nest components inside other components. Move it to the top level.",

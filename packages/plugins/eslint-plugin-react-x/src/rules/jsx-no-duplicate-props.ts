@@ -18,6 +18,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow duplicate props",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsxNoDuplicateProps: "Duplicate prop '{{name}}'",

@@ -19,6 +19,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require 'displayName' for 'memo' and 'forwardRef' components",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noMissingComponentDisplayName: "Add missing 'displayName' for component.",

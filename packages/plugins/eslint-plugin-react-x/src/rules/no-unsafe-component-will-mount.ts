@@ -26,6 +26,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'UNSAFE_componentWillMount'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnsafeComponentWillMount: "Do not use 'UNSAFE_componentWillMount'.",

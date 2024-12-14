@@ -22,6 +22,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce using shorthand boolean attributes",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

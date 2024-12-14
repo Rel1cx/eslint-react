@@ -22,6 +22,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce custom hooks to use at least one other hook inside",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noRedundantCustomHook: "A custom hook '{{name}}' should use at least one other hook.",

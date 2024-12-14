@@ -30,6 +30,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce using destructuring assignment in component props and context",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       preferDestructuringAssignment: "Use destructuring assignment for {{name}}.",

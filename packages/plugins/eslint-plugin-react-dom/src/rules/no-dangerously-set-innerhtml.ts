@@ -19,6 +19,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow when a DOM component is using 'dangerouslySetInnerHTML'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noDangerouslySetInnerhtml: "Using 'dangerouslySetInnerHTML' may have security implications.",

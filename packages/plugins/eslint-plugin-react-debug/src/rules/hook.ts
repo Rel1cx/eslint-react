@@ -18,6 +18,7 @@ export default createRule<[], MessageID>({
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all React Hooks",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       hook: "[hook] name: {{name}}, hookCalls: {{hookCalls}}.",

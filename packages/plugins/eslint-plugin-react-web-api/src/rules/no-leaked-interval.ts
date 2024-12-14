@@ -63,6 +63,7 @@ export default createRule<[], MessageID>({
     docs: {
       description:
         "enforce that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noLeakedIntervalInEffect:

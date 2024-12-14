@@ -19,6 +19,7 @@ export default createRule<[], MessageID>({
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all function components, including anonymous ones",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       functionComponent:

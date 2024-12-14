@@ -28,6 +28,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'setState' in 'componentDidUpdate'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noSetStateInComponentDidUpdate:

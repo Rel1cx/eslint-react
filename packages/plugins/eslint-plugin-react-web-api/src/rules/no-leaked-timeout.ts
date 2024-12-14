@@ -62,6 +62,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noLeakedTimeoutInEffect:

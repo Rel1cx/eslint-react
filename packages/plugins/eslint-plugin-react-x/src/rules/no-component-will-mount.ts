@@ -26,6 +26,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'componentWillMount'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noComponentWillMount: "[Deprecated] Use 'UNSAFE_componentWillMount' instead.",

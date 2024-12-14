@@ -206,6 +206,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow problematic leaked values from being rendered",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noLeakedConditionalRendering:

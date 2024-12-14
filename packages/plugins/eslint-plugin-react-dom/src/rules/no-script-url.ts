@@ -24,6 +24,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow 'javascript:' URLs as JSX event handler prop's value",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noScriptUrl: "Using a `javascript:` URL is a security risk and should be avoided.",

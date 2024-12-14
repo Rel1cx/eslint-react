@@ -24,6 +24,7 @@ export default createRule<[], MessageID>({
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all identifiers that are initialized from React.",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       isFromReact: "[initialized from react] name: '{{name}}', import source: '{{importSource}}'.",

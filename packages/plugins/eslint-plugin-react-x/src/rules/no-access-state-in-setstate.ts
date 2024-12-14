@@ -39,6 +39,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow accessing 'this.state' within 'setState'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noAccessStateInSetstate: "Do not access 'this.state' within 'setState'. Use the update function instead.",

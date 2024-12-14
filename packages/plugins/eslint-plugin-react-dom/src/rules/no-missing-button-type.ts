@@ -20,6 +20,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce that button component have an explicit 'type' attribute",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noMissingButtonType: "Add missing 'type' attribute on 'button' component.",

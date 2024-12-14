@@ -38,6 +38,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing 'children' to void DOM elements",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noChildrenInVoidDomElements: "A void DOM element '<{{element}} />' cannot have children.",

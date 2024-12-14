@@ -32,6 +32,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce read-only props in components",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       preferReadOnlyProps: "A function component's props should be read-only.",

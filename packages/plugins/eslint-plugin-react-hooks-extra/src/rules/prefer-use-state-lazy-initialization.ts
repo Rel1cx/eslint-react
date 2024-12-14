@@ -24,6 +24,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow function calls in 'useState' that aren't wrapped in an initializer function",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       preferUseStateLazyInitialization:

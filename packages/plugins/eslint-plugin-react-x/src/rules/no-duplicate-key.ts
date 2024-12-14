@@ -25,6 +25,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow duplicate keys when rendering list",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noDuplicateKey: "A key must be unique. '{{value}}' is duplicated.",

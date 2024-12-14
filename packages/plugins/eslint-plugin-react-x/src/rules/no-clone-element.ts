@@ -17,6 +17,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'cloneElement'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noCloneElement: "Using 'cloneElement' is uncommon and can lead to fragile code. Use alternatives instead.",

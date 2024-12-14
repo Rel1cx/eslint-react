@@ -23,6 +23,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow unnecessary usage of 'useCallback'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnnecessaryUseCallback:

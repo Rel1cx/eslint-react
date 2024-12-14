@@ -22,6 +22,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow implicit 'key' props",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noImplicitKey: "Do not use implicit 'key' props.",

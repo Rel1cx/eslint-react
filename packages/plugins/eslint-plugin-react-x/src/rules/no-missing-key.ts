@@ -25,6 +25,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require 'key' when rendering list",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noMissingKey: "Missing 'key' for element when rendering list.",

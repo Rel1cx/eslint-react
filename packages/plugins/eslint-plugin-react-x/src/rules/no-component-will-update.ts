@@ -26,6 +26,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'componentWillReceiveProps'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noComponentWillUpdate: "[Deprecated] Use 'UNSAFE_componentWillUpdate' instead.",

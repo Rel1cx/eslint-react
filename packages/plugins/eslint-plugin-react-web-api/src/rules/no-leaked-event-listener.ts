@@ -146,6 +146,7 @@ export default createRule<[], MessageID>({
     docs: {
       description:
         "enforce that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'.",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noLeakedEventListenerInEffect:

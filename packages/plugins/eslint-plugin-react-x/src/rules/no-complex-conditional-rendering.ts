@@ -21,6 +21,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow complex conditional rendering",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noComplexConditionalRendering:

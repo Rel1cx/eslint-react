@@ -20,6 +20,7 @@ export default createRule<[], MessageID>({
     docs: {
       // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "a helper rule to mark variables as used",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsxUsesVars: "",

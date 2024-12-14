@@ -106,6 +106,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using Array index as 'key'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noArrayIndexKey: "Do not use Array index as 'key'.",

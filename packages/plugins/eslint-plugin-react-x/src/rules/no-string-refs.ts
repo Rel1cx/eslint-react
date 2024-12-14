@@ -30,6 +30,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using deprecated string refs",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noStringRefs: "[Deprecated] Use callback refs instead.",

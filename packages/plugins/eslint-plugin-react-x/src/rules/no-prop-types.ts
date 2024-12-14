@@ -21,6 +21,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'propTypes' property in components",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noPropTypes: "[Deprecated] Use TypeScript or another type-checking solution instead.",

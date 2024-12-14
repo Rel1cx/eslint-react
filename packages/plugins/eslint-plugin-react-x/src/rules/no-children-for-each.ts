@@ -17,6 +17,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using 'Children.forEach'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noChildrenForEach: "Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.",

@@ -21,6 +21,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce using fragment syntax instead of 'Fragment' component",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       preferShorthandFragment: "Use fragment shorthand syntax instead of 'Fragment' component.",

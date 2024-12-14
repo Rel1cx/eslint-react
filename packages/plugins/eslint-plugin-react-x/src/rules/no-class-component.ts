@@ -38,6 +38,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using class components",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noClassComponent: "Do not use class components. Use function components instead.",

@@ -34,6 +34,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow direct calls to the 'set' function of 'useState' in 'useLayoutEffect'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noDirectSetStateInUseLayoutEffect:

@@ -30,6 +30,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "enforce destructuring and symmetric naming of 'useState' hook value and setter variables",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       useState: "An useState call is not destructured into value + setter pair.",

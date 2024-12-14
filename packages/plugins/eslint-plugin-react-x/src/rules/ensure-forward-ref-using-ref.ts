@@ -19,6 +19,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "require a 'ref' parameter to be set when using 'forwardRef'",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       ensureForwardRefUsingRef: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",

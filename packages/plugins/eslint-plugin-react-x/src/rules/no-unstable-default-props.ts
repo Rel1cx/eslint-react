@@ -28,6 +28,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow using unstable value as default param in function component",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnstableDefaultProps:

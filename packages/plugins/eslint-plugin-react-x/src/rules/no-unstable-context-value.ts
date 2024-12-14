@@ -23,6 +23,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "disallow passing constructed values to context providers",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnstableContextValue:
