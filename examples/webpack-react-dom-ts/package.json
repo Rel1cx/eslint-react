@@ -1,5 +1,5 @@
 {
-  "name": "webpack-react-dom-ts",
+  "name": "@examples/webpack-react-dom-ts",
   "version": "0.0.0",
   "private": true,
   "type": "module",
