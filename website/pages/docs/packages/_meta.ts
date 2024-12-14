@@ -29,4 +29,9 @@ export default {
     href: "https://www.npmjs.com/package/eslint-plugin-react-naming-convention",
     newWindow: true,
   },
+  "eslint-plugin-react-debug": {
+    title: "eslint-plugin-react-debug",
+    href: "https://www.npmjs.com/package/eslint-plugin-react-debug",
+    newWindow: true,
+  },
 } as const;
