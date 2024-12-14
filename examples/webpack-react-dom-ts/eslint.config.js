@@ -15,11 +15,8 @@ export default [
       "eslint.config.d.ts",
     ],
   },
-  // JavaScript rules
   js.configs.recommended,
-  // TypeScript rules
   ...tseslint.configs.recommendedTypeChecked,
-  // TypeScript languageOptions
   {
     languageOptions: {
       parserOptions: {
@@ -28,12 +25,10 @@ export default [
       },
     },
   },
-  // React rules
   {
     files: ["src/**/*.{ts,tsx}"],
     ...react.configs["recommended-type-checked"],
   },
-  // React Hooks rules
   {
     files: ["src/**/*.{ts,tsx}"],
     plugins: {
@@ -50,7 +45,6 @@ export default [
       "react-refresh/only-export-components": "warn",
     },
   },
-  // TypeScript languageOptions for config files
   {
     files: ["*.config.{js,cjs,mjs,ts,cts,mts}", "*.d.ts"],
     languageOptions: {
@@ -61,7 +55,6 @@ export default [
       },
     },
   },
-  // Disable type checking for JavaScript files
   {
     files: ["*.js"],
     ...tseslint.configs.disableTypeChecked,

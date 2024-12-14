@@ -14,9 +14,7 @@ export default [
       "eslint.config.d.ts",
     ],
   },
-  // JavaScript rules
   js.configs.recommended,
-  // React rules
   {
     files: ["src/**/*.{js,jsx}"],
     ...react.configs["recommended"],
@@ -35,7 +33,6 @@ export default [
       },
     },
   },
-  // React Hooks rules
   {
     files: ["src/**/*.{js,jsx}"],
     plugins: {
@@ -50,12 +47,6 @@ export default [
     },
     rules: {
       "react-refresh/only-export-components": "warn",
-    },
-  },
-  {
-    files: ["src/**/*.jsx"],
-    rules: {
-      "no-unused-vars": "off",
     },
   },
 ];
