@@ -3,11 +3,11 @@
 ## Emoji Legend
 
 - ⚙️ - Configurable
-- 🐞 - Debug
-- 🗑️ - Deprecated
-- 🔍 - Diagnostic
+- 🔍 - Linting
 - 🔧 - Fixable
 - 💭 - Type Chcking
+- 🐞 - Debug
+- 🗑️ - Deprecated
 
 ## Core Rules
 
