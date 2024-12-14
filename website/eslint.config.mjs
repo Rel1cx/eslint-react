@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
+import next from "@next/eslint-plugin-next";
 import react from "@eslint-react/eslint-plugin";
 import reactHooks from "eslint-plugin-react-hooks";
 import gitignore from "eslint-config-flat-gitignore";
@@ -28,6 +29,22 @@ export default tseslint.config(
       "react-hooks": reactHooks,
     },
     rules: reactHooks.configs.recommended.rules,
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: {
+      "@next/next": next,
+    },
+    rules: {
+      ...next.configs.recommended.rules,
+      ...next.configs["core-web-vitals"].rules,
+    },
+  },
+  {
+    files: ["app/**/*.{js,ts,jsx,tsx}"],
+    rules: {
+      "@typescript-eslint/require-await": "off",
+    },
   },
   {
     files: ["*.js", "*.cjs"],
