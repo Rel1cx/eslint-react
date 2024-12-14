@@ -8,9 +8,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-uses-vars";
 
-export const RULE_FEATURES = [
-  "LNT",
-] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
