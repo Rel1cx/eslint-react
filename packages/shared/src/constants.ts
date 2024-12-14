@@ -239,12 +239,14 @@ export const HOST_SVG_COMPONENT_TYPES = [
 // #region Build-in Hooks
 
 export const REACT_BUILD_IN_HOOKS = [
+  "use",
   "useActionState",
   "useCallback",
   "useContext",
   "useDebugValue",
   "useDeferredValue",
   "useEffect",
+  "useFormStatus",
   "useId",
   "useImperativeHandle",
   "useInsertionEffect",
