@@ -9,7 +9,8 @@
 Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function,
 if the value is a `Right` the inner value is applied to the `onRight` function.
 
-@example
+## Example
+
 ```ts
 import { pipe, Either } from "effect"
 
@@ -24,8 +25,9 @@ assert.deepStrictEqual(
 )
 ```
 
-@category pattern matching
-@since 2.0.0
+## Since
+
+2.0.0
 
 ## Call Signature
 
@@ -33,24 +35,6 @@ assert.deepStrictEqual(
 
 Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function,
 if the value is a `Right` the inner value is applied to the `onRight` function.
-
-@example
-```ts
-import { pipe, Either } from "effect"
-
-const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
-
-const onRight = (value: number): string => `Ok: ${value}`
-
-assert.deepStrictEqual(pipe(Either.right(1), Either.match({ onLeft, onRight })), 'Ok: 1')
-assert.deepStrictEqual(
-  pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
-  'strings: string 1, string 2'
-)
-```
-
-@category pattern matching
-@since 2.0.0
 
 ### Type Parameters
 
@@ -88,14 +72,8 @@ assert.deepStrictEqual(
 
 `B` \| `C`
 
-## Call Signature
+### Examples
 
-> **match**\<`R`, `L`, `B`, `C`\>(`self`, `options`): `B` \| `C`
-
-Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function,
-if the value is a `Right` the inner value is applied to the `onRight` function.
-
-@example
 ```ts
 import { pipe, Either } from "effect"
 
@@ -110,8 +88,34 @@ assert.deepStrictEqual(
 )
 ```
 
-@category pattern matching
-@since 2.0.0
+```ts
+import { pipe, Either } from "effect"
+
+const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
+
+const onRight = (value: number): string => `Ok: ${value}`
+
+assert.deepStrictEqual(pipe(Either.right(1), Either.match({ onLeft, onRight })), 'Ok: 1')
+assert.deepStrictEqual(
+  pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
+  'strings: string 1, string 2'
+)
+```
+
+### Since
+
+2.0.0
+
+### Since
+
+2.0.0
+
+## Call Signature
+
+> **match**\<`R`, `L`, `B`, `C`\>(`self`, `options`): `B` \| `C`
+
+Takes two functions and an `Either` value, if the value is a `Left` the inner value is applied to the `onLeft function,
+if the value is a `Right` the inner value is applied to the `onRight` function.
 
 ### Type Parameters
 
@@ -142,3 +146,41 @@ assert.deepStrictEqual(
 ### Returns
 
 `B` \| `C`
+
+### Examples
+
+```ts
+import { pipe, Either } from "effect"
+
+const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
+
+const onRight = (value: number): string => `Ok: ${value}`
+
+assert.deepStrictEqual(pipe(Either.right(1), Either.match({ onLeft, onRight })), 'Ok: 1')
+assert.deepStrictEqual(
+  pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
+  'strings: string 1, string 2'
+)
+```
+
+```ts
+import { pipe, Either } from "effect"
+
+const onLeft  = (strings: ReadonlyArray<string>): string => `strings: ${strings.join(', ')}`
+
+const onRight = (value: number): string => `Ok: ${value}`
+
+assert.deepStrictEqual(pipe(Either.right(1), Either.match({ onLeft, onRight })), 'Ok: 1')
+assert.deepStrictEqual(
+  pipe(Either.left(['string 1', 'string 2']), Either.match({ onLeft, onRight })),
+  'strings: string 1, string 2'
+)
+```
+
+### Since
+
+2.0.0
+
+### Since
+
+2.0.0
