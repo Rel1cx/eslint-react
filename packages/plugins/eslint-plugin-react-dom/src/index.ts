@@ -1,5 +1,3 @@
-import type { ESLintReactSettings } from "@eslint-react/shared";
-
 import { name, version } from "../package.json";
 import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
@@ -13,21 +11,6 @@ import noScriptUrl from "./rules/no-script-url";
 import noUnknownProperty from "./rules/no-unknown-property";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
-
-const DEFAULT_ESLINT_REACT_SETTINGS = {
-  additionalComponents: [
-    {
-      name: "Link",
-      as: "a",
-      attributes: [
-        {
-          name: "to",
-          as: "href",
-        },
-      ],
-    },
-  ],
-} as const satisfies ESLintReactSettings;
 
 export default {
   meta: {
@@ -48,6 +31,4 @@ export default {
     "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
     "no-unsafe-target-blank": noUnsafeTargetBlank,
   },
-  // eslint-disable-next-line perfectionist/sort-objects
-  DEFAULT_ESLINT_REACT_SETTINGS,
 } as const;

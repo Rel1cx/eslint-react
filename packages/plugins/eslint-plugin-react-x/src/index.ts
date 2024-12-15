@@ -1,6 +1,4 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { ESLintReactSettings } from "@eslint-react/shared";
-
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
@@ -52,18 +50,6 @@ import preferReactNamespaceImport from "./rules/prefer-react-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
-
-/**
- * The default ESLint settings for "react-x".
- */
-const DEFAULT_ESLINT_REACT_SETTINGS = {
-  additionalHooks: {
-    useLayoutEffect: ["useIsomorphicLayoutEffect"],
-  },
-  polymorphicPropName: "as",
-  strictImportCheck: true,
-  version: "detect",
-} as const satisfies ESLintReactSettings;
 
 export default {
   meta: {
@@ -125,5 +111,4 @@ export default {
     /** @deprecated Use `no-complex-conditional-rendering` instead. */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
   },
-  DEFAULT_ESLINT_REACT_SETTINGS,
 };

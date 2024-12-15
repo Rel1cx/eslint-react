@@ -1,3 +1,4 @@
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import type { RulePreset } from "@eslint-react/types";
 import react from "eslint-plugin-react-x";
 
@@ -48,5 +49,5 @@ export const plugins = {
 };
 
 export const settings = {
-  "react-x": react.DEFAULT_ESLINT_REACT_SETTINGS,
+  "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
 };

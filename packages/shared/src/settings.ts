@@ -13,9 +13,16 @@ import { ESLintSettingsSchema } from "./schemas";
 // #region Constants
 
 /**
- * The initial settings for "react-x".
+ * The default ESLint settings for "react-x".
  */
-export const INITIAL_ESLINT_REACT_SETTINGS = {} as const satisfies ESLintReactSettings;
+export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  additionalHooks: {
+    useLayoutEffect: ["useIsomorphicLayoutEffect"],
+  },
+  polymorphicPropName: "as",
+  strictImportCheck: false,
+  version: "detect",
+} as const satisfies ESLintReactSettings;
 
 // #endregion
 
@@ -41,7 +48,7 @@ export function unsafeReadSettings(data: unknown): PartialDeep<ESLintReactSettin
  */
 export const decodeSettings = memoize((data: unknown) => {
   return {
-    ...INITIAL_ESLINT_REACT_SETTINGS,
+    ...DEFAULT_ESLINT_REACT_SETTINGS,
     ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
   } as const satisfies ESLintReactSettings;
 }, { isEqual: (a, b) => a === b });

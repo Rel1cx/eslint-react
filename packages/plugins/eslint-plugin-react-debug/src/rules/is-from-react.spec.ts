@@ -263,6 +263,12 @@ ruleTester.run(RULE_NAME, rule, {
           const toArr = Children.toArray;
           return null;
         }
+        function Component2() {
+          const Children = {
+            toArray: () => {},
+          }
+          const toArr = Children.toArray;
+        }
       `,
       errors: [
         { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
