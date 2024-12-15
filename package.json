@@ -80,7 +80,7 @@
     "eslint-import-resolver-oxc": "^0.6.0",
     "importx": "^0.5.1",
     "lefthook": "^1.9.2",
-    "markdownlint": "^0.37.0",
+    "markdownlint": "^0.37.1",
     "publint": "^0.2.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -25,10 +25,10 @@ export default [
       "react-web-api": reactWebAPI,
       rules: {
         // react-web-api recommended rules
-        "react-web-api/no-leaked-timeout": "error",
-        "react-web-api/no-leaked-interval": "error",
-        "react-web-api/no-leaked-event-listener": "error",
-        "react-web-api/no-leaked-resize-observer": "error",
+        "react-web-api/no-leaked-event-listener": "warn",
+        "react-web-api/no-leaked-interval": "warn",
+        "react-web-api/no-leaked-resize-observer": "warn",
+        "react-web-api/no-leaked-timeout": "warn",
       }
     ],
   },
