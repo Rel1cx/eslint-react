@@ -115,8 +115,8 @@ importers:
         specifier: ^1.9.2
         version: 1.9.2
       markdownlint:
-        specifier: ^0.37.0
-        version: 0.37.0
+        specifier: ^0.37.1
+        version: 0.37.1
       publint:
         specifier: ^0.2.12
         version: 0.2.12
@@ -6646,8 +6646,8 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
-  markdownlint@0.37.0:
-    resolution: {integrity: sha512-kdw5PG3dQFkExmUdcNc7dVTxrQU+lBx2+HuNrfa/gaRHzHExQNGdTTtvz0YtpFabKijbs5a3rVlLY75x/6VB7A==}
+  markdownlint@0.37.1:
+    resolution: {integrity: sha512-Q7JexBa4ZB1rXJ2HGJF/fYUMeo4oBe5Zn1ZTlbwJ7BFC9V8lOZQoB3acBWW1f4FXmrlrwRYLLpWRfLCZXLo7kw==}
     engines: {node: '>=18'}
 
   marked@13.0.3:
@@ -14762,7 +14762,7 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  markdownlint@0.37.0:
+  markdownlint@0.37.1:
     dependencies:
       markdown-it: 14.1.0
       micromark: 4.0.1
