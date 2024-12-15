@@ -46,11 +46,11 @@ export function unsafeReadSettings(data: unknown): PartialDeep<ESLintReactSettin
  * @param data The data object.
  * @returns settings The settings.
  */
-export const decodeSettings = memoize((data: unknown) => {
+export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
   return {
     ...DEFAULT_ESLINT_REACT_SETTINGS,
     ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
-  } as const satisfies ESLintReactSettings;
+  };
 }, { isEqual: (a, b) => a === b });
 
 // #endregion
@@ -63,7 +63,7 @@ export const decodeSettings = memoize((data: unknown) => {
  * @returns The normalized settings.
  * @internal
  */
-export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
+export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsNormalized => {
   const additionalComponents = settings.additionalComponents ?? [];
   return {
     ...settings,
@@ -84,7 +84,7 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings) => {
     version: match(settings.version)
       .with(P.union(P.nullish, "", "detect"), () => getPackageInfoSync("react")?.version ?? "19.0.0")
       .otherwise(F.identity),
-  } as const satisfies ESLintReactSettingsNormalized;
+  };
 }, { isEqual: shallowEqual });
 
 // #endregion
