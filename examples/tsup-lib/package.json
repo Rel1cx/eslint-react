@@ -25,9 +25,9 @@
   ],
   "scripts": {
     "build": "tsup",
-    "prepare": "pnpm run build",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit"
+    "lint:type": "tsc --noEmit",
+    "prepare": "pnpm run build"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
