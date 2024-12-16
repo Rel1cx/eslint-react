@@ -98,7 +98,7 @@ export default [
 
 ## Used by
 
-![used-by](https://eslint-react.xyz/used_by.svg)
+![used-by](https://eslint-react.xyz/used_by.png)
 
 _Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
 

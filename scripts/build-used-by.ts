@@ -3,7 +3,7 @@
 
 import fs from "node:fs/promises";
 
-import dedent from "dedent";
+import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { ofetch } from "ofetch";
 
 const projects = [
@@ -43,50 +43,34 @@ interface GitHubRepo {
   };
 }
 
-async function imageUrlToBase64(url: string) {
-  const res: Blob = await ofetch(url);
-  const buffer = await res.arrayBuffer();
-  return `data:${res.type};base64,${Buffer.from(buffer).toString("base64")}`;
-}
-
 async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> {
   const data = await ofetch<GitHubRepo>(`https://api.github.com/repos/${repo}`, {
     headers: {
       Authorization: `token ${token}`,
     },
   });
-  const url = data.owner.avatar_url;
-  return imageUrlToBase64(url);
+  return data.owner.avatar_url;
 }
 
-function buildUsedByWall(users: string[]) {
+async function buildUsedByImage(users: string[]) {
   const viewWidth = 1024;
   const viewHeight = users.length / 8 * (viewWidth / 8);
   const gap = 16;
   const getItemX = (index: number) => index % 8 * (viewWidth / 8) + gap * 0.5;
   const getItemY = (index: number) => Math.floor(index / 8) * (viewWidth / 8) + gap * 0.5;
-  return dedent`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewWidth} ${viewHeight}">
-      <style>
-        .avatar { width: ${viewWidth / 8 - gap}px; height: ${viewWidth / 8 - gap}px; }
-      </style>
-      ${
-    users
-      .map(
-        (avatar, index) => `<image class="avatar" x="${getItemX(index)}" y="${getItemY(index)}" href="${avatar}" />`,
-      )
-      .join("")
+  const canvas = createCanvas(viewWidth, viewHeight);
+  const ctx = canvas.getContext("2d");
+  for (const [index, avatar] of users.entries()) {
+    const x = getItemX(index);
+    const y = getItemY(index);
+    const image = await loadImage(avatar);
+    ctx.drawImage(image, x, y, viewWidth / 8 - gap, viewWidth / 8 - gap);
   }
-    </svg>
-  `;
+  return canvas.encode("png");
 }
 
-async function main() {
-  const token = process.env["GITHUB_TOKEN"];
-  const avatars = await Promise.all(projects.map(async (repo) => fetchGitHubAvatar(repo, token)));
-  const avatarsDeDup = Array.from(new Set(avatars));
-  const svg = buildUsedByWall(avatarsDeDup);
-  await fs.writeFile("website/public/used_by.svg", svg);
-}
-
-await main();
+const token = process.env["GITHUB_TOKEN"];
+const avatars = await Promise.all(projects.map(async (repo) => fetchGitHubAvatar(repo, token)));
+const avatarsDeDup = Array.from(new Set(avatars));
+const img = await buildUsedByImage(avatarsDeDup);
+await fs.writeFile("website/public/used_by.png", img);
