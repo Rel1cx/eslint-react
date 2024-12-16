@@ -6,7 +6,7 @@
 
 ### 🪄 Improvements
 
-- refactor: use default settings when setting items inside `settings["react-x"]` is not provided by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/40ca3bd1cd7adc44f40841b5b4635e0200b73a54
+- refactor: use default settings when no settings are provided in `settings["react-x"]` by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/40ca3bd1cd7adc44f40841b5b4635e0200b73a54
 - docs: update `no-context-provider.mdx` by @danielrentz in https://github.com/Rel1cx/eslint-react/pull/877
 - docs: add 'Min. React' column to rules overview page by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/880
 - docs: add features section to rules overview page by @Rel1cx
