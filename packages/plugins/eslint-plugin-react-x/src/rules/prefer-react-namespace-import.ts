@@ -8,7 +8,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "prefer-react-namespace-import";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
   "FIX",
 ] as const satisfies RuleFeature[];
 

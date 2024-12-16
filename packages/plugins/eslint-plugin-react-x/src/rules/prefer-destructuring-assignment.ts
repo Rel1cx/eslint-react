@@ -14,7 +14,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "prefer-destructuring-assignment";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;

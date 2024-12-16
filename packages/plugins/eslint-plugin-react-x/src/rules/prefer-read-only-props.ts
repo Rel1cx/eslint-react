@@ -12,7 +12,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "prefer-read-only-props";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
   "TSC",
 ] as const satisfies RuleFeature[];
 

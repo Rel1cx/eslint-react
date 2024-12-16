@@ -20,7 +20,7 @@ import { EventListenerEntry } from "./../models";
 export const RULE_NAME = "no-leaked-event-listener";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =

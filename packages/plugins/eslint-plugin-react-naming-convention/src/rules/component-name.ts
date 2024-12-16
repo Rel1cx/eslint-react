@@ -13,8 +13,8 @@ import { createRule } from "../utils";
 export const RULE_NAME = "component-name";
 
 export const RULE_FEATURES = [
-  "LNT",
-  "OPT",
+  "CHK",
+  "CFG",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;

@@ -13,7 +13,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-missing-key";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =

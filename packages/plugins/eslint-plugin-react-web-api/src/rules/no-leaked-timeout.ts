@@ -17,7 +17,7 @@ import { createRule, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils"
 export const RULE_NAME = "no-leaked-timeout";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =

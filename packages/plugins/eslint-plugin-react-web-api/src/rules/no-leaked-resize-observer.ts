@@ -18,7 +18,7 @@ import { ObserverEntry } from "./../models";
 export const RULE_NAME = "no-leaked-resize-observer";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =

@@ -22,7 +22,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
   "TSC",
 ] as const satisfies RuleFeature[];
 

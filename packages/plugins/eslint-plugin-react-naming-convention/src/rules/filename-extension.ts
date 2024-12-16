@@ -7,8 +7,8 @@ import { createRule } from "../utils";
 export const RULE_NAME = "filename-extension";
 
 export const RULE_FEATURES = [
-  "LNT",
-  "OPT",
+  "CHK",
+  "CFG",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =

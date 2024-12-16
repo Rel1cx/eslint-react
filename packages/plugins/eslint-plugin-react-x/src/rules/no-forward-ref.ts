@@ -15,7 +15,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-forward-ref";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
   "FIX",
 ] as const satisfies RuleFeature[];
 

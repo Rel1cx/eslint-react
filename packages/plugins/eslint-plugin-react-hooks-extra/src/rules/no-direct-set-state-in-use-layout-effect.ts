@@ -22,7 +22,7 @@ import {
 export const RULE_NAME = "no-direct-set-state-in-use-layout-effect";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 type MessageID = CamelCase<typeof RULE_NAME>;

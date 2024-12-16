@@ -13,7 +13,7 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-unnecessary-use-callback";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;

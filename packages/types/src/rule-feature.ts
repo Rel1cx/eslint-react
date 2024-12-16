@@ -1,6 +1,7 @@
 export type RuleFeature =
+  | "CFG" // Configurable
+  | "CHK" // Checking
   | "DBG" // Debugging
   | "FIX" // Fixable
-  | "LNT" // Linting
-  | "OPT" // Configurable
+  | "MOD" // Codemod
   | "TSC"; // TypeScript Type Checking

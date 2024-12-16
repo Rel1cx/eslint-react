@@ -16,7 +16,7 @@ import type { RuleFeature } from "@eslint-react/types";
 export const RULE_NAME = "no-unknown-property";
 
 export const RULE_FEATURES = [
-  "LNT",
+  "CHK",
   "FIX",
 ] as const satisfies RuleFeature[];
 
