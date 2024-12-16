@@ -11,6 +11,7 @@ export const RULE_NAME = "no-component-will-update";
 
 export const RULE_FEATURES = [
   "CHK",
+  "MOD",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;

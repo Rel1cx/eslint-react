@@ -16,7 +16,7 @@ export const RULE_NAME = "no-forward-ref";
 
 export const RULE_FEATURES = [
   "CHK",
-  "FIX",
+  "MOD",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
