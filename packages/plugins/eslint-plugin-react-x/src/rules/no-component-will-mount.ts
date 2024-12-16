@@ -11,6 +11,7 @@ export const RULE_NAME = "no-component-will-mount";
 
 export const RULE_FEATURES = [
   "CHK",
+  "MOD",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
@@ -28,6 +29,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'componentWillMount'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
     messages: {
       noComponentWillMount: "[Deprecated] Use 'UNSAFE_componentWillMount' instead.",
     },
@@ -49,6 +51,10 @@ export default createRule<[], MessageID>({
               context.report({
                 messageId: "noComponentWillMount",
                 node: member,
+                fix(fixer) {
+                  if (!("key" in member)) return null;
+                  return fixer.replaceText(member.key, "UNSAFE_componentWillMount");
+                },
               });
             }
           }

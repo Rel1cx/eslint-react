@@ -21,6 +21,18 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "noComponentWillReceiveProps",
         },
       ],
+      output: /* tsx */ `
+        import React from "react";
+
+        class Foo extends React.Component {
+
+          UNSAFE_componentWillReceiveProps() {}
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
     },
     {
       code: /* tsx */ `
@@ -40,6 +52,18 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "noComponentWillReceiveProps",
         },
       ],
+      output: /* tsx */ `
+        import React from "react";
+
+        class Foo extends React.PureComponent {
+
+          UNSAFE_componentWillReceiveProps() {}
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
     },
     {
       code: /* tsx */ `
@@ -59,6 +83,18 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "noComponentWillReceiveProps",
         },
       ],
+      output: /* tsx */ `
+        import { Component } from "react";
+
+        class Foo extends Component {
+
+          UNSAFE_componentWillReceiveProps() {}
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
     },
     {
       code: /* tsx */ `
@@ -78,6 +114,18 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "noComponentWillReceiveProps",
         },
       ],
+      output: /* tsx */ `
+        import { PureComponent } from "react";
+
+        class Foo extends PureComponent {
+
+          UNSAFE_componentWillReceiveProps() {}
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
     },
   ],
   valid: [
