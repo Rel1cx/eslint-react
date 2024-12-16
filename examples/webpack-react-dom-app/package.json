@@ -1,5 +1,5 @@
 {
-  "name": "@examples/webpack-react-dom-ts",
+  "name": "@examples/webpack-react-dom-app",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -31,7 +31,6 @@
     "@types/react-dom": "^19.0.2",
     "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.1.0",
-    "dprint": "0.47.6",
     "esbuild-register": "3.6.0",
     "eslint": "^9.17.0",
     "eslint-config-flat-gitignore": "^0.3.0",
