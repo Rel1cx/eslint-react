@@ -90,6 +90,9 @@ importers:
       cspell:
         specifier: ^8.17.0
         version: 8.17.0
+      dedent:
+        specifier: ^1.5.3
+        version: 1.5.3
       dprint:
         specifier: ^0.47.6
         version: 0.47.6
@@ -117,6 +120,9 @@ importers:
       markdownlint:
         specifier: ^0.37.1
         version: 0.37.1
+      ofetch:
+        specifier: ^1.4.1
+        version: 1.4.1
       publint:
         specifier: ^0.2.12
         version: 0.2.12
@@ -7447,6 +7453,9 @@ packages:
 
   obuf@1.1.2:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
+
+  ofetch@1.4.1:
+    resolution: {integrity: sha512-QZj2DfGplQAr2oj9KzceK9Hwz6Whxazmn85yYeVuS3u9XTMOGMRx0kO95MQ+vLsj/S/NwBDMMLU5hpxvI6Tklw==}
 
   ohash@1.1.4:
     resolution: {integrity: sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==}
@@ -16278,6 +16287,12 @@ snapshots:
   object-hash@3.0.0: {}
 
   obuf@1.1.2: {}
+
+  ofetch@1.4.1:
+    dependencies:
+      destr: 2.0.3
+      node-fetch-native: 1.6.4
+      ufo: 1.5.4
 
   ohash@1.1.4: {}
 

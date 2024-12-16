@@ -64,5 +64,6 @@
     "*.bundled_*.mjs": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "svg.preview.background": "dark-transparent"
 }
