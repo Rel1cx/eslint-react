@@ -11,7 +11,6 @@ export const RULE_NAME = "prefer-shorthand-fragment";
 
 export const RULE_FEATURES = [
   "CHK",
-  // "FIX",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
