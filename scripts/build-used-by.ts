@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable no-restricted-syntax */
 
 import fs from "node:fs/promises";
@@ -21,6 +22,7 @@ const projects = [
   "react-navigation/react-navigation",
   "RebeccaStevens/eslint-config-rebeccastevens",
   "refined-github/refined-github",
+  "Rel1cx/compose-components",
   "RightCapitalHQ/frontend-style-guide",
   "RSSNext/follow",
   "satya164/PocketGear",
@@ -41,27 +43,37 @@ interface GitHubRepo {
   };
 }
 
+async function imageUrlToBase64(url: string) {
+  const res: Blob = await ofetch(url);
+  const buffer = await res.arrayBuffer();
+  return `data:${res.type};base64,${Buffer.from(buffer).toString("base64")}`;
+}
+
 async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> {
   const data = await ofetch<GitHubRepo>(`https://api.github.com/repos/${repo}`, {
     headers: {
       Authorization: `token ${token}`,
     },
   });
-  return data.owner.avatar_url;
+  const url = data.owner.avatar_url;
+  return imageUrlToBase64(url);
 }
 
 function buildUsedByWall(users: string[]) {
-  // render 8 columns dymaic height grid layout with 16px gap
+  const viewWidth = 1024;
+  const viewHeight = users.length / 8 * (viewWidth / 8);
+  const gap = 16;
+  const getItemX = (index: number) => index % 8 * (viewWidth / 8) + gap * 0.5;
+  const getItemY = (index: number) => Math.floor(index / 8) * (viewWidth / 8) + gap * 0.5;
   return dedent`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewWidth} ${viewHeight}">
       <style>
-        .avatar { width: 100px; height: 100px; }
+        .avatar { width: ${viewWidth / 8 - gap}px; height: ${viewWidth / 8 - gap}px; }
       </style>
       ${
     users
       .map(
-        (avatar, index) =>
-          `<image class="avatar" x="${index % 8 * 116}" y="${Math.floor(index / 8) * 116}" xlink:href="${avatar}" />`,
+        (avatar, index) => `<image class="avatar" x="${getItemX(index)}" y="${getItemY(index)}" href="${avatar}" />`,
       )
       .join("")
   }
