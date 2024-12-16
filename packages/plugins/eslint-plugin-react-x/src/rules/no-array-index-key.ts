@@ -169,7 +169,7 @@ export default createRule<[], MessageID>({
         const [_, props] = node.arguments;
         if (props?.type !== AST_NODE_TYPES.ObjectExpression) return;
         for (const prop of props.properties) {
-          if (!isMatching({ key: { name: "key" } }, prop)) continue;
+          if (!isMatching({ key: { name: "key" } })(prop)) continue;
           if (!("value" in prop)) continue;
           const descriptors = getReportDescriptor(prop.value);
           for (const descriptor of descriptors) {
