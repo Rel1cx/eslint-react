@@ -54,17 +54,17 @@ async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> 
 
 async function buildUsedByImage(users: string[]) {
   const gap = 16;
-  const viewWidth = 1024;
-  const viewHeight = users.length / 8 * (viewWidth / 8);
-  const getItemX = (index: number) => index % 8 * (viewWidth / 8) + gap * 0.5;
-  const getItemY = (index: number) => Math.floor(index / 8) * (viewWidth / 8) + gap * 0.5;
-  const canvas = createCanvas(viewWidth, viewHeight);
+  const width = 1024;
+  const height = users.length / 8 * (width / 8);
+  const getItemX = (index: number) => index % 8 * (width / 8) + gap * 0.5;
+  const getItemY = (index: number) => Math.floor(index / 8) * (width / 8) + gap * 0.5;
+  const canvas = createCanvas(width, height);
   const ctx = canvas.getContext("2d");
   for (const [index, avatar] of users.entries()) {
     const x = getItemX(index);
     const y = getItemY(index);
     const image = await loadImage(avatar);
-    ctx.drawImage(image, x, y, viewWidth / 8 - gap, viewWidth / 8 - gap);
+    ctx.drawImage(image, x, y, width / 8 - gap, width / 8 - gap);
   }
   return canvas.encode("png");
 }

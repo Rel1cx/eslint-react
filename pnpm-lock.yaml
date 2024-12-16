@@ -260,8 +260,8 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2(react-router@7.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)
       isbot:
-        specifier: ^5.1.17
-        version: 5.1.17
+        specifier: ^5.1.18
+        version: 5.1.18
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -306,11 +306,11 @@ importers:
         specifier: ^9.17.0
         version: 9.17.0(jiti@2.4.1)
       eslint-plugin-react-hooks:
-        specifier: 4.6.2
-        version: 4.6.2(eslint@9.17.0(jiti@2.4.1))
+        specifier: 5.1.0
+        version: 5.1.0(eslint@9.17.0(jiti@2.4.1))
       eslint-plugin-react-refresh:
-        specifier: 0.4.11
-        version: 0.4.11(eslint@9.17.0(jiti@2.4.1))
+        specifier: 0.4.16
+        version: 0.4.16(eslint@9.17.0(jiti@2.4.1))
       eslint-plugin-vitest:
         specifier: 0.5.4
         version: 0.5.4(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)(vitest@2.1.8)
@@ -357,11 +357,11 @@ importers:
         specifier: ^9.17.0
         version: 9.17.0(jiti@2.4.1)
       eslint-plugin-react-hooks:
-        specifier: 4.6.2
-        version: 4.6.2(eslint@9.17.0(jiti@2.4.1))
+        specifier: 5.1.0
+        version: 5.1.0(eslint@9.17.0(jiti@2.4.1))
       eslint-plugin-react-refresh:
-        specifier: 0.4.11
-        version: 0.4.11(eslint@9.17.0(jiti@2.4.1))
+        specifier: 0.4.16
+        version: 0.4.16(eslint@9.17.0(jiti@2.4.1))
       eslint-plugin-vitest:
         specifier: 0.5.4
         version: 0.5.4(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)(vitest@2.1.8)
@@ -5818,22 +5818,11 @@ packages:
     peerDependencies:
       eslint: '>=8.0.0'
 
-  eslint-plugin-react-hooks@4.6.2:
-    resolution: {integrity: sha512-QzliNJq4GinDBcD8gPB5v0wh6g8q3SUi6EFF0x8N/BL9PoVs0atuGc47ozMRyOWAKdwaZ5OnbOEa3WR+dSGKuQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
-
   eslint-plugin-react-hooks@5.1.0:
     resolution: {integrity: sha512-mpJRtPgHN2tNAvZ35AMfqeB3Xqeo273QxrHJsbBEPWODRM4r0yB6jfoROqKEYrOn27UtRPpcpHc2UqyBSuUNTw==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
-
-  eslint-plugin-react-refresh@0.4.11:
-    resolution: {integrity: sha512-wrAKxMbVr8qhXTtIKfXqAn5SAtRZt0aXxe5P23Fh4pUAdC6XEsybGLB8P0PI4j1yYqOgUEUlzKAGDfo7rJOjcw==}
-    peerDependencies:
-      eslint: '>=7'
 
   eslint-plugin-react-refresh@0.4.16:
     resolution: {integrity: sha512-slterMlxAhov/DZO8NScf6mEeMBBXodFUolijDvrtTxyezyLoTQaa73FyYus/VbTdftd8wBgBxPMRk3poleXNQ==}
@@ -6704,8 +6693,8 @@ packages:
     resolution: {integrity: sha512-jv+8jaWCl0g2lSBkNSVXdzfBA0npK1HGC2KtWM9FumFRoGS94g3NbCCLVnCYHLjp4GrW2KZeeSTMo5ddtznmGw==}
     engines: {node: '>=18'}
 
-  isbot@5.1.17:
-    resolution: {integrity: sha512-/wch8pRKZE+aoVhRX/hYPY1C7dMCeeMyhkQLNLNlYAbGQn9bkvMB8fOUXNnk5I0m4vDYbBJ9ciVtkr9zfBJ7qA==}
+  isbot@5.1.18:
+    resolution: {integrity: sha512-df9RdChv1DheItzN5pNKtblc9/otzJYmxjf9GhCZG/f0TCcGCbQFmtM3e+SD0e8EI3/O2tIXPYVaG4FUaIIa6Q==}
     engines: {node: '>=18'}
 
   isexe@2.0.0:
@@ -14219,15 +14208,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-react-hooks@4.6.2(eslint@9.17.0(jiti@2.4.1)):
-    dependencies:
-      eslint: 9.17.0(jiti@2.4.1)
-
   eslint-plugin-react-hooks@5.1.0(eslint@9.17.0(jiti@2.4.1)):
-    dependencies:
-      eslint: 9.17.0(jiti@2.4.1)
-
-  eslint-plugin-react-refresh@0.4.11(eslint@9.17.0(jiti@2.4.1)):
     dependencies:
       eslint: 9.17.0(jiti@2.4.1)
 
@@ -15239,7 +15220,7 @@ snapshots:
     dependencies:
       system-architecture: 0.1.0
 
-  isbot@5.1.17: {}
+  isbot@5.1.18: {}
 
   isexe@2.0.0: {}
 
