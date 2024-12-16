@@ -127,6 +127,37 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    {
+      code: /* tsx */ `
+        import { PureComponent } from "react";
+
+        class Foo extends PureComponent {
+
+          componentWillMount = () => {};
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "noComponentWillMount",
+        },
+      ],
+      output: /* tsx */ `
+        import { PureComponent } from "react";
+
+        class Foo extends PureComponent {
+
+          UNSAFE_componentWillMount = () => {};
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
+    },
   ],
   valid: [
     ...allValid,

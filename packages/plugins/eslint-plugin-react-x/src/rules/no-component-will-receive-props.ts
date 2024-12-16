@@ -11,6 +11,7 @@ export const RULE_NAME = "no-component-will-receive-props";
 
 export const RULE_FEATURES = [
   "CHK",
+  "MOD",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
@@ -28,6 +29,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'componentWillReceiveProps'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
     messages: {
       noComponentWillReceiveProps: "[Deprecated] Use 'UNSAFE_componentWillReceiveProps' instead.",
     },
@@ -49,6 +51,10 @@ export default createRule<[], MessageID>({
               context.report({
                 messageId: "noComponentWillReceiveProps",
                 node: member,
+                fix(fixer) {
+                  if (!("key" in member)) return null;
+                  return fixer.replaceText(member.key, "UNSAFE_componentWillReceiveProps");
+                },
               });
             }
           }
