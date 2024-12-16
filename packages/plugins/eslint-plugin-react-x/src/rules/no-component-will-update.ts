@@ -28,6 +28,7 @@ export default createRule<[], MessageID>({
       description: "disallow using 'componentWillReceiveProps'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
     messages: {
       noComponentWillUpdate: "[Deprecated] Use 'UNSAFE_componentWillUpdate' instead.",
     },
@@ -49,6 +50,10 @@ export default createRule<[], MessageID>({
               context.report({
                 messageId: "noComponentWillUpdate",
                 node: member,
+                fix(fixer) {
+                  if (!("key" in member)) return null;
+                  return fixer.replaceText(member.key, "UNSAFE_componentWillUpdate");
+                },
               });
             }
           }
