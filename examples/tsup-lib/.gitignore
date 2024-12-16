@@ -1,0 +1,47 @@
+# Node.js
+node_modules/
+
+# Build
+dist/
+out/
+build
+docs/internals/
+
+# Editor
+.vim/
+.idea/
+
+# Test
+coverage/
+
+.eslintcache
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+# vercel
+.vercel
+
+stats.html
+*.config-*.mjs
+/eslint-config.json
+*.bundled_*.mjs
+*.tgz
+eslint-results.sarif
+.tsup

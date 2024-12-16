@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node22/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src",
+    "benchmark"
+  ]
+}
