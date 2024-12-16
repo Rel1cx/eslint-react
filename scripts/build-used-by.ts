@@ -53,9 +53,9 @@ async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> 
 }
 
 async function buildUsedByImage(users: string[]) {
+  const gap = 16;
   const viewWidth = 1024;
   const viewHeight = users.length / 8 * (viewWidth / 8);
-  const gap = 16;
   const getItemX = (index: number) => index % 8 * (viewWidth / 8) + gap * 0.5;
   const getItemY = (index: number) => Math.floor(index / 8) * (viewWidth / 8) + gap * 0.5;
   const canvas = createCanvas(viewWidth, viewHeight);
@@ -73,4 +73,5 @@ const token = process.env["GITHUB_TOKEN"];
 const avatars = await Promise.all(projects.map(async (repo) => fetchGitHubAvatar(repo, token)));
 const avatarsDeDup = Array.from(new Set(avatars));
 const img = await buildUsedByImage(avatarsDeDup);
+await fs.writeFile("website/assets/used_by.png", img);
 await fs.writeFile("website/public/used_by.png", img);
