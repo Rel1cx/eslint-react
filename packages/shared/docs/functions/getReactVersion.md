@@ -6,9 +6,13 @@
 
 # Function: getReactVersion()
 
-> **getReactVersion**(`fallback`): `string`
+> **getReactVersion**(`at`, `fallback`): `string`
 
 ## Parameters
+
+### at
+
+`string` = `...`
 
 ### fallback
 

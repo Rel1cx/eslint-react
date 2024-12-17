@@ -3,9 +3,8 @@
 /* eslint-disable import-x/no-extraneous-dependencies */
 import module from "node:module";
 
-const require = module.createRequire(import.meta.url);
-
-export function getReactVersion(fallback = "19.0.0"): string {
+export function getReactVersion(at = import.meta.url, fallback = "19.0.0"): string {
+  const require = module.createRequire(at);
   try {
     return require("react").version ?? fallback;
   } catch {

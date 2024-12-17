@@ -82,7 +82,7 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
       return acc.set(name, as);
     }, new Map<string, string>()),
     version: match(settings.version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion())
       .otherwise(F.identity),
   };
 }, { isEqual: shallowEqual });
