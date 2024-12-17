@@ -31,3 +31,4 @@
 ## Functions
 
 - [defineSettings](functions/defineSettings.md)
+- [getReactVersion](functions/getReactVersion.md)
