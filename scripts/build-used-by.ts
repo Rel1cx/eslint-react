@@ -1,3 +1,4 @@
+/* eslint-disable better-mutation/no-mutation */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-restricted-syntax */
 
@@ -7,34 +8,22 @@ import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { ofetch } from "ofetch";
 
 const projects = [
-  "AndreaPontrandolfo/sheriff",
-  "antfu/eslint-config",
-  "christopher-buss/roblox-ts-eslint-config",
   "DimensionDev/Maskbook",
   "dream-num/univer",
   "electric-sql/pglite",
   "ensdomains/ensdomains-landing",
-  "hairyf/overlastic",
-  "hipstersmoothie/react-window-splitter",
-  "johannschopplich/unlazy",
+  "flirtual/flirtual",
   "luxdotdev/parsertime",
+  "ndom91/github-search-preview",
   "npmgraph/npmgraph",
   "react-navigation/react-navigation",
   "RebeccaStevens/eslint-config-rebeccastevens",
   "refined-github/refined-github",
   "Rel1cx/compose-components",
-  "RightCapitalHQ/frontend-style-guide",
-  "RSSNext/follow",
-  "satya164/PocketGear",
-  "SukkaW/eslint-config-sukka",
-  "SukkaW/foxact",
-  "TanStack/form",
   "TanStack/query",
-  "TanStack/router",
-  "TanStack/store",
-  "timkurvers/wine-log-explorer",
   "toss/suspensive",
   "upleveled/eslint-config-upleveled",
+  "zolplay-cn/config-monorepo",
 ];
 
 interface GitHubRepo {
@@ -55,16 +44,29 @@ async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> 
 async function buildUsedByImage(users: string[]) {
   const gap = 16;
   const width = 1024;
-  const height = users.length / 8 * (width / 8);
+  const height = Math.ceil(users.length / 8) * (width / 8);
   const getItemX = (index: number) => index % 8 * (width / 8) + gap * 0.5;
   const getItemY = (index: number) => Math.floor(index / 8) * (width / 8) + gap * 0.5;
   const canvas = createCanvas(width, height);
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d", { alpha: true, colorSpace: "srgb" });
+  ctx.fillStyle = "#FFFFFF00";
+  ctx.fillRect(0, 0, width, height);
   for (const [index, avatar] of users.entries()) {
     const x = getItemX(index);
     const y = getItemY(index);
     const image = await loadImage(avatar);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x + (width / 8 - gap) / 2, y + (width / 8 - gap) / 2, (width / 8 - gap) / 2, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(x, y, width / 8 - gap, width / 8 - gap);
     ctx.drawImage(image, x, y, width / 8 - gap, width / 8 - gap);
+    ctx.strokeStyle = "#d1d9e070";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
   }
   return canvas.encode("png");
 }

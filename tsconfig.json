@@ -4,6 +4,7 @@
     "@tsconfig/node22/tsconfig.json"
   ],
   "compilerOptions": {
+    "lib": ["DOM"],
     "module": "ESNext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
