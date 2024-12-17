@@ -1,4 +1,4 @@
-import { F } from "@eslint-react/tools";
+import { E, F } from "@eslint-react/tools";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";
@@ -82,7 +82,7 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
       return acc.set(name, as);
     }, new Map<string, string>()),
     version: match(settings.version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion())
+      .with(P.union(P.nullish, "", "detect"), () => E.getOrElse(getReactVersion(), F.constant("19.0.0")))
       .otherwise(F.identity),
   };
 }, { isEqual: shallowEqual });
