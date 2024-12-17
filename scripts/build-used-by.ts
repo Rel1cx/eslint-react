@@ -6,6 +6,7 @@ import fs from "node:fs/promises";
 
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { ofetch } from "ofetch";
+import { x } from "tinyexec";
 
 const projects = [
   "DimensionDev/Maskbook",
@@ -42,11 +43,11 @@ async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> 
 }
 
 async function buildUsedByImage(users: string[]) {
-  const gap = 16;
-  const width = 1024;
+  const gap = 64;
+  const width = 3840;
   const height = Math.ceil(users.length / 8) * (width / 8);
-  const getItemX = (index: number) => index % 8 * (width / 8) + gap * 0.5;
-  const getItemY = (index: number) => Math.floor(index / 8) * (width / 8) + gap * 0.5;
+  const getItemX = (index: number) => index % 8 * (width / 8) + gap / 2;
+  const getItemY = (index: number) => Math.floor(index / 8) * (width / 8) + gap / 2;
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext("2d", { alpha: true, colorSpace: "srgb" });
   ctx.fillStyle = "#FFFFFF00";
@@ -64,11 +65,16 @@ async function buildUsedByImage(users: string[]) {
     ctx.fillRect(x, y, width / 8 - gap, width / 8 - gap);
     ctx.drawImage(image, x, y, width / 8 - gap, width / 8 - gap);
     ctx.strokeStyle = "#d1d9e070";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 4;
     ctx.stroke();
     ctx.restore();
   }
-  return canvas.encode("png");
+  const displayWidth = width / 2;
+  const displayHeight = height / 2;
+  const displayCanvas = createCanvas(displayWidth, displayHeight);
+  const displayCtx = displayCanvas.getContext("2d", { alpha: true, colorSpace: "srgb" });
+  displayCtx.drawImage(canvas, 0, 0, displayWidth, displayHeight);
+  return displayCanvas.encode("png");
 }
 
 const token = process.env["GITHUB_TOKEN"];
@@ -77,3 +83,5 @@ const avatarsDeDup = Array.from(new Set(avatars));
 const img = await buildUsedByImage(avatarsDeDup);
 await fs.writeFile("website/assets/used_by.png", img);
 await fs.writeFile("website/public/used_by.png", img);
+await x("oxipng", ["./website/assets/used_by.png"]);
+await x("oxipng", ["./website/public/used_by.png"]);
