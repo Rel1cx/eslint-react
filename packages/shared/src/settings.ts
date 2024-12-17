@@ -1,12 +1,12 @@
 import { F } from "@eslint-react/tools";
 import { shallowEqual } from "fast-equals";
-import { getPackageInfoSync } from "local-pkg";
 import memoize from "micro-memoize";
 import pm from "picomatch";
 import { match, P } from "ts-pattern";
 import type { PartialDeep } from "type-fest";
 import { parse } from "valibot";
 
+import { getReactVersion } from "./get-react-version";
 import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
 
@@ -82,7 +82,7 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
       return acc.set(name, as);
     }, new Map<string, string>()),
     version: match(settings.version)
-      .with(P.union(P.nullish, "", "detect"), () => getPackageInfoSync("react")?.version ?? "19.0.0")
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
       .otherwise(F.identity),
   };
 }, { isEqual: shallowEqual });
