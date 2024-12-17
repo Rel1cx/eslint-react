@@ -114,11 +114,7 @@ Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/
 
 ## Contributing
 
-Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
-
-Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
-
-Thank you to everyone contributing to ESLint React!
+Please follow our [contributing guidelines](./.github/CONTRIBUTING.md).
 
 ## License
 
