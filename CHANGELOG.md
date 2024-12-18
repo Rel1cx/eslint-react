@@ -1,3 +1,9 @@
+## v1.20.1 (Wed 18 Dec 2024)
+
+### 🪄 Improvements
+
+- refactor(shared): replace `local-pkg` package with node built-in API by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/881
+
 ## v1.20.0 (Mon 16 Dec 2024)
 
 ### ✨ New
