@@ -70,16 +70,28 @@ export default [
 
 ## Presets
 
-### Flat Config
+### Bare Bones
 
-- **recommended**\
-  Enable rules that are recommended by ESLint React.
-- **recommended-typescript**\
-  Enable rules that are recommended by ESLint React and disable rules that can be covered by TypeScript.\
-  _This preset includes the `recommended` preset._
-- **recommended-type-checked**\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.\
-  _This preset includes the `recommended-typescript` preset._
+- **Core** (`core`)\
+  Enable rules for `"react"`.
+- **DOM** (`dom`)\
+  Enable rules for `"react-dom"`.
+- **Web API** (`web-api`)\
+  Enable rules for interacting with Web APIs.
+
+### General Purpose
+
+- **Recommended** (`recommended`)\
+  Enforce rules that are recommended by ESLint React.\
+  _This preset includes the `core`, `dom`, and `web-api` presets._
+
+### TypeScript Specialized
+
+- **Recommended TypeScript** (`recommended-typescript`)\
+  Same as the `recommended` preset but disables rules that can be covered by TypeScript.
+
+- **Recommended Type-Checked** (`recommended-type-checked`)\
+  Same as the `recommended-typescript` preset but enables additional rules that require type information.
 
 [Full Presets List↗](https://eslint-react.xyz/docs/presets)
 
