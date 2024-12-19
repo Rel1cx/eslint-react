@@ -9,9 +9,9 @@
 - 💭 - Type Chcking
 - 🐞 - Debug
 - 🗑️ - Deprecated
-- 0️⃣ - Severity `"off"`
-- 1️⃣ - Severity `"warn"`
-- 2️⃣ - Severity `"error"`
+- 0️⃣ - Severity 0
+- 1️⃣ - Severity 1
+- 2️⃣ - Severity 2
 - ✅ - Severity in recommended presets
 
 ## Core Rules
