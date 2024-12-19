@@ -1,7 +1,7 @@
 /* eslint-disable better-mutation/no-mutation, better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
+import { O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / Pretty
+[@eslint-react/types](../README.md) / Pretty
 
 # Type Alias: Pretty\<T\>
 

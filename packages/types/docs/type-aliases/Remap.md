@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / Remap
+[@eslint-react/types](../README.md) / Remap
 
 # Type Alias: Remap\<T\>
 

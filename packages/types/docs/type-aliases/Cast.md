@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / Cast
+[@eslint-react/types](../README.md) / Cast
 
 # Type Alias: Cast\<X, Y\>
 

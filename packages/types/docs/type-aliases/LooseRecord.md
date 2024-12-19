@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / LooseRecord
+[@eslint-react/types](../README.md) / LooseRecord
 
 # Type Alias: LooseRecord\<T\>
 

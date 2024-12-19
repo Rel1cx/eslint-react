@@ -1,6 +1,7 @@
 import type { ERSemanticEntry } from "@eslint-react/core";
-import type { O, Pretty } from "@eslint-react/tools";
-import { Data } from "@eslint-react/tools";
+import type { O } from "@eslint-react/eff";
+import { Data } from "@eslint-react/eff";
+import type { Pretty } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export type EventListenerEntry = Data.TaggedEnum<{

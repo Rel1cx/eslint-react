@@ -1,7 +1,7 @@
 import path from "node:path";
 
+import { isString } from "@eslint-react/eff";
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
-import { isString } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";

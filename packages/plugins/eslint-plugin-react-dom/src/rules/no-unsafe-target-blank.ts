@@ -1,7 +1,7 @@
 import { getElementRepresentName } from "@eslint-react/core";
+import { F, isString, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
-import { F, isString, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";

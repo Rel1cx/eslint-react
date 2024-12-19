@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-union-types */
-import { F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 

@@ -1,5 +1,5 @@
+import { O } from "@eslint-react/eff";
 import type { ESLintReactSettings } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
 import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";

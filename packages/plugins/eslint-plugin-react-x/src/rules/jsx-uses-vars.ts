@@ -1,4 +1,4 @@
-import { O } from "@eslint-react/tools";
+import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

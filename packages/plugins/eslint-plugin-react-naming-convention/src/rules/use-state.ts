@@ -1,6 +1,6 @@
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
+import { F, O } from "@eslint-react/eff";
 import { decodeSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";

@@ -1,4 +1,4 @@
-import { E, F } from "@eslint-react/tools";
+import { E, F } from "@eslint-react/eff";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";

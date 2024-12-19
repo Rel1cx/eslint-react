@@ -1,6 +1,6 @@
 import module from "node:module";
 
-import { E } from "@eslint-react/tools";
+import { E } from "@eslint-react/eff";
 
 export function tryRequire(id: string, at = import.meta.url): E.Either<unknown, Error> {
   const _require = module.createRequire(at);

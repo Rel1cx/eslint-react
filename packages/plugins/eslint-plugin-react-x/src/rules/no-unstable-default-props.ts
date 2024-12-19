@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
+import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";

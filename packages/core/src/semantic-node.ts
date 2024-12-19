@@ -1,4 +1,4 @@
-import type { O } from "@eslint-react/tools";
+import type { O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export interface ERSemanticNode {

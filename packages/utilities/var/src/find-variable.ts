@@ -1,4 +1,4 @@
-import { F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/eff";
 import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as ASTUtils from "@typescript-eslint/utils/ast-utils";

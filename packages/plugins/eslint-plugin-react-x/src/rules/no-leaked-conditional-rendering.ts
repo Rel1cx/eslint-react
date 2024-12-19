@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
+import { F, O } from "@eslint-react/eff";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";

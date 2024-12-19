@@ -1,4 +1,4 @@
-import { isObject, MutRef } from "@eslint-react/tools";
+import { isObject, MutRef } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 

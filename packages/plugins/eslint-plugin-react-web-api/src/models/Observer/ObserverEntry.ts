@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-object-types */
 import type { ERSemanticEntry } from "@eslint-react/core";
-import type { Pretty } from "@eslint-react/tools";
-import { Data } from "@eslint-react/tools";
+import { Data } from "@eslint-react/eff";
+import type { Pretty } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ObserverKind } from "./ObserverKind";

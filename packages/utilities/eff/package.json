@@ -1,7 +1,7 @@
 {
-  "name": "@eslint-react/ast",
+  "name": "@eslint-react/eff",
   "version": "1.20.2-next.2",
-  "description": "ESLint React's TSESTree AST utility module.",
+  "description": "A subset version of effect to produce a more lightweight version of the library.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/utilities/ast"
+    "directory": "packages/utilities/eff"
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
@@ -36,22 +36,14 @@
   ],
   "scripts": {
     "build": "tsup",
+    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
-  "dependencies": {
-    "@eslint-react/eff": "workspace:*",
-    "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/types": "^8.18.1",
-    "@typescript-eslint/typescript-estree": "^8.18.1",
-    "@typescript-eslint/utils": "^8.18.1",
-    "birecord": "^0.1.1",
-    "string-ts": "^2.2.0",
-    "ts-pattern": "^5.6.0"
-  },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
+    "effect": "^3.11.8",
     "tsup": "^8.3.5"
   }
 }

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
+import { O } from "@eslint-react/eff";
 import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
-import { O } from "@eslint-react/tools";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

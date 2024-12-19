@@ -1,5 +1,5 @@
+import { isNullable } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import { isNullable } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";

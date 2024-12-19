@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / asConst
+[@eslint-react/types](../README.md) / asConst
 
 # Function: asConst()
 

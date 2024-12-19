@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { isString } from "@eslint-react/tools";
+import { isString } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 

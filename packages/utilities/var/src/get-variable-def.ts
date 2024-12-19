@@ -1,4 +1,4 @@
-import { O } from "@eslint-react/tools";
+import { O } from "@eslint-react/eff";
 import type { Definition, Variable } from "@typescript-eslint/scope-manager";
 
 /**

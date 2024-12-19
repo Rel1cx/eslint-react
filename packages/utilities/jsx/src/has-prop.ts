@@ -1,4 +1,4 @@
-import { O } from "@eslint-react/tools";
+import { O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 

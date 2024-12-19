@@ -1,4 +1,5 @@
-import { F, zip } from "@eslint-react/tools";
+import { F } from "@eslint-react/eff";
+import { zip } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 

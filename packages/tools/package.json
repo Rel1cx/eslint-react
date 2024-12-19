@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/tools",
   "version": "1.20.2-next.2",
-  "description": "ESLint React's std library and primitives.",
+  "description": "Tools for ESLint React monorepo.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/rel1cx/eslint-react/issues"
@@ -36,14 +36,12 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
-    "effect": "^3.11.8",
     "tsup": "^8.3.5"
   }
 }

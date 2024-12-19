@@ -1,4 +1,4 @@
-import { F } from "@eslint-react/tools";
+import { F } from "@eslint-react/eff";
 
 import { ERPhaseRelevance } from "./constants";
 import type { ERPhaseKind } from "./phase";

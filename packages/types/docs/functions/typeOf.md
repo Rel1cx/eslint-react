@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / typeOf
+[@eslint-react/types](../README.md) / typeOf
 
 # Function: typeOf()
 

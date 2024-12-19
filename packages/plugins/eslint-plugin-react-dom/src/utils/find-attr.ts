@@ -1,5 +1,5 @@
+import { F, O } from "@eslint-react/eff";
 import type { CustomAttribute } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
 
 export function findAttrInCustomAttributes(
   name: string,

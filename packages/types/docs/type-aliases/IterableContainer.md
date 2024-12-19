@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / IterableContainer
+[@eslint-react/types](../README.md) / IterableContainer
 
 # Type Alias: IterableContainer\<T\>
 

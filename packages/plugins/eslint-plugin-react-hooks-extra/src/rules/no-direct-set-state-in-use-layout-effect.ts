@@ -1,8 +1,8 @@
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
+import { F, MutRef, O } from "@eslint-react/eff";
 import { decodeSettings } from "@eslint-react/shared";
-import { F, MutRef, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

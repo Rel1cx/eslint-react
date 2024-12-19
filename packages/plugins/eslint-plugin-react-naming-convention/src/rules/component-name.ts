@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
+import { F, isNullable, isString, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
-import { F, isNullable, isString, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { CamelCase } from "string-ts";

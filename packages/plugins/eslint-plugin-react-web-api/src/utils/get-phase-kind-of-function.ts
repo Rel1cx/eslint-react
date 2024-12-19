@@ -6,7 +6,7 @@ import {
   isComponentWillUnmountFunction,
   isSetupFunction,
 } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
+import { O } from "@eslint-react/eff";
 import { match } from "ts-pattern";
 
 export function getPhaseKindOfFunction(node: AST.TSESTreeFunction) {
