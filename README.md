@@ -110,26 +110,7 @@ export default [
 
 ## Used by
 
-<!-- AUTO-GENERATED-CONTENT:START (used-by) -->
-<div style="display: flex; flex-flow: row wrap; gap: 1rem;">
-<a href="https://github.com/DimensionDev/Maskbook"><img src="https://avatars.githubusercontent.com/u/39396545?v=4" alt="DimensionDev/Maskbook" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/dream-num/univer"><img src="https://avatars.githubusercontent.com/u/61444807?v=4" alt="dream-num/univer" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/electric-sql/pglite"><img src="https://avatars.githubusercontent.com/u/96433696?v=4" alt="electric-sql/pglite" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/ensdomains/ensdomains-landing"><img src="https://avatars.githubusercontent.com/u/34167658?v=4" alt="ensdomains/ensdomains-landing" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/flirtual/flirtual"><img src="https://avatars.githubusercontent.com/u/80071112?v=4" alt="flirtual/flirtual" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/luxdotdev/parsertime"><img src="https://avatars.githubusercontent.com/u/162656598?v=4" alt="luxdotdev/parsertime" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/ndom91/github-search-preview"><img src="https://avatars.githubusercontent.com/u/7415984?v=4" alt="ndom91/github-search-preview" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/npmgraph/npmgraph"><img src="https://avatars.githubusercontent.com/u/82167737?v=4" alt="npmgraph/npmgraph" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/react-navigation/react-navigation"><img src="https://avatars.githubusercontent.com/u/29647600?v=4" alt="react-navigation/react-navigation" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/RebeccaStevens/eslint-config-rebeccastevens"><img src="https://avatars.githubusercontent.com/u/7224206?v=4" alt="RebeccaStevens/eslint-config-rebeccastevens" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/refined-github/refined-github"><img src="https://avatars.githubusercontent.com/u/53074291?v=4" alt="refined-github/refined-github" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/Rel1cx/eslint-react"><img src="https://avatars.githubusercontent.com/u/24217275?v=4" alt="Rel1cx/eslint-react" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/TanStack/query"><img src="https://avatars.githubusercontent.com/u/72518640?v=4" alt="TanStack/query" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/toss/suspensive"><img src="https://avatars.githubusercontent.com/u/25682207?v=4" alt="toss/suspensive" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/upleveled/eslint-config-upleveled"><img src="https://avatars.githubusercontent.com/u/43520685?v=4" alt="upleveled/eslint-config-upleveled" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-<a href="https://github.com/zolplay-cn/config-monorepo"><img src="https://avatars.githubusercontent.com/u/80669433?v=4" alt="zolplay-cn/config-monorepo" width="64" height="64" style="border-radius: 50%; background-color: #ffffff; border: 1px solid #1f232826;"></a>
-</div>
-<!-- AUTO-GENERATED-CONTENT:END -->
+![used-by](https://eslint-react.xyz/used_by.png)
 
 ### Also available in
 
