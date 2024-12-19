@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/tools",
-  "version": "1.20.2-next.2",
+  "version": "1.20.2-next.3",
   "description": "Tools for ESLint React monorepo.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
