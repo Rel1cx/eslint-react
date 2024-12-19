@@ -1,9 +1,8 @@
 {
   "name": "@workspace/tools",
   "version": "0.0.0",
+  "private": true,
   "description": "Tools for ESLint React monorepo.",
-  "license": "MIT",
-  "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
