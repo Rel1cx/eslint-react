@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / UnionToIntersection
+[@eslint-react/types](../README.md) / UnionToIntersection
 
 # Type Alias: UnionToIntersection\<U\>
 

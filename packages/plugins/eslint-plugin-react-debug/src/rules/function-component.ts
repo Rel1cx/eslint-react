@@ -1,5 +1,5 @@
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
-import { F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 

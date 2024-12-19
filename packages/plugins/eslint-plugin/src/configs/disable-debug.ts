@@ -1,4 +1,4 @@
-import { entries, fromEntries } from "@eslint-react/tools";
+import { entries, fromEntries } from "@eslint-react/types";
 
 import { rules as debugRules } from "./debug";
 

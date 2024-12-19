@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

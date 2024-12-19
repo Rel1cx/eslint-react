@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / ArrayElement
+[@eslint-react/types](../README.md) / ArrayElement
 
 # Type Alias: ArrayElement\<A\>
 

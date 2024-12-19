@@ -1,4 +1,4 @@
-import { E, F } from "@eslint-react/tools";
+import { E, F } from "@eslint-react/eff";
 import { isMatching, P } from "ts-pattern";
 
 import { tryRequire } from "./try-require";

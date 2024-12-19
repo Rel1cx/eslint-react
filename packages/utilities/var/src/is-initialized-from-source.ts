@@ -1,4 +1,4 @@
-import { isString, O } from "@eslint-react/tools";
+import { isString, O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { isMatching, match } from "ts-pattern";

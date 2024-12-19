@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { MutRef, O } from "@eslint-react/tools";
+import { MutRef, O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";

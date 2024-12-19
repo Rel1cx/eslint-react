@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import type { O } from "@eslint-react/tools";
+import type { O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ERSemanticNode } from "../semantic-node";

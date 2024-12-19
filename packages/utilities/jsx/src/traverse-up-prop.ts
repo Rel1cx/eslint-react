@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
-import type { O } from "@eslint-react/tools";
-import { F } from "@eslint-react/tools";
+import type { O } from "@eslint-react/eff";
+import { F } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 

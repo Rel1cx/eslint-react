@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / fromEntries
+[@eslint-react/types](../README.md) / fromEntries
 
 # Function: fromEntries()
 

@@ -1,6 +1,6 @@
 import { isInitializedFromReact } from "@eslint-react/core";
+import { F, O } from "@eslint-react/eff";
 import { decodeSettings } from "@eslint-react/shared";
-import { F, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";

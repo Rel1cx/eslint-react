@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/tools";
+import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 

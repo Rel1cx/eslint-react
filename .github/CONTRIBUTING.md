@@ -56,12 +56,13 @@ Before submitting your contribution though, please make sure to take a moment an
 
 ### Packages Overview
 
-- `@eslint-react/tools`: Std library and primitives.
 - `@eslint-react/types`: Type definitions.
+- `@eslint-react/tools`: Tools for ESLint React monorepo.
 - `@eslint-react/shared`: Shared constants and functions.
 - `@eslint-react/ast`: TSESTree AST primitive utility module.
 - `@eslint-react/var`: TSESTree AST utility module for static analysis of variables.
 - `@eslint-react/jsx`: TSESTree AST utility module for static analysis of JSX.
+- `@eslint-react/eff`: A subset version of effect to produce a more lightweight version of the library.
 - `@eslint-react/core`: ESLint utility module for static analysis of React core APIs and Patterns.
 - `eslint-plugin-react-x`: The standalone ESLint plugin of React core rules.
 - `eslint-plugin-react-dom`: The standalone ESLint plugin of React DOM rules.

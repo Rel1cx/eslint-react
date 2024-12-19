@@ -1,6 +1,6 @@
 import { getElementRepresentName } from "@eslint-react/core";
+import { F, isString, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import { F, isString, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";

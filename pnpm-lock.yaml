@@ -585,15 +585,15 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../utilities/ast
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../types
@@ -631,12 +631,12 @@ importers:
 
   packages/plugins/eslint-plugin:
     dependencies:
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -692,15 +692,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -753,15 +753,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -814,15 +814,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -875,15 +875,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -933,15 +933,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -994,15 +994,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/eff':
+        specifier: workspace:*
+        version: link:../../utilities/eff
       '@eslint-react/jsx':
         specifier: workspace:*
         version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/tools':
-        specifier: workspace:*
-        version: link:../../tools
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -1058,9 +1058,9 @@ importers:
 
   packages/shared:
     dependencies:
-      '@eslint-react/tools':
+      '@eslint-react/eff':
         specifier: workspace:*
-        version: link:../tools
+        version: link:../utilities/eff
       '@typescript-eslint/utils':
         specifier: ^8.18.1
         version: 8.18.1(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)
@@ -1098,18 +1098,15 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../workspace/configs
-      effect:
-        specifier: ^3.11.8
-        version: 3.11.8
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
 
   packages/types:
     dependencies:
-      '@eslint-react/tools':
+      '@eslint-react/eff':
         specifier: workspace:*
-        version: link:../tools
+        version: link:../utilities/eff
       '@typescript-eslint/types':
         specifier: ^8.18.1
         version: 8.18.1
@@ -1126,9 +1123,9 @@ importers:
 
   packages/utilities/ast:
     dependencies:
-      '@eslint-react/tools':
+      '@eslint-react/eff':
         specifier: workspace:*
-        version: link:../../tools
+        version: link:../eff
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -1158,14 +1155,26 @@ importers:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
 
+  packages/utilities/eff:
+    devDependencies:
+      '@workspace/configs':
+        specifier: workspace:*
+        version: link:../../../workspace/configs
+      effect:
+        specifier: ^3.11.8
+        version: 3.11.8
+      tsup:
+        specifier: ^8.3.5
+        version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
+
   packages/utilities/jsx:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
-      '@eslint-react/tools':
+      '@eslint-react/eff':
         specifier: workspace:*
-        version: link:../../tools
+        version: link:../eff
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types
@@ -1200,9 +1209,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
-      '@eslint-react/tools':
+      '@eslint-react/eff':
         specifier: workspace:*
-        version: link:../../tools
+        version: link:../eff
       '@eslint-react/types':
         specifier: workspace:*
         version: link:../../types

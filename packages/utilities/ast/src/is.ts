@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { or } from "@eslint-react/tools";
+import { or } from "@eslint-react/eff";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";

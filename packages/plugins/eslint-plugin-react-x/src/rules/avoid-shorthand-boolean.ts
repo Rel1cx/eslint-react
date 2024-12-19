@@ -1,5 +1,5 @@
+import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import { F, O } from "@eslint-react/tools";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / Narrow
+[@eslint-react/types](../README.md) / Narrow
 
 # Type Alias: Narrow\<TType\>
 

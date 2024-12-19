@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/types**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / UnionFromTuple
+[@eslint-react/types](../README.md) / UnionFromTuple
 
 # Type Alias: UnionFromTuple\<T\>
 

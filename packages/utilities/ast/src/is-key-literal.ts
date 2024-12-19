@@ -1,4 +1,4 @@
-import { F } from "@eslint-react/tools";
+import { F } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { match } from "ts-pattern";

@@ -1,9 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
+import { F, O } from "@eslint-react/eff";
 import type { ESLintReactSettings, REACT_BUILD_IN_HOOKS } from "@eslint-react/shared";
-import type { ArrayElement } from "@eslint-react/tools";
-import { F, O } from "@eslint-react/tools";
-import type { RuleContext } from "@eslint-react/types";
+import type { ArrayElement, RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";

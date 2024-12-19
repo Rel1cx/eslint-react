@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/types";
 
 import { getFunctionComponentIdentifier } from "./component-id";

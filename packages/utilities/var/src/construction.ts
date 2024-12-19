@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { Data, isNullable, isObject, isString, O } from "@eslint-react/tools";
+import { Data, isNullable, isObject, isString, O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";

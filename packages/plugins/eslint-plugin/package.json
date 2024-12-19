@@ -52,8 +52,8 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
+    "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@eslint-react/tools": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.18.1",
     "@typescript-eslint/type-utils": "^8.18.1",

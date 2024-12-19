@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/tools";
+import { F, O } from "@eslint-react/eff";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
