@@ -108,6 +108,7 @@ function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
+    defaultOptions: [...defaultOptions],
     docs: {
       description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
     },

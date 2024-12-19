@@ -82,6 +82,7 @@ const schema = [
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
+    defaultOptions: [...defaultOptions],
     docs: {
       description: "enforce naming convention for JSX filenames",
     },

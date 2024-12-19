@@ -57,9 +57,14 @@ type Options = [
   },
 ];
 
+const defaultOptions = [{
+  allowExpressions: true,
+}] as const satisfies Options;
+
 export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
+    defaultOptions: [...defaultOptions],
     docs: {
       description: "disallow unnecessary fragments",
     },
@@ -91,7 +96,5 @@ export default createRule<Options, MessageID>({
       },
     };
   },
-  defaultOptions: [{
-    allowExpressions: true,
-  }],
+  defaultOptions,
 });
