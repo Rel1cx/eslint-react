@@ -27,7 +27,7 @@
     "@types/dotenv-webpack": "7.0.8",
     "@types/file-loader": "~5.0.4",
     "@types/node": "^22.10.2",
-    "@types/react": "^19.0.1",
+    "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.1.0",
