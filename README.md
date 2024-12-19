@@ -27,52 +27,9 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
-## Getting Started
+## Installation
 
-### JavaScript
-
-#### Install
-
-```sh filename="Terminal"
-# npm
-npm install --save-dev @eslint-react/eslint-plugin
-
-# yarn
-yarn add --dev @eslint-react/eslint-plugin
-
-# pnpm
-pnpm add --save-dev @eslint-react/eslint-plugin
-```
-
-#### Setup
-
-```js filename="eslint.config.js"
-import react from "@eslint-react/eslint-plugin";
-
-export default [
-  {
-    files: ["**/*.js", "**/*.jsx"],
-    ...react.configs["recommended"],
-    languageOptions: {
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-  },
-  {
-    files: ["**/*.js", "**/*.jsx"],
-    rules: {
-      // Put rules you want to override here
-    },
-  },
-];
-```
-
-### TypeScript
-
-#### Install
+### Install
 
 ```sh
 # npm
@@ -85,7 +42,7 @@ yarn add --dev typescript-eslint @eslint-react/eslint-plugin
 pnpm add --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```
 
-#### Setup
+### Setup
 
 ```js
 // eslint.config.js
