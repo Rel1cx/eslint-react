@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.20.2-beta.5",
+  "version": "1.20.2-next.6",
   "description": "The main ESLint plugin of ESLint React. Contains all the rules and presets of ESLint React.",
   "keywords": [
     "react",
