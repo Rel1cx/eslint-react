@@ -56,20 +56,21 @@ Before submitting your contribution though, please make sure to take a moment an
 
 ### Packages Overview
 
-- `@eslint-react/types`: Type definitions.
-- `@eslint-react/tools`: Tools for ESLint React monorepo.
-- `@eslint-react/shared`: Shared constants and functions.
-- `@eslint-react/ast`: TSESTree AST primitive utility module.
-- `@eslint-react/var`: TSESTree AST utility module for static analysis of variables.
-- `@eslint-react/jsx`: TSESTree AST utility module for static analysis of JSX.
-- `@eslint-react/eff`: A subset version of effect to produce a more lightweight version of the library.
-- `@eslint-react/core`: ESLint utility module for static analysis of React core APIs and Patterns.
-- `eslint-plugin-react-x`: The standalone ESLint plugin of React core rules.
-- `eslint-plugin-react-dom`: The standalone ESLint plugin of React DOM rules.
-- `eslint-plugin-react-web-api` - The standalone ESLint plugin of Web API rules.
-- `eslint-plugin-react-hooks-extra`: The standalone ESLint plugin of extra React Hooks rules.
-- `eslint-plugin-react-naming-convention`: The standalone ESLint plugin of React naming convention rules.
-- `@eslint-react/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
+- `packages/plugins/eslint-plugin-react-x`: ESLint plugin for `"react"`.
+- `packages/plugins/eslint-plugin-react-dom`: ESLint plugin for `"react-dom"`.
+- `packages/plugins/eslint-plugin-react-web-api` - ESLint plugin for interacting with Web APIs
+- `packages/plugins/eslint-plugin-react-hooks-extra`:ESLint plugin for React Hooks related rules.
+- `packages/plugins/eslint-plugin-react-naming-convention`: ESLint plugin for React naming conventions.
+- `packages/plugins/eslint-plugin-react-debug`: ESLint plugin for debugging ESLint React rules.
+- `packages/plugins/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
+- `packages/utilities/eff`: A subset version of effect to produce a more lightweight version of the library.
+- `packages/utilities/ast`: TSESTree AST utility module.
+- `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
+- `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
+- `packages/core`: ESLint React's ESLint utility module for static analysis of React core APIs and Patterns.
+- `packages/types`: ESLint React's type definitions.
+- `packages/shared`: ESLint React's Shared constants and functions.
+- `website`: The documentation website for ESLint React.
 
 ### Developing Documentation
 
