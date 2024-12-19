@@ -20,6 +20,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  transpilePackages: ["react-tweet"],
   output: "standalone",
   redirects() {
     return [
