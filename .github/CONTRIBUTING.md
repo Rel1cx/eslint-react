@@ -63,7 +63,7 @@ Before submitting your contribution though, please make sure to take a moment an
 - `packages/plugins/eslint-plugin-react-naming-convention`: ESLint plugin for React naming conventions.
 - `packages/plugins/eslint-plugin-react-debug`: ESLint plugin for debugging ESLint React rules.
 - `packages/plugins/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
-- `packages/utilities/eff`: A subset version of effect to produce a more lightweight version of the library.
+- `packages/utilities/eff`: A subset of effect to produce a more lightweight version of the library.
 - `packages/utilities/ast`: TSESTree AST utility module.
 - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
 - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
