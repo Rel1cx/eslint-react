@@ -1,9 +1,9 @@
 import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { glob, readJsonFile, writeJsonFile } from "@workspace/tools";
 import { Effect, Function as F, Predicate } from "effect";
 import { match, P } from "ts-pattern";
 
 import { ignores } from "./ignores";
+import { glob, readJsonFile, writeJsonFile } from "./libs";
 import { version } from "./version";
 
 const GLOB_PACKAGE_JSON = ["package.json", "packages/*/package.json", "packages/*/*/package.json"];

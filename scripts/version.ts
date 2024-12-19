@@ -1,6 +1,7 @@
 import { FileSystem } from "@effect/platform";
-import { isVersion } from "@workspace/tools";
 import { Effect, Function as F, String as Str } from "effect";
+
+import { isVersion } from "./libs";
 
 export const version = F.pipe(
   FileSystem.FileSystem,

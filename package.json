@@ -67,7 +67,6 @@
     "@typescript-eslint/rule-tester": "^8.18.1",
     "@typescript-eslint/types": "^8.18.1",
     "@vitest/ui": "^2.1.8",
-    "@workspace/tools": "workspace:*",
     "@workspace/configs": "workspace:*",
     "@workspace/eslint-plugins": "workspace:*",
     "concurrently": "^9.1.0",

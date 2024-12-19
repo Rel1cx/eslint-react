@@ -82,9 +82,6 @@ importers:
       '@workspace/eslint-plugins':
         specifier: workspace:*
         version: link:workspace/eslint-plugins
-      '@workspace/tools':
-        specifier: workspace:*
-        version: link:workspace/tools
       concurrently:
         specifier: ^9.1.0
         version: 9.1.0
@@ -1384,25 +1381,6 @@ importers:
       eslint-plugin-vitest:
         specifier: ^0.5.4
         version: 0.5.4(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)(vitest@2.1.8)
-
-  workspace/tools:
-    dependencies:
-      '@effect/platform':
-        specifier: ^0.71.5
-        version: 0.71.5(effect@3.11.8)
-      effect:
-        specifier: ^3.11.8
-        version: 3.11.8
-      tinyglobby:
-        specifier: ^0.2.10
-        version: 0.2.10
-    devDependencies:
-      '@workspace/configs':
-        specifier: workspace:*
-        version: link:../configs
-      tsup:
-        specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
 
 packages:
 
