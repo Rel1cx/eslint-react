@@ -1,16 +1,7 @@
 {
-  "name": "@eslint-react/tools",
-  "version": "1.20.2-beta.3",
+  "name": "@workspace/tools",
+  "version": "0.0.0",
   "description": "Tools for ESLint React monorepo.",
-  "homepage": "https://github.com/rel1cx/eslint-react",
-  "bugs": {
-    "url": "https://github.com/rel1cx/eslint-react/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Rel1cx/eslint-react",
-    "directory": "packages/tools"
-  },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
   "sideEffects": false,
@@ -37,8 +28,12 @@
   "scripts": {
     "build": "tsup",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit",
-    "publish": "pnpm run build && pnpm run lint:publish"
+    "lint:type": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect/platform": "^0.71.5",
+    "effect": "^3.11.8",
+    "tinyglobby": "^0.2.10"
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
