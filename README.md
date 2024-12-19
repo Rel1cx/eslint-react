@@ -27,9 +27,13 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
 
-## Install
+## Getting Started
 
-```sh
+### JavaScript
+
+#### Install
+
+```sh filename="Terminal"
 # npm
 npm install --save-dev @eslint-react/eslint-plugin
 
@@ -40,28 +44,71 @@ yarn add --dev @eslint-react/eslint-plugin
 pnpm add --save-dev @eslint-react/eslint-plugin
 ```
 
-## Setup
+#### Setup
 
-### Flat Config
+```js filename="eslint.config.js"
+import react from "@eslint-react/eslint-plugin";
+
+export default [
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    ...react.configs["recommended"],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    rules: {
+      // Put rules you want to override here
+    },
+  },
+];
+```
+
+### TypeScript
+
+#### Install
+
+```sh
+# npm
+npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev typescript-eslint @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev typescript-eslint @eslint-react/eslint-plugin
+```
+
+#### Setup
 
 ```js
 // eslint.config.js
 
 // @ts-check
-import js from "@eslint/js";
 import react from "@eslint-react/eslint-plugin";
-import * as tsParser from "@typescript-eslint/parser";
+import tseslint from "typescript-eslint";
 
-export default [
-  js.configs.recommended,
-  {
-    files: ["**/*.{ts,tsx}"],
-    ...react.configs.recommended,
-    languageOptions: {
-      parser: tsParser,
+export default tseslint.config({
+  files: ["**/*.ts", "**/*.tsx"],
+  extends: [
+    react.configs["recommended"],
+  ],
+  languageOptions: {
+    parser: tseslint.parser,
+    parserOptions: {
+      projectService: true,
     },
   },
-];
+  rules: {
+    // Put rules you want to override here
+  },
+});
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)

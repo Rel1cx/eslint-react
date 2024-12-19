@@ -1,17 +1,6 @@
 export default {
-  "-Getting Started": {
+  "getting-started": {
     title: "Getting Started",
-    type: "separator",
-  },
-  installation: {
-    title: "Installation",
-  },
-  configuration: {
-    title: "Configuration",
-  },
-  "advanced-configuration": {
-    title: "Advanced Configuration",
-    display: "hidden",
   },
   "---": {
     type: "separator",
@@ -21,6 +10,13 @@ export default {
   },
   presets: {
     title: "Presets",
+  },
+  configurations: {
+    title: "Configurations",
+  },
+  "advanced-configuration": {
+    title: "Advanced Configuration",
+    display: "hidden",
   },
   "-Other": {
     title: "Other",
