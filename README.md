@@ -68,7 +68,7 @@ export default tseslint.config({
 });
 ```
 
-[Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
+[Full Installation Guide ↗](https://eslint-react.xyz/docs/getting-started)
 
 </details>
 

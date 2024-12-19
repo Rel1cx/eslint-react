@@ -26,7 +26,12 @@ const nextConfig = {
     return [
       {
         source: "/docs",
-        destination: "/docs/installation",
+        destination: "/docs/getting-started",
+        permanent: true,
+      },
+      {
+        source: "/docs/installation",
+        destination: "/docs/getting-started",
         permanent: true,
       },
       {
