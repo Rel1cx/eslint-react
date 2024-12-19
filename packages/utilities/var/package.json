@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/var",
-  "version": "1.20.2-next.4",
+  "version": "1.20.2-beta.4",
   "description": "ESLint React's TSESTree AST utility module for static analysis of variables",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
