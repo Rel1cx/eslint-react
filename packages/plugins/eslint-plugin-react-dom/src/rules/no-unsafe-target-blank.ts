@@ -88,7 +88,7 @@ export default createRule<[], MessageID>({
           O.flatMapNullable(v =>
             match(v)
               .with(P.string, F.identity)
-              .with(P.shape({ [hrefPropName]: P.string }), (v) => v[hrefPropName])
+              .with({ [hrefPropName]: P.string }, (v) => v[hrefPropName])
               .otherwise(F.constNull)
           ),
           O.filter(isString),
@@ -107,7 +107,7 @@ export default createRule<[], MessageID>({
           O.flatMapNullable(v =>
             match(v)
               .with(P.string, F.identity)
-              .with(P.shape({ [relPropName]: P.string }), (v) => v[relPropName])
+              .with({ [relPropName]: P.string }, (v) => v[relPropName])
               .otherwise(F.constNull)
           ),
           O.filter(isString),
