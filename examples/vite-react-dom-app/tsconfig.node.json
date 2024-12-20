@@ -13,11 +13,14 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "."
+    "*.ts",
+    "*.cts",
+    "*.mts"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "src"
+    "src",
+    "benchmark"
   ]
 }

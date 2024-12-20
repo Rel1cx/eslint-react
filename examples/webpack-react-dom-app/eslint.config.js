@@ -1,23 +1,17 @@
+// @ts-check
+
 import react from "@eslint-react/eslint-plugin";
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
-const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
-const GLOB_SRC = [...GLOB_JS, ...GLOB_TS].map((pattern) => `src/${pattern}`);
-const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
+import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
+
+const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
 export default tseslint.config(
-  {
-    ignores: [
-      "node_modules",
-      "dist",
-      "eslint.config.mjs",
-      "eslint.config.d.ts",
-    ],
-  },
   js.configs.recommended,
   {
     files: GLOB_TS,
@@ -26,7 +20,7 @@ export default tseslint.config(
     ],
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
@@ -39,18 +33,20 @@ export default tseslint.config(
     },
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     ...react.configs["recommended-type-checked"],
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     plugins: {
+      // @ts-expect-error - Missing types
       "react-hooks": reactHooks,
     },
+    // @ts-ignore - Missing types
     rules: reactHooks.configs.recommended.rules,
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     plugins: {
       "react-refresh": reactRefresh,
     },
@@ -59,9 +55,26 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_JS, ...GLOB_CONFIG],
-    extends: [
-      tseslint.configs.disableTypeChecked,
+    files: TSCONFIG_NODE.include,
+    ignores: TSCONFIG_NODE.exclude,
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.node.json",
+        projectService: false,
+      },
+    },
+    rules: {
+      ...tseslint.configs.disableTypeChecked.rules,
+      "no-console": "off",
+    },
+  },
+  {
+    ignores: [
+      "node_modules",
+      "dist",
+      "benchmark",
+      "eslint.config.js",
+      "eslint.config.d.ts",
     ],
   },
 );

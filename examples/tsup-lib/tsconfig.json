@@ -12,7 +12,6 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
-    /* Bundler mode */
     "moduleDetection": "force",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -20,7 +19,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -28,6 +26,8 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src"
-  ]
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": []
 }

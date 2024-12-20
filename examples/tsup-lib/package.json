@@ -25,6 +25,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "lint": "eslint .",
     "lint:publish": "publint",
     "lint:type": "tsc --noEmit",
     "prepare": "pnpm run build"

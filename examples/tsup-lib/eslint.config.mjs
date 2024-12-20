@@ -6,28 +6,12 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
-const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
-const GLOB_SRC = [...GLOB_JS, ...GLOB_TS].map((pattern) => `src/${pattern}`);
-const GLOB_TEST = [
-  "**/*.spec.{ts,tsx,cts,mts}",
-  "**/*.test.{ts,tsx,cts,mts}",
-  "**/spec.{ts,tsx,cts,mts}",
-  "**/test.{ts,tsx,cts,mts}",
-];
-const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
-const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
+import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
-export default [
-  {
-    ignores: [
-      "node_modules",
-      "dist",
-      "benchmark",
-      "eslint.config.mjs",
-      "eslint.config.d.ts",
-    ],
-  },
+const GLOB_TS = ["**/*.ts", "**/*.tsx"];
+
+export default tseslint.config(
   js.configs.recommended,
   {
     files: GLOB_TS,
@@ -36,7 +20,7 @@ export default [
     ],
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
@@ -49,18 +33,20 @@ export default [
     },
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     ...react.configs["recommended-type-checked"],
   },
   {
-    files: GLOB_SRC,
+    files: TSCONFIG.include,
     plugins: {
+      // @ts-expect-error - Missing types
       "react-hooks": reactHooks,
     },
+    // @ts-ignore - Missing types
     rules: reactHooks.configs.recommended.rules,
   },
   {
-    files: ["src/**/*.tsx"],
+    files: TSCONFIG.include,
     plugins: {
       "react-refresh": reactRefresh,
     },
@@ -69,18 +55,26 @@ export default [
     },
   },
   {
-    files: [...GLOB_TEST, ...GLOB_CONFIG, ...GLOB_SCRIPT, "*.d.ts"],
+    files: TSCONFIG_NODE.include,
+    ignores: TSCONFIG_NODE.exclude,
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.node.json",
         projectService: false,
       },
     },
+    rules: {
+      ...tseslint.configs.disableTypeChecked.rules,
+      "no-console": "off",
+    },
   },
   {
-    files: [...GLOB_JS, ...GLOB_CONFIG],
-    extends: [
-      tseslint.configs.disableTypeChecked,
+    ignores: [
+      "node_modules",
+      "dist",
+      "benchmark",
+      "eslint.config.mjs",
+      "eslint.config.d.ts",
     ],
   },
-];
+);

@@ -4,17 +4,18 @@
     "@tsconfig/node22/tsconfig.json"
   ],
   "compilerOptions": {
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "composite": true,
+    "incremental": false,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "."
+    "*.ts",
+    "*.cts",
+    "*.mts"
   ],
   "exclude": [
     "node_modules",

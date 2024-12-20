@@ -8,14 +8,6 @@ const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_SRC = GLOB_JS.map((pattern) => `src/${pattern}`);
 
 export default [
-  {
-    ignores: [
-      "node_modules",
-      "dist",
-      "eslint.config.js",
-      "eslint.config.d.ts",
-    ],
-  },
   js.configs.recommended,
   {
     files: GLOB_JS,
@@ -49,5 +41,13 @@ export default [
     rules: {
       "react-refresh/only-export-components": "warn",
     },
+  },
+  {
+    ignores: [
+      "node_modules",
+      "dist",
+      "eslint.config.js",
+      "eslint.config.d.ts",
+    ],
   },
 ];
