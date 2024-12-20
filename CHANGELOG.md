@@ -6,7 +6,20 @@
 
 ### 🪄 Improvements
 
-- refactor(plugins/hooks-extra): deprecate rule `hooks-extra/no-redudant-custome-hook` in favor of `hooks-extra/no-useless-custom-hooks` (the previous rule will still be available until the next major update to avoid breaking changes).
+- refactor(plugins/hooks-extra): deprecate rule `hooks-extra/no-redundant-custom-hook` in favor of `hooks-extra/no-useless-custom-hooks` (the previous rule will still be available until the next major update to avoid breaking changes).
+
+### 📝 Changes in Rule implementation
+
+`hooks-extra/no-redundant-custom-hook` now detects Hook calls that are made inside comments, the flowing code no longer triggers warnings:
+
+```tsx
+// ✅ Good: A Hook that will likely use some other Hooks later
+function useAuth() {
+  // TODO: Replace with this line when authentication is implemented:
+  // return useContext(Auth);
+  return TEST_USER;
+}
+```
 
 ## v1.20.1 (Wed 18 Dec 2024)
 
@@ -1232,3 +1245,6 @@
 
 - Update Options of rule `jsx/no-useless-fragment`.
 - Optimize bundle size.
+
+```
+```
