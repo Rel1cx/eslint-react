@@ -32,14 +32,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 ### Install
 
 ```sh
-# npm
 npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
-
-# yarn
-yarn add --dev typescript-eslint @eslint-react/eslint-plugin
-
-# pnpm
-pnpm add --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```
 
 ### Setup
