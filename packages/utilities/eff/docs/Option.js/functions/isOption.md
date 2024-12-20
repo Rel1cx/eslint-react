@@ -8,7 +8,7 @@
 
 > **isOption**(`input`): `input is Option<unknown>`
 
-Tests if a value is a `Option`.
+Checks if a given value is an `Option` value.
 
 ## Parameters
 

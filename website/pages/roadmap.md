@@ -107,9 +107,9 @@
 | Rule                                   | Description                                                           |
 | :------------------------------------- | :-------------------------------------------------------------------- |
 | `no-direct-set-state-in-use-effect`    | Disallow direct calls to `set` function of `useState` in `useEffect`. |
-| `no-useless-custom-hooks`              | Warns when custom Hooks that don't use other Hooks.                   |
 | `no-unnecessary-use-callback`          | Disallow unnecessary usage of `useCallback`.                          |
 | `no-unnecessary-use-memo`              | Disallow unnecessary usage of `useMemo`.                              |
+| `no-useless-custom-hooks`              | Warns when custom Hooks that don't use other Hooks.                   |
 | `prefer-use-state-lazy-initialization` | Warns function calls made inside `useState` calls.                    |
 
 ### Rules in `eslint-plugin-react-naming-convention`
