@@ -56,6 +56,11 @@ const nextConfig = {
       },
       // Redirects for renamed rules
       {
+        source: "/docs/rules/no-complicated-conditional-rendering",
+        destination: "/docs/rules/no-complex-conditional-rendering",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/hooks-extra-ensure-use-memo-has-non-empty-deps",
         destination: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
         permanent: true,
