@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { DocsThemeConfig } from "nextra-theme-docs";
 
 import logo from "#/assets/logo.svg";

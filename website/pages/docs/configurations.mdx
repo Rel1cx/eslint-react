@@ -1,5 +1,6 @@
-import { Config, ESLintConfig } from "#/widgets/eslint-config";
-import { Info, Warning } from "#/components/callout";
+import { Callout } from "nextra/components"
+
+import { ConfigTab, ESLintConfigTabs } from "#/widgets/eslint-config-tabs";
 
 # Configurations
 
@@ -39,7 +40,7 @@ If `importSource` is specified, an equivalent version of React should be provide
 
 (type: `string`)
 
-<Warning>Polymorphic components can make code harder to maintain; please use this feature with caution.</Warning>
+<Callout type="warning">Polymorphic components can make code harder to maintain; please use this feature with caution.</Callout>
 
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
 
@@ -53,7 +54,7 @@ will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the compo
 
 (type: `[key: string]: string[]`)
 
-<Warning>This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Warning>
+<Callout type="warning">This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Callout>
 
 A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
 
@@ -63,15 +64,15 @@ A object of aliases for React built-in hooks. ESLint React will recognize these 
 
 (type: `{ name: string; as: string; attributes: { name: string; as?: string; defaultValue?: string }[] }[]`)
 
-<Warning>This is an experimental feature that can be unstable and lacks comprehensive documentation.</Warning>
+<Callout type="warning">This is an experimental feature that can be unstable and lacks comprehensive documentation.</Callout>
 
 An array of user-defined components, used to inform the ESLint React plugins how to treat these components during checks.
 
 ## Examples
 
-<ESLintConfig>
+<ESLintConfigTabs>
 
-<Config>
+<ConfigTab>
 
 ```ts filename="eslint.config.js"
 import react from "@eslint-react/eslint-plugin";
@@ -106,9 +107,9 @@ export default [
 ];
 ```
 
-</Config>
+</ConfigTab>
 
-<Config>
+<ConfigTab>
 
 ```js filename=".eslintrc.js"
 module.exports = {
@@ -137,6 +138,6 @@ module.exports = {
 };
 ```
 
-</Config>
+</ConfigTab>
 
-</ESLintConfig>
+</ESLintConfigTabs>

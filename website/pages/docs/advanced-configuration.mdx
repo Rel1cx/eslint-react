@@ -1,15 +1,16 @@
-import { Config, ESLintConfig } from "#/widgets/eslint-config";
-import { Warning } from "#/components/callout";
+import { Callout } from "nextra/components"
+
+import { ConfigTab, ESLintConfigTabs } from "#/widgets/eslint-config-tabs";
 
 # Advanced Configuration (WIP)
 
-<Warning>This page contains experimental features that still under development. The content may change without notice.</Warning>
+<Callout type="warning">This page contains experimental features that still under development. The content may change without notice.</Callout>
 
 ## Examples
 
-<ESLintConfig>
+<ESLintConfigTabs>
 
-<Config>
+<ConfigTab>
 
 ```ts filename="eslint.config.js"
 import react from "@eslint-react/eslint-plugin";
@@ -80,9 +81,9 @@ export default [
 ];
 ```
 
-</Config>
+</ConfigTab>
 
-<Config>
+<ConfigTab>
 
 ```js filename=".eslintrc.js"
 module.exports = {
@@ -147,6 +148,6 @@ module.exports = {
 };
 ```
 
-</Config>
+</ConfigTab>
 
-</ESLintConfig>
+</ESLintConfigTabs>

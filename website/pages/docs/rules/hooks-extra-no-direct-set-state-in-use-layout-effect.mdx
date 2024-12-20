@@ -1,4 +1,4 @@
-import { Info } from "#/components/callout"
+import { Callout } from "nextra/components"
 
 # no-direct-set-state-in-use-layout-effect
 
@@ -26,9 +26,7 @@ This rule only checks for **direct** calls to the `set` function of `useState` i
 
 ## Examples
 
-<Info>
-The first three cases are common valid use cases because they are not called the `set` function directly in `useLayoutEffect`.
-</Info>
+<Callout type="info">The first three cases are common valid use cases because they are not called the `set` function directly in `useLayoutEffect`.</Callout>
 
 ### Passing
 

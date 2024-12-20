@@ -1,17 +1,17 @@
 import { Tabs } from "nextra/components";
 import React from "react";
 
-export interface ESLintConfigProps {
+export interface ESLintConfigTabsProps {
   defaultIndex?: number;
   children: React.ReactNode;
 }
 
 const ConfigItems = ["Flat Config", "Legacy Config"];
 
-export function ESLintConfig({
+export function ESLintConfigTabs({
   defaultIndex = 0,
   children,
-}: ESLintConfigProps) {
+}: ESLintConfigTabsProps) {
   return (
     <Tabs
       defaultIndex={defaultIndex}
@@ -22,4 +22,4 @@ export function ESLintConfig({
   );
 }
 
-export const Config = Tabs.Tab;
+export const ConfigTab = Tabs.Tab;
