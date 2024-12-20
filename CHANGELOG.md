@@ -1,8 +1,8 @@
-## v1.12.4 (Sat 31 Aug 2024)
+## v1.21.0 (Draft)
 
 ### ✨ New
 
-- Added `useLayoutEffect` and `useInsertionEffect` support to `hooks-extra/no-direct-set-state-in-use-effect`.
+- feat(plugins/hooks-extra): add `no-useless-custom-hooks` rule by @Rel1cx
 
 ### 🪄 Improvements
 

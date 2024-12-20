@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^15.1.1",
+    "next": "^15.1.2",
     "nextra": "3.2.5",
     "nextra-theme-docs": "3.2.5",
     "react": "^19.0.0",
@@ -21,8 +21,8 @@
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^9.17.0",
     "@mdx-js/mdx": "^3.1.0",
-    "@next/bundle-analyzer": "^15.1.1",
-    "@next/eslint-plugin-next": "^15.1.1",
+    "@next/bundle-analyzer": "^15.1.2",
+    "@next/eslint-plugin-next": "^15.1.2",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.10.2",
@@ -33,7 +33,7 @@
     "@workspace/configs": "workspace:*",
     "autoprefixer": "^10.4.20",
     "clsx": "2.1.1",
-    "effect": "^3.11.8",
+    "effect": "^3.11.9",
     "eslint": "^9.17.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react-hooks": "^5.1.0",
@@ -47,6 +47,6 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1",
-    "vite": "^6.0.3"
+    "vite": "^6.0.4"
   }
 }

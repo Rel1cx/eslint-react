@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "1.20.2-next.7",
+  "version": "1.21.0-next.0",
   "description": "A subset of effect to produce a more lightweight version of the library.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
-    "effect": "^3.11.8",
+    "effect": "^3.11.9",
     "tsup": "^8.3.5"
   }
 }
