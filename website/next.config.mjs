@@ -54,7 +54,7 @@ const nextConfig = {
         destination: "/docs/rules/:wildcard",
         permanent: true,
       },
-      // Redirects for renamed rules
+      // Redirects for deprecated rules
       {
         source: "/docs/rules/no-complicated-conditional-rendering",
         destination: "/docs/rules/no-complex-conditional-rendering",
@@ -68,6 +68,11 @@ const nextConfig = {
       {
         source: "/docs/rules/hooks-extra-ensure-use-callback-has-non-empty-deps",
         destination: "/docs/rules/hooks-extra-no-unnecessary-use-callback",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/hooks-extra-ensure-custom-hooks-using-other-hooks",
+        destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
         permanent: true,
       },
       {
