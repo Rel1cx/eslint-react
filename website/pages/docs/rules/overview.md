@@ -69,9 +69,9 @@
 
 ### Deprecated
 
-| Rule                                                                           | Replaced by                                                            |
-| :----------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](no-complex-conditional-rendering) |
+| Rule                                                                               | Replaced by                                                            |
+| :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
+| [~~`no-complicated-conditional-rendering`~~](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](no-complex-conditional-rendering) |
 
 ## DOM Rules
 
@@ -112,12 +112,12 @@
 
 ### Deprecated
 
-| Rule                                                                               | Replaced by                                                              |
-| :--------------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
-| [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)                   | [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)         |
-| [`ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)     | [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)         |
-| [`ensure-use-memo-has-non-empty-deps`](ensure-use-memo-has-non-empty-deps)         | [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)         |
-| [`ensure-use-callback-has-non-empty-deps`](ensure-use-callback-has-non-empty-deps) | [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback) |
+| Rule                                                                                   | Replaced by                                                              |
+| :------------------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| [~~`no-useless-custom-hooks`~~](hooks-extra-no-useless-custom-hooks)                   | [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)         |
+| [~~`ensure-custom-hooks-using-other-hooks`~~](hooks-extra-no-useless-custom-hooks)     | [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)         |
+| [~~`ensure-use-memo-has-non-empty-deps`~~](ensure-use-memo-has-non-empty-deps)         | [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)         |
+| [~~`ensure-use-callback-has-non-empty-deps`~~](ensure-use-callback-has-non-empty-deps) | [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback) |
 
 ## Naming Convention Rules
 
