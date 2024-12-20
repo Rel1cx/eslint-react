@@ -14,6 +14,7 @@ export default {
     "function-component": functionComponent,
     hook: hook,
     "is-from-react": isFromReact,
+
     // Deprecated rules
     /** @deprecated Use `hook` rule instead */
     "react-hooks": hook,

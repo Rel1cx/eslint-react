@@ -107,7 +107,8 @@ export default {
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-shorthand-boolean": preferShorthandBoolean,
     "prefer-shorthand-fragment": preferShorthandFragment,
-    // Deprecated Rules
+
+    // Deprecated rules
     /** @deprecated Use `no-complex-conditional-rendering` instead. */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
   },

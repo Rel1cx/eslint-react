@@ -91,7 +91,7 @@ export default {
   "web-api-no-leaked-resize-observer": "no-leaked-resize-observer",
   "web-api-no-leaked-timeout": "no-leaked-timeout",
   ...mkSectionTitle("Hooks Extra Rules"),
-  "hooks-extra-no-redundant-custom-hook": "no-redundant-custom-hook",
+  "hooks-extra-no-useless-custom-hooks": "no-useless-custom-hooks",
   "hooks-extra-no-unnecessary-use-callback": "no-unnecessary-use-callback",
   "hooks-extra-no-unnecessary-use-memo": "no-unnecessary-use-memo",
   "hooks-extra-no-direct-set-state-in-use-effect": "no-direct-set-state-in-use-effect",

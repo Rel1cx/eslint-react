@@ -66,6 +66,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/docs/rules/hooks-extra-no-redundant-custom-hook",
+        destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/debug-react-hooks",
         destination: "/docs/rules/debug-hook",
         permanent: true,

@@ -14,7 +14,7 @@ export const rules = {
   ...dom.rules,
   ...webApi.rules,
   "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "@eslint-react/hooks-extra/no-redundant-custom-hook": "warn",
+  "@eslint-react/hooks-extra/no-useless-custom-hooks": "warn",
   "@eslint-react/hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
