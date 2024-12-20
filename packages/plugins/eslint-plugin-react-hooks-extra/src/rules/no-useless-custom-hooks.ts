@@ -1,11 +1,12 @@
 import * as AST from "@eslint-react/ast";
 import { useHookCollector } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/types";
+import type { RuleContext, RuleFeature } from "@eslint-react/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-redundant-custom-hook";
+export const RULE_NAME = "no-useless-custom-hooks";
 
 export const RULE_FEATURES = [
   "CHK",
@@ -13,10 +14,15 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// Hooks that are not call other hooks are redundant
-// In React, hooks are like colored functions, and defining a custom hook that doesn't call other hooks is like defining a generator function that doesn't yield or an async function that doesn't await.
-// "Custom Hooks may call other Hooks (that’s their whole purpose)." from https://react.dev/warnings/invalid-hook-call-warning
-// Further reading: https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix
+function isNodeContainsUseCallComments(
+  node: TSESTree.Node,
+  context: RuleContext,
+) {
+  return context.sourceCode
+    .getCommentsInside(node)
+    .some((comment) => /use\w+\(/u.test(comment.value));
+}
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -25,7 +31,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noRedundantCustomHook: "A custom hook '{{name}}' should use at least one other hook.",
+      noUselessCustomHooks: "A custom hook '{{name}}' should use at least one other hook.",
     },
     schema: [],
   },
@@ -39,9 +45,12 @@ export default createRule<[], MessageID>({
         for (const { name, node, hookCalls } of allHooks.values()) {
           // Skip empty functions
           if (AST.isEmptyFunction(node)) continue;
+          // Skip useful hooks
           if (hookCalls.length > 0) continue;
+          // Skip hooks with comments that contain calls to other hooks
+          if (isNodeContainsUseCallComments(node, context)) continue;
           context.report({
-            messageId: "noRedundantCustomHook",
+            messageId: "noUselessCustomHooks",
             node,
             data: {
               name: name.value,

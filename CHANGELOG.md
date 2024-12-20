@@ -1,3 +1,13 @@
+## v1.12.4 (Sat 31 Aug 2024)
+
+### ✨ New
+
+- Added `useLayoutEffect` and `useInsertionEffect` support to `hooks-extra/no-direct-set-state-in-use-effect`.
+
+### 🪄 Improvements
+
+- refactor(plugins/hooks-extra): deprecate rule `hooks-extra/no-redudant-custome-hook` in favor of `hooks-extra/no-useless-custom-hooks` (the previous rule will still be available until the next major update to avoid breaking changes).
+
 ## v1.20.1 (Wed 18 Dec 2024)
 
 ### 🪄 Improvements
@@ -206,12 +216,12 @@
 
 ### 🐞 Fixes
 
-- `hooks-extra/no-redundant-custom-hook` should allow custom hooks with empty body.
+- `hooks-extra/no-useless-custom-hooks` should allow custom hooks with empty body.
 
 ### 🪄 Improvements
 
 - Rename `debug/react-hooks` to `debug/hook`.
-- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-redundant-custom-hook`.
+- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-useless-custom-hooks`.
 - Rename `hooks-extra/ensure-use-memo-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-memo`.
 - Rename `hooks-extra/ensure-use-callback-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-callback`.
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`.

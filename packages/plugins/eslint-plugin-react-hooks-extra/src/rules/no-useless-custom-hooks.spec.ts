@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-redundant-custom-hook";
+import rule, { RULE_NAME } from "./no-useless-custom-hooks";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useClassnames",
           },
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useClassnames",
           },
@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useInnerHook",
           },
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useNestedHook",
           },
@@ -99,13 +99,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useNestedHook",
           },
         },
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useInnerHook",
           },
@@ -125,7 +125,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRedundantCustomHook",
+          messageId: "noUselessCustomHooks",
           data: {
             name: "useNestedHook",
           },
@@ -166,6 +166,13 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     /* tsx */ `
       const useData = (key) => useSWR(key);
+    `,
+    /* tsx */ `
+      function useAuth() {
+        // TODO: Replace with this line when authentication is implemented:
+        // return useContext(Auth);
+        return TEST_USER;
+      }
     `,
   ],
 });

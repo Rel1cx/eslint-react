@@ -79,7 +79,7 @@ export const rules = {
   // Part: Hooks Extra
   "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
   "@eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-  "@eslint-react/hooks-extra/no-redundant-custom-hook": "warn",
+  "@eslint-react/hooks-extra/no-useless-custom-hooks": "warn",
   "@eslint-react/hooks-extra/no-unnecessary-use-callback": "warn",
   "@eslint-react/hooks-extra/no-unnecessary-use-memo": "warn",
   "@eslint-react/hooks-extra/prefer-use-state-lazy-initialization": "warn",
