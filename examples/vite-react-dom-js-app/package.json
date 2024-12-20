@@ -1,5 +1,5 @@
 {
-  "name": "@examples/vite-react-dom-vanilla-app",
+  "name": "@examples/vite-react-dom-js-app",
   "version": "0.0.0",
   "private": true,
   "type": "module",
