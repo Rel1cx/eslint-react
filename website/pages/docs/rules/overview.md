@@ -67,6 +67,12 @@
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | 0️⃣  | `🔍` `🔧` | Enforces using shorthand syntax for boolean attributes.                                              |          |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | 0️⃣  | `🔍`      | Enforces using shorthand syntax for fragments.                                                       |          |
 
+### Deprecated
+
+| Rule                                                                           | Replaced by                                                            |
+| :----------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](no-complex-conditional-rendering) |
+
 ## DOM Rules
 
 | Rule                                                                                           | ✅ | Features      | Description                                                                             |
@@ -103,6 +109,12 @@
 | [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useCallback`.                                    |
 | [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                                   | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useMemo`.                                        |
 | [`prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  | `🔍`     | Warns function calls made inside `useState` calls.                              |
+
+### Deprecated
+
+| Rule                                                               | Replaced by                                                    |
+| :----------------------------------------------------------------- | :------------------------------------------------------------- |
+| [`no-redundant-custom-hook`](hooks-extra-no-redundant-custom-hook) | [`no-useless-custom-hook`](hooks-extra-no-useless-custom-hook) |
 
 ## Naming Convention Rules
 
