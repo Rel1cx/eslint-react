@@ -8,6 +8,7 @@ import tseslint from "typescript-eslint";
 
 const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
+const GLOB_SRC = [...GLOB_JS, ...GLOB_TS].map((pattern) => `src/${pattern}`);
 const GLOB_TEST = [
   "**/*.spec.{ts,tsx,cts,mts}",
   "**/*.test.{ts,tsx,cts,mts}",
@@ -28,21 +29,31 @@ export default [
     ],
   },
   js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
   {
+    files: GLOB_TS,
+    extends: [
+      tseslint.configs.recommended,
+    ],
+  },
+  {
+    files: GLOB_SRC,
+    extends: [
+      tseslint.configs.recommendedTypeChecked,
+    ],
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
-        projectService: true,
+        project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    files: GLOB_TS,
+    files: GLOB_SRC,
     ...react.configs["recommended-type-checked"],
   },
   {
-    files: GLOB_TS,
+    files: GLOB_SRC,
     plugins: {
       "react-hooks": reactHooks,
     },
@@ -58,17 +69,7 @@ export default [
     },
   },
   {
-    files: ["*.config.{js,cjs,mjs,ts,cts,mts}", "*.d.ts"],
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.node.json",
-        projectService: false,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-  {
-    files: [...GLOB_TEST, ...GLOB_CONFIG, ...GLOB_SCRIPT],
+    files: [...GLOB_TEST, ...GLOB_CONFIG, ...GLOB_SCRIPT, "*.d.ts"],
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.node.json",
@@ -77,7 +78,9 @@ export default [
     },
   },
   {
-    files: GLOB_JS,
-    ...tseslint.configs.disableTypeChecked,
+    files: [...GLOB_JS, ...GLOB_CONFIG],
+    extends: [
+      tseslint.configs.disableTypeChecked,
+    ],
   },
 ];

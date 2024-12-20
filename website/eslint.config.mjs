@@ -11,6 +11,7 @@ const GLOB_TS = ["**/*.{ts,tsx}"];
 const GLOB_JS = ["**/*.{js,cjs,mjs}"];
 const GLOB_MDX = ["**/*.mdx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
+const GLOB_CONFIG = ["**/*.config.{js,mjs,cjs,ts,tsx}"];
 
 export default tseslint.config(
   js.configs.recommended,
@@ -23,16 +24,15 @@ export default tseslint.config(
   },
   {
     files: GLOB_TS,
+    extends: [
+      tseslint.configs.recommendedTypeChecked,
+    ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname,
       },
-    },
-    rules: {
-      ...tseslint.configs.strictTypeChecked.rules,
-      "no-undef": "off",
     },
   },
   {
@@ -85,6 +85,6 @@ export default tseslint.config(
   },
   gitignore(),
   {
-    ignores: ["*.config.mjs"],
+    ignores: GLOB_CONFIG,
   },
 );
