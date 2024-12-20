@@ -14,7 +14,6 @@ const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 
 export default tseslint.config(
   js.configs.recommended,
-  ...tseslint.configs.recommended,
   {
     ...mdx.flat,
     files: GLOB_MDX,
@@ -25,13 +24,14 @@ export default tseslint.config(
   {
     files: GLOB_TS,
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {
-      ...tseslint.configs.strictTypeCheckedOnly.rules,
+      ...tseslint.configs.strictTypeChecked.rules,
       "no-undef": "off",
     },
   },
