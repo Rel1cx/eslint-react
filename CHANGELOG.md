@@ -10,7 +10,7 @@
 
 ### 📝 Changes in Rule implementation
 
-`no-useless-custom-hooks` now detects Hook calls that are made inside comments, the flowing code no longer triggers warnings:
+`no-useless-custom-hooks` now detects Hook calls within comments and the following code no longer triggers a warning:
 
 ```tsx
 // ✅ Good: A Hook that will likely use some other Hooks later
