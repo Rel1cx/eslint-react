@@ -16,8 +16,9 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      // eslint-disable-next-line eslint-plugin/require-meta-docs-description
-      description: "a helper rule to mark variables as used",
+      description:
+        // eslint-disable-next-line eslint-plugin/require-meta-docs-description
+        "helpes `eslint/no-unused-vars` to correctly mark JSX variables as used.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

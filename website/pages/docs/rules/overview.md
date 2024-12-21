@@ -65,7 +65,7 @@
 | [`prefer-read-only-props`](prefer-read-only-props)                                 | 0️⃣  | `🔍` `💭` | Enforces read-only props in components.                                                              |          |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | 0️⃣  | `🔍` `🔧` | Enforces using shorthand syntax for boolean attributes.                                              |          |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | 0️⃣  | `🔍`      | Enforces using shorthand syntax for fragments.                                                       |          |
-| [`use-jsx-vars`](use-jsx-vars)                                                     | 1️⃣  |           | Helper rule to mark variables as used in JSX.                                                        |          |
+| [`use-jsx-vars`](use-jsx-vars)                                                     | 1️⃣  |           | Helpes `eslint/no-unused-vars` to correctly detect variables used in JSX.                            |          |
 
 ### Deprecated
 
