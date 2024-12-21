@@ -71,8 +71,8 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/docs/rules/no-children-in-void-dom-elements",
-        destination: "/docs/rules/no-void-elements-with-children",
+        source: "/docs/rules/dom-no-children-in-void-dom-elements",
+        destination: "/docs/rules/dom-no-void-elements-with-children",
         permanent: true,
       },
       {
