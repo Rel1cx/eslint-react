@@ -14,7 +14,7 @@ The following rules have been renamed:
 - `jsx-no-duplicate-props` to `no-duplicate-jsx-props`.
 - `dom/no-children-in-void-dom-elements` to `dom/no-void-elements-with-children`.
 
-The new rule names are aligned with the same rules in the biome (if any) to enhance consistency. The old rule names will still be available until the next major update to avoid breaking changes.
+The new rule names are aligned with the same rules in the [biomejs/rules-sources/#eslint-plugin-react](https://biomejs.dev/linter/rules-sources/#eslint-plugin-react) (if any) to enhance consistency. The old rule names will still be available until the next major update to avoid breaking changes.
 
 ## v1.21.0 (Fri 20 Dec 2024)
 
