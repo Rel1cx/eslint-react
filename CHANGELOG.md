@@ -2,7 +2,19 @@
 
 ### 🪄 Improvements
 
-- refactor(plugins/dom): rename `no-children-in-void-dom-elements` to `no-void-elements-with-children` (the previous rule will still be available until the next major update to avoid breaking changes).
+- refactor(plugins/x): rename `jsx-use-vars` to `use-jsx-vars`.
+- refactor(plugins/x): rename `jsx-no-duplicate-props` to `no-duplicate-jsx-props`.
+- refactor(plugins/dom): rename `no-children-in-void-dom-elements` to `no-void-elements-with-children`.
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
+- `jsx-uses-vars` to `use-jsx-vars`.
+- `jsx-no-duplicate-props` to `no-duplicate-jsx-props`.
+- `dom/no-children-in-void-dom-elements` to `dom/no-void-elements-with-children`.
+
+The new rule names are aligned with the same rules in the biome (if any) to enhance consistency. The old rule names will still be available until the next major update to avoid breaking changes.
 
 ## v1.21.0 (Fri 20 Dec 2024)
 

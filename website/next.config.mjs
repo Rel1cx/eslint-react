@@ -56,6 +56,14 @@ const nextConfig = {
       },
       // Redirects for deprecated rules
       {
+        source: "/docs/rules/jsx-uses-vars",
+        destination: "/docs/rules/use-jsx-vars",
+      },
+      {
+        source: "/docs/rules/jsx-no-duplicate-props",
+        destination: "/docs/rules/no-duplicate-jsx-props",
+      },
+      {
         source: "/docs/rules/no-complicated-conditional-rendering",
         destination: "/docs/rules/no-complex-conditional-rendering",
         permanent: true,

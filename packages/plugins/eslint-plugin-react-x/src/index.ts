@@ -2,8 +2,6 @@ import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
 import forwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
-import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
-import jsxUsesVars from "./rules/jsx-uses-vars";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key";
 import noChildrenCount from "./rules/no-children-count";
@@ -23,6 +21,7 @@ import noContextProvider from "./rules/no-context-provider";
 import noCreateRef from "./rules/no-create-ref";
 import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
+import noDuplicateJsxProps from "./rules/no-duplicate-jsx-props";
 import noDuplicateKey from "./rules/no-duplicate-key";
 import noForwardRef from "./rules/no-forward-ref";
 import noImplicitKey from "./rules/no-implicit-key";
@@ -49,6 +48,7 @@ import preferReactNamespaceImport from "./rules/prefer-react-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
+import useJsxVars from "./rules/use-jsx-vars";
 
 export default {
   meta: {
@@ -59,8 +59,6 @@ export default {
     "avoid-shorthand-boolean": avoidShorthandBoolean,
     "avoid-shorthand-fragment": avoidShorthandFragment,
     "ensure-forward-ref-using-ref": forwardRefUsingRef,
-    "jsx-no-duplicate-props": jsxNoDuplicateProps,
-    "jsx-uses-vars": jsxUsesVars,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,
     "no-children-count": noChildrenCount,
@@ -80,6 +78,7 @@ export default {
     "no-create-ref": noCreateRef,
     "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
+    "no-duplicate-jsx-props": noDuplicateJsxProps,
     "no-duplicate-key": noDuplicateKey,
     "no-forward-ref": noForwardRef,
     "no-implicit-key": noImplicitKey,
@@ -106,8 +105,13 @@ export default {
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-shorthand-boolean": preferShorthandBoolean,
     "prefer-shorthand-fragment": preferShorthandFragment,
+    "use-jsx-vars": useJsxVars,
 
     // Part: deprecated rules
+    /** @deprecated Use `no-duplicate-jsx-props` instead. */
+    "jsx-no-duplicate-props": noDuplicateJsxProps,
+    /** @deprecated Use `use-jsx-vars` instead. */
+    "jsx-uses-vars": useJsxVars,
     /** @deprecated Use `no-complex-conditional-rendering` instead. */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
   },

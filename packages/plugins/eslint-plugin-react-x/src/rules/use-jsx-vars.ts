@@ -6,7 +6,7 @@ import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "jsx-uses-vars";
+export const RULE_NAME = "use-jsx-vars";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      jsxUsesVars: "",
+      useJsxVars: "",
     },
     schema: [],
   },

@@ -5,7 +5,7 @@ import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "jsx-no-duplicate-props";
+export const RULE_NAME = "no-duplicate-jsx-props";
 
 export const RULE_FEATURES = [
   "CHK",
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      jsxNoDuplicateProps: "Duplicate prop '{{name}}'",
+      noDuplicateJsxProps: "This JSX property is assigned multiple times.",
     },
     schema: [],
   },
@@ -39,9 +39,8 @@ export default createRule<[], MessageID>({
             continue;
           }
           context.report({
-            messageId: "jsxNoDuplicateProps",
+            messageId: "noDuplicateJsxProps",
             node: attr,
-            data: { name },
           });
         }
       },

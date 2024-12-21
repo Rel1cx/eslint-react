@@ -30,8 +30,6 @@ export default [
     rules: {
       // react-x recommended rules
       "react-x/ensure-forward-ref-using-ref": "warn",
-      "react-x/jsx-no-duplicate-props": "warn",
-      "react-x/jsx-uses-vars": "warn",
       "react-x/no-access-state-in-setstate": "error",
       "react-x/no-array-index-key": "warn",
       "react-x/no-children-count": "warn",
@@ -48,6 +46,7 @@ export default [
       "react-x/no-create-ref": "error",
       "react-x/no-default-props": "error",
       "react-x/no-direct-mutation-state": "error",
+      "react-x/no-duplicate-jsx-props": "warn",
       "react-x/no-duplicate-key": "error",
       "react-x/no-forward-ref": "warn",
       "react-x/no-implicit-key": "warn",
@@ -66,6 +65,7 @@ export default [
       "react-x/no-unstable-default-props": "warn",
       "react-x/no-unused-class-component-members": "warn",
       "react-x/no-unused-state": "warn",
+      "react-x/use-jsx-vars": "warn",
     },
   },
 ];

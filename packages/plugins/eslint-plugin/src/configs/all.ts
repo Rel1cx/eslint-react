@@ -11,8 +11,6 @@ export const name = "@eslint-react/all";
 
 export const rules = {
   "@eslint-react/ensure-forward-ref-using-ref": "warn",
-  "@eslint-react/jsx-no-duplicate-props": "warn",
-  "@eslint-react/jsx-uses-vars": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",
@@ -32,6 +30,7 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
+  "@eslint-react/no-duplicate-jsx-props": "warn",
   "@eslint-react/no-duplicate-key": "error",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
@@ -55,9 +54,9 @@ export const rules = {
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-shorthand-boolean": "warn",
   "@eslint-react/prefer-shorthand-fragment": "warn",
+  "@eslint-react/use-jsx-vars": "warn",
 
   // Part: DOM
-  "@eslint-react/dom/no-void-elements-with-children": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
   "@eslint-react/dom/no-find-dom-node": "error",
@@ -69,6 +68,7 @@ export const rules = {
   "@eslint-react/dom/no-unknown-property": "warn",
   "@eslint-react/dom/no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom/no-unsafe-target-blank": "warn",
+  "@eslint-react/dom/no-void-elements-with-children": "warn",
 
   // Part: Web API
   "@eslint-react/web-api/no-leaked-event-listener": "warn",

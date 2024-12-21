@@ -6,8 +6,6 @@ export const name = "@eslint-react/core";
 
 export const rules = {
   "@eslint-react/ensure-forward-ref-using-ref": "warn",
-  "@eslint-react/jsx-no-duplicate-props": "warn",
-  "@eslint-react/jsx-uses-vars": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",
@@ -24,6 +22,7 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
+  "@eslint-react/no-duplicate-jsx-props": "warn",
   "@eslint-react/no-duplicate-key": "error",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
@@ -42,6 +41,7 @@ export const rules = {
   "@eslint-react/no-unstable-default-props": "warn",
   "@eslint-react/no-unused-class-component-members": "warn",
   "@eslint-react/no-unused-state": "warn",
+  "@eslint-react/use-jsx-vars": "warn",
 } as const satisfies RulePreset;
 
 export const plugins = {

@@ -19,8 +19,6 @@
 | Rule                                                                               | ✅ | Features  | Description                                                                                          |  React   |
 | :--------------------------------------------------------------------------------- | :- | :-------- | :--------------------------------------------------------------------------------------------------- | :------: |
 | [`ensure-forward-ref-using-ref`](ensure-forward-ref-using-ref)                     | 1️⃣  | `🔍`      | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |          |
-| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                 | 1️⃣  | `🔍`      | Prevents duplicate props in JSX.                                                                     |          |
-| [`jsx-uses-vars`](jsx-uses-vars)                                                   | 1️⃣  |           | Helper rule to mark variables as used in JSX.                                                        |          |
 | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | 2️⃣  | `🔍`      | Prevents accessing `this.state` inside `setState` calls.                                             |          |
 | [`no-array-index-key`](no-array-index-key)                                         | 1️⃣  | `🔍`      | Prevents using array `index` as `key`.                                                               |          |
 | [`no-children-count`](no-children-count)                                           | 1️⃣  | `🔍`      | Prevents using `Children.count`.                                                                     |          |
@@ -40,6 +38,7 @@
 | [`no-create-ref`](no-create-ref)                                                   | 2️⃣  | `🔍`      | Prevents using `createRef`.                                                                          |          |
 | [`no-default-props`](no-default-props)                                             | 2️⃣  | `🔍`      | Prevents using `defaultProps` property in favor of ES6 default parameters.                           |          |
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | 2️⃣  | `🔍`      | Prevents direct mutation of `this.state`.                                                            |          |
+| [`no-duplicate-jsx-props`](no-duplicate-jsx-props)                                 | 1️⃣  | `🔍`      | Prevents duplicate props in JSX.                                                                     |          |
 | [`no-duplicate-key`](no-duplicate-key)                                             | 2️⃣  | `🔍`      | Prevents duplicate `key` on elements in the same array or a list of `children`.                      |          |
 | [`no-forward-ref`](no-forward-ref)                                                 | 1️⃣  | `🔍` `🔄` | Prevents using `React.forwardRef`.                                                                   | >=19.0.0 |
 | [`no-implicit-key`](no-implicit-key)                                               | 1️⃣  | `🔍`      | Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).              |          |
@@ -66,11 +65,14 @@
 | [`prefer-read-only-props`](prefer-read-only-props)                                 | 0️⃣  | `🔍` `💭` | Enforces read-only props in components.                                                              |          |
 | [`prefer-shorthand-boolean`](prefer-shorthand-boolean)                             | 0️⃣  | `🔍` `🔧` | Enforces using shorthand syntax for boolean attributes.                                              |          |
 | [`prefer-shorthand-fragment`](prefer-shorthand-fragment)                           | 0️⃣  | `🔍`      | Enforces using shorthand syntax for fragments.                                                       |          |
+| [`use-jsx-vars`](use-jsx-vars)                                                     | 1️⃣  |           | Helper rule to mark variables as used in JSX.                                                        |          |
 
 ### Deprecated
 
 | Rule                                                                               | Replaced by                                                            |
 | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
+| [~~`jsx-uses-vars`~~](jsx-uses-vars)                                               | [`use-jsx-vars`](use-jsx-vars)                                         |
+| [~~`jsx-no-duplicate-props`~~](jsx-no-duplicate-props)                             | [`no-duplicate-jsx-props`](no-duplicate-jsx-props)                     |
 | [~~`no-complicated-conditional-rendering`~~](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](no-complex-conditional-rendering) |
 
 ## DOM Rules
