@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler"
+  },
+  "include": [
+    "*.js",
+    "*.cjs",
+    "*.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src",
+    "benchmark"
+  ]
+}

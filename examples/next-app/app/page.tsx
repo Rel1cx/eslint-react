@@ -83,6 +83,7 @@ export default function Home() {
           className="bg-white text-xs rounded-3xl flex items-center h-8 px-2 relative select-none"
         >
           <button
+            type="button"
             aria-label="Customise options"
             className="h-8 w-8 inline-flex items-center justify-center shadow-lg"
           >
