@@ -74,7 +74,7 @@
     "dedent": "^1.5.3",
     "dprint": "^0.47.6",
     "effect": "^3.11.9",
-    "esbuild": "^0.24.1",
+    "esbuild": "^0.24.2",
     "eslint": "^9.17.0",
     "eslint-config-flat-gitignore": "^0.3.0",
     "eslint-import-resolver-oxc": "^0.7.0",
