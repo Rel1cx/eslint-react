@@ -16,10 +16,10 @@ const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 
 export default tseslint.config(
-  js.configs.recommended,
   {
     files: GLOB_TS,
     extends: [
+      js.configs.recommended,
       tseslint.configs.recommended,
     ],
   },

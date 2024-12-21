@@ -3,7 +3,6 @@
 import react from "@eslint-react/eslint-plugin";
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -12,13 +11,14 @@ import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
 export default tseslint.config(
-  js.configs.recommended,
   {
     files: GLOB_TS,
     extends: [
+      js.configs.recommended,
       tseslint.configs.recommended,
     ],
   },
+  // base configuration for browser environment source files
   {
     files: TSCONFIG.include,
     extends: [
@@ -32,28 +32,7 @@ export default tseslint.config(
       },
     },
   },
-  {
-    files: TSCONFIG.include,
-    ...react.configs["recommended-type-checked"],
-  },
-  {
-    files: TSCONFIG.include,
-    plugins: {
-      // @ts-expect-error - Missing types
-      "react-hooks": reactHooks,
-    },
-    // @ts-ignore - Missing types
-    rules: reactHooks.configs.recommended.rules,
-  },
-  {
-    files: TSCONFIG.include,
-    plugins: {
-      "react-refresh": reactRefresh,
-    },
-    rules: {
-      "react-refresh/only-export-components": "warn",
-    },
-  },
+  // base configuration for node environment source files (*.config.ts, etc.)
   {
     files: TSCONFIG_NODE.include,
     ignores: TSCONFIG_NODE.exclude,
@@ -68,13 +47,19 @@ export default tseslint.config(
       "no-console": "off",
     },
   },
+  // React configuration
   {
-    ignores: [
-      "node_modules",
-      "dist",
-      "benchmark",
-      "eslint.config.mjs",
-      "eslint.config.d.ts",
-    ],
+    files: TSCONFIG.include,
+    ...react.configs["recommended-type-checked"],
+  },
+  // React Hooks configuration
+  {
+    files: TSCONFIG.include,
+    plugins: {
+      // @ts-expect-error - Missing types
+      "react-hooks": reactHooks,
+    },
+    // @ts-ignore - Missing types
+    rules: reactHooks.configs.recommended.rules,
   },
 );

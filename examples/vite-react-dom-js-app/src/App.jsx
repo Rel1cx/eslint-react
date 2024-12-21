@@ -15,7 +15,7 @@ function App() {
         </a>
       </div>
       <div className="card">
-        <button type="button" onClick={() => setCount((count) => count + 1n)}>
+        <button disabled={true} type="button" onClick={() => setCount((count) => count + 1n)}>
           count is {count.toString()}
         </button>
       </div>
