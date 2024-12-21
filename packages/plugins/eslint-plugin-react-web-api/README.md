@@ -41,22 +41,22 @@ export default [
 
 ## Rules to be implemented
 
-| Rule                                    | Description                                   | 💭  |     |
-| :-------------------------------------- | :-------------------------------------------- | :-: | :-: |
-| `no-leaked-idle-callback`               | Prevents leaked `requestIdleCallback`         |     | 🚧  |
-| `no-leaked-animation-frame`             | Prevents leaked `requestAnimationFrame`       |     | 🚧  |
-| `no-leaked-event-source`                | Prevents leaked `EventSource`                 |     | 🚧  |
-| `no-leaked-intersection-observer`       | Prevents leaked `IntersectionObserver`        |     | 🚧  |
-| `no-leaked-mutation-observer`           | Prevents leaked `MutationObserver`            |     | 🚧  |
-| `no-leaked-performance-observer`        | Prevents leaked `PerformanceObserver`         |     | 🚧  |
-| `no-leaked-websocket`                   | Prevents leaked `WebSocket`                   |     | 🚧  |
-| `no-leaked-broadcast-channel`           | Prevents leaked `BroadcastChannel`            |     | 🚧  |
-| `no-leaked-geolocation`                 | Prevents leaked `Geolocation.watchPosition()` |     | 🚧  |
-| `no-leaked-absolute-orientation-sensor` | Prevents leaked `AbsoluteOrientationSensor`   |     | 🚧  |
-| `no-leaked-relative-accelerometer`      | Prevents leaked `Accelerometer`               |     | 🚧  |
-| `no-leaked-ambient-light-sensor`        | Prevents leaked `AmbientLightSensor`          |     | 🚧  |
-| `no-leaked-gravity-sensor`              | Prevents leaked `GravitySensor`               |     | 🚧  |
-| `no-leaked-gyroscope`                   | Prevents leaked `Gyroscope`                   |     | 🚧  |
-| `no-leaked-linear-acceleration-sensor`  | Prevents leaked `LinearAccelerationSensor`    |     | 🚧  |
-| `no-leaked-magnetometer`                | Prevents leaked `Magnetometer`                |     | 🚧  |
-| `no-leaked-orientation-sensor`          | Prevents leaked `OrientationSensor`           |     | 🚧  |
+| Rule                                    | Description                                   |
+| :-------------------------------------- | :-------------------------------------------- |
+| `no-leaked-idle-callback`               | Prevents leaked `requestIdleCallback`         |
+| `no-leaked-animation-frame`             | Prevents leaked `requestAnimationFrame`       |
+| `no-leaked-event-source`                | Prevents leaked `EventSource`                 |
+| `no-leaked-intersection-observer`       | Prevents leaked `IntersectionObserver`        |
+| `no-leaked-mutation-observer`           | Prevents leaked `MutationObserver`            |
+| `no-leaked-performance-observer`        | Prevents leaked `PerformanceObserver`         |
+| `no-leaked-websocket`                   | Prevents leaked `WebSocket`                   |
+| `no-leaked-broadcast-channel`           | Prevents leaked `BroadcastChannel`            |
+| `no-leaked-geolocation`                 | Prevents leaked `Geolocation.watchPosition()` |
+| `no-leaked-absolute-orientation-sensor` | Prevents leaked `AbsoluteOrientationSensor`   |
+| `no-leaked-relative-accelerometer`      | Prevents leaked `Accelerometer`               |
+| `no-leaked-ambient-light-sensor`        | Prevents leaked `AmbientLightSensor`          |
+| `no-leaked-gravity-sensor`              | Prevents leaked `GravitySensor`               |
+| `no-leaked-gyroscope`                   | Prevents leaked `Gyroscope`                   |
+| `no-leaked-linear-acceleration-sensor`  | Prevents leaked `LinearAccelerationSensor`    |
+| `no-leaked-magnetometer`                | Prevents leaked `Magnetometer`                |
+| `no-leaked-orientation-sensor`          | Prevents leaked `OrientationSensor`           |
