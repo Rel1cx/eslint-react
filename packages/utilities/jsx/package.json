@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "1.22.0-beta.1",
+  "version": "1.22.0-next.2",
   "description": "ESLint React's TSESTree AST utility module for static analysis of JSX.",
   "homepage": "https://github.com/rel1cx/eslint-react",
   "bugs": {
