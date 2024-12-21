@@ -58,10 +58,12 @@ const nextConfig = {
       {
         source: "/docs/rules/jsx-uses-vars",
         destination: "/docs/rules/use-jsx-vars",
+        permanent: true,
       },
       {
         source: "/docs/rules/jsx-no-duplicate-props",
         destination: "/docs/rules/no-duplicate-jsx-props",
+        permanent: true,
       },
       {
         source: "/docs/rules/no-complicated-conditional-rendering",
