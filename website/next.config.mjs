@@ -61,6 +61,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/docs/rules/no-children-in-void-dom-elements",
+        destination: "/docs/rules/no-void-elements-with-children",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/hooks-extra-ensure-use-memo-has-non-empty-deps",
         destination: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
         permanent: true,

@@ -77,7 +77,7 @@
 
 | Rule                                                                                           | ✅ | Features      | Description                                                                             |
 | :--------------------------------------------------------------------------------------------- | :- | :------------ | :-------------------------------------------------------------------------------------- |
-| [`no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                     | 2️⃣  | `🔍`          | Prevents using `children` in void `DOM elements`.                                       |
+| [`no-void-elements-with-children`](dom-no-void-elements-with-children)                         | 2️⃣  | `🔍`          | Prevents using `children` in void `DOM elements`.                                       |
 | [`no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | 2️⃣  | `🔍`          | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |
 | [`no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | 1️⃣  | `🔍`          | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
 | [`no-find-dom-node`](dom-no-find-dom-node)                                                     | 2️⃣  | `🔍`          | Prevents using `findDOMNode`.                                                           |

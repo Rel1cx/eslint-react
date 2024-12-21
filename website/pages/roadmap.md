@@ -64,9 +64,8 @@
 
 | Rule                                         | Description                                                                             |
 | :------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| `no-children-in-void-dom-elements`           | Prevents usage of `children` in void `DOM elements`.                                    |
-| `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
 | `no-dangerously-set-innerhtml-with-children` | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |
+| `no-dangerously-set-innerhtml`               | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
 | `no-find-dom-node`                           | Prevents usage of `findDOMNode`.                                                        |
 | `no-missing-button-type`                     | Enforces explicit `type` attribute for `<button>` elements.                             |
 | `no-missing-iframe-sandbox`                  | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
@@ -75,6 +74,7 @@
 | `no-script-url`                              | Prevents usage of `javascript:` URLs as the value of certain attributes.                |
 | `no-unsafe-iframe-sandbox`                   | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
 | `no-unsafe-target-blank`                     | Prevents usage of `target="_blank"` without `rel="noreferrer noopener"`.                |
+| `no-void-elements-with-children`             | Prevents passing `children` to void DOM elements.                                       |
 
 ### Rules in `eslint-plugin-react-web-api`
 

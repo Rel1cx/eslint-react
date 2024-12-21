@@ -1,3 +1,9 @@
+## v1.22.0 (Draft)
+
+### 🪄 Improvements
+
+- refactor(plugins/dom): rename `no-children-in-void-dom-elements` to `no-void-elements-with-children` (the previous rule will still be available until the next major update to avoid breaking changes).
+
 ## v1.21.0 (Fri 20 Dec 2024)
 
 ### ✨ New
@@ -6,7 +12,7 @@
 
 ### 🪄 Improvements
 
-- refactor(plugins/hooks-extra): deprecate rule `hooks-extra/no-redundant-custom-hook` in favor of `hooks-extra/no-useless-custom-hooks` (the previous rule will still be available until the next major update to avoid breaking changes).
+- refactor(plugins/hooks-extra): deprecate rule `no-redundant-custom-hook` in favor of `no-useless-custom-hooks` (the previous rule will still be available until the next major update to avoid breaking changes).
 
 ### 📝 Changes in Rule implementation
 
@@ -66,7 +72,7 @@ function useAuth() {
 
 ### 🪄 Improvements
 
-- perf(plugins/dom): improve performance of `no-children-in-void-dom-elements` by @Rel1cx
+- perf(plugins/dom): improve performance of `no-void-elements-with-children` by @Rel1cx
 
 ## v1.17.3 (Tue 3 Dec 2024)
 
@@ -766,7 +772,7 @@ function useAuth() {
 ### 🐞 Fixes
 
 - Fix rule `react-dom/no-namespace` not renamed in v1.0.0.
-- Fix rule `react-dom/no-children-in-void-dom-elements` not renamed in v1.0.0.
+- Fix rule `react-dom/no-void-elements-with-children` not renamed in v1.0.0.
 
 ### 🪄 Improvements
 
@@ -788,7 +794,7 @@ function useAuth() {
 
 #### All DOM related rules are moved to `react-dom` namespace
 
-- Rename rule `react/no-children-in-void-dom-elements` to `react-dom/no-children-in-void-dom-elements`.
+- Rename rule `react/no-void-elements-with-children` to `react-dom/no-void-elements-with-children`.
 - Rename rule `react/no-dangerously-set-innerhtml-with-children` to `react-dom/no-dangerously-set-innerhtml-with-children`.
 - Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`.
 - Rename rule `react/no-find-dom-node` to `react-dom/no-find-dom-node`.

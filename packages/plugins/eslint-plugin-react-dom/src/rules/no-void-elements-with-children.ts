@@ -5,7 +5,7 @@ import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-children-in-void-dom-elements";
+export const RULE_NAME = "no-void-elements-with-children";
 
 export const RULE_FEATURES = [
   "CHK",
@@ -13,7 +13,7 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const voidElements = [
+const voidElements = new Set([
   "area",
   "base",
   "br",
@@ -30,18 +30,18 @@ const voidElements = [
   "source",
   "track",
   "wbr",
-];
+]);
 
 // TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use the void element internally
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow passing 'children' to void DOM elements",
+      description: "disallow void elements (AKA self-closing elements) from having children",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noChildrenInVoidDomElements: "A void DOM element '<{{element}} />' cannot have children.",
+      noVoidElementsWithChildren: "'{{element}}' is a void element tag and must not have children.",
     },
     schema: [],
   },
@@ -50,10 +50,10 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const elementName = JSX.getElementName(node.openingElement);
-        if (!elementName || !voidElements.includes(elementName)) return;
+        if (!elementName || !voidElements.has(elementName)) return;
         if (node.children.length > 0) {
           context.report({
-            messageId: "noChildrenInVoidDomElements",
+            messageId: "noVoidElementsWithChildren",
             node,
             data: {
               element: elementName,
@@ -67,7 +67,7 @@ export default createRule<[], MessageID>({
         if (hasChildrenOrDangerAttr) {
           // e.g. <br children="Foo" />
           context.report({
-            messageId: "noChildrenInVoidDomElements",
+            messageId: "noVoidElementsWithChildren",
             node,
             data: {
               element: elementName,

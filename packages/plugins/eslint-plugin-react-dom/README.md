@@ -29,7 +29,6 @@ export default [
     },
     rules: {
       // react-dom recommended rules
-      "react-dom/no-children-in-void-dom-elements": "warn",
       "react-dom/no-dangerously-set-innerhtml-with-children": "error",
       "react-dom/no-dangerously-set-innerhtml": "warn",
       "react-dom/no-find-dom-node": "error",
@@ -41,6 +40,7 @@ export default [
       "react-dom/no-unknown-property": "warn",
       "react-dom/no-unsafe-iframe-sandbox": "warn",
       "react-dom/no-unsafe-target-blank": "warn",
+      "react-dom/no-void-elements-with-children": "warn",
     },
   },
 ];

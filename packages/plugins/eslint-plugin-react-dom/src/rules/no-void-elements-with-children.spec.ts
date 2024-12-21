@@ -1,5 +1,5 @@
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-children-in-void-dom-elements";
+import rule, { RULE_NAME } from "./no-void-elements-with-children";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<br>Foo</br>;`,
       errors: [
         {
-          messageId: "noChildrenInVoidDomElements",
+          messageId: "noVoidElementsWithChildren",
           data: { element: "br" },
         },
       ],
@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<br children="Foo" />;`,
       errors: [
         {
-          messageId: "noChildrenInVoidDomElements",
+          messageId: "noVoidElementsWithChildren",
           data: { element: "br" },
         },
       ],
@@ -25,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<img {...props} children="Foo" />;`,
       errors: [
         {
-          messageId: "noChildrenInVoidDomElements",
+          messageId: "noVoidElementsWithChildren",
           data: { element: "img" },
         },
       ],
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
-          messageId: "noChildrenInVoidDomElements",
+          messageId: "noVoidElementsWithChildren",
           data: { element: "br" },
         },
       ],
