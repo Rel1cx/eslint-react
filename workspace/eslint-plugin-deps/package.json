@@ -1,5 +1,5 @@
 {
-  "name": "@workspace/eslint-plugins",
+  "name": "@workspace/eslint-plugin-deps",
   "version": "0.0.0",
   "private": true,
   "description": "Local ESLint dependencies",

@@ -3,6 +3,7 @@ import url from "node:url";
 import eslint from "@eslint/js";
 import stylisticJs from "@stylistic/eslint-plugin-js";
 import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
+import local from "@workspace/eslint-plugin-local";
 import { Record } from "effect";
 import type { Linter } from "eslint";
 import gitignore from "eslint-config-flat-gitignore";
@@ -117,6 +118,7 @@ export default [
       ["eslint-plugin"]: eslintPluginPlugin,
       ["import-x"]: importPlugin,
       ["jsdoc"]: jsdocPlugin,
+      ["local"]: local,
       ["simple-import-sort"]: simpleImportSortPlugin,
       ["unicorn"]: unicornPlugin,
     },
@@ -307,6 +309,8 @@ export default [
       "eslint-plugin/no-property-in-node": "off",
       "eslint-plugin/require-meta-docs-recommended": "off",
       "eslint-plugin/require-meta-docs-url": "off",
+      // Part: local rules
+      "local/avoid-multiline-template-expression": "warn",
     },
     settings: {
       "import-x/parsers": {
@@ -345,6 +349,7 @@ export default [
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "import-x/no-extraneous-dependencies": "off",
+      "local/avoid-multiline-template-expression": "off",
     },
   },
   {
