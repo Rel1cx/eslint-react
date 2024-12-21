@@ -90,6 +90,12 @@
 | [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | 1️⃣  | `🔍`          | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
 | [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | 1️⃣  | `🔍`          | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   |
 
+### Deprecated
+
+| Rule                                                                               | Replaced by                                                            |
+| :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
+| [~~`dom-no-children-in-void-dom-elements`~~](dom-no-children-in-void-dom-elements) | [`no-void-elements-with-children`](dom-no-void-elements-with-children) |
+
 ## Web API Rules
 
 | Rule                                                             | ✅ | Features | Description                                                       |
