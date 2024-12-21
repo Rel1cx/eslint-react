@@ -73,7 +73,7 @@ export default {
   ...mkHiddenPage("avoid-shorthand-boolean"),
   ...mkHiddenPage("avoid-shorthand-fragment"),
   ...mkSectionTitle("DOM Rules"),
-  "dom-no-children-in-void-dom-elements": "no-children-in-void-dom-elements",
+  "dom-no-void-elements-with-children": "no-void-elements-with-children",
   "dom-no-dangerously-set-innerhtml": "no-dangerously-set-innerhtml",
   "dom-no-dangerously-set-innerhtml-with-children": "no-dangerously-set-innerhtml-with-children",
   "dom-no-find-dom-node": "no-find-dom-node",

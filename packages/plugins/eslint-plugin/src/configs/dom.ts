@@ -5,7 +5,7 @@ import reactDom from "eslint-plugin-react-dom";
 export const name = "@eslint-react/dom";
 
 export const rules = {
-  "@eslint-react/dom/no-children-in-void-dom-elements": "warn",
+  "@eslint-react/dom/no-void-elements-with-children": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
   "@eslint-react/dom/no-find-dom-node": "error",

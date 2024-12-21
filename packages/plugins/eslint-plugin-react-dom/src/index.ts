@@ -1,5 +1,4 @@
 import { name, version } from "../package.json";
-import noChildrenInVoidDomElements from "./rules/no-children-in-void-dom-elements";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
 import noFindDomNode from "./rules/no-find-dom-node";
@@ -11,6 +10,7 @@ import noScriptUrl from "./rules/no-script-url";
 import noUnknownProperty from "./rules/no-unknown-property";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
+import noVoidElementsWithChildren from "./rules/no-void-elements-with-children";
 
 export default {
   meta: {
@@ -18,7 +18,6 @@ export default {
     version,
   },
   rules: {
-    "no-children-in-void-dom-elements": noChildrenInVoidDomElements,
     "no-dangerously-set-innerhtml": noDangerouslySetInnerHTML,
     "no-dangerously-set-innerhtml-with-children": noDangerouslySetInnerHTMLWithChildren,
     "no-find-dom-node": noFindDomNode,
@@ -30,5 +29,10 @@ export default {
     "no-unknown-property": noUnknownProperty,
     "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
     "no-unsafe-target-blank": noUnsafeTargetBlank,
+    "no-void-elements-with-children": noVoidElementsWithChildren,
+
+    // Part: deprecated rules
+    /** @deprecated Use `no-void-elements-with-children` instead */
+    "no-children-in-void-dom-elements": noVoidElementsWithChildren,
   },
 } as const;

@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-objects */
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
@@ -108,7 +107,7 @@ export default {
     "prefer-shorthand-boolean": preferShorthandBoolean,
     "prefer-shorthand-fragment": preferShorthandFragment,
 
-    // Deprecated rules
+    // Part: deprecated rules
     /** @deprecated Use `no-complex-conditional-rendering` instead. */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
   },

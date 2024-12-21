@@ -15,8 +15,8 @@ export default {
     hook: hook,
     "is-from-react": isFromReact,
 
-    // Deprecated rules
-    /** @deprecated Use `hook` rule instead */
+    // Part: deprecated rules
+    /** @deprecated Use `hook` instead */
     "react-hooks": hook,
   },
 } as const;

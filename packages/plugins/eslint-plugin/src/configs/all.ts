@@ -57,7 +57,7 @@ export const rules = {
   "@eslint-react/prefer-shorthand-fragment": "warn",
 
   // Part: DOM
-  "@eslint-react/dom/no-children-in-void-dom-elements": "warn",
+  "@eslint-react/dom/no-void-elements-with-children": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
   "@eslint-react/dom/no-find-dom-node": "error",
