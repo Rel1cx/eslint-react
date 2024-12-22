@@ -277,10 +277,10 @@ export default createRule<[], MessageID>({
         })
         .otherwise(O.none);
     }
-    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
+    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
-      "JSXExpressionContainer > ConditionalExpression": ruleFunction,
-      "JSXExpressionContainer > LogicalExpression": ruleFunction,
+      "JSXExpressionContainer > ConditionalExpression": visitorFunction,
+      "JSXExpressionContainer > LogicalExpression": visitorFunction,
     };
   },
   defaultOptions: [],

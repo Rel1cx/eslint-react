@@ -40,13 +40,13 @@ export default createRule<[], MessageID>({
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();
       return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer });
     }
-    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
+    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
-      "JSXExpressionContainer > ConditionalExpression > ConditionalExpression": ruleFunction,
-      "JSXExpressionContainer > ConditionalExpression > LogicalExpression": ruleFunction,
-      "JSXExpressionContainer > LogicalExpression > ConditionalExpression": ruleFunction,
-      "JSXExpressionContainer > LogicalExpression[operator='&&'] > LogicalExpression[operator='||']": ruleFunction,
-      "JSXExpressionContainer > LogicalExpression[operator='||'] > LogicalExpression[operator='&&']": ruleFunction,
+      "JSXExpressionContainer > ConditionalExpression > ConditionalExpression": visitorFunction,
+      "JSXExpressionContainer > ConditionalExpression > LogicalExpression": visitorFunction,
+      "JSXExpressionContainer > LogicalExpression > ConditionalExpression": visitorFunction,
+      "JSXExpressionContainer > LogicalExpression[operator='&&'] > LogicalExpression[operator='||']": visitorFunction,
+      "JSXExpressionContainer > LogicalExpression[operator='||'] > LogicalExpression[operator='&&']": visitorFunction,
     };
   },
   defaultOptions: [],

@@ -45,10 +45,10 @@ export default createRule<[], MessageID>({
         node,
       });
     };
-    const ruleFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
+    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
-      JSXText: ruleFunction,
-      Literal: ruleFunction,
+      JSXText: visitorFunction,
+      Literal: visitorFunction,
     };
   },
   defaultOptions: [],
