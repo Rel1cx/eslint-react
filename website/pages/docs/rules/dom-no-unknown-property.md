@@ -26,7 +26,7 @@ react-dom/no-unknown-property
 In JSX most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style. This can be a possible source of error if you are used to writing plain HTML.
 Only `data-*` and `aria-*` attributes are usings hyphens and lowercase letters in JSX.
 
-A **unsafe** auto-fix is available for this rule.
+An **unsafe** auto-fix is available for this rule.
 
 ## Examples
 
