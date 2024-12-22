@@ -38,11 +38,11 @@ import React from "react";
 
 interface MyComponentProps {}
 
-interface ExampleState {
+interface MyComponentStateState {
   name: string;
 }
 
-class MyComponent extends React.Component<MyComponentProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   componentDidUpdate() {
     this.setState({ name: "John" });
     //   ^^^^^^^^^^^^^^^^^^^^^^^^^^

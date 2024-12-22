@@ -38,11 +38,11 @@ import React from "react";
 
 interface MyComponentProps {}
 
-interface ExampleState {
+interface MyComponentState {
   foo: number;
 }
 
-class MyComponent extends React.Component<MyComponentProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: 1,
   };
@@ -64,11 +64,11 @@ import React from "react";
 
 interface MyComponentProps {}
 
-interface ExampleState {
+interface MyComponentStateState {
   foo: number;
 }
 
-class MyComponent extends React.Component<MyComponentProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: 1,
   };

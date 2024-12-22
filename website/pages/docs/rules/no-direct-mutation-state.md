@@ -40,11 +40,11 @@ import React from "react";
 
 interface MyComponentProps {}
 
-interface ExampleState {
+interface MyComponentStateState {
   foo: string;
 }
 
-class MyComponent extends React.Component<MyComponentProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: "bar",
   };
@@ -72,11 +72,11 @@ import React from "react";
 
 interface MyComponentProps {}
 
-interface ExampleState {
+interface MyComponentStateState {
   foo: string;
 }
 
-class MyComponent extends React.Component<MyComponentProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: "bar",
   };
