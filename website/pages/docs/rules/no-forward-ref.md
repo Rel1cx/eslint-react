@@ -78,7 +78,7 @@ interface MyInputProps {
 }
 
 function MyInput({ ref, value, onChange }: MyInputProps & { ref: React.RefObject<HTMLInputElement> }) {
-  // ...
+  return <input ref={ref} value={value} onChange={(e) => onChange(e.target.value)} />;
 }
 ```
 
