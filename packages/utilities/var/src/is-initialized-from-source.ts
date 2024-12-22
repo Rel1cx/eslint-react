@@ -34,7 +34,7 @@ export function isInitializedFromSource(
     }
     // check for: `variable = require('source')` or `variable = require('source').variable`
     return F.pipe(
-      getRequireExpressionArgument(init),
+      getRequireExpressionArguments(init),
       O.flatMapNullable((args) => args[0]),
       O.filter(AST.isStringLiteral),
       // check for: `require('source')` or `require('source/...')`
@@ -45,7 +45,7 @@ export function isInitializedFromSource(
   return isMatching({ type: "ImportDeclaration", source: { value: source } }, parent);
 }
 
-function getRequireExpressionArgument(node: TSESTree.Node): O.Option<TSESTree.CallExpressionArgument[]> {
+function getRequireExpressionArguments(node: TSESTree.Node): O.Option<TSESTree.CallExpressionArgument[]> {
   switch (true) {
     // require('source')
     case node.type === AST_NODE_TYPES.CallExpression
@@ -55,7 +55,7 @@ function getRequireExpressionArgument(node: TSESTree.Node): O.Option<TSESTree.Ca
     }
     // require('source').variable
     case node.type === AST_NODE_TYPES.MemberExpression: {
-      return getRequireExpressionArgument(node.object);
+      return getRequireExpressionArguments(node.object);
     }
   }
   return O.none();
