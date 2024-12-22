@@ -5,7 +5,6 @@ import reactDom from "eslint-plugin-react-dom";
 export const name = "@eslint-react/dom";
 
 export const rules = {
-  "@eslint-react/dom/no-void-elements-with-children": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
   "@eslint-react/dom/no-find-dom-node": "error",
@@ -14,10 +13,9 @@ export const rules = {
   "@eslint-react/dom/no-namespace": "error",
   "@eslint-react/dom/no-render-return-value": "error",
   "@eslint-react/dom/no-script-url": "warn",
-  // TODO: Re-enable when the rule is refactored to use the data from the `@types/react` package
-  // "@eslint-react/dom/no-unknown-property": "warn",
   "@eslint-react/dom/no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom/no-unsafe-target-blank": "warn",
+  "@eslint-react/dom/no-void-elements-with-children": "warn",
 } as const satisfies RulePreset;
 
 export const plugins = {
