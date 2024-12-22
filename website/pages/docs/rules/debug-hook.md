@@ -20,6 +20,12 @@ react-debug/hook
 
 - `debug`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/debug-hook.md)
+
 ## What it does
 
 Reports all React Hooks. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.

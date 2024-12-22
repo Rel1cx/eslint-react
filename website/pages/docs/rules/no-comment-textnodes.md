@@ -23,6 +23,12 @@ react-x/no-comment-textnodes
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-comment-textnodes.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-comment-textnodes.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-comment-textnodes.md)
+
 ## What it does
 
 Prevents comment strings (e.g. beginning with `//` or `/*`) from being accidentally inserted into the JSX element's textnodes.

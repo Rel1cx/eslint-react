@@ -23,6 +23,12 @@ react-x/no-set-state-in-component-will-update
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-will-update.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-will-update.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-set-state-in-component-will-update.md)
+
 ## What it does
 
 Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.

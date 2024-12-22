@@ -23,6 +23,12 @@ react-x/no-create-ref
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-create-ref.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-create-ref.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-create-ref.md)
+
 ## What it does
 
 Prevents usage of `createRef()` in function components.

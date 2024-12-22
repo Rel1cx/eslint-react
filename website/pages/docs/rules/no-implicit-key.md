@@ -23,6 +23,12 @@ react-x/no-implicit-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-implicit-key.md)
+
 ## What it does
 
 Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).

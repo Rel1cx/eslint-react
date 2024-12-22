@@ -23,6 +23,12 @@ react-dom/no-unsafe-iframe-sandbox
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/dom-no-unsafe-iframe-sandbox.md)
+
 ## What it does
 
 Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.

@@ -22,6 +22,12 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/prefer-use-state-lazy-initialization.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/prefer-use-state-lazy-initialization.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/hooks-extra-prefer-use-state-lazy-initialization.md)
+
 ## What it does
 
 Warns function calls made inside `useState` calls.

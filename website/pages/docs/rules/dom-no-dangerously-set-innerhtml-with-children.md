@@ -23,6 +23,12 @@ react-dom/no-dangerously-set-innerhtml-with-children
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml-with-children.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml-with-children.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/dom-no-dangerously-set-innerhtml-with-children.md)
+
 ## What it does
 
 Disallows `DOM element` using `children` and `dangerouslySetInnerHTML` at the same time.

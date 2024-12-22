@@ -17,6 +17,12 @@ react-x/use-jsx-vars
 - `core`
 - `recommended`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/use-jsx-vars.md)
+
 ## What it does
 
 Helpes `eslint/no-unused-vars` to correctly detect variables used in JSX.

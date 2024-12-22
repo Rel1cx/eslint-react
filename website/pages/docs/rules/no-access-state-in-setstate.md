@@ -23,6 +23,12 @@ react-x/no-access-state-in-setstate
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-access-state-in-setstate.md)
+
 ## What it does
 
 Disallows accessing `this.state` inside `setState` calls.

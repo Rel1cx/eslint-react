@@ -23,6 +23,12 @@ react-dom/no-missing-iframe-sandbox
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-missing-iframe-sandbox.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-missing-iframe-sandbox.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/dom-no-missing-iframe-sandbox.md)
+
 ## What it does
 
 Enforces explicit `sandbox` attribute for `iframe` elements.

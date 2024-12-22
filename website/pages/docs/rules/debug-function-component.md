@@ -20,6 +20,12 @@ react-debug/function-component
 
 - `debug`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/debug-function-component.md)
+
 ## What it does
 
 Reports all function components. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.

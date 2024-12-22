@@ -23,6 +23,12 @@ react-web-api/no-leaked-interval
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/web-api-no-leaked-interval.md)
+
 ## What it does
 
 Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`.

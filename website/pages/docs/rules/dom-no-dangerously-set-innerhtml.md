@@ -19,6 +19,12 @@ react-dom/no-dangerously-set-innerhtml
 - `recommended-typescript`
 - `recommended-type-checked`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-dangerously-set-innerhtml.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-dangerously-set-innerhtml.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/dom-no-dangerously-set-innerhtml.md)
+
 ## What it does
 
 Warns when using `dangerouslySetInnerHTML`.

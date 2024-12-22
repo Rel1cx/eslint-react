@@ -16,6 +16,12 @@ react-x/no-missing-component-display-name
 
 `🔍`
 
+**Implementation**:
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-component-display-name.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-component-display-name.spec.ts)
+- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-missing-component-display-name.md)
+
 ## What it does
 
 Enforces that all components have a `displayName` or `name` which React can use as its `displayName` in devtools.
