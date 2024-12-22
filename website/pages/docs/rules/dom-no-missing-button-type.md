@@ -31,9 +31,11 @@ react-dom/no-missing-button-type
 
 ## What it does
 
-Enforces explicit `type` attribute for `<button>` elements.
+Enforces explicit `type` attribute for `button` elements.
 
-The `type` attribute of the `button` element needs to be specified. The default value is `type="submit"`, which can easily lead to unexpected behavior, especially when used in a form.
+The default `type` of a button is `submit`, which causes the submission of a form when placed inside a `form` element. This is likely not the behaviour that you want inside a React application.
+
+Allowed button types are: `submit`, `button` or `reset`.
 
 ## Examples
 
