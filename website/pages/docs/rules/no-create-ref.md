@@ -33,8 +33,6 @@ react-x/no-create-ref
 
 Prevents usage of `createRef()` in function components.
 
-## Why is this bad?
-
 `createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
 
 ## Examples

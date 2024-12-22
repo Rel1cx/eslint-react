@@ -33,8 +33,6 @@ react-web-api/no-leaked-interval
 
 Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`.
 
-## Why is this bad?
-
 Scheduling a interval within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setInterval` callback executions and may also result in using stale values captured by previous render's effects after each subsequent re-render.
 
 ## Examples

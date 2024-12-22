@@ -33,8 +33,6 @@ react-web-api/no-leaked-resize-observer
 
 Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`.
 
-## Why is this bad?
-
 Creating a `ResizeObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
 
 ## Examples

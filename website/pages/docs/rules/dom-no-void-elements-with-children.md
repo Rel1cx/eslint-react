@@ -33,8 +33,6 @@ react-dom/no-void-elements-with-children
 
 Prevents the use of `children` in void `DOM elements`.
 
-## Why is this bad?
-
 Self-closing HTML elements (e.g. `<img />`, `<br />`, `<hr />`) are collectively known as void DOM elements. React will give you a warning if you try to give these children:
 
 > Invariant Violation: img is a void element tag and must neither have children nor use dangerouslySetInnerHTML.

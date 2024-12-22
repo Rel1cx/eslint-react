@@ -33,8 +33,6 @@ react-x/no-children-map
 
 Prevents the use of `Children.map` from the `react` package.
 
-## Why is this bad?
-
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
 ## Examples

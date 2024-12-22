@@ -33,8 +33,6 @@ react-x/no-redundant-should-component-update
 
 Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.
 
-## Why is this bad?
-
 While having `shouldComponentUpdate` will still work, it becomes pointless to extend `React.PureComponent`.
 
 ## Examples

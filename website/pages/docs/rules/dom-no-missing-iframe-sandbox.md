@@ -33,8 +33,6 @@ react-dom/no-missing-iframe-sandbox
 
 Enforces explicit `sandbox` attribute for `iframe` elements.
 
-## Why is this bad?
-
 The sandbox attribute enables an extra set of restrictions for the content in the iframe. Using sandbox attribute is considered a good security practice.
 
 ## Examples

@@ -26,8 +26,6 @@ react-x/no-missing-component-display-name
 
 Enforces that all components have a `displayName` or `name` which React can use as its `displayName` in devtools.
 
-## Why is this bad?
-
 When defining a React component, if you specify its component name in a way that React can't infer its `displayName`, it will show up as an `anonymous` component in devtools, which makes debugging more difficult.
 
 ## Examples

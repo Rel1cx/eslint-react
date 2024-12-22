@@ -33,8 +33,6 @@ react-web-api/no-leaked-event-listener
 
 Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`.
 
-## Why is this bad?
-
 Adding an event listener without removing it can lead to memory leaks and unexpected behavior. This is because the event listener will continue to exist even after the component or hook is unmounted.
 
 ## Examples

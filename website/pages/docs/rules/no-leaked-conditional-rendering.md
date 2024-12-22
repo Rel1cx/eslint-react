@@ -30,8 +30,6 @@ react-x/no-leaked-conditional-rendering
 
 Prevents problematic leaked values from being rendered.
 
-## Why is this bad?
-
 Using the `&&` operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
 
 ## Examples

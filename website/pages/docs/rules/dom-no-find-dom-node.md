@@ -33,8 +33,6 @@ react-dom/no-find-dom-node
 
 This rule disallows the use of `findDOMNode`.
 
-## Why is this bad?
-
 This API will be removed in a future major version of React. [See the alternatives](https://react.dev/reference/react-dom/findDOMNode#alternatives).
 
 ## Examples

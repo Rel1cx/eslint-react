@@ -33,8 +33,6 @@ react-x/no-set-state-in-component-will-update
 
 Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
 
-## Why is this bad?
-
 Updating the state after a component mount will trigger a second `render()` call and can lead to property/layout thrashing.
 
 ## Examples

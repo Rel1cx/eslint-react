@@ -26,8 +26,6 @@ react-hooks-extra/no-unnecessary-use-callback
 
 Disallows unnecessary usage of `useCallback`.
 
-## Why is this bad?
-
 React Hooks `useCallback` has empty dependencies array like what's in the examples, are unnecessary. The hook can be removed and it's value can be created in the component body or hoisted to the outer scope of the component.
 
 ## Examples

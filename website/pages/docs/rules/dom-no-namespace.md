@@ -33,8 +33,6 @@ react-dom/no-namespace
 
 Enforces the absence of a `namespace` in React elements.
 
-## Why is this bad?
-
 Namespaces, such as with `svg:circle` are not supported in React.
 
 ## Examples

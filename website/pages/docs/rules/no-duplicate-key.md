@@ -33,8 +33,6 @@ react-x/no-duplicate-key
 
 Prevents duplicate `key` on elements in the same array or a list of `children`.
 
-## Why is this bad?
-
 React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
 
 ## Examples

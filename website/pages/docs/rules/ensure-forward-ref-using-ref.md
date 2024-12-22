@@ -35,8 +35,6 @@ Requires that components wrapped with `forwardRef` must have a `ref` parameter.
 
 This rule checks all React components using `forwardRef` and verifies that there is a second parameter.
 
-## Why is this bad?
-
 Omitting the `ref` argument is usually a bug, and components not using `ref` don't need to be wrapped by `forwardRef`.
 
 ## Examples

@@ -33,8 +33,6 @@ react-x/no-clone-element
 
 Disallows the use of `cloneElement`.
 
-## Why is this bad?
-
 Using cloneElement is uncommon and can lead to fragile code. This also makes it harder to trace the data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
 
 ## Examples

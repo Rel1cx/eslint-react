@@ -33,8 +33,6 @@ react-x/no-string-refs
 
 Disallows using deprecated `string refs`.
 
-## Why is this bad?
-
 String refs are deprecated in React. Use callback refs instead.
 
 ## Examples

@@ -33,8 +33,6 @@ react-x/no-comment-textnodes
 
 Prevents comment strings (e.g. beginning with `//` or `/*`) from being accidentally inserted into the JSX element's textnodes.
 
-## Why is this bad?
-
 This could be a mistake during code editing or it could be a misunderstanding of how JSX works. Either way, it's probably not what you intended.
 
 ## Examples

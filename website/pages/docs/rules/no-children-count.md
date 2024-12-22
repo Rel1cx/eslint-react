@@ -33,8 +33,6 @@ react-x/no-children-count
 
 Prevents the use of `Children.count` from the `react` package.
 
-## Why is this bad?
-
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
 ## Examples

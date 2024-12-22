@@ -33,8 +33,6 @@ react-dom/no-unsafe-iframe-sandbox
 
 Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
 
-## Why is this bad?
-
 If `sandbox` attribute is not set, the iframe content can have abilities that are not intended to be allowed.
 
 ## Examples

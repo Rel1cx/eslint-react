@@ -33,8 +33,6 @@ react-x/no-children-prop
 
 Disallows passing 'children' as a prop.
 
-## Why is this bad?
-
 Most of the time, `children` should be actual `children`, not passed in as a `prop`.
 
 When using JSX, the `children` should be nested between the opening and closing tags. When not using JSX, the `children` should be passed as additional arguments to `React.createElement`.

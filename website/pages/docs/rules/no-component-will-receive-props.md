@@ -33,8 +33,6 @@ react-x/no-component-will-receive-props
 
 Prevents usage of `componentWillReceiveProps` in class components.
 
-## Why is this bad?
-
 This API has been renamed from `componentWillReceiveProps` to `UNSAFE_componentWillReceiveProps`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
 ## Examples

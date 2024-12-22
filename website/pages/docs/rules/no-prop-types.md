@@ -33,8 +33,6 @@ react-x/no-prop-types
 
 Disallows using `propTypes` property in favor of TypeScript or another type-checking solution.
 
-## Why is this bad?
-
 `PropTypes` were deprecated in [April 2017 (v15.5.0)](https://legacy.reactjs.org/blog/2017/04/07/react-v15.5.0.html#new-deprecation-warnings).
 
 The `propType` checks will be removed from the React package, and using them will be silently ignored. If you’re using `propTypes`, it is recommend to migrate to TypeScript or another type-checking solution.

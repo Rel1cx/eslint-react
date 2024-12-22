@@ -33,8 +33,6 @@ react-x/no-unsafe-component-will-receive-props
 
 Warns the usage of `UNSAFE_componentWillReceiveProps` in class components.
 
-## Why is this bad?
-
 Using unsafe lifecycle methods like `UNSAFE_componentWillReceiveProps` makes your component's behavior less predictable and are more likely to cause bugs.
 
 ## Examples

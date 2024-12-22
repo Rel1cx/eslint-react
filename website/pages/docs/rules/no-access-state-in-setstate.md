@@ -33,8 +33,6 @@ react-x/no-access-state-in-setstate
 
 Disallows accessing `this.state` inside `setState` calls.
 
-## Why is this bad?
-
 Usage of `this.state` inside `setState` calls might result in errors when two state calls are called in batch and thus referencing old state and not the current state.
 
 ## Examples

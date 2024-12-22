@@ -33,8 +33,6 @@ react-x/no-array-index-key
 
 Warns when an array `index` is used as a `key` prop.
 
-## Why is this bad?
-
 The order of items in a list rendering can change over time if an item is inserted, deleted, or the array is reordered. Indexes as keys often lead to subtle and confusing errors.
 
 ## Examples

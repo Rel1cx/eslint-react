@@ -33,8 +33,6 @@ react-x/no-unstable-context-value
 
 Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`.
 
-## Why is this bad?
-
 React will re-render all consumers of a context whenever the context value changes, and if the value is not stable, this can lead to unnecessary re-renders.
 
 ## Examples

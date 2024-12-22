@@ -33,8 +33,6 @@ react-x/no-component-will-mount
 
 Prevents usage of `componentWillMount` in class components.
 
-## Why is this bad?
-
 This API has been renamed from `componentWillMount` to `UNSAFE_componentWillMount`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
 ## Examples

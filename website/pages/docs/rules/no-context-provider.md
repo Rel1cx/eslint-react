@@ -33,8 +33,6 @@ react-x/no-context-provider
 
 Disallows using `<Context.Provider>`.
 
-## Why is this bad?
-
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 
 ## Examples

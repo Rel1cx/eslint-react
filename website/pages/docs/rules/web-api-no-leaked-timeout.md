@@ -33,8 +33,6 @@ react-web-api/no-leaked-timeout
 
 Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`.
 
-## Why is this bad?
-
 Scheduling a timeout within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setTimeout` callback executions and may also result in using stale values captured by previous render's effects after each subsequent re-render.
 
 ## Examples
