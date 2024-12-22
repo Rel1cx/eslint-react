@@ -30,6 +30,7 @@ Enforces explicit `type` attribute for `<button>` elements.
 ## Why is this bad?
 
 The `type` attribute of the `button` element needs to be specified. The default value is `type="submit"`, which can easily lead to unexpected behavior, especially when used in a form.
+
 ## Examples
 
 ### Failing

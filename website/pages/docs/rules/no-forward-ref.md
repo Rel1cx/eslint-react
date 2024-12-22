@@ -38,7 +38,7 @@ In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 ### Failing
 
 ```tsx
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
 const MyInput = forwardRef(function MyInput(props, ref) {
   // ...

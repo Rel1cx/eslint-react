@@ -28,7 +28,12 @@ Enforces the use of shorthand syntax for fragments.
 import React, { Fragment } from "react";
 
 function Example() {
-  return <Fragment><button /><button /></Fragment>;
+  return (
+    <Fragment>
+      <button />
+      <button />
+    </Fragment>
+  );
   //       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //       - Use fragment shorthand syntax instead of 'Fragment' component.
 }
@@ -40,6 +45,11 @@ function Example() {
 import React from "react";
 
 function Example() {
-  return <><button /><button /></>;
+  return (
+    <>
+      <button />
+      <button />
+    </>
+  );
 }
 ```

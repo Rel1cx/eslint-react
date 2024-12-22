@@ -36,17 +36,17 @@ Adding an event listener without removing it can lead to memory leaks and unexpe
 ### Failing
 
 ```tsx
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Example extends Component {
   componentDidMount() {
-    document.addEventListener('click', this.handleClick);
+    document.addEventListener("click", this.handleClick);
     //                                 ^^^^^^^^^^^^^^^^
     //                                 - A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.
   }
 
   handleClick() {
-    console.log('clicked');
+    console.log("clicked");
   }
 
   render() {
@@ -56,15 +56,15 @@ class Example extends Component {
 ```
 
 ```tsx
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 function Example() {
   useEffect(() => {
     const handleClick = () => {
-      console.log('clicked');
+      console.log("clicked");
     };
 
-    document.addEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
     //                                 ^^^^^^^^^^^
     //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
@@ -74,11 +74,11 @@ function Example() {
 ```
 
 ```tsx
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 function Example() {
   useEffect(() => {
-    document.addEventListener('click', () => console.log('clicked'));
+    document.addEventListener("click", () => console.log("clicked"));
     //                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //                                 - A 'addEventListener' should not have an inline listener function.
   }, []);
@@ -88,20 +88,20 @@ function Example() {
 ```
 
 ```tsx
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 function Example() {
   useEffect(() => {
     const handleClick = () => {
-      console.log('clicked');
+      console.log("clicked");
     };
 
-    document.addEventListener('click', handleClick, { capture: true });
+    document.addEventListener("click", handleClick, { capture: true });
     //                                 ^^^^^^^^^^^
     //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
 
     return () => {
-      document.removeEventListener('click', handleClick, { capture: false });
+      document.removeEventListener("click", handleClick, { capture: false });
     };
   }, []);
 
@@ -113,10 +113,10 @@ function Example() {
 function useCustomHook() {
   useEffect(() => {
     const handleClick = () => {
-      console.log('clicked');
+      console.log("clicked");
     };
 
-    document.addEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
     //                                 ^^^^^^^^^^^^
     //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
@@ -126,19 +126,19 @@ function useCustomHook() {
 ### Passing
 
 ```tsx
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Example extends Component {
   componentDidMount() {
-    document.addEventListener('click', this.handleClick);
+    document.addEventListener("click", this.handleClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClick);
+    document.removeEventListener("click", this.handleClick);
   }
 
   handleClick() {
-    console.log('clicked');
+    console.log("clicked");
   }
 
   render() {
@@ -148,18 +148,18 @@ class Example extends Component {
 ```
 
 ```tsx
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 function Example() {
   useEffect(() => {
     const handleClick = () => {
-      console.log('clicked');
+      console.log("clicked");
     };
 
-    document.addEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
 
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
 
@@ -168,18 +168,18 @@ function Example() {
 ```
 
 ```tsx
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 function Example() {
   useEffect(() => {
     const handleClick = () => {
-      console.log('clicked');
+      console.log("clicked");
     };
 
-    document.addEventListener('click', handleClick, { capture: true });
+    document.addEventListener("click", handleClick, { capture: true });
 
     return () => {
-      document.removeEventListener('click', handleClick, { capture: true });
+      document.removeEventListener("click", handleClick, { capture: true });
     };
   }, []);
 
@@ -207,7 +207,7 @@ function Example() {
   }, []);
 
   return null;
-};
+}
 ```
 
 ```tsx
@@ -232,20 +232,20 @@ function Example() {
   }, []);
 
   return null;
-};
+}
 ```
 
 ```tsx
 function useCustomHook() {
   useEffect(() => {
     const handleClick = () => {
-      console.log('clicked');
+      console.log("clicked");
     };
 
-    document.addEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
 
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
 }

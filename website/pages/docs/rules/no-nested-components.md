@@ -39,7 +39,7 @@ Nesting component definitions inside other components is a common mistake that c
 import React from "react";
 
 function Gallery() {
-// 🔴 Never define a component inside another component!
+  // 🔴 Never define a component inside another component!
   function Profile() {
     /* ... */
   }

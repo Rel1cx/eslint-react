@@ -52,7 +52,7 @@ const IconButton = <button aria-label="Close" onClick={this.close}>{closeIcon}</
 const Data = <div data-index={12}>Some data</div>;
 
 // React components are ignored
-const MyComponent = <App class="foo-bar"/>;
+const MyComponent = <App class="foo-bar" />;
 const AnotherComponent = <Foo.bar for="bar" />;
 
 // Custom web components are ignored
@@ -94,5 +94,5 @@ export default [
 Now, the following code passes:
 
 ```tsx
-const StyledDiv = <div css={{ color: 'pink' }}></div>;
+const StyledDiv = <div css={{ color: "pink" }}></div>;
 ```

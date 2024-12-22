@@ -56,7 +56,7 @@ declare function generateTodos(): string[];
 import React, { useState } from "react";
 
 function Example() {
-// @annotate: Use an initializer function to avoid recreating the initial state
+  // @annotate: Use an initializer function to avoid recreating the initial state
   const [value, setValue] = useState(() => generateTodos());
 
   return null;

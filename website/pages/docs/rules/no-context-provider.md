@@ -36,9 +36,9 @@ In React 19, you can render `<Context>` as a provider instead of `<Context.Provi
 ### Failing
 
 ```tsx
-const ThemeContext = createContext('');
+const ThemeContext = createContext("");
 
-function App({children}) {
+function App({ children }) {
   return (
     <ThemeContext.Provider value="light">
       {children}
@@ -50,9 +50,9 @@ function App({children}) {
 ### Passing
 
 ```tsx
-const ThemeContext = createContext('');
+const ThemeContext = createContext("");
 
-function App({children}) {
+function App({ children }) {
   return (
     <ThemeContext value="dark">
       {children}

@@ -45,9 +45,7 @@ interface ExampleProps {
 function Example({ children }: ExampleProps) {
   return (
     <div className="RowList">
-      {Children.map(children, (child) => (
-        <div className="Row">{child}</div>
-      ))}
+      {Children.map(children, (child) => <div className="Row">{child}</div>)}
     </div>
   );
 }

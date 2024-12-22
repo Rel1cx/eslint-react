@@ -36,14 +36,14 @@ Creating a `ResizeObserver` without disconnecting it can lead to memory leaks an
 ### Failing
 
 ```tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 function Example() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
-    const ro = new ResizeObserver(() => console.log('resize'));
+    const ro = new ResizeObserver(() => console.log("resize"));
     //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //         - A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
     ro.observe(ref.current);
@@ -56,14 +56,14 @@ function Example() {
 ### Passing
 
 ```tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 function Example() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
-    const ro = new ResizeObserver(() => console.log('resize'));
+    const ro = new ResizeObserver(() => console.log("resize"));
     ro.observe(ref.current);
     return () => ro.disconnect();
   }, []);

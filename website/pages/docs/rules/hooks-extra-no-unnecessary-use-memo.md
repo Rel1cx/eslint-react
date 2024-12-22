@@ -39,7 +39,7 @@ function Example() {
         fontFamily: theme.fontFamilyMonospace,
       },
     }),
-    []
+    [],
   );
   return <Button sx={style} />;
 }

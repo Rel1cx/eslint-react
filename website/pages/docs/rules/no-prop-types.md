@@ -38,7 +38,7 @@ The `propType` checks will be removed from the React package, and using them wil
 ### Failing
 
 ```tsx
-import React from 'react';
+import React from "react";
 
 class ExampleComponent extends React.Component {
   static propTypes = {
@@ -52,7 +52,7 @@ class ExampleComponent extends React.Component {
 ```
 
 ```tsx
-import React from 'react';
+import React from "react";
 
 class ExampleComponent extends React.Component {
   render() {
@@ -66,7 +66,7 @@ ExampleComponent.propTypes = {
 ```
 
 ```tsx
-import React from 'react';
+import React from "react";
 
 function ExampleComponent(props) {
   return <div>{props.name}</div>;
@@ -80,7 +80,7 @@ ExampleComponent.propTypes = {
 ### Passing
 
 ```tsx
-import React from 'react';
+import React from "react";
 
 interface ExampleComponentProps {
   name: string;
@@ -94,7 +94,7 @@ class ExampleComponent extends React.Component<ExampleComponentProps> {
 ```
 
 ```tsx
-import React from 'react';
+import React from "react";
 
 interface ExampleComponentProps {
   name: string;

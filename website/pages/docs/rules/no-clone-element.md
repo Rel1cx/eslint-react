@@ -41,7 +41,7 @@ import { cloneElement } from "react";
 const clonedElement = cloneElement(
   <Row title="Cabbage">Hello</Row>,
   { isHighlighted: true },
-  "Goodbye"
+  "Goodbye",
 );
 
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>

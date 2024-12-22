@@ -43,8 +43,8 @@ const ExampleContext = React.createContext({});
 function ExampleProvider() {
   return (
     <ExampleContext.Provider value={{ foo: "bar" }}>
-    {/*                             ^^^^^^^^^^^^^ */}
-    {/*                             - A/an 'Object literal' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook */}
+      {/*                             ^^^^^^^^^^^^^ */}
+      {/*                             - A/an 'Object literal' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook */}
       <ExampleConsumer />
     </ExampleContext.Provider>
   );

@@ -107,7 +107,7 @@ export default [
       "@eslint-react/naming-convention/filename": ["warn", "PascalCase"],
     },
   },
-    {
+  {
     files: ["src/pages/**/*.{ts,tsx}"],
     ignore: ["**/index.{ts,tsx}"],
     rules: {

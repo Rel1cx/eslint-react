@@ -1,15 +1,15 @@
-# no-array-index-key
+# no-missing-key
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
-react-x/no-array-index-key
+react-x/no-missing-key
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/no-array-index-key
+@eslint-react/no-missing-key
 ```
 
 **Features**
@@ -25,11 +25,11 @@ react-x/no-array-index-key
 
 ## What it does
 
-Warns when an array `index` is used as a `key` prop.
+Prevents missing `key` on items in list rendering.
 
 ## Why is this bad?
 
-The order of items in a list rendering can change over time if an item is inserted, deleted, or the array is reordered. Indexes as keys often lead to subtle and confusing errors.
+React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
 
 ## Examples
 
@@ -39,20 +39,22 @@ The order of items in a list rendering can change over time if an item is insert
 import React from "react";
 
 interface ExampleProps {
-  items: { id: string; name: string }[];
+  items: { id: number; name: string }[];
 }
 
 function Example({ items }: ExampleProps) {
   return (
     <ul>
-      {items.map((item, index) => (
-        //              ^^^^^
-        //              - Do not use Array index as 'key'.
-        <li key={index}>{item.name}</li>
+      {items.map((todo) => (
+        <Todo {...todo} />
+      {/* ^^^^^^^^^^^^^^^ */}
+      {/* - Missing 'key' for element when rendering list. */}
       ))}
     </ul>
   );
 }
+
+declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
 
 ### Passing
@@ -61,18 +63,18 @@ function Example({ items }: ExampleProps) {
 import React from "react";
 
 interface ExampleProps {
-  items: { id: string; name: string }[];
+  items: { id: number; name: string }[];
 }
 
 function Example({ items }: ExampleProps) {
   return (
     <ul>
-      {items.map((item) => (
-        <li key={item.id}>{item.name}</li>
-      ))}
+      {items.map((todo) => <Todo key={todo.id} {...todo} />)}
     </ul>
   );
 }
+
+declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
 
 ## Further Reading

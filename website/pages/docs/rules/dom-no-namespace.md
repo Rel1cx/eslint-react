@@ -58,8 +58,6 @@ function Example() {
 import React from "react";
 
 function Example() {
-  return (
-    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-  );
+  return <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />;
 }
 ```

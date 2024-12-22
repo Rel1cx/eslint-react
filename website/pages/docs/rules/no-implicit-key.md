@@ -52,7 +52,7 @@ function Example({ items }: ExampleProps) {
       {items.map((item) => {
         const props = { key: item.id };
 
-        return <li {...props}>{item.name}</li>
+        return <li {...props}>{item.name}</li>;
         //         ^^^^^^^^^^
         //         - Do not use implicit 'key' props.
       })}
@@ -73,9 +73,7 @@ interface ExampleProps {
 function Example({ items }: ExampleProps) {
   return (
     <ul>
-      {items.map((item) => (
-        <li key={item.id}>{item.name}</li>
-      ))}
+      {items.map((item) => <li key={item.id}>{item.name}</li>)}
     </ul>
   );
 }

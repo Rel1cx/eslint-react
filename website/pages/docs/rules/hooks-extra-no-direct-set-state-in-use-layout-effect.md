@@ -1,5 +1,3 @@
-import { Callout } from "nextra/components"
-
 # no-direct-set-state-in-use-layout-effect
 
 **Full Name in `eslint-plugin-react-hooks-extra`**
@@ -26,7 +24,7 @@ This rule only checks for **direct** calls to the `set` function of `useState` i
 
 ## Examples
 
-<Callout type="info">The first three cases are common valid use cases because they are not called the `set` function directly in `useLayoutEffect`.</Callout>
+The first three cases are common valid use cases because they are not called the `set` function directly in `useLayoutEffect`:
 
 ### Passing
 
@@ -90,19 +88,21 @@ export default function RemoteContent() {
 }
 ```
 
+The following examples are drived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
+
 ### Failing
 
 ```tsx
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from "react";
 
 function Form() {
-  const [firstName, setFirstName] = useState('Taylor');
-  const [lastName, setLastName] = useState('Swift');
+  const [firstName, setFirstName] = useState("Taylor");
+  const [lastName, setLastName] = useState("Swift");
 
   // 🔴 Avoid: redundant state and unnecessary Effect
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState("");
   useLayoutEffect(() => {
-    setFullName(firstName + ' ' + lastName);
+    setFullName(firstName + " " + lastName);
   }, [firstName, lastName]);
   // ...
 }
@@ -111,13 +111,13 @@ function Form() {
 ### Passing
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function Form() {
-  const [firstName, setFirstName] = useState('Taylor');
-  const [lastName, setLastName] = useState('Swift');
+  const [firstName, setFirstName] = useState("Taylor");
+  const [lastName, setLastName] = useState("Swift");
   // ✅ Good: calculated during rendering
-  const fullName = firstName + ' ' + lastName;
+  const fullName = firstName + " " + lastName;
   // ...
 }
 ```
@@ -125,10 +125,10 @@ function Form() {
 ### Failing
 
 ```tsx
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from "react";
 
 function TodoList({ todos, filter }) {
-  const [newTodo, setNewTodo] = useState('');
+  const [newTodo, setNewTodo] = useState("");
 
   // 🔴 Avoid: redundant state and unnecessary Effect
   const [visibleTodos, setVisibleTodos] = useState([]);
@@ -143,10 +143,10 @@ function TodoList({ todos, filter }) {
 ### Passing
 
 ```tsx
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 
 function TodoList({ todos, filter }) {
-  const [newTodo, setNewTodo] = useState('');
+  const [newTodo, setNewTodo] = useState("");
   // ✅ Does not re-run getFilteredTodos() unless todos or filter change
   const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
   // ...
@@ -156,14 +156,14 @@ function TodoList({ todos, filter }) {
 ### Failing
 
 ```tsx
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from "react";
 
 export default function ProfilePage({ userId }) {
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   // 🔴 Avoid: Resetting state on prop change in an Effect
   useLayoutEffect(() => {
-    setComment('');
+    setComment("");
   }, [userId]);
   // ...
 }
@@ -172,7 +172,7 @@ export default function ProfilePage({ userId }) {
 ### Passing
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function ProfilePage({ userId }) {
   return (
@@ -185,7 +185,7 @@ export default function ProfilePage({ userId }) {
 
 function Profile({ userId }) {
   // ✅ This and any other state below will reset on key change automatically
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   // ...
 }
 ```
@@ -193,7 +193,7 @@ function Profile({ userId }) {
 ### Failing
 
 ```tsx
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from "react";
 
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
@@ -210,7 +210,7 @@ function List({ items }) {
 ### Passing
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
@@ -227,7 +227,7 @@ function List({ items }) {
 ```
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
