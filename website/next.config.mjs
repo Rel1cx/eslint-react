@@ -5,7 +5,7 @@ import remarkGFM from "remark-gfm";
 const withNextra = nextra({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.tsx",
-  // defaultShowCopyCode: false,
+  defaultShowCopyCode: true,
   mdxOptions: {
     remarkPlugins: [
       remarkGFM,
