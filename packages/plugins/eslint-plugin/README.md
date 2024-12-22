@@ -76,7 +76,7 @@ export default tseslint.config({
 ### General Purpose
 
 - **Recommended** (`recommended`)\
-  Enforce rules that are recommended by ESLint React.\
+  Enforce rules that are recommended by ESLint React for general purpose `React` + `React DOM` applications.
   _This preset includes the `core`, `dom`, and `web-api` presets._
 
 ### TypeScript Specialized
