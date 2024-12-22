@@ -16,11 +16,6 @@ react-x/avoid-shorthand-boolean
 
 `🔍` `🔧`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-boolean.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-boolean.spec.ts)
-
 ## What it does
 
 Enforces the use of explicit boolean values for boolean attributes.
@@ -48,3 +43,8 @@ function Example() {
   return <button disabled={true} />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-boolean.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-boolean.spec.ts)

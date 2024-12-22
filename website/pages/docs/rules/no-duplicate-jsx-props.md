@@ -21,11 +21,6 @@ react-x/no-duplicate-jsx-props
 - `core`
 - `recommended`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-duplicate-jsx-props.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-duplicate-jsx-props.spec.ts)
-
 ## What it does
 
 This rule prevents the use of duplicate props in JSX elements.
@@ -43,3 +38,8 @@ This rule prevents the use of duplicate props in JSX elements.
 ```tsx
 <Hello name="John" />;
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-duplicate-jsx-props.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-duplicate-jsx-props.spec.ts)

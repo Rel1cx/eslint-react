@@ -16,11 +16,6 @@ react-x/prefer-shorthand-boolean
 
 `🔍` `🔧`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-shorthand-boolean.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-shorthand-boolean.spec.ts)
-
 ## What it does
 
 Enforces the use of shorthand syntax for boolean attributes.
@@ -50,3 +45,8 @@ function Example() {
   return <button disabled />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-shorthand-boolean.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-shorthand-boolean.spec.ts)

@@ -23,11 +23,6 @@ react-x/no-unsafe-component-will-mount
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-mount.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-mount.spec.ts)
-
 ## What it does
 
 Warns the usage of `UNSAFE_componentWillMount` in class components.
@@ -47,3 +42,8 @@ class Example extends React.Component {
   }
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-mount.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-mount.spec.ts)

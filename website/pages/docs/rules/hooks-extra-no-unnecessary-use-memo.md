@@ -16,11 +16,6 @@ react-hooks-extra/no-unnecessary-use-memo
 
 `🔍`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-memo.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-memo.spec.ts)
-
 ## What it does
 
 Disallows unnecessary usage of `useMemo`.
@@ -64,3 +59,8 @@ function Example() {
   return <Button sx={style} />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-memo.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-memo.spec.ts)

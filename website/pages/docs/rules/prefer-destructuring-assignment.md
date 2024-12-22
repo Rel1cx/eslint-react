@@ -16,11 +16,6 @@ react-x/prefer-destructuring-assignment
 
 `🔍`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment.spec.ts)
-
 ## What it does
 
 Enforces the use of destructuring assignment over property assignment.
@@ -100,6 +95,11 @@ function Example({ items, ...rest }: ExampleProps) {
   return <div {...rest}>{items}</div>;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment.spec.ts)
 
 ## Further Reading
 

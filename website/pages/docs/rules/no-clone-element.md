@@ -23,11 +23,6 @@ react-x/no-clone-element
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-clone-element.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-clone-element.spec.ts)
-
 ## What it does
 
 Disallows the use of `cloneElement`.
@@ -49,6 +44,11 @@ const clonedElement = cloneElement(
 
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-clone-element.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-clone-element.spec.ts)
 
 ## Further Reading
 

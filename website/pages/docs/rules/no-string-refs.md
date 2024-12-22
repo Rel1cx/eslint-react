@@ -23,11 +23,6 @@ react-x/no-string-refs
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-string-refs.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-string-refs.spec.ts)
-
 ## What it does
 
 Disallows using deprecated `string refs`.
@@ -58,3 +53,8 @@ function Example() {
   return <div ref={ref} />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-string-refs.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-string-refs.spec.ts)

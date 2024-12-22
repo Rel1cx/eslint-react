@@ -20,11 +20,6 @@ react-debug/class-component
 
 - `debug`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/class-component.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/class-component.spec.ts)
-
 ## What it does
 
 Reports all class components. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
@@ -50,3 +45,8 @@ class Example extends React.PureComponent {
   }
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/class-component.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/class-component.spec.ts)

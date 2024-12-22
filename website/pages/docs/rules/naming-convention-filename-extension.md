@@ -16,11 +16,6 @@ react-naming-convention/filename-extension
 
 `🔍` `⚙️`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.spec.ts)
-
 ## What it does
 
 Enforces consistent use of the JSX file extension.
@@ -90,3 +85,8 @@ export default [
   },
 ];
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.spec.ts)

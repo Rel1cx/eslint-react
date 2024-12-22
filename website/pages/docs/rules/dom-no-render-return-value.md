@@ -23,11 +23,6 @@ react-dom/no-render-return-value
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-render-return-value.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-render-return-value.spec.ts)
-
 ## What it does
 
 Prevents usage of the return value of `ReactDOM.render`.
@@ -59,6 +54,11 @@ function doSomethingWithInst(inst: HTMLDivElement | null) {
 
 ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-render-return-value.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-render-return-value.spec.ts)
 
 ## Further Reading
 

@@ -23,11 +23,6 @@ react-x/no-unstable-context-value
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value.spec.ts)
-
 ## What it does
 
 Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`.
@@ -77,3 +72,8 @@ function ExampleProvider() {
 React Context, and all its child nodes and Consumers are rerendered whenever the value prop changes. Because each Javascript object carries its own identity, things like object expressions (`{foo: 'bar'}`) or function expressions get a new identity on every run through the component. This makes the context think it has gotten a new object and can cause needless rerenders and unintended consequences.
 
 This can be a pretty large performance hit because not only will it cause the context providers and consumers to rerender with all the elements in its subtree, the processing for the tree scan react does to render the provider and find consumers is also wasted.
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value.spec.ts)

@@ -23,11 +23,6 @@ react-x/no-children-to-array
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-to-array.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-to-array.spec.ts)
-
 ## What it does
 
 Prevents the use of `Children.toArray` from the `react` package.
@@ -51,6 +46,11 @@ function Example({ children }: ExampleProps) {
   // ...
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-to-array.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-to-array.spec.ts)
 
 ## Further Reading
 

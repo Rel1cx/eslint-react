@@ -23,11 +23,6 @@ react-dom/no-unsafe-iframe-sandbox
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.spec.ts)
-
 ## What it does
 
 Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
@@ -62,6 +57,11 @@ function Example() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.spec.ts)
 
 ## Further Reading
 

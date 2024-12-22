@@ -20,11 +20,6 @@ react-x/no-leaked-conditional-rendering
 
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.spec.ts)
-
 ## What it does
 
 Prevents problematic leaked values from being rendered.
@@ -261,6 +256,11 @@ function Example({ items }: ExampleProps) {
 declare const List: React.ComponentType<{ items: string[] }>;
 declare const EmptyList: React.ComponentType;
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.spec.ts)
 
 ## Further Reading
 

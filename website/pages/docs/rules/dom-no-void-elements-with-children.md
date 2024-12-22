@@ -23,11 +23,6 @@ react-dom/no-void-elements-with-children
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-void-elements-with-children.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-void-elements-with-children.spec.ts)
-
 ## What it does
 
 Prevents the use of `children` in void `DOM elements`.
@@ -59,3 +54,8 @@ React.createElement('div', undefined, 'Children')
 React.createElement('div', { children: 'Children' })
 React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-void-elements-with-children.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-void-elements-with-children.spec.ts)

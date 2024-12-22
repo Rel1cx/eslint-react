@@ -23,11 +23,6 @@ react-x/ensure-forward-ref-using-ref
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/ensure-forward-ref-using-ref.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/ensure-forward-ref-using-ref.spec.ts)
-
 ## What it does
 
 Requires that components wrapped with `forwardRef` must have a `ref` parameter.
@@ -59,6 +54,11 @@ const Example = React.forwardRef<HTMLButtonElement>((props, ref) => {
   return <button ref={ref} />;
 });
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/ensure-forward-ref-using-ref.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/ensure-forward-ref-using-ref.spec.ts)
 
 ## Further Reading
 

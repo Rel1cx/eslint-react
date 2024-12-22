@@ -23,11 +23,6 @@ react-dom/no-find-dom-node
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-find-dom-node.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-find-dom-node.spec.ts)
-
 ## What it does
 
 This rule disallows the use of `findDOMNode`.
@@ -75,6 +70,11 @@ class AutoSelectingInput extends Component {
   }
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-find-dom-node.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-find-dom-node.spec.ts)
 
 ## Further Reading
 

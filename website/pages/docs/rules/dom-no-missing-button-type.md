@@ -23,11 +23,6 @@ react-dom/no-missing-button-type
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-missing-button-type.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-missing-button-type.spec.ts)
-
 ## What it does
 
 Enforces explicit `type` attribute for `button` elements.
@@ -59,6 +54,11 @@ function Example() {
   return <button type="button">Click me</button>;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-missing-button-type.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-missing-button-type.spec.ts)
 
 ## Further Reading
 

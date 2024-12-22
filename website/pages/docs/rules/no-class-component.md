@@ -23,11 +23,6 @@ react-x/no-class-component
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component.spec.ts)
-
 ## What it does
 
 Prevents the use of class components.
@@ -69,6 +64,11 @@ function Example({ name }: ExampleProps) {
   return <h1>Hello, {name}!</h1>;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component.spec.ts)
 
 ## Further Reading
 

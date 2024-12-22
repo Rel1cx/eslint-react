@@ -20,11 +20,6 @@ react-debug/hook
 
 - `debug`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.spec.ts)
-
 ## What it does
 
 Reports all React Hooks. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
@@ -40,3 +35,8 @@ function useToggle() {
   return [value, () => setValue((x) => !x)] as const;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.spec.ts)

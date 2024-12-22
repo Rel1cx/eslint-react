@@ -23,11 +23,6 @@ react-dom/no-namespace
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-namespace.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-namespace.spec.ts)
-
 ## What it does
 
 Enforces the absence of a `namespace` in React elements.
@@ -64,3 +59,8 @@ function Example() {
   return <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-namespace.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-namespace.spec.ts)

@@ -23,11 +23,6 @@ react-x/no-missing-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key.spec.ts)
-
 ## What it does
 
 Prevents missing `key` on items in list rendering.
@@ -79,6 +74,11 @@ function Example({ items }: ExampleProps) {
 
 declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key.spec.ts)
 
 ## Further Reading
 

@@ -17,11 +17,6 @@ react-x/use-jsx-vars
 - `core`
 - `recommended`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.spec.ts)
-
 ## What it does
 
 Helpes `eslint/no-unused-vars` to correctly detect variables used in JSX.
@@ -44,3 +39,8 @@ const Hello = require("./Hello");
 
 <Hello name="John" />;
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.spec.ts)

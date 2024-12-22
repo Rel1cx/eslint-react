@@ -19,11 +19,6 @@ react-dom/no-dangerously-set-innerhtml
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-dangerously-set-innerhtml.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-dangerously-set-innerhtml.spec.ts)
-
 ## What it does
 
 Warns when using `dangerouslySetInnerHTML`.
@@ -43,3 +38,8 @@ function Example() {
   return <div dangerouslySetInnerHTML={{ __html: "Hello, World!" }} />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-dangerously-set-innerhtml.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-dangerously-set-innerhtml.spec.ts)

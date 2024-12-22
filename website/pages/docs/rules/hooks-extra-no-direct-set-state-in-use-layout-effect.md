@@ -16,11 +16,6 @@ react-hooks-extra/no-direct-set-state-in-use-layout-effect
 
 `🔍`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-layout-effect.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-layout-effect.spec.ts)
-
 ## What it does
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
@@ -250,7 +245,14 @@ function List({ items }) {
 
 The limitation may be lifted in the future.
 
-### Further Reading
+# 
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-layout-effect.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-layout-effect.spec.ts)
+
+## Further Reading
 
 - [React: useState](https://react.dev/reference/react/useState#setstate)
 - [React: useLayoutEffect](https://react.dev/reference/react/useLayoutEffect)

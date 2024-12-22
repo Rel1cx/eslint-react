@@ -23,11 +23,6 @@ react-x/no-direct-mutation-state
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state.spec.ts)
-
 ## What it does
 
 Disallows direct mutation of `this.state`.
@@ -99,3 +94,8 @@ class Example extends React.Component<ExampleProps, ExampleState> {
   }
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state.spec.ts)

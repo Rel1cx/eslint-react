@@ -23,11 +23,6 @@ react-x/no-set-state-in-component-did-mount
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount.spec.ts)
-
 ## What it does
 
 Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.
@@ -59,3 +54,8 @@ class Example extends React.Component<ExampleProps, ExampleState> {
   }
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount.spec.ts)

@@ -23,11 +23,6 @@ react-web-api/no-leaked-timeout
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout.spec.ts)
-
 ## What it does
 
 Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`.
@@ -70,6 +65,11 @@ function Example() {
   return null;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout.spec.ts)
 
 ## Further Reading
 

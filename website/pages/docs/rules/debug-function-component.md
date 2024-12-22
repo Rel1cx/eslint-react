@@ -20,11 +20,6 @@ react-debug/function-component
 
 - `debug`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.spec.ts)
-
 ## What it does
 
 Reports all function components. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
@@ -56,3 +51,8 @@ import React from "react";
 
 const Example = React.forwardRef(() => <button />);
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.spec.ts)

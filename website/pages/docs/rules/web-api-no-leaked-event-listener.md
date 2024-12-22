@@ -23,11 +23,6 @@ react-web-api/no-leaked-event-listener
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener.spec.ts)
-
 ## What it does
 
 Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`.
@@ -253,6 +248,11 @@ function useCustomHook() {
   }, []);
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener.spec.ts)
 
 ## Further Reading
 

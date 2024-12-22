@@ -21,11 +21,6 @@ react-dom/no-unknown-property
 - `dom`
 - `recommended`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unknown-property.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unknown-property.spec.ts)
-
 ## What it does
 
 In JSX most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style. This can be a possible source of error if you are used to writing plain HTML.
@@ -101,3 +96,8 @@ Now, the following code passes:
 ```tsx
 const StyledDiv = <div css={{ color: "pink" }}></div>;
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unknown-property.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unknown-property.spec.ts)

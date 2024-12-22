@@ -16,11 +16,6 @@ react-x/no-complex-conditional-rendering
 
 `🔍`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.spec.ts)
-
 ## What it does
 
 Warns when conditional rendering is too complex.
@@ -49,3 +44,8 @@ function Example({ condition1, condition2, condition3, condition4 }) {
   );
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.spec.ts)

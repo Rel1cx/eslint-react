@@ -20,11 +20,6 @@ react-debug/is-from-react
 
 - `debug`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/debug-is-from-react.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/debug-is-from-react.spec.ts)
-
 ## What it does
 
 Reports all identifiers that are initialized from React. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
@@ -80,3 +75,8 @@ const toArray = Children.toArray;
 //    |         - [initialized from react] name: 'Children', import source: '@pika/react'.
 //    - [initialized from react] name: 'Children', import source: '@pika/react'.
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/debug-is-from-react.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/debug-is-from-react.spec.ts)

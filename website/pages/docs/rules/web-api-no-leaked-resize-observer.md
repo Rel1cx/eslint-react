@@ -23,11 +23,6 @@ react-web-api/no-leaked-resize-observer
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer.spec.ts)
-
 ## What it does
 
 Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`.
@@ -74,6 +69,11 @@ function Example() {
   return <div ref={ref} />;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer.spec.ts)
 
 ## Further Reading
 

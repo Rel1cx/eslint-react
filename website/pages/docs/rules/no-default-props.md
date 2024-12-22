@@ -23,11 +23,6 @@ react-x/no-default-props
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-default-props.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-default-props.spec.ts)
-
 ## What it does
 
 Disallows using `defaultProps` property in favor of ES6 default parameters.
@@ -63,3 +58,8 @@ function ExampleComponent({ name = "John Doe" }: ExampleComponentProps) {
   return <div>{name}</div>;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-default-props.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-default-props.spec.ts)

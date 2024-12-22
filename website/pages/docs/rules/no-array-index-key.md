@@ -23,11 +23,6 @@ react-x/no-array-index-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key.spec.ts)
-
 ## What it does
 
 Warns when an array `index` is used as a `key` prop.
@@ -75,6 +70,11 @@ function Example({ items }: ExampleProps) {
   );
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key.spec.ts)
 
 ## Further Reading
 

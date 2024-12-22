@@ -23,11 +23,6 @@ react-x/no-prop-types
 - `recommended-typescript`
 - `recommended-type-checked`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-prop-types.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-prop-types.spec.ts)
-
 ## What it does
 
 Disallows using `propTypes` property in favor of TypeScript or another type-checking solution.
@@ -107,6 +102,11 @@ function ExampleComponent({ name }: ExampleComponentProps) {
   return <div>{name}</div>;
 }
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-prop-types.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-prop-types.spec.ts)
 
 ## Further Reading
 

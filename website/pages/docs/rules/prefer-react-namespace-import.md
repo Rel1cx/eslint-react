@@ -16,11 +16,6 @@ react-x/prefer-react-namespace-import
 
 `🔍` `🔧`
 
-**Implementation**:
-
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-react-namespace-import.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-react-namespace-import.spec.ts)
-
 ## What it does
 
 Enforces React is imported via a namespace import.
@@ -50,3 +45,8 @@ import { useState } from "react";
 
 import type { useState } from "react";
 ```
+
+## Implementation
+
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-react-namespace-import.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-react-namespace-import.spec.ts)
