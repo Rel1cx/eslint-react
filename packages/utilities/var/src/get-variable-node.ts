@@ -5,8 +5,6 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
-import { getVariableDef } from "./get-variable-def";
-
 /**
  * Get the init node of the nth definition of a variable
  * @param at The index number of def in defs
@@ -26,7 +24,7 @@ export function getVariableNode(at: number) {
   > => {
     return F.pipe(
       O.some(variable),
-      O.flatMap(getVariableDef(at)),
+      O.flatMapNullable(v => v.defs.at(at)),
       O.flatMapNullable(def => {
         switch (true) {
           case def.type === DefinitionType.FunctionName

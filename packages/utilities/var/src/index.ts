@@ -4,7 +4,6 @@ export * from "./get-child-scopes";
 export * from "./get-scope";
 export * from "./get-static-value";
 export * from "./get-variable-declarator-id";
-export * from "./get-variable-def";
 export * from "./get-variable-node";
 export * from "./get-variables";
 export * from "./is-initialized-from-source";

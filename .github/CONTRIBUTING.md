@@ -59,7 +59,7 @@ Before submitting your contribution though, please make sure to take a moment an
 - `packages/plugins/eslint-plugin-react-x`: ESLint plugin for `"react"`.
 - `packages/plugins/eslint-plugin-react-dom`: ESLint plugin for `"react-dom"`.
 - `packages/plugins/eslint-plugin-react-web-api` - ESLint plugin for interacting with Web APIs
-- `packages/plugins/eslint-plugin-react-hooks-extra`:ESLint plugin for React Hooks related rules.
+- `packages/plugins/eslint-plugin-react-hooks-extra`: ESLint plugin for React Hooks related rules.
 - `packages/plugins/eslint-plugin-react-naming-convention`: ESLint plugin for React naming conventions.
 - `packages/plugins/eslint-plugin-react-debug`: ESLint plugin for debugging ESLint React rules.
 - `packages/plugins/eslint-plugin`: The main ESLint plugin of ESLint React. Contains all the rules from the above plugins.
@@ -67,9 +67,9 @@ Before submitting your contribution though, please make sure to take a moment an
 - `packages/utilities/ast`: TSESTree AST utility module.
 - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
 - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
-- `packages/core`: ESLint React's ESLint utility module for static analysis of React core APIs and Patterns.
-- `packages/types`: ESLint React's type definitions.
-- `packages/shared`: ESLint React's Shared constants and functions.
+- `packages/core`: Utility module for static analysis of React core APIs and Patterns.
+- `packages/types`: Type definitions.
+- `packages/shared`: Shared constants and functions.
 - `website`: The documentation website for ESLint React.
 
 ### Developing Documentation
