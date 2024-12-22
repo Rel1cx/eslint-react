@@ -70,14 +70,16 @@
 
   .nextra-code {
     .twoslash-highlighted {
-      background: none;
       border: none;
-      text-decoration: underline wavy #f6c99b;
-      text-decoration-skip-ink: none;
-
-      .twoslash-hover {
-        border: none;
-      }
+      background-attachment: scroll;
+      background-clip: border-box;
+      background-color: #ffffff00;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2IDMnIGVuYWJsZS1iYWNrZ3JvdW5kPSduZXcgMCAwIDYgMycgaGVpZ2h0PSc0LjUnIHdpZHRoPSc5Jz4KICAgIDxnIGZpbGw9JyNmOWMzNWEnPgogICAgICAgIDxwb2x5Z29uIHBvaW50cz0nNS41LDAgMi41LDMgMS4xLDMgNC4xLDAnIC8+CiAgICAgICAgPHBvbHlnb24gcG9pbnRzPSc0LDAgNiwyIDYsMC42IDUuNCwwJyAvPgogICAgICAgIDxwb2x5Z29uIHBvaW50cz0nMCwyIDEsMyAyLjQsMyAwLDAuNicgLz4KICAgIDwvZz4KPC9zdmc+");
+      background-origin: padding-box;
+      background-position-x: 0%;
+      background-position-y: 100%;
+      background-repeat: repeat-x;
+      background-size: auto;
     }
   }
 }
