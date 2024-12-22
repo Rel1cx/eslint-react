@@ -27,7 +27,6 @@ react-x/no-unstable-default-props
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-default-props.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-default-props.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-unstable-default-props.md)
 
 ## What it does
 

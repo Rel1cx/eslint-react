@@ -20,7 +20,6 @@ react-x/no-complex-conditional-rendering
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-complex-conditional-rendering.md)
 
 ## What it does
 

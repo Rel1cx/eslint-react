@@ -27,7 +27,6 @@ react-x/no-unused-class-component-members
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/no-unused-class-component-members.md)
 
 ## What it does
 

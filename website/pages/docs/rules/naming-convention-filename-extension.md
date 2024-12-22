@@ -20,7 +20,6 @@ react-naming-convention/filename-extension
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/naming-convention-filename-extension.md)
 
 ## What it does
 

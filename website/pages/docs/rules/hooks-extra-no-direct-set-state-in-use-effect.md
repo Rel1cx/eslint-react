@@ -26,7 +26,6 @@ react-hooks-extra/no-direct-set-state-in-use-effect
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-effect.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-effect.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/hooks-extra-no-direct-set-state-in-use-effect.md)
 
 ## What it does
 

@@ -26,7 +26,6 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/prefer-use-state-lazy-initialization.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/prefer-use-state-lazy-initialization.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/hooks-extra-prefer-use-state-lazy-initialization.md)
 
 ## What it does
 

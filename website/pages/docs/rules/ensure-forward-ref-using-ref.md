@@ -27,7 +27,6 @@ react-x/ensure-forward-ref-using-ref
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/ensure-forward-ref-using-ref.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/ensure-forward-ref-using-ref.spec.ts)
-- [Docs source](https://github.com/Rel1cx/eslint-react/tree/main/website/pages/docs/rules/ensure-forward-ref-using-ref.md)
 
 ## What it does
 
