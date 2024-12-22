@@ -29,6 +29,8 @@ Prevents usage of `componentWillMount` in class components.
 
 This API has been renamed from `componentWillMount` to `UNSAFE_componentWillMount`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
+A **safe** codemod is available for this rule.
+
 ## Examples
 
 ### Failing

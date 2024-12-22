@@ -31,6 +31,8 @@ In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 
 `forwardRef` will deprecated in a future release. Learn more [here](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop).
 
+A **unsafe** codemod is available for this rule.
+
 ## Examples
 
 ### Failing
@@ -39,7 +41,23 @@ In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 import { forwardRef } from "react";
 
 const MyInput = forwardRef(function MyInput(props, ref) {
-  // ...
+  return <input ref={ref} {...props} />;
+});
+```
+
+```tsx
+import React from "react";
+
+interface MyInputProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(function MyInput(
+  { value, onChange },
+  ref,
+) {
+  return <input ref={ref} value={value} onChange={(e) => onChange(e.target.value)} />;
 });
 ```
 
@@ -47,6 +65,19 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 
 ```tsx
 function MyInput({ ref, ...props }) {
+  return <input ref={ref} {...props} />;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyInputProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function MyInput({ ref, value, onChange }: MyInputProps & { ref: React.RefObject<HTMLInputElement> }) {
   // ...
 }
 ```

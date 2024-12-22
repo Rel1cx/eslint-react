@@ -29,6 +29,8 @@ Disallows using `<Context.Provider>`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 
+A **safe** codemod is available for this rule.
+
 ## Examples
 
 ### Failing

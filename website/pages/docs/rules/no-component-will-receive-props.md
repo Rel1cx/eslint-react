@@ -29,6 +29,8 @@ Prevents usage of `componentWillReceiveProps` in class components.
 
 This API has been renamed from `componentWillReceiveProps` to `UNSAFE_componentWillReceiveProps`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
+A **safe** codemod is available for this rule.
+
 ## Examples
 
 ### Failing
