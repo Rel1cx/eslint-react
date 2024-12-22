@@ -36,11 +36,11 @@ The `defaultProps` will be removed from functional components in React 19 in pla
 ```tsx
 import React from "react";
 
-function ExampleComponent(props) {
+function MyComponent(props) {
   return <div>{props.name}</div>;
 }
 
-ExampleComponent.defaultProps = {
+MyComponent.defaultProps = {
   name: "John Doe",
 };
 ```
@@ -50,11 +50,11 @@ ExampleComponent.defaultProps = {
 ```tsx
 import React from "react";
 
-interface ExampleComponentProps {
+interface MyComponentProps {
   name: string;
 }
 
-function ExampleComponent({ name = "John Doe" }: ExampleComponentProps) {
+function MyComponent({ name = "John Doe" }: MyComponentProps) {
   return <div>{name}</div>;
 }
 ```

@@ -34,7 +34,7 @@ Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/reac
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <div dangerouslySetInnerHTML={{ __html: "Hello, World!" }} />;
 }
 ```

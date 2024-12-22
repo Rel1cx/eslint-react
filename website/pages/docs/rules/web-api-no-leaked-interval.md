@@ -36,7 +36,7 @@ Scheduling a interval within the setup function of `useEffect` without canceling
 ```tsx
 import React, { useEffect, useState } from "react";
 
-function Example() {
+function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function Example() {
 ```tsx
 import React, { useEffect, useState } from "react";
 
-function Example() {
+function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {

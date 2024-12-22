@@ -37,7 +37,7 @@ To combat this issue React allows useState calls to use an [initializer function
 ```tsx
 import React, { useState } from "react";
 
-function Example() {
+function MyComponent() {
   const [value, setValue] = useState(generateTodos());
   //                                 ^^^^^^^^^^^^^^^
   //                                 - Don't call a function directly inside the 'useState' call.
@@ -53,8 +53,8 @@ declare function generateTodos(): string[];
 ```tsx
 import React, { useState } from "react";
 
-function Example() {
-  // @annotate: Use an initializer function to avoid recreating the initial state
+function MyComponent() {
+  // 🟢 Good: Use an initializer function to avoid recreating the initial state
   const [value, setValue] = useState(() => generateTodos());
 
   return null;

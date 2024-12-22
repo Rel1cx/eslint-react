@@ -34,7 +34,7 @@ Warns unused class component methods and properties.
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   handleClick() {} // Unused
   render() {
     return null;
@@ -47,7 +47,7 @@ class Example extends React.Component {
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   static getDerivedStateFromError(error: React.ErrorInfo) {
     return { hasError: true };
   }

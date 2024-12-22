@@ -40,11 +40,11 @@ This rule aims to prevent spreading key from objects.
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: { id: string; name: string }[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((item) => {
@@ -64,11 +64,11 @@ function Example({ items }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: { id: string; name: string }[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((item) => <li key={item.id}>{item.name}</li>)}

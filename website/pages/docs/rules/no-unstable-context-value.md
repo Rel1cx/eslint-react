@@ -36,15 +36,15 @@ React will re-render all consumers of a context whenever the context value chang
 ```tsx
 import React from "react";
 
-const ExampleContext = React.createContext({});
+const MyContext = React.createContext({});
 
-function ExampleProvider() {
+function MyComponentProvider() {
   return (
-    <ExampleContext.Provider value={{ foo: "bar" }}>
+    <MyContext.Provider value={{ foo: "bar" }}>
       {/*                             ^^^^^^^^^^^^^ */}
       {/*                             - A/an 'Object literal' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook */}
       <ExampleConsumer />
-    </ExampleContext.Provider>
+    </MyContext.Provider>
   );
 }
 ```
@@ -54,15 +54,15 @@ function ExampleProvider() {
 ```tsx
 import React, { useMemo } from "react";
 
-const ExampleContext = React.createContext({});
+const MyContext = React.createContext({});
 
 const value = { foo: "bar" };
 
-function ExampleProvider() {
+function MyComponentProvider() {
   return (
-    <ExampleContext.Provider value={value}>
+    <MyContext.Provider value={value}>
       <ExampleConsumer />
-    </ExampleContext.Provider>
+    </MyContext.Provider>
   );
 }
 ```

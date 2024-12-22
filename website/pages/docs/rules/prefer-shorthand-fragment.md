@@ -27,15 +27,13 @@ Enforces the use of shorthand syntax for fragments.
 ```tsx
 import React, { Fragment } from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <Fragment>
       <button />
       <button />
     </Fragment>
   );
-  //       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //       - Use fragment shorthand syntax instead of 'Fragment' component.
 }
 ```
 
@@ -44,7 +42,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <>
       <button />

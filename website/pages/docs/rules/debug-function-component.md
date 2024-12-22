@@ -29,7 +29,7 @@ Reports all function components. Useful for debugging. This rule should only be 
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <button />;
 }
 ```
@@ -37,19 +37,19 @@ function Example() {
 ```tsx
 import React from "react";
 
-const Example = () => <button />;
+const MyComponent = () => <button />;
 ```
 
 ```tsx
 import React from "react";
 
-const Example = React.memo(() => <button />);
+const MyComponent = React.memo(() => <button />);
 ```
 
 ```tsx
 import React from "react";
 
-const Example = React.forwardRef(() => <button />);
+const MyComponent = React.forwardRef(() => <button />);
 ```
 
 ## Implementation

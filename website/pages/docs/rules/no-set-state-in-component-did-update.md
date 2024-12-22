@@ -36,13 +36,13 @@ Updating the state after a component mount will trigger a second `render()` call
 ```tsx
 import React from "react";
 
-interface ExampleProps {}
+interface MyComponentProps {}
 
 interface ExampleState {
   name: string;
 }
 
-class Example extends React.Component<ExampleProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, ExampleState> {
   componentDidUpdate() {
     this.setState({ name: "John" });
     //   ^^^^^^^^^^^^^^^^^^^^^^^^^^

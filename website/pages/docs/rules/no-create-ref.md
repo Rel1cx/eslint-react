@@ -36,7 +36,7 @@ Prevents usage of `createRef()` in function components.
 ```tsx
 import React, { createRef } from "react";
 
-function Example() {
+function MyComponent() {
   const ref = React.createRef<HTMLDivElement>();
   //          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //          - [Deprecated] Use 'useRef' instead.
@@ -50,7 +50,7 @@ function Example() {
 ```tsx
 import React, { useRef } from "react";
 
-function Example() {
+function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
 
   return <div ref={ref} />;
@@ -60,7 +60,7 @@ function Example() {
 ```tsx
 import React, { createRef } from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   inputRef = createRef();
   // ...
 }

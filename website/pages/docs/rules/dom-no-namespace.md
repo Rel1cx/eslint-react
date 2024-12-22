@@ -36,7 +36,7 @@ Namespaces, such as with `svg:circle` are not supported in React.
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <svg:circle
       cx="50"
@@ -55,7 +55,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />;
 }
 ```

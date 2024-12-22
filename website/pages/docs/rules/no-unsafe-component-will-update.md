@@ -36,7 +36,7 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillUpdate` makes your comp
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   UNSAFE_componentWillUpdate() {
     // ...
   }

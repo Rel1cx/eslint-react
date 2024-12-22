@@ -36,11 +36,11 @@ React needs keys to identify items in the list. If you don’t specify a key, Re
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: { id: number; name: string }[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((todo) => (
@@ -60,11 +60,11 @@ declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: { id: number; name: string }[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((todo) => <Todo key={todo.id} {...todo} />)}

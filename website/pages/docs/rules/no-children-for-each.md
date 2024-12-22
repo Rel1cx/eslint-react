@@ -36,11 +36,11 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 ```tsx
 import React, { Children } from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   children: React.ReactNode;
 }
 
-function Example({ children }: ExampleProps) {
+function MyComponent({ children }: MyComponentProps) {
   const result = [];
   Children.forEach(children, (child, index) => {
     result.push(child);

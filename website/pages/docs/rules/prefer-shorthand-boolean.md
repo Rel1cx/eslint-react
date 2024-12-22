@@ -31,7 +31,7 @@ This rule enforces the use of shorthand syntax for boolean attributes.
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <button disabled={true} />;
   //             ^^^^^^^^^^^^^^^
   //             - Use shorthand boolean attribute 'disabled'.
@@ -43,7 +43,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <button disabled />;
 }
 ```

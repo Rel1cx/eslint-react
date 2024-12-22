@@ -36,7 +36,7 @@ While having `shouldComponentUpdate` will still work, it becomes pointless to ex
 ```tsx
 import React from "react";
 
-class Example extends React.PureComponent {
+class MyComponent extends React.PureComponent {
   // 'Example' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.
   shouldComponentUpdate() {
     // do check
@@ -54,7 +54,7 @@ class Example extends React.PureComponent {
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   shouldComponentUpdate() {
     // do check
     return true;

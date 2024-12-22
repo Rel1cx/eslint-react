@@ -36,13 +36,13 @@ Usage of `this.state` inside `setState` calls might result in errors when two st
 ```tsx
 import React from "react";
 
-interface ExampleProps {}
+interface MyComponentProps {}
 
 interface ExampleState {
   foo: number;
 }
 
-class Example extends React.Component<ExampleProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, ExampleState> {
   state = {
     foo: 1,
   };
@@ -62,13 +62,13 @@ class Example extends React.Component<ExampleProps, ExampleState> {
 ```tsx
 import React from "react";
 
-interface ExampleProps {}
+interface MyComponentProps {}
 
 interface ExampleState {
   foo: number;
 }
 
-class Example extends React.Component<ExampleProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, ExampleState> {
   state = {
     foo: 1,
   };

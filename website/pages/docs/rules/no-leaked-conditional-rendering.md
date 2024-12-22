@@ -33,7 +33,7 @@ In React, you might end up rendering unexpected values like `0` or `NaN`. In Rea
 ```tsx twoslash
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <>{0 && <view />}</>;
   //        ^
   //        - Possible unexpected value will be rendered (React Dom: renders undesired '0', React Native: crashes 💥).
@@ -43,7 +43,7 @@ function Example() {
 ```tsx twoslash
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <>{NaN && <div />}</>;
   //        ^^^
   //        - Possible unexpected value will be rendered (React Dom: renders undesired 'NaN', React Native: crashes 💥).
@@ -53,7 +53,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <>{"" && <div />}</>;
   //        ^^
   //        - Possible unexpected value will be rendered (React Dom: renders nothing, React Native, with React below 18: crashes 💥).
@@ -70,11 +70,11 @@ This can be avoided by:
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   count: number;
 }
 
-function Example({ count }: ExampleProps) {
+function MyComponent({ count }: MyComponentProps) {
   return <div>{count && <span>There are {count} results</span>}</div>;
   //           ^^^^^
   //           - Potential leaked value 'count' that might cause unintentionally rendered values or rendering crashes.
@@ -84,11 +84,11 @@ function Example({ count }: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length && <List items={items} />}</div>;
   //           ^^^^^^^^^^^^
   //           - Potential leaked value 'items.length' that might cause unintentionally rendered values or rendering crashes.
@@ -100,11 +100,11 @@ declare const List: React.ComponentType<{ items: string[] }>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items[0] && <List items={items} />}</div>;
   //           ^^^^^^^^
   //           - Potential leaked value 'items[0]' that might cause unintentionally rendered values or rendering crashes.
@@ -116,12 +116,12 @@ declare const List: React.ComponentType<{ items: string[] }>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   numberA: number;
   numberB: number;
 }
 
-function Example({ numberA, numberB }: ExampleProps) {
+function MyComponent({ numberA, numberB }: MyComponentProps) {
   return (
     <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
     //    ^^^^^^^^^^^^^^^^^^^^
@@ -137,11 +137,11 @@ declare const Results: React.ComponentType<React.PropsWithChildren>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items}</div>;
 }
 ```
@@ -149,14 +149,14 @@ function Example({ items }: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   customTitle: string;
 }
 
 const defaultTitle = "Default Title";
 
-// @log: An OR condition it's considered valid since it's assumed as a way to render some fallback if the first value is falsy, not to render something conditionally
-function Example({ customTitle }: ExampleProps) {
+// An OR condition it's considered valid since it's assumed as a way to render some fallback if the first value is falsy, not to render something conditionally
+function MyComponent({ customTitle }: MyComponentProps) {
   return <div>{customTitle || defaultTitle}</div>;
 }
 ```
@@ -164,11 +164,11 @@ function Example({ customTitle }: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>There are {items.length} items</div>;
 }
 ```
@@ -176,12 +176,12 @@ function Example({ items }: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
   count: number;
 }
 
-function Example({ items, count }: ExampleProps) {
+function MyComponent({ items, count }: MyComponentProps) {
   return <div>{!count && "No results found"}</div>;
 }
 ```
@@ -189,11 +189,11 @@ function Example({ items, count }: ExampleProps) {
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{!!items.length && <List items={items} />}</div>;
 }
 
@@ -203,11 +203,11 @@ declare const List: React.ComponentType<{ items: string[] }>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{Boolean(items.length) && <List items={items} />}</div>;
 }
 
@@ -217,11 +217,11 @@ declare const List: React.ComponentType<{ items: string[] }>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length > 0 && <List items={items} />}</div>;
 }
 
@@ -231,11 +231,11 @@ declare const List: React.ComponentType<{ items: string[] }>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length ? <List items={items} /> : null}</div>;
 }
 
@@ -245,11 +245,11 @@ declare const List: React.ComponentType<{ items: string[] }>;
 ```tsx twoslash
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length ? <List items={items} /> : <EmptyList />}</div>;
 }
 

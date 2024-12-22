@@ -38,11 +38,11 @@ A **safe** codemod is available for this rule.
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   name: string;
 }
 
-class Example extends React.Component<ExampleProps> {
+class MyComponent extends React.Component<MyComponentProps> {
   componentWillMount() {
     // ...
   }
@@ -54,11 +54,11 @@ class Example extends React.Component<ExampleProps> {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   name: string;
 }
 
-class Example extends React.Component<ExampleProps> {
+class MyComponent extends React.Component<MyComponentProps> {
   UNSAFE_componentWillMount() {
     // ...
   }

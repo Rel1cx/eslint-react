@@ -38,9 +38,9 @@ Omitting the `ref` argument is usually a bug, and components not using `ref` don
 ```tsx
 import React from "react";
 
-const Example = React.forwardRef((props) => {
-  //                             ^^^^^^^
-  //                             - 'forwardRef' is used with this component but no 'ref' parameter is set.
+const MyComponent = React.forwardRef((props) => {
+  //                                  ^^^^^
+  //                                  - 'forwardRef' is used with this component but no 'ref' parameter is set.
   return <button />;
 });
 ```
@@ -50,7 +50,7 @@ const Example = React.forwardRef((props) => {
 ```tsx
 import React from "react";
 
-const Example = React.forwardRef<HTMLButtonElement>((props, ref) => {
+const MyComponent = React.forwardRef<HTMLButtonElement>((props, ref) => {
   return <button ref={ref} />;
 });
 ```

@@ -29,9 +29,7 @@ React Hooks `useCallback` has empty dependencies array like what's in the exampl
 ```tsx
 import React, { useCallback } from "react";
 
-function Example() {
-  // @warn: useCallback has empty dependencies array
-
+function MyComponent() {
   const onClick = useCallback(() => {
     console.log("clicked");
   }, []);
@@ -49,7 +47,7 @@ function onClick() {
   console.log("clicked");
 }
 
-function Example() {
+function MyComponent() {
   return <button type="button" onClick={onClick} />;
 }
 ```

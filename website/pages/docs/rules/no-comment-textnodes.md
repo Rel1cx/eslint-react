@@ -36,13 +36,13 @@ This could be a mistake during code editing or it could be a misunderstanding of
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <div>// empty div</div>;
   //          ^^^^^^^^^^^^
   //          - Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
 }
 
-function Example2() {
+function MyComponent2() {
   return <div>/* empty div */</div>;
   //          ^^^^^^^^^^^^^^^
   //          - Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
@@ -54,7 +54,7 @@ function Example2() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <div>{/* empty div */}</div>;
 }
 ```
@@ -66,8 +66,8 @@ It's possible you may want to legitimately output comment start characters (`//`
 ```tsx
 import React from "react";
 
-function Example() {
-  // @annotate: This is a legitimate use of comment strings in JSX textnodes
+function MyComponent() {
+  // 🟢 Good: This is a legitimate use of comment strings in JSX textnodes
   return <div>{"/* This will be output as a text node */"}</div>;
 }
 ```

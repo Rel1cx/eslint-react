@@ -29,7 +29,7 @@ A **safe** auto-fix is available for this rule.
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <button disabled />;
   //             ^^^^^^^^
   //             - Avoid using shorthand syntax for 'disabled' attribute.
@@ -41,7 +41,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <button disabled={true} />;
 }
 ```

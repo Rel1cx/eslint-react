@@ -36,7 +36,7 @@ React uses keys to identify elements in an array. If two elements have the same 
 ```tsx
 import React from 'react';
 
-function Example () {
+function MyComponent () {
   return [
     <li key="1">Item 1</li>
     <li key="1">Item 2</li>
@@ -51,7 +51,7 @@ function Example () {
 ```tsx
 import React from 'react';
 
-function Example () {
+function MyComponent () {
   return [
     <li key="1">Item 1</li>
     <li key="2">Item 2</li>

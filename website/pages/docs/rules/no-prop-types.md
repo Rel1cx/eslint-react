@@ -38,7 +38,7 @@ The `propType` checks will be removed from the React package, and using them wil
 ```tsx
 import React from "react";
 
-class ExampleComponent extends React.Component {
+class MyComponent extends React.Component {
   static propTypes = {
     name: React.PropTypes.string,
   };
@@ -52,13 +52,13 @@ class ExampleComponent extends React.Component {
 ```tsx
 import React from "react";
 
-class ExampleComponent extends React.Component {
+class MyComponent extends React.Component {
   render() {
     return <div>{this.props.name}</div>;
   }
 }
 
-ExampleComponent.propTypes = {
+MyComponent.propTypes = {
   name: propTypes.string,
 };
 ```
@@ -66,11 +66,11 @@ ExampleComponent.propTypes = {
 ```tsx
 import React from "react";
 
-function ExampleComponent(props) {
+function MyComponentComponent(props) {
   return <div>{props.name}</div>;
 }
 
-ExampleComponent.propTypes = {
+MyComponent.propTypes = {
   name: propTypes.string,
 };
 ```
@@ -80,11 +80,11 @@ ExampleComponent.propTypes = {
 ```tsx
 import React from "react";
 
-interface ExampleComponentProps {
+interface MyComponentProps {
   name: string;
 }
 
-class ExampleComponent extends React.Component<ExampleComponentProps> {
+class MyComponent extends React.Component<MyComponentProps> {
   render() {
     return <div>{this.props.name}</div>;
   }
@@ -94,11 +94,11 @@ class ExampleComponent extends React.Component<ExampleComponentProps> {
 ```tsx
 import React from "react";
 
-interface ExampleComponentProps {
+interface MyComponentProps {
   name: string;
 }
 
-function ExampleComponent({ name }: ExampleComponentProps) {
+function MyComponentComponent({ name }: MyComponentProps) {
   return <div>{name}</div>;
 }
 ```

@@ -29,11 +29,11 @@ This rule aims to enforce the use of destructuring assignment over property assi
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example(props: ExampleProps) {
+function MyComponent(props: MyComponentProps) {
   const items = props.items;
   //            ^^^^^^^^^^^
   //            - Use destructuring assignment for props.
@@ -45,11 +45,11 @@ function Example(props: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example(props: ExampleProps) {
+function MyComponent(props: MyComponentProps) {
   return <div>{props.items}</div>;
   //           ^^^^^^^^^^^
   //           - Use destructuring assignment for props.
@@ -61,11 +61,11 @@ function Example(props: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example(props: ExampleProps) {
+function MyComponent(props: MyComponentProps) {
   const { items } = props;
 
   return <div>{items}</div>;
@@ -75,11 +75,11 @@ function Example(props: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return <div>{items}</div>;
 }
 ```
@@ -87,11 +87,11 @@ function Example({ items }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items, ...rest }: ExampleProps) {
+function MyComponent({ items, ...rest }: MyComponentProps) {
   return <div {...rest}>{items}</div>;
 }
 ```

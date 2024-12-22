@@ -36,7 +36,7 @@ When using `dangerouslySetInnerHTML`, the content of the DOM element is set from
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>
       <p>Goodbye World</p>
@@ -50,7 +50,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
 }
 ```

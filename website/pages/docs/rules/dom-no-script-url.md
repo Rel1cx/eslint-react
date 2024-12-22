@@ -36,7 +36,7 @@ Prevents usage of `javascript:` URLs as the value of certain attributes.
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <a href="javascript:alert('Hello, world!')">Click me</a>;
   //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //        - Using a `javascript:` URL is a security risk and should be avoided.
@@ -48,7 +48,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <a href="/some-page">Click me</a>;
 }
 ```

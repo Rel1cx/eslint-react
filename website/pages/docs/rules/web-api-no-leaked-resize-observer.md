@@ -36,7 +36,7 @@ Creating a `ResizeObserver` without disconnecting it can lead to memory leaks an
 ```tsx
 import React, { useEffect, useRef } from "react";
 
-function Example() {
+function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ function Example() {
 ```tsx
 import React, { useEffect, useRef } from "react";
 
-function Example() {
+function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

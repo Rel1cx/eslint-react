@@ -36,7 +36,7 @@ String refs are deprecated in React. Use callback refs instead.
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <div ref="ref" />;
   //              ^^^^^
   //              - [Deprecated] Use callback refs instead.
@@ -48,7 +48,7 @@ function Example() {
 ```tsx
 import React, { useRef } from "react";
 
-function Example() {
+function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
   return <div ref={ref} />;
 }

@@ -38,7 +38,7 @@ This rule reports cases where attribute contains `allow-scripts` and `allow-same
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <iframe
       src="https://example.com"
@@ -53,7 +53,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return <iframe src="https://example.com" sandbox="allow-popups" />;
 }
 ```

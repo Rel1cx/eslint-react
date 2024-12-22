@@ -36,7 +36,7 @@ Adding an event listener without removing it can lead to memory leaks and unexpe
 ```tsx
 import React, { Component } from "react";
 
-class Example extends Component {
+class MyComponent extends Component {
   componentDidMount() {
     document.addEventListener("click", this.handleClick);
     //                                 ^^^^^^^^^^^^^^^^
@@ -56,7 +56,7 @@ class Example extends Component {
 ```tsx
 import React, { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     const handleClick = () => {
       console.log("clicked");
@@ -74,7 +74,7 @@ function Example() {
 ```tsx
 import React, { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     document.addEventListener("click", () => console.log("clicked"));
     //                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -88,7 +88,7 @@ function Example() {
 ```tsx
 import React, { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     const handleClick = () => {
       console.log("clicked");
@@ -126,7 +126,7 @@ function useCustomHook() {
 ```tsx
 import React, { Component } from "react";
 
-class Example extends Component {
+class MyComponent extends Component {
   componentDidMount() {
     document.addEventListener("click", this.handleClick);
   }
@@ -148,7 +148,7 @@ class Example extends Component {
 ```tsx
 import React, { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     const handleClick = () => {
       console.log("clicked");
@@ -168,7 +168,7 @@ function Example() {
 ```tsx
 import React, { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     const handleClick = () => {
       console.log("clicked");
@@ -188,7 +188,7 @@ function Example() {
 ```tsx
 import { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
     const handleActivity = () => {};
@@ -211,7 +211,7 @@ function Example() {
 ```tsx
 import { useEffect } from "react";
 
-function Example() {
+function MyComponent() {
   useEffect(() => {
     const events = [
       ["mousemove", () => {}],

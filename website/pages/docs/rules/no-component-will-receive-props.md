@@ -38,7 +38,7 @@ A **safe** codemod is available for this rule.
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   componentWillReceiveProps() {
     // ...
   }
@@ -50,7 +50,7 @@ class Example extends React.Component {
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   UNSAFE_componentWillReceiveProps() {
     // ...
   }

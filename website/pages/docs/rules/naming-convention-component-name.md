@@ -29,8 +29,8 @@ This rule enforces naming conventions for components. Can be used to enforce Pas
 ```tsx
 import React from "react";
 
-function Example_Component() {
-  //     ^^^^^^^^^^^^^^^^^
+function My_component() {
+  //     ^^^^^^^^^^^^
   //     - Expected component name to be in 'PascalCase'.
   return null;
 }
@@ -41,7 +41,7 @@ function Example_Component() {
 ```tsx
 import React from "react";
 
-function ExampleComponent() {
+function MyComponent() {
   return null;
 }
 ```

@@ -40,13 +40,13 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items = [] }: ExampleProps) {
-  //                       ^^
-  //                       - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
+function MyComponent({ items = [] }: MyComponentProps) {
+  //                           ^^
+  //                           - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```
@@ -54,13 +54,13 @@ function Example({ items = [] }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: Record<string, string>;
 }
 
-function Example({ items = {} }: ExampleProps) {
-  //                       ^^
-  //                       - A/an 'Object literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Object literal'.
+function MyComponent({ items = {} }: MyComponentProps) {
+  //                           ^^
+  //                           - A/an 'Object literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Object literal'.
   return null;
 }
 ```
@@ -68,13 +68,13 @@ function Example({ items = {} }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   onClick: () => void;
 }
 
-function Example({ onClick = () => {} }: ExampleProps) {
-  //                         ^^^^^^^^
-  //                         - A/an 'arrow function expression' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
+function MyComponent({ onClick = () => {} }: MyComponentProps) {
+  //                             ^^^^^^^^
+  //                             - A/an 'arrow function expression' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
   return null;
 }
 ```
@@ -82,11 +82,11 @@ function Example({ onClick = () => {} }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example(props: ExampleProps) {
+function MyComponent(props: MyComponentProps) {
   const { items = [] } = props;
   //              ^^
   //              - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
@@ -101,11 +101,11 @@ import React from "react";
 
 const emptyArray: string[] = [];
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example({ items = emptyArray }: ExampleProps) {
+function MyComponent({ items = emptyArray }: MyComponentProps) {
   return null;
 }
 ```
@@ -115,11 +115,11 @@ import React from "react";
 
 const emptyObject = {};
 
-interface ExampleProps {
+interface MyComponentProps {
   items: Record<string, string>;
 }
 
-function Example({ items = emptyObject }: ExampleProps) {
+function MyComponent({ items = emptyObject }: MyComponentProps) {
   return null;
 }
 ```
@@ -129,11 +129,11 @@ import React from "react";
 
 const noop = () => {};
 
-interface ExampleProps {
+interface MyComponentProps {
   onClick: () => void;
 }
 
-function Example({ onClick = noop }: ExampleProps) {
+function MyComponent({ onClick = noop }: MyComponentProps) {
   return null;
 }
 ```
@@ -143,11 +143,11 @@ import React from "react";
 
 const emptyArray: string[] = [];
 
-interface ExampleProps {
+interface MyComponentProps {
   items: string[];
 }
 
-function Example(props: ExampleProps) {
+function MyComponent(props: MyComponentProps) {
   const { items = emptyArray } = props;
 
   return null;
@@ -157,14 +157,15 @@ function Example(props: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   num: number;
   str: string;
   bool: boolean;
 }
 
-// @log: Primitives are all compared by value, so are safe to be inlined
-function Example({ num = 3, str = "foo", bool = true }: ExampleProps) {
+function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
+  //                 -------------------------------------
+  //                 - Primitives are all compared by value, so are safe to be inlined as default props.
   return null;
 }
 ```

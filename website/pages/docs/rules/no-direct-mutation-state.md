@@ -38,13 +38,13 @@ The only place that's acceptable to assign `this.state` is in a class component'
 ```tsx
 import React from "react";
 
-interface ExampleProps {}
+interface MyComponentProps {}
 
 interface ExampleState {
   foo: string;
 }
 
-class Example extends React.Component<ExampleProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, ExampleState> {
   state = {
     foo: "bar",
   };
@@ -70,13 +70,13 @@ class Example extends React.Component<ExampleProps, ExampleState> {
 ```tsx
 import React from "react";
 
-interface ExampleProps {}
+interface MyComponentProps {}
 
 interface ExampleState {
   foo: string;
 }
 
-class Example extends React.Component<ExampleProps, ExampleState> {
+class MyComponent extends React.Component<MyComponentProps, ExampleState> {
   state = {
     foo: "bar",
   };

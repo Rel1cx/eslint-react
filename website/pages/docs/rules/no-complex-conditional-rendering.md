@@ -25,7 +25,7 @@ Warns when conditional rendering is too complex.
 ### Failing
 
 ```tsx
-function Example({ condition1, condition2, condition3, condition4 }) {
+function MyComponent({ condition1, condition2, condition3, condition4 }) {
   return <div>{condition1 || condition2 ? <div>X</div> : condition3 || condition4 ? <div>Y</div> : null}</div>;
 }
 ```
@@ -33,7 +33,7 @@ function Example({ condition1, condition2, condition3, condition4 }) {
 ### Passing
 
 ```tsx
-function Example({ condition1, condition2, condition3, condition4 }) {
+function MyComponent({ condition1, condition2, condition3, condition4 }) {
   const shouldDisplayX = condition1 || condition2;
   const shouldDisplayY = condition3 || condition4;
   return (

@@ -34,7 +34,7 @@ Warns unused class component state.
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   // Unused
   state = {
     foo: 1,
@@ -51,7 +51,7 @@ class Example extends React.Component {
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   state = {
     foo: 1,
   };

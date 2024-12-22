@@ -27,7 +27,7 @@ Enforces destructuring and symmetric naming of `useState` hook value and setter 
 ```tsx
 import React, { useState } from "react";
 
-function Example() {
+function MyComponent() {
   const useStateResult = useState(0);
   //    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //    - 'useState' call is not destructured into value + setter pair.
@@ -41,7 +41,7 @@ function Example() {
 ```tsx
 import React, { useState } from "react";
 
-function Example() {
+function MyComponent() {
   const [count, setCount] = useState(0);
 
   return <div>{count}</div>;
@@ -51,7 +51,7 @@ function Example() {
 ```tsx
 import React, { useState } from "react";
 
-function Example() {
+function MyComponent() {
   const [{ foo, bar, baz }, setFooBarBaz] = useState({
     foo: "bbb",
     bar: "aaa",

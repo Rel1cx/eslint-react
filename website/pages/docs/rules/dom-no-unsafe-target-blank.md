@@ -34,7 +34,7 @@ Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <a href="https://example.com" target="_blank">
       Example
@@ -48,7 +48,7 @@ function Example() {
 ```tsx
 import React from "react";
 
-function Example() {
+function MyComponent() {
   return (
     <a href="https://example.com" target="_blank" rel="noreferrer noopener">
       Example

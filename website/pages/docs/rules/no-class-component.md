@@ -40,11 +40,11 @@ This rule aims to prevent usage of class components in React.
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   name: string;
 }
 
-class Example extends React.Component<ExampleProps> {
+class MyComponent extends React.Component<MyComponentProps> {
   render() {
     return <h1>Hello, {this.props.name}!</h1>;
   }
@@ -56,11 +56,11 @@ class Example extends React.Component<ExampleProps> {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   name: string;
 }
 
-function Example({ name }: ExampleProps) {
+function MyComponent({ name }: MyComponentProps) {
   return <h1>Hello, {name}!</h1>;
 }
 ```

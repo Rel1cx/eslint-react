@@ -29,9 +29,9 @@ Props are read-only snapshots in time: every render receives a new version of pr
 ```tsx twoslash
 import React from "react";
 
-function Example(props: { name: string }) {
-  //             ^^^^^^^^^^^^^^^^^^^^^^^
-  //             - A function component's props should be read-only.
+function MyComponent(props: { name: string }) {
+  //                 ^^^^^^^^^^^^^^^^^^^^^^^
+  //                 - A function component's props should be read-only.
   return <div>{props.name}</div>;
 }
 ```
@@ -43,9 +43,9 @@ interface Props {
   name: string;
 }
 
-function Example(props: Props) {
-  //             ^^^^^^^^^^^^
-  //            - A function component's props should be read-only.
+function MyComponent(props: Props) {
+  //                 ^^^^^^^^^^^^
+  //                 - A function component's props should be read-only.
   return <div>{props.name}</div>;
 }
 ```
@@ -55,7 +55,7 @@ function Example(props: Props) {
 ```tsx twoslash
 import React from "react";
 
-function Example(props: { readonly name: string }) {
+function MyComponent(props: { readonly name: string }) {
   return <div>{props.name}</div>;
 }
 ```
@@ -67,7 +67,7 @@ interface Props {
   readonly name: string;
 }
 
-function Example(props: Props) {
+function MyComponent(props: Props) {
   return <div>{props.name}</div>;
 }
 ```

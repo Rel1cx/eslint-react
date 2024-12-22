@@ -38,11 +38,11 @@ When using JSX, the `children` should be nested between the opening and closing 
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   children: React.ReactNode;
 }
 
-function Example({ children }: ExampleProps) {
+function MyComponent({ children }: MyComponentProps) {
   return <div children={children} />;
   //          ^^^^^^^^^^^^^^^^^^^
   //          - Children should always be actual children, not passed in as a prop.
@@ -54,11 +54,11 @@ function Example({ children }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   children: React.ReactNode;
 }
 
-function Example({ children }: ExampleProps) {
+function MyComponent({ children }: MyComponentProps) {
   return <div>{children}</div>;
 }
 ```

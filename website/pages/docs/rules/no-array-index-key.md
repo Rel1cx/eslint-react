@@ -36,11 +36,11 @@ The order of items in a list rendering can change over time if an item is insert
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: { id: string; name: string }[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((item, index) => (
@@ -58,11 +58,11 @@ function Example({ items }: ExampleProps) {
 ```tsx
 import React from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   items: { id: string; name: string }[];
 }
 
-function Example({ items }: ExampleProps) {
+function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((item) => <li key={item.id}>{item.name}</li>)}

@@ -29,7 +29,7 @@ Reports all class components. Useful for debugging. This rule should only be use
 ```tsx
 import React from "react";
 
-class Example extends React.Component {
+class MyComponent extends React.Component {
   render() {
     return <button />;
   }
@@ -39,7 +39,7 @@ class Example extends React.Component {
 ```tsx
 import React from "react";
 
-class Example extends React.PureComponent {
+class MyComponent extends React.PureComponent {
   render() {
     return <button />;
   }

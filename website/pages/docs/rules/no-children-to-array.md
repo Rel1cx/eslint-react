@@ -36,11 +36,11 @@ Using `Children.toArray` is uncommon and can lead to fragile code. [See common a
 ```tsx
 import React, { Children } from "react";
 
-interface ExampleProps {
+interface MyComponentProps {
   children: React.ReactNode;
 }
 
-function Example({ children }: ExampleProps) {
+function MyComponent({ children }: MyComponentProps) {
   const result = Children.toArray(children);
   result.reverse();
   // ...
