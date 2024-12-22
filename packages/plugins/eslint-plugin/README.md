@@ -82,7 +82,7 @@ export default tseslint.config({
 ### TypeScript Specialized
 
 - **Recommended TypeScript** (`recommended-typescript`)\
-  Same as the `recommended` preset but disables rules that can be covered by TypeScript.
+  Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
 
 - **Recommended Type-Checked** (`recommended-type-checked`)\
   Same as the `recommended-typescript` preset but enables additional rules that require type information.
