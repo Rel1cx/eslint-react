@@ -14,9 +14,9 @@ Before submitting your contribution though, please make sure to take a moment an
     - [Developing Core and Related Components](#developing-core-and-related-components)
       - [Building the documentation locally](#building-the-documentation-locally)
 
-> [!IMPORTANT]\
-> `eslint-react` is not a fork of `eslint-plugin-react` and meanwhile `eslint-plugin-react` is not upstream of `eslint-react`.\
-> Therefore, the rules and features you see in`eslint-plugin-react`may not necessarily appear in`eslint-react`.
+> [!NOTE]\
+> FYI: The ESLint Raect project is not a fork of the `jsx-eslint/eslint-plugin-react` project and meanwhile `jsx-eslint/eslint-plugin-react` is not the upstream of ESLint React.\
+> Therefore, the rules and features you see in `jsx-eslint/eslint-plugin-react` may not necessarily appear in ESLint React and its plugins.
 
 ## Issue Reporting Guidelines
 
