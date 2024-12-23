@@ -1,5 +1,5 @@
 {
-  "name": "@examples/tsup-lib",
+  "name": "@examples/dual-react-dom-lib",
   "version": "0.0.0",
   "license": "MIT",
   "sideEffects": false,
