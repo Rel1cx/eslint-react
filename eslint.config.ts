@@ -1,41 +1,37 @@
+/* eslint-disable simple-import-sort/imports */
 import url from "node:url";
 
-import eslint from "@eslint/js";
-import stylisticJs from "@stylistic/eslint-plugin-js";
-import safeTsPlugin from "@susisu/eslint-plugin-safe-typescript";
-import local from "@workspace/eslint-plugin-local";
 import { Record } from "effect";
-import type { Linter } from "eslint";
-import gitignore from "eslint-config-flat-gitignore";
+import eslintJs from "@eslint/js";
+import eslintPluginImport from "eslint-plugin-import-x";
+import eslintPluginJsdoc from "eslint-plugin-jsdoc";
+import eslintPluginLocal from "@workspace/eslint-plugin-local";
+import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
+import eslintPluginRegexp from "eslint-plugin-regexp";
+import eslintPluginSafeTypeScript from "@susisu/eslint-plugin-safe-typescript";
+import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import eslintPluginVitest from "eslint-plugin-vitest";
 // @ts-expect-error - missing types
-import pluginBetterMutation from "eslint-plugin-better-mutation";
+import eslintPluginBetterMutation from "eslint-plugin-better-mutation";
 // @ts-expect-error - missing types
-import eslintCommentsPlugin from "eslint-plugin-eslint-comments";
-// @ts-expect-error - missing types
-import eslintPluginPlugin from "eslint-plugin-eslint-plugin";
-import importPlugin from "eslint-plugin-import-x";
-import jsdocPlugin from "eslint-plugin-jsdoc";
-import perfectionist from "eslint-plugin-perfectionist";
-import regexpPlugin from "eslint-plugin-regexp";
-import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
-import unicornPlugin from "eslint-plugin-unicorn";
-import vitest from "eslint-plugin-vitest";
-// import { isCI } from "std-env";
+import eslintPluginEslintPlugin from "eslint-plugin-eslint-plugin";
+import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"] as const;
-const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"] as const;
+const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
+const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 const GLOB_TEST = [
   "**/*.spec.{ts,tsx,cts,mts}",
   "**/*.test.{ts,tsx,cts,mts}",
   "**/spec.{ts,tsx,cts,mts}",
   "**/test.{ts,tsx,cts,mts}",
-] as const;
-// const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"] as const;
-const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"] as const;
-const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"] as const;
+];
+// const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"];
+const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
+const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
 
 const templateIndentAnnotations = [
   "outdent",
@@ -43,21 +39,21 @@ const templateIndentAnnotations = [
   "html",
   "tsx",
   "ts",
-] as const;
+];
 
 const packagesTsConfigs = [
   "packages/*/tsconfig.json",
   "packages/*/*/tsconfig.json",
-] as const;
+];
 
 const rootTsConfigs = [
   "tsconfig.json",
-] as const;
+];
 
 const p11tOptions = {
   type: "natural",
   ignoreCase: false,
-} as const;
+};
 
 const p11tGroups = {
   customGroups: {
@@ -73,7 +69,7 @@ const p11tGroups = {
     rules: ["^node$", "^messageId$"],
   },
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
-} as const;
+};
 
 const disableTypeCheckedRules = {
   ...tseslint.configs.disableTypeChecked.rules,
@@ -96,9 +92,10 @@ const typeCheckedRules = {
   "@typescript-eslint/switch-exhaustiveness-check": "off",
 } as const;
 
-export default [
-  gitignore(),
+export default tseslint.config(
+  eslintConfigFlatGitignore(),
   {
+    name: "global-ignores",
     ignores: [
       "docs",
       "examples",
@@ -107,32 +104,16 @@ export default [
     ],
   },
   {
-    // register all of the plugins up-front
-    // note - intentionally uses computed syntax to make it easy to sort the keys
-    plugins: {
-      ["@stylistic/js"]: stylisticJs,
-      ["@susisu/safe-typescript"]: safeTsPlugin,
-      ["@typescript-eslint"]: tseslint.plugin,
-      ["better-mutation"]: pluginBetterMutation,
-      ["eslint-comments"]: eslintCommentsPlugin,
-      ["eslint-plugin"]: eslintPluginPlugin,
-      ["import-x"]: importPlugin,
-      ["jsdoc"]: jsdocPlugin,
-      ["local"]: local,
-      ["simple-import-sort"]: simpleImportSortPlugin,
-      ["unicorn"]: unicornPlugin,
-    },
-    settings: {},
-  },
-  eslint.configs.recommended,
-  ...tseslint.configs.strict,
-  perfectionist.configs["recommended-natural"],
-  regexpPlugin.configs["flat/recommended"],
-  jsdocPlugin.configs["flat/recommended-typescript-error"],
-  eslintPluginPlugin.configs["flat/all-type-checked"],
-  // base ts language options
-  {
-    files: GLOB_TS,
+    files: [...GLOB_JS, ...GLOB_TS],
+    // eslint-disable-next-line perfectionist/sort-objects
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.strict,
+      eslintPluginPerfectionist.configs["recommended-natural"],
+      eslintPluginRegexp.configs["flat/recommended"],
+      eslintPluginJsdoc.configs["flat/recommended-typescript-error"],
+      eslintPluginEslintPlugin.configs["flat/all-type-checked"],
+    ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -143,50 +124,37 @@ export default [
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
+    plugins: {
+      ["@susisu/safe-typescript"]: eslintPluginSafeTypeScript,
+      ["better-mutation"]: eslintPluginBetterMutation,
+      ["import-x"]: eslintPluginImport,
+      ["local"]: eslintPluginLocal,
+      ["simple-import-sort"]: eslintPluginSimpleImportSort,
+      ["unicorn"]: eslintPluginUnicorn,
+    },
   },
-  // base config
   {
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
-      // Part: eslint rules
-      curly: "off",
+      ...eslintPluginBetterMutation.configs.recommended.rules,
       eqeqeq: ["error", "always"],
-      "logical-assignment-operators": "error",
-      "max-depth": ["warn", 3],
+      "max-depth": ["warn", 4],
       "no-console": "error",
-      "no-constant-binary-expression": "off", // esbuild will remove these at build time
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
-      "no-mixed-operators": "error",
+      "no-mixed-operators": "warn",
       "no-process-exit": "error",
+      "no-undef": "off",
+      "one-var": ["error", "never"],
+      "prefer-object-has-own": "error",
+      // Part: custom rules
       "no-restricted-syntax": [
         "error",
         {
           message: "no optional",
           selector: "TSPropertySignature[optional=true]",
         },
-        {
-          message: "no promise",
-          selector: "CallExpression[callee.object.name='Promise']",
-        },
-        {
-          message: "no promise",
-          selector: "CallExpression[callee.property.name='then']",
-        },
-        {
-          message: "no async/await",
-          selector: ":function[async=true]",
-        },
-        {
-          message: "no async/await",
-          selector: "AwaitExpression",
-        },
       ],
-      "no-undef": "off",
-      "one-var": ["error", "never"],
-      "prefer-object-has-own": "error",
-      // Part: stylistic-js rules
-      "@stylistic/js/no-extra-parens": "warn",
       // Part: typescript-eslint rules
       "@typescript-eslint/ban-ts-comment": [
         "error",
@@ -202,11 +170,8 @@ export default [
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-empty-object-type": "off",
-      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-      "@typescript-eslint/no-unnecessary-template-expression": "off",
-      "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -215,11 +180,9 @@ export default [
           varsIgnorePattern: "^_",
         },
       ],
-      // Part: type-checked rules
       ...typeCheckedRules,
       // Part: functional rules
       "functional/no-return-void": "off",
-      ...pluginBetterMutation.configs.recommended.rules,
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",
@@ -285,25 +248,6 @@ export default [
           tags: templateIndentAnnotations,
         },
       ],
-      // Part: eslint-comments rules
-      "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
-      "eslint-comments/no-aggregating-enable": "error",
-      "eslint-comments/no-duplicate-disable": "error",
-      "eslint-comments/no-unlimited-disable": "error",
-      "eslint-comments/no-unused-disable": "error",
-      "eslint-comments/no-unused-enable": "error",
-      "eslint-comments/no-use": [
-        "error",
-        {
-          allow: [
-            "eslint-disable",
-            "eslint-disable-line",
-            "eslint-disable-next-line",
-            "eslint-enable",
-            "global",
-          ],
-        },
-      ],
       // Part: eslint-plugin rules
       "eslint-plugin/meta-property-ordering": "off",
       "eslint-plugin/no-property-in-node": "off",
@@ -321,6 +265,12 @@ export default [
   },
   {
     files: GLOB_JS,
+    languageOptions: {
+      parserOptions: {
+        project: false,
+        projectService: false,
+      },
+    },
     rules: {
       ...disableTypeCheckedRules,
       "@typescript-eslint/no-var-requires": "off",
@@ -330,7 +280,7 @@ export default [
     files: GLOB_TEST,
     languageOptions: {
       globals: {
-        ...vitest.environments.env.globals,
+        ...eslintPluginVitest.environments.env.globals,
       },
       parser: tseslint.parser,
       parserOptions: {
@@ -342,11 +292,11 @@ export default [
       },
     },
     plugins: {
-      vitest,
+      vitest: eslintPluginVitest,
     },
     rules: {
       ...disableTypeCheckedRules,
-      ...vitest.configs.recommended.rules,
+      ...eslintPluginVitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "import-x/no-extraneous-dependencies": "off",
       "local/avoid-multiline-template-expression": "off",
@@ -380,4 +330,4 @@ export default [
       "import-x/no-extraneous-dependencies": "off",
     },
   },
-] satisfies Linter.Config[];
+);

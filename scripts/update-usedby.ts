@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import fs from "node:fs/promises";
 
 import { zip } from "effect/Array";
