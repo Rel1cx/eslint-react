@@ -1,11 +1,13 @@
-import js from "@eslint/js";
-import * as mdx from "eslint-plugin-mdx";
+// ts-check
+
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginMdx from "eslint-plugin-mdx";
+import eslintPluginNext from "@next/eslint-plugin-next";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
-import next from "@next/eslint-plugin-next";
-import react from "@eslint-react/eslint-plugin";
-import reactHooks from "eslint-plugin-react-hooks";
 import gitignore from "eslint-config-flat-gitignore";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 const GLOB_TS = ["**/*.{ts,tsx}"];
 const GLOB_JS = ["**/*.{js,cjs,mjs}"];
@@ -14,11 +16,11 @@ const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,cjs,ts,tsx}"];
 
 export default tseslint.config(
-  js.configs.recommended,
+  eslintJs.configs.recommended,
   {
-    ...mdx.flat,
+    ...eslintPluginMdx.flat,
     files: GLOB_MDX,
-    processor: mdx.createRemarkProcessor({
+    processor: eslintPluginMdx.createRemarkProcessor({
       lintCodeBlocks: false,
     }),
   },
@@ -37,29 +39,29 @@ export default tseslint.config(
   },
   {
     files: [...GLOB_TS, ...GLOB_MDX],
-    ...react.configs.recommended,
+    ...eslintReact.configs.recommended,
   },
   {
     files: GLOB_TS,
     plugins: {
-      "react-hooks": reactHooks,
+      "react-hooks": eslintPluginReactHooks,
     },
-    rules: reactHooks.configs.recommended.rules,
+    rules: eslintPluginReactHooks.configs.recommended.rules,
   },
   {
     files: GLOB_TS,
     plugins: {
-      "@next/next": next,
+      "@next/next": eslintPluginNext,
     },
     rules: {
-      ...next.configs.recommended.rules,
-      ...next.configs["core-web-vitals"].rules,
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs["core-web-vitals"].rules,
     },
   },
   {
     files: [...GLOB_TS, ...GLOB_MDX],
     plugins: {
-      "simple-import-sort": simpleImportSort,
+      "simple-import-sort": eslintPluginSimpleImportSort,
     },
     rules: {
       "simple-import-sort/exports": "warn",

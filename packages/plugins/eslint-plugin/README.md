@@ -38,13 +38,16 @@ npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 // eslint.config.js
 
 // @ts-check
-import react from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config({
   files: ["**/*.ts", "**/*.tsx"],
   extends: [
-    react.configs["recommended"],
+    eslintJs.configs.recommended,
+    tseslint.configs.recommended,
+    eslintReact.configs.recommended,
   ],
   languageOptions: {
     parser: tseslint.parser,
@@ -54,6 +57,7 @@ export default tseslint.config({
   },
   rules: {
     // Put rules you want to override here
+    "@eslint-react/prefer-shorthand-boolean": "warn",
   },
 });
 ```

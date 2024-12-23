@@ -9,13 +9,18 @@ npm install --save-dev @eslint-react/eslint-plugin
 ## Setup
 
 ```js filename="eslint.config.js"
-import react from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import globals from "globals";
 
 export default [
   {
     files: ["**/*.js", "**/*.jsx"],
-    ...react.configs["recommended"],
+    ...eslintJs.configs.recommended,
     languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -25,8 +30,13 @@ export default [
   },
   {
     files: ["**/*.js", "**/*.jsx"],
+    ...eslintReact.configs.recommended,
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
     rules: {
       // Put rules you want to override here
+      "@eslint-react/prefer-shorthand-boolean": "warn",
     },
   },
 ];

@@ -77,13 +77,13 @@ This can be incredibly helpful for rules to understand the semantics of user-def
 <ConfigTab>
 
 ```ts filename="eslint.config.js"
-import react from "@eslint-react/eslint-plugin";
+import eslintReact from "@eslint-react/eslint-plugin";
 
 export default [
   // ...
   {
     files: ["**/*.{ts,tsx}"],
-    ...react.configs.recommended,
+    ...eslintReact.configs.recommended,
     settings: {
       "react-x": {
         importSource: "react",
