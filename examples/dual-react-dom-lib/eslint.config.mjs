@@ -1,8 +1,8 @@
 // @ts-check
 
-import react from "@eslint-react/eslint-plugin";
-import js from "@eslint/js";
-import reactHooks from "eslint-plugin-react-hooks";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -14,7 +14,7 @@ export default tseslint.config(
   {
     files: GLOB_TS,
     extends: [
-      js.configs.recommended,
+      eslintJs.configs.recommended,
       tseslint.configs.recommended,
     ],
   },
@@ -50,16 +50,14 @@ export default tseslint.config(
   // React configuration
   {
     files: TSCONFIG.include,
-    ...react.configs["recommended-type-checked"],
+    ...eslintReact.configs["recommended-type-checked"],
   },
   // React Hooks configuration
   {
     files: TSCONFIG.include,
     plugins: {
-      // @ts-expect-error - Missing types
-      "react-hooks": reactHooks,
+      "react-hooks": eslintPluginReactHooks,
     },
-    // @ts-ignore - Missing types
-    rules: reactHooks.configs.recommended.rules,
+    rules: eslintPluginReactHooks.configs.recommended.rules,
   },
 );

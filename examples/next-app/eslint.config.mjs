@@ -1,10 +1,8 @@
-// @ts-check
-
-import react from "@eslint-react/eslint-plugin";
-import js from "@eslint/js";
-import next from "@next/eslint-plugin-next";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginNext from "@next/eslint-plugin-next";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import gitignore from "eslint-config-flat-gitignore";
 
@@ -19,7 +17,7 @@ export default tseslint.config(
   {
     files: GLOB_TS,
     extends: [
-      js.configs.recommended,
+      eslintJs.configs.recommended,
       tseslint.configs.recommended,
     ],
   },
@@ -38,21 +36,19 @@ export default tseslint.config(
   },
   {
     files: TSCONFIG.include,
-    ...react.configs["recommended-type-checked"],
+    ...eslintReact.configs["recommended-type-checked"],
   },
   {
     files: TSCONFIG.include,
     plugins: {
-      // @ts-expect-error - Missing types
-      "react-hooks": reactHooks,
+      "react-hooks": eslintPluginReactHooks,
     },
-    // @ts-ignore - Missing types
-    rules: reactHooks.configs.recommended.rules,
+    rules: eslintPluginReactHooks.configs.recommended.rules,
   },
   {
     files: TSCONFIG.include,
     plugins: {
-      "react-refresh": reactRefresh,
+      "react-refresh": eslintPluginReactRefresh,
     },
     rules: {
       "react-refresh/only-export-components": "warn",
@@ -61,11 +57,11 @@ export default tseslint.config(
   {
     files: TSCONFIG.include,
     plugins: {
-      "@next/next": next,
+      "@next/next": eslintPluginNext,
     },
     rules: {
-      ...next.configs.recommended.rules,
-      ...next.configs["core-web-vitals"].rules,
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs["core-web-vitals"].rules,
     },
   },
   {

@@ -15,7 +15,8 @@
   "include": [
     "*.ts",
     "*.cts",
-    "*.mts"
+    "*.mts",
+    "*.d.ts"
   ],
   "exclude": [
     "node_modules",

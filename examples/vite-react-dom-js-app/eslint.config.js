@@ -1,7 +1,7 @@
-import js from "@eslint/js";
-import react from "@eslint-react/eslint-plugin";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 
 import JSCONFIG from "./jsconfig.json" with { type: "json" };
@@ -22,7 +22,7 @@ export default [
       },
     },
     rules: {
-      ...js.configs.recommended.rules,
+      ...eslintJs.configs.recommended.rules,
     },
   },
   // base configuration for node environment source files (*.config.js, etc.)
@@ -35,28 +35,28 @@ export default [
       },
     },
     rules: {
-      ...js.configs.recommended.rules,
+      ...eslintJs.configs.recommended.rules,
       "no-console": "off",
     },
   },
   // React configuration
   {
     files: JSCONFIG.include,
-    ...react.configs.recommended,
+    ...eslintReact.configs.recommended,
   },
   // React Hooks configuration
   {
     files: JSCONFIG.include,
     plugins: {
-      "react-hooks": reactHooks,
+      "react-hooks": eslintPluginReactHooks,
     },
-    rules: reactHooks.configs.recommended.rules,
+    rules: eslintPluginReactHooks.configs.recommended.rules,
   },
   // React Refresh configuration
   {
     files: JSCONFIG.include,
     plugins: {
-      "react-refresh": reactRefresh,
+      "react-refresh": eslintPluginReactRefresh,
     },
     rules: {
       "react-refresh/only-export-components": "warn",
