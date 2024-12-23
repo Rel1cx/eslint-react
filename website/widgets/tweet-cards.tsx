@@ -6,7 +6,7 @@ import { chunk } from "#/lib/chunk";
 export function TweetCards({ tweets }: { tweets: string[] }) {
   const chunkedTweets = useMemo(() => chunk(tweets, 2), [tweets]);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-x-8 sm:mt-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-12 mt-8 max-w-3xl">
       {chunkedTweets.map((chunk) => (
         <div key={chunk.join("_")} className="grid justify-center">
           {chunk.map((id) => (
