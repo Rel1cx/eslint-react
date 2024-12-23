@@ -1,3 +1,19 @@
+## v1.22.1 (Tue 24 Dec 2024)
+
+### 🪄 Improvements
+
+- docs: add getting started guides for JavaScript, TypeScript, and JavaScript with Babel.
+- docs: improve code samples in rules docs.
+- docs: improve `eslint.config.js` examples in README.md, docs and the examples folder.
+- docs: improve the error message and description of various rules.
+- refactor(website): better website layout and navigation experience.
+
+### 📝 Changes in examples
+
+The `eslint.config.js` in the examples now uses `tsconfig`'s `includes` and `excludes` as the SSoT glob patterns for ESLint's `files` and `ignores` fields.
+
+This configuration approach can fundamentally avoid the errors[[1](https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me-the-file-must-be-included-in-at-least-one-of-the-projects-provided), [2](https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file), [3](https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me--was-not-found-by-the-project-service-consider-either-including-it-in-the-tsconfigjson-or-including-it-in-allowdefaultproject)] caused by mismatched config scopes between `tsconfig.json` and `eslint.config.js`.
+
 ## v1.22.0 (Sun 22 Dec 2024)
 
 ### 🪄 Improvements

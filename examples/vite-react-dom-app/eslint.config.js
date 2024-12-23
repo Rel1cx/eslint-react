@@ -19,7 +19,7 @@ export default tseslint.config(
   },
   // base configuration for browser environment source files
   {
-    files: TSCONFIG.include,
+    files: GLOB_TS,
     extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
@@ -27,6 +27,7 @@ export default tseslint.config(
       parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
+        projectService: false,
         tsconfigRootDir: import.meta.dirname,
       },
     },

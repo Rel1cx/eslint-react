@@ -29,7 +29,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/**/*.ts",
     "src/**/*.tsx"
   ]
 }
