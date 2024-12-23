@@ -6,9 +6,9 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 
 ## Features
 
-- **Universal** rules for libraries and frameworks that use React as a UI runtime.
-- **Well designed** rule behaviors and sensible defaults.
-- **Maximum flexibility** through minimum rule options.
+- **Universal**: Works seamlessly with any library or framework that uses React.
+- **Maximum Flexibility**: Achieves extensive capabilities with minimal configuration effort.
+- **Advanced Analysis Logic**: Handles complex scenarios and identifies errors that tools like `biome` and `eslint-plugin-react` might miss.
 
 ## Public packages
 
