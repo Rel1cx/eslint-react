@@ -3,9 +3,8 @@ import { Head, Html, Main, NextScript } from "next/document";
 import { PUBLIC_URL } from "#/constants";
 
 export default function Document() {
-  const metaTitle = "eslint-react";
-  // dprint-ignore
-  const metaDescription = "ESLint React - A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.";
+  const metaTitle = "ESLint React";
+  const metaDescription = "ESLint React - The most advanced lint rules for React.";
 
   return (
     <Html lang="en">
