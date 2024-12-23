@@ -145,7 +145,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "enforce that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'.",
+        "enforce that every 'addEventListener' in a component or custom Hook has a corresponding 'removeEventListener'.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

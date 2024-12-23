@@ -27,11 +27,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce custom hooks to use at least one other hook inside",
+      description: "enforce custom Hooks to use at least one other hook inside",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noUselessCustomHooks: "A custom hook '{{name}}' should use at least one other hook.",
+      noUselessCustomHooks: "A custom Hook '{{name}}' should use at least one other hook.",
     },
     schema: [],
   },

@@ -62,7 +62,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "enforce that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
+        "enforce that every 'setInterval' in a component or custom Hook has a corresponding 'clearInterval'.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

@@ -247,7 +247,7 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- `hooks-extra/no-useless-custom-hooks` should allow custom hooks with empty body.
+- `hooks-extra/no-useless-custom-hooks` should allow custom Hooks with empty body.
 
 ### 🪄 Improvements
 

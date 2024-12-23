@@ -102,10 +102,10 @@
 
 | Rule                                                             | ✅ | Features | Description                                                       |
 | :--------------------------------------------------------------- | :- | :------- | :---------------------------------------------------------------- |
-| [`no-leaked-event-listener`](web-api-no-leaked-event-listener)   | 1️⃣  | `🔍`     | Prevents leaked `addEventListener` in a component or custom hook. |
-| [`no-leaked-interval`](web-api-no-leaked-interval)               | 1️⃣  | `🔍`     | Prevents leaked `setInterval` in a component or custom hook.      |
-| [`no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | 1️⃣  | `🔍`     | Prevents leaked `ResizeObserver` in a component or custom hook.   |
-| [`no-leaked-timeout`](web-api-no-leaked-timeout)                 | 1️⃣  | `🔍`     | Prevents leaked `setTimeout` in a component or custom hook.       |
+| [`no-leaked-event-listener`](web-api-no-leaked-event-listener)   | 1️⃣  | `🔍`     | Prevents leaked `addEventListener` in a component or custom Hook. |
+| [`no-leaked-interval`](web-api-no-leaked-interval)               | 1️⃣  | `🔍`     | Prevents leaked `setInterval` in a component or custom Hook.      |
+| [`no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | 1️⃣  | `🔍`     | Prevents leaked `ResizeObserver` in a component or custom Hook.   |
+| [`no-leaked-timeout`](web-api-no-leaked-timeout)                 | 1️⃣  | `🔍`     | Prevents leaked `setTimeout` in a component or custom Hook.       |
 
 ## Hooks Extra Rules
 
@@ -115,7 +115,7 @@
 | [`no-direct-set-state-in-use-layout-effect`](hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`. |
 | [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useCallback`.                                    |
 | [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                                   | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useMemo`.                                        |
-| [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)                                   | 1️⃣  | `🔍`     | Disallow redundant custom hooks definitions.                                    |
+| [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)                                   | 1️⃣  | `🔍`     | Enforces custom Hooks to use at least one other Hook.                           |
 | [`prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  | `🔍`     | Warns function calls made inside `useState` calls.                              |
 
 ### Deprecated

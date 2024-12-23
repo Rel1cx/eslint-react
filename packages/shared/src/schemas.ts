@@ -8,7 +8,7 @@ import { array, boolean, instance, object, optional, string } from "valibot";
  * For example, the position of the `deps` argument for the user-defined `useCustomEffect` hook that represents the built-in `useEffect` hook.
  */
 export const CustomHookSchema = object({
-  // TODO: Define the schema for custom hooks
+  // TODO: Define the schema for custom Hooks
 });
 
 /**

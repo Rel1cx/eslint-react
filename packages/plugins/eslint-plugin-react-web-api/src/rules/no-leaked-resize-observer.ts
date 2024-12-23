@@ -92,7 +92,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce cleanup of 'ResizeObserver' instances in components and custom hooks.",
+      description: "enforce cleanup of 'ResizeObserver' instances in components and custom Hooks.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
@@ -101,7 +101,7 @@ export default createRule<[], MessageID>({
       noLeakedResizeObserverInControlFlow:
         "Dynamically added 'ResizeObserver.observe' should be cleared all at once using 'ResizeObserver.disconnect' in the cleanup function.",
       noLeakedResizeObserverNoFloatingInstance:
-        "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
+        "A 'ResizeObserver' instance created in component or custom Hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
