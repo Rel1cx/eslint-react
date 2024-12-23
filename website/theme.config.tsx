@@ -39,7 +39,7 @@ export default {
       <meta property="og:title" content="ESLint React" />
       <meta
         property="og:description"
-        content="ESLint React - A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime."
+        content="ESLint React - The most advanced lint rules for React."
       />
       <link
         rel="apple-touch-icon"
