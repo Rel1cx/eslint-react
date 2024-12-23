@@ -5,20 +5,20 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  array-flatten: npm:@nolyfill/array-flatten@^1.0.42
-  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
-  isarray: npm:@nolyfill/isarray@^1.0.29
-  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
-  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
-  side-channel: npm:@nolyfill/side-channel@^1.0.29
-  typedarray: npm:@nolyfill/typedarray@^1.0.29
   '@types/react': ^19.0.2
   '@types/react-dom': ^19.0.2
+  array-flatten: npm:@nolyfill/array-flatten@^1.0.42
   cross-spawn: 7.0.6
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
+  isarray: npm:@nolyfill/isarray@^1.0.29
   next: ^15.1.2
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
+  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
+  side-channel: npm:@nolyfill/side-channel@^1.0.29
   ts-api-utils: ^2.0.0
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   typescript: ^5.7.2
 
 importers:
@@ -738,6 +738,9 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.17.0(jiti@2.4.2)
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -754,9 +757,6 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../../workspace/configs
-      string-ts:
-        specifier: ^2.2.0
-        version: 2.2.0
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -799,6 +799,9 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.17.0(jiti@2.4.2)
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -815,9 +818,6 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../../workspace/configs
-      string-ts:
-        specifier: ^2.2.0
-        version: 2.2.0
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -857,6 +857,9 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.17.0(jiti@2.4.2)
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -873,9 +876,6 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../../workspace/configs
-      string-ts:
-        specifier: ^2.2.0
-        version: 2.2.0
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -918,6 +918,9 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.17.0(jiti@2.4.2)
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -934,9 +937,6 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../../workspace/configs
-      string-ts:
-        specifier: ^2.2.0
-        version: 2.2.0
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -985,6 +985,12 @@ importers:
       is-immutable-type:
         specifier: ^5.0.0
         version: 5.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
+      ts-api-utils:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.7.2)
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -1001,12 +1007,6 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../../workspace/configs
-      string-ts:
-        specifier: ^2.2.0
-        version: 2.2.0
-      ts-api-utils:
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.7.2)
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -1019,12 +1019,21 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.18.1
         version: 8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
+      fast-equals:
+        specifier: ^5.0.1
+        version: 5.0.1
+      micro-memoize:
+        specifier: ^4.1.2
+        version: 4.1.2
       picomatch:
         specifier: ^4.0.2
         version: 4.0.2
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
+      valibot:
+        specifier: ^1.0.0-beta.9
+        version: 1.0.0-beta.9(typescript@5.7.2)
     devDependencies:
       '@types/picomatch':
         specifier: ^3.0.1
@@ -1032,21 +1041,12 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../workspace/configs
-      fast-equals:
-        specifier: ^5.0.1
-        version: 5.0.1
-      micro-memoize:
-        specifier: ^4.1.2
-        version: 4.1.2
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
       type-fest:
         specifier: ^4.30.2
         version: 4.30.2
-      valibot:
-        specifier: ^1.0.0-beta.9
-        version: 1.0.0-beta.9(typescript@5.7.2)
 
   packages/types:
     dependencies:
@@ -1170,6 +1170,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.18.1
         version: 8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
+      string-ts:
+        specifier: ^2.2.0
+        version: 2.2.0
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -1177,15 +1180,15 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../../workspace/configs
-      string-ts:
-        specifier: ^2.2.0
-        version: 2.2.0
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
 
   website:
     dependencies:
+      clsx:
+        specifier: 2.1.1
+        version: 2.1.1
       next:
         specifier: ^15.1.2
         version: 15.1.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)
@@ -1204,6 +1207,9 @@ importers:
       react-tweet:
         specifier: ^3.2.1
         version: 3.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      tailwind-merge:
+        specifier: ^2.5.5
+        version: 2.5.5
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -1250,9 +1256,6 @@ importers:
       '@workspace/eslint-plugin-deps':
         specifier: workspace:*
         version: link:../workspace/eslint-plugin-deps
-      clsx:
-        specifier: 2.1.1
-        version: 2.1.1
       effect:
         specifier: ^3.12.0
         version: 3.12.0
@@ -1286,9 +1289,6 @@ importers:
       sass:
         specifier: ^1.83.0
         version: 1.83.0
-      tailwind-merge:
-        specifier: ^2.5.5
-        version: 2.5.5
       tailwindcss:
         specifier: ^4.0.0-beta.8
         version: 4.0.0-beta.8

@@ -11,12 +11,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "clsx": "2.1.1",
     "next": "^15.1.2",
     "nextra": "3.2.5",
     "nextra-theme-docs": "3.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-tweet": "^3.2.1",
+    "tailwind-merge": "^2.5.5",
     "ts-pattern": "^5.6.0"
   },
   "devDependencies": {
@@ -34,7 +36,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@workspace/configs": "workspace:*",
     "@workspace/eslint-plugin-deps": "workspace:*",
-    "clsx": "2.1.1",
     "effect": "^3.12.0",
     "eslint": "^9.17.0",
     "eslint-plugin-mdx": "^3.1.5",
@@ -46,7 +47,6 @@
     "remark-gfm": "^4.0.0",
     "rimraf": "^6.0.1",
     "sass": "^1.83.0",
-    "tailwind-merge": "^2.5.5",
     "tailwindcss": "^4.0.0-beta.8",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1",
