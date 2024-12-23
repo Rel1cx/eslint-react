@@ -8,7 +8,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 
 - **Universal**: Works seamlessly with any library or framework that uses React.
 - **Maximum Flexibility**: Achieves extensive capabilities with minimal configuration effort.
-- **Advanced Analysis Logic**: Handles complex scenarios and identifies errors that tools like `biome` and `eslint-plugin-react` might miss.
+- **Advanced Analysis Logic**: Handles complex scenarios and identifies problems that tools like `biome` and `eslint-plugin-react` might miss.
 
 ## Public packages
 
