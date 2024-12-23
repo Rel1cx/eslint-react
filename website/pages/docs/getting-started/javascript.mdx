@@ -1,0 +1,33 @@
+# Getting Started with JavaScript
+
+## Install
+
+```sh copy filename="Terminal"
+npm install --save-dev @eslint-react/eslint-plugin
+```
+
+## Setup
+
+```js filename="eslint.config.js"
+import react from "@eslint-react/eslint-plugin";
+
+export default [
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    ...react.configs["recommended"],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    rules: {
+      // Put rules you want to override here
+    },
+  },
+];
+```

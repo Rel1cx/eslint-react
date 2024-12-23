@@ -1,0 +1,31 @@
+# Getting Started with JavaScript + Babel
+
+## Install
+
+```sh copy filename="Terminal"
+npm install --save-dev @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
+```
+
+## Setup
+
+```js filename="eslint.config.js"
+import parser from "@babel/eslint-parser";
+import react from "@eslint-react/eslint-plugin";
+
+export default [
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    languageOptions: {
+      parser,
+      parserOptions: {
+        requireConfigFile: false,
+        babelOptions: {
+          babelrc: false,
+          configFile: false,
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+        },
+      },
+    },
+  },
+];
+```
