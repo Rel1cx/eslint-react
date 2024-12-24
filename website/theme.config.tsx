@@ -39,7 +39,7 @@ export default {
       <meta property="og:title" content="ESLint React" />
       <meta
         property="og:description"
-        content="ESLint React - The most advanced lint rules for React."
+        content="ESLint React - The most advancedlinting rules for React."
       />
       <link
         rel="apple-touch-icon"

@@ -4,7 +4,7 @@ import { PUBLIC_URL } from "#/constants";
 
 export default function Document() {
   const metaTitle = "ESLint React";
-  const metaDescription = "ESLint React - The most advanced lint rules for React.";
+  const metaDescription = "ESLint React - The most advancedlinting rules for React.";
 
   return (
     <Html lang="en">
