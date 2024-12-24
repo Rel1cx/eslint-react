@@ -87,6 +87,13 @@ function useSorted(items) {
 }
 ```
 
+```tsx
+// No 'TODO' and 'useContext()' comments inside function body
+function useAuth() {
+  return TEST_USER;
+}
+```
+
 ### Passing
 
 ```tsx
