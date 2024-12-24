@@ -5,20 +5,20 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  array-flatten: npm:@nolyfill/array-flatten@^1.0.42
-  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
-  isarray: npm:@nolyfill/isarray@^1.0.29
-  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
-  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
-  side-channel: npm:@nolyfill/side-channel@^1.0.29
-  typedarray: npm:@nolyfill/typedarray@^1.0.29
   '@types/react': ^19.0.2
   '@types/react-dom': ^19.0.2
+  array-flatten: npm:@nolyfill/array-flatten@^1.0.42
   cross-spawn: 7.0.6
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
+  isarray: npm:@nolyfill/isarray@^1.0.29
   next: ^15.1.2
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
+  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
+  side-channel: npm:@nolyfill/side-channel@^1.0.29
   ts-api-utils: ^2.0.0
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   typescript: ^5.7.2
 
 importers:
@@ -476,9 +476,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.18.2
         version: 8.18.2(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
-      birecord:
-        specifier: ^0.1.1
-        version: 0.1.1
       short-unique-id:
         specifier: ^5.2.0
         version: 5.2.0
@@ -821,9 +818,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.18.2
         version: 8.18.2(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
-      birecord:
-        specifier: ^0.1.1
-        version: 0.1.1
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.17.0(jiti@2.4.2)
@@ -993,9 +987,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.18.2
         version: 8.18.2(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
-      birecord:
-        specifier: ^0.1.1
-        version: 0.1.1
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -1045,9 +1036,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.18.2
         version: 8.18.2(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
-      birecord:
-        specifier: ^0.1.1
-        version: 0.1.1
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -4534,9 +4522,6 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
-
-  birecord@0.1.1:
-    resolution: {integrity: sha512-VUpsf/qykW0heRlC8LooCq28Kxn3mAqKohhDG/49rrsQ1dT1CXyj/pgXS+5BSRzFTR/3DyIBOqQOrGyZOh71Aw==}
 
   bl@5.1.0:
     resolution: {integrity: sha512-tv1ZJHLfTDnXE6tMHv73YgSJaWR2AFuPwMntBe7XL/GBFHnT0CLnsHMogfk5+GzCDC5ZWarSCYaIGATZt9dNsQ==}
@@ -11591,8 +11576,6 @@ snapshots:
       react: 19.0.0
 
   binary-extensions@2.3.0: {}
-
-  birecord@0.1.1: {}
 
   bl@5.1.0:
     dependencies:
