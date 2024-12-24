@@ -4,6 +4,10 @@
 
 # @eslint-react/types
 
+## Classes
+
+- [BiRecord](classes/BiRecord.md)
+
 ## Type Aliases
 
 - [ArrayElement](type-aliases/ArrayElement.md)
@@ -26,6 +30,7 @@
 ## Functions
 
 - [asConst](functions/asConst.md)
+- [birecord](functions/birecord.md)
 - [entries](functions/entries.md)
 - [fromEntries](functions/fromEntries.md)
 - [narrow](functions/narrow.md)

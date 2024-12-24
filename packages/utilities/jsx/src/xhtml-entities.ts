@@ -1,4 +1,4 @@
-import birecord from "birecord";
+import { birecord } from "@eslint-react/types";
 
 export const xhtmlEntities = birecord({
   Aacute: "\u00C1",
