@@ -5,17 +5,17 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
+  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
+  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   '@types/react': ^19.0.2
   '@types/react-dom': ^19.0.2
   cross-spawn: 7.0.6
-  is-core-module: npm:@nolyfill/is-core-module@^1
   next: ^15.1.2
   react: ^19.0.0
   react-dom: ^19.0.0
-  safe-buffer: npm:@nolyfill/safe-buffer@^1
-  safer-buffer: npm:@nolyfill/safer-buffer@^1
   ts-api-utils: ^2.0.0
-  typedarray: npm:@nolyfill/typedarray@^1
   typescript: ^5.7.2
 
 importers:
@@ -152,8 +152,8 @@ importers:
         specifier: ^2.3.3
         version: 2.3.3
       type-fest:
-        specifier: ^4.30.2
-        version: 4.30.2
+        specifier: ^4.31.0
+        version: 4.31.0
       typedoc:
         specifier: ^0.27.5
         version: 0.27.5(typescript@5.7.2)
@@ -945,8 +945,8 @@ importers:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
       type-fest:
-        specifier: ^4.30.2
-        version: 4.30.2
+        specifier: ^4.31.0
+        version: 4.31.0
 
   packages/types:
     dependencies:
@@ -7931,8 +7931,8 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.30.2:
-    resolution: {integrity: sha512-UJShLPYi1aWqCdq9HycOL/gwsuqda1OISdBO3t8RlXQC4QvtuIz4b5FCfe2dQIWEpmlRExKmcTBfP1r9bhY7ig==}
+  type-fest@4.31.0:
+    resolution: {integrity: sha512-yCxltHW07Nkhv/1F6wWBr8kz+5BGMfP+RbRSYFnegVb0qV/UMT0G0ElBloPVerqn4M2ZV80Ir1FtCcYv1cT6vQ==}
     engines: {node: '>=16'}
 
   typedoc-plugin-markdown@4.3.3:
@@ -15826,7 +15826,7 @@ snapshots:
 
   type-fest@3.13.1: {}
 
-  type-fest@4.30.2: {}
+  type-fest@4.31.0: {}
 
   typedoc-plugin-markdown@4.3.3(typedoc@0.27.5(typescript@5.7.2)):
     dependencies:

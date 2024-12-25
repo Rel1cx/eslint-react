@@ -94,7 +94,7 @@
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "turbo": "^2.3.3",
-    "type-fest": "^4.30.2",
+    "type-fest": "^4.31.0",
     "typedoc": "^0.27.5",
     "typedoc-plugin-markdown": "^4.3.3",
     "typedoc-plugin-rename-defaults": "^0.7.2",
@@ -109,17 +109,17 @@
   "packageManager": "pnpm@9.15.1",
   "pnpm": {
     "overrides": {
+      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
+      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "@types/react": "^19.0.2",
       "@types/react-dom": "^19.0.2",
       "cross-spawn": "7.0.6",
-      "is-core-module": "npm:@nolyfill/is-core-module@^1",
       "next": "^15.1.2",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
       "ts-api-utils": "^2.0.0",
-      "typedarray": "npm:@nolyfill/typedarray@^1",
       "typescript": "^5.7.2"
     }
   }

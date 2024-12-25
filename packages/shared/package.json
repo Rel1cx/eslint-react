@@ -52,7 +52,7 @@
     "@types/picomatch": "^3.0.1",
     "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5",
-    "type-fest": "^4.30.2"
+    "type-fest": "^4.31.0"
   },
   "sideEffects": false,
   "module": "dist/index.mjs"
