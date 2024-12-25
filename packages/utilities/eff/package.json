@@ -8,12 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rel1cx/eslint-react",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
     "directory": "packages/utilities/eff"
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -28,7 +27,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -45,5 +43,7 @@
     "@workspace/configs": "workspace:*",
     "effect": "^3.12.0",
     "tsup": "^8.3.5"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }

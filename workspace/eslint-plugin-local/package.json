@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "Local ESLint pluginf for use in the workspace",
-  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
@@ -46,5 +45,6 @@
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
-  }
+  },
+  "sideEffects": false
 }

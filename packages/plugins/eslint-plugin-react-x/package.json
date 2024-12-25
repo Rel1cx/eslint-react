@@ -15,12 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rel1cx/eslint-react",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
     "directory": "packages/plugins/eslint-plugin-react-x"
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -35,7 +34,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -89,5 +87,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }

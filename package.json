@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rel1cx/eslint-react"
+    "url": "git+https://github.com/Rel1cx/eslint-react.git"
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
@@ -33,7 +33,7 @@
     "build:website": "pnpm -F \"./website\" run build",
     "build:workspace": "pnpm -F \"./workspace/*\" run build",
     "format:check": "dprint check",
-    "format:package-json": "pnpm --parallel -r exec sort-package-json -q package.json && sort-package-json -q package.json && dprint fmt",
+    "format:package-json": "pnpm --parallel -r exec fixpkg -q package.json && fixpkg && dprint fmt",
     "format:write": "dprint fmt",
     "inspect:deps": "skott -e .ts",
     "inspect:eslint-config": "eslint-config-inspector",
@@ -80,6 +80,7 @@
     "eslint": "^9.17.0",
     "eslint-config-flat-gitignore": "^0.3.0",
     "eslint-import-resolver-oxc": "^0.7.0",
+    "fixpkg": "^1.0.2",
     "importx": "^0.5.1",
     "lefthook": "^1.10.0",
     "markdownlint": "^0.37.2",
@@ -88,7 +89,6 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "skott": "^0.35.4",
-    "sort-package-json": "^2.12.0",
     "tinyglobby": "^0.2.10",
     "ts-pattern": "^5.6.0",
     "tsup": "^8.3.5",
@@ -102,27 +102,24 @@
     "typescript-eslint": "^8.18.2",
     "vitest": "^2.1.8"
   },
-  "packageManager": "pnpm@9.15.1",
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
   },
+  "packageManager": "pnpm@9.15.1",
   "pnpm": {
     "overrides": {
       "@types/react": "^19.0.2",
       "@types/react-dom": "^19.0.2",
-      "array-flatten": "npm:@nolyfill/array-flatten@^1.0.42",
       "cross-spawn": "7.0.6",
-      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
-      "isarray": "npm:@nolyfill/isarray@^1.0.29",
+      "is-core-module": "npm:@nolyfill/is-core-module@^1",
       "next": "^15.1.2",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
-      "side-channel": "npm:@nolyfill/side-channel@^1.0.29",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
       "ts-api-utils": "^2.0.0",
-      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
+      "typedarray": "npm:@nolyfill/typedarray@^1",
       "typescript": "^5.7.2"
     }
   }
