@@ -7,7 +7,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 ## Features
 
 - **Flexible**: Increased flexibility with fewer rule options.
-- **Composable**: Create your own presets by composing atomic rules to fit your project's needs.
+- **Composable**: Modular design allows you to pick and choose the rules you need.
 - **Comprehensive**: First-class support for TypeScript, React UI libraries and polymorphic components.
 - **Advanced Analysis Logic**: Handles complex scenarios and identifies problems that tools like `biome` and `eslint-plugin-react` could miss.
 
