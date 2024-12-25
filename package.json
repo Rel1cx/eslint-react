@@ -14,13 +14,13 @@
     "eslint-plugin-react-hooks-extra",
     "eslint-plugin-react-naming-convention"
   ],
-  "homepage": "https://github.com/rel1cx/eslint-react",
+  "homepage": "https://github.com/rEl1cx/eslint-react",
   "bugs": {
-    "url": "https://github.com/rel1cx/eslint-react/issues"
+    "url": "https://github.com/rEl1cx/eslint-react/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rel1cx/eslint-react.git"
+    "url": "git+https://github.com/rEl1cx/eslint-react.git"
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",

@@ -5,7 +5,7 @@ import { Image } from "#/components/image";
 import { PUBLIC_URL } from "#/constants";
 
 export default {
-  docsRepositoryBase: "https://github.com/rel1cx/eslint-react/tree/main/website",
+  docsRepositoryBase: "https://github.com/rEl1cx/eslint-react/tree/main/website",
   // color: {
   //   hue: {
   //     light: 200,
@@ -59,7 +59,7 @@ export default {
     </div>
   ),
   project: {
-    link: "https://github.com/rel1cx/eslint-react",
+    link: "https://github.com/rEl1cx/eslint-react",
   },
   footer: {
     content: <span>MIT {new Date().getFullYear()} © ESLint React.</span>,

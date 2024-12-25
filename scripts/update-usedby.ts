@@ -15,7 +15,7 @@ const projects = [
   "react-navigation/react-navigation",
   "RebeccaStevens/eslint-config-rebeccastevens",
   "refined-github/refined-github",
-  "Rel1cx/eslint-react",
+  "rEl1cx/eslint-react",
   "TanStack/query",
   "toss/suspensive",
   "upleveled/eslint-config-upleveled",
