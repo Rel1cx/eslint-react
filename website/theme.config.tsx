@@ -1,4 +1,4 @@
-import type { DocsThemeConfig } from "nextra-theme-docs";
+import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
 
 import logo from "#/assets/logo.svg";
 import { Image } from "#/components/image";
@@ -19,41 +19,40 @@ export default {
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
-  // useNextSeoProps() {
-  //   return match(useRouter())
-  //     .with({ asPath: "/" }, () => ({
-  //       title: "ESLint React",
-  //       description:
-  //         "ESLint React - A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.",
-  //     }))
-  //     .with({ asPath: P.string.startsWith("/rules/") }, () => ({
-  //       titleTemplate: "Rule: %s",
-  //     }))
-  //     .otherwise(() => ({
-  //       titleTemplate: "%s – ESLint React",
-  //     }));
-  // },
-  head: (
-    <>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="ESLint React" />
-      <meta
-        property="og:description"
-        content="ESLint React - The most advancedlinting rules for React."
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href={`${PUBLIC_URL}/apple-touch-icon.png`}
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        href={`${PUBLIC_URL}/favicon.png`}
-      />
-      <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    </>
-  ),
+  head: function useHead() {
+    const config = useConfig();
+    const title = `${config.title} – ESLint React`;
+    const description = config.frontMatter["description"]
+      || "ESLint React - The most advanced linting rules for React.";
+    const image = config.frontMatter["image"]
+      || `${PUBLIC_URL}/og.png`;
+    return (
+      <>
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+        <meta name="og:image" content={image} />
+        <meta name="msapplication-TileColor" content="#fff" />
+        <meta httpEquiv="Content-Language" content="en" />
+        <meta name="apple-mobile-web-app-title" content="ESLint React" />
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="https://eslint-react.xyz" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href={`${PUBLIC_URL}/apple-touch-icon.png`}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href={`${PUBLIC_URL}/favicon.png`}
+        />
+      </>
+    );
+  },
   logo: (
     <div className="w-24">
       <Image src={logo} width="48" height="48" alt="eslint-react" />
