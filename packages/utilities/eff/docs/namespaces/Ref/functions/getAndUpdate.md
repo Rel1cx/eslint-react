@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **getAndUpdate**\<`A`\>(`f`): (`self`) => `Effect`\<`A`, `never`, `never`\>
+> **getAndUpdate**\<`A`\>(`f`): (`self`) => `Effect`\<`A`\>
 
 ### Type Parameters
 
@@ -36,7 +36,7 @@
 
 #### Returns
 
-`Effect`\<`A`, `never`, `never`\>
+`Effect`\<`A`\>
 
 ### Since
 
@@ -48,7 +48,7 @@
 
 ## Call Signature
 
-> **getAndUpdate**\<`A`\>(`self`, `f`): `Effect`\<`A`, `never`, `never`\>
+> **getAndUpdate**\<`A`\>(`self`, `f`): `Effect`\<`A`\>
 
 ### Type Parameters
 
@@ -66,7 +66,7 @@
 
 ### Returns
 
-`Effect`\<`A`, `never`, `never`\>
+`Effect`\<`A`\>
 
 ### Since
 

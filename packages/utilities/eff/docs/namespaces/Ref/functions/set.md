@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **set**\<`A`\>(`value`): (`self`) => `Effect`\<`void`, `never`, `never`\>
+> **set**\<`A`\>(`value`): (`self`) => `Effect`\<`void`\>
 
 ### Type Parameters
 
@@ -36,7 +36,7 @@
 
 #### Returns
 
-`Effect`\<`void`, `never`, `never`\>
+`Effect`\<`void`\>
 
 ### Since
 
@@ -48,7 +48,7 @@
 
 ## Call Signature
 
-> **set**\<`A`\>(`self`, `value`): `Effect`\<`void`, `never`, `never`\>
+> **set**\<`A`\>(`self`, `value`): `Effect`\<`void`\>
 
 ### Type Parameters
 
@@ -66,7 +66,7 @@
 
 ### Returns
 
-`Effect`\<`void`, `never`, `never`\>
+`Effect`\<`void`\>
 
 ### Since
 

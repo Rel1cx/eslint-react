@@ -6,7 +6,7 @@
 
 # Function: isIterable()
 
-> **isIterable**(`input`): `input is Iterable<unknown, any, any>`
+> **isIterable**(`input`): `input is Iterable<unknown>`
 
 A guard that succeeds when the input is an `Iterable`.
 
@@ -20,7 +20,7 @@ The value to test.
 
 ## Returns
 
-`input is Iterable<unknown, any, any>`
+`input is Iterable<unknown>`
 
 ## Example
 

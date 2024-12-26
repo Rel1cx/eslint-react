@@ -6,7 +6,7 @@
 
 # Function: get()
 
-> **get**\<`A`\>(`self`): `Effect`\<`A`, `never`, `never`\>
+> **get**\<`A`\>(`self`): `Effect`\<`A`\>
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@
 
 ## Returns
 
-`Effect`\<`A`, `never`, `never`\>
+`Effect`\<`A`\>
 
 ## Since
 

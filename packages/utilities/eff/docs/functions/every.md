@@ -16,7 +16,7 @@
 
 ### collection
 
-`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>\>
 
 ## Returns
 

@@ -116,7 +116,7 @@
 
 ### get
 
-> `readonly` **get**: `Effect`\<`A`, `never`, `never`\>
+> `readonly` **get**: `Effect`\<`A`\>
 
 #### Inherited from
 
@@ -126,11 +126,11 @@
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `EffectGenerator`\<`Effect`\<`A`, `never`, `never`\>\>
+> **\[iterator\]**(): `EffectGenerator`\<`Effect`\<`A`\>\>
 
 #### Returns
 
-`EffectGenerator`\<`Effect`\<`A`, `never`, `never`\>\>
+`EffectGenerator`\<`Effect`\<`A`\>\>
 
 #### Inherited from
 
@@ -140,7 +140,7 @@
 
 ### modify()
 
-> **modify**\<`B`\>(`f`): `Effect`\<`B`, `never`, `never`\>
+> **modify**\<`B`\>(`f`): `Effect`\<`B`\>
 
 #### Type Parameters
 
@@ -154,7 +154,7 @@
 
 #### Returns
 
-`Effect`\<`B`, `never`, `never`\>
+`Effect`\<`B`\>
 
 ***
 

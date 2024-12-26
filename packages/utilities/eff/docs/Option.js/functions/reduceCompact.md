@@ -67,7 +67,7 @@ The reducing function that takes the current accumulator value and the unwrapped
 
 ##### self
 
-`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
 
 #### Returns
 
@@ -125,7 +125,7 @@ Reduces an `Iterable` of `Option<A>` to a single value of type `B`, elements tha
 
 #### self
 
-`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
 
 The Iterable of `Option<A>` to be reduced.
 

@@ -20,7 +20,7 @@
 
 ### collection
 
-`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
 
 ## Returns
 

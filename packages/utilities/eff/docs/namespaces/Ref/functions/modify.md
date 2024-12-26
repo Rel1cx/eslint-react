@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **modify**\<`A`, `B`\>(`f`): (`self`) => `Effect`\<`B`, `never`, `never`\>
+> **modify**\<`A`, `B`\>(`f`): (`self`) => `Effect`\<`B`\>
 
 ### Type Parameters
 
@@ -38,7 +38,7 @@
 
 #### Returns
 
-`Effect`\<`B`, `never`, `never`\>
+`Effect`\<`B`\>
 
 ### Since
 
@@ -50,7 +50,7 @@
 
 ## Call Signature
 
-> **modify**\<`A`, `B`\>(`self`, `f`): `Effect`\<`B`, `never`, `never`\>
+> **modify**\<`A`, `B`\>(`self`, `f`): `Effect`\<`B`\>
 
 ### Type Parameters
 
@@ -70,7 +70,7 @@
 
 ### Returns
 
-`Effect`\<`B`, `never`, `never`\>
+`Effect`\<`B`\>
 
 ### Since
 

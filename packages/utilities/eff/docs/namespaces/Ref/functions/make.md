@@ -6,7 +6,7 @@
 
 # Function: make()
 
-> **make**\<`A`\>(`value`): `Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>, `never`, `never`\>
+> **make**\<`A`\>(`value`): `Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>\>
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@
 
 ## Returns
 
-`Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>, `never`, `never`\>
+`Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>\>
 
 ## Since
 

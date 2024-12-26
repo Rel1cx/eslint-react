@@ -19,7 +19,7 @@ if the `Iterable` is not empty, otherwise returns `None`.
 
 ### collection
 
-`Iterable`\<`A`, `any`, `any`\>
+`Iterable`\<`A`\>
 
 The `Iterable` to be converted to an `Option`.
 

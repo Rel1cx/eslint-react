@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **updateSome**\<`A`\>(`f`): (`self`) => `Effect`\<`void`, `never`, `never`\>
+> **updateSome**\<`A`\>(`f`): (`self`) => `Effect`\<`void`\>
 
 ### Type Parameters
 
@@ -36,7 +36,7 @@
 
 #### Returns
 
-`Effect`\<`void`, `never`, `never`\>
+`Effect`\<`void`\>
 
 ### Since
 
@@ -48,7 +48,7 @@
 
 ## Call Signature
 
-> **updateSome**\<`A`\>(`self`, `f`): `Effect`\<`void`, `never`, `never`\>
+> **updateSome**\<`A`\>(`self`, `f`): `Effect`\<`void`\>
 
 ### Type Parameters
 
@@ -66,7 +66,7 @@
 
 ### Returns
 
-`Effect`\<`void`, `never`, `never`\>
+`Effect`\<`void`\>
 
 ### Since
 

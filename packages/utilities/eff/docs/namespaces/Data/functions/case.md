@@ -6,7 +6,7 @@
 
 # Function: case()
 
-> **case**\<`A`\>(): [`Constructor`](../namespaces/Case/interfaces/Constructor.md)\<`A`, `never`\>
+> **case**\<`A`\>(): [`Constructor`](../namespaces/Case/interfaces/Constructor.md)\<`A`\>
 
 ## Type Parameters
 
@@ -14,4 +14,4 @@
 
 ## Returns
 
-[`Constructor`](../namespaces/Case/interfaces/Constructor.md)\<`A`, `never`\>
+[`Constructor`](../namespaces/Case/interfaces/Constructor.md)\<`A`\>
