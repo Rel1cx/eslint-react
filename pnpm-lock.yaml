@@ -1177,9 +1177,6 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
-      sass:
-        specifier: ^1.83.0
-        version: 1.83.0
       tailwindcss:
         specifier: ^4.0.0-beta.8
         version: 4.0.0-beta.8
@@ -13428,7 +13425,8 @@ snapshots:
 
   ignore@6.0.2: {}
 
-  immutable@5.0.3: {}
+  immutable@5.0.3:
+    optional: true
 
   import-fresh@3.3.0:
     dependencies:
@@ -15413,6 +15411,7 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.0
+    optional: true
 
   scheduler@0.25.0: {}
 
