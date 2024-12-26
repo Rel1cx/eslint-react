@@ -4,7 +4,7 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-A series of composable ESLint plugins for libraries and frameworks that use React as a UI runtime.
+A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
 
 ## Features
 
