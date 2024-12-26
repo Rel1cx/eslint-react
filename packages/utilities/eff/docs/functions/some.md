@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / some
+[@eslint-react/eff](../README.md) / some
 
 # Function: some()
 
@@ -16,7 +16,7 @@
 
 ### collection
 
-`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>\>
 
 ## Returns
 

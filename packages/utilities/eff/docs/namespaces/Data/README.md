@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / Data
+[@eslint-react/eff](../../README.md) / Data
 
 # Data
 

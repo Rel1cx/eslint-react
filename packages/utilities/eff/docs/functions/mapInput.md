@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / mapInput
+[@eslint-react/eff](../README.md) / mapInput
 
 # Function: mapInput()
 

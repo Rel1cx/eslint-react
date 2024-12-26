@@ -1,12 +1,12 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Either.js](../README.md) / all
+[@eslint-react/eff](../../README.md) / [./Either.js](../README.md) / all
 
 # Function: all()
 
-> **all**\<`I`\>(`input`): [`I`] *extends* [readonly [`Either`](../type-aliases/Either.md)\<`any`, `any`\>[]] ? [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\<`I`\>\[`number`\] *extends* `never` ? `never` : [`I`\<`I`\>\[`number`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\> : [`I`] *extends* [`Iterable`\<[`Either`](../type-aliases/Either.md)\<`R`, `L`\>, `any`, `any`\>] ? [`Either`](../type-aliases/Either.md)\<`R`[], `L`\> : [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\[keyof `I`\] *extends* `never` ? `never` : [`I`\[keyof `I`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\>
+> **all**\<`I`\>(`input`): [`I`] *extends* [readonly [`Either`](../type-aliases/Either.md)\<`any`, `any`\>[]] ? [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\<`I`\>\[`number`\] *extends* `never` ? `never` : [`I`\<`I`\>\[`number`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\> : [`I`] *extends* [`Iterable`\<[`Either`](../type-aliases/Either.md)\<`R`, `L`\>\>] ? [`Either`](../type-aliases/Either.md)\<`R`[], `L`\> : [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\[keyof `I`\] *extends* `never` ? `never` : [`I`\[keyof `I`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\>
 
 Takes a structure of `Either`s and returns an `Either` of values with the same structure.
 
@@ -16,7 +16,7 @@ Takes a structure of `Either`s and returns an `Either` of values with the same s
 
 ## Type Parameters
 
-• **I** *extends* `Iterable`\<[`Either`](../type-aliases/Either.md)\<`any`, `any`\>, `any`, `any`\> \| `Record`\<`string`, [`Either`](../type-aliases/Either.md)\<`any`, `any`\>\>
+• **I** *extends* `Iterable`\<[`Either`](../type-aliases/Either.md)\<`any`, `any`\>\> \| `Record`\<`string`, [`Either`](../type-aliases/Either.md)\<`any`, `any`\>\>
 
 ## Parameters
 
@@ -26,7 +26,7 @@ Takes a structure of `Either`s and returns an `Either` of values with the same s
 
 ## Returns
 
-[`I`] *extends* [readonly [`Either`](../type-aliases/Either.md)\<`any`, `any`\>[]] ? [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\<`I`\>\[`number`\] *extends* `never` ? `never` : [`I`\<`I`\>\[`number`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\> : [`I`] *extends* [`Iterable`\<[`Either`](../type-aliases/Either.md)\<`R`, `L`\>, `any`, `any`\>] ? [`Either`](../type-aliases/Either.md)\<`R`[], `L`\> : [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\[keyof `I`\] *extends* `never` ? `never` : [`I`\[keyof `I`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\>
+[`I`] *extends* [readonly [`Either`](../type-aliases/Either.md)\<`any`, `any`\>[]] ? [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\<`I`\>\[`number`\] *extends* `never` ? `never` : [`I`\<`I`\>\[`number`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\> : [`I`] *extends* [`Iterable`\<[`Either`](../type-aliases/Either.md)\<`R`, `L`\>\>] ? [`Either`](../type-aliases/Either.md)\<`R`[], `L`\> : [`Either`](../type-aliases/Either.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Either\<R, any\>\] ? R : never \}, `I`\[keyof `I`\] *extends* `never` ? `never` : [`I`\[keyof `I`\]] *extends* [[`Either`](../type-aliases/Either.md)\<`any`, `L`\>] ? `L` : `never`\>
 
 ## Example
 

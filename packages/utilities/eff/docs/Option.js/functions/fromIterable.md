@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Option.js](../README.md) / fromIterable
+[@eslint-react/eff](../../README.md) / [./Option.js](../README.md) / fromIterable
 
 # Function: fromIterable()
 
@@ -19,7 +19,7 @@ if the `Iterable` is not empty, otherwise returns `None`.
 
 ### collection
 
-`Iterable`\<`A`, `any`, `any`\>
+`Iterable`\<`A`\>
 
 The `Iterable` to be converted to an `Option`.
 

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / productMany
+[@eslint-react/eff](../README.md) / productMany
 
 # Function: productMany()
 
@@ -20,7 +20,7 @@
 
 ### collection
 
-`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Predicate`](../interfaces/Predicate.md)\<`A`\>\>
 
 ## Returns
 

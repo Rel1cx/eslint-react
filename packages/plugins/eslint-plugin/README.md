@@ -7,7 +7,7 @@ A series of composable ESLint plugins for libraries and frameworks that use Reac
 ## Features
 
 - **Flexible**: Increased flexibility with fewer rule options.
-- **Comprehensive**: First-class support for TypeScript, React UI libraries, and polymorphic components.
+- **Comprehensive**: First-class support for TypeScript, React UI libraries, polymorphic components.
 - **Advanced Analysis**: Handles complex scenarios and identifies problems that other tools might miss.
 
 ## Public packages
@@ -80,7 +80,7 @@ export default tseslint.config({
 ### General Purpose
 
 - **Recommended** (`recommended`)\
-  Enforce rules that are recommended by ESLint React for general purpose `React` + `React DOM` applications.
+  Enforce rules that are recommended by ESLint React for general purpose React + React DOM applications.
   _This preset includes the `core`, `dom`, and `web-api` presets._
 
 ### TypeScript Specialized

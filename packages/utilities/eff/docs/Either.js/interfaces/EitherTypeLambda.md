@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Either.js](../README.md) / EitherTypeLambda
+[@eslint-react/eff](../../README.md) / [./Either.js](../README.md) / EitherTypeLambda
 
 # Interface: EitherTypeLambda
 

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Ref](../README.md) / modifySome
+[@eslint-react/eff](../../../README.md) / [Ref](../README.md) / modifySome
 
 # Function: modifySome()
 
@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **modifySome**\<`B`, `A`\>(`fallback`, `pf`): (`self`) => `Effect`\<`B`, `never`, `never`\>
+> **modifySome**\<`B`, `A`\>(`fallback`, `pf`): (`self`) => `Effect`\<`B`\>
 
 ### Type Parameters
 
@@ -42,7 +42,7 @@
 
 #### Returns
 
-`Effect`\<`B`, `never`, `never`\>
+`Effect`\<`B`\>
 
 ### Since
 
@@ -54,7 +54,7 @@
 
 ## Call Signature
 
-> **modifySome**\<`A`, `B`\>(`self`, `fallback`, `pf`): `Effect`\<`B`, `never`, `never`\>
+> **modifySome**\<`A`, `B`\>(`self`, `fallback`, `pf`): `Effect`\<`B`\>
 
 ### Type Parameters
 
@@ -78,7 +78,7 @@
 
 ### Returns
 
-`Effect`\<`B`, `never`, `never`\>
+`Effect`\<`B`\>
 
 ### Since
 

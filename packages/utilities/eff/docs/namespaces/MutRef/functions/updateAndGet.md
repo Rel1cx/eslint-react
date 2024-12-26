@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [MutRef](../README.md) / updateAndGet
+[@eslint-react/eff](../../../README.md) / [MutRef](../README.md) / updateAndGet
 
 # Function: updateAndGet()
 

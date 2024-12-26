@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Ref](../README.md) / update
+[@eslint-react/eff](../../../README.md) / [Ref](../README.md) / update
 
 # Function: update()
 
@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **update**\<`A`\>(`f`): (`self`) => `Effect`\<`void`, `never`, `never`\>
+> **update**\<`A`\>(`f`): (`self`) => `Effect`\<`void`\>
 
 ### Type Parameters
 
@@ -36,7 +36,7 @@
 
 #### Returns
 
-`Effect`\<`void`, `never`, `never`\>
+`Effect`\<`void`\>
 
 ### Since
 
@@ -48,7 +48,7 @@
 
 ## Call Signature
 
-> **update**\<`A`\>(`self`, `f`): `Effect`\<`void`, `never`, `never`\>
+> **update**\<`A`\>(`self`, `f`): `Effect`\<`void`\>
 
 ### Type Parameters
 
@@ -66,7 +66,7 @@
 
 ### Returns
 
-`Effect`\<`void`, `never`, `never`\>
+`Effect`\<`void`\>
 
 ### Since
 

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Data](../README.md) / tagged
+[@eslint-react/eff](../../../README.md) / [Data](../README.md) / tagged
 
 # Function: tagged()
 

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Ref](../README.md) / updateAndGet
+[@eslint-react/eff](../../../README.md) / [Ref](../README.md) / updateAndGet
 
 # Function: updateAndGet()
 
@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **updateAndGet**\<`A`\>(`f`): (`self`) => `Effect`\<`A`, `never`, `never`\>
+> **updateAndGet**\<`A`\>(`f`): (`self`) => `Effect`\<`A`\>
 
 ### Type Parameters
 
@@ -36,7 +36,7 @@
 
 #### Returns
 
-`Effect`\<`A`, `never`, `never`\>
+`Effect`\<`A`\>
 
 ### Since
 
@@ -48,7 +48,7 @@
 
 ## Call Signature
 
-> **updateAndGet**\<`A`\>(`self`, `f`): `Effect`\<`A`, `never`, `never`\>
+> **updateAndGet**\<`A`\>(`self`, `f`): `Effect`\<`A`\>
 
 ### Type Parameters
 
@@ -66,7 +66,7 @@
 
 ### Returns
 
-`Effect`\<`A`, `never`, `never`\>
+`Effect`\<`A`\>
 
 ### Since
 

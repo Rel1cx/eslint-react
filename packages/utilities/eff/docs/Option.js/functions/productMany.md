@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Option.js](../README.md) / productMany
+[@eslint-react/eff](../../README.md) / [./Option.js](../README.md) / productMany
 
 # Function: productMany()
 
@@ -20,7 +20,7 @@
 
 ### collection
 
-`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>, `any`, `any`\>
+`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>
 
 ## Returns
 

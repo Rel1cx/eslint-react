@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / ./Either.js
+[@eslint-react/eff](../README.md) / ./Either.js
 
 # ./Either.js
 

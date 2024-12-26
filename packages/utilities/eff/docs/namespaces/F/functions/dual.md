@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [F](../README.md) / dual
+[@eslint-react/eff](../../../README.md) / [F](../README.md) / dual
 
 # Function: dual()
 

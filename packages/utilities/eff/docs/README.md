@@ -1,8 +1,8 @@
-**@eslint-react/tools**
+**@eslint-react/eff**
 
 ***
 
-# @eslint-react/tools
+# @eslint-react/eff
 
 ## Other
 

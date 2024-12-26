@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Refinement](../README.md) / In
+[@eslint-react/eff](../../../README.md) / [Refinement](../README.md) / In
 
 # Type Alias: In\<T\>
 

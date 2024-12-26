@@ -1,12 +1,12 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Ref](../README.md) / make
+[@eslint-react/eff](../../../README.md) / [Ref](../README.md) / make
 
 # Function: make()
 
-> **make**\<`A`\>(`value`): `Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>, `never`, `never`\>
+> **make**\<`A`\>(`value`): `Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>\>
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@
 
 ## Returns
 
-`Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>, `never`, `never`\>
+`Effect`\<[`Ref`](../interfaces/Ref.md)\<`A`\>\>
 
 ## Since
 
