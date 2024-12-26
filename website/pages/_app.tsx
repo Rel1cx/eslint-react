@@ -1,5 +1,5 @@
 import "#/styles/base.css";
-import "#/styles/overrides.scss";
+import "#/styles/overrides.css";
 
 import type { AppProps } from "next/app";
 
