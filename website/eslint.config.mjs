@@ -1,22 +1,35 @@
-// ts-check
-
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import eslintMarkdown from "@eslint/markdown";
 import eslintPluginMdx from "eslint-plugin-mdx";
 import eslintPluginNext from "@next/eslint-plugin-next";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
 import gitignore from "eslint-config-flat-gitignore";
 
-const GLOB_TS = ["**/*.{ts,tsx}"];
-const GLOB_JS = ["**/*.{js,cjs,mjs}"];
+import TSCONFIG from "./tsconfig.json" with { type: "json" };
+
+const GLOB_TS = ["**/*.ts", "**/*.tsx"];
+const GLOB_JS = ["**/*.js", "**/*.jsx"];
+const GLOB_MD = ["**/*.md"];
 const GLOB_MDX = ["**/*.mdx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
-const GLOB_CONFIG = ["**/*.config.{js,mjs,cjs,ts,tsx}"];
+const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 
 export default tseslint.config(
-  eslintJs.configs.recommended,
+  {
+    files: GLOB_MD,
+    extends: [
+      eslintMarkdown.configs.recommended,
+    ],
+    language: "markdown/gfm",
+    rules: {
+      "markdown/no-html": "error",
+      "markdown/no-missing-label-refs": "off",
+    },
+  },
   {
     ...eslintPluginMdx.flat,
     files: GLOB_MDX,
@@ -27,29 +40,46 @@ export default tseslint.config(
   {
     files: GLOB_TS,
     extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+    ],
+  },
+  {
+    files: TSCONFIG.include,
+    extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    files: [...GLOB_TS, ...GLOB_MDX],
-    ...eslintReact.configs.recommended,
+    files: TSCONFIG.include,
+    ...eslintReact.configs["recommended-type-checked"],
   },
   {
-    files: GLOB_TS,
+    files: TSCONFIG.include,
     plugins: {
       "react-hooks": eslintPluginReactHooks,
     },
     rules: eslintPluginReactHooks.configs.recommended.rules,
   },
   {
-    files: GLOB_TS,
+    files: TSCONFIG.include,
+    plugins: {
+      "react-refresh": eslintPluginReactRefresh,
+    },
+    rules: {
+      "react-refresh/only-export-components": "warn",
+    },
+  },
+  {
+    files: TSCONFIG.include,
     plugins: {
       "@next/next": eslintPluginNext,
     },
@@ -59,13 +89,13 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_TS, ...GLOB_MDX],
+    files: GLOB_JS,
     plugins: {
       "simple-import-sort": eslintPluginSimpleImportSort,
     },
     rules: {
-      "simple-import-sort/exports": "warn",
       "simple-import-sort/imports": "warn",
+      "simple-import-sort/exports": "warn",
     },
   },
   {
@@ -75,18 +105,12 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_JS, ...GLOB_MDX],
-    ...tseslint.configs.disableTypeChecked,
-  },
-  {
-    files: GLOB_JS,
+    files: [...GLOB_JS, ...GLOB_CONFIG],
     rules: {
+      ...tseslint.configs.disableTypeChecked.rules,
       "no-undef": "off",
-      "@typescript-eslint/no-require-imports": "off",
+      "no-console": "off",
     },
   },
   gitignore(),
-  {
-    ignores: GLOB_CONFIG,
-  },
 );

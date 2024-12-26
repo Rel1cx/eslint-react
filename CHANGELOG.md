@@ -242,7 +242,7 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- Fixed mono plugins missing default export.
+- Fixed modular plugins missing default export.
 - Fixed component name detection when the component name starts with a underscore.
 
 ### 🪄 Improvements
@@ -1279,6 +1279,3 @@ function useAuth() {
 
 - Update Options of rule `jsx/no-useless-fragment`.
 - Optimize bundle size.
-
-```
-```

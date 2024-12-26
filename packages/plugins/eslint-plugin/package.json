@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.22.2-beta.2",
-  "description": "The main ESLint plugin that contains all the rules from eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
+  "version": "1.22.2-beta.3",
+  "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
     "eslint",
