@@ -4,28 +4,23 @@
     "@tsconfig/node22/tsconfig.json"
   ],
   "compilerOptions": {
+    "target": "ES2021",
     "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "noEmit": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "allowJs": true,
     "skipLibCheck": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "allowJs": false,
-    "checkJs": false,
     "strict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "exactOptionalPropertyTypes": true,
-    "composite": false,
-    "stripInternal": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
       "#": [
@@ -35,15 +30,18 @@
         "./*"
       ]
     },
-    "resolveJsonModule": true,
-    "incremental": true
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "*.d.ts",
-    "*.config.js",
-    "*.config.mjs",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "*.d.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

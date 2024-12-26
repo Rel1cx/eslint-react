@@ -3,6 +3,7 @@ import url from "node:url";
 
 import { Record } from "effect";
 import eslintJs from "@eslint/js";
+import eslintMarkdown from "@eslint/markdown";
 import eslintPluginImport from "eslint-plugin-import-x";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginLocal from "@workspace/eslint-plugin-local";
@@ -23,6 +24,7 @@ const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
+const GLOB_MD = ["*.md", "**/*.md"];
 const GLOB_TEST = [
   "**/*.spec.{ts,tsx,cts,mts}",
   "**/*.test.{ts,tsx,cts,mts}",
@@ -94,6 +96,21 @@ const typeCheckedRules = {
 
 export default tseslint.config(
   eslintConfigFlatGitignore(),
+  {
+    extends: [
+      // @ts-expect-error - TODO: make types compatible
+      eslintMarkdown.configs.recommended,
+    ],
+    files: GLOB_MD,
+    ignores: [
+      "packages/**/docs/**/*.md",
+    ],
+    language: "markdown/gfm",
+    rules: {
+      "markdown/no-html": "error",
+      "markdown/no-missing-label-refs": "off",
+    },
+  },
   {
     name: "global-ignores",
     ignores: [

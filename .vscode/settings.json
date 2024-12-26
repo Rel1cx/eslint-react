@@ -32,6 +32,8 @@
     "typescript",
     "typescriptreact",
     "yaml",
+    "markdown",
+    "mdx",
     "github-actions-workflow" // for GitHub Actions workflow files
   ],
   "editor.codeActionsOnSave": {

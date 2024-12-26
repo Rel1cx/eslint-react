@@ -1279,6 +1279,3 @@ function useAuth() {
 
 - Update Options of rule `jsx/no-useless-fragment`.
 - Optimize bundle size.
-
-```
-```
