@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Equal](../README.md) / equivalence
+[@eslint-react/eff](../../../README.md) / [Equal](../README.md) / equivalence
 
 # Function: equivalence()
 

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / all
+[@eslint-react/eff](../README.md) / all
 
 # Function: all()
 

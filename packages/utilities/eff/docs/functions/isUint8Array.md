@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / isUint8Array
+[@eslint-react/eff](../README.md) / isUint8Array
 
 # Function: isUint8Array()
 

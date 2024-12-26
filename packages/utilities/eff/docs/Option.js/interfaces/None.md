@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Option.js](../README.md) / None
+[@eslint-react/eff](../../README.md) / [./Option.js](../README.md) / None
 
 # Interface: None\<A\>
 

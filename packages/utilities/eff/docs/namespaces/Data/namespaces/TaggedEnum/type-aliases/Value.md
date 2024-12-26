@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../../../README.md)
+[**@eslint-react/eff**](../../../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../../../README.md) / [Data](../../../README.md) / [TaggedEnum](../README.md) / Value
+[@eslint-react/eff](../../../../../README.md) / [Data](../../../README.md) / [TaggedEnum](../README.md) / Value
 
 # Type Alias: Value\<A, K\>
 

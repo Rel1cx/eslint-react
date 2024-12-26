@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [F](../README.md) / identity
+[@eslint-react/eff](../../../README.md) / [F](../README.md) / identity
 
 # Function: identity()
 

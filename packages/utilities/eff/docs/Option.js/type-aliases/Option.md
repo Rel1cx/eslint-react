@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Option.js](../README.md) / Option
+[@eslint-react/eff](../../README.md) / [./Option.js](../README.md) / Option
 
 # Type Alias: Option\<A\>
 

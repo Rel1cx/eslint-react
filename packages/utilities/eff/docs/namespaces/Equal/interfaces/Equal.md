@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Equal](../README.md) / Equal
+[@eslint-react/eff](../../../README.md) / [Equal](../README.md) / Equal
 
 # Interface: Equal
 

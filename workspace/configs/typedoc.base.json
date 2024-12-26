@@ -1,7 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "cleanOutputDir": true,
-  "darkHighlightTheme": "dark-plus",
   "disableSources": true,
   "hideGenerator": true,
   "excludeInternal": true,

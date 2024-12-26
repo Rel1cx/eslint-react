@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / isPromise
+[@eslint-react/eff](../README.md) / isPromise
 
 # Function: isPromise()
 

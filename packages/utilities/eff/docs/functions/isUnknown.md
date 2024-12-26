@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / isUnknown
+[@eslint-react/eff](../README.md) / isUnknown
 
 # Function: isUnknown()
 

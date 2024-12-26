@@ -2,7 +2,7 @@
   "extends": [
     "@workspace/configs/typedoc.base.json"
   ],
-  "name": "@eslint-react/tools",
+  "name": "@eslint-react/eff",
   "entryPoints": [
     "src/index.ts"
   ],

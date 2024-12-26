@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../README.md)
+[**@eslint-react/eff**](../../README.md)
 
 ***
 
-[@eslint-react/tools](../../README.md) / [./Option.js](../README.md) / liftPredicate
+[@eslint-react/eff](../../README.md) / [./Option.js](../README.md) / liftPredicate
 
 # Function: liftPredicate()
 

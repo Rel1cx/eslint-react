@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../README.md)
+[**@eslint-react/eff**](../README.md)
 
 ***
 
-[@eslint-react/tools](../README.md) / isIterable
+[@eslint-react/eff](../README.md) / isIterable
 
 # Function: isIterable()
 

@@ -1,8 +1,8 @@
-[**@eslint-react/tools**](../../../README.md)
+[**@eslint-react/eff**](../../../README.md)
 
 ***
 
-[@eslint-react/tools](../../../README.md) / [Ref](../README.md) / set
+[@eslint-react/eff](../../../README.md) / [Ref](../README.md) / set
 
 # Function: set()
 
