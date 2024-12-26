@@ -14,7 +14,7 @@ react-x/no-set-state-in-component-did-mount
 
 **Labels**
 
-`Class Components` `SetState` `Lifecycle Methods`
+`Class Components` `setState` `Lifecycle Methods`
 
 **Features**
 
