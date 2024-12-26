@@ -9,7 +9,7 @@
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs.
 - [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`.
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects.
-- [x] `@eslint-react/eslint-plugin` - The main ESLint plugin of ESLint React. Contains all the rules from the above plugins with recommended presets.
+- ... (Free to combine with other plugins from the community).
 
 ### Add codemod feature to rules that can be transformed safely
 
@@ -52,4 +52,4 @@
 
 ### Advanced Configuration features
 
-- [ ] Additional components (`settings["react-x"].additionalComponents`) transitions from experimental to stable.
+- [ ] Additional components ([`settings["react-x"].additionalComponents`](https://eslint-react.xyz/docs/configurations#additionalcomponents)) transitions from experimental to stable.
