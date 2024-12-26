@@ -12,6 +12,10 @@ react-x/use-jsx-vars
 @eslint-react/use-jsx-vars
 ```
 
+**Labels**
+
+`JSX` `Variables`
+
 **Presets**
 
 - `core`

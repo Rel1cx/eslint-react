@@ -12,6 +12,10 @@ react-dom/no-void-elements-with-children
 @eslint-react/dom/no-void-elements-with-children
 ```
 
+**Labels**
+
+`DOM` `Void Elements` `Children`
+
 **Features**
 
 `🔍`

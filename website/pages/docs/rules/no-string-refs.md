@@ -12,6 +12,10 @@ react-x/no-string-refs
 @eslint-react/no-string-refs
 ```
 
+**Labels**
+
+`Deprecated React APIs` `Refs`
+
 **Features**
 
 `🔍`

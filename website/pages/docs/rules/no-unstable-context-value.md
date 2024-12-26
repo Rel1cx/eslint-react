@@ -12,6 +12,10 @@ react-x/no-unstable-context-value
 @eslint-react/no-unstable-context-value
 ```
 
+**Labels**
+
+`Performance` `Re-render` `Context`
+
 **Features**
 
 `🔍`

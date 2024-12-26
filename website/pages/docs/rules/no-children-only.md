@@ -12,6 +12,10 @@ react-x/no-children-only
 @eslint-react/no-children-only
 ```
 
+**Labels**
+
+`Legacy React APIs` `Children`
+
 **Features**
 
 `🔍`

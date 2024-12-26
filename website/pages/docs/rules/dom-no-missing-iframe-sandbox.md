@@ -12,6 +12,10 @@ react-dom/no-missing-iframe-sandbox
 @eslint-react/dom/no-missing-iframe-sandbox
 ```
 
+**Labels**
+
+`DOM` `IFrame` `Security`
+
 **Features**
 
 `🔍`

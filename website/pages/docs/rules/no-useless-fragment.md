@@ -12,6 +12,10 @@ react-x/no-useless-fragment
 @eslint-react/no-useless-fragment
 ```
 
+**Labels**
+
+`JSX` `Fragments`
+
 **Features**
 
 `🔍` `⚙️`

@@ -12,6 +12,10 @@ react-x/no-redundant-should-component-update
 @eslint-react/no-redundant-should-component-update
 ```
 
+**Labels**
+
+`Class Components` `PureComponent`
+
 **Features**
 
 `🔍`

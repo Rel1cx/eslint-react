@@ -12,6 +12,10 @@ react-x/ensure-forward-ref-using-ref
 @eslint-react/ensure-forward-ref-using-ref
 ```
 
+**Labels**
+
+`forwardRef` `Ref`
+
 **Features**
 
 `🔍`

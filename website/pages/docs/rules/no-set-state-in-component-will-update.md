@@ -12,6 +12,10 @@ react-x/no-set-state-in-component-will-update
 @eslint-react/no-set-state-in-component-will-update
 ```
 
+**Labels**
+
+`Class Components` `SetState` `Lifecycle Methods`
+
 **Features**
 
 `🔍`

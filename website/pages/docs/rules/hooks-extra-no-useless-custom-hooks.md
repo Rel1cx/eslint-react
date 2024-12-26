@@ -12,6 +12,10 @@ react-hooks-extra/no-useless-custom-hooks
 @eslint-react/hooks-extra/no-useless-custom-hooks
 ```
 
+**Labels**
+
+`React Hooks` `Custom Hooks`
+
 **Features**
 
 `🔍`

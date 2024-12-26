@@ -12,6 +12,10 @@ react-hooks-extra/no-direct-set-state-in-use-effect
 @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
 ```
 
+**Labels**
+
+`React Hooks` `useEffect` `useState` `setState`
+
 **Features**
 
 `🔍`
@@ -250,8 +254,6 @@ function List({ items }) {
 - The current implementation does not support determining whether a `set` function called in an `async` function is actually at least one `await` after.
 
 The limitation may be lifted in the future.
-
-# 
 
 ## Implementation
 

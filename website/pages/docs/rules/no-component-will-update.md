@@ -12,6 +12,10 @@ react-x/no-component-will-update
 @eslint-react/no-component-will-update
 ```
 
+**Labels**
+
+`Deprecated React APIs` `Class Components` `Lifecycle Methods`
+
 **Features**
 
 `🔍` `🔄`

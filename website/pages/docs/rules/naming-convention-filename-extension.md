@@ -12,6 +12,10 @@ react-naming-convention/filename-extension
 @eslint-react/naming-convention/filename-extension
 ```
 
+**Labels**
+
+`File Naming` `File Extension` `JSX`
+
 **Features**
 
 `🔍` `⚙️`

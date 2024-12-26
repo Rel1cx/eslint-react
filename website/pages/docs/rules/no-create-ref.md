@@ -12,6 +12,10 @@ react-x/no-create-ref
 @eslint-react/no-create-ref
 ```
 
+**Labels**
+
+`Legacy React APIs` `Create Ref` `Ref`
+
 **Features**
 
 `🔍`

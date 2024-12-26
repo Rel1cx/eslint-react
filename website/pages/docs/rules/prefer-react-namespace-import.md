@@ -12,6 +12,10 @@ react-x/prefer-react-namespace-import
 @eslint-react/prefer-react-namespace-import
 ```
 
+**Labels**
+
+`Import` `Tree-shaking`
+
 **Features**
 
 `🔍` `🔧`

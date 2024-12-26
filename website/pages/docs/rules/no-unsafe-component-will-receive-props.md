@@ -12,6 +12,10 @@ react-x/no-unsafe-component-will-receive-props
 @eslint-react/no-unsafe-component-will-receive-props
 ```
 
+**Labels**
+
+`Class Components` `Lifecycle Methods`
+
 **Features**
 
 `🔍`

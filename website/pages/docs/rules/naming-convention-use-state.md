@@ -12,6 +12,10 @@ react-naming-convention/use-state
 @eslint-react/naming-convention/use-state
 ```
 
+**Labels**
+
+`React Hooks` `useState`
+
 **Features**
 
 `🔍`

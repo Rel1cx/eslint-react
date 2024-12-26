@@ -12,6 +12,10 @@ react-dom/no-missing-button-type
 @eslint-react/dom/no-missing-button-type
 ```
 
+**Labels**
+
+`DOM` `Button` `Form` `Accessibility`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-x/no-complex-conditional-rendering
 @eslint-react/no-complex-conditional-rendering
 ```
 
+**Labels**
+
+`Stylistic Issues` `Conditional Rendering`
+
 **Features**
 
 `🔍`

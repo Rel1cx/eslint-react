@@ -12,6 +12,10 @@ react-x/no-children-prop
 @eslint-react/no-children-prop
 ```
 
+**Labels**
+
+`Children` `Component Props`
+
 **Features**
 
 `🔍`

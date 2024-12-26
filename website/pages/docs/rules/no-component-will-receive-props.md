@@ -12,6 +12,10 @@ react-x/no-component-will-receive-props
 @eslint-react/no-component-will-receive-props
 ```
 
+**Labels**
+
+`Deprecated React APIs` `Class Components` `Lifecycle Methods`
+
 **Features**
 
 `🔍` `🔄`

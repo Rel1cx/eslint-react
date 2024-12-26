@@ -12,6 +12,10 @@ react-debug/hook
 @eslint-react/debug/hook
 ```
 
+**Labels**
+
+`Debug` `React Hooks`
+
 **Features**
 
 `🐞`

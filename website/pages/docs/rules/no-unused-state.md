@@ -12,6 +12,10 @@ react-x/no-unused-state
 @eslint-react/no-unused-state
 ```
 
+**Labels**
+
+`Class Components` `State`
+
 **Features**
 
 `🔍`

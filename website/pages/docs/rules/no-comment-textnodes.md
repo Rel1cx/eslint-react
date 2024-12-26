@@ -12,6 +12,10 @@ react-x/no-comment-textnodes
 @eslint-react/no-comment-textnodes
 ```
 
+**Labels**
+
+`JSX` `Text Nodes`
+
 **Features**
 
 `🔍`

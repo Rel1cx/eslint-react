@@ -12,6 +12,10 @@ react-debug/function-component
 @eslint-react/debug/function-component
 ```
 
+**Labels**
+
+`Debug` `Function Components`
+
 **Features**
 
 `🐞`

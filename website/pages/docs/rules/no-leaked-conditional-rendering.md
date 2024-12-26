@@ -12,6 +12,10 @@ react-x/no-leaked-conditional-rendering
 @eslint-react/no-leaked-conditional-rendering
 ```
 
+**Labels**
+
+`Conditional Rendering` `Logical Operators`
+
 **Features**
 
 `🔍` `💭`

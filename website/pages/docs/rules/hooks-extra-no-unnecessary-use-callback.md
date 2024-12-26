@@ -12,6 +12,10 @@ react-hooks-extra/no-unnecessary-use-callback
 @eslint-react/hooks-extra/no-unnecessary-use-callback
 ```
 
+**Labels**
+
+`React Hooks` `useCallback` `Performance`
+
 **Features**
 
 `🔍`

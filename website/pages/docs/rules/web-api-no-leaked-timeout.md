@@ -12,6 +12,10 @@ react-web-api/no-leaked-timeout
 @eslint-react/web-api/no-leaked-timeout
 ```
 
+**Labels**
+
+`Web API` `Possible Errors` `setTimeout` `clearTimeout`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-x/no-access-state-in-setstate
 @eslint-react/no-access-state-in-setstate
 ```
 
+**Labels**
+
+`Class Components` `SetState`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-x/no-duplicate-jsx-props
 @eslint-react/no-duplicate-jsx-props
 ```
 
+**Labels**
+
+`JSX` `Component Props`
+
 **Features**
 
 `🔍`

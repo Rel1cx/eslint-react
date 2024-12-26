@@ -12,6 +12,10 @@ react-x/no-unstable-default-props
 @eslint-react/no-unstable-default-props
 ```
 
+**Labels**
+
+`Performance` `Re-render` `Component Props` `Destructuring` `Default Props`
+
 **Features**
 
 `🔍`

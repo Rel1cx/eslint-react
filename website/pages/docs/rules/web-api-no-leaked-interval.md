@@ -12,6 +12,10 @@ react-web-api/no-leaked-interval
 @eslint-react/web-api/no-leaked-interval
 ```
 
+**Labels**
+
+`Web API` `Possible Errors` `setInterval` `clearInterval`
+
 **Features**
 
 `🔍`

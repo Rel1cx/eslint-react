@@ -12,6 +12,10 @@ react-x/prefer-destructuring-assignment
 @eslint-react/prefer-destructuring-assignment
 ```
 
+**Labels**
+
+`Stylstic Issues` `Destructuring` `Assignment` `Component Props`
+
 **Features**
 
 `🔍`

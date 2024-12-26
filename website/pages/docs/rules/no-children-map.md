@@ -12,6 +12,10 @@ react-x/no-children-map
 @eslint-react/no-children-map
 ```
 
+**Labels**
+
+`Legacy React APIs` `Children`
+
 **Features**
 
 `🔍`

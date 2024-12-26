@@ -12,6 +12,10 @@ react-x/no-component-will-mount
 @eslint-react/no-component-will-mount
 ```
 
+**Labels**
+
+`Deprecated React APIs` `Class Components` `Lifecycle Methods`
+
 **Features**
 
 `🔍` `🔄`

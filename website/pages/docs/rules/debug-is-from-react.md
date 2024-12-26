@@ -12,6 +12,10 @@ react-debug/is-from-react
 @eslint-react/debug/is-from-react
 ```
 
+**Labels**
+
+`Debug` `Identifiers`
+
 **Features**
 
 `🐞`

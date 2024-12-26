@@ -12,6 +12,10 @@ react-x/no-missing-component-display-name
 @eslint-react/no-missing-component-display-name
 ```
 
+**Labels**
+
+`Devtools` `DisplayName`
+
 **Features**
 
 `🔍`

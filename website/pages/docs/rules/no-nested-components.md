@@ -12,6 +12,10 @@ react-x/no-nested-components
 @eslint-react/no-nested-components
 ```
 
+**Labels**
+
+`Correctness` `Component Structure`
+
 **Features**
 
 `🔍`

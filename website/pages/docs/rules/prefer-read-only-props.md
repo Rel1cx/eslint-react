@@ -12,6 +12,10 @@ react-x/prefer-read-only-props
 @eslint-react/prefer-read-only-props
 ```
 
+**Labels**
+
+`TypeScript` `Mutation` `Component Props`
+
 **Features**
 
 `🔍` `💭`

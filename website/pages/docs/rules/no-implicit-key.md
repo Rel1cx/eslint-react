@@ -12,6 +12,10 @@ react-x/no-implicit-key
 @eslint-react/no-implicit-key
 ```
 
+**Labels**
+
+`Stylistic Issues` `List Rendering` `Key`
+
 **Features**
 
 `🔍`

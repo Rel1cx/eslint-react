@@ -12,6 +12,10 @@ react-naming-convention/filename
 @eslint-react/naming-convention/filename
 ```
 
+**Labels**
+
+`File Naming`
+
 **Features**
 
 `🔍` `⚙️`

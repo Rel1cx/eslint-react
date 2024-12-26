@@ -12,6 +12,10 @@ react-x/no-context-provider
 @eslint-react/no-context-provider
 ```
 
+**Labels**
+
+`Legacy React APIs` `Context` `React 19`
+
 **Features**
 
 `🔍` `🔄`

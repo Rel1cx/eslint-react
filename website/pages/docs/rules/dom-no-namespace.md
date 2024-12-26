@@ -12,6 +12,10 @@ react-dom/no-namespace
 @eslint-react/dom/no-namespace
 ```
 
+**Labels**
+
+`DOM` `XML` `SVG`
+
 **Features**
 
 `🔍`

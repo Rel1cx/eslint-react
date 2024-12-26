@@ -12,6 +12,10 @@ react-web-api/no-leaked-event-listener
 @eslint-react/web-api/no-leaked-event-listener
 ```
 
+**Labels**
+
+`Web API` `Possible Errors` `addEventListener` `removeEventListener`
+
 **Features**
 
 `🔍`

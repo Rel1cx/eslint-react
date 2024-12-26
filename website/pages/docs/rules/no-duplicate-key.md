@@ -12,6 +12,10 @@ react-x/no-duplicate-key
 @eslint-react/no-duplicate-key
 ```
 
+**Labels**
+
+`List Rendering` `Key`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-x/no-prop-types
 @eslint-react/no-prop-types
 ```
 
+**Labels**
+
+`Deprecated React APIs` `PropTypes`
+
 **Features**
 
 `🔍`

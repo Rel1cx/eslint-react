@@ -12,6 +12,10 @@ react-x/no-children-count
 @eslint-react/no-children-count
 ```
 
+**Labels**
+
+`Legacy React APIs` `Children`
+
 **Features**
 
 `🔍`

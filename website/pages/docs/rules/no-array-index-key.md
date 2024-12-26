@@ -12,6 +12,10 @@ react-x/no-array-index-key
 @eslint-react/no-array-index-key
 ```
 
+**Labels**
+
+`List Rendering` `Key`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-dom/no-unsafe-iframe-sandbox
 @eslint-react/dom/no-unsafe-iframe-sandbox
 ```
 
+**Labels**
+
+`DOM` `IFrame` `Security`
+
 **Features**
 
 `🔍`

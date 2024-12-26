@@ -12,6 +12,10 @@ react-x/no-unused-class-component-members
 @eslint-react/no-unused-class-component-members
 ```
 
+**Labels**
+
+`Class Components` `Methods` `Properties`
+
 **Features**
 
 `🔍`

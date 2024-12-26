@@ -12,6 +12,10 @@ react-x/no-class-component
 @eslint-react/no-class-component
 ```
 
+**Labels**
+
+`Legacy React APIs` `Class Components`
+
 **Features**
 
 `🔍`

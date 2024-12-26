@@ -12,6 +12,10 @@ react-x/no-unsafe-component-will-update
 @eslint-react/no-unsafe-component-will-update
 ```
 
+**Labels**
+
+`Class Components` `Lifecycle Methods`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-x/no-clone-element
 @eslint-react/no-clone-element
 ```
 
+**Labels**
+
+`Legacy React APIs` `Clone Element`
+
 **Features**
 
 `🔍`

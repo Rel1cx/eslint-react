@@ -12,6 +12,10 @@ react-x/prefer-shorthand-boolean
 @eslint-react/prefer-shorthand-boolean
 ```
 
+**Labels**
+
+`Stylistic Issues` `JSX` `Boolean Attributes`
+
 **Features**
 
 `🔍` `🔧`

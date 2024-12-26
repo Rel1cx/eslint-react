@@ -12,6 +12,10 @@ react-x/no-default-props
 @eslint-react/no-default-props
 ```
 
+**Labels**
+
+`Legacy React APIs` `Function Components` `Default Props`
+
 **Features**
 
 `🔍`

@@ -12,6 +12,10 @@ react-naming-convention/component-name
 @eslint-react/naming-convention/component-name
 ```
 
+**Labels**
+
+`Component Naming`
+
 **Features**
 
 `🔍`

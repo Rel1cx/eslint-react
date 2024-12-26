@@ -12,6 +12,10 @@ react-debug/class-component
 @eslint-react/debug/class-component
 ```
 
+**Labels**
+
+`Debug` `Class Components`
+
 **Features**
 
 `🐞`

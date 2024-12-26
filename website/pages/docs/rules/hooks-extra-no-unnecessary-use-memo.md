@@ -12,6 +12,10 @@ react-hooks-extra/no-unnecessary-use-memo
 @eslint-react/hooks-extra/no-unnecessary-use-memo
 ```
 
+**Labels**
+
+`React Hooks` `useMemo` `Performance`
+
 **Features**
 
 `🔍`

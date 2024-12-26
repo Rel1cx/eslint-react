@@ -12,6 +12,10 @@ react-x/avoid-shorthand-boolean
 @eslint-react/avoid-shorthand-boolean
 ```
 
+**Labels**
+
+`Stylistic Issues` `JSX` `Boolean Attributes`
+
 **Features**
 
 `🔍` `🔧`

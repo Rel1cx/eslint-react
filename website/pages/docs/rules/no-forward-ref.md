@@ -12,6 +12,10 @@ react-x/no-forward-ref
 @eslint-react/no-forward-ref
 ```
 
+**Labels**
+
+`Legacy React APIs` `forwardRef` `Ref` `React 19`
+
 **Features**
 
 `🔍` `🔄`

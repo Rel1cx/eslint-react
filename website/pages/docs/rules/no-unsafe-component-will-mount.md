@@ -12,6 +12,10 @@ react-x/no-unsafe-component-will-mount
 @eslint-react/no-unsafe-component-will-mount
 ```
 
+**Labels**
+
+`Class Components` `Lifecycle Methods`
+
 **Features**
 
 `🔍`

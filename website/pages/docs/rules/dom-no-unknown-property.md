@@ -12,6 +12,10 @@ react-dom/no-unknown-property
 @eslint-react/dom/no-unknown-property
 ```
 
+**Labels**
+
+`DOM` `Attributes` `Properties`
+
 **Features**
 
 `🔍` `🔧` `⚙️`

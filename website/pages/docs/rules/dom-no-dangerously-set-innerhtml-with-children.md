@@ -12,6 +12,10 @@ react-dom/no-dangerously-set-innerhtml-with-children
 @eslint-react/dom/no-dangerously-set-innerhtml-with-children
 ```
 
+**Labels**
+
+`DOM` `Children` `Correctness`
+
 **Features**
 
 `🔍`

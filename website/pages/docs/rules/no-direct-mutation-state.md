@@ -12,6 +12,10 @@ react-x/no-direct-mutation-state
 @eslint-react/no-direct-mutation-state
 ```
 
+**Labels**
+
+`State` `Mutation` `Class Components`
+
 **Features**
 
 `🔍`

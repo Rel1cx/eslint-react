@@ -12,6 +12,10 @@ react-dom/no-script-url
 @eslint-react/dom/no-script-url
 ```
 
+**Labels**
+
+`DOM` `XSS` `Security`
+
 **Features**
 
 `🔍`

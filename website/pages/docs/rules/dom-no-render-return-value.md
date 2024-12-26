@@ -12,6 +12,10 @@ react-dom/no-render-return-value
 @eslint-react/dom/no-render-return-value
 ```
 
+**Labels**
+
+`DOM` `Legacy React APIs`
+
 **Features**
 
 `🔍`

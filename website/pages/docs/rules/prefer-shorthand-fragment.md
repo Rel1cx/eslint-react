@@ -12,6 +12,10 @@ react-x/prefer-shorthand-fragment
 @eslint-react/prefer-shorthand-fragment
 ```
 
+**Labels**
+
+`Stylistic Issues` `JSX` `Fragments`
+
 **Features**
 
 `🔍`
