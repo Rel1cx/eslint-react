@@ -109,14 +109,14 @@
 
 ## Hooks Extra Rules
 
-| Rule                                                                                               | ✅ | Features | Description                                                                     |
-| :------------------------------------------------------------------------------------------------- | :- | :------- | :------------------------------------------------------------------------------ |
-| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)               | 1️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useEffect`.       |
-| [`no-direct-set-state-in-use-layout-effect`](hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`. |
-| [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useCallback`.                                    |
-| [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                                   | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useMemo`.                                        |
-| [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)                                   | 1️⃣  | `🔍`     | Enforces custom Hooks to use at least one other Hook.                           |
-| [`prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  | `🔍`     | Warns function calls made inside `useState` calls.                              |
+| Rule                                                                                               | ✅ | Features | Description                                                                                |
+| :------------------------------------------------------------------------------------------------- | :- | :------- | :----------------------------------------------------------------------------------------- |
+| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect)               | 1️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useEffect`.                  |
+| [`no-direct-set-state-in-use-layout-effect`](hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`.            |
+| [`no-unnecessary-use-callback`](hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useCallback`.                                               |
+| [`no-unnecessary-use-memo`](hooks-extra-no-unnecessary-use-memo)                                   | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useMemo`.                                                   |
+| [`no-useless-custom-hooks`](hooks-extra-no-useless-custom-hooks)                                   | 1️⃣  | `🔍`     | Enforces custom Hooks to use at least one other Hook inside.                               |
+| [`prefer-use-state-lazy-initialization`](hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  | `🔍`     | Enforces function calls made inside `useState` to be wrapped in an `initializer function`. |
 
 ### Deprecated
 
