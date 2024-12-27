@@ -23,7 +23,7 @@ export default {
     const config = useConfig();
     const title = `${config.title} – ESLint React`;
     const description = config.frontMatter["description"]
-      || "ESLint React – The most advanced linting rules for React.";
+      || "ESLint React – A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.";
     const image = config.frontMatter["image"]
       || `${PUBLIC_URL}/og.png`;
     return (
