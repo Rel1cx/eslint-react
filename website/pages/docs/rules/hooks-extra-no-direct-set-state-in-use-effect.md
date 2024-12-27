@@ -79,7 +79,7 @@ export default function RemoteContent() {
 
   useEffect(() => {
     let discarded = false;
-    fetch("https://example.com/content")
+    fetch("https://eslint-react.xyz/content")
       .then(resp => resp.text())
       .then(text => {
         if (discarded) return;

@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     "<App foo='test'>{/* valid */}</App>",
-    "<strong>&nbsp;https://www.example.com/attachment/download/1</strong>",
+    "<strong>&nbsp;https://www.eslint-react.xyz/attachment/download/1</strong>",
     "<App /* valid */ placeholder={'foo'}/>",
     "</* valid */></>",
   ],

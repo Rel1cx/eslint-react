@@ -11,7 +11,9 @@ ESLint React provides the following configurations:
 (type: `string`, default: `"react"`)
 
 The source where React is imported from.\
-This allows to specify a custom import location for React when not using the official distribution (e.g. `@pika/react`, etc).
+This allows to specify a custom import location for React when not using the official distribution.
+
+(e.g. `@pika/react`, etc)
 
 ### `jsxPragma`
 
@@ -56,17 +58,21 @@ will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the compo
 
 A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
 
-(e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`).
+(e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`)
 
 ### `additionalComponents`
 
 (type: `{ name: string; as: string; attributes: { name: string; as?: string; defaultValue?: string }[] }[]`)
 
-<Callout type="warning">This is an experimental feature that can be unstable and lacks comprehensive documentation.</Callout>
+<Callout type="info">If `polymorphicPropName` meets the requirements, always consider using it instead of this setting, as it is simpler and more efficient.</Callout>
 
-An array of user-defined components, used to inform the ESLint React plugins how to treat these components during checks.
+<Callout type="warning">This is an experimental feature that can be unstable and lacks documentation.</Callout>
 
-This can be incredibly helpful for rules to understand the semantics of user-defined components and their props (e.g. `<Link to="/home" />`, `<Box as="form" />`, `<Button component="a" />`).
+An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis on them than just using the `polymorphicPropName` setting. You can also provide default values for attributes here, that will be used when that attribute is not present in the component.
+
+(e.g. The `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]` demystifies a `<Link to="https://eslint-react.xyz" />` as an `<a href="https://eslint-react.xyz" />` so that the `dom/no-unsafe-target-blank` rule can perform checks on it)
+
+(e.g. The `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` demystifies an `<EmbedContent src="https://eslint-react.xyz" />` as an `<iframe src="https://eslint-react.xyz" sandbox="" />` so that both the `dom/no-missing-sandbox` and `dom/no-unsafe-sandbox` rules can perform checks on it)
 
 ## Examples
 

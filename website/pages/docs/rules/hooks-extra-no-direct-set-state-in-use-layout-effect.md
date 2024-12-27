@@ -73,7 +73,7 @@ export default function RemoteContent() {
 
   useLayoutEffect(() => {
     let discarded = false;
-    fetch("https://example.com/content")
+    fetch("https://eslint-react.xyz/content")
       .then(resp => resp.text())
       .then(text => {
         if (discarded) return;
