@@ -57,6 +57,10 @@
     "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5"
   },
+  "engines": {
+    "bun": ">=1.0.15",
+    "node": ">=18.18.0"
+  },
   "sideEffects": false,
   "module": "dist/index.mjs"
 }
