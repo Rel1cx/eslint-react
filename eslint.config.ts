@@ -126,6 +126,7 @@ export default tseslint.config(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.strict,
+      eslintPluginImport.flatConfigs.recommended,
       eslintPluginPerfectionist.configs["recommended-natural"],
       eslintPluginRegexp.configs["flat/recommended"],
       eslintPluginJsdoc.configs["flat/recommended-typescript-error"],
@@ -144,7 +145,6 @@ export default tseslint.config(
     plugins: {
       ["@susisu/safe-typescript"]: eslintPluginSafeTypeScript,
       ["better-mutation"]: eslintPluginBetterMutation,
-      ["import-x"]: eslintPluginImport,
       ["local"]: eslintPluginLocal,
       ["simple-import-sort"]: eslintPluginSimpleImportSort,
       ["unicorn"]: eslintPluginUnicorn,
@@ -211,19 +211,6 @@ export default tseslint.config(
       "jsdoc/require-returns": "off",
       "jsdoc/require-yields": "warn",
       "jsdoc/tag-lines": "warn",
-      // Part: import rules
-      "import-x/consistent-type-specifier-style": "warn",
-      "import-x/export": "error",
-      "import-x/first": "warn",
-      "import-x/newline-after-import": "warn",
-      "import-x/no-absolute-path": "error",
-      "import-x/no-duplicates": "error",
-      "import-x/no-dynamic-require": "error",
-      "import-x/no-empty-named-blocks": "error",
-      "import-x/no-extraneous-dependencies": "error",
-      "import-x/no-mutable-exports": "error",
-      "import-x/no-self-import": "error",
-      "import-x/no-unused-modules": "error",
       // Part: simple-import-sort rules
       "simple-import-sort/exports": "warn",
       "simple-import-sort/imports": "warn",
