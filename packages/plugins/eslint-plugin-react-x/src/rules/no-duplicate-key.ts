@@ -20,6 +20,7 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
+// TODO: Re-implement this rule to improve performance
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
