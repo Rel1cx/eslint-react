@@ -1,16 +1,10 @@
-import { Callout } from "nextra/components"
-
-import { ConfigTab, ESLintConfigTabs } from "#/widgets/eslint-config-tabs";
+import { Callout, Tabs } from "nextra/components"
 
 # Advanced Configuration (WIP)
 
 <Callout type="warning">This page contains experimental features that still under development. The content may change without notice.</Callout>
 
 ## Examples
-
-<ESLintConfigTabs>
-
-<ConfigTab>
 
 ```ts filename="eslint.config.js"
 import eslintReact from "@eslint-react/eslint-plugin";
@@ -80,74 +74,3 @@ export default [
   },
 ];
 ```
-
-</ConfigTab>
-
-<ConfigTab>
-
-```js filename=".eslintrc.js"
-module.exports = {
-  // ...
-  settings: {
-    "react-x": {
-      importSource: "react",
-      jsxPragma: "createElement",
-      jsxPragmaFrag: "Fragment",
-      additionalHooks: {
-        useLayoutEffect: ["useIsomorphicLayoutEffect"],
-      },
-      additionalComponents: [
-        {
-          // Match all components with `html` attribute and alias it to `dangerouslySetInnerHTML`
-          name: "*",
-          attributes: [
-            { name: "html", as: "dangerouslySetInnerHTML" },
-          ],
-        },
-        {
-          // Match Button component with `component="a"` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
-          name: "*",
-          selector: ":has(JSXAttribute[name.name='component'][value.value='button'])",
-          as: "button",
-          attributes: [
-            { name: "type", defaultValue: "button" },
-          ],
-        },
-        {
-          // Match Button component with `component="a"` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
-          name: "Button",
-          selector: ":has(JSXAttribute[name.name='component'][value.value='a'])",
-          as: "a",
-          attributes: [
-            { name: "rel", defaultValue: "noopener noreferrer" },
-          ],
-        },
-        {
-          // Match MUIButton component with a `href` or `to` attribute and alias it to `a` component with `rel="noopener noreferrer"` attribute
-          name: "MUIButton",
-          selector: ":matches(:has(JSXAttribute[name.name='href']), :has(JSXAttribute[name.name='to']))",
-          as: "a",
-          attributes: [
-            { name: "rel", defaultValue: "noopener noreferrer" },
-          ],
-        },
-        {
-          // Match TextInput component with `mode="uncontrolled"` attribute and alias it to an uncontrolled input component with `content` and `onContentUpdate` pair
-          name: "TextInput",
-          selector: ":has(JSXAttribute[name.name='mode'][value.value='uncontrolled'])",
-          as: "input",
-          attributes: [
-            { name: "content", as: "value", controlled: false },
-            { name: "onContentUpdate", as: "onChange" },
-          ],
-        },
-      ],
-      version: "detect",
-    },
-  },
-};
-```
-
-</ConfigTab>
-
-</ESLintConfigTabs>

@@ -1,6 +1,4 @@
-import { Callout } from "nextra/components"
-
-import { ConfigTab, ESLintConfigTabs } from "#/widgets/eslint-config-tabs";
+import { Callout, Tabs } from "nextra/components"
 
 # Configurations
 
@@ -72,10 +70,6 @@ This can be incredibly helpful for rules to understand the semantics of user-def
 
 ## Examples
 
-<ESLintConfigTabs>
-
-<ConfigTab>
-
 ```ts filename="eslint.config.js"
 import eslintReact from "@eslint-react/eslint-plugin";
 
@@ -108,38 +102,3 @@ export default [
   },
 ];
 ```
-
-</ConfigTab>
-
-<ConfigTab>
-
-```js filename=".eslintrc.js"
-module.exports = {
-  // ...
-  settings: {
-    "react-x": {
-      importSource: "react",
-      jsxPragma: "createElement",
-      jsxPragmaFrag: "Fragment",
-      additionalHooks: {
-        useLayoutEffect: ["useIsomorphicLayoutEffect"],
-      },
-      additionalComponents: [
-        {
-          name: "Link",
-          as: "a",
-          attributes: [
-            { name: "to", as: "href" },
-            { name: "rel", defaultValue: "noopener noreferrer" },
-          ],
-        },
-      ],
-      version: "detect",
-    },
-  },
-};
-```
-
-</ConfigTab>
-
-</ESLintConfigTabs>

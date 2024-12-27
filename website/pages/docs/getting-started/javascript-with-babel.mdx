@@ -1,10 +1,36 @@
+import { Tabs } from "nextra/components";
+
 # Getting Started with JavaScript + Babel
 
 ## Install
 
+<Tabs items={["npm", "pnpm", "yarn"]}>
+
+<Tabs.Tab>
+
 ```sh copy filename="Terminal"
 npm install --save-dev @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
 ```
+
+</Tabs.Tab>
+
+<Tabs.Tab>
+
+```sh copy filename="Terminal"
+pnpm add --save-dev @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
+```
+
+</Tabs.Tab>
+
+<Tabs.Tab>
+
+```sh copy filename="Terminal"
+yarn add --dev @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
+```
+
+</Tabs.Tab>
+
+</Tabs>
 
 ## Setup
 

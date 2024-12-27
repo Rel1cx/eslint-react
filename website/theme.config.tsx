@@ -1,7 +1,7 @@
 import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
 
 import logo from "#/assets/logo.svg";
-import { Image } from "#/components/image";
+import { Image } from "#/components/ui/image";
 import { PUBLIC_URL } from "#/constants";
 
 export default {
