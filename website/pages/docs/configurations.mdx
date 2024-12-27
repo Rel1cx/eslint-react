@@ -40,8 +40,6 @@ If `importSource` is specified, an equivalent version of React should be provide
 
 (type: `string`)
 
-<Callout type="warning">Polymorphic components can make code harder to maintain; please use this feature with caution.</Callout>
-
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
 
 For example, if you set the `polymorphicPropName` setting to `as` then this element:
@@ -64,15 +62,15 @@ A object of aliases for React built-in hooks. ESLint React will recognize these 
 
 (type: `{ name: string; as: string; attributes: { name: string; as?: string; defaultValue?: string }[] }[]`)
 
-<Callout type="info">If `polymorphicPropName` meets the requirements, always consider using it instead of this setting, as it is simpler and more efficient.</Callout>
+<Callout type="info">Before using `additionalComponents`, consider whether `polymorphicPropName` can be used instead, as it simpler and more efficient.</Callout>
 
 <Callout type="warning">This is an experimental feature that can be unstable and lacks documentation.</Callout>
 
 An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis on them than just using the `polymorphicPropName` setting. You can also provide default values for attributes here, that will be used when that attribute is not present in the component.
 
-(e.g. The `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]` demystifies a `<Link to="https://eslint-react.xyz" />` as an `<a href="https://eslint-react.xyz" />` so that the `dom/no-unsafe-target-blank` rule can perform checks on it)
+(e.g. The `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]` demystifies a `<Link to="https://eslint-react.xyz" />` as an `<a href="https://eslint-react.xyz" />`, so that the `dom/no-unsafe-target-blank` rule can perform checks on it)
 
-(e.g. The `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` demystifies an `<EmbedContent src="https://eslint-react.xyz" />` as an `<iframe src="https://eslint-react.xyz" sandbox="" />` so that both the `dom/no-missing-sandbox` and `dom/no-unsafe-sandbox` rules can perform checks on it)
+(e.g. The `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` demystifies an `<EmbedContent src="https://eslint-react.xyz" />` as an `<iframe src="https://eslint-react.xyz" sandbox="" />`, so that both the `dom/no-missing-sandbox` and `dom/no-unsafe-sandbox` rules can perform checks on it)
 
 ## Examples
 
