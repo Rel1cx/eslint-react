@@ -1,4 +1,3 @@
-/* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { isNullable, O } from "@eslint-react/eff";

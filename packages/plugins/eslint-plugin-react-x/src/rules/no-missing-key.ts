@@ -1,4 +1,3 @@
-/* eslint-disable better-mutation/no-mutation */
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import { O } from "@eslint-react/eff";

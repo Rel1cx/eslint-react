@@ -1,4 +1,3 @@
-/* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
@@ -64,11 +63,9 @@ export default createRule<[], MessageID>({
       TSESTree.CallExpression[]
     >();
     const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
-      // eslint-disable-next-line better-mutation/no-mutation
       setupFunctionRef.current = O.some(node);
     };
     const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
-      // eslint-disable-next-line better-mutation/no-mutation
       setupFunctionRef.current = O.filter(setupFunctionRef.current, (current) => current !== node);
     };
     function isSetupFunction(node: TSESTree.Node) {

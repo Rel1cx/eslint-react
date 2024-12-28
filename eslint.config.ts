@@ -14,8 +14,6 @@ import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import eslintPluginVitest from "eslint-plugin-vitest";
 // @ts-expect-error - missing types
-import eslintPluginBetterMutation from "eslint-plugin-better-mutation";
-// @ts-expect-error - missing types
 import eslintPluginEslintPlugin from "eslint-plugin-eslint-plugin";
 import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
 import tseslint from "typescript-eslint";
@@ -144,7 +142,6 @@ export default tseslint.config(
     },
     plugins: {
       ["@susisu/safe-typescript"]: eslintPluginSafeTypeScript,
-      ["better-mutation"]: eslintPluginBetterMutation,
       ["local"]: eslintPluginLocal,
       ["simple-import-sort"]: eslintPluginSimpleImportSort,
       ["unicorn"]: eslintPluginUnicorn,
@@ -153,7 +150,6 @@ export default tseslint.config(
   {
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
-      ...eslintPluginBetterMutation.configs.recommended.rules,
       eqeqeq: ["error", "always"],
       "max-depth": ["warn", 4],
       "no-console": "error",

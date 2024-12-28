@@ -1,4 +1,3 @@
-/* eslint-disable better-mutation/no-mutation */
 import path from "node:path";
 
 import { O } from "@eslint-react/eff";

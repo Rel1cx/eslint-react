@@ -1,4 +1,3 @@
-/* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";

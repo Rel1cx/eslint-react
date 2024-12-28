@@ -1,5 +1,3 @@
-/* eslint-disable better-mutation/no-mutation */
-/* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";

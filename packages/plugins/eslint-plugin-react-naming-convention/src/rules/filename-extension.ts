@@ -1,4 +1,3 @@
-/* eslint-disable better-mutation/no-mutation */
 import { isObject } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
