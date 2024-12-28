@@ -1,6 +1,7 @@
+/* eslint-disable better-mutation/no-mutation */
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
-import { F, MutRef, O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -35,7 +36,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const isWithinChildrenToArrayRef = MutRef.make(false);
+    const state = { isWithinChildrenToArray: false };
     function isKeyEqual(a: TSESTree.Node, b: TSESTree.Node) {
       return VAR.isNodeValueEqual(a, b, [context.sourceCode.getScope(a), context.sourceCode.getScope(b)]);
     }
@@ -97,7 +98,7 @@ export default createRule<[], MessageID>({
 
     return {
       "ArrayExpression, JSXElement > JSXElement"(node: TSESTree.ArrayExpression | TSESTree.JSXElement) {
-        if (MutRef.get(isWithinChildrenToArrayRef)) return;
+        if (state.isWithinChildrenToArray) return;
         const elements = match(node)
           .with({ type: AST_NODE_TYPES.ArrayExpression }, ({ elements }) => elements)
           .with({ type: AST_NODE_TYPES.JSXElement }, ({ parent }) => "children" in parent ? parent.children : [])
@@ -138,7 +139,8 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
+        state.isWithinChildrenToArray ||= isChildrenToArrayCall(node, context);
+        if (state.isWithinChildrenToArray) return;
         const isMapCall = AST.isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: AST_NODE_TYPES.CallExpression,
@@ -150,7 +152,6 @@ export default createRule<[], MessageID>({
           },
         }, node);
         if (!isMapCall && !isArrayFromCall) return;
-        if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const fn = node.arguments[isMapCall ? 0 : 1];
         if (!AST.isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(fn)) return;
         if (fn.body.type === AST_NODE_TYPES.BlockStatement) {
@@ -162,7 +163,8 @@ export default createRule<[], MessageID>({
         O.map(checkExpression(fn.body), context.report);
       },
       "CallExpression:exit"(node) {
-        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, false);
+        if (!isChildrenToArrayCall(node, context)) return;
+        state.isWithinChildrenToArray = false;
       },
     };
   },

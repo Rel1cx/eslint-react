@@ -1,6 +1,7 @@
+/* eslint-disable better-mutation/no-mutation */
 import path from "node:path";
 
-import { MutRef, O } from "@eslint-react/eff";
+import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -24,16 +25,16 @@ describe("get function identifier from function declaration", () => {
     ["function bar() {}", "bar"],
     ["function baz<T>() {}", "baz"],
   ])("should return the function name from %s", (code, expected) => {
-    const n = MutRef.make<null | TSESTreeFunction>(null);
+    let n = O.none<TSESTreeFunction>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) return;
         const id = O.getOrThrow(getFunctionIdentifier(node));
         expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
-        MutRef.set(n, node);
+        n = O.fromNullable(node);
       },
     }, true);
-    expect(MutRef.get(n)).not.toBeNull();
+    expect(O.isSome(n)).toBe(true);
   });
 });
 
@@ -53,15 +54,15 @@ describe("get function identifier from function expression", () => {
     ["class Clazz { Foo = function() {} }", "Foo"],
     ["class Clazz { Foo = () => {} }", "Foo"],
   ])("should return the function name from %s", (code, expected) => {
-    const n = MutRef.make<null | TSESTreeFunction>(null);
+    let n = O.none<TSESTreeFunction>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) return;
         const id = O.getOrThrow(getFunctionIdentifier(node));
         expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
-        MutRef.set(n, node);
+        n = O.fromNullable(node);
       },
     }, true);
-    expect(MutRef.get(n)).not.toBeNull();
+    expect(O.isSome(n)).toBe(true);
   });
 });
