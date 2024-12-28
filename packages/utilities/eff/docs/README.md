@@ -11,8 +11,6 @@
 - [Data](namespaces/Data/README.md)
 - [Equal](namespaces/Equal/README.md)
 - [F](namespaces/F/README.md)
-- [MutRef](namespaces/MutRef/README.md)
-- [Ref](namespaces/Ref/README.md)
 - [compose](functions/compose.md)
 - [struct](functions/struct.md)
 - [tuple](functions/tuple.md)

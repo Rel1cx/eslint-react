@@ -1,7 +1,8 @@
+/* eslint-disable better-mutation/no-mutation */
 /* eslint-disable better-mutation/no-mutating-methods */
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
-import { F, MutRef, O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import { decodeSettings } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -58,7 +59,7 @@ export default createRule<[], MessageID>({
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
     const functionStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
-    const setupFunctionRef = MutRef.make<AST.TSESTreeFunction | null>(null);
+    const setupFunctionRef = { current: O.none<AST.TSESTreeFunction>() };
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
     const indirectFunctionCalls: TSESTree.CallExpression[] = [];
     const indirectSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
@@ -69,10 +70,10 @@ export default createRule<[], MessageID>({
       TSESTree.CallExpression[]
     >();
     const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
-      MutRef.set(setupFunctionRef, node);
+      setupFunctionRef.current = O.some(node);
     };
     const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
-      MutRef.update(setupFunctionRef, (current) => current === node ? null : current);
+      setupFunctionRef.current = O.filter(setupFunctionRef.current, (current) => current !== node);
     };
     function isSetupFunction(node: TSESTree.Node) {
       return node.parent?.type === AST_NODE_TYPES.CallExpression
@@ -105,7 +106,7 @@ export default createRule<[], MessageID>({
         if (functionKind === "setup") onSetupFunctionExit(node);
       },
       CallExpression(node) {
-        const effectFn = MutRef.get(setupFunctionRef);
+        const effectFn = O.getOrNull(setupFunctionRef.current);
         const [parentFn, parentFnKind] = functionStack.at(-1) ?? [];
         if (parentFn?.async) return;
         match(getCallKind(node))

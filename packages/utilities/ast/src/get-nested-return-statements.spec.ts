@@ -1,6 +1,7 @@
+/* eslint-disable better-mutation/no-mutation */
 import path from "node:path";
 
-import { MutRef } from "@eslint-react/eff";
+import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -91,19 +92,19 @@ describe("get nested return statements from function", () => {
       ],
     ],
   ])("should return the nested return statements from %s", (code, expected) => {
-    const n = MutRef.make<null | TSESTreeFunction>(null);
+    let n = O.none<TSESTreeFunction>();
     const { ast } = parse(code);
     simpleTraverse(ast, {
       enter(node) {
+        if (O.isSome(n)) return;
         if (!isFunction(node)) return;
-        if (MutRef.get(n)) return;
         const returnStatements = getNestedReturnStatements(node);
         for (const [index, statement] of returnStatements.entries()) {
           expect(statement).include(expected[index]);
         }
-        MutRef.set(n, node);
+        n = O.fromNullable(node);
       },
     }, true);
-    expect(MutRef.get(n)).not.toBeNull();
+    expect(O.isSome(n)).toBe(true);
   });
 });
