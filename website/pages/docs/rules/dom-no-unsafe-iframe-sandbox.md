@@ -45,7 +45,7 @@ import React from "react";
 function MyComponent() {
   return (
     <iframe
-      src="https://example.com"
+      src="https://eslint-react.xyz"
       sandbox="allow-scripts allow-same-origin"
     />
   );
@@ -58,7 +58,7 @@ function MyComponent() {
 import React from "react";
 
 function MyComponent() {
-  return <iframe src="https://example.com" sandbox="allow-popups" />;
+  return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }
 ```
 

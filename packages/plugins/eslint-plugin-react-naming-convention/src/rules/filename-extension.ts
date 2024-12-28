@@ -1,4 +1,5 @@
-import { isObject, MutRef } from "@eslint-react/eff";
+/* eslint-disable better-mutation/no-mutation */
+import { isObject } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
@@ -86,23 +87,21 @@ export default createRule<Options, MessageID>({
     const extensions = isObject(options) && "extensions" in options
       ? options.extensions
       : defaultOptions[0].extensions;
-
     const filename = context.filename;
-    const hasJSXNodeRef = MutRef.make<boolean>(false);
+
+    let hasJSXNode = false;
 
     return {
       JSXElement() {
-        MutRef.set(hasJSXNodeRef, true);
+        hasJSXNode = true;
       },
       JSXFragment() {
-        MutRef.set(hasJSXNodeRef, true);
+        hasJSXNode = true;
       },
       "Program:exit"(node) {
         const fileNameExt = filename.slice(filename.lastIndexOf("."));
         const isJSXExt = extensions.includes(fileNameExt);
-        const hasJSXCode = MutRef.get(hasJSXNodeRef);
-
-        if (hasJSXCode && !isJSXExt) {
+        if (hasJSXNode && !isJSXExt) {
           context.report({
             messageId: "filenameExtensionInvalid",
             node,
@@ -114,7 +113,7 @@ export default createRule<Options, MessageID>({
         const ignoreFilesWithoutCode = isObject(options) && options.ignoreFilesWithoutCode;
         if (!hasCode && ignoreFilesWithoutCode) return;
         if (
-          !hasJSXCode
+          !hasJSXNode
           && isJSXExt
           && allow === "as-needed"
         ) {

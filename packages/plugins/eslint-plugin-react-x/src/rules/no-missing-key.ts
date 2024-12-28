@@ -1,6 +1,7 @@
+/* eslint-disable better-mutation/no-mutation */
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
-import { MutRef, O } from "@eslint-react/eff";
+import { O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -35,7 +36,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const isWithinChildrenToArrayRef = MutRef.make(false);
+    const state = { isWithinChildrenToArray: false };
     function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       switch (node.type) {
         case AST_NODE_TYPES.JSXElement: {
@@ -89,7 +90,7 @@ export default createRule<[], MessageID>({
 
     return {
       ArrayExpression(node) {
-        if (MutRef.get(isWithinChildrenToArrayRef)) return;
+        if (state.isWithinChildrenToArray) return;
         const elements = node.elements.filter(AST.is(AST_NODE_TYPES.JSXElement));
         if (elements.length === 0) return;
         const initialScope = context.sourceCode.getScope(node);
@@ -103,7 +104,8 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, true);
+        state.isWithinChildrenToArray ||= isChildrenToArrayCall(node, context);
+        if (state.isWithinChildrenToArray) return;
         const isMapCall = AST.isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: AST_NODE_TYPES.CallExpression,
@@ -115,7 +117,6 @@ export default createRule<[], MessageID>({
           },
         }, node);
         if (!isMapCall && !isArrayFromCall) return;
-        if (MutRef.get(isWithinChildrenToArrayRef)) return;
         const fn = node.arguments[isMapCall ? 0 : 1];
         if (!AST.isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(fn)) return;
         if (fn.body.type === AST_NODE_TYPES.BlockStatement) {
@@ -127,10 +128,11 @@ export default createRule<[], MessageID>({
         O.map(checkExpression(fn.body), context.report);
       },
       "CallExpression:exit"(node) {
-        if (isChildrenToArrayCall(node, context)) MutRef.set(isWithinChildrenToArrayRef, false);
+        if (!isChildrenToArrayCall(node, context)) return;
+        state.isWithinChildrenToArray = false;
       },
       JSXFragment(node) {
-        if (MutRef.get(isWithinChildrenToArrayRef)) return;
+        if (state.isWithinChildrenToArray) return;
         if (node.parent.type === AST_NODE_TYPES.ArrayExpression) {
           context.report({
             messageId: "noMissingKeyWithFragment",

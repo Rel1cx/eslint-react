@@ -46,6 +46,9 @@
   "peerDependencies": {
     "react": "^19.0.0"
   },
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "sideEffects": false,
   "module": "dist/index.mjs",
   "packageManager": "pnpm@9.15.1"

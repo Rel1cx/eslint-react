@@ -657,7 +657,7 @@ ruleTester.run(RULE_NAME, rule, {
         const [data, setData] = useState(() => 0);
         useEffect(() => {
           void async function () {
-            const ret = await fetch("https://example.com");
+            const ret = await fetch("https://eslint-react.xyz");
             setData(ret);
           }()
         }, []);

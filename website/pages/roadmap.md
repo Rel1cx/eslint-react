@@ -53,3 +53,7 @@
 ### Advanced Configuration features
 
 - [ ] Additional components ([`settings["react-x"].additionalComponents`](https://eslint-react.xyz/docs/configurations#additionalcomponents)) transitions from experimental to stable.
+
+### Versioning Policy
+
+- [ ] The versioning policy will be updated to follow the [Semantic Versioning 2.0.0](https://semver.org) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy).

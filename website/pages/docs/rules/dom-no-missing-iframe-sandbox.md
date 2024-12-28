@@ -43,8 +43,8 @@ This rule checks all React iframe elements and verifies that there is sandbox at
 import React from "react";
 
 function MyComponent() {
-  return <iframe src="https://example.com" />;
-  //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  return <iframe src="https://eslint-react.xyz" />;
+  //     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //     - Missing 'sandbox' attribute on iframe component.
 }
 ```
@@ -55,7 +55,7 @@ function MyComponent() {
 import React from "react";
 
 function MyComponent() {
-  return <iframe src="https://example.com" sandbox="allow-popups" />;
+  return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }
 ```
 

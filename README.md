@@ -8,7 +8,8 @@ A set of composable ESLint rules for libraries and frameworks that use React as 
 
 ## Features
 
-- **Flexible**: Increased flexibility with fewer rule options.
+- **Simple**: Low configuration overhead with sensible defaults.
+- **Flexible**: Increased flexibility with more granular severity control.
 - **Comprehensive**: First-class support for TypeScript, React UI libraries, polymorphic components.
 - **Advanced Analysis**: Handles complex scenarios and identifies problems that other tools might miss.
 
@@ -106,7 +107,6 @@ export default tseslint.config({
 ## Roadmap
 
 - [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
-- [Milestone 3.0 ↗](https://eslint-react.xyz/roadmap#milestone-30-draft)
 
 ## Used by
 

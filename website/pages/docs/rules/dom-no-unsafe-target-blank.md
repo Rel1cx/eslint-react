@@ -40,7 +40,7 @@ import React from "react";
 
 function MyComponent() {
   return (
-    <a href="https://example.com" target="_blank">
+    <a href="https://eslint-react.xyz" target="_blank">
       Example
     </a>
   );
@@ -54,7 +54,7 @@ import React from "react";
 
 function MyComponent() {
   return (
-    <a href="https://example.com" target="_blank" rel="noreferrer noopener">
+    <a href="https://eslint-react.xyz" target="_blank" rel="noreferrer noopener">
       Example
     </a>
   );

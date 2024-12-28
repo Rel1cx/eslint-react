@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // TODO: Evaluate the necessity of supporting props lookup for spread props
+    // TODO: Investigate the necessity of supporting props lookup for spread props
     {
       code: /* tsx */ `
         const props = {

@@ -1,14 +1,12 @@
-import { Callout } from "nextra/components";
-
-import { ConfigTab, ESLintConfigTabs } from "#/widgets/eslint-config-tabs";
+import { Callout, Tabs } from "nextra/components";
 
 ## Presets
 
 The following presets are available in `@eslint-react/eslint-plugin`:
 
-<ESLintConfigTabs>
+<Tabs items={["Flat Config", "Legacy Config"]}>
 
-  <ConfigTab>
+  <Tabs.Tab>
 
     <Callout type="info">These presets are for ESLint Flat Config (`eslint.config.js`) only.</Callout>
 
@@ -51,11 +49,13 @@ The following presets are available in `@eslint-react/eslint-plugin`:
     | :------------------- | :-------------------------- |
     | Off DOM (`off-dom`)  | Disable DOM (`disable-dom`) |
 
-  </ConfigTab>
+  </Tabs.Tab>
 
-  <ConfigTab>
+  <Tabs.Tab>
 
     <Callout type="info">These presets are for ESLint Legacy Config (`.eslintrc.*`) only.</Callout>
+
+    <Callout type="warning">This config system is deprecated and not enabled by default in ESLint >= 9.0.0.</Callout>
 
     ### Bare Bones
 
@@ -96,6 +96,6 @@ The following presets are available in `@eslint-react/eslint-plugin`:
     | :------------------------- | :--------------------------------- |
     | Off DOM (`off-dom-legacy`) | Disable DOM (`disable-dom-legacy`) |
 
-  </ConfigTab>
+  </Tabs.Tab>
 
-</ESLintConfigTabs>
+</Tabs>

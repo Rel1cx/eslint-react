@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.22.2-beta.3",
+  "version": "1.22.2-beta.5",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rEl1cx/eslint-react",
   "bugs": {
@@ -53,6 +53,10 @@
     "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5",
     "type-fest": "^4.31.0"
+  },
+  "engines": {
+    "bun": ">=1.0.15",
+    "node": ">=18.18.0"
   },
   "sideEffects": false,
   "module": "dist/index.mjs"

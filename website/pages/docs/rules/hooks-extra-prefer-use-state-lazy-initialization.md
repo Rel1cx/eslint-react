@@ -28,7 +28,7 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 
 ## What it does
 
-Warns function calls made inside `useState` calls.
+Enforces function calls made inside `useState` to be wrapped in an `initializer function`.
 
 A function can be invoked inside a useState call to help create its initial state. However, subsequent renders will still invoke the function while discarding its return value. This is wasteful and can cause performance issues if the function call is expensive.
 
