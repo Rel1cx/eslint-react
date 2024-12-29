@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "1.22.2-beta.9",
+  "version": "1.22.2-next.10",
   "description": "A subset of effect to produce a more lightweight version of the library.",
   "homepage": "https://github.com/rEl1cx/eslint-react",
   "bugs": {
