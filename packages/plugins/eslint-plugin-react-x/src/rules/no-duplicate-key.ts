@@ -69,11 +69,11 @@ export default createRule<[], MessageID>({
             const entry = F.pipe(
               O.Do,
               O.bind("call", () => AST.traverseUpGuard(jsxElement, AST.isMapCallLoose)),
-              O.bind("ietr", ({ call }) => AST.traverseUpStop(jsxElement, call, AST.isFunction)),
+              O.bind("iter", ({ call }) => AST.traverseUpStop(jsxElement, call, AST.isFunction)),
               O.bind("arg0", ({ call }) => O.fromNullable(call.arguments[0])),
             );
-            for (const { arg0, call, ietr } of O.toArray(entry)) {
-              if (AST.unwrapTypeExpression(arg0) !== ietr) continue;
+            for (const { arg0, call, iter } of O.toArray(entry)) {
+              if (AST.unwrapTypeExpression(arg0) !== iter) continue;
               keyedEntries.set(call, {
                 hasDuplicate: node.value?.type === AST_NODE_TYPES.Literal,
                 keys: [node],
