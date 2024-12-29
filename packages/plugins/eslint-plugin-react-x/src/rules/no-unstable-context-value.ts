@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const possibleValueConstructions = new Map<AST.TSESTreeFunction, VAR.Construction[]>();
+    const constructions = new Map<AST.TSESTreeFunction, VAR.Construction[]>();
 
     return {
       ...listeners,
@@ -46,34 +46,38 @@ export default createRule<[], MessageID>({
         const openingElementName = node.name;
         if (openingElementName.type !== AST_NODE_TYPES.JSXMemberExpression) return;
         if (openingElementName.property.name !== "Provider") return;
-        const maybeJSXValueAttribute = O.fromNullable(
-          node.attributes.find((attribute) => {
-            return attribute.type === AST_NODE_TYPES.JSXAttribute
-              && attribute.name.name === "value";
+        const constructionEntry = F.pipe(
+          O.Do,
+          O.bind("function", ctx.getCurrentFunction),
+          O.bind("attribute", () =>
+            O.fromNullable(
+              node.attributes.find((attribute) => {
+                return attribute.type === AST_NODE_TYPES.JSXAttribute
+                  && attribute.name.name === "value";
+              }),
+            )),
+          O.bind("value", ({ attribute }) => "value" in attribute ? O.some(attribute.value) : O.none()),
+          O.bind("valueExpression", ({ value }) =>
+            value?.type === AST_NODE_TYPES.JSXExpressionContainer
+              ? O.some(value.expression)
+              : O.none()),
+          O.bind("construction", ({ valueExpression }) => {
+            const initialScope = context.sourceCode.getScope(valueExpression);
+            return O.some(VAR.inspectConstruction(valueExpression, initialScope));
           }),
+          O.filter(({ construction }) => construction._tag !== "None"),
         );
-        if (O.isNone(maybeJSXValueAttribute) || !("value" in maybeJSXValueAttribute.value)) return;
-        const valueNode = maybeJSXValueAttribute.value.value;
-        if (valueNode?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
-        const valueExpression = valueNode.expression;
-        const initialScope = context.sourceCode.getScope(valueExpression);
-        const construction = VAR.inspectConstruction(valueExpression, initialScope);
-        if (construction._tag === "None") return;
-        O.map(
-          ctx.getCurrentFunction(),
-          ([_, currentFn]) =>
-            possibleValueConstructions.set(currentFn, [
-              ...possibleValueConstructions.get(currentFn) ?? [],
-              construction,
-            ]),
-        );
+        for (const { construction, function: [_, fNode] } of O.toArray(constructionEntry)) {
+          constructions.set(fNode, [
+            ...constructions.get(fNode) ?? [],
+            construction,
+          ]);
+        }
       },
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
-          const constructions = possibleValueConstructions.get(component);
-          if (!constructions) continue;
-          for (const construction of constructions) {
+          for (const construction of constructions.get(component) ?? []) {
             if (construction._tag === "None") continue;
             const { node: constructionNode, _tag } = construction;
             const messageId = _tag.startsWith("Function")

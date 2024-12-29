@@ -58,9 +58,6 @@
     }
   ],
   "mdx.server.enable": true,
-  "search.exclude": {
-    "pnpm-lock.yaml": true
-  },
   "files.exclude": {
     "**/.turbo": true,
     "*.bundled_*.mjs": true

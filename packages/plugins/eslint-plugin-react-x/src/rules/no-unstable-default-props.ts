@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const possibleDestructuringDeclarators = new WeakMap<
+    const declarators = new WeakMap<
       AST.TSESTreeFunction,
       ObjectDestructuringDeclarator[]
     >();
@@ -55,11 +55,9 @@ export default createRule<[], MessageID>({
           const properties = match(props)
             .with({ type: AST_NODE_TYPES.ObjectPattern }, ({ properties }) => properties)
             .with({ type: AST_NODE_TYPES.Identifier }, ({ name }) => {
-              const variableDeclarators = possibleDestructuringDeclarators.get(component);
-              if (!variableDeclarators) return [];
-              const declarators = variableDeclarators.filter(d => d.init.name === name);
-
-              return declarators.flatMap(d => d.id.properties);
+              return declarators.get(component)
+                ?.filter(d => d.init.name === name)
+                .flatMap(d => d.id.properties) ?? [];
             })
             .otherwise(() => []);
           for (const prop of properties) {
@@ -85,14 +83,10 @@ export default createRule<[], MessageID>({
         }
       },
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
-        O.map(
-          ctx.getCurrentFunction(),
-          ([_, currentFn]) =>
-            possibleDestructuringDeclarators.set(currentFn, [
-              ...possibleDestructuringDeclarators.get(currentFn) ?? [],
-              node,
-            ]),
-        );
+        for (const [_, currentFn] of O.toArray(ctx.getCurrentFunction())) {
+          const prevDeclarators = declarators.get(currentFn) ?? [];
+          declarators.set(currentFn, [...prevDeclarators, node]);
+        }
       },
     };
   },
