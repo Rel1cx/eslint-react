@@ -36,6 +36,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.getText().includes("key=")) return {};
     const keyedEntries: Map<TSESTree.Node, KeyedEntry> = new Map();
     function isKeyValueEqual(
       a: TSESTree.JSXAttribute,
@@ -44,10 +45,7 @@ export default createRule<[], MessageID>({
       const aValue = a.value;
       const bValue = b.value;
       if (aValue === null || bValue === null) return false;
-      return VAR.isNodeValueEqual(aValue, bValue, [
-        context.sourceCode.getScope(aValue),
-        context.sourceCode.getScope(bValue),
-      ]);
+      return AST.isNodeEqual(aValue, bValue);
     }
     return {
       "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
