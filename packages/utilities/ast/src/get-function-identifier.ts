@@ -11,7 +11,7 @@ import { O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 
-import { isOneOf } from "./is";
+import { isOneOf, isTypeOnlyExpression } from "./is";
 import type { TSESTreeFunction } from "./types";
 
 export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFunction): O.Option<TSESTree.Identifier> {
@@ -52,9 +52,10 @@ export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFuncti
       && node.parent.right === node
       && node.parent.left.type === AST_NODE_TYPES.Identifier:
       return O.some(node.parent.left);
+    // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;
     // const MaybeComponent = (() => {}) satisfies FunctionComponent;
-    case isOneOf([AST_NODE_TYPES.TSAsExpression, AST_NODE_TYPES.TSSatisfiesExpression])(node.parent):
+    case isTypeOnlyExpression(node.parent):
       return getFunctionIdentifier(node.parent);
   }
   return O.none();

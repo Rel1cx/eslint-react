@@ -176,18 +176,12 @@ export function inspectConstruction(
         }
         return Construction.None();
       })
-      .when(
-        AST.isOneOf([
-          AST_NODE_TYPES.TSAsExpression,
-          AST_NODE_TYPES.TSTypeAssertion,
-        ]),
-        () => {
-          if (!("expression" in node) || !isObject(node.expression)) {
-            return Construction.None();
-          }
-          return detect(node.expression);
-        },
-      )
+      .when(AST.isTypeOnlyExpression, () => {
+        if (!("expression" in node) || !isObject(node.expression)) {
+          return Construction.None();
+        }
+        return detect(node.expression);
+      })
       .otherwise(() => Construction.None());
   };
   return detect(node);

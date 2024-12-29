@@ -59,5 +59,13 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
+  if (node.type === AST_NODE_TYPES.TSAsExpression) {
+    const chunk = getNestedIdentifiers(node.expression);
+    identifiers.push(...chunk);
+  }
+  if (node.type === AST_NODE_TYPES.TSSatisfiesExpression) {
+    const chunk = getNestedIdentifiers(node.expression);
+    identifiers.push(...chunk);
+  }
   return identifiers;
 }
