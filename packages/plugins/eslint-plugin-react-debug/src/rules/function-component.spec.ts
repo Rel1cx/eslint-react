@@ -1366,6 +1366,62 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        const MyComponent1 = (() => null)!;
+        const MyComponent2 = (() => null)!!;
+        const MyComponent3 = (() => null)!!! as A;
+        const MyComponent4 = (() => null)!!! satisfies A;
+        const MyComponent5 = (() => null)!!! as A satisfies B;
+      `,
+      errors: [
+        {
+          messageId: "functionComponent",
+          data: {
+            name: "MyComponent1",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          },
+        },
+        {
+          messageId: "functionComponent",
+          data: {
+            name: "MyComponent2",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          },
+        },
+        {
+          messageId: "functionComponent",
+          data: {
+            name: "MyComponent3",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          },
+        },
+        {
+          messageId: "functionComponent",
+          data: {
+            name: "MyComponent4",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          },
+        },
+        {
+          messageId: "functionComponent",
+          data: {
+            name: "MyComponent5",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          },
+        },
+      ],
+    },
   ],
   valid: [
     ...allFunctions,
@@ -1375,25 +1431,21 @@ ruleTester.run(RULE_NAME, rule, {
     "const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
     /* tsx */ `
       export const action = (() => {
-        //             ^?
         return null;
       });
     `,
     /* tsx */ `
       export const action = (() => {
-        //             ^?
         return null;
       }) as ActionFUnction;
     `,
     /* tsx */ `
       export const action = (() => {
-        //             ^?
         return null;
       }) satisfies ActionFUnction;
     `,
     /* tsx */ `
       export const action = (() => {
-        //             ^?
         return null;
       }) as ActionFUnction satisfies ActionFUnction;
     `,

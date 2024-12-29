@@ -32,6 +32,9 @@ export function isNodeValueEqual(
 ): boolean {
   const [aScope, bScope] = initialScopes;
   switch (true) {
+    case a === b: {
+      return true;
+    }
     case a.type === AST_NODE_TYPES.Literal
       && b.type === AST_NODE_TYPES.Literal: {
       return a.value === b.value;

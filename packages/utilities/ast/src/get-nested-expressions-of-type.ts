@@ -90,6 +90,14 @@ export function getNestedExpressionsOfType<T extends AST_NODE_TYPES>(
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
+    if (node.type === AST_NODE_TYPES.TSAsExpression) {
+      const chunk = boundGetNestedExpressionsOfType(node.expression);
+      expressions.push(...chunk);
+    }
+    if (node.type === AST_NODE_TYPES.TSSatisfiesExpression) {
+      const chunk = boundGetNestedExpressionsOfType(node.expression);
+      expressions.push(...chunk);
+    }
     return expressions;
   };
 }

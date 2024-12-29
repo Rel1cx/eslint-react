@@ -14,24 +14,42 @@ export const isNodeEqual: {
   (a: TSESTree.Node): (b: TSESTree.Node) => boolean;
   (a: TSESTree.Node, b: TSESTree.Node): boolean;
 } = F.dual(2, (a: TSESTree.Node, b: TSESTree.Node): boolean => {
-  if (a.type !== b.type) return false;
-  if (a.type === AST_NODE_TYPES.ThisExpression && b.type === AST_NODE_TYPES.ThisExpression) return true;
-  if (a.type === AST_NODE_TYPES.Literal && b.type === AST_NODE_TYPES.Literal) return a.value === b.value;
-  if (a.type === AST_NODE_TYPES.TemplateElement && b.type === AST_NODE_TYPES.TemplateElement) {
-    return a.value.raw === b.value.raw;
+  switch (true) {
+    case a === b:
+      return true;
+    case a.type !== b.type:
+      return false;
+    case a.type === AST_NODE_TYPES.Literal
+      && b.type === AST_NODE_TYPES.Literal:
+      return a.value === b.value;
+    case a.type === AST_NODE_TYPES.TemplateElement
+      && b.type === AST_NODE_TYPES.TemplateElement:
+      return a.value.raw === b.value.raw;
+    case a.type === AST_NODE_TYPES.TemplateLiteral
+      && b.type === AST_NODE_TYPES.TemplateLiteral:
+      if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) return false;
+      if (!zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) return false;
+      if (!zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) return false;
+      return true;
+    case a.type === AST_NODE_TYPES.Identifier
+      && b.type === AST_NODE_TYPES.Identifier:
+      return a.name === b.name;
+    case a.type === AST_NODE_TYPES.PrivateIdentifier
+      && b.type === AST_NODE_TYPES.PrivateIdentifier:
+      return a.name === b.name;
+    case a.type === AST_NODE_TYPES.MemberExpression
+      && b.type === AST_NODE_TYPES.MemberExpression:
+      return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
+    case a.type === AST_NODE_TYPES.JSXAttribute
+      && b.type === AST_NODE_TYPES.JSXAttribute: {
+      if (a.name.name !== b.name.name) return false;
+      if (a.value === null || b.value === null) return a.value === b.value;
+      return isNodeEqual(a.value, b.value);
+    }
+    case a.type === AST_NODE_TYPES.ThisExpression
+      && b.type === AST_NODE_TYPES.ThisExpression:
+      return true;
+    default:
+      return false;
   }
-  if (a.type === AST_NODE_TYPES.TemplateLiteral && b.type === AST_NODE_TYPES.TemplateLiteral) {
-    if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) return false;
-    if (!zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) return false;
-    if (!zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) return false;
-    return true;
-  }
-  if (a.type === AST_NODE_TYPES.Identifier && b.type === AST_NODE_TYPES.Identifier) return a.name === b.name;
-  if (a.type === AST_NODE_TYPES.PrivateIdentifier && b.type === AST_NODE_TYPES.PrivateIdentifier) {
-    return a.name === b.name;
-  }
-  if (a.type === AST_NODE_TYPES.MemberExpression && b.type === AST_NODE_TYPES.MemberExpression) {
-    return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
-  }
-  return false;
 });
