@@ -15,23 +15,22 @@ export function useHookCollector() {
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionIdentifier(node);
     const name = O.flatMapNullable(id, (id) => id.name);
-    const isHook = O.isSome(id) && O.isSome(name) && isReactHookName(name.value);
-    if (!isHook) {
-      fStack.push([node, O.none()]);
+    if (O.isSome(id) && O.isSome(name) && isReactHookName(name.value)) {
+      const key = uid.rnd();
+      fStack.push([node, O.some(key)]);
+      hooks.set(key, {
+        _: key,
+        id,
+        kind: "function",
+        name,
+        node,
+        flag: 0n,
+        hint: 0n,
+        hookCalls: [],
+      });
       return;
     }
-    const key = uid.rnd();
-    fStack.push([node, O.some(key)]);
-    hooks.set(key, {
-      _: key,
-      id,
-      kind: "function",
-      name,
-      node,
-      flag: 0n,
-      hint: 0n,
-      hookCalls: [],
-    });
+    fStack.push([node, O.none()]);
   };
   const onFunctionExit = () => {
     fStack.pop();
