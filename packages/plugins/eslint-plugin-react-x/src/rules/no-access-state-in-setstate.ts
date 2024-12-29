@@ -17,7 +17,7 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
-  if (AST.isTypeOnlyExpression(node)) {
+  if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === AST_NODE_TYPES.Identifier || node.type === AST_NODE_TYPES.PrivateIdentifier) {

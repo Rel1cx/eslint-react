@@ -176,7 +176,7 @@ export function inspectConstruction(
         }
         return Construction.None();
       })
-      .when(AST.isTypeOnlyExpression, () => {
+      .when(AST.isTypeExpression, () => {
         if (!("expression" in node) || !isObject(node.expression)) {
           return Construction.None();
         }

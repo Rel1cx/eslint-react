@@ -149,7 +149,7 @@ export const isLeftHandSideExpressionType = isOneOf([
   AST_NODE_TYPES.TSTypeAssertion,
 ]);
 
-export const isTypeOnlyExpression = isOneOf([
+export const isTypeExpression = isOneOf([
   AST_NODE_TYPES.TSAsExpression,
   AST_NODE_TYPES.TSTypeAssertion,
   AST_NODE_TYPES.TSNonNullExpression,

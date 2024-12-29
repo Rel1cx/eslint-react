@@ -42,7 +42,7 @@ const LIFECYCLE_METHODS = new Set([
 // anywhere that a literal may be used as a key (e.g., member expressions,
 // method definitions, ObjectExpression property keys).
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
-  if (AST.isTypeOnlyExpression(node)) {
+  if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === AST_NODE_TYPES.Identifier || node.type === AST_NODE_TYPES.PrivateIdentifier) {
