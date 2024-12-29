@@ -81,7 +81,6 @@
 - [isInitializedFromReact](functions/isInitializedFromReact.md)
 - [isInsideCreateElementProps](functions/isInsideCreateElementProps.md)
 - [isInsideReactHook](functions/isInsideReactHook.md)
-- [isInsideReactHookCall](functions/isInsideReactHookCall.md)
 - [isInsideRenderMethod](functions/isInsideRenderMethod.md)
 - [isInversePhase](functions/isInversePhase.md)
 - [isMemo](functions/isMemo.md)

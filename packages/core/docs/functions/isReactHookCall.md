@@ -14,7 +14,7 @@ Check if the given node is a React Hook call by its name.
 
 ### node
 
-`CallExpression`
+`Node`
 
 The node to check.
 
