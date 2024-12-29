@@ -9,7 +9,7 @@ import {
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { O, or } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -123,7 +123,7 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { name, node: component } of classComponents) {
-          if (O.isNone(AST.traverseUp(component, node => isClassComponent(node) || isFunctionComponent(node)))) {
+          if (O.isNone(AST.traverseUp(component, or(isClassComponent, isFunctionComponent)))) {
             continue;
           }
           context.report({

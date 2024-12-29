@@ -42,9 +42,7 @@ export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
  * @returns `true` if node is inside class component's render block, `false` if not
  */
 export function isInsideRenderMethod(node: TSESTree.Node) {
-  const predicate = (node: TSESTree.Node): node is TSESTree.MethodDefinition => {
+  return O.isSome(AST.traverseUp(node, (node: TSESTree.Node) => {
     return isRenderMethodLike(node) && isClassComponent(node.parent.parent);
-  };
-
-  return O.isSome(AST.traverseUp(node, predicate));
+  }));
 }

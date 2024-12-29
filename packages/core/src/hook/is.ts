@@ -21,7 +21,8 @@ export function isReactHook(node: AST.TSESTreeFunction) {
  * @param node The node to check.
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
-export function isReactHookCall(node: TSESTree.CallExpression) {
+export function isReactHookCall(node: TSESTree.Node) {
+  if (node.type !== AST_NODE_TYPES.CallExpression) return false;
   if (node.callee.type === AST_NODE_TYPES.Identifier) return isReactHookName(node.callee.name);
   if (node.callee.type === AST_NODE_TYPES.MemberExpression) {
     return node.callee.property.type === AST_NODE_TYPES.Identifier && isReactHookName(node.callee.property.name);

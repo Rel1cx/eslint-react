@@ -41,22 +41,19 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
     function getReportDescriptor(node: TSESTree.CallExpression): O.Option<ReportDescriptor<MessageID>> {
       if (!isThisSetState(node)) return O.none();
-      const maybeParentClass = AST.traverseUp(
-        node,
-        AST.isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+      return F.pipe(
+        O.Do,
+        O.bind("clazz", () => AST.traverseUpGuard(node, isClassComponent)),
+        O.bind("method", ({ clazz }) => AST.traverseUpStop(node, clazz, isComponentDidUpdate)),
+        O.bind("upperScope", () => O.fromNullable(context.sourceCode.getScope(node).upper)),
+        O.filter(({ clazz, method, upperScope }) =>
+          method.parent === clazz.body && upperScope === context.sourceCode.getScope(method)
+        ),
+        O.map(() => ({
+          messageId: "noSetStateInComponentDidUpdate",
+          node,
+        })),
       );
-      if (O.isNone(maybeParentClass)) return O.none();
-      const parentClass = maybeParentClass.value;
-      if (!isClassComponent(parentClass)) return O.none();
-      const maybeParentMethod = AST.traverseUp(node, isComponentDidUpdate);
-      if (O.isNone(maybeParentMethod)) return O.none();
-      const parentMethod = maybeParentMethod.value;
-      if (parentMethod.parent !== parentClass.body) return O.none();
-      if (context.sourceCode.getScope(node).upper !== context.sourceCode.getScope(parentMethod)) return O.none();
-      return O.some({
-        messageId: "noSetStateInComponentDidUpdate",
-        node,
-      });
     }
     return {
       CallExpression: F.flow(getReportDescriptor, O.map(context.report)),
