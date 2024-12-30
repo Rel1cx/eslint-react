@@ -8,7 +8,7 @@
 
 > **isInsideCreateElementProps**(`node`, `context`): `boolean`
 
-Determines whether inside createElement's props.
+Determines whether inside `createElement`'s props.
 
 ## Parameters
 

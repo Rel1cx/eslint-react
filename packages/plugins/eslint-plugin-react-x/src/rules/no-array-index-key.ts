@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
-import { isNullable, O } from "@eslint-react/eff";
+import { isNullable, O, or } from "@eslint-react/eff";
 import { unsafeReadSettings } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -116,12 +116,10 @@ export default createRule<[], MessageID>({
   create(context) {
     const indexParamNames: O.Option<string>[] = [];
 
+    const isCreateOrCloneElementCall = or(isCreateElementCall(context), isCloneElementCall(context));
+
     function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
       return node.type === AST_NODE_TYPES.Identifier && indexParamNames.some(O.exists((name) => name === node.name));
-    }
-
-    function isCreateOrCloneElementCall(node: TSESTree.CallExpression) {
-      return isCreateElementCall(node, context) || isCloneElementCall(node, context);
     }
 
     function getReportDescriptor(node: TSESTree.Node): ReportDescriptor<MessageID>[] {

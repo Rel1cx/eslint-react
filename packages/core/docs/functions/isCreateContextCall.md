@@ -6,18 +6,44 @@
 
 # Function: isCreateContextCall()
 
-> **isCreateContextCall**(`node`, `context`): `boolean`
+## Call Signature
 
-## Parameters
+> **isCreateContextCall**(`context`): (`node`) => `node is CallExpression`
 
-### node
+### Parameters
 
-`CallExpression`
-
-### context
+#### context
 
 `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
-## Returns
+### Returns
 
-`boolean`
+`Function`
+
+#### Parameters
+
+##### node
+
+`Node`
+
+#### Returns
+
+`node is CallExpression`
+
+## Call Signature
+
+> **isCreateContextCall**(`node`, `context`): `node is CallExpression`
+
+### Parameters
+
+#### node
+
+`Node`
+
+#### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+### Returns
+
+`node is CallExpression`

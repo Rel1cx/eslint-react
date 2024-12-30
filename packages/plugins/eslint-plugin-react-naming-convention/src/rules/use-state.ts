@@ -49,15 +49,8 @@ export default createRule<[], MessageID>({
         for (const { hookCalls } of components.values()) {
           if (hookCalls.length === 0) continue;
           for (const hookCall of hookCalls) {
-            if (
-              !isUseStateCall(hookCall, context)
-              && !alias.some(isReactHookCallWithNameLoose(hookCall))
-            ) {
-              continue;
-            }
-            if (hookCall.parent.type !== AST_NODE_TYPES.VariableDeclarator) {
-              continue;
-            }
+            if (!isUseStateCall(hookCall, context) && !alias.some(isReactHookCallWithNameLoose(hookCall))) continue;
+            if (hookCall.parent.type !== AST_NODE_TYPES.VariableDeclarator) continue;
             const { id } = hookCall.parent;
             const descriptor = O.some({ messageId: "useState", node: id } as const);
             F.pipe(
