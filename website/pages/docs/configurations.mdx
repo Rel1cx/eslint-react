@@ -77,7 +77,13 @@ export default [
             as: "a",
             attributes: [
               { name: "to", as: "href" },
-              { name: "rel", defaultValue: "noopener noreferrer" },
+            ],
+          },
+          {
+            name: "EmbedContent",
+            as: "iframe",
+            attributes: [
+              { name: "sandbox", defaultValue: "" }
             ],
           },
         ],
