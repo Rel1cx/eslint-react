@@ -75,7 +75,6 @@
 - [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
 - [isForwardRef](functions/isForwardRef.md)
 - [isForwardRefCall](functions/isForwardRefCall.md)
-- [isFragmentElement](functions/isFragmentElement.md)
 - [isFromReact](functions/isFromReact.md)
 - [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md)
 - [isInitializedFromReact](functions/isInitializedFromReact.md)

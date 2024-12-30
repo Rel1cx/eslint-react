@@ -166,6 +166,8 @@ The identifier that’s used for JSX Element creation.
 
 `"createElement"`
 
+**Deprecated**
+
 #### jsxPragmaFrag
 
 `string`
@@ -179,6 +181,8 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 **Default**
 
 `"Fragment"`
+
+**Deprecated**
 
 #### polymorphicPropName
 

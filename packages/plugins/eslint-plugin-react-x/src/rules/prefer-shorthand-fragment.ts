@@ -1,5 +1,5 @@
-import { isFragmentElement } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
+import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
-      if (!isFragmentElement(node, context)) return O.none();
+      if (JSX.getElementName(node.openingElement).split(".").at(-1) !== "Fragment") return O.none();
       const hasAttributes = node.openingElement.attributes.length > 0;
       if (hasAttributes) return O.none();
       return O.some({

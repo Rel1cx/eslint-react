@@ -197,22 +197,14 @@ ruleTester.run(RULE_NAME, rule, {
     /* tsx */ `<>{cloneElement(children, { ref: childrenRef })}</>`,
     {
       code: /* tsx */ `
-        <React.SomeFragment>
+        <SomeReact.SomeFragment>
           {<Foo />}
-        </React.SomeFragment>
+        </SomeReact.SomeFragment>
       `,
       settings: {
         "react-x": {
           jsxPragma: "SomeReact",
           jsxPragmaFrag: "SomeFragment",
-        },
-      },
-    },
-    {
-      code: /* tsx */ `<NotReact.Fragment />`,
-      settings: {
-        "react-x": {
-          strictImportCheck: true,
         },
       },
     },
