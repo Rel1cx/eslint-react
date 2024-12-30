@@ -1,7 +1,7 @@
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
+import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -78,12 +78,9 @@ export default createRule<[], MessageID>({
     const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: TimerEntry[] = [];
     const rEntries: TimerEntry[] = [];
-    const isInverseEntry: {
-      (a: TimerEntry): (b: TimerEntry) => boolean;
-      (a: TimerEntry, b: TimerEntry): boolean;
-    } = F.dual(2, (a: TimerEntry, b: TimerEntry) => {
+    function isInverseEntry(a: TimerEntry, b: TimerEntry) {
       return isInstanceIDEqual(a.timerID, b.timerID, context);
-    });
+    }
     return {
       [":function"](node: AST.TSESTreeFunction) {
         const fKind = O.getOrElse(getPhaseKindOfFunction(node), () => "other" as const);
@@ -97,18 +94,6 @@ export default createRule<[], MessageID>({
         if (!fNode || !fKind) return;
         if (!ERPhaseRelevance.has(fKind)) return;
         switch (getCallKind(node)) {
-          case "clearTimeout": {
-            const [timeoutIdNode] = node.arguments;
-            if (!timeoutIdNode) break;
-            rEntries.push({
-              kind: "timeout",
-              node,
-              callee: node.callee,
-              phase: fKind,
-              timerID: timeoutIdNode,
-            });
-            break;
-          }
           case "setTimeout": {
             const timeoutIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
             if (!timeoutIdNode) {
@@ -127,14 +112,26 @@ export default createRule<[], MessageID>({
             });
             break;
           }
+          case "clearTimeout": {
+            const [timeoutIdNode] = node.arguments;
+            if (!timeoutIdNode) break;
+            rEntries.push({
+              kind: "timeout",
+              node,
+              callee: node.callee,
+              phase: fKind,
+              timerID: timeoutIdNode,
+            });
+            break;
+          }
         }
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (rEntries.some(isInverseEntry(sEntry))) continue;
+          if (rEntries.some(rEntry => isInverseEntry(sEntry, rEntry))) continue;
           switch (sEntry.phase) {
-            case "cleanup":
             case "setup":
+            case "cleanup":
               context.report({
                 messageId: "noLeakedTimeoutInEffect",
                 node: sEntry.node,

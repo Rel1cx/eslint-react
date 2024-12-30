@@ -240,6 +240,7 @@ export default tseslint.config(
           partitionByComment: "^Part:.*",
         },
       ],
+      "perfectionist/sort-switch-case": "off",
       "perfectionist/sort-union-types": "warn",
       // Part: unicorn rules
       "unicorn/template-indent": [

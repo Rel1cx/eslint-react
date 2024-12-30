@@ -164,6 +164,28 @@ export default createRule<[], MessageID>({
     const aEntries: AEntry[] = [];
     const rEntries: REntry[] = [];
     const abortedSignals: TSESTree.Expression[] = [];
+    function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
+      switch (true) {
+        case a.type === AST_NODE_TYPES.MemberExpression
+          && b.type === AST_NODE_TYPES.MemberExpression:
+          return AST.isNodeEqual(a.object, b.object);
+        // TODO: Maybe there other cases to consider here.
+        default:
+          return false;
+      }
+    }
+    function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
+      const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
+      const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
+      if (!isInversePhase(aPhase, rPhase)) return false;
+      return isSameObject(aCallee, rCallee)
+        && AST.isNodeEqual(aListener, rListener)
+        && VAR.isNodeValueEqual(aType, rType, [
+          context.sourceCode.getScope(aType),
+          context.sourceCode.getScope(rType),
+        ])
+        && O.getOrElse(aCapture, F.constFalse) === O.getOrElse(rCapture, F.constFalse);
+    }
     function checkInlineFunction(
       node: TSESTree.CallExpression,
       callKind: EventMethodKind,
@@ -178,34 +200,6 @@ export default createRule<[], MessageID>({
         data: { eventMethodKind: callKind },
       });
     }
-    const isSameObject: {
-      (a: TSESTree.Node): (b: TSESTree.Node) => boolean;
-      (a: TSESTree.Node, b: TSESTree.Node): boolean;
-    } = F.dual(2, (a: TSESTree.Node, b: TSESTree.Node) => {
-      switch (true) {
-        case a.type === AST_NODE_TYPES.MemberExpression
-          && b.type === AST_NODE_TYPES.MemberExpression:
-          return AST.isNodeEqual(a.object, b.object);
-        // TODO: Maybe there other cases to consider here.
-        default:
-          return false;
-      }
-    });
-    const isInverseEntry: {
-      (aEntry: AEntry): (rEntry: REntry) => boolean;
-      (aEntry: AEntry, rEntry: REntry): boolean;
-    } = F.dual(2, (aEntry: AEntry, rEntry: REntry) => {
-      const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
-      const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-      if (!isInversePhase(aPhase, rPhase)) return false;
-      return isSameObject(aCallee, rCallee)
-        && AST.isNodeEqual(aListener, rListener)
-        && VAR.isNodeValueEqual(aType, rType, [
-          context.sourceCode.getScope(aType),
-          context.sourceCode.getScope(rType),
-        ])
-        && O.getOrElse(aCapture, F.constFalse) === O.getOrElse(rCapture, F.constFalse);
-    });
     return {
       [":function"](node: AST.TSESTreeFunction) {
         const functionKind = getFunctionKind(node);
@@ -256,11 +250,11 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
-          if (O.exists(aEntry.signal, signal => abortedSignals.some(isSameObject(signal)))) continue;
-          if (rEntries.some(isInverseEntry(aEntry))) continue;
+          if (O.exists(aEntry.signal, signal => abortedSignals.some(as => isSameObject(as, signal)))) continue;
+          if (rEntries.some(rEntry => isInverseEntry(aEntry, rEntry))) continue;
           switch (aEntry.phase) {
-            case "cleanup":
             case "setup":
+            case "cleanup":
               context.report({
                 messageId: "noLeakedEventListenerInEffect",
                 node: aEntry.node,
