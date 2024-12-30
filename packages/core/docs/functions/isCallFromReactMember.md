@@ -6,7 +6,7 @@
 
 # Function: isCallFromReactMember()
 
-> **isCallFromReactMember**(`pragmaMemberName`, `name`): (`node`, `context`) => `boolean`
+> **isCallFromReactMember**(`pragmaMemberName`, `name`): `IsCallFromReactMember`
 
 ## Parameters
 
@@ -20,18 +20,4 @@
 
 ## Returns
 
-`Function`
-
-### Parameters
-
-#### node
-
-`CallExpression`
-
-#### context
-
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-### Returns
-
-`boolean`
+`IsCallFromReactMember`

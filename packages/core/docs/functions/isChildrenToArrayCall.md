@@ -6,18 +6,44 @@
 
 # Function: isChildrenToArrayCall()
 
-> **isChildrenToArrayCall**(`node`, `context`): `boolean`
+## Call Signature
 
-## Parameters
+> **isChildrenToArrayCall**(`context`): (`node`) => `node is CallExpression & { callee: MemberExpression }`
 
-### node
+### Parameters
 
-`CallExpression`
-
-### context
+#### context
 
 `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
-## Returns
+### Returns
 
-`boolean`
+`Function`
+
+#### Parameters
+
+##### node
+
+`Node`
+
+#### Returns
+
+`node is CallExpression & { callee: MemberExpression }`
+
+## Call Signature
+
+> **isChildrenToArrayCall**(`node`, `context`): `node is CallExpression & { callee: MemberExpression }`
+
+### Parameters
+
+#### node
+
+`Node`
+
+#### context
+
+`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+
+### Returns
+
+`node is CallExpression & { callee: MemberExpression }`

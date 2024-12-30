@@ -6,7 +6,7 @@
 
 # Function: isCallFromReact()
 
-> **isCallFromReact**(`name`): (`node`, `context`) => `boolean`
+> **isCallFromReact**(`name`): `IsCallFromReact`
 
 ## Parameters
 
@@ -16,18 +16,4 @@
 
 ## Returns
 
-`Function`
-
-### Parameters
-
-#### node
-
-`CallExpression`
-
-#### context
-
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
-
-### Returns
-
-`boolean`
+`IsCallFromReact`

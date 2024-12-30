@@ -1,4 +1,5 @@
 import * as AST from "@eslint-react/ast";
+import { F } from "@eslint-react/eff";
 import { unsafeReadSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -61,19 +62,44 @@ export function isFromReactMember(
   };
 }
 
-export function isCallFromReact(name: string) {
-  return (node: TSESTree.CallExpression, context: RuleContext) => {
+type IsCallFromReact = {
+  (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.CallExpression;
+  (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression;
+};
+
+export function isCallFromReact(name: string): IsCallFromReact {
+  return F.dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+    if (node.type !== AST_NODE_TYPES.CallExpression) return false;
     if (!AST.isOneOf([AST_NODE_TYPES.Identifier, AST_NODE_TYPES.MemberExpression])(node.callee)) return false;
     return isFromReact(name)(node.callee, context);
-  };
+  });
 }
+
+type IsCallFromReactMember = {
+  (context: RuleContext): (node: TSESTree.Node) => node is
+    & TSESTree.CallExpression
+    & { callee: TSESTree.MemberExpression };
+  (
+    node: TSESTree.Node,
+    context: RuleContext,
+  ): node is
+    & TSESTree.CallExpression
+    & { callee: TSESTree.MemberExpression };
+};
 
 export function isCallFromReactMember(
   pragmaMemberName: string,
   name: string,
-) {
-  return (node: TSESTree.CallExpression, context: RuleContext) => {
+): IsCallFromReactMember {
+  return F.dual(2, (
+    node: TSESTree.Node,
+    context: RuleContext,
+  ): node is
+    & TSESTree.CallExpression
+    & { callee: TSESTree.MemberExpression } =>
+  {
+    if (node.type !== AST_NODE_TYPES.CallExpression) return false;
     if (!AST.is(AST_NODE_TYPES.MemberExpression)(node.callee)) return false;
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
-  };
+  });
 }
