@@ -2,7 +2,7 @@
 
 ### 🪄 Improvements
 
-- perf: re-implement `no-duplicate-key` rule to improve its performance @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/891>
+- perf: re-implement `no-duplicate-key` rule to improve its performance @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/891> and [33ab3cc](https://github.com/rEl1cx/eslint-react/commit/33ab3cc6ca11bf8412e07efa35f640dfbad77f6e)
 - refactor: prevent potential interference from TypeScript's `as`, `satisfies`, and non-null assertion operator in various rules
 
 ## v1.22.1 (Tue 24 Dec 2024)
