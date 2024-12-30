@@ -16,6 +16,7 @@ export default [
     ...eslintReact.configs.recommended,
     settings: {
       "react-x": {
+        version: "19.0.0",
         importSource: "react",
         additionalHooks: {
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
@@ -66,7 +67,6 @@ export default [
             ],
           },
         ],
-        version: "detect",
       },
     },
   },

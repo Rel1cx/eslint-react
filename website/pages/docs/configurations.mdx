@@ -6,21 +6,11 @@ ESLint React provides the following configurations:
 
 ## Settings
 
-### `importSource`
-
-(type: `string`, default: `"react"`)
-
-The source where React is imported from.\
-This allows to specify a custom import location for React when not using the official distribution.
-
-(e.g. `@pika/react`, etc)
-
 ### `version`
 
 (type: `string`, default: `"detect"`)
 
-React version to use, `"detect"` means auto detect React version from the project's dependencies.\
-If `importSource` is specified, an equivalent version of React should be provided here.
+React version to use, `"detect"` means auto detect React version from the project's dependencies.
 
 ### `polymorphicPropName`
 
@@ -56,6 +46,16 @@ An array of components and its attributes mapping. It allows the related rules t
 
 (e.g. The `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` demystifies an `<EmbedContent src="https://eslint-react.xyz" />` as an `<iframe src="https://eslint-react.xyz" sandbox="" />`, so that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it)
 
+### `importSource`
+
+(type: `string`, default: `"react"`)
+
+The source where React is imported from.\
+This allows to specify a custom import location for React when not using the official distribution.\
+If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.
+
+(e.g. `@pika/react`, etc)
+
 ## Examples
 
 ```ts filename="eslint.config.js"
@@ -68,6 +68,7 @@ export default [
     ...eslintReact.configs.recommended,
     settings: {
       "react-x": {
+        version: "19.0.0",
         additionalHooks: {
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },
@@ -87,7 +88,6 @@ export default [
             ],
           },
         ],
-        version: "detect",
       },
     },
   },
