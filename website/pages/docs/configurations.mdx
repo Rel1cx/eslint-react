@@ -15,20 +15,6 @@ This allows to specify a custom import location for React when not using the off
 
 (e.g. `@pika/react`, etc)
 
-### `jsxPragma`
-
-(type: `string`, default: `"createElement"`)
-
-The identifier that's used for JSX Element creation.\
-This should not be a member expression (i.e. use `"createElement"` instead of `"React.createElement"`).
-
-### `jsxPragmaFrag`
-
-(type: `string`, default: `"Fragment"`)
-
-The identifier that's used for JSX fragment elements.\
-This should not be a member expression (i.e. use `"Fragment"` instead of `"React.Fragment"`).
-
 ### `version`
 
 (type: `string`, default: `"detect"`)
@@ -82,9 +68,6 @@ export default [
     ...eslintReact.configs.recommended,
     settings: {
       "react-x": {
-        importSource: "react",
-        jsxPragma: "createElement",
-        jsxPragmaFrag: "Fragment",
         additionalHooks: {
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },

@@ -154,6 +154,8 @@ The identifier that’s used for JSX Element creation.
 
 `"createElement"`
 
+**Deprecated**
+
 #### jsxPragmaFrag
 
 `string` = `...`
@@ -167,6 +169,8 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 **Default**
 
 `"Fragment"`
+
+**Deprecated**
 
 #### polymorphicPropName
 
@@ -335,7 +339,7 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-### jsxPragma?
+### ~~jsxPragma?~~
 
 > `optional` **jsxPragma**: `string`
 
@@ -345,7 +349,9 @@ The identifier that’s used for JSX Element creation.
 
 `"createElement"`
 
-### jsxPragmaFrag?
+#### Deprecated
+
+### ~~jsxPragmaFrag?~~
 
 > `optional` **jsxPragmaFrag**: `string`
 
@@ -358,6 +364,8 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 #### Default
 
 `"Fragment"`
+
+#### Deprecated
 
 ### polymorphicPropName?
 

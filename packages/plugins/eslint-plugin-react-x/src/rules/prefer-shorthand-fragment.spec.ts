@@ -33,13 +33,5 @@ ruleTester.run(RULE_NAME, rule, {
     "<Fragment key={item.id}>{item.value}</Fragment>",
     "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
     "<>{foos.map(foo => foo)}</>",
-    {
-      code: /* tsx */ `<NotReact.Fragment />`,
-      settings: {
-        "react-x": {
-          strictImportCheck: true,
-        },
-      },
-    },
   ],
 });

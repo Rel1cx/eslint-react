@@ -1,10 +1,8 @@
 import * as AST from "@eslint-react/ast";
-import { isFragmentElement } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -19,38 +17,6 @@ export type MessageID =
   | "noUselessFragment"
   | "noUselessFragmentInBuiltIn";
 
-// eslint-disable-next-line @typescript-eslint/consistent-return
-function check(
-  node: TSESTree.JSXElement | TSESTree.JSXFragment,
-  context: RuleContext,
-  allowExpressions: boolean,
-) {
-  const initialScope = context.sourceCode.getScope(node);
-  if (JSX.isKeyedElement(node, initialScope)) return;
-  if (JSX.isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
-  if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
-  const isChildren = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
-  const [firstChildren] = node.children;
-  // <Foo content={<>ee eeee eeee ...</>} />
-  if (allowExpressions && node.children.length === 1 && JSX.isLiteral(firstChildren) && !isChildren) return;
-  if (!allowExpressions && isChildren) {
-    // <Foo><>hello, world</></Foo>
-    return context.report({ messageId: "noUselessFragment", node });
-  } else if (!allowExpressions && !isChildren && node.children.length === 1) {
-    // const foo = <>{children}</>;
-    // return <>{children}</>;
-    return context.report({ messageId: "noUselessFragment", node });
-  }
-  const nonPaddingChildren = node.children.filter((child) => !JSX.isPaddingSpaces(child));
-  if (nonPaddingChildren.length > 1) return;
-  if (nonPaddingChildren.length === 0) return context.report({ messageId: "noUselessFragment", node });
-  const [first] = nonPaddingChildren;
-  if (
-    isMatching({ type: AST_NODE_TYPES.JSXExpressionContainer, expression: P.not(AST_NODE_TYPES.CallExpression) }, first)
-  ) return;
-  context.report({ messageId: "noUselessFragment", node });
-}
-
 type Options = [
   {
     allowExpressions: boolean;
@@ -60,6 +26,52 @@ type Options = [
 const defaultOptions = [{
   allowExpressions: true,
 }] as const satisfies Options;
+
+function checkAndReport(
+  node: TSESTree.JSXElement | TSESTree.JSXFragment,
+  context: RuleContext,
+  allowExpressions: boolean,
+) {
+  const initialScope = context.sourceCode.getScope(node);
+  // return if the fragment is keyed (e.g. <Fragment key={key}>)
+  if (JSX.isKeyedElement(node, initialScope)) return;
+  // report if the fragment is placed inside a built-in component (e.g. <div><></></div>)
+  if (JSX.isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
+  // report and return if the fragment has no children (e.g. <></>)
+  if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
+  const isChildElement = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
+  switch (true) {
+    // <Foo content={<>ee eeee eeee ...</>} />
+    case allowExpressions
+      && !isChildElement
+      && node.children.length === 1
+      && JSX.isLiteral(node.children.at(0)): {
+      return;
+    }
+    // <Foo><>hello, world</></Foo>
+    case !allowExpressions
+      && isChildElement: {
+      return context.report({ messageId: "noUselessFragment", node });
+    }
+    case !allowExpressions
+      && !isChildElement
+      && node.children.length === 1: {
+      // const foo = <>{children}</>;
+      // return <>{children}</>;
+      return context.report({ messageId: "noUselessFragment", node });
+    }
+  }
+  const nonPaddingChildren = node.children.filter((child) => !JSX.isPaddingSpaces(child));
+  const firstNonPaddingChild = nonPaddingChildren.at(0);
+  switch (true) {
+    case nonPaddingChildren.length === 0:
+    case nonPaddingChildren.length === 1
+      && firstNonPaddingChild?.type !== AST_NODE_TYPES.JSXExpressionContainer: {
+      return context.report({ messageId: "noUselessFragment", node });
+    }
+  }
+  return;
+}
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -88,11 +100,11 @@ export default createRule<Options, MessageID>({
     const { allowExpressions = true } = option;
     return {
       JSXElement(node) {
-        if (!isFragmentElement(node, context)) return;
-        check(node, context, allowExpressions);
+        if (JSX.getElementName(node.openingElement).split(".").at(-1) !== "Fragment") return;
+        checkAndReport(node, context, allowExpressions);
       },
       JSXFragment(node) {
-        check(node, context, allowExpressions);
+        checkAndReport(node, context, allowExpressions);
       },
     };
   },
