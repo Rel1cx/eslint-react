@@ -1,4 +1,4 @@
-## v1.22.2 (Draft)
+## v1.23.0 (Draft)
 
 ### 🪄 Improvements
 
