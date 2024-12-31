@@ -1,14 +1,15 @@
-## v1.23.0 (Draft)
+## v1.23.0 (Tue 31 Dec 2024)
 
 ### 🪄 Improvements
 
-- refactor: JSX fragments related rules no longer rely on `jsxPragma` and `jsxFragmentPragma` settings to perform their checks
+- refactor: JSX fragments related rules no longer rely on `jsxPragma` and `jsxPragmaFrag` settings to perform their checks by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/893>
 - refactor: improve applicability of the `no-useless-fragment` and `prefer-shorthand-fragment` rules
-- refactor: deprecate `settings["react-x"].jsxPragma` and `settings["react-x"].jsxFragmentPragma` as they are no longer needed by any rules
+- refactor: deprecate `settings["react-x"].jsxPragma` and `settings["react-x"].jsxPragmaFrag` as they are no longer needed by any rules
+- refactor: replace `short-unique-id` w/ `uid` by @SukkaW in <https://github.com/rEl1cx/eslint-react/pull/894>
 
 ### 🐞 Fixes
 
-- fix(plugins/hooks-extra): fix `call` and `new` expression related false positives in `no-unnecessary-use-memo` and `no-unnecessary-use-callback`
+- fix(plugins/hooks-extra): fix `call` and `new` expression related false positives in `no-unnecessary-use-memo` and `no-unnecessary-use-callback` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/895>
 
 ## v1.22.2 (Mon 30 Dec 2024)
 
