@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { useComponentCollector } from "@eslint-react/core";
+import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -71,6 +71,7 @@ export default createRule<[], MessageID>({
               VAR.ConstructionHint.StrictCallExpression,
             );
             if (construction._tag === "None") continue;
+            if (isReactHookCall(construction.node)) continue;
             const forbiddenType = AST.toReadableNodeType(right);
             context.report({
               messageId: "noUnstableDefaultProps",
