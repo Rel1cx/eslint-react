@@ -313,7 +313,7 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- Fixed `no-duplicate-key` rule false positives when the key is an variable
+- Fixed `no-duplicate-key` rule false positives when the key is a variable
 - Fixed `web-api/no-leaked-set-timeout` and `web-api/no-leaked-set-interval` false positives when a timer is assigned to a variable declared by `let` but not initialized
 
 ## v1.12.3 (Thu 29 Aug 2024)

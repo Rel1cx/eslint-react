@@ -32,7 +32,9 @@ For example, if you set the `polymorphicPropName` setting to `as` then this elem
 
 `<Box as="h3">Configurations </Box>`
 
-will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
+will be evaluated as an `h3`.
+
+If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
 
 ### `additionalComponents`
 
@@ -48,7 +50,7 @@ For example, if you set the `additionalComponents` to `[{ name: "EmbedContent", 
 
 `<EmbedContent src="https://eslint-react.xyz" />`
 
-will be evaluated as an `<iframe src="https://eslint-react.xyz" sandbox="" />`
+will be evaluated as an `<iframe src="https://eslint-react.xyz" sandbox="" />`.
 
 So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it.
 
@@ -64,7 +66,7 @@ For example, if you set the `additionalHooks` to `{ useLayoutEffect: ["useIsomor
 
 `useIsomorphicLayoutEffect(() => { setCount(count + 1); }, [count]);`
 
-will be evaluated as a `useLayoutEffect` hook
+will be evaluated as a `useLayoutEffect` hook.
 
 So that the `hooks-extra/no-direct-set-state-in-use-layout-effect` rule can perform checks on it.
 
