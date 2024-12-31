@@ -43,16 +43,10 @@ export default createRule<[], MessageID>({
         const scope = context.sourceCode.getScope(node);
         const component = scope.block;
         if (!AST.isFunction(component)) return;
-        const [cb, deps] = node.arguments;
-        if (!deps) {
-          context.report({
-            messageId: "noUnnecessaryUseCallback",
-            node,
-          });
-          return;
-        }
+        const [arg0, arg1] = node.arguments;
+        if (!arg0 || !arg1) return;
         const hasEmptyDeps = F.pipe(
-          match(deps)
+          match(arg1)
             .with({ type: AST_NODE_TYPES.ArrayExpression }, O.some)
             .with({ type: AST_NODE_TYPES.Identifier }, n => {
               return F.pipe(
@@ -65,15 +59,8 @@ export default createRule<[], MessageID>({
           O.exists(x => x.elements.length === 0),
         );
         if (!hasEmptyDeps) return;
-        if (!cb) {
-          context.report({
-            messageId: "noUnnecessaryUseCallback",
-            node,
-          });
-          return;
-        }
         const isReferencedToComponentScope = F.pipe(
-          match(cb)
+          match(arg0)
             .with({ type: AST_NODE_TYPES.ArrowFunctionExpression }, n => {
               if (n.body.type === AST_NODE_TYPES.ArrowFunctionExpression) {
                 return O.some(n.body);
@@ -93,11 +80,12 @@ export default createRule<[], MessageID>({
           O.map(s => VAR.getChidScopes(s).flatMap(x => x.references)),
           O.exists(refs => refs.some(x => x.resolved?.scope.block === component)),
         );
-        if (isReferencedToComponentScope) return;
-        context.report({
-          messageId: "noUnnecessaryUseCallback",
-          node,
-        });
+        if (!isReferencedToComponentScope) {
+          context.report({
+            messageId: "noUnnecessaryUseCallback",
+            node,
+          });
+        }
       },
     };
   },

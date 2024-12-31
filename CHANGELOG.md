@@ -4,7 +4,11 @@
 
 - refactor: JSX fragments related rules no longer rely on `jsxPragma` and `jsxFragmentPragma` settings to perform their checks
 - refactor: improve applicability of the `no-useless-fragment` and `prefer-shorthand-fragment` rules
-- refactor: deprecate `settings["react-x"].jsxPragma` and `settings["react-x"].jsxFragmentPragma`
+- refactor: deprecate `settings["react-x"].jsxPragma` and `settings["react-x"].jsxFragmentPragma` as they are no longer needed by any rules
+
+### 🐞 Fixes
+
+- fix(plugins/hooks-extra): fix `call` and `new` expression related false positives in `no-unnecessary-use-memo` and `no-unnecessary-use-callback`
 
 ## v1.22.2 (Mon 30 Dec 2024)
 
