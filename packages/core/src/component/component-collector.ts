@@ -5,8 +5,8 @@ import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import ShortUniqueId from "short-unique-id";
 import { match } from "ts-pattern";
+import { uid } from "uid";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
@@ -17,8 +17,6 @@ import { getFunctionComponentIdentifier } from "./component-id";
 import { getComponentNameFromIdentifier } from "./component-name";
 import { isFunctionOfRenderMethod } from "./component-render-method";
 import { hasNoneOrValidComponentName } from "./misc";
-
-const uid = new ShortUniqueId({ length: 10 });
 
 function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
@@ -75,7 +73,7 @@ export function useComponentCollector(
     hookCalls: TSESTree.CallExpression[],
   ][] = [];
   const getCurrentFunction = () => O.fromNullable(functionStack.at(-1));
-  const onFunctionEnter = (node: AST.TSESTreeFunction) => functionStack.push([uid.rnd(), node, false, []]);
+  const onFunctionEnter = (node: AST.TSESTreeFunction) => functionStack.push([uid(10), node, false, []]);
   const onFunctionExit = () => {
     const [key, fn, isComponent] = functionStack.at(-1) ?? [];
     if (!key || !fn || !isComponent) return functionStack.pop();
@@ -119,7 +117,7 @@ export function useComponentCollector(
       const initPath = AST.getFunctionInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      const key = uid.rnd();
+      const key = uid(10);
       components.set(key, {
         _: key,
         id,
