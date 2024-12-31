@@ -6,6 +6,40 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
+      import { useState, useCallback } from "react";
+
+      function MyComponent() {
+        const a = 1;
+        const handleSnapshot = useCallback(() => Number(1), []);
+
+        return null;
+      }
+    `,
+      errors: [
+        {
+          messageId: "noUnnecessaryUseCallback",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
+      import { useState, useCallback } from "react";
+
+      function MyComponent() {
+        const a = 1;
+        const handleSnapshot = useCallback(() => new String("1"), []);
+
+        return null;
+      }
+    `,
+      errors: [
+        {
+          messageId: "noUnnecessaryUseCallback",
+        },
+      ],
+    },
+    {
+      code: /* tsx */ `
         import { useCallback } from "react";
 
         const Comp = () => {
@@ -70,25 +104,6 @@ ruleTester.run(RULE_NAME, rule, {
               fontFamily: theme.fontFamilyMonospace
             }
           }), []);
-          return <Button sx={style} />
-        }
-      `,
-      errors: [
-        {
-          messageId: "noUnnecessaryUseCallback",
-        },
-      ],
-    },
-    {
-      code: /* tsx */ `
-        import { useCallback } from "react";
-
-        const Comp = () => {
-          const style = useCallback((theme) => ({
-            input: {
-              fontFamily: theme.fontFamilyMonospace
-            }
-          }));
           return <Button sx={style} />
         }
       `,
