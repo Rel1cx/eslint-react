@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       functionComponent:
-        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}",
+        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}.",
     },
     schema: [],
   },
