@@ -2,13 +2,11 @@ import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/eff";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import ShortUniqueId from "short-unique-id";
 import { match, P } from "ts-pattern";
+import { uid } from "uid";
 
 import type { ERClassComponent } from "./component";
 import { ERClassComponentFlag } from "./component-flag";
-
-const uid = new ShortUniqueId({ length: 10 });
 
 /**
  * Check if a node is a React class component
@@ -94,7 +92,7 @@ export function useComponentCollectorLegacy() {
   const collect = (node: AST.TSESTreeClass) => {
     if (!isClassComponent(node)) return;
     const id = AST.getClassIdentifier(node);
-    const key = uid.rnd();
+    const key = uid(10);
     const flag = isPureComponent(node)
       ? ERClassComponentFlag.PureComponent
       : ERClassComponentFlag.None;
