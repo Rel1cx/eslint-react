@@ -41,9 +41,34 @@ function MyComponent () {
     <li key="1">Item 1</li>
     <li key="1">Item 2</li>
     //  ^^^^^^^
-    //  - A key must be unique. '1' is duplicated.
+    //  - A key must be unique. 'key="1"' is duplicated.
   ]
 };
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return (
+    <ul>
+      <li key="1">Item 1</li>
+      <li key="1">Item 2</li>
+      {/* ^^^^^^^ */}
+      {/* - A key must be unique. 'key="1"' is duplicated. */}
+    </ul>
+  );
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return <ul>{["a", "b"].map((id) => <li key="1">{id}</li>)}</ul>;
+  //                                     ^^^^^^^
+  //                                     - A key must be unique. 'key="1"' is duplicated.
+}
 ```
 
 ### Passing
@@ -57,6 +82,27 @@ function MyComponent () {
     <li key="2">Item 2</li>
   ]
 };
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return (
+    <ul>
+      <li key="1">Item 1</li>
+      <li key="2">Item 2</li>
+    </ul>
+  );
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return <ul>{["a", "b"].map((id) => <li key={id}>{id}</li>)}</ul>;
+}
 ```
 
 ## Implementation
