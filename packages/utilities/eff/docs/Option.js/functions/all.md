@@ -6,7 +6,7 @@
 
 # Function: all()
 
-> **all**\<`I`\>(`input`): [`I`] *extends* [readonly [`Option`](../type-aliases/Option.md)\<`any`\>[]] ? [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Option\<A\>\] ? A : never \}\> : [`I`] *extends* [`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>] ? [`Option`](../type-aliases/Option.md)\<`A`[]\> : [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Option\<A\>\] ? A : never \}\>
+> **all**\<`I`\>(`input`): \[`I`\] *extends* \[readonly [`Option`](../type-aliases/Option.md)\<`any`\>[]\] ? [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Option\<A\>\] ? A : never \}\> : \[`I`\] *extends* \[`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>\] ? [`Option`](../type-aliases/Option.md)\<`A`[]\> : [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Option\<A\>\] ? A : never \}\>
 
 Takes a structure of `Option`s and returns an `Option` of values with the same structure.
 
@@ -26,7 +26,7 @@ Takes a structure of `Option`s and returns an `Option` of values with the same s
 
 ## Returns
 
-[`I`] *extends* [readonly [`Option`](../type-aliases/Option.md)\<`any`\>[]] ? [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Option\<A\>\] ? A : never \}\> : [`I`] *extends* [`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>] ? [`Option`](../type-aliases/Option.md)\<`A`[]\> : [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Option\<A\>\] ? A : never \}\>
+\[`I`\] *extends* \[readonly [`Option`](../type-aliases/Option.md)\<`any`\>[]\] ? [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\<I\>\[K\]\] extends \[Option\<A\>\] ? A : never \}\> : \[`I`\] *extends* \[`Iterable`\<[`Option`](../type-aliases/Option.md)\<`A`\>\>\] ? [`Option`](../type-aliases/Option.md)\<`A`[]\> : [`Option`](../type-aliases/Option.md)\<\{ -readonly \[K in string \| number \| symbol\]: \[I\[K\]\] extends \[Option\<A\>\] ? A : never \}\>
 
 ## Example
 

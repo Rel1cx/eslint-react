@@ -6,7 +6,7 @@
 
 # Type Alias: Narrow\<TType\>
 
-> **Narrow**\<`TType`\>: `TType` *extends* [] ? [] : `never` \| `TType` *extends* `bigint` \| `boolean` \| `number` \| `string` ? `TType` : `never` \| `TType` *extends* `Function` ? `TType` : `never` \| `{ [K in keyof TType]: Narrow<TType[K]> }`
+> **Narrow**\<`TType`\>: `TType` *extends* \[\] ? \[\] : `never` \| `TType` *extends* `bigint` \| `boolean` \| `number` \| `string` ? `TType` : `never` \| `TType` *extends* `Function` ? `TType` : `never` \| `{ [K in keyof TType]: Narrow<TType[K]> }`
 
 Infers embedded primitive type of any type
 

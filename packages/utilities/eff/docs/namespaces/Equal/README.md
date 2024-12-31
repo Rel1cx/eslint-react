@@ -6,24 +6,22 @@
 
 # Equal
 
-## Index
-
-### equality
+## equality
 
 - [equals](functions/equals.md)
 
-### guards
+## guards
 
 - [isEqual](functions/isEqual.md)
 
-### instances
+## instances
 
 - [equivalence](functions/equivalence.md)
 
-### models
+## models
 
 - [Equal](interfaces/Equal.md)
 
-### symbols
+## symbols
 
 - [symbol](variables/symbol.md)

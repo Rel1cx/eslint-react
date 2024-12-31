@@ -10,8 +10,6 @@
 
 2.0.0
 
-## Index
-
-### type-level
+## type-level
 
 - [Value](type-aliases/Value.md)

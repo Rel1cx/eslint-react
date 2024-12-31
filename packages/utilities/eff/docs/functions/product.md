@@ -6,7 +6,7 @@
 
 # Function: product()
 
-> **product**\<`A`, `B`\>(`self`, `that`): [`Predicate`](../interfaces/Predicate.md)\<readonly [`A`, `B`]\>
+> **product**\<`A`, `B`\>(`self`, `that`): [`Predicate`](../interfaces/Predicate.md)\<readonly \[`A`, `B`\]\>
 
 ## Type Parameters
 
@@ -26,7 +26,7 @@
 
 ## Returns
 
-[`Predicate`](../interfaces/Predicate.md)\<readonly [`A`, `B`]\>
+[`Predicate`](../interfaces/Predicate.md)\<readonly \[`A`, `B`\]\>
 
 ## Since
 

@@ -6,9 +6,7 @@
 
 # F
 
-## Index
-
-### Other
+## Other
 
 - [FunctionN](interfaces/FunctionN.md)
 - [LazyArg](interfaces/LazyArg.md)
@@ -33,10 +31,10 @@
 - [unsafeCoerce](functions/unsafeCoerce.md)
 - [untupled](functions/untupled.md)
 
-### guards
+## guards
 
 - [isFunction](functions/isFunction.md)
 
-### type lambdas
+## type lambdas
 
 - [FunctionTypeLambda](interfaces/FunctionTypeLambda.md)

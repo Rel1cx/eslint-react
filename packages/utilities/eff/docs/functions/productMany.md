@@ -6,7 +6,7 @@
 
 # Function: productMany()
 
-> **productMany**\<`A`\>(`self`, `collection`): [`Predicate`](../interfaces/Predicate.md)\<readonly [`A`, `A`]\>
+> **productMany**\<`A`\>(`self`, `collection`): [`Predicate`](../interfaces/Predicate.md)\<readonly \[`A`, `A`\]\>
 
 ## Type Parameters
 
@@ -24,7 +24,7 @@
 
 ## Returns
 
-[`Predicate`](../interfaces/Predicate.md)\<readonly [`A`, `A`]\>
+[`Predicate`](../interfaces/Predicate.md)\<readonly \[`A`, `A`\]\>
 
 ## Since
 

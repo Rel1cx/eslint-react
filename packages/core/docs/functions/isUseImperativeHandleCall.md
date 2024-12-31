@@ -12,7 +12,7 @@
 
 ### a
 
-...[`CallExpression`, `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>]
+...\[`CallExpression`, `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>\]
 
 ## Returns
 

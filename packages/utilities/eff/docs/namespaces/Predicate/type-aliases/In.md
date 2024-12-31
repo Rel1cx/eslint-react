@@ -6,7 +6,7 @@
 
 # Type Alias: In\<T\>
 
-> **In**\<`T`\>: [`T`] *extends* [[`Predicate`](../../../interfaces/Predicate.md)\<infer \_A\>] ? `_A` : `never`
+> **In**\<`T`\>: \[`T`\] *extends* \[[`Predicate`](../../../interfaces/Predicate.md)\<infer \_A\>\] ? `_A` : `never`
 
 ## Type Parameters
 

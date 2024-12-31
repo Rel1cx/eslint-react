@@ -6,7 +6,7 @@
 
 # Type Alias: Value\<T\>
 
-> **Value**\<`T`\>: [`T`] *extends* [[`Option`](../../../type-aliases/Option.md)\<infer \_A\>] ? `_A` : `never`
+> **Value**\<`T`\>: \[`T`\] *extends* \[[`Option`](../../../type-aliases/Option.md)\<infer \_A\>\] ? `_A` : `never`
 
 ## Type Parameters
 

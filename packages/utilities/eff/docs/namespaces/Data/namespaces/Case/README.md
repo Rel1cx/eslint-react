@@ -10,8 +10,6 @@
 
 2.0.0
 
-## Index
-
-### models
+## models
 
 - [Constructor](interfaces/Constructor.md)

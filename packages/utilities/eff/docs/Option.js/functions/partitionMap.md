@@ -12,7 +12,7 @@
 
 ## Call Signature
 
-> **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`) => [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
+> **partitionMap**\<`A`, `B`, `C`\>(`f`): (`self`) => \[[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>\]
 
 ### Type Parameters
 
@@ -40,7 +40,7 @@
 
 #### Returns
 
-[[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
+\[[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>\]
 
 ### Since
 
@@ -52,7 +52,7 @@
 
 ## Call Signature
 
-> **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): [[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
+> **partitionMap**\<`A`, `B`, `C`\>(`self`, `f`): \[[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>\]
 
 ### Type Parameters
 
@@ -74,7 +74,7 @@
 
 ### Returns
 
-[[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>]
+\[[`Option`](../type-aliases/Option.md)\<`B`\>, [`Option`](../type-aliases/Option.md)\<`C`\>\]
 
 ### Since
 

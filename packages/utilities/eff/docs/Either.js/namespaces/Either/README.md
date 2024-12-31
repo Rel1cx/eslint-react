@@ -10,9 +10,7 @@
 
 2.0.0
 
-## Index
-
-### type-level
+## type-level
 
 - [Left](type-aliases/Left.md)
 - [Right](type-aliases/Right.md)

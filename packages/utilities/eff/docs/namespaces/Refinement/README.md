@@ -10,9 +10,7 @@
 
 3.6.0
 
-## Index
-
-### type-level
+## type-level
 
 - [Any](type-aliases/Any.md)
 - [In](type-aliases/In.md)

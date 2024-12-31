@@ -6,15 +6,13 @@
 
 # Data
 
-## Index
-
-### Other
+## Other
 
 - [Case](namespaces/Case/README.md)
 - [TaggedEnum](namespaces/TaggedEnum/README.md)
 - [case](functions/case.md)
 
-### constructors
+## constructors
 
 - [Class](variables/Class.md)
 - [Error](variables/Error.md)
@@ -29,6 +27,6 @@
 - [unsafeArray](functions/unsafeArray.md)
 - [unsafeStruct](functions/unsafeStruct.md)
 
-### models
+## models
 
 - [TaggedEnum](type-aliases/TaggedEnum.md)

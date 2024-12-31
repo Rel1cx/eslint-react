@@ -6,7 +6,7 @@
 
 # Function: gen()
 
-> **gen**\<`Self`, `K`, `A`\>(...`args`): [`Either`](../type-aliases/Either.md)\<`A`, [`K`] *extends* [`Variance`\<[`EitherTypeLambda`](../interfaces/EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : [`K`] *extends* [`YieldWrap`\<[`Either`](../type-aliases/Either.md)\<`any`, `E`\>\>] ? `E` : `never`\>
+> **gen**\<`Self`, `K`, `A`\>(...`args`): [`Either`](../type-aliases/Either.md)\<`A`, \[`K`\] *extends* \[`Variance`\<[`EitherTypeLambda`](../interfaces/EitherTypeLambda.md), `any`, `any`, `E`\>\] ? `E` : \[`K`\] *extends* \[`YieldWrap`\<[`Either`](../type-aliases/Either.md)\<`any`, `E`\>\>\] ? `E` : `never`\>
 
 ## Type Parameters
 
@@ -20,11 +20,11 @@
 
 ### args
 
-[`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>] | [(`resume`) => `Generator`\<`K`, `A`, `never`\>]
+\[`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>\] | \[(`resume`) => `Generator`\<`K`, `A`, `never`\>\]
 
 ## Returns
 
-[`Either`](../type-aliases/Either.md)\<`A`, [`K`] *extends* [`Variance`\<[`EitherTypeLambda`](../interfaces/EitherTypeLambda.md), `any`, `any`, `E`\>] ? `E` : [`K`] *extends* [`YieldWrap`\<[`Either`](../type-aliases/Either.md)\<`any`, `E`\>\>] ? `E` : `never`\>
+[`Either`](../type-aliases/Either.md)\<`A`, \[`K`\] *extends* \[`Variance`\<[`EitherTypeLambda`](../interfaces/EitherTypeLambda.md), `any`, `any`, `E`\>\] ? `E` : \[`K`\] *extends* \[`YieldWrap`\<[`Either`](../type-aliases/Either.md)\<`any`, `E`\>\>\] ? `E` : `never`\>
 
 ## Since
 

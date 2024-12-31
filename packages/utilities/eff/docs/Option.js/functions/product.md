@@ -6,7 +6,7 @@
 
 # Function: product()
 
-> **product**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<[`A`, `B`]\>
+> **product**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<\[`A`, `B`\]\>
 
 ## Type Parameters
 
@@ -26,7 +26,7 @@
 
 ## Returns
 
-[`Option`](../type-aliases/Option.md)\<[`A`, `B`]\>
+[`Option`](../type-aliases/Option.md)\<\[`A`, `B`\]\>
 
 ## Since
 

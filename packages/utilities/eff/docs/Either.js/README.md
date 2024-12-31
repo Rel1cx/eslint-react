@@ -6,49 +6,47 @@
 
 # ./Either.js
 
-## Index
-
-### Other
+## Other
 
 - [Either](namespaces/Either/README.md)
 - [let](functions/let.md)
 - [try](functions/try.md)
 
-### combining
+## combining
 
 - [all](functions/all.md)
 - [ap](functions/ap.md)
 
-### constructors
+## constructors
 
 - [fromNullable](functions/fromNullable.md)
 - [fromOption](functions/fromOption.md)
 - [left](functions/left.md)
 - [right](functions/right.md)
 
-### do notation
+## do notation
 
 - [Do](variables/Do.md)
 - [bind](functions/bind.md)
 - [bindTo](functions/bindTo.md)
 
-### equivalence
+## equivalence
 
 - [getEquivalence](functions/getEquivalence.md)
 
-### error handling
+## error handling
 
 - [orElse](functions/orElse.md)
 
-### filtering & conditionals
+## filtering & conditionals
 
 - [filterOrLeft](functions/filterOrLeft.md)
 
-### generators
+## generators
 
 - [gen](functions/gen.md)
 
-### getters
+## getters
 
 - [getLeft](functions/getLeft.md)
 - [getOrElse](functions/getOrElse.md)
@@ -59,24 +57,24 @@
 - [getRight](functions/getRight.md)
 - [merge](functions/merge.md)
 
-### guards
+## guards
 
 - [isEither](functions/isEither.md)
 - [isLeft](functions/isLeft.md)
 - [isRight](functions/isRight.md)
 
-### lifting
+## lifting
 
 - [liftPredicate](functions/liftPredicate.md)
 
-### mapping
+## mapping
 
 - [flip](functions/flip.md)
 - [map](functions/map.md)
 - [mapBoth](functions/mapBoth.md)
 - [mapLeft](functions/mapLeft.md)
 
-### models
+## models
 
 - [EitherUnify](interfaces/EitherUnify.md)
 - [EitherUnifyIgnore](interfaces/EitherUnifyIgnore.md)
@@ -84,24 +82,24 @@
 - [Right](interfaces/Right.md)
 - [Either](type-aliases/Either.md)
 
-### pattern matching
+## pattern matching
 
 - [match](functions/match.md)
 
-### sequencing
+## sequencing
 
 - [andThen](functions/andThen.md)
 - [flatMap](functions/flatMap.md)
 
-### symbols
+## symbols
 
 - [TypeId](type-aliases/TypeId.md)
 - [TypeId](variables/TypeId.md)
 
-### type lambdas
+## type lambdas
 
 - [EitherTypeLambda](interfaces/EitherTypeLambda.md)
 
-### zipping
+## zipping
 
 - [zipWith](functions/zipWith.md)

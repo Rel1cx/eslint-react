@@ -6,7 +6,7 @@
 
 # Type Alias: Left\<T\>
 
-> **Left**\<`T`\>: [`T`] *extends* [[`Either`](../../../type-aliases/Either.md)\<infer \_A, infer \_E\>] ? `_E` : `never`
+> **Left**\<`T`\>: \[`T`\] *extends* \[[`Either`](../../../type-aliases/Either.md)\<infer \_A, infer \_E\>\] ? `_E` : `never`
 
 ## Type Parameters
 

@@ -6,29 +6,27 @@
 
 # ./Option.js
 
-## Index
-
-### Other
+## Other
 
 - [Option](namespaces/Option/README.md)
 - [void](variables/void.md)
 - [exists](functions/exists.md)
 - [let](functions/let.md)
 
-### combining
+## combining
 
 - [all](functions/all.md)
 - [ap](functions/ap.md)
 - [product](functions/product.md)
 - [productMany](functions/productMany.md)
 
-### constructors
+## constructors
 
 - [fromIterable](functions/fromIterable.md)
 - [none](functions/none.md)
 - [some](functions/some.md)
 
-### conversions
+## conversions
 
 - [fromNullable](functions/fromNullable.md)
 - [getLeft](functions/getLeft.md)
@@ -40,66 +38,66 @@
 - [toArray](functions/toArray.md)
 - [toRefinement](functions/toRefinement.md)
 
-### do notation
+## do notation
 
 - [Do](variables/Do.md)
 - [bind](functions/bind.md)
 - [bindTo](functions/bindTo.md)
 
-### elements
+## elements
 
 - [contains](functions/contains.md)
 - [containsWith](functions/containsWith.md)
 
-### equivalence
+## equivalence
 
 - [getEquivalence](functions/getEquivalence.md)
 
-### error handling
+## error handling
 
 - [firstSomeOf](functions/firstSomeOf.md)
 - [orElse](functions/orElse.md)
 - [orElseEither](functions/orElseEither.md)
 - [orElseSome](functions/orElseSome.md)
 
-### filtering
+## filtering
 
 - [filter](functions/filter.md)
 - [filterMap](functions/filterMap.md)
 - [partitionMap](functions/partitionMap.md)
 
-### folding
+## folding
 
 - [reduceCompact](functions/reduceCompact.md)
 
-### generators
+## generators
 
 - [gen](functions/gen.md)
 
-### getters
+## getters
 
 - [getOrElse](functions/getOrElse.md)
 - [getOrNull](functions/getOrNull.md)
 - [getOrUndefined](functions/getOrUndefined.md)
 
-### guards
+## guards
 
 - [isNone](functions/isNone.md)
 - [isOption](functions/isOption.md)
 - [isSome](functions/isSome.md)
 
-### lifting
+## lifting
 
 - [lift2](functions/lift2.md)
 - [liftPredicate](functions/liftPredicate.md)
 
-### mapping
+## mapping
 
 - [as](functions/as.md)
 - [asVoid](functions/asVoid.md)
 - [map](functions/map.md)
 
-### models
+## models
 
 - [None](interfaces/None.md)
 - [OptionUnify](interfaces/OptionUnify.md)
@@ -107,11 +105,11 @@
 - [Some](interfaces/Some.md)
 - [Option](type-aliases/Option.md)
 
-### pattern matching
+## pattern matching
 
 - [match](functions/match.md)
 
-### sequencing
+## sequencing
 
 - [andThen](functions/andThen.md)
 - [composeK](functions/composeK.md)
@@ -120,20 +118,20 @@
 - [flatten](functions/flatten.md)
 - [tap](functions/tap.md)
 
-### sorting
+## sorting
 
 - [getOrder](functions/getOrder.md)
 
-### symbols
+## symbols
 
 - [TypeId](type-aliases/TypeId.md)
 - [TypeId](variables/TypeId.md)
 
-### type lambdas
+## type lambdas
 
 - [OptionTypeLambda](interfaces/OptionTypeLambda.md)
 
-### zipping
+## zipping
 
 - [zipLeft](functions/zipLeft.md)
 - [zipRight](functions/zipRight.md)

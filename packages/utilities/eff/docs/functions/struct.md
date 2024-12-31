@@ -6,7 +6,7 @@
 
 # Function: struct()
 
-> **struct**\<`R`\>(`fields`): [`Extract`\<`R`\[keyof `R`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>] *extends* [`never`] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[K in string \| number \| symbol\]: In\<R\[K\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? In\<any\[any\]\> : In\<R\[K\]\> \}, \{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? Out\<any\[any\]\> : In\<R\[K\]\> \}\>
+> **struct**\<`R`\>(`fields`): \[`Extract`\<`R`\[keyof `R`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>\] *extends* \[`never`\] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[K in string \| number \| symbol\]: In\<R\[K\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? In\<any\[any\]\> : In\<R\[K\]\> \}, \{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? Out\<any\[any\]\> : In\<R\[K\]\> \}\>
 
 ```
 { ab: Refinement<A, B>; cd: Refinement<C, D>, ... } -> Refinement<{ ab: A; cd: C; ... }, { ab: B; cd: D; ... }>
@@ -26,7 +26,7 @@
 
 ## Returns
 
-[`Extract`\<`R`\[keyof `R`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>] *extends* [`never`] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[K in string \| number \| symbol\]: In\<R\[K\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? In\<any\[any\]\> : In\<R\[K\]\> \}, \{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? Out\<any\[any\]\> : In\<R\[K\]\> \}\>
+\[`Extract`\<`R`\[keyof `R`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>\] *extends* \[`never`\] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[K in string \| number \| symbol\]: In\<R\[K\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? In\<any\[any\]\> : In\<R\[K\]\> \}, \{ readonly \[K in string \| number \| symbol\]: R\[K\] extends Any ? Out\<any\[any\]\> : In\<R\[K\]\> \}\>
 
 ## Since
 

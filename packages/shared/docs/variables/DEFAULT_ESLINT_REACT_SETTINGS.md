@@ -18,7 +18,7 @@ The default ESLint settings for "react-x".
 
 #### additionalHooks.useLayoutEffect
 
-> `readonly` **useLayoutEffect**: [`"useIsomorphicLayoutEffect"`]
+> `readonly` **useLayoutEffect**: \[`"useIsomorphicLayoutEffect"`\]
 
 ### polymorphicPropName
 

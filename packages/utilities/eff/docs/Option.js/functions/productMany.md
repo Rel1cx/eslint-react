@@ -6,7 +6,7 @@
 
 # Function: productMany()
 
-> **productMany**\<`A`\>(`self`, `collection`): [`Option`](../type-aliases/Option.md)\<[`A`, `...A[]`]\>
+> **productMany**\<`A`\>(`self`, `collection`): [`Option`](../type-aliases/Option.md)\<\[`A`, `...A[]`\]\>
 
 ## Type Parameters
 
@@ -24,7 +24,7 @@
 
 ## Returns
 
-[`Option`](../type-aliases/Option.md)\<[`A`, `...A[]`]\>
+[`Option`](../type-aliases/Option.md)\<\[`A`, `...A[]`\]\>
 
 ## Since
 

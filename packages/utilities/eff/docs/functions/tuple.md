@@ -6,7 +6,7 @@
 
 # Function: tuple()
 
-> **tuple**\<`T`\>(...`elements`): [`Extract`\<`T`\[`number`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>] *extends* [`never`] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[I in string \| number \| symbol\]: In\<T\[I\<I\>\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? In\<any\[any\]\> : In\<T\[I\<I\>\]\> \}, \{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? Out\<any\[any\]\> : In\<T\[I\<I\>\]\> \}\>
+> **tuple**\<`T`\>(...`elements`): \[`Extract`\<`T`\[`number`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>\] *extends* \[`never`\] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[I in string \| number \| symbol\]: In\<T\[I\<I\>\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? In\<any\[any\]\> : In\<T\[I\<I\>\]\> \}, \{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? Out\<any\[any\]\> : In\<T\[I\<I\>\]\> \}\>
 
 Similar to `Promise.all` but operates on `Predicate`s.
 
@@ -28,7 +28,7 @@ Similar to `Promise.all` but operates on `Predicate`s.
 
 ## Returns
 
-[`Extract`\<`T`\[`number`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>] *extends* [`never`] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[I in string \| number \| symbol\]: In\<T\[I\<I\>\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? In\<any\[any\]\> : In\<T\[I\<I\>\]\> \}, \{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? Out\<any\[any\]\> : In\<T\[I\<I\>\]\> \}\>
+\[`Extract`\<`T`\[`number`\], [`Any`](../namespaces/Refinement/type-aliases/Any.md)\>\] *extends* \[`never`\] ? [`Predicate`](../interfaces/Predicate.md)\<\{ readonly \[I in string \| number \| symbol\]: In\<T\[I\<I\>\]\> \}\> : [`Refinement`](../interfaces/Refinement.md)\<\{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? In\<any\[any\]\> : In\<T\[I\<I\>\]\> \}, \{ readonly \[I in string \| number \| symbol\]: T\[I\<I\>\] extends Any ? Out\<any\[any\]\> : In\<T\[I\<I\>\]\> \}\>
 
 ## Since
 

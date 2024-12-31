@@ -6,7 +6,7 @@
 
 # Type Alias: In\<T\>
 
-> **In**\<`T`\>: [`T`] *extends* [[`Refinement`](../../../interfaces/Refinement.md)\<infer \_A, infer \_\>] ? `_A` : `never`
+> **In**\<`T`\>: \[`T`\] *extends* \[[`Refinement`](../../../interfaces/Refinement.md)\<infer \_A, infer \_\>\] ? `_A` : `never`
 
 ## Type Parameters
 

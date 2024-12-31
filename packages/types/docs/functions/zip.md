@@ -8,7 +8,7 @@
 
 ## Call Signature
 
-> **zip**\<`T`\>(`arr1`): [`T`][]
+> **zip**\<`T`\>(`arr1`): \[`T`\][]
 
 ### Type Parameters
 
@@ -22,11 +22,11 @@ readonly `T`[]
 
 ### Returns
 
-[`T`][]
+\[`T`\][]
 
 ## Call Signature
 
-> **zip**\<`T`, `U`\>(`arr1`, `arr2`): [`T`, `U`][]
+> **zip**\<`T`, `U`\>(`arr1`, `arr2`): \[`T`, `U`\][]
 
 ### Type Parameters
 
@@ -46,11 +46,11 @@ readonly `U`[]
 
 ### Returns
 
-[`T`, `U`][]
+\[`T`, `U`\][]
 
 ## Call Signature
 
-> **zip**\<`T`, `U`, `V`\>(`arr1`, `arr2`, `arr3`): [`T`, `U`, `V`][]
+> **zip**\<`T`, `U`, `V`\>(`arr1`, `arr2`, `arr3`): \[`T`, `U`, `V`\][]
 
 ### Type Parameters
 
@@ -76,11 +76,11 @@ readonly `V`[]
 
 ### Returns
 
-[`T`, `U`, `V`][]
+\[`T`, `U`, `V`\][]
 
 ## Call Signature
 
-> **zip**\<`T`, `U`, `V`, `W`\>(`arr1`, `arr2`, `arr3`, `arr4`): [`T`, `U`, `V`, `W`][]
+> **zip**\<`T`, `U`, `V`, `W`\>(`arr1`, `arr2`, `arr3`, `arr4`): \[`T`, `U`, `V`, `W`\][]
 
 ### Type Parameters
 
@@ -112,4 +112,4 @@ readonly `W`[]
 
 ### Returns
 
-[`T`, `U`, `V`, `W`][]
+\[`T`, `U`, `V`, `W`\][]

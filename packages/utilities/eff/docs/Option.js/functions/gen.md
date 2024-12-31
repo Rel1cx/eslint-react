@@ -20,7 +20,7 @@
 
 ### args
 
-[`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>] | [(`resume`) => `Generator`\<`K`, `A`, `never`\>]
+\[`Self`, (`this`, `resume`) => `Generator`\<`K`, `A`, `never`\>\] | \[(`resume`) => `Generator`\<`K`, `A`, `never`\>\]
 
 ## Returns
 

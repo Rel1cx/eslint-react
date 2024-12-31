@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/types": "^8.18.2",
-    "@typescript-eslint/utils": "^8.18.2"
+    "@typescript-eslint/types": "^8.19.0",
+    "@typescript-eslint/utils": "^8.19.0"
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
