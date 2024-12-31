@@ -133,7 +133,8 @@ ruleTester.run(RULE_NAME, rule, {
             g = new Thing(),
             h = <Thing />,
             i = Symbol('foo'),
-            j = unknownFunction()
+            j = unknownFunction(),
+            k = window.name
         }) {
             return null
         }
@@ -152,7 +153,8 @@ ruleTester.run(RULE_NAME, rule, {
             g = new Thing(),
             h = <Thing />,
             i = Symbol('foo'),
-            j = unknownFunction()
+            j = unknownFunction(),
+            k = window.name
         }) => {
             return null
         }
@@ -212,6 +214,76 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{items}</div>;
       }
     `,
-    /* tsx */ `export default function NonComponent({ foo = {} }) {}`,
+    /* tsx */ `
+      export default function NonComponent({ foo = {} }) {}
+    `,
+    /* tsx */ `
+      export function DrawerItem(props: Props) {
+        const { colors, fonts } = useTheme();
+
+        const {
+          href,
+          icon,
+          label,
+          labelStyle,
+          focused = false,
+          allowFontScaling,
+          activeTintColor = colors.primary,
+          inactiveBackgroundColor = 'transparent',
+          style,
+          onPress,
+          pressColor,
+          pressOpacity = 1,
+          testID,
+          accessibilityLabel,
+          ...rest
+        } = props;
+
+        const { borderRadius = 56 } = StyleSheet.flatten(style || {});
+        const color = focused ? activeTintColor : inactiveTintColor;
+        const backgroundColor = focused
+          ? activeBackgroundColor
+          : inactiveBackgroundColor;
+
+        const iconNode = icon ? icon({ size: 24, focused, color }) : null;
+
+        return (
+          <View
+            collapsable={false}
+            {...rest}
+            style={[styles.container, { borderRadius, backgroundColor }, style]}
+          >
+            <PlatformPressable
+              testID={testID}
+              onPress={onPress}
+              accessibilityLabel={accessibilityLabel}
+              accessibilityRole="button"
+              accessibilityState={{ selected: focused }}
+              pressColor={pressColor}
+              pressOpacity={pressOpacity}
+              hoverEffect={{ color }}
+              href={href}
+            >
+              <View style={[styles.wrapper, { borderRadius }]}>
+                {iconNode}
+                <View style={[styles.label, { marginStart: iconNode ? 12 : 0 }]}>
+                  {typeof label === 'string' ? (
+                    <Text
+                      numberOfLines={1}
+                      allowFontScaling={allowFontScaling}
+                      style={[styles.labelText, { color }, fonts.medium, labelStyle]}
+                    >
+                      {label}
+                    </Text>
+                  ) : (
+                    label({ color, focused })
+                  )}
+                </View>
+              </View>
+            </PlatformPressable>
+          </View>
+        );
+      }
+    `,
   ],
 });

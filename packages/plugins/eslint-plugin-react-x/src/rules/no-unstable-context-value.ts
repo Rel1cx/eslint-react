@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { useComponentCollector } from "@eslint-react/core";
+import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -65,9 +65,10 @@ export default createRule<[], MessageID>({
             const initialScope = context.sourceCode.getScope(valueExpression);
             return O.some(VAR.inspectConstruction(valueExpression, initialScope));
           }),
-          O.filter(({ construction }) => construction._tag !== "None"),
         );
         for (const { construction, function: [_, fNode] } of O.toArray(constructionEntry)) {
+          if (construction._tag === "None") continue;
+          if (isReactHookCall(construction.node)) continue;
           constructions.set(fNode, [
             ...constructions.get(fNode) ?? [],
             construction,
