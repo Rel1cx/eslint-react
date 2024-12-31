@@ -6,15 +6,15 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `
-      import { useState, useCallback } from "react";
+        import { useState, useCallback } from "react";
 
-      function MyComponent() {
-        const a = 1;
-        const handleSnapshot = useCallback(() => Number(1), []);
+        function MyComponent() {
+          const a = 1;
+          const handleSnapshot = useCallback(() => Number(1), []);
 
-        return null;
-      }
-    `,
+          return null;
+        }
+      `,
       errors: [
         {
           messageId: "noUnnecessaryUseCallback",
@@ -23,15 +23,15 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
-      import { useState, useCallback } from "react";
+        import { useState, useCallback } from "react";
 
-      function MyComponent() {
-        const a = 1;
-        const handleSnapshot = useCallback(() => new String("1"), []);
+        function MyComponent() {
+          const a = 1;
+          const handleSnapshot = useCallback(() => new String("1"), []);
 
-        return null;
-      }
-    `,
+          return null;
+        }
+      `,
       errors: [
         {
           messageId: "noUnnecessaryUseCallback",
