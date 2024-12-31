@@ -12,6 +12,16 @@ ESLint React provides the following configurations:
 
 React version to use, `"detect"` means auto detect React version from the project's dependencies.
 
+### `importSource`
+
+(type: `string`, default: `"react"`)
+
+The source where React is imported from.\
+This allows to specify a custom import location for React when not using the official distribution.\
+If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.
+
+(e.g. `@pika/react`, etc)
+
 ### `polymorphicPropName`
 
 (type: `string`)
@@ -24,16 +34,6 @@ For example, if you set the `polymorphicPropName` setting to `as` then this elem
 
 will be evaluated as an `h3`. If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
 
-### `additionalHooks`
-
-(type: `[key: string]: string[]`)
-
-<Callout type="warning">This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Callout>
-
-A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
-
-(e.g. `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`)
-
 ### `additionalComponents`
 
 (type: `{ name: string; as: string; attributes: { name: string; as?: string; defaultValue?: string }[] }[]`)
@@ -42,19 +42,31 @@ A object of aliases for React built-in hooks. ESLint React will recognize these 
 
 <Callout type="warning">This is an experimental feature that can be unstable and lacks documentation.</Callout>
 
-An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis on them than just using the `polymorphicPropName` setting. You can also provide default values for attributes here, that will be used when that attribute is not present in the component.
+An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis. You can also provide default values for attributes here, that will be used when that attribute is not present in the component.
 
-(e.g. The `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` demystifies an `<EmbedContent src="https://eslint-react.xyz" />` as an `<iframe src="https://eslint-react.xyz" sandbox="" />`, so that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it)
+For example, if you set the `additionalComponents` to `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` then this element:
 
-### `importSource`
+`<EmbedContent src="https://eslint-react.xyz" />`
 
-(type: `string`, default: `"react"`)
+will be evaluated as an `<iframe src="https://eslint-react.xyz" sandbox="" />`
 
-The source where React is imported from.\
-This allows to specify a custom import location for React when not using the official distribution.\
-If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.
+So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it.
 
-(e.g. `@pika/react`, etc)
+### `additionalHooks`
+
+(type: `[key: string]: string[]`)
+
+<Callout type="warning">This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Callout>
+
+A object of aliases for React built-in hooks. ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
+
+For example, if you set the `additionalHooks` to `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }` then the React Hook in this code:
+
+`useIsomorphicLayoutEffect(() => { setCount(count + 1); }, [count]);`
+
+will be evaluated as a `useLayoutEffect` hook
+
+So that the `hooks-extra/no-direct-set-state-in-use-layout-effect` rule can perform checks on it.
 
 ## Examples
 
