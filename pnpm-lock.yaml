@@ -877,8 +877,8 @@ importers:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.17.0(jiti@2.4.2)
       is-immutable-type:
-        specifier: ^5.0.0
-        version: 5.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
+        specifier: ^5.0.1
+        version: 5.0.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       string-ts:
         specifier: ^2.2.0
         version: 2.2.0
@@ -1081,11 +1081,11 @@ importers:
         specifier: ^15.1.3
         version: 15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)
       nextra:
-        specifier: 3.2.5
-        version: 3.2.5(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
+        specifier: 3.3.1
+        version: 3.3.1(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
       nextra-theme-docs:
-        specifier: 3.2.5
-        version: 3.2.5(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(nextra@3.2.5(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 3.3.1
+        version: 3.3.1(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(nextra@3.3.1(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1207,8 +1207,8 @@ importers:
         specifier: ^50.6.1
         version: 50.6.1(eslint@9.17.0(jiti@2.4.2))
       eslint-plugin-perfectionist:
-        specifier: ^4.4.0
-        version: 4.4.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
+        specifier: ^4.5.0
+        version: 4.5.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       eslint-plugin-regexp:
         specifier: ^2.7.0
         version: 2.7.0(eslint@9.17.0(jiti@2.4.2))
@@ -5209,8 +5209,8 @@ packages:
     peerDependencies:
       eslint: '>=8.0.0'
 
-  eslint-plugin-perfectionist@4.4.0:
-    resolution: {integrity: sha512-B78pWxCsA2sClourpWEmWziCcjEsAEyxsNV5G6cxxteu/NI0/2en9XZUONf5e/+O+dgoLZsEPHQEhnIxJcnUvA==}
+  eslint-plugin-perfectionist@4.5.0:
+    resolution: {integrity: sha512-Dh+6UO50GLRM5z8HMv7HkCy+XUGgDfG8jbTYrqL6A07VBIPzlnM3CMZkovWEWT3mOPzlFTYdyp1bYr+HZTKD6g==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       eslint: '>=8.0.0'
@@ -5911,8 +5911,8 @@ packages:
   is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
 
-  is-immutable-type@5.0.0:
-    resolution: {integrity: sha512-mcvHasqbRBWJznuPqqHRKiJgYAz60sZ0mvO3bN70JbkuK7ksfmgc489aKZYxMEjIbRvyOseaTjaRZLRF/xFeRA==}
+  is-immutable-type@5.0.1:
+    resolution: {integrity: sha512-LkHEOGVZZXxGl8vDs+10k3DvP++SEoYEAJLRk6buTFi6kD7QekThV7xHS0j6gpnUCQ0zpud/gMDGiV4dQneLTg==}
     peerDependencies:
       eslint: '*'
       typescript: ^5.7.2
@@ -6641,16 +6641,16 @@ packages:
       sass:
         optional: true
 
-  nextra-theme-docs@3.2.5:
-    resolution: {integrity: sha512-eF0j1VNNS1rFjZOfYqlrXISaCU3+MhZ9hhXY+TUydRlfELrFWpGzrpW6MiL7hq4JvUR7OBtHHs8+A+8AYcETBQ==}
+  nextra-theme-docs@3.3.1:
+    resolution: {integrity: sha512-P305m2UcW2IDyQhjrcAu0qpdPArikofinABslUCAyixYShsmcdDRUhIMd4QBHYru4gQuVjGWX9PhWZZCbNvzDQ==}
     peerDependencies:
       next: ^15.1.3
-      nextra: 3.2.5
+      nextra: 3.3.1
       react: ^19.0.0
       react-dom: ^19.0.0
 
-  nextra@3.2.5:
-    resolution: {integrity: sha512-n665DRpI/brjHXM83G5LdlbYA2nOtjaLcWJs7mZS3gkuRDmEXpJj4XJ860xrhkYZW2iYoUMu32zzhPuFByU7VA==}
+  nextra@3.3.1:
+    resolution: {integrity: sha512-jiwj+LfUPHHeAxJAEqFuglxnbjFgzAOnDWFsjv7iv3BWiX8OksDwd3I2Sv3j2zba00iIBDEPdNeylfzTtTLZVg==}
     engines: {node: '>=18'}
     peerDependencies:
       next: ^15.1.3
@@ -7094,6 +7094,12 @@ packages:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
       react: ^19.0.0
+
+  react-medium-image-zoom@5.2.13:
+    resolution: {integrity: sha512-KcBL4OsoUQJgIFh6vQgt/6sRGqDy6bQBcsbhGD2tsy4B5Pw3dWrboocVOyIm76RRALEZ6Qwp3EDvIvfEv0m5sg==}
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
@@ -12569,7 +12575,7 @@ snapshots:
       - bluebird
       - supports-color
 
-  eslint-plugin-perfectionist@4.4.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2):
+  eslint-plugin-perfectionist@4.5.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2):
     dependencies:
       '@typescript-eslint/types': 8.19.0
       '@typescript-eslint/utils': 8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
@@ -12705,7 +12711,7 @@ snapshots:
       '@typescript-eslint/utils': 8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       compare-versions: 6.1.1
       eslint: 9.17.0(jiti@2.4.2)
-      is-immutable-type: 5.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
+      is-immutable-type: 5.0.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       string-ts: 2.2.0
       ts-api-utils: 2.0.0(typescript@5.7.2)
       ts-pattern: 5.6.0
@@ -13471,7 +13477,7 @@ snapshots:
 
   is-hexadecimal@2.0.1: {}
 
-  is-immutable-type@5.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2):
+  is-immutable-type@5.0.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2):
     dependencies:
       '@typescript-eslint/type-utils': 8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       eslint: 9.17.0(jiti@2.4.2)
@@ -14452,7 +14458,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.2.5(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(nextra@3.2.5(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  nextra-theme-docs@3.3.1(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(nextra@3.3.1(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@headlessui/react': 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       clsx: 2.1.1
@@ -14460,13 +14466,13 @@ snapshots:
       flexsearch: 0.7.43
       next: 15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0)
       next-themes: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      nextra: 3.2.5(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
+      nextra: 3.3.1(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.24.1
 
-  nextra@3.2.5(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2):
+  nextra@3.3.1(@types/react@19.0.2)(acorn@8.14.0)(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.9
       '@headlessui/react': 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -14493,6 +14499,7 @@ snapshots:
       p-limit: 6.2.0
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
+      react-medium-image-zoom: 5.2.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rehype-katex: 7.0.1
       rehype-pretty-code: 0.14.0(shiki@1.24.3)
       rehype-raw: 7.0.0
@@ -14944,6 +14951,11 @@ snapshots:
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
+
+  react-medium-image-zoom@5.2.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   react-refresh@0.14.2: {}
 
