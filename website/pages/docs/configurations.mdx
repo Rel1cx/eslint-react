@@ -8,29 +8,45 @@ ESLint React provides the following configurations:
 
 ### `version`
 
-(type: `string`, default: `"detect"`)
+```ts
+export default "detect" satisfies string
+```
 
-React version to use, `"detect"` means auto detect React version from the project's dependencies.
+React version to perform the analysis, `"detect"` means auto detect React version from the project's dependencies.
+
+If failed to detect, it will use the `19.0.0` version.
 
 ### `importSource`
 
-(type: `string`, default: `"react"`)
+```ts
+export default "react" satisfies string
+```
 
-The source where React is imported from.\
-This allows to specify a custom import location for React when not using the official distribution.\
-If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.
+<Callout type="info">If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.</Callout>
 
-(e.g. `@pika/react`, etc)
+The source where React is imported from.
+
+This allows to specify a custom import location for React when not using the official distribution.
+
+For example, if you are using `@pika/react` instead of `react`, you can set the `importSource` to `@pika/react`:
+
+```tsx
+import React from "@pika/react";
+```
 
 ### `polymorphicPropName`
 
-(type: `string`)
+```ts
+export default "as" satisfies string
+```
 
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
 
 For example, if you set the `polymorphicPropName` setting to `as` then this element:
 
-`<Box as="h3">Configurations </Box>`
+```tsx
+<Box as="h3">Configurations</Box>
+```
 
 will be evaluated as an `h3`.
 
@@ -38,7 +54,21 @@ If no `polymorphicPropName` is set, then the component will be evaluated as `Box
 
 ### `additionalComponents`
 
-(type: `{ name: string; as: string; attributes: { name: string; as?: string; defaultValue?: string }[] }[]`)
+```ts
+interface ComponentAttributeEntry {
+  name: string;
+  as?: string;
+  defaultValue?: string;
+}
+
+interface ComponentEntry {
+  name: string;
+  as?: string;
+  attributes: ComponentAttributeEntry[];
+}
+
+export default [] satisfies ComponentEntry[]
+```
 
 <Callout type="info">Before using `additionalComponents`, consider whether `polymorphicPropName` can be used instead, as it simpler and more efficient.</Callout>
 
@@ -46,27 +76,53 @@ If no `polymorphicPropName` is set, then the component will be evaluated as `Box
 
 An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis. You can also provide default values for attributes here, that will be used when that attribute is not present in the component.
 
-For example, if you set the `additionalComponents` to `[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]` then this element:
+For example, if you set the `additionalComponents` to:
 
-`<EmbedContent src="https://eslint-react.xyz" />`
+```json
+[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]
+```
 
-will be evaluated as an `<iframe src="https://eslint-react.xyz" sandbox="" />`.
+then this element:
+
+```tsx
+<EmbedContent src="https://eslint-react.xyz" />
+```
+
+will be evaluated as an:
+
+```tsx
+<iframe src="https://eslint-react.xyz" sandbox="" />
+```
 
 So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it.
 
 ### `additionalHooks`
 
-(type: `[key: string]: string[]`)
+```ts
+export default { useLayoutEffect: ["useIsomorphicLayoutEffect"] } satisfies Record<ReactBuiltInHookName, string[]>
+```
 
-<Callout type="warning">This is intended to cover edge cases. We suggest to use this option very sparingly, if at all.</Callout>
+<Callout type="warning">This is intended to cover edge cases. We suggest using the built-in React Hooks whenever possible.</Callout>
 
 A object of aliases for React built-in Hooks. ESLint React will recognize these aliases as equivalent to the built-in Hooks in all its rules.
 
-For example, if you set the `additionalHooks` to `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }` then the React Hook in this code:
+For example, if you set the `additionalHooks` to:
 
-`useIsomorphicLayoutEffect(() => { setCount(count + 1); }, [count]);`
+```json
+{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }
+```
 
-will be evaluated as a `useLayoutEffect` hook.
+then the React Hook call:
+
+```tsx
+useIsomorphicLayoutEffect(() => { setCount(count => count + 1); }, []);
+```
+
+will be evaluated as an:
+
+```tsx
+useLayoutEffect(() => { setCount(count => count + 1); }, []);
+```
 
 So that the `hooks-extra/no-direct-set-state-in-use-layout-effect` rule can perform checks on it.
 
