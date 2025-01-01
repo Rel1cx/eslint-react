@@ -66,7 +66,7 @@ MyComponent.propTypes = {
 ```tsx
 import React from "react";
 
-function MyComponentComponent(props) {
+function MyComponent(props) {
   return <div>{props.name}</div>;
 }
 
@@ -98,7 +98,7 @@ interface MyComponentProps {
   name: string;
 }
 
-function MyComponentComponent({ name }: MyComponentProps) {
+function MyComponent({ name }: MyComponentProps) {
   return <div>{name}</div>;
 }
 ```

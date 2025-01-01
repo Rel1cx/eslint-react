@@ -64,7 +64,7 @@ import React from "react";
 
 interface MyComponentProps {}
 
-interface MyComponentStateState {
+interface MyComponentState {
   foo: number;
 }
 
