@@ -6,8 +6,8 @@
 
 # Function: next()
 
-> **next**(): `number`
+> **next**(): `bigint`
 
 ## Returns
 
-`number`
+`bigint`
