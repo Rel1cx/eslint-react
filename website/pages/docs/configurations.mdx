@@ -9,7 +9,7 @@ ESLint React provides the following configurations:
 ### `version`
 
 ```ts
-export default "detect" satisfies string
+const version = "detect" satisfies string
 ```
 
 React version to perform the analysis, `"detect"` means auto detect React version from the project's dependencies.
@@ -19,7 +19,7 @@ If failed to detect, it will use the `19.0.0` version.
 ### `importSource`
 
 ```ts
-export default "react" satisfies string
+const importSource = "react" satisfies string
 ```
 
 <Callout type="info">If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.</Callout>
@@ -37,7 +37,7 @@ import React from "@pika/react";
 ### `polymorphicPropName`
 
 ```ts
-export default "as" satisfies string
+const polymorphicPropName = "as" satisfies string
 ```
 
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
@@ -67,7 +67,7 @@ interface ComponentEntry {
   attributes: ComponentAttributeEntry[];
 }
 
-export default [] satisfies ComponentEntry[]
+const additionalComponents = [] satisfies ComponentEntry[]
 ```
 
 <Callout type="info">Before using `additionalComponents`, consider whether `polymorphicPropName` can be used instead, as it simpler and more efficient.</Callout>
@@ -79,7 +79,15 @@ An array of components and its attributes mapping. It allows the related rules t
 For example, if you set the `additionalComponents` to:
 
 ```json
-[{ name: "EmbedContent", as: "iframe", attributes: [{ name: "sandbox", defaultValue: "" }] }]
+[
+  {
+    "name": "EmbedContent",
+    "as": "iframe",
+    "attributes": [
+      { "name": "sandbox", "defaultValue": "" }
+    ]
+  }
+]
 ```
 
 then this element:
@@ -99,7 +107,7 @@ So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandb
 ### `additionalHooks`
 
 ```ts
-export default { useLayoutEffect: ["useIsomorphicLayoutEffect"] } satisfies Record<ReactBuiltInHookName, string[]>
+const additionalHooks = { useLayoutEffect: ["useIsomorphicLayoutEffect"] } satisfies Record<ReactBuiltInHookName, string[]>
 ```
 
 <Callout type="warning">This is intended to cover edge cases. We suggest using the built-in React Hooks whenever possible.</Callout>
