@@ -4,6 +4,10 @@
 
 # @eslint-react/core
 
+## Namespaces
+
+- [uid](namespaces/uid/README.md)
+
 ## Interfaces
 
 - [ERClassComponent](interfaces/ERClassComponent.md)

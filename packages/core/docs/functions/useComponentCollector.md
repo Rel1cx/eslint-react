@@ -64,7 +64,7 @@
 
 #### listeners.:function\[type\]()
 
-> `readonly` **:function\[type\]**: (`node`) => `number` = `onFunctionEnter`
+> `readonly` **:function\[type\]**: (`node`) => `void` = `onFunctionEnter`
 
 ##### Parameters
 
@@ -74,7 +74,7 @@
 
 ##### Returns
 
-`number`
+`void`
 
 #### listeners.:function\[type\]:exit()
 

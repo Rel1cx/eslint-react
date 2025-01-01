@@ -6,10 +6,10 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
-import { uid } from "uid";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
+import { uid } from "../utils";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
@@ -62,7 +62,7 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
 
 export function useComponentCollector(
   context: RuleContext,
-  hint: bigint = DEFAULT_COMPONENT_HINT,
+  hint = DEFAULT_COMPONENT_HINT,
 ) {
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
@@ -73,7 +73,10 @@ export function useComponentCollector(
     hookCalls: TSESTree.CallExpression[],
   ][] = [];
   const getCurrentFunction = () => O.fromNullable(functionStack.at(-1));
-  const onFunctionEnter = (node: AST.TSESTreeFunction) => functionStack.push([uid(10), node, false, []]);
+  const onFunctionEnter = (node: AST.TSESTreeFunction) => {
+    const key = uid.next().toString();
+    functionStack.push([key, node, false, []]);
+  };
   const onFunctionExit = () => {
     const [key, fn, isComponent] = functionStack.at(-1) ?? [];
     if (!key || !fn || !isComponent) return functionStack.pop();
@@ -117,7 +120,7 @@ export function useComponentCollector(
       const initPath = AST.getFunctionInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      const key = uid(10);
+      const key = uid.next().toString();
       components.set(key, {
         _: key,
         id,

@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { uid } from "uid";
 
+import { uid } from "../utils";
 import type { ERHook } from "./hook";
 import { isReactHookName } from "./hook-name";
 import { isReactHookCall } from "./is";
@@ -14,7 +14,7 @@ export function useHookCollector() {
     const id = AST.getFunctionIdentifier(node);
     const name = O.flatMapNullable(id, (id) => id.name);
     if (O.isSome(id) && O.isSome(name) && isReactHookName(name.value)) {
-      const key = uid(10);
+      const key = uid.next().toString();
       fStack.push([node, O.some(key)]);
       hooks.set(key, {
         _: key,
