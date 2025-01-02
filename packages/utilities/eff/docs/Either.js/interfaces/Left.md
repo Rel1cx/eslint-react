@@ -12,7 +12,7 @@
 
 ## Extends
 
-- `Pipeable`.`Inspectable`.`Effect`\<`R`, `L`\>.`STM`\<`R`, `L`\>
+- `Pipeable`.`Inspectable`.`STM`\<`R`, `L`\>.`Effect`\<`R`, `L`\>
 
 ## Type Parameters
 

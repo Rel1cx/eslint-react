@@ -19,7 +19,6 @@ import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
 const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 const GLOB_MD = ["*.md", "**/*.md"];

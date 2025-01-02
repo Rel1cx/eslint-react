@@ -12,7 +12,7 @@
 
 ## Extends
 
-- `Pipeable`.`Inspectable`.`Effect`\<`A`, `Cause.NoSuchElementException`\>.`STM`\<`A`, `Cause.NoSuchElementException`\>
+- `Pipeable`.`Inspectable`.`STM`\<`A`, `Cause.NoSuchElementException`\>.`Effect`\<`A`, `Cause.NoSuchElementException`\>
 
 ## Type Parameters
 

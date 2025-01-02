@@ -65,12 +65,12 @@ export default createRule<[], MessageID>({
             const { value } = prop;
             const { right } = value;
             const initialScope = context.sourceCode.getScope(value);
-            const construction = VAR.inspectConstruction(
+            const construction = VAR.getValueConstruction(
               value,
               initialScope,
-              VAR.ConstructionHint.StrictCallExpression,
+              VAR.ValueConstructionHint.StrictCallExpression,
             );
-            if (construction._tag === "None") continue;
+            if (construction.kind === "None") continue;
             if (isReactHookCall(construction.node)) continue;
             const forbiddenType = AST.toReadableNodeType(right);
             context.report({
