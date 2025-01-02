@@ -1,4 +1,10 @@
-## v1.23.0 (Tue 31 Dec 2024)
+## v1.23.1 (2025-01-03)
+
+### 🐞 Fixes
+
+- fix(plugins/x): fixed false positives in `no-unstable-context-value` and `no-unstable-default-props` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/896>
+
+## v1.23.0 (2024-12-31)
 
 ### 🪄 Improvements
 
@@ -11,14 +17,14 @@
 
 - fix(plugins/hooks-extra): fix `call` and `new` expression related false positives in `no-unnecessary-use-memo` and `no-unnecessary-use-callback` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/895>
 
-## v1.22.2 (Mon 30 Dec 2024)
+## v1.22.2 (2024-12-30)
 
 ### 🪄 Improvements
 
 - perf: re-implement `no-duplicate-key` rule to improve its performance @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/891> and [33ab3cc](https://github.com/rEl1cx/eslint-react/commit/33ab3cc6ca11bf8412e07efa35f640dfbad77f6e)
 - refactor: prevent potential interference from TypeScript's `as`, `satisfies`, and non-null assertion operator in various rules
 
-## v1.22.1 (Tue 24 Dec 2024)
+## v1.22.1 (2024-12-24)
 
 ### 🪄 Improvements
 
@@ -34,7 +40,7 @@ The `eslint.config.js` in the examples now uses `tsconfig`'s `includes` and `exc
 
 This approach can fundamentally avoid the errors[[1](https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me-the-file-must-be-included-in-at-least-one-of-the-projects-provided), [2](https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file), [3](https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me--was-not-found-by-the-project-service-consider-either-including-it-in-the-tsconfigjson-or-including-it-in-allowdefaultproject)] caused by mismatched config scopes between `tsconfig.json` and `eslint.config.js` when using type-checked rules.
 
-## v1.22.0 (Sun 22 Dec 2024)
+## v1.22.0 (2024-12-22)
 
 ### 🪄 Improvements
 
@@ -52,7 +58,7 @@ The following rules have been renamed:
 
 The new rule names are aligned with the same rules in the [biomejs/rules-sources/#eslint-plugin-react](https://biomejs.dev/linter/rules-sources/#eslint-plugin-react) (if any) to enhance consistency. The old rule names will still be available until the next major update to avoid breaking changes.
 
-## v1.21.0 (Fri 20 Dec 2024)
+## v1.21.0 (2024-12-20)
 
 ### ✨ New
 
@@ -75,13 +81,13 @@ function useAuth() {
 }
 ```
 
-## v1.20.1 (Wed 18 Dec 2024)
+## v1.20.1 (2024-12-18)
 
 ### 🪄 Improvements
 
 - refactor(shared): replace `local-pkg` package with node built-in API by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/881>
 
-## v1.20.0 (Mon 16 Dec 2024)
+## v1.20.0 (2024-12-16)
 
 ### ✨ New
 
@@ -98,7 +104,7 @@ function useAuth() {
 
 - @danielrentz made their first contribution in <https://github.com/rEl1cx/eslint-react/pull/877>
 
-## v1.19.0 (Tue 10 Dec 2024)
+## v1.19.0 (2024-12-10)
 
 ### ✨ New
 
@@ -112,7 +118,7 @@ function useAuth() {
 - refactor(plugins/eslint-plugin): hide `avoid-shorthand-boolean` and `avoid-shorthand-fragment` from presets and docs by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/876>
 - Update `@typescript-eslint`'s packages to `^8.18.0`
 
-## v1.18.0 (Sun 8 Dec 2024)
+## v1.18.0 (2024-12-08)
 
 ### ✨ New
 
@@ -122,7 +128,7 @@ function useAuth() {
 
 - perf(plugins/dom): improve performance of `no-void-elements-with-children` by @rEl1cx
 
-## v1.17.3 (Tue 3 Dec 2024)
+## v1.17.3 (2024-12-03)
 
 ### 🐞 Fixes
 
@@ -134,7 +140,7 @@ function useAuth() {
 
 - Update `@typescript-eslint`'s packages to `^8.17.0`
 
-## v1.17.2 (Sun 1 Dec 2024)
+## v1.17.2 (2024-12-01)
 
 ### 🪄 Improvements
 
@@ -142,7 +148,7 @@ function useAuth() {
 - Update `@typescript-eslint`'s packages to `^8.16.0`
 - Update `ts-api-utils` to `^2.0.0`
 
-## v1.17.1 (Fri 22 Nov 2024)
+## v1.17.1 (2024-11-22)
 
 ### ✨ New
 
@@ -154,7 +160,7 @@ function useAuth() {
 - fix(plugins/dom): add popover api props to 'no-unknown-property', closes #855 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/865>
 - fix(plugins/debug): 'is-from-react' use correct settings when calling 'isInitializedFromReact', by @rEl1cx
 
-## v1.17.0 (Thu 21 Nov 2024)
+## v1.17.0 (2024-11-21)
 
 ### ✨ New
 
@@ -166,7 +172,7 @@ function useAuth() {
 - fix(plugins/eslint-plugin): unexpected top-level property 'name' in legacy presets, closes #863
 - fix(plugins/eslint-plugin): rules list in 'debug' and 'disable-debug' presets
 
-## v1.16.2 (Wed 20 Nov 2024)
+## v1.16.2 (2024-11-20)
 
 ### 🐞 Fixes
 
@@ -176,7 +182,7 @@ function useAuth() {
 
 - refactor: update the default behavior of import check, closes #858 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/860>
 
-## v1.16.1 (Sun 10 Nov 2024)
+## v1.16.1 (2024-11-10)
 
 ### ✨ New
 
@@ -186,7 +192,7 @@ function useAuth() {
 
 - docs: use correct link for `prefer-react-namespace-import` in rule list by @rakleed in <https://github.com/rEl1cx/eslint-react/pull/849>
 
-## v1.16.0 (Fri 1 Nov 2024)
+## v1.16.0 (2024-11-01)
 
 ### ✨ New
 
@@ -198,13 +204,13 @@ function useAuth() {
 
 - Update `@typescript-eslint`'s packages to `^8.12.2`
 
-## v1.15.2 (Tue 29 Oct 2024)
+## v1.15.2 (2024-10-29)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `^8.12.1`
 
-## v1.15.1 (Sat 26 Oct 2024)
+## v1.15.1 (2024-10-26)
 
 ### ✨ New
 
@@ -215,7 +221,7 @@ function useAuth() {
 - fix(plugins/react-x): respect semicolon by @hyoban in <https://github.com/rEl1cx/eslint-react/pull/841>
 - fix(utilities/ast): added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier` by @rEl1cx , closes <https://github.com/rEl1cx/eslint-react/issues/843>
 
-## v1.15.0 (Sat 12 Oct 2024)
+## v1.15.0 (2024-10-12)
 
 ### ✨ New
 
@@ -240,25 +246,25 @@ function useAuth() {
 
 **Full Changelog**: <https://github.com/rEl1cx/eslint-react/compare/v1.14.3...v1.15.0>
 
-## v1.14.3 (Sat 29 Sep 2024)
+## v1.14.3 (2024-09-29)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `^8.7.0`
 
-## v1.14.2 (Fri 20 Sep 2024)
+## v1.14.2 (2024-09-20)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `^8.6.0`
 
-## v1.14.1 (Thu 12 Sep 2024)
+## v1.14.1 (2024-09-12)
 
 ### 🐞 Fixes
 
 - Fixed false positives in rule `web-api/no-leaked-resize-observer`
 
-## v1.14.0 (Tue 10 Sep 2024)
+## v1.14.0 (2024-09-10)
 
 ### 🐞 Fixes
 
@@ -269,13 +275,13 @@ function useAuth() {
 
 - Update `@typescript-eslint`'s packages to `^8.5.0`
 
-## v1.13.1 (Mon 09 Sep 2024)
+## v1.13.1 (2024-09-09)
 
 ### 🐞 Fixes
 
 - Fixed `hooks-extra/no-unnecessary-use-callback` and `hooks-extra/no-unnecessary-use-memo` false positives when there are references from nested scopes
 
-## v1.13.0 (Wed 04 Sep 2024)
+## v1.13.0 (2024-09-04)
 
 ### ✨ New
 
@@ -295,7 +301,7 @@ function useAuth() {
 
 (The rules that were renamed in this release will still be available until the next major update to avoid breaking changes.)
 
-## v1.12.4 (Sat 31 Aug 2024)
+## v1.12.4 (2024-08-31)
 
 ### ✨ New
 
@@ -305,7 +311,7 @@ function useAuth() {
 
 - Deprecate rule `hooks-extra/no-direct-set-state-in-use-layout-effect` in favor of `hooks-extra/no-direct-set-state-in-use-effect` (the previous rule will still be available until the next major update to avoid breaking changes)
 
-## v1.12.3 (Thu 29 Aug 2024)
+## v1.12.3 (2024-08-29)
 
 ### ✨ New
 
@@ -316,7 +322,7 @@ function useAuth() {
 - Fixed `no-duplicate-key` rule false positives when the key is a variable
 - Fixed `web-api/no-leaked-set-timeout` and `web-api/no-leaked-set-interval` false positives when a timer is assigned to a variable declared by `let` but not initialized
 
-## v1.12.3 (Thu 29 Aug 2024)
+## v1.12.3 (2024-08-29)
 
 ### ✨ New
 
@@ -331,7 +337,7 @@ function useAuth() {
 
 - Allow upper case letters in the rule `naming-convention/component-name` when the component name is less than 4 characters, e.g. `UI`, `CSS`, `SVG`
 
-## v1.12.2 (Tue 27 Aug 2024)
+## v1.12.2 (2024-08-27)
 
 ### ✨ New
 
@@ -342,7 +348,7 @@ function useAuth() {
 - Improve the performance of the `no-missing-key` and `no-duplicate-key` rules
 - Upgrade `@typescript-eslint`'s packages to `^8.3.0`
 
-## v1.12.1 (Thu 22 Aug 2024)
+## v1.12.1 (2024-08-22)
 
 ### ✨ New
 
@@ -352,13 +358,13 @@ function useAuth() {
 
 - Normalize the component name in rule `naming-convention/component-name` before checking it against the pattern
 
-## v1.12.0 (Wed 21 Aug 2024)
+## v1.12.0 (2024-08-21)
 
 ### ✨ New
 
 - Added `hooks-extra` rules to `recommended` and `recommended-legacy` presets
 
-## v1.11.0 (Tue 20 Aug 2024)
+## v1.11.0 (2024-08-20)
 
 ### ✨ New
 
@@ -376,7 +382,7 @@ function useAuth() {
 - Improve website and documentation
 - Upgrade `@typescript-eslint`'s packages to `^8.2.0`
 
-## v1.10.1 (Tue 13 Aug 2024)
+## v1.10.1 (2024-08-13)
 
 ### 🐞 Fixes
 
@@ -388,7 +394,7 @@ function useAuth() {
 - Upgrade `@typescript-eslint`'s packages to `^8.1.0`
 - Improve website and documentation
 
-## v1.10.0 (Sun 11 Aug 2024)
+## v1.10.0 (2024-08-11)
 
 ### ✨ New
 
@@ -398,14 +404,14 @@ function useAuth() {
 
 - Rename `off-dom` and `off-dom-legacy` presets to `disable-dom` and `disable-dom-legacy` (the old names will still be available until the next major update to avoid breaking changes)
 
-## v1.9.1 (Thu 08 Aug 2024)
+## v1.9.1 (2024-08-08)
 
 ### 🐞 Fixes
 
 - Fixed `dom/no-missing-iframe-sandbox` false positive when the `sandbox` attribute is set to `sandbox=""`
 - Fixed `all` and `all-legacy` presets not including `hooks-extra` rules
 
-## v1.9.0 (Tue 06 Aug 2024)
+## v1.9.0 (2024-08-06)
 
 ### ✨ New
 
@@ -415,20 +421,20 @@ function useAuth() {
 
 - Upgrade `@typescript-eslint`'s packages to `8.0.1`
 
-## v1.8.2 (Sat 03 Aug 2024)
+## v1.8.2 (2024-08-03)
 
 ### 🐞 Fixes
 
 - Fixed legacy presets not being exported correctly in `@eslint-react/eslint-plugin`
 
-## v1.8.1 (Sat 03 Aug 2024)
+## v1.8.1 (2024-08-03)
 
 ### 🪄 Improvements
 
 - Enhance rule `hooks-extra/no-direct-set-state-in-use-effect` and `hooks-extra/no-direct-set-state-in-use-layout-effect` to support `set` function directly passed to `useCallback` and `useMemo` without explicitly calling it
 - Improve website and documentation
 
-## v1.8.0 (Fri 02 Aug 2024)
+## v1.8.0 (2024-08-02)
 
 ### 🐞 Fixes
 
@@ -440,7 +446,7 @@ function useAuth() {
 - Upgrade `@typescript-eslint`'s packages to `8.0.0`
 - Improve website and documentation
 
-## v1.7.1 (Wed 31 Jul 2024)
+## v1.7.1 (2024-07-31)
 
 ### 🐞 Fixes
 
@@ -453,7 +459,7 @@ function useAuth() {
 - Tweaked the default settings shipped with various presets
 - Overall performance improvements
 
-## v1.7.0 (Tue 30 Jul 2024)
+## v1.7.0 (2024-07-30)
 
 ### ✨ New
 
@@ -463,7 +469,7 @@ function useAuth() {
 
 - Dropped the current incomplete lint support for `React.createElement` to improve performance and subsequent code maintainability
 
-## v1.6.0 (Sat 27 Jul 2024)
+## v1.6.0 (2024-07-27)
 
 ### ✨ New
 
@@ -481,13 +487,13 @@ function useAuth() {
 
 - Remove `no-direct-set-state-in-use-(layout?)-effect` from recommended presets
 
-## v1.5.30 (Mon 22 Jul 2024)
+## v1.5.30 (2024-07-22)
 
 ### 🐞 Fixes
 
 - Revert ~~change `@typescript-eslint`'s packages in `dependencies` to `"^7.16.1 || ^rc-v8"`~~ as this format is not supported by all package managers
 
-## v1.5.29 (Mon 22 Jul 2024)
+## v1.5.29 (2024-07-22)
 
 ### ✨ New
 
@@ -503,7 +509,7 @@ function useAuth() {
 - Optimize performance of rule `no-create-ref`
 - Change `@typescript-eslint`' packages in `dependencies` to `"^7.16.1 || ^rc-v8"`
 
-## v1.5.28 (Sat 20 Jul 2024)
+## v1.5.28 (2024-07-20)
 
 ### 🐞 Fixes
 
@@ -515,7 +521,7 @@ function useAuth() {
 
 - Improve website and documentation
 
-## v1.5.27 (Tue 16 Jul 2024)
+## v1.5.27 (2024-07-16)
 
 ### 🐞 Fixes
 
@@ -529,7 +535,7 @@ function useAuth() {
 - Rule `no-leaked-conditional-rendering` now allows a truthy number literal to be used on the left side of the logical expression
 - Optimize bundle size
 
-## v1.5.26 (Mon 15 Jul 2024)
+## v1.5.26 (2024-07-15)
 
 ### ✨ New
 
@@ -547,13 +553,13 @@ function useAuth() {
 - Add rule `hooks-extra/no-direct-set-state-in-use-layout-effect` to recommended presets
 - Add rule `hooks-extra/prefer-use-state-lazy-initialization` to recommended presets
 
-## v1.5.25 (Sat 13 Jul 2024)
+## v1.5.25 (2024-07-13)
 
 ### 🪄 Improvements
 
 - Optimize bundle size
 
-## v1.5.24 (Thu 11 Jul 2024)
+## v1.5.24 (2024-07-11)
 
 ### 🐞 Fixes
 
@@ -563,7 +569,7 @@ function useAuth() {
 
 - Change `typescript` version in `peerDependencies` to `"^4.9.5 || ^5.3.3"`
 
-## v1.5.23 (Sun 7 Jul 2024)
+## v1.5.23 (2024-07-07)
 
 ### 🐞 Fixes
 
@@ -573,7 +579,7 @@ function useAuth() {
 
 - Improve website and documentation
 
-## v1.5.22 (Fri 5 Jul 2024)
+## v1.5.22 (2024-07-05)
 
 ### ✨ New
 
@@ -583,7 +589,7 @@ function useAuth() {
 
 - Downgrade `@typescript-eslint`'s packages to v7, due to stability issues with v8
 
-## v1.5.21 (Wed 3 Jul 2024)
+## v1.5.21 (2024-07-03)
 
 ### 🐞 Fixes
 
@@ -595,7 +601,7 @@ function useAuth() {
 - Update `@typescript-eslint`'s packages to v8
 - Improve rule `no-leaked-conditional-rendering` compatibility with different versions of `typescript-eslint`
 
-## v1.5.20 (Tue 02 Jul 2024)
+## v1.5.20 (2024-07-02)
 
 ### 🐞 Fixes
 
@@ -625,14 +631,14 @@ function useAuth() {
 
 - Update documentation for rule `no-useless-fragment` to reflect the actual behavior of the rule
 
-## v1.5.17 (Wed 26 Jun 2024)
+## v1.5.17 (2024-06-26)
 
 ### 🪄 Improvements
 
 - Remove rule `no-children-prop` from recommended presets
 - Improve documentation for rule `no-useless-fragment`
 
-## v1.5.16 (Mon 17 Jun 2024)
+## v1.5.16 (2024-06-17)
 
 ### 🐞 Fixes
 
@@ -644,7 +650,7 @@ function useAuth() {
 - Remove rule `prefer-shorthand-fragment` from recommended presets
 - Remove rule `prefer-destructuring-assignment` from recommended presets
 
-## v1.5.15 (Sat 08 Jun 2024)
+## v1.5.15 (2024-06-08)
 
 ### 🐞 Fixes
 
@@ -652,7 +658,7 @@ function useAuth() {
 - Remove `@typescript-eslint/parser` from peer dependencies
 - Rule `no-leaked-conditional-rendering`: object should be considered as valid left-hand type
 
-## v1.5.14 (Thu 30 May 2024)
+## v1.5.14 (2024-05-30)
 
 ### ✨ New
 
@@ -663,7 +669,7 @@ function useAuth() {
 
 - Fix rule `dom/no-missing-button-type` false positive when using `type` attribute in a JSX expression
 
-## v1.5.13 (Tue 28 May 2024)
+## v1.5.13 (2024-05-28)
 
 ### 🐞 Fixes
 
@@ -673,7 +679,7 @@ function useAuth() {
 
 - Update `@typescript-eslint`'s packages to `7.11.0`
 
-## v1.5.12 (Fri 17 May 2024)
+## v1.5.12 (2024-05-17)
 
 ### 🐞 Fixes
 
@@ -684,7 +690,7 @@ function useAuth() {
 - Update `@typescript-eslint`'s packages to `7.9.0`
 - Minor improvements
 
-## v1.5.11 (Wed 08 May 2024)
+## v1.5.11 (2024-05-08)
 
 ### ✨ New
 
@@ -701,7 +707,7 @@ function useAuth() {
 - Refactor React pragma and import name retrieval utils to support custom import source
 - Update `@typescript-eslint`'s packages to `7.8.0`
 
-## v1.5.10 (Sun 28 Apr 2024)
+## v1.5.10 (2024-04-28)
 
 ### 🪄 Improvements
 
@@ -709,32 +715,32 @@ function useAuth() {
 - Update `@typescript-eslint`'s packages to `7.7.1`
 - Use a wider range of peerDependencies
 
-## v1.5.9 (Fri 19 Apr 2024)
+## v1.5.9 (2024-04-19)
 
 ### 🪄 Improvements
 
 - Optimize error messages of rules
 - Update `@typescript-eslint`'s packages to `7.7.0`
 
-## v1.5.8 (Thu 11 Apr 2024)
+## v1.5.8 (2024-04-11)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `7.6.0`
 
-## v1.5.7 (Thu 28 Mar 2024)
+## v1.5.7 (2024-03-28)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `7.4.0`
 
-## v1.5.6 (Tue 12 Mar 2024)
+## v1.5.6 (2024-03-12)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `7.2.0`
 
-## v1.5.5 (Sun Feb 18 2024)
+## v1.5.5 (2024-02-18)
 
 ### 🐞 Fixes
 
@@ -744,7 +750,7 @@ function useAuth() {
 
 - Improve error messages and code samples in rule docs
 
-## v1.5.4 (Fri Feb 16 2024)
+## v1.5.4 (2024-02-16)
 
 ### 🐞 Fixes
 
@@ -756,7 +762,7 @@ function useAuth() {
 - Update `effect` to `2.3.5`
 - Update `@typescript-eslint`'s packages to `7.0.1`
 
-## v1.5.3 (Sat Feb 10 2024)
+## v1.5.3 (2024-02-10)
 
 ### 🪄 Improvements
 
@@ -764,7 +770,7 @@ function useAuth() {
 - Remove needless deps from `peerDependencies`
 - Update `@typescript-eslint`'s packages to `6.21.0`
 
-## v1.5.2 (Wed Jan 31 2024)
+## v1.5.2 (2024-01-31)
 
 ### 🪄 Improvements
 
@@ -772,20 +778,20 @@ function useAuth() {
 - Update `@typescript-eslint`'s packages to `6.20.0`
 - Update `effect` to `2.2.3`
 
-## v1.5.2-beta.2 (Wed Jan 31 2024)
+## v1.5.2-beta.2 (2024-01-31)
 
 ### 🪄 Improvements
 
 - Update `effect` to `2.2.3`
 - Remove needless deps from `peerDependencies`
 
-## v1.5.2-beta.0 (Thu Jan 30 2024)
+## v1.5.2-beta.0 (2024-01-30)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `6.20.0`
 
-## v1.5.1 (Mon Jan 29 2024)
+## v1.5.1 (2024-01-29)
 
 ### ✨ New
 
@@ -795,7 +801,7 @@ function useAuth() {
 
 - Reduce dependencies size
 
-## v1.5.0 (Mon Jan 29 2024)
+## v1.5.0 (2024-01-29)
 
 ### 💥 Breaking Changes
 
@@ -815,7 +821,7 @@ function useAuth() {
   - Replace `react.version` with `version`
   - Remove `jsx.extensions`
 
-## v1.0.2 (Sat Jan 27 2024)
+## v1.0.2 (2024-01-27)
 
 ### 🐞 Fixes
 
@@ -827,7 +833,7 @@ function useAuth() {
 - Improve rules overview page on website
 - Remove `jsx` and `hooks` presets from documentation
 
-## v1.0.1 (Sat Jan 27 2024)
+## v1.0.1 (2024-01-27)
 
 ### 🪄 Improvements
 
@@ -836,7 +842,7 @@ function useAuth() {
 - Improve `recommended` and `recommended-legacy` presets
 - Improve `recommended-type-checked` and `recommended-type-checked-legacy` presets
 
-## v1.0.0 (Sat Jan 27 2024)
+## v1.0.0 (2024-01-27)
 
 ### 💥 Breaking Changes
 
@@ -867,20 +873,20 @@ function useAuth() {
 
 - Fix the lint message for rule `react-dom/no-dangerously-set-innerhtml`
 
-## v1.0.0-beta.3 (Fri Jan 26 2024)
+## v1.0.0-beta.3 (2024-01-26)
 
 ### 🐞 Fixes
 
 - Fix the name prefix for react-dom rules
 
-## v1.0.0-beta.2 (Fri Jan 26 2024)
+## v1.0.0-beta.2 (2024-01-26)
 
 ### ✨ New
 
 - Make `dom` an alias of `react-dom` preset
 - Make `hooks` an alias of `react-hooks` preset
 
-## v1.0.0-beta.1 (Fri Jan 26 2024)
+## v1.0.0-beta.1 (2024-01-26)
 
 ### ✨ New
 
@@ -889,7 +895,7 @@ function useAuth() {
 - Add preset `core` and `core-legacy`
 - Add preset `hooks` and `hooks-legacy`
 
-## v1.0.0-beta.0 (Fri Jan 26 2024)
+## v1.0.0-beta.0 (2024-01-26)
 
 ### 💥 Breaking Changes
 
@@ -904,19 +910,19 @@ function useAuth() {
 - Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`
 - Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`
 
-## v0.10.12 (Sun Jan 21 2024)
+## v0.10.12 (2024-01-21)
 
 ### 🪄 Improvements
 
 - Remove unnecessary `parserOptions` fields from presets
 
-## v0.10.12-beta.0 (Sun Jan 21 2024)
+## v0.10.12-beta.0 (2024-01-21)
 
 ### 🪄 Improvements
 
 - Remove unnecessary `parserOptions` fields from presets
 
-## v0.10.11 (Sat Jan 20 2024)
+## v0.10.11 (2024-01-20)
 
 ### ✨ New
 
@@ -927,25 +933,25 @@ function useAuth() {
 - Improve rule `react/no-unused-state` to respect the usage of `getDerivedStateFromProps`
 - Update `@typescript-eslint`'s packages to `6.19.0`
 
-## v0.10.11-beta.2 (Fri Jan 19 2024)
+## v0.10.11-beta.2 (2024-01-19)
 
 ### ✨ New
 
 - Add rule `react/no-access-state-in-setstate`
 
-## v0.10.11-beta.1 (Tue Jan 16 2024)
+## v0.10.11-beta.1 (2024-01-16)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `6.19.0`
 
-## v0.10.11-beta.0 (Mon Jan 15 2024)
+## v0.10.11-beta.0 (2024-01-15)
 
 ### 🪄 Improvements
 
 - Improve rule `react/no-unused-state` to respect the usage of `getDerivedStateFromProps`
 
-## v0.10.10 (Sun Jan 14 2024)
+## v0.10.10 (2024-01-14)
 
 ### 🪄 Improvements
 
@@ -953,7 +959,7 @@ function useAuth() {
 - Improve rule `react/no-direct-mutation-state` to support checking for more cases
 - Improve rule `react/no-unused-class-component-members` to support checking for more cases
 
-## v0.10.10-beta.0 (Sun Jan 14 2024)
+## v0.10.10-beta.0 (2024-01-14)
 
 ### 🪄 Improvements
 
@@ -961,37 +967,37 @@ function useAuth() {
 - Improve rule `react/no-direct-mutation-state` to support checking for more cases
 - Improve rule `react/no-unused-class-component-members` to support checking for more cases
 
-## v0.10.9 (Fri Jan 12 2024)
+## v0.10.9 (2024-01-12)
 
 ### 🐞 Fixes
 
 - Fix bundle size is larger than expected
 
-## v0.10.8 (Thu Jan 11 2024)
+## v0.10.8 (2024-01-11)
 
 ### 🐞 Fixes
 
 - Fix version format in v0.10.7's package.json
 
-## v0.10.7 (Thu Jan 11 2024)
+## v0.10.7 (2024-01-11)
 
 ### ✨ New
 
 - Add rule `react/no-unused-state`
 
-## v0.10.6 (Tue Jan 9 2024)
+## v0.10.6 (2024-01-09)
 
 ### 🐞 Fixes
 
 - Fix an issue where `react/no-constructed-context-value` and `react/no-unstable-default-props` would report false negatives when using LogicalExpression and ConditionalExpression
 
-## v0.10.6-beta.0 (Mon Jan 8 2024)
+## v0.10.6-beta.0 (2024-01-08)
 
 ### 🐞 Fixes
 
 - Fix an issue where `react/no-constructed-context-value` and `react/no-unstable-default-props` would report false negatives when using LogicalExpression and ConditionalExpression
 
-## v0.10.5 (Mon Jan 8 2024)
+## v0.10.5 (2024-01-08)
 
 ### ✨ New
 
@@ -1001,7 +1007,7 @@ function useAuth() {
 
 - Update `@typescript-eslint`'s packages to `6.18.0`
 
-## v0.10.5-beta.0 (Sun Jan 7 2024)
+## v0.10.5-beta.0 (2024-01-07)
 
 ### ✨ New
 
@@ -1011,7 +1017,7 @@ function useAuth() {
 
 - Update `@typescript-eslint`'s packages to `6.18.0`
 
-## v0.10.4 (Sat Jan 6 2024)
+## v0.10.4 (2024-01-06)
 
 ### 🪄 Improvements
 
@@ -1023,7 +1029,7 @@ function useAuth() {
 - Fix same kind of error inside a component should not only be reported once in rule `react/no-create-ref` and `react/no-constructed-context-value`
 - Fix an issue where render functions wrapped in `useCallback` were accidentally detected as function components in rules `react/no-unstable-nested-components` and `debug/function-component`
 
-## v0.10.4-beta.1 (Sat Jan 6 2024)
+## v0.10.4-beta.1 (2024-01-06)
 
 ### 🪄 Improvements
 
@@ -1033,7 +1039,7 @@ function useAuth() {
 
 - Fix an issue where render functions wrapped in `useCallback` were accidentally detected as function components in rules `react/no-unstable-nested-components` and `debug/function-component`
 
-## v0.10.4-beta.0 (Sat Jan 6 2024)
+## v0.10.4-beta.0 (2024-01-06)
 
 ### 🪄 Improvements
 
@@ -1043,31 +1049,31 @@ function useAuth() {
 
 - Fix same kind of error inside a component should not only be reported once in rule `react/no-create-ref` and `react/no-constructed-context-value`
 
-## v0.10.3 (Fri Jan 5 2024)
+## v0.10.3 (2024-01-05)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `6.17.0`
 
-## v0.10.3-beta.0 (Tue Jan 2 2024)
+## v0.10.3-beta.0 (2024-01-02)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `6.17.0`
 
-## v0.10.2 (Sat Dec 30 2023)
+## v0.10.2 (2023-12-30)
 
 ### ✨ New
 
 - Add [`reactHooks.alias`](https://eslint-react.xyz/docs/configuration#reacthooksalias) setting support
 
-## v0.10.2-beta.0 (Sat Dec 30 2023)
+## v0.10.2-beta.0 (2023-12-30)
 
 ### ✨ New
 
 - Add [`reactHooks.alias`](https://eslint-react.xyz/docs/configuration#reacthooksalias) setting support
 
-## v0.10.1 (Wed Dec 27 2023)
+## v0.10.1 (2023-12-27)
 
 ### 🪄 Improvements
 
@@ -1075,20 +1081,20 @@ function useAuth() {
 - Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/facebook/react/pull/25360)
 - Update `@typescript-eslint`'s packages to `6.16.0`
 
-## v0.10.1-beta.1 (Tue Dec 26 2023)
+## v0.10.1-beta.1 (2023-12-26)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `6.16.0`
 
-## v0.10.1-beta.0 (Mon Dec 25 2023)
+## v0.10.1-beta.0 (2023-12-25)
 
 ### 🪄 Improvements
 
 - Add `react/no-clone-element` to `recommended` and `recommended-legacy` presets
 - Improve rule `react/no-unstable-nested-components`, make its behavior closer to [react-hooks/no-nested-components](https://github.com/facebook/react/pull/25360)
 
-## v0.10.0 (Thu Dec 21 2023)
+## v0.10.0 (2023-12-21)
 
 ### ✨ New
 
@@ -1098,7 +1104,7 @@ function useAuth() {
 
 - Improve `recommended` and `recommended-legacy` presets
 
-## v0.10.0-beta.0 (Thu Dec 21 2023)
+## v0.10.0-beta.0 (2023-12-21)
 
 ### ✨ New
 
@@ -1108,7 +1114,7 @@ function useAuth() {
 
 - Improve `recommended` and `recommended-legacy` presets
 
-## v0.9.8 (Tue Dec 19 2023)
+## v0.9.8 (2023-12-19)
 
 ### ✨ New
 
@@ -1121,19 +1127,19 @@ function useAuth() {
 - Optimize `recommended` and `recommended-legacy` presets
 - Update `@typescript-eslint`'s packages to `6.15.0`
 
-## v0.9.8-beta.2 (Tue Dec 19 2023)
+## v0.9.8-beta.2 (2023-12-19)
 
 ### 🪄 Improvements
 
 - Optimize `recommended` and `recommended-legacy` presets
 
-## v0.9.8-beta.1 (Tue Dec 19 2023)
+## v0.9.8-beta.1 (2023-12-19)
 
 ### 🪄 Improvements
 
 - Minor improvements
 
-## v0.9.8-beta.0 (Sun Dec 17 2023)
+## v0.9.8-beta.0 (2023-12-17)
 
 ### ✨ New
 
@@ -1145,7 +1151,7 @@ function useAuth() {
 
 - Reduce false positives in rule `debug/function-component`
 
-## v0.9.7 (Sun Dec 17 2023)
+## v0.9.7 (2023-12-17)
 
 ### 💥 Breaking Changes
 
@@ -1163,19 +1169,19 @@ function useAuth() {
 
 - Replace ❌ Incorrect and ✅ Correct with Failing and Passing in rule docs
 
-## v0.9.7-beta.2 (Sat Dec 16 2023)
+## v0.9.7-beta.2 (2023-12-16)
 
 ### 🐞 Fixes
 
 - Update default rule option in `named-convention/filename` to `PascalCase`
 
-## v0.9.7-beta.1 (Thu Dec 14 2023)
+## v0.9.7-beta.1 (2023-12-14)
 
 ### 🪄 Improvements
 
 - Minor improvements
 
-## v0.9.7-beta.0 (Thu Dec 14 2023)
+## v0.9.7-beta.0 (2023-12-14)
 
 ### 💥 Breaking Changes
 
@@ -1186,7 +1192,7 @@ function useAuth() {
 - Rule `named-convention/filename` add `extensions` option
 - Rule `named-convention/filename-extension` add `extensions` option
 
-## v0.9.6 (Tue Dec 12 2023)
+## v0.9.6 (2023-12-12)
 
 ### ✨ New
 
@@ -1200,13 +1206,13 @@ function useAuth() {
 - Rule `debug/react-hooks` reports `hookCalls.length` instead of `cost`
 - Update `@typescript-eslint`'s packages to `6.14.0`
 
-## v0.9.6-beta.5 (Tue Dec 12 2023)
+## v0.9.6-beta.5 (2023-12-12)
 
 ### 🪄 Improvements
 
 - Update `@typescript-eslint`'s packages to `6.14.0`
 
-## v0.9.6-beta.4 (Mon Dec 11 2023)
+## v0.9.6-beta.4 (2023-12-11)
 
 ### 🪄 Improvements
 
@@ -1214,13 +1220,13 @@ function useAuth() {
 - Rule `named-convention/filename` add both `string` and `object` options support
 - Rule `named-convention/filename-extension` add both `string` and `object` options support
 
-## v0.9.6-beta.3 (Mon Dec 11 2023)
+## v0.9.6-beta.3 (2023-12-11)
 
 ### 🪄 Improvements
 
 - Remove rule `react-hooks/prefer-use-state-lazy-initialization` from `recommended` and `recommended-legacy` presets
 
-## v0.9.6-beta.2 (Mon Dec 11 2023)
+## v0.9.6-beta.2 (2023-12-11)
 
 ### ✨ New
 
@@ -1230,13 +1236,13 @@ function useAuth() {
 
 - Rule `named-convention/filename-extension` switch options format from object to string
 
-## v0.9.6-beta.1 (Mon Dec 11 2023)
+## v0.9.6-beta.1 (2023-12-11)
 
 ### 🪄 Improvements
 
 - Rule `debug/react-hooks` reports `hookCalls.length` instead of `cost`
 
-## v0.9.5 (Mon Dec 11 2023)
+## v0.9.5 (2023-12-11)
 
 ### 🪄 Improvements
 
@@ -1245,13 +1251,13 @@ function useAuth() {
 - Improve rule `react/no-missing-iframe-sandbox` error marker position and range
 - Improve rule `react/no-unsafe-iframe-sandbox` error marker position and range
 
-## v0.9.4 (Fri Dec 8 2023)
+## v0.9.4 (2023-12-08)
 
 ### 🪄 Improvements
 
 - Improve rule docs
 
-## v0.9.3 (Fri Dec 8 2023)
+## v0.9.3 (2023-12-08)
 
 ### ✨ New
 
@@ -1263,7 +1269,7 @@ function useAuth() {
 - Update `recommended` and `recommended-legacy` presets
 - Improve rules overview page
 
-## v0.9.2 (Wed Dec 6 2023)
+## v0.9.2 (2023-12-06)
 
 ### ✨ New
 
@@ -1275,14 +1281,14 @@ function useAuth() {
 - Add rule `react/no-set-state-in-component-did-update`
 - Add rule `react/no-set-state-in-component-will-update`
 
-## v0.9.1 (Tue Dec 5 2023)
+## v0.9.1 (2023-12-05)
 
 ### ✨ New
 
 - Add rule `react/no-component-will-mount`
 - Add rule `react/no-unsafe-component-will-mount`
 
-## v0.9.0 (Fri Dec 1 2023)
+## v0.9.0 (2023-12-01)
 
 ### 💥 Breaking Changes
 
