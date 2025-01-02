@@ -12,7 +12,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule, getPhaseKindOfFunction } from "../utils";
-import { EventListenerEntry } from "./../models";
+import type { EventListenerEntry } from "./../models";
 
 // #region Rule Metadata
 
@@ -37,9 +37,9 @@ type EventMethodKind = "addEventListener" | "removeEventListener";
 type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-export type AEntry = EventListenerEntry & { _tag: "AddEventListener" };
+export type AEntry = EventListenerEntry & { kind: "addEventListener" };
 
-export type REntry = EventListenerEntry & { _tag: "RemoveEventListener" };
+export type REntry = EventListenerEntry & { kind: "removeEventListener" };
 
 // #endregion
 
@@ -220,14 +220,15 @@ export default createRule<[], MessageID>({
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
-            aEntries.push(EventListenerEntry.AddEventListener({
+            aEntries.push({
               ...opts,
+              kind: "addEventListener",
               type,
               node,
               callee,
               listener,
               phase: fKind,
-            }));
+            });
           })
           .with("removeEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
@@ -235,14 +236,15 @@ export default createRule<[], MessageID>({
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
-            rEntries.push(EventListenerEntry.RemoveEventListener({
+            rEntries.push({
               ...opts,
+              kind: "removeEventListener",
               type,
               node,
               callee,
               listener,
               phase: fKind,
-            }));
+            });
           })
           .with("abort", () => {
             abortedSignals.push(node.callee);

@@ -9,8 +9,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule, getInstanceID, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils";
-import type { ObserverMethod } from "./../models";
-import { ObserverEntry } from "./../models";
+import type { ObserverEntry, ObserverMethod } from "./../models";
 
 // #region Rule Metadata
 
@@ -34,9 +33,9 @@ type FunctionKind = ERPhaseKind | "other";
 type CallKind = ObserverMethod | EREffectMethodKind | "other";
 /* eslint-enable perfectionist/sort-union-types */
 
-export type OEntry = ObserverEntry & { _tag: "Observe" };
-export type UEntry = ObserverEntry & { _tag: "Unobserve" };
-export type DEntry = ObserverEntry & { _tag: "Disconnect" };
+export type OEntry = ObserverEntry & { kind: "observe" };
+export type UEntry = ObserverEntry & { kind: "unobserve" };
+export type DEntry = ObserverEntry & { kind: "disconnect" };
 
 // #endregion
 
@@ -132,43 +131,40 @@ export default createRule<[], MessageID>({
         const { object } = node.callee;
         match(getCallKind(node, context))
           .with("disconnect", () => {
-            dEntries.push(
-              ObserverEntry.Disconnect({
-                kind: "ResizeObserver",
-                node,
-                callee: node.callee,
-                observer: object,
-                phase: fKind,
-              }),
-            );
+            dEntries.push({
+              kind: "disconnect",
+              node,
+              callee: node.callee,
+              observer: object,
+              observerKind: "ResizeObserver",
+              phase: fKind,
+            });
           })
           .with("observe", () => {
             const [element] = node.arguments;
             if (!element) return;
-            oEntries.push(
-              ObserverEntry.Observe({
-                kind: "ResizeObserver",
-                node,
-                callee: node.callee,
-                element,
-                observer: object,
-                phase: fKind,
-              }),
-            );
+            oEntries.push({
+              kind: "observe",
+              node,
+              callee: node.callee,
+              element,
+              observer: object,
+              observerKind: "ResizeObserver",
+              phase: fKind,
+            });
           })
           .with("unobserve", () => {
             const [element] = node.arguments;
             if (!element) return;
-            uEntries.push(
-              ObserverEntry.Unobserve({
-                kind: "ResizeObserver",
-                node,
-                callee: node.callee,
-                element,
-                observer: object,
-                phase: fKind,
-              }),
-            );
+            uEntries.push({
+              kind: "unobserve",
+              node,
+              callee: node.callee,
+              element,
+              observer: object,
+              observerKind: "ResizeObserver",
+              phase: fKind,
+            });
           })
           .otherwise(F.constVoid);
       },

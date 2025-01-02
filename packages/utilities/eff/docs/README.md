@@ -8,7 +8,6 @@
 
 - [./Either.js](Either.js/README.md)
 - [./Option.js](Option.js/README.md)
-- [Data](namespaces/Data/README.md)
 - [Equal](namespaces/Equal/README.md)
 - [F](namespaces/F/README.md)
 - [compose](functions/compose.md)

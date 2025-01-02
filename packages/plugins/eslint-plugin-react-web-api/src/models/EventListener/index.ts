@@ -1,2 +1,1 @@
-export * from "./EventListenerEntry";
-export type * from "./EventListenerMethod";
+export type * from "./EventListenerEntry";

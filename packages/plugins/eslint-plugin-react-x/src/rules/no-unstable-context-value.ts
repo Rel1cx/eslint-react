@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const constructions = new Map<AST.TSESTreeFunction, VAR.Construction[]>();
+    const constructions = new Map<AST.TSESTreeFunction, VAR.ValueConstruction[]>();
 
     return {
       ...listeners,
@@ -63,11 +63,11 @@ export default createRule<[], MessageID>({
               : O.none()),
           O.bind("construction", ({ valueExpression }) => {
             const initialScope = context.sourceCode.getScope(valueExpression);
-            return O.some(VAR.inspectConstruction(valueExpression, initialScope));
+            return O.some(VAR.getValueConstruction(valueExpression, initialScope));
           }),
         );
         for (const { construction, function: [_, fNode] } of O.toArray(constructionEntry)) {
-          if (construction._tag === "None") continue;
+          if (construction.kind === "None") continue;
           if (isReactHookCall(construction.node)) continue;
           constructions.set(fNode, [
             ...constructions.get(fNode) ?? [],
@@ -79,9 +79,9 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
           for (const construction of constructions.get(component) ?? []) {
-            if (construction._tag === "None") continue;
-            const { node: constructionNode, _tag } = construction;
-            const messageId = _tag.startsWith("Function")
+            if (construction.kind === "None") continue;
+            const { kind, node: constructionNode } = construction;
+            const messageId = kind.startsWith("Function")
               ? "noUnstableContextValueWithFunction"
               : "noUnstableContextValueWithIdentifier";
             context.report({
