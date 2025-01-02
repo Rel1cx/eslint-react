@@ -4,7 +4,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
-import { uid } from "../utils";
+import { getId } from "../utils";
 import type { ERClassComponent } from "./component";
 import { ERClassComponentFlag } from "./component-flag";
 
@@ -89,7 +89,7 @@ export function useComponentCollectorLegacy() {
   const collect = (node: AST.TSESTreeClass) => {
     if (!isClassComponent(node)) return;
     const id = AST.getClassIdentifier(node);
-    const key = uid.next().toString();
+    const key = getId();
     const flag = isPureComponent(node)
       ? ERClassComponentFlag.PureComponent
       : ERClassComponentFlag.None;

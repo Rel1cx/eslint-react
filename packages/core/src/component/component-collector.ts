@@ -9,7 +9,7 @@ import { match } from "ts-pattern";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
-import { uid } from "../utils";
+import { getId } from "../utils";
 import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
@@ -74,7 +74,7 @@ export function useComponentCollector(
   ][] = [];
   const getCurrentFunction = () => O.fromNullable(functionStack.at(-1));
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
-    const key = uid.next().toString();
+    const key = getId();
     functionStack.push([key, node, false, []]);
   };
   const onFunctionExit = () => {
@@ -117,7 +117,7 @@ export function useComponentCollector(
       const initPath = AST.getFunctionInitPath(currentFn);
       const id = getFunctionComponentIdentifier(currentFn, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      const key = uid.next().toString();
+      const key = getId();
       components.set(key, {
         _: key,
         id,
