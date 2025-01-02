@@ -69,6 +69,21 @@ function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
   return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
 }
 
+function getSignalValueExpression(node: TSESTree.Node, initialScope: Scope): O.Option<TSESTree.Node> {
+  switch (node.type) {
+    case AST_NODE_TYPES.Identifier:
+      return F.pipe(
+        VAR.findVariable(node, initialScope),
+        O.flatMap(VAR.getVariableNode(0)),
+        O.flatMap(n => getSignalValueExpression(n, initialScope)),
+      );
+    case AST_NODE_TYPES.MemberExpression:
+      return O.some(node);
+    default:
+      return O.none();
+  }
+}
+
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
   const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
     return JSX.findPropInProperties(properties, initialScope)(propName);
@@ -109,21 +124,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         const vSignal = O.flatMap(pSignal, prop => {
           if (prop.type !== AST_NODE_TYPES.Property) return O.none();
           const { value } = prop;
-          const getSignalExp = (node: TSESTree.Node): O.Option<TSESTree.Node> => {
-            switch (node.type) {
-              case AST_NODE_TYPES.Identifier:
-                return F.pipe(
-                  VAR.findVariable(node, initialScope),
-                  O.flatMap(VAR.getVariableNode(0)),
-                  O.flatMap(getSignalExp),
-                );
-              case AST_NODE_TYPES.MemberExpression:
-                return O.some(node);
-              default:
-                return O.none();
-            }
-          };
-          return getSignalExp(value);
+          return getSignalValueExpression(value, initialScope);
         });
         return { capture: vCapture, once: vOnce, signal: vSignal };
       }
@@ -149,10 +150,10 @@ export default createRule<[], MessageID>({
     },
     messages: {
       noLeakedEventListenerInEffect:
-        "A 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
+        "An 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
       noLeakedEventListenerInLifecycle:
-        "A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
-      noLeakedEventListenerOfInlineFunction: "A '{{eventMethodKind}}' should not have an inline listener function.",
+        "An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
+      noLeakedEventListenerOfInlineFunction: "A/an '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
   },
