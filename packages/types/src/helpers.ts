@@ -181,7 +181,7 @@ export function fromEntries(...args: ReadonlyArray<any>): unknown {
   return Object.fromEntries(args);
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-type-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return */
 type Reverse<T extends Record<any, any>> = { [U in keyof T as T[U]]: U };
 
 function reverse<T extends Record<any, any>>(record: T): Reverse<T> {
@@ -207,7 +207,7 @@ export class BiRecord<const T extends Record<any, any>> {
     return key in this.original || key in this.reversed;
   }
 }
-/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-type-assertion */
+/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return */
 
 // #endregion
 
@@ -231,7 +231,6 @@ export function zip<T>(...arrs: Array<readonly T[]>): T[][] {
     const element: T[] = [];
 
     for (const arr of arrs) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
       element.push(arr[i] as T);
     }
 

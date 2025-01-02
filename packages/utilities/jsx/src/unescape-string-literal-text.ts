@@ -8,7 +8,6 @@ import { xhtmlEntities } from "./xhtml-entities";
 export function unescapeStringLiteralText(text: string): string {
   return text.replaceAll(/&(?:#\d+|#x[\da-fA-F]+|[0-9a-zA-Z]+);/g, entity => {
     const item = entity.slice(1, -1);
-    // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
     if (item[0] === "#") {
       const codePoint = item[1] === "x"
         ? parseInt(item.slice(2), 16)

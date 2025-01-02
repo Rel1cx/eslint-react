@@ -10,7 +10,6 @@ import type { TSESTree } from "@typescript-eslint/utils";
  * @param node The JSX attribute node
  * @returns string
  */
-// eslint-disable-next-line @typescript-eslint/consistent-return
 export function getPropName(node: TSESTree.JSXAttribute) {
   switch (node.name.type) {
     case AST_NODE_TYPES.JSXIdentifier:

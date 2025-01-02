@@ -38,7 +38,10 @@ function checkAndReport(
   // report if the fragment is placed inside a built-in component (e.g. <div><></></div>)
   if (JSX.isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
   // report and return if the fragment has no children (e.g. <></>)
-  if (node.children.length === 0) return context.report({ messageId: "noUselessFragment", node });
+  if (node.children.length === 0) {
+    context.report({ messageId: "noUselessFragment", node });
+    return;
+  }
   const isChildElement = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
   switch (true) {
     // <Foo content={<>ee eeee eeee ...</>} />
@@ -51,14 +54,16 @@ function checkAndReport(
     // <Foo><>hello, world</></Foo>
     case !allowExpressions
       && isChildElement: {
-      return context.report({ messageId: "noUselessFragment", node });
+      context.report({ messageId: "noUselessFragment", node });
+      return;
     }
     case !allowExpressions
       && !isChildElement
       && node.children.length === 1: {
       // const foo = <>{children}</>;
       // return <>{children}</>;
-      return context.report({ messageId: "noUselessFragment", node });
+      context.report({ messageId: "noUselessFragment", node });
+      return;
     }
   }
   const nonPaddingChildren = node.children.filter((child) => !JSX.isPaddingSpaces(child));
@@ -67,7 +72,8 @@ function checkAndReport(
     case nonPaddingChildren.length === 0:
     case nonPaddingChildren.length === 1
       && firstNonPaddingChild?.type !== AST_NODE_TYPES.JSXExpressionContainer: {
-      return context.report({ messageId: "noUselessFragment", node });
+      context.report({ messageId: "noUselessFragment", node });
+      return;
     }
   }
   return;

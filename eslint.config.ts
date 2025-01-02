@@ -1,7 +1,6 @@
 /* eslint-disable simple-import-sort/imports */
 import url from "node:url";
 
-import { Record } from "effect";
 import eslintJs from "@eslint/js";
 import eslintMarkdown from "@eslint/markdown";
 import eslintPluginImport from "eslint-plugin-import-x";
@@ -70,26 +69,15 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-const disableTypeCheckedRules = {
-  ...tseslint.configs.disableTypeChecked.rules,
-  "@susisu/safe-typescript/no-object-assign": "off",
-  "@susisu/safe-typescript/no-type-assertion": "off",
-  "@susisu/safe-typescript/no-unsafe-object-enum-method": "off",
+const enableTypeCheckedRules = {
+  ...tseslint.configs.strictTypeCheckedOnly.map(x => x.rules).reduce((a, b) => ({ ...a, ...b }), {}),
+  ...eslintPluginSafeTypeScript.configs.recommended.rules,
   "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
   "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
+  "@typescript-eslint/strict-boolean-expressions": ["warn", { allowNullableBoolean: true, allowNullableString: true }],
 } as const;
 
-const typeCheckedRules = {
-  ...Record.map(disableTypeCheckedRules, () => "warn"),
-  "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
-  "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
-  "@typescript-eslint/naming-convention": "off",
-  "@typescript-eslint/no-confusing-void-expression": "off",
-  "@typescript-eslint/prefer-destructuring": "off",
-  "@typescript-eslint/prefer-readonly-parameter-types": "off",
-  "@typescript-eslint/strict-boolean-expressions": ["warn", { allowNullableBoolean: true, allowNullableString: true }],
-  "@typescript-eslint/switch-exhaustiveness-check": "off",
-} as const;
+const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map(x => [x, "off"]));
 
 export default tseslint.config(
   eslintConfigFlatGitignore(),
@@ -193,9 +181,7 @@ export default tseslint.config(
           varsIgnorePattern: "^_",
         },
       ],
-      ...typeCheckedRules,
-      // Part: functional rules
-      "functional/no-return-void": "off",
+      ...enableTypeCheckedRules,
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",
