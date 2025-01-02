@@ -46,12 +46,6 @@
 
 `Map`\<`string`, [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)\>
 
-#### ctx.getCurrentComponents()
-
-##### Returns
-
-`Map`\<`string`, [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)\>
-
 #### ctx.getCurrentFunctionStack()
 
 ##### Returns

@@ -84,9 +84,6 @@ export function useComponentCollectorLegacy() {
     getAllComponents(_: TSESTree.Program): typeof components {
       return components;
     },
-    getCurrentComponents() {
-      return new Map(components);
-    },
   } as const;
 
   const collect = (node: AST.TSESTreeClass) => {

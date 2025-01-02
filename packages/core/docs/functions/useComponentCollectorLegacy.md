@@ -28,12 +28,6 @@
 
 `Map`\<`string`, [`ERClassComponent`](../interfaces/ERClassComponent.md)\>
 
-#### ctx.getCurrentComponents()
-
-##### Returns
-
-`Map`\<`string`, [`ERClassComponent`](../interfaces/ERClassComponent.md)\>
-
 ### listeners
 
 > **listeners**: `object`

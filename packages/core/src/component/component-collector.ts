@@ -96,9 +96,6 @@ export function useComponentCollector(
     getAllComponents(_: TSESTree.Program): typeof components {
       return components;
     },
-    getCurrentComponents() {
-      return new Map(components);
-    },
     getCurrentFunction,
     getCurrentFunctionStack() {
       return [...functionStack];
