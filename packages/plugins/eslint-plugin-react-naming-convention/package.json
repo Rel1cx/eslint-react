@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-naming-convention",
-  "version": "1.23.1-next.5",
+  "version": "1.23.1-next.6",
   "description": "ESLint React's ESLint plugin for naming convention related rules.",
   "keywords": [
     "react",
