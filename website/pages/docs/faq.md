@@ -21,7 +21,7 @@ Currently, it includes the following plugins:
 - `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
 - `eslint-plugin-react-naming-convention` - Naming convention rules.
 
-You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecological-niche-explanation), which includes an explanation of niche explanation for each plugin.
+You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecological-niche-explanation).
 
 ## Is there anything to note about migrating from `eslint-plugin-react` to `eslint-react`?
 
