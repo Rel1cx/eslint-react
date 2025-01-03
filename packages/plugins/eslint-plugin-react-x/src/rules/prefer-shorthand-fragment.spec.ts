@@ -10,6 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "preferShorthandFragment",
         },
       ],
+      output: "<><div /></>",
     },
     {
       code: /* tsx */ `<Fragment><div /></Fragment>`,
@@ -18,6 +19,24 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "preferShorthandFragment",
         },
       ],
+      output: "<><div /></>",
+    },
+    {
+      code: /* tsx */ `
+        <React.Fragment>
+            <div />
+        </React.Fragment>
+      `,
+      errors: [
+        {
+          messageId: "preferShorthandFragment",
+        },
+      ],
+      output: `
+        <>
+            <div />
+        </>
+      `,
     },
   ],
   valid: [
