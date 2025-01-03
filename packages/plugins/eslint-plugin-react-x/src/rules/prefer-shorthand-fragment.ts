@@ -11,6 +11,7 @@ export const RULE_NAME = "prefer-shorthand-fragment";
 
 export const RULE_FEATURES = [
   "CHK",
+  "FIX",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
@@ -22,6 +23,7 @@ export default createRule<[], MessageID>({
       description: "enforce using fragment syntax instead of 'Fragment' component",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
     messages: {
       preferShorthandFragment: "Use fragment shorthand syntax instead of 'Fragment' component.",
     },
@@ -36,6 +38,14 @@ export default createRule<[], MessageID>({
       return O.some({
         messageId: "preferShorthandFragment",
         node,
+        fix: (fixer) => {
+          const { closingElement, openingElement } = node;
+          if (!closingElement) return [];
+          return [
+            fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
+            fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
+          ];
+        },
       });
     }
     return {

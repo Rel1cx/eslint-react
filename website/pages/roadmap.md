@@ -23,7 +23,7 @@
 
 - [ ] `function-component-definition`
 - [ ] `no-useless-fragment`
-- [ ] `prefer-shorthand-fragment`
+- [x] `prefer-shorthand-fragment`
 - [x] `prefer-react-namespace-import`
 - [x] `prefer-shorthand-boolean`
 
