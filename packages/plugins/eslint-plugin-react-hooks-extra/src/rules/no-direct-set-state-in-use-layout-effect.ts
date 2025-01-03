@@ -46,7 +46,8 @@ export default createRule<[], MessageID>({
     if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
     const settings = decodeSettings(context.settings);
     const additionalHooks = settings.additionalHooks ?? {};
-    const isUseEffectLikeCall = isReactHookCallWithNameAlias(
+
+    const isUseLayoutEffectLikeCall = isReactHookCallWithNameAlias(
       "useLayoutEffect",
       context,
       additionalHooks.useLayoutEffect ?? [],
@@ -56,32 +57,36 @@ export default createRule<[], MessageID>({
     const isUseCallbackCall = isReactHookCallWithNameAlias("useCallback", context, additionalHooks.useCallback ?? []);
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
+
     const functionStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const setupFunctionRef = { current: O.none<AST.TSESTreeFunction>() };
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
-    const indirectFunctionCalls: TSESTree.CallExpression[] = [];
-    const indirectSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
-    const indirectSetStateCallsAsArgs = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
-    const indirectSetStateCallsAsSetups = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
-    const indirectSetStateCallsInHooks = new WeakMap<
+
+    const indFunctionCalls: TSESTree.CallExpression[] = [];
+    const indSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
+    const indSetStateCallsInUseLayoutEffectArg0 = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
+    const indSetStateCallsInUseLayoutEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+    const indSetStateCallsInUseMemoOrCallback = new WeakMap<
       TSESTree.VariableDeclarator["init"] & {},
       TSESTree.CallExpression[]
     >();
+
     const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
       setupFunctionRef.current = O.some(node);
     };
     const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
       setupFunctionRef.current = O.filter(setupFunctionRef.current, (current) => current !== node);
     };
+
     function isSetupFunction(node: TSESTree.Node) {
       return node.parent?.type === AST_NODE_TYPES.CallExpression
         && node.parent.callee !== node
-        && isUseEffectLikeCall(node.parent);
+        && isUseLayoutEffectLikeCall(node.parent);
     }
     function getCallKind(node: TSESTree.CallExpression) {
       return match<TSESTree.CallExpression, CallKind>(node)
         .when(isUseStateCall, () => "useState")
-        .when(isUseEffectLikeCall, () => "useLayoutEffect")
+        .when(isUseLayoutEffectLikeCall, () => "useLayoutEffect")
         .when(isSetStateCall, () => "setState")
         .when(isThenCall, () => "then")
         .otherwise(() => "other");
@@ -114,12 +119,12 @@ export default createRule<[], MessageID>({
               const maybeVd = AST.traverseUpGuard(node, isVariableDeclaratorFromHookCall);
               if (O.isSome(maybeVd)) {
                 const vd = maybeVd.value;
-                const calls = indirectSetStateCallsInHooks.get(vd.init) ?? [];
-                indirectSetStateCallsInHooks.set(vd.init, [...calls, node]);
+                const calls = indSetStateCallsInUseMemoOrCallback.get(vd.init) ?? [];
+                indSetStateCallsInUseMemoOrCallback.set(vd.init, [...calls, node]);
                 return;
               }
-              const calls = indirectSetStateCalls.get(parentFn) ?? [];
-              indirectSetStateCalls.set(parentFn, [...calls, node]);
+              const calls = indSetStateCalls.get(parentFn) ?? [];
+              indSetStateCalls.set(parentFn, [...calls, node]);
               return;
             }
             context.report({
@@ -138,7 +143,7 @@ export default createRule<[], MessageID>({
           .with("other", () => {
             const isInSetupFunction = effectFn === parentFn;
             if (!isInSetupFunction) return;
-            indirectFunctionCalls.push(node);
+            indFunctionCalls.push(node);
           })
           .otherwise(F.constVoid);
       },
@@ -156,8 +161,8 @@ export default createRule<[], MessageID>({
             const maybeVd = AST.traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
             if (O.isNone(maybeVd)) break;
             const vd = maybeVd.value;
-            const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
-            indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
+            const calls = indSetStateCallsInUseLayoutEffectArg0.get(vd.init) ?? [];
+            indSetStateCallsInUseLayoutEffectArg0.set(vd.init, [...calls, node]);
             break;
           }
           case AST_NODE_TYPES.CallExpression: {
@@ -170,14 +175,14 @@ export default createRule<[], MessageID>({
               const maybeVd = AST.traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
               if (O.isNone(maybeVd)) break;
               const vd = maybeVd.value;
-              const calls = indirectSetStateCallsAsArgs.get(vd.init) ?? [];
-              indirectSetStateCallsAsArgs.set(vd.init, [...calls, node]);
+              const calls = indSetStateCallsInUseLayoutEffectArg0.get(vd.init) ?? [];
+              indSetStateCallsInUseLayoutEffectArg0.set(vd.init, [...calls, node]);
             }
             // const [state, setState] = useState();
             // useLayoutEffect(setState);
-            if (isUseEffectLikeCall(node.parent)) {
-              const calls = indirectSetStateCallsAsArgs.get(node.parent) ?? [];
-              indirectSetStateCallsAsSetups.set(node.parent, [...calls, node]);
+            if (isUseLayoutEffectLikeCall(node.parent)) {
+              const calls = indSetStateCallsInUseLayoutEffectArg0.get(node.parent) ?? [];
+              indSetStateCallsInUseLayoutEffectSetup.set(node.parent, [...calls, node]);
             }
             break;
           }
@@ -193,13 +198,14 @@ export default createRule<[], MessageID>({
             case AST_NODE_TYPES.ArrowFunctionExpression:
             case AST_NODE_TYPES.FunctionDeclaration:
             case AST_NODE_TYPES.FunctionExpression:
-              return indirectSetStateCalls.get(node) ?? [];
+              return indSetStateCalls.get(node) ?? [];
             case AST_NODE_TYPES.CallExpression:
-              return indirectSetStateCallsInHooks.get(node) ?? indirectSetStateCallsAsArgs.get(node) ?? [];
+              return indSetStateCallsInUseMemoOrCallback.get(node) ?? indSetStateCallsInUseLayoutEffectArg0.get(node)
+                ?? [];
           }
           return [];
         };
-        for (const [_, calls] of indirectSetStateCallsAsSetups) {
+        for (const [_, calls] of indSetStateCallsInUseLayoutEffectSetup) {
           for (const call of calls) {
             context.report({
               messageId: "noDirectSetStateInUseLayoutEffect",
@@ -208,7 +214,7 @@ export default createRule<[], MessageID>({
             });
           }
         }
-        for (const { callee } of indirectFunctionCalls) {
+        for (const { callee } of indFunctionCalls) {
           if (!("name" in callee)) continue;
           const { name } = callee;
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
