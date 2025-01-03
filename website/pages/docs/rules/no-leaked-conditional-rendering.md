@@ -93,8 +93,6 @@ function MyComponent({ items }: MyComponentProps) {
   //           ^^^^^^^^^^^^
   //           - Potential leaked value 'items.length' that might cause unintentionally rendered values or rendering crashes.
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
 ```tsx twoslash
@@ -109,8 +107,6 @@ function MyComponent({ items }: MyComponentProps) {
   //           ^^^^^^^^
   //           - Potential leaked value 'items[0]' that might cause unintentionally rendered values or rendering crashes.
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
 ```tsx twoslash
@@ -128,8 +124,6 @@ function MyComponent({ numberA, numberB }: MyComponentProps) {
     //    - Potential leaked value '(numberA || numberB)' that might cause unintentionally rendered values or rendering crashes.
   );
 }
-
-declare const Results: React.ComponentType<React.PropsWithChildren>;
 ```
 
 ### Passing
@@ -196,8 +190,6 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return <div>{!!items.length && <List items={items} />}</div>;
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
 ```tsx twoslash
@@ -210,8 +202,6 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return <div>{Boolean(items.length) && <List items={items} />}</div>;
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
 ```tsx twoslash
@@ -224,8 +214,6 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length > 0 && <List items={items} />}</div>;
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
 ```tsx twoslash
@@ -238,8 +226,6 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length ? <List items={items} /> : null}</div>;
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
 ```
 
 ```tsx twoslash
@@ -252,9 +238,6 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length ? <List items={items} /> : <EmptyList />}</div>;
 }
-
-declare const List: React.ComponentType<{ items: string[] }>;
-declare const EmptyList: React.ComponentType;
 ```
 
 ## Implementation

@@ -51,8 +51,6 @@ function MyComponent({ items }: MyComponentProps) {
     </ul>
   );
 }
-
-declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
 
 ### Passing
@@ -71,8 +69,6 @@ function MyComponent({ items }: MyComponentProps) {
     </ul>
   );
 }
-
-declare const Todo: React.ComponentType<{ id: number; name: string }>;
 ```
 
 ## Implementation
