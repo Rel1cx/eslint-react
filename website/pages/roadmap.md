@@ -11,7 +11,7 @@
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects.
 - ... (Free to combine with other plugins from the community).
 
-### Add codemod feature to rules that can be transformed safely
+### Add codemod feature to rules that can be transformed (using auto-fix) safely
 
 - [x] `no-component-did-update`
 - [x] `no-component-will-receive-props`
@@ -21,11 +21,11 @@
 
 ### Add auto-fix feature to rules that can be auto-fixed safely
 
-- [ ] `prefer-destructuring-assignment`
+- [ ] `function-component-definition`
+- [ ] `no-useless-fragment`
 - [ ] `prefer-shorthand-fragment`
 - [x] `prefer-react-namespace-import`
 - [x] `prefer-shorthand-boolean`
-- [ ] `function-component-definition`
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 
@@ -34,9 +34,8 @@
 - [ ] `no-redundant-should-component-update`
 - [ ] `no-unused-class-component-members`
 - [ ] `no-unused-state`
-- [ ] `no-useless-fragment`
-- [ ] `dom/no-namespace`
-- [ ] `dom/no-missing-button-type.md`
+- [ ] `prefer-destructuring-assignment`
+- [ ] `dom/no-missing-button-type`
 - [ ] `dom/no-missing-iframe-sandbox`
 - [ ] `dom/no-unsafe-iframe-sandbox`
 - [ ] `dom/no-unsafe-target-blank`
