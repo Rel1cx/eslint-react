@@ -1,16 +1,13 @@
 import { E, F } from "@eslint-react/eff";
-import { shallowEqual } from "fast-equals";
-import memoize from "micro-memoize";
 import pm from "picomatch";
 import { match, P } from "ts-pattern";
 import type { PartialDeep } from "type-fest";
 import { parse } from "valibot";
 
+import { normalizedSettingsCache } from "./cache";
 import { getReactVersion } from "./get-react-version";
 import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
-
-// #region Constants
 
 /**
  * The default ESLint settings for "react-x".
@@ -23,10 +20,6 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   strictImportCheck: false,
   version: "detect",
 } as const satisfies ESLintReactSettings;
-
-// #endregion
-
-// #region Decoding Functions
 
 /**
  * Unsafely casts settings from a data object from `context.settings`.
@@ -41,31 +34,21 @@ export function unsafeReadSettings(data: unknown): PartialDeep<ESLintReactSettin
 }
 
 /**
- * Decodes settings from a data object from `context.settings`.
- * @internal
- * @param data The data object.
- * @returns settings The settings.
- */
-export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
-  return {
-    ...DEFAULT_ESLINT_REACT_SETTINGS,
-    ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
-  };
-}, { isEqual: (a, b) => a === b });
-
-// #endregion
-
-// #region Normalization Functions
-
-/**
  * Normalizes the settings by converting all shorthand properties to their full form.
- * @param settings The settings.
+ * @param data The raw settings.
  * @returns The normalized settings.
  * @internal
  */
-export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsNormalized => {
+export function normalizeSettings(data: unknown): ESLintReactSettingsNormalized {
+  const memoized = normalizedSettingsCache.get(data);
+  if (memoized) return memoized;
+
+  const settings = {
+    ...DEFAULT_ESLINT_REACT_SETTINGS,
+    ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
+  };
   const additionalComponents = settings.additionalComponents ?? [];
-  return {
+  const normalized = {
     ...settings,
     additionalComponents: additionalComponents.map((component) => ({
       ...component,
@@ -85,11 +68,13 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
       .with(P.union(P.nullish, "", "detect"), () => E.getOrElse(getReactVersion(), F.constant("19.0.0")))
       .otherwise(F.identity),
   };
-}, { isEqual: shallowEqual });
+  normalizedSettingsCache.set(data, normalized);
+  return normalized;
+}
 
-// #endregion
-
-// #region Helper Functions
+export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
+  return normalizeSettings(context.settings);
+}
 
 /**
  * A helper function to define settings for "react-x" with type checking in JavaScript files.
@@ -97,8 +82,6 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
  * @returns The settings.
  */
 export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = F.identity;
-
-// #endregion
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {

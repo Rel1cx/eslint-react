@@ -1,7 +1,7 @@
 import { getElementRepresentName } from "@eslint-react/core";
 import { F, isString, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const settings = normalizeSettings(decodeSettings(context.settings));
+    const settings = getSettingsFromContext(context);
     const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = JSX.getElementName(node.openingElement);

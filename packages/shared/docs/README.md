@@ -32,3 +32,4 @@
 
 - [defineSettings](functions/defineSettings.md)
 - [getReactVersion](functions/getReactVersion.md)
+- [getSettingsFromContext](functions/getSettingsFromContext.md)

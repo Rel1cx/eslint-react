@@ -1,6 +1,6 @@
 import { isInitializedFromReact } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
-import { decodeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const settings = decodeSettings(context.settings);
+    const settings = getSettingsFromContext(context);
     const finalSettings = {
       ...settings,
       strictImportCheck: true,
