@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
-import { decodeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
-    const settings = decodeSettings(context.settings);
+    const settings = getSettingsFromContext(context);
     const additionalHooks = settings.additionalHooks ?? {};
 
     const isUseEffectLikeCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);

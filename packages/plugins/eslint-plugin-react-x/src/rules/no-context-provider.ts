@@ -1,5 +1,5 @@
 import * as JSX from "@eslint-react/jsx";
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes(".Provider")) return {};
-    const { version } = normalizeSettings(decodeSettings(context.settings));
+    const { version } = getSettingsFromContext(context);
     if (compare(version, "19.0.0", "<")) return {};
     return {
       JSXElement(node) {

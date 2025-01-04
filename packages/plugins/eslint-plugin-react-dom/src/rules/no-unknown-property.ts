@@ -4,7 +4,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 // TODO: Port to TypeScript
 
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare, compareVersions } from "compare-versions";
 import type { RuleFeature } from "@eslint-react/types";
@@ -1203,6 +1203,6 @@ function report(context, message, messageId, data) {
 }
 
 function testReactVersion(context, comparator, version) {
-  const { version: localVersion } = normalizeSettings(decodeSettings(context.settings));
+  const { version: localVersion } = getSettingsFromContext(context);
   return compare(localVersion, version, comparator);
 }

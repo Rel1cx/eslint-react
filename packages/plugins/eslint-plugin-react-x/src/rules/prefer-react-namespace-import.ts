@@ -1,4 +1,4 @@
-import { decodeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const importSource = decodeSettings(context.settings).importSource ?? "react";
+    const importSource = getSettingsFromContext(context).importSource ?? "react";
     return {
       [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](
         node: TSESTree.ImportDefaultSpecifier,

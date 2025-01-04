@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";
@@ -218,7 +218,7 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) return {};
 
-    const { version } = normalizeSettings(decodeSettings(context.settings));
+    const { version } = getSettingsFromContext(context);
 
     // Allowed left node type variants
     const allowedVariants = [

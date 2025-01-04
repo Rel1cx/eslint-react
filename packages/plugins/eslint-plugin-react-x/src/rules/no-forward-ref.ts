@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
 import { O } from "@eslint-react/eff";
-import { decodeSettings, normalizeSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("forwardRef")) return {};
-    const { version } = normalizeSettings(decodeSettings(context.settings));
+    const { version } = getSettingsFromContext(context);
     if (compare(version, "19.0.0", "<")) return {};
     return {
       CallExpression(node) {
