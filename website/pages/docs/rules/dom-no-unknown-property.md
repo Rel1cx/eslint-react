@@ -101,5 +101,5 @@ const StyledDiv = <div css={{ color: "pink" }}></div>;
 
 ## Implementation
 
-- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unknown-property.ts)
-- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unknown-property.spec.ts)
+- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property.ts)
+- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property.spec.ts)
