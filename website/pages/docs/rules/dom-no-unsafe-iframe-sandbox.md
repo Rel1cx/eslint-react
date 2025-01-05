@@ -60,8 +60,8 @@ function MyComponent() {
 
 ## Implementation
 
-- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.ts)
-- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-iframe-sandbox.spec.ts)
+- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox.ts)
+- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox.spec.ts)
 
 ## Further Reading
 
