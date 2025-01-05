@@ -1,3 +1,3 @@
-import type { ESLintReactSettingsNormalized } from "./schemas";
+import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
 
-export const normalizedSettingsCache = new Map<unknown, ESLintReactSettingsNormalized>();
+export const normalizedSettingsCache = new WeakMap<ESLintReactSettings, ESLintReactSettingsNormalized>();

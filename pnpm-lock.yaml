@@ -26,17 +26,17 @@ importers:
         specifier: ^2.27.11
         version: 2.27.11
       '@effect/platform':
-        specifier: ^0.72.0
-        version: 0.72.0(effect@3.12.0)
+        specifier: ^0.72.1
+        version: 0.72.1(effect@3.12.1)
       '@effect/platform-bun':
-        specifier: ^0.52.0
-        version: 0.52.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)
+        specifier: ^0.52.1
+        version: 0.52.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)
       '@effect/platform-node':
-        specifier: ^0.68.0
-        version: 0.68.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)
+        specifier: ^0.68.1
+        version: 0.68.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)
       '@effect/schema':
         specifier: ^0.75.5
-        version: 0.75.5(effect@3.12.0)
+        version: 0.75.5(effect@3.12.1)
       '@eslint/config-inspector':
         specifier: ^0.7.0
         version: 0.7.0(eslint@9.17.0(jiti@2.4.2))
@@ -95,8 +95,8 @@ importers:
         specifier: ^0.48.0
         version: 0.48.0
       effect:
-        specifier: ^3.12.0
-        version: 3.12.0
+        specifier: ^3.12.1
+        version: 3.12.1
       esbuild:
         specifier: ^0.24.2
         version: 0.24.2
@@ -920,8 +920,8 @@ importers:
         specifier: ^5.6.0
         version: 5.6.0
       valibot:
-        specifier: ^1.0.0-beta.9
-        version: 1.0.0-beta.9(typescript@5.7.2)
+        specifier: ^1.0.0-beta.10
+        version: 1.0.0-beta.10(typescript@5.7.2)
     devDependencies:
       '@types/picomatch':
         specifier: ^3.0.1
@@ -992,8 +992,8 @@ importers:
         specifier: workspace:*
         version: link:../../../workspace/configs
       effect:
-        specifier: ^3.12.0
-        version: 3.12.0
+        specifier: ^3.12.1
+        version: 3.12.1
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.4(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
@@ -1139,8 +1139,8 @@ importers:
         specifier: workspace:*
         version: link:../workspace/eslint-plugin-deps
       effect:
-        specifier: ^3.12.0
-        version: 3.12.0
+        specifier: ^3.12.1
+        version: 3.12.1
       eslint:
         specifier: ^9.17.0
         version: 9.17.0(jiti@2.4.2)
@@ -2166,28 +2166,28 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect/platform-bun@0.52.0':
-    resolution: {integrity: sha512-sT2y6tiU090ztSf2a574oDNFy99BlqgIOEfds6XJPljqjcJeViP2y5iU3/fNi9+Yl+rnMtTOpFP8iFrUBB3oEA==}
+  '@effect/platform-bun@0.52.1':
+    resolution: {integrity: sha512-rVHOAJ+++bpNEMAaghvGfC1xoDEBWF5uAWjh24Sgl4CgZGPHKiGWyhRIfks6kvAG4Fk+PeN80rc6E+DGSkxWbg==}
     peerDependencies:
-      '@effect/platform': ^0.72.0
-      effect: ^3.12.0
+      '@effect/platform': ^0.72.1
+      effect: ^3.12.1
 
-  '@effect/platform-node-shared@0.22.0':
-    resolution: {integrity: sha512-v5syfSWbek/v5uqRweEjq1zwtl17FMaOeSIt1OZFzQd4GIclVOgM/8chNVtAmpkdQh7SaKNijFruO0VET54e6w==}
+  '@effect/platform-node-shared@0.22.1':
+    resolution: {integrity: sha512-ammGqV0Y73uwN2lLHXMhd4pTGZ/5Fqpb4fHOL6NjaTO1Hf9Ji/qqRwNy1+buRuGkXCWIAgeaysEVI7ltms8/pw==}
     peerDependencies:
-      '@effect/platform': ^0.72.0
-      effect: ^3.12.0
+      '@effect/platform': ^0.72.1
+      effect: ^3.12.1
 
-  '@effect/platform-node@0.68.0':
-    resolution: {integrity: sha512-0BkiWEw59+C/54+UCPfCFBNrxkHOAUPa/GJKfWVyL7LOA1pbrLrwdse1S3deLwP4IEPuepMyEOL9BHNsorDhcA==}
+  '@effect/platform-node@0.68.1':
+    resolution: {integrity: sha512-bN0Gd/C7yOjq7liooajvWC+Ev2BBcrGOfUuuY3ZOSc8Jwm1beyDW1Hl6W95FSiHIom/VCFxdv+2yVj7EYe7Zbg==}
     peerDependencies:
-      '@effect/platform': ^0.72.0
-      effect: ^3.12.0
+      '@effect/platform': ^0.72.1
+      effect: ^3.12.1
 
-  '@effect/platform@0.72.0':
-    resolution: {integrity: sha512-uHsW2hlo6AiIW3zpLAVAoNvJngS/JwCZBAM4RSRllm8JTgjjCraef78FJBDNnSXz+2a10Xzzx4qxVsP3s8EV5Q==}
+  '@effect/platform@0.72.1':
+    resolution: {integrity: sha512-hCnO9cWsz0yns5lYVxCPBEmy9RAqcTZ7USYgwpFBLpcpNo3uzzVnU69gfBxyq2sYvTHF7yYvH1J42NfOdnof0w==}
     peerDependencies:
-      effect: ^3.12.0
+      effect: ^3.12.1
 
   '@effect/schema@0.75.5':
     resolution: {integrity: sha512-TQInulTVCuF+9EIbJpyLP6dvxbQJMphrnRqgexm/Ze39rSjfhJuufF7XvU3SxTgg3HnL7B/kpORTJbHhlE6thw==}
@@ -5059,8 +5059,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  effect@3.12.0:
-    resolution: {integrity: sha512-b/u9s3b9HfTo0qygVouegP0hkbiuxRIeaCe1ppf8P88hPyl6lKCbErtn7Az4jG7LuU7f0Wgm4c8WXbMcL2j8+g==}
+  effect@3.12.1:
+    resolution: {integrity: sha512-aAZdh56Yp1ehOFYeMcHHctTtxfqm6kkOdZFTXK6Zf0QoaKKc1hPG6ocjrKOc0axE8JbG4eZw351ogNLrM4vo9w==}
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
@@ -8018,8 +8018,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@1.0.0-beta.9:
-    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
+  valibot@1.0.0-beta.10:
+    resolution: {integrity: sha512-nmo3nxvXRrxwDYZznK3aTgYv7ZA/SUZJ/s+pLY4Tqsex/fgwZ9XrrQ14jjozjUaeduQ9PhXHE2Xx1uMb0HePYw==}
     peerDependencies:
       typescript: ^5.7.2
     peerDependenciesMeta:
@@ -9445,25 +9445,25 @@ snapshots:
   '@dprint/win32-x64@0.48.0':
     optional: true
 
-  '@effect/platform-bun@0.52.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)':
+  '@effect/platform-bun@0.52.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)':
     dependencies:
-      '@effect/platform': 0.72.0(effect@3.12.0)
-      '@effect/platform-node-shared': 0.22.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)
-      effect: 3.12.0
+      '@effect/platform': 0.72.1(effect@3.12.1)
+      '@effect/platform-node-shared': 0.22.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)
+      effect: 3.12.1
       multipasta: 0.2.5
 
-  '@effect/platform-node-shared@0.22.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)':
+  '@effect/platform-node-shared@0.22.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)':
     dependencies:
-      '@effect/platform': 0.72.0(effect@3.12.0)
+      '@effect/platform': 0.72.1(effect@3.12.1)
       '@parcel/watcher': 2.5.0
-      effect: 3.12.0
+      effect: 3.12.1
       multipasta: 0.2.5
 
-  '@effect/platform-node@0.68.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)':
+  '@effect/platform-node@0.68.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)':
     dependencies:
-      '@effect/platform': 0.72.0(effect@3.12.0)
-      '@effect/platform-node-shared': 0.22.0(@effect/platform@0.72.0(effect@3.12.0))(effect@3.12.0)
-      effect: 3.12.0
+      '@effect/platform': 0.72.1(effect@3.12.1)
+      '@effect/platform-node-shared': 0.22.1(@effect/platform@0.72.1(effect@3.12.1))(effect@3.12.1)
+      effect: 3.12.1
       mime: 3.0.0
       undici: 7.2.0
       ws: 8.18.0
@@ -9471,15 +9471,15 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.72.0(effect@3.12.0)':
+  '@effect/platform@0.72.1(effect@3.12.1)':
     dependencies:
-      effect: 3.12.0
+      effect: 3.12.1
       find-my-way-ts: 0.1.5
       multipasta: 0.2.5
 
-  '@effect/schema@0.75.5(effect@3.12.0)':
+  '@effect/schema@0.75.5(effect@3.12.1)':
     dependencies:
-      effect: 3.12.0
+      effect: 3.12.1
       fast-check: 3.23.2
 
   '@emnapi/core@1.3.1':
@@ -9805,7 +9805,7 @@ snapshots:
       micro-memoize: 4.1.2
       picomatch: 4.0.2
       ts-pattern: 5.6.0
-      valibot: 1.0.0-beta.9(typescript@5.7.2)
+      valibot: 1.0.0-beta.10(typescript@5.7.2)
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -12309,7 +12309,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  effect@3.12.0:
+  effect@3.12.1:
     dependencies:
       fast-check: 3.23.2
 
@@ -16074,7 +16074,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@1.0.0-beta.9(typescript@5.7.2):
+  valibot@1.0.0-beta.10(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
 

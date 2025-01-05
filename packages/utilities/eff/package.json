@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
-    "effect": "^3.12.0",
+    "effect": "^3.12.1",
     "tsup": "^8.3.5"
   },
   "engines": {

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { isNullable, O, or } from "@eslint-react/eff";
-import { unsafeReadSettings } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -62,7 +62,7 @@ function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod
 }
 
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
-  const settings = unsafeReadSettings(context.settings);
+  const settings = getSettingsFromContext(context);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;

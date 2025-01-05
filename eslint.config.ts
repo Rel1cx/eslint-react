@@ -138,7 +138,6 @@ export default tseslint.config(
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
       eqeqeq: ["error", "always"],
-      "max-depth": ["warn", 4],
       "no-console": "error",
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],

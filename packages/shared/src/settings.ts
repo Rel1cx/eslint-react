@@ -1,8 +1,7 @@
 import { E, F } from "@eslint-react/eff";
 import pm from "picomatch";
 import { match, P } from "ts-pattern";
-import type { PartialDeep } from "type-fest";
-import { parse } from "valibot";
+import { assert } from "valibot";
 
 import { normalizedSettingsCache } from "./cache";
 import { getReactVersion } from "./get-react-version";
@@ -22,34 +21,25 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
 } as const satisfies ESLintReactSettings;
 
 /**
- * Unsafely casts settings from a data object from `context.settings`.
- * @internal
- * @param data The data object.
- * @returns settings The settings.
+ * Get the normalized ESLint settings for "react-x" from the given context.
+ * @param context The context.
+ * @param context.settings The ESLint settings.
+ * @returns The normalized ESLint settings.
  */
-export function unsafeReadSettings(data: unknown): PartialDeep<ESLintReactSettings> {
-  // @ts-expect-error - skip type checking for unsafe cast
-  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
-  return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
-}
-
-/**
- * Normalizes the settings by converting all shorthand properties to their full form.
- * @param data The raw settings.
- * @returns The normalized settings.
- * @internal
- */
-export function normalizeSettings(data: unknown): ESLintReactSettingsNormalized {
-  const memoized = normalizedSettingsCache.get(data);
-  if (memoized) return memoized;
-
-  const settings = {
+export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
+  assert(ESLintSettingsSchema, context.settings);
+  const raw = context.settings?.["react-x"] ?? {};
+  const memoized = normalizedSettingsCache.get(raw);
+  if (memoized) {
+    return memoized;
+  }
+  const rawWithDefaults = {
     ...DEFAULT_ESLINT_REACT_SETTINGS,
-    ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
+    ...raw,
   };
-  const additionalComponents = settings.additionalComponents ?? [];
+  const additionalComponents = rawWithDefaults.additionalComponents ?? [];
   const normalized = {
-    ...settings,
+    ...rawWithDefaults,
     additionalComponents: additionalComponents.map((component) => ({
       ...component,
       attributes: component.attributes?.map((attr) => ({
@@ -64,16 +54,12 @@ export function normalizeSettings(data: unknown): ESLintReactSettingsNormalized 
       if (!/^[\w-]+$/u.test(name)) return acc;
       return acc.set(name, as);
     }, new Map<string, string>()),
-    version: match(settings.version)
+    version: match(rawWithDefaults.version)
       .with(P.union(P.nullish, "", "detect"), () => E.getOrElse(getReactVersion(), F.constant("19.0.0")))
       .otherwise(F.identity),
   };
-  normalizedSettingsCache.set(data, normalized);
+  normalizedSettingsCache.set(raw, normalized);
   return normalized;
-}
-
-export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
-  return normalizeSettings(context.settings);
 }
 
 /**
