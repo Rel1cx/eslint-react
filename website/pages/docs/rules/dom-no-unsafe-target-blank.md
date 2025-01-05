@@ -59,5 +59,5 @@ function MyComponent() {
 
 ## Implementation
 
-- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-target-blank.ts)
-- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/dom-no-unsafe-target-blank.spec.ts)
+- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-target-blank.ts)
+- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-target-blank.spec.ts)
