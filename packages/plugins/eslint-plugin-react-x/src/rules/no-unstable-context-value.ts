@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
         const openingElementName = node.name;
         if (openingElementName.type !== AST_NODE_TYPES.JSXMemberExpression) return;
         if (openingElementName.property.name !== "Provider") return;
-        const constructionEntry = F.pipe(
+        F.pipe(
           O.Do,
           O.bind("function", ctx.getCurrentFunction),
           O.bind("attribute", () =>
@@ -65,15 +65,16 @@ export default createRule<[], MessageID>({
             const initialScope = context.sourceCode.getScope(valueExpression);
             return O.some(VAR.getValueConstruction(valueExpression, initialScope));
           }),
+          O.match({
+            onNone() {},
+            onSome(a) {
+              if (a.construction.kind === "None") return;
+              if (isReactHookCall(a.construction.node)) return;
+              const prevs = constructions.get(a.function.node) ?? [];
+              constructions.set(a.function.node, [...prevs, a.construction]);
+            },
+          }),
         );
-        for (const { construction, function: [_, fNode] } of O.toArray(constructionEntry)) {
-          if (construction.kind === "None") continue;
-          if (isReactHookCall(construction.node)) continue;
-          constructions.set(fNode, [
-            ...constructions.get(fNode) ?? [],
-            construction,
-          ]);
-        }
       },
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node).values();

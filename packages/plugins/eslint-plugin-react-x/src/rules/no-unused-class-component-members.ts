@@ -148,9 +148,12 @@ export default createRule<[], MessageID>({
         if (node.init && AST.isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === AST_NODE_TYPES.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-              for (const name of O.toArray(getName(prop.key))) {
-                propertyUsages.get(currentClass)?.add(name);
-              }
+              O.match(getName(prop.key), {
+                onNone() {},
+                onSome(name) {
+                  propertyUsages.get(currentClass)?.add(name);
+                },
+              });
             }
           }
         }
