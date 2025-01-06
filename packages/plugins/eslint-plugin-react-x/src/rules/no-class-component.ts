@@ -1,7 +1,7 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
 
@@ -17,19 +17,19 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const isComponentDidCatch = isMatching({
   key: {
-    type: AST_NODE_TYPES.Identifier,
+    type: T.Identifier,
     name: "componentDidCatch",
   },
-  type: P.union(AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition),
+  type: P.union(T.MethodDefinition, T.PropertyDefinition),
   static: false,
 });
 
 const isGetDerivedStateFromError = isMatching({
   key: {
-    type: AST_NODE_TYPES.Identifier,
+    type: T.Identifier,
     name: "getDerivedStateFromError",
   },
-  type: P.union(AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition),
+  type: P.union(T.MethodDefinition, T.PropertyDefinition),
   static: true,
 });
 

@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -50,9 +50,9 @@ export default createRule<[], MessageID>({
       "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
         const jsxElement = node.parent.parent;
         switch (jsxElement.parent.type) {
-          case AST_NODE_TYPES.ArrayExpression:
-          case AST_NODE_TYPES.JSXElement:
-          case AST_NODE_TYPES.JSXFragment: {
+          case T.ArrayExpression:
+          case T.JSXElement:
+          case T.JSXFragment: {
             const root = jsxElement.parent;
             const prevKeys = keyedEntries.get(root)?.keys ?? [];
             keyedEntries.set(root, {
@@ -65,8 +65,8 @@ export default createRule<[], MessageID>({
           default: {
             const entry = F.pipe(
               O.Do,
-              O.bind("call", () => AST.traverseUpGuard(jsxElement, AST.isMapCallLoose)),
-              O.bind("iter", ({ call }) => AST.traverseUpStop(jsxElement, call, AST.isFunction)),
+              O.bind("call", () => AST.findParentNodeGuard(jsxElement, AST.isMapCallLoose)),
+              O.bind("iter", ({ call }) => AST.findParentNodeStop(jsxElement, call, AST.isFunction)),
               O.bind("arg0", ({ call }) => O.fromNullable(call.arguments[0])),
             );
             O.match(entry, {
@@ -74,7 +74,7 @@ export default createRule<[], MessageID>({
               onSome({ arg0, call, iter }) {
                 if (AST.unwrapTypeExpression(arg0) !== iter) return;
                 keyedEntries.set(call, {
-                  hasDuplicate: node.value?.type === AST_NODE_TYPES.Literal,
+                  hasDuplicate: node.value?.type === T.Literal,
                   keys: [node],
                   root: call,
                 });

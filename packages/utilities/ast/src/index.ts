@@ -1,3 +1,6 @@
+export * from "./find-parent-node";
+export * from "./find-parent-node-guard";
+export * from "./find-parent-node-stop";
 export * from "./function-init-path";
 export * from "./get-class-identifier";
 export * from "./get-function-identifier";
@@ -24,8 +27,5 @@ export * from "./is-string-literal";
 export * from "./is-this-expression";
 export * from "./to-readable-node-name";
 export * from "./to-readable-node-type";
-export * from "./traverse-up";
-export * from "./traverse-up-guard";
-export * from "./traverse-up-stop";
-export type * from "./types";
+export * from "./types";
 export * from "./unwrap-type-expression";

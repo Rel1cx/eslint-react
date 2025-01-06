@@ -3,7 +3,7 @@ import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -34,9 +34,7 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(node: TSESTree.JSXOpeningElement): O.Option<ReportDescriptor<MessageID>> {
       const initialScope = context.sourceCode.getScope(node);
       const keyPropFound = JSX.findPropInAttributes(node.attributes, initialScope)("key");
-      const keyPropOnElement = node.attributes.some(n =>
-        AST.is(AST_NODE_TYPES.JSXAttribute)(n) && n.name.name === "key"
-      );
+      const keyPropOnElement = node.attributes.some(n => AST.is(T.JSXAttribute)(n) && n.name.name === "key");
       if (O.isSome(keyPropFound) && !keyPropOnElement) {
         return O.some({ messageId: "noImplicitKey", node: keyPropFound.value });
       }

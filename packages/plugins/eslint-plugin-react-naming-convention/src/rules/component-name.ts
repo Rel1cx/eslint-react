@@ -143,30 +143,32 @@ export default createRule<Options, MessageID>({
         const functionComponents = collector.ctx.getAllComponents(node);
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
         for (const { node: component } of functionComponents.values()) {
-          const maybeId = AST.getFunctionIdentifier(component);
-          if (O.isNone(maybeId)) continue;
-          const id = maybeId.value;
-          const { name } = id;
-          if (validate(name, options)) continue;
-          context.report({
-            messageId: "componentName",
-            node: id,
-            data: {
-              case: options.rule,
+          O.match(AST.getFunctionIdentifier(component), {
+            onNone() {},
+            onSome(id) {
+              if (validate(id.name, options)) return;
+              context.report({
+                messageId: "componentName",
+                node: id,
+                data: {
+                  case: options.rule,
+                },
+              });
             },
           });
         }
         for (const { node: component } of classComponents.values()) {
-          const maybeId = AST.getClassIdentifier(component);
-          if (O.isNone(maybeId)) continue;
-          const id = maybeId.value;
-          const { name } = id;
-          if (validate(name, options)) continue;
-          context.report({
-            messageId: "componentName",
-            node: id,
-            data: {
-              case: options.rule,
+          O.match(AST.getClassIdentifier(component), {
+            onNone() {},
+            onSome(id) {
+              if (validate(id.name, options)) return;
+              context.report({
+                messageId: "componentName",
+                node: id,
+                data: {
+                  case: options.rule,
+                },
+              });
             },
           });
         }

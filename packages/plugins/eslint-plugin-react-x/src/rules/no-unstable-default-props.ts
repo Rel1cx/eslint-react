@@ -4,7 +4,7 @@ import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -53,15 +53,15 @@ export default createRule<[], MessageID>({
           const [props] = params;
           if (!props) continue;
           const properties = match(props)
-            .with({ type: AST_NODE_TYPES.ObjectPattern }, ({ properties }) => properties)
-            .with({ type: AST_NODE_TYPES.Identifier }, ({ name }) => {
+            .with({ type: T.ObjectPattern }, ({ properties }) => properties)
+            .with({ type: T.Identifier }, ({ name }) => {
               return declarators.get(component)
                 ?.filter(d => d.init.name === name)
                 .flatMap(d => d.id.properties) ?? [];
             })
             .otherwise(() => []);
           for (const prop of properties) {
-            if (prop.type !== AST_NODE_TYPES.Property || prop.value.type !== AST_NODE_TYPES.AssignmentPattern) continue;
+            if (prop.type !== T.Property || prop.value.type !== T.AssignmentPattern) continue;
             const { value } = prop;
             const { right } = value;
             const initialScope = context.sourceCode.getScope(value);

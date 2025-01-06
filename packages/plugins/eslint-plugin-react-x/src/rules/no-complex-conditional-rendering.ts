@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -33,8 +33,8 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const jsxExpContainer = node.parent?.parent;
-      if (!AST.is(AST_NODE_TYPES.JSXExpressionContainer)(jsxExpContainer)) return O.none();
-      if (!AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(jsxExpContainer.parent)) {
+      if (!AST.is(T.JSXExpressionContainer)(jsxExpContainer)) return O.none();
+      if (!AST.isOneOf([T.JSXElement, T.JSXFragment])(jsxExpContainer.parent)) {
         return O.none();
       }
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();

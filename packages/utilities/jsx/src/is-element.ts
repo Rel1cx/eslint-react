@@ -1,11 +1,11 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { hasProp } from "./has-prop";
 
 export function isKeyedElement(node: TSESTree.Node, initialScope: Scope) {
-  return node.type === AST_NODE_TYPES.JSXElement
+  return node.type === T.JSXElement
     && hasProp(node.openingElement.attributes, "key", initialScope);
 }
 
@@ -15,8 +15,8 @@ export function isKeyedElement(node: TSESTree.Node, initialScope: Scope) {
  * @returns `true` if the node is a `JSXFragment` of `Built-in Component` type
  */
 export function isBuiltInElement(node: TSESTree.Node) {
-  return node.type === AST_NODE_TYPES.JSXElement
-    && node.openingElement.name.type === AST_NODE_TYPES.JSXIdentifier
+  return node.type === T.JSXElement
+    && node.openingElement.name.type === T.JSXIdentifier
     && node.openingElement.name.name.toLowerCase() === node.openingElement.name.name
     && /^[a-z]/u.test(node.openingElement.name.name);
 }
@@ -27,7 +27,7 @@ export function isBuiltInElement(node: TSESTree.Node) {
  * @returns `true` if the node is a `JSXElement` of `User-Defined Component` type
  */
 export function isUserDefinedElement(node: TSESTree.Node) {
-  return node.type === AST_NODE_TYPES.JSXElement
-    && node.openingElement.name.type === AST_NODE_TYPES.JSXIdentifier
+  return node.type === T.JSXElement
+    && node.openingElement.name.type === T.JSXIdentifier
     && /^[A-Z]/u.test(node.openingElement.name.name);
 }

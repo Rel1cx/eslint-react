@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**
  * Get all nested identifiers in a expression like node
@@ -8,7 +8,7 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
  */
 export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   const identifiers: TSESTree.Identifier[] = [];
-  if (node.type === AST_NODE_TYPES.Identifier) {
+  if (node.type === T.Identifier) {
     identifiers.push(node);
   }
   if ("arguments" in node) {
@@ -35,35 +35,35 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     const chunk = getNestedIdentifiers(node.right);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.Property) {
+  if (node.type === T.Property) {
     const chunk = getNestedIdentifiers(node.value);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.SpreadElement) {
+  if (node.type === T.SpreadElement) {
     const chunk = getNestedIdentifiers(node.argument);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.MemberExpression) {
+  if (node.type === T.MemberExpression) {
     const chunk = getNestedIdentifiers(node.object);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.UnaryExpression) {
+  if (node.type === T.UnaryExpression) {
     const chunk = getNestedIdentifiers(node.argument);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.ChainExpression) {
+  if (node.type === T.ChainExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.TSNonNullExpression) {
+  if (node.type === T.TSNonNullExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.TSAsExpression) {
+  if (node.type === T.TSAsExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
-  if (node.type === AST_NODE_TYPES.TSSatisfiesExpression) {
+  if (node.type === T.TSSatisfiesExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }

@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 import { isMatching, P } from "ts-pattern";
@@ -21,13 +21,13 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
   if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
-  if (node.type === AST_NODE_TYPES.Identifier || node.type === AST_NODE_TYPES.PrivateIdentifier) {
+  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
     return O.some(node.name);
   }
-  if (node.type === AST_NODE_TYPES.Literal) {
+  if (node.type === T.Literal) {
     return O.some(String(node.value));
   }
-  if (node.type === AST_NODE_TYPES.TemplateLiteral && node.expressions.length === 0) {
+  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
     return O.fromNullable(node.quasis[0]?.value.raw);
   }
 
@@ -38,7 +38,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
 
   return (
-    left.type === AST_NODE_TYPES.MemberExpression
+    left.type === T.MemberExpression
     && AST.isThisExpression(left.object)
     && O.exists(getName(left.property), name => name === "state")
   );
@@ -155,9 +155,9 @@ export default createRule<[], MessageID>({
         if (currentMethod === constructorStack.at(-1)) return;
         if (!currentClass.body.body.includes(currentMethod)) return;
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern)) return;
+        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) return;
         const hasState = node.id.properties.some(prop => {
-          if (prop.type === AST_NODE_TYPES.Property && AST.isKeyLiteralLike(prop, prop.key)) {
+          if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
           return false;

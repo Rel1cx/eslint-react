@@ -7,7 +7,7 @@ import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
@@ -53,11 +53,11 @@ const defaultOptions = {
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
-    case node.callee.type === AST_NODE_TYPES.Identifier
+    case node.callee.type === T.Identifier
       && isMatching(P.union("addEventListener", "removeEventListener", "abort"), node.callee.name):
       return node.callee.name;
-    case node.callee.type === AST_NODE_TYPES.MemberExpression
-      && node.callee.property.type === AST_NODE_TYPES.Identifier
+    case node.callee.type === T.MemberExpression
+      && node.callee.property.type === T.Identifier
       && isMatching(P.union("addEventListener", "removeEventListener", "abort"), node.callee.property.name):
       return node.callee.property.name;
     default:
@@ -71,13 +71,13 @@ function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
 
 function getSignalValueExpression(node: TSESTree.Node, initialScope: Scope): O.Option<TSESTree.Node> {
   switch (node.type) {
-    case AST_NODE_TYPES.Identifier:
+    case T.Identifier:
       return F.pipe(
         VAR.findVariable(node, initialScope),
         O.flatMap(VAR.getVariableNode(0)),
         O.flatMap(n => getSignalValueExpression(n, initialScope)),
       );
-    case AST_NODE_TYPES.MemberExpression:
+    case T.MemberExpression:
       return O.some(node);
     default:
       return O.none();
@@ -89,10 +89,10 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     return JSX.findPropInProperties(properties, initialScope)(propName);
   };
   const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
-    if (prop.type !== AST_NODE_TYPES.Property) return O.none();
+    if (prop.type !== T.Property) return O.none();
     const { value } = prop;
     switch (value.type) {
-      case AST_NODE_TYPES.Literal: {
+      case T.Literal: {
         return O.some(value.value);
       }
       default: {
@@ -102,27 +102,27 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   };
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
-      case AST_NODE_TYPES.Identifier: {
+      case T.Identifier: {
         return F.pipe(
           VAR.findVariable(node, initialScope),
           O.flatMap(VAR.getVariableNode(0)),
-          O.filter(AST.is(AST_NODE_TYPES.ObjectExpression)),
+          O.filter(AST.is(T.ObjectExpression)),
           O.map(getOpts),
           O.getOrElse(() => defaultOptions),
         );
       }
-      case AST_NODE_TYPES.Literal: {
+      case T.Literal: {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return { ...defaultOptions, capture: O.some(!!node.value) };
       }
-      case AST_NODE_TYPES.ObjectExpression: {
+      case T.ObjectExpression: {
         const pOnce = findProp(node.properties, "once");
         const vOnce = O.flatMap(pOnce, getPropValue).pipe(O.filter(isBoolean));
         const pCapture = findProp(node.properties, "capture");
         const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
         const pSignal = findProp(node.properties, "signal");
         const vSignal = O.flatMap(pSignal, prop => {
-          if (prop.type !== AST_NODE_TYPES.Property) return O.none();
+          if (prop.type !== T.Property) return O.none();
           const { value } = prop;
           return getSignalValueExpression(value, initialScope);
         });
@@ -167,8 +167,8 @@ export default createRule<[], MessageID>({
     const abortedSignals: TSESTree.Expression[] = [];
     function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
       switch (true) {
-        case a.type === AST_NODE_TYPES.MemberExpression
-          && b.type === AST_NODE_TYPES.MemberExpression:
+        case a.type === T.MemberExpression
+          && b.type === T.MemberExpression:
           return AST.isNodeEqual(a.object, b.object);
         // TODO: Maybe there other cases to consider here.
         default:

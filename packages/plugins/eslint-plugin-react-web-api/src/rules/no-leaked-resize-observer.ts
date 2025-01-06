@@ -5,7 +5,7 @@ import { F, not, O, or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule, getInstanceID, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils";
@@ -42,20 +42,20 @@ export type DEntry = ObserverEntry & { kind: "disconnect" };
 // #region Helpers
 
 function isNewResizeObserver(node: TSESTree.Node) {
-  return node.type === AST_NODE_TYPES.NewExpression
-    && node.callee.type === AST_NODE_TYPES.Identifier
+  return node.type === T.NewExpression
+    && node.callee.type === T.Identifier
     && node.callee.name === "ResizeObserver";
 }
 
 function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolean {
   switch (true) {
-    case node.type === AST_NODE_TYPES.Identifier:
+    case node.type === T.Identifier:
       return F.pipe(
         VAR.findVariable(node, context.sourceCode.getScope(node)),
         O.flatMap(VAR.getVariableNode(0)),
         O.exists(isNewResizeObserver),
       );
-    case node.type === AST_NODE_TYPES.MemberExpression:
+    case node.type === T.MemberExpression:
       return isFromObserver(node.object, context);
     default:
       return false;
@@ -64,12 +64,12 @@ function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolea
 
 function getCallKind(node: TSESTree.CallExpression, context: RuleContext): CallKind {
   switch (true) {
-    case node.callee.type === AST_NODE_TYPES.Identifier
+    case node.callee.type === T.Identifier
       && isMatching(P.union("observe", "unobserve", "disconnect"), node.callee.name)
       && isFromObserver(node.callee, context):
       return node.callee.name;
-    case node.callee.type === AST_NODE_TYPES.MemberExpression
-      && node.callee.property.type === AST_NODE_TYPES.Identifier
+    case node.callee.type === T.MemberExpression
+      && node.callee.property.type === T.Identifier
       && isMatching(P.union("observe", "unobserve", "disconnect"), node.callee.property.name)
       && isFromObserver(node.callee, context):
       return node.callee.property.name;
@@ -126,7 +126,7 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const [_, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return;
+        if (node.callee.type !== T.MemberExpression) return;
         if (!ERPhaseRelevance.has(fKind)) return;
         const { object } = node.callee;
         match(getCallKind(node, context))
@@ -187,10 +187,10 @@ export default createRule<[], MessageID>({
           if (dEntries.some(e => isInstanceIDEqual(e.observer, id, context))) continue;
           const oentries = oEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
           const uentries = uEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
-          const isDynamic = or(AST.isConditional, AST.is(AST_NODE_TYPES.CallExpression));
+          const isDynamic = or(AST.isConditional, AST.is(T.CallExpression));
           const isPhaseNode = (node: TSESTree.Node) => node === phaseNode;
           const hasDynamicallyAdded = oentries
-            .some(e => O.exists(AST.traverseUp(e.node, or(isDynamic, isPhaseNode)), not(isPhaseNode)));
+            .some(e => O.exists(AST.findParentNode(e.node, or(isDynamic, isPhaseNode)), not(isPhaseNode)));
           if (hasDynamicallyAdded) {
             context.report({ messageId: "noLeakedResizeObserverInControlFlow", node });
             continue;

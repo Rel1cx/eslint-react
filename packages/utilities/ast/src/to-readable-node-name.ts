@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**
  * Returns human readable node name for given AST node
@@ -9,21 +9,21 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
  */
 export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
   switch (node.type) {
-    case AST_NODE_TYPES.CallExpression:
+    case T.CallExpression:
       return toReadableNodeName(node.callee, getText);
-    case AST_NODE_TYPES.Identifier:
+    case T.Identifier:
       return node.name;
-    case AST_NODE_TYPES.JSXIdentifier:
+    case T.JSXIdentifier:
       return `<${node.name}>`;
-    case AST_NODE_TYPES.JSXMemberExpression:
+    case T.JSXMemberExpression:
       return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
-    case AST_NODE_TYPES.JSXNamespacedName:
+    case T.JSXNamespacedName:
       return `${node.namespace.name}:${node.name.name}`;
-    case AST_NODE_TYPES.JSXText:
+    case T.JSXText:
       return node.value;
-    case AST_NODE_TYPES.Literal:
+    case T.Literal:
       return node.raw;
-    case AST_NODE_TYPES.MemberExpression:
+    case T.MemberExpression:
       return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
     default:
       return getText(node);

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
@@ -42,7 +42,7 @@ function checkAndReport(
     context.report({ messageId: "noUselessFragment", node });
     return;
   }
-  const isChildElement = AST.isOneOf([AST_NODE_TYPES.JSXElement, AST_NODE_TYPES.JSXFragment])(node.parent);
+  const isChildElement = AST.isOneOf([T.JSXElement, T.JSXFragment])(node.parent);
   switch (true) {
     // <Foo content={<>ee eeee eeee ...</>} />
     case allowExpressions
@@ -71,7 +71,7 @@ function checkAndReport(
   switch (true) {
     case nonPaddingChildren.length === 0:
     case nonPaddingChildren.length === 1
-      && firstNonPaddingChild?.type !== AST_NODE_TYPES.JSXExpressionContainer: {
+      && firstNonPaddingChild?.type !== T.JSXExpressionContainer: {
       context.report({ messageId: "noUselessFragment", node });
       return;
     }

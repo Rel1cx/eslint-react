@@ -5,5 +5,5 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isReactHook } from "./is";
 
 export function isInsideReactHook(node: TSESTree.Node) {
-  return O.exists(AST.traverseUpGuard(node, AST.isFunction), isReactHook);
+  return O.exists(AST.findParentNodeGuard(node, AST.isFunction), isReactHook);
 }

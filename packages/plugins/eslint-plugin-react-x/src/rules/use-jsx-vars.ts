@@ -1,7 +1,7 @@
 import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -29,9 +29,9 @@ export default createRule<[], MessageID>({
   create(context) {
     function getName(node: TSESTree.Node): O.Option<string> {
       switch (node.type) {
-        case AST_NODE_TYPES.JSXIdentifier:
+        case T.JSXIdentifier:
           return O.some(node.name);
-        case AST_NODE_TYPES.JSXMemberExpression:
+        case T.JSXMemberExpression:
           return getName(node.object);
         default:
           return O.none();
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
     }
     return {
       JSXOpeningElement(node) {
-        if (node.name.type === AST_NODE_TYPES.JSXIdentifier && /^[a-z]/u.test(node.name.name)) return;
+        if (node.name.type === T.JSXIdentifier && /^[a-z]/u.test(node.name.name)) return;
         for (const name of O.toArray(getName(node.name))) {
           context.sourceCode.markVariableAsUsed(name, node);
         }

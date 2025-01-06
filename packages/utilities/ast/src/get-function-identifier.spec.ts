@@ -2,7 +2,7 @@ import path from "node:path";
 
 import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
@@ -29,7 +29,7 @@ describe("get function identifier from function declaration", () => {
       enter(node) {
         if (!isFunction(node)) return;
         const id = O.getOrThrow(getFunctionIdentifier(node));
-        expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
+        expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);
       },
     }, true);
@@ -63,7 +63,7 @@ describe("get function identifier from function expression", () => {
       enter(node) {
         if (!isFunction(node)) return;
         const id = O.getOrThrow(getFunctionIdentifier(node));
-        expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
+        expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);
       },
     }, true);

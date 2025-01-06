@@ -2,17 +2,17 @@ import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { findVariable } from "./find-variable";
 import { getStaticValue } from "./get-static-value";
 import { getVariableNode } from "./get-variable-node";
 
 const thisBlockTypes = [
-  AST_NODE_TYPES.FunctionDeclaration,
-  AST_NODE_TYPES.FunctionExpression,
-  AST_NODE_TYPES.ClassBody,
-  AST_NODE_TYPES.Program,
+  T.FunctionDeclaration,
+  T.FunctionExpression,
+  T.ClassBody,
+  T.Program,
 ] as const;
 
 /**
@@ -35,16 +35,16 @@ export function isNodeValueEqual(
     case a === b: {
       return true;
     }
-    case a.type === AST_NODE_TYPES.Literal
-      && b.type === AST_NODE_TYPES.Literal: {
+    case a.type === T.Literal
+      && b.type === T.Literal: {
       return a.value === b.value;
     }
-    case a.type === AST_NODE_TYPES.TemplateElement
-      && b.type === AST_NODE_TYPES.TemplateElement: {
+    case a.type === T.TemplateElement
+      && b.type === T.TemplateElement: {
       return a.value.cooked === b.value.cooked;
     }
-    case a.type === AST_NODE_TYPES.Identifier
-      && b.type === AST_NODE_TYPES.Identifier: {
+    case a.type === T.Identifier
+      && b.type === T.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
       const aVarNode = O.flatMap(aVar, getVariableNode(0));
@@ -56,8 +56,8 @@ export function isNodeValueEqual(
       const aDefParentParent = O.flatMapNullable(aDef, (d) => d.parent?.parent);
       const bDefParentParent = O.flatMapNullable(bDef, (d) => d.parent?.parent);
       switch (true) {
-        case O.exists(aVarNodeParent, AST.is(AST_NODE_TYPES.CallExpression))
-          && O.exists(bVarNodeParent, AST.is(AST_NODE_TYPES.CallExpression))
+        case O.exists(aVarNodeParent, AST.is(T.CallExpression))
+          && O.exists(bVarNodeParent, AST.is(T.CallExpression))
           && O.exists(aVarNode, AST.isFunction)
           && O.exists(bVarNode, AST.isFunction): {
           const hasSameCallee = F.pipe(
@@ -77,8 +77,8 @@ export function isNodeValueEqual(
             O.exists(({ aPos, bPos }) => aPos === bPos),
           );
         }
-        case O.exists(aDefParentParent, AST.is(AST_NODE_TYPES.ForOfStatement))
-          && O.exists(bDefParentParent, AST.is(AST_NODE_TYPES.ForOfStatement)): {
+        case O.exists(aDefParentParent, AST.is(T.ForOfStatement))
+          && O.exists(bDefParentParent, AST.is(T.ForOfStatement)): {
           return F.pipe(
             O.Do,
             O.bind("aLeft", () => O.map(aDefParentParent, (d) => d.left)),
@@ -94,18 +94,18 @@ export function isNodeValueEqual(
         }
       }
     }
-    case a.type === AST_NODE_TYPES.MemberExpression
-      && b.type === AST_NODE_TYPES.MemberExpression: {
+    case a.type === T.MemberExpression
+      && b.type === T.MemberExpression: {
       return AST.isNodeEqual(a.property, b.property)
         && isNodeValueEqual(a.object, b.object, initialScopes);
     }
-    case a.type === AST_NODE_TYPES.ThisExpression
-      && b.type === AST_NODE_TYPES.ThisExpression: {
+    case a.type === T.ThisExpression
+      && b.type === T.ThisExpression: {
       if (aScope.block === bScope.block) return true;
       return F.pipe(
         O.Do,
-        O.bind("aFunction", () => AST.traverseUp(a, AST.isOneOf(thisBlockTypes))),
-        O.bind("bFunction", () => AST.traverseUp(b, AST.isOneOf(thisBlockTypes))),
+        O.bind("aFunction", () => AST.findParentNode(a, AST.isOneOf(thisBlockTypes))),
+        O.bind("bFunction", () => AST.findParentNode(b, AST.isOneOf(thisBlockTypes))),
         O.exists(({ aFunction, bFunction }) => aFunction === bFunction),
       );
     }

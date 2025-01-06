@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -45,13 +45,13 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
   if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
-  if (node.type === AST_NODE_TYPES.Identifier || node.type === AST_NODE_TYPES.PrivateIdentifier) {
+  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
     return O.some(node.name);
   }
-  if (node.type === AST_NODE_TYPES.Literal) {
+  if (node.type === T.Literal) {
     return O.some(String(node.value));
   }
-  if (node.type === AST_NODE_TYPES.TemplateLiteral && node.expressions.length === 0) {
+  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
     return O.fromNullable(node.quasis[0]?.value.raw);
   }
 
@@ -127,7 +127,7 @@ export default createRule<[], MessageID>({
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         if (!AST.isThisExpression(node.object) || !AST.isKeyLiteralLike(node, node.property)) return;
-        if (node.parent.type === AST_NODE_TYPES.AssignmentExpression && node.parent.left === node) {
+        if (node.parent.type === T.AssignmentExpression && node.parent.left === node) {
           // detect `this.property = xxx`
           propertyDefs.get(currentClass)?.add(node.property);
           return;
@@ -145,9 +145,9 @@ export default createRule<[], MessageID>({
         if (!currentClass || !currentMethod) return;
         if (!isClassComponent(currentClass) || currentMethod.static) return;
         // detect `{ foo, bar: baz } = this`
-        if (node.init && AST.isThisExpression(node.init) && node.id.type === AST_NODE_TYPES.ObjectPattern) {
+        if (node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
           for (const prop of node.id.properties) {
-            if (prop.type === AST_NODE_TYPES.Property && AST.isKeyLiteralLike(prop, prop.key)) {
+            if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
               O.match(getName(prop.key), {
                 onNone() {},
                 onSome(name) {

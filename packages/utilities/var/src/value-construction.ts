@@ -1,7 +1,7 @@
 import { F, isObject, isString, O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { getVariableNode } from "./get-variable-node";
 
@@ -37,52 +37,52 @@ export function getValueConstruction(
   hint = ValueConstructionHint.None,
 ): ValueConstruction {
   switch (node.type) {
-    case AST_NODE_TYPES.JSXElement:
-    case AST_NODE_TYPES.JSXFragment: {
+    case T.JSXElement:
+    case T.JSXFragment: {
       return { kind: "JSXElement", node } as const;
     }
-    case AST_NODE_TYPES.ArrayExpression: {
+    case T.ArrayExpression: {
       return { kind: "ArrayExpression", node } as const;
     }
-    case AST_NODE_TYPES.ObjectExpression: {
+    case T.ObjectExpression: {
       return { kind: "ObjectExpression", node } as const;
     }
-    case AST_NODE_TYPES.ClassExpression: {
+    case T.ClassExpression: {
       return { kind: "ClassExpression", node } as const;
     }
-    case AST_NODE_TYPES.NewExpression: {
+    case T.NewExpression: {
       return { kind: "NewExpression", node } as const;
     }
-    case AST_NODE_TYPES.FunctionExpression:
-    case AST_NODE_TYPES.ArrowFunctionExpression: {
+    case T.FunctionExpression:
+    case T.ArrowFunctionExpression: {
       return { kind: "FunctionExpression", node } as const;
     }
-    case AST_NODE_TYPES.CallExpression: {
+    case T.CallExpression: {
       if (hint & ValueConstructionHint.StrictCallExpression) {
         return { kind: "CallExpression", node } as const;
       }
       return { kind: "None", node } as const;
     }
-    case AST_NODE_TYPES.MemberExpression: {
+    case T.MemberExpression: {
       if (!("object" in node)) return { kind: "None", node } as const;
       return getValueConstruction(node.object, initialScope, hint);
     }
-    case AST_NODE_TYPES.AssignmentExpression:
-    case AST_NODE_TYPES.AssignmentPattern: {
+    case T.AssignmentExpression:
+    case T.AssignmentPattern: {
       if (!("right" in node)) return { kind: "None", node } as const;
       return getValueConstruction(node.right, initialScope, hint);
     }
-    case AST_NODE_TYPES.LogicalExpression: {
+    case T.LogicalExpression: {
       const lvc = getValueConstruction(node.left, initialScope, hint);
       if (lvc.kind !== "None") return lvc;
       return getValueConstruction(node.right, initialScope, hint);
     }
-    case AST_NODE_TYPES.ConditionalExpression: {
+    case T.ConditionalExpression: {
       const cvc = getValueConstruction(node.consequent, initialScope, hint);
       if (cvc.kind !== "None") return cvc;
       return getValueConstruction(node.alternate, initialScope, hint);
     }
-    case AST_NODE_TYPES.Identifier: {
+    case T.Identifier: {
       if (!("name" in node && isString(node.name))) return { kind: "None", node } as const;
       const construction = F.pipe(
         O.fromNullable(initialScope.set.get(node.name)),
@@ -95,7 +95,7 @@ export function getValueConstruction(
         ...construction.value,
       } as const;
     }
-    case AST_NODE_TYPES.Literal: {
+    case T.Literal: {
       if ("regex" in node) {
         return { kind: "RegExpLiteral", node } as const;
       }

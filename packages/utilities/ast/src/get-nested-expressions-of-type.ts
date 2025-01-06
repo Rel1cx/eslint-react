@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/typescript-estree";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/typescript-estree";
 import { ASTUtils } from "@typescript-eslint/utils";
 
 /**
@@ -8,13 +8,13 @@ import { ASTUtils } from "@typescript-eslint/utils";
  * @returns A partially applied function bound to a predicate of type T. The returned function can be called passing a
  * node, and it will return an array of all nested expressions of type T.
  */
-export function getNestedExpressionsOfType<T extends AST_NODE_TYPES>(
-  type: T,
-): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: T }>[] {
+export function getNestedExpressionsOfType<TNodeType extends T>(
+  type: TNodeType,
+): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
   const isNodeOfType = ASTUtils.isNodeOfType(type);
   return function(node) {
     const boundGetNestedExpressionsOfType = getNestedExpressionsOfType(type);
-    const expressions: Extract<TSESTree.Node, { type: T }>[] = [];
+    const expressions: Extract<TSESTree.Node, { type: TNodeType }>[] = [];
     if (isNodeOfType(node)) {
       expressions.push(node);
     }
@@ -66,35 +66,35 @@ export function getNestedExpressionsOfType<T extends AST_NODE_TYPES>(
       const chunk = node.expressions.map(boundGetNestedExpressionsOfType).flat(1);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.Property) {
+    if (node.type === T.Property) {
       const chunk = boundGetNestedExpressionsOfType(node.value);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.SpreadElement) {
+    if (node.type === T.SpreadElement) {
       const chunk = boundGetNestedExpressionsOfType(node.argument);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.MemberExpression) {
+    if (node.type === T.MemberExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.object);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.UnaryExpression) {
+    if (node.type === T.UnaryExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.argument);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.ChainExpression) {
+    if (node.type === T.ChainExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.TSNonNullExpression) {
+    if (node.type === T.TSNonNullExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.TSAsExpression) {
+    if (node.type === T.TSAsExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
-    if (node.type === AST_NODE_TYPES.TSSatisfiesExpression) {
+    if (node.type === T.TSSatisfiesExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }

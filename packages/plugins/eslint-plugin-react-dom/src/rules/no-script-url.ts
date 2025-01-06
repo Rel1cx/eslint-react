@@ -2,7 +2,7 @@ import { F, isString, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXAttribute(node) {
-        if (node.name.type !== AST_NODE_TYPES.JSXIdentifier || !node.value) return;
+        if (node.name.type !== T.JSXIdentifier || !node.value) return;
         const isJavaScript = F.pipe(
           JSX.getPropValue(node, context.sourceCode.getScope(node)),
           O.filter(isString),

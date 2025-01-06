@@ -1,6 +1,6 @@
 import { isString } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
       JSXOpeningElement(node) {
         const props: string[] = [];
         for (const attr of node.attributes) {
-          if (attr.type === AST_NODE_TYPES.JSXSpreadAttribute) continue;
+          if (attr.type === T.JSXSpreadAttribute) continue;
           const name = attr.name.name;
           if (!isString(name)) continue;
           if (!props.includes(name)) {

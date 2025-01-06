@@ -3,7 +3,7 @@ import { F } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isInitializedFromReact } from "./is-initialized-from-react";
 
@@ -19,9 +19,9 @@ export function isFromReact(name: string) {
   ) => {
     const settings = getSettingsFromContext(context);
     const initialScope = context.sourceCode.getScope(node);
-    if (node.type === AST_NODE_TYPES.MemberExpression) {
-      return node.object.type === AST_NODE_TYPES.Identifier
-        && node.property.type === AST_NODE_TYPES.Identifier
+    if (node.type === T.MemberExpression) {
+      return node.object.type === T.Identifier
+        && node.property.type === T.Identifier
         && node.property.name === name
         && isInitializedFromReact(node.object.name, initialScope, settings);
     }
@@ -46,15 +46,15 @@ export function isFromReactMember(
   ) => {
     const settings = getSettingsFromContext(context);
     const initialScope = context.sourceCode.getScope(node);
-    if (node.property.type !== AST_NODE_TYPES.Identifier || node.property.name !== name) return false;
-    if (node.object.type === AST_NODE_TYPES.Identifier && node.object.name === memberName) {
+    if (node.property.type !== T.Identifier || node.property.name !== name) return false;
+    if (node.object.type === T.Identifier && node.object.name === memberName) {
       return isInitializedFromReact(node.object.name, initialScope, settings);
     }
     if (
-      node.object.type === AST_NODE_TYPES.MemberExpression
-      && node.object.object.type === AST_NODE_TYPES.Identifier
+      node.object.type === T.MemberExpression
+      && node.object.object.type === T.Identifier
       && isInitializedFromReact(node.object.object.name, initialScope, settings)
-      && node.object.property.type === AST_NODE_TYPES.Identifier
+      && node.object.property.type === T.Identifier
     ) {
       return node.object.property.name === memberName;
     }
@@ -69,8 +69,8 @@ type IsCallFromReact = {
 
 export function isCallFromReact(name: string): IsCallFromReact {
   return F.dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
-    if (node.type !== AST_NODE_TYPES.CallExpression) return false;
-    if (!AST.isOneOf([AST_NODE_TYPES.Identifier, AST_NODE_TYPES.MemberExpression])(node.callee)) return false;
+    if (node.type !== T.CallExpression) return false;
+    if (!AST.isOneOf([T.Identifier, T.MemberExpression])(node.callee)) return false;
     return isFromReact(name)(node.callee, context);
   });
 }
@@ -98,8 +98,8 @@ export function isCallFromReactMember(
     & TSESTree.CallExpression
     & { callee: TSESTree.MemberExpression } =>
   {
-    if (node.type !== AST_NODE_TYPES.CallExpression) return false;
-    if (!AST.is(AST_NODE_TYPES.MemberExpression)(node.callee)) return false;
+    if (node.type !== T.CallExpression) return false;
+    if (!AST.is(T.MemberExpression)(node.callee)) return false;
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   });
 }

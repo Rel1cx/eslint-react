@@ -3,7 +3,7 @@ import { O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { match } from "ts-pattern";
 
@@ -35,17 +35,17 @@ function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hin
     return false;
   }
   return !O.exists(
-    AST.traverseUp(
+    AST.findParentNode(
       node,
       AST.isOneOf([
-        AST_NODE_TYPES.JSXExpressionContainer,
-        AST_NODE_TYPES.ArrowFunctionExpression,
-        AST_NODE_TYPES.FunctionExpression,
-        AST_NODE_TYPES.Property,
-        AST_NODE_TYPES.ClassBody,
+        T.JSXExpressionContainer,
+        T.ArrowFunctionExpression,
+        T.FunctionExpression,
+        T.Property,
+        T.ClassBody,
       ]),
     ),
-    AST.is(AST_NODE_TYPES.JSXExpressionContainer),
+    AST.is(T.JSXExpressionContainer),
   );
 }
 
@@ -138,7 +138,7 @@ export function useComponentCollector(
     ) {
       const { left, right } = node;
       const componentName = match(left.object)
-        .with({ type: AST_NODE_TYPES.Identifier }, n => O.some(n.name))
+        .with({ type: T.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
       O.match(componentName, {
         onNone() {},

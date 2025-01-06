@@ -2,7 +2,7 @@ import path from "node:path";
 
 import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
@@ -27,9 +27,9 @@ describe("get class identifier from class declaration", () => {
     let n = O.none<TSESTreeClass>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (node.type !== AST_NODE_TYPES.ClassDeclaration) return;
+        if (node.type !== T.ClassDeclaration) return;
         const id = O.getOrThrow(getClassIdentifier(node));
-        expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
+        expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);
       },
     }, true);
@@ -47,9 +47,9 @@ describe("get class identifier from class expression", () => {
     let n = O.none<TSESTreeClass>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (node.type !== AST_NODE_TYPES.ClassExpression) return;
+        if (node.type !== T.ClassExpression) return;
         const id = O.getOrThrow(getClassIdentifier(node));
-        expect(id).include({ type: AST_NODE_TYPES.Identifier, name: expected });
+        expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);
       },
     }, true);

@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -14,11 +14,11 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const banParentTypes = [
-  AST_NODE_TYPES.VariableDeclarator,
-  AST_NODE_TYPES.Property,
-  AST_NODE_TYPES.ReturnStatement,
-  AST_NODE_TYPES.ArrowFunctionExpression,
-  AST_NODE_TYPES.AssignmentExpression,
+  T.VariableDeclarator,
+  T.Property,
+  T.ReturnStatement,
+  T.ArrowFunctionExpression,
+  T.AssignmentExpression,
 ] as const;
 
 export default createRule<[], MessageID>({
@@ -38,13 +38,13 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const { callee, parent } = node;
-        if (callee.type !== AST_NODE_TYPES.MemberExpression) return;
-        if (callee.object.type !== AST_NODE_TYPES.Identifier) return;
+        if (callee.type !== T.MemberExpression) return;
+        if (callee.object.type !== T.Identifier) return;
         if (!("name" in callee.object)) return;
         const objectName = callee.object.name;
         if (
           objectName.toLowerCase() !== "reactdom"
-          || callee.property.type !== AST_NODE_TYPES.Identifier
+          || callee.property.type !== T.Identifier
           || callee.property.name !== "render"
           || !AST.isOneOf(banParentTypes)(parent)
         ) {

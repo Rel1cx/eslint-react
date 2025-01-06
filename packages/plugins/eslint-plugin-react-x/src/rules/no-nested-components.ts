@@ -9,11 +9,11 @@ import {
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import { O, or } from "@eslint-react/eff";
+import { not, O, or } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
@@ -72,9 +72,9 @@ export default createRule<[], MessageID>({
           // Do not mark anonymous function components to reduce false positives
           if (O.isNone(componentName)) continue;
           const name = componentName.value;
-          const isInsideProperty = component.parent.type === AST_NODE_TYPES.Property;
-          const isInsideJSXPropValue = component.parent.type === AST_NODE_TYPES.JSXAttribute
-            || O.isSome(JSX.traverseUpProp(node, n => n.value?.type === AST_NODE_TYPES.JSXExpressionContainer));
+          const isInsideProperty = component.parent.type === T.Property;
+          const isInsideJSXPropValue = component.parent.type === T.JSXAttribute
+            || O.isSome(JSX.findParentProp(node, n => n.value?.type === T.JSXExpressionContainer));
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({
@@ -99,10 +99,19 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          const maybeParentComponent = AST.traverseUpGuard(component, isFunctionComponent);
-          if (O.isSome(maybeParentComponent) && !isDirectValueOfRenderPropertyLoose(maybeParentComponent.value)) {
+          const isParnetComponentNotDirectValueOfRenderProperty = O.exists(
+            AST.findParentNodeGuard(
+              component,
+              isFunctionComponent,
+            ),
+            not(isDirectValueOfRenderPropertyLoose),
+          );
+
+          if (isParnetComponentNotDirectValueOfRenderProperty) {
             context.report({
-              messageId: isInsideProperty ? "nestedComponentInProps" : "nestedComponent",
+              messageId: isInsideProperty
+                ? "nestedComponentInProps"
+                : "nestedComponent",
               node: component,
               data: {
                 name,
@@ -111,8 +120,7 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          const isInsideClassComponentRenderMethod = isInsideRenderMethod(component);
-          if (isInsideClassComponentRenderMethod) {
+          if (isInsideRenderMethod(component)) {
             context.report({
               messageId: "nestedComponent",
               node: component,
@@ -123,7 +131,7 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { name, node: component } of classComponents) {
-          if (O.isNone(AST.traverseUp(component, or(isClassComponent, isFunctionComponent)))) {
+          if (O.isNone(AST.findParentNode(component, or(isClassComponent, isFunctionComponent)))) {
             continue;
           }
           context.report({
