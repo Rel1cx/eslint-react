@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/typescript-estree";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/typescript-estree";
 
 import { getNestedExpressionsOfType } from "./get-nested-expressions-of-type";
 
@@ -7,4 +7,4 @@ import { getNestedExpressionsOfType } from "./get-nested-expressions-of-type";
  * @param node The node to get the nested new expressions from
  * @returns All nested new expressions
  */
-export const getNestedNewExpressions = getNestedExpressionsOfType(AST_NODE_TYPES.NewExpression);
+export const getNestedNewExpressions = getNestedExpressionsOfType(T.NewExpression);

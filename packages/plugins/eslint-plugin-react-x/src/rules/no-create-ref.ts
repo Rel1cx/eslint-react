@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         if (!isCreateRefCall(node, context)) return;
-        if (O.isSome(AST.traverseUp(node, isClassComponent))) return;
+        if (O.isSome(AST.findParentNode(node, isClassComponent))) return;
         context.report({ messageId: "noCreateRef", node });
       },
     };

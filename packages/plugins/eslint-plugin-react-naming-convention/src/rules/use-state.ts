@@ -2,7 +2,7 @@ import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } f
 import { F, O } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { capitalize } from "string-ts";
@@ -50,20 +50,20 @@ export default createRule<[], MessageID>({
           if (hookCalls.length === 0) continue;
           for (const hookCall of hookCalls) {
             if (!isUseStateCall(hookCall, context) && !alias.some(isReactHookCallWithNameLoose(hookCall))) continue;
-            if (hookCall.parent.type !== AST_NODE_TYPES.VariableDeclarator) continue;
+            if (hookCall.parent.type !== T.VariableDeclarator) continue;
             const { id } = hookCall.parent;
             const descriptor = O.some({ messageId: "useState", node: id } as const);
             F.pipe(
               match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
-                .with({ type: AST_NODE_TYPES.Identifier }, F.constant(descriptor))
-                .with({ type: AST_NODE_TYPES.ArrayPattern }, n => {
+                .with({ type: T.Identifier }, F.constant(descriptor))
+                .with({ type: T.ArrayPattern }, n => {
                   const [state, setState] = n.elements;
-                  if (state?.type === AST_NODE_TYPES.ObjectPattern && setState?.type === AST_NODE_TYPES.Identifier) {
+                  if (state?.type === T.ObjectPattern && setState?.type === T.Identifier) {
                     return isSetterNameLoose(setState.name)
                       ? O.none()
                       : descriptor;
                   }
-                  if (state?.type !== AST_NODE_TYPES.Identifier || setState?.type !== AST_NODE_TYPES.Identifier) {
+                  if (state?.type !== T.Identifier || setState?.type !== T.Identifier) {
                     return O.none();
                   }
                   const [stateName, setStateName] = [state.name, setState.name];

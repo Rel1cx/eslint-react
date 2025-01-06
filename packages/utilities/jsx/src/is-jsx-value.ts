@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
@@ -54,11 +54,11 @@ export function isJSXValue(
 ): boolean {
   if (!node) return false;
   return match<typeof node, boolean>(node)
-    .with({ type: AST_NODE_TYPES.JSXElement }, F.constTrue)
-    .with({ type: AST_NODE_TYPES.JSXFragment }, F.constTrue)
-    .with({ type: AST_NODE_TYPES.JSXMemberExpression }, F.constTrue)
-    .with({ type: AST_NODE_TYPES.JSXNamespacedName }, F.constTrue)
-    .with({ type: AST_NODE_TYPES.Literal }, (node) => {
+    .with({ type: T.JSXElement }, F.constTrue)
+    .with({ type: T.JSXFragment }, F.constTrue)
+    .with({ type: T.JSXMemberExpression }, F.constTrue)
+    .with({ type: T.JSXNamespacedName }, F.constTrue)
+    .with({ type: T.Literal }, (node) => {
       return match(node.value)
         .with(null, () => !(hint & JSXValueHint.SkipNullLiteral))
         .with(P.boolean, () => !(hint & JSXValueHint.SkipBooleanLiteral))
@@ -66,12 +66,12 @@ export function isJSXValue(
         .with(P.number, () => !(hint & JSXValueHint.SkipNumberLiteral))
         .otherwise(F.constFalse);
     })
-    .with({ type: AST_NODE_TYPES.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
-    .with({ type: AST_NODE_TYPES.ArrayExpression }, (node) => {
+    .with({ type: T.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
+    .with({ type: T.ArrayExpression }, (node) => {
       if (hint & JSXValueHint.StrictArray) return node.elements.every((n) => isJSXValue(n, jsxCtx, hint));
       return node.elements.some((n) => isJSXValue(n, jsxCtx, hint));
     })
-    .with({ type: AST_NODE_TYPES.ConditionalExpression }, (node) => {
+    .with({ type: T.ConditionalExpression }, (node) => {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
           if (node.consequent.length === 0) return !(hint & JSXValueHint.SkipEmptyArray);
@@ -90,24 +90,24 @@ export function isJSXValue(
       }
       return leftHasJSX(node) || rightHasJSX(node);
     })
-    .with({ type: AST_NODE_TYPES.LogicalExpression }, (node) => {
+    .with({ type: T.LogicalExpression }, (node) => {
       if (hint & JSXValueHint.StrictLogical) {
         return isJSXValue(node.left, jsxCtx, hint) && isJSXValue(node.right, jsxCtx, hint);
       }
       return isJSXValue(node.left, jsxCtx, hint) || isJSXValue(node.right, jsxCtx, hint);
     })
-    .with({ type: AST_NODE_TYPES.SequenceExpression }, (node) => {
+    .with({ type: T.SequenceExpression }, (node) => {
       const exp = node.expressions.at(-1);
       return isJSXValue(exp, jsxCtx, hint);
     })
-    .with({ type: AST_NODE_TYPES.CallExpression }, (node) => {
+    .with({ type: T.CallExpression }, (node) => {
       if (hint & JSXValueHint.SkipCreateElement) return false;
       return match(node.callee)
-        .with({ type: AST_NODE_TYPES.Identifier, name: "createElement" }, F.constTrue)
-        .with({ type: AST_NODE_TYPES.MemberExpression, property: { name: "createElement" } }, F.constTrue)
+        .with({ type: T.Identifier, name: "createElement" }, F.constTrue)
+        .with({ type: T.MemberExpression, property: { name: "createElement" } }, F.constTrue)
         .otherwise(F.constFalse);
     })
-    .with({ type: AST_NODE_TYPES.Identifier }, (node) => {
+    .with({ type: T.Identifier }, (node) => {
       const { name } = node;
       if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
       if (AST.isJSXTagNameExpression(node)) return true;

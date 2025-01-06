@@ -3,7 +3,7 @@ import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
       ...listeners,
       JSXOpeningElement(node) {
         const openingElementName = node.name;
-        if (openingElementName.type !== AST_NODE_TYPES.JSXMemberExpression) return;
+        if (openingElementName.type !== T.JSXMemberExpression) return;
         if (openingElementName.property.name !== "Provider") return;
         F.pipe(
           O.Do,
@@ -52,13 +52,13 @@ export default createRule<[], MessageID>({
           O.bind("attribute", () =>
             O.fromNullable(
               node.attributes.find((attribute) => {
-                return attribute.type === AST_NODE_TYPES.JSXAttribute
+                return attribute.type === T.JSXAttribute
                   && attribute.name.name === "value";
               }),
             )),
           O.bind("value", ({ attribute }) => "value" in attribute ? O.some(attribute.value) : O.none()),
           O.bind("valueExpression", ({ value }) =>
-            value?.type === AST_NODE_TYPES.JSXExpressionContainer
+            value?.type === T.JSXExpressionContainer
               ? O.some(value.expression)
               : O.none()),
           O.bind("construction", ({ valueExpression }) => {

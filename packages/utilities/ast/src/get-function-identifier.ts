@@ -9,7 +9,7 @@
 
 import { O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isOneOf, isTypeExpression } from "./is";
 import type { TSESTreeFunction } from "./types";
@@ -21,36 +21,36 @@ export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFuncti
       && !!node.id:
       return O.some(node.id);
     // const whatever = function MaybeComponent() {};
-    case node.parent.type === AST_NODE_TYPES.VariableDeclarator
+    case node.parent.type === T.VariableDeclarator
       && node.parent.init === node
-      && node.parent.id.type === AST_NODE_TYPES.Identifier:
+      && node.parent.id.type === T.Identifier:
       return O.some(node.parent.id);
     // MaybeComponent = () => {};
-    case node.parent.type === AST_NODE_TYPES.AssignmentExpression
+    case node.parent.type === T.AssignmentExpression
       && node.parent.right === node
       && node.parent.operator === "="
-      && node.parent.left.type === AST_NODE_TYPES.Identifier:
+      && node.parent.left.type === T.Identifier:
       return O.some(node.parent.left);
     // {MaybeComponent: () => {}}
     // {MaybeComponent() {}}
-    case node.parent.type === AST_NODE_TYPES.Property
+    case node.parent.type === T.Property
       && node.parent.value === node
       && !node.parent.computed
-      && node.parent.key.type === AST_NODE_TYPES.Identifier:
+      && node.parent.key.type === T.Identifier:
       return O.some(node.parent.key);
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
-    case isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node.parent)
+    case isOneOf([T.MethodDefinition, T.PropertyDefinition])(node.parent)
       && node.parent.value === node
-      && node.parent.key.type === AST_NODE_TYPES.Identifier:
+      && node.parent.key.type === T.Identifier:
       return O.some(node.parent.key);
       // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
       //
       // const {MaybeComponent = () => {}} = {};
       // ({MaybeComponent = () => {}} = {});
-    case node.parent.type === AST_NODE_TYPES.AssignmentPattern
+    case node.parent.type === T.AssignmentPattern
       && node.parent.right === node
-      && node.parent.left.type === AST_NODE_TYPES.Identifier:
+      && node.parent.left.type === T.Identifier:
       return O.some(node.parent.left);
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;

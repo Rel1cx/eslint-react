@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/eff";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
@@ -18,11 +18,11 @@ export function isClassComponent(node: TSESTree.Node): node is AST.TSESTreeClass
   const { superClass } = node;
   return match(superClass)
     .with({
-      type: AST_NODE_TYPES.Identifier,
+      type: T.Identifier,
       name: P.string,
     }, ({ name }) => /^(?:Pure)?Component$/u.test(name))
     .with({
-      type: AST_NODE_TYPES.MemberExpression,
+      type: T.MemberExpression,
       property: { name: P.string },
     }, ({ property }) => /^(?:Pure)?Component$/u.test(property.name))
     .otherwise(() => false);
@@ -37,11 +37,11 @@ export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass) {
     return match(node.superClass)
       .with({
-        type: AST_NODE_TYPES.Identifier,
+        type: T.Identifier,
         name: P.string,
       }, ({ name }) => /^PureComponent$/u.test(name))
       .with({
-        type: AST_NODE_TYPES.MemberExpression,
+        type: T.MemberExpression,
         property: { name: P.string },
       }, ({ property }) => /^PureComponent$/u.test(property.name))
       .otherwise(() => false);
@@ -52,16 +52,16 @@ export function isPureComponent(node: TSESTree.Node) {
 export function isComponentDidMount(
   node: TSESTree.Node,
 ): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
-  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
-    && node.key.type === AST_NODE_TYPES.Identifier
+  return AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node)
+    && node.key.type === T.Identifier
     && node.key.name === "componentDidMount";
 }
 
 export function isComponentWillUnmount(
   node: TSESTree.Node,
 ): node is TSESTree.MethodDefinition | TSESTree.PropertyDefinition {
-  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
-    && node.key.type === AST_NODE_TYPES.Identifier
+  return AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node)
+    && node.key.type === T.Identifier
     && node.key.name === "componentWillUnmount";
 }
 

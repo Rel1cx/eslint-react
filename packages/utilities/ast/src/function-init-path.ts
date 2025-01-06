@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-union-types */
 import { F, O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import type { TSESTreeFunction } from "./types";
 
@@ -106,8 +106,8 @@ export type FunctionInitPath =
 
 export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionInitPath> {
   const { parent } = node;
-  if (node.type === AST_NODE_TYPES.FunctionDeclaration) return O.some([node]);
-  if (parent.type === AST_NODE_TYPES.VariableDeclarator) {
+  if (node.type === T.FunctionDeclaration) return O.some([node]);
+  if (parent.type === T.VariableDeclarator) {
     return O.some([
       parent.parent,
       parent,
@@ -115,8 +115,8 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === AST_NODE_TYPES.CallExpression
-    && parent.parent.type === AST_NODE_TYPES.VariableDeclarator
+    parent.type === T.CallExpression
+    && parent.parent.type === T.VariableDeclarator
   ) {
     return O.some([
       parent.parent.parent,
@@ -126,22 +126,9 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === AST_NODE_TYPES.CallExpression
-    && parent.parent.type === AST_NODE_TYPES.CallExpression
-    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
-  ) {
-    return O.some([
-      parent.parent.parent.parent,
-      parent.parent.parent,
-      parent.parent,
-      parent,
-      node,
-    ]);
-  }
-  if (
-    parent.type === AST_NODE_TYPES.Property
-    && parent.parent.type === AST_NODE_TYPES.ObjectExpression
-    && parent.parent.parent.type === AST_NODE_TYPES.VariableDeclarator
+    parent.type === T.CallExpression
+    && parent.parent.type === T.CallExpression
+    && parent.parent.parent.type === T.VariableDeclarator
   ) {
     return O.some([
       parent.parent.parent.parent,
@@ -152,8 +139,21 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === AST_NODE_TYPES.MethodDefinition
-    && parent.parent.parent.type === AST_NODE_TYPES.ClassDeclaration
+    parent.type === T.Property
+    && parent.parent.type === T.ObjectExpression
+    && parent.parent.parent.type === T.VariableDeclarator
+  ) {
+    return O.some([
+      parent.parent.parent.parent,
+      parent.parent.parent,
+      parent.parent,
+      parent,
+      node,
+    ]);
+  }
+  if (
+    parent.type === T.MethodDefinition
+    && parent.parent.parent.type === T.ClassDeclaration
   ) {
     return O.some([
       parent.parent.parent,
@@ -163,8 +163,8 @@ export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionIn
     ]);
   }
   if (
-    parent.type === AST_NODE_TYPES.PropertyDefinition
-    && parent.parent.parent.type === AST_NODE_TYPES.ClassDeclaration
+    parent.type === T.PropertyDefinition
+    && parent.parent.parent.type === T.ClassDeclaration
   ) {
     return O.some([
       parent.parent.parent,
@@ -184,8 +184,8 @@ export function hasCallInFunctionInitPath(callName: string) {
       O.exists(nodes => {
         return nodes.some(
           n => {
-            if (n.type !== AST_NODE_TYPES.CallExpression) return false;
-            if (n.callee.type === AST_NODE_TYPES.Identifier) return n.callee.name === callName;
+            if (n.type !== T.CallExpression) return false;
+            if (n.callee.type === T.Identifier) return n.callee.name === callName;
             return "property" in n.callee
               && "name" in n.callee.property
               && n.callee.property.name === callName;

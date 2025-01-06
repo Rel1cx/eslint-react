@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
-import { O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 /**
@@ -12,9 +12,9 @@ import type { TSESTree } from "@typescript-eslint/utils";
  */
 export function getPropName(node: TSESTree.JSXAttribute) {
   switch (node.name.type) {
-    case AST_NODE_TYPES.JSXIdentifier:
+    case T.JSXIdentifier:
       return node.name.name;
-    case AST_NODE_TYPES.JSXNamespacedName:
+    case T.JSXNamespacedName:
       return `${node.name.namespace.name}:${node.name.name.name}`;
   }
 }
@@ -37,11 +37,11 @@ export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
   initialScope: Scope,
 ) {
-  if (attribute.type === AST_NODE_TYPES.JSXAttribute && "value" in attribute) {
+  if (attribute.type === T.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
     if (value === null) return O.none();
-    if (value.type === AST_NODE_TYPES.Literal) return VAR.getStaticValue(value, initialScope);
-    if (value.type === AST_NODE_TYPES.JSXExpressionContainer) {
+    if (value.type === T.Literal) return VAR.getStaticValue(value, initialScope);
+    if (value.type === T.JSXExpressionContainer) {
       return VAR.getStaticValue(value.expression, initialScope);
     }
 
@@ -72,25 +72,24 @@ export function findPropInProperties(
     return O.fromNullable(
       properties.findLast((prop) => {
         switch (true) {
-          case prop.type === AST_NODE_TYPES.Property && "name" in prop.key && prop.key.name === propName:
+          case prop.type === T.Property && "name" in prop.key && prop.key.name === propName:
             return true;
-          case prop.type === AST_NODE_TYPES.SpreadElement:
+          case prop.type === T.SpreadElement:
             switch (true) {
-              case prop.argument.type === AST_NODE_TYPES.Identifier: {
+              case prop.argument.type === T.Identifier: {
                 const { name } = prop.argument;
-                const maybeInit = O.flatMap(
-                  VAR.findVariable(name, initialScope),
-                  VAR.getVariableNode(0),
-                );
-                if (O.isNone(maybeInit)) return false;
-                const init = maybeInit.value;
-                if (!AST.is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
                 if (seenProps.includes(name)) return false;
-                return O.isSome(
-                  findPropInProperties(init.properties, initialScope, [...seenProps, name])(propName),
+                return F.pipe(
+                  VAR.findVariable(name, initialScope),
+                  O.flatMap(VAR.getVariableNode(0)),
+                  O.filter(AST.is(T.ObjectExpression)),
+                  O.flatMap((init) =>
+                    findPropInProperties(init.properties, initialScope, [...seenProps, name])(propName)
+                  ),
+                  O.isSome,
                 );
               }
-              case prop.argument.type === AST_NODE_TYPES.ObjectExpression: {
+              case prop.argument.type === T.ObjectExpression: {
                 return O.isSome(
                   findPropInProperties(prop.argument.properties, initialScope, seenProps)(propName),
                 );
@@ -99,7 +98,7 @@ export function findPropInProperties(
                 return false;
               }
             }
-          case prop.type === AST_NODE_TYPES.RestElement:
+          case prop.type === T.RestElement:
             return false;
           default:
             return false;
@@ -127,28 +126,27 @@ export function findPropInAttributes(
     return O.fromNullable(
       attributes.findLast((attr) => {
         switch (attr.type) {
-          case AST_NODE_TYPES.JSXAttribute:
+          case T.JSXAttribute:
             return getPropName(attr) === propName;
-          case AST_NODE_TYPES.JSXSpreadAttribute:
+          case T.JSXSpreadAttribute:
             switch (attr.argument.type) {
-              case AST_NODE_TYPES.CallExpression:
+              case T.CallExpression:
                 // Not implemented
                 return false;
-              case AST_NODE_TYPES.Identifier: {
+              case T.Identifier: {
                 const { name } = attr.argument;
-                const maybeInit = O.flatMap(
+                return F.pipe(
                   VAR.findVariable(name, initialScope),
-                  VAR.getVariableNode(0),
+                  O.flatMap(VAR.getVariableNode(0)),
+                  O.filter(AST.is(T.ObjectExpression)),
+                  O.flatMap((init) => findPropInProperties(init.properties, initialScope)(propName)),
+                  O.isSome,
                 );
-                if (O.isNone(maybeInit)) return false;
-                const init = maybeInit.value;
-                if (!AST.is(AST_NODE_TYPES.ObjectExpression)(init)) return false;
-                return O.isSome(findPropInProperties(init.properties, initialScope)(propName));
               }
-              case AST_NODE_TYPES.MemberExpression:
+              case T.MemberExpression:
                 // Not implemented
                 return false;
-              case AST_NODE_TYPES.ObjectExpression:
+              case T.ObjectExpression:
                 return O.isSome(findPropInProperties(attr.argument.properties, initialScope)(propName));
               default:
                 return false;

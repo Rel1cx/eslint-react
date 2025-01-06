@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -21,13 +21,13 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Opti
   if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
-  if (node.type === AST_NODE_TYPES.Identifier || node.type === AST_NODE_TYPES.PrivateIdentifier) {
+  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
     return O.some(node.name);
   }
-  if (node.type === AST_NODE_TYPES.Literal) {
+  if (node.type === T.Literal) {
     return O.some(String(node.value));
   }
-  if (node.type === AST_NODE_TYPES.TemplateLiteral && node.expressions.length === 0) {
+  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
     return O.fromNullable(node.quasis[0]?.value.raw);
   }
 
@@ -38,7 +38,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
 
   return (
-    left.type === AST_NODE_TYPES.MemberExpression
+    left.type === T.MemberExpression
     && AST.isThisExpression(left.object)
     && O.exists(getName(left.property), name => name === "state")
   );
@@ -47,9 +47,9 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return AST.isOneOf([AST_NODE_TYPES.FunctionDeclaration, AST_NODE_TYPES.FunctionExpression])(node)
-    && AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node.parent)
-    && node.parent.key.type === AST_NODE_TYPES.Identifier
+  return AST.isOneOf([T.FunctionDeclaration, T.FunctionExpression])(node)
+    && AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node.parent)
+    && node.parent.key.type === T.Identifier
     && node.parent.key.name === "constructor";
 }
 
@@ -69,19 +69,26 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.AssignmentExpression): O.Option<ReportDescriptor<MessageID>> {
       if (!isAssignmentToThisState(node)) return O.none();
-      const maybeParentClass = AST.traverseUpGuard(
-        node,
-        AST.isOneOf([AST_NODE_TYPES.ClassDeclaration, AST_NODE_TYPES.ClassExpression]),
+      return F.pipe(
+        O.Do,
+        O.bind("parentClass", () =>
+          AST.findParentNodeGuard(
+            node,
+            AST.isOneOf([
+              T.ClassDeclaration,
+              T.ClassExpression,
+            ]),
+          )),
+        O.bind("parentConstructor", () => AST.findParentNodeGuard(node, isConstructorFunction)),
+        O.filter(({ parentClass, parentConstructor }) =>
+          isClassComponent(parentClass)
+          && context.sourceCode.getScope(node).block !== parentConstructor
+        ),
+        O.map(() => ({
+          messageId: "noDirectMutationState",
+          node,
+        })),
       );
-      if (O.isNone(maybeParentClass)) return O.none();
-      const parentClass = maybeParentClass.value;
-      if (!isClassComponent(parentClass)) return O.none();
-      const maybeParentConstructor = AST.traverseUpGuard(node, isConstructorFunction);
-      if (O.exists(maybeParentConstructor, n => context.sourceCode.getScope(node).block === n)) return O.none();
-      return O.some({
-        messageId: "noDirectMutationState",
-        node,
-      });
     }
     return {
       AssignmentExpression: F.flow(getReportDescriptor, O.map(context.report)),

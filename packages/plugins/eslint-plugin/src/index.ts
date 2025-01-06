@@ -26,7 +26,7 @@ type Config = {
   rules: RulePreset;
 };
 
-function makeLegacyConfig<T extends Config>(config: T) {
+function makeLegacyConfig<A extends Config>(config: A) {
   const { name: _, ...rest } = config;
   return {
     ...rest,

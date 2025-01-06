@@ -5,7 +5,7 @@ import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
@@ -40,11 +40,11 @@ type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
-    case node.callee.type === AST_NODE_TYPES.Identifier
+    case node.callee.type === T.Identifier
       && isMatching(P.union("setTimeout", "clearTimeout"), node.callee.name):
       return node.callee.name;
-    case node.callee.type === AST_NODE_TYPES.MemberExpression
-      && node.callee.property.type === AST_NODE_TYPES.Identifier
+    case node.callee.type === T.MemberExpression
+      && node.callee.property.type === T.Identifier
       && isMatching(P.union("setTimeout", "clearTimeout"), node.callee.property.name):
       return node.callee.property.name;
     default:

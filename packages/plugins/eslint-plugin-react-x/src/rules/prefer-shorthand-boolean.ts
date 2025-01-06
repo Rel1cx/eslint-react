@@ -2,7 +2,7 @@ import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -35,8 +35,8 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(node: TSESTree.JSXAttribute): O.Option<ReportDescriptor<MessageID>> {
       const { value } = node;
       const propName = JSX.getPropName(node);
-      const hasValueTrue = value?.type === AST_NODE_TYPES.JSXExpressionContainer
-        && value.expression.type === AST_NODE_TYPES.Literal
+      const hasValueTrue = value?.type === T.JSXExpressionContainer
+        && value.expression.type === T.Literal
         && value.expression.value === true;
       if (!hasValueTrue) return O.none();
       return O.some({

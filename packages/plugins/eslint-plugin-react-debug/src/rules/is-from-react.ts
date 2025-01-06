@@ -4,7 +4,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -44,13 +44,13 @@ export default createRule<[], MessageID>({
     ) {
       const name = node.name;
       switch (true) {
-        case node.parent.type === AST_NODE_TYPES.MemberExpression
+        case node.parent.type === T.MemberExpression
           && node.parent.property === node
-          && node.parent.object.type === AST_NODE_TYPES.Identifier:
+          && node.parent.object.type === T.Identifier:
           return isInitializedFromReact(node.parent.object.name, initialScope, finalSettings);
-        case node.parent.type === AST_NODE_TYPES.JSXMemberExpression
+        case node.parent.type === T.JSXMemberExpression
           && node.parent.property === node
-          && node.parent.object.type === AST_NODE_TYPES.JSXIdentifier:
+          && node.parent.object.type === T.JSXIdentifier:
           return isInitializedFromReact(node.parent.object.name, initialScope, finalSettings);
         default:
           return isInitializedFromReact(name, initialScope, finalSettings);
@@ -59,7 +59,7 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(
       node: TSESTree.Identifier | TSESTree.JSXIdentifier,
     ): O.Option<ReportDescriptor<MessageID>> {
-      const shouldSkipDuplicate = node.parent.type === AST_NODE_TYPES.ImportSpecifier
+      const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier
         && node.parent.imported === node
         && node.parent.imported.name === node.parent.local.name;
       if (shouldSkipDuplicate) return O.none();

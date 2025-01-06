@@ -4,7 +4,7 @@ import { F, O } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -47,12 +47,12 @@ export default createRule<[], MessageID>({
         if (!arg0 || !arg1) return;
         const hasEmptyDeps = F.pipe(
           match(arg1)
-            .with({ type: AST_NODE_TYPES.ArrayExpression }, O.some)
-            .with({ type: AST_NODE_TYPES.Identifier }, n => {
+            .with({ type: T.ArrayExpression }, O.some)
+            .with({ type: T.Identifier }, n => {
               return F.pipe(
                 VAR.findVariable(n.name, initialScope),
                 O.flatMap(VAR.getVariableNode(0)),
-                O.filter(AST.is(AST_NODE_TYPES.ArrayExpression)),
+                O.filter(AST.is(T.ArrayExpression)),
               );
             })
             .otherwise(O.none),
@@ -61,14 +61,14 @@ export default createRule<[], MessageID>({
         if (!hasEmptyDeps) return;
         const isReferencedToComponentScope = F.pipe(
           match(arg0)
-            .with({ type: AST_NODE_TYPES.ArrowFunctionExpression }, n => {
-              if (n.body.type === AST_NODE_TYPES.ArrowFunctionExpression) {
+            .with({ type: T.ArrowFunctionExpression }, n => {
+              if (n.body.type === T.ArrowFunctionExpression) {
                 return O.some(n.body);
               }
               return O.some(n);
             })
-            .with({ type: AST_NODE_TYPES.FunctionExpression }, O.some)
-            .with({ type: AST_NODE_TYPES.Identifier }, n => {
+            .with({ type: T.FunctionExpression }, O.some)
+            .with({ type: T.Identifier }, n => {
               return F.pipe(
                 VAR.findVariable(n.name, initialScope),
                 O.flatMap(VAR.getVariableNode(0)),

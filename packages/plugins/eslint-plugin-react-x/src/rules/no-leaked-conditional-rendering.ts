@@ -6,7 +6,7 @@ import * as VAR from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
@@ -179,7 +179,7 @@ function isInitExpression(
     | TSESTree.Expression
     | TSESTree.LetOrConstOrVarDeclaration,
 ) {
-  return node.type !== AST_NODE_TYPES.VariableDeclaration;
+  return node.type !== T.VariableDeclaration;
 }
 
 function getVariableInitExpression(at: number) {
@@ -240,11 +240,11 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(AST.isJSX, O.none)
-        .with({ type: AST_NODE_TYPES.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = isMatching({ type: AST_NODE_TYPES.UnaryExpression, operator: "!" }, left);
+        .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+          const isLeftUnaryNot = isMatching({ type: T.UnaryExpression, operator: "!" }, left);
           if (isLeftUnaryNot) return getReportDescriptor(right);
           const initialScope = context.sourceCode.getScope(left);
-          const isLeftNan = isMatching({ type: AST_NODE_TYPES.Identifier, name: "NaN" }, left)
+          const isLeftNan = isMatching({ type: T.Identifier, name: "NaN" }, left)
             || O.exists(VAR.getStaticValue(left, initialScope), v => v === "NaN");
           if (isLeftNan) {
             return O.some({
@@ -265,10 +265,10 @@ export default createRule<[], MessageID>({
             data: { value: context.sourceCode.getText(left) },
           });
         })
-        .with({ type: AST_NODE_TYPES.ConditionalExpression }, ({ alternate, consequent }) => {
+        .with({ type: T.ConditionalExpression }, ({ alternate, consequent }) => {
           return O.orElse(getReportDescriptor(consequent), () => getReportDescriptor(alternate));
         })
-        .with({ type: AST_NODE_TYPES.Identifier }, (n) => {
+        .with({ type: T.Identifier }, (n) => {
           return F.pipe(
             VAR.findVariable(n.name, context.sourceCode.getScope(n)),
             O.flatMap(getVariableInitExpression(0)),

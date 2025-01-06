@@ -4,7 +4,7 @@ import { F, O } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -74,7 +74,7 @@ export default createRule<[], MessageID>({
     };
 
     function isSetupFunction(node: TSESTree.Node) {
-      return node.parent?.type === AST_NODE_TYPES.CallExpression
+      return node.parent?.type === T.CallExpression
         && node.parent.callee !== node
         && isUseEffectLikeCall(node.parent);
     }
@@ -127,7 +127,7 @@ export default createRule<[], MessageID>({
                 return;
               }
               default: {
-                O.match(AST.traverseUpGuard(node, isVariableDeclaratorFromHookCall), {
+                O.match(AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall), {
                   onNone() {
                     const calls = indSetStateCalls.get(pEntry.node) ?? [];
                     indSetStateCalls.set(pEntry.node, [...calls, node]);
@@ -152,30 +152,32 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       Identifier(node) {
-        if (node.parent.type === AST_NODE_TYPES.CallExpression && node.parent.callee === node) return;
+        if (node.parent.type === T.CallExpression && node.parent.callee === node) return;
         if (!isIdFromUseStateCall(node)) return;
         switch (node.parent.type) {
-          case AST_NODE_TYPES.ArrowFunctionExpression: {
+          case T.ArrowFunctionExpression: {
             const parent = node.parent.parent;
-            if (parent.type !== AST_NODE_TYPES.CallExpression) break;
+            if (parent.type !== T.CallExpression) break;
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
             // useEffect(set, []);
             if (!isUseMemoCall(parent)) break;
-            const maybeVd = AST.traverseUpGuard(parent, isVariableDeclaratorFromHookCall);
-            if (O.isNone(maybeVd)) break;
-            const vd = maybeVd.value;
-            const calls = indSetStateCallsInUseEffectArg0.get(vd.init) ?? [];
-            indSetStateCallsInUseEffectArg0.set(vd.init, [...calls, node]);
+            O.match(AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall), {
+              onNone() {},
+              onSome(a) {
+                const calls = indSetStateCallsInUseEffectArg0.get(a.init) ?? [];
+                indSetStateCallsInUseEffectArg0.set(a.init, [...calls, node]);
+              },
+            });
             break;
           }
-          case AST_NODE_TYPES.CallExpression: {
+          case T.CallExpression: {
             if (node !== node.parent.arguments.at(0)) break;
             // const [state, setState] = useState();
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              O.match(AST.traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall), {
+              O.match(AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall), {
                 onNone() {},
                 onSome(vd) {
                   const prevs = indSetStateCallsInUseEffectArg0.get(vd.init) ?? [];
@@ -200,11 +202,11 @@ export default createRule<[], MessageID>({
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
           const node = O.flatMap(VAR.findVariable(id, initialScope), VAR.getVariableNode(0)).pipe(O.getOrNull);
           switch (node?.type) {
-            case AST_NODE_TYPES.ArrowFunctionExpression:
-            case AST_NODE_TYPES.FunctionDeclaration:
-            case AST_NODE_TYPES.FunctionExpression:
+            case T.ArrowFunctionExpression:
+            case T.FunctionDeclaration:
+            case T.FunctionExpression:
               return indSetStateCalls.get(node) ?? [];
-            case AST_NODE_TYPES.CallExpression:
+            case T.CallExpression:
               return indSetStateCallsInUseMemoOrCallback.get(node) ?? indSetStateCallsInUseEffectArg0.get(node) ?? [];
           }
           return [];

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
@@ -16,8 +16,8 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isUnsafeComponentWillMount(node: TSESTree.ClassElement) {
-  return AST.isOneOf([AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition])(node)
-    && node.key.type === AST_NODE_TYPES.Identifier
+  return AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node)
+    && node.key.type === T.Identifier
     && node.key.name === "UNSAFE_componentWillMount";
 }
 

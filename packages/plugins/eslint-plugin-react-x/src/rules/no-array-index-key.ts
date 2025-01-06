@@ -3,7 +3,7 @@ import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from 
 import { isNullable, O, or } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -47,11 +47,11 @@ const iteratorFunctionIndexParamPosition = new Map<string, number>([
 // #region Helpers
 
 const isToStringCall = isMatching({
-  type: AST_NODE_TYPES.CallExpression,
+  type: T.CallExpression,
   callee: {
-    type: AST_NODE_TYPES.MemberExpression,
+    type: T.MemberExpression,
     property: {
-      type: AST_NODE_TYPES.Identifier,
+      type: T.Identifier,
       name: "toString",
     },
   },
@@ -69,8 +69,8 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   }
   if (!isReactChildrenMethod(callee.property.name)) return false;
   const initialScope = context.sourceCode.getScope(node);
-  if (callee.object.type === AST_NODE_TYPES.Identifier && callee.object.name === "Children") return true;
-  if (callee.object.type === AST_NODE_TYPES.MemberExpression && "name" in callee.object.object) {
+  if (callee.object.type === T.Identifier && callee.object.name === "Children") return true;
+  if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
     return isInitializedFromReact(callee.object.object.name, initialScope, { ...settings, strictImportCheck: true });
   }
   return false;
@@ -78,13 +78,13 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
-  if (callee.type !== AST_NODE_TYPES.MemberExpression) return O.none();
-  if (callee.property.type !== AST_NODE_TYPES.Identifier) return O.none();
+  if (callee.type !== T.MemberExpression) return O.none();
+  if (callee.property.type !== T.Identifier) return O.none();
   const { name } = callee.property;
   if (!iteratorFunctionIndexParamPosition.has(name)) return O.none();
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
   if (!callbackArg) return O.none();
-  if (!AST.isOneOf([AST_NODE_TYPES.ArrowFunctionExpression, AST_NODE_TYPES.FunctionExpression])(callbackArg)) {
+  if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(callbackArg)) {
     return O.none();
   }
   const { params } = callbackArg;
@@ -119,15 +119,15 @@ export default createRule<[], MessageID>({
     const isCreateOrCloneElementCall = or(isCreateElementCall(context), isCloneElementCall(context));
 
     function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-      return node.type === AST_NODE_TYPES.Identifier && indexParamNames.some(O.exists((name) => name === node.name));
+      return node.type === T.Identifier && indexParamNames.some(O.exists((name) => name === node.name));
     }
 
     function getReportDescriptor(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
       // key={bar}
       if (isArrayIndex(node)) return [{ messageId: "noArrayIndexKey", node }];
       // key={`foo-${bar}`} or key={'foo' + bar}
-      if (AST.isOneOf([AST_NODE_TYPES.TemplateLiteral, AST_NODE_TYPES.BinaryExpression])(node)) {
-        const exps = AST_NODE_TYPES.TemplateLiteral === node.type
+      if (AST.isOneOf([T.TemplateLiteral, T.BinaryExpression])(node)) {
+        const exps = T.TemplateLiteral === node.type
           ? node.expressions
           : AST.getIdentifiersFromBinaryExpression(node);
         return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
@@ -144,9 +144,9 @@ export default createRule<[], MessageID>({
       }
       // key={String(bar)}
       const isStringCall = isMatching({
-        type: AST_NODE_TYPES.CallExpression,
+        type: T.CallExpression,
         callee: {
-          type: AST_NODE_TYPES.Identifier,
+          type: T.Identifier,
           name: "String",
         },
       }, node);
@@ -164,7 +164,7 @@ export default createRule<[], MessageID>({
         if (node.arguments.length === 0) return;
         if (!isCreateOrCloneElementCall(node)) return;
         const [_, props] = node.arguments;
-        if (props?.type !== AST_NODE_TYPES.ObjectExpression) return;
+        if (props?.type !== T.ObjectExpression) return;
         for (const prop of props.properties) {
           if (!isMatching({ key: { name: "key" } })(prop)) continue;
           if (!("value" in prop)) continue;
@@ -181,7 +181,7 @@ export default createRule<[], MessageID>({
         if (node.name.name !== "key") return;
         if (indexParamNames.length === 0) return;
         const { value } = node;
-        if (value?.type !== AST_NODE_TYPES.JSXExpressionContainer) return;
+        if (value?.type !== T.JSXExpressionContainer) return;
         const descriptors = getReportDescriptor(value.expression);
         for (const descriptor of descriptors) {
           context.report(descriptor);

@@ -4,7 +4,7 @@ import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
@@ -21,7 +21,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 type MemberExpressionWithObjectName = { object: TSESTree.Identifier } & TSESTree.MemberExpression;
 
 function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
-  return node.object.type === AST_NODE_TYPES.Identifier && "name" in node.object;
+  return node.object.type === T.Identifier && "name" in node.object;
 }
 
 export default createRule<[], MessageID>({
@@ -55,11 +55,12 @@ export default createRule<[], MessageID>({
         const components = Array.from(ctx.getAllComponents(node).values());
         function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
           if (!AST.isFunction(block)) return false;
-          const maybeId = AST.getFunctionIdentifier(block);
-
-          return O.isSome(maybeId)
-            && isComponentName(maybeId.value.name)
-            && components.some((component) => component.node === block);
+          return O.match(AST.getFunctionIdentifier(block), {
+            onNone: () => false,
+            onSome: (id) =>
+              isComponentName(id.name)
+              && components.some((component) => component.node === block),
+          });
         }
 
         for (const [initialScope, memberExpression] of memberExpressionWithNames) {

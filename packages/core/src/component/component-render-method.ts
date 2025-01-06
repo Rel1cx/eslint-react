@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { O } from "@eslint-react/eff";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
@@ -8,14 +8,14 @@ import { isClassComponent } from "./component-collector-legacy";
 
 const isRenderMethodLike = isMatching({
   key: {
-    type: AST_NODE_TYPES.Identifier,
+    type: T.Identifier,
     name: "render",
   },
-  type: P.union(AST_NODE_TYPES.MethodDefinition, AST_NODE_TYPES.PropertyDefinition),
+  type: P.union(T.MethodDefinition, T.PropertyDefinition),
   parent: {
-    type: AST_NODE_TYPES.ClassBody,
+    type: T.ClassBody,
     parent: {
-      type: AST_NODE_TYPES.ClassDeclaration,
+      type: T.ClassDeclaration,
     },
   },
 });
@@ -42,7 +42,7 @@ export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
  * @returns `true` if node is inside class component's render block, `false` if not
  */
 export function isInsideRenderMethod(node: TSESTree.Node) {
-  return O.isSome(AST.traverseUp(node, (node: TSESTree.Node) => {
+  return O.isSome(AST.findParentNode(node, (node: TSESTree.Node) => {
     return isRenderMethodLike(node) && isClassComponent(node.parent.parent);
   }));
 }

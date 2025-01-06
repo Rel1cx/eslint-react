@@ -3,7 +3,7 @@ import { F, O } from "@eslint-react/eff";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**
  * Get the init node of the nth definition of a variable
@@ -28,10 +28,10 @@ export function getVariableNode(at: number) {
       O.flatMapNullable(def => {
         switch (true) {
           case def.type === DefinitionType.FunctionName
-            && def.node.type === AST_NODE_TYPES.FunctionDeclaration:
+            && def.node.type === T.FunctionDeclaration:
             return def.node;
           case def.type === DefinitionType.ClassName
-            && def.node.type === AST_NODE_TYPES.ClassDeclaration:
+            && def.node.type === T.ClassDeclaration:
             return def.node;
           case def.type === DefinitionType.Parameter
             && AST.isFunction(def.node):

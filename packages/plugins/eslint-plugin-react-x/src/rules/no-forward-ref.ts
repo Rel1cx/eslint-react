@@ -4,7 +4,7 @@ import { O } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
@@ -83,13 +83,13 @@ function getComponentPropsFixes(
   const [typeArg0, typeArg1] = typeArguments;
   if (!arg0) return [];
   const fixedArg0Text = match(arg0)
-    .with({ type: AST_NODE_TYPES.Identifier }, (n) => O.some(`...${n.name}`))
-    .with({ type: AST_NODE_TYPES.ObjectPattern }, (n) => O.some(n.properties.map(getText).join(", ")))
+    .with({ type: T.Identifier }, (n) => O.some(`...${n.name}`))
+    .with({ type: T.ObjectPattern }, (n) => O.some(n.properties.map(getText).join(", ")))
     .otherwise(O.none);
   const fixedArg1Text = match(arg1)
     .with(P.nullish, () => O.some("ref"))
-    .with({ type: AST_NODE_TYPES.Identifier, name: "ref" }, () => O.some("ref"))
-    .with({ type: AST_NODE_TYPES.Identifier, name: P.not("ref") }, (n) => O.some(`ref: ${n.name}`))
+    .with({ type: T.Identifier, name: "ref" }, () => O.some("ref"))
+    .with({ type: T.Identifier, name: P.not("ref") }, (n) => O.some(`ref: ${n.name}`))
     .otherwise(O.none);
   if (O.isNone(fixedArg0Text) || O.isNone(fixedArg1Text)) return [];
   const fixedPropsText = fixedArg0Text.value;
