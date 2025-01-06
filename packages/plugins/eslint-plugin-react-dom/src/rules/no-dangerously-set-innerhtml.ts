@@ -31,15 +31,16 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const maybeDanger = JSX.findPropInAttributes(node.openingElement.attributes, initialScope)(
-          "dangerouslySetInnerHTML",
-        );
-        if (O.isSome(maybeDanger)) {
-          context.report({
-            messageId: "noDangerouslySetInnerhtml",
-            node,
-          });
-        }
+        const prop = JSX.findPropInAttributes(node.openingElement.attributes, initialScope)("dangerouslySetInnerHTML");
+        O.match(prop, {
+          onNone() {},
+          onSome(a) {
+            context.report({
+              messageId: "noDangerouslySetInnerhtml",
+              node: a,
+            });
+          },
+        });
       },
     };
   },

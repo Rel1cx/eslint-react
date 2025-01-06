@@ -183,23 +183,6 @@ export function hasCallInFunctionInitPath(callName: string) {
       O.filter(p => p.length > 0),
       O.exists(nodes => {
         return nodes.some(
-          // TODO: Re-evaluate dot notation callName
-          // callName.includes(".")
-          //   ? n => {
-          //     const [objectName, propertyName] = callName.split(".");
-
-          //     return "callee" in n
-          //       && n.callee.type === AST_NODE_TYPES.MemberExpression
-          //       && n.callee.object.type === AST_NODE_TYPES.Identifier
-          //       && n.callee.object.name === objectName
-          //       && n.callee.property.type === AST_NODE_TYPES.Identifier
-          //       && n.callee.property.name === propertyName;
-          //   }
-          //   : n => {
-          //     return "callee" in n
-          //       && n.callee.type === AST_NODE_TYPES.Identifier
-          //       && n.callee.name === callName;
-          //   },
           n => {
             if (n.type !== AST_NODE_TYPES.CallExpression) return false;
             if (n.callee.type === AST_NODE_TYPES.Identifier) return n.callee.name === callName;

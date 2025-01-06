@@ -69,14 +69,17 @@ export default createRule<[], MessageID>({
               O.bind("iter", ({ call }) => AST.traverseUpStop(jsxElement, call, AST.isFunction)),
               O.bind("arg0", ({ call }) => O.fromNullable(call.arguments[0])),
             );
-            for (const { arg0, call, iter } of O.toArray(entry)) {
-              if (AST.unwrapTypeExpression(arg0) !== iter) continue;
-              keyedEntries.set(call, {
-                hasDuplicate: node.value?.type === AST_NODE_TYPES.Literal,
-                keys: [node],
-                root: call,
-              });
-            }
+            O.match(entry, {
+              onNone() {},
+              onSome({ arg0, call, iter }) {
+                if (AST.unwrapTypeExpression(arg0) !== iter) return;
+                keyedEntries.set(call, {
+                  hasDuplicate: node.value?.type === AST_NODE_TYPES.Literal,
+                  keys: [node],
+                  root: call,
+                });
+              },
+            });
           }
         }
       },

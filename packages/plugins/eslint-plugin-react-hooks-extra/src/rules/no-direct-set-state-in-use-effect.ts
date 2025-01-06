@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
 
-    const functionStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
+    const functionStack: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
     const setupFunctionRef = { current: O.none<AST.TSESTreeFunction>() };
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
 
@@ -94,50 +94,59 @@ export default createRule<[], MessageID>({
     }
     return {
       ":function"(node: AST.TSESTreeFunction) {
-        const functionKind = getFunctionKind(node);
-        functionStack.push([node, functionKind]);
-        if (functionKind === "setup") onSetupFunctionEnter(node);
+        const kind = getFunctionKind(node);
+        functionStack.push({ kind, node });
+        if (kind === "setup") {
+          onSetupFunctionEnter(node);
+        }
       },
       ":function:exit"(node: AST.TSESTreeFunction) {
-        const [_, functionKind] = functionStack.at(-1) ?? [];
+        const { kind } = functionStack.at(-1) ?? {};
+        if (kind === "setup") {
+          onSetupFunctionExit(node);
+        }
         functionStack.pop();
-        if (functionKind === "setup") onSetupFunctionExit(node);
       },
       CallExpression(node) {
-        const effectFn = O.getOrNull(setupFunctionRef.current);
-        const [parentFn, parentFnKind] = functionStack.at(-1) ?? [];
-        if (parentFn?.async) return;
+        const setupFunction = O.getOrNull(setupFunctionRef.current);
+        const pEntry = functionStack.at(-1);
+        if (pEntry?.node.async) return;
         match(getCallKind(node))
           .with("setState", () => {
-            if (!parentFn) return;
-            if (parentFn !== effectFn && parentFnKind !== "immediate") {
-              const maybeVd = AST.traverseUpGuard(node, isVariableDeclaratorFromHookCall);
-              if (O.isSome(maybeVd)) {
-                const vd = maybeVd.value;
-                const calls = indSetStateCallsInUseMemoOrCallback.get(vd.init) ?? [];
-                indSetStateCallsInUseMemoOrCallback.set(vd.init, [...calls, node]);
+            if (!pEntry) return;
+            switch (true) {
+              case pEntry.node === setupFunction
+                || pEntry.kind === "immediate": {
+                context.report({
+                  messageId: "noDirectSetStateInUseEffect",
+                  node,
+                  data: {
+                    name: context.sourceCode.getText(node.callee),
+                  },
+                });
                 return;
               }
-              const calls = indSetStateCalls.get(parentFn) ?? [];
-              indSetStateCalls.set(parentFn, [...calls, node]);
-              return;
+              default: {
+                O.match(AST.traverseUpGuard(node, isVariableDeclaratorFromHookCall), {
+                  onNone() {
+                    const calls = indSetStateCalls.get(pEntry.node) ?? [];
+                    indSetStateCalls.set(pEntry.node, [...calls, node]);
+                  },
+                  onSome(a) {
+                    const prevs = indSetStateCallsInUseMemoOrCallback.get(a.init) ?? [];
+                    indSetStateCallsInUseMemoOrCallback.set(a.init, [...prevs, node]);
+                  },
+                });
+              }
             }
-            context.report({
-              messageId: "noDirectSetStateInUseEffect",
-              node,
-              data: { name: context.sourceCode.getText(node.callee) },
-            });
           })
           // .with(P.union("useMemo", "useCallback"), () => {})
           .with("useEffect", () => {
-            const [firstArg] = node.arguments;
-            if (AST.isFunction(firstArg)) return;
-            const identifiers = AST.getNestedIdentifiers(node);
-            setupFunctionIdentifiers.push(...identifiers);
+            if (AST.isFunction(node.arguments.at(0))) return;
+            setupFunctionIdentifiers.push(...AST.getNestedIdentifiers(node));
           })
           .with("other", () => {
-            const isInSetupFunction = effectFn === parentFn;
-            if (!isInSetupFunction) return;
+            if (pEntry?.node !== setupFunction) return;
             indFunctionCalls.push(node);
           })
           .otherwise(F.constVoid);
@@ -161,23 +170,24 @@ export default createRule<[], MessageID>({
             break;
           }
           case AST_NODE_TYPES.CallExpression: {
-            const [firstArg] = node.parent.arguments;
-            if (node !== firstArg) break;
+            if (node !== node.parent.arguments.at(0)) break;
             // const [state, setState] = useState();
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              const maybeVd = AST.traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall);
-              if (O.isNone(maybeVd)) break;
-              const vd = maybeVd.value;
-              const calls = indSetStateCallsInUseEffectArg0.get(vd.init) ?? [];
-              indSetStateCallsInUseEffectArg0.set(vd.init, [...calls, node]);
+              O.match(AST.traverseUpGuard(node.parent, isVariableDeclaratorFromHookCall), {
+                onNone() {},
+                onSome(vd) {
+                  const prevs = indSetStateCallsInUseEffectArg0.get(vd.init) ?? [];
+                  indSetStateCallsInUseEffectArg0.set(vd.init, [...prevs, node]);
+                },
+              });
             }
             // const [state, setState] = useState();
             // useEffect(setState);
             if (isUseEffectLikeCall(node.parent)) {
-              const calls = indSetStateCallsInUseEffectArg0.get(node.parent) ?? [];
-              indSetStateCallsInUseEffectSetup.set(node.parent, [...calls, node]);
+              const prevs = indSetStateCallsInUseEffectArg0.get(node.parent) ?? [];
+              indSetStateCallsInUseEffectSetup.set(node.parent, [...prevs, node]);
             }
             break;
           }

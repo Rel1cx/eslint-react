@@ -66,25 +66,25 @@ export function useComponentCollector(
 ) {
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
-  const functionStack: [
-    key: string,
-    node: AST.TSESTreeFunction,
-    isComponent: boolean,
-    hookCalls: TSESTree.CallExpression[],
-  ][] = [];
+  const functionStack: {
+    key: string;
+    node: AST.TSESTreeFunction;
+    hookCalls: TSESTree.CallExpression[];
+    isComponent: boolean;
+  }[] = [];
   const getCurrentFunction = () => O.fromNullable(functionStack.at(-1));
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const key = getId();
-    functionStack.push([key, node, false, []]);
+    functionStack.push({ key, node, hookCalls: [], isComponent: false });
   };
   const onFunctionExit = () => {
-    const [key, fn, isComponent] = functionStack.at(-1) ?? [];
-    if (!key || !fn || !isComponent) return functionStack.pop();
-    const shouldDrop = AST.getNestedReturnStatements(fn.body)
+    const { key, node, isComponent } = functionStack.at(-1) ?? {};
+    if (!key || !node || !isComponent) return functionStack.pop();
+    const shouldDrop = AST.getNestedReturnStatements(node.body)
       .slice()
       .reverse()
       .some(r => {
-        return context.sourceCode.getScope(r).block === fn
+        return context.sourceCode.getScope(r).block === node
           && r.argument !== null
           && !JSX.isJSXValue(r.argument, jsxCtx, hint);
       });
@@ -106,83 +106,90 @@ export function useComponentCollector(
     ":function[type]": onFunctionEnter,
     ":function[type]:exit": onFunctionExit,
     "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [_key, currentFn, _isComponent, hookCalls] = maybeCurrentFn.value;
-      const { body } = currentFn;
-      const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && JSX.isJSXValue(body, jsxCtx, hint)
-        && hasValidHierarchy(currentFn, context, hint);
-      if (!isComponent) return;
-      const initPath = AST.getFunctionInitPath(currentFn);
-      const id = getFunctionComponentIdentifier(currentFn, context);
-      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      const key = getId();
-      components.set(key, {
-        _: key,
-        id,
-        kind: "function",
-        name,
-        node: currentFn,
-        displayName: O.none(),
-        flag: getComponentFlag(initPath),
-        hint,
-        hookCalls,
-        initPath,
+      O.match(getCurrentFunction(), {
+        onNone() {},
+        onSome(a) {
+          const { body } = a.node;
+          const isComponent = hasNoneOrValidComponentName(a.node, context)
+            && JSX.isJSXValue(body, jsxCtx, hint)
+            && hasValidHierarchy(a.node, context, hint);
+          if (!isComponent) return;
+          const initPath = AST.getFunctionInitPath(a.node);
+          const id = getFunctionComponentIdentifier(a.node, context);
+          const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
+          const key = getId();
+          components.set(key, {
+            _: key,
+            id,
+            kind: "function",
+            name,
+            node: a.node,
+            displayName: O.none(),
+            flag: getComponentFlag(initPath),
+            hint,
+            hookCalls: a.hookCalls,
+            initPath,
+          });
+        },
       });
     },
     "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
-      node: TSESTree.Node,
+      node: TSESTree.AssignmentExpression & { left: TSESTree.MemberExpression },
     ) {
-      if (node.type !== AST_NODE_TYPES.AssignmentExpression) return;
       const { left, right } = node;
-      if (left.type !== AST_NODE_TYPES.MemberExpression) return;
-      const maybeComponentName = match(left.object)
+      const componentName = match(left.object)
         .with({ type: AST_NODE_TYPES.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
-      if (O.isNone(maybeComponentName)) return;
-      const component = Array
-        .from(components.values())
-        .findLast(({ name }) => O.exists(name, n => n === maybeComponentName.value));
-      if (!component) return;
-      components.set(component._, {
-        ...component,
-        displayName: O.some(right),
+      O.match(componentName, {
+        onNone() {},
+        onSome(a) {
+          const component = Array
+            .from(components.values())
+            .findLast(({ name }) => O.exists(name, n => n === a));
+          if (!component) return;
+          components.set(component._, {
+            ...component,
+            displayName: O.some(right),
+          });
+        },
       });
     },
     "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
       if (!isReactHookCall(node)) return;
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [key, currentFn, isComponent, hookCalls] = maybeCurrentFn.value;
-      functionStack.pop();
-      functionStack.push([key, currentFn, isComponent, [...hookCalls, node]]);
+      O.match(getCurrentFunction(), {
+        onNone() {},
+        onSome(a) {
+          functionStack.pop();
+          functionStack.push({ ...a, hookCalls: [...a.hookCalls, node] });
+        },
+      });
     },
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
-      const maybeCurrentFn = getCurrentFunction();
-      if (O.isNone(maybeCurrentFn)) return;
-      const [key, currentFn, isKnown, hookCalls] = maybeCurrentFn.value;
-      if (isKnown) return;
-      const isComponent = hasNoneOrValidComponentName(currentFn, context)
-        && JSX.isJSXValue(node.argument, jsxCtx, hint)
-        && hasValidHierarchy(currentFn, context, hint);
-      if (!isComponent) return;
-      functionStack.pop();
-      functionStack.push([key, currentFn, true, []]);
-      const initPath = AST.getFunctionInitPath(currentFn);
-      const id = getFunctionComponentIdentifier(currentFn, context);
-      const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
-      components.set(key, {
-        _: key,
-        id,
-        kind: "function",
-        name,
-        node: currentFn,
-        displayName: O.none(),
-        flag: getComponentFlag(initPath),
-        hint,
-        hookCalls,
-        initPath,
+      O.match(getCurrentFunction(), {
+        onNone() {},
+        onSome(a) {
+          const isComponent = hasNoneOrValidComponentName(a.node, context)
+            && JSX.isJSXValue(node.argument, jsxCtx, hint)
+            && hasValidHierarchy(a.node, context, hint);
+          if (!isComponent) return;
+          functionStack.pop();
+          functionStack.push({ ...a, isComponent });
+          const initPath = AST.getFunctionInitPath(a.node);
+          const id = getFunctionComponentIdentifier(a.node, context);
+          const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
+          components.set(a.key, {
+            _: a.key,
+            id,
+            kind: "function",
+            name,
+            node: a.node,
+            displayName: O.none(),
+            flag: getComponentFlag(initPath),
+            hint,
+            hookCalls: a.hookCalls,
+            initPath,
+          });
+        },
       });
     },
   } as const satisfies ESLintUtils.RuleListener;

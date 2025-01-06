@@ -41,26 +41,29 @@ export default createRule<[], MessageID>({
         if (elementName !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const maybeSandboxAttribute = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
-        if (O.isNone(maybeSandboxAttribute)) return;
-        const isSafeSandboxValue = !F.pipe(
-          JSX.getPropValue(maybeSandboxAttribute.value, context.sourceCode.getScope(maybeSandboxAttribute.value)),
-          O.flatMapNullable(v =>
-            match(v)
-              .with(P.string, F.identity)
-              .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
-              .otherwise(F.constNull)
-          ),
-          O.filter(isString),
-          O.map((value) => value.split(" ")),
-          O.exists(values =>
-            unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
-          ),
-        );
-        if (isSafeSandboxValue) return;
-        context.report({
-          messageId: "noUnsafeIframeSandbox",
-          node: maybeSandboxAttribute.value,
+        O.match(JSX.findPropInAttributes(attributes, initialScope)("sandbox"), {
+          onNone() {},
+          onSome(a) {
+            const isSafeSandboxValue = !F.pipe(
+              JSX.getPropValue(a, context.sourceCode.getScope(a)),
+              O.flatMapNullable(v =>
+                match(v)
+                  .with(P.string, F.identity)
+                  .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
+                  .otherwise(F.constNull)
+              ),
+              O.filter(isString),
+              O.map((value) => value.split(" ")),
+              O.exists(values =>
+                unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
+              ),
+            );
+            if (isSafeSandboxValue) return;
+            context.report({
+              messageId: "noUnsafeIframeSandbox",
+              node: a,
+            });
+          },
         });
       },
     };

@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { Equal, F, O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
@@ -90,7 +90,7 @@ export function isNodeValueEqual(
           );
         }
         default: {
-          return O.isSome(aVar) && O.isSome(bVar) && Equal.equals(aVar, bVar);
+          return O.isSome(aVar) && O.isSome(bVar) && aVar.value === bVar.value;
         }
       }
     }

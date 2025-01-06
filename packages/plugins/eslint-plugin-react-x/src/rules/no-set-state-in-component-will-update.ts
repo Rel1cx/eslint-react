@@ -45,9 +45,16 @@ export default createRule<[], MessageID>({
         O.Do,
         O.bind("clazz", () => AST.traverseUpGuard(node, isClassComponent)),
         O.bind("method", ({ clazz }) => AST.traverseUpStop(node, clazz, isComponentWillUpdate)),
+        O.bind("methodScope", ({ method }) => O.some(context.sourceCode.getScope(method))),
         O.bind("upperScope", () => O.fromNullable(context.sourceCode.getScope(node).upper)),
-        O.filter(({ clazz, method, upperScope }) =>
-          method.parent === clazz.body && upperScope === context.sourceCode.getScope(method)
+        O.filter(({
+          clazz,
+          method,
+          methodScope,
+          upperScope,
+        }) =>
+          method.parent === clazz.body
+          && upperScope === methodScope
         ),
         O.map(() => ({
           messageId: "noSetStateInComponentWillUpdate",

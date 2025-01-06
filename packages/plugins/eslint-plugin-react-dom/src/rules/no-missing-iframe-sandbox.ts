@@ -54,25 +54,26 @@ export default createRule<[], MessageID>({
         if (elementName !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const maybeSandboxAttribute = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
-        if (O.isNone(maybeSandboxAttribute)) {
-          context.report({
-            messageId: "noMissingIframeSandbox",
-            node: node.openingElement,
-          });
-          return;
-        }
-        const sandboxAttribute = maybeSandboxAttribute.value;
-        const hasValidSandbox = F.pipe(
-          JSX.getPropValue(sandboxAttribute, context.sourceCode.getScope(sandboxAttribute)),
-          O.filter(isString),
-          O.map((value) => value.split(" ")),
-          O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
-        );
-        if (hasValidSandbox) return;
-        context.report({
-          messageId: "noMissingIframeSandbox",
-          node: sandboxAttribute,
+        O.match(JSX.findPropInAttributes(attributes, initialScope)("sandbox"), {
+          onNone() {
+            context.report({
+              messageId: "noMissingIframeSandbox",
+              node: node.openingElement,
+            });
+          },
+          onSome(a) {
+            const hasValidSandbox = F.pipe(
+              JSX.getPropValue(a, context.sourceCode.getScope(a)),
+              O.filter(isString),
+              O.map((value) => value.split(" ")),
+              O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
+            );
+            if (hasValidSandbox) return;
+            context.report({
+              messageId: "noMissingIframeSandbox",
+              node: a,
+            });
+          },
         });
       },
     };
