@@ -1,3 +1,7 @@
+## v1.23.2 (2025-01-07)
+
+No notable changes in this release.
+
 ## v1.23.1 (2025-01-03)
 
 ### 🐞 Fixes

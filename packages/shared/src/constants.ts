@@ -57,7 +57,7 @@ export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\
 /**
  * @internal
  */
-export const HOST_HTML_COMPONENT_TYPES = [
+export const DOM_HTML_COMPONENT_TYPES = [
   "aside",
   "audio",
   "b",
@@ -165,7 +165,7 @@ export const HOST_HTML_COMPONENT_TYPES = [
 /**
  * @internal
  */
-export const HOST_SVG_COMPONENT_TYPES = [
+export const DOM_SVG_COMPONENT_TYPES = [
   "a",
   "animate",
   "animateMotion",
