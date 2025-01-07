@@ -62,13 +62,17 @@ export default createRule<[], MessageID>({
     function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
       switch (node.type) {
         case T.ConditionalExpression:
-          if (!("consequent" in node)) return O.none();
+          if (!("consequent" in node)) {
+            return O.none();
+          }
           return O.orElse(checkIteratorElement(node.consequent), () => checkIteratorElement(node.alternate));
         case T.JSXElement:
         case T.JSXFragment:
           return checkIteratorElement(node);
         case T.LogicalExpression:
-          if (!("left" in node)) return O.none();
+          if (!("left" in node)) {
+            return O.none();
+          }
           return O.orElse(checkIteratorElement(node.left), () => checkIteratorElement(node.right));
         default:
           return O.none();
@@ -78,7 +82,9 @@ export default createRule<[], MessageID>({
     function checkBlockStatement(node: TSESTree.BlockStatement) {
       return AST.getNestedReturnStatements(node)
         .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
-          if (!statement.argument) return acc;
+          if (!statement.argument) {
+            return acc;
+          }
           const mbDescriptor = checkIteratorElement(statement.argument);
           return O.isNone(mbDescriptor)
             ? acc
@@ -88,9 +94,13 @@ export default createRule<[], MessageID>({
 
     return {
       ArrayExpression(node) {
-        if (state.isWithinChildrenToArray) return;
+        if (state.isWithinChildrenToArray) {
+          return;
+        }
         const elements = node.elements.filter(AST.is(T.JSXElement));
-        if (elements.length === 0) return;
+        if (elements.length === 0) {
+          return;
+        }
         const initialScope = context.sourceCode.getScope(node);
         for (const element of elements) {
           if (!JSX.hasProp(element.openingElement.attributes, "key", initialScope)) {
@@ -103,7 +113,9 @@ export default createRule<[], MessageID>({
       },
       CallExpression(node) {
         state.isWithinChildrenToArray ||= isChildrenToArrayCall(node, context);
-        if (state.isWithinChildrenToArray) return;
+        if (state.isWithinChildrenToArray) {
+          return;
+        }
         const isMapCall = AST.isMapCallLoose(node);
         const isArrayFromCall = isMatching({
           type: T.CallExpression,
@@ -114,9 +126,13 @@ export default createRule<[], MessageID>({
             },
           },
         }, node);
-        if (!isMapCall && !isArrayFromCall) return;
+        if (!isMapCall && !isArrayFromCall) {
+          return;
+        }
         const fn = node.arguments[isMapCall ? 0 : 1];
-        if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(fn)) return;
+        if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(fn)) {
+          return;
+        }
         if (fn.body.type === T.BlockStatement) {
           for (const descriptor of checkBlockStatement(fn.body)) {
             context.report(descriptor);
@@ -126,11 +142,15 @@ export default createRule<[], MessageID>({
         O.map(checkExpression(fn.body), context.report);
       },
       "CallExpression:exit"(node) {
-        if (!isChildrenToArrayCall(node, context)) return;
+        if (!isChildrenToArrayCall(node, context)) {
+          return;
+        }
         state.isWithinChildrenToArray = false;
       },
       JSXFragment(node) {
-        if (state.isWithinChildrenToArray) return;
+        if (state.isWithinChildrenToArray) {
+          return;
+        }
         if (node.parent.type === T.ArrayExpression) {
           context.report({
             messageId: "noMissingKeyWithFragment",

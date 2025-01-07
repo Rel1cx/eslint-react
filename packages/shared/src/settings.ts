@@ -77,8 +77,12 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
     })),
     components: additionalComponents.reduce((acc, component) => {
       const { name, as, attributes = [], selector } = component;
-      if (!name || !as || selector || attributes.length > 0) return acc;
-      if (!/^[\w-]+$/u.test(name)) return acc;
+      if (!name || !as || selector || attributes.length > 0) {
+        return acc;
+      }
+      if (!/^[\w-]+$/u.test(name)) {
+        return acc;
+      }
       return acc.set(name, as);
     }, new Map<string, string>()),
     version: match(settings.version)

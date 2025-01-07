@@ -43,7 +43,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
+    if (!/use\w*Effect/u.test(context.sourceCode.text)) {
+      return {};
+    }
     const settings = getSettingsFromContext(context);
     const additionalHooks = settings.additionalHooks ?? {};
 
@@ -115,10 +117,14 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         const setupFunction = O.getOrNull(setupFunctionRef.current);
         const pEntry = functionStack.at(-1);
-        if (pEntry?.node.async) return;
+        if (pEntry?.node.async) {
+          return;
+        }
         match(getCallKind(node))
           .with("setState", () => {
-            if (!pEntry) return;
+            if (!pEntry) {
+              return;
+            }
             switch (true) {
               case pEntry.node === setupFunction
                 || pEntry.kind === "immediate": {
@@ -146,41 +152,59 @@ export default createRule<[], MessageID>({
           })
           // .with(P.union("useMemo", "useCallback"), () => {})
           .with("useLayoutEffect", () => {
-            if (AST.isFunction(node.arguments.at(0))) return;
+            if (AST.isFunction(node.arguments.at(0))) {
+              return;
+            }
             setupFunctionIdentifiers.push(...AST.getNestedIdentifiers(node));
           })
           .with("other", () => {
-            if (pEntry?.node !== setupFunction) return;
+            if (pEntry?.node !== setupFunction) {
+              return;
+            }
             indFunctionCalls.push(node);
           })
           .otherwise(F.constVoid);
       },
       Identifier(node) {
-        if (node.parent.type === T.CallExpression && node.parent.callee === node) return;
-        if (!isIdFromUseStateCall(node)) return;
+        if (node.parent.type === T.CallExpression && node.parent.callee === node) {
+          return;
+        }
+        if (!isIdFromUseStateCall(node)) {
+          return;
+        }
         switch (node.parent.type) {
           case T.ArrowFunctionExpression: {
             const parent = node.parent.parent;
-            if (parent.type !== T.CallExpression) break;
+            if (parent.type !== T.CallExpression) {
+              break;
+            }
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
             // useLayoutEffect(set, []);
-            if (!isUseMemoCall(parent)) break;
+            if (!isUseMemoCall(parent)) {
+              break;
+            }
             const mbVariableDeclarator = AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall);
-            if (O.isNone(mbVariableDeclarator)) break;
+            if (O.isNone(mbVariableDeclarator)) {
+              break;
+            }
             const variableDeclarator = mbVariableDeclarator.value;
             const calls = indSetStateCallsInUseLayoutEffectArg0.get(variableDeclarator.init) ?? [];
             indSetStateCallsInUseLayoutEffectArg0.set(variableDeclarator.init, [...calls, node]);
             break;
           }
           case T.CallExpression: {
-            if (node !== node.parent.arguments.at(0)) break;
+            if (node !== node.parent.arguments.at(0)) {
+              break;
+            }
             // const [state, setState] = useState();
             // const set = useCallback(setState, []);
             // useLayoutEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
               const mbVariableDeclarator = AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall);
-              if (O.isNone(mbVariableDeclarator)) break;
+              if (O.isNone(mbVariableDeclarator)) {
+                break;
+              }
               const variableDeclarator = mbVariableDeclarator.value;
               const prevs = indSetStateCallsInUseLayoutEffectArg0.get(variableDeclarator.init) ?? [];
               indSetStateCallsInUseLayoutEffectArg0.set(variableDeclarator.init, [...prevs, node]);
@@ -222,7 +246,9 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { callee } of indFunctionCalls) {
-          if (!("name" in callee)) continue;
+          if (!("name" in callee)) {
+            continue;
+          }
           const { name } = callee;
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
           for (const setStateCall of setStateCalls) {

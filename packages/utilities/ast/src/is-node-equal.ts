@@ -27,9 +27,15 @@ export const isNodeEqual: {
       return a.value.raw === b.value.raw;
     case a.type === T.TemplateLiteral
       && b.type === T.TemplateLiteral:
-      if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) return false;
-      if (!zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) return false;
-      if (!zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) return false;
+      if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) {
+        return false;
+      }
+      if (!zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) {
+        return false;
+      }
+      if (!zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) {
+        return false;
+      }
       return true;
     case a.type === T.Identifier
       && b.type === T.Identifier:
@@ -42,8 +48,12 @@ export const isNodeEqual: {
       return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
     case a.type === T.JSXAttribute
       && b.type === T.JSXAttribute: {
-      if (a.name.name !== b.name.name) return false;
-      if (a.value === null || b.value === null) return a.value === b.value;
+      if (a.name.name !== b.name.name) {
+        return false;
+      }
+      if (a.value === null || b.value === null) {
+        return a.value === b.value;
+      }
       return isNodeEqual(a.value, b.value);
     }
     case a.type === T.ThisExpression

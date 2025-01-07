@@ -19,8 +19,12 @@ function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
-  if (value?.type !== T.JSXExpressionContainer) return false;
-  if (value.expression.type === T.Literal) return isString(value.expression.value);
+  if (value?.type !== T.JSXExpressionContainer) {
+    return false;
+  }
+  if (value.expression.type === T.Literal) {
+    return isString(value.expression.value);
+  }
 
   return value.expression.type === T.TemplateLiteral;
 }
@@ -41,7 +45,9 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXAttribute(node) {
-        if (node.name.name !== "ref") return;
+        if (node.name.name !== "ref") {
+          return;
+        }
         if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
           context.report({
             messageId: "noStringRefs",

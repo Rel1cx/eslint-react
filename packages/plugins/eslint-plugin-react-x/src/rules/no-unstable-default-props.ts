@@ -51,7 +51,9 @@ export default createRule<[], MessageID>({
         for (const { node: component } of components.values()) {
           const { params } = component;
           const [props] = params;
-          if (!props) continue;
+          if (!props) {
+            continue;
+          }
           const properties = match(props)
             .with({ type: T.ObjectPattern }, ({ properties }) => properties)
             .with({ type: T.Identifier }, ({ name }) => {
@@ -61,7 +63,9 @@ export default createRule<[], MessageID>({
             })
             .otherwise(() => []);
           for (const prop of properties) {
-            if (prop.type !== T.Property || prop.value.type !== T.AssignmentPattern) continue;
+            if (prop.type !== T.Property || prop.value.type !== T.AssignmentPattern) {
+              continue;
+            }
             const { value } = prop;
             const { right } = value;
             const initialScope = context.sourceCode.getScope(value);
@@ -70,8 +74,12 @@ export default createRule<[], MessageID>({
               initialScope,
               VAR.ValueConstructionHint.StrictCallExpression,
             );
-            if (construction.kind === "None") continue;
-            if (isReactHookCall(construction.node)) continue;
+            if (construction.kind === "None") {
+              continue;
+            }
+            if (isReactHookCall(construction.node)) {
+              continue;
+            }
             const forbiddenType = AST.toReadableNodeType(right);
             context.report({
               messageId: "noUnstableDefaultProps",
@@ -85,7 +93,9 @@ export default createRule<[], MessageID>({
       },
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
         const mbEntry = ctx.getCurrentFunction();
-        if (O.isNone(mbEntry)) return;
+        if (O.isNone(mbEntry)) {
+          return;
+        }
         const entry = mbEntry.value;
         const prevs = declarators.get(entry.node) ?? [];
         declarators.set(entry.node, [...prevs, node]);

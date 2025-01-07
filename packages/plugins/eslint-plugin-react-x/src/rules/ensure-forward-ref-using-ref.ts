@@ -30,11 +30,17 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isForwardRefCall(node, context)) return;
+        if (!isForwardRefCall(node, context)) {
+          return;
+        }
         const [component] = node.arguments;
-        if (!component || !AST.isFunction(component)) return;
+        if (!component || !AST.isFunction(component)) {
+          return;
+        }
         const [_, ref] = component.params;
-        if (ref) return;
+        if (ref) {
+          return;
+        }
         context.report({
           messageId: "ensureForwardRefUsingRef",
           node: component,

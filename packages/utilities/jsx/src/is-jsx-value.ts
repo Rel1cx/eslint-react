@@ -52,7 +52,9 @@ export function isJSXValue(
   jsxCtx: { getScope: (node: TSESTree.Node) => Scope },
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
-  if (!node) return false;
+  if (!node) {
+    return false;
+  }
   return match<typeof node, boolean>(node)
     .with({ type: T.JSXElement }, F.constTrue)
     .with({ type: T.JSXFragment }, F.constTrue)
@@ -68,13 +70,17 @@ export function isJSXValue(
     })
     .with({ type: T.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
     .with({ type: T.ArrayExpression }, (node) => {
-      if (hint & JSXValueHint.StrictArray) return node.elements.every((n) => isJSXValue(n, jsxCtx, hint));
+      if (hint & JSXValueHint.StrictArray) {
+        return node.elements.every((n) => isJSXValue(n, jsxCtx, hint));
+      }
       return node.elements.some((n) => isJSXValue(n, jsxCtx, hint));
     })
     .with({ type: T.ConditionalExpression }, (node) => {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
-          if (node.consequent.length === 0) return !(hint & JSXValueHint.SkipEmptyArray);
+          if (node.consequent.length === 0) {
+            return !(hint & JSXValueHint.SkipEmptyArray);
+          }
           if (hint & JSXValueHint.StrictArray) {
             return node.consequent.every((n: TSESTree.Expression) => isJSXValue(n, jsxCtx, hint));
           }
@@ -101,7 +107,9 @@ export function isJSXValue(
       return isJSXValue(exp, jsxCtx, hint);
     })
     .with({ type: T.CallExpression }, (node) => {
-      if (hint & JSXValueHint.SkipCreateElement) return false;
+      if (hint & JSXValueHint.SkipCreateElement) {
+        return false;
+      }
       return match(node.callee)
         .with({ type: T.Identifier, name: "createElement" }, F.constTrue)
         .with({ type: T.MemberExpression, property: { name: "createElement" } }, F.constTrue)
@@ -109,8 +117,12 @@ export function isJSXValue(
     })
     .with({ type: T.Identifier }, (node) => {
       const { name } = node;
-      if (name === "undefined") return !(hint & JSXValueHint.SkipUndefinedLiteral);
-      if (AST.isJSXTagNameExpression(node)) return true;
+      if (name === "undefined") {
+        return !(hint & JSXValueHint.SkipUndefinedLiteral);
+      }
+      if (AST.isJSXTagNameExpression(node)) {
+        return true;
+      }
       const initialScope = jsxCtx.getScope(node);
       return F.pipe(
         VAR.findVariable(name, initialScope),

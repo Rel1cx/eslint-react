@@ -197,7 +197,8 @@ export function birecord<const T extends Record<any, any>>(
 }
 
 export class BiRecord<const T extends Record<any, any>> {
-  constructor(public original: T, public reversed = reverse(original)) {}
+  constructor(public original: T, public reversed = reverse(original)) {
+  }
   get<U extends keyof T | T[keyof T]>(
     key: U,
   ): U extends keyof T ? T[U] : U extends T[keyof T] ? Reverse<T>[U] : unknown {

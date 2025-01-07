@@ -79,7 +79,9 @@ export function useComponentCollector(
   };
   const onFunctionExit = () => {
     const { key, node, isComponent } = functionEntries.at(-1) ?? {};
-    if (!key || !node || !isComponent) return functionEntries.pop();
+    if (!key || !node || !isComponent) {
+      return functionEntries.pop();
+    }
     const shouldDrop = AST.getNestedReturnStatements(node.body)
       .slice()
       .reverse()
@@ -88,7 +90,9 @@ export function useComponentCollector(
           && r.argument !== null
           && !JSX.isJSXValue(r.argument, jsxCtx, hint);
       });
-    if (shouldDrop) components.delete(key);
+    if (shouldDrop) {
+      components.delete(key);
+    }
     return functionEntries.pop();
   };
 
@@ -107,13 +111,17 @@ export function useComponentCollector(
     ":function[type]:exit": onFunctionExit,
     "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
       const mbEntry = getCurrentFunction();
-      if (O.isNone(mbEntry)) return;
+      if (O.isNone(mbEntry)) {
+        return;
+      }
       const entry = mbEntry.value;
       const { body } = entry.node;
       const isComponent = hasNoneOrValidComponentName(entry.node, context)
         && JSX.isJSXValue(body, jsxCtx, hint)
         && hasValidHierarchy(entry.node, context, hint);
-      if (!isComponent) return;
+      if (!isComponent) {
+        return;
+      }
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentIdentifier(entry.node, context);
       const name = O.flatMapNullable(id, getComponentNameFromIdentifier);
@@ -138,33 +146,45 @@ export function useComponentCollector(
       const mbComponentName = match(left.object)
         .with({ type: T.Identifier }, n => O.some(n.name))
         .otherwise(O.none);
-      if (O.isNone(mbComponentName)) return;
+      if (O.isNone(mbComponentName)) {
+        return;
+      }
       const componentName = mbComponentName.value;
       const component = Array
         .from(components.values())
         .findLast(({ name }) => O.exists(name, n => n === componentName));
-      if (!component) return;
+      if (!component) {
+        return;
+      }
       components.set(component._, {
         ...component,
         displayName: O.some(right),
       });
     },
     "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
-      if (!isReactHookCall(node)) return;
+      if (!isReactHookCall(node)) {
+        return;
+      }
       const mbEntry = getCurrentFunction();
-      if (O.isNone(mbEntry)) return;
+      if (O.isNone(mbEntry)) {
+        return;
+      }
       const entry = mbEntry.value;
       functionEntries.pop();
       functionEntries.push({ ...entry, hookCalls: [...entry.hookCalls, node] });
     },
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const mbEntry = getCurrentFunction();
-      if (O.isNone(mbEntry)) return;
+      if (O.isNone(mbEntry)) {
+        return;
+      }
       const entry = mbEntry.value;
       const isComponent = hasNoneOrValidComponentName(entry.node, context)
         && JSX.isJSXValue(node.argument, jsxCtx, hint)
         && hasValidHierarchy(entry.node, context, hint);
-      if (!isComponent) return;
+      if (!isComponent) {
+        return;
+      }
       functionEntries.pop();
       functionEntries.push({ ...entry, isComponent });
       const initPath = AST.getFunctionInitPath(entry.node);

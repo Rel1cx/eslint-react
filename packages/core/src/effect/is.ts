@@ -15,9 +15,13 @@ export function isSetupFunction(node: TSESTree.Node) {
 
 export function isCleanupFunction(node: TSESTree.Node) {
   const nearestRet = O.getOrNull(AST.findParentNodeGuard(node, AST.is(T.ReturnStatement)));
-  if (!nearestRet) return false;
+  if (!nearestRet) {
+    return false;
+  }
   const nearestFunction = O.getOrNull(AST.findParentNodeGuard(node, AST.isFunction));
   const nearestFunctionOfRet = O.getOrNull(AST.findParentNodeGuard(nearestRet, AST.isFunction));
-  if (!nearestFunction || !nearestFunctionOfRet) return false;
+  if (!nearestFunction || !nearestFunctionOfRet) {
+    return false;
+  }
   return nearestFunction === nearestFunctionOfRet && isSetupFunction(nearestFunction);
 }

@@ -51,7 +51,9 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const elementName = getElementRepresentName(node.openingElement, context);
-        if (elementName !== "iframe") return;
+        if (elementName !== "iframe") {
+          return;
+        }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
         const mbProp = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
@@ -69,7 +71,9 @@ export default createRule<[], MessageID>({
           O.map((value) => value.split(" ")),
           O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
         );
-        if (hasValidSandbox) return;
+        if (hasValidSandbox) {
+          return;
+        }
         context.report({
           messageId: "noMissingIframeSandbox",
           node: prop,

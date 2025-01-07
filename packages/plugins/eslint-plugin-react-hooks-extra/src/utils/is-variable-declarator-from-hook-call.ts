@@ -13,9 +13,15 @@ export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
   }
   & TSESTree.VariableDeclarator
 {
-  if (node.type !== T.VariableDeclarator) return false;
-  if (node.id.type !== T.Identifier) return false;
-  if (node.init?.type !== T.CallExpression) return false;
+  if (node.type !== T.VariableDeclarator) {
+    return false;
+  }
+  if (node.id.type !== T.Identifier) {
+    return false;
+  }
+  if (node.init?.type !== T.CallExpression) {
+    return false;
+  }
   switch (node.init.callee.type) {
     case T.Identifier:
       return isReactHookName(node.init.callee.name);

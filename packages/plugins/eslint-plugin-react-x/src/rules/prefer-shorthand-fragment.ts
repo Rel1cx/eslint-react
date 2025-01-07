@@ -32,15 +32,21 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
-      if (JSX.getElementName(node.openingElement).split(".").at(-1) !== "Fragment") return O.none();
+      if (JSX.getElementName(node.openingElement).split(".").at(-1) !== "Fragment") {
+        return O.none();
+      }
       const hasAttributes = node.openingElement.attributes.length > 0;
-      if (hasAttributes) return O.none();
+      if (hasAttributes) {
+        return O.none();
+      }
       return O.some({
         messageId: "preferShorthandFragment",
         node,
         fix: (fixer) => {
           const { closingElement, openingElement } = node;
-          if (!closingElement) return [];
+          if (!closingElement) {
+            return [];
+          }
           return [
             fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
             fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),

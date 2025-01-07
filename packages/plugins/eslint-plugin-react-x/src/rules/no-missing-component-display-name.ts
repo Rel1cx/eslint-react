@@ -28,7 +28,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
+    if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) {
+      return {};
+    }
     const { ctx, listeners } = useComponentCollector(context);
 
     return {
@@ -38,8 +40,12 @@ export default createRule<[], MessageID>({
         for (const { node, displayName, flag } of components.values()) {
           const isMemoOrForwardRef = Boolean(flag & ERFunctionComponentFlag.ForwardRef)
             || Boolean(flag & ERFunctionComponentFlag.Memo);
-          if (O.isSome(AST.getFunctionIdentifier(node))) continue;
-          if (!isMemoOrForwardRef) continue;
+          if (O.isSome(AST.getFunctionIdentifier(node))) {
+            continue;
+          }
+          if (!isMemoOrForwardRef) {
+            continue;
+          }
           if (O.isNone(displayName)) {
             context.report({
               messageId: "noMissingComponentDisplayName",

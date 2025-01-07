@@ -37,7 +37,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
+    if (!context.sourceCode.text.includes("shouldComponentUpdate")) {
+      return {};
+    }
     const { ctx, listeners } = useComponentCollectorLegacy();
 
     return {
@@ -46,7 +48,9 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, node: component, flag } of components.values()) {
-          if (!(flag & ERClassComponentFlag.PureComponent)) continue;
+          if (!(flag & ERClassComponentFlag.PureComponent)) {
+            continue;
+          }
           const { body } = component.body;
           for (const member of body) {
             if (isShouldComponentUpdate(member)) {

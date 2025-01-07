@@ -49,7 +49,9 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = JSX.getElementName(node.openingElement);
       const elementName = getElementRepresentName(node.openingElement, context);
-      if (elementName !== "a" && !additionalComponents.some(c => c.re.test(name))) return O.none();
+      if (elementName !== "a" && !additionalComponents.some(c => c.re.test(name))) {
+        return O.none();
+      }
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
@@ -74,7 +76,9 @@ export default createRule<[], MessageID>({
           ),
           O.filter(isString),
         );
-      if (!O.exists(targetPropValue, t => t === "_blank")) return O.none();
+      if (!O.exists(targetPropValue, t => t === "_blank")) {
+        return O.none();
+      }
       const [
         hrefPropName,
         hrefPropDefaultValue,
@@ -93,7 +97,9 @@ export default createRule<[], MessageID>({
           ),
           O.filter(isString),
         );
-      if (!O.exists(hrefPropValue, isExternalLinkLike)) return O.none();
+      if (!O.exists(hrefPropValue, isExternalLinkLike)) {
+        return O.none();
+      }
       const [
         relPropName,
         relPropDefaultValue,
@@ -112,7 +118,9 @@ export default createRule<[], MessageID>({
           ),
           O.filter(isString),
         );
-      if (O.exists(relPropValue, isSafeRel)) return O.none();
+      if (O.exists(relPropValue, isSafeRel)) {
+        return O.none();
+      }
       return O.some({
         messageId: "noUnsafeTargetBlank",
         node,

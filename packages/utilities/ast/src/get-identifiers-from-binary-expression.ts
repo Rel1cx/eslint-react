@@ -7,7 +7,9 @@ export function getIdentifiersFromBinaryExpression(
     | TSESTree.BinaryExpression["left"]
     | TSESTree.BinaryExpression["right"],
 ): TSESTree.Identifier[] {
-  if (side.type === T.Identifier) return [side];
+  if (side.type === T.Identifier) {
+    return [side];
+  }
   if (side.type === T.BinaryExpression) {
     return [
       ...getIdentifiersFromBinaryExpression(side.left),

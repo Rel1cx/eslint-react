@@ -8,7 +8,9 @@ import { isFromHookCall } from "./is-from-hook-call";
 export function isFromUseStateCall(context: RuleContext, settings: ESLintReactSettings) {
   const predicate = (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => {
     const { parent } = call;
-    if (!("id" in parent && parent.id?.type === T.ArrayPattern)) return true;
+    if (!("id" in parent && parent.id?.type === T.ArrayPattern)) {
+      return true;
+    }
     return parent.id.elements.findIndex(e => e?.type === T.Identifier && e.name === topLevelId.name) === 1;
   };
   return isFromHookCall("useState", context, settings, predicate);

@@ -68,9 +68,13 @@ export default createRule<[], MessageID>({
         };
         for (const { name: componentName, node: component } of functionComponents) {
           // Do not mark objects containing render methods
-          if (isDirectValueOfRenderPropertyLoose(component)) continue;
+          if (isDirectValueOfRenderPropertyLoose(component)) {
+            continue;
+          }
           // Do not mark anonymous function components to reduce false positives
-          if (O.isNone(componentName)) continue;
+          if (O.isNone(componentName)) {
+            continue;
+          }
           const name = componentName.value;
           const isInsideProperty = component.parent.type === T.Property;
           const isInsideJSXPropValue = component.parent.type === T.JSXAttribute

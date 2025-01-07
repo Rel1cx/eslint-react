@@ -34,14 +34,22 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("use")) return {};
+    if (!context.sourceCode.text.includes("use")) {
+      return {};
+    }
     const alias = getSettingsFromContext(context).additionalHooks?.useState ?? [];
     return {
       CallExpression(node) {
-        if (!isReactHookCall(node)) return;
-        if (!isUseStateCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) return;
+        if (!isReactHookCall(node)) {
+          return;
+        }
+        if (!isUseStateCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
+          return;
+        }
         const [useStateInput] = node.arguments;
-        if (!useStateInput) return;
+        if (!useStateInput) {
+          return;
+        }
         const nestedCallExpressions = AST.getNestedCallExpressions(useStateInput);
         const hasFunctionCall = nestedCallExpressions.some((n) => {
           return "name" in n.callee
@@ -51,7 +59,9 @@ export default createRule<[], MessageID>({
           return "name" in n.callee
             && !ALLOW_LIST.includes(n.callee.name);
         });
-        if (!hasFunctionCall && !hasNewCall) return;
+        if (!hasFunctionCall && !hasNewCall) {
+          return;
+        }
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: useStateInput,

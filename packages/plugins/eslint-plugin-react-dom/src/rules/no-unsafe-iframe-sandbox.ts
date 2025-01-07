@@ -38,11 +38,15 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const elementName = getElementRepresentName(node.openingElement, context);
-        if (elementName !== "iframe") return;
+        if (elementName !== "iframe") {
+          return;
+        }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
         const mbProp = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
-        if (O.isNone(mbProp)) return;
+        if (O.isNone(mbProp)) {
+          return;
+        }
         const prop = mbProp.value;
         const isSafeSandboxValue = !F.pipe(
           JSX.getPropValue(prop, context.sourceCode.getScope(prop)),
@@ -58,7 +62,9 @@ export default createRule<[], MessageID>({
             unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
           ),
         );
-        if (isSafeSandboxValue) return;
+        if (isSafeSandboxValue) {
+          return;
+        }
         context.report({
           messageId: "noUnsafeIframeSandbox",
           node: prop,

@@ -6,10 +6,14 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 export function getElementRepresentName(node: TSESTree.JSXOpeningElement, context: RuleContext) {
   const rawElementName = JSX.getElementName(node);
-  if (rawElementName === rawElementName.toLowerCase()) return rawElementName;
+  if (rawElementName === rawElementName.toLowerCase()) {
+    return rawElementName;
+  }
   const { components, polymorphicPropName } = getSettingsFromContext(context);
   const asElementName = components.get(rawElementName);
-  if (isString(asElementName)) return asElementName;
+  if (isString(asElementName)) {
+    return asElementName;
+  }
   return F.pipe(
     O.fromNullable(polymorphicPropName),
     O.flatMap(JSX.findPropInAttributes(node.attributes, context.sourceCode.getScope(node))),

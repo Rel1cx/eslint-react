@@ -64,33 +64,45 @@ export function getValueConstruction(
       return { kind: "None", node } as const;
     }
     case T.MemberExpression: {
-      if (!("object" in node)) return { kind: "None", node } as const;
+      if (!("object" in node)) {
+        return { kind: "None", node } as const;
+      }
       return getValueConstruction(node.object, initialScope, hint);
     }
     case T.AssignmentExpression:
     case T.AssignmentPattern: {
-      if (!("right" in node)) return { kind: "None", node } as const;
+      if (!("right" in node)) {
+        return { kind: "None", node } as const;
+      }
       return getValueConstruction(node.right, initialScope, hint);
     }
     case T.LogicalExpression: {
       const lvc = getValueConstruction(node.left, initialScope, hint);
-      if (lvc.kind !== "None") return lvc;
+      if (lvc.kind !== "None") {
+        return lvc;
+      }
       return getValueConstruction(node.right, initialScope, hint);
     }
     case T.ConditionalExpression: {
       const cvc = getValueConstruction(node.consequent, initialScope, hint);
-      if (cvc.kind !== "None") return cvc;
+      if (cvc.kind !== "None") {
+        return cvc;
+      }
       return getValueConstruction(node.alternate, initialScope, hint);
     }
     case T.Identifier: {
-      if (!("name" in node && isString(node.name))) return { kind: "None", node } as const;
+      if (!("name" in node && isString(node.name))) {
+        return { kind: "None", node } as const;
+      }
       const construction = F.pipe(
         O.fromNullable(initialScope.set.get(node.name)),
         O.flatMap(getVariableNode(-1)),
         O.map((node) => getValueConstruction(node, initialScope, hint)),
         O.filter((vc) => vc.kind !== "None"),
       );
-      if (O.isNone(construction)) return { kind: "None", node } as const;
+      if (O.isNone(construction)) {
+        return { kind: "None", node } as const;
+      }
       return {
         ...construction.value,
       } as const;

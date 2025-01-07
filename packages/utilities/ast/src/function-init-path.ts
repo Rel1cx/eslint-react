@@ -106,7 +106,9 @@ export type FunctionInitPath =
 
 export function getFunctionInitPath(node: TSESTreeFunction): O.Option<FunctionInitPath> {
   const { parent } = node;
-  if (node.type === T.FunctionDeclaration) return O.some([node]);
+  if (node.type === T.FunctionDeclaration) {
+    return O.some([node]);
+  }
   if (parent.type === T.VariableDeclarator) {
     return O.some([
       parent.parent,
@@ -184,8 +186,12 @@ export function hasCallInFunctionInitPath(callName: string) {
       O.exists(nodes => {
         return nodes.some(
           n => {
-            if (n.type !== T.CallExpression) return false;
-            if (n.callee.type === T.Identifier) return n.callee.name === callName;
+            if (n.type !== T.CallExpression) {
+              return false;
+            }
+            if (n.callee.type === T.Identifier) {
+              return n.callee.name === callName;
+            }
             return "property" in n.callee
               && "name" in n.callee.property
               && n.callee.property.name === callName;

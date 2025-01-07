@@ -216,7 +216,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) return {};
+    if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) {
+      return {};
+    }
 
     const { version } = getSettingsFromContext(context);
 
@@ -242,7 +244,9 @@ export default createRule<[], MessageID>({
         .when(AST.isJSX, O.none)
         .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = isMatching({ type: T.UnaryExpression, operator: "!" }, left);
-          if (isLeftUnaryNot) return getReportDescriptor(right);
+          if (isLeftUnaryNot) {
+            return getReportDescriptor(right);
+          }
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = isMatching({ type: T.Identifier, name: "NaN" }, left)
             || O.exists(VAR.getStaticValue(left, initialScope), v => v === "NaN");
@@ -258,7 +262,9 @@ export default createRule<[], MessageID>({
           const isLeftValid = Array
             .from(leftTypeVariants.values())
             .every(type => allowedVariants.some(allowed => allowed === type));
-          if (isLeftValid) return getReportDescriptor(right);
+          if (isLeftValid) {
+            return getReportDescriptor(right);
+          }
           return O.some({
             messageId: "noLeakedConditionalRendering",
             node: left,

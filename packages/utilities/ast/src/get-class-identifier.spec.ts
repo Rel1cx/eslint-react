@@ -27,7 +27,9 @@ describe("get class identifier from class declaration", () => {
     let n = O.none<TSESTreeClass>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (node.type !== T.ClassDeclaration) return;
+        if (node.type !== T.ClassDeclaration) {
+          return;
+        }
         const id = O.getOrThrow(getClassIdentifier(node));
         expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);
@@ -47,7 +49,9 @@ describe("get class identifier from class expression", () => {
     let n = O.none<TSESTreeClass>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (node.type !== T.ClassExpression) return;
+        if (node.type !== T.ClassExpression) {
+          return;
+        }
         const id = O.getOrThrow(getClassIdentifier(node));
         expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);

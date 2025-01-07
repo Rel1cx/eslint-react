@@ -44,8 +44,12 @@ export default createRule<[], MessageID>({
       ...listeners,
       JSXOpeningElement(node) {
         const openingElementName = node.name;
-        if (openingElementName.type !== T.JSXMemberExpression) return;
-        if (openingElementName.property.name !== "Provider") return;
+        if (openingElementName.type !== T.JSXMemberExpression) {
+          return;
+        }
+        if (openingElementName.property.name !== "Provider") {
+          return;
+        }
         F.pipe(
           O.Do,
           O.bind("function", ctx.getCurrentFunction),
@@ -66,8 +70,12 @@ export default createRule<[], MessageID>({
             return O.some(VAR.getValueConstruction(valueExpression, initialScope));
           }),
           O.map((vc) => {
-            if (vc.construction.kind === "None") return;
-            if (isReactHookCall(vc.construction.node)) return;
+            if (vc.construction.kind === "None") {
+              return;
+            }
+            if (isReactHookCall(vc.construction.node)) {
+              return;
+            }
             const prevs = constructions.get(vc.function.node) ?? [];
             constructions.set(vc.function.node, [...prevs, vc.construction]);
           }),
@@ -77,7 +85,9 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
           for (const construction of constructions.get(component) ?? []) {
-            if (construction.kind === "None") continue;
+            if (construction.kind === "None") {
+              continue;
+            }
             const { kind, node: constructionNode } = construction;
             const messageId = kind.startsWith("Function")
               ? "noUnstableContextValueWithFunction"

@@ -44,7 +44,9 @@ export default createRule<[], MessageID>({
         const hasChildrenProp = () => JSX.hasProp(node.openingElement.attributes, "children", initialScope);
         // dprint-ignore
         const hasDanger = () => JSX.hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", initialScope);
-        if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) return;
+        if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) {
+          return;
+        }
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",
           node,

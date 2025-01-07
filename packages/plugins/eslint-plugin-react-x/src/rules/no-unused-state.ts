@@ -77,10 +77,14 @@ export default createRule<[], MessageID>({
     }
     function classExit() {
       const currentClass = classStack.pop();
-      if (!currentClass || !isClassComponent(currentClass)) return;
+      if (!currentClass || !isClassComponent(currentClass)) {
+        return;
+      }
       const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
-      if (O.isNone(def) || isUsed) return;
+      if (O.isNone(def) || isUsed) {
+        return;
+      }
       context.report({
         messageId: "noUnusedState",
         node: def.value,
@@ -92,7 +96,9 @@ export default createRule<[], MessageID>({
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       methodStack.push(node);
       const currentClass = classStack.at(-1);
-      if (!currentClass || !isClassComponent(currentClass)) return;
+      if (!currentClass || !isClassComponent(currentClass)) {
+        return;
+      }
       if (node.static) {
         if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
           const [def] = stateDefs.get(currentClass) ?? [O.none()];
@@ -116,11 +122,17 @@ export default createRule<[], MessageID>({
 
     return {
       AssignmentExpression(node) {
-        if (!isAssignmentToThisState(node)) return;
+        if (!isAssignmentToThisState(node)) {
+          return;
+        }
         const currentClass = classStack.at(-1);
-        if (!currentClass || !isClassComponent(currentClass)) return;
+        if (!currentClass || !isClassComponent(currentClass)) {
+          return;
+        }
         const currentConstructor = constructorStack.at(-1);
-        if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) return;
+        if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) {
+          return;
+        }
         const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [O.some(node.left), isUsed]);
       },
@@ -129,15 +141,27 @@ export default createRule<[], MessageID>({
       ClassExpression: classEnter,
       "ClassExpression:exit": classExit,
       MemberExpression(node) {
-        if (!AST.isThisExpression(node.object)) return;
+        if (!AST.isThisExpression(node.object)) {
+          return;
+        }
         // detect `this.state`
-        if (!O.exists(getName(node.property), name => name === "state")) return;
+        if (!O.exists(getName(node.property), name => name === "state")) {
+          return;
+        }
         const currentClass = classStack.at(-1);
-        if (!currentClass || !isClassComponent(currentClass)) return;
+        if (!currentClass || !isClassComponent(currentClass)) {
+          return;
+        }
         const currentMethod = methodStack.at(-1);
-        if (!currentMethod || currentMethod.static) return;
-        if (currentMethod === constructorStack.at(-1)) return;
-        if (!currentClass.body.body.includes(currentMethod)) return;
+        if (!currentMethod || currentMethod.static) {
+          return;
+        }
+        if (currentMethod === constructorStack.at(-1)) {
+          return;
+        }
+        if (!currentClass.body.body.includes(currentMethod)) {
+          return;
+        }
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
       },
@@ -149,20 +173,32 @@ export default createRule<[], MessageID>({
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
         const currentClass = classStack.at(-1);
-        if (!currentClass || !isClassComponent(currentClass)) return;
+        if (!currentClass || !isClassComponent(currentClass)) {
+          return;
+        }
         const currentMethod = methodStack.at(-1);
-        if (!currentMethod || currentMethod.static) return;
-        if (currentMethod === constructorStack.at(-1)) return;
-        if (!currentClass.body.body.includes(currentMethod)) return;
+        if (!currentMethod || currentMethod.static) {
+          return;
+        }
+        if (currentMethod === constructorStack.at(-1)) {
+          return;
+        }
+        if (!currentClass.body.body.includes(currentMethod)) {
+          return;
+        }
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) return;
+        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
+          return;
+        }
         const hasState = node.id.properties.some(prop => {
           if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
           return false;
         });
-        if (!hasState) return;
+        if (!hasState) {
+          return;
+        }
         const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
         stateDefs.set(currentClass, [def, true]);
       },

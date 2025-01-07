@@ -14,7 +14,9 @@ import { ERClassComponentFlag } from "./component-flag";
  * @returns `true` if the node is a class component, `false` otherwise
  */
 export function isClassComponent(node: TSESTree.Node): node is AST.TSESTreeClass {
-  if (!("superClass" in node && node.superClass)) return false;
+  if (!("superClass" in node && node.superClass)) {
+    return false;
+  }
   const { superClass } = node;
   return match(superClass)
     .with({
@@ -87,7 +89,9 @@ export function useComponentCollectorLegacy() {
   } as const;
 
   const collect = (node: AST.TSESTreeClass) => {
-    if (!isClassComponent(node)) return;
+    if (!isClassComponent(node)) {
+      return;
+    }
     const id = AST.getClassIdentifier(node);
     const key = getId();
     const flag = isPureComponent(node)

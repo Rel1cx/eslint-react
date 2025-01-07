@@ -16,9 +16,13 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
   const functionNode = isFunction(node) ? node : O.getOrNull(findParentNodeGuard(node, isFunction));
   simpleTraverse(node, {
     enter(node) {
-      if (node.type !== T.ReturnStatement) return;
+      if (node.type !== T.ReturnStatement) {
+        return;
+      }
       const parentFunction = O.getOrNull(findParentNodeGuard(node, isFunction));
-      if (parentFunction !== functionNode) return;
+      if (parentFunction !== functionNode) {
+        return;
+      }
       returnStatements.push(node);
     },
   });

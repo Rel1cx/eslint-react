@@ -110,7 +110,9 @@ export default createRule<Options, MessageID>({
 
         const hasCode = node.body.length > 0;
         const ignoreFilesWithoutCode = isObject(options) && options.ignoreFilesWithoutCode;
-        if (!hasCode && ignoreFilesWithoutCode) return;
+        if (!hasCode && ignoreFilesWithoutCode) {
+          return;
+        }
         if (
           !hasJSXNode
           && isJSXExt

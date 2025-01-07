@@ -3,6 +3,7 @@ import url from "node:url";
 
 import eslintJs from "@eslint/js";
 import eslintMarkdown from "@eslint/markdown";
+import eslintStylistic from "@stylistic/eslint-plugin";
 import eslintPluginImport from "eslint-plugin-import-x";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginLocal from "@workspace/eslint-plugin-local";
@@ -128,6 +129,7 @@ export default tseslint.config(
       },
     },
     plugins: {
+      ["@stylistic"]: eslintStylistic,
       ["@susisu/safe-typescript"]: eslintPluginSafeTypeScript,
       ["local"]: eslintPluginLocal,
       ["simple-import-sort"]: eslintPluginSimpleImportSort,
@@ -137,6 +139,7 @@ export default tseslint.config(
   {
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
+      curly: "warn",
       eqeqeq: ["error", "always"],
       "no-console": "error",
       "no-else-return": "error",
@@ -195,6 +198,8 @@ export default tseslint.config(
       // Part: simple-import-sort rules
       "simple-import-sort/exports": "warn",
       "simple-import-sort/imports": "warn",
+      // Part: stylistic rules
+      "@stylistic/curly-newline": ["warn", "always"],
       // Part: perfectionist rules
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",

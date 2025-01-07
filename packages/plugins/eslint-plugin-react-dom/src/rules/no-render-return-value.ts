@@ -38,9 +38,15 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         const { callee, parent } = node;
-        if (callee.type !== T.MemberExpression) return;
-        if (callee.object.type !== T.Identifier) return;
-        if (!("name" in callee.object)) return;
+        if (callee.type !== T.MemberExpression) {
+          return;
+        }
+        if (callee.object.type !== T.Identifier) {
+          return;
+        }
+        if (!("name" in callee.object)) {
+          return;
+        }
         const objectName = callee.object.name;
         if (
           objectName.toLowerCase() !== "reactdom"

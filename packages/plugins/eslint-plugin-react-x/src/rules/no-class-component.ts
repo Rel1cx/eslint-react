@@ -47,7 +47,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("Component")) return {};
+    if (!context.sourceCode.text.includes("Component")) {
+      return {};
+    }
     const { ctx, listeners } = useComponentCollectorLegacy();
 
     return {
@@ -56,7 +58,9 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, node: component } of components.values()) {
-          if (component.body.body.some(m => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) continue;
+          if (component.body.body.some(m => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) {
+            continue;
+          }
           context.report({
             messageId: "noClassComponent",
             node: component,

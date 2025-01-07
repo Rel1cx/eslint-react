@@ -31,9 +31,13 @@ export default createRule<[], MessageID>({
       JSXOpeningElement(node) {
         const props: string[] = [];
         for (const attr of node.attributes) {
-          if (attr.type === T.JSXSpreadAttribute) continue;
+          if (attr.type === T.JSXSpreadAttribute) {
+            continue;
+          }
           const name = attr.name.name;
-          if (!isString(name)) continue;
+          if (!isString(name)) {
+            continue;
+          }
           if (!props.includes(name)) {
             props.push(name);
             continue;

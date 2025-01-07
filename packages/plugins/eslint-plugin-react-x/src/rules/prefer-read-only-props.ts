@@ -49,9 +49,13 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
         for (const [_, component] of components) {
           const [props] = component.node.params;
-          if (!props) continue;
+          if (!props) {
+            continue;
+          }
           const propsType = getConstrainedTypeAtLocation(services, props);
-          if (isTypeReadonly(services.program, propsType) || isReadonlyType(propsType, services)) continue;
+          if (isTypeReadonly(services.program, propsType) || isReadonlyType(propsType, services)) {
+            continue;
+          }
           context.report({ messageId: "preferReadOnlyProps", node: props });
         }
       },

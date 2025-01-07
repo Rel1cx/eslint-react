@@ -33,18 +33,28 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("use")) return {};
+    if (!context.sourceCode.text.includes("use")) {
+      return {};
+    }
     const alias = getSettingsFromContext(context).additionalHooks?.useCallback ?? [];
     return {
       CallExpression(node) {
-        if (!isReactHookCall(node)) return;
+        if (!isReactHookCall(node)) {
+          return;
+        }
         const initialScope = context.sourceCode.getScope(node);
-        if (!isUseCallbackCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) return;
+        if (!isUseCallbackCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
+          return;
+        }
         const scope = context.sourceCode.getScope(node);
         const component = scope.block;
-        if (!AST.isFunction(component)) return;
+        if (!AST.isFunction(component)) {
+          return;
+        }
         const [arg0, arg1] = node.arguments;
-        if (!arg0 || !arg1) return;
+        if (!arg0 || !arg1) {
+          return;
+        }
         const hasEmptyDeps = F.pipe(
           match(arg1)
             .with({ type: T.ArrayExpression }, O.some)
@@ -58,7 +68,9 @@ export default createRule<[], MessageID>({
             .otherwise(O.none),
           O.exists(x => x.elements.length === 0),
         );
-        if (!hasEmptyDeps) return;
+        if (!hasEmptyDeps) {
+          return;
+        }
         const isReferencedToComponentScope = F.pipe(
           match(arg0)
             .with({ type: T.ArrowFunctionExpression }, n => {

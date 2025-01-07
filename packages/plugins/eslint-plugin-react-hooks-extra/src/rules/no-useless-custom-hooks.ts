@@ -44,11 +44,17 @@ export default createRule<[], MessageID>({
         const allHooks = ctx.getAllHooks(node);
         for (const { name, node, hookCalls } of allHooks.values()) {
           // Skip empty functions
-          if (AST.isEmptyFunction(node)) continue;
+          if (AST.isEmptyFunction(node)) {
+            continue;
+          }
           // Skip useful hooks
-          if (hookCalls.length > 0) continue;
+          if (hookCalls.length > 0) {
+            continue;
+          }
           // Skip hooks with comments that contain calls to other hooks
-          if (isNodeContainsUseCallComments(node, context)) continue;
+          if (isNodeContainsUseCallComments(node, context)) {
+            continue;
+          }
           context.report({
             messageId: "noUselessCustomHooks",
             node,

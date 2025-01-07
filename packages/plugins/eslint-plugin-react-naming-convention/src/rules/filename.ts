@@ -139,7 +139,9 @@ export default createRule<Options, MessageID>({
           context.report({ messageId: "filenameEmpty", node });
           return;
         }
-        if (validate(basename)) return;
+        if (validate(basename)) {
+          return;
+        }
         context.report({
           messageId: "filenameCaseMismatchSuggestion",
           node,

@@ -36,12 +36,18 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("forwardRef")) return {};
+    if (!context.sourceCode.text.includes("forwardRef")) {
+      return {};
+    }
     const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) return {};
+    if (compare(version, "19.0.0", "<")) {
+      return {};
+    }
     return {
       CallExpression(node) {
-        if (!isForwardRefCall(node, context)) return;
+        if (!isForwardRefCall(node, context)) {
+          return;
+        }
         context.report({
           messageId: "noForwardRef",
           node,
@@ -56,7 +62,9 @@ export default createRule<[], MessageID>({
 function getFix(node: TSESTree.CallExpression, context: RuleContext): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
-    if (!componentNode || !AST.isFunction(componentNode)) return [];
+    if (!componentNode || !AST.isFunction(componentNode)) {
+      return [];
+    }
     return [
       // unwrap component from forwardRef call
       fixer.removeRange([node.range[0], componentNode.range[0]]),
@@ -81,7 +89,9 @@ function getComponentPropsFixes(
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
-  if (!arg0) return [];
+  if (!arg0) {
+    return [];
+  }
   const fixedArg0Text = match(arg0)
     .with({ type: T.Identifier }, (n) => O.some(`...${n.name}`))
     .with({ type: T.ObjectPattern }, (n) => O.some(n.properties.map(getText).join(", ")))
@@ -91,7 +101,9 @@ function getComponentPropsFixes(
     .with({ type: T.Identifier, name: "ref" }, () => O.some("ref"))
     .with({ type: T.Identifier, name: P.not("ref") }, (n) => O.some(`ref: ${n.name}`))
     .otherwise(O.none);
-  if (O.isNone(fixedArg0Text) || O.isNone(fixedArg1Text)) return [];
+  if (O.isNone(fixedArg0Text) || O.isNone(fixedArg1Text)) {
+    return [];
+  }
   const fixedPropsText = fixedArg0Text.value;
   const fixedRefText = fixedArg1Text.value;
   if (!typeArg0 || !typeArg1) {

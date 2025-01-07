@@ -2,6 +2,7 @@
   "name": "@examples/dual-react-dom-lib",
   "version": "0.0.0",
   "license": "MIT",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -16,6 +17,7 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -29,7 +31,7 @@
     "prepare": "pnpm run build"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "^1.23.1",
+    "@eslint-react/eslint-plugin": "^1.23.2",
     "@eslint/js": "^9.17.0",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
@@ -46,10 +48,8 @@
   "peerDependencies": {
     "react": "^19.0.0"
   },
+  "packageManager": "pnpm@9.15.3",
   "engines": {
     "node": ">=18.18.0"
-  },
-  "sideEffects": false,
-  "module": "dist/index.mjs",
-  "packageManager": "pnpm@9.15.3"
+  }
 }

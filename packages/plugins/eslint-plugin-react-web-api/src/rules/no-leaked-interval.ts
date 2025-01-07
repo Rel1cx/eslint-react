@@ -75,7 +75,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("setInterval")) return {};
+    if (!context.sourceCode.text.includes("setInterval")) {
+      return {};
+    }
     const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: TimerEntry[] = [];
     const cEntries: TimerEntry[] = [];
@@ -94,8 +96,12 @@ export default createRule<[], MessageID>({
         switch (getCallKind(node)) {
           case "setInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-            if (!fNode || !fKind) break;
-            if (!ERPhaseRelevance.has(fKind)) break;
+            if (!fNode || !fKind) {
+              break;
+            }
+            if (!ERPhaseRelevance.has(fKind)) {
+              break;
+            }
             const intervalIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
             if (!intervalIdNode) {
               context.report({
@@ -115,10 +121,16 @@ export default createRule<[], MessageID>({
           }
           case "clearInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-            if (!fNode || !fKind) break;
-            if (!ERPhaseRelevance.has(fKind)) break;
+            if (!fNode || !fKind) {
+              break;
+            }
+            if (!ERPhaseRelevance.has(fKind)) {
+              break;
+            }
             const [intervalIdNode] = node.arguments;
-            if (!intervalIdNode) break;
+            if (!intervalIdNode) {
+              break;
+            }
             cEntries.push({
               kind: "interval",
               node,
@@ -132,7 +144,9 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (cEntries.some(cEntry => isInverseEntry(sEntry, cEntry))) continue;
+          if (cEntries.some(cEntry => isInverseEntry(sEntry, cEntry))) {
+            continue;
+          }
           switch (sEntry.phase) {
             case "setup":
             case "cleanup":

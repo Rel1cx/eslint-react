@@ -32,11 +32,15 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const elementName = getElementRepresentName(node.openingElement, context);
-        if (elementName !== "button") return;
+        if (elementName !== "button") {
+          return;
+        }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
         const mbProp = JSX.findPropInAttributes(attributes, initialScope)("type");
-        if (O.isSome(mbProp)) return;
+        if (O.isSome(mbProp)) {
+          return;
+        }
         context.report({
           messageId: "noMissingButtonType",
           node,
