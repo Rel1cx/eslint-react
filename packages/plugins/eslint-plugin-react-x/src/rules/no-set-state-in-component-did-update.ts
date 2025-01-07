@@ -38,9 +38,13 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
+    if (!context.sourceCode.text.includes("componentDidUpdate")) {
+      return {};
+    }
     function getReportDescriptor(node: TSESTree.CallExpression): O.Option<ReportDescriptor<MessageID>> {
-      if (!isThisSetState(node)) return O.none();
+      if (!isThisSetState(node)) {
+        return O.none();
+      }
       return F.pipe(
         O.Do,
         O.bind("clazz", () => AST.findParentNodeGuard(node, isClassComponent)),

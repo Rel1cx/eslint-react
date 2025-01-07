@@ -78,21 +78,31 @@ export default createRule<[], MessageID>({
     const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
     function classEnter(node: AST.TSESTreeClass) {
       classStack.push(node);
-      if (!isClassComponent(node)) return;
+      if (!isClassComponent(node)) {
+        return;
+      }
       propertyDefs.set(node, new Set());
       propertyUsages.set(node, new Set());
     }
     function classExit() {
       const currentClass = classStack.pop();
-      if (!currentClass || !isClassComponent(currentClass)) return;
+      if (!currentClass || !isClassComponent(currentClass)) {
+        return;
+      }
       const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
       const defs = propertyDefs.get(currentClass);
       const usages = propertyUsages.get(currentClass);
-      if (!defs) return;
+      if (!defs) {
+        return;
+      }
       for (const def of defs) {
         const name = getName(def);
-        if (O.isNone(name)) continue;
-        if (usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) continue;
+        if (O.isNone(name)) {
+          continue;
+        }
+        if (usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) {
+          continue;
+        }
         context.report({
           messageId: "noUnusedClassComponentMembers",
           node: def,
@@ -106,8 +116,12 @@ export default createRule<[], MessageID>({
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       methodStack.push(node);
       const currentClass = classStack.at(-1);
-      if (!currentClass || !isClassComponent(currentClass)) return;
-      if (node.static) return;
+      if (!currentClass || !isClassComponent(currentClass)) {
+        return;
+      }
+      if (node.static) {
+        return;
+      }
       if (AST.isKeyLiteralLike(node, node.key)) {
         propertyDefs.get(currentClass)?.add(node.key);
       }
@@ -124,9 +138,15 @@ export default createRule<[], MessageID>({
       MemberExpression(node) {
         const currentClass = classStack.at(-1);
         const currentMethod = methodStack.at(-1);
-        if (!currentClass || !currentMethod) return;
-        if (!isClassComponent(currentClass) || currentMethod.static) return;
-        if (!AST.isThisExpression(node.object) || !AST.isKeyLiteralLike(node, node.property)) return;
+        if (!currentClass || !currentMethod) {
+          return;
+        }
+        if (!isClassComponent(currentClass) || currentMethod.static) {
+          return;
+        }
+        if (!AST.isThisExpression(node.object) || !AST.isKeyLiteralLike(node, node.property)) {
+          return;
+        }
         if (node.parent.type === T.AssignmentExpression && node.parent.left === node) {
           // detect `this.property = xxx`
           propertyDefs.get(currentClass)?.add(node.property);
@@ -142,8 +162,12 @@ export default createRule<[], MessageID>({
       VariableDeclarator(node) {
         const currentClass = classStack.at(-1);
         const currentMethod = methodStack.at(-1);
-        if (!currentClass || !currentMethod) return;
-        if (!isClassComponent(currentClass) || currentMethod.static) return;
+        if (!currentClass || !currentMethod) {
+          return;
+        }
+        if (!isClassComponent(currentClass) || currentMethod.static) {
+          return;
+        }
         // detect `{ foo, bar: baz } = this`
         if (node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
           for (const prop of node.id.properties) {

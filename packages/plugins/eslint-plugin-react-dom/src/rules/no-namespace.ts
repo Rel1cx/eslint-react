@@ -30,7 +30,9 @@ export default createRule<[], MessageID>({
     return {
       JSXOpeningElement(node) {
         const name = JSX.getElementName(node);
-        if (!isString(name) || !name.includes(":")) return;
+        if (!isString(name) || !name.includes(":")) {
+          return;
+        }
         context.report({
           messageId: "noNamespace",
           node,

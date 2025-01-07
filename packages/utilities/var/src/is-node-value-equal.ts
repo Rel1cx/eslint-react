@@ -66,7 +66,9 @@ export function isNodeValueEqual(
             O.bind("bCallee", () => O.map(bVarNodeParent, (n) => n.callee)),
             O.exists(({ aCallee, bCallee }) => AST.isNodeEqual(aCallee, bCallee)),
           );
-          if (!hasSameCallee) return false;
+          if (!hasSameCallee) {
+            return false;
+          }
           return F.pipe(
             O.Do,
             O.bind("aParams", () => O.map(aVarNode, (n) => n.params)),
@@ -101,7 +103,9 @@ export function isNodeValueEqual(
     }
     case a.type === T.ThisExpression
       && b.type === T.ThisExpression: {
-      if (aScope.block === bScope.block) return true;
+      if (aScope.block === bScope.block) {
+        return true;
+      }
       return F.pipe(
         O.Do,
         O.bind("aFunction", () => AST.findParentNode(a, AST.isOneOf(thisBlockTypes))),

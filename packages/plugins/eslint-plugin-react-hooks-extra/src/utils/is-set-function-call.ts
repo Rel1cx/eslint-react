@@ -16,8 +16,12 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
       // data.at(1)();
       case T.CallExpression: {
         const { callee } = node.callee;
-        if (callee.type !== T.MemberExpression) return false;
-        if (!("name" in callee.object)) return false;
+        if (callee.type !== T.MemberExpression) {
+          return false;
+        }
+        if (!("name" in callee.object)) {
+          return false;
+        }
         const isAt = isMatching({
           type: T.MemberExpression,
           property: {
@@ -26,7 +30,9 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
           },
         }, callee);
         const [index] = node.callee.arguments;
-        if (!isAt || !index) return false;
+        if (!isAt || !index) {
+          return false;
+        }
         const initialScope = context.sourceCode.getScope(node);
         return O.exists(VAR.getStaticValue(index, initialScope), (v) => v === 1)
           && isIdFromUseStateCall(callee.object);
@@ -39,7 +45,9 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
       // const data = useState();
       // data[1]();
       case T.MemberExpression: {
-        if (!("name" in node.callee.object)) return false;
+        if (!("name" in node.callee.object)) {
+          return false;
+        }
         const initialScope = context.sourceCode.getScope(node);
         return O.exists(VAR.getStaticValue(node.callee.property, initialScope), (v) => v === 1)
           && isIdFromUseStateCall(node.callee.object);

@@ -39,8 +39,12 @@ export function getPropValue(
 ) {
   if (attribute.type === T.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
-    if (value === null) return O.none();
-    if (value.type === T.Literal) return VAR.getStaticValue(value, initialScope);
+    if (value === null) {
+      return O.none();
+    }
+    if (value.type === T.Literal) {
+      return VAR.getStaticValue(value, initialScope);
+    }
     if (value.type === T.JSXExpressionContainer) {
       return VAR.getStaticValue(value.expression, initialScope);
     }
@@ -78,7 +82,9 @@ export function findPropInProperties(
             switch (true) {
               case prop.argument.type === T.Identifier: {
                 const { name } = prop.argument;
-                if (seenProps.includes(name)) return false;
+                if (seenProps.includes(name)) {
+                  return false;
+                }
                 return F.pipe(
                   VAR.findVariable(name, initialScope),
                   O.flatMap(VAR.getVariableNode(0)),

@@ -45,9 +45,13 @@ export function useHookCollector() {
     ":function[type]": onFunctionEnter,
     ":function[type]:exit": onFunctionExit,
     "CallExpression[type]"(node) {
-      if (!isReactHookCall(node)) return;
+      if (!isReactHookCall(node)) {
+        return;
+      }
       const [fNode, hookId] = fStack.at(-1) ?? [];
-      if (!fNode || !hookId) return;
+      if (!fNode || !hookId) {
+        return;
+      }
       F.pipe(
         O.Do,
         O.bind("id", () => hookId),

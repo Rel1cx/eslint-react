@@ -74,7 +74,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("setTimeout")) return {};
+    if (!context.sourceCode.text.includes("setTimeout")) {
+      return {};
+    }
     const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const sEntries: TimerEntry[] = [];
     const rEntries: TimerEntry[] = [];
@@ -91,8 +93,12 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !fKind) return;
-        if (!ERPhaseRelevance.has(fKind)) return;
+        if (!fNode || !fKind) {
+          return;
+        }
+        if (!ERPhaseRelevance.has(fKind)) {
+          return;
+        }
         switch (getCallKind(node)) {
           case "setTimeout": {
             const timeoutIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
@@ -114,7 +120,9 @@ export default createRule<[], MessageID>({
           }
           case "clearTimeout": {
             const [timeoutIdNode] = node.arguments;
-            if (!timeoutIdNode) break;
+            if (!timeoutIdNode) {
+              break;
+            }
             rEntries.push({
               kind: "timeout",
               node,
@@ -128,7 +136,9 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (rEntries.some(rEntry => isInverseEntry(sEntry, rEntry))) continue;
+          if (rEntries.some(rEntry => isInverseEntry(sEntry, rEntry))) {
+            continue;
+          }
           switch (sEntry.phase) {
             case "setup":
             case "cleanup":

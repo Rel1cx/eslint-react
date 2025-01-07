@@ -35,7 +35,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.getText().includes("key=")) return {};
+    if (!context.sourceCode.getText().includes("key=")) {
+      return {};
+    }
     const keyedEntries: Map<TSESTree.Node, KeyedEntry> = new Map();
     function isKeyValueEqual(
       a: TSESTree.JSXAttribute,
@@ -43,7 +45,9 @@ export default createRule<[], MessageID>({
     ): boolean {
       const aValue = a.value;
       const bValue = b.value;
-      if (aValue === null || bValue === null) return false;
+      if (aValue === null || bValue === null) {
+        return false;
+      }
       return AST.isNodeEqual(aValue, bValue);
     }
     return {
@@ -69,9 +73,13 @@ export default createRule<[], MessageID>({
               O.bind("iter", ({ call }) => AST.findParentNodeStop(jsxElement, call, AST.isFunction)),
               O.bind("arg0", ({ call }) => O.fromNullable(call.arguments[0])),
             );
-            if (O.isNone(mbEntry)) return;
+            if (O.isNone(mbEntry)) {
+              return;
+            }
             const { arg0, call, iter } = mbEntry.value;
-            if (AST.unwrapTypeExpression(arg0) !== iter) return;
+            if (AST.unwrapTypeExpression(arg0) !== iter) {
+              return;
+            }
             keyedEntries.set(call, {
               hasDuplicate: node.value?.type === T.Literal,
               keys: [node],
@@ -82,7 +90,9 @@ export default createRule<[], MessageID>({
       },
       "Program:exit"() {
         for (const { hasDuplicate, keys } of keyedEntries.values()) {
-          if (!hasDuplicate) continue;
+          if (!hasDuplicate) {
+            continue;
+          }
           for (const key of keys) {
             context.report({
               messageId: "noDuplicateKey",

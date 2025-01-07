@@ -39,7 +39,9 @@ export default createRule<[], MessageID>({
     }
     return {
       JSXOpeningElement(node) {
-        if (node.name.type === T.JSXIdentifier && /^[a-z]/u.test(node.name.name)) return;
+        if (node.name.type === T.JSXIdentifier && /^[a-z]/u.test(node.name.name)) {
+          return;
+        }
         for (const name of O.toArray(getName(node.name))) {
           context.sourceCode.markVariableAsUsed(name, node);
         }

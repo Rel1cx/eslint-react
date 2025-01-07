@@ -37,7 +37,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("componentWillReceiveProps")) return {};
+    if (!context.sourceCode.text.includes("componentWillReceiveProps")) {
+      return {};
+    }
     const { ctx, listeners } = useComponentCollectorLegacy();
 
     return {
@@ -52,7 +54,9 @@ export default createRule<[], MessageID>({
                 messageId: "noComponentWillReceiveProps",
                 node: member,
                 fix(fixer) {
-                  if (!("key" in member)) return null;
+                  if (!("key" in member)) {
+                    return null;
+                  }
                   return fixer.replaceText(member.key, "UNSAFE_componentWillReceiveProps");
                 },
               });

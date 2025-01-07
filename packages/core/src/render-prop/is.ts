@@ -48,7 +48,9 @@ export function isRenderFunctionLoose(node: AST.TSESTreeFunction, context: RuleC
  * @returns `true` if node is a render prop, `false` if not
  */
 export function isRenderPropLoose(node: TSESTree.JSXAttribute, context: RuleContext) {
-  if (node.name.type !== T.JSXIdentifier) return false;
+  if (node.name.type !== T.JSXIdentifier) {
+    return false;
+  }
   return node.name.name.startsWith("render")
     && node.value?.type === T.JSXExpressionContainer
     && AST.isFunction(node.value.expression)

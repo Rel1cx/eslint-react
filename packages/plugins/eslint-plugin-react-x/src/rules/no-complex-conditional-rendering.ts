@@ -33,11 +33,15 @@ export default createRule<[], MessageID>({
   create(context) {
     function getReportDescriptor(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
       const jsxExpContainer = node.parent?.parent;
-      if (!AST.is(T.JSXExpressionContainer)(jsxExpContainer)) return O.none();
+      if (!AST.is(T.JSXExpressionContainer)(jsxExpContainer)) {
+        return O.none();
+      }
       if (!AST.isOneOf([T.JSXElement, T.JSXFragment])(jsxExpContainer.parent)) {
         return O.none();
       }
-      if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) return O.none();
+      if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) {
+        return O.none();
+      }
       return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer });
     }
     const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);

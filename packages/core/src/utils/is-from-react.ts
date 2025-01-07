@@ -56,8 +56,12 @@ export function isFromReactMember(
   ) => {
     const settings = unsafeDecodeSettings(context.settings);
     if (!settings.strictImportCheck) {
-      if (node.property.type !== T.Identifier || node.property.name !== name) return false;
-      if (node.object.type === T.Identifier && node.object.name === memberName) return true;
+      if (node.property.type !== T.Identifier || node.property.name !== name) {
+        return false;
+      }
+      if (node.object.type === T.Identifier && node.object.name === memberName) {
+        return true;
+      }
       if (
         node.object.type === T.MemberExpression
         && node.object.object.type === T.Identifier
@@ -68,7 +72,9 @@ export function isFromReactMember(
       return false;
     }
     const initialScope = context.sourceCode.getScope(node);
-    if (node.property.type !== T.Identifier || node.property.name !== name) return false;
+    if (node.property.type !== T.Identifier || node.property.name !== name) {
+      return false;
+    }
     if (node.object.type === T.Identifier && node.object.name === memberName) {
       return isInitializedFromReact(node.object.name, initialScope, settings.importSource);
     }
@@ -91,8 +97,12 @@ type IsCallFromReact = {
 
 export function isCallFromReact(name: string): IsCallFromReact {
   return F.dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
-    if (node.type !== T.CallExpression) return false;
-    if (!AST.isOneOf([T.Identifier, T.MemberExpression])(node.callee)) return false;
+    if (node.type !== T.CallExpression) {
+      return false;
+    }
+    if (!AST.isOneOf([T.Identifier, T.MemberExpression])(node.callee)) {
+      return false;
+    }
     return isFromReact(name)(node.callee, context);
   });
 }
@@ -120,8 +130,12 @@ export function isCallFromReactMember(
     & TSESTree.CallExpression
     & { callee: TSESTree.MemberExpression } =>
   {
-    if (node.type !== T.CallExpression) return false;
-    if (!AST.is(T.MemberExpression)(node.callee)) return false;
+    if (node.type !== T.CallExpression) {
+      return false;
+    }
+    if (!AST.is(T.MemberExpression)(node.callee)) {
+      return false;
+    }
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   });
 }

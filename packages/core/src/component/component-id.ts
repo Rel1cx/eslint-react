@@ -8,7 +8,9 @@ import { isReactHookCallWithNameLoose } from "../hook";
 import { isForwardRefCall, isMemoCall } from "../utils";
 
 function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
-  if (node.type !== T.CallExpression) return false;
+  if (node.type !== T.CallExpression) {
+    return false;
+  }
   return isMemoCall(node, context)
     || isForwardRefCall(node, context)
     || isReactHookCallWithNameLoose(node)("useCallback");
@@ -19,7 +21,9 @@ export function getFunctionComponentIdentifier(
   context: RuleContext,
 ): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
   const functionId = AST.getFunctionIdentifier(node);
-  if (O.isSome(functionId)) return functionId;
+  if (O.isSome(functionId)) {
+    return functionId;
+  }
   const { parent } = node;
   // Get function component identifier from `const Component = memo(() => {});`
   if (

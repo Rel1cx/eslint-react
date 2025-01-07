@@ -22,8 +22,12 @@ export function isReactHook(node: AST.TSESTreeFunction) {
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
 export function isReactHookCall(node: TSESTree.Node) {
-  if (node.type !== T.CallExpression) return false;
-  if (node.callee.type === T.Identifier) return isReactHookName(node.callee.name);
+  if (node.type !== T.CallExpression) {
+    return false;
+  }
+  if (node.callee.type === T.Identifier) {
+    return isReactHookName(node.callee.name);
+  }
   if (node.callee.type === T.MemberExpression) {
     return node.callee.property.type === T.Identifier && isReactHookName(node.callee.property.name);
   }
@@ -86,7 +90,9 @@ export function isReactHookCallWithNameAlias(name: string, context: RuleContext,
 }
 
 export function isUseEffectCallLoose(node: TSESTree.Node) {
-  if (node.type !== T.CallExpression) return false;
+  if (node.type !== T.CallExpression) {
+    return false;
+  }
   switch (node.callee.type) {
     case T.Identifier:
       return /^use\w*Effect$/u.test(node.callee.name);

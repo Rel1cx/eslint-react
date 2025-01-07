@@ -54,7 +54,9 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = Array.from(ctx.getAllComponents(node).values());
         function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
-          if (!AST.isFunction(block)) return false;
+          if (!AST.isFunction(block)) {
+            return false;
+          }
           return O.exists(
             AST.getFunctionIdentifier(block),
             id =>
@@ -75,9 +77,13 @@ export default createRule<[], MessageID>({
             scope = scope.upper;
             isComponent = isFunctionComponent(scope.block);
           }
-          if (!isComponent) continue;
+          if (!isComponent) {
+            continue;
+          }
           const component = scope.block;
-          if (!("params" in component)) continue;
+          if (!("params" in component)) {
+            continue;
+          }
           const [props, ctx] = component.params;
           const isMatch = isMatching({ name: memberExpression.object.name });
           if (isMatch(props)) {

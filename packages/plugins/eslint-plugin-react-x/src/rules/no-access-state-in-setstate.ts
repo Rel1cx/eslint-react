@@ -47,7 +47,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("setState")) return {};
+    if (!context.sourceCode.text.includes("setState")) {
+      return {};
+    }
     const classStack: [
       node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
       isComponent: boolean,
@@ -62,11 +64,15 @@ export default createRule<[], MessageID>({
     ][] = [];
     return {
       CallExpression(node) {
-        if (!isThisSetState(node)) return;
+        if (!isThisSetState(node)) {
+          return;
+        }
         setStateStack.push([node, false]);
       },
       "CallExpression:exit"(node) {
-        if (!isThisSetState(node)) return;
+        if (!isThisSetState(node)) {
+          return;
+        }
         setStateStack.pop();
       },
       ClassDeclaration(node) {
@@ -82,14 +88,24 @@ export default createRule<[], MessageID>({
         classStack.pop();
       },
       MemberExpression(node) {
-        if (!AST.isThisExpression(node.object)) return;
+        if (!AST.isThisExpression(node.object)) {
+          return;
+        }
         const [currClass, isComponent] = classStack.at(-1) ?? [];
-        if (!currClass || !isComponent) return;
+        if (!currClass || !isComponent) {
+          return;
+        }
         const [currMethod, isStatic] = methodStack.at(-1) ?? [];
-        if (!currMethod || isStatic) return;
+        if (!currMethod || isStatic) {
+          return;
+        }
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
-        if (!setState || hasThisState) return;
-        if (!O.exists(getName(node.property), name => name === "state")) return;
+        if (!setState || hasThisState) {
+          return;
+        }
+        if (!O.exists(getName(node.property), name => name === "state")) {
+          return;
+        }
         context.report({ messageId: "noAccessStateInSetstate", node });
       },
       MethodDefinition(node) {
@@ -106,20 +122,30 @@ export default createRule<[], MessageID>({
       },
       VariableDeclarator(node) {
         const [currClass, isComponent] = classStack.at(-1) ?? [];
-        if (!currClass || !isComponent) return;
+        if (!currClass || !isComponent) {
+          return;
+        }
         const [currMethod, isStatic] = methodStack.at(-1) ?? [];
-        if (!currMethod || isStatic) return;
+        if (!currMethod || isStatic) {
+          return;
+        }
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
-        if (!setState || hasThisState) return;
+        if (!setState || hasThisState) {
+          return;
+        }
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) return;
+        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
+          return;
+        }
         const hasState = node.id.properties.some(prop => {
           if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
             return O.exists(getName(prop.key), name => name === "state");
           }
           return false;
         });
-        if (!hasState) return;
+        if (!hasState) {
+          return;
+        }
         context.report({ messageId: "noAccessStateInSetstate", node });
       },
     };

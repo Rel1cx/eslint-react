@@ -34,9 +34,13 @@ function checkAndReport(
 ) {
   const initialScope = context.sourceCode.getScope(node);
   // return if the fragment is keyed (e.g. <Fragment key={key}>)
-  if (JSX.isKeyedElement(node, initialScope)) return;
+  if (JSX.isKeyedElement(node, initialScope)) {
+    return;
+  }
   // report if the fragment is placed inside a built-in component (e.g. <div><></></div>)
-  if (JSX.isBuiltInElement(node.parent)) context.report({ messageId: "noUselessFragmentInBuiltIn", node });
+  if (JSX.isBuiltInElement(node.parent)) {
+    context.report({ messageId: "noUselessFragmentInBuiltIn", node });
+  }
   // report and return if the fragment has no children (e.g. <></>)
   if (node.children.length === 0) {
     context.report({ messageId: "noUselessFragment", node });
@@ -106,7 +110,9 @@ export default createRule<Options, MessageID>({
     const { allowExpressions = true } = option;
     return {
       JSXElement(node) {
-        if (JSX.getElementName(node.openingElement).split(".").at(-1) !== "Fragment") return;
+        if (JSX.getElementName(node.openingElement).split(".").at(-1) !== "Fragment") {
+          return;
+        }
         checkAndReport(node, context, allowExpressions);
       },
       JSXFragment(node) {

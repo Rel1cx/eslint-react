@@ -21,7 +21,9 @@ const isRenderMethodLike = isMatching({
 });
 
 export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
-  if (!isRenderMethodLike(node.parent)) return false;
+  if (!isRenderMethodLike(node.parent)) {
+    return false;
+  }
 
   return isClassComponent(node.parent.parent.parent);
 }

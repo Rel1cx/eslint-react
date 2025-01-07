@@ -20,7 +20,9 @@ export function isInitializedFromSource(
   initialScope: Scope,
 ): boolean {
   const latestDef = O.flatMapNullable(findVariable(name, initialScope), (v) => v.defs.at(-1));
-  if (O.isNone(latestDef)) return false;
+  if (O.isNone(latestDef)) {
+    return false;
+  }
   const { node, parent } = latestDef.value;
   if (node.type === T.VariableDeclarator && node.init) {
     const { init } = node;

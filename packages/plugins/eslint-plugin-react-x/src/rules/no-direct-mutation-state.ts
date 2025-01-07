@@ -68,7 +68,9 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     function getReportDescriptor(node: TSESTree.AssignmentExpression): O.Option<ReportDescriptor<MessageID>> {
-      if (!isAssignmentToThisState(node)) return O.none();
+      if (!isAssignmentToThisState(node)) {
+        return O.none();
+      }
       return F.pipe(
         O.Do,
         O.bind("parentClass", () =>

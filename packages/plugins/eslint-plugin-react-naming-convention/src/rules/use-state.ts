@@ -47,10 +47,16 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
         for (const { hookCalls } of components.values()) {
-          if (hookCalls.length === 0) continue;
+          if (hookCalls.length === 0) {
+            continue;
+          }
           for (const hookCall of hookCalls) {
-            if (!isUseStateCall(hookCall, context) && !alias.some(isReactHookCallWithNameLoose(hookCall))) continue;
-            if (hookCall.parent.type !== T.VariableDeclarator) continue;
+            if (!isUseStateCall(hookCall, context) && !alias.some(isReactHookCallWithNameLoose(hookCall))) {
+              continue;
+            }
+            if (hookCall.parent.type !== T.VariableDeclarator) {
+              continue;
+            }
             const { id } = hookCall.parent;
             const descriptor = O.some({ messageId: "useState", node: id } as const);
             F.pipe(
@@ -68,7 +74,9 @@ export default createRule<[], MessageID>({
                   }
                   const [stateName, setStateName] = [state.name, setState.name];
                   const expectedSetterName = `set${capitalize(stateName)}`;
-                  if (setStateName === expectedSetterName) return O.none();
+                  if (setStateName === expectedSetterName) {
+                    return O.none();
+                  }
                   return descriptor;
                 })
                 .otherwise(O.none),

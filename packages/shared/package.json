@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -27,6 +28,7 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -48,16 +50,14 @@
   "devDependencies": {
     "@types/picomatch": "^3.0.1",
     "@workspace/configs": "workspace:*",
-    "fast-equals": "^5.2.0",
+    "fast-equals": "^5.2.1",
     "micro-memoize": "^4.1.3",
     "tsup": "^8.3.5",
     "type-fest": "^4.31.0",
-    "valibot": "^1.0.0-beta.10"
+    "valibot": "^1.0.0-beta.11"
   },
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
-  },
-  "sideEffects": false,
-  "module": "dist/index.mjs"
+  }
 }

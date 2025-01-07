@@ -38,7 +38,9 @@ export default createRule<[], MessageID>({
       const hasValueTrue = value?.type === T.JSXExpressionContainer
         && value.expression.type === T.Literal
         && value.expression.value === true;
-      if (!hasValueTrue) return O.none();
+      if (!hasValueTrue) {
+        return O.none();
+      }
       return O.some({
         messageId: "preferShorthandBoolean",
         node,

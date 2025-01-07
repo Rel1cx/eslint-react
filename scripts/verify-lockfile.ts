@@ -6,7 +6,9 @@ const command = Command.make("git", "diff", "HEAD@{1}", "--stat", "--", "./pnpm-
 const program = Effect.gen(function*() {
   const executor = yield* CommandExecutor.CommandExecutor;
   const output = yield* executor.lines(command);
-  if (output.length === 0) return;
+  if (output.length === 0) {
+    return;
+  }
   yield* Effect.logWarning("Detected changes in pnpm-lock.yaml!");
   yield* Effect.logWarning("Please run `pnpm install` to update local dependencies.");
 });

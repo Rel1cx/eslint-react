@@ -13,7 +13,9 @@ import { typeOf } from "@eslint-react/types";
  * // { fooBar: { 'fizz-buzz': true } }
  */
 export function transformKeys<T>(obj: T, transform: (s: string) => string): T {
-  if (typeOf(obj) !== "object") return obj;
+  if (typeOf(obj) !== "object") {
+    return obj;
+  }
 
   const res = {} as T;
   for (const key in obj) {

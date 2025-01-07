@@ -9,7 +9,9 @@ import { WEBSITE_URL } from "./constants";
  * @returns The URL for the documentation of a rule.
  */
 const getDocsUrl = (pluginName: string) => (ruleName: string) => {
-  if (pluginName === "x") return `${WEBSITE_URL}/docs/rules/${ruleName}`;
+  if (pluginName === "x") {
+    return `${WEBSITE_URL}/docs/rules/${ruleName}`;
+  }
   return `${WEBSITE_URL}/docs/rules/${pluginName}-${ruleName}`;
 };
 

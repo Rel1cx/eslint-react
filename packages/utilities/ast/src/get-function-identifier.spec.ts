@@ -27,7 +27,9 @@ describe("get function identifier from function declaration", () => {
     let n = O.none<TSESTreeFunction>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (!isFunction(node)) return;
+        if (!isFunction(node)) {
+          return;
+        }
         const id = O.getOrThrow(getFunctionIdentifier(node));
         expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);
@@ -61,7 +63,9 @@ describe("get function identifier from function expression", () => {
     let n = O.none<TSESTreeFunction>();
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (!isFunction(node)) return;
+        if (!isFunction(node)) {
+          return;
+        }
         const id = O.getOrThrow(getFunctionIdentifier(node));
         expect(id).include({ type: T.Identifier, name: expected });
         n = O.fromNullable(node);

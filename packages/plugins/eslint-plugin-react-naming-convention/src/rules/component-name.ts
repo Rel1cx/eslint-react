@@ -75,8 +75,12 @@ const schema = [
 
 function normalizeOptions(options: Options) {
   const [opts] = options;
-  if (isNullable(opts)) return defaultOptions[0];
-  if (isString(opts)) return { ...defaultOptions[0], rule: opts } as const;
+  if (isNullable(opts)) {
+    return defaultOptions[0];
+  }
+  if (isString(opts)) {
+    return { ...defaultOptions[0], rule: opts } as const;
+  }
   return {
     ...opts,
     excepts: opts.excepts?.map(pattern => new RegExp(pattern, "u")) ?? [],
@@ -84,7 +88,9 @@ function normalizeOptions(options: Options) {
 }
 
 function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
-  if (options.excepts.some((regex) => regex.test(name))) return true;
+  if (options.excepts.some((regex) => regex.test(name))) {
+    return true;
+  }
   let normalized = name
     .normalize("NFKD")
     .replace(/[\u0300-\u036F]/g, "");
@@ -99,7 +105,9 @@ function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
     .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(normalized))
     .with("PascalCase", () => {
       // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
-      if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) return options.allowAllCaps;
+      if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
+        return options.allowAllCaps;
+      }
       return RE_PASCAL_CASE.test(normalized);
     })
     .otherwise(F.constFalse);
@@ -129,8 +137,12 @@ export default createRule<Options, MessageID>({
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
         const name = JSX.getElementName(node);
-        if (/^[a-z]/u.test(name)) return;
-        if (validate(name, options)) return;
+        if (/^[a-z]/u.test(name)) {
+          return;
+        }
+        if (validate(name, options)) {
+          return;
+        }
         context.report({
           messageId: "componentName",
           node,
@@ -144,9 +156,13 @@ export default createRule<Options, MessageID>({
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
         for (const { node: component } of functionComponents.values()) {
           const mbId = AST.getFunctionIdentifier(component);
-          if (O.isNone(mbId)) continue;
+          if (O.isNone(mbId)) {
+            continue;
+          }
           const id = mbId.value;
-          if (validate(id.name, options)) continue;
+          if (validate(id.name, options)) {
+            continue;
+          }
           context.report({
             messageId: "componentName",
             node: id,

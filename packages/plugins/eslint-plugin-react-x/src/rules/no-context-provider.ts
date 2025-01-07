@@ -30,13 +30,19 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes(".Provider")) return {};
+    if (!context.sourceCode.text.includes(".Provider")) {
+      return {};
+    }
     const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) return {};
+    if (compare(version, "19.0.0", "<")) {
+      return {};
+    }
     return {
       JSXElement(node) {
         const elementName = JSX.getElementName(node.openingElement);
-        if (!elementName.endsWith(".Provider")) return;
+        if (!elementName.endsWith(".Provider")) {
+          return;
+        }
         context.report({
           messageId: "noContextProvider",
           node,
@@ -44,7 +50,9 @@ export default createRule<[], MessageID>({
             const providerName = elementName.replace(/\.Provider$/, "");
             const openingElement = node.openingElement;
             const closingElement = node.closingElement;
-            if (!closingElement) return fixer.replaceText(openingElement.name, providerName);
+            if (!closingElement) {
+              return fixer.replaceText(openingElement.name, providerName);
+            }
             return [
               fixer.replaceText(openingElement.name, providerName),
               fixer.replaceText(closingElement.name, providerName),

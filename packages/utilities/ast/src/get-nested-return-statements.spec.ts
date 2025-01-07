@@ -95,8 +95,12 @@ describe("get nested return statements from function", () => {
     const { ast } = parse(code);
     simpleTraverse(ast, {
       enter(node) {
-        if (O.isSome(n)) return;
-        if (!isFunction(node)) return;
+        if (O.isSome(n)) {
+          return;
+        }
+        if (!isFunction(node)) {
+          return;
+        }
         const returnStatements = getNestedReturnStatements(node);
         for (const [index, statement] of returnStatements.entries()) {
           expect(statement).include(expected[index]);

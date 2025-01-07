@@ -62,10 +62,14 @@ export default createRule<[], MessageID>({
       const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier
         && node.parent.imported === node
         && node.parent.imported.name === node.parent.local.name;
-      if (shouldSkipDuplicate) return O.none();
+      if (shouldSkipDuplicate) {
+        return O.none();
+      }
       const name = node.name;
       const initialScope = context.sourceCode.getScope(node);
-      if (!isFromReact(node, initialScope)) return O.none();
+      if (!isFromReact(node, initialScope)) {
+        return O.none();
+      }
       return O.some({
         messageId: "isFromReact",
         node,

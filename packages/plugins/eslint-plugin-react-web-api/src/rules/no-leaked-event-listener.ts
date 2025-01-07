@@ -89,7 +89,9 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     return JSX.findPropInProperties(properties, initialScope)(propName);
   };
   const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
-    if (prop.type !== T.Property) return O.none();
+    if (prop.type !== T.Property) {
+      return O.none();
+    }
     const { value } = prop;
     switch (value.type) {
       case T.Literal: {
@@ -122,7 +124,9 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
         const pSignal = findProp(node.properties, "signal");
         const vSignal = O.flatMap(pSignal, prop => {
-          if (prop.type !== T.Property) return O.none();
+          if (prop.type !== T.Property) {
+            return O.none();
+          }
           const { value } = prop;
           return getSignalValueExpression(value, initialScope);
         });
@@ -159,8 +163,12 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("addEventListener")) return {};
-    if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) return {};
+    if (!context.sourceCode.text.includes("addEventListener")) {
+      return {};
+    }
+    if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) {
+      return {};
+    }
     const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const aEntries: AEntry[] = [];
     const rEntries: REntry[] = [];
@@ -178,7 +186,9 @@ export default createRule<[], MessageID>({
     function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
       const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
       const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-      if (!isInversePhase(aPhase, rPhase)) return false;
+      if (!isInversePhase(aPhase, rPhase)) {
+        return false;
+      }
       return isSameObject(aCallee, rCallee)
         && AST.isNodeEqual(aListener, rListener)
         && VAR.isNodeValueEqual(aType, rType, [
@@ -193,8 +203,12 @@ export default createRule<[], MessageID>({
       options: typeof defaultOptions,
     ): O.Option<ReportDescriptor<MessageID>> {
       const [_, listener] = node.arguments;
-      if (!AST.isFunction(listener)) return O.none();
-      if (O.isSome(options.signal)) return O.none();
+      if (!AST.isFunction(listener)) {
+        return O.none();
+      }
+      if (O.isSome(options.signal)) {
+        return O.none();
+      }
       return O.some({
         messageId: "noLeakedEventListenerOfInlineFunction",
         node: listener,
@@ -211,12 +225,18 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !fKind) return;
-        if (!ERPhaseRelevance.has(fKind)) return;
+        if (!fNode || !fKind) {
+          return;
+        }
+        if (!ERPhaseRelevance.has(fKind)) {
+          return;
+        }
         match(getCallKind(node))
           .with("addEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
-            if (!type || !listener) return;
+            if (!type || !listener) {
+              return;
+            }
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
@@ -232,7 +252,9 @@ export default createRule<[], MessageID>({
           })
           .with("removeEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
-            if (!type || !listener) return;
+            if (!type || !listener) {
+              return;
+            }
             const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
@@ -253,8 +275,12 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
-          if (O.exists(aEntry.signal, signal => abortedSignals.some(as => isSameObject(as, signal)))) continue;
-          if (rEntries.some(rEntry => isInverseEntry(aEntry, rEntry))) continue;
+          if (O.exists(aEntry.signal, signal => abortedSignals.some(as => isSameObject(as, signal)))) {
+            continue;
+          }
+          if (rEntries.some(rEntry => isInverseEntry(aEntry, rEntry))) {
+            continue;
+          }
           switch (aEntry.phase) {
             case "setup":
             case "cleanup":

@@ -67,9 +67,13 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
   }
-  if (!isReactChildrenMethod(callee.property.name)) return false;
+  if (!isReactChildrenMethod(callee.property.name)) {
+    return false;
+  }
   const initialScope = context.sourceCode.getScope(node);
-  if (callee.object.type === T.Identifier && callee.object.name === "Children") return true;
+  if (callee.object.type === T.Identifier && callee.object.name === "Children") {
+    return true;
+  }
   if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
     return isInitializedFromReact(callee.object.object.name, initialScope, settings.importSource);
   }
@@ -78,19 +82,31 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
 
 function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
   const { callee } = node;
-  if (callee.type !== T.MemberExpression) return O.none();
-  if (callee.property.type !== T.Identifier) return O.none();
+  if (callee.type !== T.MemberExpression) {
+    return O.none();
+  }
+  if (callee.property.type !== T.Identifier) {
+    return O.none();
+  }
   const { name } = callee.property;
-  if (!iteratorFunctionIndexParamPosition.has(name)) return O.none();
+  if (!iteratorFunctionIndexParamPosition.has(name)) {
+    return O.none();
+  }
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
-  if (!callbackArg) return O.none();
+  if (!callbackArg) {
+    return O.none();
+  }
   if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(callbackArg)) {
     return O.none();
   }
   const { params } = callbackArg;
   const indexParamPosition = iteratorFunctionIndexParamPosition.get(name);
-  if (isNullable(indexParamPosition)) return O.none();
-  if (params.length < indexParamPosition + 1) return O.none();
+  if (isNullable(indexParamPosition)) {
+    return O.none();
+  }
+  if (params.length < indexParamPosition + 1) {
+    return O.none();
+  }
   const param = params.at(indexParamPosition);
 
   return param && "name" in param ? O.some(param.name) : O.none();
@@ -124,21 +140,27 @@ export default createRule<[], MessageID>({
 
     function getReportDescriptor(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
       // key={bar}
-      if (isArrayIndex(node)) return [{ messageId: "noArrayIndexKey", node }];
+      if (isArrayIndex(node)) {
+        return [{ messageId: "noArrayIndexKey", node }];
+      }
       // key={`foo-${bar}`} or key={'foo' + bar}
       if (AST.isOneOf([T.TemplateLiteral, T.BinaryExpression])(node)) {
         const exps = T.TemplateLiteral === node.type
           ? node.expressions
           : AST.getIdentifiersFromBinaryExpression(node);
         return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
-          if (isArrayIndex(exp)) return [...acc, { messageId: "noArrayIndexKey", node: exp }];
+          if (isArrayIndex(exp)) {
+            return [...acc, { messageId: "noArrayIndexKey", node: exp }];
+          }
           return acc;
         }, []);
       }
 
       // key={bar.toString()}
       if (isToStringCall(node)) {
-        if (!("object" in node.callee && isArrayIndex(node.callee.object))) return [];
+        if (!("object" in node.callee && isArrayIndex(node.callee.object))) {
+          return [];
+        }
 
         return [{ messageId: "noArrayIndexKey", node: node.callee.object }];
       }
@@ -152,7 +174,9 @@ export default createRule<[], MessageID>({
       }, node);
       if (isStringCall) {
         const [arg] = node.arguments;
-        if (arg && isArrayIndex(arg)) return [{ messageId: "noArrayIndexKey", node: arg }];
+        if (arg && isArrayIndex(arg)) {
+          return [{ messageId: "noArrayIndexKey", node: arg }];
+        }
       }
 
       return [];
@@ -161,13 +185,23 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         indexParamNames.push(getMapIndexParamName(node, context));
-        if (node.arguments.length === 0) return;
-        if (!isCreateOrCloneElementCall(node)) return;
+        if (node.arguments.length === 0) {
+          return;
+        }
+        if (!isCreateOrCloneElementCall(node)) {
+          return;
+        }
         const [_, props] = node.arguments;
-        if (props?.type !== T.ObjectExpression) return;
+        if (props?.type !== T.ObjectExpression) {
+          return;
+        }
         for (const prop of props.properties) {
-          if (!isMatching({ key: { name: "key" } })(prop)) continue;
-          if (!("value" in prop)) continue;
+          if (!isMatching({ key: { name: "key" } })(prop)) {
+            continue;
+          }
+          if (!("value" in prop)) {
+            continue;
+          }
           const descriptors = getReportDescriptor(prop.value);
           for (const descriptor of descriptors) {
             context.report(descriptor);
@@ -178,10 +212,16 @@ export default createRule<[], MessageID>({
         indexParamNames.pop();
       },
       JSXAttribute(node) {
-        if (node.name.name !== "key") return;
-        if (indexParamNames.length === 0) return;
+        if (node.name.name !== "key") {
+          return;
+        }
+        if (indexParamNames.length === 0) {
+          return;
+        }
         const { value } = node;
-        if (value?.type !== T.JSXExpressionContainer) return;
+        if (value?.type !== T.JSXExpressionContainer) {
+          return;
+        }
         const descriptors = getReportDescriptor(value.expression);
         for (const descriptor of descriptors) {
           context.report(descriptor);

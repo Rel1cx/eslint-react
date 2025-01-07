@@ -105,7 +105,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes("ResizeObserver")) return {};
+    if (!context.sourceCode.text.includes("ResizeObserver")) {
+      return {};
+    }
     const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
     const observers: [
       node: TSESTree.NewExpression,
@@ -126,8 +128,12 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const [_, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (node.callee.type !== T.MemberExpression) return;
-        if (!ERPhaseRelevance.has(fKind)) return;
+        if (node.callee.type !== T.MemberExpression) {
+          return;
+        }
+        if (!ERPhaseRelevance.has(fKind)) {
+          return;
+        }
         const { object } = node.callee;
         match(getCallKind(node, context))
           .with("disconnect", () => {
@@ -142,7 +148,9 @@ export default createRule<[], MessageID>({
           })
           .with("observe", () => {
             const [element] = node.arguments;
-            if (!element) return;
+            if (!element) {
+              return;
+            }
             oEntries.push({
               kind: "observe",
               node,
@@ -155,7 +163,9 @@ export default createRule<[], MessageID>({
           })
           .with("unobserve", () => {
             const [element] = node.arguments;
-            if (!element) return;
+            if (!element) {
+              return;
+            }
             uEntries.push({
               kind: "unobserve",
               node,
@@ -170,8 +180,12 @@ export default createRule<[], MessageID>({
       },
       ["NewExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !ERPhaseRelevance.has(fKind)) return;
-        if (!isNewResizeObserver(node)) return;
+        if (!fNode || !ERPhaseRelevance.has(fKind)) {
+          return;
+        }
+        if (!isNewResizeObserver(node)) {
+          return;
+        }
         const id = getInstanceID(node);
         if (O.isNone(id)) {
           context.report({
@@ -184,7 +198,9 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const [node, id, _, phaseNode] of observers) {
-          if (dEntries.some(e => isInstanceIDEqual(e.observer, id, context))) continue;
+          if (dEntries.some(e => isInstanceIDEqual(e.observer, id, context))) {
+            continue;
+          }
           const oentries = oEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
           const uentries = uEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
           const isDynamic = or(AST.isConditional, AST.is(T.CallExpression));
@@ -196,7 +212,9 @@ export default createRule<[], MessageID>({
             continue;
           }
           for (const oEntry of oentries) {
-            if (uentries.some(uEntry => isInstanceIDEqual(uEntry.element, oEntry.element, context))) continue;
+            if (uentries.some(uEntry => isInstanceIDEqual(uEntry.element, oEntry.element, context))) {
+              continue;
+            }
             context.report({ messageId: "noLeakedResizeObserver", node: oEntry.node });
           }
         }
