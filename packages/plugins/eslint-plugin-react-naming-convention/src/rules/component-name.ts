@@ -99,7 +99,7 @@ function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
     .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(normalized))
     .with("PascalCase", () => {
       // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
-      if ([...normalized].length > 3 && /^[A-Z]+$/u.test(normalized)) return options.allowAllCaps;
+      if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) return options.allowAllCaps;
       return RE_PASCAL_CASE.test(normalized);
     })
     .otherwise(F.constFalse);
@@ -143,25 +143,23 @@ export default createRule<Options, MessageID>({
         const functionComponents = collector.ctx.getAllComponents(node);
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
         for (const { node: component } of functionComponents.values()) {
-          O.match(AST.getFunctionIdentifier(component), {
-            onNone() {},
-            onSome(id) {
-              if (validate(id.name, options)) return;
-              context.report({
-                messageId: "componentName",
-                node: id,
-                data: {
-                  case: options.rule,
-                },
-              });
+          const mbId = AST.getFunctionIdentifier(component);
+          if (O.isNone(mbId)) continue;
+          const id = mbId.value;
+          if (validate(id.name, options)) continue;
+          context.report({
+            messageId: "componentName",
+            node: id,
+            data: {
+              case: options.rule,
             },
           });
         }
         for (const { node: component } of classComponents.values()) {
-          O.match(AST.getClassIdentifier(component), {
-            onNone() {},
-            onSome(id) {
-              if (validate(id.name, options)) return;
+          F.pipe(
+            AST.getClassIdentifier(component),
+            O.filter(id => !validate(id.name, options)),
+            O.map(id => {
               context.report({
                 messageId: "componentName",
                 node: id,
@@ -169,8 +167,8 @@ export default createRule<Options, MessageID>({
                   case: options.rule,
                 },
               });
-            },
-          });
+            }),
+          );
         }
       },
     };

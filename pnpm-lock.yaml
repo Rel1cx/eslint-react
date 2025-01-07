@@ -919,9 +919,6 @@ importers:
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
-      valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.2)
     devDependencies:
       '@types/picomatch':
         specifier: ^3.0.1
@@ -929,12 +926,21 @@ importers:
       '@workspace/configs':
         specifier: workspace:*
         version: link:../../workspace/configs
+      fast-equals:
+        specifier: ^5.2.0
+        version: 5.2.0
+      micro-memoize:
+        specifier: ^4.1.3
+        version: 4.1.3
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.10.4(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
       type-fest:
         specifier: ^4.31.0
         version: 4.31.0
+      valibot:
+        specifier: ^1.0.0-beta.10
+        version: 1.0.0-beta.10(typescript@5.7.2)
 
   packages/types:
     dependencies:
@@ -5440,8 +5446,8 @@ packages:
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
-  fast-equals@5.0.1:
-    resolution: {integrity: sha512-WF1Wi8PwwSY7/6Kx0vKXtw8RwuSGoM1bvDaJbu7MxDlR1vovZjIAKrnzyrThgAjm6JDTu0fVgWXDlMGspodfoQ==}
+  fast-equals@5.2.0:
+    resolution: {integrity: sha512-3VpaQYf+CDFdRQfgsb+3vY7XaKjM35WCMoQTTE8h4S/eUkHzyJFOOA/gATYgoLejy4FBrEQD/sXe5Auk4cW/AQ==}
     engines: {node: '>=6.0.0'}
 
   fast-glob@3.3.1:
@@ -6386,8 +6392,8 @@ packages:
   mhchemparser@4.2.1:
     resolution: {integrity: sha512-kYmyrCirqJf3zZ9t/0wGgRZ4/ZJw//VwaRVGA75C4nhE60vtnIzhl9J9ndkX/h6hxSN7pjg/cE0VxbnNM+bnDQ==}
 
-  micro-memoize@4.1.2:
-    resolution: {integrity: sha512-+HzcV2H+rbSJzApgkj0NdTakkC+bnyeiUxgT6/m7mjcz1CmM22KYFKp+EVj1sWe4UYcnriJr5uqHQD/gMHLD+g==}
+  micro-memoize@4.1.3:
+    resolution: {integrity: sha512-DzRMi8smUZXT7rCGikRwldEh6eO6qzKiPPopcr1+2EY3AYKpy5fu159PKWwIS9A6IWnrvPKDMcuFtyrroZa8Bw==}
 
   micromark-core-commonmark@2.0.2:
     resolution: {integrity: sha512-FKjQKbxd1cibWMM1P9N+H8TwlgGgSkWZMmfuVucLCHaYqeSvJ0hFeHsIa65pA2nYbes0f8LDHPMrd9X7Ujxg9w==}
@@ -9801,8 +9807,8 @@ snapshots:
     dependencies:
       '@eslint-react/eff': 1.23.1
       '@typescript-eslint/utils': 8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
-      fast-equals: 5.0.1
-      micro-memoize: 4.1.2
+      fast-equals: 5.2.0
+      micro-memoize: 4.1.3
       picomatch: 4.0.2
       ts-pattern: 5.6.0
       valibot: 1.0.0-beta.10(typescript@5.7.2)
@@ -11910,7 +11916,7 @@ snapshots:
       '@cspell/cspell-pipe': 8.17.1
       '@cspell/cspell-types': 8.17.1
       cspell-trie-lib: 8.17.1
-      fast-equals: 5.0.1
+      fast-equals: 5.2.0
 
   cspell-gitignore@8.17.1:
     dependencies:
@@ -11953,7 +11959,7 @@ snapshots:
       cspell-io: 8.17.1
       cspell-trie-lib: 8.17.1
       env-paths: 3.0.0
-      fast-equals: 5.0.1
+      fast-equals: 5.2.0
       gensequence: 7.0.0
       import-fresh: 3.3.0
       resolve-from: 5.0.0
@@ -12917,7 +12923,7 @@ snapshots:
 
   fast-deep-equal@3.1.3: {}
 
-  fast-equals@5.0.1: {}
+  fast-equals@5.2.0: {}
 
   fast-glob@3.3.1:
     dependencies:
@@ -14027,7 +14033,7 @@ snapshots:
 
   mhchemparser@4.2.1: {}
 
-  micro-memoize@4.1.2: {}
+  micro-memoize@4.1.3: {}
 
   micromark-core-commonmark@2.0.2:
     dependencies:

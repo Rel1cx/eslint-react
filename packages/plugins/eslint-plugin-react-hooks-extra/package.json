@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -36,6 +37,7 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -86,7 +88,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "sideEffects": false,
-  "module": "dist/index.mjs"
+  }
 }

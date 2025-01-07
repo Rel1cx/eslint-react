@@ -1,12 +1,16 @@
 import { E, F } from "@eslint-react/eff";
+import { shallowEqual } from "fast-equals";
+import memoize from "micro-memoize";
 import pm from "picomatch";
 import { match, P } from "ts-pattern";
-import { assert } from "valibot";
+import type { PartialDeep } from "type-fest";
+import { parse } from "valibot";
 
-import { normalizedSettingsCache } from "./cache";
 import { getReactVersion } from "./get-react-version";
 import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
 import { ESLintSettingsSchema } from "./schemas";
+
+// #region Constants
 
 /**
  * The default ESLint settings for "react-x".
@@ -20,26 +24,49 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   version: "detect",
 } as const satisfies ESLintReactSettings;
 
+// #endregion
+
+// #region Decoding Functions
+
 /**
- * Get the normalized ESLint settings for "react-x" from the given context.
- * @param context The context.
- * @param context.settings The ESLint settings.
- * @returns The normalized ESLint settings.
+ * Unsafely casts settings from a data object from `context.settings`.
+ * @internal
+ * @param data The data object.
+ * @returns settings The settings.
  */
-export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
-  assert(ESLintSettingsSchema, context.settings);
-  const raw = context.settings?.["react-x"] ?? {};
-  const memoized = normalizedSettingsCache.get(raw);
-  if (memoized) {
-    return memoized;
-  }
-  const rawWithDefaults = {
+export function unsafeDecodeSettings(data: unknown): PartialDeep<ESLintReactSettings> {
+  // @ts-expect-error - skip type checking for unsafe cast
+  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
+  return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
+}
+
+/**
+ * Decodes settings from a data object from `context.settings`.
+ * @internal
+ * @param data The data object.
+ * @returns settings The settings.
+ */
+export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
+  return {
     ...DEFAULT_ESLINT_REACT_SETTINGS,
-    ...raw,
+    ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
   };
-  const additionalComponents = rawWithDefaults.additionalComponents ?? [];
-  const normalized = {
-    ...rawWithDefaults,
+}, { isEqual: (a, b) => a === b });
+
+// #endregion
+
+// #region Normalization Functions
+
+/**
+ * Normalizes the settings by converting all shorthand properties to their full form.
+ * @param settings The settings.
+ * @returns The normalized settings.
+ * @internal
+ */
+export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsNormalized => {
+  const additionalComponents = settings.additionalComponents ?? [];
+  return {
+    ...settings,
     additionalComponents: additionalComponents.map((component) => ({
       ...component,
       attributes: component.attributes?.map((attr) => ({
@@ -54,12 +81,18 @@ export function getSettingsFromContext(context: { settings: unknown }): ESLintRe
       if (!/^[\w-]+$/u.test(name)) return acc;
       return acc.set(name, as);
     }, new Map<string, string>()),
-    version: match(rawWithDefaults.version)
+    version: match(settings.version)
       .with(P.union(P.nullish, "", "detect"), () => E.getOrElse(getReactVersion(), F.constant("19.0.0")))
       .otherwise(F.identity),
   };
-  normalizedSettingsCache.set(raw, normalized);
-  return normalized;
+}, { isEqual: shallowEqual });
+
+// #endregion
+
+// #region Helper Functions
+
+export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
+  return normalizeSettings(decodeSettings(context.settings));
 }
 
 /**
@@ -68,6 +101,8 @@ export function getSettingsFromContext(context: { settings: unknown }): ESLintRe
  * @returns The settings.
  */
 export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = F.identity;
+
+// #endregion
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {

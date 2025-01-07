@@ -79,10 +79,10 @@ export default createRule<[], MessageID>({
       return AST.getNestedReturnStatements(node)
         .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
           if (!statement.argument) return acc;
-          return O.match(checkIteratorElement(statement.argument), {
-            onNone: () => acc,
-            onSome: descriptor => [...acc, descriptor],
-          });
+          const mbDescriptor = checkIteratorElement(statement.argument);
+          return O.isNone(mbDescriptor)
+            ? acc
+            : [...acc, mbDescriptor.value];
         }, []);
     }
 

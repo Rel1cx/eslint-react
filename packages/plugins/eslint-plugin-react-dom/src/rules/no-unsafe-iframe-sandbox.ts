@@ -41,29 +41,27 @@ export default createRule<[], MessageID>({
         if (elementName !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        O.match(JSX.findPropInAttributes(attributes, initialScope)("sandbox"), {
-          onNone() {},
-          onSome(a) {
-            const isSafeSandboxValue = !F.pipe(
-              JSX.getPropValue(a, context.sourceCode.getScope(a)),
-              O.flatMapNullable(v =>
-                match(v)
-                  .with(P.string, F.identity)
-                  .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
-                  .otherwise(F.constNull)
-              ),
-              O.filter(isString),
-              O.map((value) => value.split(" ")),
-              O.exists(values =>
-                unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
-              ),
-            );
-            if (isSafeSandboxValue) return;
-            context.report({
-              messageId: "noUnsafeIframeSandbox",
-              node: a,
-            });
-          },
+        const mbProp = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
+        if (O.isNone(mbProp)) return;
+        const prop = mbProp.value;
+        const isSafeSandboxValue = !F.pipe(
+          JSX.getPropValue(prop, context.sourceCode.getScope(prop)),
+          O.flatMapNullable(v =>
+            match(v)
+              .with(P.string, F.identity)
+              .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
+              .otherwise(F.constNull)
+          ),
+          O.filter(isString),
+          O.map((value) => value.split(" ")),
+          O.exists(values =>
+            unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
+          ),
+        );
+        if (isSafeSandboxValue) return;
+        context.report({
+          messageId: "noUnsafeIframeSandbox",
+          node: prop,
         });
       },
     };

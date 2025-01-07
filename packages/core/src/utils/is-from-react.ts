@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { F } from "@eslint-react/eff";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { unsafeDecodeSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -17,15 +17,25 @@ export function isFromReact(name: string) {
     node: TSESTree.Identifier | TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
-    const settings = getSettingsFromContext(context);
+    const settings = unsafeDecodeSettings(context.settings);
+    if (!settings.strictImportCheck) {
+      if (node.type === T.MemberExpression) {
+        return node.object.type === T.Identifier
+          && node.property.type === T.Identifier
+          && node.property.name === name;
+      }
+      return node.name === name;
+    }
     const initialScope = context.sourceCode.getScope(node);
     if (node.type === T.MemberExpression) {
       return node.object.type === T.Identifier
         && node.property.type === T.Identifier
         && node.property.name === name
-        && isInitializedFromReact(node.object.name, initialScope, settings);
+        && isInitializedFromReact(node.object.name, initialScope, settings.importSource);
     }
-    if (node.name === name) return isInitializedFromReact(name, initialScope, settings);
+    if (node.name === name) {
+      return isInitializedFromReact(name, initialScope, settings.importSource);
+    }
     return false;
   };
 }
@@ -44,16 +54,28 @@ export function isFromReactMember(
     node: TSESTree.MemberExpression,
     context: RuleContext,
   ) => {
-    const settings = getSettingsFromContext(context);
+    const settings = unsafeDecodeSettings(context.settings);
+    if (!settings.strictImportCheck) {
+      if (node.property.type !== T.Identifier || node.property.name !== name) return false;
+      if (node.object.type === T.Identifier && node.object.name === memberName) return true;
+      if (
+        node.object.type === T.MemberExpression
+        && node.object.object.type === T.Identifier
+        && node.object.property.type === T.Identifier
+      ) {
+        return node.object.property.name === memberName;
+      }
+      return false;
+    }
     const initialScope = context.sourceCode.getScope(node);
     if (node.property.type !== T.Identifier || node.property.name !== name) return false;
     if (node.object.type === T.Identifier && node.object.name === memberName) {
-      return isInitializedFromReact(node.object.name, initialScope, settings);
+      return isInitializedFromReact(node.object.name, initialScope, settings.importSource);
     }
     if (
       node.object.type === T.MemberExpression
       && node.object.object.type === T.Identifier
-      && isInitializedFromReact(node.object.object.name, initialScope, settings)
+      && isInitializedFromReact(node.object.object.name, initialScope, settings.importSource)
       && node.object.property.type === T.Identifier
     ) {
       return node.object.property.name === memberName;
