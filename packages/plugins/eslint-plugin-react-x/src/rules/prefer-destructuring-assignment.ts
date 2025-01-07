@@ -55,12 +55,13 @@ export default createRule<[], MessageID>({
         const components = Array.from(ctx.getAllComponents(node).values());
         function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
           if (!AST.isFunction(block)) return false;
-          return O.match(AST.getFunctionIdentifier(block), {
-            onNone: () => false,
-            onSome: (id) =>
+          return O.exists(
+            AST.getFunctionIdentifier(block),
+            id =>
               isComponentName(id.name)
-              && components.some((component) => component.node === block),
-          });
+              && components
+                .some(component => component.node === block),
+          );
         }
 
         for (const [initialScope, memberExpression] of memberExpressionWithNames) {

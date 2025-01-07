@@ -127,16 +127,15 @@ export default createRule<[], MessageID>({
                 return;
               }
               default: {
-                O.match(AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall), {
-                  onNone() {
-                    const calls = indSetStateCalls.get(pEntry.node) ?? [];
-                    indSetStateCalls.set(pEntry.node, [...calls, node]);
-                  },
-                  onSome(a) {
-                    const prevs = indSetStateCallsInUseMemoOrCallback.get(a.init) ?? [];
-                    indSetStateCallsInUseMemoOrCallback.set(a.init, [...prevs, node]);
-                  },
-                });
+                const mbVariableDeclarator = AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall);
+                if (O.isNone(mbVariableDeclarator)) {
+                  const calls = indSetStateCalls.get(pEntry.node) ?? [];
+                  indSetStateCalls.set(pEntry.node, [...calls, node]);
+                  return;
+                }
+                const vd = mbVariableDeclarator.value;
+                const prevs = indSetStateCallsInUseMemoOrCallback.get(vd.init) ?? [];
+                indSetStateCallsInUseMemoOrCallback.set(vd.init, [...prevs, node]);
               }
             }
           })
@@ -162,13 +161,11 @@ export default createRule<[], MessageID>({
             // const set = useMemo(() => setState, []);
             // useEffect(set, []);
             if (!isUseMemoCall(parent)) break;
-            O.match(AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall), {
-              onNone() {},
-              onSome(a) {
-                const calls = indSetStateCallsInUseEffectArg0.get(a.init) ?? [];
-                indSetStateCallsInUseEffectArg0.set(a.init, [...calls, node]);
-              },
-            });
+            const mbVariableDeclarator = AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall);
+            if (O.isNone(mbVariableDeclarator)) break;
+            const variableDeclarator = mbVariableDeclarator.value;
+            const calls = indSetStateCallsInUseEffectArg0.get(variableDeclarator.init) ?? [];
+            indSetStateCallsInUseEffectArg0.set(variableDeclarator.init, [...calls, node]);
             break;
           }
           case T.CallExpression: {
@@ -177,13 +174,11 @@ export default createRule<[], MessageID>({
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              O.match(AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall), {
-                onNone() {},
-                onSome(vd) {
-                  const prevs = indSetStateCallsInUseEffectArg0.get(vd.init) ?? [];
-                  indSetStateCallsInUseEffectArg0.set(vd.init, [...prevs, node]);
-                },
-              });
+              const mbVariableDeclarator = AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall);
+              if (O.isNone(mbVariableDeclarator)) break;
+              const variableDeclarator = mbVariableDeclarator.value;
+              const prevs = indSetStateCallsInUseEffectArg0.get(variableDeclarator.init) ?? [];
+              indSetStateCallsInUseEffectArg0.set(variableDeclarator.init, [...prevs, node]);
             }
             // const [state, setState] = useState();
             // useEffect(setState);

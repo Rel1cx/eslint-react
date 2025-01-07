@@ -148,12 +148,11 @@ export default createRule<[], MessageID>({
         if (node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-              O.match(getName(prop.key), {
-                onNone() {},
-                onSome(name) {
-                  propertyUsages.get(currentClass)?.add(name);
-                },
-              });
+              const mbName = getName(prop.key);
+              if (O.isSome(mbName)) {
+                const name = mbName.value;
+                propertyUsages.get(currentClass)?.add(name);
+              }
             }
           }
         }

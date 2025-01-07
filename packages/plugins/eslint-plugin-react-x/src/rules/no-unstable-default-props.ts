@@ -84,13 +84,11 @@ export default createRule<[], MessageID>({
         }
       },
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
-        O.match(ctx.getCurrentFunction(), {
-          onNone() {},
-          onSome(a) {
-            const prevs = declarators.get(a.node) ?? [];
-            declarators.set(a.node, [...prevs, node]);
-          },
-        });
+        const mbEntry = ctx.getCurrentFunction();
+        if (O.isNone(mbEntry)) return;
+        const entry = mbEntry.value;
+        const prevs = declarators.get(entry.node) ?? [];
+        declarators.set(entry.node, [...prevs, node]);
       },
     };
   },

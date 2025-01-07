@@ -54,26 +54,25 @@ export default createRule<[], MessageID>({
         if (elementName !== "iframe") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        O.match(JSX.findPropInAttributes(attributes, initialScope)("sandbox"), {
-          onNone() {
-            context.report({
-              messageId: "noMissingIframeSandbox",
-              node: node.openingElement,
-            });
-          },
-          onSome(a) {
-            const hasValidSandbox = F.pipe(
-              JSX.getPropValue(a, context.sourceCode.getScope(a)),
-              O.filter(isString),
-              O.map((value) => value.split(" ")),
-              O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
-            );
-            if (hasValidSandbox) return;
-            context.report({
-              messageId: "noMissingIframeSandbox",
-              node: a,
-            });
-          },
+        const mbProp = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
+        if (O.isNone(mbProp)) {
+          context.report({
+            messageId: "noMissingIframeSandbox",
+            node: node.openingElement,
+          });
+          return;
+        }
+        const prop = mbProp.value;
+        const hasValidSandbox = F.pipe(
+          JSX.getPropValue(prop, context.sourceCode.getScope(prop)),
+          O.filter(isString),
+          O.map((value) => value.split(" ")),
+          O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
+        );
+        if (hasValidSandbox) return;
+        context.report({
+          messageId: "noMissingIframeSandbox",
+          node: prop,
         });
       },
     };

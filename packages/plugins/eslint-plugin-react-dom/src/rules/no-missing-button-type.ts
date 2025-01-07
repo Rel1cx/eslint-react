@@ -1,5 +1,5 @@
 import { getElementRepresentName } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
@@ -35,14 +35,11 @@ export default createRule<[], MessageID>({
         if (elementName !== "button") return;
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        O.match(JSX.findPropInAttributes(attributes, initialScope)("type"), {
-          onNone() {
-            context.report({
-              messageId: "noMissingButtonType",
-              node: node.openingElement,
-            });
-          },
-          onSome() {},
+        const mbProp = JSX.findPropInAttributes(attributes, initialScope)("type");
+        if (O.isSome(mbProp)) return;
+        context.report({
+          messageId: "noMissingButtonType",
+          node,
         });
       },
     };

@@ -6,16 +6,13 @@ import { getFunctionComponentIdentifier } from "./component-id";
 import { isComponentName } from "./component-name";
 
 export function hasNoneOrValidComponentName(node: AST.TSESTreeFunction, context: RuleContext) {
-  return O.match(
+  return F.pipe(
     getFunctionComponentIdentifier(node, context),
-    {
-      onNone: F.constTrue,
-      onSome: id => {
-        const name = Array.isArray(id)
-          ? id.at(-1)?.name
-          : id.name;
-        return !!name && isComponentName(name);
-      },
-    },
+    O.exists(id => {
+      const name = Array.isArray(id)
+        ? id.at(-1)?.name
+        : id.name;
+      return !!name && isComponentName(name);
+    }),
   );
 }

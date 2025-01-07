@@ -65,14 +65,11 @@ export default createRule<[], MessageID>({
             const initialScope = context.sourceCode.getScope(valueExpression);
             return O.some(VAR.getValueConstruction(valueExpression, initialScope));
           }),
-          O.match({
-            onNone() {},
-            onSome(a) {
-              if (a.construction.kind === "None") return;
-              if (isReactHookCall(a.construction.node)) return;
-              const prevs = constructions.get(a.function.node) ?? [];
-              constructions.set(a.function.node, [...prevs, a.construction]);
-            },
+          O.map((vc) => {
+            if (vc.construction.kind === "None") return;
+            if (isReactHookCall(vc.construction.node)) return;
+            const prevs = constructions.get(vc.function.node) ?? [];
+            constructions.set(vc.function.node, [...prevs, vc.construction]);
           }),
         );
       },

@@ -63,22 +63,19 @@ export default createRule<[], MessageID>({
             break;
           }
           default: {
-            const entry = F.pipe(
+            const mbEntry = F.pipe(
               O.Do,
               O.bind("call", () => AST.findParentNodeGuard(jsxElement, AST.isMapCallLoose)),
               O.bind("iter", ({ call }) => AST.findParentNodeStop(jsxElement, call, AST.isFunction)),
               O.bind("arg0", ({ call }) => O.fromNullable(call.arguments[0])),
             );
-            O.match(entry, {
-              onNone() {},
-              onSome({ arg0, call, iter }) {
-                if (AST.unwrapTypeExpression(arg0) !== iter) return;
-                keyedEntries.set(call, {
-                  hasDuplicate: node.value?.type === T.Literal,
-                  keys: [node],
-                  root: call,
-                });
-              },
+            if (O.isNone(mbEntry)) return;
+            const { arg0, call, iter } = mbEntry.value;
+            if (AST.unwrapTypeExpression(arg0) !== iter) return;
+            keyedEntries.set(call, {
+              hasDuplicate: node.value?.type === T.Literal,
+              keys: [node],
+              root: call,
             });
           }
         }

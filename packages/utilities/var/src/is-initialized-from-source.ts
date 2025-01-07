@@ -19,36 +19,30 @@ export function isInitializedFromSource(
   source: string,
   initialScope: Scope,
 ): boolean {
-  return F.pipe(
-    findVariable(name, initialScope),
-    O.flatMapNullable((v) => v.defs.at(-1)),
-    O.match({
-      onNone: () => false,
-      onSome: ({ node, parent }) => {
-        if (node.type === T.VariableDeclarator && node.init) {
-          const { init } = node;
-          // check for: `variable = Source.variable`
-          if (init.type === T.MemberExpression && init.object.type === T.Identifier) {
-            return isInitializedFromSource(init.object.name, source, initialScope);
-          }
-          // check for: `{ variable } = Source`
-          if (init.type === T.Identifier) {
-            return isInitializedFromSource(init.name, source, initialScope);
-          }
-          // check for: `variable = require('source')` or `variable = require('source').variable`
-          return F.pipe(
-            getRequireExpressionArguments(init),
-            O.flatMapNullable((args) => args[0]),
-            O.filter(AST.isStringLiteral),
-            // check for: `require('source')` or `require('source/...')`
-            O.exists((arg) => arg.value === source || arg.value.startsWith(`${source}/`)),
-          );
-        }
-        // latest definition is an import declaration: import { variable } from 'source'
-        return isMatching({ type: "ImportDeclaration", source: { value: source } }, parent);
-      },
-    }),
-  );
+  const latestDef = O.flatMapNullable(findVariable(name, initialScope), (v) => v.defs.at(-1));
+  if (O.isNone(latestDef)) return false;
+  const { node, parent } = latestDef.value;
+  if (node.type === T.VariableDeclarator && node.init) {
+    const { init } = node;
+    // check for: `variable = Source.variable`
+    if (init.type === T.MemberExpression && init.object.type === T.Identifier) {
+      return isInitializedFromSource(init.object.name, source, initialScope);
+    }
+    // check for: `{ variable } = Source`
+    if (init.type === T.Identifier) {
+      return isInitializedFromSource(init.name, source, initialScope);
+    }
+    // check for: `variable = require('source')` or `variable = require('source').variable`
+    return F.pipe(
+      getRequireExpressionArguments(init),
+      O.flatMapNullable((args) => args[0]),
+      O.filter(AST.isStringLiteral),
+      // check for: `require('source')` or `require('source/...')`
+      O.exists((arg) => arg.value === source || arg.value.startsWith(`${source}/`)),
+    );
+  }
+  // latest definition is an import declaration: import { variable } from 'source'
+  return isMatching({ type: "ImportDeclaration", source: { value: source } }, parent);
 }
 
 function getRequireExpressionArguments(node: TSESTree.Node): O.Option<TSESTree.CallExpressionArgument[]> {

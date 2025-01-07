@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { isNullable, O, or } from "@eslint-react/eff";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { unsafeDecodeSettings } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -62,7 +62,7 @@ function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod
 }
 
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
-  const settings = getSettingsFromContext(context);
+  const settings = unsafeDecodeSettings(context.settings);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
@@ -71,7 +71,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   const initialScope = context.sourceCode.getScope(node);
   if (callee.object.type === T.Identifier && callee.object.name === "Children") return true;
   if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, initialScope, { ...settings, strictImportCheck: true });
+    return isInitializedFromReact(callee.object.object.name, initialScope, settings.importSource);
   }
   return false;
 }
