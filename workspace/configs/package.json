@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "Local configuration files",
-  "sideEffects": false,
   "exports": {
     "./tsconfig.base.json": "./tsconfig.base.json",
     "./typedoc.base.json": "./typedoc.base.json"
-  }
+  },
+  "sideEffects": false
 }

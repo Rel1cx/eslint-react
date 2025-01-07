@@ -21,7 +21,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -36,7 +35,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -56,15 +54,15 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.19.0",
-    "@typescript-eslint/types": "^8.19.0",
-    "@typescript-eslint/utils": "^8.19.0",
+    "@typescript-eslint/scope-manager": "^8.19.1",
+    "@typescript-eslint/types": "^8.19.1",
+    "@typescript-eslint/utils": "^8.19.1",
     "compare-versions": "^6.1.1",
     "string-ts": "^2.2.0",
     "ts-pattern": "^5.6.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.2",
+    "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.2",
     "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5"
@@ -87,5 +85,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }

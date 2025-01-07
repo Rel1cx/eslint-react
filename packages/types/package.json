@@ -13,7 +13,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -28,7 +27,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -43,8 +41,8 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/types": "^8.19.0",
-    "@typescript-eslint/utils": "^8.19.0"
+    "@typescript-eslint/types": "^8.19.1",
+    "@typescript-eslint/utils": "^8.19.1"
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
@@ -53,5 +51,7 @@
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }

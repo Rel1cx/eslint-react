@@ -24,7 +24,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -39,7 +38,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -55,10 +53,10 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.19.0",
-    "@typescript-eslint/type-utils": "^8.19.0",
-    "@typescript-eslint/types": "^8.19.0",
-    "@typescript-eslint/utils": "^8.19.0",
+    "@typescript-eslint/scope-manager": "^8.19.1",
+    "@typescript-eslint/type-utils": "^8.19.1",
+    "@typescript-eslint/types": "^8.19.1",
+    "@typescript-eslint/utils": "^8.19.1",
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
@@ -88,5 +86,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }
