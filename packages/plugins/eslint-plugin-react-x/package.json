@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.23.3-next.3",
+  "version": "1.23.3-next.4",
   "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -20,7 +20,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -35,7 +34,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -68,22 +66,22 @@
     "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.2",
     "@workspace/configs": "workspace:*",
-    "tsup": "^8.3.5",
-    "ts-api-utils": "^2.0.0"
+    "ts-api-utils": "^2.0.0",
+    "tsup": "^8.3.5"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
-    "typescript": "^4.9.5 || ^5.3.3",
-    "ts-api-utils": "^2.0.0"
+    "ts-api-utils": "^2.0.0",
+    "typescript": "^4.9.5 || ^5.3.3"
   },
   "peerDependenciesMeta": {
     "eslint": {
       "optional": false
     },
-    "typescript": {
+    "ts-api-utils": {
       "optional": true
     },
-    "ts-api-utils": {
+    "typescript": {
       "optional": true
     }
   },
@@ -93,5 +91,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }

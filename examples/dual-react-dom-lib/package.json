@@ -2,7 +2,6 @@
   "name": "@examples/dual-react-dom-lib",
   "version": "0.0.0",
   "license": "MIT",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -17,7 +16,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -48,8 +46,10 @@
   "peerDependencies": {
     "react": "^19.0.0"
   },
-  "packageManager": "pnpm@9.15.3",
   "engines": {
     "node": ">=18.18.0"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs",
+  "packageManager": "pnpm@9.15.3"
 }

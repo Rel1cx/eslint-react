@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "Local ESLint dependencies",
-  "sideEffects": false,
   "dependencies": {
     "@eslint/markdown": "^6.2.1",
     "@susisu/eslint-plugin-safe-typescript": "^0.9.2",
@@ -15,5 +14,6 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^56.0.1",
     "eslint-plugin-vitest": "^0.5.4"
-  }
+  },
+  "sideEffects": false
 }

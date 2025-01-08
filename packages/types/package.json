@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/types",
-  "version": "1.23.3-next.3",
+  "version": "1.23.3-next.4",
   "description": "ESLint React's type definitions.",
   "homepage": "https://github.com/rEl1cx/eslint-react",
   "bugs": {
@@ -13,7 +13,6 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -28,7 +27,6 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -53,5 +51,7 @@
   "engines": {
     "bun": ">=1.0.15",
     "node": ">=18.18.0"
-  }
+  },
+  "sideEffects": false,
+  "module": "dist/index.mjs"
 }
