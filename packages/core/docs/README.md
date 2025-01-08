@@ -95,6 +95,7 @@
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
 - [isReactHookName](functions/isReactHookName.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
+- [isRenderMethodLike](functions/isRenderMethodLike.md)
 - [isRenderPropLoose](functions/isRenderPropLoose.md)
 - [isSetupFunction](functions/isSetupFunction.md)
 - [isThisSetState](functions/isThisSetState.md)

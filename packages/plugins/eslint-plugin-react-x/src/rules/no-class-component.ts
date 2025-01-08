@@ -1,9 +1,9 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
 import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
-import { isMatching, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -15,23 +15,25 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const isComponentDidCatch = isMatching({
-  key: {
-    type: T.Identifier,
-    name: "componentDidCatch",
-  },
-  type: P.union(T.MethodDefinition, T.PropertyDefinition),
-  static: false,
-});
+export function isComponentDidCatch(node: TSESTree.Node): node is
+  | TSESTree.MethodDefinition
+  | TSESTree.PropertyDefinition
+{
+  return (node.type === T.MethodDefinition || node.type === T.PropertyDefinition)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentDidCatch";
+}
 
-const isGetDerivedStateFromError = isMatching({
-  key: {
-    type: T.Identifier,
-    name: "getDerivedStateFromError",
-  },
-  type: P.union(T.MethodDefinition, T.PropertyDefinition),
-  static: true,
-});
+function isGetDerivedStateFromError(node: TSESTree.Node): node is
+  | TSESTree.MethodDefinition
+  | TSESTree.PropertyDefinition
+{
+  return (node.type === T.MethodDefinition || node.type === T.PropertyDefinition)
+    && node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "getDerivedStateFromError";
+}
 
 export default createRule<[], MessageID>({
   meta: {

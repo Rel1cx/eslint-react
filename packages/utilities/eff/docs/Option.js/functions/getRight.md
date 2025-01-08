@@ -20,7 +20,7 @@ Converts a `Either` to an `Option` discarding the error.
 
 ### self
 
-[`Either`](../../Either.js/type-aliases/Either.md)\<`R`, `L`\>
+`Either`\<`R`, `L`\>
 
 ## Returns
 

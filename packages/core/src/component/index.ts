@@ -8,4 +8,5 @@ export type * from "./component-kind";
 export type * from "./component-method-kind";
 export * from "./component-name";
 export * from "./component-render-method";
+export * from "./is";
 export * from "./misc";

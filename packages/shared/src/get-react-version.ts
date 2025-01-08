@@ -1,12 +1,16 @@
-import { E, F } from "@eslint-react/eff";
-import { isMatching, P } from "ts-pattern";
+import module from "node:module";
 
-import { tryRequire } from "./try-require";
+import { F } from "@eslint-react/eff";
+import { match, P } from "ts-pattern";
 
-export function getReactVersion(at = import.meta.url): E.Either<string, unknown> {
-  return F.pipe(
-    tryRequire("react", at),
-    E.filterOrLeft(isMatching({ version: P.string }), F.identity),
-    E.map((mod) => mod.version),
-  );
+const _require = module.createRequire(import.meta.url);
+
+export function getReactVersion(fallback = "19.0.0"): string {
+  try {
+    return match(_require("react"))
+      .with({ version: P.select(P.string) }, F.identity)
+      .otherwise(F.constant(fallback));
+  } catch {
+    return fallback;
+  }
 }

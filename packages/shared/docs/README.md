@@ -18,7 +18,6 @@
 - [CustomComponentNormalizedSchema](variables/CustomComponentNormalizedSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
-- [normalizedSettingsCache](variables/normalizedSettingsCache.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)
 - [RE\_CAMEL\_CASE](variables/RE_CAMEL_CASE.md)
 - [RE\_CONSTANT\_CASE](variables/RE_CONSTANT_CASE.md)
@@ -34,4 +33,3 @@
 - [defineSettings](functions/defineSettings.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)
-- [tryRequire](functions/tryRequire.md)

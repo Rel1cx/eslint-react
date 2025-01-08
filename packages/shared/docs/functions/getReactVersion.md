@@ -6,14 +6,14 @@
 
 # Function: getReactVersion()
 
-> **getReactVersion**(`at`): `E.Either`\<`string`, `unknown`\>
+> **getReactVersion**(`fallback`): `string`
 
 ## Parameters
 
-### at
+### fallback
 
-`string` = `...`
+`string` = `"19.0.0"`
 
 ## Returns
 
-`E.Either`\<`string`, `unknown`\>
+`string`

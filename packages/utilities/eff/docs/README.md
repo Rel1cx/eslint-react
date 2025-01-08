@@ -6,7 +6,6 @@
 
 ## Other
 
-- [./Either.js](Either.js/README.md)
 - [./Option.js](Option.js/README.md)
 - [F](namespaces/F/README.md)
 - [compose](functions/compose.md)
