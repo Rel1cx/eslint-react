@@ -76,7 +76,16 @@ const enableTypeCheckedRules = {
   "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
   "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
   "@typescript-eslint/consistent-type-exports": "error",
-  "@typescript-eslint/strict-boolean-expressions": ["warn", { allowNullableBoolean: true, allowNullableString: true }],
+  "@typescript-eslint/strict-boolean-expressions": ["warn", {
+    allowAny: false,
+    allowNullableBoolean: true,
+    allowNullableEnum: false,
+    allowNullableNumber: false,
+    allowNullableObject: true,
+    allowNullableString: false,
+    allowNumber: false,
+    allowString: false,
+  }],
 } as const;
 
 const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map(x => [x, "off"]));

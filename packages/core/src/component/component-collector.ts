@@ -78,20 +78,20 @@ export function useComponentCollector(
     functionEntries.push({ key, node, hookCalls: [], isComponent: false });
   };
   const onFunctionExit = () => {
-    const { key, node, isComponent } = functionEntries.at(-1) ?? {};
-    if (!key || !node || !isComponent) {
+    const entry = functionEntries.at(-1);
+    if (!entry?.isComponent) {
       return functionEntries.pop();
     }
-    const shouldDrop = AST.getNestedReturnStatements(node.body)
+    const shouldDrop = AST.getNestedReturnStatements(entry.node.body)
       .slice()
       .reverse()
       .some(r => {
-        return context.sourceCode.getScope(r).block === node
+        return context.sourceCode.getScope(r).block === entry.node
           && r.argument !== null
           && !JSX.isJSXValue(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) {
-      components.delete(key);
+      components.delete(entry.key);
     }
     return functionEntries.pop();
   };
