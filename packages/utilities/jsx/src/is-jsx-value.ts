@@ -4,7 +4,6 @@ import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { match, P } from "ts-pattern";
 
 // type ReactNode =
 //   | ReactElement
@@ -22,21 +21,22 @@ import { match, P } from "ts-pattern";
 /* eslint-disable perfectionist/sort-objects */
 export const JSXValueHint = {
   None: 0n,
-  SkipNullLiteral: 1n << 0n,
-  SkipUndefinedLiteral: 1n << 1n,
+  SkipUndefined: 1n << 0n,
+  SkipNullLiteral: 1n << 1n,
   SkipBooleanLiteral: 1n << 2n,
   SkipStringLiteral: 1n << 3n,
   SkipNumberLiteral: 1n << 4n,
-  SkipCreateElement: 1n << 5n,
+  SkipBigIntLiteral: 1n << 5n,
   SkipEmptyArray: 1n << 6n,
-  StrictArray: 1n << 7n,
-  StrictLogical: 1n << 8n,
-  StrictConditional: 1n << 9n,
+  SkipCreateElement: 1n << 7n,
+  StrictArray: 1n << 8n,
+  StrictLogical: 1n << 9n,
+  StrictConditional: 1n << 10n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
 export const DEFAULT_JSX_VALUE_HINT = 0n
-  | JSXValueHint.SkipUndefinedLiteral
+  | JSXValueHint.SkipUndefined
   | JSXValueHint.SkipBooleanLiteral;
 
 /**
@@ -52,30 +52,45 @@ export function isJSXValue(
   jsxCtx: { getScope: (node: TSESTree.Node) => Scope },
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
-  if (!node) {
-    return false;
-  }
-  return match<typeof node, boolean>(node)
-    .with({ type: T.JSXElement }, F.constTrue)
-    .with({ type: T.JSXFragment }, F.constTrue)
-    .with({ type: T.JSXMemberExpression }, F.constTrue)
-    .with({ type: T.JSXNamespacedName }, F.constTrue)
-    .with({ type: T.Literal }, (node) => {
-      return match(node.value)
-        .with(null, () => !(hint & JSXValueHint.SkipNullLiteral))
-        .with(P.boolean, () => !(hint & JSXValueHint.SkipBooleanLiteral))
-        .with(P.string, () => !(hint & JSXValueHint.SkipStringLiteral))
-        .with(P.number, () => !(hint & JSXValueHint.SkipNumberLiteral))
-        .otherwise(F.constFalse);
-    })
-    .with({ type: T.TemplateLiteral }, () => !(hint & JSXValueHint.SkipStringLiteral))
-    .with({ type: T.ArrayExpression }, (node) => {
+  switch (node?.type) {
+    case T.JSXElement:
+    case T.JSXFragment:
+    case T.JSXMemberExpression:
+    case T.JSXNamespacedName: {
+      return true;
+    }
+    case T.Literal: {
+      switch (typeof node.value) {
+        case "boolean":
+          return !(hint & JSXValueHint.SkipBooleanLiteral);
+        case "string":
+          return !(hint & JSXValueHint.SkipStringLiteral);
+        case "number":
+          return !(hint & JSXValueHint.SkipNumberLiteral);
+        case "bigint":
+          return !(hint & JSXValueHint.SkipBigIntLiteral);
+      }
+      if (node.value === null) {
+        return !(hint & JSXValueHint.SkipNullLiteral);
+      }
+      return false;
+    }
+    case T.TemplateLiteral: {
+      return !(hint & JSXValueHint.SkipStringLiteral);
+    }
+    case T.ArrayExpression: {
       if (hint & JSXValueHint.StrictArray) {
         return node.elements.every((n) => isJSXValue(n, jsxCtx, hint));
       }
       return node.elements.some((n) => isJSXValue(n, jsxCtx, hint));
-    })
-    .with({ type: T.ConditionalExpression }, (node) => {
+    }
+    case T.LogicalExpression: {
+      if (hint & JSXValueHint.StrictLogical) {
+        return isJSXValue(node.left, jsxCtx, hint) && isJSXValue(node.right, jsxCtx, hint);
+      }
+      return isJSXValue(node.left, jsxCtx, hint) || isJSXValue(node.right, jsxCtx, hint);
+    }
+    case T.ConditionalExpression: {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
           if (node.consequent.length === 0) {
@@ -95,40 +110,37 @@ export function isJSXValue(
         return leftHasJSX(node) && rightHasJSX(node);
       }
       return leftHasJSX(node) || rightHasJSX(node);
-    })
-    .with({ type: T.LogicalExpression }, (node) => {
-      if (hint & JSXValueHint.StrictLogical) {
-        return isJSXValue(node.left, jsxCtx, hint) && isJSXValue(node.right, jsxCtx, hint);
-      }
-      return isJSXValue(node.left, jsxCtx, hint) || isJSXValue(node.right, jsxCtx, hint);
-    })
-    .with({ type: T.SequenceExpression }, (node) => {
+    }
+    case T.SequenceExpression: {
       const exp = node.expressions.at(-1);
       return isJSXValue(exp, jsxCtx, hint);
-    })
-    .with({ type: T.CallExpression }, (node) => {
+    }
+    case T.CallExpression: {
       if (hint & JSXValueHint.SkipCreateElement) {
         return false;
       }
-      return match(node.callee)
-        .with({ type: T.Identifier, name: "createElement" }, F.constTrue)
-        .with({ type: T.MemberExpression, property: { name: "createElement" } }, F.constTrue)
-        .otherwise(F.constFalse);
-    })
-    .with({ type: T.Identifier }, (node) => {
+      switch (node.callee.type) {
+        case T.Identifier:
+          return node.callee.name === "createElement";
+        case T.MemberExpression:
+          return node.callee.property.type === T.Identifier && node.callee.property.name === "createElement";
+      }
+      return false;
+    }
+    case T.Identifier: {
       const { name } = node;
       if (name === "undefined") {
-        return !(hint & JSXValueHint.SkipUndefinedLiteral);
+        return !(hint & JSXValueHint.SkipUndefined);
       }
       if (AST.isJSXTagNameExpression(node)) {
         return true;
       }
-      const initialScope = jsxCtx.getScope(node);
       return F.pipe(
-        VAR.findVariable(name, initialScope),
+        VAR.findVariable(name, jsxCtx.getScope(node)),
         O.flatMap(VAR.getVariableNode(0)),
         O.exists(n => isJSXValue(n, jsxCtx, hint)),
       );
-    })
-    .otherwise(F.constFalse);
+    }
+  }
+  return false;
 }

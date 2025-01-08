@@ -6,7 +6,7 @@
 
 # Function: typeOf()
 
-> **typeOf**(`t`): `"object"` \| `string` & `object` \| `"array"`
+> **typeOf**(`t`): `"object"` \| `"array"` \| `string` & `object`
 
 This is an enhanced version of the typeof operator to check the type of more complex values.
 In this case we just mind about arrays and objects. We can add more on demand.
@@ -21,6 +21,6 @@ the value to be checked
 
 ## Returns
 
-`"object"` \| `string` & `object` \| `"array"`
+`"object"` \| `"array"` \| `string` & `object`
 
 the type of the value

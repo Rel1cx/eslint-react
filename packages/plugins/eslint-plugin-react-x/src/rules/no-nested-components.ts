@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const hint = ERComponentHint.SkipMapCallback
       | ERComponentHint.SkipNullLiteral
-      | ERComponentHint.SkipUndefinedLiteral
+      | ERComponentHint.SkipUndefined
       | ERComponentHint.SkipBooleanLiteral
       | ERComponentHint.SkipStringLiteral
       | ERComponentHint.SkipNumberLiteral

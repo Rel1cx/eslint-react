@@ -31,7 +31,7 @@ export function isRenderFunctionLoose(node: AST.TSESTreeFunction, context: RuleC
       getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node),
     },
     JSX.JSXValueHint.SkipNullLiteral
-      | JSX.JSXValueHint.SkipUndefinedLiteral
+      | JSX.JSXValueHint.SkipUndefined
       | JSX.JSXValueHint.StrictLogical
       | JSX.JSXValueHint.StrictConditional,
   );

@@ -29,7 +29,7 @@ export const DEFAULT_COMPONENT_HINT = 0n
   | ERComponentHint.SkipMapCallback
   | ERComponentHint.SkipNumberLiteral
   | ERComponentHint.SkipStringLiteral
-  | ERComponentHint.SkipUndefinedLiteral
+  | ERComponentHint.SkipUndefined
   | ERComponentHint.SkipEmptyArray
   | ERComponentHint.StrictArray
   | ERComponentHint.StrictConditional
