@@ -150,7 +150,6 @@ export default createRule<[], MessageID>({
               }
             }
           })
-          // .with(P.union("useMemo", "useCallback"), () => {})
           .with("useLayoutEffect", () => {
             if (AST.isFunction(node.arguments.at(0))) {
               return;

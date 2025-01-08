@@ -25,7 +25,7 @@ The second `Option` to be considered if the first `Option` is `None`.
 
 ## Call Signature
 
-> **orElseEither**\<`B`\>(`that`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<[`Either`](../../Either.js/type-aliases/Either.md)\<`B`, `A`\>\>
+> **orElseEither**\<`B`\>(`that`): \<`A`\>(`self`) => [`Option`](../type-aliases/Option.md)\<`Either`\<`B`, `A`\>\>
 
 Similar to `orElse`, but instead of returning a simple union, it returns an `Either` object,
 which contains information about which of the two `Option`s has been chosen.
@@ -60,7 +60,7 @@ The second `Option` to be considered if the first `Option` is `None`.
 
 #### Returns
 
-[`Option`](../type-aliases/Option.md)\<[`Either`](../../Either.js/type-aliases/Either.md)\<`B`, `A`\>\>
+[`Option`](../type-aliases/Option.md)\<`Either`\<`B`, `A`\>\>
 
 ### Param
 
@@ -80,7 +80,7 @@ The second `Option` to be considered if the first `Option` is `None`.
 
 ## Call Signature
 
-> **orElseEither**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<[`Either`](../../Either.js/type-aliases/Either.md)\<`B`, `A`\>\>
+> **orElseEither**\<`A`, `B`\>(`self`, `that`): [`Option`](../type-aliases/Option.md)\<`Either`\<`B`, `A`\>\>
 
 Similar to `orElse`, but instead of returning a simple union, it returns an `Either` object,
 which contains information about which of the two `Option`s has been chosen.
@@ -109,7 +109,7 @@ The second `Option` to be considered if the first `Option` is `None`.
 
 ### Returns
 
-[`Option`](../type-aliases/Option.md)\<[`Either`](../../Either.js/type-aliases/Either.md)\<`B`, `A`\>\>
+[`Option`](../type-aliases/Option.md)\<`Either`\<`B`, `A`\>\>
 
 ### Param
 

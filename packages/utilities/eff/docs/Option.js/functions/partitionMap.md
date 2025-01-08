@@ -26,7 +26,7 @@
 
 #### f
 
-(`a`) => [`Either`](../../Either.js/type-aliases/Either.md)\<`C`, `B`\>
+(`a`) => `Either`\<`C`, `B`\>
 
 ### Returns
 
@@ -70,7 +70,7 @@
 
 #### f
 
-(`a`) => [`Either`](../../Either.js/type-aliases/Either.md)\<`C`, `B`\>
+(`a`) => `Either`\<`C`, `B`\>
 
 ### Returns
 
