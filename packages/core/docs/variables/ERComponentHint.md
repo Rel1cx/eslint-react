@@ -16,6 +16,10 @@ hints for component collector
 
 > `readonly` **None**: `0n`
 
+### SkipBigIntLiteral
+
+> `readonly` **SkipBigIntLiteral**: `bigint`
+
 ### SkipBooleanLiteral
 
 > `readonly` **SkipBooleanLiteral**: `bigint`
@@ -64,9 +68,9 @@ hints for component collector
 
 > `readonly` **SkipStringLiteral**: `bigint`
 
-### SkipUndefinedLiteral
+### SkipUndefined
 
-> `readonly` **SkipUndefinedLiteral**: `bigint`
+> `readonly` **SkipUndefined**: `bigint`
 
 ### StrictArray
 

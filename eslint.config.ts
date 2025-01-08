@@ -75,6 +75,7 @@ const enableTypeCheckedRules = {
   ...eslintPluginSafeTypeScript.configs.recommended.rules,
   "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
   "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
+  "@typescript-eslint/consistent-type-exports": "error",
   "@typescript-eslint/strict-boolean-expressions": ["warn", { allowNullableBoolean: true, allowNullableString: true }],
 } as const;
 

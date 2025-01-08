@@ -27,5 +27,5 @@ export * from "./is-string-literal";
 export * from "./is-this-expression";
 export * from "./to-readable-node-name";
 export * from "./to-readable-node-type";
-export * from "./types";
+export type * from "./types";
 export * from "./unwrap-type-expression";
