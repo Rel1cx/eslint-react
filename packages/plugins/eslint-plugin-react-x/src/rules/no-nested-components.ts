@@ -58,13 +58,25 @@ export default createRule<[], MessageID>({
       ...collector.listeners,
       ...collectorLegacy.listeners,
       "Program:exit"(node) {
-        const functionComponents = Array.from(collector.ctx.getAllComponents(node).values());
-        const classComponents = Array.from(collectorLegacy.ctx.getAllComponents(node).values());
+        const functionComponents = [
+          ...collector
+            .ctx
+            .getAllComponents(node)
+            .values(),
+        ];
+        const classComponents = [
+          ...collectorLegacy
+            .ctx
+            .getAllComponents(node)
+            .values(),
+        ];
         const isFunctionComponent = (node: TSESTree.Node): node is AST.TSESTreeFunction => {
-          return AST.isFunction(node) && functionComponents.some(component => component.node === node);
+          return AST.isFunction(node)
+            && functionComponents.some(component => component.node === node);
         };
         const isClassComponent = (node: TSESTree.Node): node is AST.TSESTreeClass => {
-          return AST.isClass(node) && classComponents.some(component => component.node === node);
+          return AST.isClass(node)
+            && classComponents.some(component => component.node === node);
         };
         for (const { name: componentName, node: component } of functionComponents) {
           // Do not mark objects containing render methods

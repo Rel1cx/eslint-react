@@ -51,7 +51,11 @@ export default createRule<[], MessageID>({
       },
 
       "Program:exit"(node) {
-        const components = Array.from(ctx.getAllComponents(node).values());
+        const components = [
+          ...ctx
+            .getAllComponents(node)
+            .values(),
+        ];
         function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
           if (!AST.isFunction(block)) {
             return false;
