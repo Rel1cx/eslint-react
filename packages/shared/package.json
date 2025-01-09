@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "1.23.3-next.5",
+  "version": "1.23.3-beta.5",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/rEl1cx/eslint-react",
   "bugs": {
