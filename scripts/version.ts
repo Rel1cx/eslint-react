@@ -1,12 +1,13 @@
-import { FileSystem } from "@effect/platform";
-import { Effect, Function as F, String as Str } from "effect";
+import fs from "fs/promises";
 
 import { isVersion } from "./libs";
 
-export const version = F.pipe(
-  FileSystem.FileSystem,
-  Effect.flatMap(fs => fs.readFileString("VERSION")),
-  Effect.map(Str.trim),
-  Effect.map(Str.replace("v", "")),
-  Effect.filterOrDieMessage(isVersion, "Invalid version format"),
-);
+export const version = await fs.readFile("VERSION", "utf-8")
+  .then(v => {
+    const trimmed = v.trim();
+    const version = trimmed.replace("v", "");
+    if (!isVersion(version)) {
+      throw new Error("Invalid version format");
+    }
+    return version;
+  });
