@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
-import { isNullable, O, or } from "@eslint-react/eff";
+import { isNullable, O } from "@eslint-react/eff";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -45,17 +45,6 @@ const iteratorFunctionIndexParamPosition = new Map<string, number>([
 // #endregion
 
 // #region Helpers
-
-const isToStringCall = isMatching({
-  type: T.CallExpression,
-  callee: {
-    type: T.MemberExpression,
-    property: {
-      type: T.Identifier,
-      name: "toString",
-    },
-  },
-});
 
 function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
   return reactChildrenMethod.some((method) => method === name);
@@ -132,53 +121,70 @@ export default createRule<[], MessageID>({
   create(context) {
     const indexParamNames: O.Option<string>[] = [];
 
-    const isCreateOrCloneElementCall = or(isCreateElementCall(context), isCloneElementCall(context));
-
     function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-      return node.type === T.Identifier && indexParamNames.some(O.exists((name) => name === node.name));
+      return node.type === T.Identifier
+        && indexParamNames.some(O.exists((name) => name === node.name));
     }
 
-    function getReportDescriptor(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
-      // key={bar}
-      if (isArrayIndex(node)) {
-        return [{ messageId: "noArrayIndexKey", node }];
-      }
-      // key={`foo-${bar}`} or key={'foo' + bar}
-      if (AST.isOneOf([T.TemplateLiteral, T.BinaryExpression])(node)) {
-        const exps = T.TemplateLiteral === node.type
-          ? node.expressions
-          : AST.getIdentifiersFromBinaryExpression(node);
-        return exps.reduce<ReportDescriptor<MessageID>[]>((acc, exp) => {
-          if (isArrayIndex(exp)) {
-            return [...acc, { messageId: "noArrayIndexKey", node: exp }];
-          }
-          return acc;
-        }, []);
-      }
+    function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
+      return isCreateElementCall(node, context) || isCloneElementCall(node, context);
+    }
 
-      // key={bar.toString()}
-      if (isToStringCall(node)) {
-        if (!("object" in node.callee && isArrayIndex(node.callee.object))) {
+    function getReportDescriptors(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
+      switch (node.type) {
+        // key={bar}
+        case T.Identifier: {
+          if (indexParamNames.some(O.exists((name) => name === node.name))) {
+            return [{
+              messageId: "noArrayIndexKey",
+              node,
+            }];
+          }
           return [];
         }
-
-        return [{ messageId: "noArrayIndexKey", node: node.callee.object }];
-      }
-      // key={String(bar)}
-      const isStringCall = isMatching({
-        type: T.CallExpression,
-        callee: {
-          type: T.Identifier,
-          name: "String",
-        },
-      }, node);
-      if (isStringCall) {
-        const [arg] = node.arguments;
-        if (arg && isArrayIndex(arg)) {
-          return [{ messageId: "noArrayIndexKey", node: arg }];
+        // key={`foo-${bar}`} or key={'foo' + bar}
+        case T.TemplateLiteral:
+        case T.BinaryExpression: {
+          const descriptors: ReportDescriptor<MessageID>[] = [];
+          const expressions = node.type === T.TemplateLiteral
+            ? node.expressions
+            : AST.getIdentifiersFromBinaryExpression(node);
+          for (const expression of expressions) {
+            if (isArrayIndex(expression)) {
+              descriptors.push({
+                messageId: "noArrayIndexKey",
+                node: expression,
+              });
+            }
+          }
+          return descriptors;
+        }
+        // key={bar.toString()} or key={String(bar)}
+        case T.CallExpression: {
+          switch (true) {
+            // key={bar.toString()}
+            case node.callee.type === T.MemberExpression
+              && node.callee.property.type === T.Identifier
+              && node.callee.property.name === "toString"
+              && isArrayIndex(node.callee.object): {
+              return [{
+                messageId: "noArrayIndexKey",
+                node: node.callee.object,
+              }];
+            }
+            // key={String(bar)}
+            case node.callee.type === T.Identifier
+              && node.callee.name === "String"
+              && node.arguments[0]
+              && isArrayIndex(node.arguments[0]): {
+              return [{
+                messageId: "noArrayIndexKey",
+                node: node.arguments[0],
+              }];
+            }
+          }
         }
       }
-
       return [];
     }
 
@@ -202,7 +208,7 @@ export default createRule<[], MessageID>({
           if (!("value" in prop)) {
             continue;
           }
-          const descriptors = getReportDescriptor(prop.value);
+          const descriptors = getReportDescriptors(prop.value);
           for (const descriptor of descriptors) {
             context.report(descriptor);
           }
@@ -218,11 +224,10 @@ export default createRule<[], MessageID>({
         if (indexParamNames.length === 0) {
           return;
         }
-        const { value } = node;
-        if (value?.type !== T.JSXExpressionContainer) {
+        if (node.value?.type !== T.JSXExpressionContainer) {
           return;
         }
-        const descriptors = getReportDescriptor(value.expression);
+        const descriptors = getReportDescriptors(node.value.expression);
         for (const descriptor of descriptors) {
           context.report(descriptor);
         }
