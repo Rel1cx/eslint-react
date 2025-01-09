@@ -318,6 +318,9 @@ export default tseslint.config(
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
+    rules: {
+      "no-console": "off",
+    },
   },
   {
     files: GLOB_CONFIG,

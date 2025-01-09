@@ -1,6 +1,4 @@
-import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { Effect, Function as F, Predicate } from "effect";
-import { match, P } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 
 import { ignores } from "./ignores";
 import { glob, readJsonFile, writeJsonFile } from "./libs";
@@ -8,37 +6,32 @@ import { version } from "./version";
 
 const GLOB_PACKAGE_JSON = ["package.json", "packages/*/package.json", "packages/*/*/package.json"];
 
-const mkTask = (path: string) =>
-  Effect.gen(function*() {
-    const packageJson = yield* readJsonFile(path);
-    if (!Predicate.isObject(packageJson)) {
-      return yield* Effect.die(`Invalid package.json at ${path}`);
+const mkTask = (path: string) => {
+  return async () => {
+    const packageJson = await readJsonFile(path);
+    if (!isMatching({ version: P.string }, packageJson)) {
+      throw new Error(`Invalid package.json at ${path}`);
     }
-    const newVersion = yield* version;
+    const newVersion = version;
     const oldVersion = match(packageJson)
-      .with({ version: P.select(P.string) }, F.identity)
-      .otherwise(F.constant("0.0.0"));
+      .with({ version: P.select(P.string) }, v => v)
+      .otherwise(() => "0.0.0");
     if (oldVersion === newVersion) {
-      return yield* Effect.logDebug(`Skipping ${path} as it's already on version ${newVersion}`);
+      console.info(`Skipping ${path} as it's already on version ${newVersion}`);
+      return;
     }
     const packageJsonUpdated = {
       ...packageJson,
       version: newVersion,
     };
-    yield* writeJsonFile(path, packageJsonUpdated);
-    yield* Effect.log(`Updated ${path} to version ${packageJsonUpdated.version}`);
-    return Effect.void;
-  });
+    await writeJsonFile(path, packageJsonUpdated);
+    console.info(`Updated ${path} to version ${packageJsonUpdated.version}`);
+  };
+};
 
-const program = Effect.gen(function*() {
-  const excludes = yield* ignores;
-  const paths = yield* glob(GLOB_PACKAGE_JSON, excludes);
-  yield* Effect.all(paths.map(mkTask), { concurrency: "unbounded" });
-});
+async function main() {
+  const tasks = glob(GLOB_PACKAGE_JSON, ignores);
+  await Promise.all(tasks.map(mkTask));
+}
 
-const runnable = program.pipe(
-  Effect.provide(NodeFileSystem.layer),
-);
-
-NodeRuntime.runMain(runnable);
-// BunRuntime.runMain(runnable);
+await main();

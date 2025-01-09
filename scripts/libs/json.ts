@@ -1,28 +1,20 @@
-import { FileSystem } from "@effect/platform";
-import { Effect } from "effect";
+/* eslint-disable @susisu/safe-typescript/no-type-assertion */
+import fs from "fs/promises";
+import type { JsonValue } from "type-fest";
 
-export const readJsonFile = (path: string): Effect.Effect<unknown, never, FileSystem.FileSystem> =>
-  Effect.gen(function*() {
-    const fs = yield* FileSystem.FileSystem;
-    const content = yield* Effect.orDie(fs.readFileString(path));
-    return yield* Effect.orDie(Effect.try({
-      catch: (error) => `[FileSystem] Unable to read and parse JSON file from '${path}': ${String(error)}`,
-      try: () => JSON.parse(content) as unknown,
-    }));
-  });
+export function readJsonFile(path: string) {
+  return fs.readFile(path, "utf-8")
+    .then(v => JSON.parse(v) as JsonValue);
+}
 
-export const writeJsonFile = (
+export function writeJsonFile(
   path: string,
-  data: unknown,
+  data: JsonValue,
   indent = 2,
   insertFinalNewline = true,
-): Effect.Effect<unknown, never, FileSystem.FileSystem> =>
-  Effect.gen(function*() {
-    const fs = yield* FileSystem.FileSystem;
-    const content = yield* Effect.orDie(Effect.try({
-      catch: (error) => `[FileSystem] Unable to stringify JSON data: ${String(error)}`,
-      try: () => JSON.stringify(data, null, indent),
-    }));
-    const finalContent = insertFinalNewline ? `${content}\n` : content;
-    yield* Effect.orDie(fs.writeFileString(path, finalContent));
-  });
+) {
+  return fs.writeFile(
+    path,
+    JSON.stringify(data, null, indent) + (insertFinalNewline ? "\n" : ""),
+  );
+}

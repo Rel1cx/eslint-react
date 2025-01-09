@@ -1,17 +1,6 @@
-import { FileSystem } from "@effect/platform";
-import { NodeFileSystem, NodeRuntime } from "@effect/platform-node";
-import { Effect } from "effect";
+import fs from "fs/promises";
 
-const source = "README.md";
-
-const program = Effect.gen(function*() {
-  const fs = yield* FileSystem.FileSystem;
-  yield* Effect.orDie(fs.copyFile(source, "packages/plugins/eslint-plugin/README.md"));
-});
-
-const runnable = program.pipe(
-  Effect.provide(NodeFileSystem.layer),
+await fs.copyFile(
+  "README.md",
+  "packages/plugins/eslint-plugin/README.md",
 );
-
-NodeRuntime.runMain(runnable);
-// BunRuntime.runMain(runnable);
