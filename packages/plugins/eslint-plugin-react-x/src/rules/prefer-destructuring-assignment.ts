@@ -6,7 +6,6 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
-import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -85,7 +84,10 @@ export default createRule<[], MessageID>({
             continue;
           }
           const [props, ctx] = component.params;
-          const isMatch = isMatching({ name: memberExpression.object.name });
+          const isMatch = (node: null | TSESTree.Node | undefined) =>
+            node != null
+            && node.type === T.Identifier
+            && node.name === memberExpression.object.name;
           if (isMatch(props)) {
             context.report({
               messageId: "preferDestructuringAssignment",

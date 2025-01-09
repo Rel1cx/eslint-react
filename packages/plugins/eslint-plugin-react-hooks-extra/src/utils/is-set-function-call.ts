@@ -4,7 +4,6 @@ import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isMatching } from "ts-pattern";
 
 import { isFromUseStateCall } from "./is-from-use-state-call";
 
@@ -22,13 +21,7 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
         if (!("name" in callee.object)) {
           return false;
         }
-        const isAt = isMatching({
-          type: T.MemberExpression,
-          property: {
-            type: T.Identifier,
-            name: "at",
-          },
-        }, callee);
+        const isAt = callee.property.type === T.Identifier && callee.property.name === "at";
         const [index] = node.callee.arguments;
         if (!isAt || index == null) {
           return false;

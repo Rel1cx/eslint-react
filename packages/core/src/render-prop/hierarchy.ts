@@ -2,7 +2,6 @@ import * as AST from "@eslint-react/ast";
 import { F, O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isMatching, P } from "ts-pattern";
 
 /**
  * Unsafe check whether given node is declared directly inside a render property
@@ -17,15 +16,12 @@ import { isMatching, P } from "ts-pattern";
  * @returns `true` if component is declared inside a render property, `false` if not
  */
 export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
-  const matching = isMatching({
-    key: {
-      type: T.Identifier,
-      name: P.string.startsWith("render"),
-    },
-    type: T.Property,
-  });
-
-  return matching(node) || matching(node.parent);
+  const matching = (node: TSESTree.Node) => {
+    return node.type === T.Property
+      && node.key.type === T.Identifier
+      && node.key.name.startsWith("render");
+  };
+  return matching(node) || (node.parent != null && matching(node.parent));
 }
 
 /**
@@ -49,9 +45,9 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
     O.flatMapNullable(c => c.parent),
     O.filter(AST.is(T.JSXAttribute)),
     O.flatMapNullable(a => a.name),
-    O.exists(isMatching({
-      type: T.JSXIdentifier,
-      name: P.string.startsWith("render"),
-    })),
+    O.exists(n =>
+      n.type === T.JSXIdentifier
+      && n.name.startsWith("render")
+    ),
   );
 }

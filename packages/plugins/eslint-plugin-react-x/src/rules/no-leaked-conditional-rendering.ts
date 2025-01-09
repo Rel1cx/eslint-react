@@ -243,12 +243,12 @@ export default createRule<[], MessageID>({
       return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
         .when(AST.isJSX, O.none)
         .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = isMatching({ type: T.UnaryExpression, operator: "!" }, left);
+          const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
           if (isLeftUnaryNot) {
             return getReportDescriptor(right);
           }
           const initialScope = context.sourceCode.getScope(left);
-          const isLeftNan = isMatching({ type: T.Identifier, name: "NaN" }, left)
+          const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
             || O.exists(VAR.getStaticValue(left, initialScope), v => v === "NaN");
           if (isLeftNan) {
             return O.some({
@@ -283,7 +283,7 @@ export default createRule<[], MessageID>({
         })
         .otherwise(O.none);
     }
-    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
+    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report));
     return {
       "JSXExpressionContainer > ConditionalExpression": visitorFunction,
       "JSXExpressionContainer > LogicalExpression": visitorFunction,
