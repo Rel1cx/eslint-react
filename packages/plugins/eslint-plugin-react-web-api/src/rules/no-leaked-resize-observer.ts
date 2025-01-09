@@ -203,7 +203,7 @@ export default createRule<[], MessageID>({
           }
           const oentries = oEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
           const uentries = uEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
-          const isDynamic = or(AST.isConditional, AST.is(T.CallExpression));
+          const isDynamic = (node: TSESTree.Node) => node.type === T.CallExpression || AST.isConditional(node);
           const isPhaseNode = (node: TSESTree.Node) => node === phaseNode;
           const hasDynamicallyAdded = oentries
             .some(e => O.exists(AST.findParentNode(e.node, or(isDynamic, isPhaseNode)), not(isPhaseNode)));
