@@ -8,7 +8,6 @@ A set of composable ESLint rules for libraries and frameworks that use React as 
 
 ## Features
 
-- **Simple**: Low configuration overhead with sensible defaults.
 - **Flexible**: Increased flexibility with more granular severity control.
 - **Comprehensive**: First-class support for TypeScript, React 19, polymorphic components.
 - **Advanced Analysis**: Handles complex scenarios and identifies problems that other tools might miss.
