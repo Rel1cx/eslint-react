@@ -77,6 +77,7 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
     })),
     components: additionalComponents.reduce((acc, component) => {
       const { name, as, attributes = [], selector } = component;
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!name || !as || selector || attributes.length > 0) {
         return acc;
       }

@@ -93,7 +93,7 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !fKind) {
+        if (fNode == null || fKind == null) {
           return;
         }
         if (!ERPhaseRelevance.has(fKind)) {
@@ -102,7 +102,7 @@ export default createRule<[], MessageID>({
         switch (getCallKind(node)) {
           case "setTimeout": {
             const timeoutIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
-            if (!timeoutIdNode) {
+            if (timeoutIdNode == null) {
               context.report({
                 messageId: "noLeakedTimeoutNoTimeoutId",
                 node,
@@ -120,7 +120,7 @@ export default createRule<[], MessageID>({
           }
           case "clearTimeout": {
             const [timeoutIdNode] = node.arguments;
-            if (!timeoutIdNode) {
+            if (timeoutIdNode == null) {
               break;
             }
             rEntries.push({

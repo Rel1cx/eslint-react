@@ -119,7 +119,7 @@ function inspectVariantTypes(types: ts.Type[]) {
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
   switch (true) {
-    case booleans.length === 1 && !!booleans[0]: {
+    case booleans.length === 1 && booleans[0] != null: {
       const [first] = booleans;
       const evaluated = F.pipe(
         match<typeof first, O.Option<VariantType>>(first)

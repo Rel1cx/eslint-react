@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const [arg0, arg1] = node.arguments;
-        if (!arg0 || !arg1) {
+        if (arg0 == null || arg1 == null) {
           return;
         }
         const hasCallInArg0 = F.pipe(

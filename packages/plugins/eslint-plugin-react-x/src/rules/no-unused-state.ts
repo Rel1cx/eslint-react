@@ -77,7 +77,7 @@ export default createRule<[], MessageID>({
     }
     function classExit() {
       const currentClass = classStack.pop();
-      if (!currentClass || !isClassComponent(currentClass)) {
+      if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
@@ -96,7 +96,7 @@ export default createRule<[], MessageID>({
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       methodStack.push(node);
       const currentClass = classStack.at(-1);
-      if (!currentClass || !isClassComponent(currentClass)) {
+      if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       if (node.static) {
@@ -126,11 +126,11 @@ export default createRule<[], MessageID>({
           return;
         }
         const currentClass = classStack.at(-1);
-        if (!currentClass || !isClassComponent(currentClass)) {
+        if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
         const currentConstructor = constructorStack.at(-1);
-        if (!currentConstructor || !currentClass.body.body.includes(currentConstructor)) {
+        if (currentConstructor == null || !currentClass.body.body.includes(currentConstructor)) {
           return;
         }
         const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
@@ -149,11 +149,11 @@ export default createRule<[], MessageID>({
           return;
         }
         const currentClass = classStack.at(-1);
-        if (!currentClass || !isClassComponent(currentClass)) {
+        if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
         const currentMethod = methodStack.at(-1);
-        if (!currentMethod || currentMethod.static) {
+        if (currentMethod == null || currentMethod.static) {
           return;
         }
         if (currentMethod === constructorStack.at(-1)) {
@@ -173,11 +173,11 @@ export default createRule<[], MessageID>({
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
         const currentClass = classStack.at(-1);
-        if (!currentClass || !isClassComponent(currentClass)) {
+        if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
         const currentMethod = methodStack.at(-1);
-        if (!currentMethod || currentMethod.static) {
+        if (currentMethod == null || currentMethod.static) {
           return;
         }
         if (currentMethod === constructorStack.at(-1)) {
@@ -187,7 +187,7 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
+        if (!(node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
           return;
         }
         const hasState = node.id.properties.some(prop => {

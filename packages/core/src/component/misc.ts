@@ -14,5 +14,5 @@ export function hasNoneOrValidComponentName(node: AST.TSESTreeFunction, context:
   const name = Array.isArray(id)
     ? id.at(-1)?.name
     : id.name;
-  return !!name && isComponentName(name);
+  return name != null && isComponentName(name);
 }

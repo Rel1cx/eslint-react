@@ -71,7 +71,7 @@ export default createRule<[], MessageID>({
           let isComponent = isFunctionComponent(scope.block);
           while (
             !isComponent
-            && scope.upper
+            && scope.upper != null
             && scope.upper !== scope
           ) {
             scope = scope.upper;

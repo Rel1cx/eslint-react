@@ -62,7 +62,7 @@ export default createRule<[], MessageID>({
 function getFix(node: TSESTree.CallExpression, context: RuleContext): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
-    if (!componentNode || !AST.isFunction(componentNode)) {
+    if (componentNode == null || !AST.isFunction(componentNode)) {
       return [];
     }
     return [
@@ -89,7 +89,7 @@ function getComponentPropsFixes(
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
-  if (!arg0) {
+  if (arg0 == null) {
     return [];
   }
   const fixedArg0Text = match(arg0)
@@ -106,7 +106,7 @@ function getComponentPropsFixes(
   }
   const fixedPropsText = fixedArg0Text.value;
   const fixedRefText = fixedArg1Text.value;
-  if (!typeArg0 || !typeArg1) {
+  if (typeArg0 == null || typeArg1 == null) {
     return [
       fixer.replaceText(
         arg0,
@@ -117,9 +117,9 @@ function getComponentPropsFixes(
           "}",
         ].join(" "),
       ),
-      ...arg1
-        ? [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])]
-        : [],
+      ...arg1 == null
+        ? []
+        : [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])],
     ] as const;
   }
   return [
@@ -138,8 +138,8 @@ function getComponentPropsFixes(
         "}",
       ].join(" "),
     ),
-    ...arg1
-      ? [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])]
-      : [],
+    ...arg1 == null
+      ? []
+      : [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])],
   ] as const;
 }

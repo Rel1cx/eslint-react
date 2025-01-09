@@ -40,9 +40,9 @@ export default createRule<[], MessageID>({
             node,
             data: {
               name: O.getOrElse(name, F.constant("anonymous")),
-              forwardRef: Boolean(flag & ERFunctionComponentFlag.ForwardRef),
+              forwardRef: (flag & ERFunctionComponentFlag.ForwardRef) > 0n,
               hookCalls: hookCalls.length,
-              memo: Boolean(flag & ERFunctionComponentFlag.Memo),
+              memo: (flag & ERFunctionComponentFlag.Memo) > 0n,
             },
           });
         }

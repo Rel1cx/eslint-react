@@ -114,8 +114,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         );
       }
       case T.Literal: {
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        return { ...defaultOptions, capture: O.some(!!node.value) };
+        return { ...defaultOptions, capture: O.some(Boolean(node.value)) };
       }
       case T.ObjectExpression: {
         const pOnce = findProp(node.properties, "once");
@@ -225,7 +224,7 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !fKind) {
+        if (fNode == null || fKind == null) {
           return;
         }
         if (!ERPhaseRelevance.has(fKind)) {
@@ -234,10 +233,12 @@ export default createRule<[], MessageID>({
         match(getCallKind(node))
           .with("addEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
-            if (!type || !listener) {
+            if (type == null || listener == null) {
               return;
             }
-            const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
+            const opts = options == null
+              ? defaultOptions
+              : getOptions(options, context.sourceCode.getScope(options));
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
             aEntries.push({
@@ -252,10 +253,12 @@ export default createRule<[], MessageID>({
           })
           .with("removeEventListener", (callKind) => {
             const [type, listener, options] = node.arguments;
-            if (!type || !listener) {
+            if (type == null || listener == null) {
               return;
             }
-            const opts = options ? getOptions(options, context.sourceCode.getScope(options)) : defaultOptions;
+            const opts = options == null
+              ? defaultOptions
+              : getOptions(options, context.sourceCode.getScope(options));
             const { callee } = node;
             O.map(checkInlineFunction(node, callKind, opts), context.report);
             rEntries.push({

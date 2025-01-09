@@ -24,7 +24,7 @@ export function isInitializedFromSource(
     return false;
   }
   const { node, parent } = latestDef.value;
-  if (node.type === T.VariableDeclarator && node.init) {
+  if (node.type === T.VariableDeclarator && node.init != null) {
     const { init } = node;
     // check for: `variable = Source.variable`
     if (init.type === T.MemberExpression && init.object.type === T.Identifier) {

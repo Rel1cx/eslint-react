@@ -49,7 +49,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
         for (const [_, component] of components) {
           const [props] = component.node.params;
-          if (!props) {
+          if (props == null) {
             continue;
           }
           const propsType = getConstrainedTypeAtLocation(services, props);

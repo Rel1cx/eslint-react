@@ -30,7 +30,7 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
           },
         }, callee);
         const [index] = node.callee.arguments;
-        if (!isAt || !index) {
+        if (!isAt || index == null) {
           return false;
         }
         const initialScope = context.sourceCode.getScope(node);

@@ -51,7 +51,7 @@ export const isNodeEqual: {
       if (a.name.name !== b.name.name) {
         return false;
       }
-      if (a.value === null || b.value === null) {
+      if (a.value == null || b.value == null) {
         return a.value === b.value;
       }
       return isNodeEqual(a.value, b.value);

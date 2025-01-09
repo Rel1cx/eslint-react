@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { O } from "@eslint-react/eff";
+import { F, O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -14,14 +14,14 @@ export function isSetupFunction(node: TSESTree.Node) {
 }
 
 export function isCleanupFunction(node: TSESTree.Node) {
-  const nearestRet = O.getOrNull(AST.findParentNodeGuard(node, AST.is(T.ReturnStatement)));
-  if (!nearestRet) {
-    return false;
-  }
-  const nearestFunction = O.getOrNull(AST.findParentNodeGuard(node, AST.isFunction));
-  const nearestFunctionOfRet = O.getOrNull(AST.findParentNodeGuard(nearestRet, AST.isFunction));
-  if (!nearestFunction || !nearestFunctionOfRet) {
-    return false;
-  }
-  return nearestFunction === nearestFunctionOfRet && isSetupFunction(nearestFunction);
+  return F.pipe(
+    O.Do,
+    O.bind("nearReturn", () => AST.findParentNodeGuard(node, AST.is(T.ReturnStatement))),
+    O.bind("nearFunction", () => AST.findParentNodeGuard(node, AST.isFunction)),
+    O.bind("nearFunctionOfReturn", ({ nearReturn }) => AST.findParentNodeGuard(nearReturn, AST.isFunction)),
+    O.exists(({ nearFunction, nearFunctionOfReturn }) =>
+      nearFunction === nearFunctionOfReturn
+      && isSetupFunction(nearFunction)
+    ),
+  );
 }

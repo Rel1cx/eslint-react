@@ -45,7 +45,7 @@ export default createRule<[], MessageID>({
     ): boolean {
       const aValue = a.value;
       const bValue = b.value;
-      if (aValue === null || bValue === null) {
+      if (aValue == null || bValue == null) {
         return false;
       }
       return AST.isNodeEqual(aValue, bValue);

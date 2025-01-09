@@ -34,11 +34,11 @@ export default createRule<[], MessageID>({
           return;
         }
         const [component] = node.arguments;
-        if (!component || !AST.isFunction(component)) {
+        if (component == null || !AST.isFunction(component)) {
           return;
         }
         const [_, ref] = component.params;
-        if (ref) {
+        if (ref != null) {
           return;
         }
         context.report({

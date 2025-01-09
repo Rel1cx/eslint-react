@@ -117,7 +117,7 @@ export default createRule<[], MessageID>({
         }
         match(getCallKind(node))
           .with("setState", () => {
-            if (!pEntry) {
+            if (pEntry == null) {
               return;
             }
             switch (true) {

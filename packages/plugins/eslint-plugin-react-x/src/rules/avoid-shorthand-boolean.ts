@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     function getReportDescriptor(node: TSESTree.JSXAttribute): O.Option<ReportDescriptor<MessageID>> {
-      return node.value
+      return node.value != null
         ? O.none()
         : O.some({
           messageId: "avoidShorthandBoolean",

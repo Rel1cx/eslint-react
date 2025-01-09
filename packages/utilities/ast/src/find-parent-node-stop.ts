@@ -15,7 +15,7 @@ export function findParentNodeStop(
   predicate: (node: TSESTree.Node) => boolean,
 ): O.Option<TSESTree.Node> {
   let parent = node.parent;
-  while (parent && parent !== stopNode && parent.type !== T.Program) {
+  while (parent != null && parent !== stopNode && parent.type !== T.Program) {
     if (predicate(parent)) {
       return O.some(parent);
     }

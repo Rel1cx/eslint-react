@@ -9,5 +9,5 @@ export function getComponentNameFromIdentifier(node: TSESTree.Identifier | TSEST
 }
 
 export function isComponentName(name: string) {
-  return !!name && RE_COMPONENT_NAME.test(name);
+  return RE_COMPONENT_NAME.test(name);
 }

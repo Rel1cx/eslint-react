@@ -15,7 +15,7 @@ export const findParentNodeGuard: {
   predicate: (node: TSESTree.Node) => node is T,
 ): O.Option<T> => {
   let parent = node.parent;
-  while (parent) {
+  while (parent != null) {
     if (predicate(parent)) {
       return O.some(parent);
     }

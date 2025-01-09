@@ -71,19 +71,21 @@ const p11tGroups = {
 };
 
 const enableTypeCheckedRules = {
-  ...tseslint.configs.strictTypeCheckedOnly.map(x => x.rules).reduce((a, b) => ({ ...a, ...b }), {}),
+  ...tseslint.configs.strictTypeCheckedOnly
+    .map(x => x.rules)
+    .reduce((a, b) => ({ ...a, ...b }), {}),
   ...eslintPluginSafeTypeScript.configs.recommended.rules,
   "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
   "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
   "@typescript-eslint/consistent-type-exports": "error",
-  "@typescript-eslint/strict-boolean-expressions": ["warn", {
+  "@typescript-eslint/strict-boolean-expressions": ["error", {
     allowAny: false,
     allowNullableBoolean: true,
     allowNullableEnum: false,
-    allowNullableNumber: false,
-    allowNullableObject: true,
+    allowNullableNumber: true,
+    allowNullableObject: false,
     allowNullableString: false,
-    allowNumber: false,
+    allowNumber: true,
     allowString: false,
   }],
 } as const;
@@ -150,11 +152,11 @@ export default tseslint.config(
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
       curly: "warn",
-      eqeqeq: ["error", "always"],
+      eqeqeq: ["error", "smart"],
       "no-console": "error",
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
-      "no-implicit-coercion": ["warn", { allow: ["!!"] }],
+      "no-implicit-coercion": "error",
       "no-mixed-operators": "warn",
       "no-process-exit": "error",
       "no-undef": "off",
@@ -256,6 +258,7 @@ export default tseslint.config(
       "eslint-plugin/require-meta-docs-url": "off",
       // Part: local rules
       "local/avoid-multiline-template-expression": "warn",
+      "local/prefer-eqeq-nullish-comparison": "warn",
     },
     settings: {
       "import-x/parsers": {

@@ -16,7 +16,7 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     identifiers.push(...chunk);
   }
   if ("elements" in node) {
-    const chunk = node.elements.filter((x) => x !== null).map(getNestedIdentifiers).flat(1);
+    const chunk = node.elements.filter((x) => x != null).map(getNestedIdentifiers).flat(1);
     identifiers.push(...chunk);
   }
   if ("properties" in node) {

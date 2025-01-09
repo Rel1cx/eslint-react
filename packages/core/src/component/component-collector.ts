@@ -87,7 +87,7 @@ export function useComponentCollector(
       .reverse()
       .some(r => {
         return context.sourceCode.getScope(r).block === entry.node
-          && r.argument !== null
+          && r.argument != null
           && !JSX.isJSXValue(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) {
@@ -153,7 +153,7 @@ export function useComponentCollector(
       const component = Array
         .from(components.values())
         .findLast(({ name }) => O.exists(name, n => n === componentName));
-      if (!component) {
+      if (component == null) {
         return;
       }
       components.set(component._, {

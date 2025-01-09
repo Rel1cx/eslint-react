@@ -6,10 +6,10 @@ export function getScope(node: TSESTree.Node, scopeManager: ScopeManager) {
   const { type, parent } = node;
   const inner = type !== T.Program;
   const scope = scopeManager.acquire(node, inner);
-  if (scope) {
+  if (scope != null) {
     return scope;
   }
-  if (parent) {
+  if (parent != null) {
     return getScope(parent, scopeManager);
   }
   return null;

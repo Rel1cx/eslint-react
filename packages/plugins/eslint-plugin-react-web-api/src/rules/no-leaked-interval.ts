@@ -96,14 +96,14 @@ export default createRule<[], MessageID>({
         switch (getCallKind(node)) {
           case "setInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-            if (!fNode || !fKind) {
+            if (fNode == null || fKind == null) {
               break;
             }
             if (!ERPhaseRelevance.has(fKind)) {
               break;
             }
             const intervalIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
-            if (!intervalIdNode) {
+            if (intervalIdNode == null) {
               context.report({
                 messageId: "noLeakedIntervalNoIntervalId",
                 node,
@@ -121,14 +121,14 @@ export default createRule<[], MessageID>({
           }
           case "clearInterval": {
             const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-            if (!fNode || !fKind) {
+            if (fNode == null || fKind == null) {
               break;
             }
             if (!ERPhaseRelevance.has(fKind)) {
               break;
             }
             const [intervalIdNode] = node.arguments;
-            if (!intervalIdNode) {
+            if (intervalIdNode == null) {
               break;
             }
             cEntries.push({

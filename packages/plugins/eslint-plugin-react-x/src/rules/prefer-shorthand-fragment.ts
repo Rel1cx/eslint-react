@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
         node,
         fix: (fixer) => {
           const { closingElement, openingElement } = node;
-          if (!closingElement) {
+          if (closingElement == null) {
             return [];
           }
           return [

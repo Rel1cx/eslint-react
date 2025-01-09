@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXAttribute(node) {
-        if (node.name.type !== T.JSXIdentifier || !node.value) {
+        if (node.name.type !== T.JSXIdentifier || node.value == null) {
           return;
         }
         const isJavaScript = F.pipe(

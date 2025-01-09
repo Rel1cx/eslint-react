@@ -39,7 +39,7 @@ export function getPropValue(
 ) {
   if (attribute.type === T.JSXAttribute && "value" in attribute) {
     const { value } = attribute;
-    if (value === null) {
+    if (value == null) {
       return O.none();
     }
     if (value.type === T.Literal) {

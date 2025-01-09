@@ -70,7 +70,7 @@ export function isJSXValue(
         case "bigint":
           return !(hint & JSXValueHint.SkipBigIntLiteral);
       }
-      if (node.value === null) {
+      if (node.value == null) {
         return !(hint & JSXValueHint.SkipNullLiteral);
       }
       return false;

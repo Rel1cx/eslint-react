@@ -86,13 +86,13 @@ export default createRule<[], MessageID>({
     }
     function classExit() {
       const currentClass = classStack.pop();
-      if (!currentClass || !isClassComponent(currentClass)) {
+      if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
       const defs = propertyDefs.get(currentClass);
       const usages = propertyUsages.get(currentClass);
-      if (!defs) {
+      if (defs == null) {
         return;
       }
       for (const def of defs) {
@@ -116,7 +116,7 @@ export default createRule<[], MessageID>({
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
       methodStack.push(node);
       const currentClass = classStack.at(-1);
-      if (!currentClass || !isClassComponent(currentClass)) {
+      if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       if (node.static) {
@@ -138,7 +138,7 @@ export default createRule<[], MessageID>({
       MemberExpression(node) {
         const currentClass = classStack.at(-1);
         const currentMethod = methodStack.at(-1);
-        if (!currentClass || !currentMethod) {
+        if (currentClass == null || currentMethod == null) {
           return;
         }
         if (!isClassComponent(currentClass) || currentMethod.static) {
@@ -162,14 +162,14 @@ export default createRule<[], MessageID>({
       VariableDeclarator(node) {
         const currentClass = classStack.at(-1);
         const currentMethod = methodStack.at(-1);
-        if (!currentClass || !currentMethod) {
+        if (currentClass == null || currentMethod == null) {
           return;
         }
         if (!isClassComponent(currentClass) || currentMethod.static) {
           return;
         }
         // detect `{ foo, bar: baz } = this`
-        if (node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
+        if (node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
               const mbName = getName(prop.key);

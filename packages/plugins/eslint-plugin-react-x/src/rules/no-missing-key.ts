@@ -82,7 +82,7 @@ export default createRule<[], MessageID>({
     function checkBlockStatement(node: TSESTree.BlockStatement) {
       return AST.getNestedReturnStatements(node)
         .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
-          if (!statement.argument) {
+          if (statement.argument == null) {
             return acc;
           }
           const mbDescriptor = checkIteratorElement(statement.argument);

@@ -18,7 +18,7 @@ export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFuncti
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node
-      && !!node.id:
+      && node.id != null:
       return O.some(node.id);
     // const whatever = function MaybeComponent() {};
     case node.parent.type === T.VariableDeclarator

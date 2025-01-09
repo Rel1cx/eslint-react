@@ -38,7 +38,7 @@ export function getNestedExpressionsOfType<TNodeType extends T>(
       const chunk = boundGetNestedExpressionsOfType(node.right);
       expressions.push(...chunk);
     }
-    if ("test" in node && node.test !== null) {
+    if ("test" in node && node.test != null) {
       const chunk = boundGetNestedExpressionsOfType(node.test);
       expressions.push(...chunk);
     }
@@ -48,14 +48,14 @@ export function getNestedExpressionsOfType<TNodeType extends T>(
         : boundGetNestedExpressionsOfType(node.consequent);
       expressions.push(...chunk);
     }
-    if ("alternate" in node && node.alternate !== null) {
+    if ("alternate" in node && node.alternate != null) {
       const chunk = Array.isArray(node.alternate)
         ? node.alternate.map(boundGetNestedExpressionsOfType).flat(1)
         : boundGetNestedExpressionsOfType(node.alternate);
       expressions.push(...chunk);
     }
     if ("elements" in node) {
-      const chunk = node.elements.filter((x) => x !== null).map(getNestedExpressionsOfType(type)).flat(1);
+      const chunk = node.elements.filter((x) => x != null).map(getNestedExpressionsOfType(type)).flat(1);
       expressions.push(...chunk);
     }
     if ("properties" in node) {

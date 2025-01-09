@@ -7,6 +7,7 @@ declare const _default: {
     };
     readonly rules: {
         readonly "avoid-multiline-template-expression": _typescript_eslint_utils_ts_eslint.RuleModule<"avoidMultilineTemplateExpression", [], unknown, _typescript_eslint_utils_ts_eslint.RuleListener>;
+        readonly "prefer-eqeq-nullish-comparison": _typescript_eslint_utils_ts_eslint.RuleModule<"unexpectedComparison" | "useLooseComparisonSuggestion", [], unknown, _typescript_eslint_utils_ts_eslint.RuleListener>;
     };
 };
 

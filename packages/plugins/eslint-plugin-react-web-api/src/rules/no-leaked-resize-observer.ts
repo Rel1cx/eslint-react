@@ -148,7 +148,7 @@ export default createRule<[], MessageID>({
           })
           .with("observe", () => {
             const [element] = node.arguments;
-            if (!element) {
+            if (element == null) {
               return;
             }
             oEntries.push({
@@ -163,7 +163,7 @@ export default createRule<[], MessageID>({
           })
           .with("unobserve", () => {
             const [element] = node.arguments;
-            if (!element) {
+            if (element == null) {
               return;
             }
             uEntries.push({
@@ -180,7 +180,7 @@ export default createRule<[], MessageID>({
       },
       ["NewExpression"](node) {
         const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
-        if (!fNode || !ERPhaseRelevance.has(fKind)) {
+        if (fNode == null || !ERPhaseRelevance.has(fKind)) {
           return;
         }
         if (!isNewResizeObserver(node)) {

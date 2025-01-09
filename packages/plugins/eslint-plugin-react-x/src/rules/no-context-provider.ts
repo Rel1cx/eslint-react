@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
             const providerName = elementName.replace(/\.Provider$/, "");
             const openingElement = node.openingElement;
             const closingElement = node.closingElement;
-            if (!closingElement) {
+            if (closingElement == null) {
               return fixer.replaceText(openingElement.name, providerName);
             }
             return [

@@ -92,15 +92,15 @@ export default createRule<[], MessageID>({
           return;
         }
         const [currClass, isComponent] = classStack.at(-1) ?? [];
-        if (!currClass || !isComponent) {
+        if (currClass == null || !isComponent) {
           return;
         }
         const [currMethod, isStatic] = methodStack.at(-1) ?? [];
-        if (!currMethod || isStatic) {
+        if (currMethod == null || isStatic) {
           return;
         }
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
-        if (!setState || hasThisState) {
+        if (setState == null || hasThisState) {
           return;
         }
         if (!O.exists(getName(node.property), name => name === "state")) {
@@ -122,19 +122,19 @@ export default createRule<[], MessageID>({
       },
       VariableDeclarator(node) {
         const [currClass, isComponent] = classStack.at(-1) ?? [];
-        if (!currClass || !isComponent) {
+        if (currClass == null || !isComponent) {
           return;
         }
         const [currMethod, isStatic] = methodStack.at(-1) ?? [];
-        if (!currMethod || isStatic) {
+        if (currMethod == null || isStatic) {
           return;
         }
         const [setState, hasThisState] = setStateStack.at(-1) ?? [];
-        if (!setState || hasThisState) {
+        if (setState == null || hasThisState) {
           return;
         }
         // detect `{ foo, state: baz } = this`
-        if (!(node.init && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
+        if (!(node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
           return;
         }
         const hasState = node.id.properties.some(prop => {

@@ -47,7 +47,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const [useStateInput] = node.arguments;
-        if (!useStateInput) {
+        if (useStateInput == null) {
           return;
         }
         const nestedCallExpressions = AST.getNestedCallExpressions(useStateInput);

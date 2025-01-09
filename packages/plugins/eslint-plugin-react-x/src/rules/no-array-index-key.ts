@@ -82,7 +82,7 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
     return O.none();
   }
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
-  if (!callbackArg) {
+  if (callbackArg == null) {
     return O.none();
   }
   if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(callbackArg)) {
@@ -98,7 +98,9 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   }
   const param = params.at(indexParamPosition);
 
-  return param && "name" in param ? O.some(param.name) : O.none();
+  return param != null && "name" in param
+    ? O.some(param.name)
+    : O.none();
 }
 
 // #endregion
@@ -175,7 +177,7 @@ export default createRule<[], MessageID>({
             // key={String(bar)}
             case node.callee.type === T.Identifier
               && node.callee.name === "String"
-              && node.arguments[0]
+              && node.arguments[0] != null
               && isArrayIndex(node.arguments[0]): {
               return [{
                 messageId: "noArrayIndexKey",

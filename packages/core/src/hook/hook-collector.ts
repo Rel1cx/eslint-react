@@ -49,7 +49,7 @@ export function useHookCollector() {
         return;
       }
       const [fNode, hookId] = fStack.at(-1) ?? [];
-      if (!fNode || !hookId) {
+      if (fNode == null || hookId == null) {
         return;
       }
       F.pipe(

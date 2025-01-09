@@ -12,7 +12,7 @@ export const findParentNode: {
   (test: (node: TSESTree.Node) => boolean): (node: TSESTree.Node) => O.Option<TSESTree.Node>;
 } = F.dual(2, (node: TSESTree.Node, test: (node: TSESTree.Node) => boolean): O.Option<TSESTree.Node> => {
   let parent = node.parent;
-  while (parent && parent.type !== T.Program) {
+  while (parent != null && parent.type !== T.Program) {
     if (test(parent)) {
       return O.some(parent);
     }

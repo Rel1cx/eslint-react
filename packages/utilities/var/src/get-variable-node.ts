@@ -37,7 +37,7 @@ export function getVariableNode(at: number) {
             && AST.isFunction(def.node):
             return def.node;
           case "init" in def.node
-            && def.node.init
+            && def.node.init != null
             && !("declarations" in def.node.init):
             return def.node.init;
           default:

@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
         for (const { node: component } of components.values()) {
           const { params } = component;
           const [props] = params;
-          if (!props) {
+          if (props == null) {
             continue;
           }
           const properties = match(props)
