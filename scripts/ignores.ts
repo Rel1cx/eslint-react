@@ -14,11 +14,13 @@
 
 import fs from "fs/promises";
 
-export const ignores = await fs.readFile(".gitignore", "utf-8").then((v) => {
-  return v
-    .split("\n")
-    .map((v) => v.trim())
-    .filter((v) => !v.startsWith("#") && !v.startsWith("!"))
-    .map((v) => v.replace(/^\//, ""))
-    .filter((v) => v !== "");
-});
+export const ignores = await fs
+  .readFile(".gitignore", "utf-8")
+  .then((v) => {
+    return v
+      .split("\n")
+      .map((v) => v.trim())
+      .filter((v) => !v.startsWith("#") && !v.startsWith("!"))
+      .map((v) => v.replace(/^\//, ""))
+      .filter((v) => v !== "");
+  });
