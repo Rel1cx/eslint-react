@@ -26,19 +26,19 @@
 
 > **ctx**: `object`
 
-#### ctx.getCurrentFunction()
+#### ctx.getCurrentEntry()
 
-> **getCurrentFunction**: () => `Option`\<\{ `hookCalls`: `CallExpression`[]; `isComponent`: `boolean`; `key`: `string`; `node`: `TSESTreeFunction`; \}\>
+> **getCurrentEntry**: () => `undefined` \| \{ `hookCalls`: `CallExpression`[]; `isComponent`: `boolean`; `key`: `string`; `node`: `TSESTreeFunction`; \}
 
 ##### Returns
 
-`Option`\<\{ `hookCalls`: `CallExpression`[]; `isComponent`: `boolean`; `key`: `string`; `node`: `TSESTreeFunction`; \}\>
+`undefined` \| \{ `hookCalls`: `CallExpression`[]; `isComponent`: `boolean`; `key`: `string`; `node`: `TSESTreeFunction`; \}
 
 #### ctx.getAllComponents()
 
 ##### Parameters
 
-###### \_
+###### node
 
 `Program`
 
@@ -46,7 +46,7 @@
 
 `Map`\<`string`, [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)\>
 
-#### ctx.getCurrentFunctionStack()
+#### ctx.getCurrentEntries()
 
 ##### Returns
 

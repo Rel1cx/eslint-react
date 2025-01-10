@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
             messageId: "hook",
             node,
             data: {
-              name: name.value,
+              name,
               hookCalls: hookCalls.length,
             },
           });

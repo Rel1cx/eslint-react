@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
-import { isNullable, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -69,38 +69,38 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   return false;
 }
 
-function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext) {
+function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext): string | _ {
   const { callee } = node;
   if (callee.type !== T.MemberExpression) {
-    return O.none();
+    return _;
   }
   if (callee.property.type !== T.Identifier) {
-    return O.none();
+    return _;
   }
   const { name } = callee.property;
   if (!iteratorFunctionIndexParamPosition.has(name)) {
-    return O.none();
+    return _;
   }
   const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
   if (callbackArg == null) {
-    return O.none();
+    return _;
   }
   if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(callbackArg)) {
-    return O.none();
+    return _;
   }
   const { params } = callbackArg;
   const indexParamPosition = iteratorFunctionIndexParamPosition.get(name);
-  if (isNullable(indexParamPosition)) {
-    return O.none();
+  if (indexParamPosition == null) {
+    return _;
   }
   if (params.length < indexParamPosition + 1) {
-    return O.none();
+    return _;
   }
   const param = params.at(indexParamPosition);
 
   return param != null && "name" in param
-    ? O.some(param.name)
-    : O.none();
+    ? param.name
+    : _;
 }
 
 // #endregion
@@ -121,11 +121,11 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const indexParamNames: O.Option<string>[] = [];
+    const indexParamNames: Array<string | _> = [];
 
     function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
       return node.type === T.Identifier
-        && indexParamNames.some(O.exists((name) => name === node.name));
+        && indexParamNames.some((name) => name != null && name === node.name);
     }
 
     function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
@@ -136,7 +136,7 @@ export default createRule<[], MessageID>({
       switch (node.type) {
         // key={bar}
         case T.Identifier: {
-          if (indexParamNames.some(O.exists((name) => name === node.name))) {
+          if (indexParamNames.some((name) => name != null && name === node.name)) {
             return [{
               messageId: "noArrayIndexKey",
               node,
@@ -199,7 +199,7 @@ export default createRule<[], MessageID>({
         if (!isCreateOrCloneElementCall(node)) {
           return;
         }
-        const [_, props] = node.arguments;
+        const [, props] = node.arguments;
         if (props?.type !== T.ObjectExpression) {
           return;
         }

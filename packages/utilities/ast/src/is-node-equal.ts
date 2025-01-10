@@ -1,5 +1,4 @@
-import { F } from "@eslint-react/eff";
-import { zip } from "@eslint-react/types";
+import { dual } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -13,7 +12,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 export const isNodeEqual: {
   (a: TSESTree.Node): (b: TSESTree.Node) => boolean;
   (a: TSESTree.Node, b: TSESTree.Node): boolean;
-} = F.dual(2, (a: TSESTree.Node, b: TSESTree.Node): boolean => {
+} = dual(2, (a: TSESTree.Node, b: TSESTree.Node): boolean => {
   switch (true) {
     case a === b:
       return true;
@@ -26,17 +25,28 @@ export const isNodeEqual: {
       && b.type === T.TemplateElement:
       return a.value.raw === b.value.raw;
     case a.type === T.TemplateLiteral
-      && b.type === T.TemplateLiteral:
+      && b.type === T.TemplateLiteral: {
       if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) {
         return false;
       }
-      if (!zip(a.quasis, b.quasis).every(([a, b]) => isNodeEqual(a, b))) {
-        return false;
+      let i = a.quasis.length;
+      while (i--) {
+        if (a.quasis[i]?.value.raw !== b.quasis[i]?.value.raw) {
+          return false;
+        }
       }
-      if (!zip(a.expressions, b.expressions).every(([a, b]) => isNodeEqual(a, b))) {
-        return false;
+      i = a.expressions.length;
+      while (i--) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const exprA = a.expressions[i]!;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const exprB = b.expressions[i]!;
+        if (!isNodeEqual(exprA, exprB)) {
+          return false;
+        }
       }
       return true;
+    }
     case a.type === T.Identifier
       && b.type === T.Identifier:
       return a.name === b.name;

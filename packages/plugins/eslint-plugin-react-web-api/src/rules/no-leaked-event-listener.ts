@@ -1,14 +1,13 @@
 import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance, isInversePhase } from "@eslint-react/core";
-import { F, isBoolean, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule, getPhaseKindOfFunction } from "../utils";
@@ -31,11 +30,9 @@ export type MessageID =
 
 // #region Types
 
-/* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
 type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
-/* eslint-enable perfectionist/sort-union-types */
 
 export type AEntry = EventListenerEntry & { kind: "addEventListener" };
 
@@ -45,10 +42,14 @@ export type REntry = EventListenerEntry & { kind: "removeEventListener" };
 
 // #region Helpers
 
-const defaultOptions = {
-  capture: O.some<boolean>(false),
-  once: O.some<boolean>(false),
-  signal: O.none<TSESTree.Node>(),
+const defaultOptions: {
+  capture: boolean | _;
+  // once: boolean | _;
+  signal: TSESTree.Node | _;
+} = {
+  capture: false,
+  // once: false,
+  signal: _,
 };
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
@@ -66,70 +67,69 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
 }
 
 function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
-  return O.getOrElse(getPhaseKindOfFunction(node), F.constant("other"));
+  return getPhaseKindOfFunction(node) ?? "other";
 }
 
-function getSignalValueExpression(node: TSESTree.Node, initialScope: Scope): O.Option<TSESTree.Node> {
+function getSignalValueExpression(node: TSESTree.Node | _, initialScope: Scope): TSESTree.Node | _ {
+  if (node === _) return _;
   switch (node.type) {
-    case T.Identifier:
-      return F.pipe(
-        VAR.findVariable(node, initialScope),
-        O.flatMap(VAR.getVariableNode(0)),
-        O.flatMap((n) => getSignalValueExpression(n, initialScope)),
-      );
+    case T.Identifier: {
+      return getSignalValueExpression(VAR.getVariableNode(VAR.findVariable(node, initialScope), 0), initialScope);
+    }
     case T.MemberExpression:
-      return O.some(node);
+      return node;
     default:
-      return O.none();
+      return _;
   }
 }
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
-  const findProp = (properties: TSESTree.ObjectExpression["properties"], propName: string) => {
-    return JSX.findPropInProperties(properties, initialScope)(propName);
-  };
-  const getPropValue = (prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement) => {
-    if (prop.type !== T.Property) {
-      return O.none();
-    }
+  function findProp(properties: TSESTree.ObjectExpression["properties"], propName: string) {
+    return JSX.findPropInProperties(propName, properties, initialScope);
+  }
+  function getPropValue<A>(
+    prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | _,
+    filter: (value: unknown) => value is A = (_): _ is A => true,
+  ): A | _ {
+    if (prop?.type !== T.Property) return _;
     const { value } = prop;
+    let v: unknown = value;
     switch (value.type) {
       case T.Literal: {
-        return O.some(value.value);
+        v = value.value;
+        break;
       }
       default: {
-        return VAR.getStaticValue(value, initialScope);
+        v = VAR.toResolved({ kind: "lazy", node: value, initialScope }).value;
+        break;
       }
     }
-  };
+    return filter(v) ? v : _;
+  }
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case T.Identifier: {
-        return F.pipe(
-          VAR.findVariable(node, initialScope),
-          O.flatMap(VAR.getVariableNode(0)),
-          O.filter(AST.is(T.ObjectExpression)),
-          O.map(getOpts),
-          O.getOrElse(() => defaultOptions),
-        );
+        const variable = VAR.findVariable(node, initialScope);
+        const variableNode = VAR.getVariableNode(variable, 0);
+        if (variableNode?.type === T.ObjectExpression) {
+          return getOpts(variableNode);
+        }
+        return defaultOptions;
       }
       case T.Literal: {
-        return { ...defaultOptions, capture: O.some(Boolean(node.value)) };
+        return { ...defaultOptions, capture: Boolean(node.value) };
       }
       case T.ObjectExpression: {
-        const pOnce = findProp(node.properties, "once");
-        const vOnce = O.flatMap(pOnce, getPropValue).pipe(O.filter(isBoolean));
+        // const pOnce = findProp(node.properties, "once");
+        // const vOnce = getPropValue(pOnce);
         const pCapture = findProp(node.properties, "capture");
-        const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        const vCapture = !!getPropValue(pCapture);
         const pSignal = findProp(node.properties, "signal");
-        const vSignal = O.flatMap(pSignal, (prop) => {
-          if (prop.type !== T.Property) {
-            return O.none();
-          }
-          const { value } = prop;
-          return getSignalValueExpression(value, initialScope);
-        });
-        return { capture: vCapture, once: vOnce, signal: vSignal };
+        const vSignal = pSignal?.type === T.Property
+          ? getSignalValueExpression(pSignal.value, initialScope)
+          : _;
+        return { capture: vCapture, signal: vSignal };
       }
       default: {
         return defaultOptions;
@@ -168,7 +168,7 @@ export default createRule<[], MessageID>({
     if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) {
       return {};
     }
-    const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
+    const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
     const aEntries: AEntry[] = [];
     const rEntries: REntry[] = [];
     const abortedSignals: TSESTree.Expression[] = [];
@@ -177,6 +177,7 @@ export default createRule<[], MessageID>({
         case a.type === T.MemberExpression
           && b.type === T.MemberExpression:
           return AST.isNodeEqual(a.object, b.object);
+
         // TODO: Maybe there other cases to consider here.
         default:
           return false;
@@ -194,21 +195,21 @@ export default createRule<[], MessageID>({
           context.sourceCode.getScope(aType),
           context.sourceCode.getScope(rType),
         ])
-        && O.getOrElse(aCapture, F.constFalse) === O.getOrElse(rCapture, F.constFalse);
+        && aCapture === rCapture;
     }
     function checkInlineFunction(
       node: TSESTree.CallExpression,
       callKind: EventMethodKind,
       options: typeof defaultOptions,
-    ): O.Option<ReportDescriptor<MessageID>> {
-      const [_, listener] = node.arguments;
+    ) {
+      const listener = node.arguments.at(1);
       if (!AST.isFunction(listener)) {
-        return O.none();
+        return;
       }
-      if (O.isSome(options.signal)) {
-        return O.none();
+      if (options.signal !== _) {
+        return;
       }
-      return O.some({
+      context.report({
         messageId: "noLeakedEventListenerOfInlineFunction",
         node: listener,
         data: { eventMethodKind: callKind },
@@ -216,15 +217,15 @@ export default createRule<[], MessageID>({
     }
     return {
       [":function"](node: AST.TSESTreeFunction) {
-        const functionKind = getFunctionKind(node);
-        fStack.push([node, functionKind]);
+        const kind = getFunctionKind(node);
+        fEntries.push({ kind, node });
       },
       [":function:exit"]() {
-        fStack.pop();
+        fEntries.pop();
       },
       ["CallExpression"](node) {
-        const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
-        if (fNode == null || fKind == null) {
+        const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
+        if (fKind === _) {
           return;
         }
         if (!ERPhaseRelevance.has(fKind)) {
@@ -240,7 +241,7 @@ export default createRule<[], MessageID>({
               ? defaultOptions
               : getOptions(options, context.sourceCode.getScope(options));
             const { callee } = node;
-            O.map(checkInlineFunction(node, callKind, opts), context.report);
+            checkInlineFunction(node, callKind, opts);
             aEntries.push({
               ...opts,
               kind: "addEventListener",
@@ -260,7 +261,7 @@ export default createRule<[], MessageID>({
               ? defaultOptions
               : getOptions(options, context.sourceCode.getScope(options));
             const { callee } = node;
-            O.map(checkInlineFunction(node, callKind, opts), context.report);
+            checkInlineFunction(node, callKind, opts);
             rEntries.push({
               ...opts,
               kind: "removeEventListener",
@@ -274,11 +275,12 @@ export default createRule<[], MessageID>({
           .with("abort", () => {
             abortedSignals.push(node.callee);
           })
-          .otherwise(F.constVoid);
+          .otherwise(() => _);
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
-          if (O.exists(aEntry.signal, (signal) => abortedSignals.some((as) => isSameObject(as, signal)))) {
+          const signal = aEntry.signal;
+          if (signal !== _ && abortedSignals.some((a) => isSameObject(a, signal))) {
             continue;
           }
           if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {

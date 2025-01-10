@@ -1,10 +1,9 @@
-import { getElementRepresentName } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
+import { getElementNameAndRepresentName } from "@eslint-react/core";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
-import { createRule } from "../utils";
+import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -29,22 +28,32 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    const settings = getSettingsFromContext(context);
+    const additionalComponents = settings.additionalComponents.filter((c) => c.as === "button");
     return {
       JSXElement(node) {
-        const elementName = getElementRepresentName(node.openingElement, context);
-        if (elementName !== "button") {
-          return;
+        const [name, representName] = getElementNameAndRepresentName(
+          node.openingElement,
+          context,
+          settings.polymorphicPropName,
+          settings.additionalComponents,
+        );
+        if (representName !== "button") return;
+        const getPropValue = (propName: string) => {
+          return getAttributeStringValue(
+            propName,
+            node,
+            context,
+            getAdditionalAttributes(name, additionalComponents),
+          );
+        };
+        const prop = getPropValue("type");
+        if (typeof prop !== "string") {
+          context.report({
+            messageId: "noMissingButtonType",
+            node,
+          });
         }
-        const { attributes } = node.openingElement;
-        const initialScope = context.sourceCode.getScope(node);
-        const mbProp = JSX.findPropInAttributes(attributes, initialScope)("type");
-        if (O.isSome(mbProp)) {
-          return;
-        }
-        context.report({
-          messageId: "noMissingButtonType",
-          node,
-        });
       },
     };
   },

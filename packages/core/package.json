@@ -2,13 +2,13 @@
   "name": "@eslint-react/core",
   "version": "1.23.3-next.8",
   "description": "ESLint React's ESLint utility module for static analysis of React core APIs and Patterns.",
-  "homepage": "https://github.com/rEl1cx/eslint-react",
+  "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
-    "url": "https://github.com/rEl1cx/eslint-react/issues"
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rEl1cx/eslint-react.git",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
     "directory": "packages/core"
   },
   "license": "MIT",

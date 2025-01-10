@@ -1,3 +1,4 @@
-export * as F from "effect/Function";
-export * as O from "effect/Option";
-export * from "effect/Predicate";
+export * from "./collection";
+export * from "./function";
+export * from "./lang";
+export type * from "./type";

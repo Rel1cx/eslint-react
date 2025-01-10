@@ -1,5 +1,4 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -59,7 +58,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
 
-        for (const { name, node: component } of components.values()) {
+        for (const { name = "anonymous", node: component } of components.values()) {
           if (component.body.body.some((m) => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) {
             continue;
           }
@@ -68,7 +67,7 @@ export default createRule<[], MessageID>({
             node: component,
             data: {
               // eslint-disable-next-line eslint-plugin/no-unused-placeholders
-              name: O.getOrElse(F.constant("anonymous"))(name),
+              name,
             },
           });
         }

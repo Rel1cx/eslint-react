@@ -59,7 +59,7 @@ export default createRule<[], MessageID>({
             messageId: "noUselessCustomHooks",
             node,
             data: {
-              name: name.value,
+              name,
             },
           });
         }

@@ -1,4 +1,3 @@
-import { O } from "@eslint-react/eff";
 import type { ESLintReactSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -26,9 +25,13 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
         if (!isAt || index == null) {
           return false;
         }
-        const initialScope = context.sourceCode.getScope(node);
-        return O.exists(VAR.getStaticValue(index, initialScope), (v) => v === 1)
-          && isIdFromUseStateCall(callee.object);
+        const indexScope = context.sourceCode.getScope(node);
+        const indexValue = VAR.toResolved({
+          kind: "lazy",
+          node: index,
+          initialScope: indexScope,
+        }).value;
+        return indexValue === 1 && isIdFromUseStateCall(callee.object);
       }
       // const [data, setData] = useState();
       // setData();
@@ -41,9 +44,14 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
         if (!("name" in node.callee.object)) {
           return false;
         }
-        const initialScope = context.sourceCode.getScope(node);
-        return O.exists(VAR.getStaticValue(node.callee.property, initialScope), (v) => v === 1)
-          && isIdFromUseStateCall(node.callee.object);
+        const property = node.callee.property;
+        const propertyScope = context.sourceCode.getScope(node);
+        const propertyValue = VAR.toResolved({
+          kind: "lazy",
+          node: property,
+          initialScope: propertyScope,
+        }).value;
+        return propertyValue === 1 && isIdFromUseStateCall(node.callee.object);
       }
       default: {
         return false;

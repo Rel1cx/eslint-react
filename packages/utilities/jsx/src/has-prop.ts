@@ -1,22 +1,14 @@
-import { O } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { findPropInAttributes } from "./get-prop";
 
-/**
- * Check if the given prop name is present in the given attributes
- * @param attributes The attributes to search in
- * @param propName The prop name to search for
- * @param initialScope The initial scope to start from
- * @returns `true` if the given prop name is present in the given properties
- */
 export function hasProp(
-  attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   propName: string,
   initialScope: Scope,
+  attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
 ) {
-  return O.isSome(findPropInAttributes(attributes, initialScope)(propName));
+  return !!findPropInAttributes(propName, initialScope, attributes);
 }
 
 /**
@@ -31,7 +23,7 @@ export function hasAnyProp(
   propNames: string[],
   initialScope: Scope,
 ) {
-  return propNames.some((propName) => hasProp(attributes, propName, initialScope));
+  return propNames.some((propName) => hasProp(propName, initialScope, attributes));
 }
 
 /**
@@ -46,5 +38,5 @@ export function hasEveryProp(
   propNames: string[],
   initialScope: Scope,
 ) {
-  return propNames.every((propName) => hasProp(attributes, propName, initialScope));
+  return propNames.every((propName) => hasProp(propName, initialScope, attributes));
 }

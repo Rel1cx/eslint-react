@@ -1,5 +1,4 @@
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
@@ -34,12 +33,12 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-        for (const { name, node, flag, hookCalls } of components.values()) {
+        for (const { name = "anonymous", node, flag, hookCalls } of components.values()) {
           context.report({
             messageId: "functionComponent",
             node,
             data: {
-              name: O.getOrElse(name, F.constant("anonymous")),
+              name,
               forwardRef: (flag & ERFunctionComponentFlag.ForwardRef) > 0n,
               hookCalls: hookCalls.length,
               memo: (flag & ERFunctionComponentFlag.Memo) > 0n,

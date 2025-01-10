@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -74,7 +74,7 @@ export default createRule<[], MessageID>({
               initialScope,
               VAR.ValueConstructionHint.StrictCallExpression,
             );
-            if (construction.kind === "None") {
+            if (construction === _) {
               continue;
             }
             if (isReactHookCall(construction.node)) {
@@ -92,13 +92,10 @@ export default createRule<[], MessageID>({
         }
       },
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
-        const mbEntry = ctx.getCurrentFunction();
-        if (O.isNone(mbEntry)) {
-          return;
-        }
-        const entry = mbEntry.value;
-        const prevs = declarators.get(entry.node) ?? [];
-        declarators.set(entry.node, [...prevs, node]);
+        const functionEntry = ctx.getCurrentEntry();
+        if (!functionEntry) return;
+        const prevs = declarators.get(functionEntry.node) ?? [];
+        declarators.set(functionEntry.node, [...prevs, node]);
       },
     };
   },

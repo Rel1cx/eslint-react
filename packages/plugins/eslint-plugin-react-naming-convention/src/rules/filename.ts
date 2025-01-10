@@ -1,6 +1,5 @@
 import path from "node:path";
 
-import { isString } from "@eslint-react/eff";
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -97,23 +96,19 @@ export default createRule<Options, MessageID>({
   name: RULE_NAME,
   create(context) {
     const options = context.options[0] ?? defaultOptions[0];
-    const rule = isString(options) ? options : options.rule ?? "PascalCase";
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    const excepts = isString(options) ? [] : options.excepts ?? [];
-    // const extensions = isObject(options) && "extensions" in options
-    //   // eslint-disable-next-line @typescript-eslint/no-deprecated
-    //   ? options.extensions
-    //   : defaultOptions[0].extensions;
-
-    const filename = context.filename;
-    // const fileNameExt = filename
-    //   .slice(filename.lastIndexOf("."));
-    // if (!extensions.includes(fileNameExt)) return {};
+    const rule = typeof options === "string"
+      ? options
+      : options.rule ?? "PascalCase";
+    const excepts = typeof options === "string"
+      ? []
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      : options.excepts ?? [];
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      if (ignores.map((pattern) => new RegExp(pattern, "u")).some((pattern) => pattern.test(name))) {
-        return true;
-      }
+      const shouldIgnore = ignores
+        .map((pattern) => new RegExp(pattern, "u"))
+        .some((pattern) => pattern.test(name));
+      if (shouldIgnore) return true;
 
       return match(casing)
         .with("PascalCase", () => RE_PASCAL_CASE.test(name))
@@ -146,7 +141,7 @@ export default createRule<Options, MessageID>({
           messageId: "filenameCaseMismatchSuggestion",
           node,
           data: {
-            name: filename,
+            name: context.filename,
             rule,
             suggestion: [getSuggestion(basename), ...rest].join("."),
           },

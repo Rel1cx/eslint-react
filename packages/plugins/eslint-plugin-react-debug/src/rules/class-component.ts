@@ -1,5 +1,4 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
@@ -33,12 +32,12 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-        for (const { name, node: component } of components.values()) {
+        for (const { name = "anonymous", node: component } of components.values()) {
           context.report({
             messageId: "classComponent",
             node: component,
             data: {
-              name: O.getOrElse(F.constant("anonymous"))(name),
+              name,
             },
           });
         }

@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import type { O } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ERSemanticNode } from "../semantic-node";
@@ -7,11 +7,11 @@ import type { ERSemanticNode } from "../semantic-node";
 /* eslint-disable perfectionist/sort-interfaces */
 export interface ERHook extends ERSemanticNode {
   // The identifier of the hook
-  id: O.Some<TSESTree.Identifier>;
+  id: TSESTree.Identifier | _;
   // The AST node of the hook
   node: AST.TSESTreeFunction;
   // The name of the hook
-  name: O.Some<string>;
+  name: string;
   // The `HookFlag` of the hook, reserved for future use
   // flag: bigint;
   // The type of the hook, reserved for future use

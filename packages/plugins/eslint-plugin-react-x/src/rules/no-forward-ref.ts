@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isForwardRefCall } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -93,27 +93,25 @@ function getComponentPropsFixes(
     return [];
   }
   const fixedArg0Text = match(arg0)
-    .with({ type: T.Identifier }, (n) => O.some(`...${n.name}`))
-    .with({ type: T.ObjectPattern }, (n) => O.some(n.properties.map(getText).join(", ")))
-    .otherwise(O.none);
+    .with({ type: T.Identifier }, (n) => `...${n.name}`)
+    .with({ type: T.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
+    .otherwise(() => _);
   const fixedArg1Text = match(arg1)
-    .with(P.nullish, () => O.some("ref"))
-    .with({ type: T.Identifier, name: "ref" }, () => O.some("ref"))
-    .with({ type: T.Identifier, name: P.not("ref") }, (n) => O.some(`ref: ${n.name}`))
-    .otherwise(O.none);
-  if (O.isNone(fixedArg0Text) || O.isNone(fixedArg1Text)) {
+    .with(P.nullish, () => "ref")
+    .with({ type: T.Identifier, name: "ref" }, () => "ref")
+    .with({ type: T.Identifier, name: P.not("ref") }, (n) => `ref: ${n.name}`)
+    .otherwise(() => _);
+  if (fixedArg0Text == null || fixedArg1Text == null) {
     return [];
   }
-  const fixedPropsText = fixedArg0Text.value;
-  const fixedRefText = fixedArg1Text.value;
   if (typeArg0 == null || typeArg1 == null) {
     return [
       fixer.replaceText(
         arg0,
         [
           "{",
-          fixedRefText + ",",
-          fixedPropsText,
+          fixedArg1Text + ",",
+          fixedArg0Text,
           "}",
         ].join(" "),
       ),
@@ -127,8 +125,8 @@ function getComponentPropsFixes(
       arg0,
       [
         "{",
-        fixedRefText + ",",
-        fixedPropsText,
+        fixedArg1Text + ",",
+        fixedArg0Text,
         "}:",
         getText(typeArg1),
         "&",

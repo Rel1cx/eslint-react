@@ -1,4 +1,3 @@
-import { isString } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -35,7 +34,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           const name = attr.name.name;
-          if (!isString(name)) {
+          if (typeof name !== "string") {
             continue;
           }
           if (!props.includes(name)) {

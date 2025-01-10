@@ -6,7 +6,7 @@ import { hasProp } from "./has-prop";
 
 export function isKeyedElement(node: TSESTree.Node, initialScope: Scope) {
   return node.type === T.JSXElement
-    && hasProp(node.openingElement.attributes, "key", initialScope);
+    && hasProp("key", initialScope, node.openingElement.attributes);
 }
 
 /**

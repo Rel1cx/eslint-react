@@ -1,7 +1,7 @@
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -28,11 +28,9 @@ export type MessageID =
 
 // #region Types
 
-/* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "setInterval" | "clearInterval";
 type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "other";
-/* eslint-enable perfectionist/sort-union-types */
 
 // #endregion
 
@@ -78,31 +76,31 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("setInterval")) {
       return {};
     }
-    const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
+    const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
     const sEntries: TimerEntry[] = [];
     const cEntries: TimerEntry[] = [];
     function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-      return isInstanceIDEqual(a.timerID, b.timerID, context);
+      return isInstanceIDEqual(a.timerId, b.timerId, context);
     }
     return {
       [":function"](node: AST.TSESTreeFunction) {
-        const fKind = O.getOrElse(getPhaseKindOfFunction(node), () => "other" as const);
-        fStack.push([node, fKind]);
+        const kind = getPhaseKindOfFunction(node) ?? "other";
+        fEntries.push({ kind, node });
       },
       [":function:exit"]() {
-        fStack.pop();
+        fEntries.pop();
       },
       ["CallExpression"](node) {
         switch (getCallKind(node)) {
           case "setInterval": {
-            const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
-            if (fNode == null || fKind == null) {
+            const fEntry = fEntries.findLast((x) => x.kind !== "other");
+            if (fEntry === _) {
               break;
             }
-            if (!ERPhaseRelevance.has(fKind)) {
+            if (!ERPhaseRelevance.has(fEntry.kind)) {
               break;
             }
-            const intervalIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
+            const intervalIdNode = VAR.getVariableDeclaratorId(node);
             if (intervalIdNode == null) {
               context.report({
                 messageId: "noLeakedIntervalNoIntervalId",
@@ -114,17 +112,17 @@ export default createRule<[], MessageID>({
               kind: "interval",
               node,
               callee: node.callee,
-              phase: fKind,
-              timerID: intervalIdNode,
+              phase: fEntry.kind,
+              timerId: intervalIdNode,
             });
             break;
           }
           case "clearInterval": {
-            const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
-            if (fNode == null || fKind == null) {
+            const fEntry = fEntries.findLast((x) => x.kind !== "other");
+            if (fEntry === _) {
               break;
             }
-            if (!ERPhaseRelevance.has(fKind)) {
+            if (!ERPhaseRelevance.has(fEntry.kind)) {
               break;
             }
             const [intervalIdNode] = node.arguments;
@@ -135,8 +133,8 @@ export default createRule<[], MessageID>({
               kind: "interval",
               node,
               callee: node.callee,
-              phase: fKind,
-              timerID: intervalIdNode,
+              phase: fEntry.kind,
+              timerId: intervalIdNode,
             });
             break;
           }

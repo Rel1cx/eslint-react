@@ -6,7 +6,7 @@
 
 # Function: isInsideReactHook()
 
-> **isInsideReactHook**(`node`): `boolean`
+> **isInsideReactHook**(`node`): `undefined` \| `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`boolean`
+`undefined` \| `boolean`

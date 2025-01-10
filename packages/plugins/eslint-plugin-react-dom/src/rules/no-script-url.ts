@@ -1,7 +1,7 @@
-import { F, isString, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
@@ -38,12 +38,11 @@ export default createRule<[], MessageID>({
         if (node.name.type !== T.JSXIdentifier || node.value == null) {
           return;
         }
-        const isJavaScript = F.pipe(
-          JSX.getPropValue(node, context.sourceCode.getScope(node)),
-          O.filter(isString),
-          O.exists((v) => RE_JAVASCRIPT_PROTOCOL.test(v)),
-        );
-        if (isJavaScript) {
+        const propScope = context.sourceCode.getScope(node);
+        const propValue = JSX.getPropValue(node, propScope);
+        const propValueResolved = VAR.toResolved(propValue).value;
+        if (typeof propValueResolved !== "string") return;
+        if (RE_JAVASCRIPT_PROTOCOL.test(propValueResolved)) {
           context.report({
             messageId: "noScriptUrl",
             node: node.value,

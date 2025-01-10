@@ -1,4 +1,4 @@
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
@@ -64,9 +64,8 @@ export default createRule<[], MessageID>({
         }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const hasAttr = (name: string) => O.isSome(JSX.findPropInAttributes(attributes, initialScope)(name));
-        const hasChildrenOrDangerAttr = hasAttr("children") || hasAttr("dangerouslySetInnerHTML");
-        if (hasChildrenOrDangerAttr) {
+        const hasAttribute = (name: string) => JSX.findPropInAttributes(name, initialScope, attributes) !== _;
+        if (hasAttribute("children") || hasAttribute("dangerouslySetInnerHTML")) {
           // e.g. <br children="Foo" />
           context.report({
             messageId: "noVoidElementsWithChildren",

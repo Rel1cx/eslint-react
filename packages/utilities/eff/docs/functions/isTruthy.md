@@ -6,32 +6,24 @@
 
 # Function: isTruthy()
 
-> **isTruthy**(`input`): `boolean`
+> **isTruthy**\<`T`\>(`data`): data is Exclude\<T, undefined \| null \| false \| "" \| 0\>
 
-Tests if a value is `truthy`.
+A function that checks if the passed parameter is truthy and narrows its type accordingly.
+
+## Type Parameters
+
+• **T**
 
 ## Parameters
 
-### input
+### data
 
-`unknown`
+`T`
 
-The value to test.
+The variable to check.
 
 ## Returns
 
-`boolean`
+data is Exclude\<T, undefined \| null \| false \| "" \| 0\>
 
-## Example
-
-```ts
-import { isTruthy } from "effect/Predicate"
-
-assert.deepStrictEqual(isTruthy(1), true)
-assert.deepStrictEqual(isTruthy(0), false)
-assert.deepStrictEqual(isTruthy(""), false)
-```
-
-## Since
-
-2.0.0
+True if the passed input is truthy, false otherwise.

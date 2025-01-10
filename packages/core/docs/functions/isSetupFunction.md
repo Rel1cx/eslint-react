@@ -6,14 +6,14 @@
 
 # Function: isSetupFunction()
 
-> **isSetupFunction**(`node`): `boolean`
+> **isSetupFunction**(`node`): `undefined` \| `boolean`
 
 ## Parameters
 
 ### node
 
-`Node`
+`undefined` | `Node`
 
 ## Returns
 
-`boolean`
+`undefined` \| `boolean`

@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { isComponentName, useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -60,13 +59,10 @@ export default createRule<[], MessageID>({
           if (!AST.isFunction(block)) {
             return false;
           }
-          return O.exists(
-            AST.getFunctionIdentifier(block),
-            (id) =>
-              isComponentName(id.name)
-              && components
-                .some((component) => component.node === block),
-          );
+          const id = AST.getFunctionIdentifier(block);
+          return !!id
+            && isComponentName(id.name)
+            && components.some((component) => component.node === block);
         }
 
         for (const [initialScope, memberExpression] of memberExpressionWithNames) {

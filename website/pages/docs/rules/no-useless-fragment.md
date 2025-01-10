@@ -84,7 +84,7 @@ const cat = <>meow</>
 
 ## Note
 
-[By default, this rule always allows single expressions in a fragment](https://github.com/rEl1cx/eslint-react/pull/188). This is useful in
+[By default, this rule always allows single expressions in a fragment](https://github.com/Rel1cx/eslint-react/pull/188). This is useful in
 places like Typescript where `string` does not satisfy the expected return type
 of `JSX.Element`. A common workaround is to wrap the variable holding a string
 in a fragment and expression. To change this behaviour, use the `allowExpressions` option.
@@ -152,8 +152,8 @@ const cat = <>meow</>
 
 ## Implementation
 
-- [Rule source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-useless-fragment.ts)
-- [Test source](https://github.com/rEl1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-useless-fragment.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-useless-fragment.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-useless-fragment.spec.ts)
 
 ## Further Reading
 

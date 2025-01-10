@@ -6,7 +6,7 @@
 
 # Function: getFunctionComponentIdentifier()
 
-> **getFunctionComponentIdentifier**(`node`, `context`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
+> **getFunctionComponentIdentifier**(`node`, `context`): `TSESTree.Identifier` \| `TSESTree.Identifier`[] \| `_`
 
 ## Parameters
 
@@ -20,4 +20,4 @@
 
 ## Returns
 
-`O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
+`TSESTree.Identifier` \| `TSESTree.Identifier`[] \| `_`

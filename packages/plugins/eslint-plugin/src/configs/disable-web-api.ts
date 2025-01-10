@@ -1,4 +1,4 @@
-import { entries, fromEntries } from "@eslint-react/types";
+import { entries, fromEntries } from "@eslint-react/eff";
 
 import { rules as webApiRules } from "./web-api";
 

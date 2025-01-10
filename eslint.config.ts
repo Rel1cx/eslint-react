@@ -82,8 +82,8 @@ const enableTypeCheckedRules = {
     allowAny: false,
     allowNullableBoolean: true,
     allowNullableEnum: false,
-    allowNullableNumber: true,
-    allowNullableObject: false,
+    allowNullableNumber: false,
+    allowNullableObject: true,
     allowNullableString: false,
     allowNumber: true,
     allowString: false,
@@ -151,12 +151,11 @@ export default tseslint.config(
   {
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
-      curly: "warn",
       eqeqeq: ["error", "smart"],
       "no-console": "error",
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
-      "no-implicit-coercion": "error",
+      "no-implicit-coercion": ["error", { allow: ["!!"] }],
       "no-mixed-operators": "warn",
       "no-process-exit": "error",
       "no-undef": "off",
@@ -187,14 +186,7 @@ export default tseslint.config(
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          caughtErrors: "all",
-          varsIgnorePattern: "^_",
-        },
-      ],
+      "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
       ...enableTypeCheckedRules,
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
@@ -206,13 +198,12 @@ export default tseslint.config(
       "jsdoc/require-param-description": "warn",
       "jsdoc/require-returns": "off",
       "jsdoc/require-yields": "warn",
-      "jsdoc/tag-lines": "warn",
+      "jsdoc/tag-lines": "off",
       // Part: simple-import-sort rules
       "simple-import-sort/exports": "warn",
       "simple-import-sort/imports": "warn",
       // Part: stylistic rules
       "@stylistic/arrow-parens": ["warn", "always"],
-      "@stylistic/curly-newline": ["warn", "always"],
       "@stylistic/no-multi-spaces": ["warn"],
       "@stylistic/operator-linebreak": [
         "warn",
@@ -249,7 +240,7 @@ export default tseslint.config(
         },
       ],
       "perfectionist/sort-switch-case": "off",
-      "perfectionist/sort-union-types": "warn",
+      "perfectionist/sort-union-types": "off",
       // Part: unicorn rules
       "unicorn/template-indent": [
         "warn",

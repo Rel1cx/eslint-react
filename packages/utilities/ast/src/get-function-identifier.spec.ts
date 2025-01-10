@@ -1,6 +1,5 @@
 import path from "node:path";
 
-import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -24,18 +23,17 @@ describe("get function identifier from function declaration", () => {
     ["function bar() {}", "bar"],
     ["function baz<T>() {}", "baz"],
   ])("should return the function name from %s", (code, expected) => {
-    let n = O.none<TSESTreeFunction>();
+    let n: null | TSESTreeFunction = null;
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) {
           return;
         }
-        const id = O.getOrThrow(getFunctionIdentifier(node));
-        expect(id).include({ type: T.Identifier, name: expected });
-        n = O.fromNullable(node);
+        expect(getFunctionIdentifier(node)).include({ type: T.Identifier, name: expected });
+        n = node;
       },
     }, true);
-    expect(O.isSome(n)).toBe(true);
+    expect(n).not.toBeNull();
   });
 });
 
@@ -60,17 +58,16 @@ describe("get function identifier from function expression", () => {
     ["class Clazz { Foo = function() {} }", "Foo"],
     ["class Clazz { Foo = () => {} }", "Foo"],
   ])("should return the function name from %s", (code, expected) => {
-    let n = O.none<TSESTreeFunction>();
+    let n: null | TSESTreeFunction = null;
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (!isFunction(node)) {
           return;
         }
-        const id = O.getOrThrow(getFunctionIdentifier(node));
-        expect(id).include({ type: T.Identifier, name: expected });
-        n = O.fromNullable(node);
+        expect(getFunctionIdentifier(node)).include({ type: T.Identifier, name: expected });
+        n = node;
       },
     }, true);
-    expect(O.isSome(n)).toBe(true);
+    expect(n).not.toBeNull();
   });
 });

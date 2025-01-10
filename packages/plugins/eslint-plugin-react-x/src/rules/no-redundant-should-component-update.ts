@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { ERClassComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -47,7 +46,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
 
-        for (const { name, node: component, flag } of components.values()) {
+        for (const { name = "PureComponent", node: component, flag } of components.values()) {
           if ((flag & ERClassComponentFlag.PureComponent) === 0n) {
             continue;
           }
@@ -58,7 +57,7 @@ export default createRule<[], MessageID>({
                 messageId: "noRedundantShouldComponentUpdate",
                 node: member,
                 data: {
-                  componentName: O.getOrElse(() => "PureComponent")(name),
+                  componentName: name,
                 },
               });
             }

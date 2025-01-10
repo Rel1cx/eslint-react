@@ -1,9 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -31,20 +29,22 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    function getReportDescriptor(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
+    const visitorFunction = (node: TSESTree.Node): void => {
       const jsxExpContainer = node.parent?.parent;
       if (!AST.is(T.JSXExpressionContainer)(jsxExpContainer)) {
-        return O.none();
+        return;
       }
       if (!AST.isOneOf([T.JSXElement, T.JSXFragment])(jsxExpContainer.parent)) {
-        return O.none();
+        return;
       }
       if (!jsxExpContainer.parent.children.includes(jsxExpContainer)) {
-        return O.none();
+        return;
       }
-      return O.some({ messageId: "noComplexConditionalRendering", node: jsxExpContainer });
-    }
-    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
+      context.report({
+        messageId: "noComplexConditionalRendering",
+        node: jsxExpContainer,
+      });
+    };
     return {
       "JSXExpressionContainer > ConditionalExpression > ConditionalExpression": visitorFunction,
       "JSXExpressionContainer > ConditionalExpression > LogicalExpression": visitorFunction,

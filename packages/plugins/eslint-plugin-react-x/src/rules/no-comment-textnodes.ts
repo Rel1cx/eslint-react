@@ -1,9 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -38,22 +36,21 @@ export default createRule<[], MessageID>({
       const rawValue = context.sourceCode.getText(node);
       return /^\s*\/(?:\/|\*)/mu.test(rawValue);
     }
-    const getReportDescriptor = (node: TSESTree.JSXText | TSESTree.Literal): O.Option<ReportDescriptor<MessageID>> => {
+    const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal): void => {
       if (!AST.isOneOf([T.JSXElement, T.JSXFragment])(node.parent)) {
-        return O.none();
+        return;
       }
       if (!hasCommentLike(node)) {
-        return O.none();
+        return;
       }
       if (!node.parent.type.includes("JSX")) {
-        return O.none();
+        return;
       }
-      return O.some({
+      context.report({
         messageId: "noCommentTextnodes",
         node,
       });
     };
-    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report), F.constVoid);
     return {
       JSXText: visitorFunction,
       Literal: visitorFunction,

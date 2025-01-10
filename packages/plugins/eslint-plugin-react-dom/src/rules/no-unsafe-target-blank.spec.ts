@@ -338,7 +338,7 @@ ruleTester.run(RULE_NAME, rule, {
               as: "a",
               attributes: [{
                 name: "rel",
-                defaultValue: "noreferrer",
+                defaultValue: "noreferrer noopener",
               }],
             },
             {
@@ -348,7 +348,7 @@ ruleTester.run(RULE_NAME, rule, {
                 {
                   name: "relation",
                   as: "rel",
-                  defaultValue: "noreferrer",
+                  defaultValue: "noreferrer noopener",
                 },
               ],
             },

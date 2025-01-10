@@ -50,7 +50,7 @@
 
 ### id
 
-> **id**: `Some`\<`Identifier`\>
+> **id**: `undefined` \| `Identifier`
 
 #### Overrides
 
@@ -70,7 +70,7 @@
 
 ### name
 
-> **name**: `Some`\<`string`\>
+> **name**: `string`
 
 #### Overrides
 

@@ -1,6 +1,5 @@
 import path from "node:path";
 
-import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -24,18 +23,17 @@ describe("get class identifier from class declaration", () => {
     ["class Foo<T> {}", "Foo"],
     ["class Foo<T extends Bar> {}", "Foo"],
   ])("should return the class name from %s", (code, expected) => {
-    let n = O.none<TSESTreeClass>();
+    let n: null | TSESTreeClass = null;
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type !== T.ClassDeclaration) {
           return;
         }
-        const id = O.getOrThrow(getClassIdentifier(node));
-        expect(id).include({ type: T.Identifier, name: expected });
-        n = O.fromNullable(node);
+        expect(getClassIdentifier(node)).include({ type: T.Identifier, name: expected });
+        n = node;
       },
     }, true);
-    expect(O.isSome(n)).toBe(true);
+    expect(n).not.toBeNull();
   });
 });
 
@@ -46,17 +44,16 @@ describe("get class identifier from class expression", () => {
     ["const Foo = class<T> {};", "Foo"],
     ["const Foo = class<T extends Bar> {};", "Foo"],
   ])("should return the class name from %s", (code, expected) => {
-    let n = O.none<TSESTreeClass>();
+    let n: null | TSESTreeClass = null;
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type !== T.ClassExpression) {
           return;
         }
-        const id = O.getOrThrow(getClassIdentifier(node));
-        expect(id).include({ type: T.Identifier, name: expected });
-        n = O.fromNullable(node);
+        expect(getClassIdentifier(node)).include({ type: T.Identifier, name: expected });
+        n = node;
       },
     }, true);
-    expect(O.isSome(n)).toBe(true);
+    expect(n).not.toBeNull();
   });
 });

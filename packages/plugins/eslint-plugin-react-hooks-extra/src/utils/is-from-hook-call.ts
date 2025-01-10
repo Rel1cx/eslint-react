@@ -1,25 +1,24 @@
-import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
+import { returnTrue } from "@eslint-react/eff";
 import type { ESLintReactSettings, REACT_BUILD_IN_HOOKS } from "@eslint-react/shared";
-import type { ArrayElement, RuleContext } from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 export function isFromHookCall(
-  name: ArrayElement<typeof REACT_BUILD_IN_HOOKS>,
+  name: (typeof REACT_BUILD_IN_HOOKS)[number],
   context: RuleContext,
   settings: ESLintReactSettings,
-  predicate: (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => boolean = F.constTrue,
+  predicate: (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => boolean = returnTrue,
 ) {
   const hookAlias = settings.additionalHooks?.[name] ?? [];
-  return (topLevelId: TSESTree.Identifier) =>
-    F.pipe(
-      VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId)),
-      O.flatMap(VAR.getVariableNode(0)),
-      O.filter(AST.is(T.CallExpression)),
-      O.filter(isReactHookCallWithNameAlias(name, context, hookAlias)),
-      O.exists((call) => predicate(topLevelId, call)),
-    );
+  return (topLevelId: TSESTree.Identifier) => {
+    const variable = VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
+    const variableNode = VAR.getVariableNode(variable, 0);
+    if (variableNode == null) return false;
+    if (variableNode.type !== T.CallExpression) return false;
+    if (!isReactHookCallWithNameAlias(name, context, hookAlias)(variableNode)) return false;
+    return predicate(topLevelId, variableNode);
+  };
 }

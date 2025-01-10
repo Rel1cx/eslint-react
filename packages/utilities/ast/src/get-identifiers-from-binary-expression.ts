@@ -6,7 +6,7 @@ export function getIdentifiersFromBinaryExpression(
     | TSESTree.BinaryExpression
     | TSESTree.BinaryExpression["left"]
     | TSESTree.BinaryExpression["right"],
-): TSESTree.Identifier[] {
+): readonly TSESTree.Identifier[] {
   if (side.type === T.Identifier) {
     return [side];
   }
@@ -14,7 +14,7 @@ export function getIdentifiersFromBinaryExpression(
     return [
       ...getIdentifiersFromBinaryExpression(side.left),
       ...getIdentifiersFromBinaryExpression(side.right),
-    ];
+    ] as const;
   }
-  return [];
+  return [] as const;
 }

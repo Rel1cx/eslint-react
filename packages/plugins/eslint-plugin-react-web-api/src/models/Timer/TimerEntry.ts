@@ -7,5 +7,5 @@ export interface TimerEntry extends ERSemanticEntry {
   kind: TimerKind;
   node: TSESTree.CallExpression;
   callee: TSESTree.Node;
-  timerID: TSESTree.Node;
+  timerId: TSESTree.Node;
 }

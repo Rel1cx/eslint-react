@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { getId } from "../utils";
@@ -9,13 +9,13 @@ import { isReactHookCall } from "./is";
 
 export function useHookCollector() {
   const hooks = new Map<string, ERHook>();
-  const fStack: [node: AST.TSESTreeFunction, id: O.Option<string>][] = [];
+  const fEntries: { key: string | _; node: AST.TSESTreeFunction }[] = [];
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionIdentifier(node);
-    const name = O.flatMapNullable(id, (id) => id.name);
-    if (O.isSome(id) && O.isSome(name) && isReactHookName(name.value)) {
+    const name = id?.name;
+    if (name !== _ && isReactHookName(name)) {
       const key = getId();
-      fStack.push([node, O.some(key)]);
+      fEntries.push({ key, node });
       hooks.set(key, {
         _: key,
         id,
@@ -28,13 +28,14 @@ export function useHookCollector() {
       });
       return;
     }
-    fStack.push([node, O.none()]);
+    fEntries.push({ key: _, node });
   };
   const onFunctionExit = () => {
-    fStack.pop();
+    fEntries.pop();
   };
   const ctx = {
-    getAllHooks(_: TSESTree.Program): typeof hooks {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getAllHooks(node: TSESTree.Program): typeof hooks {
       return hooks;
     },
     getCurrentHooks() {
@@ -48,24 +49,21 @@ export function useHookCollector() {
       if (!isReactHookCall(node)) {
         return;
       }
-      const [fNode, hookId] = fStack.at(-1) ?? [];
-      if (fNode == null || hookId == null) {
+      const fEntry = fEntries.at(-1);
+      if (fEntry?.key === _) {
         return;
       }
-      F.pipe(
-        O.Do,
-        O.bind("id", () => hookId),
-        O.bind("hook", ({ id }) => O.fromNullable(hooks.get(id))),
-        O.map(({ id, hook }) => {
-          hooks.set(id, {
-            ...hook,
-            hookCalls: [
-              ...hook.hookCalls,
-              node,
-            ],
-          });
-        }),
-      );
+      const hook = hooks.get(fEntry.key);
+      if (hook === _) {
+        return;
+      }
+      hooks.set(hook._, {
+        ...hook,
+        hookCalls: [
+          ...hook.hookCalls,
+          node,
+        ],
+      });
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;

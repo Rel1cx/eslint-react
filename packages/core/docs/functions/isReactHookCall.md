@@ -14,9 +14,9 @@ Check if the given node is a React Hook call by its name.
 
 ### node
 
-`Node`
-
 The node to check.
+
+`undefined` | `Node`
 
 ## Returns
 

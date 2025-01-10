@@ -117,7 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
       const Component = React.forwardRef(() => <div/>)
       Component.displayName = (true, 1 + 1, getDisplayName)()
     `,
-    // https://github.com/rEl1cx/eslint-react/issues/177
+    // https://github.com/Rel1cx/eslint-react/issues/177
     /* tsx */ `
       import { forwardRef, ReactNode } from 'react';
 

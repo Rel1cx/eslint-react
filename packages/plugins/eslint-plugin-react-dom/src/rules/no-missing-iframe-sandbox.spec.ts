@@ -19,23 +19,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // has sandbox attribute but not explicitly set to iframe element
-    {
-      code: /* tsx */ `
-        const props = {
-          sandbox: "allow-downloads",
-        };
-
-        function App() {
-            return <iframe {...props} />;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noMissingIframeSandbox",
-        },
-      ],
-    },
     {
       code: /* tsx */ `<PolyComponent as="iframe"/>;`,
       errors: [
@@ -51,28 +34,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `<PolyComponent as="iframe" sandbox />;`,
-      errors: [
-        {
-          messageId: "noMissingIframeSandbox",
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
-    // has sandbox attribute but not explicitly set to iframe element
-    {
-      code: /* tsx */ `
-        const props = {
-          sandbox: "allow-downloads",
-        };
-
-        function App() {
-            return <PolyComponent as="iframe" {...props} />;
-        }
-      `,
       errors: [
         {
           messageId: "noMissingIframeSandbox",
@@ -107,6 +68,33 @@ ruleTester.run(RULE_NAME, rule, {
           polymorphicPropName: "as",
         },
       },
+    },
+    {
+      code: /* tsx */ `
+        const props = {
+          sandbox: "allow-downloads",
+        };
+
+        function App() {
+            return <PolyComponent as="iframe" {...props} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
+        const props = {
+          sandbox: "allow-downloads",
+        };
+
+        function App() {
+            return <iframe {...props} />;
+        }
+      `,
     },
   ],
 });

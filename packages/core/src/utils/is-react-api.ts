@@ -3,17 +3,17 @@ import { isCallFromReact, isCallFromReactMember, isFromReact, isFromReactMember 
 export function isReactAPIWithName(name: string): ReturnType<typeof isFromReact>;
 export function isReactAPIWithName(name: string, member: string): ReturnType<typeof isFromReactMember>;
 export function isReactAPIWithName(name: string, member?: string) {
-  return member == null
-    ? isFromReact(name)
-    : isFromReactMember(name, member);
+  return member != null
+    ? isFromReactMember(name, member)
+    : isFromReact(name);
 }
 
 export function isReactAPICallWithName(name: string): ReturnType<typeof isCallFromReact>;
 export function isReactAPICallWithName(name: string, member: string): ReturnType<typeof isCallFromReactMember>;
 export function isReactAPICallWithName(name: string, member?: string) {
-  return member == null
-    ? isCallFromReact(name)
-    : isCallFromReactMember(name, member);
+  return member != null
+    ? isCallFromReactMember(name, member)
+    : isCallFromReact(name);
 }
 
 export const isChildrenCount = isReactAPIWithName("Children", "count");

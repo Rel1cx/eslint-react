@@ -1,5 +1,4 @@
-import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -20,11 +19,11 @@ export function getPropName(node: TSESTree.JSXAttribute) {
 }
 
 export function getProp(
-  props: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
-  propName: string,
+  name: string,
   initialScope: Scope,
-): O.Option<TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute> {
-  return findPropInAttributes(props, initialScope)(propName);
+  props: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | _ {
+  return findPropInAttributes(name, initialScope, props);
 }
 
 /**
@@ -36,131 +35,101 @@ export function getProp(
 export function getPropValue(
   attribute: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
   initialScope: Scope,
-) {
-  if (attribute.type === T.JSXAttribute && "value" in attribute) {
-    const { value } = attribute;
-    if (value == null) {
-      return O.none();
-    }
-    if (value.type === T.Literal) {
-      return VAR.getStaticValue(value, initialScope);
-    }
-    if (value.type === T.JSXExpressionContainer) {
-      return VAR.getStaticValue(value.expression, initialScope);
-    }
-
-    return O.none();
+): VAR.StaticValue {
+  switch (attribute.type) {
+    case T.JSXAttribute:
+      if (attribute.value?.type === T.Literal) {
+        return {
+          kind: "some",
+          node: attribute.value,
+          initialScope,
+          value: attribute.value.value,
+        } as const;
+      }
+      if (attribute.value?.type === T.JSXExpressionContainer) {
+        return {
+          kind: "lazy",
+          node: attribute.value.expression,
+          initialScope,
+        } as const;
+      }
+      return { kind: "none", node: attribute, initialScope } as const;
+    case T.JSXSpreadAttribute:
+      return {
+        kind: "lazy",
+        node: attribute.argument,
+        initialScope,
+      } as const;
+    default:
+      return { kind: "none", node: attribute, initialScope } as const;
   }
-  const { argument } = attribute;
-
-  return VAR.getStaticValue(argument, initialScope);
 }
 
-/**
- * @param properties The properties to search in
- * @param initialScope The initial scope to start from
- * @param seenProps The properties that have already been seen
- * @returns A function that searches for a property in the given properties
- */
 export function findPropInProperties(
+  name: string,
   properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[],
   initialScope: Scope,
   seenProps: string[] = [],
-) {
-  /**
-   * Search for a property in the given properties
-   * @param propName The name of the property to search for
-   * @returns The property if found
-   */
-  return (propName: string): O.Option<(typeof properties)[number]> => {
-    return O.fromNullable(
-      properties.findLast((prop) => {
-        switch (true) {
-          case prop.type === T.Property && "name" in prop.key && prop.key.name === propName:
-            return true;
-          case prop.type === T.SpreadElement:
-            switch (true) {
-              case prop.argument.type === T.Identifier: {
-                const { name } = prop.argument;
-                if (seenProps.includes(name)) {
-                  return false;
-                }
-                return F.pipe(
-                  VAR.findVariable(name, initialScope),
-                  O.flatMap(VAR.getVariableNode(0)),
-                  O.filter(AST.is(T.ObjectExpression)),
-                  O.flatMap((init) =>
-                    findPropInProperties(init.properties, initialScope, [...seenProps, name])(propName)
-                  ),
-                  O.isSome,
-                );
-              }
-              case prop.argument.type === T.ObjectExpression: {
-                return O.isSome(
-                  findPropInProperties(prop.argument.properties, initialScope, seenProps)(propName),
-                );
-              }
-              default: {
-                return false;
-              }
-            }
-          case prop.type === T.RestElement:
+): (typeof properties)[number] | _ {
+  return properties.findLast((prop) => {
+    if (prop.type === T.Property) {
+      return "name" in prop.key
+        && prop.key.name === name;
+    }
+    if (prop.type === T.SpreadElement) {
+      switch (prop.argument.type) {
+        case T.Identifier: {
+          if (seenProps.includes(prop.argument.name)) {
             return false;
-          default:
-            return false;
+          }
+          const variable = VAR.findVariable(prop.argument.name, initialScope);
+          const variableNode = VAR.getVariableNode(variable, 0);
+          if (variableNode?.type === T.ObjectExpression) {
+            return findPropInProperties(
+              name,
+              variableNode.properties,
+              initialScope,
+              [...seenProps, prop.argument.name],
+            ) !== _;
+          }
+          return false;
         }
-      }),
-    );
-  };
+        case T.ObjectExpression: {
+          return findPropInProperties(
+            name,
+            prop.argument.properties,
+            initialScope,
+            seenProps,
+          ) !== _;
+        }
+      }
+      return false;
+    }
+    return false;
+  });
 }
 
-/**
- * @param attributes The attributes to search in
- * @param initialScope The initial scope to start from
- * @returns A function that searches for a property in the given attributes
- */
 export function findPropInAttributes(
-  attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+  name: string,
   initialScope: Scope,
-) {
-  /**
-   * Search for a property in the given attributes
-   * @param propName The name of the property to search for
-   * @returns The property if found
-   */
-  return (propName: string) => {
-    return O.fromNullable(
-      attributes.findLast((attr) => {
-        switch (attr.type) {
-          case T.JSXAttribute:
-            return getPropName(attr) === propName;
-          case T.JSXSpreadAttribute:
-            switch (attr.argument.type) {
-              case T.CallExpression:
-                // Not implemented
-                return false;
-              case T.Identifier: {
-                const { name } = attr.argument;
-                return F.pipe(
-                  VAR.findVariable(name, initialScope),
-                  O.flatMap(VAR.getVariableNode(0)),
-                  O.filter(AST.is(T.ObjectExpression)),
-                  O.flatMap((init) => findPropInProperties(init.properties, initialScope)(propName)),
-                  O.isSome,
-                );
-              }
-              case T.MemberExpression:
-                // Not implemented
-                return false;
-              case T.ObjectExpression:
-                return O.isSome(findPropInProperties(attr.argument.properties, initialScope)(propName));
-              default:
-                return false;
-            }
-          default:
-            return false;
+  attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | _ {
+  return attributes.findLast((attr) => {
+    if (attr.type === T.JSXAttribute) {
+      return getPropName(attr) === name;
+    }
+    switch (attr.argument.type) {
+      case T.Identifier: {
+        const variable = VAR.findVariable(attr.argument.name, initialScope);
+        const variableNode = VAR.getVariableNode(variable, 0);
+        if (variableNode?.type === T.ObjectExpression) {
+          return findPropInProperties(name, variableNode.properties, initialScope) !== _;
         }
-      }),
-    );
-  };
+        return false;
+      }
+      case T.ObjectExpression:
+        return findPropInProperties(name, attr.argument.properties, initialScope) !== _;
+    }
+    return false;
+  });
 }

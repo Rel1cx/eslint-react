@@ -16,8 +16,6 @@ export function unescapeStringLiteralText(text: string): string {
         ? entity
         : String.fromCodePoint(codePoint);
     }
-    return xhtmlEntities.has(item)
-      ? xhtmlEntities.get(item)
-      : entity;
+    return xhtmlEntities[item] ?? entity;
   });
 }

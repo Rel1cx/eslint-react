@@ -6,38 +6,72 @@
 
 # Function: not()
 
-> **not**\<`A`\>(`self`): [`Predicate`](../interfaces/Predicate.md)\<`A`\>
+## Call Signature
 
-Negates the result of a given predicate.
+> **not**\<`T`, `S`\>(`predicate`): (`data`) => `data is Exclude<T, S>`
 
-## Type Parameters
+A function that takes a guard function as predicate and returns a guard that negates it.
 
-• **A**
+### Type Parameters
 
-## Parameters
+• **T**
 
-### self
+• **S**
 
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+### Parameters
 
-A predicate.
+#### predicate
 
-## Returns
+(`data`) => `data is S`
 
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+The guard function to negate.
 
-## Example
+### Returns
 
-```ts
-import { Predicate, Number } from "effect"
+`Function`
 
-const isPositive = Predicate.not(Number.lessThan(0))
+Function A guard function.
 
-assert.deepStrictEqual(isPositive(-1), false)
-assert.deepStrictEqual(isPositive(0), true)
-assert.deepStrictEqual(isPositive(1), true)
-```
+#### Parameters
 
-## Since
+##### data
 
-2.0.0
+`T`
+
+#### Returns
+
+`data is Exclude<T, S>`
+
+## Call Signature
+
+> **not**\<`T`\>(`predicate`): (`data`) => `boolean`
+
+A function that takes a guard function as predicate and returns a guard that negates it.
+
+### Type Parameters
+
+• **T**
+
+### Parameters
+
+#### predicate
+
+(`data`) => `boolean`
+
+The guard function to negate.
+
+### Returns
+
+`Function`
+
+Function A guard function.
+
+#### Parameters
+
+##### data
+
+`T`
+
+#### Returns
+
+`boolean`

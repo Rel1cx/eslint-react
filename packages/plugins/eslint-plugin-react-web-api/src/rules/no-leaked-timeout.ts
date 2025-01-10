@@ -1,7 +1,6 @@
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -28,11 +27,9 @@ export type MessageID =
 
 // #region Types
 
-/* eslint-disable perfectionist/sort-union-types */
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "setTimeout" | "clearTimeout";
 type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "other";
-/* eslint-enable perfectionist/sort-union-types */
 
 // #endregion
 
@@ -77,31 +74,28 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("setTimeout")) {
       return {};
     }
-    const fStack: [node: AST.TSESTreeFunction, kind: FunctionKind][] = [];
+    const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
     const sEntries: TimerEntry[] = [];
     const rEntries: TimerEntry[] = [];
     function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-      return isInstanceIDEqual(a.timerID, b.timerID, context);
+      return isInstanceIDEqual(a.timerId, b.timerId, context);
     }
     return {
       [":function"](node: AST.TSESTreeFunction) {
-        const fKind = O.getOrElse(getPhaseKindOfFunction(node), () => "other" as const);
-        fStack.push([node, fKind]);
+        const kind = getPhaseKindOfFunction(node) ?? "other";
+        fEntries.push({ kind, node });
       },
       [":function:exit"]() {
-        fStack.pop();
+        fEntries.pop();
       },
       ["CallExpression"](node) {
-        const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
-        if (fNode == null || fKind == null) {
-          return;
-        }
-        if (!ERPhaseRelevance.has(fKind)) {
+        const fEntry = fEntries.findLast((f) => f.kind !== "other");
+        if (!ERPhaseRelevance.has(fEntry?.kind)) {
           return;
         }
         switch (getCallKind(node)) {
           case "setTimeout": {
-            const timeoutIdNode = O.getOrNull(VAR.getVariableDeclaratorID(node));
+            const timeoutIdNode = VAR.getVariableDeclaratorId(node);
             if (timeoutIdNode == null) {
               context.report({
                 messageId: "noLeakedTimeoutNoTimeoutId",
@@ -113,8 +107,8 @@ export default createRule<[], MessageID>({
               kind: "timeout",
               node,
               callee: node.callee,
-              phase: fKind,
-              timerID: timeoutIdNode,
+              phase: fEntry.kind,
+              timerId: timeoutIdNode,
             });
             break;
           }
@@ -127,8 +121,8 @@ export default createRule<[], MessageID>({
               kind: "timeout",
               node,
               callee: node.callee,
-              phase: fKind,
-              timerID: timeoutIdNode,
+              phase: fEntry.kind,
+              timerId: timeoutIdNode,
             });
             break;
           }

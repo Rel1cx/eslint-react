@@ -1,5 +1,5 @@
 import type { ERSemanticEntry } from "@eslint-react/core";
-import type { O } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export type EventListenerEntry =
@@ -8,15 +8,15 @@ export type EventListenerEntry =
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
     callee: TSESTree.Node;
-    capture: O.Option<boolean>;
+    capture: boolean | _;
     listener: TSESTree.Node;
-    signal: O.Option<TSESTree.Node>;
+    signal: TSESTree.Node | _;
   } & ERSemanticEntry
   | {
     kind: "removeEventListener";
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
     callee: TSESTree.Node;
-    capture: O.Option<boolean>;
+    capture: boolean | _;
     listener: TSESTree.Node;
   } & ERSemanticEntry;

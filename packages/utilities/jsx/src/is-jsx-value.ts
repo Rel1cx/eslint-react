@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -48,7 +48,7 @@ export const DEFAULT_JSX_VALUE_HINT = 0n
  * @returns boolean
  */
 export function isJSXValue(
-  node: null | TSESTree.Node | undefined,
+  node: TSESTree.Node | _ | null,
   jsxCtx: { getScope: (node: TSESTree.Node) => Scope },
   hint: bigint = DEFAULT_JSX_VALUE_HINT,
 ): boolean {
@@ -135,11 +135,11 @@ export function isJSXValue(
       if (AST.isJSXTagNameExpression(node)) {
         return true;
       }
-      return F.pipe(
-        VAR.findVariable(name, jsxCtx.getScope(node)),
-        O.flatMap(VAR.getVariableNode(0)),
-        O.exists((n) => isJSXValue(n, jsxCtx, hint)),
-      );
+      const variable = VAR.findVariable(name, jsxCtx.getScope(node));
+      const variableNode = variable
+        && VAR.getVariableNode(variable, 0);
+      return !!variableNode
+        && isJSXValue(variableNode, jsxCtx, hint);
     }
   }
   return false;

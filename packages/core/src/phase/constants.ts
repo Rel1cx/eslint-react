@@ -1,4 +1,4 @@
-import { birecord } from "@eslint-react/types";
+import { birecord } from "@eslint-react/eff";
 
 export const ERPhaseRelevance = birecord({
   mount: "unmount",

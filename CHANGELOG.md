@@ -6,26 +6,26 @@ No notable changes in this release.
 
 ### 🐞 Fixes
 
-- fix(plugins/x): fixed false positives in `no-unstable-context-value` and `no-unstable-default-props` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/896>
+- fix(plugins/x): fixed false positives in `no-unstable-context-value` and `no-unstable-default-props` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/896>
 
 ## v1.23.0 (2024-12-31)
 
 ### 🪄 Improvements
 
-- refactor: JSX fragments related rules no longer rely on `jsxPragma` and `jsxPragmaFrag` settings to perform their checks by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/893>
+- refactor: JSX fragments related rules no longer rely on `jsxPragma` and `jsxPragmaFrag` settings to perform their checks by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/893>
 - refactor: improve applicability of the `no-useless-fragment` and `prefer-shorthand-fragment` rules
 - refactor: deprecate `settings["react-x"].jsxPragma` and `settings["react-x"].jsxPragmaFrag` as they are no longer needed by any rules
-- refactor: replace `short-unique-id` w/ `uid` by @SukkaW in <https://github.com/rEl1cx/eslint-react/pull/894>
+- refactor: replace `short-unique-id` w/ `uid` by @SukkaW in <https://github.com/Rel1cx/eslint-react/pull/894>
 
 ### 🐞 Fixes
 
-- fix(plugins/hooks-extra): fix `call` and `new` expression related false positives in `no-unnecessary-use-memo` and `no-unnecessary-use-callback` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/895>
+- fix(plugins/hooks-extra): fix `call` and `new` expression related false positives in `no-unnecessary-use-memo` and `no-unnecessary-use-callback` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/895>
 
 ## v1.22.2 (2024-12-30)
 
 ### 🪄 Improvements
 
-- perf: re-implement `no-duplicate-key` rule to improve its performance @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/891> and [33ab3cc](https://github.com/rEl1cx/eslint-react/commit/33ab3cc6ca11bf8412e07efa35f640dfbad77f6e)
+- perf: re-implement `no-duplicate-key` rule to improve its performance @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/891> and [33ab3cc](https://github.com/Rel1cx/eslint-react/commit/33ab3cc6ca11bf8412e07efa35f640dfbad77f6e)
 - refactor: prevent potential interference from TypeScript's `as`, `satisfies`, and non-null assertion operator in various rules
 
 ## v1.22.1 (2024-12-24)
@@ -66,7 +66,7 @@ The new rule names are aligned with the same rules in the [biomejs/rules-sources
 
 ### ✨ New
 
-- feat(plugins/hooks-extra): add `no-useless-custom-hooks` rule by @rEl1cx
+- feat(plugins/hooks-extra): add `no-useless-custom-hooks` rule by @Rel1cx
 
 ### 🪄 Improvements
 
@@ -89,56 +89,56 @@ function useAuth() {
 
 ### 🪄 Improvements
 
-- refactor(shared): replace `local-pkg` package with node built-in API by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/881>
+- refactor(shared): replace `local-pkg` package with node built-in API by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/881>
 
 ## v1.20.0 (2024-12-16)
 
 ### ✨ New
 
-- feat(plugins/x): add codemod-autofix to `no-component-will-*` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/879>
+- feat(plugins/x): add codemod-autofix to `no-component-will-*` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/879>
 
 ### 🪄 Improvements
 
-- refactor: use default settings when no settings are provided in `settings["react-x"]` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/commit/40ca3bd1cd7adc44f40841b5b4635e0200b73a54>
-- docs: update `no-context-provider.mdx` by @danielrentz in <https://github.com/rEl1cx/eslint-react/pull/877>
-- docs: add 'Min. React' column to rules overview page by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/880>
-- docs: add features section to rules overview page by @rEl1cx
+- refactor: use default settings when no settings are provided in `settings["react-x"]` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/commit/40ca3bd1cd7adc44f40841b5b4635e0200b73a54>
+- docs: update `no-context-provider.mdx` by @danielrentz in <https://github.com/Rel1cx/eslint-react/pull/877>
+- docs: add 'Min. React' column to rules overview page by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/880>
+- docs: add features section to rules overview page by @Rel1cx
 
 ## New Contributors
 
-- @danielrentz made their first contribution in <https://github.com/rEl1cx/eslint-react/pull/877>
+- @danielrentz made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/877>
 
 ## v1.19.0 (2024-12-10)
 
 ### ✨ New
 
-- feat(plugins/x): add `no-context-provider` rule by @rEl1cx
-- feat(plugins/x): add autofix for `no-forward-ref` rule by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/874>
-- feat(plugins/eslint-plugin): add `no-forward-ref` and `no-context-provider` to recommended presets by @rEl1cx
+- feat(plugins/x): add `no-context-provider` rule by @Rel1cx
+- feat(plugins/x): add autofix for `no-forward-ref` rule by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/874>
+- feat(plugins/eslint-plugin): add `no-forward-ref` and `no-context-provider` to recommended presets by @Rel1cx
 
 ### 🪄 Improvements
 
-- refactor(plugins/eslint-plugin): remove `prefer-read-only-props` from `recommended-type-checked` preset by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/872>
-- refactor(plugins/eslint-plugin): hide `avoid-shorthand-boolean` and `avoid-shorthand-fragment` from presets and docs by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/876>
+- refactor(plugins/eslint-plugin): remove `prefer-read-only-props` from `recommended-type-checked` preset by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/872>
+- refactor(plugins/eslint-plugin): hide `avoid-shorthand-boolean` and `avoid-shorthand-fragment` from presets and docs by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/876>
 - Update `@typescript-eslint`'s packages to `^8.18.0`
 
 ## v1.18.0 (2024-12-08)
 
 ### ✨ New
 
-- feat(plugins/x): add `no-forward-ref` rule by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/870>
+- feat(plugins/x): add `no-forward-ref` rule by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/870>
 
 ### 🪄 Improvements
 
-- perf(plugins/dom): improve performance of `no-void-elements-with-children` by @rEl1cx
+- perf(plugins/dom): improve performance of `no-void-elements-with-children` by @Rel1cx
 
 ## v1.17.3 (2024-12-03)
 
 ### 🐞 Fixes
 
-- fix(plugins/web-api): add 'forEach' support to 'no-leaked-event-listener', closes #842 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/867>
-- fix(plugins/web-api): add 'for of' support to 'no-leaked-event-listenner', closes #842 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/869>
-- fix(plugins/x): 'no-array-index-key' mistaking 'foo.bar.map' for 'Rea… by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/868>
+- fix(plugins/web-api): add 'forEach' support to 'no-leaked-event-listener', closes #842 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/867>
+- fix(plugins/web-api): add 'for of' support to 'no-leaked-event-listenner', closes #842 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/869>
+- fix(plugins/x): 'no-array-index-key' mistaking 'foo.bar.map' for 'Rea… by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/868>
 
 ### 🪄 Improvements
 
@@ -160,9 +160,9 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- fix(plugins/x): 'no-leaked-conditional-rendering' should also warn 'anyStringVar' when react version is lower than 18, closes #853 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/864>
-- fix(plugins/dom): add popover api props to 'no-unknown-property', closes #855 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/865>
-- fix(plugins/debug): 'is-from-react' use correct settings when calling 'isInitializedFromReact', by @rEl1cx
+- fix(plugins/x): 'no-leaked-conditional-rendering' should also warn 'anyStringVar' when react version is lower than 18, closes #853 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/864>
+- fix(plugins/dom): add popover api props to 'no-unknown-property', closes #855 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/865>
+- fix(plugins/debug): 'is-from-react' use correct settings when calling 'isInitializedFromReact', by @Rel1cx
 
 ## v1.17.0 (2024-11-21)
 
@@ -180,29 +180,29 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- fix(plugins/x): 'no-leaked-conditional-rendering' report empty string, closes #853 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/857>
+- fix(plugins/x): 'no-leaked-conditional-rendering' report empty string, closes #853 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/857>
 
 ### 🪄 Improvements
 
-- refactor: update the default behavior of import check, closes #858 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/860>
+- refactor: update the default behavior of import check, closes #858 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/860>
 
 ## v1.16.1 (2024-11-10)
 
 ### ✨ New
 
-- feat(plugins/x): add `jsx-no-duplicate-props` by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/851>
+- feat(plugins/x): add `jsx-no-duplicate-props` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/851>
 
 ### 🪄 Improvements
 
-- docs: use correct link for `prefer-react-namespace-import` in rule list by @rakleed in <https://github.com/rEl1cx/eslint-react/pull/849>
+- docs: use correct link for `prefer-react-namespace-import` in rule list by @rakleed in <https://github.com/Rel1cx/eslint-react/pull/849>
 
 ## v1.16.0 (2024-11-01)
 
 ### ✨ New
 
-- feat(plugins/react-x): add `jsx-uses-vars`, closes #834 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/845>
-- feat(plugins/react-dom): add `no-unknown-property`, closes #846 by @rEl1cx
-- feat: add `recommended-typescript` and `recommended-typescript-legacy` presets by @rEl1cx
+- feat(plugins/react-x): add `jsx-uses-vars`, closes #834 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/845>
+- feat(plugins/react-dom): add `no-unknown-property`, closes #846 by @Rel1cx
+- feat: add `recommended-typescript` and `recommended-typescript-legacy` presets by @Rel1cx
 
 ### 🪄 Improvements
 
@@ -218,20 +218,20 @@ function useAuth() {
 
 ### ✨ New
 
-- feat: added code fixer to `react-x/avoid-shorthand-boolean` and `react-x/prefer-shorthand-fragment` by @rEl1cx
+- feat: added code fixer to `react-x/avoid-shorthand-boolean` and `react-x/prefer-shorthand-fragment` by @Rel1cx
 
 ### 🐞 Fixes
 
-- fix(plugins/react-x): respect semicolon by @hyoban in <https://github.com/rEl1cx/eslint-react/pull/841>
-- fix(utilities/ast): added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier` by @rEl1cx , closes <https://github.com/rEl1cx/eslint-react/issues/843>
+- fix(plugins/react-x): respect semicolon by @hyoban in <https://github.com/Rel1cx/eslint-react/pull/841>
+- fix(utilities/ast): added missing ts `as` and `satisfies` expressions handling to `getFunctionIdentifier` by @Rel1cx , closes <https://github.com/Rel1cx/eslint-react/issues/843>
 
 ## v1.15.0 (2024-10-12)
 
 ### ✨ New
 
-- feat: add support for constructors in `hooks-extra/prefer-use-state-lazy-initialization` by @imjordanxd in <https://github.com/rEl1cx/eslint-react/pull/829>
-- feat: add `prefer-react-namespace-import`, closes #803 by @imjordanxd in <https://github.com/rEl1cx/eslint-react/pull/832>
-- feat: add support for `allowExpressions` in `no-useless-fragment` by @imjordanxd in <https://github.com/rEl1cx/eslint-react/pull/836>
+- feat: add support for constructors in `hooks-extra/prefer-use-state-lazy-initialization` by @imjordanxd in <https://github.com/Rel1cx/eslint-react/pull/829>
+- feat: add `prefer-react-namespace-import`, closes #803 by @imjordanxd in <https://github.com/Rel1cx/eslint-react/pull/832>
+- feat: add support for `allowExpressions` in `no-useless-fragment` by @imjordanxd in <https://github.com/Rel1cx/eslint-react/pull/836>
 
 ### 🐞 Fixes
 
@@ -239,16 +239,16 @@ function useAuth() {
 
 ### 🪄 Improvements
 
-- docs: Update `hooks-extra-no-direct-set-state-in-use-effect.mdx` by @neovov in <https://github.com/rEl1cx/eslint-react/pull/831>
-- docs: use a standard mono-width font for the docs, closes #835 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/837>
-- Undeprecate `hooks-extra-no-direct-set-state-in-use-layout-effect` and remove it from recommended presets, closes #839 by @rEl1cx in <https://github.com/rEl1cx/eslint-react/pull/840>
+- docs: Update `hooks-extra-no-direct-set-state-in-use-effect.mdx` by @neovov in <https://github.com/Rel1cx/eslint-react/pull/831>
+- docs: use a standard mono-width font for the docs, closes #835 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/837>
+- Undeprecate `hooks-extra-no-direct-set-state-in-use-layout-effect` and remove it from recommended presets, closes #839 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/840>
 
 ## New Contributors
 
-- @imjordanxd made their first contribution in <https://github.com/rEl1cx/eslint-react/pull/829>
-- @neovov made their first contribution in <https://github.com/rEl1cx/eslint-react/pull/831>
+- @imjordanxd made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/829>
+- @neovov made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/831>
 
-**Full Changelog**: <https://github.com/rEl1cx/eslint-react/compare/v1.14.3...v1.15.0>
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.14.3...v1.15.0>
 
 ## v1.14.3 (2024-09-29)
 

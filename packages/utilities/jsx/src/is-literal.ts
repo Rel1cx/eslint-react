@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { isString } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -16,7 +15,7 @@ export const isLiteral = AST.isOneOf([T.Literal, T.JSXText]);
  * @returns boolean `true` if the node is whitespace
  */
 export function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
-  return isString(node.value) && node.value.trim() === "";
+  return typeof node.value === "string" && node.value.trim() === "";
 }
 
 /**

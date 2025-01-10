@@ -184,7 +184,7 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
     /* tsx */ `
       function Component({ hideShapes, debugSvg }) {
-        // Early return if nothing to render
+        // Early return if_to render
         if (hideShapes) {
           return null;
         }

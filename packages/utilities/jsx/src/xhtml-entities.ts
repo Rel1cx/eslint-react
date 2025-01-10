@@ -1,6 +1,4 @@
-import { birecord } from "@eslint-react/types";
-
-export const xhtmlEntities = birecord({
+export const xhtmlEntities: Record<string, string> = {
   Aacute: "\u00C1",
   aacute: "\u00E1",
   Acirc: "\u00C2",
@@ -254,4 +252,4 @@ export const xhtmlEntities = birecord({
   zeta: "\u03B6",
   zwj: "\u200D",
   zwnj: "\u200C",
-});
+};
