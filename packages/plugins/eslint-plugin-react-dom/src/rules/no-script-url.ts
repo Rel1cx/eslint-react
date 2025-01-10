@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
         const isJavaScript = F.pipe(
           JSX.getPropValue(node, context.sourceCode.getScope(node)),
           O.filter(isString),
-          O.exists(v => RE_JAVASCRIPT_PROTOCOL.test(v)),
+          O.exists((v) => RE_JAVASCRIPT_PROTOCOL.test(v)),
         );
         if (isJavaScript) {
           context.report({

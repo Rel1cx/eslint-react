@@ -40,7 +40,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   return (
     left.type === T.MemberExpression
     && AST.isThisExpression(left.object)
-    && O.exists(getName(left.property), name => name === "state")
+    && O.exists(getName(left.property), (name) => name === "state")
   );
 }
 
@@ -80,7 +80,7 @@ export default createRule<[], MessageID>({
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
-      const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
+      const className = O.map(AST.getClassIdentifier(currentClass), (id) => id.name);
       const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
       if (O.isNone(def) || isUsed) {
         return;
@@ -106,7 +106,7 @@ export default createRule<[], MessageID>({
         }
         return;
       }
-      if (O.exists(getName(node.key), name => name === "state")) {
+      if (O.exists(getName(node.key), (name) => name === "state")) {
         stateDefs.set(currentClass, [O.some(node.key), false]);
       }
     }
@@ -145,7 +145,7 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `this.state`
-        if (!O.exists(getName(node.property), name => name === "state")) {
+        if (!O.exists(getName(node.property), (name) => name === "state")) {
           return;
         }
         const currentClass = classStack.at(-1);
@@ -190,9 +190,9 @@ export default createRule<[], MessageID>({
         if (!(node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
           return;
         }
-        const hasState = node.id.properties.some(prop => {
+        const hasState = node.id.properties.some((prop) => {
           if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-            return O.exists(getName(prop.key), name => name === "state");
+            return O.exists(getName(prop.key), (name) => name === "state");
           }
           return false;
         });

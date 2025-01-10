@@ -127,7 +127,7 @@ function inspectVariantTypes(types: ts.Type[]) {
           .when(isFalseLiteralType, () => O.some("falsy boolean"))
           .otherwise(O.none),
       );
-      O.map(evaluated, v => variantTypes.add(v));
+      O.map(evaluated, (v) => variantTypes.add(v));
       break;
     }
     case booleans.length === 2: {
@@ -138,24 +138,24 @@ function inspectVariantTypes(types: ts.Type[]) {
   const strings = types.filter(tsHelpers.isStringType);
   if (strings.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(strings)
-      .when(types => types.every(tsHelpers.isTruthyStringType), F.constant("truthy string"))
-      .when(types => types.every(tsHelpers.isFalsyStringType), F.constant("falsy string"))
+      .when((types) => types.every(tsHelpers.isTruthyStringType), F.constant("truthy string"))
+      .when((types) => types.every(tsHelpers.isFalsyStringType), F.constant("falsy string"))
       .otherwise(F.constant("string"));
     variantTypes.add(evaluated);
   }
   const bigints = types.filter(tsHelpers.isBigIntType);
   if (bigints.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(bigints)
-      .when(types => types.every(tsHelpers.isTruthyBigIntType), F.constant("truthy bigint"))
-      .when(types => types.every(tsHelpers.isFalsyBigIntType), F.constant("falsy bigint"))
+      .when((types) => types.every(tsHelpers.isTruthyBigIntType), F.constant("truthy bigint"))
+      .when((types) => types.every(tsHelpers.isFalsyBigIntType), F.constant("falsy bigint"))
       .otherwise(F.constant("bigint"));
     variantTypes.add(evaluated);
   }
   const numbers = types.filter(tsHelpers.isNumberType);
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
-      .when(types => types.every(tsHelpers.isTruthyNumberType), F.constant("truthy number"))
-      .when(types => types.every(tsHelpers.isFalsyNumberType), F.constant("falsy number"))
+      .when((types) => types.every(tsHelpers.isTruthyNumberType), F.constant("truthy number"))
+      .when((types) => types.every(tsHelpers.isFalsyNumberType), F.constant("falsy number"))
       .otherwise(F.constant("number"));
     variantTypes.add(evaluated);
   }
@@ -186,8 +186,8 @@ function getVariableInitExpression(at: number) {
   return (variable: Variable): O.Option<TSESTree.Expression> => {
     return F.pipe(
       O.some(variable),
-      O.flatMapNullable(v => v.defs.at(at)),
-      O.flatMap(d =>
+      O.flatMapNullable((v) => v.defs.at(at)),
+      O.flatMap((d) =>
         "init" in d.node
           ? O.fromNullable(d.node.init)
           : O.none()
@@ -249,7 +249,7 @@ export default createRule<[], MessageID>({
           }
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
-            || O.exists(VAR.getStaticValue(left, initialScope), v => v === "NaN");
+            || O.exists(VAR.getStaticValue(left, initialScope), (v) => v === "NaN");
           if (isLeftNan) {
             return O.some({
               messageId: "noLeakedConditionalRendering",
@@ -261,7 +261,7 @@ export default createRule<[], MessageID>({
           const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
           const isLeftValid = Array
             .from(leftTypeVariants.values())
-            .every(type => allowedVariants.some(allowed => allowed === type));
+            .every((type) => allowedVariants.some((allowed) => allowed === type));
           if (isLeftValid) {
             return getReportDescriptor(right);
           }

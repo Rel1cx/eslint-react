@@ -40,7 +40,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   return (
     left.type === T.MemberExpression
     && AST.isThisExpression(left.object)
-    && O.exists(getName(left.property), name => name === "state")
+    && O.exists(getName(left.property), (name) => name === "state")
   );
 }
 

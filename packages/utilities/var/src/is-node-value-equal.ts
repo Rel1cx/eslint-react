@@ -51,8 +51,8 @@ export function isNodeValueEqual(
       const bVarNode = O.flatMap(bVar, getVariableNode(0));
       const aVarNodeParent = O.flatMapNullable(aVarNode, (n) => n.parent);
       const bVarNodeParent = O.flatMapNullable(bVarNode, (n) => n.parent);
-      const aDef = O.flatMapNullable(aVar, v => v.defs.at(0));
-      const bDef = O.flatMapNullable(bVar, v => v.defs.at(0));
+      const aDef = O.flatMapNullable(aVar, (v) => v.defs.at(0));
+      const bDef = O.flatMapNullable(bVar, (v) => v.defs.at(0));
       const aDefParentParent = O.flatMapNullable(aDef, (d) => d.parent?.parent);
       const bDefParentParent = O.flatMapNullable(bDef, (d) => d.parent?.parent);
       switch (true) {

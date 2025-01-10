@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
     function getReportDescriptor(node: TSESTree.JSXOpeningElement): O.Option<ReportDescriptor<MessageID>> {
       const initialScope = context.sourceCode.getScope(node);
       const keyPropFound = JSX.findPropInAttributes(node.attributes, initialScope)("key");
-      const keyPropOnElement = node.attributes.some(n => AST.is(T.JSXAttribute)(n) && n.name.name === "key");
+      const keyPropOnElement = node.attributes.some((n) => AST.is(T.JSXAttribute)(n) && n.name.name === "key");
       if (O.isSome(keyPropFound) && !keyPropOnElement) {
         return O.some({ messageId: "noImplicitKey", node: keyPropFound.value });
       }

@@ -75,7 +75,7 @@ function getSignalValueExpression(node: TSESTree.Node, initialScope: Scope): O.O
       return F.pipe(
         VAR.findVariable(node, initialScope),
         O.flatMap(VAR.getVariableNode(0)),
-        O.flatMap(n => getSignalValueExpression(n, initialScope)),
+        O.flatMap((n) => getSignalValueExpression(n, initialScope)),
       );
     case T.MemberExpression:
       return O.some(node);
@@ -122,7 +122,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         const pCapture = findProp(node.properties, "capture");
         const vCapture = O.flatMap(pCapture, getPropValue).pipe(O.filter(isBoolean));
         const pSignal = findProp(node.properties, "signal");
-        const vSignal = O.flatMap(pSignal, prop => {
+        const vSignal = O.flatMap(pSignal, (prop) => {
           if (prop.type !== T.Property) {
             return O.none();
           }
@@ -223,7 +223,7 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
         if (fNode == null || fKind == null) {
           return;
         }
@@ -278,10 +278,10 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
-          if (O.exists(aEntry.signal, signal => abortedSignals.some(as => isSameObject(as, signal)))) {
+          if (O.exists(aEntry.signal, (signal) => abortedSignals.some((as) => isSameObject(as, signal)))) {
             continue;
           }
-          if (rEntries.some(rEntry => isInverseEntry(aEntry, rEntry))) {
+          if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
             continue;
           }
           switch (aEntry.phase) {

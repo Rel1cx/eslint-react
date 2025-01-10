@@ -24,8 +24,8 @@ export function getVariableNode(at: number) {
   > => {
     return F.pipe(
       O.some(variable),
-      O.flatMapNullable(v => v.defs.at(at)),
-      O.flatMapNullable(def => {
+      O.flatMapNullable((v) => v.defs.at(at)),
+      O.flatMapNullable((def) => {
         switch (true) {
           case def.type === DefinitionType.FunctionName
             && def.node.type === T.FunctionDeclaration:

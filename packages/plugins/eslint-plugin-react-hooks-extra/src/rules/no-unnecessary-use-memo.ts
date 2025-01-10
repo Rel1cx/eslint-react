@@ -56,8 +56,8 @@ export default createRule<[], MessageID>({
         }
         const hasCallInArg0 = F.pipe(
           O.some(arg0),
-          O.filter(n => AST.isFunction(n)),
-          O.exists(n => [...AST.getNestedCallExpressions(n.body), ...AST.getNestedNewExpressions(n.body)].length > 0),
+          O.filter((n) => AST.isFunction(n)),
+          O.exists((n) => [...AST.getNestedCallExpressions(n.body), ...AST.getNestedNewExpressions(n.body)].length > 0),
         );
         if (hasCallInArg0) {
           return;
@@ -65,7 +65,7 @@ export default createRule<[], MessageID>({
         const hasEmptyDeps = F.pipe(
           match(arg1)
             .with({ type: T.ArrayExpression }, O.some)
-            .with({ type: T.Identifier }, n => {
+            .with({ type: T.Identifier }, (n) => {
               return F.pipe(
                 VAR.findVariable(n.name, initialScope),
                 O.flatMap(VAR.getVariableNode(0)),
@@ -73,21 +73,21 @@ export default createRule<[], MessageID>({
               );
             })
             .otherwise(O.none),
-          O.exists(x => x.elements.length === 0),
+          O.exists((x) => x.elements.length === 0),
         );
         if (!hasEmptyDeps) {
           return;
         }
         const isReferencedToComponentScope = F.pipe(
           match(arg0)
-            .with({ type: T.ArrowFunctionExpression }, n => {
+            .with({ type: T.ArrowFunctionExpression }, (n) => {
               if (n.body.type === T.ArrowFunctionExpression) {
                 return O.some(n.body);
               }
               return O.some(n);
             })
             .with({ type: T.FunctionExpression }, O.some)
-            .with({ type: T.Identifier }, n => {
+            .with({ type: T.Identifier }, (n) => {
               return F.pipe(
                 VAR.findVariable(n.name, initialScope),
                 O.flatMap(VAR.getVariableNode(0)),
@@ -95,9 +95,9 @@ export default createRule<[], MessageID>({
               );
             })
             .otherwise(O.none),
-          O.map(n => context.sourceCode.getScope(n)),
-          O.map(s => VAR.getChidScopes(s).flatMap(x => x.references)),
-          O.exists(refs => refs.some(x => x.resolved?.scope.block === component)),
+          O.map((n) => context.sourceCode.getScope(n)),
+          O.map((s) => VAR.getChidScopes(s).flatMap((x) => x.references)),
+          O.exists((refs) => refs.some((x) => x.resolved?.scope.block === component)),
         );
         if (!isReferencedToComponentScope) {
           context.report({

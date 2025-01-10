@@ -92,7 +92,7 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
         if (fNode == null || fKind == null) {
           return;
         }
@@ -136,7 +136,7 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (rEntries.some(rEntry => isInverseEntry(sEntry, rEntry))) {
+          if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
             continue;
           }
           switch (sEntry.phase) {

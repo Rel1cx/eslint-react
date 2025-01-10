@@ -103,7 +103,7 @@ export default createRule<[], MessageID>({
         if (setState == null || hasThisState) {
           return;
         }
-        if (!O.exists(getName(node.property), name => name === "state")) {
+        if (!O.exists(getName(node.property), (name) => name === "state")) {
           return;
         }
         context.report({ messageId: "noAccessStateInSetstate", node });
@@ -137,9 +137,9 @@ export default createRule<[], MessageID>({
         if (!(node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
           return;
         }
-        const hasState = node.id.properties.some(prop => {
+        const hasState = node.id.properties.some((prop) => {
           if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-            return O.exists(getName(prop.key), name => name === "state");
+            return O.exists(getName(prop.key), (name) => name === "state");
           }
           return false;
         });

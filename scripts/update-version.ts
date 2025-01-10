@@ -14,7 +14,7 @@ async function update(path: string) {
   }
   const newVersion = version;
   const oldVersion = match(packageJson)
-    .with({ version: P.select(P.string) }, v => v)
+    .with({ version: P.select(P.string) }, (v) => v)
     .otherwise(() => "0.0.0");
   if (oldVersion === newVersion) {
     console.info(pc.greenBright(`Skipping ${path} as it's already on version ${newVersion}`));
@@ -30,7 +30,7 @@ async function update(path: string) {
 
 async function main() {
   const tasks = glob(GLOB_PACKAGE_JSON, ignores);
-  await Promise.all(tasks.map(path => update(path)));
+  await Promise.all(tasks.map((path) => update(path)));
 }
 
 await main();

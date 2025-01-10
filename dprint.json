@@ -4,6 +4,7 @@
     "indentWidth": 2,
     "quoteStyle": "preferDouble",
     "quoteProps": "asNeeded",
+    "bracePosition": "maintain",
     "importDeclaration.sortNamedImports": "maintain",
     "exportDeclaration.sortNamedExports": "maintain",
     "module.sortImportDeclarations": "maintain",

@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
         const prop = mbProp.value;
         const isSafeSandboxValue = !F.pipe(
           JSX.getPropValue(prop, context.sourceCode.getScope(prop)),
-          O.flatMapNullable(v =>
+          O.flatMapNullable((v) =>
             match(v)
               .with(P.string, F.identity)
               .with({ sandbox: P.string }, ({ sandbox }) => sandbox)
@@ -58,8 +58,8 @@ export default createRule<[], MessageID>({
           ),
           O.filter(isString),
           O.map((value) => value.split(" ")),
-          O.exists(values =>
-            unsafeCombinations.some(combinations => combinations.every(unsafeValue => values.includes(unsafeValue)))
+          O.exists((values) =>
+            unsafeCombinations.some((combinations) => combinations.every((unsafeValue) => values.includes(unsafeValue)))
           ),
         );
         if (isSafeSandboxValue) {

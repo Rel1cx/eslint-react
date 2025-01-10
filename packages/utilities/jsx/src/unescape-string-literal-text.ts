@@ -6,7 +6,7 @@ import { xhtmlEntities } from "./xhtml-entities";
  * @returns The unescaped string literal text.
  */
 export function unescapeStringLiteralText(text: string): string {
-  return text.replaceAll(/&(?:#\d+|#x[\da-fA-F]+|[0-9a-zA-Z]+);/g, entity => {
+  return text.replaceAll(/&(?:#\d+|#x[\da-fA-F]+|[0-9a-zA-Z]+);/g, (entity) => {
     const item = entity.slice(1, -1);
     if (item[0] === "#") {
       const codePoint = item[1] === "x"

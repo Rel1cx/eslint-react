@@ -62,10 +62,10 @@ export default createRule<[], MessageID>({
           }
           return O.exists(
             AST.getFunctionIdentifier(block),
-            id =>
+            (id) =>
               isComponentName(id.name)
               && components
-                .some(component => component.node === block),
+                .some((component) => component.node === block),
           );
         }
 

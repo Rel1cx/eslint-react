@@ -17,7 +17,7 @@ export function getElementRepresentName(node: TSESTree.JSXOpeningElement, contex
   return F.pipe(
     O.fromNullable(polymorphicPropName),
     O.flatMap(JSX.findPropInAttributes(node.attributes, context.sourceCode.getScope(node))),
-    O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
+    O.flatMap((attr) => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
     O.filter(isString),
     O.getOrElse(() => rawElementName),
   );

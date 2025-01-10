@@ -62,7 +62,7 @@ export default createRule<[], MessageID>({
             F.pipe(
               match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
                 .with({ type: T.Identifier }, F.constant(descriptor))
-                .with({ type: T.ArrayPattern }, n => {
+                .with({ type: T.ArrayPattern }, (n) => {
                   const [state, setState] = n.elements;
                   if (state?.type === T.ObjectPattern && setState?.type === T.Identifier) {
                     return isSetterNameLoose(setState.name)

@@ -58,8 +58,8 @@ export default createRule<[], MessageID>({
             .with({ type: T.ObjectPattern }, ({ properties }) => properties)
             .with({ type: T.Identifier }, ({ name }) => {
               return declarators.get(component)
-                ?.filter(d => d.init.name === name)
-                .flatMap(d => d.id.properties) ?? [];
+                ?.filter((d) => d.init.name === name)
+                .flatMap((d) => d.id.properties) ?? [];
             })
             .otherwise(() => []);
           for (const prop of properties) {

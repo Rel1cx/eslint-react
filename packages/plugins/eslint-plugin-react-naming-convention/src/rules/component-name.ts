@@ -83,7 +83,7 @@ function normalizeOptions(options: Options) {
   }
   return {
     ...opts,
-    excepts: opts.excepts?.map(pattern => new RegExp(pattern, "u")) ?? [],
+    excepts: opts.excepts?.map((pattern) => new RegExp(pattern, "u")) ?? [],
   } as const;
 }
 
@@ -174,8 +174,8 @@ export default createRule<Options, MessageID>({
         for (const { node: component } of classComponents.values()) {
           F.pipe(
             AST.getClassIdentifier(component),
-            O.filter(id => !validate(id.name, options)),
-            O.map(id => {
+            O.filter((id) => !validate(id.name, options)),
+            O.map((id) => {
               context.report({
                 messageId: "componentName",
                 node: id,

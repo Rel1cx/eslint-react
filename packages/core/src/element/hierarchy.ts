@@ -39,10 +39,10 @@ export function isChildrenOfCreateElement(
     O.fromNullable(node.parent),
     O.filter(AST.is(T.CallExpression)),
     O.filter(isCreateElementCall(context)),
-    O.exists(n =>
+    O.exists((n) =>
       n.arguments
         .slice(2)
-        .some(arg => arg === node)
+        .some((arg) => arg === node)
     ),
   );
 }

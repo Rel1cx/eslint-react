@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
         F.pipe(
           O.some("dangerouslySetInnerHTML"),
           O.flatMap(JSX.findPropInAttributes(node.openingElement.attributes, context.sourceCode.getScope(node))),
-          O.map(prop => ({ messageId: "noDangerouslySetInnerhtml", node: prop } as const)),
+          O.map((prop) => ({ messageId: "noDangerouslySetInnerhtml", node: prop } as const)),
           O.map(context.report),
         );
       },

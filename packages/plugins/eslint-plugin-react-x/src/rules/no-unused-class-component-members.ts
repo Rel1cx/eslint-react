@@ -89,7 +89,7 @@ export default createRule<[], MessageID>({
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
-      const className = O.map(AST.getClassIdentifier(currentClass), id => id.name);
+      const className = O.map(AST.getClassIdentifier(currentClass), (id) => id.name);
       const defs = propertyDefs.get(currentClass);
       const usages = propertyUsages.get(currentClass);
       if (defs == null) {
@@ -153,7 +153,7 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `this.property()`, `x = this.property`, etc.
-        O.map(getName(node.property), name => propertyUsages.get(currentClass)?.add(name));
+        O.map(getName(node.property), (name) => propertyUsages.get(currentClass)?.add(name));
       },
       MethodDefinition: methodEnter,
       "MethodDefinition:exit": methodExit,

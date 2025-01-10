@@ -127,7 +127,7 @@ export default createRule<[], MessageID>({
         fStack.pop();
       },
       ["CallExpression"](node) {
-        const [_, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        const [_, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
         if (node.callee.type !== T.MemberExpression) {
           return;
         }
@@ -179,7 +179,7 @@ export default createRule<[], MessageID>({
           .otherwise(F.constVoid);
       },
       ["NewExpression"](node) {
-        const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+        const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
         if (fNode == null || !ERPhaseRelevance.has(fKind)) {
           return;
         }
@@ -198,21 +198,21 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const [node, id, _, phaseNode] of observers) {
-          if (dEntries.some(e => isInstanceIDEqual(e.observer, id, context))) {
+          if (dEntries.some((e) => isInstanceIDEqual(e.observer, id, context))) {
             continue;
           }
-          const oentries = oEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
-          const uentries = uEntries.filter(e => isInstanceIDEqual(e.observer, id, context));
+          const oentries = oEntries.filter((e) => isInstanceIDEqual(e.observer, id, context));
+          const uentries = uEntries.filter((e) => isInstanceIDEqual(e.observer, id, context));
           const isDynamic = (node: TSESTree.Node) => node.type === T.CallExpression || AST.isConditional(node);
           const isPhaseNode = (node: TSESTree.Node) => node === phaseNode;
           const hasDynamicallyAdded = oentries
-            .some(e => O.exists(AST.findParentNode(e.node, or(isDynamic, isPhaseNode)), not(isPhaseNode)));
+            .some((e) => O.exists(AST.findParentNode(e.node, or(isDynamic, isPhaseNode)), not(isPhaseNode)));
           if (hasDynamicallyAdded) {
             context.report({ messageId: "noLeakedResizeObserverInControlFlow", node });
             continue;
           }
           for (const oEntry of oentries) {
-            if (uentries.some(uEntry => isInstanceIDEqual(uEntry.element, oEntry.element, context))) {
+            if (uentries.some((uEntry) => isInstanceIDEqual(uEntry.element, oEntry.element, context))) {
               continue;
             }
             context.report({ messageId: "noLeakedResizeObserver", node: oEntry.node });

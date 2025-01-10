@@ -60,7 +60,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name, node: component } of components.values()) {
-          if (component.body.body.some(m => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) {
+          if (component.body.body.some((m) => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) {
             continue;
           }
           context.report({

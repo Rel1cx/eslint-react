@@ -226,7 +226,7 @@ export function zip<T, U, V, W>(
 export function zip<T>(...arrs: Array<readonly T[]>): T[][] {
   const result: T[][] = [];
 
-  const maxIndex = Math.max(...arrs.map(x => x.length));
+  const maxIndex = Math.max(...arrs.map((x) => x.length));
 
   for (let i = 0; i < maxIndex; i++) {
     const element: T[] = [];

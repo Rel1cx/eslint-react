@@ -72,7 +72,7 @@ const p11tGroups = {
 
 const enableTypeCheckedRules = {
   ...tseslint.configs.strictTypeCheckedOnly
-    .map(x => x.rules)
+    .map((x) => x.rules)
     .reduce((a, b) => ({ ...a, ...b }), {}),
   ...eslintPluginSafeTypeScript.configs.recommended.rules,
   "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
@@ -90,7 +90,7 @@ const enableTypeCheckedRules = {
   }],
 } as const;
 
-const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map(x => [x, "off"]));
+const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map((x) => [x, "off"]));
 
 export default tseslint.config(
   eslintConfigFlatGitignore(),
@@ -211,7 +211,14 @@ export default tseslint.config(
       "simple-import-sort/exports": "warn",
       "simple-import-sort/imports": "warn",
       // Part: stylistic rules
+      "@stylistic/arrow-parens": ["warn", "always"],
       "@stylistic/curly-newline": ["warn", "always"],
+      "@stylistic/no-multi-spaces": ["warn"],
+      "@stylistic/operator-linebreak": [
+        "warn",
+        "before",
+      ],
+      "@stylistic/quote-props": ["error", "as-needed"],
       // Part: perfectionist rules
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",

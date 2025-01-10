@@ -138,7 +138,7 @@ export function isJSXValue(
       return F.pipe(
         VAR.findVariable(name, jsxCtx.getScope(node)),
         O.flatMap(VAR.getVariableNode(0)),
-        O.exists(n => isJSXValue(n, jsxCtx, hint)),
+        O.exists((n) => isJSXValue(n, jsxCtx, hint)),
       );
     }
   }

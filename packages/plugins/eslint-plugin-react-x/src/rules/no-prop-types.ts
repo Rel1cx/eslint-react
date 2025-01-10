@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
         const isComponent = F.pipe(
           VAR.findVariable(object.name, context.sourceCode.getScope(node)),
           O.flatMap(VAR.getVariableNode(0)),
-          O.exists(n => AST.isFunction(n) || isClassComponent(n)),
+          O.exists((n) => AST.isFunction(n) || isClassComponent(n)),
         );
         if (!isComponent) {
           return;

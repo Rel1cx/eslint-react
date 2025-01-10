@@ -182,10 +182,10 @@ export function hasCallInFunctionInitPath(callName: string) {
   return (initPath: O.Option<FunctionInitPath>) => {
     return F.pipe(
       initPath,
-      O.filter(p => p.length > 0),
-      O.exists(nodes => {
+      O.filter((p) => p.length > 0),
+      O.exists((nodes) => {
         return nodes.some(
-          n => {
+          (n) => {
             if (n.type !== T.CallExpression) {
               return false;
             }

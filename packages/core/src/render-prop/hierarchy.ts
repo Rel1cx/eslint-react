@@ -42,10 +42,10 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
 
   return F.pipe(
     AST.findParentNodeGuard(node, AST.is(T.JSXExpressionContainer)),
-    O.flatMapNullable(c => c.parent),
+    O.flatMapNullable((c) => c.parent),
     O.filter(AST.is(T.JSXAttribute)),
-    O.flatMapNullable(a => a.name),
-    O.exists(n =>
+    O.flatMapNullable((a) => a.name),
+    O.exists((n) =>
       n.type === T.JSXIdentifier
       && n.name.startsWith("render")
     ),

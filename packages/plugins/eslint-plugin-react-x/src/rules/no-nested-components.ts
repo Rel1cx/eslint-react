@@ -72,11 +72,11 @@ export default createRule<[], MessageID>({
         ];
         const isFunctionComponent = (node: TSESTree.Node): node is AST.TSESTreeFunction => {
           return AST.isFunction(node)
-            && functionComponents.some(component => component.node === node);
+            && functionComponents.some((component) => component.node === node);
         };
         const isClassComponent = (node: TSESTree.Node): node is AST.TSESTreeClass => {
           return AST.isClass(node)
-            && classComponents.some(component => component.node === node);
+            && classComponents.some((component) => component.node === node);
         };
         for (const { name: componentName, node: component } of functionComponents) {
           // Do not mark objects containing render methods
@@ -90,7 +90,7 @@ export default createRule<[], MessageID>({
           const name = componentName.value;
           const isInsideProperty = component.parent.type === T.Property;
           const isInsideJSXPropValue = component.parent.type === T.JSXAttribute
-            || O.isSome(JSX.findParentProp(node, n => n.value?.type === T.JSXExpressionContainer));
+            || O.isSome(JSX.findParentProp(node, (n) => n.value?.type === T.JSXExpressionContainer));
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({

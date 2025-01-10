@@ -4,7 +4,7 @@ export const RE_COMPONENT_NAME = /^_?[A-Z]/u;
 
 export function getComponentNameFromIdentifier(node: TSESTree.Identifier | TSESTree.Identifier[]) {
   return Array.isArray(node)
-    ? node.map(n => n.name).join(".")
+    ? node.map((n) => n.name).join(".")
     : node.name;
 }
 

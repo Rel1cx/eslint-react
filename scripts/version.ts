@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import { isVersion } from "./libs";
 
 export const version = await fs.readFile("VERSION", "utf-8")
-  .then(v => {
+  .then((v) => {
     const trimmed = v.trim();
     const version = trimmed.replace("v", "");
     if (!isVersion(version)) {

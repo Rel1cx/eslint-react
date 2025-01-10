@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         const initialScope = context.sourceCode.getScope(node);
         const prop = JSX.getProp(node.openingElement.attributes, "children", initialScope);
-        const reportDescriptor = O.map(prop, prop => ({ messageId: "noChildrenProp", node: prop } as const));
+        const reportDescriptor = O.map(prop, (prop) => ({ messageId: "noChildrenProp", node: prop } as const));
         O.map(reportDescriptor, context.report);
       },
     };

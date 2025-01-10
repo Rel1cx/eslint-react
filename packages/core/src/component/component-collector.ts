@@ -85,7 +85,7 @@ export function useComponentCollector(
     const shouldDrop = AST.getNestedReturnStatements(entry.node.body)
       .slice()
       .reverse()
-      .some(r => {
+      .some((r) => {
         return context.sourceCode.getScope(r).block === entry.node
           && r.argument != null
           && !JSX.isJSXValue(r.argument, jsxCtx, hint);
@@ -144,7 +144,7 @@ export function useComponentCollector(
     ) {
       const { left, right } = node;
       const mbComponentName = match(left.object)
-        .with({ type: T.Identifier }, n => O.some(n.name))
+        .with({ type: T.Identifier }, (n) => O.some(n.name))
         .otherwise(O.none);
       if (O.isNone(mbComponentName)) {
         return;
@@ -152,7 +152,7 @@ export function useComponentCollector(
       const componentName = mbComponentName.value;
       const component = Array
         .from(components.values())
-        .findLast(({ name }) => O.exists(name, n => n === componentName));
+        .findLast(({ name }) => O.exists(name, (n) => n === componentName));
       if (component == null) {
         return;
       }

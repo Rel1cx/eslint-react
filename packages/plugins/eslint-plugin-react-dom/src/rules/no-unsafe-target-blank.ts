@@ -45,17 +45,17 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = getSettingsFromContext(context);
-    const additionalComponents = settings.additionalComponents.filter(c => c.as === "a");
+    const additionalComponents = settings.additionalComponents.filter((c) => c.as === "a");
     function getReportDescriptor(node: TSESTree.JSXElement): O.Option<ReportDescriptor<MessageID>> {
       const name = JSX.getElementName(node.openingElement);
       const elementName = getElementRepresentName(node.openingElement, context);
-      if (elementName !== "a" && !additionalComponents.some(c => c.re.test(name))) {
+      if (elementName !== "a" && !additionalComponents.some((c) => c.re.test(name))) {
         return O.none();
       }
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
       const additionalAttributes = additionalComponents
-        .findLast(c => c.re.test(name))
+        .findLast((c) => c.re.test(name))
         ?.attributes
         ?? [];
       const [
@@ -67,8 +67,8 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(targetPropDefaultValue)
         : F.pipe(
           targetProp,
-          O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
-          O.flatMapNullable(v =>
+          O.flatMap((attr) => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
+          O.flatMapNullable((v) =>
             match(v)
               .with(P.string, F.identity)
               .with({ [targetPropName]: P.string }, (v) => v[targetPropName])
@@ -76,7 +76,7 @@ export default createRule<[], MessageID>({
           ),
           O.filter(isString),
         );
-      if (!O.exists(targetPropValue, t => t === "_blank")) {
+      if (!O.exists(targetPropValue, (t) => t === "_blank")) {
         return O.none();
       }
       const [
@@ -88,8 +88,8 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(hrefPropDefaultValue)
         : F.pipe(
           hrefProp,
-          O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
-          O.flatMapNullable(v =>
+          O.flatMap((attr) => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
+          O.flatMapNullable((v) =>
             match(v)
               .with(P.string, F.identity)
               .with({ [hrefPropName]: P.string }, (v) => v[hrefPropName])
@@ -109,8 +109,8 @@ export default createRule<[], MessageID>({
         ? O.fromNullable(relPropDefaultValue)
         : F.pipe(
           relProp,
-          O.flatMap(attr => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
-          O.flatMapNullable(v =>
+          O.flatMap((attr) => JSX.getPropValue(attr, context.sourceCode.getScope(attr))),
+          O.flatMapNullable((v) =>
             match(v)
               .with(P.string, F.identity)
               .with({ [relPropName]: P.string }, (v) => v[relPropName])

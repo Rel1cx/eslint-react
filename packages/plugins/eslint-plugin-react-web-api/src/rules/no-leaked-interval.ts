@@ -95,7 +95,7 @@ export default createRule<[], MessageID>({
       ["CallExpression"](node) {
         switch (getCallKind(node)) {
           case "setInterval": {
-            const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+            const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
             if (fNode == null || fKind == null) {
               break;
             }
@@ -120,7 +120,7 @@ export default createRule<[], MessageID>({
             break;
           }
           case "clearInterval": {
-            const [fNode, fKind] = fStack.findLast(f => f.at(1) !== "other") ?? [];
+            const [fNode, fKind] = fStack.findLast((f) => f.at(1) !== "other") ?? [];
             if (fNode == null || fKind == null) {
               break;
             }
@@ -144,7 +144,7 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const sEntry of sEntries) {
-          if (cEntries.some(cEntry => isInverseEntry(sEntry, cEntry))) {
+          if (cEntries.some((cEntry) => isInverseEntry(sEntry, cEntry))) {
             continue;
           }
           switch (sEntry.phase) {

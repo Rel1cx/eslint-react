@@ -35,7 +35,7 @@ export default createRule({
       BinaryExpression(node): void {
         if (node.operator === "===" || node.operator === "!==") {
           const offendingChild = [node.left, node.right].find(
-            child =>
+            (child) =>
               (child.type === T.Identifier
                 && child.name === "undefined")
               || (child.type === T.Literal && child.raw === "null"),
@@ -49,7 +49,7 @@ export default createRule({
             context.sourceCode.getFirstTokenBetween(
               node.left,
               node.right,
-              token => token.value === node.operator,
+              (token) => token.value === node.operator,
             ),
             NullThrowsReasons.MissingToken(node.operator, "binary expression"),
           );
@@ -84,7 +84,7 @@ export default createRule({
                 data: {
                   looseOperator,
                 },
-                fix: fixer => [
+                fix: (fixer) => [
                   fixer.replaceText(offendingChild, "null"),
                   fixer.replaceText(operatorToken, looseOperator),
                 ],

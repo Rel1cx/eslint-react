@@ -4,7 +4,7 @@ import type { JsonValue } from "type-fest";
 
 export function readJsonFile(path: string) {
   return fs.readFile(path, "utf-8")
-    .then(v => JSON.parse(v) as JsonValue);
+    .then((v) => JSON.parse(v) as JsonValue);
 }
 
 export function writeJsonFile(

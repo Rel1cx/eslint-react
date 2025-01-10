@@ -31,7 +31,7 @@ export function useComponentCollectorLegacy() {
         _: key,
         id,
         kind: "class",
-        name: O.flatMapNullable(id, n => n.name),
+        name: O.flatMapNullable(id, (n) => n.name),
         node,
         // TODO: Get displayName of class component
         displayName: O.none(),
