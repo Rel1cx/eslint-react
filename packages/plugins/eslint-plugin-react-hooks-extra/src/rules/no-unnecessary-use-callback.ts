@@ -88,7 +88,7 @@ export default createRule<[], MessageID>({
             return variableNode;
           })
           .otherwise(() => _);
-        if (arg0Node === _) return;
+        if (arg0Node == null) return;
 
         const arg0NodeScope = context.sourceCode.getScope(arg0Node);
         const arg0NodeReferences = VAR.getChidScopes(arg0NodeScope).flatMap((x) => x.references);

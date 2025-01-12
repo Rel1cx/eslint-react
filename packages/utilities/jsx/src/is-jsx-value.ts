@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import * as AST from "@eslint-react/ast";
 import type { _ } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";

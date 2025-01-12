@@ -27,7 +27,7 @@ export function getAttributeStringValue(
     context.sourceCode.getScope(element),
     element.openingElement.attributes,
   );
-  if (actualAttributeNode === _) return attributeConfig?.defaultValue;
+  if (actualAttributeNode == null) return attributeConfig?.defaultValue;
   const actualAttributeScope = context.sourceCode.getScope(actualAttributeNode);
   const actualAttributeValue = JSX.getPropValue(actualAttributeNode, actualAttributeScope);
   const actualAttributeValueResolved = VAR.toResolved(actualAttributeValue).value;

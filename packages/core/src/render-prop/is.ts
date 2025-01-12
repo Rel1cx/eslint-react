@@ -18,6 +18,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  */
 export function isRenderFunctionLoose(node: AST.TSESTreeFunction, context: RuleContext) {
   const { body, parent } = node;
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (AST.getFunctionIdentifier(node)?.name.startsWith("render")) {
     return parent.type === T.JSXExpressionContainer
       && parent.parent.type === T.JSXAttribute

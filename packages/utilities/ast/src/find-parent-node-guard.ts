@@ -14,9 +14,9 @@ export const findParentNodeGuard: {
   node: TSESTree.Node | _,
   predicate: (node: TSESTree.Node) => node is T,
 ): T | _ => {
-  if (node === _) return _;
+  if (node == null) return _;
   let parent = node.parent;
-  while (parent) {
+  while (parent != null) {
     if (predicate(parent)) {
       return parent;
     }

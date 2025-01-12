@@ -1,5 +1,5 @@
 import { getElementNameAndRepresentName } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -16,13 +16,13 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isExternalLinkLike(value: string | _) {
-  if (value === _) return false;
+  if (value == null) return false;
   return value.startsWith("https://")
     || /^(?:\w+:|\/\/)/u.test(value);
 }
 
 function isSafeRel(value: string | _) {
-  if (value === _) return false;
+  if (value == null) return false;
   return value === "noreferrer"
     || /\bnoreferrer\b/u.test(value);
 }

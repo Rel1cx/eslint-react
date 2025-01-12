@@ -1,4 +1,3 @@
-import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
@@ -32,7 +31,7 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         const attributes = node.openingElement.attributes;
         const prop = JSX.getProp("dangerouslySetInnerHTML", context.sourceCode.getScope(node), attributes);
-        if (prop === _) return;
+        if (prop == null) return;
         context.report({
           messageId: "noDangerouslySetInnerhtml",
           node: prop,

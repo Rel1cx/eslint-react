@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
           context.sourceCode.getScope(node),
           node.openingElement.attributes,
         );
-        if (prop) {
+        if (prop != null) {
           context.report({
             messageId: "noChildrenProp",
             node: prop,

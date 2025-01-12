@@ -119,14 +119,11 @@ export default createRule<[], MessageID>({
       CallExpression(node) {
         const setupFunction = setupFunctionRef.current;
         const pEntry = functionEntries.at(-1);
-        if (pEntry?.node.async) {
+        if (pEntry == null || pEntry.node.async) {
           return;
         }
         match(getCallKind(node))
           .with("setState", () => {
-            if (pEntry == null) {
-              return;
-            }
             switch (true) {
               case pEntry.node === setupFunction
                 || pEntry.kind === "immediate": {
@@ -141,7 +138,7 @@ export default createRule<[], MessageID>({
               }
               default: {
                 const variableDeclarator = AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall);
-                if (variableDeclarator === _) {
+                if (variableDeclarator == null) {
                   const calls = indSetStateCalls.get(pEntry.node) ?? [];
                   indSetStateCalls.set(pEntry.node, [...calls, node]);
                   return;
@@ -159,7 +156,7 @@ export default createRule<[], MessageID>({
             setupFunctionIdentifiers.push(...AST.getNestedIdentifiers(node));
           })
           .with("other", () => {
-            if (pEntry?.node !== setupFunction) {
+            if (pEntry.node !== setupFunction) {
               return;
             }
             indFunctionCalls.push(node);

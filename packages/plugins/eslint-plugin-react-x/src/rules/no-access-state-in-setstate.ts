@@ -91,15 +91,15 @@ export default createRule<[], MessageID>({
         if (!AST.isThisExpression(node.object)) {
           return;
         }
-        const [currClass, isComponent] = classEntries.at(-1) ?? [];
+        const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
         if (currClass == null || !isComponent) {
           return;
         }
-        const [currMethod, isStatic] = methodEntries.at(-1) ?? [];
+        const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
         if (currMethod == null || isStatic) {
           return;
         }
-        const [setState, hasThisState] = setStateEntries.at(-1) ?? [];
+        const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
         if (setState == null || hasThisState) {
           return;
         }
@@ -121,15 +121,15 @@ export default createRule<[], MessageID>({
         methodEntries.pop();
       },
       VariableDeclarator(node) {
-        const [currClass, isComponent] = classEntries.at(-1) ?? [];
+        const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
         if (currClass == null || !isComponent) {
           return;
         }
-        const [currMethod, isStatic] = methodEntries.at(-1) ?? [];
+        const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
         if (currMethod == null || isStatic) {
           return;
         }
-        const [setState, hasThisState] = setStateEntries.at(-1) ?? [];
+        const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
         if (setState == null || hasThisState) {
           return;
         }

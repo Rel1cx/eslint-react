@@ -19,7 +19,7 @@ export function isInitializedFromSource(
   initialScope: Scope,
 ): boolean {
   const latestDef = findVariable(name, initialScope)?.defs.at(-1);
-  if (latestDef === _) return false;
+  if (latestDef == null) return false;
   const { node, parent } = latestDef;
   if (node.type === T.VariableDeclarator && node.init != null) {
     const { init } = node;

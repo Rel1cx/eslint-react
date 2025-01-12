@@ -38,13 +38,13 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
         for (const { node, displayName, flag } of components.values()) {
           const isMemoOrForwardRef = (flag & (ERFunctionComponentFlag.ForwardRef | ERFunctionComponentFlag.Memo)) > 0n;
-          if (AST.getFunctionIdentifier(node)) {
+          if (AST.getFunctionIdentifier(node) != null) {
             continue;
           }
           if (!isMemoOrForwardRef) {
             continue;
           }
-          if (!displayName) {
+          if (displayName == null) {
             context.report({
               messageId: "noMissingComponentDisplayName",
               node,

@@ -13,7 +13,7 @@ export function useHookCollector() {
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionIdentifier(node);
     const name = id?.name;
-    if (name !== _ && isReactHookName(name)) {
+    if (name != null && isReactHookName(name)) {
       const key = getId();
       fEntries.push({ key, node });
       hooks.set(key, {
@@ -50,11 +50,11 @@ export function useHookCollector() {
         return;
       }
       const fEntry = fEntries.at(-1);
-      if (fEntry?.key === _) {
+      if (fEntry?.key == null) {
         return;
       }
       const hook = hooks.get(fEntry.key);
-      if (hook === _) {
+      if (hook == null) {
         return;
       }
       hooks.set(hook._, {

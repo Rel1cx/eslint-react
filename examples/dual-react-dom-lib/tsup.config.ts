@@ -5,7 +5,7 @@ export default {
   dts: true,
   entry: ["src/index.ts"],
   format: ["cjs", "esm"],
-  minify: true,
+  minify: false,
   outDir: "dist",
   platform: "neutral",
   shims: false,

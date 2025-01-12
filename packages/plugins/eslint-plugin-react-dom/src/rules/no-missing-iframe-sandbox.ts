@@ -1,5 +1,4 @@
 import { getElementNameAndRepresentName } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
@@ -70,7 +69,7 @@ export default createRule<[], MessageID>({
         };
 
         const sandboxValue = getPropValue("sandbox");
-        if (sandboxValue === _) {
+        if (sandboxValue == null) {
           context.report({
             messageId: "noMissingIframeSandbox",
             node: node.openingElement,

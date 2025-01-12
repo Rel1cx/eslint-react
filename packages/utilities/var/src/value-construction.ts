@@ -33,7 +33,7 @@ export function getValueConstruction(
   initialScope: Scope,
   hint = ValueConstructionHint.None,
 ): ValueConstruction | _ {
-  if (node === _) return _;
+  if (node == null) return _;
   switch (node.type) {
     case T.JSXElement:
     case T.JSXFragment: {
@@ -72,12 +72,12 @@ export function getValueConstruction(
     }
     case T.LogicalExpression: {
       const lvc = getValueConstruction(node.left, initialScope, hint);
-      if (lvc === _) return _;
+      if (lvc == null) return _;
       return getValueConstruction(node.right, initialScope, hint);
     }
     case T.ConditionalExpression: {
       const cvc = getValueConstruction(node.consequent, initialScope, hint);
-      if (cvc === _) return _;
+      if (cvc == null) return _;
       return getValueConstruction(node.alternate, initialScope, hint);
     }
     case T.Identifier: {
@@ -86,7 +86,6 @@ export function getValueConstruction(
       }
       const variable = initialScope.set.get(node.name);
       const variableNode = getVariableNode(variable, -1);
-      // if (variableNode === _) return { kind: "None", node } as const;
       return getValueConstruction(variableNode, initialScope, hint);
     }
     case T.Literal: {

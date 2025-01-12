@@ -6,14 +6,14 @@
 
 # Function: getComponentNameFromIdentifier()
 
-> **getComponentNameFromIdentifier**(`node`): `string`
+> **getComponentNameFromIdentifier**(`node`): `undefined` \| `string`
 
 ## Parameters
 
 ### node
 
-`Identifier` | `Identifier`[]
+`undefined` | `Identifier` | `Identifier`[]
 
 ## Returns
 
-`string`
+`undefined` \| `string`

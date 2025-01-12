@@ -1,6 +1,5 @@
 export * from "./find-parent-node";
 export * from "./find-parent-node-guard";
-export * from "./find-parent-node-stop";
 export * from "./function-init-path";
 export * from "./get-class-identifier";
 export * from "./get-function-identifier";

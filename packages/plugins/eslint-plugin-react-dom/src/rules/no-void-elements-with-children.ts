@@ -64,7 +64,7 @@ export default createRule<[], MessageID>({
         }
         const { attributes } = node.openingElement;
         const initialScope = context.sourceCode.getScope(node);
-        const hasAttribute = (name: string) => JSX.findPropInAttributes(name, initialScope, attributes) !== _;
+        const hasAttribute = (name: string) => JSX.findPropInAttributes(name, initialScope, attributes) != null;
         if (hasAttribute("children") || hasAttribute("dangerouslySetInnerHTML")) {
           // e.g. <br children="Foo" />
           context.report({

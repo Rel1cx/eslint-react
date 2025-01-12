@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isComponentName } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -50,7 +49,7 @@ export default createRule<[], MessageID>({
         }
         const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
         const variableNode = VAR.getVariableNode(variable, 0);
-        if (variableNode === _) return;
+        if (variableNode == null) return;
         if (!AST.isFunction(variableNode) && !isClassComponent(variableNode)) return;
         context.report({ messageId: "noDefaultProps", node: property });
       },

@@ -9,9 +9,9 @@ import { isInitializedFromReact } from "../utils";
 import { isReactHookName } from "./hook-name";
 
 export function isReactHook(node: AST.TSESTreeFunction | _) {
-  if (node === _) return _;
+  if (node == null) return _;
   const id = AST.getFunctionIdentifier(node);
-  return id?.name !== _ && isReactHookName(id.name);
+  return id?.name != null && isReactHookName(id.name);
 }
 
 /**
@@ -20,7 +20,7 @@ export function isReactHook(node: AST.TSESTreeFunction | _) {
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
 export function isReactHookCall(node: TSESTree.Node | _) {
-  if (node === _) return false;
+  if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;
   }
@@ -34,19 +34,21 @@ export function isReactHookCall(node: TSESTree.Node | _) {
 }
 
 export function isReactHookCallWithName(node: TSESTree.CallExpression | _, context: RuleContext) {
-  if (node === _) return returnFalse;
+  if (node == null) return returnFalse;
   const settings = unsafeDecodeSettings(context.settings);
   return (name: string) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {
       case node.callee.type === T.Identifier
         && node.callee.name === name:
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
           || isInitializedFromReact(name, initialScope, settings.importSource);
       case node.callee.type === T.MemberExpression
         && node.callee.property.type === T.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
           || isInitializedFromReact(node.callee.object.name, initialScope, settings.importSource);
       default:
@@ -56,7 +58,7 @@ export function isReactHookCallWithName(node: TSESTree.CallExpression | _, conte
 }
 
 export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression | _) {
-  if (node === _) return returnFalse;
+  if (node == null) return returnFalse;
   return (name: string) => {
     switch (node.callee.type) {
       case T.Identifier:
@@ -76,12 +78,14 @@ export function isReactHookCallWithNameAlias(name: string, context: RuleContext,
     switch (true) {
       case node.callee.type === T.Identifier
         && node.callee.name === name:
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
           || isInitializedFromReact(name, initialScope, settings.importSource);
       case node.callee.type === T.MemberExpression
         && node.callee.property.type === T.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
           || isInitializedFromReact(node.callee.object.name, initialScope, settings.importSource);
       default:
@@ -91,7 +95,7 @@ export function isReactHookCallWithNameAlias(name: string, context: RuleContext,
 }
 
 export function isUseEffectCallLoose(node: TSESTree.Node | _) {
-  if (node === _) return false;
+  if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;
   }

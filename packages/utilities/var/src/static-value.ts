@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-object-types */
 
-import { _ } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -31,7 +31,7 @@ export function toResolved(sv: StaticValue) {
   if (kind !== "lazy") {
     return sv;
   }
-  const resolvedValue = initialScope === _
+  const resolvedValue = initialScope == null
     ? getStaticValue(node)
     : getStaticValue(node, initialScope);
   return resolvedValue == null

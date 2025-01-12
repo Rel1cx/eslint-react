@@ -89,7 +89,7 @@ export default createRule<[], MessageID>({
           }
           const isInsideProperty = component.parent.type === T.Property;
           const isInsideJSXPropValue = component.parent.type === T.JSXAttribute
-            || !!JSX.findParentProp(node, (n) => n.value?.type === T.JSXExpressionContainer);
+            || JSX.findParentProp(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({
@@ -115,7 +115,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           const parentComponent = AST.findParentNodeGuard(component, isFunctionComponent);
-          const isParnetComponentNotDirectValueOfRenderProperty = !!parentComponent
+          const isParnetComponentNotDirectValueOfRenderProperty = parentComponent != null
             && !isDirectValueOfRenderPropertyLoose(parentComponent);
           if (isParnetComponentNotDirectValueOfRenderProperty) {
             context.report({
@@ -141,7 +141,7 @@ export default createRule<[], MessageID>({
           }
         }
         for (const { name = "unknown", node: component } of classComponents) {
-          if (!AST.findParentNode(component, (n) => isClassComponent(n) || isFunctionComponent(n))) {
+          if (AST.findParentNode(component, (n) => isClassComponent(n) || isFunctionComponent(n)) == null) {
             continue;
           }
           context.report({

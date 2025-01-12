@@ -6,7 +6,7 @@ export function getVariableDeclaratorId(
   node: TSESTree.Node | _,
   prev?: TSESTree.Node,
 ): TSESTree.BindingName | TSESTree.Expression | _ {
-  if (node === _) return _;
+  if (node == null) return _;
   switch (true) {
     case node.type === T.VariableDeclarator
       && node.init === prev:

@@ -18,6 +18,7 @@ export function isFromReact(name: string) {
     context: RuleContext,
   ) => {
     const settings = unsafeDecodeSettings(context.settings);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!settings.strictImportCheck) {
       if (node.type === T.MemberExpression) {
         return node.object.type === T.Identifier
@@ -55,6 +56,7 @@ export function isFromReactMember(
     context: RuleContext,
   ) => {
     const settings = unsafeDecodeSettings(context.settings);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!settings.strictImportCheck) {
       if (node.property.type !== T.Identifier || node.property.name !== name) {
         return false;

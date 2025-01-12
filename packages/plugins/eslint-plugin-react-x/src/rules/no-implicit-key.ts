@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
             && n.name.type === T.JSXIdentifier
             && n.name.name === "key"
           );
-        if (keyPropFound && !keyPropOnElement) {
+        if (keyPropFound != null && !keyPropOnElement) {
           context.report({ messageId: "noImplicitKey", node: keyPropFound });
         }
       },

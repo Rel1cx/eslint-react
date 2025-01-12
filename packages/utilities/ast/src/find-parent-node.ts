@@ -11,9 +11,9 @@ export const findParentNode: {
   (node: TSESTree.Node | _, test: (node: TSESTree.Node) => boolean): TSESTree.Node | _;
   (test: (node: TSESTree.Node) => boolean): (node: TSESTree.Node) => TSESTree.Node | _;
 } = dual(2, (node: TSESTree.Node | _, test: (node: TSESTree.Node) => boolean): TSESTree.Node | _ => {
-  if (node === _) return _;
+  if (node == null) return _;
   let parent = node.parent;
-  while (parent && parent.type !== T.Program) {
+  while (parent != null && parent.type !== T.Program) {
     if (test(parent)) {
       return parent;
     }

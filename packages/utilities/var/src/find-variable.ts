@@ -7,6 +7,6 @@ export const findVariable: {
   (initialScope: Scope): (nameOrNode: string | TSESTree.Identifier | _) => Variable | _;
   (nameOrNode: string | TSESTree.Identifier | _, initialScope: Scope): Variable | _;
 } = dual(2, (nameOrNode: string | TSESTree.Identifier | _, initialScope: Scope) => {
-  if (nameOrNode === _) return _;
+  if (nameOrNode == null) return _;
   return ASTUtils.findVariable(initialScope, nameOrNode) ?? _;
 });

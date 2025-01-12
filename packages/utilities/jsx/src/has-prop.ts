@@ -8,7 +8,7 @@ export function hasProp(
   initialScope: Scope,
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
 ) {
-  return !!findPropInAttributes(propName, initialScope, attributes);
+  return findPropInAttributes(propName, initialScope, attributes) != null;
 }
 
 /**

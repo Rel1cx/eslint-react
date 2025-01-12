@@ -45,13 +45,12 @@ export default createRule<[], MessageID>({
           return;
         }
         const clazz = AST.findParentNodeGuard(node, isClassComponent);
-        const method = clazz && AST.findParentNodeStop(node, clazz, isComponentDidMount);
-        const methodScope = method && context.sourceCode.getScope(method);
+        const method = AST.findParentNode(node, (n) => n === clazz || isComponentDidMount(n));
+        if (clazz == null || method == null || method === clazz) return;
+        const methodScope = context.sourceCode.getScope(method);
         const upperScope = context.sourceCode.getScope(node).upper;
         if (
-          clazz
-          && method
-          && method.parent === clazz.body
+          method.parent === clazz.body
           && upperScope === methodScope
         ) {
           context.report({

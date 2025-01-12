@@ -16,9 +16,9 @@ export function isInsideCreateElementProps(
   context: RuleContext,
 ) {
   const call = AST.findParentNodeGuard(node, isCreateElementCall(context));
-  if (!call) return false;
+  if (call == null) return false;
   const prop = AST.findParentNodeGuard(node, AST.is(T.ObjectExpression));
-  if (!prop) return false;
+  if (prop == null) return false;
   return prop === call.arguments[1];
 }
 
@@ -33,7 +33,7 @@ export function isChildrenOfCreateElement(
   context: RuleContext,
 ) {
   const parent = node.parent;
-  if (!parent || parent.type !== T.CallExpression) return false;
+  if (parent == null || parent.type !== T.CallExpression) return false;
   if (!isCreateElementCall(parent, context)) return false;
   return parent.arguments
     .slice(2)

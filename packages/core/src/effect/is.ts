@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isUseEffectCallLoose } from "../hook";
 
 export function isSetupFunction(node: TSESTree.Node | _) {
-  if (node === _) return _;
+  if (node == null) return _;
   return node.parent?.type === T.CallExpression
     && node.parent.callee !== node
     && node.parent.callee.type === T.Identifier

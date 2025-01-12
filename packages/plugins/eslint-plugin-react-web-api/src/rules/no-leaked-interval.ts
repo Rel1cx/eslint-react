@@ -1,7 +1,6 @@
 import type * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -94,7 +93,7 @@ export default createRule<[], MessageID>({
         switch (getCallKind(node)) {
           case "setInterval": {
             const fEntry = fEntries.findLast((x) => x.kind !== "other");
-            if (fEntry === _) {
+            if (fEntry == null) {
               break;
             }
             if (!ERPhaseRelevance.has(fEntry.kind)) {
@@ -119,7 +118,7 @@ export default createRule<[], MessageID>({
           }
           case "clearInterval": {
             const fEntry = fEntries.findLast((x) => x.kind !== "other");
-            if (fEntry === _) {
+            if (fEntry == null) {
               break;
             }
             if (!ERPhaseRelevance.has(fEntry.kind)) {

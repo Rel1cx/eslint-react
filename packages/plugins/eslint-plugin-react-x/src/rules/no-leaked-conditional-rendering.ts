@@ -184,7 +184,7 @@ function isInitExpression(
 
 function getVariableInitExpression(variable: Variable | _, at: number): TSESTree.Expression | _ {
   const def = variable?.defs[at];
-  if (def?.node === _ || !("init" in def.node)) {
+  if (def?.node == null || !("init" in def.node)) {
     return _;
   }
   return isInitExpression(def.node.init)
@@ -235,7 +235,7 @@ export default createRule<[], MessageID>({
 
     const services = ESLintUtils.getParserServices(context, false);
     function getReportDescriptor(node: TSESTree.Expression | _): ReportDescriptor<MessageID> | _ {
-      if (node === _) return _;
+      if (node == null) return _;
       return match<typeof node, ReportDescriptor<MessageID> | _>(node)
         .when(AST.isJSX, () => _)
         .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
@@ -281,7 +281,7 @@ export default createRule<[], MessageID>({
     }
     const visitorFunction = (node: TSESTree.Expression) => {
       const descriptor = getReportDescriptor(node);
-      if (descriptor === _) return;
+      if (descriptor == null) return;
       context.report(descriptor);
     };
     return {

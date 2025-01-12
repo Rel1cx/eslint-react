@@ -15,9 +15,9 @@ export function getVariableNode(variable: Variable | _, at: number):
   | TSESTree.FunctionDeclarationWithName
   | TSESTree.FunctionDeclarationWithOptionalName
 {
-  if (variable === _) return _;
+  if (variable == null) return _;
   const def = variable.defs.at(at);
-  if (def === _) return _;
+  if (def == null) return _;
   switch (true) {
     case def.type === DefinitionType.FunctionName
       && def.node.type === T.FunctionDeclaration:

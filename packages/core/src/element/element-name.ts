@@ -1,4 +1,3 @@
-import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { CustomComponentNormalized } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
@@ -17,7 +16,7 @@ export function getElementNameAndRepresentName(
   // Get the component name using the `settings["react-x"].additionalComponents` setting
   const component = additionalComponents
     .findLast((c) => c.name === name || c.re.test(name));
-  if (component !== _) return [name, component.as];
+  if (component != null) return [name, component.as];
   if (polymorphicPropName == null) return [name, name];
   // Get the component name using the `settings["react-x"].polymorphicPropName` setting
   const initialScope = context.sourceCode.getScope(node);
@@ -26,7 +25,7 @@ export function getElementNameAndRepresentName(
     initialScope,
     node.attributes,
   );
-  if (polymorphicProp === _) return [name, name];
+  if (polymorphicProp == null) return [name, name];
   const polymorphicName = VAR.toResolved(JSX.getPropValue(polymorphicProp, initialScope)).value;
   if (typeof polymorphicName === "string") {
     return [name, polymorphicName];

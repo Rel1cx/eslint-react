@@ -1,4 +1,4 @@
-import { _ } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -90,7 +90,7 @@ export function findPropInProperties(
               variableNode.properties,
               initialScope,
               [...seenProps, prop.argument.name],
-            ) !== _;
+            ) != null;
           }
           return false;
         }
@@ -100,7 +100,7 @@ export function findPropInProperties(
             prop.argument.properties,
             initialScope,
             seenProps,
-          ) !== _;
+          ) != null;
         }
       }
       return false;
@@ -123,12 +123,12 @@ export function findPropInAttributes(
         const variable = VAR.findVariable(attr.argument.name, initialScope);
         const variableNode = VAR.getVariableNode(variable, 0);
         if (variableNode?.type === T.ObjectExpression) {
-          return findPropInProperties(name, variableNode.properties, initialScope) !== _;
+          return findPropInProperties(name, variableNode.properties, initialScope) != null;
         }
         return false;
       }
       case T.ObjectExpression:
-        return findPropInProperties(name, attr.argument.properties, initialScope) !== _;
+        return findPropInProperties(name, attr.argument.properties, initialScope) != null;
     }
     return false;
   });

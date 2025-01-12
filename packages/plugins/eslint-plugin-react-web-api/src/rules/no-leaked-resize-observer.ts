@@ -128,7 +128,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-        if (fKind === _ || !ERPhaseRelevance.has(fKind)) {
+        if (fKind == null || !ERPhaseRelevance.has(fKind)) {
           return;
         }
         const { object } = node.callee;
@@ -177,7 +177,7 @@ export default createRule<[], MessageID>({
       },
       ["NewExpression"](node) {
         const fEntry = fEntries.findLast((x) => x.kind !== "other");
-        if (fEntry === _) return;
+        if (fEntry == null) return;
         if (!ERPhaseRelevance.has(fEntry.kind)) {
           return;
         }
@@ -185,7 +185,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const id = getInstanceID(node);
-        if (id === _) {
+        if (id == null) {
           context.report({
             messageId: "noLeakedResizeObserverNoFloatingInstance",
             node,

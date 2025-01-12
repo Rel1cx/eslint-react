@@ -60,7 +60,7 @@ export default createRule<[], MessageID>({
             return false;
           }
           const id = AST.getFunctionIdentifier(block);
-          return !!id
+          return id != null
             && isComponentName(id.name)
             && components.some((component) => component.node === block);
         }

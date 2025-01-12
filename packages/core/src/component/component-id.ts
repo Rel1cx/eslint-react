@@ -21,7 +21,7 @@ export function getFunctionComponentIdentifier(
   context: RuleContext,
 ): TSESTree.Identifier | TSESTree.Identifier[] | _ {
   const functionId = AST.getFunctionIdentifier(node);
-  if (functionId) {
+  if (functionId != null) {
     return functionId;
   }
   const { parent } = node;

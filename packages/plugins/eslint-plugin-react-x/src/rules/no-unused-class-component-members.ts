@@ -100,6 +100,7 @@ export default createRule<[], MessageID>({
         if (methodName == null) {
           continue;
         }
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (usages?.has(methodName) || LIFECYCLE_METHODS.has(methodName)) {
           continue;
         }

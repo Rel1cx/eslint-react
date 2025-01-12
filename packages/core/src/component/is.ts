@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @returns `true` if the node is a class component, `false` otherwise
  */
 export function isClassComponent(node: TSESTree.Node): node is AST.TSESTreeClass {
-  if ("superClass" in node && node.superClass) {
+  if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
       case node.superClass.type === T.Identifier:
@@ -27,7 +27,7 @@ export function isClassComponent(node: TSESTree.Node): node is AST.TSESTreeClass
  * @returns `true` if the node is a pure component, `false` otherwise
  */
 export function isPureComponent(node: TSESTree.Node) {
-  if ("superClass" in node && node.superClass) {
+  if ("superClass" in node && node.superClass != null) {
     const re = /^PureComponent$/u;
     switch (true) {
       case node.superClass.type === T.Identifier:

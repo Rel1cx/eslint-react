@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -81,7 +80,7 @@ export function isNodeValueEqual(
           return AST.isNodeEqual(aRight, bRight);
         }
         default: {
-          return aVar !== _ && bVar !== _ && aVar === bVar;
+          return aVar != null && bVar != null && aVar === bVar;
         }
       }
     }

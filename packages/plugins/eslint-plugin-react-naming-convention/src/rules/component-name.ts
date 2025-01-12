@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { _, returnFalse } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
+import { returnFalse } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
@@ -88,7 +89,7 @@ function normalizeOptions(options: Options) {
 }
 
 function validate(name: string | _, options: ReturnType<typeof normalizeOptions>) {
-  if (name === _) return false;
+  if (name == null) return false;
   if (options.excepts.some((regex) => regex.test(name))) {
     return true;
   }
@@ -96,10 +97,11 @@ function validate(name: string | _, options: ReturnType<typeof normalizeOptions>
     .normalize("NFKD")
     .replace(/[\u0300-\u036F]/g, "");
   normalized = normalized.split(".").at(-1) ?? normalized;
-  if (options.allowNamespace !== _) {
+  const { allowLeadingUnderscore = false, allowNamespace = false } = options;
+  if (allowNamespace) {
     normalized = normalized.replace(":", "");
   }
-  if (options.allowLeadingUnderscore !== _) {
+  if (allowLeadingUnderscore) {
     normalized = normalized.replace(/^_/, "");
   }
   return match(options.rule)
@@ -107,7 +109,7 @@ function validate(name: string | _, options: ReturnType<typeof normalizeOptions>
     .with("PascalCase", () => {
       // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
-        return !!options.allowAllCaps;
+        return options.allowAllCaps ?? false;
       }
       return RE_PASCAL_CASE.test(normalized);
     })
@@ -157,7 +159,7 @@ export default createRule<Options, MessageID>({
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
         for (const { node: component } of functionComponents.values()) {
           const id = AST.getFunctionIdentifier(component);
-          if (id?.name === _) continue;
+          if (id?.name == null) continue;
           if (validate(id.name, options)) {
             continue;
           }
@@ -171,7 +173,7 @@ export default createRule<Options, MessageID>({
         }
         for (const { node: component } of classComponents.values()) {
           const id = AST.getClassIdentifier(component);
-          if (id?.name === _) continue;
+          if (id?.name == null) continue;
           if (!validate(id.name, options)) {
             context.report({
               messageId: "componentName",

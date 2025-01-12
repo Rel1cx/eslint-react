@@ -949,5 +949,33 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    /* tsx */ `
+      /** @public */
+      export class ErrorBoundary extends React.Component<
+      	React.PropsWithRef<React.PropsWithChildren<TLErrorBoundaryProps>>,
+      	{ error: Error | null }
+      > {
+      	static getDerivedStateFromError(error: Error) {
+      		return { error }
+      	}
+
+      	override state = initialState
+
+      	override componentDidCatch(error: unknown) {
+      		this.props.onError?.(error)
+      	}
+
+      	override render() {
+      		const { error } = this.state
+
+      		if (error !== null) {
+      			const { fallback: Fallback } = this.props
+      			return <Fallback error={error} />
+      		}
+
+      		return this.props.children
+      	}
+      }
+    `,
   ],
 });

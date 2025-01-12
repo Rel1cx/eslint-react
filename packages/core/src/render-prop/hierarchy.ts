@@ -20,7 +20,7 @@ export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
       && node.key.type === T.Identifier
       && node.key.name.startsWith("render");
   };
-  return matching(node) || (!!node.parent && matching(node.parent));
+  return matching(node) || (node.parent != null && matching(node.parent));
 }
 
 /**

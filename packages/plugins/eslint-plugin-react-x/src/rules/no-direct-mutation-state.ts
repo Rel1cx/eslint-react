@@ -78,7 +78,7 @@ export default createRule<[], MessageID>({
             T.ClassExpression,
           ]),
         );
-        if (!parentClass) return;
+        if (parentClass == null) return;
         if (
           isClassComponent(parentClass)
           && context.sourceCode.getScope(node).block !== AST.findParentNodeGuard(node, isConstructorFunction)

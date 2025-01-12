@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -51,20 +50,20 @@ export default createRule<[], MessageID>({
           return;
         }
         const functionEntry = ctx.getCurrentEntry();
-        if (functionEntry === _) return;
+        if (functionEntry == null) return;
         const attribute = node
           .attributes
           .find((attribute) =>
             attribute.type === T.JSXAttribute
             && attribute.name.name === "value"
           );
-        if (attribute === _ || !("value" in attribute)) return;
+        if (attribute == null || !("value" in attribute)) return;
         const value = attribute.value;
         if (value?.type !== T.JSXExpressionContainer) return;
         const valueExpression = value.expression;
         const initialScope = context.sourceCode.getScope(valueExpression);
         const construction = VAR.getValueConstruction(valueExpression, initialScope);
-        if (construction === _) return;
+        if (construction == null) return;
         if (isReactHookCall(construction.node)) {
           return;
         }

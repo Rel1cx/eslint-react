@@ -6,7 +6,7 @@ import { isComponentName } from "./component-name";
 
 export function hasNoneOrValidComponentName(node: AST.TSESTreeFunction, context: RuleContext) {
   const id = getFunctionComponentIdentifier(node, context);
-  if (!id) return true;
+  if (id == null) return true;
   const name = Array.isArray(id)
     ? id.at(-1)?.name
     : id.name;

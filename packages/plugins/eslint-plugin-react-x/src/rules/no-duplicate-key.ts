@@ -67,9 +67,10 @@ export default createRule<[], MessageID>({
           }
           default: {
             const call = AST.findParentNodeGuard(jsxElement, AST.isMapCallLoose);
-            const iter = call && AST.findParentNodeStop(jsxElement, call, AST.isFunction);
+            const iter = AST.findParentNode(jsxElement, (n) => n === call || AST.isFunction(n));
+            if (!AST.isFunction(iter)) return;
             const arg0 = call?.arguments[0];
-            if (!call || !iter || !arg0) return;
+            if (call == null || arg0 == null) return;
             if (AST.unwrapTypeExpression(arg0) !== iter) {
               return;
             }

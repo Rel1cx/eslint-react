@@ -80,10 +80,10 @@ const enableTypeCheckedRules = {
   "@typescript-eslint/consistent-type-exports": "error",
   "@typescript-eslint/strict-boolean-expressions": ["error", {
     allowAny: false,
-    allowNullableBoolean: true,
+    allowNullableBoolean: false,
     allowNullableEnum: false,
     allowNullableNumber: false,
-    allowNullableObject: true,
+    allowNullableObject: false,
     allowNullableString: false,
     allowNumber: true,
     allowString: false,

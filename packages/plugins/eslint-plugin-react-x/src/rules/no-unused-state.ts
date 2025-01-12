@@ -81,8 +81,8 @@ export default createRule<[], MessageID>({
         return;
       }
       const className = AST.getClassIdentifier(currentClass)?.name;
-      const { node: defNode, isUsed } = stateDefs.get(currentClass) ?? {};
-      if (!defNode || isUsed) {
+      const { node: defNode, isUsed = false } = stateDefs.get(currentClass) ?? {};
+      if (defNode == null || isUsed) {
         return;
       }
       context.report({

@@ -43,15 +43,15 @@ function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hin
       T.ClassBody,
     ]),
   );
-  return !boundaryNode || boundaryNode.type !== T.JSXExpressionContainer;
+  return boundaryNode == null || boundaryNode.type !== T.JSXExpressionContainer;
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   let flag = ERFunctionComponentFlag.None;
-  if (initPath && AST.hasCallInFunctionInitPath("memo")(initPath)) {
+  if (initPath != null && AST.hasCallInFunctionInitPath("memo")(initPath)) {
     flag |= ERFunctionComponentFlag.Memo;
   }
-  if (initPath && AST.hasCallInFunctionInitPath("forwardRef")(initPath)) {
+  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef")(initPath)) {
     flag |= ERFunctionComponentFlag.ForwardRef;
   }
   return flag;
@@ -76,7 +76,7 @@ export function useComponentCollector(
   };
   const onFunctionExit = () => {
     const entry = functionEntries.at(-1);
-    if (!entry) return;
+    if (entry == null) return;
     if (!entry.isComponent) {
       return functionEntries.pop();
     }
@@ -85,7 +85,7 @@ export function useComponentCollector(
       .reverse()
       .some((r) => {
         return context.sourceCode.getScope(r).block === entry.node
-          && !!r.argument
+          && r.argument != null
           && !JSX.isJSXValue(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) {
@@ -110,7 +110,7 @@ export function useComponentCollector(
     ":function[type]:exit": onFunctionExit,
     "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
       const entry = getCurrentEntry();
-      if (!entry) {
+      if (entry == null) {
         return;
       }
       const { body } = entry.node;
@@ -122,7 +122,7 @@ export function useComponentCollector(
       }
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentIdentifier(entry.node, context);
-      const name = id && getComponentNameFromIdentifier(id);
+      const name = getComponentNameFromIdentifier(id);
       const key = getId();
       components.set(key, {
         _: key,
@@ -146,7 +146,7 @@ export function useComponentCollector(
         : _;
       const component = [...components.values()]
         .findLast(({ name }) => name != null && name === componentName);
-      if (!component) {
+      if (component == null) {
         return;
       }
       components.set(component._, {
@@ -159,7 +159,7 @@ export function useComponentCollector(
         return;
       }
       const entry = getCurrentEntry();
-      if (!entry) {
+      if (entry == null) {
         return;
       }
       functionEntries.pop();
@@ -167,7 +167,7 @@ export function useComponentCollector(
     },
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
-      if (!entry) {
+      if (entry == null) {
         return;
       }
       const isComponent = hasNoneOrValidComponentName(entry.node, context)
@@ -180,7 +180,7 @@ export function useComponentCollector(
       functionEntries.push({ ...entry, isComponent });
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentIdentifier(entry.node, context);
-      const name = id && getComponentNameFromIdentifier(id);
+      const name = getComponentNameFromIdentifier(id);
       components.set(entry.key, {
         _: entry.key,
         id,

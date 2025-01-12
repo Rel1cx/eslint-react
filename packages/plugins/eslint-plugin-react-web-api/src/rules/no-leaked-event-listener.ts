@@ -71,7 +71,7 @@ function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
 }
 
 function getSignalValueExpression(node: TSESTree.Node | _, initialScope: Scope): TSESTree.Node | _ {
-  if (node === _) return _;
+  if (node == null) return _;
   switch (node.type) {
     case T.Identifier: {
       return getSignalValueExpression(VAR.getVariableNode(VAR.findVariable(node, initialScope), 0), initialScope);
@@ -206,7 +206,7 @@ export default createRule<[], MessageID>({
       if (!AST.isFunction(listener)) {
         return;
       }
-      if (options.signal !== _) {
+      if (options.signal != null) {
         return;
       }
       context.report({
@@ -225,7 +225,7 @@ export default createRule<[], MessageID>({
       },
       ["CallExpression"](node) {
         const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-        if (fKind === _) {
+        if (fKind == null) {
           return;
         }
         if (!ERPhaseRelevance.has(fKind)) {
@@ -280,7 +280,7 @@ export default createRule<[], MessageID>({
       ["Program:exit"]() {
         for (const aEntry of aEntries) {
           const signal = aEntry.signal;
-          if (signal !== _ && abortedSignals.some((a) => isSameObject(a, signal))) {
+          if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
             continue;
           }
           if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
