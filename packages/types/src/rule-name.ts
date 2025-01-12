@@ -137,4 +137,4 @@ type RuleName =
 type RuleNameWithAdditional = `${RuleName}-${Additional}`;
 
 // Example rule names
-const _: RuleName = "no-constructed-context-value";
+const ruleName: RuleName = "no-constructed-context-value";

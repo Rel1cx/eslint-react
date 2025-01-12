@@ -8,4 +8,4 @@
 
 > **\_**: `undefined`
 
-1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output d.ts.
+1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output dts.

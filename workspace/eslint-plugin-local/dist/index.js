@@ -1,5 +1,6 @@
 import * as AST from '@eslint-react/ast';
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import * as VAR from '@eslint-react/var';
 import { nullThrows, NullThrowsReasons } from '@typescript-eslint/utils/eslint-utils';
 
 // package.json
@@ -42,7 +43,40 @@ var avoid_multiline_template_expression_default = createRule({
   },
   defaultOptions: []
 });
-var RULE_NAME2 = "prefer-eqeq-nullish-comparison";
+var RULE_NAME2 = "no-shadowing-underscore";
+var RULE_FEATURES2 = [
+  "CHK"
+];
+var no_shadowing_underscore_default = createRule({
+  meta: {
+    type: "problem",
+    docs: {
+      description: "disallow multiline template expressions",
+      [Symbol.for("rule_features")]: RULE_FEATURES2
+    },
+    messages: {
+      noShadowingUnderscore: "In this codebase, '_' is used to represent the undefined. Avoid shadowing it."
+    },
+    schema: []
+  },
+  name: RULE_NAME2,
+  create(context) {
+    return {
+      "Identifier[name='_']"(node) {
+        const initialScope = context.sourceCode.getScope(node);
+        const isFromImport = VAR.isInitializedFromSource("_", "@eslint-react/eff", initialScope);
+        if (!isFromImport) {
+          context.report({
+            messageId: "noShadowingUnderscore",
+            node
+          });
+        }
+      }
+    };
+  },
+  defaultOptions: []
+});
+var RULE_NAME3 = "prefer-eqeq-nullish-comparison";
 var prefer_eqeq_nullish_comparison_default = createRule({
   meta: {
     type: "suggestion",
@@ -57,7 +91,7 @@ var prefer_eqeq_nullish_comparison_default = createRule({
     },
     schema: []
   },
-  name: RULE_NAME2,
+  name: RULE_NAME3,
   create(context) {
     return {
       BinaryExpression(node) {
@@ -119,6 +153,7 @@ var index_default = {
     version
   },
   rules: {
+    "no-shadowing-underscore": no_shadowing_underscore_default,
     "avoid-multiline-template-expression": avoid_multiline_template_expression_default,
     "prefer-eqeq-nullish-comparison": prefer_eqeq_nullish_comparison_default
   }

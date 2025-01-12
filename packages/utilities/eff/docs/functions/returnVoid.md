@@ -6,10 +6,10 @@
 
 # Function: returnVoid()
 
-> **returnVoid**(): [`_`](../type-aliases.md)
+> **returnVoid**(): `undefined`
 
 Do nothing and return undefined
 
 ## Returns
 
-[`_`](../type-aliases.md)
+`undefined`

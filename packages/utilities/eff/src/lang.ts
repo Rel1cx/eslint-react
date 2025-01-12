@@ -4,14 +4,14 @@
 import type { NarrowedTo } from "./type";
 
 /**
- * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output d.ts.
+ * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output dts.
  */
-export type _ = undefined;
+export type _ = undefined; // eslint-disable-line local/no-shadowing-underscore
 
 /**
  * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output js.
  */
-export const _ = undefined;
+export const _ = undefined; // eslint-disable-line local/no-shadowing-underscore
 
 /**
  * Do nothing and return false
@@ -30,8 +30,8 @@ export function returnTrue(): true {
 /**
  * Do nothing and return undefined
  */
-export function returnVoid(): _ {
-  return _;
+export function returnVoid(): undefined {
+  return undefined;
 }
 
 /**

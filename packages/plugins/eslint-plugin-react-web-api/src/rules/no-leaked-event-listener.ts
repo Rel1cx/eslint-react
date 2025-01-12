@@ -89,7 +89,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   }
   function getPropValue<A>(
     prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | _,
-    filter: (value: unknown) => value is A = (_): _ is A => true,
+    filter: (value: unknown) => value is A = (a): a is A => true,
   ): A | _ {
     if (prop?.type !== T.Property) return _;
     const { value } = prop;
