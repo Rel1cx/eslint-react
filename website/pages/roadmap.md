@@ -46,8 +46,8 @@
 
 ### New Rules
 
-- [ ] `function-component-definition` - Enforce the definition of function components ([rEl1cx/eslint-react#739](https://github.com/rEl1cx/eslint-react/issues/739)).
-- [ ] `hooks-extra/no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([rEl1cx/eslint-react#755](https://github.com/rEl1cx/eslint-react/issues/755))
+- [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739)).
+- [ ] `hooks-extra/no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
 
 ### Advanced Configuration features
 

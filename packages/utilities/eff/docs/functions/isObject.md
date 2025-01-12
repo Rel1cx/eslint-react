@@ -6,34 +6,24 @@
 
 # Function: isObject()
 
-> **isObject**(`input`): `input is object`
+> **isObject**\<`T`\>(`data`): `data is NarrowedTo<T, object>`
 
-Tests if a value is an `object`.
+Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`.
+
+## Type Parameters
+
+• **T**
 
 ## Parameters
 
-### input
+### data
 
-`unknown`
+The variable to be checked for being an object type.
 
-The value to test.
+`object` | `T`
 
 ## Returns
 
-`input is object`
+`data is NarrowedTo<T, object>`
 
-## Example
-
-```ts
-import { isObject } from "effect/Predicate"
-
-assert.deepStrictEqual(isObject({}), true)
-assert.deepStrictEqual(isObject([]), true)
-
-assert.deepStrictEqual(isObject(null), false)
-assert.deepStrictEqual(isObject(undefined), false)
-```
-
-## Since
-
-2.0.0
+The input type, narrowed to only objects.

@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { F } from "@eslint-react/eff";
+import { dual } from "@eslint-react/eff";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -96,7 +96,7 @@ type IsCallFromReact = {
 };
 
 export function isCallFromReact(name: string): IsCallFromReact {
-  return F.dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+  return dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
     if (node.type !== T.CallExpression) {
       return false;
     }
@@ -123,7 +123,7 @@ export function isCallFromReactMember(
   pragmaMemberName: string,
   name: string,
 ): IsCallFromReactMember {
-  return F.dual(2, (
+  return dual(2, (
     node: TSESTree.Node,
     context: RuleContext,
   ): node is

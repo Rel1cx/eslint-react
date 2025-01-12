@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
@@ -39,13 +38,13 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
         for (const { node, displayName, flag } of components.values()) {
           const isMemoOrForwardRef = (flag & (ERFunctionComponentFlag.ForwardRef | ERFunctionComponentFlag.Memo)) > 0n;
-          if (O.isSome(AST.getFunctionIdentifier(node))) {
+          if (AST.getFunctionIdentifier(node)) {
             continue;
           }
           if (!isMemoOrForwardRef) {
             continue;
           }
-          if (O.isNone(displayName)) {
+          if (!displayName) {
             context.report({
               messageId: "noMissingComponentDisplayName",
               node,

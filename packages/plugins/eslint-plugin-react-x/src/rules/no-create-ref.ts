@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isCreateRefCall } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
@@ -30,13 +29,9 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isCreateRefCall(node, context)) {
-          return;
+        if (isCreateRefCall(node, context) && !AST.findParentNode(node, isClassComponent)) {
+          context.report({ messageId: "noCreateRef", node });
         }
-        if (O.isSome(AST.findParentNode(node, isClassComponent))) {
-          return;
-        }
-        context.report({ messageId: "noCreateRef", node });
       },
     };
   },

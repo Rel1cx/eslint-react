@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import type { O } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ERSemanticNode } from "../semantic-node";
@@ -8,24 +8,38 @@ import type { ERClassComponentFlag, ERFunctionComponentFlag } from "./component-
 
 /* eslint-disable perfectionist/sort-interfaces */
 export interface ERFunctionComponent extends ERSemanticNode {
-  id: O.Option<TSESTree.Identifier | TSESTree.Identifier[]>;
+  id:
+    | _
+    | TSESTree.Identifier
+    | TSESTree.Identifier[];
   kind: "function";
   node: AST.TSESTreeFunction;
   flag: ERFunctionComponentFlag;
   hint: ERComponentHint;
-  initPath: O.Option<AST.FunctionInitPath>;
+  initPath:
+    | _
+    | AST.FunctionInitPath;
   hookCalls: TSESTree.CallExpression[];
-  displayName: O.Option<TSESTree.Expression>;
+  displayName:
+    | _
+    | TSESTree.Expression;
 }
 
 export interface ERClassComponent extends ERSemanticNode {
-  id: O.Option<TSESTree.Identifier>;
+  id:
+    | _
+    | TSESTree.Identifier;
   kind: "class";
   node: AST.TSESTreeClass;
   flag: ERClassComponentFlag;
   hint: ERComponentHint;
-  methods: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[];
-  displayName: O.Option<TSESTree.Expression>;
+  methods: Array<
+    | TSESTree.MethodDefinition
+    | TSESTree.PropertyDefinition
+  >;
+  displayName:
+    | _
+    | TSESTree.Expression;
 }
 /* eslint-enable perfectionist/sort-interfaces */
 

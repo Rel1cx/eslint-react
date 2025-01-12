@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -50,44 +50,31 @@ export default createRule<[], MessageID>({
         if (openingElementName.property.name !== "Provider") {
           return;
         }
-        F.pipe(
-          O.Do,
-          O.bind("function", ctx.getCurrentFunction),
-          O.bind("attribute", () =>
-            O.fromNullable(
-              node.attributes.find((attribute) => {
-                return attribute.type === T.JSXAttribute
-                  && attribute.name.name === "value";
-              }),
-            )),
-          O.bind("value", ({ attribute }) => "value" in attribute ? O.some(attribute.value) : O.none()),
-          O.bind("valueExpression", ({ value }) =>
-            value?.type === T.JSXExpressionContainer
-              ? O.some(value.expression)
-              : O.none()),
-          O.bind("construction", ({ valueExpression }) => {
-            const initialScope = context.sourceCode.getScope(valueExpression);
-            return O.some(VAR.getValueConstruction(valueExpression, initialScope));
-          }),
-          O.map((vc) => {
-            if (vc.construction.kind === "None") {
-              return;
-            }
-            if (isReactHookCall(vc.construction.node)) {
-              return;
-            }
-            const prevs = constructions.get(vc.function.node) ?? [];
-            constructions.set(vc.function.node, [...prevs, vc.construction]);
-          }),
-        );
+        const functionEntry = ctx.getCurrentEntry();
+        if (functionEntry === _) return;
+        const attribute = node
+          .attributes
+          .find((attribute) =>
+            attribute.type === T.JSXAttribute
+            && attribute.name.name === "value"
+          );
+        if (attribute === _ || !("value" in attribute)) return;
+        const value = attribute.value;
+        if (value?.type !== T.JSXExpressionContainer) return;
+        const valueExpression = value.expression;
+        const initialScope = context.sourceCode.getScope(valueExpression);
+        const construction = VAR.getValueConstruction(valueExpression, initialScope);
+        if (construction === _) return;
+        if (isReactHookCall(construction.node)) {
+          return;
+        }
+        const prevs = constructions.get(functionEntry.node) ?? [];
+        constructions.set(functionEntry.node, [...prevs, construction]);
       },
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node).values();
         for (const { node: component } of components) {
           for (const construction of constructions.get(component) ?? []) {
-            if (construction.kind === "None") {
-              continue;
-            }
             const { kind, node: constructionNode } = construction;
             const messageId = kind.startsWith("Function")
               ? "noUnstableContextValueWithFunction"

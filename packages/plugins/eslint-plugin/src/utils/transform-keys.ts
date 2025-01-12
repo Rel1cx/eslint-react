@@ -1,7 +1,7 @@
 /* eslint-disable @susisu/safe-typescript/no-type-assertion */
 // Copied from https://github.com/gustavoguichard/string-ts/blob/9dd444f03fdfa225f1643e6f1f8c18f9480224bb/src/utils/object-keys/transform-keys.ts#L12
 
-import { typeOf } from "@eslint-react/types";
+import { typeOf } from "./type-of";
 
 /**
  * This function is used to shallowly transform the keys of an object.

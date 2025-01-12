@@ -80,7 +80,7 @@ export const CustomComponentSchema = object({
 
 export const CustomComponentNormalizedSchema = object({
   name: string(),
-  as: optional(string()),
+  as: string(),
   attributes: optional(array(CustomAttributeSchema), []),
   re: instance(RegExp),
   selector: optional(string()),
@@ -197,6 +197,5 @@ export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
  */
 export interface ESLintReactSettingsNormalized extends ESLintReactSettings {
   additionalComponents: CustomComponentNormalized[];
-  components: Map<string, string>;
   version: string;
 }

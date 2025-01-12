@@ -1,4 +1,4 @@
-import { F } from "@eslint-react/eff";
+import { identity } from "@eslint-react/eff";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";
@@ -69,26 +69,16 @@ export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLint
     ...settings,
     additionalComponents: additionalComponents.map((component) => ({
       ...component,
+      as: component.as ?? component.name,
       attributes: component.attributes?.map((attr) => ({
         ...attr,
         as: attr.as ?? attr.name,
       })) ?? [],
       re: pm.makeRe(component.name, { fastpaths: true }),
     })),
-    components: additionalComponents.reduce((acc, component) => {
-      const { name, as, attributes = [], selector } = component;
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (!name || !as || selector || attributes.length > 0) {
-        return acc;
-      }
-      if (!/^[\w-]+$/u.test(name)) {
-        return acc;
-      }
-      return acc.set(name, as);
-    }, new Map<string, string>()),
     version: match(settings.version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
-      .otherwise(F.identity),
+      .otherwise(identity),
   };
 }, { isEqual: shallowEqual });
 
@@ -105,7 +95,7 @@ export function getSettingsFromContext(context: { settings: unknown }): ESLintRe
  * @param settings The settings.
  * @returns The settings.
  */
-export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = F.identity;
+export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = identity;
 
 // #endregion
 

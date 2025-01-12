@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -16,13 +15,11 @@ export function isInsideCreateElementProps(
   node: TSESTree.Node,
   context: RuleContext,
 ) {
-  return F.pipe(
-    O.Do,
-    O.bind("call", () => AST.findParentNodeGuard(node, isCreateElementCall(context))),
-    O.bind("prop", () => AST.findParentNodeGuard(node, AST.is(T.ObjectExpression))),
-    O.bind("arg1", ({ call }) => O.fromNullable(call.arguments[1])),
-    O.exists(({ arg1, prop }) => prop === arg1),
-  );
+  const call = AST.findParentNodeGuard(node, isCreateElementCall(context));
+  if (!call) return false;
+  const prop = AST.findParentNodeGuard(node, AST.is(T.ObjectExpression));
+  if (!prop) return false;
+  return prop === call.arguments[1];
 }
 
 /**
@@ -35,14 +32,10 @@ export function isChildrenOfCreateElement(
   node: TSESTree.Node,
   context: RuleContext,
 ) {
-  return F.pipe(
-    O.fromNullable(node.parent),
-    O.filter(AST.is(T.CallExpression)),
-    O.filter(isCreateElementCall(context)),
-    O.exists((n) =>
-      n.arguments
-        .slice(2)
-        .some((arg) => arg === node)
-    ),
-  );
+  const parent = node.parent;
+  if (!parent || parent.type !== T.CallExpression) return false;
+  if (!isCreateElementCall(parent, context)) return false;
+  return parent.arguments
+    .slice(2)
+    .some((arg) => arg === node);
 }

@@ -1,9 +1,7 @@
-import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -32,26 +30,25 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    function getReportDescriptor(node: TSESTree.JSXAttribute): O.Option<ReportDescriptor<MessageID>> {
-      const { value } = node;
-      const propName = JSX.getPropName(node);
-      const hasValueTrue = value?.type === T.JSXExpressionContainer
-        && value.expression.type === T.Literal
-        && value.expression.value === true;
-      if (!hasValueTrue) {
-        return O.none();
-      }
-      return O.some({
-        messageId: "preferShorthandBoolean",
-        node,
-        data: {
-          propName,
-        },
-        fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
-      });
-    }
     return {
-      JSXAttribute: F.flow(getReportDescriptor, O.map(context.report)),
+      JSXAttribute(node: TSESTree.JSXAttribute) {
+        const { value } = node;
+        const propName = JSX.getPropName(node);
+        const hasValueTrue = value?.type === T.JSXExpressionContainer
+          && value.expression.type === T.Literal
+          && value.expression.value === true;
+        if (!hasValueTrue) {
+          return;
+        }
+        context.report({
+          messageId: "preferShorthandBoolean",
+          node,
+          data: {
+            propName,
+          },
+          fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+        });
+      },
     };
   },
   defaultOptions: [],

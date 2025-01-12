@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { O } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
@@ -39,7 +38,7 @@ export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
  * @returns `true` if node is inside class component's render block, `false` if not
  */
 export function isInsideRenderMethod(node: TSESTree.Node) {
-  return O.isSome(AST.findParentNode(node, (node) =>
+  return !!AST.findParentNode(node, (node) =>
     isRenderMethodLike(node)
-    && isClassComponent(node.parent.parent)));
+    && isClassComponent(node.parent.parent));
 }

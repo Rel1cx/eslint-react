@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -21,7 +20,7 @@ export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
       && node.key.type === T.Identifier
       && node.key.name.startsWith("render");
   };
-  return matching(node) || (node.parent != null && matching(node.parent));
+  return matching(node) || (!!node.parent && matching(node.parent));
 }
 
 /**
@@ -39,15 +38,9 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
   if (isDirectValueOfRenderPropertyLoose(node)) {
     return true;
   }
-
-  return F.pipe(
-    AST.findParentNodeGuard(node, AST.is(T.JSXExpressionContainer)),
-    O.flatMapNullable((c) => c.parent),
-    O.filter(AST.is(T.JSXAttribute)),
-    O.flatMapNullable((a) => a.name),
-    O.exists((n) =>
-      n.type === T.JSXIdentifier
-      && n.name.startsWith("render")
-    ),
-  );
+  const parent = AST.findParentNodeGuard(node, AST.is(T.JSXExpressionContainer))?.parent;
+  if (parent?.type !== T.JSXAttribute) {
+    return false;
+  }
+  return parent.name.type === T.JSXIdentifier && parent.name.name.startsWith("render");
 }

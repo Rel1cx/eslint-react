@@ -1,12 +1,9 @@
 import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { capitalize } from "string-ts";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -58,30 +55,30 @@ export default createRule<[], MessageID>({
               continue;
             }
             const { id } = hookCall.parent;
-            const descriptor = O.some({ messageId: "useState", node: id } as const);
-            F.pipe(
-              match<typeof id, O.Option<ReportDescriptor<MessageID>>>(id)
-                .with({ type: T.Identifier }, F.constant(descriptor))
-                .with({ type: T.ArrayPattern }, (n) => {
-                  const [state, setState] = n.elements;
-                  if (state?.type === T.ObjectPattern && setState?.type === T.Identifier) {
-                    return isSetterNameLoose(setState.name)
-                      ? O.none()
-                      : descriptor;
+            switch (id.type) {
+              case T.Identifier: {
+                context.report({ messageId: "useState", node: id });
+                break;
+              }
+              case T.ArrayPattern: {
+                const [state, setState] = id.elements;
+                if (state?.type === T.ObjectPattern && setState?.type === T.Identifier) {
+                  if (!isSetterNameLoose(setState.name)) {
+                    context.report({ messageId: "useState", node: id });
                   }
-                  if (state?.type !== T.Identifier || setState?.type !== T.Identifier) {
-                    return O.none();
-                  }
-                  const [stateName, setStateName] = [state.name, setState.name];
-                  const expectedSetterName = `set${capitalize(stateName)}`;
-                  if (setStateName === expectedSetterName) {
-                    return O.none();
-                  }
-                  return descriptor;
-                })
-                .otherwise(O.none),
-              O.map(context.report),
-            );
+                  break;
+                }
+                if (state?.type !== T.Identifier || setState?.type !== T.Identifier) {
+                  return;
+                }
+                const [stateName, setStateName] = [state.name, setState.name];
+                const expectedSetterName = `set${capitalize(stateName)}`;
+                if (setStateName === expectedSetterName) {
+                  return;
+                }
+                context.report({ messageId: "useState", node: id });
+              }
+            }
           }
         }
       },

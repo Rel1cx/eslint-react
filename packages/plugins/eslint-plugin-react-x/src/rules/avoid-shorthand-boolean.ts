@@ -1,8 +1,6 @@
-import { F, O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -31,20 +29,20 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    function getReportDescriptor(node: TSESTree.JSXAttribute): O.Option<ReportDescriptor<MessageID>> {
-      return node.value != null
-        ? O.none()
-        : O.some({
-          messageId: "avoidShorthandBoolean",
-          node,
-          data: {
-            propName: JSX.getPropName(node),
-          },
-          fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
-        });
-    }
     return {
-      JSXAttribute: F.flow(getReportDescriptor, O.map(context.report)),
+      JSXAttribute(node: TSESTree.JSXAttribute) {
+        // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
+        if (node.value === null) {
+          context.report({
+            messageId: "avoidShorthandBoolean",
+            node,
+            data: {
+              propName: JSX.getPropName(node),
+            },
+            fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
+          });
+        }
+      },
     };
   },
   defaultOptions: [],

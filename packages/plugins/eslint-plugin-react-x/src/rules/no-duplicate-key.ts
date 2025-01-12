@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -67,16 +66,10 @@ export default createRule<[], MessageID>({
             break;
           }
           default: {
-            const mbEntry = F.pipe(
-              O.Do,
-              O.bind("call", () => AST.findParentNodeGuard(jsxElement, AST.isMapCallLoose)),
-              O.bind("iter", ({ call }) => AST.findParentNodeStop(jsxElement, call, AST.isFunction)),
-              O.bind("arg0", ({ call }) => O.fromNullable(call.arguments[0])),
-            );
-            if (O.isNone(mbEntry)) {
-              return;
-            }
-            const { arg0, call, iter } = mbEntry.value;
+            const call = AST.findParentNodeGuard(jsxElement, AST.isMapCallLoose);
+            const iter = call && AST.findParentNodeStop(jsxElement, call, AST.isFunction);
+            const arg0 = call?.arguments[0];
+            if (!call || !iter || !arg0) return;
             if (AST.unwrapTypeExpression(arg0) !== iter) {
               return;
             }

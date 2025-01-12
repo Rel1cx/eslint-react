@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
         if (component == null || !AST.isFunction(component)) {
           return;
         }
-        const [_, ref] = component.params;
+        const ref = component.params[1];
         if (ref != null) {
           return;
         }

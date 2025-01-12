@@ -47,7 +47,7 @@ export default createRule<[], MessageID>({
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-        for (const [_, component] of components) {
+        for (const [, component] of components) {
           const [props] = component.node.params;
           if (props == null) {
             continue;

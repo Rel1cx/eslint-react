@@ -1,10 +1,10 @@
-import { getElementRepresentName } from "@eslint-react/core";
-import { F, isString, O } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
+import { getElementNameAndRepresentName } from "@eslint-react/core";
+import { _ } from "@eslint-react/eff";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
-import { createRule } from "../utils";
+import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
@@ -48,36 +48,43 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    const settings = getSettingsFromContext(context);
+    const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
     return {
       JSXElement(node) {
-        const elementName = getElementRepresentName(node.openingElement, context);
-        if (elementName !== "iframe") {
-          return;
-        }
-        const { attributes } = node.openingElement;
-        const initialScope = context.sourceCode.getScope(node);
-        const mbProp = JSX.findPropInAttributes(attributes, initialScope)("sandbox");
-        if (O.isNone(mbProp)) {
+        const [name, representName] = getElementNameAndRepresentName(
+          node.openingElement,
+          context,
+          settings.polymorphicPropName,
+          settings.additionalComponents,
+        );
+        if (representName !== "iframe") return;
+
+        const getPropValue = (propName: string) => {
+          return getAttributeStringValue(
+            propName,
+            node,
+            context,
+            getAdditionalAttributes(name, additionalComponents),
+          );
+        };
+
+        const sandboxValue = getPropValue("sandbox");
+        if (sandboxValue === _) {
           context.report({
             messageId: "noMissingIframeSandbox",
             node: node.openingElement,
           });
           return;
         }
-        const prop = mbProp.value;
-        const hasValidSandbox = F.pipe(
-          JSX.getPropValue(prop, context.sourceCode.getScope(prop)),
-          O.filter(isString),
-          O.map((value) => value.split(" ")),
-          O.exists((values) => values.every((value) => validTypes.some((validType) => validType === value))),
-        );
-        if (hasValidSandbox) {
-          return;
+
+        const values = sandboxValue.split(" ");
+        if (!values.every((value) => validTypes.some((validType) => validType === value))) {
+          context.report({
+            messageId: "noMissingIframeSandbox",
+            node: node.openingElement,
+          });
         }
-        context.report({
-          messageId: "noMissingIframeSandbox",
-          node: prop,
-        });
       },
     };
   },

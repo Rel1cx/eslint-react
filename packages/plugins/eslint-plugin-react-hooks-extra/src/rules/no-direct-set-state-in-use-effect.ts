@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -55,8 +55,8 @@ export default createRule<[], MessageID>({
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
 
-    const functionStack: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
-    const setupFunctionRef = { current: O.none<AST.TSESTreeFunction>() };
+    const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
+    const setupFunctionRef: { current: AST.TSESTreeFunction | null } = { current: null };
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
 
     const indFunctionCalls: TSESTree.CallExpression[] = [];
@@ -69,10 +69,12 @@ export default createRule<[], MessageID>({
     >();
 
     const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
-      setupFunctionRef.current = O.some(node);
+      setupFunctionRef.current = node;
     };
     const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
-      setupFunctionRef.current = O.filter(setupFunctionRef.current, (current) => current !== node);
+      if (setupFunctionRef.current === node) {
+        setupFunctionRef.current = null;
+      }
     };
 
     function isSetupFunction(node: TSESTree.Node) {
@@ -97,21 +99,21 @@ export default createRule<[], MessageID>({
     return {
       ":function"(node: AST.TSESTreeFunction) {
         const kind = getFunctionKind(node);
-        functionStack.push({ kind, node });
+        functionEntries.push({ kind, node });
         if (kind === "setup") {
           onSetupFunctionEnter(node);
         }
       },
       ":function:exit"(node: AST.TSESTreeFunction) {
-        const { kind } = functionStack.at(-1) ?? {};
+        const { kind } = functionEntries.at(-1) ?? {};
         if (kind === "setup") {
           onSetupFunctionExit(node);
         }
-        functionStack.pop();
+        functionEntries.pop();
       },
       CallExpression(node) {
-        const setupFunction = O.getOrNull(setupFunctionRef.current);
-        const pEntry = functionStack.at(-1);
+        const setupFunction = setupFunctionRef.current;
+        const pEntry = functionEntries.at(-1);
         if (pEntry?.node.async) {
           return;
         }
@@ -133,15 +135,15 @@ export default createRule<[], MessageID>({
                 return;
               }
               default: {
-                const mbVariableDeclarator = AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall);
-                if (O.isNone(mbVariableDeclarator)) {
+                const variableDeclarator = AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall);
+                if (variableDeclarator === _) {
                   const calls = indSetStateCalls.get(pEntry.node) ?? [];
                   indSetStateCalls.set(pEntry.node, [...calls, node]);
                   return;
                 }
-                const vd = mbVariableDeclarator.value;
-                const prevs = indSetStateCallsInUseMemoOrCallback.get(vd.init) ?? [];
-                indSetStateCallsInUseMemoOrCallback.set(vd.init, [...prevs, node]);
+                const init = variableDeclarator.init;
+                const prevs = indSetStateCallsInUseMemoOrCallback.get(init) ?? [];
+                indSetStateCallsInUseMemoOrCallback.set(init, [...prevs, node]);
               }
             }
           })
@@ -157,7 +159,7 @@ export default createRule<[], MessageID>({
             }
             indFunctionCalls.push(node);
           })
-          .otherwise(F.constVoid);
+          .otherwise(() => _);
       },
       Identifier(node) {
         if (node.parent.type === T.CallExpression && node.parent.callee === node) {
@@ -178,11 +180,10 @@ export default createRule<[], MessageID>({
             if (!isUseMemoCall(parent)) {
               break;
             }
-            const mbVariableDeclarator = AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall);
-            if (O.isNone(mbVariableDeclarator)) {
+            const variableDeclarator = AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall);
+            if (variableDeclarator == null) {
               break;
             }
-            const variableDeclarator = mbVariableDeclarator.value;
             const calls = indSetStateCallsInUseEffectArg0.get(variableDeclarator.init) ?? [];
             indSetStateCallsInUseEffectArg0.set(variableDeclarator.init, [...calls, node]);
             break;
@@ -195,11 +196,10 @@ export default createRule<[], MessageID>({
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              const mbVariableDeclarator = AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall);
-              if (O.isNone(mbVariableDeclarator)) {
+              const variableDeclarator = AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall);
+              if (variableDeclarator == null) {
                 break;
               }
-              const variableDeclarator = mbVariableDeclarator.value;
               const prevs = indSetStateCallsInUseEffectArg0.get(variableDeclarator.init) ?? [];
               indSetStateCallsInUseEffectArg0.set(variableDeclarator.init, [...prevs, node]);
             }
@@ -218,7 +218,7 @@ export default createRule<[], MessageID>({
           id: string | TSESTree.Identifier,
           initialScope: Scope.Scope,
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-          const node = O.flatMap(VAR.findVariable(id, initialScope), VAR.getVariableNode(0)).pipe(O.getOrNull);
+          const node = VAR.getVariableNode(VAR.findVariable(id, initialScope), 0);
           switch (node?.type) {
             case T.ArrowFunctionExpression:
             case T.FunctionDeclaration:
@@ -229,7 +229,7 @@ export default createRule<[], MessageID>({
           }
           return [];
         };
-        for (const [_, calls] of indSetStateCallsInUseEffectSetup) {
+        for (const [, calls] of indSetStateCallsInUseEffectSetup) {
           for (const call of calls) {
             context.report({
               messageId: "noDirectSetStateInUseEffect",

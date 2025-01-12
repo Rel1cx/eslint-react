@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -41,21 +41,21 @@ const LIFECYCLE_METHODS = new Set([
 // Return the name of an identifier or the string value of a literal. Useful
 // anywhere that a literal may be used as a key (e.g., member expressions,
 // method definitions, ObjectExpression property keys).
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
+function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
   if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return O.some(node.name);
+    return node.name;
   }
   if (node.type === T.Literal) {
-    return O.some(String(node.value));
+    return node.value?.toString();
   }
   if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return O.fromNullable(node.quasis[0]?.value.raw);
+    return node.quasis[0]?.value.raw;
   }
 
-  return O.none();
+  return _;
 }
 
 export default createRule<[], MessageID>({
@@ -72,12 +72,12 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack: AST.TSESTreeClass[] = [];
-    const methodStack: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
+    const classEntries: AST.TSESTreeClass[] = [];
+    const methodEntries: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
     const propertyDefs = new WeakMap<AST.TSESTreeClass, Set<Property>>();
     const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
     function classEnter(node: AST.TSESTreeClass) {
-      classStack.push(node);
+      classEntries.push(node);
       if (!isClassComponent(node)) {
         return;
       }
@@ -85,37 +85,37 @@ export default createRule<[], MessageID>({
       propertyUsages.set(node, new Set());
     }
     function classExit() {
-      const currentClass = classStack.pop();
+      const currentClass = classEntries.pop();
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
-      const className = O.map(AST.getClassIdentifier(currentClass), (id) => id.name);
+      const className = AST.getClassIdentifier(currentClass)?.name;
       const defs = propertyDefs.get(currentClass);
       const usages = propertyUsages.get(currentClass);
       if (defs == null) {
         return;
       }
       for (const def of defs) {
-        const name = getName(def);
-        if (O.isNone(name)) {
+        const methodName = getName(def);
+        if (methodName == null) {
           continue;
         }
-        if (usages?.has(name.value) || LIFECYCLE_METHODS.has(name.value)) {
+        if (usages?.has(methodName) || LIFECYCLE_METHODS.has(methodName)) {
           continue;
         }
         context.report({
           messageId: "noUnusedClassComponentMembers",
           node: def,
           data: {
-            className: O.getOrElse(className, () => "Component"),
-            methodName: name.value,
+            className: className ?? "Component",
+            methodName,
           },
         });
       }
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
-      methodStack.push(node);
-      const currentClass = classStack.at(-1);
+      methodEntries.push(node);
+      const currentClass = classEntries.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
@@ -127,7 +127,7 @@ export default createRule<[], MessageID>({
       }
     }
     function methodExit() {
-      methodStack.pop();
+      methodEntries.pop();
     }
 
     return {
@@ -136,8 +136,8 @@ export default createRule<[], MessageID>({
       ClassExpression: classEnter,
       "ClassExpression:exit": classExit,
       MemberExpression(node) {
-        const currentClass = classStack.at(-1);
-        const currentMethod = methodStack.at(-1);
+        const currentClass = classEntries.at(-1);
+        const currentMethod = methodEntries.at(-1);
         if (currentClass == null || currentMethod == null) {
           return;
         }
@@ -153,15 +153,18 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `this.property()`, `x = this.property`, etc.
-        O.map(getName(node.property), (name) => propertyUsages.get(currentClass)?.add(name));
+        const propertyName = getName(node.property);
+        if (propertyName != null) {
+          propertyUsages.get(currentClass)?.add(propertyName);
+        }
       },
       MethodDefinition: methodEnter,
       "MethodDefinition:exit": methodExit,
       PropertyDefinition: methodEnter,
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
-        const currentClass = classStack.at(-1);
-        const currentMethod = methodStack.at(-1);
+        const currentClass = classEntries.at(-1);
+        const currentMethod = methodEntries.at(-1);
         if (currentClass == null || currentMethod == null) {
           return;
         }
@@ -172,10 +175,9 @@ export default createRule<[], MessageID>({
         if (node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-              const mbName = getName(prop.key);
-              if (O.isSome(mbName)) {
-                const name = mbName.value;
-                propertyUsages.get(currentClass)?.add(name);
+              const keyName = getName(prop.key);
+              if (keyName != null) {
+                propertyUsages.get(currentClass)?.add(keyName);
               }
             }
           }

@@ -24,7 +24,7 @@
 
 ### displayName
 
-> **displayName**: `Option`\<`Expression`\>
+> **displayName**: `undefined` \| `Expression`
 
 ***
 
@@ -56,7 +56,7 @@
 
 ### id
 
-> **id**: `Option`\<`Identifier` \| `Identifier`[]\>
+> **id**: `undefined` \| `Identifier` \| `Identifier`[]
 
 #### Overrides
 
@@ -66,7 +66,7 @@
 
 ### initPath
 
-> **initPath**: `Option`\<`FunctionInitPath`\>
+> **initPath**: `undefined` \| `FunctionInitPath`
 
 ***
 
@@ -82,7 +82,7 @@
 
 ### name
 
-> **name**: `Option`\<`string`\>
+> **name**: `undefined` \| `string`
 
 #### Inherited from
 

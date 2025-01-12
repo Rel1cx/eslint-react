@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -16,21 +16,21 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
+function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
   if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return O.some(node.name);
+    return node.name;
   }
   if (node.type === T.Literal) {
-    return O.some(String(node.value));
+    return String(node.value);
   }
   if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return O.fromNullable(node.quasis[0]?.value.raw);
+    return node.quasis[0]?.value.raw;
   }
 
-  return O.none();
+  return _;
 }
 
 export default createRule<[], MessageID>({
@@ -50,15 +50,15 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("setState")) {
       return {};
     }
-    const classStack: [
+    const classEntries: [
       node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
       isComponent: boolean,
     ][] = [];
-    const methodStack: [
+    const methodEntries: [
       node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition,
       isStatic: boolean,
     ][] = [];
-    const setStateStack: [
+    const setStateEntries: [
       node: TSESTree.CallExpression,
       hasThisState: boolean,
     ][] = [];
@@ -67,69 +67,69 @@ export default createRule<[], MessageID>({
         if (!isThisSetState(node)) {
           return;
         }
-        setStateStack.push([node, false]);
+        setStateEntries.push([node, false]);
       },
       "CallExpression:exit"(node) {
         if (!isThisSetState(node)) {
           return;
         }
-        setStateStack.pop();
+        setStateEntries.pop();
       },
       ClassDeclaration(node) {
-        classStack.push([node, isClassComponent(node)]);
+        classEntries.push([node, isClassComponent(node)]);
       },
       "ClassDeclaration:exit"() {
-        classStack.pop();
+        classEntries.pop();
       },
       ClassExpression(node) {
-        classStack.push([node, isClassComponent(node)]);
+        classEntries.push([node, isClassComponent(node)]);
       },
       "ClassExpression:exit"() {
-        classStack.pop();
+        classEntries.pop();
       },
       MemberExpression(node) {
         if (!AST.isThisExpression(node.object)) {
           return;
         }
-        const [currClass, isComponent] = classStack.at(-1) ?? [];
+        const [currClass, isComponent] = classEntries.at(-1) ?? [];
         if (currClass == null || !isComponent) {
           return;
         }
-        const [currMethod, isStatic] = methodStack.at(-1) ?? [];
+        const [currMethod, isStatic] = methodEntries.at(-1) ?? [];
         if (currMethod == null || isStatic) {
           return;
         }
-        const [setState, hasThisState] = setStateStack.at(-1) ?? [];
+        const [setState, hasThisState] = setStateEntries.at(-1) ?? [];
         if (setState == null || hasThisState) {
           return;
         }
-        if (!O.exists(getName(node.property), (name) => name === "state")) {
+        if (getName(node.property) !== "state") {
           return;
         }
         context.report({ messageId: "noAccessStateInSetstate", node });
       },
       MethodDefinition(node) {
-        methodStack.push([node, node.static]);
+        methodEntries.push([node, node.static]);
       },
       "MethodDefinition:exit"() {
-        methodStack.pop();
+        methodEntries.pop();
       },
       PropertyDefinition(node) {
-        methodStack.push([node, node.static]);
+        methodEntries.push([node, node.static]);
       },
       "PropertyDefinition:exit"() {
-        methodStack.pop();
+        methodEntries.pop();
       },
       VariableDeclarator(node) {
-        const [currClass, isComponent] = classStack.at(-1) ?? [];
+        const [currClass, isComponent] = classEntries.at(-1) ?? [];
         if (currClass == null || !isComponent) {
           return;
         }
-        const [currMethod, isStatic] = methodStack.at(-1) ?? [];
+        const [currMethod, isStatic] = methodEntries.at(-1) ?? [];
         if (currMethod == null || isStatic) {
           return;
         }
-        const [setState, hasThisState] = setStateStack.at(-1) ?? [];
+        const [setState, hasThisState] = setStateEntries.at(-1) ?? [];
         if (setState == null || hasThisState) {
           return;
         }
@@ -137,12 +137,14 @@ export default createRule<[], MessageID>({
         if (!(node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
           return;
         }
-        const hasState = node.id.properties.some((prop) => {
-          if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-            return O.exists(getName(prop.key), (name) => name === "state");
-          }
-          return false;
-        });
+        const hasState = node
+          .id
+          .properties
+          .some((prop) =>
+            prop.type === T.Property
+            && AST.isKeyLiteralLike(prop, prop.key)
+            && getName(prop.key) === "state"
+          );
         if (!hasState) {
           return;
         }

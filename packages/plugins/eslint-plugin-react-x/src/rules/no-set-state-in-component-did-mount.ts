@@ -1,10 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -41,33 +39,27 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("componentDidMount")) {
       return {};
     }
-    function getReportDescriptor(node: TSESTree.CallExpression): O.Option<ReportDescriptor<MessageID>> {
-      if (!isThisSetState(node)) {
-        return O.none();
-      }
-      return F.pipe(
-        O.Do,
-        O.bind("clazz", () => AST.findParentNodeGuard(node, isClassComponent)),
-        O.bind("method", ({ clazz }) => AST.findParentNodeStop(node, clazz, isComponentDidMount)),
-        O.bind("methodScope", ({ method }) => O.some(context.sourceCode.getScope(method))),
-        O.bind("upperScope", () => O.fromNullable(context.sourceCode.getScope(node).upper)),
-        O.filter(({
-          clazz,
-          method,
-          methodScope,
-          upperScope,
-        }) =>
-          method.parent === clazz.body
-          && upperScope === methodScope
-        ),
-        O.map(() => ({
-          messageId: "noSetStateInComponentDidMount",
-          node,
-        })),
-      );
-    }
     return {
-      CallExpression: F.flow(getReportDescriptor, O.map(context.report)),
+      CallExpression(node: TSESTree.CallExpression) {
+        if (!isThisSetState(node)) {
+          return;
+        }
+        const clazz = AST.findParentNodeGuard(node, isClassComponent);
+        const method = clazz && AST.findParentNodeStop(node, clazz, isComponentDidMount);
+        const methodScope = method && context.sourceCode.getScope(method);
+        const upperScope = context.sourceCode.getScope(node).upper;
+        if (
+          clazz
+          && method
+          && method.parent === clazz.body
+          && upperScope === methodScope
+        ) {
+          context.report({
+            messageId: "noSetStateInComponentDidMount",
+            node,
+          });
+        }
+      },
     };
   },
   defaultOptions: [],

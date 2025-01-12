@@ -6,195 +6,27 @@
 
 # Function: or()
 
-Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
-
-## Param
-
-A predicate.
-
-## Param
-
-A predicate.
-
-## Example
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-## Since
-
-2.0.0
-
 ## Call Signature
 
-> **or**\<`A`, `C`\>(`that`): \<`B`\>(`self`) => [`Refinement`](../interfaces/Refinement.md)\<`A`, `C` \| `B`\>
-
-Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
+> **or**\<`T`, `S`, `U`\>(`a`, `b`): (`data`) => data is S \| U
 
 ### Type Parameters
 
-• **A**
+• **T**
 
-• **C**
+• **S**
 
-### Parameters
-
-#### that
-
-[`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
-
-A predicate.
-
-### Returns
-
-`Function`
-
-#### Type Parameters
-
-• **B**
-
-#### Parameters
-
-##### self
-
-[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
-
-#### Returns
-
-[`Refinement`](../interfaces/Refinement.md)\<`A`, `C` \| `B`\>
-
-### Param
-
-A predicate.
-
-### Param
-
-A predicate.
-
-### Examples
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
-
-### Since
-
-2.0.0
-
-## Call Signature
-
-> **or**\<`A`, `B`, `C`\>(`self`, `that`): [`Refinement`](../interfaces/Refinement.md)\<`A`, `B` \| `C`\>
-
-Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
-
-### Type Parameters
-
-• **A**
-
-• **B**
-
-• **C**
+• **U**
 
 ### Parameters
 
-#### self
+#### a
 
-[`Refinement`](../interfaces/Refinement.md)\<`A`, `B`\>
+(`data`) => `data is S`
 
-A predicate.
+#### b
 
-#### that
-
-[`Refinement`](../interfaces/Refinement.md)\<`A`, `C`\>
-
-A predicate.
-
-### Returns
-
-[`Refinement`](../interfaces/Refinement.md)\<`A`, `B` \| `C`\>
-
-### Param
-
-A predicate.
-
-### Param
-
-A predicate.
-
-### Examples
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
-
-### Since
-
-2.0.0
-
-## Call Signature
-
-> **or**\<`A`\>(`that`): (`self`) => [`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
-
-### Type Parameters
-
-• **A**
-
-### Parameters
-
-#### that
-
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-A predicate.
+(`data`) => `data is U`
 
 ### Returns
 
@@ -202,114 +34,110 @@ A predicate.
 
 #### Parameters
 
-##### self
+##### data
 
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+`T`
 
 #### Returns
 
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-### Param
-
-A predicate.
-
-### Param
-
-A predicate.
-
-### Examples
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-```ts
-import { Predicate, Number } from "effect"
-
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
-
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
-
-### Since
-
-2.0.0
-
-### Since
-
-2.0.0
+data is S \| U
 
 ## Call Signature
 
-> **or**\<`A`\>(`self`, `that`): [`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-Combines two predicates into a new predicate that returns `true` if at least one of the predicates returns `true`.
+> **or**\<`T`, `S`\>(`a`, `b`): (`data`) => `data is S`
 
 ### Type Parameters
 
-• **A**
+• **T**
+
+• **S**
 
 ### Parameters
 
-#### self
+#### a
 
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+(`data`) => `data is S`
 
-A predicate.
+#### b
 
-#### that
-
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
-
-A predicate.
+(`data`) => `boolean`
 
 ### Returns
 
-[`Predicate`](../interfaces/Predicate.md)\<`A`\>
+`Function`
 
-### Param
+#### Parameters
 
-A predicate.
+##### data
 
-### Param
+`T`
 
-A predicate.
+#### Returns
 
-### Examples
+`data is S`
 
-```ts
-import { Predicate, Number } from "effect"
+## Call Signature
 
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
+> **or**\<`T`, `U`\>(`a`, `b`): (`data`) => `data is U`
 
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
+### Type Parameters
 
-```ts
-import { Predicate, Number } from "effect"
+• **T**
 
-const nonZero = Predicate.or(Number.lessThan(0), Number.greaterThan(0))
+• **U**
 
-assert.deepStrictEqual(nonZero(-1), true)
-assert.deepStrictEqual(nonZero(0), false)
-assert.deepStrictEqual(nonZero(1), true)
-```
+### Parameters
 
-### Since
+#### a
 
-2.0.0
+(`data`) => `boolean`
 
-### Since
+#### b
 
-2.0.0
+(`data`) => `data is U`
+
+### Returns
+
+`Function`
+
+#### Parameters
+
+##### data
+
+`T`
+
+#### Returns
+
+`data is U`
+
+## Call Signature
+
+> **or**\<`T`\>(`a`, `b`): (`data`) => `boolean`
+
+### Type Parameters
+
+• **T**
+
+### Parameters
+
+#### a
+
+(`data`) => `boolean`
+
+#### b
+
+(`data`) => `boolean`
+
+### Returns
+
+`Function`
+
+#### Parameters
+
+##### data
+
+`T`
+
+#### Returns
+
+`boolean`

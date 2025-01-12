@@ -6,14 +6,14 @@
 
 # Function: isReactHook()
 
-> **isReactHook**(`node`): `boolean`
+> **isReactHook**(`node`): `undefined` \| `boolean`
 
 ## Parameters
 
 ### node
 
-`TSESTreeFunction`
+`undefined` | `TSESTreeFunction`
 
 ## Returns
 
-`boolean`
+`undefined` \| `boolean`

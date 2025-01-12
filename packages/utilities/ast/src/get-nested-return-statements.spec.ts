@@ -1,6 +1,5 @@
 import path from "node:path";
 
-import { O } from "@eslint-react/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -91,11 +90,11 @@ describe("get nested return statements from function", () => {
       ],
     ],
   ])("should return the nested return statements from %s", (code, expected) => {
-    let n = O.none<TSESTreeFunction>();
+    let n: null | TSESTreeFunction = null;
     const { ast } = parse(code);
     simpleTraverse(ast, {
       enter(node) {
-        if (O.isSome(n)) {
+        if (n != null) {
           return;
         }
         if (!isFunction(node)) {
@@ -105,9 +104,9 @@ describe("get nested return statements from function", () => {
         for (const [index, statement] of returnStatements.entries()) {
           expect(statement).include(expected[index]);
         }
-        n = O.fromNullable(node);
+        n = node;
       },
     }, true);
-    expect(O.isSome(n)).toBe(true);
+    expect(n).not.eq(null);
   });
 });

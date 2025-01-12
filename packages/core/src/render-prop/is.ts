@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -19,7 +18,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  */
 export function isRenderFunctionLoose(node: AST.TSESTreeFunction, context: RuleContext) {
   const { body, parent } = node;
-  if (O.exists(AST.getFunctionIdentifier(node), (id) => id.name.startsWith("render"))) {
+  if (AST.getFunctionIdentifier(node)?.name.startsWith("render")) {
     return parent.type === T.JSXExpressionContainer
       && parent.parent.type === T.JSXAttribute
       && parent.parent.name.type === T.JSXIdentifier

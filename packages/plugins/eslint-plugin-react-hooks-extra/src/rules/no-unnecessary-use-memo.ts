@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, isReactHookCallWithNameLoose, isUseMemoCall } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
+import { _, identity } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -54,51 +54,51 @@ export default createRule<[], MessageID>({
         if (arg0 == null || arg1 == null) {
           return;
         }
-        const hasCallInArg0 = F.pipe(
-          O.some(arg0),
-          O.filter((n) => AST.isFunction(n)),
-          O.exists((n) => [...AST.getNestedCallExpressions(n.body), ...AST.getNestedNewExpressions(n.body)].length > 0),
-        );
+        const hasCallInArg0 = AST.isFunction(arg0)
+          && [...AST.getNestedCallExpressions(arg0.body), ...AST.getNestedNewExpressions(arg0.body)].length > 0;
+
         if (hasCallInArg0) {
           return;
         }
-        const hasEmptyDeps = F.pipe(
-          match(arg1)
-            .with({ type: T.ArrayExpression }, O.some)
-            .with({ type: T.Identifier }, (n) => {
-              return F.pipe(
-                VAR.findVariable(n.name, initialScope),
-                O.flatMap(VAR.getVariableNode(0)),
-                O.filter(AST.is(T.ArrayExpression)),
-              );
-            })
-            .otherwise(O.none),
-          O.exists((x) => x.elements.length === 0),
-        );
+
+        const hasEmptyDeps = match(arg1)
+          .with({ type: T.ArrayExpression }, (n) => n.elements.length === 0)
+          .with({ type: T.Identifier }, (n) => {
+            const variable = VAR.findVariable(n.name, initialScope);
+            const variableNode = VAR.getVariableNode(variable, 0);
+            if (variableNode?.type !== T.ArrayExpression) {
+              return false;
+            }
+            return variableNode.elements.length === 0;
+          })
+          .otherwise(() => false);
+
         if (!hasEmptyDeps) {
           return;
         }
-        const isReferencedToComponentScope = F.pipe(
-          match(arg0)
-            .with({ type: T.ArrowFunctionExpression }, (n) => {
-              if (n.body.type === T.ArrowFunctionExpression) {
-                return O.some(n.body);
-              }
-              return O.some(n);
-            })
-            .with({ type: T.FunctionExpression }, O.some)
-            .with({ type: T.Identifier }, (n) => {
-              return F.pipe(
-                VAR.findVariable(n.name, initialScope),
-                O.flatMap(VAR.getVariableNode(0)),
-                O.filter(AST.isFunction),
-              );
-            })
-            .otherwise(O.none),
-          O.map((n) => context.sourceCode.getScope(n)),
-          O.map((s) => VAR.getChidScopes(s).flatMap((x) => x.references)),
-          O.exists((refs) => refs.some((x) => x.resolved?.scope.block === component)),
-        );
+        const arg0Node = match(arg0)
+          .with({ type: T.ArrowFunctionExpression }, (n) => {
+            if (n.body.type === T.ArrowFunctionExpression) {
+              return n.body;
+            }
+            return n;
+          })
+          .with({ type: T.FunctionExpression }, identity)
+          .with({ type: T.Identifier }, (n) => {
+            const variable = VAR.findVariable(n.name, initialScope);
+            const variableNode = VAR.getVariableNode(variable, 0);
+            if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
+              return _;
+            }
+            return variableNode;
+          })
+          .otherwise(() => _);
+        if (arg0Node === _) return;
+
+        const arg0NodeScope = context.sourceCode.getScope(arg0Node);
+        const arg0NodeReferences = VAR.getChidScopes(arg0NodeScope).flatMap((x) => x.references);
+        const isReferencedToComponentScope = arg0NodeReferences.some((x) => x.resolved?.scope.block === component);
+
         if (!isReferencedToComponentScope) {
           context.report({
             messageId: "noUnnecessaryUseMemo",

@@ -1,4 +1,3 @@
-import { isString } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -15,7 +14,7 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-  return value?.type === T.Literal && isString(value.value);
+  return value?.type === T.Literal && typeof value.value === "string";
 }
 
 function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
@@ -23,7 +22,7 @@ function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
     return false;
   }
   if (value.expression.type === T.Literal) {
-    return isString(value.expression.value);
+    return typeof value.expression.value === "string";
   }
 
   return value.expression.type === T.TemplateLiteral;

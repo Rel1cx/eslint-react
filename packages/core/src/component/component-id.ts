@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -19,9 +19,9 @@ function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
 export function getFunctionComponentIdentifier(
   node: AST.TSESTreeFunction,
   context: RuleContext,
-): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
+): TSESTree.Identifier | TSESTree.Identifier[] | _ {
   const functionId = AST.getFunctionIdentifier(node);
-  if (O.isSome(functionId)) {
+  if (functionId) {
     return functionId;
   }
   const { parent } = node;
@@ -32,7 +32,7 @@ export function getFunctionComponentIdentifier(
     && parent.parent.type === T.VariableDeclarator
     && parent.parent.id.type === T.Identifier
   ) {
-    return O.some(parent.parent.id);
+    return parent.parent.id;
   }
   // Get function component identifier from `const Component = memo(forwardRef(() => {}));`
   if (
@@ -43,7 +43,7 @@ export function getFunctionComponentIdentifier(
     && parent.parent.parent.type === T.VariableDeclarator
     && parent.parent.parent.id.type === T.Identifier
   ) {
-    return O.some(parent.parent.parent.id);
+    return parent.parent.parent.id;
   }
-  return O.none();
+  return _;
 }

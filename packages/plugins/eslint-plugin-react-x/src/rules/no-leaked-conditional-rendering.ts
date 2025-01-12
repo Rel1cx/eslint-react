@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { F, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -33,7 +33,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 // #region Types
 
 /** The types we care about */
-/* eslint-disable perfectionist/sort-union-types */
+
 type VariantType =
   | "any"
   | "bigint"
@@ -53,7 +53,6 @@ type VariantType =
   | "truthy boolean"
   | "truthy number"
   | "truthy string";
-/* eslint-enable perfectionist/sort-union-types */
 
 // #endregion
 
@@ -120,14 +119,12 @@ function inspectVariantTypes(types: ts.Type[]) {
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
   switch (true) {
     case booleans.length === 1 && booleans[0] != null: {
-      const [first] = booleans;
-      const evaluated = F.pipe(
-        match<typeof first, O.Option<VariantType>>(first)
-          .when(isTrueLiteralType, () => O.some("truthy boolean"))
-          .when(isFalseLiteralType, () => O.some("falsy boolean"))
-          .otherwise(O.none),
-      );
-      O.map(evaluated, (v) => variantTypes.add(v));
+      const first = booleans[0];
+      if (isTrueLiteralType(first)) {
+        variantTypes.add("truthy boolean");
+      } else if (isFalseLiteralType(first)) {
+        variantTypes.add("falsy boolean");
+      }
       break;
     }
     case booleans.length === 2: {
@@ -138,25 +135,25 @@ function inspectVariantTypes(types: ts.Type[]) {
   const strings = types.filter(tsHelpers.isStringType);
   if (strings.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(strings)
-      .when((types) => types.every(tsHelpers.isTruthyStringType), F.constant("truthy string"))
-      .when((types) => types.every(tsHelpers.isFalsyStringType), F.constant("falsy string"))
-      .otherwise(F.constant("string"));
+      .when((types) => types.every(tsHelpers.isTruthyStringType), () => "truthy string")
+      .when((types) => types.every(tsHelpers.isFalsyStringType), () => "falsy string")
+      .otherwise(() => "string" as const);
     variantTypes.add(evaluated);
   }
   const bigints = types.filter(tsHelpers.isBigIntType);
   if (bigints.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(bigints)
-      .when((types) => types.every(tsHelpers.isTruthyBigIntType), F.constant("truthy bigint"))
-      .when((types) => types.every(tsHelpers.isFalsyBigIntType), F.constant("falsy bigint"))
-      .otherwise(F.constant("bigint"));
+      .when((types) => types.every(tsHelpers.isTruthyBigIntType), () => "truthy bigint")
+      .when((types) => types.every(tsHelpers.isFalsyBigIntType), () => "falsy bigint")
+      .otherwise(() => "bigint");
     variantTypes.add(evaluated);
   }
   const numbers = types.filter(tsHelpers.isNumberType);
   if (numbers.length > 0) {
     const evaluated = match<ts.Type[], VariantType>(numbers)
-      .when((types) => types.every(tsHelpers.isTruthyNumberType), F.constant("truthy number"))
-      .when((types) => types.every(tsHelpers.isFalsyNumberType), F.constant("falsy number"))
-      .otherwise(F.constant("number"));
+      .when((types) => types.every(tsHelpers.isTruthyNumberType), () => "truthy number")
+      .when((types) => types.every(tsHelpers.isFalsyNumberType), () => "falsy number")
+      .otherwise(() => "number" as const);
     variantTypes.add(evaluated);
   }
   if (types.some(tsHelpers.isEnumType)) {
@@ -176,25 +173,23 @@ function inspectVariantTypes(types: ts.Type[]) {
 
 function isInitExpression(
   node:
+    | _
+    | null
     | TSESTree.Expression
     | TSESTree.LetOrConstOrVarDeclaration,
-) {
+): node is TSESTree.Expression {
+  if (node == null) return false;
   return node.type !== T.VariableDeclaration;
 }
 
-function getVariableInitExpression(at: number) {
-  return (variable: Variable): O.Option<TSESTree.Expression> => {
-    return F.pipe(
-      O.some(variable),
-      O.flatMapNullable((v) => v.defs.at(at)),
-      O.flatMap((d) =>
-        "init" in d.node
-          ? O.fromNullable(d.node.init)
-          : O.none()
-      ),
-      O.filter(isInitExpression),
-    );
-  };
+function getVariableInitExpression(variable: Variable | _, at: number): TSESTree.Expression | _ {
+  const def = variable?.defs[at];
+  if (def?.node === _ || !("init" in def.node)) {
+    return _;
+  }
+  return isInitExpression(def.node.init)
+    ? def.node.init
+    : _;
 }
 
 // #endregion
@@ -239,9 +234,10 @@ export default createRule<[], MessageID>({
     ] as const satisfies VariantType[];
 
     const services = ESLintUtils.getParserServices(context, false);
-    function getReportDescriptor(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
-      return match<typeof node, O.Option<ReportDescriptor<MessageID>>>(node)
-        .when(AST.isJSX, O.none)
+    function getReportDescriptor(node: TSESTree.Expression | _): ReportDescriptor<MessageID> | _ {
+      if (node === _) return _;
+      return match<typeof node, ReportDescriptor<MessageID> | _>(node)
+        .when(AST.isJSX, () => _)
         .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
           const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
           if (isLeftUnaryNot) {
@@ -249,13 +245,15 @@ export default createRule<[], MessageID>({
           }
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
-            || O.exists(VAR.getStaticValue(left, initialScope), (v) => v === "NaN");
+            || VAR
+                .toResolved({ kind: "lazy", node: left, initialScope })
+                .value === "NaN";
           if (isLeftNan) {
-            return O.some({
+            return {
               messageId: "noLeakedConditionalRendering",
               node: left,
               data: { value: context.sourceCode.getText(left) },
-            });
+            } as const;
           }
           const leftType = getConstrainedTypeAtLocation(services, left);
           const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
@@ -265,25 +263,27 @@ export default createRule<[], MessageID>({
           if (isLeftValid) {
             return getReportDescriptor(right);
           }
-          return O.some({
+          return {
             messageId: "noLeakedConditionalRendering",
             node: left,
             data: { value: context.sourceCode.getText(left) },
-          });
+          } as const;
         })
         .with({ type: T.ConditionalExpression }, ({ alternate, consequent }) => {
-          return O.orElse(getReportDescriptor(consequent), () => getReportDescriptor(alternate));
+          return getReportDescriptor(consequent) ?? getReportDescriptor(alternate);
         })
         .with({ type: T.Identifier }, (n) => {
-          return F.pipe(
-            VAR.findVariable(n.name, context.sourceCode.getScope(n)),
-            O.flatMap(getVariableInitExpression(0)),
-            O.flatMap(getReportDescriptor),
-          );
+          const variable = VAR.findVariable(n.name, context.sourceCode.getScope(n));
+          const initExpression = getVariableInitExpression(variable, 0);
+          return getReportDescriptor(initExpression);
         })
-        .otherwise(O.none);
+        .otherwise(() => _);
     }
-    const visitorFunction = F.flow(getReportDescriptor, O.map(context.report));
+    const visitorFunction = (node: TSESTree.Expression) => {
+      const descriptor = getReportDescriptor(node);
+      if (descriptor === _) return;
+      context.report(descriptor);
+    };
     return {
       "JSXExpressionContainer > ConditionalExpression": visitorFunction,
       "JSXExpressionContainer > LogicalExpression": visitorFunction,

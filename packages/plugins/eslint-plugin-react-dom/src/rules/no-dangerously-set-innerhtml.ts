@@ -1,4 +1,4 @@
-import { F, O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
@@ -30,12 +30,13 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        F.pipe(
-          O.some("dangerouslySetInnerHTML"),
-          O.flatMap(JSX.findPropInAttributes(node.openingElement.attributes, context.sourceCode.getScope(node))),
-          O.map((prop) => ({ messageId: "noDangerouslySetInnerhtml", node: prop } as const)),
-          O.map(context.report),
-        );
+        const attributes = node.openingElement.attributes;
+        const prop = JSX.getProp("dangerouslySetInnerHTML", context.sourceCode.getScope(node), attributes);
+        if (prop === _) return;
+        context.report({
+          messageId: "noDangerouslySetInnerhtml",
+          node: prop,
+        });
       },
     };
   },

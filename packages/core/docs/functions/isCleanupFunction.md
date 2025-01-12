@@ -6,7 +6,7 @@
 
 # Function: isCleanupFunction()
 
-> **isCleanupFunction**(`node`): `boolean`
+> **isCleanupFunction**(`node`): `undefined` \| `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`boolean`
+`undefined` \| `boolean`

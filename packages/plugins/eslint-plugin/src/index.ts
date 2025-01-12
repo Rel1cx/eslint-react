@@ -27,7 +27,8 @@ type Config = {
 };
 
 function makeLegacyConfig<A extends Config>(config: A) {
-  const { name: _, ...rest } = config;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { name: drop, ...rest } = config;
   return {
     ...rest,
     plugins: ["@eslint-react"],

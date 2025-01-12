@@ -1,4 +1,3 @@
-import { O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
@@ -29,10 +28,17 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const initialScope = context.sourceCode.getScope(node);
-        const prop = JSX.getProp(node.openingElement.attributes, "children", initialScope);
-        const reportDescriptor = O.map(prop, (prop) => ({ messageId: "noChildrenProp", node: prop } as const));
-        O.map(reportDescriptor, context.report);
+        const prop = JSX.getProp(
+          "children",
+          context.sourceCode.getScope(node),
+          node.openingElement.attributes,
+        );
+        if (prop) {
+          context.report({
+            messageId: "noChildrenProp",
+            node: prop,
+          });
+        }
       },
     };
   },

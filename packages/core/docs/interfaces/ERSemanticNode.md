@@ -34,7 +34,7 @@
 
 ### id
 
-> **id**: `Option`\<`Identifier` \| `Identifier`[]\>
+> **id**: `undefined` \| `Identifier` \| `Identifier`[]
 
 ***
 
@@ -46,7 +46,7 @@
 
 ### name
 
-> **name**: `Option`\<`string`\>
+> **name**: `undefined` \| `string`
 
 ***
 

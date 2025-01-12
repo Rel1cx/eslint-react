@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { F, isNullable, isString, O } from "@eslint-react/eff";
+import { _, returnFalse } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
@@ -74,11 +74,11 @@ const schema = [
 ] satisfies [JSONSchema4];
 
 function normalizeOptions(options: Options) {
-  const [opts] = options;
-  if (isNullable(opts)) {
+  const opts = options[0];
+  if (opts == null) {
     return defaultOptions[0];
   }
-  if (isString(opts)) {
+  if (typeof opts === "string") {
     return { ...defaultOptions[0], rule: opts } as const;
   }
   return {
@@ -87,7 +87,8 @@ function normalizeOptions(options: Options) {
   } as const;
 }
 
-function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
+function validate(name: string | _, options: ReturnType<typeof normalizeOptions>) {
+  if (name === _) return false;
   if (options.excepts.some((regex) => regex.test(name))) {
     return true;
   }
@@ -95,10 +96,10 @@ function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
     .normalize("NFKD")
     .replace(/[\u0300-\u036F]/g, "");
   normalized = normalized.split(".").at(-1) ?? normalized;
-  if (options.allowNamespace) {
+  if (options.allowNamespace !== _) {
     normalized = normalized.replace(":", "");
   }
-  if (options.allowLeadingUnderscore) {
+  if (options.allowLeadingUnderscore !== _) {
     normalized = normalized.replace(/^_/, "");
   }
   return match(options.rule)
@@ -106,11 +107,11 @@ function validate(name: string, options: ReturnType<typeof normalizeOptions>) {
     .with("PascalCase", () => {
       // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
-        return options.allowAllCaps;
+        return !!options.allowAllCaps;
       }
       return RE_PASCAL_CASE.test(normalized);
     })
-    .otherwise(F.constFalse);
+    .otherwise(returnFalse);
 }
 
 export default createRule<Options, MessageID>({
@@ -155,11 +156,8 @@ export default createRule<Options, MessageID>({
         const functionComponents = collector.ctx.getAllComponents(node);
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
         for (const { node: component } of functionComponents.values()) {
-          const mbId = AST.getFunctionIdentifier(component);
-          if (O.isNone(mbId)) {
-            continue;
-          }
-          const id = mbId.value;
+          const id = AST.getFunctionIdentifier(component);
+          if (id?.name === _) continue;
           if (validate(id.name, options)) {
             continue;
           }
@@ -172,19 +170,17 @@ export default createRule<Options, MessageID>({
           });
         }
         for (const { node: component } of classComponents.values()) {
-          F.pipe(
-            AST.getClassIdentifier(component),
-            O.filter((id) => !validate(id.name, options)),
-            O.map((id) => {
-              context.report({
-                messageId: "componentName",
-                node: id,
-                data: {
-                  case: options.rule,
-                },
-              });
-            }),
-          );
+          const id = AST.getClassIdentifier(component);
+          if (id?.name === _) continue;
+          if (!validate(id.name, options)) {
+            context.report({
+              messageId: "componentName",
+              node: id,
+              data: {
+                case: options.rule,
+              },
+            });
+          }
         }
       },
     };

@@ -41,7 +41,7 @@
 ## Functions
 
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
-- [getElementRepresentName](functions/getElementRepresentName.md)
+- [getElementNameAndRepresentName](functions/getElementNameAndRepresentName.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [getId](functions/getId.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)

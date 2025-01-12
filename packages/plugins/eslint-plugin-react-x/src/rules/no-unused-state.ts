@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -17,21 +17,21 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): O.Option<string> {
+function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
   if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return O.some(node.name);
+    return node.name;
   }
   if (node.type === T.Literal) {
-    return O.some(String(node.value));
+    return String(node.value);
   }
   if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return O.fromNullable(node.quasis[0]?.value.raw);
+    return node.quasis[0]?.value.raw;
   }
 
-  return O.none();
+  return _;
 }
 
 function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
@@ -40,7 +40,7 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   return (
     left.type === T.MemberExpression
     && AST.isThisExpression(left.object)
-    && O.exists(getName(left.property), (name) => name === "state")
+    && getName(left.property) === "state"
   );
 }
 
@@ -68,56 +68,56 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const classStack: AST.TSESTreeClass[] = [];
-    const methodStack: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
-    const constructorStack: TSESTree.MethodDefinition[] = [];
-    const stateDefs = new WeakMap<AST.TSESTreeClass, [node: O.Option<TSESTree.Node>, isUsed: boolean]>();
+    const classEntries: AST.TSESTreeClass[] = [];
+    const methodEntries: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
+    const constructorEntries: TSESTree.MethodDefinition[] = [];
+    const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | _; isUsed: boolean }>();
     function classEnter(node: AST.TSESTreeClass) {
-      classStack.push(node);
+      classEntries.push(node);
     }
     function classExit() {
-      const currentClass = classStack.pop();
+      const currentClass = classEntries.pop();
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
-      const className = O.map(AST.getClassIdentifier(currentClass), (id) => id.name);
-      const [def, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
-      if (O.isNone(def) || isUsed) {
+      const className = AST.getClassIdentifier(currentClass)?.name;
+      const { node: defNode, isUsed } = stateDefs.get(currentClass) ?? {};
+      if (!defNode || isUsed) {
         return;
       }
       context.report({
         messageId: "noUnusedState",
-        node: def.value,
+        node: defNode,
         data: {
-          className: O.getOrElse(className, () => "Component"),
+          className: className ?? "Component",
         },
       });
     }
     function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
-      methodStack.push(node);
-      const currentClass = classStack.at(-1);
+      methodEntries.push(node);
+      const currentClass = classEntries.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       if (node.static) {
         if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
-          const [def] = stateDefs.get(currentClass) ?? [O.none()];
-          stateDefs.set(currentClass, [def, true]);
+          const defNode = stateDefs.get(currentClass)?.node;
+          stateDefs.set(currentClass, { node: defNode, isUsed: true });
         }
         return;
       }
-      if (O.exists(getName(node.key), (name) => name === "state")) {
-        stateDefs.set(currentClass, [O.some(node.key), false]);
+      if (getName(node.key) === "state") {
+        stateDefs.set(currentClass, { node: node.key, isUsed: false });
       }
     }
     function methodExit() {
-      methodStack.pop();
+      methodEntries.pop();
     }
     function constructorEnter(node: TSESTree.MethodDefinition) {
-      constructorStack.push(node);
+      constructorEntries.push(node);
     }
     function constructorExit() {
-      constructorStack.pop();
+      constructorEntries.pop();
     }
 
     return {
@@ -125,16 +125,16 @@ export default createRule<[], MessageID>({
         if (!isAssignmentToThisState(node)) {
           return;
         }
-        const currentClass = classStack.at(-1);
+        const currentClass = classEntries.at(-1);
         if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
-        const currentConstructor = constructorStack.at(-1);
+        const currentConstructor = constructorEntries.at(-1);
         if (currentConstructor == null || !currentClass.body.body.includes(currentConstructor)) {
           return;
         }
-        const [_, isUsed] = stateDefs.get(currentClass) ?? [O.none(), false];
-        stateDefs.set(currentClass, [O.some(node.left), isUsed]);
+        const isUsed = stateDefs.get(currentClass)?.isUsed ?? false;
+        stateDefs.set(currentClass, { node: node.left, isUsed });
       },
       ClassDeclaration: classEnter,
       "ClassDeclaration:exit": classExit,
@@ -145,25 +145,25 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `this.state`
-        if (!O.exists(getName(node.property), (name) => name === "state")) {
+        if (getName(node.property) !== "state") {
           return;
         }
-        const currentClass = classStack.at(-1);
+        const currentClass = classEntries.at(-1);
         if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
-        const currentMethod = methodStack.at(-1);
+        const currentMethod = methodEntries.at(-1);
         if (currentMethod == null || currentMethod.static) {
           return;
         }
-        if (currentMethod === constructorStack.at(-1)) {
+        if (currentMethod === constructorEntries.at(-1)) {
           return;
         }
         if (!currentClass.body.body.includes(currentMethod)) {
           return;
         }
-        const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
-        stateDefs.set(currentClass, [def, true]);
+        const defNode = stateDefs.get(currentClass)?.node;
+        stateDefs.set(currentClass, { node: defNode, isUsed: true });
       },
       MethodDefinition: methodEnter,
       "MethodDefinition:exit": methodExit,
@@ -172,15 +172,15 @@ export default createRule<[], MessageID>({
       PropertyDefinition: methodEnter,
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
-        const currentClass = classStack.at(-1);
+        const currentClass = classEntries.at(-1);
         if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
-        const currentMethod = methodStack.at(-1);
+        const currentMethod = methodEntries.at(-1);
         if (currentMethod == null || currentMethod.static) {
           return;
         }
-        if (currentMethod === constructorStack.at(-1)) {
+        if (currentMethod === constructorEntries.at(-1)) {
           return;
         }
         if (!currentClass.body.body.includes(currentMethod)) {
@@ -192,15 +192,15 @@ export default createRule<[], MessageID>({
         }
         const hasState = node.id.properties.some((prop) => {
           if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
-            return O.exists(getName(prop.key), (name) => name === "state");
+            return getName(prop.key) === "state";
           }
           return false;
         });
         if (!hasState) {
           return;
         }
-        const [def] = stateDefs.get(currentClass) ?? [O.none(), false];
-        stateDefs.set(currentClass, [def, true]);
+        const defNode = stateDefs.get(currentClass)?.node;
+        stateDefs.set(currentClass, { node: defNode, isUsed: true });
       },
     };
   },

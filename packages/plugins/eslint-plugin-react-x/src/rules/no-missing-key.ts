@@ -1,12 +1,10 @@
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
-import { O } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -36,60 +34,61 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const state = { isWithinChildrenToArray: false };
-    function checkIteratorElement(node: TSESTree.Node): O.Option<ReportDescriptor<MessageID>> {
+    function checkIteratorElement(node: TSESTree.Node): null | ReportDescriptor<MessageID> {
       switch (node.type) {
         case T.JSXElement: {
           const initialScope = context.sourceCode.getScope(node);
-          if (!JSX.hasProp(node.openingElement.attributes, "key", initialScope)) {
-            return O.some({
+          if (!JSX.hasProp("key", initialScope, node.openingElement.attributes)) {
+            return {
               messageId: "noMissingKey",
               node,
-            });
+            } as const;
           }
-          return O.none();
+          return null;
         }
         case T.JSXFragment: {
-          return O.some({
+          return {
             messageId: "noMissingKeyWithFragment",
             node,
-          });
+          } as const;
         }
         default:
-          return O.none();
+          return null;
       }
     }
 
-    function checkExpression(node: TSESTree.Expression): O.Option<ReportDescriptor<MessageID>> {
+    function checkExpression(node: TSESTree.Expression): null | ReportDescriptor<MessageID> {
       switch (node.type) {
         case T.ConditionalExpression:
-          if (!("consequent" in node)) {
-            return O.none();
+          if ("consequent" in node) {
+            return checkIteratorElement(node.consequent) ?? checkIteratorElement(node.alternate);
           }
-          return O.orElse(checkIteratorElement(node.consequent), () => checkIteratorElement(node.alternate));
+          return null;
         case T.JSXElement:
         case T.JSXFragment:
           return checkIteratorElement(node);
         case T.LogicalExpression:
-          if (!("left" in node)) {
-            return O.none();
+          if ("left" in node) {
+            return checkIteratorElement(node.left) ?? checkIteratorElement(node.right);
           }
-          return O.orElse(checkIteratorElement(node.left), () => checkIteratorElement(node.right));
+          return null;
         default:
-          return O.none();
+          return null;
       }
     }
 
     function checkBlockStatement(node: TSESTree.BlockStatement) {
-      return AST.getNestedReturnStatements(node)
-        .reduce<ReportDescriptor<MessageID>[]>((acc, statement) => {
-          if (statement.argument == null) {
-            return acc;
-          }
-          const mbDescriptor = checkIteratorElement(statement.argument);
-          return O.isNone(mbDescriptor)
-            ? acc
-            : [...acc, mbDescriptor.value];
-        }, []);
+      const descriptors: ReportDescriptor<MessageID>[] = [];
+      for (const statement of AST.getNestedReturnStatements(node)) {
+        if (statement.argument == null) {
+          continue;
+        }
+        const descriptor = checkIteratorElement(statement.argument);
+        if (descriptor != null) {
+          descriptors.push(descriptor);
+        }
+      }
+      return descriptors;
     }
 
     return {
@@ -103,7 +102,7 @@ export default createRule<[], MessageID>({
         }
         const initialScope = context.sourceCode.getScope(node);
         for (const element of elements) {
-          if (!JSX.hasProp(element.openingElement.attributes, "key", initialScope)) {
+          if (!JSX.hasProp("key", initialScope, element.openingElement.attributes)) {
             context.report({
               messageId: "noMissingKey",
               node: element,
@@ -116,21 +115,12 @@ export default createRule<[], MessageID>({
         if (state.isWithinChildrenToArray) {
           return;
         }
-        const isMapCall = AST.isMapCallLoose(node);
-        const isArrayFromCall = isMatching({
-          type: T.CallExpression,
-          callee: {
-            type: T.MemberExpression,
-            property: {
-              name: "from",
-            },
-          },
-        }, node);
-        if (!isMapCall && !isArrayFromCall) {
+        const isMapCallLike = AST.isMapCallLoose(node);
+        if (!isMapCallLike && !isArrayFromCall(node)) {
           return;
         }
-        const fn = node.arguments[isMapCall ? 0 : 1];
-        if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(fn)) {
+        const fn = node.arguments[isMapCallLike ? 0 : 1];
+        if (fn?.type !== T.ArrowFunctionExpression && fn?.type !== T.FunctionExpression) {
           return;
         }
         if (fn.body.type === T.BlockStatement) {
@@ -139,7 +129,10 @@ export default createRule<[], MessageID>({
           }
           return;
         }
-        O.map(checkExpression(fn.body), context.report);
+        const descriptor = checkExpression(fn.body);
+        if (descriptor != null) {
+          context.report(descriptor);
+        }
       },
       "CallExpression:exit"(node) {
         if (!isChildrenToArrayCall(node, context)) {
@@ -162,3 +155,10 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+function isArrayFromCall(node: TSESTree.Node): node is TSESTree.CallExpression {
+  return node.type === T.CallExpression
+    && node.callee.type === T.MemberExpression
+    && node.callee.property.type === T.Identifier
+    && node.callee.property.name === "from";
+}

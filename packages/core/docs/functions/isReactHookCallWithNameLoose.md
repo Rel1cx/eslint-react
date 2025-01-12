@@ -12,7 +12,7 @@
 
 ### node
 
-`CallExpression`
+`undefined` | `CallExpression`
 
 ## Returns
 

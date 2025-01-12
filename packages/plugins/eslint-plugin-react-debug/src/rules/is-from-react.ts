@@ -1,11 +1,9 @@
 import { isInitializedFromReact } from "@eslint-react/core";
-import { F, O } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -56,24 +54,23 @@ export default createRule<[], MessageID>({
           return isInitializedFromReact(name, initialScope, settings.importSource);
       }
     }
-    function getReportDescriptor(
-      node: TSESTree.Identifier | TSESTree.JSXIdentifier,
-    ): O.Option<ReportDescriptor<MessageID>> {
+    function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
       const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier
         && node.parent.imported === node
         && node.parent.imported.name === node.parent.local.name;
       if (shouldSkipDuplicate) {
-        return O.none();
+        return;
       }
       const name = node.name;
       const initialScope = context.sourceCode.getScope(node);
       if (!isFromReact(node, initialScope)) {
-        return O.none();
+        return;
       }
-      return O.some({
+      context.report({
         messageId: "isFromReact",
         node,
         data: {
+          // eslint-disable-next-line eslint-plugin/no-unused-placeholders
           type: node.type,
           name,
           importSource: settings.importSource,
@@ -81,8 +78,8 @@ export default createRule<[], MessageID>({
       });
     }
     return {
-      Identifier: F.flow(getReportDescriptor, O.map(context.report)),
-      JSXIdentifier: F.flow(getReportDescriptor, O.map(context.report)),
+      Identifier: visitorFunction,
+      JSXIdentifier: visitorFunction,
     };
   },
   defaultOptions: [],

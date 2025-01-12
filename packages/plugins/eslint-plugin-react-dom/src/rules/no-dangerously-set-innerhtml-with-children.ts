@@ -1,4 +1,3 @@
-import { isNullable } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -13,13 +12,6 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-function firstChildIsText(node: TSESTree.JSXElement) {
-  const [firstChild] = node.children;
-  return node.children.length > 0
-    && !isNullable(firstChild)
-    && !JSX.isLineBreak(firstChild);
-}
 
 // TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use different properties to receive HTML and set them internally.
 export default createRule<[], MessageID>({
@@ -39,20 +31,24 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
+        const attributes = node.openingElement.attributes;
         const initialScope = context.sourceCode.getScope(node);
-        const hasChildrenWithIn = () => node.children.length > 0 && firstChildIsText(node);
-        const hasChildrenProp = () => JSX.hasProp(node.openingElement.attributes, "children", initialScope);
-        // dprint-ignore
-        const hasDanger = () => JSX.hasProp(node.openingElement.attributes, "dangerouslySetInnerHTML", initialScope);
-        if (!(hasChildrenWithIn() || hasChildrenProp()) || !hasDanger()) {
-          return;
+        const hasChildren = hasChildrenWithin(node) || JSX.hasProp("children", initialScope, attributes);
+        const hasDangerouslySetInnerHTML = JSX.hasProp("dangerouslySetInnerHTML", initialScope, attributes);
+        if (hasChildren && hasDangerouslySetInnerHTML) {
+          context.report({
+            messageId: "noDangerouslySetInnerhtmlWithChildren",
+            node,
+          });
         }
-        context.report({
-          messageId: "noDangerouslySetInnerhtmlWithChildren",
-          node,
-        });
       },
     };
   },
   defaultOptions: [],
 });
+
+function hasChildrenWithin(node: TSESTree.JSXElement): boolean {
+  return node.children.length > 0
+    && node.children[0] != null
+    && !JSX.isLineBreak(node.children[0]);
+}
