@@ -1,15 +1,9 @@
 {
   "[json]": {
-    "editor.defaultFormatter": "gplane.dprint2",
-    "editor.quickSuggestions": {
-      "strings": true
-    }
+    "editor.defaultFormatter": "gplane.dprint2"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "gplane.dprint2",
-    "editor.quickSuggestions": {
-      "strings": true
-    }
+    "editor.defaultFormatter": "gplane.dprint2"
   },
   "[typescript]": {
     "editor.defaultFormatter": "gplane.dprint2"
@@ -19,12 +13,12 @@
     "editor.autoIndent": "keep",
     "editor.defaultFormatter": "gplane.dprint2",
     "editor.insertSpaces": true,
-    "editor.quickSuggestions": {
-      "comments": false,
-      "other": true,
-      "strings": true
-    },
     "editor.tabSize": 2
+  },
+  "editor.codeActionsOnSave": {
+    "eslint.autoFix": "never",
+    "source.fixAll": "never",
+    "source.organizeImports": "never"
   },
   "eslint.validate": [
     "javascript",
@@ -36,33 +30,28 @@
     "mdx",
     "github-actions-workflow" // for GitHub Actions workflow files
   ],
-  "editor.codeActionsOnSave": {
-    "eslint.autoFix": "never",
-    "source.fixAll": "never",
-    "source.organizeImports": "never"
-  },
   "eslint.workingDirectories": [
     {
       "changeProcessCWD": true,
       "mode": "location"
     },
     {
-      "pattern": "examples/*",
       "changeProcessCWD": true,
-      "mode": "auto"
+      "mode": "auto",
+      "pattern": "examples/*"
     },
     {
-      "pattern": "website",
       "changeProcessCWD": true,
-      "mode": "auto"
+      "mode": "auto",
+      "pattern": "website"
     }
   ],
-  "mdx.server.enable": true,
   "files.exclude": {
     "**/.turbo": true,
     "*.bundled_*.mjs": true
   },
+  "mdx.server.enable": true,
+  "npm.packageManager": "pnpm",
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "svg.preview.background": "dark-transparent"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
