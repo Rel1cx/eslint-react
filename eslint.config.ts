@@ -329,7 +329,6 @@ export default tseslint.config(
     },
     rules: {
       ...disableTypeCheckedRules,
-      "import-x/no-extraneous-dependencies": "off",
     },
   },
 );
