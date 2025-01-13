@@ -6,7 +6,7 @@
 
 # Function: useComponentCollector()
 
-> **useComponentCollector**(`context`, `hint`): `object`
+> **useComponentCollector**(`context`, `hint`, `options`): `object`
 
 ## Parameters
 
@@ -17,6 +17,10 @@
 ### hint
 
 `bigint` = `DEFAULT_COMPONENT_HINT`
+
+### options
+
+[`ComponentCollectorOptions`](../interfaces/ComponentCollectorOptions.md) = `DEFAULT_COMPONENT_COLLECT_OPTIONS`
 
 ## Returns
 
@@ -84,7 +88,7 @@
 
 `void`
 
-#### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()
+#### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()?
 
 ##### Parameters
 
@@ -96,7 +100,7 @@
 
 `void`
 
-#### listeners.CallExpression\[type\]:exit()
+#### listeners.CallExpression\[type\]:exit()?
 
 ##### Parameters
 

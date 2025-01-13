@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
@@ -57,10 +58,21 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   return flag;
 }
 
+export interface ComponentCollectorOptions {
+  collectDisplayName?: boolean;
+  collectHookCalls?: boolean;
+}
+
+// dprint-ignore
+const displayNameAssignmentSelector = "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']";
+
 export function useComponentCollector(
   context: RuleContext,
   hint = DEFAULT_COMPONENT_HINT,
+  options: ComponentCollectorOptions = {},
 ) {
+  const { collectDisplayName = false, collectHookCalls = false } = options;
+
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
   const functionEntries: {
@@ -69,6 +81,7 @@ export function useComponentCollector(
     hookCalls: TSESTree.CallExpression[];
     isComponent: boolean;
   }[] = [];
+
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const key = getId();
@@ -137,34 +150,36 @@ export function useComponentCollector(
         initPath,
       });
     },
-    "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']"(
-      node: TSESTree.AssignmentExpression & { left: TSESTree.MemberExpression },
-    ) {
-      const { left, right } = node;
-      const componentName = left.object.type === T.Identifier
-        ? left.object.name
-        : _;
-      const component = [...components.values()]
-        .findLast(({ name }) => name != null && name === componentName);
-      if (component == null) {
-        return;
+    ...collectDisplayName
+      ? {
+        [displayNameAssignmentSelector](node: TSESTree.AssignmentExpression & { left: TSESTree.MemberExpression }) {
+          const { left, right } = node;
+          const componentName = left.object.type === T.Identifier
+            ? left.object.name
+            : _;
+          const component = [...components.values()]
+            .findLast(({ name }) => name != null && name === componentName);
+          if (component == null) {
+            return;
+          }
+          component.displayName = right;
+        },
       }
-      components.set(component.key, {
-        ...component,
-        displayName: right,
-      });
-    },
-    "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
-      if (!isReactHookCall(node)) {
-        return;
+      : {},
+    ...collectHookCalls
+      ? {
+        "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
+          if (!isReactHookCall(node)) {
+            return;
+          }
+          const entry = getCurrentEntry();
+          if (entry == null) {
+            return;
+          }
+          entry.hookCalls.push(node);
+        },
       }
-      const entry = getCurrentEntry();
-      if (entry == null) {
-        return;
-      }
-      functionEntries.pop();
-      functionEntries.push({ ...entry, hookCalls: [...entry.hookCalls, node] });
-    },
+      : {},
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) {

@@ -1,4 +1,9 @@
-import { isReactHookCallWithNameLoose, isUseStateCall, useComponentCollector } from "@eslint-react/core";
+import {
+  DEFAULT_COMPONENT_HINT,
+  isReactHookCallWithNameLoose,
+  isUseStateCall,
+  useComponentCollector,
+} from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -37,7 +42,17 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const alias = getSettingsFromContext(context).additionalHooks?.useState ?? [];
-    const { ctx, listeners } = useComponentCollector(context);
+    const {
+      ctx,
+      listeners,
+    } = useComponentCollector(
+      context,
+      DEFAULT_COMPONENT_HINT,
+      {
+        collectDisplayName: false,
+        collectHookCalls: true,
+      },
+    );
 
     return {
       ...listeners,

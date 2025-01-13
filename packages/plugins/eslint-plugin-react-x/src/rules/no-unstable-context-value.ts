@@ -5,6 +5,7 @@ import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
+import { getOrUpdate } from "@eslint-react/eff";
 
 export const RULE_NAME = "no-unstable-context-value";
 
@@ -67,8 +68,7 @@ export default createRule<[], MessageID>({
         if (isReactHookCall(construction.node)) {
           return;
         }
-        const prevs = constructions.get(functionEntry.node) ?? [];
-        constructions.set(functionEntry.node, [...prevs, construction]);
+        getOrUpdate(constructions, functionEntry.node, () => []).push(construction);
       },
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node).values();
