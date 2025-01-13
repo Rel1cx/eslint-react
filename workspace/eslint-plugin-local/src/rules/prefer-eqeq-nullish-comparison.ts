@@ -1,6 +1,6 @@
 // Ported from: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin-internal/src/rules/eqeq-nullish.ts
 
-import type { RuleFeature } from "@eslint-react/types";
+import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { nullThrows, NullThrowsReasons } from "@typescript-eslint/utils/eslint-utils";
 

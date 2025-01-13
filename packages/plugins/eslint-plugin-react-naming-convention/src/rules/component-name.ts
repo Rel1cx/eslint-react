@@ -3,8 +3,8 @@ import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-reac
 import type { _ } from "@eslint-react/eff";
 import { returnFalse } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
+import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
-import type { RuleFeature } from "@eslint-react/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";

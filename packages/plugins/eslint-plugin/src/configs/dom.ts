@@ -1,5 +1,5 @@
+import type { RulePreset } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
-import type { RulePreset } from "@eslint-react/types";
 import reactDom from "eslint-plugin-react-dom";
 
 export const name = "@eslint-react/dom";

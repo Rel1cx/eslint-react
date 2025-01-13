@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/types";
+import type { RulePreset } from "@eslint-react/shared";
 
 import * as recommendedTypeScript from "./recommended-typescript";
 

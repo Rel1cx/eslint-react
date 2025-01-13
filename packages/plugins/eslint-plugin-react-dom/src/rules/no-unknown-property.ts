@@ -7,7 +7,7 @@
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare, compareVersions } from "compare-versions";
-import type { RuleFeature } from "@eslint-react/types";
+import type { RuleFeature } from "@eslint-react/shared";
 
 // ------------------------------------------------------------------------------
 // Constants

@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/types";
+import type { RulePreset } from "@eslint-react/shared";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";

@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/types";
+import type { RulePreset } from "@eslint-react/shared";
 import reactWebApi from "eslint-plugin-react-web-api";
 
 import * as dom from "./dom";

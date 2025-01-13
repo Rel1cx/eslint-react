@@ -1,5 +1,5 @@
 import { useComponentCollector } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/types";
+import type { RuleFeature } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";

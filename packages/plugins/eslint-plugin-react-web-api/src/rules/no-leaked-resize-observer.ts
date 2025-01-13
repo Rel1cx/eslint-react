@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
 import { _, or } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/types";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";

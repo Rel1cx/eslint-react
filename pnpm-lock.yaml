@@ -5,17 +5,17 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
-  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
-  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
-  typedarray: npm:@nolyfill/typedarray@^1.0.29
   '@types/react': ^19.0.6
   '@types/react-dom': ^19.0.3
   cross-spawn: ^7.0.6
+  is-core-module: npm:@nolyfill/is-core-module@^1.0.39
   next: ^15.1.4
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@nolyfill/safe-buffer@^1.0.41
+  safer-buffer: npm:@nolyfill/safer-buffer@^1.0.41
   ts-api-utils: ^2.0.0
+  typedarray: npm:@nolyfill/typedarray@^1.0.29
   typescript: ^5.7.3
 
 importers:
@@ -479,9 +479,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../utilities/var
@@ -516,9 +513,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@typescript-eslint/scope-manager':
         specifier: ^8.19.1
         version: 8.19.1
@@ -580,9 +574,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
@@ -641,9 +632,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
@@ -702,9 +690,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
@@ -763,9 +748,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@typescript-eslint/scope-manager':
         specifier: ^8.19.1
         version: 8.19.1
@@ -821,9 +803,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
@@ -879,9 +858,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
@@ -969,33 +945,11 @@ importers:
         specifier: ^1.0.0-beta.11
         version: 1.0.0-beta.11(typescript@5.7.3)
 
-  packages/types:
-    dependencies:
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../utilities/eff
-      '@typescript-eslint/types':
-        specifier: ^8.19.1
-        version: 8.19.1
-      '@typescript-eslint/utils':
-        specifier: ^8.19.1
-        version: 8.19.1(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
-    devDependencies:
-      '@workspace/configs':
-        specifier: workspace:*
-        version: link:../../workspace/configs
-      tsup:
-        specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
-
   packages/utilities/ast:
     dependencies:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../eff
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@typescript-eslint/types':
         specifier: ^8.19.1
         version: 8.19.1
@@ -1036,9 +990,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../eff
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../var
@@ -1070,9 +1021,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../eff
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../types
       '@typescript-eslint/scope-manager':
         specifier: ^8.19.1
         version: 8.19.1
@@ -1227,9 +1175,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      '@eslint-react/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../packages/utilities/var

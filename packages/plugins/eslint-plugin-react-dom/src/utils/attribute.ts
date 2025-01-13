@@ -1,7 +1,6 @@
 import { _, identity } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import type { CustomComponentNormalized } from "@eslint-react/shared";
-import type { RuleContext } from "@eslint-react/types";
+import type { CustomComponentNormalized, RuleContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";

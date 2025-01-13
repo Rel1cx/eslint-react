@@ -1,6 +1,6 @@
 import { isInitializedFromReact } from "@eslint-react/core";
+import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import type { RuleFeature } from "@eslint-react/types";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";

@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/types";
+import type { RulePreset } from "@eslint-react/shared";
 
 export const name = "@eslint-react/disable-type-checked";
 

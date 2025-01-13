@@ -1,6 +1,6 @@
 import { getElementNameAndRepresentName } from "@eslint-react/core";
+import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";

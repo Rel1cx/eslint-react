@@ -1,8 +1,8 @@
-[**@eslint-react/types**](../README.md)
+[**@eslint-react/shared**](../README.md)
 
 ***
 
-[@eslint-react/types](../README.md) / RulePreset
+[@eslint-react/shared](../README.md) / RulePreset
 
 # Type Alias: RulePreset
 
