@@ -6,12 +6,12 @@ import type { NarrowedTo } from "./type";
 /**
  * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output dts.
  */
-export type _ = undefined; // eslint-disable-line local/no-shadowing-underscore
+export type _ = undefined; // eslint-disable-line local/no-shadow-underscore
 
 /**
  * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output js.
  */
-export const _ = undefined; // eslint-disable-line local/no-shadowing-underscore
+export const _ = undefined; // eslint-disable-line local/no-shadow-underscore
 
 /**
  * Do nothing and return false

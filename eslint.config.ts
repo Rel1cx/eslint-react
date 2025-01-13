@@ -252,7 +252,7 @@ export default tseslint.config(
       "eslint-plugin/require-meta-docs-url": "off",
       // Part: local rules
       "local/avoid-multiline-template-expression": "warn",
-      "local/no-shadowing-underscore": "error",
+      "local/no-shadow-underscore": "error",
       "local/prefer-eqeq-nullish-comparison": "warn",
     },
     settings: {

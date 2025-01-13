@@ -43,11 +43,11 @@ var avoid_multiline_template_expression_default = createRule({
   },
   defaultOptions: []
 });
-var RULE_NAME2 = "no-shadowing-underscore";
+var RULE_NAME2 = "no-shadow-underscore";
 var RULE_FEATURES2 = [
   "CHK"
 ];
-var no_shadowing_underscore_default = createRule({
+var no_shadow_underscore_default = createRule({
   meta: {
     type: "problem",
     docs: {
@@ -55,7 +55,7 @@ var no_shadowing_underscore_default = createRule({
       [Symbol.for("rule_features")]: RULE_FEATURES2
     },
     messages: {
-      noShadowingUnderscore: "In this codebase, '_' is used to represent the undefined. Avoid shadowing it."
+      noShadowUnderscore: "In this codebase, '_' is used to represent the undefined. Avoid shadowing it."
     },
     schema: []
   },
@@ -67,7 +67,7 @@ var no_shadowing_underscore_default = createRule({
         const isFromImport = VAR.isInitializedFromSource("_", "@eslint-react/eff", initialScope);
         if (!isFromImport) {
           context.report({
-            messageId: "noShadowingUnderscore",
+            messageId: "noShadowUnderscore",
             node
           });
         }
@@ -153,8 +153,8 @@ var index_default = {
     version
   },
   rules: {
-    "no-shadowing-underscore": no_shadowing_underscore_default,
     "avoid-multiline-template-expression": avoid_multiline_template_expression_default,
+    "no-shadow-underscore": no_shadow_underscore_default,
     "prefer-eqeq-nullish-comparison": prefer_eqeq_nullish_comparison_default
   }
 };

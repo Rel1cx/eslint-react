@@ -5,7 +5,7 @@ import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-shadowing-underscore";
+export const RULE_NAME = "no-shadow-underscore";
 
 export const RULE_FEATURES = [
   "CHK",
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noShadowingUnderscore: "In this codebase, '_' is used to represent the undefined. Avoid shadowing it.",
+      noShadowUnderscore: "In this codebase, '_' is used to represent the undefined. Avoid shadowing it.",
     },
     schema: [],
   },
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
         const isFromImport = VAR.isInitializedFromSource("_", "@eslint-react/eff", initialScope);
         if (!isFromImport) {
           context.report({
-            messageId: "noShadowingUnderscore",
+            messageId: "noShadowUnderscore",
             node,
           });
         }

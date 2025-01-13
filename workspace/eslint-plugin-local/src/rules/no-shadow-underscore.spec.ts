@@ -1,5 +1,5 @@
 import { ruleTester } from "../../../../test";
-import rule, { RULE_NAME } from "./no-shadowing-underscore";
+import rule, { RULE_NAME } from "./no-shadow-underscore";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -7,19 +7,19 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* ts */ `
         const _ = 1;
       `,
-      errors: [{ messageId: "noShadowingUnderscore" }],
+      errors: [{ messageId: "noShadowUnderscore" }],
     },
     {
       code: /* ts */ `
         const [_, foo] = [1, 2];
       `,
-      errors: [{ messageId: "noShadowingUnderscore" }],
+      errors: [{ messageId: "noShadowUnderscore" }],
     },
     {
       code: /* ts */ `
         const { name: _, ...rest } = { name: "foo", age: 20 };
       `,
-      errors: [{ messageId: "noShadowingUnderscore" }],
+      errors: [{ messageId: "noShadowUnderscore" }],
     },
   ],
   valid: [
