@@ -71,7 +71,7 @@ export default createRule<[], MessageID>({
         if (!isAssignmentToThisState(node)) {
           return;
         }
-        const parentClass = AST.findParentNodeGuard(
+        const parentClass = AST.findParentNode(
           node,
           AST.isOneOf([
             T.ClassDeclaration,
@@ -81,7 +81,7 @@ export default createRule<[], MessageID>({
         if (parentClass == null) return;
         if (
           isClassComponent(parentClass)
-          && context.sourceCode.getScope(node).block !== AST.findParentNodeGuard(node, isConstructorFunction)
+          && context.sourceCode.getScope(node).block !== AST.findParentNode(node, isConstructorFunction)
         ) {
           context.report({
             messageId: "noDirectMutationState",

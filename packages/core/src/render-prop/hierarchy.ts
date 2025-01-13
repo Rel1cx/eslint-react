@@ -38,7 +38,7 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
   if (isDirectValueOfRenderPropertyLoose(node)) {
     return true;
   }
-  const parent = AST.findParentNodeGuard(node, AST.is(T.JSXExpressionContainer))?.parent;
+  const parent = AST.findParentNode(node, AST.is(T.JSXExpressionContainer))?.parent;
   if (parent?.type !== T.JSXAttribute) {
     return false;
   }

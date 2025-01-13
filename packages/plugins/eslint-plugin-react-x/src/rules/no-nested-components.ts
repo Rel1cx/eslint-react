@@ -114,7 +114,7 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          const parentComponent = AST.findParentNodeGuard(component, isFunctionComponent);
+          const parentComponent = AST.findParentNode(component, isFunctionComponent);
           const isParnetComponentNotDirectValueOfRenderProperty = parentComponent != null
             && !isDirectValueOfRenderPropertyLoose(parentComponent);
           if (isParnetComponentNotDirectValueOfRenderProperty) {

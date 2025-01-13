@@ -132,7 +132,7 @@ export default createRule<[], MessageID>({
                 return;
               }
               default: {
-                const variableDeclarator = AST.findParentNodeGuard(node, isVariableDeclaratorFromHookCall);
+                const variableDeclarator = AST.findParentNode(node, isVariableDeclaratorFromHookCall);
                 if (variableDeclarator == null) {
                   const calls = indSetStateCalls.get(pEntry.node) ?? [];
                   indSetStateCalls.set(pEntry.node, [...calls, node]);
@@ -177,7 +177,7 @@ export default createRule<[], MessageID>({
             if (!isUseMemoCall(parent)) {
               break;
             }
-            const variableDeclarator = AST.findParentNodeGuard(parent, isVariableDeclaratorFromHookCall);
+            const variableDeclarator = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
             if (variableDeclarator == null) {
               break;
             }
@@ -193,7 +193,7 @@ export default createRule<[], MessageID>({
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              const variableDeclarator = AST.findParentNodeGuard(node.parent, isVariableDeclaratorFromHookCall);
+              const variableDeclarator = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
               if (variableDeclarator == null) {
                 break;
               }

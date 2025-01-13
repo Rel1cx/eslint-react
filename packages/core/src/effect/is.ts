@@ -15,8 +15,8 @@ export function isSetupFunction(node: TSESTree.Node | _) {
 }
 
 export function isCleanupFunction(node: TSESTree.Node) {
-  const nearReturn = AST.findParentNodeGuard(node, AST.is(T.ReturnStatement));
-  const nearFunction = AST.findParentNodeGuard(node, AST.isFunction);
-  const nearFunctionOfReturn = AST.findParentNodeGuard(nearReturn, AST.isFunction);
+  const nearReturn = AST.findParentNode(node, AST.is(T.ReturnStatement));
+  const nearFunction = AST.findParentNode(node, AST.isFunction);
+  const nearFunctionOfReturn = AST.findParentNode(nearReturn, AST.isFunction);
   return nearFunction === nearFunctionOfReturn && isSetupFunction(nearFunction);
 }

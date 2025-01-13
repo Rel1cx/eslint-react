@@ -15,9 +15,9 @@ export function isInsideCreateElementProps(
   node: TSESTree.Node,
   context: RuleContext,
 ) {
-  const call = AST.findParentNodeGuard(node, isCreateElementCall(context));
+  const call = AST.findParentNode(node, isCreateElementCall(context));
   if (call == null) return false;
-  const prop = AST.findParentNodeGuard(node, AST.is(T.ObjectExpression));
+  const prop = AST.findParentNode(node, AST.is(T.ObjectExpression));
   if (prop == null) return false;
   return prop === call.arguments[1];
 }

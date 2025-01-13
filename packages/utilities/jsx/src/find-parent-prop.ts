@@ -12,5 +12,5 @@ export function findParentProp(
     return node.type === T.JSXAttribute && test(node);
   };
 
-  return AST.findParentNodeGuard(node, guard);
+  return AST.findParentNode(node, guard);
 }

@@ -4,5 +4,5 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isReactHook } from "./is";
 
 export function isInsideReactHook(node: TSESTree.Node) {
-  return isReactHook(AST.findParentNodeGuard(node, AST.isFunction));
+  return isReactHook(AST.findParentNode(node, AST.isFunction));
 }

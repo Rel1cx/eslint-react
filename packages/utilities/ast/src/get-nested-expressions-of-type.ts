@@ -19,7 +19,9 @@ export function getNestedExpressionsOfType<TNodeType extends T>(
       expressions.push(node);
     }
     if ("arguments" in node) {
-      const chunk = node.arguments.map(getNestedExpressionsOfType(type)).flat(1);
+      const chunk = node.arguments
+        .map(getNestedExpressionsOfType(type))
+        .flat(1);
       expressions.push(...chunk);
     }
     if (
@@ -55,15 +57,22 @@ export function getNestedExpressionsOfType<TNodeType extends T>(
       expressions.push(...chunk);
     }
     if ("elements" in node) {
-      const chunk = node.elements.filter((x) => x != null).map(getNestedExpressionsOfType(type)).flat(1);
+      const chunk = node.elements
+        .filter((x) => x != null)
+        .map(getNestedExpressionsOfType(type))
+        .flat(1);
       expressions.push(...chunk);
     }
     if ("properties" in node) {
-      const chunk = node.properties.map(boundGetNestedExpressionsOfType).flat(1);
+      const chunk = node.properties
+        .map(boundGetNestedExpressionsOfType)
+        .flat(1);
       expressions.push(...chunk);
     }
     if ("expressions" in node) {
-      const chunk = node.expressions.map(boundGetNestedExpressionsOfType).flat(1);
+      const chunk = node.expressions
+        .map(boundGetNestedExpressionsOfType)
+        .flat(1);
       expressions.push(...chunk);
     }
     if (node.type === T.Property) {

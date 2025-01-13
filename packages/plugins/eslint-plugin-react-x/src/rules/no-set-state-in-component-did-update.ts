@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
         if (!isThisSetState(node)) {
           return;
         }
-        const clazz = AST.findParentNodeGuard(node, isClassComponent);
+        const clazz = AST.findParentNode(node, isClassComponent);
         const method = AST.findParentNode(node, (n) => n === clazz || isComponentDidUpdate(n));
         if (clazz == null || method == null || method === clazz) return;
         const methodScope = context.sourceCode.getScope(method);

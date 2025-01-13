@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
-import { findParentNodeGuard } from "./find-parent-node-guard";
+import { findParentNode } from "./find-parent-node";
 import { isFunction } from "./is";
 
 /**
@@ -14,13 +14,13 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
   const returnStatements: TSESTree.ReturnStatement[] = [];
   const functionNode = isFunction(node)
     ? node
-    : findParentNodeGuard(node, isFunction);
+    : findParentNode(node, isFunction);
   simpleTraverse(node, {
     enter(node) {
       if (node.type !== T.ReturnStatement) {
         return;
       }
-      const parentFunction = findParentNodeGuard(node, isFunction);
+      const parentFunction = findParentNode(node, isFunction);
       if (parentFunction !== functionNode) {
         return;
       }
