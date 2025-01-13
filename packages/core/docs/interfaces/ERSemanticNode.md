@@ -14,12 +14,6 @@
 
 ## Properties
 
-### \_
-
-> **\_**: `string`
-
-***
-
 ### flag
 
 > **flag**: `bigint`
@@ -35,6 +29,12 @@
 ### id
 
 > **id**: `undefined` \| `Identifier` \| `Identifier`[]
+
+***
+
+### key
+
+> **key**: `string`
 
 ***
 

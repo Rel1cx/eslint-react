@@ -48,10 +48,10 @@ function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hin
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   let flag = ERFunctionComponentFlag.None;
-  if (initPath != null && AST.hasCallInFunctionInitPath("memo")(initPath)) {
+  if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
     flag |= ERFunctionComponentFlag.Memo;
   }
-  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef")(initPath)) {
+  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
     flag |= ERFunctionComponentFlag.ForwardRef;
   }
   return flag;
@@ -125,8 +125,8 @@ export function useComponentCollector(
       const name = getComponentNameFromIdentifier(id);
       const key = getId();
       components.set(key, {
-        _: key,
         id,
+        key,
         kind: "function",
         name,
         node: entry.node,
@@ -149,7 +149,7 @@ export function useComponentCollector(
       if (component == null) {
         return;
       }
-      components.set(component._, {
+      components.set(component.key, {
         ...component,
         displayName: right,
       });
@@ -182,8 +182,8 @@ export function useComponentCollector(
       const id = getFunctionComponentIdentifier(entry.node, context);
       const name = getComponentNameFromIdentifier(id);
       components.set(entry.key, {
-        _: entry.key,
         id,
+        key: entry.key,
         kind: "function",
         name,
         node: entry.node,

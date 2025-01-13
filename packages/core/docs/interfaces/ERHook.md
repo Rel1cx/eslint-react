@@ -12,16 +12,6 @@
 
 ## Properties
 
-### \_
-
-> **\_**: `string`
-
-#### Inherited from
-
-[`ERSemanticNode`](ERSemanticNode.md).[`_`](ERSemanticNode.md#_)
-
-***
-
 ### flag
 
 > **flag**: `bigint`
@@ -55,6 +45,16 @@
 #### Overrides
 
 [`ERSemanticNode`](ERSemanticNode.md).[`id`](ERSemanticNode.md#id)
+
+***
+
+### key
+
+> **key**: `string`
+
+#### Inherited from
+
+[`ERSemanticNode`](ERSemanticNode.md).[`key`](ERSemanticNode.md#key)
 
 ***
 

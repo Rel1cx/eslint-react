@@ -29,8 +29,8 @@ export function useComponentCollectorLegacy() {
     components.set(
       key,
       {
-        _: key,
         id,
+        key,
         kind: "class",
         name: id?.name,
         node,

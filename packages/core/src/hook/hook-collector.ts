@@ -17,8 +17,8 @@ export function useHookCollector() {
       const key = getId();
       fEntries.push({ key, node });
       hooks.set(key, {
-        _: key,
         id,
+        key,
         kind: "function",
         name,
         node,
@@ -57,7 +57,7 @@ export function useHookCollector() {
       if (hook == null) {
         return;
       }
-      hooks.set(hook._, {
+      hooks.set(hook.key, {
         ...hook,
         hookCalls: [
           ...hook.hookCalls,

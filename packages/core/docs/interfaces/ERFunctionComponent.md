@@ -12,16 +12,6 @@
 
 ## Properties
 
-### \_
-
-> **\_**: `string`
-
-#### Inherited from
-
-[`ERSemanticNode`](ERSemanticNode.md).[`_`](ERSemanticNode.md#_)
-
-***
-
 ### displayName
 
 > **displayName**: `undefined` \| `Expression`
@@ -67,6 +57,16 @@
 ### initPath
 
 > **initPath**: `undefined` \| `FunctionInitPath`
+
+***
+
+### key
+
+> **key**: `string`
+
+#### Inherited from
+
+[`ERSemanticNode`](ERSemanticNode.md).[`key`](ERSemanticNode.md#key)
 
 ***
 

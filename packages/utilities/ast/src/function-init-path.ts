@@ -177,21 +177,19 @@ export function getFunctionInitPath(node: TSESTreeFunction): FunctionInitPath | 
   return _;
 }
 
-export function hasCallInFunctionInitPath(callName: string) {
-  return (initPath: FunctionInitPath) => {
-    return initPath
-      .some((n) => {
-        if (n.type !== T.CallExpression) {
+export function hasCallInFunctionInitPath(callName: string, initPath: FunctionInitPath) {
+  return initPath
+    .some((n) => {
+      if (n.type !== T.CallExpression) {
+        return false;
+      }
+      switch (n.callee.type) {
+        case T.Identifier:
+          return n.callee.name === callName;
+        case T.MemberExpression:
+          return "name" in n.callee.property && n.callee.property.name === callName;
+        default:
           return false;
-        }
-        switch (n.callee.type) {
-          case T.Identifier:
-            return n.callee.name === callName;
-          case T.MemberExpression:
-            return "name" in n.callee.property && n.callee.property.name === callName;
-          default:
-            return false;
-        }
-      });
-  };
+      }
+    });
 }
