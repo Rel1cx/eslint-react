@@ -33,7 +33,7 @@ The definition of the uncurried function.
 ```ts
 import { dual, pipe } from "effect/Function"
 
-// Exampe using arity to determine data-first or data-last style
+// Example using arity to determine data-first or data-last style
 const sum: {
   (that: number): (self: number) => number
   (self: number, that: number): number
