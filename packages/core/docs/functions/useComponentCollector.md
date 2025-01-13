@@ -20,7 +20,7 @@
 
 ### options
 
-[`ComponentCollectorOptions`](../interfaces/ComponentCollectorOptions.md) = `DEFAULT_COMPONENT_COLLECT_OPTIONS`
+[`ComponentCollectorOptions`](../interfaces/ComponentCollectorOptions.md) = `{}`
 
 ## Returns
 

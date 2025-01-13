@@ -8,12 +8,12 @@
 
 ## Properties
 
-### collectDisplayName
+### collectDisplayName?
 
-> **collectDisplayName**: `boolean`
+> `optional` **collectDisplayName**: `boolean`
 
 ***
 
-### collectHookCalls
+### collectHookCalls?
 
-> **collectHookCalls**: `boolean`
+> `optional` **collectHookCalls**: `boolean`

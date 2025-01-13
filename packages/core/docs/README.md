@@ -31,7 +31,6 @@
 
 ## Variables
 
-- [DEFAULT\_COMPONENT\_COLLECT\_OPTIONS](variables/DEFAULT_COMPONENT_COLLECT_OPTIONS.md)
 - [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
 - [ERClassComponentFlag](variables/ERClassComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)
