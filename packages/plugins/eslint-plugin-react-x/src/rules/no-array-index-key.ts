@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
-import type { RuleContext, RuleFeature } from "@eslint-react/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";

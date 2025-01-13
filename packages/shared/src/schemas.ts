@@ -199,3 +199,17 @@ export interface ESLintReactSettingsNormalized extends ESLintReactSettings {
   additionalComponents: CustomComponentNormalized[];
   version: string;
 }
+
+/**
+ * The default ESLint settings for "react-x".
+ */
+export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  additionalHooks: {
+    useLayoutEffect: ["useIsomorphicLayoutEffect"],
+  },
+  polymorphicPropName: "as",
+  strictImportCheck: false,
+  version: "detect",
+} as const satisfies ESLintReactSettings;
+
+// #endregion

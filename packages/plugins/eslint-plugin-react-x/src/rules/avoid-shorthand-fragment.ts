@@ -1,4 +1,4 @@
-import type { RuleFeature } from "@eslint-react/types";
+import type { RuleFeature } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";

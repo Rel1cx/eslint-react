@@ -1,5 +1,4 @@
-import type { ESLintReactSettings } from "@eslint-react/shared";
-import type { RuleContext } from "@eslint-react/types";
+import type { ESLintReactSettings, RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 

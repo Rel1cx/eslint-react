@@ -1,6 +1,6 @@
 import * as JSX from "@eslint-react/jsx";
+import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import type { RuleFeature } from "@eslint-react/types";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 

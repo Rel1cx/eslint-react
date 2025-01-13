@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/types";
+import type { RuleContext } from "@eslint-react/shared";
 
 import { getFunctionComponentIdentifier } from "./component-id";
 import { isComponentName } from "./component-name";

@@ -23,7 +23,6 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@eslint-react/types": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.19.1",
     "@typescript-eslint/type-utils": "^8.19.1",

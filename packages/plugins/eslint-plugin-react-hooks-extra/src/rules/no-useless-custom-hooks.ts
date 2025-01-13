@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { useHookCollector } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/types";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 

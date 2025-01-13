@@ -8,25 +8,7 @@ import { parse } from "valibot";
 
 import { getReactVersion } from "./get-react-version";
 import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
-import { ESLintSettingsSchema } from "./schemas";
-
-// #region Constants
-
-/**
- * The default ESLint settings for "react-x".
- */
-export const DEFAULT_ESLINT_REACT_SETTINGS = {
-  additionalHooks: {
-    useLayoutEffect: ["useIsomorphicLayoutEffect"],
-  },
-  polymorphicPropName: "as",
-  strictImportCheck: false,
-  version: "detect",
-} as const satisfies ESLintReactSettings;
-
-// #endregion
-
-// #region Decoding Functions
+import { DEFAULT_ESLINT_REACT_SETTINGS, ESLintSettingsSchema } from "./schemas";
 
 /**
  * Unsafely casts settings from a data object from `context.settings`.

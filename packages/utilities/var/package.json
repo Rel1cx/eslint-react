@@ -41,7 +41,6 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/eff": "workspace:*",
-    "@eslint-react/types": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.19.1",
     "@typescript-eslint/types": "^8.19.1",
     "@typescript-eslint/utils": "^8.19.1",
