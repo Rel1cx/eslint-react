@@ -87,7 +87,7 @@
     "eslint-plugin-unicorn": "^56.0.1",
     "eslint-plugin-vitest": "^0.5.4",
     "fixpkg": "^1.0.2",
-    "importx": "^0.5.1",
+    "jiti": "^2.4.2",
     "lefthook": "^1.10.3",
     "markdownlint": "^0.37.3",
     "ofetch": "^1.4.1",
@@ -116,17 +116,17 @@
   "packageManager": "pnpm@10.0.0",
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
-      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "@types/react": "^19.0.6",
       "@types/react-dom": "^19.0.3",
       "cross-spawn": "^7.0.6",
+      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "next": "^15.1.4",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
       "ts-api-utils": "^2.0.0",
+      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "typescript": "^5.7.3"
     }
   }

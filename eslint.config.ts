@@ -45,10 +45,6 @@ const packagesTsConfigs = [
   "packages/*/*/tsconfig.json",
 ];
 
-const rootTsConfigs = [
-  "tsconfig.json",
-];
-
 const p11tOptions = {
   type: "natural",
   ignoreCase: false,
@@ -123,7 +119,7 @@ export default tseslint.config(
     // eslint-disable-next-line perfectionist/sort-objects
     extends: [
       eslintJs.configs.recommended,
-      tseslint.configs.strict,
+      ...tseslint.configs.strict,
       eslintPluginImport.flatConfigs.recommended,
       eslintPluginPerfectionist.configs["recommended-natural"],
       eslintPluginRegexp.configs["flat/recommended"],
@@ -288,7 +284,7 @@ export default tseslint.config(
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: rootTsConfigs,
+        project: "tsconfig.json",
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
@@ -311,7 +307,7 @@ export default tseslint.config(
       parser: tseslint.parser,
       parserOptions: {
         allowAutomaticSingleRunInference: true,
-        project: rootTsConfigs,
+        project: "tsconfig.json",
         projectService: true,
         tsconfigRootDir: dirname,
         warnOnUnsupportedTypeScriptVersion: false,
