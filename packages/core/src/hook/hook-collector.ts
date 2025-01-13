@@ -57,13 +57,7 @@ export function useHookCollector() {
       if (hook == null) {
         return;
       }
-      hooks.set(hook.key, {
-        ...hook,
-        hookCalls: [
-          ...hook.hookCalls,
-          node,
-        ],
-      });
+      hook.hookCalls.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;

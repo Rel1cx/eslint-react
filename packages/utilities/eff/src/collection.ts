@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @susisu/safe-typescript/no-type-assertion */
 // export function zipWith<T, U, V>(
 //   arrayA: readonly T[],
@@ -29,22 +30,22 @@ import type { Pretty } from "./type";
 //   return result;
 // }
 
-// export function getOrUpdate<K, V>(map: Map<K, V>, key: K, callback: () => V): V {
-//   if (map.has(key)) {
-//     return map.get(key)!;
-//   }
-//   const value = callback();
-//   map.set(key, value);
-//   return value;
-// }
+export function getOrUpdate<K, V>(map: Map<K, V>, key: K, callback: () => V): V {
+  if (map.has(key)) {
+    return map.get(key)!;
+  }
+  const value = callback();
+  map.set(key, value);
+  return value;
+}
 
-// export function tryAddToSet<T>(set: Set<T>, value: T): boolean {
-//   if (!set.has(value)) {
-//     set.add(value);
-//     return true;
-//   }
-//   return false;
-// }
+export function tryAddToSet<T>(set: Set<T>, value: T): boolean {
+  if (!set.has(value)) {
+    set.add(value);
+    return true;
+  }
+  return false;
+}
 
 // /** @internal */
 // export function concatenate<T>(array1: T[], array2: T[]): T[];

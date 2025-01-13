@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import { _, getOrUpdate } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleFeature } from "@eslint-react/types";
 import * as VAR from "@eslint-react/var";
@@ -65,13 +65,10 @@ export default createRule<[], MessageID>({
     const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
 
     const indFunctionCalls: TSESTree.CallExpression[] = [];
-    const indSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
-    const indSetStateCallsInUseLayoutEffectArg0 = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
+    const indSetStateCalls = new Map<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
+    const indSetStateCallsInUseLayoutEffectArg0 = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
     const indSetStateCallsInUseLayoutEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
-    const indSetStateCallsInUseMemoOrCallback = new WeakMap<
-      TSESTree.VariableDeclarator["init"] & {},
-      TSESTree.CallExpression[]
-    >();
+    const indSetStateCallsInUseMemoOrCallback = new Map<TSESTree.Node, TSESTree.CallExpression[]>();
 
     const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
       setupFunctionRef.current = node;
@@ -137,28 +134,18 @@ export default createRule<[], MessageID>({
                 return;
               }
               default: {
-                const variableDeclarator = AST.findParentNode(node, isVariableDeclaratorFromHookCall);
-                if (variableDeclarator == null) {
-                  const calls = indSetStateCalls.get(pEntry.node) ?? [];
-                  indSetStateCalls.set(pEntry.node, [...calls, node]);
-                  return;
-                }
-                const init = variableDeclarator.init;
-                const prevs = indSetStateCallsInUseMemoOrCallback.get(init) ?? [];
-                indSetStateCallsInUseMemoOrCallback.set(init, [...prevs, node]);
+                const vd = AST.findParentNode(node, isVariableDeclaratorFromHookCall);
+                if (vd == null) getOrUpdate(indSetStateCalls, pEntry.node, () => []).push(node);
+                else getOrUpdate(indSetStateCallsInUseMemoOrCallback, vd.init, () => []).push(node);
               }
             }
           })
           .with("useLayoutEffect", () => {
-            if (AST.isFunction(node.arguments.at(0))) {
-              return;
-            }
+            if (AST.isFunction(node.arguments.at(0))) return;
             setupFunctionIdentifiers.push(...AST.getNestedIdentifiers(node));
           })
           .with("other", () => {
-            if (pEntry.node !== setupFunction) {
-              return;
-            }
+            if (pEntry.node !== setupFunction) return;
             indFunctionCalls.push(node);
           })
           .otherwise(() => _);
@@ -182,12 +169,10 @@ export default createRule<[], MessageID>({
             if (!isUseMemoCall(parent)) {
               break;
             }
-            const variableDeclarator = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
-            if (variableDeclarator == null) {
-              break;
+            const vd = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
+            if (vd != null) {
+              getOrUpdate(indSetStateCallsInUseLayoutEffectArg0, vd.init, () => []).push(node);
             }
-            const calls = indSetStateCallsInUseLayoutEffectArg0.get(variableDeclarator.init) ?? [];
-            indSetStateCallsInUseLayoutEffectArg0.set(variableDeclarator.init, [...calls, node]);
             break;
           }
           case T.CallExpression: {
@@ -198,20 +183,17 @@ export default createRule<[], MessageID>({
             // const set = useCallback(setState, []);
             // useLayoutEffect(set, []);
             if (isUseCallbackCall(node.parent)) {
-              const variableDeclarator = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
-              if (variableDeclarator == null) {
-                break;
+              const vd = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
+              if (vd != null) {
+                getOrUpdate(indSetStateCallsInUseLayoutEffectArg0, vd.init, () => []).push(node);
               }
-              const prevs = indSetStateCallsInUseLayoutEffectArg0.get(variableDeclarator.init) ?? [];
-              indSetStateCallsInUseLayoutEffectArg0.set(variableDeclarator.init, [...prevs, node]);
+              break;
             }
             // const [state, setState] = useState();
             // useLayoutEffect(setState);
             if (isUseLayoutEffectLikeCall(node.parent)) {
-              const prevs = indSetStateCallsInUseLayoutEffectArg0.get(node.parent) ?? [];
-              indSetStateCallsInUseLayoutEffectSetup.set(node.parent, [...prevs, node]);
+              getOrUpdate(indSetStateCallsInUseLayoutEffectSetup, node.parent, () => []).push(node);
             }
-            break;
           }
         }
       },

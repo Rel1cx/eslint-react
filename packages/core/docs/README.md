@@ -6,6 +6,7 @@
 
 ## Interfaces
 
+- [ComponentCollectorOptions](interfaces/ComponentCollectorOptions.md)
 - [ERClassComponent](interfaces/ERClassComponent.md)
 - [ERFunctionComponent](interfaces/ERFunctionComponent.md)
 - [ERHook](interfaces/ERHook.md)
@@ -30,6 +31,7 @@
 
 ## Variables
 
+- [DEFAULT\_COMPONENT\_COLLECT\_OPTIONS](variables/DEFAULT_COMPONENT_COLLECT_OPTIONS.md)
 - [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
 - [ERClassComponentFlag](variables/ERClassComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)

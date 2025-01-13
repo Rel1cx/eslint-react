@@ -1,4 +1,4 @@
-import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
+import { DEFAULT_COMPONENT_HINT, ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
@@ -22,23 +22,31 @@ export default createRule<[], MessageID>({
     },
     messages: {
       functionComponent:
-        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}.",
+        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}, displayName: {{displayName}}.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    const { ctx, listeners } = useComponentCollector(context);
+    const { ctx, listeners } = useComponentCollector(
+      context,
+      DEFAULT_COMPONENT_HINT,
+      {
+        collectDisplayName: true,
+        collectHookCalls: true,
+      },
+    );
     return {
       ...listeners,
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
-        for (const { name = "anonymous", node, flag, hookCalls } of components.values()) {
+        for (const { name = "anonymous", node, displayName, flag, hookCalls } of components.values()) {
           context.report({
             messageId: "functionComponent",
             node,
             data: {
               name,
+              displayName: displayName != null ? context.sourceCode.getText(displayName) : "none",
               forwardRef: (flag & ERFunctionComponentFlag.ForwardRef) > 0n,
               hookCalls: hookCalls.length,
               memo: (flag & ERFunctionComponentFlag.Memo) > 0n,

@@ -26,6 +26,7 @@
 - [flip](functions/flip.md)
 - [flow](functions/flow.md)
 - [fromEntries](functions/fromEntries.md)
+- [getOrUpdate](functions/getOrUpdate.md)
 - [identity](functions/identity.md)
 - [isArray](functions/isArray.md)
 - [isObject](functions/isObject.md)
@@ -36,3 +37,4 @@
 - [returnFalse](functions/returnFalse.md)
 - [returnTrue](functions/returnTrue.md)
 - [returnVoid](functions/returnVoid.md)
+- [tryAddToSet](functions/tryAddToSet.md)

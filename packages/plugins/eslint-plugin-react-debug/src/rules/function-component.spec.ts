@@ -15,6 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: `"TestDisplayName"`,
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -33,6 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -48,6 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: true,
@@ -66,6 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: '`${"TestDisplayName"}`',
           forwardRef: false,
           hookCalls: 0,
           memo: true,
@@ -86,6 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 1,
           memo: true,
@@ -100,6 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: "none",
           forwardRef: true,
           hookCalls: 0,
           memo: false,
@@ -116,6 +122,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "MemoComponent",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: true,
@@ -135,6 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "Component",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: true,
@@ -149,6 +157,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "ForwardRefComponent",
+          displayName: "none",
           forwardRef: true,
           hookCalls: 0,
           memo: false,
@@ -165,6 +174,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "MemoForwardRefComponent",
+          displayName: "none",
           forwardRef: true,
           hookCalls: 0,
           memo: true,
@@ -179,6 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "MemoForwardRefComponent",
+          displayName: "none",
           forwardRef: true,
           hookCalls: 0,
           memo: true,
@@ -197,6 +208,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "ComponentWithHooks",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 1,
           memo: false,
@@ -211,6 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "App",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -236,6 +249,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -245,6 +259,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -271,6 +286,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -280,6 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -306,6 +323,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -315,6 +333,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedVariableComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -341,6 +360,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -350,6 +370,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedVariableComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -376,6 +397,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -385,6 +407,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -411,6 +434,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -420,6 +444,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -446,6 +471,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "anonymous",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -455,6 +481,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -481,6 +508,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "anonymous",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -490,6 +518,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -516,6 +545,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -525,6 +555,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedVariableComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -551,6 +582,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -560,6 +592,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedVariableComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -587,6 +620,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "ParentComponent",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -613,6 +647,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "ParentComponent",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -639,6 +674,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "UnstableNestedFunctionComponent",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -665,6 +701,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "UnstableNestedClassComponent",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -691,6 +728,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "functionComponent",
         data: {
           name: "UnstableNestedVariableComponent",
+          displayName: "none",
           forwardRef: false,
           hookCalls: 0,
           memo: false,
@@ -718,6 +756,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedClassComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -748,6 +787,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -757,6 +797,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "NestedUnstableFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -783,6 +824,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -792,6 +834,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "NestedUnstableFunctionComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -821,6 +864,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ComponentWithProps",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -830,6 +874,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -856,6 +901,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ComponentWithProps",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -865,6 +911,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -874,6 +921,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "SomeFooter",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -898,6 +946,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ComponentWithProps",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -907,6 +956,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -931,6 +981,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ComponentWithProps",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -940,6 +991,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -976,6 +1028,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -985,6 +1038,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1009,6 +1063,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ComponentForProps",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1018,6 +1073,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1042,6 +1098,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ComponentForProps",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1051,6 +1108,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1071,6 +1129,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1080,6 +1139,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "Header",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1104,6 +1164,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "List",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1135,6 +1196,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "List",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1163,6 +1225,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1190,6 +1253,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1215,6 +1279,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1241,6 +1306,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1250,6 +1316,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: true,
@@ -1276,6 +1343,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1285,6 +1353,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: true,
@@ -1313,6 +1382,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1322,6 +1392,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: true,
@@ -1350,6 +1421,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "ParentComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1359,6 +1431,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "UnstableNestedComponent",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: true,
@@ -1379,6 +1452,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "MyComponent1",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1388,6 +1462,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "MyComponent2",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1397,6 +1472,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "MyComponent3",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1406,6 +1482,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "MyComponent4",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,
@@ -1415,6 +1492,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "functionComponent",
           data: {
             name: "MyComponent5",
+            displayName: "none",
             forwardRef: false,
             hookCalls: 0,
             memo: false,

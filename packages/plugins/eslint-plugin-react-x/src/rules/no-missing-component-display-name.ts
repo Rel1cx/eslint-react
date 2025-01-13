@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
+import { DEFAULT_COMPONENT_HINT, ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/types";
 import type { CamelCase } from "string-ts";
 
@@ -30,8 +30,17 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) {
       return {};
     }
-    const { ctx, listeners } = useComponentCollector(context);
-
+    const {
+      ctx,
+      listeners,
+    } = useComponentCollector(
+      context,
+      DEFAULT_COMPONENT_HINT,
+      {
+        collectDisplayName: true,
+        collectHookCalls: false,
+      },
+    );
     return {
       ...listeners,
       "Program:exit"(node) {
