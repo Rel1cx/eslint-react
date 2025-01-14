@@ -7,6 +7,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
+import { hasAttribute } from "../../../../utilities/jsx/src/has-attribute";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -38,7 +39,7 @@ export default createRule<[], MessageID>({
       switch (node.type) {
         case T.JSXElement: {
           const initialScope = context.sourceCode.getScope(node);
-          if (!JSX.hasProp("key", initialScope, node.openingElement.attributes)) {
+          if (!JSX.hasAttribute("key", initialScope, node.openingElement.attributes)) {
             return {
               messageId: "noMissingKey",
               node,
@@ -102,7 +103,7 @@ export default createRule<[], MessageID>({
         }
         const initialScope = context.sourceCode.getScope(node);
         for (const element of elements) {
-          if (!JSX.hasProp("key", initialScope, element.openingElement.attributes)) {
+          if (!JSX.hasAttribute("key", initialScope, element.openingElement.attributes)) {
             context.report({
               messageId: "noMissingKey",
               node: element,

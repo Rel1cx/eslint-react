@@ -21,6 +21,7 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isSetterNameLoose(name: string) {
+  // eslint-disable-next-line @typescript-eslint/no-misused-spread
   const fourthChar = [...name][3];
 
   return name.startsWith("set")

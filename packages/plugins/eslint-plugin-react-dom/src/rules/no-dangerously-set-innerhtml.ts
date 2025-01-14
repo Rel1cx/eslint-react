@@ -27,14 +27,19 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
     return {
       JSXElement(node) {
         const attributes = node.openingElement.attributes;
-        const prop = JSX.getProp("dangerouslySetInnerHTML", context.sourceCode.getScope(node), attributes);
-        if (prop == null) return;
+        const attribute = JSX.getAttributeNode(
+          "dangerouslySetInnerHTML",
+          context.sourceCode.getScope(node),
+          attributes,
+        );
+        if (attribute == null) return;
         context.report({
           messageId: "noDangerouslySetInnerhtml",
-          node: prop,
+          node: attribute,
         });
       },
     };

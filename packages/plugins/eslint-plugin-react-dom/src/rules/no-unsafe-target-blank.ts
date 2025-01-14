@@ -1,11 +1,11 @@
-import { getElementNameAndRepresentName } from "@eslint-react/core";
+import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
 import type { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";
+import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
@@ -43,36 +43,41 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = getSettingsFromContext(context);
+    const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "a");
     return {
       JSXElement(node: TSESTree.JSXElement) {
-        const [name, representName] = getElementNameAndRepresentName(
+        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
           node.openingElement,
           context,
-          settings.polymorphicPropName,
-          settings.additionalComponents,
+          polymorphicPropName,
+          additionalComponents,
         );
-        if (representName !== "a") return;
-        const getPropValue = (propName: string) => {
-          return getAttributeStringValue(
-            propName,
+
+        if (elementNameOnHtml !== "a") return;
+
+        const getAttributeValue = (name: string) => {
+          return getAttributeNodeAndStringValue(
+            name,
             node,
             context,
-            getAdditionalAttributes(name, additionalComponents),
-          );
+            getAdditionalAttributes(elementNameOnJsx, additionalComponents),
+          ).attributeValue;
         };
-        if (getPropValue("target") !== "_blank") {
+
+        if (getAttributeValue("target") !== "_blank") {
           return;
         }
-        if (!isExternalLinkLike(getPropValue("href"))) {
+        if (!isExternalLinkLike(getAttributeValue("href"))) {
           return;
         }
-        if (!isSafeRel(getPropValue("rel"))) {
-          context.report({
-            messageId: "noUnsafeTargetBlank",
-            node,
-          });
+        if (isSafeRel(getAttributeValue("rel"))) {
+          return;
         }
+        context.report({
+          messageId: "noUnsafeTargetBlank",
+          node,
+        });
       },
     };
   },

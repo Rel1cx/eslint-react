@@ -85,7 +85,7 @@ function getSignalValueExpression(node: TSESTree.Node | _, initialScope: Scope):
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
   function findProp(properties: TSESTree.ObjectExpression["properties"], propName: string) {
-    return JSX.findPropInProperties(propName, properties, initialScope);
+    return VAR.findPropertyInProperties(propName, properties, initialScope);
   }
   function getPropValue<A>(
     prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | _,

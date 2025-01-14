@@ -1,9 +1,10 @@
-import { getElementNameAndRepresentName } from "@eslint-react/core";
+import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";
+import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
+
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
 export const RULE_FEATURES = [
@@ -32,34 +33,30 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = getSettingsFromContext(context);
+    const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
     return {
       JSXElement(node) {
-        const [name, representName] = getElementNameAndRepresentName(
+        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
           node.openingElement,
           context,
-          settings.polymorphicPropName,
-          settings.additionalComponents,
+          polymorphicPropName,
+          additionalComponents,
         );
-        if (representName !== "iframe") return;
+        if (elementNameOnHtml !== "iframe") return;
 
-        const getPropValue = (propName: string) => {
-          return getAttributeStringValue(
-            propName,
-            node,
-            context,
-            getAdditionalAttributes(name, additionalComponents),
-          );
-        };
-        const sandboxValue = getPropValue("sandbox");
-        if (sandboxValue == null) return;
-        const values = sandboxValue.split(" ");
-        if (unsafeCombinations.some((unsafes) => unsafes.every((x) => values.includes(x)))) {
-          context.report({
-            messageId: "noUnsafeIframeSandbox",
-            node: node.openingElement,
-          });
-        }
+        const { attributeNode, attributeValue } = getAttributeNodeAndStringValue(
+          "sandbox",
+          node,
+          context,
+          getAdditionalAttributes(elementNameOnJsx, additionalComponents),
+        );
+        if (attributeValue == null) return;
+        if (!unsafeCombinations.some((c) => c.every((v) => attributeValue.includes(v)))) return;
+        context.report({
+          messageId: "noUnsafeIframeSandbox",
+          node: attributeNode ?? node.openingElement,
+        });
       },
     };
   },

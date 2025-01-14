@@ -1,9 +1,9 @@
-import { getElementNameAndRepresentName } from "@eslint-react/core";
+import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";
+import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
@@ -32,7 +32,6 @@ const validTypes = [
   "allow-top-navigation-to-custom-protocols",
 ] as const;
 
-// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that add the 'sandbox' attribute internally.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -48,42 +47,33 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = getSettingsFromContext(context);
+    const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
     return {
       JSXElement(node) {
-        const [name, representName] = getElementNameAndRepresentName(
+        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
           node.openingElement,
           context,
-          settings.polymorphicPropName,
-          settings.additionalComponents,
+          polymorphicPropName,
+          additionalComponents,
         );
-        if (representName !== "iframe") return;
+        if (elementNameOnHtml !== "iframe") return;
 
-        const getPropValue = (propName: string) => {
-          return getAttributeStringValue(
-            propName,
-            node,
-            context,
-            getAdditionalAttributes(name, additionalComponents),
-          );
-        };
-
-        const sandboxValue = getPropValue("sandbox");
-        if (sandboxValue == null) {
-          context.report({
-            messageId: "noMissingIframeSandbox",
-            node: node.openingElement,
-          });
-          return;
-        }
-
-        const values = sandboxValue.split(" ");
-        if (!values.every((value) => validTypes.some((validType) => validType === value))) {
-          context.report({
-            messageId: "noMissingIframeSandbox",
-            node: node.openingElement,
-          });
-        }
+        const { attributeNode, attributeValue } = getAttributeNodeAndStringValue(
+          "sandbox",
+          node,
+          context,
+          getAdditionalAttributes(elementNameOnJsx, additionalComponents),
+        );
+        const hasValidSandboxValue = typeof attributeValue === "string"
+          && attributeValue
+            .split(" ")
+            .every((value) => validTypes.some((valid) => valid === value));
+        if (hasValidSandboxValue) return;
+        context.report({
+          messageId: "noMissingIframeSandbox",
+          node: attributeNode ?? node.openingElement,
+        });
       },
     };
   },

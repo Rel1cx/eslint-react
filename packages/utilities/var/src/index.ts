@@ -1,3 +1,4 @@
+export * from "./find-property-in-properties";
 export * from "./find-variable";
 export * from "./get-child-scopes";
 export * from "./get-variable-declarator-id";

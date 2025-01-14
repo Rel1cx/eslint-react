@@ -1,9 +1,9 @@
-import { getElementNameAndRepresentName } from "@eslint-react/core";
+import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeStringValue } from "../utils";
+import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -13,7 +13,6 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -29,29 +28,28 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const settings = getSettingsFromContext(context);
+    const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "button");
     return {
       JSXElement(node) {
-        const [name, representName] = getElementNameAndRepresentName(
+        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
           node.openingElement,
           context,
-          settings.polymorphicPropName,
-          settings.additionalComponents,
+          polymorphicPropName,
+          additionalComponents,
         );
-        if (representName !== "button") return;
-        const getPropValue = (propName: string) => {
-          return getAttributeStringValue(
-            propName,
-            node,
-            context,
-            getAdditionalAttributes(name, additionalComponents),
-          );
-        };
-        const prop = getPropValue("type");
-        if (typeof prop !== "string") {
+        if (elementNameOnHtml !== "button") return;
+
+        const { attributeNode, attributeValue } = getAttributeNodeAndStringValue(
+          "type",
+          node,
+          context,
+          getAdditionalAttributes(elementNameOnJsx, additionalComponents),
+        );
+        if (typeof attributeValue !== "string") {
           context.report({
             messageId: "noMissingButtonType",
-            node,
+            node: attributeNode ?? node,
           });
         }
       },

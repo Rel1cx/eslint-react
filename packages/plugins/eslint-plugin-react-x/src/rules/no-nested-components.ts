@@ -89,7 +89,7 @@ export default createRule<[], MessageID>({
           }
           const isInsideProperty = component.parent.type === T.Property;
           const isInsideJSXPropValue = component.parent.type === T.JSXAttribute
-            || JSX.findParentProp(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
+            || JSX.findParentAttributeNode(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
           if (isInsideJSXPropValue) {
             if (!isDeclaredInRenderPropLoose(component)) {
               context.report({
