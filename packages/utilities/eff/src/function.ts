@@ -10,6 +10,35 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
 /* eslint-disable jsdoc/require-param */
 /* eslint-disable prefer-rest-params */
+
+/**
+ * Returns its argument.
+ */
+export function identity<T>(x: T): T {
+  return x;
+}
+
+/**
+ * Do nothing and return false
+ */
+export function returnFalse(): false {
+  return false;
+}
+
+/**
+ * Do nothing and return true
+ */
+export function returnTrue(): true {
+  return true;
+}
+
+/**
+ * Do nothing and return undefined
+ */
+export function returnVoid(): undefined {
+  return undefined;
+}
+
 // Ported from https://github.com/Effect-TS/effect/blob/main/packages/effect/src/Function.ts
 /**
  * Creates a function that can be used in a data-last (aka `pipe`able) or

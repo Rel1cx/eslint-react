@@ -1,5 +1,4 @@
-import { entries, fromEntries } from "@eslint-react/eff";
-
+import { entries, fromEntries } from "../utils";
 import { rules as domRules } from "./dom";
 
 export const name = "@eslint-react/disable-dom";

@@ -1,4 +1,4 @@
-import { entries, fromEntries } from "@eslint-react/eff";
+import { entries, fromEntries } from "../utils";
 
 import { rules as debugRules } from "./debug";
 

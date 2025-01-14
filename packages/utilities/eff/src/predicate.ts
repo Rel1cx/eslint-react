@@ -1,45 +1,6 @@
-/* eslint-disable jsdoc/require-param */
 /* eslint-disable local/prefer-eqeq-nullish-comparison */
 
-import type { NarrowedTo } from "./type";
-
-/**
- * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output dts.
- */
-export type _ = undefined; // eslint-disable-line local/no-shadow-underscore
-
-/**
- * 1-byte version undefined, produces fewer bytes than `undefined` or `void 0` in the minified output js.
- */
-export const _ = undefined; // eslint-disable-line local/no-shadow-underscore
-
-/**
- * Do nothing and return false
- */
-export function returnFalse(): false {
-  return false;
-}
-
-/**
- * Do nothing and return true
- */
-export function returnTrue(): true {
-  return true;
-}
-
-/**
- * Do nothing and return undefined
- */
-export function returnVoid(): undefined {
-  return undefined;
-}
-
-/**
- * Returns its argument.
- */
-export function identity<T>(x: T): T {
-  return x;
-}
+import type { NarrowedTo } from "./ts";
 
 /**
  * A function that takes a guard function as predicate and returns a guard that negates it.

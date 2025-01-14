@@ -20,7 +20,7 @@ A function that checks if the passed parameter is an Array and narrows its type 
 
 The variable to check.
 
-`ArrayLike`\<`unknown`\> | `T`
+`T` | `ArrayLike`\<`unknown`\>
 
 ## Returns
 

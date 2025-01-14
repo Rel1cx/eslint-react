@@ -6,7 +6,7 @@
 
 # Type Alias: NarrowedTo\<T, Base\>
 
-> **NarrowedTo**\<`T`, `Base`\>: `Extract`\<`T`, `Base`\> *extends* `never` ? `Base` : `IsAny`\<`T`\> *extends* `true` ? `Base` : `Extract`\<`T`, `Base`\>
+> **NarrowedTo**\<`T`, `Base`\>: `Extract`\<`T`, `Base`\> *extends* `never` ? `Base` : `0` *extends* `1` & `NoInfer`\<`T`\> ? `Base` : `Extract`\<`T`, `Base`\>
 
 An extension of Extract for type predicates which falls back to the base
 in order to narrow the `unknown` case.

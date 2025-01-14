@@ -22,10 +22,8 @@
 
 - [birecord](functions/birecord.md)
 - [dual](functions/dual.md)
-- [entries](functions/entries.md)
 - [flip](functions/flip.md)
 - [flow](functions/flow.md)
-- [fromEntries](functions/fromEntries.md)
 - [getOrUpdate](functions/getOrUpdate.md)
 - [identity](functions/identity.md)
 - [isArray](functions/isArray.md)

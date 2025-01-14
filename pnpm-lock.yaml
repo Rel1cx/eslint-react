@@ -146,8 +146,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       publint:
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.3.2
+        version: 0.3.2
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -3309,8 +3309,8 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
-  '@publint/pack@0.1.0':
-    resolution: {integrity: sha512-NvV5jPAQIMCoHvaJ0ZhfouBJ2woFYYf+o6B7dCHGh/tLKSPVoxhjffi35xPuMHgOv65aTOKUzML5XwQF9EkDAA==}
+  '@publint/pack@0.1.1':
+    resolution: {integrity: sha512-TvCl79Y8v18ZhFGd5mjO1kYPovSBq3+4LVCi5Nfl1JI8fS8i8kXbgQFGwBJRXczim8GlW8c2LMBKTtExYXOy/A==}
     engines: {node: '>=18'}
 
   '@radix-ui/primitive@1.1.1':
@@ -7015,8 +7015,8 @@ packages:
   property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
 
-  publint@0.3.1:
-    resolution: {integrity: sha512-kZo30Y7aRyF/KmXMiGjkQFuhqQ7+dS6msPUoMUhhCYpVd1bEO3LC2tYueJxzscFAM7P+ayJ5vWGUeoj1xDCmHw==}
+  publint@0.3.2:
+    resolution: {integrity: sha512-fPs7QUbUvwixxPYUUTn0Kqp0rbH5rbiAOZwQOXMkIj+4Nopby1AngodSQmzTkJWTJ5R4uVV8oYmgVIjj+tgv1w==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -10410,7 +10410,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
-  '@publint/pack@0.1.0': {}
+  '@publint/pack@0.1.1': {}
 
   '@radix-ui/primitive@1.1.1': {}
 
@@ -14881,9 +14881,9 @@ snapshots:
 
   property-information@6.5.0: {}
 
-  publint@0.3.1:
+  publint@0.3.2:
     dependencies:
-      '@publint/pack': 0.1.0
+      '@publint/pack': 0.1.1
       package-manager-detector: 0.2.8
       picocolors: 1.1.1
       sade: 1.8.1
