@@ -1,6 +1,8 @@
 ## v1.23.2 (2025-01-07)
 
-No notable changes in this release.
+### ✨ New
+
+- feat(plugins/x): add auto-fix to `prefer-shorthand-fragment`, closes #898 (#902)
 
 ## v1.23.1 (2025-01-03)
 
