@@ -1,5 +1,4 @@
 import { entries, fromEntries } from "../utils";
-
 import { rules as debugRules } from "./debug";
 
 export const name = "@eslint-react/disable-debug";

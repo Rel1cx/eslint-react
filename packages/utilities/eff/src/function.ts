@@ -19,11 +19,9 @@ export function identity<T>(x: T): T {
 }
 
 /**
- * Do nothing and return false
+ * Do nothing and return void
  */
-export function returnFalse(): false {
-  return false;
-}
+export function returnVoid(): void {}
 
 /**
  * Do nothing and return true
@@ -33,9 +31,16 @@ export function returnTrue(): true {
 }
 
 /**
+ * Do nothing and return false
+ */
+export function returnFalse(): false {
+  return false;
+}
+
+/**
  * Do nothing and return undefined
  */
-export function returnVoid(): undefined {
+export function returnUndefined(): undefined {
   return undefined;
 }
 

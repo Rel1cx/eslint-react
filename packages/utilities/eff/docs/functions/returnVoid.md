@@ -6,10 +6,10 @@
 
 # Function: returnVoid()
 
-> **returnVoid**(): `undefined`
+> **returnVoid**(): `void`
 
-Do nothing and return undefined
+Do nothing and return void
 
 ## Returns
 
-`undefined`
+`void`

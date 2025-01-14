@@ -1,5 +1,4 @@
 import { entries, fromEntries } from "../utils";
-
 import { rules as allRules } from "./all";
 import { rules as disableTypeCheckedRules } from "./disable-type-checked";
 

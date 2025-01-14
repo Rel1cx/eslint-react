@@ -494,6 +494,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.19.1
         version: 8.19.1(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
+      birecord:
+        specifier: ^0.1.1
+        version: 0.1.1
       ts-pattern:
         specifier: ^5.6.0
         version: 5.6.0
@@ -4417,6 +4420,9 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
+
+  birecord@0.1.1:
+    resolution: {integrity: sha512-VUpsf/qykW0heRlC8LooCq28Kxn3mAqKohhDG/49rrsQ1dT1CXyj/pgXS+5BSRzFTR/3DyIBOqQOrGyZOh71Aw==}
 
   bl@5.1.0:
     resolution: {integrity: sha512-tv1ZJHLfTDnXE6tMHv73YgSJaWR2AFuPwMntBe7XL/GBFHnT0CLnsHMogfk5+GzCDC5ZWarSCYaIGATZt9dNsQ==}
@@ -11579,6 +11585,8 @@ snapshots:
       react: 19.0.0
 
   binary-extensions@2.3.0: {}
+
+  birecord@0.1.1: {}
 
   bl@5.1.0:
     dependencies:

@@ -1,5 +1,4 @@
 import { entries, fromEntries } from "../utils";
-
 import { rules as webApiRules } from "./web-api";
 
 export const name = "@eslint-react/disable-web-api";

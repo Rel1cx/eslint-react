@@ -2,7 +2,6 @@ export * from "./component";
 export * from "./effect";
 export * from "./element";
 export * from "./hook";
-export * from "./lifecycle";
 export * from "./phase";
 export * from "./render-prop";
 export type * from "./semantic-entry";
