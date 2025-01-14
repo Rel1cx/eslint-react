@@ -3,8 +3,8 @@ import { _ } from "@eslint-react/eff";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { getId } from "../utils";
-import type { ERClassComponent } from "./component";
 import { ERClassComponentFlag } from "./component-flag";
+import type { ERClassComponent } from "./component-semantic-node";
 import { isClassComponent, isPureComponent } from "./is";
 
 export function useComponentCollectorLegacy() {

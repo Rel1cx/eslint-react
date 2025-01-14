@@ -3,8 +3,8 @@ import { _ } from "@eslint-react/eff";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { getId } from "../utils";
-import type { ERHook } from "./hook";
 import { isReactHookName } from "./hook-name";
+import type { ERHook } from "./hook-semantic-node";
 import { isReactHookCall } from "./is";
 
 export function useHookCollector() {

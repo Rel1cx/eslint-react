@@ -79,7 +79,7 @@ export default createRule<[], MessageID>({
       }
     };
 
-    function isSetupFunction(node: TSESTree.Node) {
+    function isFunctionOfUseEffectSetup(node: TSESTree.Node) {
       return node.parent?.type === T.CallExpression
         && node.parent.callee !== node
         && isUseLayoutEffectLikeCall(node.parent);
@@ -94,7 +94,7 @@ export default createRule<[], MessageID>({
     }
     function getFunctionKind(node: AST.TSESTreeFunction) {
       return match<AST.TSESTreeFunction, FunctionKind>(node)
-        .when(isSetupFunction, () => "setup")
+        .when(isFunctionOfUseEffectSetup, () => "setup")
         .when(AST.isFunctionOfImmediatelyInvoked, () => "immediate")
         .otherwise(() => "other");
     }

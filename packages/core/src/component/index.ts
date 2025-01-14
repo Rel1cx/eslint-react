@@ -1,4 +1,3 @@
-export type * from "./component";
 export * from "./component-collector";
 export * from "./component-collector-hint";
 export * from "./component-collector-legacy";
@@ -8,6 +7,8 @@ export type * from "./component-kind";
 export * from "./component-lifecycle";
 export type * from "./component-method-kind";
 export * from "./component-name";
-export * from "./component-render-method";
+export * from "./component-phase";
+export * from "./component-render-prop";
+export type * from "./component-semantic-node";
+export * from "./component-state";
 export * from "./is";
-export * from "./misc";

@@ -10,13 +10,12 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
 import { getId } from "../utils";
-import type { ERFunctionComponent } from "./component";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
-import { getComponentNameFromIdentifier } from "./component-name";
-import { isFunctionOfRenderMethod } from "./component-render-method";
-import { hasNoneOrValidComponentName } from "./misc";
+import { isFunctionOfRenderMethod } from "./component-lifecycle";
+import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
+import type { ERFunctionComponent } from "./component-semantic-node";
 
 function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
   if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
