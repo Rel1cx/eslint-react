@@ -78,7 +78,6 @@ async function buildUsedByImage(users: string[]) {
 
 const token = process.env["GITHUB_TOKEN"];
 const avatars = await Promise.all(projects.map(async (repo) => fetchGitHubAvatar(repo, token)));
-const avatarsDeDup = [...new Set(avatars)];
-const img = await buildUsedByImage(avatarsDeDup);
+const img = await buildUsedByImage(avatars);
 await fs.writeFile("website/assets/used_by.png", img);
 await fs.writeFile("website/public/used_by.png", img);

@@ -52,15 +52,15 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.19.1",
-    "@typescript-eslint/type-utils": "^8.19.1",
-    "@typescript-eslint/types": "^8.19.1",
-    "@typescript-eslint/utils": "^8.19.1",
+    "@typescript-eslint/scope-manager": "^8.20.0",
+    "@typescript-eslint/type-utils": "^8.20.0",
+    "@typescript-eslint/types": "^8.20.0",
+    "@typescript-eslint/utils": "^8.20.0",
     "string-ts": "^2.2.0",
     "ts-pattern": "^5.6.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.6",
+    "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "@workspace/configs": "workspace:*",
     "tsup": "^8.3.5"
