@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / getElementNameAndRepresentName
+[@eslint-react/core](../README.md) / getElementNameOnJsxAndHtml
 
-# Function: getElementNameAndRepresentName()
+# Function: getElementNameOnJsxAndHtml()
 
-> **getElementNameAndRepresentName**(`node`, `context`, `polymorphicPropName`?, `additionalComponents`?): \[`string`, `string`\]
+> **getElementNameOnJsxAndHtml**(`node`, `context`, `polymorphicPropName`?, `additionalComponents`?): \[`string`, `string`\]
 
 ## Parameters
 

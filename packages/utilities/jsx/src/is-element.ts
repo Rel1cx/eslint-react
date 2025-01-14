@@ -2,11 +2,11 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { hasProp } from "./has-prop";
+import { hasAttribute } from "./has-attribute";
 
 export function isKeyedElement(node: TSESTree.Node, initialScope: Scope) {
   return node.type === T.JSXElement
-    && hasProp("key", initialScope, node.openingElement.attributes);
+    && hasAttribute("key", initialScope, node.openingElement.attributes);
 }
 
 /**

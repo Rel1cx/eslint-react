@@ -4,7 +4,7 @@ import { returnTrue } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-export function findParentProp(
+export function findParentAttributeNode(
   node: TSESTree.Node,
   test: (node: TSESTree.JSXAttribute) => boolean = returnTrue,
 ): TSESTree.JSXAttribute | _ {

@@ -7,6 +7,7 @@
 ## Type Aliases
 
 - [CustomAttribute](type-aliases/CustomAttribute.md)
+- [CustomAttributeNormalized](type-aliases/CustomAttributeNormalized.md)
 - [CustomComponent](type-aliases/CustomComponent.md)
 - [CustomComponentNormalized](type-aliases/CustomComponentNormalized.md)
 - [CustomHook](type-aliases/CustomHook.md)
@@ -21,6 +22,7 @@
 
 ## Variables
 
+- [CustomAttributeNormalizedSchema](variables/CustomAttributeNormalizedSchema.md)
 - [CustomComponentNormalizedSchema](variables/CustomComponentNormalizedSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)

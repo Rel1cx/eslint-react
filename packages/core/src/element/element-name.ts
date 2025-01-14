@@ -3,7 +3,7 @@ import type { CustomComponentNormalized, RuleContext } from "@eslint-react/share
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export function getElementNameAndRepresentName(
+export function getElementNameOnJsxAndHtml(
   node: TSESTree.JSXOpeningElement,
   context: RuleContext,
   polymorphicPropName?: string,
@@ -19,15 +19,15 @@ export function getElementNameAndRepresentName(
   if (polymorphicPropName == null) return [name, name];
   // Get the component name using the `settings["react-x"].polymorphicPropName` setting
   const initialScope = context.sourceCode.getScope(node);
-  const polymorphicProp = JSX.findPropInAttributes(
+  const attributeNode = JSX.getAttributeNode(
     polymorphicPropName,
     initialScope,
     node.attributes,
   );
-  if (polymorphicProp == null) return [name, name];
-  const polymorphicName = VAR.toResolved(JSX.getPropValue(polymorphicProp, initialScope)).value;
-  if (typeof polymorphicName === "string") {
-    return [name, polymorphicName];
+  if (attributeNode == null) return [name, name];
+  const polymorphicPropValue = VAR.toResolved(JSX.getAttributeStaticValue(attributeNode, initialScope)).value;
+  if (typeof polymorphicPropValue === "string") {
+    return [name, polymorphicPropValue];
   }
   return [name, name];
 }

@@ -29,13 +29,13 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
     return {
       JSXElement(node) {
         const attributes = node.openingElement.attributes;
         const initialScope = context.sourceCode.getScope(node);
-        const hasChildren = hasChildrenWithin(node) || JSX.hasProp("children", initialScope, attributes);
-        const hasDangerouslySetInnerHTML = JSX.hasProp("dangerouslySetInnerHTML", initialScope, attributes);
-        if (hasChildren && hasDangerouslySetInnerHTML) {
+        const hasChildren = hasChildrenWithin(node) || JSX.hasAttribute("children", initialScope, attributes);
+        if (hasChildren && JSX.hasAttribute("dangerouslySetInnerHTML", initialScope, attributes)) {
           context.report({
             messageId: "noDangerouslySetInnerhtmlWithChildren",
             node,

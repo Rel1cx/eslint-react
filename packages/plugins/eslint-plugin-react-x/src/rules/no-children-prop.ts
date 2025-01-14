@@ -28,15 +28,15 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const prop = JSX.getProp(
+        const attribute = JSX.getAttributeNode(
           "children",
           context.sourceCode.getScope(node),
           node.openingElement.attributes,
         );
-        if (prop != null) {
+        if (attribute != null) {
           context.report({
             messageId: "noChildrenProp",
-            node: prop,
+            node: attribute,
           });
         }
       },

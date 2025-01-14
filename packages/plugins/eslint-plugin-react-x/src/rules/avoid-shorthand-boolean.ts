@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
             messageId: "avoidShorthandBoolean",
             node,
             data: {
-              propName: JSX.getPropName(node),
+              propName: JSX.getAttributeName(node),
             },
             fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
           });

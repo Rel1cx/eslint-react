@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
     return {
       JSXAttribute(node: TSESTree.JSXAttribute) {
         const { value } = node;
-        const propName = JSX.getPropName(node);
+        const propName = JSX.getAttributeName(node);
         const hasValueTrue = value?.type === T.JSXExpressionContainer
           && value.expression.type === T.Literal
           && value.expression.value === true;

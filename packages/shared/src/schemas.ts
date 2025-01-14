@@ -78,10 +78,17 @@ export const CustomComponentSchema = object({
 });
 /* eslint-enable perfectionist/sort-objects */
 
+export const CustomAttributeNormalizedSchema = object({
+  name: string(),
+  as: string(),
+  controlled: optional(boolean()),
+  defaultValue: optional(string()),
+});
+
 export const CustomComponentNormalizedSchema = object({
   name: string(),
   as: string(),
-  attributes: optional(array(CustomAttributeSchema), []),
+  attributes: optional(array(CustomAttributeNormalizedSchema), []),
   re: instance(RegExp),
   selector: optional(string()),
 });
@@ -184,6 +191,8 @@ export type CustomHook = InferOutput<typeof CustomHookSchema>;
 export type CustomAttribute = InferOutput<typeof CustomAttributeSchema>;
 
 export type CustomComponent = InferOutput<typeof CustomComponentSchema>;
+
+export type CustomAttributeNormalized = InferOutput<typeof CustomAttributeNormalizedSchema>;
 
 export type CustomComponentNormalized = InferOutput<typeof CustomComponentNormalizedSchema>;
 

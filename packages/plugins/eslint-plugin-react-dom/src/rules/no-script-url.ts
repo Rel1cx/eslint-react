@@ -38,11 +38,11 @@ export default createRule<[], MessageID>({
         if (node.name.type !== T.JSXIdentifier || node.value == null) {
           return;
         }
-        const propScope = context.sourceCode.getScope(node);
-        const propValue = JSX.getPropValue(node, propScope);
-        const propValueResolved = VAR.toResolved(propValue).value;
-        if (typeof propValueResolved !== "string") return;
-        if (RE_JAVASCRIPT_PROTOCOL.test(propValueResolved)) {
+        const attributeScope = context.sourceCode.getScope(node);
+        const attributeValue = JSX.getAttributeStaticValue(node, attributeScope);
+        const attributeValueResolved = VAR.toResolved(attributeValue).value;
+        if (typeof attributeValueResolved !== "string") return;
+        if (RE_JAVASCRIPT_PROTOCOL.test(attributeValueResolved)) {
           context.report({
             messageId: "noScriptUrl",
             node: node.value,
