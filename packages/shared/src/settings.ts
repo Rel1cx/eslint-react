@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+import type { _ } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
@@ -7,8 +9,37 @@ import type { PartialDeep } from "type-fest";
 import { parse } from "valibot";
 
 import { getReactVersion } from "./get-react-version";
-import type { ESLintReactSettings, ESLintReactSettingsNormalized } from "./schemas";
+import type { CustomHooks, ESLintReactSettings } from "./schemas";
 import { DEFAULT_ESLINT_REACT_SETTINGS, ESLintSettingsSchema } from "./schemas";
+
+export interface CustomComponentNormalized {
+  name: string;
+  as: string;
+  props: CustomComponentPropNormalized[];
+  re: RegExp;
+  // selector?: string | _;
+}
+
+export interface CustomComponentPropNormalized {
+  name: string;
+  as: string;
+  // controlled?: boolean | _;
+  defaultValue?: string | _;
+}
+
+/**
+ * The normalized version of the `ESLintReactSettings`.
+ * @internal
+ */
+export interface ESLintReactSettingsNormalized {
+  additionalComponents: CustomComponentNormalized[];
+  additionalHooks: CustomHooks;
+  importSource?: string;
+  polymorphicPropName?: string | _;
+  // strict: boolean;
+  strictImportCheck: boolean;
+  version: string;
+}
 
 /**
  * Unsafely casts settings from a data object from `context.settings`.
@@ -35,41 +66,50 @@ export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
   };
 }, { isEqual: (a, b) => a === b });
 
-// #endregion
-
-// #region Normalization Functions
-
 /**
- * Normalizes the settings by converting all shorthand properties to their full form.
+ * The memoized version of `ESLintReactSettings`.
  * @param settings The settings.
  * @returns The normalized settings.
  * @internal
  */
-export const normalizeSettings = memoize((settings: ESLintReactSettings): ESLintReactSettingsNormalized => {
-  const additionalComponents = settings.additionalComponents ?? [];
-  return {
-    ...settings,
-    additionalComponents: additionalComponents.map((component) => ({
-      ...component,
-      as: component.as ?? component.name,
-      attributes: component.attributes?.map((attr) => ({
-        ...attr,
-        as: attr.as ?? attr.name,
-      })) ?? [],
-      re: pm.makeRe(component.name, { fastpaths: true }),
-    })),
-    version: match(settings.version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
-      .otherwise(identity),
-  };
-}, { isEqual: shallowEqual });
-
-// #endregion
-
-// #region Helper Functions
+export const toNormalizedSettings = memoize(
+  ({
+    additionalComponents = [],
+    additionalHooks = {},
+    version,
+    ...rest
+  }: ESLintReactSettings): ESLintReactSettingsNormalized => {
+    return {
+      ...rest,
+      additionalComponents: additionalComponents.map(({
+        name,
+        as = name,
+        attributes, // eslint-disable-line @typescript-eslint/no-deprecated
+        props = attributes ?? [],
+        ...rest
+      }) => ({
+        ...rest,
+        name,
+        as,
+        props: props
+          .map(({ name, as = name, ...rest }) => ({
+            ...rest,
+            name,
+            as,
+          })),
+        re: pm.makeRe(name, { fastpaths: true }),
+      })),
+      additionalHooks,
+      version: match(version)
+        .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
+        .otherwise(identity),
+    };
+  },
+  { isEqual: shallowEqual },
+);
 
 export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
-  return normalizeSettings(decodeSettings(context.settings));
+  return toNormalizedSettings(decodeSettings(context.settings));
 }
 
 /**
@@ -79,11 +119,8 @@ export function getSettingsFromContext(context: { settings: unknown }): ESLintRe
  */
 export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = identity;
 
-// #endregion
-
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
-    // eslint-disable-next-line no-restricted-syntax
     "react-x"?: Partial<ESLintReactSettings>;
   }
 }

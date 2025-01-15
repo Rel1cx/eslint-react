@@ -1,11 +1,11 @@
-import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
 import type { _ } from "@eslint-react/eff";
+import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
+import { createRule, findCustomComponent, findCustomComponentProp, getElementNameOnJsxAndDom } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
@@ -45,24 +45,31 @@ export default createRule<[], MessageID>({
     const settings = getSettingsFromContext(context);
     const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "a");
+
     return {
       JSXElement(node: TSESTree.JSXElement) {
-        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
+        const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
           node.openingElement,
           context,
           polymorphicPropName,
           additionalComponents,
         );
-
-        if (elementNameOnHtml !== "a") return;
+        if (elementNameOnDom !== "a") return;
+        const elementScope = context.sourceCode.getScope(node);
+        const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
 
         const getAttributeValue = (name: string) => {
-          return getAttributeNodeAndStringValue(
-            name,
-            node,
-            context,
-            getAdditionalAttributes(elementNameOnJsx, additionalComponents),
-          ).attributeValue;
+          const customComponentProp = findCustomComponentProp(name, customComponent?.props ?? []);
+          const propNameOnJsx = customComponentProp?.name ?? name;
+          const attributeNode = JSX.getAttributeNode(
+            propNameOnJsx,
+            elementScope,
+            node.openingElement.attributes,
+          );
+          if (attributeNode == null) return customComponentProp?.defaultValue;
+          const attributeScope = context.sourceCode.getScope(attributeNode);
+          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
+          return JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
         };
 
         if (getAttributeValue("target") !== "_blank") {

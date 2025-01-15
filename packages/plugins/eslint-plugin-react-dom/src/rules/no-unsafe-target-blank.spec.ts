@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Link",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "to",
                   as: "href",
@@ -110,7 +110,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Link",
               as: "a",
-              attributes: [{
+              props: [{
                 name: "rel",
                 defaultValue: "noopener",
               }],
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "relation",
                   as: "rel",
@@ -142,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Link",
               as: "a",
-              attributes: [{
+              props: [{
                 name: "rel",
                 defaultValue: "noreferrer",
               }],
@@ -150,7 +150,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "relation",
                   as: "rel",
@@ -173,7 +173,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Link",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "target",
                   defaultValue: "_blank",
@@ -260,7 +260,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [{
+              props: [{
                 name: "rel",
                 defaultValue: "noreferrer",
               }],
@@ -277,7 +277,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [{
+              props: [{
                 name: "rel",
                 defaultValue: "noreferrer",
               }],
@@ -285,7 +285,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "to",
                   as: "href",
@@ -309,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "to",
                   as: "href",
@@ -336,7 +336,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Link",
               as: "a",
-              attributes: [{
+              props: [{
                 name: "rel",
                 defaultValue: "noreferrer noopener",
               }],
@@ -344,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "LinkButton",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "relation",
                   as: "rel",
@@ -366,7 +366,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Link",
               as: "a",
-              attributes: [
+              props: [
                 {
                   name: "target",
                   defaultValue: "_blank",
@@ -392,7 +392,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           name: "Button",
     //           as: "a",
-    //           attributes: [
+    //           props: [
     //             {
     //               name: "target",
     //               defaultValue: "_blank",
@@ -415,7 +415,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           name: "*",
     //           as: "a",
-    //           attributes: [
+    //           props: [
     //             {
     //               name: "target",
     //               defaultValue: "_blank",

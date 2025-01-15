@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               name: "Button",
               as: "button",
-              attributes: [
+              props: [
                 {
                   name: "type",
                   as: "type",
