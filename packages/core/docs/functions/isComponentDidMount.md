@@ -6,7 +6,7 @@
 
 # Function: isComponentDidMount()
 
-> **isComponentDidMount**(`node`): node is MethodDefinition \| PropertyDefinition
+> **isComponentDidMount**(`node`): `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-node is MethodDefinition \| PropertyDefinition
+`node is TSESTreeMethodOrProperty`

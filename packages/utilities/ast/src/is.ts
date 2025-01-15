@@ -28,6 +28,11 @@ export const isFunctionType = isOneOf([
 
 export const isClass = isOneOf([T.ClassDeclaration, T.ClassExpression]);
 
+export const isMethodOrProperty = isOneOf([
+  T.PropertyDefinition,
+  T.MethodDefinition,
+]);
+
 export const isLoop = isOneOf([
   T.DoWhileStatement,
   T.ForInStatement,

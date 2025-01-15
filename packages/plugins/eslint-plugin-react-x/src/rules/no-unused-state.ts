@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
+import { isClassComponent, isGetDerivedStateFromProps } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -44,16 +44,6 @@ function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   );
 }
 
-const isGetDerivedStateFromProps = isMatching({
-  key: {
-    name: "getDerivedStateFromProps",
-  },
-  static: true,
-  value: {
-    params: P.array(),
-  },
-});
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -69,7 +59,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const classEntries: AST.TSESTreeClass[] = [];
-    const methodEntries: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
+    const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
     const constructorEntries: TSESTree.MethodDefinition[] = [];
     const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | _; isUsed: boolean }>();
     function classEnter(node: AST.TSESTreeClass) {
@@ -93,14 +83,14 @@ export default createRule<[], MessageID>({
         },
       });
     }
-    function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
+    function methodEnter(node: AST.TSESTreeMethodOrProperty) {
       methodEntries.push(node);
       const currentClass = classEntries.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       if (node.static) {
-        if (isGetDerivedStateFromProps(node) && node.value.params.length > 1) {
+        if (isGetDerivedStateFromProps(node) && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)) {
           const defNode = stateDefs.get(currentClass)?.node;
           stateDefs.set(currentClass, { node: defNode, isUsed: true });
         }

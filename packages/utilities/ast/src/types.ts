@@ -16,6 +16,8 @@ export type TSESTreeFunctionType =
 
 export type TSESTreeClass = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 
+export type TSESTreeMethodOrProperty = TSESTree.PropertyDefinition | TSESTree.MethodDefinition;
+
 export type TSESTreeLoop =
   | TSESTree.DoWhileStatement
   | TSESTree.ForInStatement

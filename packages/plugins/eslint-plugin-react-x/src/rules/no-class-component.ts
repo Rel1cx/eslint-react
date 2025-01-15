@@ -1,7 +1,5 @@
-import { useComponentCollectorLegacy } from "@eslint-react/core";
+import { isComponentDidCatch, isGetDerivedStateFromError, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -13,26 +11,6 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-export function isComponentDidCatch(node: TSESTree.Node): node is
-  | TSESTree.MethodDefinition
-  | TSESTree.PropertyDefinition
-{
-  return (node.type === T.MethodDefinition || node.type === T.PropertyDefinition)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentDidCatch";
-}
-
-function isGetDerivedStateFromError(node: TSESTree.Node): node is
-  | TSESTree.MethodDefinition
-  | TSESTree.PropertyDefinition
-{
-  return (node.type === T.MethodDefinition || node.type === T.PropertyDefinition)
-    && node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getDerivedStateFromError";
-}
 
 export default createRule<[], MessageID>({
   meta: {

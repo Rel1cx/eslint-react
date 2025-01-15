@@ -6,7 +6,7 @@
 
 # Function: isComponentWillUnmount()
 
-> **isComponentWillUnmount**(`node`): node is MethodDefinition \| PropertyDefinition
+> **isComponentWillUnmount**(`node`): `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-node is MethodDefinition \| PropertyDefinition
+`node is TSESTreeMethodOrProperty`

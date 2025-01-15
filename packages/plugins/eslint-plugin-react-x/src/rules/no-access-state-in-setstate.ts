@@ -55,7 +55,7 @@ export default createRule<[], MessageID>({
       isComponent: boolean,
     ][] = [];
     const methodEntries: [
-      node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition,
+      node: AST.TSESTreeMethodOrProperty,
       isStatic: boolean,
     ][] = [];
     const setStateEntries: [

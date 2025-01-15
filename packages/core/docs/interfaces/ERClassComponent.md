@@ -70,7 +70,7 @@
 
 ### methods
 
-> **methods**: (`MethodDefinition` \| `PropertyDefinition`)[]
+> **methods**: `TSESTreeMethodOrProperty`[]
 
 ***
 

@@ -6,7 +6,7 @@
 
 # Function: isRenderMethodLike()
 
-> **isRenderMethodLike**(`node`): node is MethodDefinition \| PropertyDefinition
+> **isRenderMethodLike**(`node`): `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-node is MethodDefinition \| PropertyDefinition
+`node is TSESTreeMethodOrProperty`

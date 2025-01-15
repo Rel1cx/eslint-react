@@ -33,10 +33,7 @@ export interface ERClassComponent extends ERSemanticNode {
   node: AST.TSESTreeClass;
   flag: ERClassComponentFlag;
   hint: ERComponentHint;
-  methods: Array<
-    | TSESTree.MethodDefinition
-    | TSESTree.PropertyDefinition
-  >;
+  methods: AST.TSESTreeMethodOrProperty[];
   displayName:
     | _
     | TSESTree.Expression;

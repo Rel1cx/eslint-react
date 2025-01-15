@@ -17,7 +17,7 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type Property =
-  | (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)["key"]
+  | AST.TSESTreeMethodOrProperty["key"]
   | TSESTree.MemberExpression["property"];
 
 const LIFECYCLE_METHODS = new Set([
@@ -73,7 +73,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const classEntries: AST.TSESTreeClass[] = [];
-    const methodEntries: (TSESTree.MethodDefinition | TSESTree.PropertyDefinition)[] = [];
+    const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
     const propertyDefs = new WeakMap<AST.TSESTreeClass, Set<Property>>();
     const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
     function classEnter(node: AST.TSESTreeClass) {
@@ -114,7 +114,7 @@ export default createRule<[], MessageID>({
         });
       }
     }
-    function methodEnter(node: TSESTree.MethodDefinition | TSESTree.PropertyDefinition) {
+    function methodEnter(node: AST.TSESTreeMethodOrProperty) {
       methodEntries.push(node);
       const currentClass = classEntries.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
