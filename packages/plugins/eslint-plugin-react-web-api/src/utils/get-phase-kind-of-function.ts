@@ -1,9 +1,9 @@
 import type * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
 import {
-  isFunctionOfUseEffectCleanup,
   isFunctionOfComponentDidMount,
   isFunctionOfComponentWillUnmount,
+  isFunctionOfUseEffectCleanup,
   isFunctionOfUseEffectSetup,
 } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";

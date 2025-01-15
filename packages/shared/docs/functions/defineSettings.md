@@ -36,7 +36,7 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 \{ `use`: `string`[]; `useActionState`: `string`[]; `useCallback`: `string`[]; `useContext`: `string`[]; `useDebugValue`: `string`[]; `useDeferredValue`: `string`[]; `useEffect`: `string`[]; `useFormStatus`: `string`[]; `useId`: `string`[]; `useImperativeHandle`: `string`[]; `useInsertionEffect`: `string`[]; `useLayoutEffect`: `string`[]; `useMemo`: `string`[]; `useOptimistic`: `string`[]; `useReducer`: `string`[]; `useRef`: `string`[]; `useState`: `string`[]; `useSyncExternalStore`: `string`[]; `useTransition`: `string`[]; \} = `...`
 
-A object of aliases for React built-in hooks.
+A object to define additional hooks that are equivalent to the built-in React Hooks.
 
 **Description**
 
@@ -231,7 +231,7 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 > `optional` **additionalHooks**: `object`
 
-A object of aliases for React built-in hooks.
+A object to define additional hooks that are equivalent to the built-in React Hooks.
 
 #### Description
 
@@ -319,9 +319,9 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 
 > `optional` **useTransition**: `string`[]
 
-### importSource?
+### importSource
 
-> `optional` **importSource**: `string`
+> **importSource**: `string`
 
 The source where React is imported from.
 
@@ -339,9 +339,9 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-### ~~jsxPragma?~~
+### ~~jsxPragma~~
 
-> `optional` **jsxPragma**: `string`
+> **jsxPragma**: `string`
 
 The identifier that’s used for JSX Element creation.
 
@@ -351,9 +351,9 @@ The identifier that’s used for JSX Element creation.
 
 #### Deprecated
 
-### ~~jsxPragmaFrag?~~
+### ~~jsxPragmaFrag~~
 
-> `optional` **jsxPragmaFrag**: `string`
+> **jsxPragmaFrag**: `string`
 
 The identifier that’s used for JSX fragment elements.
 
@@ -367,9 +367,9 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 
 #### Deprecated
 
-### polymorphicPropName?
+### polymorphicPropName
 
-> `optional` **polymorphicPropName**: `string`
+> **polymorphicPropName**: `string`
 
 The name of the prop that is used for polymorphic components.
 
@@ -383,9 +383,9 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
-### version?
+### version
 
-> `optional` **version**: `string`
+> **version**: `string`
 
 React version to use, "detect" means auto detect React version from the project’s dependencies.
 If `importSource` is specified, an equivalent version of React should be provided here.

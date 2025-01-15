@@ -2,7 +2,6 @@ import * as AST from "@eslint-react/ast";
 import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance, isInversePhase } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";

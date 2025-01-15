@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("use")) {
       return {};
     }
-    const alias = getSettingsFromContext(context).additionalHooks?.useMemo ?? [];
+    const alias = getSettingsFromContext(context).additionalHooks.useMemo ?? [];
     return {
       CallExpression(node) {
         if (!isReactHookCall(node)) {

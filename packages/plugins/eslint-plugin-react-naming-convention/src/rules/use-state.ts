@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const alias = getSettingsFromContext(context).additionalHooks?.useState ?? [];
+    const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
     const {
       ctx,
       listeners,

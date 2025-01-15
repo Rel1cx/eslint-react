@@ -1,9 +1,9 @@
-import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
+import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
+import { createRule, findCustomComponent, findCustomComponentProp, getElementNameOnJsxAndDom } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -30,26 +30,43 @@ export default createRule<[], MessageID>({
     const settings = getSettingsFromContext(context);
     const polymorphicPropName = settings.polymorphicPropName;
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "button");
+
     return {
       JSXElement(node) {
-        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
+        const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
           node.openingElement,
           context,
           polymorphicPropName,
           additionalComponents,
         );
-        if (elementNameOnHtml !== "button") return;
 
-        const { attributeNode, attributeValue } = getAttributeNodeAndStringValue(
-          "type",
-          node,
-          context,
-          getAdditionalAttributes(elementNameOnJsx, additionalComponents),
+        if (elementNameOnDom !== "button") return;
+
+        const elementScope = context.sourceCode.getScope(node);
+        const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
+        const customComponentProp = findCustomComponentProp("type", customComponent?.attributes ?? []);
+        const propNameOnJsx = customComponentProp?.name ?? "type";
+        const attributeNode = JSX.getAttributeNode(
+          propNameOnJsx,
+          elementScope,
+          node.openingElement.attributes,
         );
-        if (typeof attributeValue !== "string") {
+        if (attributeNode != null) {
+          const attributeScope = context.sourceCode.getScope(attributeNode);
+          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
+          const attributeStringValue = JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
+          if (typeof attributeStringValue !== "string") {
+            context.report({
+              messageId: "noMissingButtonType",
+              node: attributeNode,
+            });
+          }
+          return;
+        }
+        if (typeof customComponentProp?.defaultValue !== "string") {
           context.report({
             messageId: "noMissingButtonType",
-            node: attributeNode ?? node,
+            node,
           });
         }
       },

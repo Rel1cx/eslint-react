@@ -42,7 +42,6 @@
 ## Functions
 
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
-- [getElementNameOnJsxAndHtml](functions/getElementNameOnJsxAndHtml.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [getId](functions/getId.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)

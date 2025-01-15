@@ -9,7 +9,7 @@ ESLint React provides the following configurations:
 ### `version`
 
 ```ts
-const version = "detect" satisfies string
+const version = "detect"
 ```
 
 React version to perform the analysis, `"detect"` means auto detect React version from the project's dependencies.
@@ -19,7 +19,7 @@ If failed to detect, it will use the `19.0.0` version.
 ### `importSource`
 
 ```ts
-const importSource = "react" satisfies string
+const importSource = "react"
 ```
 
 <Callout type="info">If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.</Callout>
@@ -37,7 +37,7 @@ import React from "@pika/react";
 ### `polymorphicPropName`
 
 ```ts
-const polymorphicPropName = "as" satisfies string
+const polymorphicPropName = "as"
 ```
 
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
@@ -55,26 +55,22 @@ If no `polymorphicPropName` is set, then the component will be evaluated as `Box
 ### `additionalComponents`
 
 ```ts
-interface ComponentAttributeEntry {
+const additionalComponents = [] satisfies {
   name: string;
   as?: string;
-  defaultValue?: string;
-}
-
-interface ComponentEntry {
-  name: string;
-  as?: string;
-  attributes: ComponentAttributeEntry[];
-}
-
-const additionalComponents = [] satisfies ComponentEntry[]
+  attributes?: {
+    name: string;
+    as?: string;
+    defaultValue?: string;
+  }[]
+}[]
 ```
 
 <Callout type="info">Before using `additionalComponents`, consider whether `polymorphicPropName` can be used instead, as it simpler and more efficient.</Callout>
 
 <Callout type="warning">This is an experimental feature that can be unstable and lacks documentation.</Callout>
 
-An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis. You can also provide default values for attributes here, that will be used when that attribute is not present in the component.
+An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis. You can also provide default values for attributes here, that will be used when that attribute is not present.
 
 For example, if you set the `additionalComponents` to:
 
@@ -84,7 +80,10 @@ For example, if you set the `additionalComponents` to:
     "name": "EmbedContent",
     "as": "iframe",
     "attributes": [
-      { "name": "sandbox", "defaultValue": "" }
+      {
+        "name": "sandbox",
+        "defaultValue": ""
+      }
     ]
   }
 ]
@@ -107,7 +106,10 @@ So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandb
 ### `additionalHooks`
 
 ```ts
-const additionalHooks = { useLayoutEffect: ["useIsomorphicLayoutEffect"] } satisfies Record<ReactBuiltInHookName, string[]>
+const additionalHooks = {
+  useLayoutEffect: ["useIsomorphicLayoutEffect"]
+  // ...
+}
 ```
 
 <Callout type="warning">This is intended to cover edge cases. We suggest using the built-in React Hooks whenever possible.</Callout>
@@ -117,7 +119,9 @@ A object of aliases for React built-in Hooks. ESLint React will recognize these 
 For example, if you set the `additionalHooks` to:
 
 ```json
-{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }
+{
+  useLayoutEffect: ["useIsomorphicLayoutEffect"]
+}
 ```
 
 then the React Hook call:

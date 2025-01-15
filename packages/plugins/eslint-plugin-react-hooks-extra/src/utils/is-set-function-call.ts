@@ -1,11 +1,11 @@
-import type { ESLintReactSettings, RuleContext } from "@eslint-react/shared";
+import type { ESLintReactSettingsNormalized, RuleContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isFromUseStateCall } from "./is-from-use-state-call";
 
-export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSettings) {
+export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSettingsNormalized) {
   const isIdFromUseStateCall = isFromUseStateCall(context, settings);
   return (node: TSESTree.CallExpression) => {
     switch (node.callee.type) {

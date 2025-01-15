@@ -4,13 +4,16 @@
 
 # @eslint-react/shared
 
+## Interfaces
+
+- [CustomComponentNormalized](interfaces/CustomComponentNormalized.md)
+- [CustomComponentPropNormalized](interfaces/CustomComponentPropNormalized.md)
+
 ## Type Aliases
 
-- [CustomAttribute](type-aliases/CustomAttribute.md)
-- [CustomAttributeNormalized](type-aliases/CustomAttributeNormalized.md)
 - [CustomComponent](type-aliases/CustomComponent.md)
-- [CustomComponentNormalized](type-aliases/CustomComponentNormalized.md)
-- [CustomHook](type-aliases/CustomHook.md)
+- [CustomComponentProp](type-aliases/CustomComponentProp.md)
+- [CustomHooks](type-aliases/CustomHooks.md)
 - [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
 - [ESLintSettings](type-aliases/ESLintSettings.md)
 - [RuleContext](type-aliases/RuleContext.md)
@@ -22,8 +25,7 @@
 
 ## Variables
 
-- [CustomAttributeNormalizedSchema](variables/CustomAttributeNormalizedSchema.md)
-- [CustomComponentNormalizedSchema](variables/CustomComponentNormalizedSchema.md)
+- [CustomHooksSchema](variables/CustomHooksSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)

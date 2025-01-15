@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
       return {};
     }
     const settings = getSettingsFromContext(context);
-    const additionalHooks = settings.additionalHooks ?? {};
+    const additionalHooks = settings.additionalHooks;
 
     const isUseEffectLikeCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);
     const isUseStateCall = isReactHookCallWithNameAlias("useState", context, additionalHooks.useState ?? []);
