@@ -87,7 +87,7 @@
 | [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | 1️⃣  | `🔍`          | Enforces explicit `sandbox` attribute for `iframe` elements.                            |
 | [`no-namespace`](dom-no-namespace)                                                             | 2️⃣  | `🔍`          | Enforces the absence of a `namespace` in React elements.                                |
 | [`no-render-return-value`](dom-no-render-return-value)                                         | 2️⃣  | `🔍`          | Prevents using the return value of `ReactDOM.render`.                                   |
-| [`no-script-url`](dom-no-script-url)                                                           | 1️⃣  | `🔍`          | Prevents using `javascript:` URLs as the value of certain attributes.                   |
+| [`no-script-url`](dom-no-script-url)                                                           | 1️⃣  | `🔍`          | Prevents using `javascript:` URLs as the value of attributes.                           |
 | [`no-unknown-property`](dom-no-unknown-property)                                               | 0️⃣  | `🔍` `🔧` `⚙️` | Prevents using unknown `DOM` property                                                   |
 | [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | 1️⃣  | `🔍`          | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.   |
 | [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | 1️⃣  | `🔍`          | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                   |

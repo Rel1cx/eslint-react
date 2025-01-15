@@ -26,8 +26,8 @@ importers:
         specifier: ^2.27.11
         version: 2.27.11
       '@eslint/config-inspector':
-        specifier: ^0.7.1
-        version: 0.7.1(eslint@9.18.0(jiti@2.4.2))
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.18.0(jiti@2.4.2))
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
@@ -134,11 +134,11 @@ importers:
         specifier: ^2.4.2
         version: 2.4.2
       lefthook:
-        specifier: ^1.10.4
-        version: 1.10.4
+        specifier: ^1.10.5
+        version: 1.10.5
       markdownlint:
-        specifier: ^0.37.3
-        version: 0.37.3
+        specifier: ^0.37.4
+        version: 0.37.4
       ofetch:
         specifier: ^1.4.1
         version: 1.4.1
@@ -168,7 +168,7 @@ importers:
         version: 5.6.0
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -231,7 +231,7 @@ importers:
         version: 19.0.0
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -261,8 +261,8 @@ importers:
         specifier: ^1.23.2
         version: 1.23.2(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
       '@eslint/config-inspector':
-        specifier: ^0.7.1
-        version: 0.7.1(eslint@9.18.0(jiti@2.4.2))
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.18.0(jiti@2.4.2))
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
@@ -322,8 +322,8 @@ importers:
         specifier: ^1.23.2
         version: 1.23.2(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
       '@eslint/config-inspector':
-        specifier: ^0.7.1
-        version: 0.7.1(eslint@9.18.0(jiti@2.4.2))
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.18.0(jiti@2.4.2))
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
@@ -374,8 +374,8 @@ importers:
         specifier: ^1.23.2
         version: 1.23.2(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
       '@eslint/config-inspector':
-        specifier: ^0.7.1
-        version: 0.7.1(eslint@9.18.0(jiti@2.4.2))
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.18.0(jiti@2.4.2))
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
@@ -429,8 +429,8 @@ importers:
         specifier: ^1.23.2
         version: 1.23.2(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
       '@eslint/config-inspector':
-        specifier: ^0.7.1
-        version: 0.7.1(eslint@9.18.0(jiti@2.4.2))
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.18.0(jiti@2.4.2))
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
@@ -506,7 +506,7 @@ importers:
         version: link:../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -558,7 +558,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -616,7 +616,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
@@ -674,7 +674,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -732,7 +732,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -787,7 +787,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin-react-web-api:
     dependencies:
@@ -842,7 +842,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
@@ -909,7 +909,7 @@ importers:
         version: 2.0.0(typescript@5.7.3)
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/shared:
     dependencies:
@@ -940,7 +940,7 @@ importers:
         version: 4.1.3
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       type-fest:
         specifier: ^4.32.0
         version: 4.32.0
@@ -974,7 +974,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/utilities/eff:
     devDependencies:
@@ -983,7 +983,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/utilities/jsx:
     dependencies:
@@ -1014,7 +1014,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/utilities/var:
     dependencies:
@@ -1045,7 +1045,7 @@ importers:
         version: link:../../../workspace/configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   website:
     dependencies:
@@ -1138,8 +1138,8 @@ importers:
         specifier: ^12.1.1
         version: 12.1.1(eslint@9.18.0(jiti@2.4.2))
       postcss:
-        specifier: ^8.5.0
-        version: 8.5.0
+        specifier: ^8.5.1
+        version: 8.5.1
       remark-code-import:
         specifier: ^1.2.0
         version: 1.2.0
@@ -1217,7 +1217,7 @@ importers:
         version: link:../configs
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
 packages:
 
@@ -2626,8 +2626,8 @@ packages:
     resolution: {integrity: sha512-fo6Mtm5mWyKjA/Chy1BYTdn5mGJoDNjC7C64ug20ADsRDGrA85bN3uK3MaKbeRkRuuIEAR5N33Jr1pbm411/PA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/config-inspector@0.7.1':
-    resolution: {integrity: sha512-80+MJay0D/Kf2ImH04UOQtnL4141KviU0KNuT34xvQZ0TQ/aAfIzKnx4cc4lxIDOLi/ITCV3BxOQkHRrDULFQw==}
+  '@eslint/config-inspector@1.0.0':
+    resolution: {integrity: sha512-fzl4OHQazPSpsT5LIoE5qQV+8m48pdLN92lPdmIZJpQpD+kZmYC5JfxRilj5vcSaVmB9klJ8s81knNyC3hG7Eg==}
     hasBin: true
     peerDependencies:
       eslint: ^8.50.0 || ^9.0.0
@@ -5692,8 +5692,8 @@ packages:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
     engines: {node: '>=10'}
 
-  h3@1.13.0:
-    resolution: {integrity: sha512-vFEAu/yf8UMUcB4s43OaDaigcqpQd14yanmOsn+NcRX3/guSKncyE2rOYhq8RIchgJrPSs/QiIddnTTR1ddiAg==}
+  h3@1.13.1:
+    resolution: {integrity: sha512-u/z6Z4YY+ANZ05cRRfsFJadTBrNA6e3jxdU+AN5UCbZSZEUwgHiwjvUEe0k1NoQmAvQmETwr+xB5jd7mhCJuIQ==}
 
   hachure-fill@0.5.2:
     resolution: {integrity: sha512-3GKBOn+m2LX9iq+JC1064cSFprJY4jL1jCXTcpnfER5HYE2l/4EfWSGzkPa/ZDBmYI0ZOEj5VHV/eKnPGkHuOg==}
@@ -6088,58 +6088,58 @@ packages:
   layout-base@2.0.1:
     resolution: {integrity: sha512-dp3s92+uNI1hWIpPGH3jK2kxE2lMjdXdr+DH8ynZHpd6PUlH6x6cbuXnoMmiNumznqaNO31xu9e79F0uuZ0JFg==}
 
-  lefthook-darwin-arm64@1.10.4:
-    resolution: {integrity: sha512-ARVuQwMFkKBy++2W4ACwCf5oy93qfOs0KKjJM1ssvgLB25MtJQeIhEoJ10sPXYkEnLZnEkfAtX4womVEjCXyXw==}
+  lefthook-darwin-arm64@1.10.5:
+    resolution: {integrity: sha512-Sllv7RgzR33gwmnWf6dFttzXbA78f9dBDhX4IVJUUSa5AM/6uvchooM7+sdvv3+G8aR3MsGewIImlZoD5rn3wg==}
     cpu: [arm64]
     os: [darwin]
 
-  lefthook-darwin-x64@1.10.4:
-    resolution: {integrity: sha512-KQw7nPtdF3+Bf9UQMdME2jzEu9KJJhAt5SdS9/JTDcfXTwBd1tz3l1bQT4BmvP2Du3XqSvgttWCrhGfIkfO9mw==}
+  lefthook-darwin-x64@1.10.5:
+    resolution: {integrity: sha512-pClWV5IpCjBDYD7QetQMxOjZQ/9/ry8HH9QGHPAHELHISqpMePd9sVvaRBQNeq9KY2nqmn46/4oJ+dCI3jUEuQ==}
     cpu: [x64]
     os: [darwin]
 
-  lefthook-freebsd-arm64@1.10.4:
-    resolution: {integrity: sha512-BMXbiB6cF8Cr8pyE3r/hPzBMZJqTNZ4dwC5w/RQTvori5kow8kDgiby2pNVq3gaYvyg4TpXccc8dGgjQoOBHRQ==}
+  lefthook-freebsd-arm64@1.10.5:
+    resolution: {integrity: sha512-5xqw26FSE0UEYLXkbTuPQcLpCbchCRDVaMwGN7jbF5WpeFAinYumfZ/ZzmXtfE+l4DSMALc/62EpA2sEtOxAuA==}
     cpu: [arm64]
     os: [freebsd]
 
-  lefthook-freebsd-x64@1.10.4:
-    resolution: {integrity: sha512-ClXTNqa4DyXJjZ2u8SINx4XxHWOvJ7FFbtqPl+NJiPmToRZ/nYVaeZakgHTblupB3z/xggiPAKdlKbqABELCzw==}
+  lefthook-freebsd-x64@1.10.5:
+    resolution: {integrity: sha512-tLOol890ozyZ1cvlZWqk6StBwA5yFifwuoWcFFdGCDJp10NSs6EmKedYKxLVP+v7gcaqg+69bnGgZpPgG9KCoA==}
     cpu: [x64]
     os: [freebsd]
 
-  lefthook-linux-arm64@1.10.4:
-    resolution: {integrity: sha512-DyBOXztZSlbMJaQzZ41d+FKgYMC1RzJqHeHFjGMKGNF1Q8eUfW1gGhrBM7yfSJIFAuqOCUK6fw7hI5l7YbOLuQ==}
+  lefthook-linux-arm64@1.10.5:
+    resolution: {integrity: sha512-ygVMXFUOVMIwC4cFSUr1YVXkyazLMwQfHc6Bh+D3RraHQ4CuqfGLr9Dqg3JUxQrczOsWlvw7m8fAgz37n4hquQ==}
     cpu: [arm64]
     os: [linux]
 
-  lefthook-linux-x64@1.10.4:
-    resolution: {integrity: sha512-V3U/8rs1/6nCmghs4YRGdxPonTLVtvs/W3Ji6UQXFqGLeNAhlhTj2XTYko+vY2QfmavThBpqOtw36Line+d6iw==}
+  lefthook-linux-x64@1.10.5:
+    resolution: {integrity: sha512-zu8nnQKjM8P+awoRpIqbyo83Oi88QVDjS5veIXGj61bVNvrMJHMGqMseKJVV+6DNGuTOFx+7W2Iv5OrzQKJgGw==}
     cpu: [x64]
     os: [linux]
 
-  lefthook-openbsd-arm64@1.10.4:
-    resolution: {integrity: sha512-+vCvGHqf5qqijbBgjBaQBzV4Mpl16UIgw0QQmnS0oYiaL5HQND3KPSA/bsLnoXe9UWvpIQY4GfMVpqhdl2HN4Q==}
+  lefthook-openbsd-arm64@1.10.5:
+    resolution: {integrity: sha512-XRQ4/Jxfm2HnVQB8ZI2f35JNeuO4PANKpO6u29eNMlCJh9HejbdyDbZ3EpS8qIFREkHOxaiKI3fbYd5nsOKcUw==}
     cpu: [arm64]
     os: [openbsd]
 
-  lefthook-openbsd-x64@1.10.4:
-    resolution: {integrity: sha512-kvHxriC02YQY9egRD43uzMA7Y/VWo+CzcW894ovpmROOCmmipydDoWPoEd+kknyYyNmntXhXgebAopCy/ZOr8A==}
+  lefthook-openbsd-x64@1.10.5:
+    resolution: {integrity: sha512-cVWj6oHOpQ8SdSxfQ920TceSzJyf3jwYJ/QTG4Du2yyl8kds6D3l4Qo54zvfTCeEkOFiY+pAODLLYdQZOEQSnw==}
     cpu: [x64]
     os: [openbsd]
 
-  lefthook-windows-arm64@1.10.4:
-    resolution: {integrity: sha512-jSta3l7gYjZWCytvmEC039XXbuvJiZO8hawR3B6nWZFgjaYA0ECS6/fdxuz1kGxd1zMDrvnFoOeTcSGQwHGmaA==}
+  lefthook-windows-arm64@1.10.5:
+    resolution: {integrity: sha512-ISyQZlV5P4VmAk8ovdqPyNse4XDp4WM21AKzaDvaGvT/NRgg9Qn9yHFeChgjlUQJitOF7GsQ2hqfli6P4xk62A==}
     cpu: [arm64]
     os: [win32]
 
-  lefthook-windows-x64@1.10.4:
-    resolution: {integrity: sha512-d6jOidPQ8HTmXHH8izE7/BY4ZHAsCVgkfSyQI13rvBahZfPjmtE0yNBfd2MC+xyxW1E8M0uloy7ZhAYM4WZjdw==}
+  lefthook-windows-x64@1.10.5:
+    resolution: {integrity: sha512-s9tEKZXi3iRqVW/u/9qwOGAiRfDzeO0kNJZKT0JVH3MnZwewF/pVYh+XcfcoNr+SSgsiKvZalN41Sl7XrKyoAw==}
     cpu: [x64]
     os: [win32]
 
-  lefthook@1.10.4:
-    resolution: {integrity: sha512-DwRkvZA7IeZv9hwdXKr0PIi0FX1/2ehU5ImPYCs1q9QlPQVmKBborb/z5BnI5k/y52qaAHCgBhcuhm5cwLjMSQ==}
+  lefthook@1.10.5:
+    resolution: {integrity: sha512-zVRJtGh6wK6DuUVFeGrYmnSk2fB6L1wh0hOPbRw4E5CMHo7uiTD2f5zRh7VKtMS8jFUnw9sEprffoYqRkJWdeA==}
     hasBin: true
 
   levn@0.4.1:
@@ -6308,8 +6308,8 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
-  markdownlint@0.37.3:
-    resolution: {integrity: sha512-eoQqH0291YCCjd+Pe1PUQ9AmWthlVmS0XWgcionkZ8q34ceZyRI+pYvsWksXJJL8OBkWCPwp1h/pnXxrPFC4oA==}
+  markdownlint@0.37.4:
+    resolution: {integrity: sha512-u00joA/syf3VhWh6/ybVFkib5Zpj2e5KB/cfCei8fkSRuums6nyisTWGqjTWIOFoFwuXoTBQQiqlB4qFKp8ncQ==}
     engines: {node: '>=18'}
 
   marked@13.0.3:
@@ -6573,6 +6573,9 @@ packages:
 
   mlly@1.7.3:
     resolution: {integrity: sha512-xUsx5n/mN0uQf4V548PKQ+YShA4/IW0KI1dZhrNrPCLG+xizETbHTkOa1f8/xut9JRPp8kQuMnz0oqwkTiLo/A==}
+
+  mlly@1.7.4:
+    resolution: {integrity: sha512-qmdSIPC4bDJXgZTCR7XosJiNKySV7O215tsPtDN9iEO/7q/76b/ijtgRu/+epFXSJhijtTCCGp3DWS549P3xKw==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -6915,6 +6918,9 @@ packages:
   pathe@1.1.2:
     resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
+  pathe@2.0.1:
+    resolution: {integrity: sha512-6jpjMpOth5S9ITVu5clZ7NOgHNsv5vRQdheL9ztp2vZmM6fRbLvyua1tiBIL4lk8SAe3ARzeXEly6siXCjDHDw==}
+
   pathval@2.0.0:
     resolution: {integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==}
     engines: {node: '>= 14.16'}
@@ -7024,8 +7030,8 @@ packages:
     resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.0:
-    resolution: {integrity: sha512-27VKOqrYfPncKA2NrFOVhP5MGAfHKLYn/Q0mz9cNQyRAKYi3VNHwYU2qKKqPCqgBmeeJ0uAFB56NumXZ5ZReXg==}
+  postcss@8.5.1:
+    resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -9794,7 +9800,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/config-inspector@0.7.1(eslint@9.18.0(jiti@2.4.2))':
+  '@eslint/config-inspector@1.0.0(eslint@9.18.0(jiti@2.4.2))':
     dependencies:
       '@nodelib/fs.walk': 3.0.1
       bundle-require: 5.1.0(esbuild@0.24.2)
@@ -9806,8 +9812,8 @@ snapshots:
       fast-glob: 3.3.3
       find-up: 7.0.0
       get-port-please: 3.1.2
-      h3: 1.13.0
-      mlly: 1.7.3
+      h3: 1.13.1
+      mlly: 1.7.4
       mrmime: 2.0.0
       open: 10.1.0
       picocolors: 1.1.1
@@ -10979,7 +10985,7 @@ snapshots:
       '@tailwindcss/node': 4.0.0-beta.9
       '@tailwindcss/oxide': 4.0.0-beta.9
       lightningcss: 1.29.1
-      postcss: 8.5.0
+      postcss: 8.5.1
       tailwindcss: 4.0.0-beta.9
 
   '@tanstack/react-virtual@3.11.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
@@ -11551,7 +11557,7 @@ snapshots:
       '@vue/shared': 3.5.13
       estree-walker: 2.0.2
       magic-string: 0.30.17
-      postcss: 8.5.0
+      postcss: 8.5.1
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.13':
@@ -13247,7 +13253,7 @@ snapshots:
     dependencies:
       duplexer: 0.1.2
 
-  h3@1.13.0:
+  h3@1.13.1:
     dependencies:
       cookie-es: 1.2.2
       crossws: 0.3.1
@@ -13672,48 +13678,48 @@ snapshots:
 
   layout-base@2.0.1: {}
 
-  lefthook-darwin-arm64@1.10.4:
+  lefthook-darwin-arm64@1.10.5:
     optional: true
 
-  lefthook-darwin-x64@1.10.4:
+  lefthook-darwin-x64@1.10.5:
     optional: true
 
-  lefthook-freebsd-arm64@1.10.4:
+  lefthook-freebsd-arm64@1.10.5:
     optional: true
 
-  lefthook-freebsd-x64@1.10.4:
+  lefthook-freebsd-x64@1.10.5:
     optional: true
 
-  lefthook-linux-arm64@1.10.4:
+  lefthook-linux-arm64@1.10.5:
     optional: true
 
-  lefthook-linux-x64@1.10.4:
+  lefthook-linux-x64@1.10.5:
     optional: true
 
-  lefthook-openbsd-arm64@1.10.4:
+  lefthook-openbsd-arm64@1.10.5:
     optional: true
 
-  lefthook-openbsd-x64@1.10.4:
+  lefthook-openbsd-x64@1.10.5:
     optional: true
 
-  lefthook-windows-arm64@1.10.4:
+  lefthook-windows-arm64@1.10.5:
     optional: true
 
-  lefthook-windows-x64@1.10.4:
+  lefthook-windows-x64@1.10.5:
     optional: true
 
-  lefthook@1.10.4:
+  lefthook@1.10.5:
     optionalDependencies:
-      lefthook-darwin-arm64: 1.10.4
-      lefthook-darwin-x64: 1.10.4
-      lefthook-freebsd-arm64: 1.10.4
-      lefthook-freebsd-x64: 1.10.4
-      lefthook-linux-arm64: 1.10.4
-      lefthook-linux-x64: 1.10.4
-      lefthook-openbsd-arm64: 1.10.4
-      lefthook-openbsd-x64: 1.10.4
-      lefthook-windows-arm64: 1.10.4
-      lefthook-windows-x64: 1.10.4
+      lefthook-darwin-arm64: 1.10.5
+      lefthook-darwin-x64: 1.10.5
+      lefthook-freebsd-arm64: 1.10.5
+      lefthook-freebsd-x64: 1.10.5
+      lefthook-linux-arm64: 1.10.5
+      lefthook-linux-x64: 1.10.5
+      lefthook-openbsd-arm64: 1.10.5
+      lefthook-openbsd-x64: 1.10.5
+      lefthook-windows-arm64: 1.10.5
+      lefthook-windows-x64: 1.10.5
 
   levn@0.4.1:
     dependencies:
@@ -13853,7 +13859,7 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  markdownlint@0.37.3:
+  markdownlint@0.37.4:
     dependencies:
       markdown-it: 14.1.0
       micromark: 4.0.1
@@ -14457,6 +14463,13 @@ snapshots:
       pkg-types: 1.3.0
       ufo: 1.5.4
 
+  mlly@1.7.4:
+    dependencies:
+      acorn: 8.14.0
+      pathe: 2.0.1
+      pkg-types: 1.3.0
+      ufo: 1.5.4
+
   mri@1.2.0: {}
 
   mrmime@2.0.0: {}
@@ -14874,6 +14887,8 @@ snapshots:
 
   pathe@1.1.2: {}
 
+  pathe@2.0.1: {}
+
   pathval@2.0.0: {}
 
   picocolors@1.1.1: {}
@@ -14931,12 +14946,12 @@ snapshots:
     optionalDependencies:
       postcss: 8.4.49
 
-  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(yaml@2.7.0):
+  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(yaml@2.7.0):
     dependencies:
       lilconfig: 3.1.3
     optionalDependencies:
       jiti: 2.4.2
-      postcss: 8.5.0
+      postcss: 8.5.1
       tsx: 4.19.2
       yaml: 2.7.0
 
@@ -14964,7 +14979,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.0:
+  postcss@8.5.1:
     dependencies:
       nanoid: 3.3.8
       picocolors: 1.1.1
@@ -15810,7 +15825,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsup@8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0):
+  tsup@8.3.5(@swc/core@1.10.7(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.24.2)
       cac: 6.7.14
@@ -15820,7 +15835,7 @@ snapshots:
       esbuild: 0.24.2
       joycon: 3.1.1
       picocolors: 1.1.1
-      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.5.0)(tsx@4.19.2)(yaml@2.7.0)
+      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(yaml@2.7.0)
       resolve-from: 5.0.0
       rollup: 4.30.1
       source-map: 0.8.0-beta.0
@@ -15830,7 +15845,7 @@ snapshots:
       tree-kill: 1.2.2
     optionalDependencies:
       '@swc/core': 1.10.7(@swc/helpers@0.5.15)
-      postcss: 8.5.0
+      postcss: 8.5.1
       typescript: 5.7.3
     transitivePeerDependencies:
       - jiti
@@ -16202,7 +16217,7 @@ snapshots:
   vite@5.4.11(@types/node@22.10.6)(lightningcss@1.29.1):
     dependencies:
       esbuild: 0.21.5
-      postcss: 8.5.0
+      postcss: 8.5.1
       rollup: 4.30.1
     optionalDependencies:
       '@types/node': 22.10.6

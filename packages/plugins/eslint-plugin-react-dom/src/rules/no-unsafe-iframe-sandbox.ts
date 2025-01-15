@@ -1,9 +1,10 @@
-import { getElementNameOnJsxAndHtml } from "@eslint-react/core";
+import type { _ } from "@eslint-react/eff";
+import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
-import { createRule, getAdditionalAttributes, getAttributeNodeAndStringValue } from "../utils";
+import { createRule, findCustomComponent, findCustomComponentProp, getElementNameOnJsxAndDom } from "../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
@@ -13,11 +14,17 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const unsafeCombinations = [
+const unsafeSandboxValues = [
   ["allow-scripts", "allow-same-origin"],
 ] as const;
 
-// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that add the 'sandbox' attribute internally.
+function hasNoneOrSafeSandbox(value: string | _) {
+  if (value == null) return true;
+  return !unsafeSandboxValues.some((values) => {
+    return values.every((v) => value.includes(v));
+  });
+}
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -37,26 +44,41 @@ export default createRule<[], MessageID>({
     const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
     return {
       JSXElement(node) {
-        const [elementNameOnJsx, elementNameOnHtml] = getElementNameOnJsxAndHtml(
+        const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
           node.openingElement,
           context,
           polymorphicPropName,
           additionalComponents,
         );
-        if (elementNameOnHtml !== "iframe") return;
 
-        const { attributeNode, attributeValue } = getAttributeNodeAndStringValue(
-          "sandbox",
-          node,
-          context,
-          getAdditionalAttributes(elementNameOnJsx, additionalComponents),
+        if (elementNameOnDom !== "iframe") return;
+
+        const elementScope = context.sourceCode.getScope(node);
+        const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
+        const customComponentProp = findCustomComponentProp("sandbox", customComponent?.attributes ?? []);
+        const propNameOnJsx = customComponentProp?.name ?? "sandbox";
+        const attributeNode = JSX.getAttributeNode(
+          propNameOnJsx,
+          elementScope,
+          node.openingElement.attributes,
         );
-        if (attributeValue == null) return;
-        if (!unsafeCombinations.some((c) => c.every((v) => attributeValue.includes(v)))) return;
-        context.report({
-          messageId: "noUnsafeIframeSandbox",
-          node: attributeNode ?? node.openingElement,
-        });
+        if (attributeNode != null) {
+          const attributeScope = context.sourceCode.getScope(attributeNode);
+          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
+          const attributeStringValue = JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
+          if (hasNoneOrSafeSandbox(attributeStringValue)) return;
+          context.report({
+            messageId: "noUnsafeIframeSandbox",
+            node: attributeNode,
+          });
+          return;
+        }
+        if (!hasNoneOrSafeSandbox(customComponentProp?.defaultValue)) {
+          context.report({
+            messageId: "noUnsafeIframeSandbox",
+            node,
+          });
+        }
       },
     };
   },

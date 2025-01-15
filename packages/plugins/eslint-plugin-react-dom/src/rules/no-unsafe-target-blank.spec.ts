@@ -392,7 +392,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           name: "Button",
     //           as: "a",
-    //           attributes: [
+    //           props: [
     //             {
     //               name: "target",
     //               defaultValue: "_blank",
@@ -415,7 +415,7 @@ ruleTester.run(RULE_NAME, rule, {
     //         {
     //           name: "*",
     //           as: "a",
-    //           attributes: [
+    //           props: [
     //             {
     //               name: "target",
     //               defaultValue: "_blank",

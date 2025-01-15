@@ -1,10 +1,10 @@
-import type { ESLintReactSettings, RuleContext } from "@eslint-react/shared";
+import type { ESLintReactSettingsNormalized, RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isFromHookCall } from "./is-from-hook-call";
 
-export function isFromUseStateCall(context: RuleContext, settings: ESLintReactSettings) {
+export function isFromUseStateCall(context: RuleContext, settings: ESLintReactSettingsNormalized) {
   const predicate = (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => {
     const { parent } = call;
     if (!("id" in parent && parent.id?.type === T.ArrayPattern)) {

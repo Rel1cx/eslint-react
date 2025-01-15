@@ -47,7 +47,7 @@ export default createRule<[], MessageID>({
       return {};
     }
     const settings = getSettingsFromContext(context);
-    const additionalHooks = settings.additionalHooks ?? {};
+    const additionalHooks = settings.additionalHooks;
 
     const isUseLayoutEffectLikeCall = isReactHookCallWithNameAlias(
       "useLayoutEffect",

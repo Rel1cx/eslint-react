@@ -1,40 +1,30 @@
 import type { InferOutput } from "valibot";
-import { array, boolean, instance, object, optional, string } from "valibot";
-
-/**
- * @internal
- * @description
- * This allows the rule to know some key information before checking for user-defined hooks.
- * For example, the position of the `deps` argument for the user-defined `useCustomEffect` hook that represents the built-in `useEffect` hook.
- */
-export const CustomHookSchema = object({
-  // TODO: Define the schema for custom Hooks
-});
+import { array, boolean, object, optional, parse, string } from "valibot";
 
 /**
  * @internal
  */
-export const CustomAttributeSchema = object({
+export const CustomComponentPropSchema = object({
   /**
-   * The name of the attribute in the user-defined component.
+   * The name of the prop in the user-defined component.
    * @example
    * "to"
    */
   name: string(),
   /**
-   * The name of the attribute in the built-in component.
+   * The name of the prop in the built-in component.
    * @example
    * "href"
    */
   as: optional(string()),
   /**
-   * Whether the attribute is controlled or not in the user-defined component.
+   * Whether the prop is controlled or not in the user-defined component.
    * @example
    * `true`
    */
   controlled: optional(boolean()),
   /**
-   * The default value of the attribute in the user-defined component.
+   * The default value of the prop in the user-defined component.
    * @example
    * `"/"`
    */
@@ -47,8 +37,7 @@ export const CustomAttributeSchema = object({
  * @description
  * This will provide some key information to the rule before checking for user-defined components.
  * For example:
- * Which attribute is used as the `href` prop for the user-defined `Link` component that represents the built-in `a` element.
- * Which attributes are used as `children` props for a user-defined `Button` component to receive children of that component.
+ * Which prop is used as the `href` prop for the user-defined `Link` component that represents the built-in `a` element.
  */
 export const CustomComponentSchema = object({
   /**
@@ -59,6 +48,7 @@ export const CustomComponentSchema = object({
   name: string(),
   /**
    * The ESQuery selector to select the component precisely.
+   * @internal
    * @example
    * `JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])`
    */
@@ -70,30 +60,35 @@ export const CustomComponentSchema = object({
    */
   as: optional(string()),
   /**
-   * Pre-defined attributes that are used in the user-defined component.
+   * Attributes mapping between the user-defined component and the built-in component.
    * @example
    * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
    */
-  attributes: optional(array(CustomAttributeSchema)),
-});
-/* eslint-enable perfectionist/sort-objects */
-
-export const CustomAttributeNormalizedSchema = object({
-  name: string(),
-  as: string(),
-  controlled: optional(boolean()),
-  defaultValue: optional(string()),
+  attributes: optional(array(CustomComponentPropSchema)),
 });
 
-export const CustomComponentNormalizedSchema = object({
-  name: string(),
-  as: string(),
-  attributes: optional(array(CustomAttributeNormalizedSchema), []),
-  re: instance(RegExp),
-  selector: optional(string()),
+export const CustomHooksSchema = object({
+  use: optional(array(string())),
+  useActionState: optional(array(string())),
+  useCallback: optional(array(string())),
+  useContext: optional(array(string())),
+  useDebugValue: optional(array(string())),
+  useDeferredValue: optional(array(string())),
+  useEffect: optional(array(string())),
+  useFormStatus: optional(array(string())),
+  useId: optional(array(string())),
+  useImperativeHandle: optional(array(string())),
+  useInsertionEffect: optional(array(string())),
+  useLayoutEffect: optional(array(string())),
+  useMemo: optional(array(string())),
+  useOptimistic: optional(array(string())),
+  useReducer: optional(array(string())),
+  useRef: optional(array(string())),
+  useState: optional(array(string())),
+  useSyncExternalStore: optional(array(string())),
+  useTransition: optional(array(string())),
 });
 
-/* eslint-disable perfectionist/sort-objects */
 /**
  * @internal
  */
@@ -104,41 +99,41 @@ export const ESLintReactSettingsSchema = object({
    * @default `"react"`
    * @example `"@pika/react"`
    */
-  importSource: optional(string()),
+  importSource: optional(string(), "react"),
   /**
    * The identifier that’s used for JSX Element creation.
    * @default `"createElement"`
    * @deprecated
    */
-  jsxPragma: optional(string()),
+  jsxPragma: optional(string(), "createElement"),
   /**
    * The identifier that’s used for JSX fragment elements.
    * @description This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
    * @default `"Fragment"`
    * @deprecated
    */
-  jsxPragmaFrag: optional(string()),
+  jsxPragmaFrag: optional(string(), "Fragment"),
   /**
    * The name of the prop that is used for polymorphic components.
    * @description This is used to determine the type of the component.
    * @example `"as"`
    */
-  polymorphicPropName: optional(string()),
+  polymorphicPropName: optional(string(), "as"),
   /**
    * @internal
    */
-  strict: optional(boolean()),
+  strict: optional(boolean(), false),
   /**
    * @internal
    */
-  strictImportCheck: optional(boolean()),
+  strictImportCheck: optional(boolean(), false),
   /**
    * React version to use, "detect" means auto detect React version from the project’s dependencies.
    * If `importSource` is specified, an equivalent version of React should be provided here.
    * @example `"18.3.1"`
    * @default `"detect"`
    */
-  version: optional(string()),
+  version: optional(string(), "detect"),
   /**
    * An array of user-defined components
    * @description This is used to inform the ESLint React plugins how to treat these components during checks.
@@ -146,31 +141,11 @@ export const ESLintReactSettingsSchema = object({
    */
   additionalComponents: optional(array(CustomComponentSchema)),
   /**
-   * A object of aliases for React built-in hooks.
+   * A object to define additional hooks that are equivalent to the built-in React Hooks.
    * @description ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
    * @example `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
    */
-  additionalHooks: optional(object({
-    use: optional(array(string())),
-    useActionState: optional(array(string())),
-    useCallback: optional(array(string())),
-    useContext: optional(array(string())),
-    useDebugValue: optional(array(string())),
-    useDeferredValue: optional(array(string())),
-    useEffect: optional(array(string())),
-    useFormStatus: optional(array(string())),
-    useId: optional(array(string())),
-    useImperativeHandle: optional(array(string())),
-    useInsertionEffect: optional(array(string())),
-    useLayoutEffect: optional(array(string())),
-    useMemo: optional(array(string())),
-    useOptimistic: optional(array(string())),
-    useReducer: optional(array(string())),
-    useRef: optional(array(string())),
-    useState: optional(array(string())),
-    useSyncExternalStore: optional(array(string())),
-    useTransition: optional(array(string())),
-  })),
+  additionalHooks: optional(CustomHooksSchema),
 });
 /* eslint-enable perfectionist/sort-objects */
 
@@ -186,39 +161,24 @@ export const ESLintSettingsSchema = optional(
   {},
 );
 
-export type CustomHook = InferOutput<typeof CustomHookSchema>;
-
-export type CustomAttribute = InferOutput<typeof CustomAttributeSchema>;
-
 export type CustomComponent = InferOutput<typeof CustomComponentSchema>;
 
-export type CustomAttributeNormalized = InferOutput<typeof CustomAttributeNormalizedSchema>;
+export type CustomComponentProp = InferOutput<typeof CustomComponentPropSchema>;
 
-export type CustomComponentNormalized = InferOutput<typeof CustomComponentNormalizedSchema>;
+export type CustomHooks = InferOutput<typeof CustomHooksSchema>;
 
 export type ESLintReactSettings = InferOutput<typeof ESLintReactSettingsSchema>;
 
 export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
 
 /**
- * This is an expanded version of `ESLintReactSettings` with all shorthand properties expanded.
- * @internal
- */
-export interface ESLintReactSettingsNormalized extends ESLintReactSettings {
-  additionalComponents: CustomComponentNormalized[];
-  version: string;
-}
-
-/**
  * The default ESLint settings for "react-x".
  */
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
+  ...parse(ESLintReactSettingsSchema, {}),
   additionalHooks: {
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
-  polymorphicPropName: "as",
-  strictImportCheck: false,
-  version: "detect",
 } as const satisfies ESLintReactSettings;
 
 // #endregion

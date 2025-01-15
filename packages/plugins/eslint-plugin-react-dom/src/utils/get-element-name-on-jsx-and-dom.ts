@@ -3,7 +3,7 @@ import type { CustomComponentNormalized, RuleContext } from "@eslint-react/share
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export function getElementNameOnJsxAndHtml(
+export function getElementNameOnJsxAndDom(
   node: TSESTree.JSXOpeningElement,
   context: RuleContext,
   polymorphicPropName?: string,
