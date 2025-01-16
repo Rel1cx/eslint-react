@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
+import { getId } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
-import { getId } from "../utils";
 import { ERClassComponentFlag } from "./component-flag";
 import type { ERClassComponent } from "./component-semantic-node";
 import { isClassComponent, isPureComponent } from "./is";

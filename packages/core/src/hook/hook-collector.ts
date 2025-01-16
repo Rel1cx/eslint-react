@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
+import { getId } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
-import { getId } from "../utils";
 import { isReactHookName } from "./hook-name";
 import type { ERHook } from "./hook-semantic-node";
 import { isReactHookCall } from "./is";

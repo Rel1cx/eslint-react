@@ -43,7 +43,6 @@
 
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
-- [getId](functions/getId.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
 - [isCallFromReact](functions/isCallFromReact.md)
 - [isCallFromReactMember](functions/isCallFromReactMember.md)

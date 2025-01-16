@@ -41,5 +41,6 @@
 ## Functions
 
 - [defineSettings](functions/defineSettings.md)
+- [getId](functions/getId.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)

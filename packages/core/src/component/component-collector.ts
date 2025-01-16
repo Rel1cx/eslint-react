@@ -2,14 +2,13 @@
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/shared";
+import { getId, type RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
-import { getId } from "../utils";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
