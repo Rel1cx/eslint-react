@@ -1,1 +1,4 @@
-export type EREffectKind = "effect" | "insertionEffect" | "layoutEffect";
+export type EREffectKind =
+  | "useEffect"
+  | "useLayoutEffect"
+  | "useInsertionEffect";

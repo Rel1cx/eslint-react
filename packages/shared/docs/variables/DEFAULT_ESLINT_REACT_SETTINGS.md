@@ -38,81 +38,28 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 ### importSource
 
-> `readonly` **importSource**: `string`
+> `readonly` **importSource**: `"react"` = `"react"`
 
-The source where React is imported from.
+### jsxPragma
 
-#### Description
+> `readonly` **jsxPragma**: `"createElement"` = `"createElement"`
 
-This allows to specify a custom import location for React when not using the official distribution.
+### jsxPragmaFrag
 
-#### Default
-
-`"react"`
-
-#### Example
-
-```ts
-`"@pika/react"`
-```
-
-### ~~jsxPragma~~
-
-> `readonly` **jsxPragma**: `string`
-
-The identifier that’s used for JSX Element creation.
-
-#### Default
-
-`"createElement"`
-
-#### Deprecated
-
-### ~~jsxPragmaFrag~~
-
-> `readonly` **jsxPragmaFrag**: `string`
-
-The identifier that’s used for JSX fragment elements.
-
-#### Description
-
-This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
-
-#### Default
-
-`"Fragment"`
-
-#### Deprecated
+> `readonly` **jsxPragmaFrag**: `"Fragment"` = `"Fragment"`
 
 ### polymorphicPropName
 
-> `readonly` **polymorphicPropName**: `string`
+> `readonly` **polymorphicPropName**: `"as"` = `"as"`
 
-The name of the prop that is used for polymorphic components.
+### strict
 
-#### Description
+> `readonly` **strict**: `false` = `false`
 
-This is used to determine the type of the component.
+### strictImportCheck
 
-#### Example
-
-```ts
-`"as"`
-```
+> `readonly` **strictImportCheck**: `false` = `false`
 
 ### version
 
-> `readonly` **version**: `string`
-
-React version to use, "detect" means auto detect React version from the project’s dependencies.
-If `importSource` is specified, an equivalent version of React should be provided here.
-
-#### Example
-
-```ts
-`"18.3.1"`
-```
-
-#### Default
-
-`"detect"`
+> `readonly` **version**: `"detect"` = `"detect"`

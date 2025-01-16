@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
+import type { ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -29,7 +29,9 @@ export type MessageID =
 
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "setTimeout" | "clearTimeout";
-type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "other";
+type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
+type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
+type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
 
 // #endregion
 

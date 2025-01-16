@@ -6,4 +6,4 @@
 
 # Type Alias: CustomComponent
 
-> **CustomComponent**: `InferOutput`\<*typeof* `CustomComponentSchema`\>
+> **CustomComponent**: `InferOutput`\<*typeof* [`CustomComponentSchema`](../variables/CustomComponentSchema.md)\>

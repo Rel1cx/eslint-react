@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import type { EREffectMethodKind, ERPhaseKind } from "@eslint-react/core";
+import type { ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance } from "@eslint-react/core";
 import { _, or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
@@ -29,7 +29,8 @@ export type MessageID =
 // #region Types
 
 type FunctionKind = ERPhaseKind | "other";
-type CallKind = ObserverMethod | EREffectMethodKind | "other";
+type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
+type CallKind = ObserverMethod | EffectMethodKind | "other";
 
 export type OEntry = ObserverEntry & { kind: "observe" };
 export type UEntry = ObserverEntry & { kind: "unobserve" };

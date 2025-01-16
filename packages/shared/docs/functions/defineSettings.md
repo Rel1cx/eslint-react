@@ -319,9 +319,9 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 
 > `optional` **useTransition**: `string`[]
 
-### importSource
+### importSource?
 
-> **importSource**: `string`
+> `optional` **importSource**: `string`
 
 The source where React is imported from.
 
@@ -339,9 +339,9 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-### ~~jsxPragma~~
+### ~~jsxPragma?~~
 
-> **jsxPragma**: `string`
+> `optional` **jsxPragma**: `string`
 
 The identifier that’s used for JSX Element creation.
 
@@ -351,9 +351,9 @@ The identifier that’s used for JSX Element creation.
 
 #### Deprecated
 
-### ~~jsxPragmaFrag~~
+### ~~jsxPragmaFrag?~~
 
-> **jsxPragmaFrag**: `string`
+> `optional` **jsxPragmaFrag**: `string`
 
 The identifier that’s used for JSX fragment elements.
 
@@ -367,9 +367,9 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 
 #### Deprecated
 
-### polymorphicPropName
+### polymorphicPropName?
 
-> **polymorphicPropName**: `string`
+> `optional` **polymorphicPropName**: `string`
 
 The name of the prop that is used for polymorphic components.
 
@@ -383,9 +383,9 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
-### version
+### version?
 
-> **version**: `string`
+> `optional` **version**: `string`
 
 React version to use, "detect" means auto detect React version from the project’s dependencies.
 If `importSource` is specified, an equivalent version of React should be provided here.

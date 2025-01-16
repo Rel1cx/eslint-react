@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import type { EREffectMethodKind, ERLifecycleMethodKind, ERPhaseKind } from "@eslint-react/core";
+import type { ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance, isInversePhase } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
@@ -31,7 +31,9 @@ export type MessageID =
 
 type FunctionKind = ERPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
-type CallKind = EventMethodKind | EREffectMethodKind | ERLifecycleMethodKind | "abort" | "other";
+type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
+type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
+type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 
 export type AEntry = EventListenerEntry & { kind: "addEventListener" };
 

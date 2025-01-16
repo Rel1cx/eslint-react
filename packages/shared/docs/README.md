@@ -25,6 +25,8 @@
 
 ## Variables
 
+- [CustomComponentPropSchema](variables/CustomComponentPropSchema.md)
+- [CustomComponentSchema](variables/CustomComponentSchema.md)
 - [CustomHooksSchema](variables/CustomHooksSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)

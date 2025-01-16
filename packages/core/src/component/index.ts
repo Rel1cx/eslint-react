@@ -5,7 +5,6 @@ export * from "./component-flag";
 export * from "./component-id";
 export type * from "./component-kind";
 export * from "./component-lifecycle";
-export type * from "./component-method-kind";
 export * from "./component-name";
 export * from "./component-phase";
 export * from "./component-render-prop";
