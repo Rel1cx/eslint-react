@@ -31,11 +31,8 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const settings = {
-      importSource: "react",
-      ...getSettingsFromContext(context),
-      strictImportCheck: true,
-    };
+    const { importSource = "react" } = getSettingsFromContext(context);
+
     function isFromReact(
       node: TSESTree.Identifier | TSESTree.JSXIdentifier,
       initialScope: Scope,
@@ -45,13 +42,13 @@ export default createRule<[], MessageID>({
         case node.parent.type === T.MemberExpression
           && node.parent.property === node
           && node.parent.object.type === T.Identifier:
-          return isInitializedFromReact(node.parent.object.name, initialScope, settings.importSource);
+          return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
         case node.parent.type === T.JSXMemberExpression
           && node.parent.property === node
           && node.parent.object.type === T.JSXIdentifier:
-          return isInitializedFromReact(node.parent.object.name, initialScope, settings.importSource);
+          return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
         default:
-          return isInitializedFromReact(name, initialScope, settings.importSource);
+          return isInitializedFromReact(name, importSource, initialScope);
       }
     }
     function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
@@ -73,7 +70,7 @@ export default createRule<[], MessageID>({
           // eslint-disable-next-line eslint-plugin/no-unused-placeholders
           type: node.type,
           name,
-          importSource: settings.importSource,
+          importSource,
         },
       });
     }

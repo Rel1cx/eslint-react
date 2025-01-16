@@ -36,21 +36,22 @@ export function isReactHookCall(node: TSESTree.Node | _) {
 export function isReactHookCallWithName(node: TSESTree.CallExpression | _, context: RuleContext) {
   if (node == null) return returnFalse;
   const settings = unsafeDecodeSettings(context.settings);
+  const importSource = settings.importSource ?? "react";
+  const initialScope = context.sourceCode.getScope(node);
   return (name: string) => {
-    const initialScope = context.sourceCode.getScope(node);
     switch (true) {
       case node.callee.type === T.Identifier
         && node.callee.name === name:
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
-          || isInitializedFromReact(name, initialScope, settings.importSource);
+          || isInitializedFromReact(name, importSource, initialScope);
       case node.callee.type === T.MemberExpression
         && node.callee.property.type === T.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
-          || isInitializedFromReact(node.callee.object.name, initialScope, settings.importSource);
+          || isInitializedFromReact(node.callee.object.name, importSource, initialScope);
       default:
         return false;
     }
@@ -73,6 +74,7 @@ export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression | _) 
 
 export function isReactHookCallWithNameAlias(name: string, context: RuleContext, alias: string[]) {
   const settings = unsafeDecodeSettings(context);
+  const importSource = settings.importSource ?? "react";
   return (node: TSESTree.CallExpression) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {
@@ -80,14 +82,14 @@ export function isReactHookCallWithNameAlias(name: string, context: RuleContext,
         && node.callee.name === name:
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
-          || isInitializedFromReact(name, initialScope, settings.importSource);
+          || isInitializedFromReact(name, importSource, initialScope);
       case node.callee.type === T.MemberExpression
         && node.callee.property.type === T.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !settings.strictImportCheck
-          || isInitializedFromReact(node.callee.object.name, initialScope, settings.importSource);
+          || isInitializedFromReact(node.callee.object.name, importSource, initialScope);
       default:
         return alias.some(isReactHookCallWithNameLoose(node));
     }

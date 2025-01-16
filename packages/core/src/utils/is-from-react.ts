@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { dual } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
-import { unsafeDecodeSettings } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS, unsafeDecodeSettings } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -27,15 +27,16 @@ export function isFromReact(name: string) {
       }
       return node.name === name;
     }
+    const importSource = settings.importSource ?? DEFAULT_ESLINT_REACT_SETTINGS.importSource;
     const initialScope = context.sourceCode.getScope(node);
     if (node.type === T.MemberExpression) {
       return node.object.type === T.Identifier
         && node.property.type === T.Identifier
         && node.property.name === name
-        && isInitializedFromReact(node.object.name, initialScope, settings.importSource);
+        && isInitializedFromReact(node.object.name, importSource, initialScope);
     }
     if (node.name === name) {
-      return isInitializedFromReact(name, initialScope, settings.importSource);
+      return isInitializedFromReact(name, importSource, initialScope);
     }
     return false;
   };
@@ -73,17 +74,18 @@ export function isFromReactMember(
       }
       return false;
     }
+    const importSource = settings.importSource ?? DEFAULT_ESLINT_REACT_SETTINGS.importSource;
     const initialScope = context.sourceCode.getScope(node);
     if (node.property.type !== T.Identifier || node.property.name !== name) {
       return false;
     }
     if (node.object.type === T.Identifier && node.object.name === memberName) {
-      return isInitializedFromReact(node.object.name, initialScope, settings.importSource);
+      return isInitializedFromReact(node.object.name, importSource, initialScope);
     }
     if (
       node.object.type === T.MemberExpression
       && node.object.object.type === T.Identifier
-      && isInitializedFromReact(node.object.object.name, initialScope, settings.importSource)
+      && isInitializedFromReact(node.object.object.name, importSource, initialScope)
       && node.object.property.type === T.Identifier
     ) {
       return node.object.property.name === memberName;

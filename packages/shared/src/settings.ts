@@ -34,8 +34,8 @@ export interface CustomComponentPropNormalized {
 export interface ESLintReactSettingsNormalized {
   additionalComponents: CustomComponentNormalized[];
   additionalHooks: CustomHooks;
-  importSource?: string;
-  polymorphicPropName?: string | _;
+  importSource: string;
+  polymorphicPropName: string | _;
   // strict: boolean;
   strictImportCheck: boolean;
   version: string;
@@ -76,6 +76,8 @@ export const toNormalizedSettings = memoize(
   ({
     additionalComponents = [],
     additionalHooks = {},
+    importSource = "react",
+    polymorphicPropName = "as",
     version,
     ...rest
   }: ESLintReactSettings): ESLintReactSettingsNormalized => {
@@ -99,6 +101,8 @@ export const toNormalizedSettings = memoize(
         re: pm.makeRe(name, { fastpaths: true }),
       })),
       additionalHooks,
+      importSource,
+      polymorphicPropName,
       version: match(version)
         .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
         .otherwise(identity),

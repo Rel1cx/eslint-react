@@ -6,7 +6,7 @@
 
 # Function: isInitializedFromReact()
 
-> **isInitializedFromReact**(`name`, `initialScope`, `importSource`): `boolean`
+> **isInitializedFromReact**(`name`, `importSource`, `initialScope`): `boolean`
 
 ## Parameters
 
@@ -14,13 +14,13 @@
 
 `string`
 
+### importSource
+
+`string`
+
 ### initialScope
 
 `Scope`
-
-### importSource
-
-`string` = `"react"`
 
 ## Returns
 

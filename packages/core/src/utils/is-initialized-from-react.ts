@@ -3,8 +3,8 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 
 export function isInitializedFromReact(
   name: string,
+  importSource: string,
   initialScope: Scope,
-  importSource = "react",
 ) {
   return name.toLowerCase() === "react"
     || VAR.isInitializedFromSource(

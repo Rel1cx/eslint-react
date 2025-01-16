@@ -51,7 +51,7 @@ function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod
 }
 
 function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
-  const settings = unsafeDecodeSettings(context.settings);
+  const { importSource = "react" } = unsafeDecodeSettings(context.settings);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;
@@ -64,7 +64,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
     return true;
   }
   if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, initialScope, settings.importSource);
+    return isInitializedFromReact(callee.object.object.name, importSource, initialScope);
   }
   return false;
 }
