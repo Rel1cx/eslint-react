@@ -4,7 +4,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
-import { getAttributeName } from "./attribute-name";
+import { getAttributeName } from "./get-attribute-name";
 
 /**
  * Get the JSX attribute node with the given name

@@ -6,14 +6,14 @@ import { match, P } from "ts-pattern";
 
 /**
  * Get a StaticValue of the attribute value
- * @param name The name of the attribute
  * @param node The JSX attribute node
+ * @param name The name of the attribute
  * @param initialScope The initial scope to use
  * @returns The StaticValue of the attribute value
  */
 export function getAttributeValue(
-  name: string,
   node: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
+  name: string,
   initialScope: Scope,
 ): Exclude<VAR.LazyValue, { kind: "lazy" }> {
   switch (node.type) {

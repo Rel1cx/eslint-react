@@ -38,7 +38,8 @@ export default createRule<[], MessageID>({
           return;
         }
         const attributeScope = context.sourceCode.getScope(node);
-        const attributeValue = JSX.getAttributeValue(JSX.toString(node.name), node, attributeScope);
+        const attributeName = JSX.getAttributeName(node);
+        const attributeValue = JSX.getAttributeValue(node, attributeName, attributeScope);
         if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
         if (RE_JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
           context.report({

@@ -24,7 +24,7 @@ export function getElementNameOnJsxAndDom(
     node.openingElement.attributes,
   );
   if (attributeNode == null) return [name, name];
-  const polymorphicPropValue = JSX.getAttributeValue(polymorphicPropName, attributeNode, initialScope);
+  const polymorphicPropValue = JSX.getAttributeValue(attributeNode, polymorphicPropName, initialScope);
   if (polymorphicPropValue.kind === "some" && typeof polymorphicPropValue.value === "string") {
     return [name, polymorphicPropValue.value];
   }

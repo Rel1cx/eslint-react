@@ -78,7 +78,7 @@ export default createRule<[], MessageID>({
         );
         if (attributeNode != null) {
           const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeValue = JSX.getAttributeValue(propNameOnJsx, attributeNode, attributeScope);
+          const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
           if (attributeValue.kind === "some" && hasValidSandBox(attributeValue.value)) return;
           context.report({
             messageId: "noMissingIframeSandbox",

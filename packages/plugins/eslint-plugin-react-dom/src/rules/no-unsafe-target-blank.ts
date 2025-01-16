@@ -68,7 +68,7 @@ export default createRule<[], MessageID>({
           );
           if (attributeNode == null) return customComponentProp?.defaultValue;
           const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeValue = JSX.getAttributeValue(propNameOnJsx, attributeNode, attributeScope);
+          const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
           if (attributeValue.kind === "some" && typeof attributeValue.value === "string") {
             return attributeValue.value;
           }
