@@ -98,18 +98,6 @@ The component collector
 
 `void`
 
-#### listeners.AssignmentExpression\[type\]\[operator='='\]\[left.type='MemberExpression'\]\[left.property.name='displayName'\]()?
-
-##### Parameters
-
-###### node
-
-`AssignmentExpression` & `object`
-
-##### Returns
-
-`void`
-
 #### listeners.CallExpression\[type\]:exit()?
 
 ##### Parameters

@@ -10,6 +10,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
+import { COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "./component-display-name";
 import { ERFunctionComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
@@ -60,9 +61,6 @@ export interface ComponentCollectorOptions {
   collectDisplayName?: boolean;
   collectHookCalls?: boolean;
 }
-
-// dprint-ignore
-const displayNameAssignmentSelector = "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']";
 
 /**
  * Get a ctx and listeners for the rule to collect function components
@@ -157,8 +155,9 @@ export function useComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [displayNameAssignmentSelector](node: TSESTree.AssignmentExpression & { left: TSESTree.MemberExpression }) {
+        [COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
+          if (left.type !== T.MemberExpression) return;
           const componentName = left.object.type === T.Identifier
             ? left.object.name
             : _;
