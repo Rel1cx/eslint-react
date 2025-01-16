@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
-    const importSource = getSettingsFromContext(context).importSource ?? "react";
+    const { importSource } = getSettingsFromContext(context);
     return {
       [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](
         node: TSESTree.ImportDefaultSpecifier,
