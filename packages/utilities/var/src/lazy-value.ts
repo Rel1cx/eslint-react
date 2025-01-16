@@ -5,7 +5,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
-export type StaticValue =
+export type LazyValue =
   | {
     // Not resolved yet
     kind: "lazy";
@@ -26,15 +26,15 @@ export type StaticValue =
     initialScope: Scope | _;
   };
 
-export function toResolved(sv: StaticValue) {
-  const { kind, node, initialScope } = sv;
+export function toStaticValue(lazyValue: LazyValue) {
+  const { kind, node, initialScope } = lazyValue;
   if (kind !== "lazy") {
-    return sv;
+    return lazyValue;
   }
-  const resolvedValue = initialScope == null
+  const staticValue = initialScope == null
     ? getStaticValue(node)
     : getStaticValue(node, initialScope);
-  return resolvedValue == null
+  return staticValue == null
     ? { kind: "none", node, initialScope } as const
-    : { kind: "some", node, initialScope, value: resolvedValue.value } as const;
+    : { kind: "some", node, initialScope, value: staticValue.value } as const;
 }

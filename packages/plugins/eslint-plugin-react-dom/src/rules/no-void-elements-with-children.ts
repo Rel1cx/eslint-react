@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const elementName = JSX.getElementName(node.openingElement);
+        const elementName = JSX.getElementName(node);
         if (elementName.length === 0 || !voidElements.has(elementName)) {
           return;
         }

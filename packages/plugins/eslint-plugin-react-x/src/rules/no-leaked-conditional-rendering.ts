@@ -246,7 +246,7 @@ export default createRule<[], MessageID>({
           const initialScope = context.sourceCode.getScope(left);
           const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
             || VAR
-                .toResolved({ kind: "lazy", node: left, initialScope })
+                .toStaticValue({ kind: "lazy", node: left, initialScope })
                 .value === "NaN";
           if (isLeftNan) {
             return {

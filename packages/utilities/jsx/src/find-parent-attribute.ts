@@ -4,7 +4,13 @@ import { returnTrue } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-export function findParentAttributeNode(
+/**
+ * Find the parent JSX attribute node of a node
+ * @param node The node to find the parent attribute of
+ * @param test The test to apply to the parent attribute
+ * @returns The parent attribute node or undefined
+ */
+export function findParentAttribute(
   node: TSESTree.Node,
   test: (node: TSESTree.JSXAttribute) => boolean = returnTrue,
 ): TSESTree.JSXAttribute | _ {

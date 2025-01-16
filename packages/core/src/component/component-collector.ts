@@ -65,6 +65,13 @@ export interface ComponentCollectorOptions {
 // dprint-ignore
 const displayNameAssignmentSelector = "AssignmentExpression[type][operator='='][left.type='MemberExpression'][left.property.name='displayName']";
 
+/**
+ * Get a ctx and listeners for the rule to collect function components
+ * @param context The ESLint rule context
+ * @param hint The hint to use
+ * @param options The options to use
+ * @returns The component collector
+ */
 export function useComponentCollector(
   context: RuleContext,
   hint = DEFAULT_COMPONENT_HINT,

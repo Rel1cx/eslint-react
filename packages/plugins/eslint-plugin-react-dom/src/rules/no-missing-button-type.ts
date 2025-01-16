@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
-          node.openingElement,
+          node,
           context,
           polymorphicPropName,
           additionalComponents,
@@ -46,16 +46,15 @@ export default createRule<[], MessageID>({
         const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
         const customComponentProp = findCustomComponentProp("type", customComponent?.attributes ?? []);
         const propNameOnJsx = customComponentProp?.name ?? "type";
-        const attributeNode = JSX.getAttributeNode(
+        const attributeNode = JSX.getAttribute(
           propNameOnJsx,
           elementScope,
           node.openingElement.attributes,
         );
         if (attributeNode != null) {
           const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
-          const attributeStringValue = JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
-          if (typeof attributeStringValue !== "string") {
+          const attributeValue = JSX.getAttributeValue(propNameOnJsx, attributeNode, attributeScope);
+          if (attributeValue.kind === "some" && typeof attributeValue.value !== "string") {
             context.report({
               messageId: "noMissingButtonType",
               node: attributeNode,

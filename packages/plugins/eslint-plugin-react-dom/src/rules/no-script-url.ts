@@ -1,7 +1,6 @@
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
@@ -39,10 +38,9 @@ export default createRule<[], MessageID>({
           return;
         }
         const attributeScope = context.sourceCode.getScope(node);
-        const attributeValue = JSX.getAttributeStaticValue(node, attributeScope);
-        const attributeValueResolved = VAR.toResolved(attributeValue).value;
-        if (typeof attributeValueResolved !== "string") return;
-        if (RE_JAVASCRIPT_PROTOCOL.test(attributeValueResolved)) {
+        const attributeValue = JSX.getAttributeValue(JSX.toString(node.name), node, attributeScope);
+        if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
+        if (RE_JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
           context.report({
             messageId: "noScriptUrl",
             node: node.value,

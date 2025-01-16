@@ -1,4 +1,3 @@
-import type { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -33,7 +32,7 @@ const validTypes = [
   "allow-top-navigation-to-custom-protocols",
 ] as const;
 
-function hasValidSandBox(value: string | _) {
+function hasValidSandBox(value: unknown) {
   return typeof value === "string"
     && value
       .split(" ")
@@ -60,7 +59,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
-          node.openingElement,
+          node,
           context,
           polymorphicPropName,
           additionalComponents,
@@ -72,16 +71,15 @@ export default createRule<[], MessageID>({
         const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
         const customComponentProp = findCustomComponentProp("sandbox", customComponent?.attributes ?? []);
         const propNameOnJsx = customComponentProp?.name ?? "sandbox";
-        const attributeNode = JSX.getAttributeNode(
+        const attributeNode = JSX.getAttribute(
           propNameOnJsx,
           elementScope,
           node.openingElement.attributes,
         );
         if (attributeNode != null) {
           const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
-          const attributeStringValue = JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
-          if (hasValidSandBox(attributeStringValue)) return;
+          const attributeValue = JSX.getAttributeValue(propNameOnJsx, attributeNode, attributeScope);
+          if (attributeValue.kind === "some" && hasValidSandBox(attributeValue.value)) return;
           context.report({
             messageId: "noMissingIframeSandbox",
             node: attributeNode,

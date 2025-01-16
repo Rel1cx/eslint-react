@@ -99,7 +99,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         break;
       }
       default: {
-        v = VAR.toResolved({ kind: "lazy", node: value, initialScope }).value;
+        v = VAR.toStaticValue({ kind: "lazy", node: value, initialScope }).value;
         break;
       }
     }

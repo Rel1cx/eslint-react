@@ -8,23 +8,33 @@
 
 > **useComponentCollector**(`context`, `hint`, `options`): `object`
 
+Get a ctx and listeners for the rule to collect function components
+
 ## Parameters
 
 ### context
 
 `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
 
+The ESLint rule context
+
 ### hint
 
 `bigint` = `DEFAULT_COMPONENT_HINT`
+
+The hint to use
 
 ### options
 
 [`ComponentCollectorOptions`](../interfaces/ComponentCollectorOptions.md) = `{}`
 
+The options to use
+
 ## Returns
 
 `object`
+
+The component collector
 
 ### ctx
 

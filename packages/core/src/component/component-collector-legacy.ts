@@ -7,6 +7,10 @@ import { ERClassComponentFlag } from "./component-flag";
 import type { ERClassComponent } from "./component-semantic-node";
 import { isClassComponent, isPureComponent } from "./is";
 
+/**
+ * Get a ctx and listeners for the rule to collect class components
+ * @returns The context and listeners for the rule
+ */
 export function useComponentCollectorLegacy() {
   const components = new Map<string, ERClassComponent>();
 

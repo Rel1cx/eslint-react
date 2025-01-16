@@ -8,9 +8,13 @@
 
 > **useComponentCollectorLegacy**(): `object`
 
+Get a ctx and listeners for the rule to collect class components
+
 ## Returns
 
 `object`
+
+The context and listeners for the rule
 
 ### ctx
 

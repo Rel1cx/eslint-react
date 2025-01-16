@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
     }
     return {
       JSXElement(node) {
-        const elementName = JSX.getElementName(node.openingElement);
+        const elementName = JSX.getElementName(node);
         if (!elementName.endsWith(".Provider")) {
           return;
         }

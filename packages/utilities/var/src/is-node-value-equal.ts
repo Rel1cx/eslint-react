@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { findVariable } from "./find-variable";
 import { getVariableNode } from "./get-variable-node";
-import { toResolved } from "./static-value";
+import { toStaticValue } from "./lazy-value";
 
 const thisBlockTypes = [
   T.FunctionDeclaration,
@@ -99,8 +99,8 @@ export function isNodeValueEqual(
       return aFunction === bFunction;
     }
     default: {
-      const aStatic = toResolved({ kind: "lazy", node: a, initialScope: aScope });
-      const bStatic = toResolved({ kind: "lazy", node: b, initialScope: bScope });
+      const aStatic = toStaticValue({ kind: "lazy", node: a, initialScope: aScope });
+      const bStatic = toStaticValue({ kind: "lazy", node: b, initialScope: bScope });
       return aStatic.kind !== "none" && bStatic.kind !== "none" && aStatic.value === bStatic.value;
     }
   }
