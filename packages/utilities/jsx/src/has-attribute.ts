@@ -1,14 +1,14 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { getAttributeNode } from "./get-attribute";
+import { getAttribute } from "./get-attribute";
 
 export function hasAttribute(
   name: string,
   initialScope: Scope,
   attributes: TSESTree.JSXOpeningElement["attributes"],
 ) {
-  return getAttributeNode(name, initialScope, attributes) != null;
+  return getAttribute(name, initialScope, attributes) != null;
 }
 
 export function hasAnyAttribute(

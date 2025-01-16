@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -49,7 +49,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node: TSESTree.JSXElement) {
         const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
-          node.openingElement,
+          node,
           context,
           polymorphicPropName,
           additionalComponents,
@@ -58,27 +58,30 @@ export default createRule<[], MessageID>({
         const elementScope = context.sourceCode.getScope(node);
         const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
 
-        const getAttributeValue = (name: string) => {
+        const getAttributeStringValue = (name: string) => {
           const customComponentProp = findCustomComponentProp(name, customComponent?.attributes ?? []);
           const propNameOnJsx = customComponentProp?.name ?? name;
-          const attributeNode = JSX.getAttributeNode(
+          const attributeNode = JSX.getAttribute(
             propNameOnJsx,
             elementScope,
             node.openingElement.attributes,
           );
           if (attributeNode == null) return customComponentProp?.defaultValue;
           const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
-          return JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
+          const attributeValue = JSX.getAttributeValue(propNameOnJsx, attributeNode, attributeScope);
+          if (attributeValue.kind === "some" && typeof attributeValue.value === "string") {
+            return attributeValue.value;
+          }
+          return _;
         };
 
-        if (getAttributeValue("target") !== "_blank") {
+        if (getAttributeStringValue("target") !== "_blank") {
           return;
         }
-        if (!isExternalLinkLike(getAttributeValue("href"))) {
+        if (!isExternalLinkLike(getAttributeStringValue("href"))) {
           return;
         }
-        if (isSafeRel(getAttributeValue("rel"))) {
+        if (isSafeRel(getAttributeStringValue("rel"))) {
           return;
         }
         context.report({

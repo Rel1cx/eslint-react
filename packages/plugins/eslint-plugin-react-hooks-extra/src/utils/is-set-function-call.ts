@@ -25,7 +25,7 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
           return false;
         }
         const indexScope = context.sourceCode.getScope(node);
-        const indexValue = VAR.toResolved({
+        const indexValue = VAR.toStaticValue({
           kind: "lazy",
           node: index,
           initialScope: indexScope,
@@ -45,7 +45,7 @@ export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSet
         }
         const property = node.callee.property;
         const propertyScope = context.sourceCode.getScope(node);
-        const propertyValue = VAR.toResolved({
+        const propertyValue = VAR.toStaticValue({
           kind: "lazy",
           node: property,
           initialScope: propertyScope,

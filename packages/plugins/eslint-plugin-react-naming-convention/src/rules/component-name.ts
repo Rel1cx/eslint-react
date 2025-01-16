@@ -139,7 +139,7 @@ export default createRule<Options, MessageID>({
       ...collector.listeners,
       ...collectorLegacy.listeners,
       JSXOpeningElement(node) {
-        const name = JSX.getElementName(node);
+        const name = JSX.getElementName(node.parent);
         if (/^[a-z]/u.test(name)) {
           return;
         }

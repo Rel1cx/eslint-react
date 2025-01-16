@@ -27,14 +27,14 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     return {
-      JSXOpeningElement(node) {
+      JSXElement(node) {
         const name = JSX.getElementName(node);
         if (typeof name !== "string" || !name.includes(":")) {
           return;
         }
         context.report({
           messageId: "noNamespace",
-          node,
+          node: node.openingElement.name,
           data: {
             name,
           },

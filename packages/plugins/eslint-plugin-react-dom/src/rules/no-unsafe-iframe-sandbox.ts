@@ -1,4 +1,3 @@
-import type { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -18,8 +17,8 @@ const unsafeSandboxValues = [
   ["allow-scripts", "allow-same-origin"],
 ] as const;
 
-function hasNoneOrSafeSandbox(value: string | _) {
-  if (value == null) return true;
+function hasSafeSandbox(value: unknown) {
+  if (typeof value !== "string") return false;
   return !unsafeSandboxValues.some((values) => {
     return values.every((v) => value.includes(v));
   });
@@ -45,7 +44,7 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
-          node.openingElement,
+          node,
           context,
           polymorphicPropName,
           additionalComponents,
@@ -57,23 +56,24 @@ export default createRule<[], MessageID>({
         const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
         const customComponentProp = findCustomComponentProp("sandbox", customComponent?.attributes ?? []);
         const propNameOnJsx = customComponentProp?.name ?? "sandbox";
-        const attributeNode = JSX.getAttributeNode(
+        const attributeNode = JSX.getAttribute(
           propNameOnJsx,
           elementScope,
           node.openingElement.attributes,
         );
         if (attributeNode != null) {
           const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeStaticValue = JSX.getAttributeStaticValue(attributeNode, attributeScope);
-          const attributeStringValue = JSX.toResolvedAttributeValue(propNameOnJsx, attributeStaticValue);
-          if (hasNoneOrSafeSandbox(attributeStringValue)) return;
-          context.report({
-            messageId: "noUnsafeIframeSandbox",
-            node: attributeNode,
-          });
-          return;
+          const attributeValue = JSX.getAttributeValue(propNameOnJsx, attributeNode, attributeScope);
+          if (attributeValue.kind === "some" && !hasSafeSandbox(attributeValue.value)) {
+            context.report({
+              messageId: "noUnsafeIframeSandbox",
+              node: attributeNode,
+            });
+            return;
+          }
         }
-        if (!hasNoneOrSafeSandbox(customComponentProp?.defaultValue)) {
+        if (customComponentProp?.defaultValue == null) return;
+        if (!hasSafeSandbox(customComponentProp.defaultValue)) {
           context.report({
             messageId: "noUnsafeIframeSandbox",
             node,

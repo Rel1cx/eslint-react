@@ -4,16 +4,16 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
-export function getAttributeName(node: TSESTree.JSXAttribute) {
-  switch (node.name.type) {
-    case T.JSXIdentifier:
-      return node.name.name;
-    case T.JSXNamespacedName:
-      return `${node.name.namespace.name}:${node.name.name.name}`;
-  }
-}
+import { getAttributeName } from "./attribute-name";
 
-export function getAttributeNode(
+/**
+ * Get the JSX attribute node with the given name
+ * @param name The name of the attribute
+ * @param initialScope The initial scope to use for variable resolution
+ * @param attributes The attributes to search
+ * @returns The JSX attribute node or undefined
+ */
+export function getAttribute(
   name: string,
   initialScope: Scope,
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
