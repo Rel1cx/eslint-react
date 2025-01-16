@@ -63,8 +63,8 @@ export default createRule<[], MessageID>({
           const propNameOnJsx = customComponentProp?.name ?? name;
           const attributeNode = JSX.getAttribute(
             propNameOnJsx,
-            elementScope,
             node.openingElement.attributes,
+            elementScope,
           );
           if (attributeNode == null) return customComponentProp?.defaultValue;
           const attributeScope = context.sourceCode.getScope(attributeNode);

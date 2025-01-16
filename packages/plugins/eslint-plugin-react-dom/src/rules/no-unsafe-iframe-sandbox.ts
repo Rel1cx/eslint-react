@@ -58,8 +58,8 @@ export default createRule<[], MessageID>({
         const propNameOnJsx = customComponentProp?.name ?? "sandbox";
         const attributeNode = JSX.getAttribute(
           propNameOnJsx,
-          elementScope,
           node.openingElement.attributes,
+          elementScope,
         );
         if (attributeNode != null) {
           const attributeScope = context.sourceCode.getScope(attributeNode);

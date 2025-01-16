@@ -20,8 +20,8 @@ export function getElementNameOnJsxAndDom(
   const initialScope = context.sourceCode.getScope(node);
   const attributeNode = JSX.getAttribute(
     polymorphicPropName,
-    initialScope,
     node.openingElement.attributes,
+    initialScope,
   );
   if (attributeNode == null) return [name, name];
   const polymorphicPropValue = JSX.getAttributeValue(attributeNode, polymorphicPropName, initialScope);

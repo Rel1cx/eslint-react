@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
     return {
       JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
         const initialScope = context.sourceCode.getScope(node);
-        const keyPropFound = JSX.getAttribute("key", initialScope, node.attributes);
+        const keyPropFound = JSX.getAttribute("key", node.attributes, initialScope);
         const keyPropOnElement = node.attributes
           .some((n) =>
             n.type === T.JSXAttribute

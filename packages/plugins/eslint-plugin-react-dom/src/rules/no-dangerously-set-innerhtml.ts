@@ -33,8 +33,8 @@ export default createRule<[], MessageID>({
         const attributes = node.openingElement.attributes;
         const attribute = JSX.getAttribute(
           "dangerouslySetInnerHTML",
-          context.sourceCode.getScope(node),
           attributes,
+          context.sourceCode.getScope(node),
         );
         if (attribute == null) return;
         context.report({

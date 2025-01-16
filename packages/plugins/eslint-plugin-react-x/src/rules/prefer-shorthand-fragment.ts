@@ -31,9 +31,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node: TSESTree.JSXElement) {
-        if (JSX.getElementName(node).split(".").at(-1) !== "Fragment") {
-          return;
-        }
+        if (!JSX.isFragmentElement(node)) return;
         const hasAttributes = node.openingElement.attributes.length > 0;
         if (hasAttributes) {
           return;

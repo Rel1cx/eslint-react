@@ -5,24 +5,24 @@ import { getAttribute } from "./get-attribute";
 
 export function hasAttribute(
   name: string,
-  initialScope: Scope,
   attributes: TSESTree.JSXOpeningElement["attributes"],
+  initialScope?: Scope,
 ) {
-  return getAttribute(name, initialScope, attributes) != null;
+  return getAttribute(name, attributes, initialScope) != null;
 }
 
 export function hasAnyAttribute(
   names: string[],
-  initialScope: Scope,
   attributes: TSESTree.JSXOpeningElement["attributes"],
+  initialScope?: Scope,
 ) {
-  return names.some((n) => hasAttribute(n, initialScope, attributes));
+  return names.some((n) => hasAttribute(n, attributes, initialScope));
 }
 
 export function hasEveryAttribute(
   names: string[],
-  initialScope: Scope,
   attributes: TSESTree.JSXOpeningElement["attributes"],
+  initialScope?: Scope,
 ) {
-  return names.every((n) => hasAttribute(n, initialScope, attributes));
+  return names.every((n) => hasAttribute(n, attributes, initialScope));
 }

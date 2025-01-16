@@ -30,8 +30,8 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         const attribute = JSX.getAttribute(
           "children",
-          context.sourceCode.getScope(node),
           node.openingElement.attributes,
+          context.sourceCode.getScope(node),
         );
         if (attribute != null) {
           context.report({

@@ -110,9 +110,7 @@ export default createRule<Options, MessageID>({
     const { allowExpressions = true } = option;
     return {
       JSXElement(node) {
-        if (JSX.getElementName(node).split(".").at(-1) !== "Fragment") {
-          return;
-        }
+        if (!JSX.isFragmentElement(node)) return;
         checkAndReport(node, context, allowExpressions);
       },
       JSXFragment(node) {

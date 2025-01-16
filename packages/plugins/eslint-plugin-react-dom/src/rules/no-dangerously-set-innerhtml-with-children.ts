@@ -34,8 +34,8 @@ export default createRule<[], MessageID>({
       JSXElement(node) {
         const attributes = node.openingElement.attributes;
         const initialScope = context.sourceCode.getScope(node);
-        const hasChildren = hasChildrenWithin(node) || JSX.hasAttribute("children", initialScope, attributes);
-        if (hasChildren && JSX.hasAttribute("dangerouslySetInnerHTML", initialScope, attributes)) {
+        const hasChildren = hasChildrenWithin(node) || JSX.hasAttribute("children", attributes, initialScope);
+        if (hasChildren && JSX.hasAttribute("dangerouslySetInnerHTML", attributes, initialScope)) {
           context.report({
             messageId: "noDangerouslySetInnerhtmlWithChildren",
             node,

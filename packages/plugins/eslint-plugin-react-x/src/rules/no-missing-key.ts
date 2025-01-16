@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
       switch (node.type) {
         case T.JSXElement: {
           const initialScope = context.sourceCode.getScope(node);
-          if (!JSX.hasAttribute("key", initialScope, node.openingElement.attributes)) {
+          if (!JSX.hasAttribute("key", node.openingElement.attributes, initialScope)) {
             return {
               messageId: "noMissingKey",
               node,
@@ -102,7 +102,7 @@ export default createRule<[], MessageID>({
         }
         const initialScope = context.sourceCode.getScope(node);
         for (const element of elements) {
-          if (!JSX.hasAttribute("key", initialScope, element.openingElement.attributes)) {
+          if (!JSX.hasAttribute("key", element.openingElement.attributes, initialScope)) {
             context.report({
               messageId: "noMissingKey",
               node: element,

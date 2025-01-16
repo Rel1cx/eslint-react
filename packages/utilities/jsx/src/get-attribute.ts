@@ -9,19 +9,20 @@ import { getAttributeName } from "./get-attribute-name";
 /**
  * Get the JSX attribute node with the given name
  * @param name The name of the attribute
- * @param initialScope The initial scope to use for variable resolution
  * @param attributes The attributes to search
+ * @param initialScope The initial scope to use for variable resolution
  * @returns The JSX attribute node or undefined
  */
 export function getAttribute(
   name: string,
-  initialScope: Scope,
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
+  initialScope?: Scope,
 ): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | _ {
   return attributes.findLast((attr) => {
     if (attr.type === T.JSXAttribute) {
       return getAttributeName(attr) === name;
     }
+    if (initialScope == null) return false;
     switch (attr.argument.type) {
       case T.Identifier: {
         const variable = VAR.findVariable(attr.argument.name, initialScope);
