@@ -47,7 +47,6 @@
     }
   ],
   "files.exclude": {
-    "**/.turbo": true,
     "*.bundled_*.mjs": true
   },
   "mdx.server.enable": true,

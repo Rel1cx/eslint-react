@@ -46,3 +46,8 @@ stats.html
 *.tgz
 eslint-results.sarif
 .tsup
+
+
+
+.nx/cache
+.nx/workspace-data

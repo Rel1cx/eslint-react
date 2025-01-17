@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "cache": true
+    },
+    "build:docs": {
+      "outputs": [
+        "{projectRoot}/docs"
+      ],
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "lint:type": {
+      "cache": true
+    }
+  },
+  "defaultBase": "main",
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    }
+  ]
+}
