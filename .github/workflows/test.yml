@@ -11,7 +11,7 @@ env:
   NODE_OPTIONS: --max_old_space_size=102400
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
       # Workaround for GitHub Actions bug
