@@ -1500,6 +1500,25 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: /* tsx */ `
+        function App() {
+          return createElement("div", null, <div></div>);
+        }
+      `,
+      errors: [
+        {
+          messageId: "functionComponent",
+          data: {
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          },
+        },
+      ],
+    },
   ],
   valid: [
     ...allFunctions,
