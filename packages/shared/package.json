@@ -46,7 +46,7 @@
     "ts-pattern": "^5.6.0"
   },
   "devDependencies": {
-    "@types/picomatch": "^3.0.1",
+    "@types/picomatch": "^3.0.2",
     "@workspace/configs": "workspace:*",
     "fast-equals": "^5.2.2",
     "micro-memoize": "^4.1.3",

@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 /* eslint-disable simple-import-sort/imports */
 import url from "node:url";
 
@@ -116,7 +117,6 @@ export default tseslint.config(
   },
   {
     files: [...GLOB_JS, ...GLOB_TS],
-    // eslint-disable-next-line perfectionist/sort-objects
     extends: [
       eslintJs.configs.recommended,
       ...tseslint.configs.strict,
@@ -254,6 +254,47 @@ export default tseslint.config(
       "local/avoid-multiline-template-expression": "warn",
       "local/no-shadow-underscore": "error",
       "local/prefer-eqeq-nullish-comparison": "warn",
+      // Part: nx rules
+      "@nx/enforce-module-boundaries": [
+        "off", // TODO: enable
+        {
+          allow: [],
+          depConstraints: [
+            {
+              sourceTag: "utilities:eff",
+              onlyDependOnLibsWithTags: [],
+            },
+            {
+              sourceTag: "utilities:ast",
+              onlyDependOnLibsWithTags: ["utilities:eff"],
+            },
+            {
+              sourceTag: "utilities:var",
+              onlyDependOnLibsWithTags: ["utilities:eff", "utilities:ast"],
+            },
+            {
+              sourceTag: "utilities:jsx",
+              onlyDependOnLibsWithTags: ["utilities:eff", "utilities:ast", "utilities:var"],
+            },
+            {
+              sourceTag: "shared",
+              onlyDependOnLibsWithTags: ["utilities:eff"],
+            },
+            {
+              sourceTag: "core",
+              onlyDependOnLibsWithTags: ["utilities:*", "shared"],
+            },
+            {
+              sourceTag: "plugins:eslint-plugin-react-*",
+              onlyDependOnLibsWithTags: ["utilities:*", "shared", "core"],
+            },
+            {
+              sourceTag: "plugins:eslint-plugin",
+              onlyDependOnLibsWithTags: ["utilities:*", "shared", "core", "plugins:eslint-plugin-react-*"],
+            },
+          ],
+        },
+      ],
     },
     settings: {
       "import-x/parsers": {
@@ -299,6 +340,7 @@ export default tseslint.config(
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "import-x/no-extraneous-dependencies": "off",
       "local/avoid-multiline-template-expression": "off",
+      "@nx/enforce-module-boundaries": "off",
     },
   },
   {
@@ -315,6 +357,7 @@ export default tseslint.config(
     },
     rules: {
       "no-console": "off",
+      "@nx/enforce-module-boundaries": "off",
     },
   },
   {
@@ -329,6 +372,7 @@ export default tseslint.config(
     },
     rules: {
       ...disableTypeCheckedRules,
+      "@nx/enforce-module-boundaries": "off",
     },
   },
 );

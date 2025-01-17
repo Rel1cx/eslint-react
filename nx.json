@@ -23,13 +23,5 @@
       "cache": true
     }
   },
-  "defaultBase": "main",
-  "plugins": [
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "eslint:lint"
-      }
-    }
-  ]
+  "defaultBase": "main"
 }
