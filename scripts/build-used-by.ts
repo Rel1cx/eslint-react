@@ -4,25 +4,6 @@ import fs from "node:fs/promises";
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { ofetch } from "ofetch";
 
-const projects = [
-  "ant-design/ant-design",
-  "DimensionDev/Maskbook",
-  "dream-num/univer",
-  "electric-sql/pglite",
-  "ensdomains/ensdomains-landing",
-  "flirtual/flirtual",
-  "hashintel/hash",
-  "npmgraph/npmgraph",
-  "react-navigation/react-navigation",
-  "refined-github/refined-github",
-  "RSSNext/Follow",
-  "TanStack/query",
-  "toss/suspensive",
-  "upleveled/eslint-config-upleveled",
-  "XYOracleNetwork/sdk-xyo-react-js",
-  "zolplay-cn/config-monorepo",
-];
-
 interface GitHubRepo {
   owner: {
     avatar_url: string;
@@ -77,7 +58,9 @@ async function buildUsedByImage(users: string[]) {
 }
 
 const token = process.env["GITHUB_TOKEN"];
-const avatars = await Promise.all(projects.map(async (repo) => fetchGitHubAvatar(repo, token)));
+const data = await fs.readFile("assets/NOTABLE_PROJECTS_USING_ESLINT_REACT", "utf-8");
+const repos = data.trim().split("\n").map((item) => item.replace("https://github.com/", ""));
+const avatars = await Promise.all(repos.map(async (repo) => fetchGitHubAvatar(repo, token)));
 const img = await buildUsedByImage(avatars);
 await fs.writeFile("website/assets/used_by.png", img);
 await fs.writeFile("website/public/used_by.png", img);

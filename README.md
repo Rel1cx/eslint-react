@@ -12,13 +12,13 @@ A set of composable ESLint rules for libraries and frameworks that use React as 
 - **Comprehensive**: First-class support for TypeScript, React 19, polymorphic components.
 - **Advanced Analysis**: Handles complex scenarios and identifies problems that other tools might miss.
 
-## Public packages
+## Public Packages
 
-### All-in-one plugins
+### All-In-One Plugin
 
 - [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
 
-### Modular plugins
+### Modular Plugins
 
 - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core rules (renderer-agnostic, compatible with x-platform).
 - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
@@ -107,11 +107,11 @@ export default tseslint.config({
 
 - [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
 
-## Used by
+## Notable Projects Using ESLint React
 
-![used-by](https://eslint-react.xyz/used_by.png)
+[![used-by](https://eslint-react.xyz/used_by.png)](https://github.com/Rel1cx/eslint-react/blob/main/assets/NOTABLE_PROJECTS_USING_ESLINT_REACT)
 
-### Also available in
+## Community ESLint Configs Adopting ESLint React
 
 - [`antfu/eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
 - [`eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - Rebecca's ESLint config preset.
