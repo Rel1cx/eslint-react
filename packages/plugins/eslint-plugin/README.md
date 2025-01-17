@@ -93,7 +93,7 @@ export default tseslint.config({
 - **Recommended Type-Checked** (`recommended-type-checked`)\
   Same as the `recommended-typescript` preset but enables additional rules that require type information.
 
-[Full Presets List↗](https://eslint-react.xyz/docs/presets)
+[Full Presets List ↗](https://eslint-react.xyz/docs/presets)
 
 ## Rules
 
