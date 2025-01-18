@@ -1,4 +1,3 @@
-/* eslint-disable eslint-plugin/no-unused-placeholders */
 import * as AST from "@eslint-react/ast";
 import {
   ERComponentHint,

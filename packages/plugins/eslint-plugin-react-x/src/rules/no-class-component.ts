@@ -44,7 +44,6 @@ export default createRule<[], MessageID>({
             messageId: "noClassComponent",
             node: component,
             data: {
-              // eslint-disable-next-line eslint-plugin/no-unused-placeholders
               name,
             },
           });

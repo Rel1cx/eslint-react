@@ -45,9 +45,7 @@ export default createRule<[], MessageID>({
               return [];
             }
             return [
-              // eslint-disable-next-line eslint-plugin/prefer-replace-text
               fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
-              // eslint-disable-next-line eslint-plugin/prefer-replace-text
               fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
             ];
           },

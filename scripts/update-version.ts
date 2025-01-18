@@ -2,7 +2,7 @@ import pc from "picocolors";
 import { isMatching, match, P } from "ts-pattern";
 
 import { ignores } from "./ignores";
-import { glob, readJsonFile, writeJsonFile } from "./libs";
+import { glob, readJsonFile, writeJsonFile } from "./lib";
 import { version } from "./version";
 
 const GLOB_PACKAGE_JSON = ["package.json", "packages/*/package.json", "packages/*/*/package.json"];

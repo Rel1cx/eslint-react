@@ -5,7 +5,6 @@ import url from "node:url";
 import eslintJs from "@eslint/js";
 import eslintMarkdown from "@eslint/markdown";
 import eslintStylistic from "@stylistic/eslint-plugin";
-import eslintPluginImport from "eslint-plugin-import-x";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginLocal from "@workspace/eslint-plugin-local";
 import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
@@ -14,8 +13,6 @@ import eslintPluginSafeTypeScript from "@susisu/eslint-plugin-safe-typescript";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import eslintPluginVitest from "eslint-plugin-vitest";
-// @ts-expect-error - missing types
-import eslintPluginEslintPlugin from "eslint-plugin-eslint-plugin";
 import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
 import tseslint from "typescript-eslint";
 
@@ -120,11 +117,9 @@ export default tseslint.config(
     extends: [
       eslintJs.configs.recommended,
       ...tseslint.configs.strict,
-      eslintPluginImport.flatConfigs.recommended,
       eslintPluginPerfectionist.configs["recommended-natural"],
       eslintPluginRegexp.configs["flat/recommended"],
       eslintPluginJsdoc.configs["flat/recommended-typescript-error"],
-      eslintPluginEslintPlugin.configs["flat/all-type-checked"],
     ],
     languageOptions: {
       parser: tseslint.parser,
@@ -245,11 +240,6 @@ export default tseslint.config(
           tags: templateIndentAnnotations,
         },
       ],
-      // Part: eslint-plugin rules
-      "eslint-plugin/meta-property-ordering": "off",
-      "eslint-plugin/no-property-in-node": "off",
-      "eslint-plugin/require-meta-docs-recommended": "off",
-      "eslint-plugin/require-meta-docs-url": "off",
       // Part: local rules
       "local/avoid-multiline-template-expression": "warn",
       "local/no-shadow-underscore": "error",
@@ -296,12 +286,6 @@ export default tseslint.config(
         },
       ],
     },
-    settings: {
-      "import-x/parsers": {
-        "@typescript-eslint/parser": GLOB_TS,
-      },
-      "import-x/resolver": "oxc",
-    },
   },
   {
     files: GLOB_JS,
@@ -338,7 +322,6 @@ export default tseslint.config(
       ...disableTypeCheckedRules,
       ...eslintPluginVitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
-      "import-x/no-extraneous-dependencies": "off",
       "local/avoid-multiline-template-expression": "off",
       "@nx/enforce-module-boundaries": "off",
     },

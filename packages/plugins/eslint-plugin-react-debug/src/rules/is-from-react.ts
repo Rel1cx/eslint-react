@@ -20,7 +20,6 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      // eslint-disable-next-line eslint-plugin/require-meta-docs-description
       description: "report all identifiers that are initialized from React.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
@@ -67,7 +66,6 @@ export default createRule<[], MessageID>({
         messageId: "isFromReact",
         node,
         data: {
-          // eslint-disable-next-line eslint-plugin/no-unused-placeholders
           type: node.type,
           name,
           importSource,

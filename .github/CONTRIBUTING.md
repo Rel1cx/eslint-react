@@ -9,10 +9,6 @@ Before submitting your contribution though, please make sure to take a moment an
   - [Pull Request Guidelines](#pull-request-guidelines)
   - [Development Guide](#development-guide)
     - [Packages Overview](#packages-overview)
-    - [Developing Documentation](#developing-documentation)
-    - [Developing Rules](#developing-rules)
-    - [Developing Core and Related Components](#developing-core-and-related-components)
-      - [Building the documentation locally](#building-the-documentation-locally)
 
 > [!NOTE]\
 > FYI: The ESLint Raect project is not a fork of the `eslint-plugin-react` project and meanwhile `eslint-plugin-react` is not the upstream of ESLint React.\
