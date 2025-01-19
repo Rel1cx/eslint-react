@@ -63,12 +63,12 @@ function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolea
 function getCallKind(node: TSESTree.CallExpression, context: RuleContext): CallKind {
   switch (true) {
     case node.callee.type === T.Identifier
-      && isMatching(P.union("observe", "unobserve", "disconnect"), node.callee.name)
+      && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.name)
       && isFromObserver(node.callee, context):
       return node.callee.name;
     case node.callee.type === T.MemberExpression
       && node.callee.property.type === T.Identifier
-      && isMatching(P.union("observe", "unobserve", "disconnect"), node.callee.property.name)
+      && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.property.name)
       && isFromObserver(node.callee, context):
       return node.callee.property.name;
     default:

@@ -56,11 +56,11 @@ const defaultOptions: {
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
     case node.callee.type === T.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener", "abort"), node.callee.name):
+      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(node.callee.name):
       return node.callee.name;
     case node.callee.type === T.MemberExpression
       && node.callee.property.type === T.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener", "abort"), node.callee.property.name):
+      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(node.callee.property.name):
       return node.callee.property.name;
     default:
       return "other";

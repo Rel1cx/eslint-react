@@ -58,7 +58,7 @@
     "@typescript-eslint/utils": "^8.20.0",
     "compare-versions": "^6.1.1",
     "string-ts": "^2.2.0",
-    "ts-pattern": "^5.6.0"
+    "ts-pattern": "^5.6.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.7",

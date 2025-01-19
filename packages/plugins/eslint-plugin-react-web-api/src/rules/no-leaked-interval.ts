@@ -40,11 +40,11 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
     case node.callee.type === T.Identifier
-      && isMatching(P.union("setInterval", "clearInterval"), node.callee.name):
+      && isMatching(P.union("setInterval", "clearInterval"))(node.callee.name):
       return node.callee.name;
     case node.callee.type === T.MemberExpression
       && node.callee.property.type === T.Identifier
-      && isMatching(P.union("setInterval", "clearInterval"), node.callee.property.name):
+      && isMatching(P.union("setInterval", "clearInterval"))(node.callee.property.name):
       return node.callee.property.name;
     default:
       return "other";
