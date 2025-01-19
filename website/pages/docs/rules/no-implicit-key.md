@@ -47,10 +47,9 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
-      {items.map((item) => {
-        const props = { key: item.id };
-
-        return <li {...props}>{item.name}</li>;
+      {items.map(({ id, name, ...rest }) => {
+        const props = { key: id, ...rest };
+        return <li {...props}>{name}</li>;
         //         ^^^^^^^^^^
         //         - Do not use implicit 'key' props.
       })}
@@ -71,7 +70,9 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
-      {items.map((item) => <li key={item.id}>{item.name}</li>)}
+      {items.map(({ id, name, ...rest }) => {
+        return <li key={id} {...rest}>{name}</li>;
+      })}
     </ul>
   );
 }
