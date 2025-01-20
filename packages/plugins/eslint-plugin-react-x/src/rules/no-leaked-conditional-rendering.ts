@@ -1,9 +1,8 @@
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { _, identity } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
-import type { Variable } from "@typescript-eslint/scope-manager";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -171,27 +170,6 @@ function inspectVariantTypes(types: ts.Type[]) {
   return variantTypes;
 }
 
-function isInitExpression(
-  node:
-    | _
-    | null
-    | TSESTree.Expression
-    | TSESTree.LetOrConstOrVarDeclaration,
-): node is TSESTree.Expression {
-  if (node == null) return false;
-  return node.type !== T.VariableDeclaration;
-}
-
-function getVariableInitExpression(variable: Variable | _, at: number): TSESTree.Expression | _ {
-  const def = variable?.defs[at];
-  if (def?.node == null || !("init" in def.node)) {
-    return _;
-  }
-  return isInitExpression(def.node.init)
-    ? def.node.init
-    : _;
-}
-
 // #endregion
 
 // #region Rule Implementation
@@ -274,7 +252,9 @@ export default createRule<[], MessageID>({
         })
         .with({ type: T.Identifier }, (n) => {
           const variable = VAR.findVariable(n.name, context.sourceCode.getScope(n));
-          const initExpression = getVariableInitExpression(variable, 0);
+          const initExpression = match(variable?.defs.at(0)?.node)
+            .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, identity)
+            .otherwise(() => _);
           return getReportDescriptor(initExpression);
         })
         .otherwise(() => _);
