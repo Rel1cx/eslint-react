@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.24.0-next.18",
+  "version": "1.24.0-beta.18",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -106,23 +106,25 @@
     "typescript-eslint": "^8.20.0",
     "vitest": "^3.0.2"
   },
+  "packageManager": "pnpm@10.0.0",
   "engines": {
     "node": ">=18.18.0"
   },
-  "packageManager": "pnpm@10.0.0",
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
-      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "@types/react": "^19.0.7",
       "@types/react-dom": "^19.0.3",
       "cross-spawn": "^7.0.6",
+      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "next": "^15.1.5",
+      "nextra": "^3.3.1",
+      "nextra-theme-docs": "^3.3.1",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
       "ts-api-utils": "^2.0.0",
+      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "typescript": "^5.7.3"
     }
   }
