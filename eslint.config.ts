@@ -341,6 +341,7 @@ export default tseslint.config(
     rules: {
       "no-console": "off",
       "@nx/enforce-module-boundaries": "off",
+      ...disableTypeCheckedRules,
     },
   },
   {
