@@ -1,3 +1,9 @@
+## v1.24.0 (2025-01-21)
+
+### 🪄 Improvements
+
+- perf: overhaul performance optimizations
+
 ## v1.23.2 (2025-01-07)
 
 ### ✨ New
