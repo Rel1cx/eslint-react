@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ERSemanticNode } from "../semantic-node";
 import type { ERComponentHint } from "./component-collector-hint";
-import type { ERClassComponentFlag, ERFunctionComponentFlag } from "./component-flag";
+import type { ERComponentFlag } from "./component-flag";
 
 /* eslint-disable perfectionist/sort-interfaces */
 export interface ERFunctionComponent extends ERSemanticNode {
@@ -14,7 +14,7 @@ export interface ERFunctionComponent extends ERSemanticNode {
     | TSESTree.Identifier[];
   kind: "function";
   node: AST.TSESTreeFunction;
-  flag: ERFunctionComponentFlag;
+  flag: ERComponentFlag;
   hint: ERComponentHint;
   initPath:
     | _
@@ -31,7 +31,7 @@ export interface ERClassComponent extends ERSemanticNode {
     | TSESTree.Identifier;
   kind: "class";
   node: AST.TSESTreeClass;
-  flag: ERClassComponentFlag;
+  flag: ERComponentFlag;
   hint: ERComponentHint;
   methods: AST.TSESTreeMethodOrProperty[];
   displayName:

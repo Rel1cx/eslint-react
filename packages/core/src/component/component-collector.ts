@@ -11,7 +11,7 @@ import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
 import { COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "./component-display-name";
-import { ERFunctionComponentFlag } from "./component-flag";
+import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
@@ -47,12 +47,12 @@ function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hin
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
-  let flag = ERFunctionComponentFlag.None;
+  let flag = ERComponentFlag.None;
   if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
-    flag |= ERFunctionComponentFlag.Memo;
+    flag |= ERComponentFlag.Memo;
   }
   if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
-    flag |= ERFunctionComponentFlag.ForwardRef;
+    flag |= ERComponentFlag.ForwardRef;
   }
   return flag;
 }

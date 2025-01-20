@@ -15,13 +15,12 @@
 
 ## Type Aliases
 
-- [ERClassComponentFlag](type-aliases/ERClassComponentFlag.md)
 - [ERComponent](type-aliases/ERComponent.md)
+- [ERComponentFlag](type-aliases/ERComponentFlag.md)
 - [ERComponentHint](type-aliases/ERComponentHint.md)
 - [ERComponentKind](type-aliases/ERComponentKind.md)
 - [EREffectKind](type-aliases/EREffectKind.md)
 - [EREffectPhaseKind](type-aliases/EREffectPhaseKind.md)
-- [ERFunctionComponentFlag](type-aliases/ERFunctionComponentFlag.md)
 - [ERHookKind](type-aliases/ERHookKind.md)
 - [ERLifecyclePhaseKind](type-aliases/ERLifecyclePhaseKind.md)
 - [ERPhaseKind](type-aliases/ERPhaseKind.md)
@@ -31,9 +30,8 @@
 
 - [COMPONENT\_DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
 - [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
-- [ERClassComponentFlag](variables/ERClassComponentFlag.md)
+- [ERComponentFlag](variables/ERComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)
-- [ERFunctionComponentFlag](variables/ERFunctionComponentFlag.md)
 - [ERPhaseRelevance](variables/ERPhaseRelevance.md)
 - [RE\_COMPONENT\_NAME](variables/RE_COMPONENT_NAME.md)
 - [RE\_HOOK\_NAME](variables/RE_HOOK_NAME.md)

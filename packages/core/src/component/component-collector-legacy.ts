@@ -3,7 +3,7 @@ import { _ } from "@eslint-react/eff";
 import { getId } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
-import { ERClassComponentFlag } from "./component-flag";
+import { ERComponentFlag } from "./component-flag";
 import type { ERClassComponent } from "./component-semantic-node";
 import { isClassComponent, isPureComponent } from "./is";
 
@@ -28,8 +28,8 @@ export function useComponentCollectorLegacy() {
     const id = AST.getClassIdentifier(node);
     const key = getId();
     const flag = isPureComponent(node)
-      ? ERClassComponentFlag.PureComponent
-      : ERClassComponentFlag.None;
+      ? ERComponentFlag.PureComponent
+      : ERComponentFlag.None;
     components.set(
       key,
       {

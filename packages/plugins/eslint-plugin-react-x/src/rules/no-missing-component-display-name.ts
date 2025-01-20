@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { DEFAULT_COMPONENT_HINT, ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
+import { DEFAULT_COMPONENT_HINT, ERComponentFlag, useComponentCollector } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
@@ -46,7 +46,7 @@ export default createRule<[], MessageID>({
       "Program:exit"(node) {
         const components = ctx.getAllComponents(node);
         for (const { node, displayName, flag } of components.values()) {
-          const isMemoOrForwardRef = (flag & (ERFunctionComponentFlag.ForwardRef | ERFunctionComponentFlag.Memo)) > 0n;
+          const isMemoOrForwardRef = (flag & (ERComponentFlag.ForwardRef | ERComponentFlag.Memo)) > 0n;
           if (AST.getFunctionIdentifier(node) != null) {
             continue;
           }

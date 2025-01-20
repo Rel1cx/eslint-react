@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { ERClassComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
+import { ERComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -47,7 +47,7 @@ export default createRule<[], MessageID>({
         const components = ctx.getAllComponents(node);
 
         for (const { name = "PureComponent", node: component, flag } of components.values()) {
-          if ((flag & ERClassComponentFlag.PureComponent) === 0n) {
+          if ((flag & ERComponentFlag.PureComponent) === 0n) {
             continue;
           }
           const { body } = component.body;

@@ -1,4 +1,4 @@
-import { DEFAULT_COMPONENT_HINT, ERFunctionComponentFlag, useComponentCollector } from "@eslint-react/core";
+import { DEFAULT_COMPONENT_HINT, ERComponentFlag, useComponentCollector } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
@@ -46,9 +46,9 @@ export default createRule<[], MessageID>({
             data: {
               name,
               displayName: displayName != null ? context.sourceCode.getText(displayName) : "none",
-              forwardRef: (flag & ERFunctionComponentFlag.ForwardRef) > 0n,
+              forwardRef: (flag & ERComponentFlag.ForwardRef) > 0n,
               hookCalls: hookCalls.length,
-              memo: (flag & ERFunctionComponentFlag.Memo) > 0n,
+              memo: (flag & ERComponentFlag.Memo) > 0n,
             },
           });
         }
