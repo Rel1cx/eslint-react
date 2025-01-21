@@ -7,6 +7,5 @@ export function padKeysLeft<const A, const B extends string = "">(
   obj: A,
   left: B,
 ): PadKeysLeft<A, B> {
-  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
   return transformKeys(obj, (key) => `${left}${key}`) as never;
 }

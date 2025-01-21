@@ -9,7 +9,6 @@ import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginLocal from "@workspace/eslint-plugin-local";
 import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
 import eslintPluginRegexp from "eslint-plugin-regexp";
-import eslintPluginSafeTypeScript from "@susisu/eslint-plugin-safe-typescript";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import eslintPluginVitest from "eslint-plugin-vitest";
@@ -68,9 +67,6 @@ const enableTypeCheckedRules = {
   ...tseslint.configs.strictTypeCheckedOnly
     .map((x) => x.rules)
     .reduce((a, b) => ({ ...a, ...b }), {}),
-  ...eslintPluginSafeTypeScript.configs.recommended.rules,
-  "@susisu/safe-typescript/no-unsafe-object-property-check": "off",
-  "@susisu/safe-typescript/no-unsafe-object-property-overwrite": "off",
   "@typescript-eslint/consistent-type-exports": "error",
   "@typescript-eslint/strict-boolean-expressions": ["error", {
     allowAny: false,
@@ -133,7 +129,6 @@ export default tseslint.config(
     },
     plugins: {
       ["@stylistic"]: eslintStylistic,
-      ["@susisu/safe-typescript"]: eslintPluginSafeTypeScript,
       ["local"]: eslintPluginLocal,
       ["simple-import-sort"]: eslintPluginSimpleImportSort,
       ["unicorn"]: eslintPluginUnicorn,

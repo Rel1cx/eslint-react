@@ -49,7 +49,6 @@ export interface ESLintReactSettingsNormalized {
  */
 export function unsafeDecodeSettings(data: unknown): PartialDeep<ESLintReactSettings> {
   // @ts-expect-error - skip type checking for unsafe cast
-  // eslint-disable-next-line @susisu/safe-typescript/no-type-assertion
   return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
 }
 

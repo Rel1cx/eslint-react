@@ -42,9 +42,6 @@ importers:
       '@stylistic/eslint-plugin':
         specifier: ^2.13.0
         version: 2.13.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
-      '@susisu/eslint-plugin-safe-typescript':
-        specifier: ^0.9.2
-        version: 0.9.2(@typescript-eslint/parser@8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2))(typescript-eslint@8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(typescript@5.7.3)
       '@swc/core':
         specifier: ^1.10.9
         version: 1.10.9(@swc/helpers@0.5.15)
@@ -3591,18 +3588,6 @@ packages:
     peerDependencies:
       eslint: '>=8.40.0'
 
-  '@susisu/eslint-plugin-safe-typescript@0.9.2':
-    resolution: {integrity: sha512-AKCf8wNO7mrfgTRGnZCpvchzZ7CqfMEXy2lJouRVbatQPSt53LBCgNmK0GxuRihbhCqqDKsUAYFG6n8akVEZ/Q==}
-    peerDependencies:
-      '@typescript-eslint/parser': ^8.0.0
-      typescript: ^5.7.3
-      typescript-eslint: ^8.0.0
-    peerDependenciesMeta:
-      '@typescript-eslint/parser':
-        optional: true
-      typescript-eslint:
-        optional: true
-
   '@swc/core-darwin-arm64@1.10.9':
     resolution: {integrity: sha512-XTHLtijFervv2B+i1ngM993umhSj9K1IeMomvU/Db84Asjur2XmD4KXt9QPnGDRFgv2kLSjZ+DDL25Qk0f4r+w==}
     engines: {node: '>=10'}
@@ -3902,9 +3887,6 @@ packages:
 
   '@types/doctrine@0.0.9':
     resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
-
-  '@types/eslint@9.6.1':
-    resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
 
   '@types/estree-jsx@1.0.5':
     resolution: {integrity: sha512-52CcUVNFyfb1A2ALocQw/Dd1BQFNmSdkuC3BkZ6iqhdMfQz7JWOFRuJFloOzjk+6WijU56m9oKXFAXc7o3Towg==}
@@ -10683,18 +10665,6 @@ snapshots:
       - supports-color
       - typescript
 
-  '@susisu/eslint-plugin-safe-typescript@0.9.2(@typescript-eslint/parser@8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2))(typescript-eslint@8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(typescript@5.7.3)':
-    dependencies:
-      '@types/eslint': 9.6.1
-      '@typescript-eslint/utils': 8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
-      typescript: 5.7.3
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
-      typescript-eslint: 8.21.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)
-    transitivePeerDependencies:
-      - eslint
-      - supports-color
-
   '@swc/core-darwin-arm64@1.10.9':
     optional: true
 
@@ -10996,11 +10966,6 @@ snapshots:
       '@types/ms': 2.1.0
 
   '@types/doctrine@0.0.9': {}
-
-  '@types/eslint@9.6.1':
-    dependencies:
-      '@types/estree': 1.0.6
-      '@types/json-schema': 7.0.15
 
   '@types/estree-jsx@1.0.5':
     dependencies:
