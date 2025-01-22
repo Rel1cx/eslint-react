@@ -1,3 +1,9 @@
+## v1.24.1 (2025-01-22)
+
+### 🐞 Fixes
+
+- fix: fixed invalid rules for `disable-debug`, `disable-dom`, and `disable-web-apis` configs, closes <https://github.com/Rel1cx/eslint-react/issues/923> by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/924>
+
 ## v1.24.0 (2025-01-21)
 
 ### 🪄 Improvements
