@@ -93,9 +93,7 @@ export function useComponentCollector(
   const onFunctionExit = () => {
     const entry = functionEntries.at(-1);
     if (entry == null) return;
-    if (!entry.isComponent) {
-      return functionEntries.pop();
-    }
+    if (!entry.isComponent) return functionEntries.pop();
     const shouldDrop = AST.getNestedReturnStatements(entry.node.body)
       .slice()
       .reverse()
@@ -126,16 +124,12 @@ export function useComponentCollector(
     ":function[type]:exit": onFunctionExit,
     "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
       const entry = getCurrentEntry();
-      if (entry == null) {
-        return;
-      }
+      if (entry == null) return;
       const { body } = entry.node;
       const isComponent = hasNoneOrValidComponentName(entry.node, context)
         && JSX.isJSXValue(body, jsxCtx, hint)
         && hasValidHierarchy(entry.node, context, hint);
-      if (!isComponent) {
-        return;
-      }
+      if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentIdentifier(entry.node, context);
       const name = getComponentNameFromIdentifier(id);
@@ -163,9 +157,7 @@ export function useComponentCollector(
             : _;
           const component = [...components.values()]
             .findLast(({ name }) => name != null && name === componentName);
-          if (component == null) {
-            return;
-          }
+          if (component == null) return;
           component.displayName = right;
         },
       }
@@ -173,30 +165,21 @@ export function useComponentCollector(
     ...collectHookCalls
       ? {
         "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
-          if (!isReactHookCall(node)) {
-            return;
-          }
+          if (!isReactHookCall(node)) return;
           const entry = getCurrentEntry();
-          if (entry == null) {
-            return;
-          }
+          if (entry == null) return;
           entry.hookCalls.push(node);
         },
       }
       : {},
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
-      if (entry == null) {
-        return;
-      }
+      if (entry == null) return;
       const isComponent = hasNoneOrValidComponentName(entry.node, context)
         && JSX.isJSXValue(node.argument, jsxCtx, hint)
         && hasValidHierarchy(entry.node, context, hint);
-      if (!isComponent) {
-        return;
-      }
-      functionEntries.pop();
-      functionEntries.push({ ...entry, isComponent });
+      if (!isComponent) return;
+      entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentIdentifier(entry.node, context);
       const name = getComponentNameFromIdentifier(id);
