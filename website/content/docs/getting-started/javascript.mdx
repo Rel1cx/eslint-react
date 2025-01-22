@@ -1,0 +1,49 @@
+---
+title: JavaScript
+description: Getting started with JavaScript setup
+---
+
+## Install
+
+```sh copy title="Terminal"
+# npm
+npm install --save-dev eslint @eslint/js @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev eslint @eslint/js @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev eslint @eslint/js @eslint-react/eslint-plugin
+```
+
+## Setup
+
+```js title="eslint.config.js"
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+
+export default [
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    ...eslintJs.configs.recommended,
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    ...eslintReact.configs.recommended,
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    rules: {
+      // Put rules you want to override here
+      "@eslint-react/prefer-shorthand-boolean": "warn",
+    },
+  },
+];
+```

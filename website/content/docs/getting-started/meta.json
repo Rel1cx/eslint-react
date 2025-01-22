@@ -1,0 +1,5 @@
+{
+  "title": "Getting Started",
+  "pages": ["javascript", "typescript", "javascript-with-babel"],
+  "defaultOpen": true
+}

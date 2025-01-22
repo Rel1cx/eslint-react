@@ -102,6 +102,7 @@ export default tseslint.config(
     files: GLOB_APP,
     rules: {
       "@typescript-eslint/require-await": "off",
+      "react-refresh/only-export-components": "off",
     },
   },
   {
