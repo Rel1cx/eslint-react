@@ -1,2 +1,2 @@
 export * from "./glob";
-export * from "./version";
+export * from "./semver";
