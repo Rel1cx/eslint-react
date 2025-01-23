@@ -43,7 +43,6 @@ ruleTester.run(RULE_NAME, rule, {
         </>
       `,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
-
       output: /* tsx */ `
         <div/>
       `,
