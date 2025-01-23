@@ -22,8 +22,8 @@ export const baseOptions: BaseLayoutProps = {
   },
   links: [
     {
-      text: "Documentation",
-      url: "/docs",
+      text: "Getting Started",
+      url: "/docs/getting-started",
       active: "nested-url",
     },
     {
@@ -37,13 +37,13 @@ export const baseOptions: BaseLayoutProps = {
       active: "nested-url",
     },
     {
+      text: "Changelog",
+      url: "https://github.com/Rel1cx/eslint-react/releases",
+    },
+    {
       text: "Roadmap",
       url: "/docs/roadmap",
       active: "nested-url",
-    },
-    {
-      text: "GitHub",
-      url: "https://github.com/Rel1cx/eslint-react",
     },
   ],
 };
