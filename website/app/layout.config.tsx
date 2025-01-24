@@ -46,4 +46,5 @@ export const baseOptions: BaseLayoutProps = {
       url: "https://github.com/Rel1cx/eslint-react/releases",
     },
   ],
+  githubUrl: "https://github.com/Rel1cx/eslint-react",
 };
