@@ -3,6 +3,10 @@ title: TypeScript with alternative parser
 description: Getting started with TypeScript + TS Blank Space ESLint Parser setup
 ---
 
+<Callout type="warn">The `ts-blank-space-eslint-parser` is a work in progress and not support rules that require type information or TypeScript syntax that need transformation like enums, namespaces, decorators. Use it with caution.</Callout>
+
+<Callout type="warn">When using this approach, the auto-fix may not work properly, it is recommended to use https://github.com/chiefmikey/eslint-plugin-disable-autofix to disable any problematic auto-fix without turning off the rule.</Callout>
+
 ## Install
 
 ```sh copy title="Terminal"
