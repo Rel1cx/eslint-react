@@ -11,80 +11,40 @@ description: Getting started with TypeScript + TS Blank ESLint Parser setup
 
 ```sh copy title="Terminal"
 # npm
-npm install --save-dev eslint ts-blank-eslint-parser @eslint-react/eslint-plugin
+npm install --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
 
 # pnpm
-pnpm add --save-dev eslint ts-blank-eslint-parser @eslint-react/eslint-plugin
+pnpm add --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
 
 # yarn
-yarn add --dev eslint ts-blank-eslint-parser @eslint-react/eslint-plugin
+yarn add --dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
 ```
 
 ## Setup
 
 ```js title="eslint.config.js"
-
-// @ts-check
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
+import globals from "globals";
 
-export default tseslint.config({
-  files: ["**/*.ts", "**/*.tsx"],
-  extends: [
-    eslintJs.configs.recommended,
-    eslintReact.configs.recommended,
-  ],
-  languageOptions: {
-    parser: tsBlankEslintParser,
-  },
-});
-```
-
-## Setup with Fallback Parsers
-
-### Add `typescript-eslint` to the project dependencies
-
-```sh copy title="Terminal"
-# npm
-npm install --save-dev typescript-eslint
-
-# pnpm
-pnpm add --save-dev typescript-eslint
-
-# yarn
-yarn add --dev typescript-eslint
-```
-
-### Update the `eslint.config.js` file
-
-```js title="eslint.config.js"
-
-// @ts-check
-import eslintJs from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
-import tsBlankEslintParser from "ts-blank-eslint-parser";
-import tseslint from "typescript-eslint";
-
-export default tseslint.config({
-  files: ["**/*.ts", "**/*.tsx"],
-  extends: [
-    eslintJs.configs.recommended,
-    eslintReact.configs.recommended,
-  ],
-  languageOptions: {
-    parser: tsBlankEslintParser,
-    parserOptions: {
-      // Fallback to `@typescript-eslint/parser` when `ts-blank-eslint-parser` fails
-      fallbackParsers: [
-        {
-          parser: tseslint.parser,
-          parserOptions: {
-            projectService: true,
-          },
-        },
-      ],
+export default [
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    ...eslintJs.configs.recommended,
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+      parser: tsBlankEslintParser,
     },
   },
-});
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      // Put rules you want to override here
+      "@eslint-react/prefer-shorthand-boolean": "warn",
+    },
+  },
+];
 ```
