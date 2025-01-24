@@ -4,7 +4,7 @@ import eslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
-import * as tsBlankEslintParser from "ts-blank-eslint-parser";
+import tsBlankEslintParser from "ts-blank-eslint-parser";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
