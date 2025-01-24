@@ -25,8 +25,8 @@
 }
 
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  padding: 2px 3.6px;
-  font-size: 14px;
+  padding: .125rem .25em;
+  font-size: .9em;
 }
 
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
