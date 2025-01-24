@@ -52,7 +52,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
     "@eslint/config-inspector": "^1.0.0",
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^9.19.0",
     "@eslint/markdown": "^6.2.2",
     "@napi-rs/canvas": "^0.1.65",
     "@stylistic/eslint-plugin": "^2.13.0",

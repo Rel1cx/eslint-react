@@ -1,5 +1,5 @@
 {
-  "name": "@examples/vite-react-dom-ts",
+  "name": "@examples/vite-react-dom-with-ts-blank-eslint-parser-app",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -26,8 +26,9 @@
     "eslint": "^9.18.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "ts-blank-eslint-parser": "alpha",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.21.0",
     "vite": "^6.0.11"
   },
   "engines": {
