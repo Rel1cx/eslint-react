@@ -1,0 +1,71 @@
+---
+title: TypeScript with alternative parser
+description: Getting started with TypeScript + TS Blank Space ESLint Parser setup
+---
+
+## Install
+
+```sh copy title="Terminal"
+# npm
+npm install --save-dev eslint ts-blank-space-eslint-parser @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev eslint ts-blank-space-eslint-parser @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev eslint ts-blank-space-eslint-parser @eslint-react/eslint-plugin
+```
+
+## Setup
+
+```js title="eslint.config.js"
+
+// @ts-check
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import tsBlankSpaceEslintParser from "ts-blank-space-eslint-parser";
+
+export default tseslint.config({
+  files: ["**/*.ts", "**/*.tsx"],
+  extends: [
+    eslintJs.configs.recommended,
+    eslintReact.configs.recommended,
+  ],
+  languageOptions: {
+    parser: tsBlankSpaceEslintParser,
+  },
+});
+```
+
+## Setup with Fallback Parsers
+
+```js title="eslint.config.js"
+
+// @ts-check
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import tsBlankSpaceEslintParser from "ts-blank-space-eslint-parser";
+import tseslint from "typescript-eslint";
+
+export default tseslint.config({
+  files: ["**/*.ts", "**/*.tsx"],
+  extends: [
+    eslintJs.configs.recommended,
+    eslintReact.configs.recommended,
+  ],
+  languageOptions: {
+    parser: tsBlankSpaceEslintParser,
+    parserOptions: {
+      // Fallback to `@typescript-eslint/parser` when `ts-blank-space-eslint-parser` fails
+      fallbackParsers: [
+        {
+          parser: tseslint.parser,
+          parserOptions: {
+            projectService: true,
+          },
+        },
+      ],
+    },
+  },
+});
+```

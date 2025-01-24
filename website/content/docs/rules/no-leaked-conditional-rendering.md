@@ -32,7 +32,7 @@ Using the `&&` operator to render some element conditionally in JSX can cause un
 
 In React, you might end up rendering unexpected values like `0` or `NaN`. In React Native, your render method will even crash if you render these values:
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function MyComponent() {
@@ -42,7 +42,7 @@ function MyComponent() {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 function MyComponent() {
@@ -69,7 +69,7 @@ This can be avoided by:
 
 ### Failing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -83,7 +83,7 @@ function MyComponent({ count }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -97,7 +97,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -111,7 +111,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -130,7 +130,7 @@ function MyComponent({ numberA, numberB }: MyComponentProps) {
 
 ### Passing
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -142,7 +142,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -157,7 +157,7 @@ function MyComponent({ customTitle }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -169,7 +169,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -182,7 +182,7 @@ function MyComponent({ items, count }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -194,7 +194,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -206,7 +206,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -218,7 +218,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
@@ -230,7 +230,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-```tsx twoslash
+```tsx
 import React from "react";
 
 interface MyComponentProps {
