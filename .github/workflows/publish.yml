@@ -23,9 +23,6 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      # Workaround for GitHub Actions bug
-      - name: Enable Corepack
-        run: corepack enable
       - name: Setup node@20
         uses: actions/setup-node@v4
         with:
