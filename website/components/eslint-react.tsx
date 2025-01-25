@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import React from "react";
 
 import logo from "#/assets/logo.svg";
+
 import { Image } from "./ui/image";
 
 export function ESLintReact() {

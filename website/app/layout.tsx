@@ -1,8 +1,9 @@
 import "./base.css";
 import "./overrides.css";
+
 import { RootProvider } from "fumadocs-ui/provider";
-import type { ReactNode } from "react";
 import { ViewTransitions } from "next-view-transitions";
+import type { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

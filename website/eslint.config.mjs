@@ -43,6 +43,13 @@ export default tseslint.config(
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
     ],
+    plugins: {
+      "simple-import-sort": eslintPluginSimpleImportSort,
+    },
+    rules: {
+      "simple-import-sort/imports": "warn",
+      "simple-import-sort/exports": "warn",
+    },
   },
   {
     files: TSCONFIG.include,
@@ -86,16 +93,6 @@ export default tseslint.config(
     rules: {
       ...eslintPluginNext.configs.recommended.rules,
       ...eslintPluginNext.configs["core-web-vitals"].rules,
-    },
-  },
-  {
-    files: GLOB_JS,
-    plugins: {
-      "simple-import-sort": eslintPluginSimpleImportSort,
-    },
-    rules: {
-      "simple-import-sort/imports": "warn",
-      "simple-import-sort/exports": "warn",
     },
   },
   {
