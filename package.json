@@ -117,6 +117,7 @@
       "@types/react-dom": "^19.0.3",
       "cross-spawn": "^7.0.6",
       "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
+      "next": "^15.1.6",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
       "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
