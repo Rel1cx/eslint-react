@@ -5,10 +5,11 @@ import eslintPluginMdx from "eslint-plugin-mdx";
 import eslintPluginNext from "@next/eslint-plugin-next";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
 import gitignore from "eslint-config-flat-gitignore";
-
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
@@ -17,6 +18,35 @@ const GLOB_MD = ["**/*.md"];
 const GLOB_MDX = ["**/*.mdx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
+
+const templateIndentAnnotations = [
+  "outdent",
+  "dedent",
+  "html",
+  "tsx",
+  "ts",
+];
+
+const p11tOptions = {
+  type: "natural",
+  ignoreCase: false,
+};
+
+const p11tGroups = {
+  customGroups: {
+    id: ["^_$", "^id$", "^key$", "^self$"],
+    type: ["^type$", "^kind$"],
+    meta: [
+      "^name$",
+      "^meta$",
+      "^title$",
+      "^description$",
+    ],
+    alias: ["^alias$", "^as$"],
+    rules: ["^node$", "^messageId$"],
+  },
+  groups: ["id", "type", "meta", "alias", "rules", "unknown"],
+};
 
 export default tseslint.config(
   {
@@ -42,13 +72,52 @@ export default tseslint.config(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
+      eslintPluginPerfectionist.configs["recommended-natural"],
     ],
     plugins: {
       "simple-import-sort": eslintPluginSimpleImportSort,
+      unicorn: eslintPluginUnicorn,
     },
     rules: {
       "simple-import-sort/imports": "warn",
       "simple-import-sort/exports": "warn",
+      "perfectionist/sort-exports": "off",
+      "perfectionist/sort-imports": "off",
+      "perfectionist/sort-interfaces": [
+        "warn",
+        {
+          ...p11tOptions,
+          ...p11tGroups,
+        },
+      ],
+      "perfectionist/sort-intersection-types": "off",
+      "perfectionist/sort-modules": "off",
+      "perfectionist/sort-named-exports": "off",
+      "perfectionist/sort-named-imports": "off",
+      "perfectionist/sort-object-types": [
+        "warn",
+        {
+          ...p11tOptions,
+          ...p11tGroups,
+        },
+      ],
+      "perfectionist/sort-objects": [
+        "warn",
+        {
+          ...p11tOptions,
+          ...p11tGroups,
+          partitionByComment: "^Part:.*",
+        },
+      ],
+      "perfectionist/sort-switch-case": "off",
+      "perfectionist/sort-union-types": "off",
+      "unicorn/template-indent": [
+        "warn",
+        {
+          comments: templateIndentAnnotations,
+          tags: templateIndentAnnotations,
+        },
+      ],
     },
   },
   {
