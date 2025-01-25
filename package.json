@@ -39,6 +39,7 @@
     "lint": "pnpm run lint:deps && pnpm run lint:publish && pnpm run lint:type && concurrently \"pnpm run lint:ts\" \"pnpm run lint:examples\" \"pnpm run lint:website\"",
     "lint:deps": "skott -m file-tree -e .ts -s",
     "lint:examples": "pnpm -r -F \"./examples/*\" run --parallel lint",
+    "lint:monorepo": "sherif",
     "lint:publish": "pnpm -r run --parallel lint:publish",
     "lint:spell": "cspell lint --relative --no-progress \"**\"",
     "lint:ts": "eslint . --max-warnings 100",
@@ -91,6 +92,7 @@
     "publint": "^0.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sherif": "^1.2.0",
     "skott": "^0.35.4",
     "tinyexec": "^0.3.2",
     "tinyglobby": "^0.2.10",
@@ -105,10 +107,10 @@
     "typescript-eslint": "^8.21.0",
     "vitest": "^3.0.4"
   },
-  "packageManager": "pnpm@10.0.0",
   "engines": {
     "node": ">=18.18.0"
   },
+  "packageManager": "pnpm@10.0.0",
   "pnpm": {
     "overrides": {
       "@types/react": "^19.0.8",
