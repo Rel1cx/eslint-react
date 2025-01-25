@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.24.2-next.0",
+  "version": "1.24.2-beta.1",
   "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@workspace/configs": "workspace:*",
-    "tsup": "^8.3.5"
+    "tsup": "^8.3.6"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",

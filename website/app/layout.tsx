@@ -1,28 +1,29 @@
 import "./base.css";
 import "./overrides.css";
+
 import { RootProvider } from "fumadocs-ui/provider";
-import type { ReactNode } from "react";
 import { ViewTransitions } from "next-view-transitions";
+import type { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
-        <meta name="msapplication-TileColor" content="#fff" />
-        <meta httpEquiv="Content-Language" content="en" />
-        <meta name="apple-mobile-web-app-title" content="ESLint React" />
-        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="https://eslint-react.xyz" />
+        <meta content="#fff" name="msapplication-TileColor" />
+        <meta content="en" httpEquiv="Content-Language" />
+        <meta content="ESLint React" name="apple-mobile-web-app-title" />
+        <meta content="/ms-icon-144x144.png" name="msapplication-TileImage" />
+        <meta content="summary_large_image" name="twitter:card" />
+        <meta content="https://eslint-react.xyz" name="twitter:site" />
         <link
+          href="https://eslint-react.xyz/apple-touch-icon.png"
           rel="apple-touch-icon"
           sizes="180x180"
-          href="https://eslint-react.xyz/apple-touch-icon.png"
         />
         <link
+          href="https://eslint-react.xyz/favicon.png"
           rel="icon"
           type="image/png"
-          href="https://eslint-react.xyz/favicon.png"
         />
         <body className="flex flex-col min-h-screen">
           <RootProvider>{children}</RootProvider>

@@ -1,6 +1,7 @@
+import { Link } from "next-view-transitions";
+
 import { ESLintReact } from "#/components/eslint-react";
 import { TweetCards } from "#/components/tweet-cards";
-import { Link } from "next-view-transitions";
 
 const features = [
   ["Flexible", "Increased flexibility with more granular severity control."],

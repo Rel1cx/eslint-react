@@ -4,9 +4,16 @@
 
 # @eslint-react/core
 
+## Namespaces
+
+- [isCallFromReact](namespaces/isCallFromReact/README.md)
+- [isCallFromReactMember](namespaces/isCallFromReactMember/README.md)
+- [useComponentCollector](namespaces/useComponentCollector/README.md)
+- [useComponentCollectorLegacy](namespaces/useComponentCollectorLegacy/README.md)
+- [useHookCollector](namespaces/useHookCollector/README.md)
+
 ## Interfaces
 
-- [ComponentCollectorOptions](interfaces/ComponentCollectorOptions.md)
 - [ERClassComponent](interfaces/ERClassComponent.md)
 - [ERFunctionComponent](interfaces/ERFunctionComponent.md)
 - [ERHook](interfaces/ERHook.md)

@@ -2,25 +2,23 @@
 title: Configurations
 ---
 
+import { ConfigurationsTypeTable } from "./configurations"
+
 ESLint React provides the following configurations:
 
-## Settings
+## Properties
+
+<ConfigurationsTypeTable />
+
+## Descriptions
 
 ### `version`
-
-```ts
-const version = "detect"
-```
 
 React version to perform the analysis, `"detect"` means auto detect React version from the project's dependencies.
 
 If failed to detect, it will use the `19.0.0` version.
 
 ### `importSource`
-
-```ts
-const importSource = "react"
-```
 
 <Callout type="info">If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.</Callout>
 
@@ -36,10 +34,6 @@ import React from "@pika/react";
 
 ### `polymorphicPropName`
 
-```ts
-const polymorphicPropName = "as"
-```
-
 You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
 
 For example, if you set the `polymorphicPropName` setting to `as` then this element:
@@ -53,18 +47,6 @@ will be evaluated as an `h3`.
 If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
 
 ### `additionalComponents`
-
-```ts
-const additionalComponents = [] satisfies {
-  name: string;
-  as?: string;
-  attributes?: {
-    name: string;
-    as?: string;
-    defaultValue?: string;
-  }[]
-}[]
-```
 
 <Callout type="info">Before using `additionalComponents`, consider whether `polymorphicPropName` can be used instead, as it simpler and more efficient.</Callout>
 
@@ -104,13 +86,6 @@ will be evaluated as an:
 So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it.
 
 ### `additionalHooks`
-
-```ts
-const additionalHooks = {
-  useLayoutEffect: ["useIsomorphicLayoutEffect"]
-  // ...
-}
-```
 
 <Callout type="warn">This is intended to cover edge cases. We suggest using the built-in React Hooks whenever possible.</Callout>
 

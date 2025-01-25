@@ -1,6 +1,6 @@
 packages:
   - "workspace/*"
-  - "packages/*/"
-  - "packages/*/*/"
+  - "packages/*"
+  - "packages/*/*"
   - "examples/*"
   - "website"

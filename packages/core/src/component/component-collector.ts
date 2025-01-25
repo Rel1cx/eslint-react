@@ -57,11 +57,6 @@ function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
   return flag;
 }
 
-export interface ComponentCollectorOptions {
-  collectDisplayName?: boolean;
-  collectHookCalls?: boolean;
-}
-
 /**
  * Get a ctx and listeners for the rule to collect function components
  * @param context The ESLint rule context
@@ -72,18 +67,13 @@ export interface ComponentCollectorOptions {
 export function useComponentCollector(
   context: RuleContext,
   hint = DEFAULT_COMPONENT_HINT,
-  options: ComponentCollectorOptions = {},
-) {
+  options: useComponentCollector.Options = {},
+): useComponentCollector.ReturnType {
   const { collectDisplayName = false, collectHookCalls = false } = options;
 
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
-  const functionEntries: {
-    key: string;
-    node: AST.TSESTreeFunction;
-    hookCalls: TSESTree.CallExpression[];
-    isComponent: boolean;
-  }[] = [];
+  const functionEntries: useComponentCollector.Entry[] = [];
 
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
@@ -198,4 +188,26 @@ export function useComponentCollector(
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
+}
+
+export declare namespace useComponentCollector {
+  type Options = {
+    collectDisplayName?: boolean;
+    collectHookCalls?: boolean;
+  };
+  type Entry = {
+    key: string;
+    node: AST.TSESTreeFunction;
+    hookCalls: TSESTree.CallExpression[];
+    isComponent: boolean;
+  };
+  type Ctx = {
+    getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
+    getCurrentEntries: () => Entry[];
+    getCurrentEntry: () => Entry | _;
+  };
+  type ReturnType = {
+    ctx: Ctx;
+    listeners: ESLintUtils.RuleListener;
+  };
 }

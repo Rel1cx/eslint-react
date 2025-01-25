@@ -35,7 +35,7 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@workspace/configs": "workspace:*",
-    "tsup": "^8.3.5"
+    "tsup": "^8.3.6"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
