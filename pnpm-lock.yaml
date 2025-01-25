@@ -498,8 +498,8 @@ importers:
         specifier: ^15.14.0
         version: 15.14.0
       ts-blank-eslint-parser:
-        specifier: 0.0.2
-        version: 0.0.2(hermes-eslint@0.26.0)(ts-blank-space@0.5.0)
+        specifier: 0.0.3
+        version: 0.0.3(hermes-eslint@0.26.0)(ts-blank-space@0.5.0)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -7206,8 +7206,8 @@ packages:
     peerDependencies:
       typescript: ^5.7.3
 
-  ts-blank-eslint-parser@0.0.2:
-    resolution: {integrity: sha512-IJqDnWb5PlhAlhW4eUIywgl6/ZnjO/VrZD0YtfwoybPJrWpatFVE4Zk1q4NefJxZmUgbttP9AILmmvkW96b18g==}
+  ts-blank-eslint-parser@0.0.3:
+    resolution: {integrity: sha512-Jh4fPry60gG97Yv5TgOH+7Mu4I2Zz2CTMj5u3nwxqhRH4izflpZEI6B3HcbgB47YjORaQzeapk4Zhq5J8A5TGQ==}
     engines: {node: '>=18.18.0'}
     peerDependencies:
       hermes-eslint: ^0.26.0
@@ -14520,7 +14520,7 @@ snapshots:
     dependencies:
       typescript: 5.7.3
 
-  ts-blank-eslint-parser@0.0.2(hermes-eslint@0.26.0)(ts-blank-space@0.5.0):
+  ts-blank-eslint-parser@0.0.3(hermes-eslint@0.26.0)(ts-blank-space@0.5.0):
     dependencies:
       hermes-eslint: 0.26.0
       ts-blank-space: 0.5.0
