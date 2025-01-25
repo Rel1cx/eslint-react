@@ -78,7 +78,7 @@ const enableTypeCheckedRules = {
     allowNumber: true,
     allowString: false,
   }],
-} as const;
+} satisfies typeof tseslint.configs.disableTypeChecked.rules;
 
 const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map((x) => [x, "off"]));
 
@@ -86,7 +86,6 @@ export default tseslint.config(
   eslintConfigFlatGitignore(),
   {
     extends: [
-      // @ts-expect-error - TODO: make types compatible
       eslintMarkdown.configs.recommended,
     ],
     files: GLOB_MD,
@@ -169,6 +168,7 @@ export default tseslint.config(
       "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",

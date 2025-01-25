@@ -11,7 +11,7 @@ import { isClassComponent, isPureComponent } from "./is";
  * Get a ctx and listeners for the rule to collect class components
  * @returns The context and listeners for the rule
  */
-export function useComponentCollectorLegacy() {
+export function useComponentCollectorLegacy(): useComponentCollectorLegacy.ReturnType {
   const components = new Map<string, ERClassComponent>();
 
   const ctx = {
@@ -54,4 +54,14 @@ export function useComponentCollectorLegacy() {
   } as const satisfies ESLintUtils.RuleListener;
 
   return { ctx, listeners } as const;
+}
+
+export declare namespace useComponentCollectorLegacy {
+  type Ctx = {
+    getAllComponents: (node: TSESTree.Program) => Map<string, ERClassComponent>;
+  };
+  type ReturnType = {
+    ctx: Ctx;
+    listeners: ESLintUtils.RuleListener;
+  };
 }

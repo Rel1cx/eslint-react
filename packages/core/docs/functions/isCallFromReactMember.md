@@ -6,7 +6,7 @@
 
 # Function: isCallFromReactMember()
 
-> **isCallFromReactMember**(`pragmaMemberName`, `name`): `IsCallFromReactMember`
+> **isCallFromReactMember**(`pragmaMemberName`, `name`): [`ReturnType`](../namespaces/isCallFromReactMember/type-aliases/ReturnType.md)
 
 ## Parameters
 
@@ -20,4 +20,4 @@
 
 ## Returns
 
-`IsCallFromReactMember`
+[`ReturnType`](../namespaces/isCallFromReactMember/type-aliases/ReturnType.md)

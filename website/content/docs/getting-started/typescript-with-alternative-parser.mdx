@@ -1,0 +1,50 @@
+---
+title: TypeScript with alternative parser
+description: Getting started with TypeScript + TS Blank ESLint Parser setup
+---
+
+<Callout type="warn">The `ts-blank-eslint-parser` is a work in progress and not support rules that require type information or TypeScript syntax that need transformation like enums, namespaces, decorators. Use it with caution.</Callout>
+
+<Callout type="warn">When using this approach, the auto-fix may not work properly, it is recommended to use https://github.com/chiefmikey/eslint-plugin-disable-autofix to disable any problematic auto-fix without turning off the rule.</Callout>
+
+## Install
+
+```sh copy title="Terminal"
+# npm
+npm install --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
+```
+
+## Setup
+
+```js title="eslint.config.js"
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import tsBlankEslintParser from "ts-blank-eslint-parser";
+import globals from "globals";
+
+export default [
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    ...eslintJs.configs.recommended,
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+      parser: tsBlankEslintParser,
+    },
+  },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      // Put rules you want to override here
+      "@eslint-react/prefer-shorthand-boolean": "warn",
+    },
+  },
+];
+```

@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
 import { getId } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
@@ -7,15 +6,15 @@ import { isReactHookName } from "./hook-name";
 import type { ERHook } from "./hook-semantic-node";
 import { isReactHookCall } from "./is";
 
-export function useHookCollector() {
+export function useHookCollector(): useHookCollector.ReturnType {
   const hooks = new Map<string, ERHook>();
-  const fEntries: { key: string | _; node: AST.TSESTreeFunction }[] = [];
+  const functionEntries: useHookCollector.Entry[] = [];
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionIdentifier(node);
+    const key = getId();
     const name = id?.name;
     if (name != null && isReactHookName(name)) {
-      const key = getId();
-      fEntries.push({ key, node });
+      functionEntries.push({ key, node, isHook: true });
       hooks.set(key, {
         id,
         key,
@@ -28,18 +27,15 @@ export function useHookCollector() {
       });
       return;
     }
-    fEntries.push({ key: _, node });
+    functionEntries.push({ key, node, isHook: false });
   };
   const onFunctionExit = () => {
-    fEntries.pop();
+    functionEntries.pop();
   };
   const ctx = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getAllHooks(node: TSESTree.Program): typeof hooks {
       return hooks;
-    },
-    getCurrentHooks() {
-      return new Map(hooks);
     },
   } as const;
   const listeners = {
@@ -49,7 +45,7 @@ export function useHookCollector() {
       if (!isReactHookCall(node)) {
         return;
       }
-      const fEntry = fEntries.at(-1);
+      const fEntry = functionEntries.at(-1);
       if (fEntry?.key == null) {
         return;
       }
@@ -61,4 +57,19 @@ export function useHookCollector() {
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
+}
+
+export declare namespace useHookCollector {
+  type Entry = {
+    key: string;
+    node: AST.TSESTreeFunction;
+    isHook: boolean;
+  };
+  type Ctx = {
+    getAllHooks(node: TSESTree.Program): Map<string, ERHook>;
+  };
+  type ReturnType = {
+    ctx: Ctx;
+    listeners: ESLintUtils.RuleListener;
+  };
 }

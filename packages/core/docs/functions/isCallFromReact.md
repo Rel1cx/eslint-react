@@ -6,7 +6,7 @@
 
 # Function: isCallFromReact()
 
-> **isCallFromReact**(`name`): `IsCallFromReact`
+> **isCallFromReact**(`name`): [`ReturnType`](../namespaces/isCallFromReact/type-aliases/ReturnType.md)
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`IsCallFromReact`
+[`ReturnType`](../namespaces/isCallFromReact/type-aliases/ReturnType.md)

@@ -17,15 +17,12 @@ on:
 jobs:
   publish:
     name: Publish
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      # Workaround for GitHub Actions bug
-      - name: Enable Corepack
-        run: corepack enable
       - name: Setup node@20
         uses: actions/setup-node@v4
         with:
