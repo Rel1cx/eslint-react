@@ -1,0 +1,15 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "getting-started",
+    "------",
+    "rules",
+    "presets",
+    "configurations",
+    "!advanced-configuration",
+    "---Other---",
+    "faq",
+    "roadmap",
+    "changelog"
+  ]
+}

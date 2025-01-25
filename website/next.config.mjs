@@ -1,27 +1,10 @@
-import nextra from "nextra";
-import remarkGFM from "remark-gfm";
-// import codeImport from "remark-code-import";
+import { createMDX } from "fumadocs-mdx/next";
 
-const withNextra = nextra({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.tsx",
-  defaultShowCopyCode: true,
-  mdxOptions: {
-    remarkPlugins: [
-      remarkGFM,
-      // codeImport,
-    ],
-  },
-});
+const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const config = {
   reactStrictMode: true,
-  images: {
-    unoptimized: true,
-  },
-  transpilePackages: ["react-tweet"],
-  output: "standalone",
   redirects() {
     return [
       {
@@ -35,6 +18,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/docs/getting-started",
+        destination: "/docs/getting-started/javascript",
+        permanent: true,
+      },
+      {
         source: "/docs/rules",
         destination: "/docs/rules/overview",
         permanent: true,
@@ -42,6 +30,11 @@ const nextConfig = {
       {
         source: "/faq",
         destination: "/docs/faq",
+        permanent: true,
+      },
+      {
+        source: "/roadmap",
+        destination: "/docs/roadmap",
         permanent: true,
       },
       {
@@ -104,4 +97,4 @@ const nextConfig = {
   },
 };
 
-export default withNextra(nextConfig);
+export default withMDX(config);

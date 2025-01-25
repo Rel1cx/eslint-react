@@ -1,0 +1,54 @@
+---
+title: JavaScript with alternative parser
+description: Getting started with JavaScript + Babel setup
+---
+
+## Install
+
+```sh copy title="Terminal"
+# npm
+npm install --save-dev eslint @eslint/js globals @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
+
+# pnpm
+pnpm add --save-dev eslint @eslint/js globals @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
+
+# yarn
+yarn add --dev eslint @eslint/js globals @babel/core @babel/eslint-parser @babel/preset-env @babel/preset-react @eslint-react/eslint-plugin
+```
+
+## Setup
+
+```js title="eslint.config.js"
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import babelEslintParser from "@babel/eslint-parser";
+import globals from "globals";
+
+export default [
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    ...eslintJs.configs.recommended,
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+      parser: babelEslintParser,
+      parserOptions: {
+        requireConfigFile: false,
+        babelOptions: {
+          babelrc: false,
+          configFile: false,
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+        },
+      },
+    },
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
+    rules: {
+      // Put rules you want to override here
+      "@eslint-react/prefer-shorthand-boolean": "warn",
+    },
+  },
+];
+```
