@@ -1,5 +1,5 @@
 {
-  "name": "@examples/vite-react-dom-js-with-babel-app",
+  "name": "@examples/vite-react-dom-js-with-babel-eslint-parser-app",
   "version": "0.0.0",
   "private": true,
   "type": "module",
