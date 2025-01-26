@@ -2,100 +2,45 @@
 title: Presets
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-
 The following presets are available in `@eslint-react/eslint-plugin`:
 
-<Tabs items={["Flat Config", "Legacy Config"]}>
+<Callout type="info">For ESLint Legacy Config (`.eslintrc.*`), add a `-legacy` suffix to the preset name (e.g. `recommended-legacy`).</Callout>
 
-  <Tab value="Flat Config">
+## Bare Bones
 
-    <Callout type="info">These presets are for ESLint Flat Config (`eslint.config.js`) only.</Callout>
+- **Core** (`core`)\
+  Enable rules for `"react"`.
+- **DOM** (`dom`)\
+  Enable rules for `"react-dom"`.
+- **Web API** (`web-api`)\
+  Enable rules for interacting with Web APIs.
 
-    ## Bare Bones
+## General Purpose
 
-    - **Core** (`core`)\
-      Enable rules for `"react"`.
-    - **DOM** (`dom`)\
-      Enable rules for `"react-dom"`.
-    - **Web API** (`web-api`)\
-      Enable rules for interacting with Web APIs.
+- **Recommended** (`recommended`)\
+  Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
+  _This preset includes the `core`, `dom`, and `web-api` presets._
 
-    ## General Purpose
+## TypeScript Specialized
 
-    - **Recommended** (`recommended`)\
-      Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
-      _This preset includes the `core`, `dom`, and `web-api` presets._
+- **Recommended TypeScript** (`recommended-typescript`)\
+  Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
 
-    ## TypeScript Specialized
+- **Recommended Type-Checked** (`recommended-type-checked`)\
+  Same as the `recommended-typescript` preset but enables additional rules that require type information.
 
-    - **Recommended TypeScript** (`recommended-typescript`)\
-      Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
+## Other
+- **Disable DOM** (`disable-dom`)\
+  Disable rules in the `dom` preset.
+- **Disable Web API** (`disable-web-api`)\
+  Disable rules in the `web-api` preset.
+- **Disable Type-Checked** (`disable-type-checked`)\
+  Disable rules that require type information.
+- **Off** (`off`)\
+  Disable all rules in this plugin except for debug rules.
 
-    - **Recommended Type-Checked** (`recommended-type-checked`)\
-      Same as the `recommended-typescript` preset but enables additional rules that require type information.
+## Deprecated
 
-    ## Other
-    - **Disable DOM** (`disable-dom`)\
-      Disable rules in the `dom` preset.
-    - **Disable Web API** (`disable-web-api`)\
-      Disable rules in the `web-api` preset.
-    - **Disable Type-Checked** (`disable-type-checked`)\
-      Disable rules that require type information.
-    - **Off** (`off`)\
-      Disable all rules in this plugin except for debug rules.
-
-    ## Deprecated
-
-    | Preset               | Replaced by                 |
-    | :------------------- | :-------------------------- |
-    | Off DOM (`off-dom`)  | Disable DOM (`disable-dom`) |
-
-  </Tab>
-
-  <Tab value="Legacy Config">
-
-    <Callout type="warn">These presets are for ESLint Legacy Config (`.eslintrc.*`) only. The Legacy Config is deprecated and not enabled by default in ESLint >= 9.0.0.</Callout>
-
-    ## Bare Bones
-
-    - **Core** (`core-legacy`)\
-      Enable rules for `"react"`.
-    - **DOM** (`dom-legacy`)\
-      Enable rules for `"react-dom"`.
-    - **Web API** (`web-api-legacy`)\
-      Enable rules for interacting with Web APIs.
-
-    ## General Purpose
-
-    - **Recommended** (`recommended-legacy`)\
-      Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
-      _This preset includes the `core`, `dom`, and `web-api` presets._
-
-    ## TypeScript Specialized
-
-    - **Recommended TypeScript** (`recommended-typescript-legacy`)\
-      Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
-
-    - **Recommended Type-Checked** (`recommended-type-checked-legacy`)\
-      Same as the `recommended-typescript` preset but enables additional rules that require type information.
-
-    ## Other
-    - **Disable DOM** (`disable-dom-legacy`)\
-      Disable rules in the `dom` preset.
-    - **Disable Web API** (`disable-web-api-legacy`)\
-      Disable rules in the `web-api` preset.
-    - **Disable Type-Checked** (`disable-type-checked-legacy`)\
-      Disable rules that require type information.
-    - **Off** (`off-legacy`)\
-      Disable all rules in this plugin except for debug rules.
-
-    ## Deprecated
-
-    | Preset                     | Replaced by                        |
-    | :------------------------- | :--------------------------------- |
-    | Off DOM (`off-dom-legacy`) | Disable DOM (`disable-dom-legacy`) |
-
-  </Tab>
-
-</Tabs>
+| Preset               | Replaced by                 |
+| :------------------- | :-------------------------- |
+| Off DOM (`off-dom`)  | Disable DOM (`disable-dom`) |
