@@ -37,7 +37,7 @@ export const baseOptions: BaseLayoutProps = {
     },
     {
       text: "Changelog",
-      url: "https://github.com/Rel1cx/eslint-react/releases",
+      url: "/docs/changelog",
     },
   ],
   nav: {
