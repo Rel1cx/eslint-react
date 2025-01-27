@@ -24,7 +24,7 @@ title: Roadmap
 ### Add auto-fix feature to rules that can be auto-fixed safely
 
 - [ ] `function-component-definition`
-- [ ] `no-useless-fragment`
+- [x] `no-useless-fragment`
 - [x] `prefer-shorthand-fragment`
 - [x] `prefer-react-namespace-import`
 - [x] `prefer-shorthand-boolean`

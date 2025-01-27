@@ -16,7 +16,7 @@ react-x/no-useless-fragment
 
 **Features**
 
-`🔍` `⚙️`
+`🔍` `🔧` `⚙️`
 
 **Presets**
 
@@ -91,7 +91,7 @@ places like Typescript where `string` does not satisfy the expected return type
 of `JSX.Element`. A common workaround is to wrap the variable holding a string
 in a fragment and expression. To change this behaviour, use the `allowExpressions` option.
 
-### Examples of correct code for single expressions in fragments:
+### Examples of correct code for single expressions in fragments
 
 ```tsx
 <>{foo}</>
