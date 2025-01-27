@@ -38,28 +38,17 @@ export function identity<T>(x: T): T {
 /**
  * Do nothing and return void
  */
-export function returnVoid(): void {}
+export const constVoid = () => {};
 
 /**
  * Do nothing and return true
  */
-export function returnTrue(): true {
-  return true;
-}
+export const constTrue = () => true as const;
 
 /**
  * Do nothing and return false
  */
-export function returnFalse(): false {
-  return false;
-}
-
-/**
- * Do nothing and return undefined
- */
-export function returnUndefined(): undefined {
-  return undefined;
-}
+export const constFalse = () => false as const;
 
 // Ported from https://github.com/Effect-TS/effect/blob/main/packages/effect/src/Function.ts
 /**

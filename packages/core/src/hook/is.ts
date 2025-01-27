@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { _, flip, returnFalse } from "@eslint-react/eff";
+import { _, constFalse, flip } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -34,7 +34,7 @@ export function isReactHookCall(node: TSESTree.Node | _) {
 }
 
 export function isReactHookCallWithName(node: TSESTree.CallExpression | _, context: RuleContext) {
-  if (node == null) return returnFalse;
+  if (node == null) return constFalse;
   const settings = unsafeDecodeSettings(context.settings);
   const importSource = settings.importSource ?? "react";
   const initialScope = context.sourceCode.getScope(node);
@@ -59,7 +59,7 @@ export function isReactHookCallWithName(node: TSESTree.CallExpression | _, conte
 }
 
 export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression | _) {
-  if (node == null) return returnFalse;
+  if (node == null) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {
       case T.Identifier:

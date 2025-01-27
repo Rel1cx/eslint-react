@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { _ } from "@eslint-react/eff";
-import { returnFalse } from "@eslint-react/eff";
+import { constFalse } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
@@ -113,7 +113,7 @@ function validate(name: string | _, options: ReturnType<typeof normalizeOptions>
       }
       return RE_PASCAL_CASE.test(normalized);
     })
-    .otherwise(returnFalse);
+    .otherwise(constFalse);
 }
 
 export default createRule<Options, MessageID>({

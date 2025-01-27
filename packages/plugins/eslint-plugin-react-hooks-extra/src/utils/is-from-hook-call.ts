@@ -1,5 +1,5 @@
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
-import { returnTrue } from "@eslint-react/eff";
+import { constTrue } from "@eslint-react/eff";
 import type { ESLintReactSettingsNormalized, REACT_BUILD_IN_HOOKS, RuleContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -9,7 +9,7 @@ export function isFromHookCall(
   name: (typeof REACT_BUILD_IN_HOOKS)[number],
   context: RuleContext,
   settings: ESLintReactSettingsNormalized,
-  predicate: (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => boolean = returnTrue,
+  predicate: (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => boolean = constTrue,
 ) {
   const hookAlias = settings.additionalHooks[name] ?? [];
   return (topLevelId: TSESTree.Identifier) => {
