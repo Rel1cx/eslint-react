@@ -65,6 +65,7 @@ export default [
       "react-x/no-unstable-default-props": "warn",
       "react-x/no-unused-class-component-members": "warn",
       "react-x/no-unused-state": "warn",
+      "react-x/no-use-context": "warn",
       "react-x/use-jsx-vars": "warn",
     },
   },

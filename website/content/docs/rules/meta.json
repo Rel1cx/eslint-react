@@ -43,6 +43,7 @@
     "no-unstable-default-props",
     "no-unused-class-component-members",
     "no-unused-state",
+    "no-use-context",
     "no-useless-fragment",
     "prefer-destructuring-assignment",
     "prefer-react-namespace-import",
