@@ -20,7 +20,7 @@ body:
       description: A clear description of what change you would like
       placeholder: "I would like to..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: alternatives
