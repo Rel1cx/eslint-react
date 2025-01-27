@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v1.25.0 (2025-01-27)
+
+### ✨ New
+
+- feat(no-useless-fragment): auto fix support, closes #899 by @hyoban in <https://github.com/Rel1cx/eslint-react/pull/926>
+- docs: add [setup guide](https://eslint-react.xyz/docs/getting-started/typescript-with-alternative-parser) for `ts-blank-eslint-parser` by @Rel1cx
+- docs: add [setup example](https://github.com/Rel1cx/eslint-react/blob/98f3a6ccc83132c2e0a82c0f500dc88dcd1dcfc7/examples/vite-react-dom-with-ts-blank-eslint-parser-app/eslint.config.js) for `ts-blank-eslint-parser` by @Rel1cx
+
+### 🐞 Fixes
+
+- fix(no-forward-ref): loose fix by @hyoban in <https://github.com/Rel1cx/eslint-react/pull/925>
+
+### 🪄 Improvements
+
+- refactor(website): switch from nextra to fumadocs by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/928>
+
 ## v1.24.1 (2025-01-22)
 
 ### 🐞 Fixes
