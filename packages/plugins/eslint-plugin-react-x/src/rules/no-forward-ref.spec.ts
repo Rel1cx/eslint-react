@@ -191,7 +191,7 @@ ruleTester.run(RULE_NAME, rule, {
         interface ComponentProps {
           foo: string;
         }
-        const Component = function Component({ ref, ...props }: ComponentProps & { ref: React.RefObject<HTMLElement> }) {
+        const Component = function Component({ ref, ...props }: ComponentProps & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={ref} />;
         };
       `,
@@ -211,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noForwardRef" }],
       output: /* tsx */ `
         import * as React from 'react'
-        const Component = function Component({ ref, ...props }: { foo: string } & { ref: React.RefObject<HTMLElement> }) {
+        const Component = function Component({ ref, ...props }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={ref}>{props.foo}</div>;
         };
       `,
@@ -231,7 +231,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noForwardRef" }],
       output: /* tsx */ `
         import * as React from 'react'
-        const Component = function Component({ ref, foo }: { foo: string } & { ref: React.RefObject<HTMLElement> }) {
+        const Component = function Component({ ref, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={ref}>{foo}</div>;
         };
       `,
@@ -251,7 +251,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noForwardRef" }],
       output: /* tsx */ `
         import * as React from 'react'
-        const Component = function Component({ ref: r, foo }: { foo: string } & { ref: React.RefObject<HTMLElement> }) {
+        const Component = function Component({ ref: r, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={r}>{foo}</div>;
         };
       `,
@@ -271,7 +271,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noForwardRef" }],
       output: /* tsx */ `
         import * as React from 'react'
-        const Component = function Component({ ref: r, foo, ...rest }: { foo: string, bar: number } & { ref: React.RefObject<HTMLElement> }) {
+        const Component = function Component({ ref: r, foo, ...rest }: { foo: string, bar: number } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={r}>{foo}</div>;
         };
       `,
