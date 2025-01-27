@@ -32,6 +32,33 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: /* tsx */ `
+        import { useContext } from 'react'
+
+        export const Component = () => {
+          const value = useContext<MyContext>(MyContext)
+          return <div>{value}</div>
+        }
+      `,
+      errors: [
+        { messageId: "noUseContext" },
+        { messageId: "noUseContext" },
+      ],
+      output: /* tsx */ `
+        import { use } from 'react'
+
+        export const Component = () => {
+          const value = use<MyContext>(MyContext)
+          return <div>{value}</div>
+        }
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: /* tsx */ `
         import { use, useContext } from 'react'
 
         export const Component = () => {
