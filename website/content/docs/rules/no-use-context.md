@@ -40,19 +40,10 @@ An **unsafe** codemod is available for this rule.
 ```tsx
 import { useContext } from "react";
 
-const MyComponent = () => {
-  const value = useContext(MyContext);
-  return <div>{value}</div>;
-};
-```
-
-```tsx
-import React from "react";
-
-const MyComponent = () => {
-  const value = React.useContext(MyContext);
-  return <div>{value}</div>;
-};
+function Button() {
+  const theme = useContext(ThemeContext);
+  // ...
+}
 ```
 
 ### Passing
@@ -60,19 +51,10 @@ const MyComponent = () => {
 ```tsx
 import { use } from "react";
 
-const MyComponent = () => {
-  const value = use(MyContext);
-  return <div>{value}</div>;
-};
-```
-
-```tsx
-import React from "react";
-
-const MyComponent = () => {
-  const value = React.use(MyContext);
-  return <div>{value}</div>;
-};
+function Button() {
+  const theme = use(ThemeContext);
+  // ...
+}
 ```
 
 ## Implementation
