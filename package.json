@@ -48,7 +48,8 @@
     "prepare": "lefthook install && pnpm run build",
     "test": "vitest run --logHeapUsage",
     "update:readme": "tsx ./scripts/update-readme.ts",
-    "update:version": "tsx ./scripts/update-version.ts"
+    "update:version": "tsx ./scripts/update-version.ts",
+    "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
