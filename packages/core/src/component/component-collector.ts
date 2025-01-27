@@ -191,10 +191,6 @@ export function useComponentCollector(
 }
 
 export declare namespace useComponentCollector {
-  type Options = {
-    collectDisplayName?: boolean;
-    collectHookCalls?: boolean;
-  };
   type Entry = {
     key: string;
     node: AST.TSESTreeFunction;
@@ -205,6 +201,10 @@ export declare namespace useComponentCollector {
     getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
     getCurrentEntries: () => Entry[];
     getCurrentEntry: () => Entry | _;
+  };
+  type Options = {
+    collectDisplayName?: boolean;
+    collectHookCalls?: boolean;
   };
   type ReturnType = {
     ctx: Ctx;

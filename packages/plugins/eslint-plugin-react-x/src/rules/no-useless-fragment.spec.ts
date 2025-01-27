@@ -8,6 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: /* tsx */ `<></>`,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      output: null,
     },
     {
       code: /* tsx */ `<p><>foo</></p>`,
@@ -15,6 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
         { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
         { type: T.JSXFragment, messageId: "noUselessFragment" },
       ],
+      output: /* tsx */ `<p>foo</p>`,
     },
     {
       code: /* tsx */ `<p>moo<>foo</></p>`,
@@ -22,14 +24,17 @@ ruleTester.run(RULE_NAME, rule, {
         { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
         { type: T.JSXFragment, messageId: "noUselessFragment" },
       ],
+      output: "<p>moofoo</p>",
     },
     {
       code: /* tsx */ `<p><>{meow}</></p>`,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      output: "<p>{meow}</p>",
     },
     {
       code: /* tsx */ `<><div/></>`,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      output: /* tsx */ `<div/>`,
     },
     {
       code: /* tsx */ `
@@ -38,10 +43,14 @@ ruleTester.run(RULE_NAME, rule, {
         </>
       `,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      output: /* tsx */ `
+        <div/>
+      `,
     },
     {
       code: /* tsx */ `<Fragment />`,
       errors: [{ type: T.JSXElement, messageId: "noUselessFragment" }],
+      output: null,
     },
     {
       code: /* tsx */ `
@@ -50,10 +59,14 @@ ruleTester.run(RULE_NAME, rule, {
         </React.Fragment>
       `,
       errors: [{ type: T.JSXElement, messageId: "noUselessFragment" }],
+      output: /* tsx */ `
+        <Foo />
+      `,
     },
     {
       code: /* tsx */ `<Eeee><>foo</></Eeee>`,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      output: null,
     },
     {
       code: /* tsx */ `<div><>foo</></div>`,
@@ -61,10 +74,12 @@ ruleTester.run(RULE_NAME, rule, {
         { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
         { type: T.JSXFragment, messageId: "noUselessFragment" },
       ],
+      output: "<div>foo</div>",
     },
     {
       code: '<div><>{"a"}{"b"}</></div>',
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      output: '<div>{"a"}{"b"}</div>',
     },
     {
       code: /* tsx */ `
@@ -75,10 +90,18 @@ ruleTester.run(RULE_NAME, rule, {
         </section>
       `,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      output: /* tsx */ `
+        <section>
+          <Eeee />
+          <Eeee />
+          {"a"}{"b"}
+        </section>
+      `,
     },
     {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
       errors: [{ type: T.JSXElement, messageId: "noUselessFragmentInBuiltIn" }],
+      output: '<div>{"a"}{"b"}</div>',
     },
     {
       // whitespace tricky case
@@ -95,10 +118,18 @@ ruleTester.run(RULE_NAME, rule, {
         { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
         { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
       ],
+      output: /* tsx */ `
+        <section>
+          git<b>hub</b>.
+
+          git <b>hub</b>
+        </section>
+      `,
     },
     {
       code: '<div>a <>{""}{""}</> a</div>',
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      output: '<div>a {""}{""} a</div>',
     },
     {
       code: /* tsx */ `
@@ -112,11 +143,20 @@ ruleTester.run(RULE_NAME, rule, {
         { type: T.JSXElement, messageId: "noUselessFragmentInBuiltIn" },
         { type: T.JSXElement, messageId: "noUselessFragment" },
       ],
+      // eslint-disable-next-line unicorn/template-indent
+      output: /* tsx */ `
+        const Comp = () => (
+          <html>
+            
+          </html>
+        );
+      `,
     },
     // Ensure allowExpressions still catches expected violations
     {
       code: /* tsx */ `<><Foo>{moo}</Foo></>`,
       errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      output: /* tsx */ `<Foo>{moo}</Foo>`,
     },
     {
       code: /* tsx */ `<>{moo}</>`,
@@ -135,6 +175,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "noUselessFragment",
       }],
       options: [{ allowExpressions: false }],
+      output: /* tsx */ `<>{moo}</>`,
     },
     {
       code: /* tsx */ `<Foo bar={<>baz</>}/>`,
