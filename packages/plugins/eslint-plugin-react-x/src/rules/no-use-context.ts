@@ -4,6 +4,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
+import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -67,13 +68,11 @@ export default createRule<[], MessageID>({
         if (node.source.value !== settings.importSource) {
           return;
         }
-        let isUseImported = false;
+        const isUseImported = node.specifiers
+          .some(isMatching({ local: { type: T.Identifier, name: "use" } }));
         for (const specifier of node.specifiers) {
           if (specifier.type !== T.ImportSpecifier) continue;
           if (specifier.imported.type !== T.Identifier) continue;
-          if (specifier.imported.name === "use") {
-            isUseImported = true;
-          }
           if (specifier.imported.name === "useContext") {
             if (specifier.local.name !== "useContext") {
               useContextAlias.add(specifier.local.name);
