@@ -38,8 +38,7 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("useContext")) {
       return {};
     }
-    const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) {
+    if (compare(settings.version, "19.0.0", "<")) {
       return {};
     }
     return {
