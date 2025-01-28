@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.25.1-next.0",
+  "version": "1.26.0-next.0",
   "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -52,10 +52,10 @@
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.21.0",
-    "@typescript-eslint/type-utils": "^8.21.0",
-    "@typescript-eslint/types": "^8.21.0",
-    "@typescript-eslint/utils": "^8.21.0",
+    "@typescript-eslint/scope-manager": "^8.22.0",
+    "@typescript-eslint/type-utils": "^8.22.0",
+    "@typescript-eslint/types": "^8.22.0",
+    "@typescript-eslint/utils": "^8.22.0",
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
