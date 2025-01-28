@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
       ],
       output: /* tsx */ `
-        import { use,            } from 'react'
+        import { use  } from 'react'
 
         export const Component = () => {
           const value = use(MyContext)

@@ -6,7 +6,7 @@ import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, getAssociatedTokens } from "../utils";
 
 export const RULE_NAME = "no-use-context";
 
@@ -86,7 +86,13 @@ export default createRule<[], MessageID>({
               node: specifier,
               fix(fixer) {
                 if (isUseImported) {
-                  return fixer.replaceText(specifier, " ".repeat(specifier.range[1] - specifier.range[0]));
+                  return [
+                    fixer.remove(specifier),
+                    ...getAssociatedTokens(
+                      context,
+                      specifier,
+                    ).map((token) => fixer.remove(token)),
+                  ];
                 }
                 return fixer.replaceText(specifier.imported, "use");
               },
