@@ -50,6 +50,7 @@ export const rules = {
   "@eslint-react/no-unstable-default-props": "warn",
   "@eslint-react/no-unused-class-component-members": "warn",
   "@eslint-react/no-unused-state": "warn",
+  "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-shorthand-boolean": "warn",

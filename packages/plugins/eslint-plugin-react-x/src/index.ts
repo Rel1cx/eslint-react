@@ -42,6 +42,7 @@ import noUnstableContextValue from "./rules/no-unstable-context-value";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members";
 import noUnusedState from "./rules/no-unused-state";
+import noUseContext from "./rules/no-use-context";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferReactNamespaceImport from "./rules/prefer-react-namespace-import";
@@ -99,6 +100,7 @@ export default {
     "no-unstable-default-props": noUnstableDefaultProps,
     "no-unused-class-component-members": noUnusedClassComponentMembers,
     "no-unused-state": noUnusedState,
+    "no-use-context": noUseContext,
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-react-namespace-import": preferReactNamespaceImport,
