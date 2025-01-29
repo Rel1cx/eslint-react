@@ -86,8 +86,12 @@ export default createRule<[], MessageID>({
               node: specifier,
               fix(fixer) {
                 if (isUseImported) {
+                  const tokenBefore = context.sourceCode.getTokenBefore(specifier);
                   return [
                     fixer.remove(specifier),
+                    ...tokenBefore?.value === ","
+                      ? [fixer.replaceTextRange([tokenBefore.range[1], specifier.range[0]], "")]
+                      : [],
                     ...getAssociatedTokens(
                       context,
                       specifier,
