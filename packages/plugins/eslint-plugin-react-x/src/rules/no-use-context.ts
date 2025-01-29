@@ -73,13 +73,10 @@ export default createRule<[], MessageID>({
           if (specifier.type !== T.ImportSpecifier) continue;
           if (specifier.imported.type !== T.Identifier) continue;
           if (specifier.imported.name === "useContext") {
+            // import { useContext as useCtx } from 'react'
             if (specifier.local.name !== "useContext") {
+              // add alias to useContextAlias to keep track of it in future call expressions
               useContextAlias.add(specifier.local.name);
-              context.report({
-                messageId: "noUseContext",
-                node: specifier,
-              });
-              return;
             }
             context.report({
               messageId: "noUseContext",
