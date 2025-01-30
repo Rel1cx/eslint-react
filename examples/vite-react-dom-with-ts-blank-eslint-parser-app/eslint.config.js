@@ -3,8 +3,8 @@ import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import tsEslintParser from "@typescript-eslint/parser";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
+import tseslint from "typescript-eslint";
 import globals from "globals";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -70,7 +70,7 @@ export default [
 function getOptimalParser(project = "tsconfig.json") {
   return isFixable()
     ? {
-      parser: tsEslintParser,
+      parser: tseslint.parser,
       parserOptions: {
         project,
         tsconfigRootDir: import.meta.dirname,

@@ -3,48 +3,88 @@ title: TypeScript with alternative parser
 description: Getting started with TypeScript + TS Blank ESLint Parser setup
 ---
 
-<Callout type="warn">The `ts-blank-eslint-parser` is a work in progress and not support rules that require type information or TypeScript syntax that need transformation like enums, namespaces, decorators. Use it with caution.</Callout>
+<Callout type="warn">
+The `ts-blank-eslint-parser` is a work in progress and comes with limitations:
 
-<Callout type="warn">When using this approach, the auto-fix may not work properly, it is recommended to use https://github.com/chiefmikey/eslint-plugin-disable-autofix to disable any problematic auto-fix without turning off the rule.</Callout>
+- No support for [TypeScript syntax](https://github.com/bloomberg/ts-blank-space/blob/main/docs/unsupported_syntax.md) that need transformation like enums, namespaces, decorators
+- No support for rules that require type information
+- No fixable support for types (the types will also be stripped out in the fix output)
+
+Use it only if you are okay with the limitations.
+
+</Callout>
 
 ## Install
 
 ```sh copy title="Terminal"
 # npm
-npm install --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
+npm install --save-dev eslint typescript-eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
 
 # pnpm
-pnpm add --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
+pnpm add --save-dev eslint typescript-eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
 
 # yarn
-yarn add --dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
+yarn add --dev eslint typescript-eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin
 ```
 
 ## Setup
 
 ```js title="eslint.config.js"
+// @ts-check
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
+import tseslint from "typescript-eslint";
 import globals from "globals";
 
+import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
+import { isInEditorEnv } from "@eslint-react/shared";
+
+const GLOB_TS = ["**/*.ts", "**/*.tsx"];
+
 export default [
+  // base configuration for browser environment source files
   {
-    files: ["**/*.ts", "**/*.tsx"],
-    ...eslintJs.configs.recommended,
+    files: TSCONFIG.include,
     languageOptions: {
       globals: {
         ...globals.browser,
       },
-      parser: tsBlankEslintParser,
+      ...getOptimalParser(),
+    },
+    rules: {
+      ...eslintJs.configs.recommended.rules,
     },
   },
+  // React configuration
   {
-    files: ["**/*.ts", "**/*.tsx"],
-    rules: {
-      // Put rules you want to override here
-      "@eslint-react/prefer-shorthand-boolean": "warn",
-    },
+    files: TSCONFIG.include,
+    ...eslintReact.configs.recommended,
   },
 ];
+
+function getOptimalParser(project = "tsconfig.json") {
+  return !isFixable()
+    ? {
+      // fast but no fixable support for types
+      parser: tsBlankEslintParser,
+    }
+    : {
+      // slow but needed for fixable to work
+      parser: tseslint.parser,
+      parserOptions: {
+        project,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    };
+}
+
+function isFixable() {
+  return isInEditorEnv() || hasFixFlag();
+}
+
+function hasFixFlag() {
+  return process.argv.includes("--fix");
+}
 ```
