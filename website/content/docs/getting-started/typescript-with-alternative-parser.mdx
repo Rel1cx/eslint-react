@@ -33,25 +33,37 @@ yarn add --dev eslint typescript-eslint @eslint/js globals ts-blank-eslint-parse
 // @ts-check
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import { isInEditorEnv } from "@eslint-react/shared";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
 import tseslint from "typescript-eslint";
 import globals from "globals";
 
-import TSCONFIG from "./tsconfig.json" with { type: "json" };
-import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
-import { isInEditorEnv } from "@eslint-react/shared";
-
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
+
+function getOptimalParserConfig(project = "tsconfig.json") {
+  switch (true) {
+    case isInEditorEnv():
+    case process.argv.includes("--fix"):
+      return {
+        parser: tseslint.parser,
+        parserOptions: {
+          project,
+          tsconfigRootDir: import.meta.dirname,
+        },
+      };
+  }
+  return { parser: tsBlankEslintParser };
+}
 
 export default [
   // base configuration for browser environment source files
   {
-    files: TSCONFIG.include,
+    files: GLOB_TS,
     languageOptions: {
       globals: {
         ...globals.browser,
       },
-      ...getOptimalParser(),
+      ...getOptimalParserConfig(),
     },
     rules: {
       ...eslintJs.configs.recommended.rules,
@@ -59,32 +71,8 @@ export default [
   },
   // React configuration
   {
-    files: TSCONFIG.include,
+    files: GLOB_TS,
     ...eslintReact.configs.recommended,
   },
 ];
-
-function getOptimalParser(project = "tsconfig.json") {
-  return !isFixable()
-    ? {
-      // fast but no fixable support for types
-      parser: tsBlankEslintParser,
-    }
-    : {
-      // slow but needed for fixable to work
-      parser: tseslint.parser,
-      parserOptions: {
-        project,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    };
-}
-
-function isFixable() {
-  return isInEditorEnv() || hasFixFlag();
-}
-
-function hasFixFlag() {
-  return process.argv.includes("--fix");
-}
 ```

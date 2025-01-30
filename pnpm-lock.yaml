@@ -508,8 +508,8 @@ importers:
         specifier: ^6.0.5
         version: 6.0.5
       ts-blank-eslint-parser:
-        specifier: ^0.3.1
-        version: 0.3.1(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.5.1)
+        specifier: ^0.3.2
+        version: 0.3.2(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.5.1)
       ts-blank-space:
         specifier: ^0.5.1
         version: 0.5.1
@@ -6994,8 +6994,8 @@ packages:
     peerDependencies:
       typescript: ^5.7.3
 
-  ts-blank-eslint-parser@0.3.1:
-    resolution: {integrity: sha512-ohzb9gJQbndMXmA3EhHXeO4z5/NASaZjmihWNAYcTLHDrx+1Vdg+QwQF/f1Xdux3cX36yzVb4i2qdftMkjUGqQ==}
+  ts-blank-eslint-parser@0.3.2:
+    resolution: {integrity: sha512-1AnzC+umsAaBVy4l6lzMcbD14x2cma+YrdHlpNcebTcIltW4w2snwS8eYj+6CS4G3SbsBjSf08UJlZiL4wlW3A==}
     engines: {node: '>=18.18.0'}
     peerDependencies:
       eslint-scope: ^8.2.0
@@ -13877,7 +13877,7 @@ snapshots:
     dependencies:
       typescript: 5.7.3
 
-  ts-blank-eslint-parser@0.3.1(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.5.1):
+  ts-blank-eslint-parser@0.3.2(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.5.1):
     dependencies:
       eslint-scope: 8.2.0
       meriyah: 6.0.5

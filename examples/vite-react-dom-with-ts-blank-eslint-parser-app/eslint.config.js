@@ -11,7 +11,20 @@ import TSCONFIG from "./tsconfig.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 import { isInEditorEnv } from "@eslint-react/shared";
 
-const GLOB_TS = ["**/*.ts", "**/*.tsx"];
+function getOptimalParserConfig(project = "tsconfig.json") {
+  switch (true) {
+    case isInEditorEnv():
+    case process.argv.includes("--fix"):
+      return {
+        parser: tseslint.parser,
+        parserOptions: {
+          project,
+          tsconfigRootDir: import.meta.dirname,
+        },
+      };
+  }
+  return { parser: tsBlankEslintParser };
+}
 
 export default [
   // base configuration for browser environment source files
@@ -21,7 +34,7 @@ export default [
       globals: {
         ...globals.browser,
       },
-      ...getOptimalParser(),
+      ...getOptimalParserConfig(),
     },
     rules: {
       ...eslintJs.configs.recommended.rules,
@@ -35,7 +48,7 @@ export default [
       globals: {
         ...globals.node,
       },
-      ...getOptimalParser("tsconfig.node.json"),
+      ...getOptimalParserConfig("tsconfig.node.json"),
     },
     rules: {
       ...eslintJs.configs.recommended.rules,
@@ -66,25 +79,3 @@ export default [
     },
   },
 ];
-
-function getOptimalParser(project = "tsconfig.json") {
-  return isFixable()
-    ? {
-      parser: tseslint.parser,
-      parserOptions: {
-        project,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    }
-    : {
-      parser: tsBlankEslintParser,
-    };
-}
-
-function isFixable() {
-  return isInEditorEnv() || hasFixFlag();
-}
-
-function hasFixFlag() {
-  return process.argv.includes("--fix");
-}
