@@ -21,7 +21,7 @@
     "next-view-transitions": "^0.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
