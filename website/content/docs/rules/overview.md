@@ -11,7 +11,6 @@ full: true
 - 🔄 - Codemod
 - 💭 - Type Chcking
 - 🐞 - Debug
-- 🗑️ - Deprecated
 - 0️⃣ - Severity 0
 - 1️⃣ - Severity 1
 - 2️⃣ - Severity 2
