@@ -10,24 +10,24 @@ export function ConfigurationsTypeTable() {
       type={{
         version: {
           type: "string",
-          description: <Link href="#version">React version to perform the analysis.</Link>,
+          description: <Link href="#version">React version to perform the analysis ⤵</Link>,
           default: "detect",
         },
         importSource: {
           type: "string",
-          description: <Link href="#importsource">The source where React is imported from.</Link>,
+          description: <Link href="#importsource">The source where React is imported from ⤵</Link>,
           default: "react",
         },
         polymorphicPropName: {
           type: "string",
           description: (
-            <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components.</Link>
+            <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components ⤵</Link>
           ),
           default: "as",
         },
         additionalComponents: {
           type: "CustomComponent[]",
-          description: <Link href="#additionalcomponents">An array of components and its attributes mapping.</Link>,
+          description: <Link href="#additionalcomponents">An array of components and its attributes mapping ⤵</Link>,
           default: "[]",
           typeDescription: (
             <DynamicCodeBlock
@@ -48,7 +48,7 @@ export function ConfigurationsTypeTable() {
         },
         additionalHooks: {
           type: "Record<ReactBuiltInHookName, string[]>",
-          description: <Link href="#additionalhooks">An object of aliases for React built-in Hooks.</Link>,
+          description: <Link href="#additionalhooks">An object of aliases for React built-in Hooks ⤵</Link>,
           default: "{}",
           typeDescription: (
             <DynamicCodeBlock
