@@ -32,12 +32,9 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    if (!context.sourceCode.text.includes("useContext")) return {};
     const settings = getSettingsFromContext(context);
     const useContextAlias = new Set<string>();
-
-    if (!context.sourceCode.text.includes("useContext")) {
-      return {};
-    }
     if (compare(settings.version, "19.0.0", "<")) {
       return {};
     }
