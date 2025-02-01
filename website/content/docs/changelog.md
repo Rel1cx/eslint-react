@@ -2,6 +2,12 @@
 title: Changelog
 ---
 
+## v1.26.0 (2025-01-31)
+
+### ✨ New
+
+- feat(plugins/x): add 'no-use-context', closes #930 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/931>
+
 ## v1.25.0 (2025-01-27)
 
 ### ✨ New
