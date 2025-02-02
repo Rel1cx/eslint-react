@@ -73,7 +73,7 @@
     "concurrently": "^9.1.2",
     "cspell": "^8.17.3",
     "dedent": "^1.5.3",
-    "dprint": "^0.48.0",
+    "dprint": "^0.49.0",
     "esbuild": "^0.24.2",
     "eslint": "^9.19.0",
     "eslint-config-flat-gitignore": "^2.0.0",
@@ -124,7 +124,7 @@
       "next": "^15.1.6",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
-      "ts-api-utils": "^2.0.0",
+      "ts-api-utils": "^2.0.1",
       "typescript": "5.8.0-beta"
     }
   }
