@@ -1,5 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
+import { getOrUpdate } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -38,7 +39,7 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     const { ctx, listeners } = useComponentCollector(context);
-    const declarators = new WeakMap<
+    const declarators = new Map<
       AST.TSESTreeFunction,
       ObjectDestructuringDeclarator[]
     >();
@@ -93,8 +94,11 @@ export default createRule<[], MessageID>({
       "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
         const functionEntry = ctx.getCurrentEntry();
         if (functionEntry == null) return;
-        const prevs = declarators.get(functionEntry.node) ?? [];
-        declarators.set(functionEntry.node, [...prevs, node]);
+        getOrUpdate(
+          declarators,
+          functionEntry.node,
+          () => [],
+        ).push(node);
       },
     };
   },
