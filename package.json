@@ -49,7 +49,8 @@
     "test": "vitest run --logHeapUsage",
     "update:readme": "tsx ./scripts/update-readme.ts",
     "update:version": "tsx ./scripts/update-version.ts",
-    "update:website": "tsx ./scripts/update-website.ts"
+    "update:website": "tsx ./scripts/update-website.ts",
+    "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
