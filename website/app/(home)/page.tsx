@@ -1,7 +1,6 @@
 import { Link } from "next-view-transitions";
 
 import { ESLintReact } from "#/components/eslint-react";
-import { TweetCards } from "#/components/tweet-cards";
 
 const features = [
   ["Flexible", "Increased flexibility with more granular severity control."],
@@ -16,13 +15,6 @@ const packages = [
   ["eslint-plugin-react-hooks-extra", "Extra React Hooks rules."],
   ["eslint-plugin-react-naming-convention", "Naming convention rules."],
 ] as const;
-
-const tweets = [
-  "1865166494709026873",
-  "1839913920984678890",
-  "1841248980354941038",
-  "1859137094976696467",
-];
 
 export default function HomePage() {
   return (
@@ -39,8 +31,8 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <h2>Public packages</h2>
-        <h3>All-in-one plugins</h3>
+        <h2>ESLint Plugins</h2>
+        <h3>All-in-one</h3>
         <ul>
           <li>
             <span>
@@ -51,7 +43,7 @@ export default function HomePage() {
             </span>
           </li>
         </ul>
-        <h3>Modular plugins</h3>
+        <h3>Modular</h3>
         <ul>
           {packages.map(([name, description]) => (
             <li key={name}>
@@ -64,10 +56,6 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <TweetCards
-          className="not-prose"
-          tweets={tweets}
-        />
         <h2>FAQ</h2>
         <Link href="/docs/faq">Frequently Asked Questions ↗</Link>
         <h2>License</h2>
