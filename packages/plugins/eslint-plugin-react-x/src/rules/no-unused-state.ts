@@ -37,11 +37,9 @@ function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string
 function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
 
-  return (
-    left.type === T.MemberExpression
+  return left.type === T.MemberExpression
     && AST.isThisExpression(left.object)
-    && getName(left.property) === "state"
-  );
+    && getName(left.property) === "state";
 }
 
 export default createRule<[], MessageID>({

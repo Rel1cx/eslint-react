@@ -1,5 +1,9 @@
 # ESLint React Contributing Guide
 
+> [!NOTE]\
+> FYI: The ESLint Raect project is not a fork of the `eslint-plugin-react` project and meanwhile `eslint-plugin-react` is not the upstream of ESLint React.\
+> Therefore, the rules and features you see in `eslint-plugin-react` may not necessarily appear in ESLint React and its plugins.
+
 Hi! We, the maintainers, are really excited that you are interested in contributing to ESLint React.
 
 Before submitting your contribution though, please make sure to take a moment and read through the [Code of Conduct](CODE_OF_CONDUCT.md), as well as the appropriate section for the contribution you intend to make:
@@ -9,10 +13,6 @@ Before submitting your contribution though, please make sure to take a moment an
   - [Pull Request Guidelines](#pull-request-guidelines)
   - [Development Guide](#development-guide)
     - [Packages Overview](#packages-overview)
-
-> [!NOTE]\
-> FYI: The ESLint Raect project is not a fork of the `eslint-plugin-react` project and meanwhile `eslint-plugin-react` is not the upstream of ESLint React.\
-> Therefore, the rules and features you see in `eslint-plugin-react` may not necessarily appear in ESLint React and its plugins.
 
 ## Issue Reporting Guidelines
 
