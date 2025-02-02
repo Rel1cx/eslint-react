@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
   "version": "1.26.1-beta.3",
-  "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
+  "description": "More than 80 high-quality linting rules for writing better React code.",
   "keywords": [
     "react",
     "eslint",

@@ -4,7 +4,7 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
+More than 80 high-quality linting rules for writing better React code.
 
 ## Features
 

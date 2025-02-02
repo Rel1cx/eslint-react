@@ -21,8 +21,7 @@ export default function HomePage() {
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
       <ESLintReact />
       <article className="prose max-w-none">
-        <p>Welcome to the ESLint React documentation.</p>
-        <p>A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.</p>
+        <p>More than 80 high-quality linting rules for writing better React code.</p>
         <h2>Features</h2>
         <ul>
           {features.map(([title, description]) => (

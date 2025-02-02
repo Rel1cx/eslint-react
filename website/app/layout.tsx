@@ -2,8 +2,20 @@ import "./base.css";
 import "./overrides.css";
 
 import { RootProvider } from "fumadocs-ui/provider";
+import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
+
+import { baseUrl } from "../lib/metadata";
+
+export const metadata = {
+  description: "More than 80 high-quality linting rules for writing better React code.",
+  title: {
+    default: "ESLint React",
+    template: "%s | ESLint React",
+  },
+  metadataBase: baseUrl,
+} as const satisfies Metadata;
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
