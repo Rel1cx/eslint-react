@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.26.1-beta.4",
+  "version": "1.26.1-next.5",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -47,10 +47,10 @@
     "lint:website": "pnpm -F \"./website\" run lint",
     "prepare": "lefthook install && pnpm run build",
     "test": "vitest run --logHeapUsage",
+    "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
     "update:readme": "tsx ./scripts/update-readme.ts",
     "update:version": "tsx ./scripts/update-version.ts",
-    "update:website": "tsx ./scripts/update-website.ts",
-    "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website"
+    "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
@@ -112,21 +112,21 @@
   "engines": {
     "node": ">=18.18.0"
   },
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a",
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
-      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "@types/react": "^19.0.8",
       "@types/react-dom": "^19.0.3",
       "cross-spawn": "^7.0.6",
+      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "next": "^15.1.6",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
       "ts-api-utils": "^2.0.1",
-      "typescript": "5.8.0-beta"
+      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
+      "typescript": "^5.7.3"
     }
   }
 }
