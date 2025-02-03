@@ -2,6 +2,10 @@
 title: Changelog
 ---
 
+## v1.26.1 (2025-02-03)
+
+No notable changes have been made in this release.
+
 ## v1.26.0 (2025-01-31)
 
 ### ✨ New
