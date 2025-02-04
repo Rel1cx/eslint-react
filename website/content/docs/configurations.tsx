@@ -4,7 +4,7 @@ import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import { Link } from "next-view-transitions";
 
-export function ConfigurationsTypeTable() {
+export function SettingsTypeTable() {
   return (
     <TypeTable
       type={{

@@ -23,6 +23,16 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/getting-started/javascript-with-alternative-parser",
+        destination: "/docs/using-an-alternative-parser/babel-eslint-parser",
+        permanent: true,
+      },
+      {
+        source: "/docs/getting-started/typescript-with-alternative-parser",
+        destination: "/docs/using-an-alternative-parser/ts-blank-eslint-parser",
+        permanent: true,
+      },
+      {
         source: "/docs/rules",
         destination: "/docs/rules/overview",
         permanent: true,

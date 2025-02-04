@@ -2,13 +2,26 @@
 title: Configurations
 ---
 
-import { ConfigurationsTypeTable } from "./configurations"
+import { SettingsTypeTable } from "./configurations";
 
-ESLint React provides the following configurations:
+A [configuration object](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-objects) is used to configure the behavior of the rules in ESLint React. You can define the settings object in the `settings["react-x"]` field of your ESLint configuration file.
+
+```ts title="eslint.config.js"
+export default [
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    settings: {
+      "react-x": {
+        version: "19.0.0",
+      },
+    },
+  },
+];
+```
 
 ## Properties
 
-<ConfigurationsTypeTable />
+<SettingsTypeTable />
 
 ## Descriptions
 

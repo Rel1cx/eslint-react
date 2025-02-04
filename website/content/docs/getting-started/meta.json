@@ -2,9 +2,7 @@
   "title": "Getting Started",
   "pages": [
     "javascript",
-    "javascript-with-alternative-parser",
-    "typescript",
-    "typescript-with-alternative-parser"
+    "typescript"
   ],
   "defaultOpen": true
 }

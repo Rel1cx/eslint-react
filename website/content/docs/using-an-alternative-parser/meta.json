@@ -1,0 +1,7 @@
+{
+  "title": "Using an alternative parser",
+  "pages": [
+    "babel-eslint-parser",
+    "ts-blank-eslint-parser"
+  ]
+}

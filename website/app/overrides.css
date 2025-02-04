@@ -1,3 +1,8 @@
+#nd-docs-layout #nd-sidebar a {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
 #nd-docs-layout #nd-sidebar a[data-active] {
   font-weight: 400;
 }
