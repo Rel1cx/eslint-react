@@ -3,8 +3,6 @@ title: Overview
 full: true
 ---
 
-## Legend
-
 - ⚙️ - Configurable
 - 🔍 - Linting
 - 🔧 - Fixable
