@@ -24,7 +24,8 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noContextProvider: "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>'.",
+      noContextProvider:
+        "In React 19, you can render '<{{contextName}}>' as a provider instead of '<{{contextName}}.Provider>'.",
     },
     schema: [],
   },
@@ -37,15 +38,13 @@ export default createRule<[], MessageID>({
     }
     return {
       JSXElement(node) {
-        const elementName = JSX.getElementName(node);
-        if (!elementName.endsWith(".Provider")) {
-          return;
-        }
+        const [name, ...rest] = JSX.getElementName(node).split(".").reverse();
+        if (name !== "Provider") return;
+        const contextName = rest.reverse().join(".");
         context.report({
           messageId: "noContextProvider",
           node,
           fix(fixer) {
-            const contextName = elementName.replace(/\.Provider$/, "");
             const openingElement = node.openingElement;
             const closingElement = node.closingElement;
             if (closingElement == null) {
