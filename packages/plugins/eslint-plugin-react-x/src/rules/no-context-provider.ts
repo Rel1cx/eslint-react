@@ -44,6 +44,9 @@ export default createRule<[], MessageID>({
         context.report({
           messageId: "noContextProvider",
           node,
+          data: {
+            contextName,
+          },
           fix(fixer) {
             const openingElement = node.openingElement;
             const closingElement = node.closingElement;
