@@ -1,3 +1,9 @@
+## v1.26.2 (2025-02-06)
+
+### 🐞 Fixes
+
+- fix(plugins/x): enhance `no-context-provider` rule to include context name in error messages by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/935>
+
 ## v1.26.1 (2025-02-03)
 
 No notable changes have been made in this release.
