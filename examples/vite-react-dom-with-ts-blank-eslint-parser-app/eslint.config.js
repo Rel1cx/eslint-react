@@ -6,10 +6,10 @@ import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
 import tseslint from "typescript-eslint";
 import globals from "globals";
+import { isInEditorEnv } from "@eslint-react/shared";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
-import { isInEditorEnv } from "@eslint-react/shared";
 
 function getOptimalParserConfig(project = "tsconfig.json") {
   switch (true) {
