@@ -5,7 +5,14 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "<Context.Provider />",
-      errors: [{ messageId: "noContextProvider" }],
+      errors: [
+        {
+          messageId: "noContextProvider",
+          data: {
+            contextName: "Context",
+          },
+        },
+      ],
       output: "<Context />",
       settings: {
         "react-x": {
@@ -14,9 +21,16 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: "<Context.Provider><App /></Context.Provider>",
-      errors: [{ messageId: "noContextProvider" }],
-      output: "<Context><App /></Context>",
+      code: "<ThemeContext.Provider><App /></ThemeContext.Provider>",
+      errors: [
+        {
+          messageId: "noContextProvider",
+          data: {
+            contextName: "ThemeContext",
+          },
+        },
+      ],
+      output: "<ThemeContext><App /></ThemeContext>",
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -25,7 +39,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: "<Context.Provider>{children}</Context.Provider>",
-      errors: [{ messageId: "noContextProvider" }],
+      errors: [
+        {
+          messageId: "noContextProvider",
+          data: {
+            contextName: "Context",
+          },
+        },
+      ],
       output: "<Context>{children}</Context>",
       settings: {
         "react-x": {
@@ -35,7 +56,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: "<Foo.Bar.Provider>{children}</Foo.Bar.Provider>",
-      errors: [{ messageId: "noContextProvider" }],
+      errors: [
+        {
+          messageId: "noContextProvider",
+          data: {
+            contextName: "Foo.Bar",
+          },
+        },
+      ],
       output: "<Foo.Bar>{children}</Foo.Bar>",
       settings: {
         "react-x": {
