@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.26.2",
+  "version": "1.26.3-next.0",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -32,7 +32,7 @@
     "build:website": "pnpm run update:website && pnpm -F \"./website\" run build",
     "build:workspace": "pnpm -F \"./workspace/*\" run build",
     "format:check": "dprint check",
-    "format:package-json": "pnpm --parallel -r exec fixpkg -q package.json && fixpkg && dprint fmt",
+    "format:package-json": "pnpm --parallel -r exec sort-package-json -q package.json && dprint fmt",
     "format:write": "dprint fmt",
     "inspect:deps": "skott -e .ts",
     "inspect:eslint-config": "eslint-config-inspector",
@@ -84,7 +84,6 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^56.0.1",
     "eslint-plugin-vitest": "^0.5.4",
-    "fixpkg": "^1.0.2",
     "jiti": "^2.4.2",
     "lefthook": "^1.10.10",
     "markdownlint": "^0.37.4",
@@ -109,23 +108,23 @@
     "typescript-eslint": "^8.23.0",
     "vitest": "^3.0.5"
   },
+  "packageManager": "pnpm@10.2.0",
   "engines": {
     "node": ">=18.18.0"
   },
-  "packageManager": "pnpm@10.2.0",
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
-      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "@types/react": "^19.0.8",
       "@types/react-dom": "^19.0.3",
       "cross-spawn": "^7.0.6",
+      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
       "next": "^15.1.6",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
+      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
       "ts-api-utils": "^2.0.1",
+      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
       "typescript": "^5.7.3"
     }
   }

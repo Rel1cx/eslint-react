@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-dom",
-  "version": "1.26.2",
+  "version": "1.26.3-next.0",
   "description": "ESLint React's ESLint plugin for React DOM related rules.",
   "keywords": [
     "react",
@@ -21,6 +21,7 @@
   },
   "license": "MIT",
   "author": "Eva1ent<rel1cx@proton.me>",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -35,6 +36,7 @@
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -84,7 +86,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "sideEffects": false,
-  "module": "dist/index.mjs"
+  }
 }
