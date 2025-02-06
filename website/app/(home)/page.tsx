@@ -1,19 +1,13 @@
+import { Card, Cards } from "fumadocs-ui/components/card";
 import { Link } from "next-view-transitions";
 
 import { ESLintReact } from "#/components/eslint-react";
 
 const features = [
+  ["Modern", "First-class support for TypeScript, React 19, polymorphic components."],
   ["Flexible", "Increased flexibility with more granular severity control."],
-  ["Comprehensive", "First-class support for TypeScript, React 19, polymorphic components."],
-  ["Advanced Analysis", "Handles complex scenarios and identifies problems that other tools might miss."],
-] as const;
-
-const packages = [
-  ["eslint-plugin-react-x", "Core rules (renderer-agnostic, compatible with x-platform)."],
-  ["eslint-plugin-react-dom", "DOM specific rules for React DOM."],
-  ["eslint-plugin-react-web-api", "Rules for interacting with Web APIs."],
-  ["eslint-plugin-react-hooks-extra", "Extra React Hooks rules."],
-  ["eslint-plugin-react-naming-convention", "Naming convention rules."],
+  ["Performant", "Built with performance in mind, optimized for large codebases."],
+  ["Comprehensive", "Handles complex scenarios and identifies problems that other tools might miss."],
 ] as const;
 
 export default function HomePage() {
@@ -21,45 +15,22 @@ export default function HomePage() {
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
       <ESLintReact />
       <article className="prose max-w-none">
-        <p>More than 80 high-quality linting rules for writing better React code.</p>
+        <p className="text-center">More than 80 high-quality linting rules for writing better React code.</p>
         <h2>Features</h2>
-        <ul>
-          {features.map(([title, description]) => (
-            <li key={title}>
-              <strong>{title}</strong>: {description}
-            </li>
-          ))}
-        </ul>
-        <h2>ESLint Plugins</h2>
-        <h3>All-in-one</h3>
-        <ul>
-          <li>
-            <span>
-              <Link href="https://www.npmjs.com/package/@eslint-react/eslint-plugin">
-                @eslint-react/eslint-plugin
-              </Link>{" "}
-              - The main ESLint plugin package including all rules and config presets in this repository.
-            </span>
-          </li>
-        </ul>
-        <h3>Modular</h3>
-        <ul>
-          {packages.map(([name, description]) => (
-            <li key={name}>
-              <span>
-                <Link href={`https://www.npmjs.com/package/${name}`}>
-                  {name}
-                </Link>{" "}
-                - {description}
-              </span>
-            </li>
-          ))}
-        </ul>
-        <h2>FAQ</h2>
-        <Link href="/docs/faq">Frequently Asked Questions ↗</Link>
-        <h2>License</h2>
-        This project is licensed under the MIT License - see the{" "}
-        <a href="https://github.com/Rel1cx/eslint-react/blob/main/LICENSE">LICENSE</a> file for details.
+        <Cards>
+          {features.map(([title, description]) => <Card description={description} key={title} title={title} />)}
+        </Cards>
+        <h2>Roadmap</h2>
+        <p>
+          Check out the <Link href="/roadmap">roadmap</Link> to see what's planned for the future.
+        </p>
+        <h2>Contributing</h2>
+        <p>
+          Want to contribute? Check out the{" "}
+          <Link href="https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md">
+            contributing guide
+          </Link>.
+        </p>
       </article>
     </main>
   );
