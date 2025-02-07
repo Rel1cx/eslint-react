@@ -6,9 +6,15 @@ import { isReactHookName } from "./hook-name";
 import type { ERHook } from "./hook-semantic-node";
 import { isReactHookCall } from "./is";
 
+type FunctionEntry = {
+  key: string;
+  node: AST.TSESTreeFunction;
+  isHook: boolean;
+};
+
 export function useHookCollector(): useHookCollector.ReturnType {
   const hooks = new Map<string, ERHook>();
-  const functionEntries: useHookCollector.Entry[] = [];
+  const functionEntries: FunctionEntry[] = [];
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionIdentifier(node);
     const key = getId();
@@ -60,16 +66,10 @@ export function useHookCollector(): useHookCollector.ReturnType {
 }
 
 export declare namespace useHookCollector {
-  type Entry = {
-    key: string;
-    node: AST.TSESTreeFunction;
-    isHook: boolean;
-  };
-  type Ctx = {
-    getAllHooks(node: TSESTree.Program): Map<string, ERHook>;
-  };
   type ReturnType = {
-    ctx: Ctx;
+    ctx: {
+      getAllHooks(node: TSESTree.Program): Map<string, ERHook>;
+    };
     listeners: ESLintUtils.RuleListener;
   };
 }

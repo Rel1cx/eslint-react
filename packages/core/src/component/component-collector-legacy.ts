@@ -57,11 +57,10 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
 }
 
 export declare namespace useComponentCollectorLegacy {
-  type Ctx = {
-    getAllComponents: (node: TSESTree.Program) => Map<string, ERClassComponent>;
-  };
   type ReturnType = {
-    ctx: Ctx;
+    ctx: {
+      getAllComponents: (node: TSESTree.Program) => Map<string, ERClassComponent>;
+    };
     listeners: ESLintUtils.RuleListener;
   };
 }

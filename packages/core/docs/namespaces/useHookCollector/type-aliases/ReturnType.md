@@ -12,7 +12,19 @@
 
 ### ctx
 
-> **ctx**: [`Ctx`](Ctx.md)
+> **ctx**: `object`
+
+#### ctx.getAllHooks()
+
+##### Parameters
+
+###### node
+
+`Program`
+
+##### Returns
+
+`Map`\<`string`, [`ERHook`](../../../interfaces/ERHook.md)\>
 
 ### listeners
 

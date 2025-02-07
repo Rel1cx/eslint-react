@@ -12,7 +12,37 @@
 
 ### ctx
 
-> **ctx**: [`Ctx`](Ctx.md)
+> **ctx**: `object`
+
+#### ctx.getAllComponents()
+
+> **getAllComponents**: (`node`) => `Map`\<`string`, [`ERFunctionComponent`](../../../interfaces/ERFunctionComponent.md)\>
+
+##### Parameters
+
+###### node
+
+`TSESTree.Program`
+
+##### Returns
+
+`Map`\<`string`, [`ERFunctionComponent`](../../../interfaces/ERFunctionComponent.md)\>
+
+#### ctx.getCurrentEntries()
+
+> **getCurrentEntries**: () => `FunctionEntry`[]
+
+##### Returns
+
+`FunctionEntry`[]
+
+#### ctx.getCurrentEntry()
+
+> **getCurrentEntry**: () => `FunctionEntry` \| `_`
+
+##### Returns
+
+`FunctionEntry` \| `_`
 
 ### listeners
 

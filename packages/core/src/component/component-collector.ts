@@ -17,45 +17,12 @@ import { isFunctionOfRenderMethod } from "./component-lifecycle";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import type { ERFunctionComponent } from "./component-semantic-node";
 
-function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipObjectMethod && AST.isFunctionOfObjectMethod(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipClassMethod && AST.isFunctionOfClassMethod(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipClassProperty && AST.isFunctionOfClassProperty(node.parent)) {
-    return false;
-  }
-  const boundaryNode = AST.findParentNode(
-    node,
-    AST.isOneOf([
-      T.JSXExpressionContainer,
-      T.ArrowFunctionExpression,
-      T.FunctionExpression,
-      T.Property,
-      T.ClassBody,
-    ]),
-  );
-  return boundaryNode == null || boundaryNode.type !== T.JSXExpressionContainer;
-}
-
-function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
-  let flag = ERComponentFlag.None;
-  if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
-    flag |= ERComponentFlag.Memo;
-  }
-  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
-    flag |= ERComponentFlag.ForwardRef;
-  }
-  return flag;
-}
+type FunctionEntry = {
+  key: string;
+  node: AST.TSESTreeFunction;
+  hookCalls: TSESTree.CallExpression[];
+  isComponent: boolean;
+};
 
 /**
  * Get a ctx and listeners for the rule to collect function components
@@ -73,7 +40,7 @@ export function useComponentCollector(
 
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
-  const functionEntries: useComponentCollector.Entry[] = [];
+  const functionEntries: FunctionEntry[] = [];
 
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
@@ -191,23 +158,56 @@ export function useComponentCollector(
 }
 
 export declare namespace useComponentCollector {
-  type Entry = {
-    key: string;
-    node: AST.TSESTreeFunction;
-    hookCalls: TSESTree.CallExpression[];
-    isComponent: boolean;
-  };
-  type Ctx = {
-    getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
-    getCurrentEntries: () => Entry[];
-    getCurrentEntry: () => Entry | _;
-  };
   type Options = {
     collectDisplayName?: boolean;
     collectHookCalls?: boolean;
   };
   type ReturnType = {
-    ctx: Ctx;
+    ctx: {
+      getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
+      getCurrentEntries: () => FunctionEntry[];
+      getCurrentEntry: () => FunctionEntry | _;
+    };
     listeners: ESLintUtils.RuleListener;
   };
+}
+
+function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
+  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
+    return false;
+  }
+  if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {
+    return false;
+  }
+  if (hint & ERComponentHint.SkipObjectMethod && AST.isFunctionOfObjectMethod(node.parent)) {
+    return false;
+  }
+  if (hint & ERComponentHint.SkipClassMethod && AST.isFunctionOfClassMethod(node.parent)) {
+    return false;
+  }
+  if (hint & ERComponentHint.SkipClassProperty && AST.isFunctionOfClassProperty(node.parent)) {
+    return false;
+  }
+  const boundaryNode = AST.findParentNode(
+    node,
+    AST.isOneOf([
+      T.JSXExpressionContainer,
+      T.ArrowFunctionExpression,
+      T.FunctionExpression,
+      T.Property,
+      T.ClassBody,
+    ]),
+  );
+  return boundaryNode == null || boundaryNode.type !== T.JSXExpressionContainer;
+}
+
+function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
+  let flag = ERComponentFlag.None;
+  if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
+    flag |= ERComponentFlag.Memo;
+  }
+  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
+    flag |= ERComponentFlag.ForwardRef;
+  }
+  return flag;
 }

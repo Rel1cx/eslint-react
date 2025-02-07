@@ -8,5 +8,4 @@
 
 ## Type Aliases
 
-- [Ctx](type-aliases/Ctx.md)
 - [ReturnType](type-aliases/ReturnType.md)

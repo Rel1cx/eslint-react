@@ -12,7 +12,21 @@
 
 ### ctx
 
-> **ctx**: [`Ctx`](Ctx.md)
+> **ctx**: `object`
+
+#### ctx.getAllComponents()
+
+> **getAllComponents**: (`node`) => `Map`\<`string`, [`ERClassComponent`](../../../interfaces/ERClassComponent.md)\>
+
+##### Parameters
+
+###### node
+
+`TSESTree.Program`
+
+##### Returns
+
+`Map`\<`string`, [`ERClassComponent`](../../../interfaces/ERClassComponent.md)\>
 
 ### listeners
 
