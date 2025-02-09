@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "1.26.3-next.5",
+  "version": "1.26.3-beta.5",
   "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
