@@ -65,4 +65,4 @@ Before submitting your contribution though, please make sure to take a moment an
 - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
 - `packages/core`: Utility module for static analysis of React core APIs and Patterns.
 - `packages/shared`: Shared constants, types and functions.
-- `website`: The documentation website for ESLint React.
+- `apps/website`: The documentation website for ESLint React.
