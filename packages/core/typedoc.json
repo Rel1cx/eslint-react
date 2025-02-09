@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@workspace/configs/typedoc.base.json"
+    "@local/configs/typedoc.base.json"
   ],
   "name": "@eslint-react/core",
   "entryPoints": [

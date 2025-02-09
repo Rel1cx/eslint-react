@@ -43,7 +43,7 @@
     {
       "changeProcessCWD": true,
       "mode": "auto",
-      "pattern": "website"
+      "pattern": "apps/*"
     }
   ],
   "files.exclude": {

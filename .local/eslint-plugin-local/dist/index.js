@@ -4,7 +4,7 @@ import * as VAR from '@eslint-react/var';
 import { nullThrows, NullThrowsReasons } from '@typescript-eslint/utils/eslint-utils';
 
 // package.json
-var name = "@workspace/eslint-plugin-local";
+var name = "@local/eslint-plugin-local";
 var version = "0.0.0";
 function getDocsUrl() {
   return "TODO: add docs for local ESLint rules";

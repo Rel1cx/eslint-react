@@ -41,7 +41,7 @@ export const DEFAULT_JSX_VALUE_HINT = 0n
   | JSXValueHint.SkipBooleanLiteral;
 
 /**
- * Heruistic decision to determine if a node is a JSX value
+ * Heuristic decision to determine if a node is a JSX value
  * @param node The AST node to check
  * @param jsxCtx The requirements for the check
  * @param jsxCtx.getScope The function to get the scope of a node

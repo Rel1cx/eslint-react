@@ -19,7 +19,7 @@ const [
     const title = isPluginX
       ? basename
       : `${catename}/${basename}`;
-    const dest = path.join("website", "content", "docs", "rules", `${name}.md`);
+    const dest = path.join("apps", "website", "content", "docs", "rules", `${name}.md`);
     return [[...files, [doc, dest]], [...rules, [name, title]]] as const;
   },
   [[], []],
@@ -27,7 +27,7 @@ const [
 
 await Promise.all(files.map(async ([src, dest]) => fs.copyFile(src, dest)));
 
-// fs.writeFileSync(path.join("website", "content", "docs", "rules", "data.json"), JSON.stringify(rules, null, 2));
+// fs.writeFileSync(path.join("apps", "website", "content", "docs", "rules", "data.json"), JSON.stringify(rules, null, 2));
 
 const changelog = await fs.readFile("CHANGELOG.md", "utf-8");
 
@@ -39,4 +39,4 @@ const changelogWithFrontmatter = [
   changelog,
 ].join("\n");
 
-await fs.writeFile("website/content/docs/changelog.md", changelogWithFrontmatter);
+await fs.writeFile(path.join("apps", "website", "content", "changelog.md"), changelogWithFrontmatter);

@@ -1,6 +1,6 @@
 packages:
-  - "workspace/*"
+  - ".local/*"
+  - "apps/*"
   - "packages/*"
   - "packages/*/*"
   - "examples/*"
-  - "website"

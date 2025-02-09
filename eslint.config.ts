@@ -6,7 +6,7 @@ import eslintJs from "@eslint/js";
 import eslintMarkdown from "@eslint/markdown";
 import eslintStylistic from "@stylistic/eslint-plugin";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
-import eslintPluginLocal from "@workspace/eslint-plugin-local";
+import eslintPluginLocal from "@local/eslint-plugin-local";
 import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
@@ -101,10 +101,10 @@ export default tseslint.config(
   {
     name: "global-ignores",
     ignores: [
+      "apps",
       "docs",
-      "examples",
-      "website",
       "test",
+      "examples",
     ],
   },
   {
