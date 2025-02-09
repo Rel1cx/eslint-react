@@ -36,10 +36,10 @@ importers:
         version: 6.2.2
       '@local/configs':
         specifier: workspace:*
-        version: link:.local/configs
+        version: link:.pkgs/configs
       '@local/eslint-plugin-local':
         specifier: workspace:*
-        version: link:.local/eslint-plugin-local
+        version: link:.pkgs/eslint-plugin-local
       '@napi-rs/canvas':
         specifier: ^0.1.67
         version: 0.1.67
@@ -164,8 +164,8 @@ importers:
         specifier: ^4.19.2
         version: 4.19.2
       type-fest:
-        specifier: ^4.33.0
-        version: 4.33.0
+        specifier: ^4.34.0
+        version: 4.34.0
       typedoc:
         specifier: ^0.27.6
         version: 0.27.6(typescript@5.7.3)
@@ -185,9 +185,9 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(@types/debug@4.1.12)(@types/node@22.13.1)(@vitest/ui@3.0.5)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
 
-  .local/configs: {}
+  .pkgs/configs: {}
 
-  .local/eslint-plugin-local:
+  .pkgs/eslint-plugin-local:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -298,7 +298,7 @@ importers:
         version: 6.2.2
       '@local/configs':
         specifier: workspace:*
-        version: link:../../.local/configs
+        version: link:../../.pkgs/configs
       '@mdx-js/mdx':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.14.0)
@@ -739,7 +739,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../.local/configs
+        version: link:../../.pkgs/configs
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -791,7 +791,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -843,7 +843,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -901,7 +901,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -959,7 +959,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -1014,7 +1014,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -1069,7 +1069,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -1133,7 +1133,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -1164,7 +1164,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../.local/configs
+        version: link:../../.pkgs/configs
       '@types/picomatch':
         specifier: ^3.0.2
         version: 3.0.2
@@ -1178,8 +1178,8 @@ importers:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       type-fest:
-        specifier: ^4.33.0
-        version: 4.33.0
+        specifier: ^4.34.0
+        version: 4.34.0
       valibot:
         specifier: ^1.0.0-beta.15
         version: 1.0.0-beta.15(typescript@5.7.3)
@@ -1207,7 +1207,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -1216,7 +1216,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -1247,7 +1247,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -1278,7 +1278,7 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.local/configs
+        version: link:../../../.pkgs/configs
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -5727,7 +5727,6 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
-    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -7178,8 +7177,8 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.33.0:
-    resolution: {integrity: sha512-s6zVrxuyKbbAsSAD5ZPTB77q4YIdRctkTbJ2/Dqlinwz+8ooH2gd+YA7VA6Pa93KML9GockVvoxjZ2vHP+mu8g==}
+  type-fest@4.34.0:
+    resolution: {integrity: sha512-Qcg88ZJsJvRcUijtD6supagRSDf0y1FPZh4NroJpwRkoPYj6gGNidREwTgDuC0Pmq0PVAAzL8C8BZW7xhx5Q4A==}
     engines: {node: '>=16'}
 
   typedoc-plugin-markdown@4.4.1:
@@ -14083,7 +14082,7 @@ snapshots:
 
   type-fest@3.13.1: {}
 
-  type-fest@4.33.0: {}
+  type-fest@4.34.0: {}
 
   typedoc-plugin-markdown@4.4.1(typedoc@0.27.6(typescript@5.7.3)):
     dependencies:
