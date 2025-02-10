@@ -28,9 +28,13 @@ hints for component collector
 
 > `readonly` **SkipClassMethod**: `bigint`
 
+Skip function component defined on class method
+
 ### SkipClassProperty
 
 > `readonly` **SkipClassProperty**: `bigint`
+
+Skip function component defined on class property
 
 ### SkipCreateElement
 
@@ -44,13 +48,19 @@ hints for component collector
 
 > `readonly` **SkipForwardRef**: `bigint`
 
+Skip function component created by React.forwardRef
+
 ### SkipMapCallback
 
 > `readonly` **SkipMapCallback**: `bigint`
 
+Skip function component defined in map function callback
+
 ### SkipMemo
 
 > `readonly` **SkipMemo**: `bigint`
+
+Skip function component created by React.memo
 
 ### SkipNullLiteral
 
@@ -63,6 +73,8 @@ hints for component collector
 ### SkipObjectMethod
 
 > `readonly` **SkipObjectMethod**: `bigint`
+
+Skip function component defined on object method
 
 ### SkipStringLiteral
 

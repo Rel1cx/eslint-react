@@ -6,6 +6,6 @@ export const ERComponentFlag = {
   PureComponent: 1n << 0n,
   CreateElement: 1n << 1n,
   Memo: 1n << 2n,
-  Async: 1n << 3n,
-  ForwardRef: 1n << 4n,
+  ForwardRef: 1n << 3n,
+  Async: 1n << 4n,
 };
