@@ -17,7 +17,7 @@ export default function HomePage() {
       <article className="prose max-w-none">
         <p className="text-center">More than 80 high-quality linting rules for writing better React code.</p>
         <h2>Features</h2>
-        <Cards>
+        <Cards className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {features.map(([title, description]) => <Card description={description} key={title} title={title} />)}
         </Cards>
         <h2>Roadmap</h2>
