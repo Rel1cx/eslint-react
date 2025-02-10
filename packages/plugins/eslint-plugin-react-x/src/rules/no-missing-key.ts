@@ -15,8 +15,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "noMissingKey"
-  | "noMissingKeyWithFragment";
+  | "missingKey"
+  | "unexpectedFragmentSyntax";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,8 +26,8 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noMissingKey: "Missing 'key' for element when rendering list.",
-      noMissingKeyWithFragment: "Use fragment component instead of '<>' because it does not support `key`.",
+      missingKey: "Missing 'key' for element when rendering list.",
+      unexpectedFragmentSyntax: "Use fragment component instead of '<>' because it does not support `key`.",
     },
     schema: [],
   },
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
           const initialScope = context.sourceCode.getScope(node);
           if (!JSX.hasAttribute("key", node.openingElement.attributes, initialScope)) {
             return {
-              messageId: "noMissingKey",
+              messageId: "missingKey",
               node,
             } as const;
           }
@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
         }
         case T.JSXFragment: {
           return {
-            messageId: "noMissingKeyWithFragment",
+            messageId: "unexpectedFragmentSyntax",
             node,
           } as const;
         }
@@ -104,7 +104,7 @@ export default createRule<[], MessageID>({
         for (const element of elements) {
           if (!JSX.hasAttribute("key", element.openingElement.attributes, initialScope)) {
             context.report({
-              messageId: "noMissingKey",
+              messageId: "missingKey",
               node: element,
             });
           }
@@ -146,7 +146,7 @@ export default createRule<[], MessageID>({
         }
         if (node.parent.type === T.ArrayExpression) {
           context.report({
-            messageId: "noMissingKeyWithFragment",
+            messageId: "unexpectedFragmentSyntax",
             node,
           });
         }

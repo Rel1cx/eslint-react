@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "PascalCase.tsx",
             rule: "kebab-case",
@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "camelCase.tsx",
             rule: "PascalCase",
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "kebab-case.tsx",
             rule: "PascalCase",
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "snake_case.tsx",
             rule: "PascalCase",
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "PascalCase.tsx",
             rule: "camelCase",
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "kebab-case.tsx",
             rule: "camelCase",
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       code,
       errors: [
         {
-          messageId: "filenameCaseMismatchSuggestion",
+          messageId: "filenameCaseMismatch",
           data: {
             name: "snake_case.tsx",
             rule: "camelCase",

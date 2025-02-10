@@ -7,33 +7,79 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<></>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [{
+        type: T.JSXFragment,
+        messageId: "uselessFragment",
+        data: {
+          reason: "contains less than two children",
+        },
+      }],
       output: null,
     },
     {
       code: /* tsx */ `<p><>foo</></p>`,
       errors: [
-        { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: T.JSXFragment, messageId: "noUselessFragment" },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
       ],
       output: /* tsx */ `<p>foo</p>`,
     },
     {
       code: /* tsx */ `<p>moo<>foo</></p>`,
       errors: [
-        { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: T.JSXFragment, messageId: "noUselessFragment" },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
       ],
       output: "<p>moofoo</p>",
     },
     {
       code: /* tsx */ `<p><>{meow}</></p>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+      ],
       output: "<p>{meow}</p>",
     },
     {
       code: /* tsx */ `<><div/></>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       output: /* tsx */ `<div/>`,
     },
     {
@@ -42,14 +88,30 @@ ruleTester.run(RULE_NAME, rule, {
           <div/>
         </>
       `,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       output: /* tsx */ `
         <div/>
       `,
     },
     {
       code: /* tsx */ `<Fragment />`,
-      errors: [{ type: T.JSXElement, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXElement,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       output: null,
     },
     {
@@ -58,27 +120,63 @@ ruleTester.run(RULE_NAME, rule, {
           <Foo />
         </React.Fragment>
       `,
-      errors: [{ type: T.JSXElement, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXElement,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       output: /* tsx */ `
         <Foo />
       `,
     },
     {
       code: /* tsx */ `<Eeee><>foo</></Eeee>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       output: null,
     },
     {
       code: /* tsx */ `<div><>foo</></div>`,
       errors: [
-        { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: T.JSXFragment, messageId: "noUselessFragment" },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
       ],
       output: "<div>foo</div>",
     },
     {
-      code: '<div><>{"a"}{"b"}</></div>',
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      code: /* tsx */ `<div><>{"a"}{"b"}</></div>`,
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+      ],
       output: '<div>{"a"}{"b"}</div>',
     },
     {
@@ -89,7 +187,15 @@ ruleTester.run(RULE_NAME, rule, {
           <>{"a"}{"b"}</>
         </section>
       `,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+      ],
       output: /* tsx */ `
         <section>
           <Eeee />
@@ -99,8 +205,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
-      errors: [{ type: T.JSXElement, messageId: "noUselessFragmentInBuiltIn" }],
+      code: /* tsx */ `<div><Fragment>{"a"}{"b"}</Fragment></div>`,
+      errors: [
+        {
+          type: T.JSXElement,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+      ],
       output: '<div>{"a"}{"b"}</div>',
     },
     {
@@ -115,8 +229,20 @@ ruleTester.run(RULE_NAME, rule, {
         </section>
       `,
       errors: [
-        { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
-        { type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
       ],
       output: /* tsx */ `
         <section>
@@ -127,64 +253,123 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: '<div>a <>{""}{""}</> a</div>',
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragmentInBuiltIn" }],
+      code: /* tsx */ `<div>a <>{""}{""}</> a</div>`,
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+      ],
       output: '<div>a {""}{""} a</div>',
     },
     {
-      code: /* tsx */ `
-        const Comp = () => (
-          <html>
-            <React.Fragment />
-          </html>
-        );
-      `,
+      code: /* tsx */ `const Comp = () => (<html><React.Fragment /></html>);`,
       errors: [
-        { type: T.JSXElement, messageId: "noUselessFragmentInBuiltIn" },
-        { type: T.JSXElement, messageId: "noUselessFragment" },
+        {
+          type: T.JSXElement,
+          messageId: "uselessFragment",
+          data: {
+            reason: "placed inside a built-in component",
+          },
+        },
+        {
+          type: T.JSXElement,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
       ],
-      // eslint-disable-next-line unicorn/template-indent
-      output: /* tsx */ `
-        const Comp = () => (
-          <html>
-            
-          </html>
-        );
-      `,
+      output: /* tsx */ `const Comp = () => (<html></html>);`,
     },
     // Ensure allowExpressions still catches expected violations
     {
       code: /* tsx */ `<><Foo>{moo}</Foo></>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       output: /* tsx */ `<Foo>{moo}</Foo>`,
     },
     {
       code: /* tsx */ `<>{moo}</>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<Foo><>{moo}</></Foo>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<React.Fragment><>{moo}</></React.Fragment>`,
-      errors: [{ type: T.JSXElement, messageId: "noUselessFragment" }, {
-        type: T.JSXFragment,
-        messageId: "noUselessFragment",
-      }],
+      errors: [
+        {
+          type: T.JSXElement,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       options: [{ allowExpressions: false }],
       output: /* tsx */ `<>{moo}</>`,
     },
     {
       code: /* tsx */ `<Foo bar={<>baz</>}/>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       options: [{ allowExpressions: false }],
     },
     {
       code: /* tsx */ `<Foo><><Bar/><Baz/></></Foo>`,
-      errors: [{ type: T.JSXFragment, messageId: "noUselessFragment" }],
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
       options: [{ allowExpressions: false }],
     },
   ],
