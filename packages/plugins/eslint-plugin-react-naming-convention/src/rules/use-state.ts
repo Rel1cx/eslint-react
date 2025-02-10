@@ -7,7 +7,6 @@ import {
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { CamelCase } from "string-ts";
 import { capitalize } from "string-ts";
 
 import { createRule } from "../utils";
@@ -18,7 +17,7 @@ export const RULE_FEATURES = [
   "CHK",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "unexpected";
 
 function isSetterNameLoose(name: string) {
   // eslint-disable-next-line @typescript-eslint/no-misused-spread
@@ -32,11 +31,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce destructuring and symmetric naming of 'useState' hook value and setter variables",
+      description: "enforce destructuring and symmetric naming of 'useState' hook value and setter",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      useState: "An useState call is not destructured into value + setter pair.",
+      unexpected: "An useState call is not destructured into value + setter pair.",
     },
     schema: [],
   },
@@ -73,14 +72,14 @@ export default createRule<[], MessageID>({
             const { id } = hookCall.parent;
             switch (id.type) {
               case T.Identifier: {
-                context.report({ messageId: "useState", node: id });
+                context.report({ messageId: "unexpected", node: id });
                 break;
               }
               case T.ArrayPattern: {
                 const [state, setState] = id.elements;
                 if (state?.type === T.ObjectPattern && setState?.type === T.Identifier) {
                   if (!isSetterNameLoose(setState.name)) {
-                    context.report({ messageId: "useState", node: id });
+                    context.report({ messageId: "unexpected", node: id });
                   }
                   break;
                 }
@@ -92,7 +91,7 @@ export default createRule<[], MessageID>({
                 if (setStateName === expectedSetterName) {
                   return;
                 }
-                context.report({ messageId: "useState", node: id });
+                context.report({ messageId: "unexpected", node: id });
               }
             }
           }

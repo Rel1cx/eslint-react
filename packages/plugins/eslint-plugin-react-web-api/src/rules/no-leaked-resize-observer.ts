@@ -20,9 +20,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "noLeakedResizeObserver"
-  | "noLeakedResizeObserverInControlFlow"
-  | "noLeakedResizeObserverNoFloatingInstance";
+  | "expectedDisconnectInControlFlow"
+  | "expectedDisconnectOrUnobserveInCleanup"
+  | "unexpectedFloatingInstance";
 
 // #endregion
 
@@ -92,11 +92,11 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noLeakedResizeObserver:
-        "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
-      noLeakedResizeObserverInControlFlow:
+      expectedDisconnectInControlFlow:
         "Dynamically added 'ResizeObserver.observe' should be cleared all at once using 'ResizeObserver.disconnect' in the cleanup function.",
-      noLeakedResizeObserverNoFloatingInstance:
+      expectedDisconnectOrUnobserveInCleanup:
+        "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+      unexpectedFloatingInstance:
         "A 'ResizeObserver' instance created in component or custom Hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
@@ -188,7 +188,7 @@ export default createRule<[], MessageID>({
         const id = getInstanceID(node);
         if (id == null) {
           context.report({
-            messageId: "noLeakedResizeObserverNoFloatingInstance",
+            messageId: "unexpectedFloatingInstance",
             node,
           });
           return;
@@ -212,14 +212,14 @@ export default createRule<[], MessageID>({
           const hasDynamicallyAdded = oentries
             .some((e) => !isPhaseNode(AST.findParentNode(e.node, or(isDynamic, isPhaseNode))));
           if (hasDynamicallyAdded) {
-            context.report({ messageId: "noLeakedResizeObserverInControlFlow", node });
+            context.report({ messageId: "expectedDisconnectInControlFlow", node });
             continue;
           }
           for (const oEntry of oentries) {
             if (uentries.some((uEntry) => isInstanceIDEqual(uEntry.element, oEntry.element, context))) {
               continue;
             }
-            context.report({ messageId: "noLeakedResizeObserver", node: oEntry.node });
+            context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });
           }
         }
       },

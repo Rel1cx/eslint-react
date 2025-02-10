@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "useState",
+        messageId: "unexpected",
         data: {
           setterName: "setState",
           stateName: "state",
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "useState",
+        messageId: "unexpected",
         data: {
           setterName: "setState",
           stateName: "state",
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "useState",
+        messageId: "unexpected",
         data: {
           setterName: "setState",
           stateName: "state",
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "useState",
+        messageId: "unexpected",
         data: {
           setterName: "setState",
           stateName: "state",
@@ -87,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "useState",
+        messageId: "unexpected",
         data: {
           setterName: "setState",
           stateName: "state",
@@ -105,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "useState",
+        messageId: "unexpected",
         data: {
           setterName: "setState",
           stateName: "state",

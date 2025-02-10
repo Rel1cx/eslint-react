@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedIntervalNoIntervalId",
+          messageId: "expectedIntervalId",
         },
       ],
     },
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedIntervalNoIntervalId",
+          messageId: "expectedIntervalId",
         },
       ],
     },
@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedIntervalNoIntervalId",
+          messageId: "expectedIntervalId",
         },
       ],
     },
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedIntervalInEffect",
+          messageId: "expectedClearIntervalInCleanup",
         },
       ],
     },
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedIntervalInEffect",
+          messageId: "expectedClearIntervalInCleanup",
         },
       ],
     },

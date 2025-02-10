@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserver",
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
         },
       ],
     },
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserver",
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
         },
       ],
     },
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverNoFloatingInstance",
+          messageId: "unexpectedFloatingInstance",
         },
       ],
     },
@@ -81,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserver",
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
         },
       ],
     },
@@ -107,7 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverInControlFlow",
+          messageId: "expectedDisconnectInControlFlow",
         },
       ],
     },
@@ -133,7 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverInControlFlow",
+          messageId: "expectedDisconnectInControlFlow",
         },
       ],
     },
@@ -153,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedResizeObserverNoFloatingInstance",
+          messageId: "unexpectedFloatingInstance",
         },
       ],
     },

@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedTimeoutNoTimeoutId",
+          messageId: "expectedTimeoutId",
         },
       ],
     },
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedTimeoutNoTimeoutId",
+          messageId: "expectedTimeoutId",
         },
       ],
     },
@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedTimeoutNoTimeoutId",
+          messageId: "expectedTimeoutId",
         },
       ],
     },
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedTimeoutInEffect",
+          messageId: "expectedClearTimeoutInCleanup",
         },
       ],
     },
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedTimeoutInEffect",
+          messageId: "expectedClearTimeoutInCleanup",
         },
       ],
     },

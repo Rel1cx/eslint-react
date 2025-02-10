@@ -21,9 +21,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "noLeakedEventListenerInEffect"
-  | "noLeakedEventListenerInLifecycle"
-  | "noLeakedEventListenerOfInlineFunction";
+  | "expectedRemoveEventListenerInCleanup"
+  | "expectedRemoveEventListenerInUnmount"
+  | "unexpectedInlineFunction";
 
 // #endregion
 
@@ -153,11 +153,11 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noLeakedEventListenerInEffect:
+      expectedRemoveEventListenerInCleanup:
         "An 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
-      noLeakedEventListenerInLifecycle:
+      expectedRemoveEventListenerInUnmount:
         "An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
-      noLeakedEventListenerOfInlineFunction: "A/an '{{eventMethodKind}}' should not have an inline listener function.",
+      unexpectedInlineFunction: "A/an '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
   },
@@ -211,7 +211,7 @@ export default createRule<[], MessageID>({
         return;
       }
       context.report({
-        messageId: "noLeakedEventListenerOfInlineFunction",
+        messageId: "unexpectedInlineFunction",
         node: listener,
         data: { eventMethodKind: callKind },
       });
@@ -291,7 +291,7 @@ export default createRule<[], MessageID>({
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "noLeakedEventListenerInEffect",
+                messageId: "expectedRemoveEventListenerInCleanup",
                 node: aEntry.node,
                 data: {
                   effectMethodKind: "useEffect",
@@ -301,7 +301,7 @@ export default createRule<[], MessageID>({
             case "mount":
             case "unmount":
               context.report({
-                messageId: "noLeakedEventListenerInLifecycle",
+                messageId: "expectedRemoveEventListenerInUnmount",
                 node: aEntry.node,
               });
               continue;

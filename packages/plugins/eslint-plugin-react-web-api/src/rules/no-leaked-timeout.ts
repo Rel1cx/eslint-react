@@ -19,9 +19,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "noLeakedTimeoutInEffect"
-  | "noLeakedTimeoutInLifecycle"
-  | "noLeakedTimeoutNoTimeoutId";
+  | "expectedClearTimeoutInCleanup"
+  | "expectedClearTimeoutInUnmount"
+  | "expectedTimeoutId";
 
 // #endregion
 
@@ -63,11 +63,11 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noLeakedTimeoutInEffect:
+      expectedClearTimeoutInCleanup:
         "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
-      noLeakedTimeoutInLifecycle:
+      expectedClearTimeoutInUnmount:
         "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the 'componentWillUnmount' method.",
-      noLeakedTimeoutNoTimeoutId: "A 'setTimeout' must be assigned to a variable for proper cleanup.",
+      expectedTimeoutId: "A 'setTimeout' must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
@@ -100,7 +100,7 @@ export default createRule<[], MessageID>({
             const timeoutIdNode = VAR.getVariableDeclaratorId(node);
             if (timeoutIdNode == null) {
               context.report({
-                messageId: "noLeakedTimeoutNoTimeoutId",
+                messageId: "expectedTimeoutId",
                 node,
               });
               break;
@@ -139,7 +139,7 @@ export default createRule<[], MessageID>({
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "noLeakedTimeoutInEffect",
+                messageId: "expectedClearTimeoutInCleanup",
                 node: sEntry.node,
                 data: {
                   kind: "useEffect",
@@ -149,7 +149,7 @@ export default createRule<[], MessageID>({
             case "mount":
             case "unmount":
               context.report({
-                messageId: "noLeakedTimeoutInLifecycle",
+                messageId: "expectedClearTimeoutInUnmount",
                 node: sEntry.node,
                 data: {
                   kind: "componentDidMount",
