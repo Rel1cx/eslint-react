@@ -5,65 +5,65 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `[<App />];`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[<App {...key} />];`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[<App key={0}/>, <App />];`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(function(x) { return <App /> });`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(x => <App />);`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(x => x && <App x={x} />);`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} />);',
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: '[1, 2 ,3].map(x => x ? <App x={x} /> : <OtherApp x={x} key="2" />);',
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2 ,3].map(x => { return <App /> });`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `Array.from([1, 2 ,3], function(x) { return <App /> });`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `Array.from([1, 2 ,3], (x => { return <App /> }));`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `Array.from([1, 2 ,3], (x => <App />));`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2, 3]?.map(x => <BabelEslintApp />)`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2, 3]?.map(x => <TypescriptEslintApp />)`,
-      errors: [{ messageId: "noMissingKey" }],
+      errors: [{ messageId: "missingKey" }],
     },
     {
       code: /* tsx */ `[1, 2, 3].map(x => <>{x}</>);`,
       errors: [
         {
-          messageId: "noMissingKeyWithFragment",
+          messageId: "unexpectedFragmentSyntax",
         },
       ],
     },
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: /* tsx */ `[<></>];`,
       errors: [
         {
-          messageId: "noMissingKeyWithFragment",
+          messageId: "unexpectedFragmentSyntax",
         },
       ],
     },
@@ -94,8 +94,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noMissingKey" },
-        { messageId: "noMissingKey" },
+        { messageId: "missingKey" },
+        { messageId: "missingKey" },
       ],
     },
     {
@@ -121,10 +121,10 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noMissingKey" },
-        { messageId: "noMissingKey" },
-        { messageId: "noMissingKey" },
-        { messageId: "noMissingKey" },
+        { messageId: "missingKey" },
+        { messageId: "missingKey" },
+        { messageId: "missingKey" },
+        { messageId: "missingKey" },
       ],
     },
     {
@@ -144,9 +144,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noMissingKey" },
-        { messageId: "noMissingKey" },
-        { messageId: "noMissingKey" },
+        { messageId: "missingKey" },
+        { messageId: "missingKey" },
+        { messageId: "missingKey" },
       ],
     },
     {
@@ -176,13 +176,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noMissingKeyWithFragment",
+          messageId: "unexpectedFragmentSyntax",
         },
         {
-          messageId: "noMissingKey",
+          messageId: "missingKey",
         },
         {
-          messageId: "noMissingKeyWithFragment",
+          messageId: "unexpectedFragmentSyntax",
         },
       ],
     },

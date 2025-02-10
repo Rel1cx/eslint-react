@@ -15,9 +15,7 @@ export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID =
-  | "noUselessFragment"
-  | "noUselessFragmentInBuiltIn";
+export type MessageID = "uselessFragment";
 
 type Options = [
   {
@@ -86,11 +84,25 @@ function checkAndReport(
   }
   // report if the fragment is placed inside a built-in component (e.g. <div><></></div>)
   if (JSX.isBuiltInElement(node.parent)) {
-    context.report({ messageId: "noUselessFragmentInBuiltIn", node, fix });
+    context.report({
+      messageId: "uselessFragment",
+      node,
+      data: {
+        reason: "placed inside a built-in component",
+      },
+      fix,
+    });
   }
   // report and return if the fragment has no children (e.g. <></>)
   if (node.children.length === 0) {
-    context.report({ messageId: "noUselessFragment", node, fix });
+    context.report({
+      messageId: "uselessFragment",
+      node,
+      data: {
+        reason: "contains less than two children",
+      },
+      fix,
+    });
     return;
   }
   const isChildElement = AST.isOneOf([T.JSXElement, T.JSXFragment])(node.parent);
@@ -105,7 +117,14 @@ function checkAndReport(
     // <Foo><>hello, world</></Foo>
     case !allowExpressions
       && isChildElement: {
-      context.report({ messageId: "noUselessFragment", node, fix });
+      context.report({
+        messageId: "uselessFragment",
+        node,
+        data: {
+          reason: "contains less than two children",
+        },
+        fix,
+      });
       return;
     }
     case !allowExpressions
@@ -113,7 +132,14 @@ function checkAndReport(
       && node.children.length === 1: {
       // const foo = <>{children}</>;
       // return <>{children}</>;
-      context.report({ messageId: "noUselessFragment", node, fix });
+      context.report({
+        messageId: "uselessFragment",
+        node,
+        data: {
+          reason: "contains less than two children",
+        },
+        fix,
+      });
       return;
     }
   }
@@ -123,7 +149,14 @@ function checkAndReport(
     case nonPaddingChildren.length === 0:
     case nonPaddingChildren.length === 1
       && firstNonPaddingChild?.type !== T.JSXExpressionContainer: {
-      context.report({ messageId: "noUselessFragment", node, fix });
+      context.report({
+        messageId: "uselessFragment",
+        node,
+        data: {
+          reason: "contains less than two children",
+        },
+        fix,
+      });
       return;
     }
   }
@@ -135,12 +168,11 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     docs: {
-      description: "disallow unnecessary fragments",
+      description: "disallow useless fragments",
     },
     fixable: "code",
     messages: {
-      noUselessFragment: "A fragment contains less than two children is unnecessary.",
-      noUselessFragmentInBuiltIn: "A fragment placed inside a built-in component is unnecessary.",
+      uselessFragment: "A fragment {{reason}} is useless.",
     },
     schema: [{
       type: "object",

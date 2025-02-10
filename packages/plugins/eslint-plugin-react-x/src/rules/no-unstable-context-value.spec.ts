@@ -10,7 +10,13 @@ ruleTester.run(RULE_NAME, rule, {
             return <Context.Provider value={foo}></Context.Provider>;
         }
       `,
-      errors: [{ messageId: "noUnstableContextValueWithIdentifier" }],
+      errors: [{
+        messageId: "unstableContextValue",
+        data: {
+          type: "object expression",
+          suggestion: "Consider wrapping it in a useMemo hook.",
+        },
+      }],
     },
     {
       code: /* tsx */ `
@@ -21,7 +27,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnstableContextValueWithIdentifier",
+          messageId: "unstableContextValue",
+          data: {
+            type: "array expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
+          },
         },
       ],
     },
@@ -34,7 +44,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnstableContextValueWithIdentifier",
+          messageId: "unstableContextValue",
+          data: {
+            type: "new expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
+          },
         },
       ],
     },
@@ -47,7 +61,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnstableContextValueWithFunction",
+          messageId: "unstableContextValue",
+          data: {
+            type: "arrow function expression",
+            suggestion: "Consider wrapping it in a useCallback hook.",
+          },
         },
       ],
     },
@@ -62,7 +80,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnstableContextValueWithIdentifier",
+          messageId: "unstableContextValue",
+          data: {
+            type: "object expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
+          },
         },
       ],
     },

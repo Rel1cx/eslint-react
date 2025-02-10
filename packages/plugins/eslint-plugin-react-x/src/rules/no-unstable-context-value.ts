@@ -13,10 +13,7 @@ export const RULE_FEATURES = [
   "CHK",
 ] as const satisfies RuleFeature[];
 
-export type MessageID =
-  | "noUnstableContextValue"
-  | "noUnstableContextValueWithFunction"
-  | "noUnstableContextValueWithIdentifier";
+export type MessageID = "unstableContextValue";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,12 +23,8 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noUnstableContextValue:
-        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render.",
-      noUnstableContextValueWithFunction:
-        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useCallback hook.",
-      noUnstableContextValueWithIdentifier:
-        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. Consider wrapping it in a useMemo hook.",
+      unstableContextValue:
+        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. {{suggestion}}",
     },
     schema: [],
   },
@@ -75,14 +68,15 @@ export default createRule<[], MessageID>({
         for (const { node: component } of components) {
           for (const construction of constructions.get(component) ?? []) {
             const { kind, node: constructionNode } = construction;
-            const messageId = kind.startsWith("Function")
-              ? "noUnstableContextValueWithFunction"
-              : "noUnstableContextValueWithIdentifier";
+            const suggestion = kind.startsWith("Function")
+              ? "Consider wrapping it in a useCallback hook."
+              : "Consider wrapping it in a useMemo hook.";
             context.report({
-              messageId,
+              messageId: "unstableContextValue",
               node: constructionNode,
               data: {
                 type: AST.toReadableNodeType(constructionNode),
+                suggestion,
               },
             });
           }
