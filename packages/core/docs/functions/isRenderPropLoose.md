@@ -24,7 +24,7 @@ The AST node to check
 
 ### context
 
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Readonly`
 
 The rule context
 

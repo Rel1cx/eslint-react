@@ -16,7 +16,7 @@
 
 ### context
 
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Readonly`
 
 ## Returns
 

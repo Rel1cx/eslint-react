@@ -32,7 +32,7 @@ A predicate that checks if the given node is a call expression to the given func
 
 #### context
 
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Readonly`
 
 ### Returns
 

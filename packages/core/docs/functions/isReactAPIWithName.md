@@ -8,7 +8,7 @@
 
 ## Call Signature
 
-> **isReactAPIWithName**(`name`): `ReturnType`\<*typeof* [`isFromReact`](isFromReact.md)\>
+> **isReactAPIWithName**(`name`): (`node`, `context`) => `boolean`
 
 ### Parameters
 
@@ -18,11 +18,25 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* [`isFromReact`](isFromReact.md)\>
+`Function`
+
+#### Parameters
+
+##### node
+
+`Identifier` | `MemberExpression`
+
+##### context
+
+`Readonly`
+
+#### Returns
+
+`boolean`
 
 ## Call Signature
 
-> **isReactAPIWithName**(`name`, `member`): `ReturnType`\<*typeof* `isFromReactMember`\>
+> **isReactAPIWithName**(`name`, `member`): (`node`, `context`) => `boolean`
 
 ### Parameters
 
@@ -36,4 +50,18 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* `isFromReactMember`\>
+`Function`
+
+#### Parameters
+
+##### node
+
+`MemberExpression`
+
+##### context
+
+`Readonly`
+
+#### Returns
+
+`boolean`

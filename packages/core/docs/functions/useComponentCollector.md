@@ -14,7 +14,7 @@ Get a ctx and listeners for the rule to collect function components
 
 ### context
 
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Readonly`
 
 The ESLint rule context
 

@@ -6,7 +6,7 @@
 
 # Function: getFunctionComponentIdentifier()
 
-> **getFunctionComponentIdentifier**(`node`, `context`): `TSESTree.Identifier` \| `TSESTree.Identifier`[] \| `_`
+> **getFunctionComponentIdentifier**(`node`, `context`): `undefined` \| `Identifier` \| `Identifier`[]
 
 ## Parameters
 
@@ -16,8 +16,8 @@
 
 ### context
 
-`Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>
+`Readonly`
 
 ## Returns
 
-`TSESTree.Identifier` \| `TSESTree.Identifier`[] \| `_`
+`undefined` \| `Identifier` \| `Identifier`[]

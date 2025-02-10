@@ -8,7 +8,7 @@
 
 ## Call Signature
 
-> **isReactAPICallWithName**(`name`): `ReturnType`\<*typeof* [`isCallFromReact`](isCallFromReact.md)\>
+> **isReactAPICallWithName**(`name`): [`ReturnType`](../namespaces/isCallFromReact/type-aliases/ReturnType.md)
 
 ### Parameters
 
@@ -18,11 +18,11 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* [`isCallFromReact`](isCallFromReact.md)\>
+[`ReturnType`](../namespaces/isCallFromReact/type-aliases/ReturnType.md)
 
 ## Call Signature
 
-> **isReactAPICallWithName**(`name`, `member`): `ReturnType`\<*typeof* [`isCallFromReactMember`](isCallFromReactMember.md)\>
+> **isReactAPICallWithName**(`name`, `member`): [`ReturnType`](../namespaces/isCallFromReactMember/type-aliases/ReturnType.md)
 
 ### Parameters
 
@@ -36,4 +36,4 @@
 
 ### Returns
 
-`ReturnType`\<*typeof* [`isCallFromReactMember`](isCallFromReactMember.md)\>
+[`ReturnType`](../namespaces/isCallFromReactMember/type-aliases/ReturnType.md)
