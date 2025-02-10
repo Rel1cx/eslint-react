@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInLifecycle",
+          messageId: "expectedRemoveEventListenerInUnmount",
         },
       ],
     },
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -63,15 +63,15 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
+          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
+          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
       ],
@@ -89,15 +89,15 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
+          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
+          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
       ],
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -131,15 +131,15 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
+          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "addEventListener" },
         },
         {
-          messageId: "noLeakedEventListenerOfInlineFunction",
+          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
         },
       ],
@@ -158,7 +158,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -176,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -194,7 +194,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -212,7 +212,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -230,7 +230,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -248,7 +248,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -266,7 +266,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -284,7 +284,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -302,7 +302,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -321,7 +321,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -341,7 +341,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -360,7 +360,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -379,7 +379,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -399,10 +399,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -423,7 +423,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -453,7 +453,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -484,7 +484,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -515,7 +515,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -545,7 +545,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -576,7 +576,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -607,7 +607,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -638,7 +638,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noLeakedEventListenerInEffect",
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },

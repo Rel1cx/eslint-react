@@ -19,9 +19,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "noLeakedIntervalInEffect"
-  | "noLeakedIntervalInLifecycle"
-  | "noLeakedIntervalNoIntervalId";
+  | "expectedClearIntervalInCleanup"
+  | "expectedClearIntervalInUnmount"
+  | "expectedIntervalId";
 
 // #endregion
 
@@ -64,11 +64,11 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noLeakedIntervalInEffect:
+      expectedClearIntervalInCleanup:
         "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
-      noLeakedIntervalInLifecycle:
+      expectedClearIntervalInUnmount:
         "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the 'componentWillUnmount' method.",
-      noLeakedIntervalNoIntervalId: "A 'setInterval' must be assigned to a variable for proper cleanup.",
+      expectedIntervalId: "A 'setInterval' must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
@@ -104,7 +104,7 @@ export default createRule<[], MessageID>({
             const intervalIdNode = VAR.getVariableDeclaratorId(node);
             if (intervalIdNode == null) {
               context.report({
-                messageId: "noLeakedIntervalNoIntervalId",
+                messageId: "expectedIntervalId",
                 node,
               });
               break;
@@ -150,7 +150,7 @@ export default createRule<[], MessageID>({
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "noLeakedIntervalInEffect",
+                messageId: "expectedClearIntervalInCleanup",
                 node: sEntry.node,
                 data: {
                   kind: "useEffect",
@@ -160,7 +160,7 @@ export default createRule<[], MessageID>({
             case "mount":
             case "unmount":
               context.report({
-                messageId: "noLeakedIntervalInLifecycle",
+                messageId: "expectedClearIntervalInUnmount",
                 node: sEntry.node,
                 data: {
                   kind: "componentDidMount",

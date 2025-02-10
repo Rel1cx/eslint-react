@@ -5,21 +5,21 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: /* tsx */ `<Test_component />`,
-      errors: [{ messageId: "componentName" }],
+      errors: [{ messageId: "usePascalCase" }],
     },
     {
       code: /* tsx */ `<TestComponent />`,
-      errors: [{ messageId: "componentName" }],
+      errors: [{ messageId: "useConstantCase" }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
       code: /* tsx */ `<TestComponent />`,
-      errors: [{ messageId: "componentName" }],
+      errors: [{ messageId: "useConstantCase" }],
       options: ["CONSTANT_CASE"],
     },
     {
       code: /* tsx */ `<FULLUPPERCASE />`,
-      errors: [{ messageId: "componentName" }],
+      errors: [{ messageId: "usePascalCase" }],
       options: [{ allowAllCaps: false, rule: "PascalCase" }],
     },
     {
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "componentName" }],
+      errors: [{ messageId: "useConstantCase" }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
          )
         }
       `,
-      errors: [{ messageId: "componentName" }],
+      errors: [{ messageId: "useConstantCase" }],
       options: [{ allowLeadingUnderscore: false, rule: "CONSTANT_CASE" }],
     },
   ],

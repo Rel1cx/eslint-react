@@ -20,7 +20,7 @@ react-naming-convention/use-state
 
 ## What it does
 
-Enforces destructuring and symmetric naming of `useState` hook value and setter variables
+Enforces destructuring and symmetric naming of `useState` hook value and setter
 
 ## Examples
 

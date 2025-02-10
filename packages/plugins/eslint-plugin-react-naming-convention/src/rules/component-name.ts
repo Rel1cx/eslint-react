@@ -1,12 +1,10 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import type { _ } from "@eslint-react/eff";
-import { constFalse } from "@eslint-react/eff";
+import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -18,7 +16,9 @@ export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID =
+  | "usePascalCase"
+  | "useConstantCase";
 
 type Case = "CONSTANT_CASE" | "PascalCase";
 
@@ -88,32 +88,43 @@ function normalizeOptions(options: Options) {
   } as const;
 }
 
-function validate(name: string | _, options: ReturnType<typeof normalizeOptions>) {
-  if (name == null) return false;
-  if (options.excepts.some((regex) => regex.test(name))) {
-    return true;
+function getViolationMessage(name: string | _, options: ReturnType<typeof normalizeOptions>): MessageID | _ {
+  if (name == null) return _;
+  const {
+    allowAllCaps = false,
+    allowLeadingUnderscore = false,
+    allowNamespace = false,
+    excepts,
+    rule,
+  } = options;
+  if (excepts.some((regex) => regex.test(name))) {
+    return _;
   }
   let normalized = name
     .normalize("NFKD")
     .replace(/[\u0300-\u036F]/g, "");
   normalized = normalized.split(".").at(-1) ?? normalized;
-  const { allowLeadingUnderscore = false, allowNamespace = false } = options;
   if (allowNamespace) {
     normalized = normalized.replace(":", "");
   }
   if (allowLeadingUnderscore) {
     normalized = normalized.replace(/^_/, "");
   }
-  return match(options.rule)
-    .with("CONSTANT_CASE", () => RE_CONSTANT_CASE.test(normalized))
+  return match(rule)
+    .with("CONSTANT_CASE", () =>
+      RE_CONSTANT_CASE.test(normalized)
+        ? _
+        : "useConstantCase")
     .with("PascalCase", () => {
       // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
-        return options.allowAllCaps ?? false;
+        return allowAllCaps
+          ? _
+          : "usePascalCase";
       }
-      return RE_PASCAL_CASE.test(normalized);
+      return RE_PASCAL_CASE.test(normalized) ? _ : "usePascalCase";
     })
-    .otherwise(constFalse);
+    .otherwise(() => _);
 }
 
 export default createRule<Options, MessageID>({
@@ -124,7 +135,8 @@ export default createRule<Options, MessageID>({
       description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
     },
     messages: {
-      componentName: "A component name must be in {{case}}.",
+      useConstantCase: "Component name '{{name}}' must be in CONSTANT_CASE.",
+      usePascalCase: "Component name '{{name}}' must be in PascalCase.",
     },
     schema,
   },
@@ -143,14 +155,13 @@ export default createRule<Options, MessageID>({
         if (/^[a-z]/u.test(name)) {
           return;
         }
-        if (validate(name, options)) {
-          return;
-        }
+        const violation = getViolationMessage(name, options);
+        if (violation == null) return;
         context.report({
-          messageId: "componentName",
+          messageId: violation,
           node,
           data: {
-            case: options.rule,
+            name,
           },
         });
       },
@@ -160,29 +171,30 @@ export default createRule<Options, MessageID>({
         for (const { node: component } of functionComponents.values()) {
           const id = AST.getFunctionIdentifier(component);
           if (id?.name == null) continue;
-          if (validate(id.name, options)) {
-            continue;
-          }
+          const name = id.name;
+          const violation = getViolationMessage(name, options);
+          if (violation == null) continue;
           context.report({
-            messageId: "componentName",
+            messageId: violation,
             node: id,
             data: {
-              case: options.rule,
+              name,
             },
           });
         }
         for (const { node: component } of classComponents.values()) {
           const id = AST.getClassIdentifier(component);
           if (id?.name == null) continue;
-          if (!validate(id.name, options)) {
-            context.report({
-              messageId: "componentName",
-              node: id,
-              data: {
-                case: options.rule,
-              },
-            });
-          }
+          const name = id.name;
+          const violation = getViolationMessage(name, options);
+          if (violation == null) continue;
+          context.report({
+            messageId: violation,
+            node: id,
+            data: {
+              case: options.rule,
+            },
+          });
         }
       },
     };
