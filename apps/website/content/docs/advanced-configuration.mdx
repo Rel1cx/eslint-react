@@ -19,6 +19,7 @@ export default [
         version: "19.0.0",
         importSource: "react",
         additionalHooks: {
+          useEffect: ["useIsomorphicLayoutEffect"],
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },
         additionalComponents: [
