@@ -44,7 +44,7 @@ function checkAndReport(
 ) {
   function fix(fixer: RuleFixer) {
     // Not safe to fix fragments without a jsx parent.
-    if (!(node.parent.type === T.JSXElement || node.parent.type === T.JSXFragment)) {
+    if (node.parent.type !== T.JSXElement && node.parent.type !== T.JSXFragment) {
       // const a = <></>
       if (node.children.length === 0) {
         return null;

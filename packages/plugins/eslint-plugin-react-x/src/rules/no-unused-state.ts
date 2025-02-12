@@ -175,7 +175,7 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `{ foo, state: baz } = this`
-        if (!(node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern)) {
+        if (node.init == null || !AST.isThisExpression(node.init) || node.id.type !== T.ObjectPattern) {
           return;
         }
         const hasState = node.id.properties.some((prop) => {

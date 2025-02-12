@@ -81,7 +81,7 @@ export function getValueConstruction(
       return getValueConstruction(node.alternate, initialScope, hint);
     }
     case T.Identifier: {
-      if (!("name" in node && typeof node.name === "string")) {
+      if (!("name" in node) || typeof node.name !== "string") {
         return _;
       }
       const variable = initialScope.set.get(node.name);
@@ -95,7 +95,7 @@ export function getValueConstruction(
       return _;
     }
     default: {
-      if (!("expression" in node && typeof node.expression === "object")) {
+      if (!("expression" in node) || typeof node.expression !== "object") {
         return _;
       }
       return getValueConstruction(node.expression, initialScope, hint);

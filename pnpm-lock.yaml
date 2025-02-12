@@ -97,6 +97,9 @@ importers:
       eslint-config-flat-gitignore:
         specifier: ^2.0.0
         version: 2.0.0(eslint@9.20.1(jiti@2.4.2))
+      eslint-plugin-de-morgan:
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.20.1(jiti@2.4.2))
       eslint-plugin-jsdoc:
         specifier: ^50.6.3
         version: 50.6.3(eslint@9.20.1(jiti@2.4.2))
@@ -338,6 +341,9 @@ importers:
       eslint:
         specifier: ^9.20.1
         version: 9.20.1(jiti@2.4.2)
+      eslint-plugin-de-morgan:
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@9.20.1(jiti@2.4.2))
       eslint-plugin-import-x:
         specifier: ^4.6.1
         version: 4.6.1(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
@@ -4994,6 +5000,12 @@ packages:
   eslint-mdx@3.1.5:
     resolution: {integrity: sha512-ynztX0k7CQ3iDL7fDEIeg3g0O/d6QPv7IBI9fdYLhXp5fAp0fi8X22xF/D3+Pk0f90R27uwqa1clHpay6t0l8Q==}
     engines: {node: '>=18.0.0'}
+    peerDependencies:
+      eslint: '>=8.0.0'
+
+  eslint-plugin-de-morgan@1.0.0:
+    resolution: {integrity: sha512-MpaG9bTiiu0kvOskZPKvKguynFFC81nyynnY3czHOZvfhvsWFgfRG6ufQmSlzlDbWIf6u7fuEHp4+1uUfWdrvg==}
+    engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       eslint: '>=8.0.0'
 
@@ -11808,6 +11820,10 @@ snapshots:
     transitivePeerDependencies:
       - bluebird
       - supports-color
+
+  eslint-plugin-de-morgan@1.0.0(eslint@9.20.1(jiti@2.4.2)):
+    dependencies:
+      eslint: 9.20.1(jiti@2.4.2)
 
   eslint-plugin-import-x@4.6.1(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3):
     dependencies:

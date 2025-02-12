@@ -1,11 +1,12 @@
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintMarkdown from "@eslint/markdown";
+import eslintPluginDeMorgan from "eslint-plugin-de-morgan";
 import eslintPluginMdx from "eslint-plugin-mdx";
 import eslintPluginNext from "@next/eslint-plugin-next";
+import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
@@ -72,6 +73,7 @@ export default tseslint.config(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
+      eslintPluginDeMorgan.configs.recommended,
       eslintPluginPerfectionist.configs["recommended-natural"],
     ],
     plugins: {

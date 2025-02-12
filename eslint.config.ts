@@ -5,6 +5,8 @@ import url from "node:url";
 import eslintJs from "@eslint/js";
 import eslintMarkdown from "@eslint/markdown";
 import eslintStylistic from "@stylistic/eslint-plugin";
+import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
+import eslintPluginDeMorgan from "eslint-plugin-de-morgan";
 import eslintPluginJsdoc from "eslint-plugin-jsdoc";
 import eslintPluginLocal from "@local/eslint-plugin-local";
 import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
@@ -12,7 +14,6 @@ import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import eslintPluginVitest from "eslint-plugin-vitest";
-import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -28,6 +29,13 @@ const GLOB_TEST = [
 // const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"];
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
+const GLOB_IGNORES = [
+  ...eslintConfigFlatGitignore().ignores,
+  "apps",
+  "docs",
+  "test",
+  "examples",
+];
 
 const templateIndentAnnotations = [
   "outdent",
@@ -83,7 +91,10 @@ const enableTypeCheckedRules = {
 const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map((x) => [x, "off"]));
 
 export default tseslint.config(
-  eslintConfigFlatGitignore(),
+  {
+    name: "global-ignores",
+    ignores: GLOB_IGNORES,
+  },
   {
     extends: [
       eslintMarkdown.configs.recommended,
@@ -99,19 +110,11 @@ export default tseslint.config(
     },
   },
   {
-    name: "global-ignores",
-    ignores: [
-      "apps",
-      "docs",
-      "test",
-      "examples",
-    ],
-  },
-  {
     files: [...GLOB_JS, ...GLOB_TS],
     extends: [
       eslintJs.configs.recommended,
       ...tseslint.configs.strict,
+      eslintPluginDeMorgan.configs.recommended,
       eslintPluginPerfectionist.configs["recommended-natural"],
       eslintPluginRegexp.configs["flat/recommended"],
       eslintPluginJsdoc.configs["flat/recommended-typescript-error"],
