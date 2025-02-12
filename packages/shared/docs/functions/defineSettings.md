@@ -45,7 +45,7 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 **Example**
 
 ```ts
-`{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
+`{ useEffect: ["useIsomorphicLayoutEffect"] }`
 ```
 
 #### additionalHooks.use?
@@ -240,7 +240,7 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 #### Example
 
 ```ts
-`{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
+`{ useEffect: ["useIsomorphicLayoutEffect"] }`
 ```
 
 #### additionalHooks.use?

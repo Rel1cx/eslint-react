@@ -32,6 +32,10 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 > `readonly` **additionalHooks**: `object`
 
+#### additionalHooks.useEffect
+
+> `readonly` **useEffect**: \[`"useIsomorphicLayoutEffect"`\]
+
 #### additionalHooks.useLayoutEffect
 
 > `readonly` **useLayoutEffect**: \[`"useIsomorphicLayoutEffect"`\]
