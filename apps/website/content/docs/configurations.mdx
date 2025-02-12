@@ -119,7 +119,13 @@ then the React Hook call:
 useIsomorphicLayoutEffect(() => { setCount(count => count + 1); }, []);
 ```
 
-will be evaluated as an:
+will be evaluated as:
+
+```tsx
+useEffect(() => { setCount(count => count + 1); }, []);
+```
+
+and:
 
 ```tsx
 useLayoutEffect(() => { setCount(count => count + 1); }, []);
