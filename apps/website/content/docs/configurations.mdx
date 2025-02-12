@@ -108,6 +108,7 @@ For example, if you set the `additionalHooks` to:
 
 ```json
 {
+  useEffect: ["useIsomorphicLayoutEffect"]
   useLayoutEffect: ["useIsomorphicLayoutEffect"]
 }
 ```
@@ -124,7 +125,7 @@ will be evaluated as an:
 useLayoutEffect(() => { setCount(count => count + 1); }, []);
 ```
 
-So that the `hooks-extra/no-direct-set-state-in-use-layout-effect` rule can perform checks on it.
+So that both the `hooks-extra/no-direct-set-state-in-use-effect` and `hooks-extra/no-direct-set-state-in-use-layout-effect` rules can perform checks on it.
 
 ## Examples
 
@@ -142,6 +143,7 @@ export default [
         importSource: "react",
         polymorphicPropName: "as",
         additionalHooks: {
+          useEffect: ["useIsomorphicLayoutEffect"],
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },
         additionalComponents: [

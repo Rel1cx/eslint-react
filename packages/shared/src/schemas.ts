@@ -133,7 +133,7 @@ export const ESLintReactSettingsSchema = object({
   /**
    * A object to define additional hooks that are equivalent to the built-in React Hooks.
    * @description ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
-   * @example `{ useLayoutEffect: ["useIsomorphicLayoutEffect"] }`
+   * @example `{ useEffect: ["useIsomorphicLayoutEffect"] }`
    */
   additionalHooks: optional(CustomHooksSchema),
   /**
@@ -179,6 +179,7 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   strictImportCheck: false,
   version: "detect",
   additionalHooks: {
+    useEffect: ["useIsomorphicLayoutEffect"],
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
 } as const satisfies ESLintReactSettings;
