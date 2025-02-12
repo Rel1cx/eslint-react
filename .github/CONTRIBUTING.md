@@ -66,4 +66,5 @@ Before submitting your contribution though, please make sure to take a moment an
 - `packages/core`: Utility module for static analysis of React core APIs and Patterns.
 - `packages/shared`: Shared constants, types and functions.
 - `apps/website`: The documentation website for ESLint React.
+
 <!-- - `apps/playground`: The playground for ESLint React. -->
