@@ -16,8 +16,8 @@ full: true
 
 ## Core Rules
 
-| Rule                                                                               | ✅ | Features      | Description                                                                                          |  React   |
-| :--------------------------------------------------------------------------------- | :- | :------------ | :--------------------------------------------------------------------------------------------------- | :------: |
+| Rule                                                                                 | ✅ | Features      | Description                                                                                          |  React   |
+| :----------------------------------------------------------------------------------- | :- | :------------ | :--------------------------------------------------------------------------------------------------- | :------: |
 | [`ensure-forward-ref-using-ref`](./ensure-forward-ref-using-ref)                     | 1️⃣  | `🔍`          | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |          |
 | [`no-access-state-in-setstate`](./no-access-state-in-setstate)                       | 2️⃣  | `🔍`          | Prevents accessing `this.state` inside `setState` calls.                                             |          |
 | [`no-array-index-key`](./no-array-index-key)                                         | 1️⃣  | `🔍`          | Prevents using array `index` as `key`.                                                               |          |
@@ -70,16 +70,16 @@ full: true
 
 ### Deprecated
 
-| Rule                                                                               | Replaced by                                                            |
-| :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| [~~`jsx-uses-vars`~~](jsx-uses-vars)                                               | [`use-jsx-vars`](./use-jsx-vars)                                         |
-| [~~`jsx-no-duplicate-props`~~](jsx-no-duplicate-props)                             | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                     |
-| [~~`no-complicated-conditional-rendering`~~](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering) |
+| Rule                                                                           | Replaced by                                                              |
+| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| [`jsx-uses-vars`](jsx-uses-vars)                                               | [`use-jsx-vars`](./use-jsx-vars)                                         |
+| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                             | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                     |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering) |
 
 ## DOM Rules
 
-| Rule                                                                                           | ✅ | Features      | Description                                                                             |
-| :--------------------------------------------------------------------------------------------- | :- | :------------ | :-------------------------------------------------------------------------------------- |
+| Rule                                                                                             | ✅ | Features      | Description                                                                             |
+| :----------------------------------------------------------------------------------------------- | :- | :------------ | :-------------------------------------------------------------------------------------- |
 | [`no-void-elements-with-children`](./dom-no-void-elements-with-children)                         | 2️⃣  | `🔍`          | Prevents using `children` in void `DOM elements`.                                       |
 | [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children) | 2️⃣  | `🔍`          | Prevents `DOM element` using `dangerouslySetInnerHTML` and `children` at the same time. |
 | [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)                             | 1️⃣  | `🔍`          | Prevents `DOM element` using `dangerouslySetInnerHTML`.                                 |
@@ -95,14 +95,14 @@ full: true
 
 ### Deprecated
 
-| Rule                                                                               | Replaced by                                                            |
-| :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| [~~`dom-no-children-in-void-dom-elements`~~](dom-no-children-in-void-dom-elements) | [`no-void-elements-with-children`](./dom-no-void-elements-with-children) |
+| Rule                                                                           | Replaced by                                                              |
+| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| [`dom-no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements) | [`no-void-elements-with-children`](./dom-no-void-elements-with-children) |
 
 ## Web API Rules
 
-| Rule                                                             | ✅ | Features | Description                                                       |
-| :--------------------------------------------------------------- | :- | :------- | :---------------------------------------------------------------- |
+| Rule                                                               | ✅ | Features | Description                                                       |
+| :----------------------------------------------------------------- | :- | :------- | :---------------------------------------------------------------- |
 | [`no-leaked-event-listener`](./web-api-no-leaked-event-listener)   | 1️⃣  | `🔍`     | Prevents leaked `addEventListener` in a component or custom Hook. |
 | [`no-leaked-interval`](./web-api-no-leaked-interval)               | 1️⃣  | `🔍`     | Prevents leaked `setInterval` in a component or custom Hook.      |
 | [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) | 1️⃣  | `🔍`     | Prevents leaked `ResizeObserver` in a component or custom Hook.   |
@@ -110,8 +110,8 @@ full: true
 
 ## Hooks Extra Rules
 
-| Rule                                                                                               | ✅ | Features | Description                                                                                |
-| :------------------------------------------------------------------------------------------------- | :- | :------- | :----------------------------------------------------------------------------------------- |
+| Rule                                                                                                 | ✅ | Features | Description                                                                                |
+| :--------------------------------------------------------------------------------------------------- | :- | :------- | :----------------------------------------------------------------------------------------- |
 | [`no-direct-set-state-in-use-effect`](./hooks-extra-no-direct-set-state-in-use-effect)               | 1️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useEffect`.                  |
 | [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🔍`     | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`.            |
 | [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🔍`     | Disallow unnecessary usage of `useCallback`.                                               |
@@ -121,17 +121,17 @@ full: true
 
 ### Deprecated
 
-| Rule                                                                                   | Replaced by                                                              |
-| :------------------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
-| [~~`no-redundant-custom-hook`~~](hooks-extra-no-useless-custom-hooks)                  | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         |
-| [~~`ensure-custom-hooks-using-other-hooks`~~](hooks-extra-no-useless-custom-hooks)     | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         |
-| [~~`ensure-use-memo-has-non-empty-deps`~~](ensure-use-memo-has-non-empty-deps)         | [`no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         |
-| [~~`ensure-use-callback-has-non-empty-deps`~~](ensure-use-callback-has-non-empty-deps) | [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) |
+| Rule                                                                               | Replaced by                                                                |
+| :--------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| [`no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                  | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         |
+| [`ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)     | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         |
+| [`ensure-use-memo-has-non-empty-deps`](ensure-use-memo-has-non-empty-deps)         | [`no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         |
+| [`ensure-use-callback-has-non-empty-deps`](ensure-use-callback-has-non-empty-deps) | [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) |
 
 ## Naming Convention Rules
 
-| Rule                                                         | ✅ | Features | Description                                                                      |
-| :----------------------------------------------------------- | :- | :------- | :------------------------------------------------------------------------------- |
+| Rule                                                           | ✅ | Features | Description                                                                      |
+| :------------------------------------------------------------- | :- | :------- | :------------------------------------------------------------------------------- |
 | [`component-name`](./naming-convention-component-name)         | 0️⃣  | `🔍` `⚙️` | Enforces naming conventions for components.                                      |
 | [`filename`](./naming-convention-filename)                     | 0️⃣  | `🔍` `⚙️` | Enforces naming convention for JSX files.                                        |
 | [`filename-extension`](./naming-convention-filename-extension) | 0️⃣  | `🔍` `⚙️` | Enforces consistent use of the JSX file extension.                               |
@@ -139,8 +139,8 @@ full: true
 
 ## Debug Rules
 
-| Rule                                             | ✅ | Features | Description                                              |
-| :----------------------------------------------- | :- | :------- | :------------------------------------------------------- |
+| Rule                                               | ✅ | Features | Description                                              |
+| :------------------------------------------------- | :- | :------- | :------------------------------------------------------- |
 | [`class-component`](./debug-class-component)       | 0️⃣  | `🐞`     | Reports all class components.                            |
 | [`function-component`](./debug-function-component) | 0️⃣  | `🐞`     | Reports all function components.                         |
 | [`hook`](./debug-hook)                             | 0️⃣  | `🐞`     | Reports all react hooks.                                 |
