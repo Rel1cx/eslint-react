@@ -18,13 +18,6 @@ react-x/no-children-prop
 
 `🔍`
 
-**Presets**
-
-- `core`
-- `recommended`
-- `recommended-typescript`
-- `recommended-type-checked`
-
 ## What it does
 
 Disallows passing 'children' as a prop.
