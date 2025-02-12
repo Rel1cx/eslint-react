@@ -2,9 +2,6 @@
 
 DOM specific rules for React DOM.
 
-> [!NOTE]
-> This plugin is already included in `@eslint-react/eslint-plugin`. You don't need to install it separately if you are using `@eslint-react/eslint-plugin`.
-
 ## Install
 
 ```sh
