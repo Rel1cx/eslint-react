@@ -47,7 +47,7 @@
     "autoprefixer": "^10.4.20",
     "dedent": "^1.5.3",
     "eslint": "^9.20.1",
-    "eslint-plugin-de-morgan": "^1.0.0",
+    "eslint-plugin-de-morgan": "^1.0.1",
     "eslint-plugin-import-x": "^4.6.1",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-perfectionist": "^4.9.0",
