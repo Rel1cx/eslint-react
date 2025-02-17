@@ -31,7 +31,7 @@ export const rules = {
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
   "@eslint-react/no-duplicate-jsx-props": "warn",
-  "@eslint-react/no-duplicate-key": "error",
+  "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
   "@eslint-react/no-missing-component-display-name": "warn",
