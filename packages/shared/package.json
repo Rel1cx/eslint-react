@@ -53,8 +53,8 @@
     "fast-equals": "^5.2.2",
     "micro-memoize": "^4.1.3",
     "tsup": "^8.3.6",
-    "type-fest": "^4.34.1",
-    "valibot": "^1.0.0-rc.0"
+    "type-fest": "^4.35.0",
+    "valibot": "^1.0.0-rc.1"
   },
   "engines": {
     "bun": ">=1.0.15",

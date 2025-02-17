@@ -53,7 +53,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.12",
+    "@changesets/cli": "^2.28.0",
     "@eslint/config-inspector": "^1.0.0",
     "@eslint/js": "^9.20.0",
     "@eslint/markdown": "^6.2.2",
@@ -65,8 +65,8 @@
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.13.4",
-    "@types/react": "^19.0.9",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
     "@typescript-eslint/parser": "^8.24.0",
     "@typescript-eslint/rule-tester": "^8.24.0",
     "@typescript-eslint/types": "^8.24.0",
@@ -101,7 +101,7 @@
     "ts-pattern": "^5.6.2",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
-    "type-fest": "^4.34.1",
+    "type-fest": "^4.35.0",
     "typedoc": "^0.27.7",
     "typedoc-plugin-markdown": "^4.4.2",
     "typedoc-plugin-rename-defaults": "^0.7.2",
@@ -109,25 +109,25 @@
     "typescript-eslint": "^8.24.0",
     "vitest": "^3.0.5"
   },
-  "packageManager": "pnpm@10.4.0",
+  "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">=18.18.0"
   },
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@nolyfill/is-core-module@^1.0.39",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1.0.41",
-      "safer-buffer": "npm:@nolyfill/safer-buffer@^1.0.41",
-      "typedarray": "npm:@nolyfill/typedarray@^1.0.29",
-      "@types/react": "^19.0.9",
-      "@types/react-dom": "^19.0.3",
+      "@types/react": "^19.0.10",
+      "@types/react-dom": "^19.0.4",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.0",
       "next": "^15.1.7",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
       "ts-api-utils": "^2.0.1",
-      "typescript": "^5.7.3"
+      "typescript": "^5.7.3",
+      "is-core-module": "npm:@socketregistry/is-core-module@^1",
+      "safe-buffer": "npm:@socketregistry/safe-buffer@^1",
+      "safer-buffer": "npm:@socketregistry/safer-buffer@^1",
+      "typedarray": "npm:@socketregistry/typedarray@^1"
     }
   }
 }
