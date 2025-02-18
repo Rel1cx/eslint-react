@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow multiline template expressions",
+      description: "Disallow shadowing of the underscore identifier",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
