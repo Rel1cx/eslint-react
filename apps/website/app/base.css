@@ -2,7 +2,8 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
+@source "../components/fumadocs-ui/**/*.js";
+
 @source ".";
 @source "../components";
 @source "../content";
-@source "../components/fumadocs-ui/dist/**/*.js";
