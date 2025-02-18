@@ -1,5 +1,3 @@
-import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
 import noLeakedEventListener from "./rules/no-leaked-event-listener";
 import noLeakedInterval from "./rules/no-leaked-interval";
@@ -17,5 +15,4 @@ export const plugin = {
     "no-leaked-resize-observer": noLeakedResizeObserver,
     "no-leaked-timeout": noLeakedTimeout,
   },
-  // remove this type assertion when the typescript-eslint and eslint type incompatible issue is resolved
-} as unknown as ESLint.Plugin;
+} as const;

@@ -1,22 +1,21 @@
-import type { Linter } from "eslint";
+import type { RulePreset } from "@eslint-react/shared";
 
 import * as recommendedConfig from "./configs/recommended";
 import { plugin } from "./plugin";
 
-function makeConfig(config: Linter.Config): Linter.Config {
+function makeConfig(config: { name: string; rules: RulePreset }) {
   return {
     ...config,
     plugins: {
-      ...config.plugins,
-      "react-hooks-extra": plugin,
+      "react-x": plugin,
     },
   };
 }
 
-function toLegacyConfig({ rules }: Linter.Config): Linter.LegacyConfig {
+function makeLegacyConfig(config: { rules: RulePreset }) {
   return {
-    plugins: ["react-hooks-extra"],
-    rules,
+    plugins: ["react-x"],
+    rules: config.rules,
   };
 }
 
@@ -24,6 +23,6 @@ export default {
   ...plugin,
   configs: {
     ["recommended"]: makeConfig(recommendedConfig),
-    ["recommended-legacy"]: toLegacyConfig(recommendedConfig),
+    ["recommended-legacy"]: makeLegacyConfig(recommendedConfig),
   },
 };

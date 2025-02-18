@@ -1,5 +1,3 @@
-import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
@@ -119,5 +117,4 @@ export const plugin = {
     /** @deprecated Use `no-complex-conditional-rendering` instead. */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
   },
-  // remove this type assertion when the typescript-eslint and eslint type incompatible issue is resolved
-} as unknown as ESLint.Plugin;
+} as const;

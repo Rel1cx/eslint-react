@@ -1,5 +1,3 @@
-import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
@@ -37,5 +35,4 @@ export const plugin = {
     /** @deprecated Use `no-void-elements-with-children` instead */
     "no-children-in-void-dom-elements": noVoidElementsWithChildren,
   },
-  // remove this type assertion when the typescript-eslint and eslint type incompatible issue is resolved
-} as unknown as ESLint.Plugin;
+} as const;

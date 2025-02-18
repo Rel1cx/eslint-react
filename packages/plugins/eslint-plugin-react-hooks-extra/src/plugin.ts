@@ -1,5 +1,3 @@
-import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
 import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
 import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
@@ -31,5 +29,4 @@ export const plugin = {
     /** @deprecated Use `no-useless-custom-hooks` instead */
     "no-redundant-custom-hook": noUselessCustomHooks,
   },
-  // remove this type assertion when the typescript-eslint and eslint type incompatible issue is resolved
-} as unknown as ESLint.Plugin;
+} as const;

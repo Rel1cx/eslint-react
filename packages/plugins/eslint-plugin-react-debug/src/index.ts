@@ -1,22 +1,21 @@
-import type { Linter } from "eslint";
+import type { RulePreset } from "@eslint-react/shared";
 
 import * as allConfig from "./configs/all";
 import { plugin } from "./plugin";
 
-function makeConfig(config: Linter.Config): Linter.Config {
+function makeConfig(config: { name: string; rules: RulePreset }) {
   return {
     ...config,
     plugins: {
-      ...config.plugins,
-      "react-dom": plugin,
+      "react-x": plugin,
     },
   };
 }
 
-function toLegacyConfig({ rules }: Linter.Config): Linter.LegacyConfig {
+function makeLegacyConfig(config: { rules: RulePreset }) {
   return {
-    plugins: ["react-debug"],
-    rules,
+    plugins: ["react-x"],
+    rules: config.rules,
   };
 }
 
@@ -24,6 +23,6 @@ export default {
   ...plugin,
   configs: {
     ["all"]: makeConfig(allConfig),
-    ["all-legacy"]: toLegacyConfig(allConfig),
+    ["all-legacy"]: makeLegacyConfig(allConfig),
   },
 };
