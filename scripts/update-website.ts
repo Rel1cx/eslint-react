@@ -40,3 +40,24 @@ const changelogWithFrontmatter = [
 ].join("\n");
 
 await fs.writeFile(path.join("apps", "website", "content", "changelog.md"), changelogWithFrontmatter);
+
+// workaround for @tailwindcss/postcss plugin not working with symlinked node_modules
+const linkPath = path.join("apps", "website", "node_modules", "fumadocs-ui");
+const realPath = await fs.realpath(linkPath);
+const distPath = path.join("apps", "website", "components", "fumadocs-ui");
+await fs.cp(
+  realPath,
+  distPath,
+  { dereference: true, recursive: true },
+);
+
+// generate tailwindcss sources
+// const sourcePath = path.join("apps", "website", "app", "sources.css");
+// const sourceCode = [
+//   '@source ".";',
+//   '@source "../components";',
+//   '@source "../content";',
+//   `@source "../components/fumadocs-ui/dist/**/*.js";`,
+// ].join("\n");
+
+// await fs.writeFile(sourcePath, sourceCode);
