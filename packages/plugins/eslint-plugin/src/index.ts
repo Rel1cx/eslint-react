@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/shared";
+import { toLegacyConfig } from "@eslint-react/shared";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
@@ -21,19 +21,7 @@ import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checke
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import { padKeysLeft } from "./utils";
 
-type Config = {
-  name: string;
-  rules: RulePreset;
-};
-
-function makeLegacyConfig<A extends Config>(config: A) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { name: drop, ...rest } = config;
-  return {
-    ...rest,
-    plugins: ["@eslint-react"],
-  };
-}
+const toLegacy = toLegacyConfig(["@eslint-react"]);
 
 export default {
   meta: {
@@ -54,23 +42,23 @@ export default {
     ["recommended-type-checked"]: recommendedTypeCheckedConfig,
     ["recommended-typescript"]: recommendedTypeScriptConfig,
     // Part: legacy presets
-    ["all-legacy"]: makeLegacyConfig(allConfig),
-    ["core-legacy"]: makeLegacyConfig(coreConfig),
-    ["debug-legacy"]: makeLegacyConfig(debugConfig),
-    ["disable-debug-legacy"]: makeLegacyConfig(disableDebugConfig),
-    ["disable-dom-legacy"]: makeLegacyConfig(disableDomConfig),
-    ["disable-type-checked-legacy"]: makeLegacyConfig(disableTypeCheckedConfig),
-    ["disable-web-api-legacy"]: makeLegacyConfig(disableWebApiConfig),
-    ["dom-legacy"]: makeLegacyConfig(domConfig),
-    ["off-legacy"]: makeLegacyConfig(offConfig),
-    ["recommended-legacy"]: makeLegacyConfig(recommendedConfig),
-    ["recommended-type-checked-legacy"]: makeLegacyConfig(recommendedTypeCheckedConfig),
-    ["recommended-typescript-legacy"]: makeLegacyConfig(recommendedTypeScriptConfig),
+    ["all-legacy"]: toLegacy(allConfig),
+    ["core-legacy"]: toLegacy(coreConfig),
+    ["debug-legacy"]: toLegacy(debugConfig),
+    ["disable-debug-legacy"]: toLegacy(disableDebugConfig),
+    ["disable-dom-legacy"]: toLegacy(disableDomConfig),
+    ["disable-type-checked-legacy"]: toLegacy(disableTypeCheckedConfig),
+    ["disable-web-api-legacy"]: toLegacy(disableWebApiConfig),
+    ["dom-legacy"]: toLegacy(domConfig),
+    ["off-legacy"]: toLegacy(offConfig),
+    ["recommended-legacy"]: toLegacy(recommendedConfig),
+    ["recommended-type-checked-legacy"]: toLegacy(recommendedTypeCheckedConfig),
+    ["recommended-typescript-legacy"]: toLegacy(recommendedTypeScriptConfig),
     // Part: deprecated presets
     /** @deprecated Use `disable-dom` instead */
     ["off-dom"]: disableDomConfig,
     /** @deprecated Use `disable-dom-legacy` instead */
-    ["off-dom-legacy"]: makeLegacyConfig(disableDomConfig),
+    ["off-dom-legacy"]: toLegacy(disableDomConfig),
   },
   rules: {
     ...react.rules,
