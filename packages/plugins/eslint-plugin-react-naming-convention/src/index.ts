@@ -7,14 +7,14 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   return {
     ...config,
     plugins: {
-      "react-x": plugin,
+      "react-naming-convention": plugin,
     },
   };
 }
 
 function makeLegacyConfig(config: { rules: RulePreset }) {
   return {
-    plugins: ["react-x"],
+    plugins: ["react-naming-convention"],
     rules: config.rules,
   };
 }

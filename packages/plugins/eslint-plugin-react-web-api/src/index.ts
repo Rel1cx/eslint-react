@@ -7,14 +7,14 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   return {
     ...config,
     plugins: {
-      "react-x": plugin,
+      "react-web-api": plugin,
     },
   };
 }
 
 function makeLegacyConfig(config: { rules: RulePreset }) {
   return {
-    plugins: ["react-x"],
+    plugins: ["react-web-api"],
     rules: config.rules,
   };
 }
