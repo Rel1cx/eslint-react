@@ -1,6 +1,10 @@
 import eslintJs from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginReactx from "eslint-plugin-react-x";
+import eslintPluginReactDom from "eslint-plugin-react-dom";
+import eslintPluginReactWebApi from "eslint-plugin-react-web-api";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactHooksExtra from "eslint-plugin-react-hooks-extra";
+import eslintPluginReactNamingConvention from "eslint-plugin-react-naming-convention";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -45,12 +49,23 @@ export default tseslint.config(
       "no-console": "off",
     },
   },
-  // React configuration
+  // react specific configurations
   {
     files: TSCONFIG.include,
-    ...eslintReact.configs["recommended-type-checked"],
+    ...eslintPluginReactx.configs["recommended-type-checked"],
   },
-  // React Hooks configuration
+  {
+    files: TSCONFIG.include,
+    ...eslintPluginReactDom.configs.recommended,
+  },
+  {
+    files: TSCONFIG.include,
+    ...eslintPluginReactWebApi.configs.recommended,
+  },
+  {
+    files: TSCONFIG.include,
+    ...eslintPluginReactHooksExtra.configs.recommended,
+  },
   {
     files: TSCONFIG.include,
     plugins: {

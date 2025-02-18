@@ -48,4 +48,3 @@
 - [getSettingsFromContext](functions/getSettingsFromContext.md)
 - [isInEditorEnv](functions/isInEditorEnv.md)
 - [isInGitHooksOrLintStaged](functions/isInGitHooksOrLintStaged.md)
-- [toLegacyConfig](functions/toLegacyConfig.md)

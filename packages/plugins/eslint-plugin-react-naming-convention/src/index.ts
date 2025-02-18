@@ -1,18 +1,29 @@
-import { name, version } from "../package.json";
-import componentName from "./rules/component-name";
-import filename from "./rules/filename";
-import filenameExtension from "./rules/filename-extension";
-import useState from "./rules/use-state";
+import type { Linter } from "eslint";
+
+import * as recommendedConfig from "./configs/recommended";
+import { plugin } from "./plugin";
+
+function makeConfig(config: Linter.Config): Linter.Config {
+  return {
+    ...config,
+    plugins: {
+      ...config.plugins,
+      "react-naming-convention": plugin,
+    },
+  };
+}
+
+function toLegacyConfig({ rules }: Linter.Config): Linter.LegacyConfig {
+  return {
+    plugins: ["react-naming-convention"],
+    rules,
+  };
+}
 
 export default {
-  meta: {
-    name,
-    version,
+  ...plugin,
+  configs: {
+    ["recommended"]: makeConfig(recommendedConfig),
+    ["recommended-legacy"]: toLegacyConfig(recommendedConfig),
   },
-  rules: {
-    "component-name": componentName,
-    filename,
-    "filename-extension": filenameExtension,
-    "use-state": useState,
-  },
-} as const;
+};

@@ -1,22 +1,29 @@
-import { name, version } from "../package.json";
-import classComponent from "./rules/class-component";
-import functionComponent from "./rules/function-component";
-import hook from "./rules/hook";
-import isFromReact from "./rules/is-from-react";
+import type { Linter } from "eslint";
+
+import * as allConfig from "./configs/all";
+import { plugin } from "./plugin";
+
+function makeConfig(config: Linter.Config): Linter.Config {
+  return {
+    ...config,
+    plugins: {
+      ...config.plugins,
+      "react-dom": plugin,
+    },
+  };
+}
+
+function toLegacyConfig({ rules }: Linter.Config): Linter.LegacyConfig {
+  return {
+    plugins: ["react-debug"],
+    rules,
+  };
+}
 
 export default {
-  meta: {
-    name,
-    version,
+  ...plugin,
+  configs: {
+    ["all"]: makeConfig(allConfig),
+    ["all-legacy"]: toLegacyConfig(allConfig),
   },
-  rules: {
-    "class-component": classComponent,
-    "function-component": functionComponent,
-    hook: hook,
-    "is-from-react": isFromReact,
-
-    // Part: deprecated rules
-    /** @deprecated Use `hook` instead */
-    "react-hooks": hook,
-  },
-} as const;
+};
