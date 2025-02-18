@@ -51,7 +51,7 @@ var no_shadow_underscore_default = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow shadowing of the underscore identifier",
+      description: "disallow shadowing of the underscore identifier",
       [Symbol.for("rule_features")]: RULE_FEATURES2
     },
     messages: {
