@@ -1,18 +1,28 @@
-import { name, version } from "../package.json";
-import noLeakedEventListener from "./rules/no-leaked-event-listener";
-import noLeakedInterval from "./rules/no-leaked-interval";
-import noLeakedResizeObserver from "./rules/no-leaked-resize-observer";
-import noLeakedTimeout from "./rules/no-leaked-timeout";
+import type { RulePreset } from "@eslint-react/shared";
+
+import * as recommendedConfig from "./configs/recommended";
+import { plugin } from "./plugin";
+
+function makeConfig(config: { name: string; rules: RulePreset }) {
+  return {
+    ...config,
+    plugins: {
+      "react-x": plugin,
+    },
+  };
+}
+
+function makeLegacyConfig(config: { rules: RulePreset }) {
+  return {
+    plugins: ["react-x"],
+    rules: config.rules,
+  };
+}
 
 export default {
-  meta: {
-    name,
-    version,
-  },
-  rules: {
-    "no-leaked-event-listener": noLeakedEventListener,
-    "no-leaked-interval": noLeakedInterval,
-    "no-leaked-resize-observer": noLeakedResizeObserver,
-    "no-leaked-timeout": noLeakedTimeout,
+  ...plugin,
+  configs: {
+    ["recommended"]: makeConfig(recommendedConfig),
+    ["recommended-legacy"]: makeLegacyConfig(recommendedConfig),
   },
 };

@@ -1,22 +1,28 @@
-import { name, version } from "../package.json";
-import classComponent from "./rules/class-component";
-import functionComponent from "./rules/function-component";
-import hook from "./rules/hook";
-import isFromReact from "./rules/is-from-react";
+import type { RulePreset } from "@eslint-react/shared";
+
+import * as allConfig from "./configs/all";
+import { plugin } from "./plugin";
+
+function makeConfig(config: { name: string; rules: RulePreset }) {
+  return {
+    ...config,
+    plugins: {
+      "react-x": plugin,
+    },
+  };
+}
+
+function makeLegacyConfig(config: { rules: RulePreset }) {
+  return {
+    plugins: ["react-x"],
+    rules: config.rules,
+  };
+}
 
 export default {
-  meta: {
-    name,
-    version,
+  ...plugin,
+  configs: {
+    ["all"]: makeConfig(allConfig),
+    ["all-legacy"]: makeLegacyConfig(allConfig),
   },
-  rules: {
-    "class-component": classComponent,
-    "function-component": functionComponent,
-    hook: hook,
-    "is-from-react": isFromReact,
-
-    // Part: deprecated rules
-    /** @deprecated Use `hook` instead */
-    "react-hooks": hook,
-  },
-} as const;
+};

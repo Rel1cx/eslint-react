@@ -33,17 +33,7 @@
   "eslint.workingDirectories": [
     {
       "changeProcessCWD": true,
-      "mode": "location"
-    },
-    {
-      "changeProcessCWD": true,
-      "mode": "auto",
-      "pattern": "examples/*"
-    },
-    {
-      "changeProcessCWD": true,
-      "mode": "auto",
-      "pattern": "apps/*"
+      "mode": "auto"
     }
   ],
   "files.exclude": {

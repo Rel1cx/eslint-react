@@ -5,18 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
-  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
-  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.6
-  typedarray: npm:@socketregistry/typedarray@^1.0.5
   '@types/react': ^19.0.10
   '@types/react-dom': ^19.0.4
   cross-spawn: ^7.0.6
   esbuild: ^0.25.0
+  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
   next: ^15.1.7
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
+  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.6
   ts-api-utils: ^2.0.1
+  typedarray: npm:@socketregistry/typedarray@^1.0.5
   typescript: ^5.7.3
 
 importers:
@@ -390,9 +390,6 @@ importers:
 
   examples/dual-react-dom-lib:
     devDependencies:
-      '@eslint-react/eslint-plugin':
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin
       '@eslint/js':
         specifier: ^9.20.0
         version: 9.20.0
@@ -411,9 +408,24 @@ importers:
       eslint:
         specifier: ^9.20.1
         version: 9.20.1(jiti@2.4.2)
+      eslint-plugin-react-dom:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-dom
       eslint-plugin-react-hooks:
         specifier: ^5.1.0
         version: 5.1.0(eslint@9.20.1(jiti@2.4.2))
+      eslint-plugin-react-hooks-extra:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-hooks-extra
+      eslint-plugin-react-naming-convention:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-naming-convention
+      eslint-plugin-react-web-api:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-web-api
+      eslint-plugin-react-x:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-x
       eslint-plugin-vitest:
         specifier: ^0.5.4
         version: 0.5.4(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.6)
