@@ -63,5 +63,9 @@ function MyComponent() {
 
 ## See Also
 
+- [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)\
+  Enforces the use of explicit boolean values for boolean attributes.
+- [`prefer-shorthand-boolean`](./prefer-shorthand-boolean)\
+  Enforces the use of shorthand syntax for boolean attributes.
 - [`prefer-shorthand-fragment`](./prefer-shorthand-fragment)\
   Enforces the use of shorthand syntax for fragments.

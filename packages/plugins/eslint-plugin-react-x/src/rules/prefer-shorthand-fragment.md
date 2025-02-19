@@ -65,5 +65,9 @@ function MyComponent() {
 
 ## See Also
 
+- [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)\
+  Enforces the use of explicit boolean values for boolean attributes.
 - [`avoid-shorthand-fragment`](./avoid-shorthand-fragment)\
   Enforces the use of explicit `<Fragment>` or `<React.Fragment>` components instead of the shorthand `<>` or `</>` syntax.
+- [`prefer-shorthand-boolean`](./prefer-shorthand-boolean)\
+  Enforces the use of shorthand syntax for boolean attributes.
