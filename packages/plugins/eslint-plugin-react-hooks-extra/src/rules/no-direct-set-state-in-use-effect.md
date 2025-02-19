@@ -96,7 +96,7 @@ export default function RemoteContent() {
 }
 ```
 
-The following examples are drived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
+The following examples are derived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
 
 ### Failing
 

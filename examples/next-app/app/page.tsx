@@ -84,7 +84,7 @@ export default function Home() {
         >
           <button
             type="button"
-            aria-label="Customise options"
+            aria-label="Customize options"
             className="h-8 w-8 inline-flex items-center justify-center shadow-lg"
           >
             <HamburgerMenuIcon />

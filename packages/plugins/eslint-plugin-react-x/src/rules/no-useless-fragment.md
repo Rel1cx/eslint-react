@@ -31,7 +31,7 @@ Prevents the use of useless fragments.
 
 A fragment is redundant if it contains only one child, or if it is the child of a html element, and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
 
-Moreoever, rendering fragments with multiple levels of depth can cause React to not retain the state of components nested within the fragment after [certain re-renders](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b), which may lead to unexpected [state resetting](https://react.dev/learn/preserving-and-resetting-state).
+Moreover, rendering fragments with multiple levels of depth can cause React to not retain the state of components nested within the fragment after [certain re-renders](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b), which may lead to unexpected [state resetting](https://react.dev/learn/preserving-and-resetting-state).
 
 ## Examples
 

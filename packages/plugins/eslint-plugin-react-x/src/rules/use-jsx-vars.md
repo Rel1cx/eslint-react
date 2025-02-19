@@ -21,7 +21,7 @@ react-x/use-jsx-vars
 
 ## What it does
 
-Helpes `eslint/no-unused-vars` to correctly detect variables used in JSX.
+Marks variables used in JSX as used.
 
 Since 0.17.0 the eslint `no-unused-vars` rule does not detect variables used in JSX (see details). This rule will find variables used in JSX and mark them as used.
 This rule only has an effect when the `no-unused-vars` rule is enabled.

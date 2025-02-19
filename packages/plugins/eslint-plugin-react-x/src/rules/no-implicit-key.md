@@ -91,7 +91,7 @@ function MyComponent({ items }: MyComponentProps) {
 
 - [`no-missing-key`](./no-missing-key)\
   Prevents missing `key` on items in list rendering.
-- [`no-dupecate-key`](./no-duplicate-key)\
+- [`no-duplicate-key`](./no-duplicate-key)\
   Prevents duplicate `key` on elements in the same array or a list of `children`.
 - [`no-array-index-key`](./no-array-index-key)\
   Warns when an array `index` is used as a `key` prop.

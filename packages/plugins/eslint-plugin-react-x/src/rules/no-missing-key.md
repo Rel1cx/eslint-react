@@ -86,7 +86,7 @@ function MyComponent({ items }: MyComponentProps) {
 
 ## See Also
 
-- [`no-dupecate-key`](./no-duplicate-key)\
+- [`no-duplicate-key`](./no-duplicate-key)\
   Prevents duplicate `key` on elements in the same array or a list of `children`.
 - [`no-implicit-key`](./no-implicit-key)\
   Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).

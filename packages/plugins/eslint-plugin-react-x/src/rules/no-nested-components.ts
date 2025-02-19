@@ -114,9 +114,9 @@ export default createRule<[], MessageID>({
             continue;
           }
           const parentComponent = AST.findParentNode(component, isFunctionComponent);
-          const isParnetComponentNotDirectValueOfRenderProperty = parentComponent != null
+          const isParentComponentNotDirectValueOfRenderProperty = parentComponent != null
             && !isDirectValueOfRenderPropertyLoose(parentComponent);
-          if (isParnetComponentNotDirectValueOfRenderProperty) {
+          if (isParentComponentNotDirectValueOfRenderProperty) {
             context.report({
               messageId: isInsideProperty
                 ? "nestedComponentInProps"
