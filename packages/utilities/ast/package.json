@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "1.26.3-beta.17",
+  "version": "1.26.3-next.18",
   "description": "ESLint React's TSESTree AST utility module.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
