@@ -27,7 +27,7 @@ react-dom/no-void-elements-with-children
 
 ## What it does
 
-Prevents the use of `children` in void `DOM elements`.
+Prevents the use of `children` in void DOM elements.
 
 Self-closing HTML elements (e.g. `<img />`, `<br />`, `<hr />`) are collectively known as void DOM elements. React will give you a warning if you try to give these children:
 
@@ -69,4 +69,4 @@ React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 - [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)\
   Warns when using `dangerouslySetInnerHTML`.
 - [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children)\
-  Disallows DOM element using `children` and `dangerouslySetInnerHTML` at the same time.
+  Disallows DOM elements using `children` and `dangerouslySetInnerHTML` at the same time.
