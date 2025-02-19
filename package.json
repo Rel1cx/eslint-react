@@ -53,7 +53,6 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.28.0",
     "@eslint/config-inspector": "^1.0.0",
     "@eslint/js": "^9.20.0",
     "@eslint/markdown": "^6.2.2",
