@@ -61,3 +61,12 @@ React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-void-elements-with-children.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-void-elements-with-children.spec.ts)
+
+---
+
+## See Also
+
+- [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)\
+  Warns when using `dangerouslySetInnerHTML`.
+- [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children)\
+  Disallows DOM element using `children` and `dangerouslySetInnerHTML` at the same time.

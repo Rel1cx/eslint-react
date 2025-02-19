@@ -51,4 +51,6 @@ function MyComponent() {
 ## See Also
 
 - [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children)\
-  Disallows `DOM element` using `children` and `dangerouslySetInnerHTML` at the same time.
+  Disallows DOM element using `children` and `dangerouslySetInnerHTML` at the same time.
+- [`no-void-elements-with-children`](./dom-no-void-elements-with-children)\
+  Prevents the use of `children` in void `DOM elements`.
