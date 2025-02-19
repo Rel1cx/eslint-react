@@ -1,7 +1,5 @@
 import { globSync } from "tinyglobby";
 
-export function glob(patterns: string[], exclude = ["**/node_modules/**"]) {
-  return globSync(patterns, {
-    ignore: [...exclude],
-  });
+export function glob(patterns: string[], ignore = ["**/node_modules/**"]) {
+  return globSync(patterns, { ignore });
 }
