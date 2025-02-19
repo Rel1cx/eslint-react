@@ -66,3 +66,8 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-memo.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-memo.spec.ts)
+
+## See Also
+
+- [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback)\
+  Disallows unnecessary usage of `useCallback`.

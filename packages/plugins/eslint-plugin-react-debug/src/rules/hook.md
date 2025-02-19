@@ -42,3 +42,10 @@ function useToggle() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/hook.spec.ts)
+
+## See Also
+
+- [`class-component`](./debug-class-component)\
+  Reports all class components.
+- [`function-component`](./debug-function-component)\
+  Reports all function components.

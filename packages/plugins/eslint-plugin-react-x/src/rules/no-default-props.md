@@ -65,3 +65,8 @@ function MyComponent({ name = "John Doe" }: MyComponentProps) {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-default-props.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-default-props.spec.ts)
+
+## See Also
+
+- [`no-prop-types`](./no-prop-types)\
+  Disallows using `propTypes` property in favor of TypeScript or another type-checking solution.

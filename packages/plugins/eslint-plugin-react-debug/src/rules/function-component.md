@@ -58,3 +58,10 @@ const MyComponent = React.forwardRef(() => <button />);
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.spec.ts)
+
+## See Also
+
+- [`class-component`](./debug-class-component)\
+  Reports all class components.
+- [`hook`](./debug-hook)\
+  Reports all Hooks.

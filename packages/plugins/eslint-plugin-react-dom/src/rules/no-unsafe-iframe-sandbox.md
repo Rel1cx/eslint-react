@@ -68,3 +68,10 @@ function MyComponent() {
 ## Further Reading
 
 - [MDN: iframe - sandbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes)
+
+## See Also
+
+- [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)\
+  Enforces explicit `sandbox` attribute for `iframe` elements.
+- [`no-unsafe-target-blank`](./dom-no-unsafe-target-blank)\
+  Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.

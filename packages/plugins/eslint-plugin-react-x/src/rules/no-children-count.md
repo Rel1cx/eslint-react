@@ -60,3 +60,14 @@ function MyComponent({ children }: MyComponentProps) {
 ## Further Reading
 
 - [React: Legacy React APIs Children](https://react.dev/reference/react/Children)
+
+## See Also
+
+- [`no-children-for-each`](./no-children-for-each)\
+  Prevents the use of `Children.forEach` from the `react` package.
+- [`no-children-map`](./no-children-map)\
+  Prevents the use of `Children.map` from the `react` package.
+- [`no-children-only`](./no-children-only)\
+  Prevents the use of `Children.only` from the `react` package.
+- [`no-children-to-array`](./no-children-to-array)\
+  Prevents the use of `Children.toArray` from the `react` package.

@@ -52,3 +52,10 @@ class MyComponent extends React.PureComponent {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/class-component.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/class-component.spec.ts)
+
+## See Also
+
+- [`function-component`](./debug-function-component)\
+  Reports all class components.
+- [`hook`](./debug-hook)\
+  Reports all React Hooks.

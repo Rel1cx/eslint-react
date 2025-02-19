@@ -67,3 +67,10 @@ class MyComponent extends React.Component {
 ## Further Reading
 
 - [React: Legacy React APIs componentWillUpdate](https://react.dev/reference/react/Component#componentwillupdate)
+
+## See Also
+
+- [no-component-will-mount](./no-component-will-mount)\
+  Prevents usage of `componentWillMount` in class components.
+- [no-component-will-receive-props](./no-component-will-receive-props)\
+  Prevents usage of `componentWillReceiveProps` in class components.

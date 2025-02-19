@@ -58,3 +58,8 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-fragment.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-fragment.spec.ts)
+
+## See Also
+
+- [`prefer-shorthand-fragment`](./prefer-shorthand-fragment)\
+  Enforces the use of shorthand syntax for fragments.

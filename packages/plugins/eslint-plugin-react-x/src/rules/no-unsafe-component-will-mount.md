@@ -49,3 +49,10 @@ class MyComponent extends React.Component {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-mount.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-mount.spec.ts)
+
+## See Also
+
+- [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props)\
+  Prevents usage of `UNSAFE_componentWillReceiveProps` in class components.
+- [`no-unsafe-component-will-update`](./no-unsafe-component-will-update)\
+  Prevents usage of `UNSAFE_componentWillUpdate` in class components.

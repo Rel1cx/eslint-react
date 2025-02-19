@@ -176,3 +176,8 @@ function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-default-props.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-default-props.spec.ts)
+
+## See Also
+
+- [`no-unstable-context-value`](./no-unstable-context-value)\
+  Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`.

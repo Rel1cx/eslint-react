@@ -61,3 +61,10 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount.spec.ts)
+
+## See Also
+
+- [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update)\
+  Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.
+- [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update)\
+  Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.

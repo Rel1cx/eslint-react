@@ -78,3 +78,8 @@ function MyComponent() {
 - [MDN: setInterval](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)
 - [MDN: clearInterval](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)
 - [React: synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
+
+## See Also
+
+- [no-leaked-timeout](./web-api-no-leaked-timeout)\
+  Enforces that every `setTimeout` in a component or custom Hook has a corresponding `clearTimeout`.

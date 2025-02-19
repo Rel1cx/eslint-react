@@ -265,3 +265,8 @@ The limitation may be lifted in the future.
 - [React: useState](https://react.dev/reference/react/useState#setstate)
 - [React: useEffect](https://react.dev/reference/react/useEffect)
 - [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+
+## See Also
+
+- [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect)\
+  Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.

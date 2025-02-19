@@ -113,3 +113,8 @@ function MyComponent({ name }: MyComponentProps) {
 ## Further Reading
 
 - [React Blog: React 19 RC Upgrade Guide - Removed: `propTypes` and `defaultProps` for functions](https://react.dev/blog/2024/04/25/react-19-upgrade-guide#removed-proptypes-and-defaultprops)
+
+## See Also
+
+- [`no-default-props`](./no-default-props)\
+  Disallows using `defaultProps` property in favor of ES6 default parameters.

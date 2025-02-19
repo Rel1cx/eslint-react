@@ -63,3 +63,8 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-target-blank.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-target-blank.spec.ts)
+
+## See Also
+
+- [`no-unsafe-iframe-sandbox`](./dom-no-unsafe-iframe-sandbox)\
+  Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
