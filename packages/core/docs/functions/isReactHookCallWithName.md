@@ -12,11 +12,11 @@
 
 ### node
 
-`undefined` | `CallExpression`
+`undefined` | [`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 

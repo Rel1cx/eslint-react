@@ -14,7 +14,7 @@ Check if a node is a React class component
 
 ### node
 
-`Node`
+[`Node`](../-internal-/type-aliases/Node.md)
 
 The AST node to check
 

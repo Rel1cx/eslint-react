@@ -6,4 +6,4 @@
 
 # Variable: RE\_HOOK\_NAME
 
-> `const` **RE\_HOOK\_NAME**: `RegExp`
+> `const` **RE\_HOOK\_NAME**: [`RegExp`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)

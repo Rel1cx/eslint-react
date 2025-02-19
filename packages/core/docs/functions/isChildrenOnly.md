@@ -12,11 +12,11 @@
 
 ### node
 
-`MemberExpression`
+[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 

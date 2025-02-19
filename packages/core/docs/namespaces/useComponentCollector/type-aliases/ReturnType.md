@@ -16,7 +16,7 @@
 
 #### ctx.getAllComponents()
 
-> **getAllComponents**: (`node`) => `Map`\<`string`, [`ERFunctionComponent`](../../../interfaces/ERFunctionComponent.md)\>
+> **getAllComponents**: (`node`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERFunctionComponent`](../../../interfaces/ERFunctionComponent.md)\>
 
 ##### Parameters
 
@@ -26,24 +26,24 @@
 
 ##### Returns
 
-`Map`\<`string`, [`ERFunctionComponent`](../../../interfaces/ERFunctionComponent.md)\>
+[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERFunctionComponent`](../../../interfaces/ERFunctionComponent.md)\>
 
 #### ctx.getCurrentEntries()
 
-> **getCurrentEntries**: () => `FunctionEntry`[]
+> **getCurrentEntries**: () => [`FunctionEntry`](../../../-internal-/type-aliases/FunctionEntry.md)[]
 
 ##### Returns
 
-`FunctionEntry`[]
+[`FunctionEntry`](../../../-internal-/type-aliases/FunctionEntry.md)[]
 
 #### ctx.getCurrentEntry()
 
-> **getCurrentEntry**: () => `FunctionEntry` \| `_`
+> **getCurrentEntry**: () => [`FunctionEntry`](../../../-internal-/type-aliases/FunctionEntry.md) \| [`_`](../../../-internal-/type-aliases.md)
 
 ##### Returns
 
-`FunctionEntry` \| `_`
+[`FunctionEntry`](../../../-internal-/type-aliases/FunctionEntry.md) \| [`_`](../../../-internal-/type-aliases.md)
 
 ### listeners
 
-> **listeners**: `ESLintUtils.RuleListener`
+> **listeners**: [`RuleListener`](../../../-internal-/type-aliases/RuleListener.md)

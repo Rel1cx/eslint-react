@@ -12,7 +12,7 @@
 
 ### node
 
-`Node`
+[`Node`](../-internal-/type-aliases/Node.md)
 
 ## Returns
 

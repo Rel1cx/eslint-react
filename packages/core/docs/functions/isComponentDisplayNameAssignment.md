@@ -16,7 +16,7 @@ Check if the node is a component display name assignment expression
 
 The AST node
 
-`undefined` | `Node`
+`undefined` | [`Node`](../-internal-/type-aliases/Node.md)
 
 ## Returns
 

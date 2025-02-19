@@ -28,11 +28,11 @@ A predicate that checks if the given node is a call expression to the given func
 
 #### node
 
-`Identifier` | `MemberExpression`
+[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 #### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 ### Returns
 

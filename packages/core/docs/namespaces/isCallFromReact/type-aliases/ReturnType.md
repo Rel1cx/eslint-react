@@ -12,7 +12,7 @@
 
 ### context
 
-`Readonly`
+[`Readonly`](../../../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 
@@ -22,7 +22,7 @@
 
 #### node
 
-`Node`
+[`Node`](../../../-internal-/type-aliases/Node.md)
 
 ### Returns
 
@@ -32,11 +32,11 @@
 
 ### node
 
-`Node`
+[`Node`](../../../-internal-/type-aliases/Node.md)
 
 ### context
 
-`Readonly`
+[`Readonly`](../../../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 

@@ -38,11 +38,11 @@
     "inspect:eslint-config": "eslint-config-inspector",
     "lint": "pnpm run lint:deps && pnpm run lint:publish && pnpm run lint:ts && concurrently \"pnpm run lint:es\" \"pnpm run lint:examples\" \"pnpm run lint:website\"",
     "lint:deps": "skott -m file-tree -e .ts -s",
+    "lint:es": "eslint . --max-warnings 100",
     "lint:examples": "pnpm m -F \"./examples/*\" run lint",
     "lint:monorepo": "sherif",
     "lint:publish": "pnpm m run lint:publish",
     "lint:spell": "cspell lint --relative --no-progress \"**\"",
-    "lint:es": "eslint . --max-warnings 100",
     "lint:ts": "pnpm m run lint:ts",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
     "prepare": "lefthook install && pnpm run build && pnpm run update:website",
@@ -103,8 +103,10 @@
     "tsx": "^4.19.3",
     "type-fest": "^4.35.0",
     "typedoc": "^0.27.7",
+    "typedoc-plugin-inline-sources": "^1.2.0",
     "typedoc-plugin-markdown": "^4.4.2",
-    "typedoc-plugin-rename-defaults": "^0.7.2",
+    "typedoc-plugin-mdn-links": "^4.0.13",
+    "typedoc-plugin-missing-exports": "^3.1.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1",
     "vitest": "^3.0.6"
@@ -115,18 +117,18 @@
   },
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
-      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
-      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.6",
-      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "@types/react": "^19.0.10",
       "@types/react-dom": "^19.0.4",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.0",
+      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
       "next": "^15.1.7",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
+      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.6",
       "ts-api-utils": "^2.0.1",
+      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "typescript": "5.8.1-rc"
     }
   }

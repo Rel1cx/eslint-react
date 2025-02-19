@@ -12,7 +12,7 @@
 
 ### node
 
-`undefined` | `CallExpression`
+`undefined` | [`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ## Returns
 

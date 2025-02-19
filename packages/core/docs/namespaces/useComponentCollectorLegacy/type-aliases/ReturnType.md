@@ -16,7 +16,7 @@
 
 #### ctx.getAllComponents()
 
-> **getAllComponents**: (`node`) => `Map`\<`string`, [`ERClassComponent`](../../../interfaces/ERClassComponent.md)\>
+> **getAllComponents**: (`node`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERClassComponent`](../../../interfaces/ERClassComponent.md)\>
 
 ##### Parameters
 
@@ -26,8 +26,8 @@
 
 ##### Returns
 
-`Map`\<`string`, [`ERClassComponent`](../../../interfaces/ERClassComponent.md)\>
+[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERClassComponent`](../../../interfaces/ERClassComponent.md)\>
 
 ### listeners
 
-> **listeners**: `ESLintUtils.RuleListener`
+> **listeners**: [`RuleListener`](../../../-internal-/type-aliases/RuleListener.md)

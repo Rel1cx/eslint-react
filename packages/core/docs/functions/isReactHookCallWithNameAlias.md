@@ -16,7 +16,7 @@
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 ### alias
 
@@ -30,7 +30,7 @@
 
 #### node
 
-`CallExpression`
+[`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ### Returns
 

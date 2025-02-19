@@ -20,7 +20,7 @@
 
 ### initialScope
 
-`Scope`
+[`Scope`](../-internal-/type-aliases/Scope.md)
 
 ## Returns
 

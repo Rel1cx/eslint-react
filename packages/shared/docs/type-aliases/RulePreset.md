@@ -6,7 +6,7 @@
 
 # Type Alias: RulePreset
 
-> **RulePreset**: `Record`\<`string`, `RuleDeclaration`\>
+> **RulePreset**: [`Record`](../-internal-/type-aliases/Record.md)\<`string`, `RuleDeclaration`\>
 
 Rule config preset.
 

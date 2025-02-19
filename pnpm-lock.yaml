@@ -5,18 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
-  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
-  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.6
-  typedarray: npm:@socketregistry/typedarray@^1.0.5
   '@types/react': ^19.0.10
   '@types/react-dom': ^19.0.4
   cross-spawn: ^7.0.6
   esbuild: ^0.25.0
+  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
   next: ^15.1.7
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
+  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.6
   ts-api-utils: ^2.0.1
+  typedarray: npm:@socketregistry/typedarray@^1.0.5
   typescript: 5.8.1-rc
 
 importers:
@@ -173,12 +173,18 @@ importers:
       typedoc:
         specifier: ^0.27.7
         version: 0.27.7(typescript@5.8.1-rc)
+      typedoc-plugin-inline-sources:
+        specifier: ^1.2.0
+        version: 1.2.0(typedoc@0.27.7(typescript@5.8.1-rc))
       typedoc-plugin-markdown:
         specifier: ^4.4.2
         version: 4.4.2(typedoc@0.27.7(typescript@5.8.1-rc))
-      typedoc-plugin-rename-defaults:
-        specifier: ^0.7.2
-        version: 0.7.2(typedoc@0.27.7(typescript@5.8.1-rc))
+      typedoc-plugin-mdn-links:
+        specifier: ^4.0.13
+        version: 4.0.13(typedoc@0.27.7(typescript@5.8.1-rc))
+      typedoc-plugin-missing-exports:
+        specifier: ^3.1.0
+        version: 3.1.0(typedoc@0.27.7(typescript@5.8.1-rc))
       typescript:
         specifier: 5.8.1-rc
         version: 5.8.1-rc
@@ -4218,10 +4224,6 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
-  camelcase@8.0.0:
-    resolution: {integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==}
-    engines: {node: '>=16'}
-
   caniuse-lite@1.0.30001700:
     resolution: {integrity: sha512-2S6XIXwaE7K7erT8dY+kLQcpa5ms63XlRkMkReXjle+kf6c5g38vyMl+Z5y8dSxOFDhcFe+nxnn261PLxBSQsQ==}
 
@@ -7281,16 +7283,26 @@ packages:
   type@2.7.3:
     resolution: {integrity: sha512-8j+1QmAbPvLZow5Qpi6NCaN8FB60p/6x8/vfNqOk/hC+HuvFZhL4+WfekuhQLiqFZXOgQdrs3B+XxEmCc6b3FQ==}
 
+  typedoc-plugin-inline-sources@1.2.0:
+    resolution: {integrity: sha512-gCjief4B71vRJw25Lwl7J69DuxzDjjG6pvUUPmjxY3uePyzcFGiw4eqbq+tmIPLXlnKAQujmglX/G+ZDnLUzug==}
+    peerDependencies:
+      typedoc: 0.25.x || 0.26.x
+
   typedoc-plugin-markdown@4.4.2:
     resolution: {integrity: sha512-kJVkU2Wd+AXQpyL6DlYXXRrfNrHrEIUgiABWH8Z+2Lz5Sq6an4dQ/hfvP75bbokjNDUskOdFlEEm/0fSVyC7eg==}
     engines: {node: '>= 18'}
     peerDependencies:
       typedoc: 0.27.x
 
-  typedoc-plugin-rename-defaults@0.7.2:
-    resolution: {integrity: sha512-9oa1CsMN4p/xuVR2JW2YDD6xE7JcrIth3KAfjR8YBi6NnrDk2Q72o4lbArybLDjxKAkOzk7N1uUdGwJlooLEOg==}
+  typedoc-plugin-mdn-links@4.0.13:
+    resolution: {integrity: sha512-vbfQHlPGU0AXuyEeMpKDEMS5FuF5EN5aVSPqxK0vbyhbC7vrE8H2AFwI2avWdPgo9crpld2EtT1IUhkAogAefw==}
     peerDependencies:
-      typedoc: '>=0.22.x <0.28.x'
+      typedoc: 0.26.x || 0.27.x
+
+  typedoc-plugin-missing-exports@3.1.0:
+    resolution: {integrity: sha512-Sogbaj+qDa21NjB3SlIw4JXSwmcl/WOjwiPNaVEcPhpNG/MiRTtpwV81cT7h1cbu9StpONFPbddYWR0KV/fTWA==}
+    peerDependencies:
+      typedoc: 0.26.x || 0.27.x
 
   typedoc@0.27.7:
     resolution: {integrity: sha512-K/JaUPX18+61W3VXek1cWC5gwmuLvYTOXJzBvD9W7jFvbPnefRnCHQCEPw7MSNrP/Hj7JJrhZtDDLKdcYm6ucg==}
@@ -10808,8 +10820,6 @@ snapshots:
   callsites@3.1.0: {}
 
   camelcase@6.3.0: {}
-
-  camelcase@8.0.0: {}
 
   caniuse-lite@1.0.30001700: {}
 
@@ -14473,13 +14483,20 @@ snapshots:
 
   type@2.7.3: {}
 
+  typedoc-plugin-inline-sources@1.2.0(typedoc@0.27.7(typescript@5.8.1-rc)):
+    dependencies:
+      typedoc: 0.27.7(typescript@5.8.1-rc)
+
   typedoc-plugin-markdown@4.4.2(typedoc@0.27.7(typescript@5.8.1-rc)):
     dependencies:
       typedoc: 0.27.7(typescript@5.8.1-rc)
 
-  typedoc-plugin-rename-defaults@0.7.2(typedoc@0.27.7(typescript@5.8.1-rc)):
+  typedoc-plugin-mdn-links@4.0.13(typedoc@0.27.7(typescript@5.8.1-rc)):
     dependencies:
-      camelcase: 8.0.0
+      typedoc: 0.27.7(typescript@5.8.1-rc)
+
+  typedoc-plugin-missing-exports@3.1.0(typedoc@0.27.7(typescript@5.8.1-rc)):
+    dependencies:
       typedoc: 0.27.7(typescript@5.8.1-rc)
 
   typedoc@0.27.7(typescript@5.8.1-rc):
