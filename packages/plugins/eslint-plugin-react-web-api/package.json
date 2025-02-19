@@ -45,7 +45,7 @@
   "scripts": {
     "build": "tsup --dts-resolve",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit",
+    "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {

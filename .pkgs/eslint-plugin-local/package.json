@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsup",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit"
+    "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",

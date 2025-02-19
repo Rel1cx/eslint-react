@@ -14,10 +14,10 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   };
 }
 
-function makeLegacyConfig(config: { rules: RulePreset }) {
+function makeLegacyConfig({ rules }: { rules: RulePreset }) {
   return {
     plugins: ["react-x"],
-    rules: config.rules,
+    rules,
   };
 }
 

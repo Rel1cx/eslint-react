@@ -5,10 +5,10 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "pnpm run lint:ts && pnpm run lint:type",
+    "lint": "pnpm run lint:es && pnpm run lint:ts",
+    "lint:es": "eslint .",
     "lint:markup": "markuplint \"**/*.{jsx,tsx}\"",
-    "lint:ts": "eslint .",
-    "lint:type": "tsc --noEmit",
+    "lint:ts": "tsc --noEmit",
     "prepare": "fumadocs-mdx && pnpm run build",
     "start": "next start"
   },
@@ -49,7 +49,7 @@
     "autoprefixer": "^10.4.20",
     "dedent": "^1.5.3",
     "eslint": "^9.20.1",
-    "eslint-plugin-de-morgan": "^1.0.1",
+    "eslint-plugin-de-morgan": "^1.1.0",
     "eslint-plugin-import-x": "^4.6.1",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-perfectionist": "^4.9.0",
@@ -58,7 +58,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^57.0.0",
     "markuplint": "^4.11.6",
-    "postcss": "^8.5.2",
+    "postcss": "^8.5.3",
     "tailwindcss": "4.0.7",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1"

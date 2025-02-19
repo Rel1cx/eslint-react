@@ -21,10 +21,10 @@ import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checke
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import { padKeysLeft } from "./utils";
 
-function toLegacyConfig(config: { rules: RulePreset }) {
+function toLegacyConfig({ rules }: { rules: RulePreset }) {
   return {
     plugins: ["@eslint-react"],
-    rules: config.rules,
+    rules,
   };
 }
 

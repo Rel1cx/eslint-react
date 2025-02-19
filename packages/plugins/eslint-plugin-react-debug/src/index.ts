@@ -12,10 +12,10 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   };
 }
 
-function makeLegacyConfig(config: { rules: RulePreset }) {
+function makeLegacyConfig({ rules }: { rules: RulePreset }) {
   return {
     plugins: ["react-debug"],
-    rules: config.rules,
+    rules,
   };
 }
 
