@@ -66,6 +66,8 @@ function MyComponent() {
 
 - [MDN: iframe - sandbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes)
 
+---
+
 ## See Also
 
 - [`no-missing-button-type`](./dom-no-missing-button-type)\

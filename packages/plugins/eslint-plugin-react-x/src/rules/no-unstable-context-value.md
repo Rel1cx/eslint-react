@@ -80,6 +80,8 @@ This can be a pretty large performance hit because not only will it cause the co
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value.spec.ts)
 
+---
+
 ## See Also
 
 - [`no-unstable-default-props`](./no-unstable-default-props)\

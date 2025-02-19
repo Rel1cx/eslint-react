@@ -77,6 +77,8 @@ class MyComponent extends React.Component {
 
 - [React: Legacy React APIs createRef](https://react.dev/reference/react/createRef)
 
+---
+
 ## See Also
 
 - [`no-string-refs`](./no-string-refs)\

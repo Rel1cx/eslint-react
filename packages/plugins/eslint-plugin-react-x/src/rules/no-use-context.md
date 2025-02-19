@@ -67,6 +67,8 @@ function Button() {
 - [React Blog: New feature use](https://react.dev/blog/2024/12/05/react-19#new-feature-use)
 - [React: Reading context with use](https://react.dev/reference/react/use#reading-context-with-use)
 
+---
+
 ## See Also
 
 - [`no-context-provider`](./no-context-provider)\

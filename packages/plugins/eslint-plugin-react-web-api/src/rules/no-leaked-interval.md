@@ -79,6 +79,8 @@ function MyComponent() {
 - [MDN: clearInterval](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)
 - [React: synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
 
+---
+
 ## See Also
 
 - [no-leaked-timeout](./web-api-no-leaked-timeout)\

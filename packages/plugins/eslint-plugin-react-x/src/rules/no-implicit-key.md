@@ -85,6 +85,8 @@ function MyComponent({ items }: MyComponentProps) {
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key.spec.ts)
 
+---
+
 ## See Also
 
 - [`no-missing-key`](./no-missing-key)\

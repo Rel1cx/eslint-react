@@ -53,6 +53,8 @@ function MyComponent() {
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-boolean.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/avoid-shorthand-boolean.spec.ts)
 
+---
+
 ## See Also
 
 - [`prefer-shorthand-boolean`](./prefer-shorthand-boolean)\

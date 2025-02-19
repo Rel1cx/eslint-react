@@ -62,6 +62,8 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update.spec.ts)
 
+---
+
 ## See Also
 
 - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount)\

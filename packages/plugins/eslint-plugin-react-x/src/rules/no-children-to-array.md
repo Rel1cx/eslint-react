@@ -58,6 +58,8 @@ function MyComponent({ children }: MyComponentProps) {
 
 - [React: Legacy React APIs Children](https://react.dev/reference/react/Children)
 
+---
+
 ## See Also
 
 - [`no-children-count`](./no-children-count)

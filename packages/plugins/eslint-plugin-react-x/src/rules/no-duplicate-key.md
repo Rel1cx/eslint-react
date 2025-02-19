@@ -116,6 +116,8 @@ function MyComponent() {
 
 - [React: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
 
+---
+
 ## See Also
 
 - [`no-missing-key`](./no-missing-key)\

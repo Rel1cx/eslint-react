@@ -66,6 +66,8 @@ function MyComponent() {
 
 - [MDN: button - notes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#notes)
 
+---
+
 ## See Also
 
 - [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)\

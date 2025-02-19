@@ -68,6 +68,8 @@ class MyComponent extends React.Component {
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members.spec.ts)
 
+---
+
 ## See Also
 
 - [`no-unused-state`](./no-unused-state)\

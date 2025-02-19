@@ -72,6 +72,8 @@ function App({ children }) {
 
 - [React: `<Context>` as a provider](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider)
 
+---
+
 ## See Also
 
 - [`no-forward-ref`](./no-forward-ref)\

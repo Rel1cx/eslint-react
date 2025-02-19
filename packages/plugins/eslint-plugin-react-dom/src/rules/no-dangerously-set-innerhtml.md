@@ -46,6 +46,8 @@ function MyComponent() {
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml.spec.ts)
 
+---
+
 ## See Also
 
 - [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children)\

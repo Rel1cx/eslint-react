@@ -52,6 +52,8 @@ function MyComponent({ condition1, condition2, condition3, condition4 }) {
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-complex-conditional-rendering.spec.ts)
 
+---
+
 ## See Also
 
 - [`no-leaked-conditional-rendering`](./no-leaked-conditional-rendering)\

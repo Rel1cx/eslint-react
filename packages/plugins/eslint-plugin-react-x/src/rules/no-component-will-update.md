@@ -68,6 +68,8 @@ class MyComponent extends React.Component {
 
 - [React: Legacy React APIs componentWillUpdate](https://react.dev/reference/react/Component#componentwillupdate)
 
+---
+
 ## See Also
 
 - [no-component-will-mount](./no-component-will-mount)\

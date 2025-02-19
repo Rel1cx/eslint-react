@@ -266,6 +266,8 @@ The limitation may be lifted in the future.
 - [React: useEffect](https://react.dev/reference/react/useEffect)
 - [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 
+---
+
 ## See Also
 
 - [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect)\
