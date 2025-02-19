@@ -18,6 +18,8 @@ full: true
 
 | Rule                                                                                 | ✅ | Features      | Description                                                                                          |  React   |
 | :----------------------------------------------------------------------------------- | :- | :------------ | :--------------------------------------------------------------------------------------------------- | :------: |
+| [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)                               | 0️⃣  | `🔍` `🔧`     | Enforces the use of explicit boolean values for boolean attributes.                                  |          |
+| [`avoid-shorthand-fragment`](./avoid-shorthand-fragment)                             | 0️⃣  | `🔍`          | Enforces the use of explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax.  |          |
 | [`ensure-forward-ref-using-ref`](./ensure-forward-ref-using-ref)                     | 1️⃣  | `🔍`          | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                      |          |
 | [`no-access-state-in-setstate`](./no-access-state-in-setstate)                       | 2️⃣  | `🔍`          | Prevents accessing `this.state` inside `setState` calls.                                             |          |
 | [`no-array-index-key`](./no-array-index-key)                                         | 1️⃣  | `🔍`          | Prevents using array `index` as `key`.                                                               |          |
