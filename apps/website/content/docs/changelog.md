@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v1.27.0 (2025-02-21)
+
+### ✨ New
+
+- feat: add presets exports to modular plugins by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/940>
+- feat: add `no-missing-context-display-name` rule by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/941>
+
+### 🪄 Improvements
+
+- refactor: improve error messages by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/936> and <https://github.com/Rel1cx/eslint-react/pull/937>
+- refactor: add `useEffect` to `additionalHooks` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/938>
+- refactor: change severity of `no-duplicate-key` rule from `error` to `warn` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/939>
+
 ## v1.26.2 (2025-02-06)
 
 ### 🐞 Fixes

@@ -39,7 +39,7 @@ const changelogWithFrontmatter = [
   changelog,
 ].join("\n");
 
-await fs.writeFile(path.join("apps", "website", "content", "changelog.md"), changelogWithFrontmatter);
+await fs.writeFile(path.join("apps", "website", "content", "docs", "changelog.md"), changelogWithFrontmatter);
 
 // workaround for @tailwindcss/postcss plugin not working with symlinked node_modules
 const linkPath = path.join("apps", "website", "node_modules", "fumadocs-ui", "dist");
