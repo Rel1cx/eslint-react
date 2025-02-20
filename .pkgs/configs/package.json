@@ -2,7 +2,7 @@
   "name": "@local/configs",
   "version": "0.0.0",
   "private": true,
-  "description": "Local configuration files",
+  "description": "Local config bases for use in the workspace",
   "sideEffects": false,
   "exports": {
     "./tsconfig.base.json": "./tsconfig.base.json",

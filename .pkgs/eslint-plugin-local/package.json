@@ -2,7 +2,7 @@
   "name": "@local/eslint-plugin-local",
   "version": "0.0.0",
   "private": true,
-  "description": "Local ESLint pluginf for use in the workspace",
+  "description": "Local ESLint plugin for use in the workspace",
   "sideEffects": false,
   "type": "module",
   "exports": {

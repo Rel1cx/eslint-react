@@ -58,6 +58,11 @@ Before submitting your contribution though, please make sure to take a moment an
 
 ### Packages Overview
 
+#### Local Packages
+
+- `.pkgs/configs`: Local config bases for use in the workspace.
+- `.pkgs/eslint-plugin-local`: Local ESLint plugin for use in the workspace.
+
 #### Internal Packages
 
 ##### Utility Modules
