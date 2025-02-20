@@ -12,7 +12,7 @@
 
 ### node
 
-`CallExpression`
+[`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ## Returns
 

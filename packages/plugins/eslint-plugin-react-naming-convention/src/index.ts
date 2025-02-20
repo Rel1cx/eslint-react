@@ -1,18 +1,28 @@
-import { name, version } from "../package.json";
-import componentName from "./rules/component-name";
-import filename from "./rules/filename";
-import filenameExtension from "./rules/filename-extension";
-import useState from "./rules/use-state";
+import type { RulePreset } from "@eslint-react/shared";
+
+import * as recommendedConfig from "./configs/recommended";
+import { plugin } from "./plugin";
+
+function makeConfig(config: { name: string; rules: RulePreset }) {
+  return {
+    ...config,
+    plugins: {
+      "react-naming-convention": plugin,
+    },
+  };
+}
+
+function makeLegacyConfig({ rules }: { rules: RulePreset }) {
+  return {
+    plugins: ["react-naming-convention"],
+    rules,
+  };
+}
 
 export default {
-  meta: {
-    name,
-    version,
+  ...plugin,
+  configs: {
+    ["recommended"]: makeConfig(recommendedConfig),
+    ["recommended-legacy"]: makeLegacyConfig(recommendedConfig),
   },
-  rules: {
-    "component-name": componentName,
-    filename,
-    "filename-extension": filenameExtension,
-    "use-state": useState,
-  },
-} as const;
+};

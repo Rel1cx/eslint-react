@@ -16,7 +16,7 @@ Check if the given node is a React Hook call by its name.
 
 The node to check.
 
-`undefined` | `Node`
+`undefined` | [`Node`](../-internal-/type-aliases/Node.md)
 
 ## Returns
 

@@ -27,7 +27,7 @@ react-dom/no-dangerously-set-innerhtml-with-children
 
 ## What it does
 
-Disallows `DOM element` using `children` and `dangerouslySetInnerHTML` at the same time.
+Disallows DOM elements using `children` and `dangerouslySetInnerHTML` at the same time.
 
 When using `dangerouslySetInnerHTML`, the content of the DOM element is set from the `__html` property. The content of the DOM element is completely replaced, so the children will not be rendered as expected.
 
@@ -61,3 +61,12 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml-with-children.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml-with-children.spec.ts)
+
+---
+
+## See Also
+
+- [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)\
+  Warns when using `dangerouslySetInnerHTML`.
+- [`no-void-elements-with-children`](./dom-no-void-elements-with-children)\
+  Prevents the use of `children` in void DOM elements.

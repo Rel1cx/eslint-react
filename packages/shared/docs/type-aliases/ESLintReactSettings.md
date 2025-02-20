@@ -6,4 +6,4 @@
 
 # Type Alias: ESLintReactSettings
 
-> **ESLintReactSettings**: `InferOutput`\<*typeof* `ESLintReactSettingsSchema`\>
+> **ESLintReactSettings**: [`InferOutput`](../-internal-/type-aliases/InferOutput.md)\<*typeof* `ESLintReactSettingsSchema`\>

@@ -4,6 +4,10 @@
 
 # @eslint-react/core
 
+## Modules
+
+- [\<internal\>](-internal-/README.md)
+
 ## Namespaces
 
 - [isCallFromReact](namespaces/isCallFromReact/README.md)

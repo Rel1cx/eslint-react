@@ -6,4 +6,4 @@
 
 # Type Alias: ESLintSettings
 
-> **ESLintSettings**: `InferOutput`\<*typeof* `ESLintSettingsSchema`\>
+> **ESLintSettings**: [`InferOutput`](../-internal-/type-aliases/InferOutput.md)\<*typeof* `ESLintSettingsSchema`\>

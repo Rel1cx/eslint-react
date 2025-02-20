@@ -6,7 +6,7 @@
 
 # Type Alias: RuleOptions
 
-> **RuleOptions**: `Parameters`\<`RuleCreator`\>\[`1`\]
+> **RuleOptions**: [`Parameters`](../-internal-/type-aliases/Parameters.md)\<`RuleCreator`\>\[`1`\]
 
 Rule options.
 

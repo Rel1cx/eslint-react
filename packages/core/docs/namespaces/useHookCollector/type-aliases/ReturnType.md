@@ -24,8 +24,8 @@
 
 ##### Returns
 
-`Map`\<`string`, [`ERHook`](../../../interfaces/ERHook.md)\>
+[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERHook`](../../../interfaces/ERHook.md)\>
 
 ### listeners
 
-> **listeners**: `ESLintUtils.RuleListener`
+> **listeners**: [`RuleListener`](../../../-internal-/type-aliases/RuleListener.md)

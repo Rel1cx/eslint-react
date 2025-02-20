@@ -19,7 +19,7 @@
     "lint": {
       "cache": true
     },
-    "lint:type": {
+    "lint:ts": {
       "cache": true
     }
   },

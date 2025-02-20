@@ -28,7 +28,7 @@
 
 ### id
 
-> **id**: `undefined` \| `Identifier` \| `Identifier`[]
+> **id**: `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md) \| [`Identifier`](../-internal-/interfaces/Identifier.md)[]
 
 ***
 
@@ -52,4 +52,4 @@
 
 ### node
 
-> **node**: `Node`
+> **node**: [`Node`](../-internal-/type-aliases/Node.md)

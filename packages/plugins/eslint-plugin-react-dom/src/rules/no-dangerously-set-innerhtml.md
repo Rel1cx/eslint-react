@@ -45,3 +45,12 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml.spec.ts)
+
+---
+
+## See Also
+
+- [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children)\
+  Disallows DOM elements using `children` and `dangerouslySetInnerHTML` at the same time.
+- [`no-void-elements-with-children`](./dom-no-void-elements-with-children)\
+  Prevents the use of `children` in void DOM elements.

@@ -6,4 +6,4 @@
 
 # Type Alias: CustomHooks
 
-> **CustomHooks**: `InferOutput`\<*typeof* [`CustomHooksSchema`](../variables/CustomHooksSchema.md)\>
+> **CustomHooks**: [`InferOutput`](../-internal-/type-aliases/InferOutput.md)\<*typeof* [`CustomHooksSchema`](../variables/CustomHooksSchema.md)\>

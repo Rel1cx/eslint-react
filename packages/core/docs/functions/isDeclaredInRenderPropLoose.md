@@ -20,7 +20,7 @@ _ = <Component rows={ [{ render: "node" }] } />
 
 ### node
 
-`Node`
+[`Node`](../-internal-/type-aliases/Node.md)
 
 The AST node to check
 

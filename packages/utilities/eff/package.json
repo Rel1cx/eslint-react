@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "1.26.3-beta.14",
+  "version": "1.26.3-beta.21",
   "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -37,7 +37,7 @@
   "scripts": {
     "build": "tsup",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit",
+    "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "devDependencies": {

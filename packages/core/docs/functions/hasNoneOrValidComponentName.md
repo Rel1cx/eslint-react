@@ -12,11 +12,11 @@
 
 ### node
 
-`TSESTreeFunction`
+[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 

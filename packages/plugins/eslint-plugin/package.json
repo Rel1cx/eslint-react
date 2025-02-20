@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.26.3-beta.14",
+  "version": "1.26.3-beta.21",
   "description": "More than 80 high-quality linting rules for writing better React code.",
   "keywords": [
     "react",
@@ -48,16 +48,16 @@
   "scripts": {
     "build": "tsup --dts-resolve",
     "lint:publish": "pnpm publint",
-    "lint:type": "tsc --noEmit",
+    "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.24.0",
-    "@typescript-eslint/type-utils": "^8.24.0",
-    "@typescript-eslint/types": "^8.24.0",
-    "@typescript-eslint/utils": "^8.24.0",
+    "@typescript-eslint/scope-manager": "^8.24.1",
+    "@typescript-eslint/type-utils": "^8.24.1",
+    "@typescript-eslint/types": "^8.24.1",
+    "@typescript-eslint/utils": "^8.24.1",
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",

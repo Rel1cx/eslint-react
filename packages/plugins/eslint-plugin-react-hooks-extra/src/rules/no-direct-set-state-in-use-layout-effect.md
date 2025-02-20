@@ -90,7 +90,7 @@ export default function RemoteContent() {
 }
 ```
 
-The following examples are drived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
+The following examples are derived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
 
 ### Failing
 
@@ -259,3 +259,10 @@ The limitation may be lifted in the future.
 - [React: useState](https://react.dev/reference/react/useState#setstate)
 - [React: useLayoutEffect](https://react.dev/reference/react/useLayoutEffect)
 - [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+
+---
+
+## See Also
+
+- [`no-direct-set-state-in-use-effect`](./hooks-extra-no-direct-set-state-in-use-effect)\
+  Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.

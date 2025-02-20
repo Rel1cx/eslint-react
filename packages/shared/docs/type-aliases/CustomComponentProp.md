@@ -6,4 +6,4 @@
 
 # Type Alias: CustomComponentProp
 
-> **CustomComponentProp**: `InferOutput`\<*typeof* [`CustomComponentPropSchema`](../variables/CustomComponentPropSchema.md)\>
+> **CustomComponentProp**: [`InferOutput`](../-internal-/type-aliases/InferOutput.md)\<*typeof* [`CustomComponentPropSchema`](../variables/CustomComponentPropSchema.md)\>

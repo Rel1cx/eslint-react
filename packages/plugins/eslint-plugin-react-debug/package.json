@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-debug",
-  "version": "1.26.3-beta.14",
+  "version": "1.26.3-beta.21",
   "description": "ESLint React's ESLint plugin for debugging related rules.",
   "keywords": [
     "react",
@@ -45,7 +45,7 @@
   "scripts": {
     "build": "tsup --dts-resolve",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit",
+    "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
@@ -55,10 +55,10 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.24.0",
-    "@typescript-eslint/type-utils": "^8.24.0",
-    "@typescript-eslint/types": "^8.24.0",
-    "@typescript-eslint/utils": "^8.24.0",
+    "@typescript-eslint/scope-manager": "^8.24.1",
+    "@typescript-eslint/type-utils": "^8.24.1",
+    "@typescript-eslint/types": "^8.24.1",
+    "@typescript-eslint/utils": "^8.24.1",
     "string-ts": "^2.2.1",
     "ts-pattern": "^5.6.2"
   },

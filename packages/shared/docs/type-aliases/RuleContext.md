@@ -6,7 +6,7 @@
 
 # Type Alias: RuleContext
 
-> **RuleContext**: `Parameters`\<`RuleCreator`\>\[`0`\]
+> **RuleContext**: [`Parameters`](../-internal-/type-aliases/Parameters.md)\<`RuleCreator`\>\[`0`\]
 
 Rule context.
 

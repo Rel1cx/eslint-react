@@ -6,4 +6,4 @@
 
 # Variable: CustomComponentPropSchema
 
-> `const` **CustomComponentPropSchema**: `ObjectSchema`\<\{ `as`: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>; `controlled`: `OptionalSchema`\<`BooleanSchema`\<`undefined`\>, `undefined`\>; `defaultValue`: `OptionalSchema`\<`StringSchema`\<`undefined`\>, `undefined`\>; `name`: `StringSchema`\<`undefined`\>; \}, `undefined`\>
+> `const` **CustomComponentPropSchema**: [`ObjectSchema`](../-internal-/interfaces/ObjectSchema.md)\<\{ `as`: [`OptionalSchema`](../-internal-/interfaces/OptionalSchema.md)\<[`StringSchema`](../-internal-/interfaces/StringSchema.md)\<`undefined`\>, `undefined`\>; `controlled`: [`OptionalSchema`](../-internal-/interfaces/OptionalSchema.md)\<[`BooleanSchema`](../-internal-/interfaces/BooleanSchema.md)\<`undefined`\>, `undefined`\>; `defaultValue`: [`OptionalSchema`](../-internal-/interfaces/OptionalSchema.md)\<[`StringSchema`](../-internal-/interfaces/StringSchema.md)\<`undefined`\>, `undefined`\>; `name`: [`StringSchema`](../-internal-/interfaces/StringSchema.md)\<`undefined`\>; \}, `undefined`\>

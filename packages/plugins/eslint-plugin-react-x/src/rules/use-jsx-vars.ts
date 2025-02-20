@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "helpes `eslint/no-unused-vars` to correctly mark JSX variables as used.",
+      description: "marks variables used in JSX as used",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

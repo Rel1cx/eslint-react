@@ -25,7 +25,7 @@ run = "pnpm run format:check"
 # run = "pnpm run lint"
 
 [pre-commit.commands.lint]
-run = "pnpm run lint:deps && pnpm run lint:type"
+run = "pnpm run lint:deps && pnpm run lint:ts"
 
 [pre-commit.commands.add]
 run = "git add ."

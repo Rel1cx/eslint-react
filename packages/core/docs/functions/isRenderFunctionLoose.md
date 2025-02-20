@@ -20,13 +20,13 @@ _ = <Component renderRow={() => <div />} />
 
 ### node
 
-`TSESTreeFunction`
+[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 The AST node to check
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The rule context
 

@@ -14,6 +14,7 @@
     "allowJs": false,
     "checkJs": false,
     "strict": true,
+    "erasableSyntaxOnly": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": false,

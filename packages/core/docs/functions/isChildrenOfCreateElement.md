@@ -14,13 +14,13 @@ Determines whether inside `createElement`'s children.
 
 ### node
 
-`Node`
+[`Node`](../-internal-/type-aliases/Node.md)
 
 The AST node to check
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The rule context
 

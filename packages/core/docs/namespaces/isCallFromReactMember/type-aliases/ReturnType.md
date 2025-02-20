@@ -6,13 +6,13 @@
 
 # Type Alias: ReturnType()
 
-> **ReturnType**: (`context`) => (`node`) => `node is CallExpression & { callee: TSESTree.MemberExpression }`(`node`, `context`) => `node is CallExpression & { callee: TSESTree.MemberExpression }`
+> **ReturnType**: (`context`) => (`node`) => `node is CallExpression & { callee: MemberExpression }`(`node`, `context`) => `node is CallExpression & { callee: MemberExpression }`
 
 ## Parameters
 
 ### context
 
-`Readonly`
+[`Readonly`](../../../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 
@@ -22,22 +22,22 @@
 
 #### node
 
-`Node`
+[`Node`](../../../-internal-/type-aliases/Node.md)
 
 ### Returns
 
-`node is CallExpression & { callee: TSESTree.MemberExpression }`
+`node is CallExpression & { callee: MemberExpression }`
 
 ## Parameters
 
 ### node
 
-`Node`
+[`Node`](../../../-internal-/type-aliases/Node.md)
 
 ### context
 
-`Readonly`
+[`Readonly`](../../../-internal-/type-aliases/Readonly.md)
 
 ## Returns
 
-`node is CallExpression & { callee: TSESTree.MemberExpression }`
+`node is CallExpression & { callee: MemberExpression }`

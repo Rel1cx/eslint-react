@@ -14,7 +14,7 @@ Get a ctx and listeners for the rule to collect function components
 
 ### context
 
-`Readonly`
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The ESLint rule context
 
