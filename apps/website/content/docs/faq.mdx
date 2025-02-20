@@ -20,14 +20,30 @@ Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.ht
 
 <Accordion title="What is included in eslint-react?">
 
-Currently, it includes the following plugins:
+Currently, it includes the following:
 
-- `@eslint-react/eslint-plugin` - The main ESLint plugin package including all rules and config presets in this repository.
-- `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform).
-- `eslint-plugin-react-dom` - DOM specific rules for React DOM.
-- `eslint-plugin-react-web-api` - Rules for interacting with Web APIs.
-- `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
-- `eslint-plugin-react-naming-convention` - Naming convention rules.
+**Internal Packages**
+  - **Utility Modules**
+    - `packages/utilities/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library).
+    - `packages/utilities/ast`: TSESTree AST utility module.
+    - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables.
+    - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
+  - **Core & Shared Modules**
+    - `packages/core`: Utility module for static analysis of React core APIs and Patterns.
+    - `packages/shared`: Shared constants, types and functions.
+
+**Public Packages**
+  - **ESLint Plugins**
+    - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core rules (renderer-agnostic, compatible with x-platform).
+    - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
+    - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
+    - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
+    - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
+    - [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - All rules and config presets from the above plugins.
+
+**Website & Playground**
+ - `website`: This documentation website.
+ - `playground`: The playground for ESLint React (WIP).
 
 You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecological-niche-explanation).
 
