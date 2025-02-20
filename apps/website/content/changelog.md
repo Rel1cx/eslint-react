@@ -13,7 +13,7 @@ title: Changelog
 
 - refactor: improve error messages by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/936> and <https://github.com/Rel1cx/eslint-react/pull/937>
 - refactor: add `useEffect` to `additionalHooks` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/938>
-- refactor: change severity of 'no-duplicate-key' rule from error to warn by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/939>
+- refactor: change severity of `no-duplicate-key` rule from `error` to `warn` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/939>
 
 ## v1.26.2 (2025-02-06)
 
