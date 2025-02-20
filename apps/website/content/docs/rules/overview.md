@@ -128,13 +128,13 @@ full: true
 
 ## Deprecated Rules
 
-| Rule                                                                                           | Replaced by                                                                            | Deprecated at        |
-| :--------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- | :------------------- |
-| [`jsx-uses-vars`](jsx-uses-vars)                                                               | [`use-jsx-vars`](./use-jsx-vars)                                                       | v1.22.0 (2024-12-22) |
-| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                             | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                                   | v1.22.0 (2024-12-22) |
-| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)                 | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)               | v1.6.0 (2024-07-27)  |
-| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                 | [`dom/no-void-elements-with-children`](./dom-no-void-elements-with-children)           | v1.22.0 (2024-12-22) |
-| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                  | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.21.0 (2024-12-20) |
-| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)     | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.13.0 (2024-09-04) |
-| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](ensure-use-memo-has-non-empty-deps)         | [`hooks-extra/no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         | v1.13.0 (2024-09-04) |
-| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](ensure-use-callback-has-non-empty-deps) | [`hooks-extra/no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) | v1.13.0 (2024-09-04) |
+| Rule                                                                                           | Replaced by                                                                            | Deprecated in |
+| :--------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- | :------------ |
+| [`jsx-uses-vars`](jsx-uses-vars)                                                               | [`use-jsx-vars`](./use-jsx-vars)                                                       | v1.22.0       |
+| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                             | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                                   | v1.22.0       |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)                 | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)               | v1.6.0        |
+| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                 | [`dom/no-void-elements-with-children`](./dom-no-void-elements-with-children)           | v1.22.0       |
+| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                  | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.21.0       |
+| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)     | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.13.0       |
+| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](ensure-use-memo-has-non-empty-deps)         | [`hooks-extra/no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         | v1.13.0       |
+| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](ensure-use-callback-has-non-empty-deps) | [`hooks-extra/no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) | v1.13.0       |
