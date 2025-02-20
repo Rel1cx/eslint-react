@@ -71,14 +71,6 @@ full: true
 | [`prefer-shorthand-fragment`](./prefer-shorthand-fragment)                           | 0️⃣  | `🔍` `🔧`     | Enforces using shorthand syntax for fragments.                                                        |          |
 | [`use-jsx-vars`](./use-jsx-vars)                                                     | 1️⃣  |               | Marks variables used in JSX as used.                                                                  |          |
 
-### Deprecated
-
-| Rule                                                                           | Replaced by                                                              |
-| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
-| [`jsx-uses-vars`](jsx-uses-vars)                                               | [`use-jsx-vars`](./use-jsx-vars)                                         |
-| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                             | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                     |
-| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering) | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering) |
-
 ## DOM Rules
 
 | Rule                                                                                             | ✅ | Features      | Description                                                                            |
@@ -95,12 +87,6 @@ full: true
 | [`no-unknown-property`](./dom-no-unknown-property)                                               | 0️⃣  | `🔍` `🔧` `⚙️` | Prevents using unknown `DOM` property                                                  |
 | [`no-unsafe-iframe-sandbox`](./dom-no-unsafe-iframe-sandbox)                                     | 1️⃣  | `🔍`          | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.  |
 | [`no-unsafe-target-blank`](./dom-no-unsafe-target-blank)                                         | 1️⃣  | `🔍`          | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                  |
-
-### Deprecated
-
-| Rule                                                                           | Replaced by                                                              |
-| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
-| [`dom-no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements) | [`no-void-elements-with-children`](./dom-no-void-elements-with-children) |
 
 ## Web API Rules
 
@@ -122,15 +108,6 @@ full: true
 | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)                                   | 1️⃣  | `🔍`     | Enforces custom Hooks to use at least one other Hook inside.                               |
 | [`prefer-use-state-lazy-initialization`](./hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  | `🔍`     | Enforces function calls made inside `useState` to be wrapped in an `initializer function`. |
 
-### Deprecated
-
-| Rule                                                                               | Replaced by                                                                |
-| :--------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| [`no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                  | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         |
-| [`ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)     | [`no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         |
-| [`ensure-use-memo-has-non-empty-deps`](ensure-use-memo-has-non-empty-deps)         | [`no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         |
-| [`ensure-use-callback-has-non-empty-deps`](ensure-use-callback-has-non-empty-deps) | [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) |
-
 ## Naming Convention Rules
 
 | Rule                                                           | ✅ | Features | Description                                                                      |
@@ -148,3 +125,16 @@ full: true
 | [`function-component`](./debug-function-component) | 0️⃣  | `🐞`     | Reports all function components.                         |
 | [`hook`](./debug-hook)                             | 0️⃣  | `🐞`     | Reports all react hooks.                                 |
 | [`is-from-react`](./debug-is-from-react)           | 0️⃣  | `🐞`     | Reports all identifiers that are initialized from React. |
+
+## Deprecated Rules
+
+| Rule                                                                                           | Replaced by                                                                            | Deprecated at        |
+| :--------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- | :------------------- |
+| [`jsx-uses-vars`](jsx-uses-vars)                                                               | [`use-jsx-vars`](./use-jsx-vars)                                                       | v1.22.0 (2024-12-22) |
+| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                             | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                                   | v1.22.0 (2024-12-22) |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)                 | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)               | v1.6.0 (2024-07-27)  |
+| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                 | [`dom/no-void-elements-with-children`](./dom-no-void-elements-with-children)           | v1.22.0 (2024-12-22) |
+| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                  | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.21.0 (2024-12-20) |
+| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)     | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.13.0 (2024-09-04) |
+| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](ensure-use-memo-has-non-empty-deps)         | [`hooks-extra/no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         | v1.13.0 (2024-09-04) |
+| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](ensure-use-callback-has-non-empty-deps) | [`hooks-extra/no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) | v1.13.0 (2024-09-04) |

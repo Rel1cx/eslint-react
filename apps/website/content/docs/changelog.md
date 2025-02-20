@@ -356,12 +356,12 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- `hooks-extra/no-useless-custom-hooks` should allow custom Hooks with empty body
+- `hooks-extra/no-redundant-custom-hook` should allow custom Hooks with empty body
 
 ### 🪄 Improvements
 
 - Rename `debug/react-hooks` to `debug/hook`
-- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-useless-custom-hooks`
+- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-redundant-custom-hook`
 - Rename `hooks-extra/ensure-use-memo-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-memo`
 - Rename `hooks-extra/ensure-use-callback-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-callback`
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`
