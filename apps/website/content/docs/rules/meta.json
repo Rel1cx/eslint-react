@@ -30,6 +30,7 @@
     "no-implicit-key",
     "no-leaked-conditional-rendering",
     "no-missing-component-display-name",
+    "no-missing-context-display-name",
     "no-missing-key",
     "no-nested-components",
     "no-prop-types",

@@ -9,8 +9,8 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
+import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../utils";
 import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
-import { COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "./component-display-name";
 import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
@@ -106,7 +106,7 @@ export function useComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR](node: TSESTree.AssignmentExpression) {
+        [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
           if (left.type !== T.MemberExpression) return;
           const componentName = left.object.type === T.Identifier

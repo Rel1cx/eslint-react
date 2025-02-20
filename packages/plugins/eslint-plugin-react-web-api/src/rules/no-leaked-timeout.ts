@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
-import { createRule, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils";
+import { createRule, getPhaseKindOfFunction, isInstanceIdEqual } from "../utils";
 
 // #region Rule Metadata
 
@@ -80,7 +80,7 @@ export default createRule<[], MessageID>({
     const sEntries: TimerEntry[] = [];
     const rEntries: TimerEntry[] = [];
     function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-      return isInstanceIDEqual(a.timerId, b.timerId, context);
+      return isInstanceIdEqual(a.timerId, b.timerId, context);
     }
     return {
       [":function"](node: AST.TSESTreeFunction) {

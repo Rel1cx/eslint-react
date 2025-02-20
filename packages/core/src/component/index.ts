@@ -1,7 +1,6 @@
 export * from "./component-collector";
 export * from "./component-collector-hint";
 export * from "./component-collector-legacy";
-export * from "./component-display-name";
 export * from "./component-flag";
 export * from "./component-id";
 export type * from "./component-kind";

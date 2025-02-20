@@ -39,7 +39,7 @@
 
 ## Variables
 
-- [COMPONENT\_DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
+- [COMPONENT\_DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
 - [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
 - [ERComponentFlag](variables/ERComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)
@@ -70,7 +70,7 @@
 - [isCloneElementCall](functions/isCloneElementCall.md)
 - [isComponentDidCatch](functions/isComponentDidCatch.md)
 - [isComponentDidMount](functions/isComponentDidMount.md)
-- [isComponentDisplayNameAssignment](functions/isComponentDisplayNameAssignment.md)
+- [isDisplayNameAssignment](functions/isDisplayNameAssignment.md)
 - [isComponentName](functions/isComponentName.md)
 - [isComponentWillUnmount](functions/isComponentWillUnmount.md)
 - [isCreateContext](functions/isCreateContext.md)

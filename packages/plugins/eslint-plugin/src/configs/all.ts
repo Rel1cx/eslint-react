@@ -35,6 +35,7 @@ export const rules = {
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
   "@eslint-react/no-missing-component-display-name": "warn",
+  "@eslint-react/no-missing-context-display-name": "warn",
   "@eslint-react/no-missing-key": "error",
   "@eslint-react/no-nested-components": "error",
   "@eslint-react/no-prop-types": "error",
