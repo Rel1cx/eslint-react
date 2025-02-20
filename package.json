@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.26.3-next.21",
+  "version": "1.26.3-beta.21",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [

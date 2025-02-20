@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.26.3-next.21",
+  "version": "1.26.3-beta.21",
   "description": "A set of composable linting rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
