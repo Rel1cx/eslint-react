@@ -171,7 +171,7 @@ The generic type parameters passed to the superClass.
 
 ### type
 
-> **type**: [`ClassDeclaration`](../README.md#classdeclaration)
+> **type**: [`ClassDeclaration`](../enumerations/AST_NODE_TYPES.md#classdeclaration)
 
 #### Inherited from
 

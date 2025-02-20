@@ -39,8 +39,8 @@
 
 ## Variables
 
-- [COMPONENT\_DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
 - [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
+- [DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
 - [ERComponentFlag](variables/ERComponentFlag.md)
 - [ERComponentHint](variables/ERComponentHint.md)
 - [ERPhaseRelevance](variables/ERPhaseRelevance.md)
@@ -70,7 +70,6 @@
 - [isCloneElementCall](functions/isCloneElementCall.md)
 - [isComponentDidCatch](functions/isComponentDidCatch.md)
 - [isComponentDidMount](functions/isComponentDidMount.md)
-- [isDisplayNameAssignment](functions/isDisplayNameAssignment.md)
 - [isComponentName](functions/isComponentName.md)
 - [isComponentWillUnmount](functions/isComponentWillUnmount.md)
 - [isCreateContext](functions/isCreateContext.md)
@@ -80,6 +79,7 @@
 - [isCreateRef](functions/isCreateRef.md)
 - [isCreateRefCall](functions/isCreateRefCall.md)
 - [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
+- [isDisplayNameAssignment](functions/isDisplayNameAssignment.md)
 - [isForwardRef](functions/isForwardRef.md)
 - [isForwardRefCall](functions/isForwardRefCall.md)
 - [isFromReact](functions/isFromReact.md)

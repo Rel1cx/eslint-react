@@ -28,7 +28,7 @@ The loc property is defined as nullable by ESTree, but ESLint requires this prop
 
 ### operator
 
-> **operator**: `"readonly"` \| `"keyof"` \| `"unique"`
+> **operator**: `"keyof"` \| `"readonly"` \| `"unique"`
 
 ***
 

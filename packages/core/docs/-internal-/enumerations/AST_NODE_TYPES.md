@@ -26,6 +26,12 @@
 
 ***
 
+### ClassDeclaration
+
+> **ClassDeclaration**: `"ClassDeclaration"`
+
+***
+
 ### ExportDefaultDeclaration
 
 > **ExportDefaultDeclaration**: `"ExportDefaultDeclaration"`
@@ -347,12 +353,6 @@ Re-exports [CallExpression](../README.md#callexpression)
 ### ChainExpression
 
 Re-exports [ChainExpression](../README.md#chainexpression)
-
-***
-
-### ClassDeclaration
-
-Re-exports [ClassDeclaration](../README.md#classdeclaration)
 
 ***
 
