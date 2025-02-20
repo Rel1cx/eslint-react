@@ -30,39 +30,42 @@ export default createRule<[], MessageID>({
   name: RULE_NAME,
   create(context) {
     if (!context.sourceCode.text.includes("createContext")) return {};
-    const contexts = new Set<TSESTree.CallExpression>();
-    const displayNameAssignments = new Set<TSESTree.AssignmentExpression>();
+    // `React.createContext` calls
+    const createCalls: TSESTree.CallExpression[] = [];
+    // `context.displayName = ...` assignment expressions
+    const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
     return {
       CallExpression(node) {
         if (!isCreateContextCall(node, context)) return;
-        contexts.add(node);
+        createCalls.push(node);
       },
       [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
-        displayNameAssignments.add(node);
+        displayNameAssignments.push(node);
       },
       "Program:exit"() {
-        for (const ctx of contexts) {
-          const id = VAR.getVariableId(ctx);
+        for (const call of createCalls) {
+          const id = VAR.getVariableId(call);
           if (id == null) {
             context.report({
               messageId: "noMissingContextDisplayName",
-              node: ctx,
+              node: call,
             });
             continue;
           }
-          const hasDisplayNameAssignment = [...displayNameAssignments].some((node) => {
-            const left = node.left;
-            if (left.type !== T.MemberExpression) return false;
-            const object = left.object;
-            return VAR.isVariableIdEqual(id, object, [
-              context.sourceCode.getScope(id),
-              context.sourceCode.getScope(object),
-            ]);
-          });
+          const hasDisplayNameAssignment = displayNameAssignments
+            .some((node) => {
+              const left = node.left;
+              if (left.type !== T.MemberExpression) return false;
+              const object = left.object;
+              return VAR.isVariableIdEqual(id, object, [
+                context.sourceCode.getScope(id),
+                context.sourceCode.getScope(object),
+              ]);
+            });
           if (!hasDisplayNameAssignment) {
             context.report({
               messageId: "noMissingContextDisplayName",
-              node: ctx,
+              node: call,
             });
           }
         }
