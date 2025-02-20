@@ -27,6 +27,7 @@ import noForwardRef from "./rules/no-forward-ref";
 import noImplicitKey from "./rules/no-implicit-key";
 import noLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
+import noMissingContextDisplayName from "./rules/no-missing-context-display-name";
 import noMissingKey from "./rules/no-missing-key";
 import noNestedComponents from "./rules/no-nested-components";
 import noPropTypes from "./rules/no-prop-types";
@@ -85,6 +86,7 @@ export const plugin = {
     "no-implicit-key": noImplicitKey,
     "no-leaked-conditional-rendering": noLeakedConditionalRendering,
     "no-missing-component-display-name": noMissingComponentDisplayName,
+    "no-missing-context-display-name": noMissingContextDisplayName,
     "no-missing-key": noMissingKey,
     "no-nested-components": noNestedComponents,
     "no-prop-types": noPropTypes,

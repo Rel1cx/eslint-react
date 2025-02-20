@@ -8,7 +8,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
-import { createRule, getInstanceID, getPhaseKindOfFunction, isInstanceIDEqual } from "../utils";
+import { createRule, getPhaseKindOfFunction, isInstanceIdEqual } from "../utils";
 import type { ObserverEntry, ObserverMethod } from "./../models";
 
 // #region Rule Metadata
@@ -185,7 +185,7 @@ export default createRule<[], MessageID>({
         if (!isNewResizeObserver(node)) {
           return;
         }
-        const id = getInstanceID(node);
+        const id = VAR.getVariableId(node);
         if (id == null) {
           context.report({
             messageId: "unexpectedFloatingInstance",
@@ -202,11 +202,11 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const { id, node, phaseNode } of observers) {
-          if (dEntries.some((e) => isInstanceIDEqual(e.observer, id, context))) {
+          if (dEntries.some((e) => isInstanceIdEqual(e.observer, id, context))) {
             continue;
           }
-          const oentries = oEntries.filter((e) => isInstanceIDEqual(e.observer, id, context));
-          const uentries = uEntries.filter((e) => isInstanceIDEqual(e.observer, id, context));
+          const oentries = oEntries.filter((e) => isInstanceIdEqual(e.observer, id, context));
+          const uentries = uEntries.filter((e) => isInstanceIdEqual(e.observer, id, context));
           const isDynamic = (node: TSESTree.Node | _) => node?.type === T.CallExpression || AST.isConditional(node);
           const isPhaseNode = (node: TSESTree.Node | _) => node === phaseNode;
           const hasDynamicallyAdded = oentries
@@ -216,7 +216,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           for (const oEntry of oentries) {
-            if (uentries.some((uEntry) => isInstanceIDEqual(uEntry.element, oEntry.element, context))) {
+            if (uentries.some((uEntry) => isInstanceIdEqual(uEntry.element, oEntry.element, context))) {
               continue;
             }
             context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });

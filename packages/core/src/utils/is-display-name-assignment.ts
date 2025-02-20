@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 /**
  * The ESQuery selector for a component display name assignment expression
  */
-export const COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR = [
+export const DISPLAY_NAME_ASSIGNMENT_SELECTOR = [
   "AssignmentExpression",
   "[type]",
   "[operator='=']",
@@ -17,7 +17,7 @@ export const COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR = [
  * @param node The AST node
  * @returns `true` if the node is a component display name assignment
  */
-export function isComponentDisplayNameAssignment(node: TSESTree.Node | _): node is TSESTree.AssignmentExpression {
+export function isDisplayNameAssignment(node: TSESTree.Node | _): node is TSESTree.AssignmentExpression {
   if (node == null) return false;
   return node.type === T.AssignmentExpression
     && node.operator === "="

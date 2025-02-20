@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / isComponentDisplayNameAssignment
+[@eslint-react/core](../README.md) / isDisplayNameAssignment
 
-# Function: isComponentDisplayNameAssignment()
+# Function: isDisplayNameAssignment()
 
-> **isComponentDisplayNameAssignment**(`node`): `node is AssignmentExpression`
+> **isDisplayNameAssignment**(`node`): `node is AssignmentExpression`
 
 Check if the node is a component display name assignment expression
 
