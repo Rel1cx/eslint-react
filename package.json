@@ -63,7 +63,7 @@
     "@swc/core": "^1.10.18",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/parser": "^8.24.1",
@@ -85,7 +85,7 @@
     "eslint-plugin-unicorn": "^57.0.0",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.4.2",
-    "lefthook": "^1.10.10",
+    "lefthook": "^1.10.11",
     "markdownlint": "^0.37.4",
     "nx": "20.4.2",
     "ofetch": "^1.4.1",
@@ -116,18 +116,18 @@
   },
   "pnpm": {
     "overrides": {
-      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
-      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
-      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.6",
-      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "@types/react": "^19.0.10",
       "@types/react-dom": "^19.0.4",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.0",
+      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
       "next": "^15.1.7",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
+      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.6",
       "ts-api-utils": "^2.0.1",
+      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "typescript": "5.8.1-rc"
     }
   }

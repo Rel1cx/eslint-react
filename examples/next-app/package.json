@@ -22,7 +22,7 @@
     "@next/eslint-plugin-next": "^15.1.7",
     "@tailwindcss/postcss": "^4.0.8",
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "^10.4.20",

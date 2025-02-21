@@ -44,6 +44,10 @@
     monospace;
 }
 
+button[role] {
+  cursor: pointer;
+}
+
 #nd-docs-layout #nd-sidebar a[data-active] {
   font-weight: 400;
 }
