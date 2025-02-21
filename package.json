@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@eslint/config-inspector": "^1.0.0",
-    "@eslint/js": "^9.20.0",
+    "@eslint/js": "^9.21.0",
     "@eslint/markdown": "^6.2.2",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
@@ -75,7 +75,7 @@
     "dedent": "^1.5.3",
     "dprint": "^0.49.0",
     "esbuild": "^0.25.0",
-    "eslint": "^9.20.1",
+    "eslint": "^9.21.0",
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-plugin-de-morgan": "^1.1.0",
     "eslint-plugin-jsdoc": "^50.6.3",
@@ -122,18 +122,18 @@
       "nx"
     ],
     "overrides": {
+      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
+      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
+      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.6",
+      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "@types/react": "^19.0.10",
       "@types/react-dom": "^19.0.4",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.0",
-      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
       "next": "^15.1.7",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
-      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
-      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.6",
       "ts-api-utils": "^2.0.1",
-      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "typescript": "5.8.1-rc"
     }
   }
