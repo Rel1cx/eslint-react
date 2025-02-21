@@ -120,6 +120,8 @@ function getComponentPropsFixes(
         : [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])],
     ] as const;
   }
+  const typeArg0Text = getText(typeArg0);
+  const typeArg1Text = getText(typeArg1);
   return [
     fixer.replaceText(
       arg0,
@@ -128,11 +130,11 @@ function getComponentPropsFixes(
         fixedArg1Text + ",",
         fixedArg0Text,
         "}:",
-        getText(typeArg1),
+        typeArg1Text,
         "&",
         "{",
         `ref?:`,
-        `React.RefObject<${getText(typeArg0)} | null>`,
+        `React.RefObject<${typeArg0Text} | null>`,
         "}",
       ].join(" "),
     ),
