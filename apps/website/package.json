@@ -5,11 +5,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "pnpm run lint:es && pnpm run lint:ts",
-    "lint:es": "eslint .",
-    "lint:markup": "markuplint \"**/*.{jsx,tsx}\"",
-    "lint:ts": "tsc --noEmit",
-    "prepare": "fumadocs-mdx && pnpm run build",
+    "lint": "tsc --noEmit && eslint .",
+    "prepare": "fumadocs-mdx",
     "start": "next start"
   },
   "dependencies": {
@@ -34,8 +31,6 @@
     "@eslint/js": "^9.21.0",
     "@eslint/markdown": "^6.2.2",
     "@local/configs": "workspace:*",
-    "@markuplint/jsx-parser": "^4.7.16",
-    "@markuplint/react-spec": "^4.5.16",
     "@mdx-js/mdx": "^3.1.0",
     "@next/eslint-plugin-next": "^15.1.7",
     "@tailwindcss/postcss": "^4.0.8",
@@ -58,7 +53,6 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^57.0.0",
-    "markuplint": "^4.11.6",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.8",
     "typescript": "^5.7.3",
