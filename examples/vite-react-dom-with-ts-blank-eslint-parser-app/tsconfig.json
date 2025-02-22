@@ -1,10 +1,10 @@
 {
   "extends": [
-    "@tsconfig/strictest/tsconfig.json"
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/vite-react/tsconfig.json"
   ],
   "compilerOptions": {
     "target": "ES2021",
-    "useDefineForClassFields": true,
     "lib": [
       "ES2021",
       "DOM",
@@ -13,21 +13,7 @@
     "types": [
       "vite/client"
     ],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleDetection": "force",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "erasableSyntaxOnly": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noFallthroughCasesInSwitch": true
+    "erasableSyntaxOnly": true
   },
   "include": [
     "src/**/*.ts",

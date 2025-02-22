@@ -1,26 +1,18 @@
 {
   "extends": [
-    "@local/configs/tsconfig.base.json",
-    "@tsconfig/node22/tsconfig.json"
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node22/tsconfig.json",
+    "@tsconfig/next/tsconfig.json"
   ],
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "erasableSyntaxOnly": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "jsx": "preserve",
-    "incremental": true,
     "paths": {
       "#": ["."],
       "#/*": ["./*"]
