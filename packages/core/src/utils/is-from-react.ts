@@ -94,6 +94,13 @@ export function isFromReactMember(
   };
 }
 
+export declare namespace isCallFromReact {
+  type ReturnType = {
+    (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.CallExpression;
+    (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression;
+  };
+}
+
 export function isCallFromReact(name: string): isCallFromReact.ReturnType {
   return dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
     if (node.type !== T.CallExpression) {
@@ -106,10 +113,17 @@ export function isCallFromReact(name: string): isCallFromReact.ReturnType {
   });
 }
 
-export declare namespace isCallFromReact {
+export declare namespace isCallFromReactMember {
   type ReturnType = {
-    (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.CallExpression;
-    (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression;
+    (context: RuleContext): (node: TSESTree.Node) => node is
+      & TSESTree.CallExpression
+      & { callee: TSESTree.MemberExpression };
+    (
+      node: TSESTree.Node,
+      context: RuleContext,
+    ): node is
+      & TSESTree.CallExpression
+      & { callee: TSESTree.MemberExpression };
   };
 }
 
@@ -132,18 +146,4 @@ export function isCallFromReactMember(
     }
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   });
-}
-
-export declare namespace isCallFromReactMember {
-  type ReturnType = {
-    (context: RuleContext): (node: TSESTree.Node) => node is
-      & TSESTree.CallExpression
-      & { callee: TSESTree.MemberExpression };
-    (
-      node: TSESTree.Node,
-      context: RuleContext,
-    ): node is
-      & TSESTree.CallExpression
-      & { callee: TSESTree.MemberExpression };
-  };
 }
