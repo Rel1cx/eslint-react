@@ -24,6 +24,21 @@ type FunctionEntry = {
   isComponent: boolean;
 };
 
+export declare namespace useComponentCollector {
+  type Options = {
+    collectDisplayName?: boolean;
+    collectHookCalls?: boolean;
+  };
+  type ReturnType = {
+    ctx: {
+      getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
+      getCurrentEntries: () => FunctionEntry[];
+      getCurrentEntry: () => FunctionEntry | _;
+    };
+    listeners: ESLintUtils.RuleListener;
+  };
+}
+
 /**
  * Get a ctx and listeners for the rule to collect function components
  * @param context The ESLint rule context
@@ -155,21 +170,6 @@ export function useComponentCollector(
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
-}
-
-export declare namespace useComponentCollector {
-  type Options = {
-    collectDisplayName?: boolean;
-    collectHookCalls?: boolean;
-  };
-  type ReturnType = {
-    ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
-      getCurrentEntries: () => FunctionEntry[];
-      getCurrentEntry: () => FunctionEntry | _;
-    };
-    listeners: ESLintUtils.RuleListener;
-  };
 }
 
 function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
