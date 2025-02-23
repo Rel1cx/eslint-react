@@ -79,6 +79,7 @@ full: true
 | [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children) | 2️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML` and `children` at the same time. |
 | [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)                             | 1️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML`.                                 |
 | [`no-find-dom-node`](./dom-no-find-dom-node)                                                     | 2️⃣  | `🔍`          | Prevents using `findDOMNode`.                                                          |
+| [`no-flush-sync`](./dom-no-flush-sync)                                                           | 1️⃣  | `🔍`          | Prevents using `flushSync`.                                                            |
 | [`no-missing-button-type`](./dom-no-missing-button-type)                                         | 1️⃣  | `🔍`          | Enforces explicit `type` attribute for `button` elements.                              |
 | [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)                                   | 1️⃣  | `🔍`          | Enforces explicit `sandbox` attribute for `iframe` elements.                           |
 | [`no-namespace`](./dom-no-namespace)                                                             | 2️⃣  | `🔍`          | Enforces the absence of a `namespace` in React elements.                               |
