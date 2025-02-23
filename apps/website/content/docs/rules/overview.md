@@ -79,6 +79,7 @@ full: true
 | [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children) | 2️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML` and `children` at the same time. |
 | [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)                             | 1️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML`.                                 |
 | [`no-find-dom-node`](./dom-no-find-dom-node)                                                     | 2️⃣  | `🔍`          | Prevents using `findDOMNode`.                                                          |
+| [`no-flush-sync`](./dom-no-flush-sync)                                                           | 1️⃣  | `🔍`          | Prevents using `flushSync`.                                                            |
 | [`no-missing-button-type`](./dom-no-missing-button-type)                                         | 1️⃣  | `🔍`          | Enforces explicit `type` attribute for `button` elements.                              |
 | [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)                                   | 1️⃣  | `🔍`          | Enforces explicit `sandbox` attribute for `iframe` elements.                           |
 | [`no-namespace`](./dom-no-namespace)                                                             | 2️⃣  | `🔍`          | Enforces the absence of a `namespace` in React elements.                               |
@@ -131,11 +132,11 @@ full: true
 
 | Rule                                                                                                       | Replaced by                                                                            | Deprecated in |
 | :--------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- | :------------ |
-| [`jsx-uses-vars`](jsx-uses-vars)                                                                           | [`use-jsx-vars`](./use-jsx-vars)                                                       | v1.22.0       |
-| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                                         | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                                   | v1.22.0       |
-| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)                             | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)               | v1.6.0        |
-| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                             | [`dom/no-void-elements-with-children`](./dom-no-void-elements-with-children)           | v1.22.0       |
-| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                              | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.21.0       |
-| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)                 | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | v1.13.0       |
-| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](hooks-extra-ensure-use-memo-has-non-empty-deps)         | [`hooks-extra/no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         | v1.13.0       |
-| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | [`hooks-extra/no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) | v1.13.0       |
+| [`jsx-uses-vars`](jsx-uses-vars)                                                                           | [`use-jsx-vars`](./use-jsx-vars)                                                       | 1.22.0        |
+| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                                         | [`no-duplicate-jsx-props`](./no-duplicate-jsx-props)                                   | 1.22.0        |
+| [`no-complicated-conditional-rendering`](no-complicated-conditional-rendering)                             | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)               | 1.6.0         |
+| [`dom/no-children-in-void-dom-elements`](dom-no-children-in-void-dom-elements)                             | [`dom/no-void-elements-with-children`](./dom-no-void-elements-with-children)           | 1.22.0        |
+| [`hooks-extra/no-redundant-custom-hook`](hooks-extra-no-useless-custom-hooks)                              | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | 1.21.0        |
+| [`hooks-extra/ensure-custom-hooks-using-other-hooks`](hooks-extra-no-useless-custom-hooks)                 | [`hooks-extra/no-useless-custom-hooks`](./hooks-extra-no-useless-custom-hooks)         | 1.13.0        |
+| [`hooks-extra/ensure-use-memo-has-non-empty-deps`](hooks-extra-ensure-use-memo-has-non-empty-deps)         | [`hooks-extra/no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)         | 1.13.0        |
+| [`hooks-extra/ensure-use-callback-has-non-empty-deps`](hooks-extra-ensure-use-callback-has-non-empty-deps) | [`hooks-extra/no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback) | 1.13.0        |
