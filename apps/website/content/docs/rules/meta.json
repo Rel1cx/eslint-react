@@ -1,7 +1,7 @@
 {
   "pages": [
     "overview",
-    "------",
+    "---Core Rules---",
     "avoid-shorthand-boolean",
     "avoid-shorthand-fragment",
     "ensure-forward-ref-using-ref",
