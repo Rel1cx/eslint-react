@@ -83,6 +83,7 @@ export const rules = {
   "@eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
   "@eslint-react/hooks-extra/no-unnecessary-use-callback": "warn",
   "@eslint-react/hooks-extra/no-unnecessary-use-memo": "warn",
+  "@eslint-react/hooks-extra/no-use-in-try-catch": "error",
   "@eslint-react/hooks-extra/no-useless-custom-hooks": "warn",
   "@eslint-react/hooks-extra/prefer-use-state-lazy-initialization": "warn",
 

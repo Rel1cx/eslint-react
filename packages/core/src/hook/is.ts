@@ -112,6 +112,7 @@ export function isUseEffectCallLoose(node: TSESTree.Node | _) {
   }
 }
 
+export const isUseCall = flip(isReactHookCallWithName)("use");
 export const isUseCallbackCall = flip(isReactHookCallWithName)("useCallback");
 export const isUseContextCall = flip(isReactHookCallWithName)("useContext");
 export const isUseDebugValueCall = flip(isReactHookCallWithName)("useDebugValue");

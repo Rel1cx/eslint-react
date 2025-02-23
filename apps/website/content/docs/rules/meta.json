@@ -77,6 +77,7 @@
     "hooks-extra-no-direct-set-state-in-use-layout-effect",
     "hooks-extra-no-unnecessary-use-callback",
     "hooks-extra-no-unnecessary-use-memo",
+    "hooks-extra-no-use-in-try-catch",
     "hooks-extra-no-useless-custom-hooks",
     "hooks-extra-prefer-use-state-lazy-initialization",
     "---Naming Convention Rules---",
