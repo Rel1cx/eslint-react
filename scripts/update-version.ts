@@ -3,9 +3,9 @@ import fs from "node:fs";
 import pc from "picocolors";
 import { isMatching, match, P } from "ts-pattern";
 
-import { ignores } from "./ignores";
-import { glob } from "./lib";
-import { version } from "./version";
+import { glob } from "./lib/glob";
+import { ignores } from "./lib/ignores";
+import { version } from "./lib/version";
 
 const GLOB_PACKAGE_JSON = ["package.json", "packages/*/package.json", "packages/*/*/package.json"];
 

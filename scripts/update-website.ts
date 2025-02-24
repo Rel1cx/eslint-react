@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { glob } from "./lib";
+import { glob } from "./lib/glob";
 
 const docs = glob(["packages/plugins/eslint-plugin-react-*/src/rules/*.md"]);
 
