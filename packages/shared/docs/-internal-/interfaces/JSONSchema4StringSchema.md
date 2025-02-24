@@ -162,7 +162,7 @@ https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.26
 
 ### format?
 
-> `optional` **format**: `"time"` \| `"regex"` \| `"date"` \| `"date-time"` \| `"email"` \| `"hostname"` \| `"ipv4"` \| `"ipv6"` \| `"json-pointer"` \| `"json-pointer-uri-fragment"` \| `"relative-json-pointer"` \| `"uri"` \| `"uri-reference"` \| `"uri-template"` \| `"url"` \| `"uuid"`
+> `optional` **format**: `"regex"` \| `"date"` \| `"date-time"` \| `"email"` \| `"hostname"` \| `"ipv4"` \| `"ipv6"` \| `"json-pointer"` \| `"json-pointer-uri-fragment"` \| `"relative-json-pointer"` \| `"time"` \| `"uri"` \| `"uri-reference"` \| `"uri-template"` \| `"url"` \| `"uuid"`
 
 The `format` keyword allows for basic semantic identification of certain
 kinds of string values that are commonly used.
