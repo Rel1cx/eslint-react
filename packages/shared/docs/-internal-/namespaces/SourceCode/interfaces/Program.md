@@ -72,7 +72,7 @@ This never-used property exists only as a convenience for code that tries to acc
 
 ### sourceType
 
-> **sourceType**: `"script"` \| `"module"`
+> **sourceType**: `"module"` \| `"script"`
 
 #### Inherited from
 

@@ -45,7 +45,7 @@ declare const x = 1;
 
 ### kind
 
-> **kind**: `"var"` \| `"let"`
+> **kind**: `"let"` \| `"var"`
 
 The keyword used to declare the variable(s)
 
