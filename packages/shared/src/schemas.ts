@@ -120,7 +120,7 @@ export const ESLintReactSettingsSchema = object({
    */
   strict: optional(boolean(), false),
   /**
-   * Check both the shape and the import to determine if a API is from React.
+   * Check both the shape and the import to determine if an API is from React.
    * @description This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
    * @default `false`
    */

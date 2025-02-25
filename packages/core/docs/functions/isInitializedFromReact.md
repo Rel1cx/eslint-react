@@ -6,7 +6,7 @@
 
 # Function: isInitializedFromReact()
 
-> **isInitializedFromReact**(`name`, `source`, `initialScope`): `boolean`
+> **isInitializedFromReact**(`name`, `importSource`, `initialScope`): `boolean`
 
 Check if an identifier is initialized from react
 
@@ -18,7 +18,7 @@ Check if an identifier is initialized from react
 
 The top-level identifier's name
 
-### source
+### importSource
 
 `string`
 

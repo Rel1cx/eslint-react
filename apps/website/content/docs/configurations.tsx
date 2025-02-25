@@ -22,7 +22,7 @@ export function SettingsTypeTable() {
           type: "boolean",
           description: (
             <Link href="#strictimportcheck">
-              Check both the shape and the import to determine if a API is from React before applying the rules. ⤵
+              Check both the shape and the import to determine if an API is from React before applying the rules. ⤵
             </Link>
           ),
           default: "false",

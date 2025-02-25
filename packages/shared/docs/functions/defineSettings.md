@@ -192,7 +192,7 @@ This is used to determine the type of the component.
 
 `boolean` = `...`
 
-Check both the shape and the import to determine if a API is from React.
+Check both the shape and the import to determine if an API is from React.
 
 **Description**
 
@@ -401,7 +401,7 @@ This is used to determine the type of the component.
 
 > **strictImportCheck**: `boolean`
 
-Check both the shape and the import to determine if a API is from React.
+Check both the shape and the import to determine if an API is from React.
 
 #### Description
 
