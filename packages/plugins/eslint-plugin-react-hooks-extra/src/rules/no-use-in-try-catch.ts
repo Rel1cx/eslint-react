@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
     if (!context.sourceCode.text.includes("try")) return {};
     return {
       CallExpression(node) {
-        if (!isUseCall(node, context)) return;
+        if (!isUseCall(context, node)) return;
         const tryCatchOrFunction = AST.findParentNode(node, (n) => {
           return n.type === T.TryStatement || AST.isFunction(n);
         });
