@@ -32,17 +32,17 @@
 
 ## Call Signature
 
-> **isChildrenToArrayCall**(`node`, `context`): `node is CallExpression & { callee: MemberExpression }`
+> **isChildrenToArrayCall**(`context`, `node`): `node is CallExpression & { callee: MemberExpression }`
 
 ### Parameters
-
-#### node
-
-[`Node`](../-internal-/type-aliases/Node.md)
 
 #### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+#### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
 
 ### Returns
 

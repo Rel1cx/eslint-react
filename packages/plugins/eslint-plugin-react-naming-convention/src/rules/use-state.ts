@@ -63,7 +63,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           for (const hookCall of hookCalls) {
-            if (!isUseStateCall(hookCall, context) && !alias.some(isReactHookCallWithNameLoose(hookCall))) {
+            if (!isUseStateCall(context, hookCall) && !alias.some(isReactHookCallWithNameLoose(hookCall))) {
               continue;
             }
             if (hookCall.parent.type !== T.VariableDeclarator) {

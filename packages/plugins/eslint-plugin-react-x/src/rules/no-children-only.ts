@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       MemberExpression(node) {
-        if (isChildrenOnly(node, context)) {
+        if (isChildrenOnly(context, node)) {
           context.report({
             messageId: "noChildrenOnly",
             node: node.property,

@@ -6,17 +6,17 @@
 
 # Function: isReactHookCallWithName()
 
-> **isReactHookCallWithName**(`node`, `context`): (`name`) => `boolean`
+> **isReactHookCallWithName**(`context`, `node`): (`name`) => `boolean`
 
 ## Parameters
-
-### node
-
-`undefined` | [`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+`undefined` | [`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ## Returns
 

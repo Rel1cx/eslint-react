@@ -6,17 +6,17 @@
 
 # Function: isChildrenForEach()
 
-> **isChildrenForEach**(`node`, `context`): `boolean`
+> **isChildrenForEach**(`context`, `node`): `boolean`
 
 ## Parameters
-
-### node
-
-[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ## Returns
 

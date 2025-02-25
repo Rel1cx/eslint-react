@@ -38,8 +38,8 @@ function trimLikeReact(text: string) {
 }
 
 function checkAndReport(
-  node: TSESTree.JSXElement | TSESTree.JSXFragment,
   context: RuleContext,
+  node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
 ) {
   function fix(fixer: RuleFixer) {
@@ -191,10 +191,10 @@ export default createRule<Options, MessageID>({
     return {
       JSXElement(node) {
         if (!JSX.isFragmentElement(node)) return;
-        checkAndReport(node, context, allowExpressions);
+        checkAndReport(context, node, allowExpressions);
       },
       JSXFragment(node) {
-        checkAndReport(node, context, allowExpressions);
+        checkAndReport(context, node, allowExpressions);
       },
     };
   },

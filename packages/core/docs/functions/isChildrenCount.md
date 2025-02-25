@@ -6,17 +6,17 @@
 
 # Function: isChildrenCount()
 
-> **isChildrenCount**(`node`, `context`): `boolean`
+> **isChildrenCount**(`context`, `node`): `boolean`
 
 ## Parameters
-
-### node
-
-[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ## Returns
 

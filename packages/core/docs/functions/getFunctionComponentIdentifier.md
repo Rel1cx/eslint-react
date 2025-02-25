@@ -6,17 +6,17 @@
 
 # Function: getFunctionComponentIdentifier()
 
-> **getFunctionComponentIdentifier**(`node`, `context`): `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md) \| [`Identifier`](../-internal-/interfaces/Identifier.md)[]
+> **getFunctionComponentIdentifier**(`context`, `node`): `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md) \| [`Identifier`](../-internal-/interfaces/Identifier.md)[]
 
 ## Parameters
-
-### node
-
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 ## Returns
 

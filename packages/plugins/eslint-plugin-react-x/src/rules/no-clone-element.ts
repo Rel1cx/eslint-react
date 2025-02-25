@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isCloneElementCall(node, context)) {
+        if (!isCloneElementCall(context, node)) {
           return;
         }
         context.report({

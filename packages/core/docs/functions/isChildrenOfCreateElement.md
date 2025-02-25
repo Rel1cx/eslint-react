@@ -6,23 +6,23 @@
 
 # Function: isChildrenOfCreateElement()
 
-> **isChildrenOfCreateElement**(`node`, `context`): `boolean`
+> **isChildrenOfCreateElement**(`context`, `node`): `boolean`
 
 Determines whether inside `createElement`'s children.
 
 ## Parameters
-
-### node
-
-[`Node`](../-internal-/type-aliases/Node.md)
-
-The AST node to check
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The rule context
+
+### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
+
+The AST node to check
 
 ## Returns
 

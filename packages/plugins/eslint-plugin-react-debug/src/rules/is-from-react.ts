@@ -32,10 +32,7 @@ export default createRule<[], MessageID>({
   create(context) {
     const { importSource = "react" } = getSettingsFromContext(context);
 
-    function isFromReact(
-      node: TSESTree.Identifier | TSESTree.JSXIdentifier,
-      initialScope: Scope,
-    ) {
+    function isFromReact(node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope) {
       const name = node.name;
       switch (true) {
         case node.parent.type === T.MemberExpression
@@ -50,18 +47,15 @@ export default createRule<[], MessageID>({
           return isInitializedFromReact(name, importSource, initialScope);
       }
     }
+
     function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
       const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier
         && node.parent.imported === node
         && node.parent.imported.name === node.parent.local.name;
-      if (shouldSkipDuplicate) {
-        return;
-      }
+      if (shouldSkipDuplicate) return;
       const name = node.name;
       const initialScope = context.sourceCode.getScope(node);
-      if (!isFromReact(node, initialScope)) {
-        return;
-      }
+      if (!isFromReact(node, initialScope)) return;
       context.report({
         messageId: "isFromReact",
         node,

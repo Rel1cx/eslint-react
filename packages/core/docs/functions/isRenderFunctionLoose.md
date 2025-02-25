@@ -6,7 +6,7 @@
 
 # Function: isRenderFunctionLoose()
 
-> **isRenderFunctionLoose**(`node`, `context`): `boolean`
+> **isRenderFunctionLoose**(`context`, `node`): `boolean`
 
 Unsafe check whether given node is a render function
 ```jsx
@@ -18,17 +18,17 @@ _ = <Component renderRow={() => <div />} />
 
 ## Parameters
 
-### node
-
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
-
-The AST node to check
-
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The rule context
+
+### node
+
+[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+
+The AST node to check
 
 ## Returns
 

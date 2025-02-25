@@ -33,7 +33,7 @@ export function isReactHookCall(node: TSESTree.Node | _) {
   return false;
 }
 
-export function isReactHookCallWithName(node: TSESTree.CallExpression | _, context: RuleContext) {
+export function isReactHookCallWithName(context: RuleContext, node: TSESTree.CallExpression | _) {
   if (node == null) return constFalse;
   const settings = unsafeDecodeSettings(context.settings);
   const importSource = settings.importSource ?? "react";
@@ -72,7 +72,7 @@ export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression | _) 
   };
 }
 
-export function isReactHookCallWithNameAlias(name: string, context: RuleContext, alias: string[]) {
+export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: string[]) {
   const settings = unsafeDecodeSettings(context);
   const importSource = settings.importSource ?? "react";
   return (node: TSESTree.CallExpression) => {

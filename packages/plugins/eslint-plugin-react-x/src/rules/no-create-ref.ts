@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (isCreateRefCall(node, context) && AST.findParentNode(node, isClassComponent) == null) {
+        if (isCreateRefCall(context, node) && AST.findParentNode(node, isClassComponent) == null) {
           context.report({ messageId: "noCreateRef", node });
         }
       },

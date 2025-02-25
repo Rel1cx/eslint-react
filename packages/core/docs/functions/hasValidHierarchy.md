@@ -6,19 +6,19 @@
 
 # Function: hasValidHierarchy()
 
-> **hasValidHierarchy**(`node`, `context`, `hint`): `boolean`
+> **hasValidHierarchy**(`context`, `node`, `hint`): `boolean`
 
 internal
 
 ## Parameters
 
-### node
-
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
-
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 ### hint
 

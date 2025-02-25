@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       CallExpression(node) {
-        if (!isForwardRefCall(node, context)) {
+        if (!isForwardRefCall(context, node)) {
           return;
         }
         const [component] = node.arguments;

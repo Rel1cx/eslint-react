@@ -44,8 +44,8 @@ export default createRule<[], MessageID>({
     return {
       JSXElement(node) {
         const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
-          node,
           context,
+          node,
           polymorphicPropName,
           additionalComponents,
         );
