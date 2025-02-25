@@ -23,13 +23,13 @@ function getRequireExpressionArguments(node: TSESTree.Node) {
 /**
  * Check if an identifier is initialized from react
  * @param name The top-level identifier's name
- * @param source The import source to check against
+ * @param importSource The import source to check against
  * @param initialScope Initial scope to search for the identifier
  * @returns Whether the identifier is initialized from react
  */
 export function isInitializedFromReact(
   name: string,
-  source: string,
+  importSource: string,
   initialScope: Scope,
 ): boolean {
   if (name.toLowerCase() === "react") return true;
@@ -38,23 +38,23 @@ export function isInitializedFromReact(
   const { node, parent } = latestDef;
   if (node.type === T.VariableDeclarator && node.init != null) {
     const { init } = node;
-    // check for: `variable = Source.variable`
+    // check for: `variable = React.variable`
     if (init.type === T.MemberExpression && init.object.type === T.Identifier) {
-      return isInitializedFromReact(init.object.name, source, initialScope);
+      return isInitializedFromReact(init.object.name, importSource, initialScope);
     }
-    // check for: `{ variable } = Source`
+    // check for: `{ variable } = React`
     if (init.type === T.Identifier) {
-      return isInitializedFromReact(init.name, source, initialScope);
+      return isInitializedFromReact(init.name, importSource, initialScope);
     }
-    // check for: `variable = require('source')` or `variable = require('source').variable`
+    // check for: `variable = require('react')` or `variable = require('react').variable`
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
     if (arg0 == null || !AST.isKindOfLiteral(arg0, "string")) {
       return false;
     }
-    // check for: `require('source')` or `require('source/...')`
-    return arg0.value === source || arg0.value.startsWith(`${source}/`);
+    // check for: `require('react')` or `require('react/...')`
+    return arg0.value === importSource || arg0.value.startsWith(`${importSource}/`);
   }
-  // latest definition is an import declaration: import { variable } from 'source'
-  return parent?.type === T.ImportDeclaration && parent.source.value === source;
+  // latest definition is an import declaration: import { variable } from 'react'
+  return parent?.type === T.ImportDeclaration && parent.source.value === importSource;
 }
