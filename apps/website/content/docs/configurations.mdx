@@ -41,8 +41,25 @@ This allows to specify a custom import location for React when not using the off
 
 For example, if you are using `@pika/react` instead of `react`, you can set the `importSource` to `@pika/react`:
 
-```tsx
+```ts
 import React from "@pika/react";
+```
+
+### `strictImportCheck`
+
+Check both the sharp and the import to determine if a API is from React before applying the rules.
+
+This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
+
+For example, if you set the `strictImportCheck` to `true`, then the `memo` function from `irrelevant-library` will not be recognized as React's `memo`:
+
+```ts
+import { memo } from "irrelevant-library";
+
+const NonComponentFunction = memo(() => {
+  //                         ^^^^
+  //                         - This will not be recognized as React's memo
+});
 ```
 
 ### `polymorphicPropName`
@@ -115,19 +132,19 @@ For example, if you set the `additionalHooks` to:
 
 then the React Hook call:
 
-```tsx
+```ts
 useIsomorphicLayoutEffect(() => { setCount(count => count + 1); }, []);
 ```
 
 will be evaluated as:
 
-```tsx
+```ts
 useEffect(() => { setCount(count => count + 1); }, []);
 ```
 
 and:
 
-```tsx
+```ts
 useLayoutEffect(() => { setCount(count => count + 1); }, []);
 ```
 
