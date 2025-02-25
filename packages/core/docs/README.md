@@ -116,6 +116,7 @@
 - [isRenderMethodLike](functions/isRenderMethodLike.md)
 - [isRenderPropLoose](functions/isRenderPropLoose.md)
 - [isThisSetState](functions/isThisSetState.md)
+- [isUseCall](functions/isUseCall.md)
 - [isUseCallbackCall](functions/isUseCallbackCall.md)
 - [isUseContextCall](functions/isUseContextCall.md)
 - [isUseDebugValueCall](functions/isUseDebugValueCall.md)
