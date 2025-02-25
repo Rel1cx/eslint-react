@@ -59,12 +59,8 @@ export function isFromReactMember(
     const settings = unsafeDecodeSettings(context.settings);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!settings.strictImportCheck) {
-      if (node.property.type !== T.Identifier || node.property.name !== name) {
-        return false;
-      }
-      if (node.object.type === T.Identifier && node.object.name === memberName) {
-        return true;
-      }
+      if (node.property.type !== T.Identifier || node.property.name !== name) return false;
+      if (node.object.type === T.Identifier && node.object.name === memberName) return true;
       if (
         node.object.type === T.MemberExpression
         && node.object.object.type === T.Identifier
@@ -103,12 +99,8 @@ export declare namespace isCallFromReact {
 
 export function isCallFromReact(name: string): isCallFromReact.ReturnType {
   return dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
-    if (node.type !== T.CallExpression) {
-      return false;
-    }
-    if (!AST.isOneOf([T.Identifier, T.MemberExpression])(node.callee)) {
-      return false;
-    }
+    if (node.type !== T.CallExpression) return false;
+    if (!AST.isOneOf([T.Identifier, T.MemberExpression])(node.callee)) return false;
     return isFromReact(name)(node.callee, context);
   });
 }
@@ -118,10 +110,7 @@ export declare namespace isCallFromReactMember {
     (context: RuleContext): (node: TSESTree.Node) => node is
       & TSESTree.CallExpression
       & { callee: TSESTree.MemberExpression };
-    (
-      node: TSESTree.Node,
-      context: RuleContext,
-    ): node is
+    (node: TSESTree.Node, context: RuleContext): node is
       & TSESTree.CallExpression
       & { callee: TSESTree.MemberExpression };
   };
@@ -131,19 +120,12 @@ export function isCallFromReactMember(
   pragmaMemberName: string,
   name: string,
 ): isCallFromReactMember.ReturnType {
-  return dual(2, (
-    node: TSESTree.Node,
-    context: RuleContext,
-  ): node is
+  return dual(2, (node: TSESTree.Node, context: RuleContext): node is
     & TSESTree.CallExpression
     & { callee: TSESTree.MemberExpression } =>
   {
-    if (node.type !== T.CallExpression) {
-      return false;
-    }
-    if (!AST.is(T.MemberExpression)(node.callee)) {
-      return false;
-    }
+    if (node.type !== T.CallExpression) return false;
+    if (!AST.is(T.MemberExpression)(node.callee)) return false;
     return isFromReactMember(pragmaMemberName, name)(node.callee, context);
   });
 }

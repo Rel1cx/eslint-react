@@ -1,9 +1,24 @@
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { _, identity } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { match, P } from "ts-pattern";
+
+/**
+ * Get the arguments of a require expression
+ * @param node The node to match
+ * @returns The require expression arguments or undefined if the node is not a require expression
+ */
+function getRequireExpressionArguments(node: TSESTree.Node) {
+  return match<typeof node, TSESTree.CallExpressionArgument[] | _>(node)
+    // require("source")
+    .with({ type: T.CallExpression, arguments: P.select(), callee: { type: T.Identifier, name: "require" } }, identity)
+    // require("source").variable
+    .with({ type: T.MemberExpression, object: P.select() }, getRequireExpressionArguments)
+    .otherwise(() => _);
+}
 
 /**
  * Check if an identifier is initialized from react
@@ -38,27 +53,8 @@ export function isInitializedFromReact(
       return false;
     }
     // check for: `require('source')` or `require('source/...')`
-    return arg0.value === source
-      || arg0
-        .value
-        .startsWith(`${source}/`);
+    return arg0.value === source || arg0.value.startsWith(`${source}/`);
   }
   // latest definition is an import declaration: import { variable } from 'source'
   return parent?.type === T.ImportDeclaration && parent.source.value === source;
-}
-
-function getRequireExpressionArguments(node: TSESTree.Node): TSESTree.CallExpressionArgument[] | _ {
-  switch (true) {
-    // require('source')
-    case node.type === T.CallExpression
-      && node.callee.type === T.Identifier
-      && node.callee.name === "require": {
-      return node.arguments;
-    }
-    // require('source').variable
-    case node.type === T.MemberExpression: {
-      return getRequireExpressionArguments(node.object);
-    }
-  }
-  return _;
 }
