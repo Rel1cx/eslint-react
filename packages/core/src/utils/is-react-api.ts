@@ -1,4 +1,5 @@
-import { isCallFromReact, isCallFromReactMember, isFromReact, isFromReactMember } from "./is-from-react";
+import { isCallFromReact, isCallFromReactMember } from "./is-call-from-react";
+import { isFromReact, isFromReactMember } from "./is-from-react";
 
 export function isReactAPIWithName(name: string): ReturnType<typeof isFromReact>;
 export function isReactAPIWithName(name: string, member: string): ReturnType<typeof isFromReactMember>;

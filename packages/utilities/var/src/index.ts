@@ -5,7 +5,6 @@ export * from "./get-variable-declarator-id";
 export * from "./get-variable-id";
 export * from "./get-variable-node";
 export * from "./get-variables";
-export * from "./is-initialized-from-source";
 export * from "./is-node-value-equal";
 export * from "./is-variable-id-equal";
 export * from "./lazy-value";

@@ -13,6 +13,7 @@ import { match } from "ts-pattern";
 import {
   createRule,
   isFromUseStateCall,
+  isFunctionOfImmediatelyInvoked,
   isSetFunctionCall,
   isThenCall,
   isVariableDeclaratorFromHookCall,
@@ -90,7 +91,7 @@ export default createRule<[], MessageID>({
     function getFunctionKind(node: AST.TSESTreeFunction) {
       return match<AST.TSESTreeFunction, FunctionKind>(node)
         .when(isFunctionOfUseEffectSetup, () => "setup")
-        .when(AST.isFunctionOfImmediatelyInvoked, () => "immediate")
+        .when(isFunctionOfImmediatelyInvoked, () => "immediate")
         .otherwise(() => "other");
     }
     return {
