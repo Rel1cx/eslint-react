@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
         if (!isReactHookCall(node)) {
           return;
         }
-        if (!isUseStateCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
+        if (!isUseStateCall(context, node) && !alias.some(isReactHookCallWithNameLoose(node))) {
           return;
         }
         const [useStateInput] = node.arguments;

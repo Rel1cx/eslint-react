@@ -32,17 +32,17 @@
 
 ## Call Signature
 
-> **isCloneElementCall**(`node`, `context`): `node is CallExpression`
+> **isCloneElementCall**(`context`, `node`): `node is CallExpression`
 
 ### Parameters
-
-#### node
-
-[`Node`](../-internal-/type-aliases/Node.md)
 
 #### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+#### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
 
 ### Returns
 

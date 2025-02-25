@@ -6,7 +6,7 @@
 
 # Function: isFromReactMember()
 
-> **isFromReactMember**(`memberName`, `name`): (`node`, `context`) => `boolean`
+> **isFromReactMember**(`memberName`, `name`): (`context`, `node`) => `boolean`
 
 ## Parameters
 
@@ -24,13 +24,13 @@
 
 ### Parameters
 
-#### node
-
-[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
-
 #### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+#### node
+
+[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ### Returns
 

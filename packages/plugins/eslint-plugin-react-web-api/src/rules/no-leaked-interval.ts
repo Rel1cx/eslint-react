@@ -81,7 +81,7 @@ export default createRule<[], MessageID>({
     const sEntries: TimerEntry[] = [];
     const cEntries: TimerEntry[] = [];
     function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-      return isInstanceIdEqual(a.timerId, b.timerId, context);
+      return isInstanceIdEqual(context, a.timerId, b.timerId);
     }
     return {
       [":function"](node: AST.TSESTreeFunction) {

@@ -6,17 +6,17 @@
 
 # Function: isReactHookCallWithNameAlias()
 
-> **isReactHookCallWithNameAlias**(`name`, `context`, `alias`): (`node`) => `boolean`
+> **isReactHookCallWithNameAlias**(`context`, `name`, `alias`): (`node`) => `boolean`
 
 ## Parameters
-
-### name
-
-`string`
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### name
+
+`string`
 
 ### alias
 

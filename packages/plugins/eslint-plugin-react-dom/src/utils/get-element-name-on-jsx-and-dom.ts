@@ -3,8 +3,8 @@ import type { CustomComponentNormalized, RuleContext } from "@eslint-react/share
 import type { TSESTree } from "@typescript-eslint/types";
 
 export function getElementNameOnJsxAndDom(
-  node: TSESTree.JSXElement,
   context: RuleContext,
+  node: TSESTree.JSXElement,
   polymorphicPropName?: string,
   additionalComponents: CustomComponentNormalized[] = [],
 ): [string, string] {

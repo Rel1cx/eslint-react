@@ -6,17 +6,17 @@
 
 # Function: hasNoneOrValidComponentName()
 
-> **hasNoneOrValidComponentName**(`node`, `context`): `boolean`
+> **hasNoneOrValidComponentName**(`context`, `node`): `boolean`
 
 ## Parameters
-
-### node
-
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 ## Returns
 

@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       MemberExpression(node) {
-        if (isChildrenMap(node, context)) {
+        if (isChildrenMap(context, node)) {
           context.report({
             messageId: "noChildrenMap",
             node: node.property,

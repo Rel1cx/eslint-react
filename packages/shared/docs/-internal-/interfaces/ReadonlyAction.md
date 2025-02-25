@@ -10,7 +10,7 @@ Readonly action interface.
 
 ## Extends
 
-- [`BaseTransformation`](BaseTransformation.md)\<`TInput`, [`Readonly`](../type-aliases/Readonly.md)\<`TInput`\>, `never`\>
+- [`BaseTransformation`](BaseTransformation.md)\<`TInput`, [`ReadonlyOutput`](../type-aliases/ReadonlyOutput.md)\<`TInput`\>, `never`\>
 
 ## Type Parameters
 

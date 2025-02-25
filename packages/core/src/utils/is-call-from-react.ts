@@ -9,15 +9,15 @@ import { isFromReact, isFromReactMember } from "./is-from-react";
 export declare namespace isCallFromReact {
   type ReturnType = {
     (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.CallExpression;
-    (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression;
+    (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression;
   };
 }
 
 export function isCallFromReact(name: string): isCallFromReact.ReturnType {
-  return dual(2, (node: TSESTree.Node, context: RuleContext): node is TSESTree.CallExpression => {
+  return dual(2, (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression => {
     if (node.type !== T.CallExpression) return false;
     if (!AST.isOneOf([T.Identifier, T.MemberExpression])(node.callee)) return false;
-    return isFromReact(name)(node.callee, context);
+    return isFromReact(name)(context, node.callee);
   });
 }
 
@@ -26,7 +26,7 @@ export declare namespace isCallFromReactMember {
     (context: RuleContext): (node: TSESTree.Node) => node is
       & TSESTree.CallExpression
       & { callee: TSESTree.MemberExpression };
-    (node: TSESTree.Node, context: RuleContext): node is
+    (context: RuleContext, node: TSESTree.Node): node is
       & TSESTree.CallExpression
       & { callee: TSESTree.MemberExpression };
   };
@@ -36,12 +36,12 @@ export function isCallFromReactMember(
   pragmaMemberName: string,
   name: string,
 ): isCallFromReactMember.ReturnType {
-  return dual(2, (node: TSESTree.Node, context: RuleContext): node is
+  return dual(2, (context: RuleContext, node: TSESTree.Node): node is
     & TSESTree.CallExpression
     & { callee: TSESTree.MemberExpression } =>
   {
     if (node.type !== T.CallExpression) return false;
     if (!AST.is(T.MemberExpression)(node.callee)) return false;
-    return isFromReactMember(pragmaMemberName, name)(node.callee, context);
+    return isFromReactMember(pragmaMemberName, name)(context, node.callee);
   });
 }

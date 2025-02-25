@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const initialScope = context.sourceCode.getScope(node);
-        if (!isUseMemoCall(node, context) && !alias.some(isReactHookCallWithNameLoose(node))) {
+        if (!isUseMemoCall(context, node) && !alias.some(isReactHookCallWithNameLoose(node))) {
           return;
         }
         const scope = context.sourceCode.getScope(node);

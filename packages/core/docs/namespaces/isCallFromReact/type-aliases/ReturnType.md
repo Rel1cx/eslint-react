@@ -6,7 +6,7 @@
 
 # Type Alias: ReturnType()
 
-> **ReturnType**: (`context`) => (`node`) => `node is CallExpression`(`node`, `context`) => `node is CallExpression`
+> **ReturnType**: (`context`) => (`node`) => `node is CallExpression`(`context`, `node`) => `node is CallExpression`
 
 ## Parameters
 
@@ -30,13 +30,13 @@
 
 ## Parameters
 
-### node
-
-[`Node`](../../../-internal-/type-aliases/Node.md)
-
 ### context
 
 [`Readonly`](../../../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`Node`](../../../-internal-/type-aliases/Node.md)
 
 ## Returns
 

@@ -111,7 +111,7 @@ export default createRule<[], MessageID>({
         }
       },
       CallExpression(node) {
-        state.isWithinChildrenToArray ||= isChildrenToArrayCall(node, context);
+        state.isWithinChildrenToArray ||= isChildrenToArrayCall(context, node);
         if (state.isWithinChildrenToArray) {
           return;
         }
@@ -135,7 +135,7 @@ export default createRule<[], MessageID>({
         }
       },
       "CallExpression:exit"(node) {
-        if (!isChildrenToArrayCall(node, context)) {
+        if (!isChildrenToArrayCall(context, node)) {
           return;
         }
         state.isWithinChildrenToArray = false;

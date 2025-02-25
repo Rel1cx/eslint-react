@@ -49,10 +49,10 @@ export default createRule<[], MessageID>({
     const settings = getSettingsFromContext(context);
     const additionalHooks = settings.additionalHooks;
 
-    const isUseEffectLikeCall = isReactHookCallWithNameAlias("useEffect", context, additionalHooks.useEffect ?? []);
-    const isUseStateCall = isReactHookCallWithNameAlias("useState", context, additionalHooks.useState ?? []);
-    const isUseMemoCall = isReactHookCallWithNameAlias("useMemo", context, additionalHooks.useMemo ?? []);
-    const isUseCallbackCall = isReactHookCallWithNameAlias("useCallback", context, additionalHooks.useCallback ?? []);
+    const isUseEffectLikeCall = isReactHookCallWithNameAlias(context, "useEffect", additionalHooks.useEffect ?? []);
+    const isUseStateCall = isReactHookCallWithNameAlias(context, "useState", additionalHooks.useState ?? []);
+    const isUseMemoCall = isReactHookCallWithNameAlias(context, "useMemo", additionalHooks.useMemo ?? []);
+    const isUseCallbackCall = isReactHookCallWithNameAlias(context, "useCallback", additionalHooks.useCallback ?? []);
     const isSetStateCall = isSetFunctionCall(context, settings);
     const isIdFromUseStateCall = isFromUseStateCall(context, settings);
 

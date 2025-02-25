@@ -50,7 +50,7 @@ function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod
   return reactChildrenMethod.some((method) => method === name);
 }
 
-function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContext) {
+function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource = "react" } = unsafeDecodeSettings(context.settings);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
@@ -69,7 +69,7 @@ function isUsingReactChildren(node: TSESTree.CallExpression, context: RuleContex
   return false;
 }
 
-function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContext): string | _ {
+function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | _ {
   const { callee } = node;
   if (callee.type !== T.MemberExpression) {
     return _;
@@ -81,7 +81,7 @@ function getMapIndexParamName(node: TSESTree.CallExpression, context: RuleContex
   if (!iteratorFunctionIndexParamPosition.has(name)) {
     return _;
   }
-  const callbackArg = node.arguments[isUsingReactChildren(node, context) ? 1 : 0];
+  const callbackArg = node.arguments[isUsingReactChildren(context, node) ? 1 : 0];
   if (callbackArg == null) {
     return _;
   }
@@ -129,7 +129,7 @@ export default createRule<[], MessageID>({
     }
 
     function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
-      return isCreateElementCall(node, context) || isCloneElementCall(node, context);
+      return isCreateElementCall(context, node) || isCloneElementCall(context, node);
     }
 
     function getReportDescriptors(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
@@ -192,7 +192,7 @@ export default createRule<[], MessageID>({
 
     return {
       CallExpression(node) {
-        indexParamNames.push(getMapIndexParamName(node, context));
+        indexParamNames.push(getMapIndexParamName(context, node));
         if (node.arguments.length === 0) {
           return;
         }

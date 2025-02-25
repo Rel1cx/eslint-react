@@ -9,8 +9,8 @@ import { ERComponentHint } from "./component-collector-hint";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
 
 /** internal */
-export function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
+export function hasValidHierarchy(context: RuleContext, node: AST.TSESTreeFunction, hint: bigint) {
+  if (isChildrenOfCreateElement(context, node) || isFunctionOfRenderMethod(node)) {
     return false;
   }
   if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {

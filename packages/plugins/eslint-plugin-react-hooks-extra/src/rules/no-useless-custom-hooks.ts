@@ -15,8 +15,8 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isNodeContainsUseCallComments(
-  node: TSESTree.Node,
   context: RuleContext,
+  node: TSESTree.Node,
 ) {
   return context.sourceCode
     .getCommentsInside(node)
@@ -52,7 +52,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           // Skip hooks with comments that contain calls to other hooks
-          if (isNodeContainsUseCallComments(node, context)) {
+          if (isNodeContainsUseCallComments(context, node)) {
             continue;
           }
           context.report({

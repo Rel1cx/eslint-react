@@ -97,12 +97,12 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const { body } = entry.node;
-      const isComponent = hasNoneOrValidComponentName(entry.node, context)
+      const isComponent = hasNoneOrValidComponentName(context, entry.node)
         && JSX.isJSXValue(body, jsxCtx, hint)
-        && hasValidHierarchy(entry.node, context, hint);
+        && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
-      const id = getFunctionComponentIdentifier(entry.node, context);
+      const id = getFunctionComponentIdentifier(context, entry.node);
       const name = getComponentNameFromIdentifier(id);
       const key = getId();
       components.set(key, {
@@ -146,13 +146,13 @@ export function useComponentCollector(
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) return;
-      const isComponent = hasNoneOrValidComponentName(entry.node, context)
+      const isComponent = hasNoneOrValidComponentName(context, entry.node)
         && JSX.isJSXValue(node.argument, jsxCtx, hint)
-        && hasValidHierarchy(entry.node, context, hint);
+        && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
-      const id = getFunctionComponentIdentifier(entry.node, context);
+      const id = getFunctionComponentIdentifier(context, entry.node);
       const name = getComponentNameFromIdentifier(id);
       components.set(entry.key, {
         id,

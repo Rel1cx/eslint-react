@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
     const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
     return {
       CallExpression(node) {
-        if (!isCreateContextCall(node, context)) return;
+        if (!isCreateContextCall(context, node)) return;
         createCalls.push(node);
       },
       [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
