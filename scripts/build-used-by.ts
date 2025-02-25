@@ -61,6 +61,7 @@ const token = process.env["GITHUB_TOKEN"];
 const data = await fs.readFile("assets/NOTABLE_PROJECTS_USING_ESLINT_REACT", "utf-8");
 const repos = data.trim().split("\n").map((item) => item.replace("https://github.com/", ""));
 const avatars = await Promise.all(repos.map(async (repo) => fetchGitHubAvatar(repo, token)));
-const img = await buildUsedByImage(avatars);
+const avatarsDeduped = [...new Set(avatars)];
+const img = await buildUsedByImage(avatarsDeduped);
 await fs.writeFile("apps/website/assets/used_by.png", img);
 await fs.writeFile("apps/website/public/used_by.png", img);
