@@ -26,7 +26,7 @@ function isInitializedFromSource(name2, source, initialScope) {
     }
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
-    if (arg0 == null || !AST.isStringLiteral(arg0)) {
+    if (arg0 == null || !AST.isKindOfLiteral(arg0, "string")) {
       return false;
     }
     return arg0.value === source || arg0.value.startsWith(`${source}/`);

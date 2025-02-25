@@ -7,15 +7,14 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-import { isChildrenOfCreateElement } from "../element";
 import { isReactHookCall } from "../hook";
 import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../utils";
-import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
+import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
-import { isFunctionOfRenderMethod } from "./component-lifecycle";
 import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
 import type { ERFunctionComponent } from "./component-semantic-node";
+import { hasValidHierarchy } from "./hierarchy";
 
 type FunctionEntry = {
   key: string;
@@ -170,35 +169,6 @@ export function useComponentCollector(
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
-}
-
-function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipObjectMethod && AST.isFunctionOfObjectMethod(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipClassMethod && AST.isFunctionOfClassMethod(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipClassProperty && AST.isFunctionOfClassProperty(node.parent)) {
-    return false;
-  }
-  const boundaryNode = AST.findParentNode(
-    node,
-    AST.isOneOf([
-      T.JSXExpressionContainer,
-      T.ArrowFunctionExpression,
-      T.FunctionExpression,
-      T.Property,
-      T.ClassBody,
-    ]),
-  );
-  return boundaryNode == null || boundaryNode.type !== T.JSXExpressionContainer;
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {

@@ -52,6 +52,7 @@
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
+- [hasValidHierarchy](functions/hasValidHierarchy.md)
 - [isCallFromReact](functions/isCallFromReact.md)
 - [isCallFromReactMember](functions/isCallFromReactMember.md)
 - [isChildrenCount](functions/isChildrenCount.md)

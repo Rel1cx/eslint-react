@@ -150,7 +150,7 @@ export default createRule<[], MessageID>({
           const descriptors: ReportDescriptor<MessageID>[] = [];
           const expressions = node.type === T.TemplateLiteral
             ? node.expressions
-            : AST.getIdentifiersFromBinaryExpression(node);
+            : getIdentifiersFromBinaryExpression(node);
           for (const expression of expressions) {
             if (isArrayIndex(expression)) {
               descriptors.push({
@@ -238,3 +238,21 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+function getIdentifiersFromBinaryExpression(
+  side:
+    | TSESTree.BinaryExpression
+    | TSESTree.BinaryExpression["left"]
+    | TSESTree.BinaryExpression["right"],
+): readonly TSESTree.Identifier[] {
+  if (side.type === T.Identifier) {
+    return [side];
+  }
+  if (side.type === T.BinaryExpression) {
+    return [
+      ...getIdentifiersFromBinaryExpression(side.left),
+      ...getIdentifiersFromBinaryExpression(side.right),
+    ] as const;
+  }
+  return [] as const;
+}
