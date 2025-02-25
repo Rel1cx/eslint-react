@@ -1,9 +1,8 @@
 import type { RuleFeature } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
-import { createRule } from "../utils";
+import { createRule, isInitializedFromSource } from "../utils";
 
 export const RULE_NAME = "no-shadow-underscore";
 
@@ -30,7 +29,7 @@ export default createRule<[], MessageID>({
     return {
       "Identifier[name='_']"(node: TSESTree.Identifier & { name: "_" }) {
         const initialScope = context.sourceCode.getScope(node);
-        const isFromImport = VAR.isInitializedFromSource("_", "@eslint-react/eff", initialScope);
+        const isFromImport = isInitializedFromSource("_", "@eslint-react/eff", initialScope);
         if (!isFromImport) {
           context.report({
             messageId: "noShadowUnderscore",

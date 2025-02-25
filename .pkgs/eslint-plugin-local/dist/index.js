@@ -1,6 +1,8 @@
 import * as AST from '@eslint-react/ast';
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
-import * as VAR from '@eslint-react/var';
+import { _ } from '@eslint-react/eff';
+import { findVariable } from '@eslint-react/var';
+import { AST_NODE_TYPES as AST_NODE_TYPES$1 } from '@typescript-eslint/types';
 import { nullThrows, NullThrowsReasons } from '@typescript-eslint/utils/eslint-utils';
 
 // package.json
@@ -10,6 +12,40 @@ function getDocsUrl() {
   return "TODO: add docs for local ESLint rules";
 }
 var createRule = ESLintUtils.RuleCreator(getDocsUrl);
+function isInitializedFromSource(name2, source, initialScope) {
+  const latestDef = findVariable(name2, initialScope)?.defs.at(-1);
+  if (latestDef == null) return false;
+  const { node, parent } = latestDef;
+  if (node.type === AST_NODE_TYPES$1.VariableDeclarator && node.init != null) {
+    const { init } = node;
+    if (init.type === AST_NODE_TYPES$1.MemberExpression && init.object.type === AST_NODE_TYPES$1.Identifier) {
+      return isInitializedFromSource(init.object.name, source, initialScope);
+    }
+    if (init.type === AST_NODE_TYPES$1.Identifier) {
+      return isInitializedFromSource(init.name, source, initialScope);
+    }
+    const args = getRequireExpressionArguments(init);
+    const arg0 = args?.[0];
+    if (arg0 == null || !AST.isStringLiteral(arg0)) {
+      return false;
+    }
+    return arg0.value === source || arg0.value.startsWith(`${source}/`);
+  }
+  return parent?.type === AST_NODE_TYPES$1.ImportDeclaration && parent.source.value === source;
+}
+function getRequireExpressionArguments(node) {
+  switch (true) {
+    // require('source')
+    case (node.type === AST_NODE_TYPES$1.CallExpression && node.callee.type === AST_NODE_TYPES$1.Identifier && node.callee.name === "require"): {
+      return node.arguments;
+    }
+    // require('source').variable
+    case node.type === AST_NODE_TYPES$1.MemberExpression: {
+      return getRequireExpressionArguments(node.object);
+    }
+  }
+  return _;
+}
 
 // src/rules/avoid-multiline-template-expression.ts
 var RULE_NAME = "avoid-multiline-template-expression";
@@ -43,6 +79,8 @@ var avoid_multiline_template_expression_default = createRule({
   },
   defaultOptions: []
 });
+
+// src/rules/no-shadow-underscore.ts
 var RULE_NAME2 = "no-shadow-underscore";
 var RULE_FEATURES2 = [
   "CHK"
@@ -64,7 +102,7 @@ var no_shadow_underscore_default = createRule({
     return {
       "Identifier[name='_']"(node) {
         const initialScope = context.sourceCode.getScope(node);
-        const isFromImport = VAR.isInitializedFromSource("_", "@eslint-react/eff", initialScope);
+        const isFromImport = isInitializedFromSource("_", "@eslint-react/eff", initialScope);
         if (!isFromImport) {
           context.report({
             messageId: "noShadowUnderscore",
