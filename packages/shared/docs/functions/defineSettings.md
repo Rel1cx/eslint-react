@@ -188,6 +188,20 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
+#### strictImportCheck
+
+`boolean` = `...`
+
+Check both the shape and the import to determine if a API is from React.
+
+**Description**
+
+This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
+
+**Default**
+
+`false`
+
 #### version?
 
 `string` = `...`
@@ -382,6 +396,20 @@ This is used to determine the type of the component.
 ```ts
 `"as"`
 ```
+
+### strictImportCheck
+
+> **strictImportCheck**: `boolean`
+
+Check both the shape and the import to determine if a API is from React.
+
+#### Description
+
+This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
+
+#### Default
+
+`false`
 
 ### version?
 
