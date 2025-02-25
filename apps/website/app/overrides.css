@@ -44,7 +44,7 @@
     monospace;
 }
 
-button[role] {
+button {
   cursor: pointer;
 }
 
