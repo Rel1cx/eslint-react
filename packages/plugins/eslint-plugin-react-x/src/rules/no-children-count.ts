@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       MemberExpression(node) {
-        if (isChildrenCount(node, context)) {
+        if (isChildrenCount(context, node)) {
           context.report({
             messageId: "noChildrenCount",
             node: node.property,

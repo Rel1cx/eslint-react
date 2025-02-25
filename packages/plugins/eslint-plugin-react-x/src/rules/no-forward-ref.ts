@@ -45,13 +45,13 @@ export default createRule<[], MessageID>({
     }
     return {
       CallExpression(node) {
-        if (!isForwardRefCall(node, context)) {
+        if (!isForwardRefCall(context, node)) {
           return;
         }
         context.report({
           messageId: "noForwardRef",
           node,
-          fix: getFix(node, context),
+          fix: getFix(context, node),
         });
       },
     };
@@ -59,7 +59,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-function getFix(node: TSESTree.CallExpression, context: RuleContext): (fixer: RuleFixer) => RuleFix[] {
+function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
     if (componentNode == null || !AST.isFunction(componentNode)) {

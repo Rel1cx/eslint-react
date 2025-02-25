@@ -46,7 +46,7 @@ function isNewResizeObserver(node: TSESTree.Node | _) {
     && node.callee.name === "ResizeObserver";
 }
 
-function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolean {
+function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
   switch (true) {
     case node.type === T.Identifier: {
       const initialScope = context.sourceCode.getScope(node);
@@ -54,22 +54,22 @@ function isFromObserver(node: TSESTree.Expression, context: RuleContext): boolea
       return isNewResizeObserver(object);
     }
     case node.type === T.MemberExpression:
-      return isFromObserver(node.object, context);
+      return isFromObserver(context, node.object);
     default:
       return false;
   }
 }
 
-function getCallKind(node: TSESTree.CallExpression, context: RuleContext): CallKind {
+function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   switch (true) {
     case node.callee.type === T.Identifier
       && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.name)
-      && isFromObserver(node.callee, context):
+      && isFromObserver(context, node.callee):
       return node.callee.name;
     case node.callee.type === T.MemberExpression
       && node.callee.property.type === T.Identifier
       && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.property.name)
-      && isFromObserver(node.callee, context):
+      && isFromObserver(context, node.callee):
       return node.callee.property.name;
     default:
       return "other";
@@ -133,7 +133,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const { object } = node.callee;
-        match(getCallKind(node, context))
+        match(getCallKind(context, node))
           .with("disconnect", () => {
             dEntries.push({
               kind: "disconnect",
@@ -202,11 +202,11 @@ export default createRule<[], MessageID>({
       },
       ["Program:exit"]() {
         for (const { id, node, phaseNode } of observers) {
-          if (dEntries.some((e) => isInstanceIdEqual(e.observer, id, context))) {
+          if (dEntries.some((e) => isInstanceIdEqual(context, e.observer, id))) {
             continue;
           }
-          const oentries = oEntries.filter((e) => isInstanceIdEqual(e.observer, id, context));
-          const uentries = uEntries.filter((e) => isInstanceIdEqual(e.observer, id, context));
+          const oentries = oEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
+          const uentries = uEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
           const isDynamic = (node: TSESTree.Node | _) => node?.type === T.CallExpression || AST.isConditional(node);
           const isPhaseNode = (node: TSESTree.Node | _) => node === phaseNode;
           const hasDynamicallyAdded = oentries
@@ -216,7 +216,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           for (const oEntry of oentries) {
-            if (uentries.some((uEntry) => isInstanceIdEqual(uEntry.element, oEntry.element, context))) {
+            if (uentries.some((uEntry) => isInstanceIdEqual(context, uEntry.element, oEntry.element))) {
               continue;
             }
             context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });

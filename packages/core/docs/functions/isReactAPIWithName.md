@@ -8,7 +8,7 @@
 
 ## Call Signature
 
-> **isReactAPIWithName**(`name`): (`node`, `context`) => `boolean`
+> **isReactAPIWithName**(`name`): (`context`, `node`) => `boolean`
 
 ### Parameters
 
@@ -22,13 +22,13 @@
 
 #### Parameters
 
-##### node
-
-[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
-
 ##### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+##### node
+
+[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 #### Returns
 
@@ -36,7 +36,7 @@
 
 ## Call Signature
 
-> **isReactAPIWithName**(`name`, `member`): (`node`, `context`) => `boolean`
+> **isReactAPIWithName**(`name`, `member`): (`context`, `node`) => `boolean`
 
 ### Parameters
 
@@ -54,13 +54,13 @@
 
 #### Parameters
 
-##### node
-
-[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
-
 ##### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+##### node
+
+[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 #### Returns
 

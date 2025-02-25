@@ -7,18 +7,21 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isReactHookCallWithNameLoose } from "../hook";
 import { isForwardRefCall, isMemoCall } from "../utils";
 
-function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
+function isComponentWrapperCall(
+  context: RuleContext,
+  node: TSESTree.Node,
+) {
   if (node.type !== T.CallExpression) {
     return false;
   }
-  return isMemoCall(node, context)
-    || isForwardRefCall(node, context)
+  return isMemoCall(context, node)
+    || isForwardRefCall(context, node)
     || isReactHookCallWithNameLoose(node)("useCallback");
 }
 
 export function getFunctionComponentIdentifier(
-  node: AST.TSESTreeFunction,
   context: RuleContext,
+  node: AST.TSESTreeFunction,
 ): TSESTree.Identifier | TSESTree.Identifier[] | _ {
   const functionId = AST.getFunctionIdentifier(node);
   if (functionId != null) {
@@ -28,7 +31,7 @@ export function getFunctionComponentIdentifier(
   // Get function component identifier from `const Component = memo(() => {});`
   if (
     parent.type === T.CallExpression
-    && isComponentWrapperCall(parent, context)
+    && isComponentWrapperCall(context, parent)
     && parent.parent.type === T.VariableDeclarator
     && parent.parent.id.type === T.Identifier
   ) {
@@ -37,9 +40,9 @@ export function getFunctionComponentIdentifier(
   // Get function component identifier from `const Component = memo(forwardRef(() => {}));`
   if (
     parent.type === T.CallExpression
-    && isComponentWrapperCall(parent, context)
+    && isComponentWrapperCall(context, parent)
     && parent.parent.type === T.CallExpression
-    && isComponentWrapperCall(parent.parent, context)
+    && isComponentWrapperCall(context, parent.parent)
     && parent.parent.parent.type === T.VariableDeclarator
     && parent.parent.parent.id.type === T.Identifier
   ) {

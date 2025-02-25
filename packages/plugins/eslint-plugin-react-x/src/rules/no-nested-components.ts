@@ -102,7 +102,7 @@ export default createRule<[], MessageID>({
 
             continue;
           }
-          if (isInsideCreateElementProps(component, context)) {
+          if (isInsideCreateElementProps(context, component)) {
             context.report({
               messageId: "nestedComponentInProps",
               node: component,

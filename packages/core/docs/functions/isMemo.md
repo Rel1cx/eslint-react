@@ -6,17 +6,17 @@
 
 # Function: isMemo()
 
-> **isMemo**(`node`, `context`): `boolean`
+> **isMemo**(`context`, `node`): `boolean`
 
 ## Parameters
-
-### node
-
-[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+### node
+
+[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
 
 ## Returns
 

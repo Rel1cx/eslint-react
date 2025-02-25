@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
         if (!isReactHookCall(node)) {
           return;
         }
-        if (!isReactHookCallWithNameAlias("useContext", context, [...useContextAlias])(node)) {
+        if (!isReactHookCallWithNameAlias(context, "useContext", [...useContextAlias])(node)) {
           return;
         }
         context.report({

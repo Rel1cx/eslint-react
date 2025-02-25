@@ -6,7 +6,7 @@
 
 # Function: isRenderPropLoose()
 
-> **isRenderPropLoose**(`node`, `context`): `boolean`
+> **isRenderPropLoose**(`context`, `node`): `boolean`
 
 Unsafe check whether given JSXAttribute is a render prop
 ```jsx
@@ -16,17 +16,17 @@ _ = <Component renderRow={() => <div />} />
 
 ## Parameters
 
-### node
-
-`JSXAttribute`
-
-The AST node to check
-
 ### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The rule context
+
+### node
+
+`JSXAttribute`
+
+The AST node to check
 
 ## Returns
 
