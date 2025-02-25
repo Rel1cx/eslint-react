@@ -18,12 +18,6 @@
 
 ***
 
-### attributes
-
-> **attributes**: `ImportAttribute`[]
-
-***
-
 ### loc
 
 > **loc**: [`SourceLocation`](SourceLocation.md)
@@ -35,6 +29,12 @@ The loc property is defined as nullable by ESTree, but ESLint requires this prop
 #### Inherited from
 
 `BaseNode.loc`
+
+***
+
+### options
+
+> **options**: `null` \| [`ObjectExpression`](ObjectExpression.md)
 
 ***
 
