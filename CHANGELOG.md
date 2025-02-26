@@ -1,3 +1,15 @@
+## v1.28.0 (2025-02-26)
+
+### ✨ New
+
+- feat(plugins/dom): add `no-flush-sync` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/942
+- feat: add [`skipImportCheck`](https://eslint-react.xyz/docs/configurations#skipImportCheck) setting by @Rel1cx
+
+### 🪄 Improvements
+
+- refactor: code optimization by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/945
+- refactor: consistent ordering of arguments to context-aware utility functions by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/946
+
 ## v1.27.0 (2025-02-21)
 
 ### ✨ New
