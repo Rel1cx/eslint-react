@@ -77,6 +77,7 @@ export const toNormalizedSettings = memoize(
     additionalHooks = {},
     importSource = "react",
     polymorphicPropName = "as",
+    skipImportCheck = true,
     version,
     ...rest
   }: ESLintReactSettings): ESLintReactSettingsNormalized => {
@@ -102,6 +103,7 @@ export const toNormalizedSettings = memoize(
       additionalHooks,
       importSource,
       polymorphicPropName,
+      skipImportCheck,
       version: match(version)
         .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
         .otherwise(identity),
