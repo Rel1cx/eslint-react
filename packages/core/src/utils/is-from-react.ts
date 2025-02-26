@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import { type _, dual } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS, unsafeDecodeSettings } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -43,24 +43,62 @@ export function isFromReactStrict(
   }
 }
 
-export function isFromReact(name: string) {
-  return (context: RuleContext, node: TSESTree.Identifier | TSESTree.MemberExpression) => {
-    const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
-    if (skipImportCheck) return isFromReactLoose(node, name);
-    return isFromReactStrict(node, name, importSource, context.sourceCode.getScope(node));
+/* @internal */
+export declare namespace isFromReact {
+  type ReturnType = {
+    (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.Identifier | TSESTree.MemberExpression;
+    (context: RuleContext, node: TSESTree.Node): node is TSESTree.Identifier | TSESTree.MemberExpression;
   };
 }
 
-export function isFromReactMember(memberName: string, name: string) {
-  return (context: RuleContext, node: TSESTree.MemberExpression) => {
+/* @internal */
+export function isFromReact(name: string): isFromReact.ReturnType {
+  // dprint-ignore
+  return dual(2, (context: RuleContext, node: TSESTree.Node | _): node is TSESTree.Identifier | TSESTree.MemberExpression => {
+    if (node == null) return false;
+    const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
+    if (skipImportCheck) return isFromReactLoose(node, name);
+    return isFromReactStrict(node, name, importSource, context.sourceCode.getScope(node));
+  });
+}
+
+/* @internal */
+export function isFromReactObject(objectName: string, propertyName: string): isFromReact.ReturnType {
+  // dprint-ignore
+  return dual(2, (context: RuleContext, node: TSESTree.Node | _): node is TSESTree.Identifier | TSESTree.MemberExpression => {
+    if (node?.type !== T.MemberExpression) return false;
     const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
     const { object, property } = node;
-    if (skipImportCheck) return isFromReactLoose(object, memberName) && isFromReactLoose(property, name);
+    if (skipImportCheck) return isFromReactLoose(object, objectName) && isFromReactLoose(property, propertyName);
     return isFromReactStrict(
       object,
-      memberName,
+      objectName,
       importSource,
       context.sourceCode.getScope(object),
-    ) && isFromReactStrict(property, name, importSource, context.sourceCode.getScope(property));
+    ) && isFromReactLoose(property, propertyName);
+  });
+}
+
+/* @internal */
+export declare namespace isCallFromReact {
+  type ReturnType = {
+    (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.CallExpression;
+    (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression;
   };
+}
+
+/* @internal */
+export function isCallFromReact(name: string): isCallFromReact.ReturnType {
+  return dual(2, (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression => {
+    if (node.type !== T.CallExpression) return false;
+    return isFromReact(name)(context, node.callee);
+  });
+}
+
+/* @internal */
+export function isCallFromReactObject(objectName: string, propertyName: string): isCallFromReact.ReturnType {
+  return dual(2, (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression => {
+    if (node.type !== T.CallExpression) return false;
+    return isFromReactObject(objectName, propertyName)(context, node.callee);
+  });
 }

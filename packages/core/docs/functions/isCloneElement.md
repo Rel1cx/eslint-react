@@ -6,18 +6,44 @@
 
 # Function: isCloneElement()
 
-> **isCloneElement**(`context`, `node`): `boolean`
+## Call Signature
 
-## Parameters
+> **isCloneElement**(`context`): (`node`) => node is Identifier \| MemberExpression
 
-### context
+### Parameters
+
+#### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
 
-### node
+### Returns
 
-[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
+`Function`
 
-## Returns
+#### Parameters
 
-`boolean`
+##### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
+
+#### Returns
+
+node is Identifier \| MemberExpression
+
+## Call Signature
+
+> **isCloneElement**(`context`, `node`): node is Identifier \| MemberExpression
+
+### Parameters
+
+#### context
+
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+#### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
+
+### Returns
+
+node is Identifier \| MemberExpression

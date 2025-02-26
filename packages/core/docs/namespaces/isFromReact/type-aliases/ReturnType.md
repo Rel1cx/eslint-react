@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../../../README.md) / [isCallFromReactMember](../README.md) / ReturnType
+[@eslint-react/core](../../../README.md) / [isFromReact](../README.md) / ReturnType
 
 # Type Alias: ReturnType()
 
-> **ReturnType**: (`context`) => (`node`) => `node is CallExpression & { callee: MemberExpression }`(`context`, `node`) => `node is CallExpression & { callee: MemberExpression }`
+> **ReturnType**: (`context`) => (`node`) => node is Identifier \| MemberExpression(`context`, `node`) => node is Identifier \| MemberExpression
 
 ## Parameters
 
@@ -26,7 +26,7 @@
 
 ### Returns
 
-`node is CallExpression & { callee: MemberExpression }`
+node is Identifier \| MemberExpression
 
 ## Parameters
 
@@ -40,4 +40,4 @@
 
 ## Returns
 
-`node is CallExpression & { callee: MemberExpression }`
+node is Identifier \| MemberExpression

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.28.1-beta.0",
+  "version": "1.28.1-beta.1",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -59,7 +59,7 @@
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
     "@napi-rs/canvas": "^0.1.67",
-    "@stylistic/eslint-plugin": "^4.0.1",
+    "@stylistic/eslint-plugin": "^4.1.0",
     "@swc/core": "^1.11.1",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
@@ -85,7 +85,7 @@
     "eslint-plugin-unicorn": "^57.0.0",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.4.2",
-    "lefthook": "^1.11.1",
+    "lefthook": "^1.11.2",
     "markdownlint": "^0.37.4",
     "nx": "20.4.2",
     "ofetch": "^1.4.1",

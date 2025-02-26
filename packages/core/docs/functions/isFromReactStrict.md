@@ -12,7 +12,7 @@
 
 ### node
 
-[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
+`undefined` | [`Node`](../-internal-/type-aliases/Node.md)
 
 ### name
 
