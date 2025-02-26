@@ -50,7 +50,7 @@ export default createRule<[], MessageID>({
       | ERComponentHint.StrictLogical
       | ERComponentHint.StrictConditional;
 
-    const collector = useComponentCollector(context, hint);
+    const collector = useComponentCollector(context, { hint });
     const collectorLegacy = useComponentCollectorLegacy();
 
     return {

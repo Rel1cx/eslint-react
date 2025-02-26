@@ -6,7 +6,7 @@
 
 # Function: useComponentCollector()
 
-> **useComponentCollector**(`context`, `hint`, `options`): [`ReturnType`](../namespaces/useComponentCollector/type-aliases/ReturnType.md)
+> **useComponentCollector**(`context`, `options`): [`ReturnType`](../namespaces/useComponentCollector/type-aliases/ReturnType.md)
 
 Get a ctx and listeners for the rule to collect function components
 
@@ -17,12 +17,6 @@ Get a ctx and listeners for the rule to collect function components
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
 
 The ESLint rule context
-
-### hint
-
-`bigint` = `DEFAULT_COMPONENT_HINT`
-
-The hint to use
 
 ### options
 

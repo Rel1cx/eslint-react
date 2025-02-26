@@ -17,3 +17,7 @@
 ### collectHookCalls?
 
 > `optional` **collectHookCalls**: `boolean`
+
+### hint?
+
+> `optional` **hint**: [`ERComponentHint`](../../../type-aliases/ERComponentHint.md)

@@ -47,8 +47,8 @@ export default createRule<[], MessageID>({
       listeners,
     } = useComponentCollector(
       context,
-      DEFAULT_COMPONENT_HINT,
       {
+        hint: DEFAULT_COMPONENT_HINT,
         collectDisplayName: false,
         collectHookCalls: true,
       },
