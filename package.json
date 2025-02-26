@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.28.1-beta.1",
+  "version": "1.28.1-beta.2",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -110,7 +110,7 @@
     "typescript-eslint": "^8.25.0",
     "vitest": "^3.0.7"
   },
-  "packageManager": "pnpm@10.5.0",
+  "packageManager": "pnpm@10.5.1",
   "engines": {
     "node": ">=18.18.0"
   },

@@ -7,8 +7,9 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
-import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../utils";
+import type { ERComponentHint } from "./component-collector-hint";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
@@ -27,6 +28,7 @@ export declare namespace useComponentCollector {
   type Options = {
     collectDisplayName?: boolean;
     collectHookCalls?: boolean;
+    hint?: ERComponentHint;
   };
   type ReturnType = {
     ctx: {
@@ -41,16 +43,18 @@ export declare namespace useComponentCollector {
 /**
  * Get a ctx and listeners for the rule to collect function components
  * @param context The ESLint rule context
- * @param hint The hint to use
  * @param options The options to use
  * @returns The component collector
  */
 export function useComponentCollector(
   context: RuleContext,
-  hint = DEFAULT_COMPONENT_HINT,
   options: useComponentCollector.Options = {},
 ): useComponentCollector.ReturnType {
-  const { collectDisplayName = false, collectHookCalls = false } = options;
+  const {
+    collectDisplayName = false,
+    collectHookCalls = false,
+    hint = DEFAULT_COMPONENT_HINT,
+  } = options;
 
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();

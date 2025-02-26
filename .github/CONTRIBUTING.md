@@ -40,7 +40,7 @@ Before submitting your contribution though, please make sure to take a moment an
 
 ## Pull Request Guidelines
 
-- You have to [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
+- **You have to [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)**.
 
 - It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.
 

@@ -29,10 +29,10 @@ export default createRule<[], MessageID>({
   create(context) {
     const { ctx, listeners } = useComponentCollector(
       context,
-      DEFAULT_COMPONENT_HINT,
       {
         collectDisplayName: true,
         collectHookCalls: true,
+        hint: DEFAULT_COMPONENT_HINT,
       },
     );
     return {
