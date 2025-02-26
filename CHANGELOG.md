@@ -3,7 +3,7 @@
 ### ✨ New
 
 - feat(plugins/dom): add `no-flush-sync` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/942
-- feat: add [`skipImportCheck`](https://eslint-react.xyz/docs/configurations#skipImportCheck) setting by @Rel1cx
+- feat: add [`skipImportCheck`](https://eslint-react.xyz/docs/configurations#skipimportcheck) setting by @Rel1cx
 
 ### 🪄 Improvements
 

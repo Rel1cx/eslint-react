@@ -21,8 +21,8 @@ export function SettingsTypeTable() {
         skipImportCheck: {
           type: "boolean",
           description: (
-            <Link href="#skipImportCheck">
-              Check both the shape and the import to determine if an API is from React before applying the rules. ⤵
+            <Link href="#skipimportcheck">
+              When determining whether an API originates from React, bypass the import source check. ⤵
             </Link>
           ),
           default: "true",
