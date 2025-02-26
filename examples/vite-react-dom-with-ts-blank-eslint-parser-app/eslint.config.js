@@ -58,7 +58,7 @@ export default [
   // React configuration
   {
     files: TSCONFIG.include,
-    ...eslintReact.configs.recommended,
+    ...eslintReact.configs["recommended-typescript"],
   },
   // React Hooks configuration
   {
