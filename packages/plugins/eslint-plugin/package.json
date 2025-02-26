@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.28.0-beta.4",
+  "version": "1.28.1-beta.0",
   "description": "More than 80 high-quality linting rules for writing better React code.",
   "keywords": [
     "react",
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsup": "^8.3.6"
+    "tsup": "^8.4.0"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",

@@ -6,7 +6,7 @@
 
 # Function: isFromReactMemberLoose()
 
-> **isFromReactMemberLoose**(`node`, `memberName`, `name`): `boolean`
+> **isFromReactMemberLoose**(`node`, `memberName`, `name`): `node is MemberExpression & { object: { name: string }; property: { name: string } }`
 
 ## Parameters
 
@@ -24,4 +24,4 @@
 
 ## Returns
 
-`boolean`
+`node is MemberExpression & { object: { name: string }; property: { name: string } }`

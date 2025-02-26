@@ -122,9 +122,9 @@ export const ESLintReactSettingsSchema = object({
   /**
    * Check both the shape and the import to determine if an API is from React.
    * @description This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
-   * @default `false`
+   * @default `true`
    */
-  strictImportCheck: optional(boolean(), false),
+  skipImportCheck: optional(boolean(), true),
   /**
    * React version to use, "detect" means auto detect React version from the project’s dependencies.
    * If `importSource` is specified, an equivalent version of React should be provided here.
@@ -177,8 +177,8 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   jsxPragma: "createElement",
   jsxPragmaFrag: "Fragment",
   polymorphicPropName: "as",
+  skipImportCheck: true,
   strict: false,
-  strictImportCheck: false,
   version: "detect",
   additionalHooks: {
     useEffect: ["useIsomorphicLayoutEffect"],
