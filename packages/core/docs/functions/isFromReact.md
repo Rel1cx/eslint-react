@@ -6,7 +6,7 @@
 
 # Function: isFromReact()
 
-> **isFromReact**(`name`): (`context`, `node`) => `boolean`
+> **isFromReact**(`name`): [`ReturnType`](../namespaces/isFromReact/type-aliases/ReturnType.md)
 
 ## Parameters
 
@@ -16,18 +16,4 @@
 
 ## Returns
 
-`Function`
-
-### Parameters
-
-#### context
-
-[`Readonly`](../-internal-/type-aliases/Readonly.md)
-
-#### node
-
-[`Identifier`](../-internal-/interfaces/Identifier.md) | [`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
-
-### Returns
-
-`boolean`
+[`ReturnType`](../namespaces/isFromReact/type-aliases/ReturnType.md)

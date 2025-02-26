@@ -8,7 +8,7 @@
 
 ## Call Signature
 
-> **isChildrenForEachCall**(`context`): (`node`) => `node is CallExpression & { callee: MemberExpression }`
+> **isChildrenForEachCall**(`context`): (`node`) => `node is CallExpression`
 
 ### Parameters
 
@@ -28,11 +28,11 @@
 
 #### Returns
 
-`node is CallExpression & { callee: MemberExpression }`
+`node is CallExpression`
 
 ## Call Signature
 
-> **isChildrenForEachCall**(`context`, `node`): `node is CallExpression & { callee: MemberExpression }`
+> **isChildrenForEachCall**(`context`, `node`): `node is CallExpression`
 
 ### Parameters
 
@@ -46,4 +46,4 @@
 
 ### Returns
 
-`node is CallExpression & { callee: MemberExpression }`
+`node is CallExpression`

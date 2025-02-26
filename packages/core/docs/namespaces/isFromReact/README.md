@@ -2,9 +2,9 @@
 
 ***
 
-[@eslint-react/core](../../README.md) / isCallFromReactMember
+[@eslint-react/core](../../README.md) / isFromReact
 
-# isCallFromReactMember
+# isFromReact
 
 ## Type Aliases
 
