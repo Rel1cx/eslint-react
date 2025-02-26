@@ -1,3 +1,4 @@
+import type { _ } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS, unsafeDecodeSettings } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -9,32 +10,37 @@ import { isInitializedFromReact } from "./is-initialized-from-react";
 const defaultImportSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource;
 
 /* @internal */
-export function isFromReactLoose(node: TSESTree.Identifier | TSESTree.MemberExpression, name: string) {
-  if (node.type === T.MemberExpression) {
-    return node.object.type === T.Identifier
-      && node.property.type === T.Identifier
-      && node.property.name === name;
+export function isFromReactLoose(node: TSESTree.Node | _, name: string) {
+  switch (node?.type) {
+    case T.Identifier:
+      return node.name === name;
+    case T.MemberExpression:
+      return node.object.type === T.Identifier
+        && node.property.type === T.Identifier
+        && node.property.name === name;
+    default:
+      return false;
   }
-  return node.name === name;
 }
 
 /* @internal */
 export function isFromReactStrict(
-  node: TSESTree.Identifier | TSESTree.MemberExpression,
+  node: TSESTree.Node | _,
   name: string,
   importSource: string,
   initialScope: Scope,
 ) {
-  if (node.type === T.MemberExpression) {
-    return node.object.type === T.Identifier
-      && node.property.type === T.Identifier
-      && node.property.name === name
-      && isInitializedFromReact(node.object.name, importSource, initialScope);
+  switch (node?.type) {
+    case T.Identifier:
+      return node.name === name && isInitializedFromReact(name, importSource, initialScope);
+    case T.MemberExpression:
+      return node.object.type === T.Identifier
+        && node.property.type === T.Identifier
+        && node.property.name === name
+        && isInitializedFromReact(node.object.name, importSource, initialScope);
+    default:
+      return false;
   }
-  if (node.name === name) {
-    return isInitializedFromReact(name, importSource, initialScope);
-  }
-  return false;
 }
 
 export function isFromReact(name: string) {
@@ -45,51 +51,16 @@ export function isFromReact(name: string) {
   };
 }
 
-/* @internal */
-export function isFromReactMemberLoose(node: TSESTree.MemberExpression, memberName: string, name: string) {
-  const { object, property } = node;
-  if (property.type !== T.Identifier || property.name !== name) return false;
-  if (object.type === T.Identifier && object.name === memberName) return true;
-  if (
-    object.type === T.MemberExpression
-    && object.object.type === T.Identifier
-    && object.property.type === T.Identifier
-  ) {
-    return object.property.name === memberName;
-  }
-  return false;
-}
-
-/* @internal */
-export function isFromReactMemberStrict(
-  node: TSESTree.MemberExpression,
-  memberName: string,
-  name: string,
-  importSource: string,
-  initialScope: Scope,
-) {
-  const { object, property } = node;
-  if (property.type !== T.Identifier || property.name !== name) {
-    return false;
-  }
-  if (object.type === T.Identifier && object.name === memberName) {
-    return isInitializedFromReact(object.name, importSource, initialScope);
-  }
-  if (
-    object.type === T.MemberExpression
-    && object.object.type === T.Identifier
-    && isInitializedFromReact(object.object.name, importSource, initialScope)
-    && object.property.type === T.Identifier
-  ) {
-    return object.property.name === memberName;
-  }
-  return false;
-}
-
 export function isFromReactMember(memberName: string, name: string) {
   return (context: RuleContext, node: TSESTree.MemberExpression) => {
     const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
-    if (skipImportCheck) return isFromReactMemberLoose(node, memberName, name);
-    return isFromReactMemberStrict(node, memberName, name, importSource, context.sourceCode.getScope(node));
+    const { object, property } = node;
+    if (skipImportCheck) return isFromReactLoose(object, memberName) && isFromReactLoose(property, name);
+    return isFromReactStrict(
+      object,
+      memberName,
+      importSource,
+      context.sourceCode.getScope(object),
+    ) && isFromReactStrict(property, name, importSource, context.sourceCode.getScope(property));
   };
 }
