@@ -6,18 +6,44 @@
 
 # Function: isChildrenMap()
 
-> **isChildrenMap**(`context`, `node`): `boolean`
+## Call Signature
 
-## Parameters
+> **isChildrenMap**(`context`): (`node`) => node is Identifier \| MemberExpression
 
-### context
+### Parameters
+
+#### context
 
 [`Readonly`](../-internal-/type-aliases/Readonly.md)
 
-### node
+### Returns
 
-[`MemberExpression`](../-internal-/type-aliases/MemberExpression.md)
+`Function`
 
-## Returns
+#### Parameters
 
-`boolean`
+##### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
+
+#### Returns
+
+node is Identifier \| MemberExpression
+
+## Call Signature
+
+> **isChildrenMap**(`context`, `node`): node is Identifier \| MemberExpression
+
+### Parameters
+
+#### context
+
+[`Readonly`](../-internal-/type-aliases/Readonly.md)
+
+#### node
+
+[`Node`](../-internal-/type-aliases/Node.md)
+
+### Returns
+
+node is Identifier \| MemberExpression
