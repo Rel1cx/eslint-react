@@ -56,13 +56,13 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 > `readonly` **polymorphicPropName**: `"as"` = `"as"`
 
+### skipImportCheck
+
+> `readonly` **skipImportCheck**: `true` = `true`
+
 ### strict
 
 > `readonly` **strict**: `false` = `false`
-
-### strictImportCheck
-
-> `readonly` **strictImportCheck**: `false` = `false`
 
 ### version
 

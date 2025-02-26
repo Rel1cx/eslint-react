@@ -36,8 +36,8 @@ export interface ESLintReactSettingsNormalized {
   additionalHooks: CustomHooks;
   importSource: string;
   polymorphicPropName: string | _;
+  skipImportCheck: boolean;
   // strict: boolean;
-  strictImportCheck: boolean;
   version: string;
 }
 
