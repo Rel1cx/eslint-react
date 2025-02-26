@@ -188,7 +188,7 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
-#### strictImportCheck
+#### skipImportCheck
 
 `boolean` = `...`
 
@@ -200,7 +200,7 @@ This can prevent false positives when using a irrelevant third-party library tha
 
 **Default**
 
-`false`
+`true`
 
 #### version?
 
@@ -397,9 +397,9 @@ This is used to determine the type of the component.
 `"as"`
 ```
 
-### strictImportCheck
+### skipImportCheck
 
-> **strictImportCheck**: `boolean`
+> **skipImportCheck**: `boolean`
 
 Check both the shape and the import to determine if an API is from React.
 
@@ -409,7 +409,7 @@ This can prevent false positives when using a irrelevant third-party library tha
 
 #### Default
 
-`false`
+`true`
 
 ### version?
 

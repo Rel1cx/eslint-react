@@ -18,14 +18,14 @@ export function SettingsTypeTable() {
           description: <Link href="#importsource">The source where React is imported from ⤵</Link>,
           default: "react",
         },
-        strictImportCheck: {
+        skipImportCheck: {
           type: "boolean",
           description: (
-            <Link href="#strictimportcheck">
+            <Link href="#skipImportCheck">
               Check both the shape and the import to determine if an API is from React before applying the rules. ⤵
             </Link>
           ),
-          default: "false",
+          default: "true",
         },
         polymorphicPropName: {
           type: "string",

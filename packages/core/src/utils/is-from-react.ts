@@ -39,8 +39,8 @@ export function isFromReactStrict(
 
 export function isFromReact(name: string) {
   return (context: RuleContext, node: TSESTree.Identifier | TSESTree.MemberExpression) => {
-    const { importSource = defaultImportSource, strictImportCheck = false } = unsafeDecodeSettings(context.settings);
-    if (!strictImportCheck) return isFromReactLoose(node, name);
+    const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
+    if (skipImportCheck) return isFromReactLoose(node, name);
     return isFromReactStrict(node, name, importSource, context.sourceCode.getScope(node));
   };
 }
@@ -88,8 +88,8 @@ export function isFromReactMemberStrict(
 
 export function isFromReactMember(memberName: string, name: string) {
   return (context: RuleContext, node: TSESTree.MemberExpression) => {
-    const { importSource = defaultImportSource, strictImportCheck = false } = unsafeDecodeSettings(context.settings);
-    if (!strictImportCheck) return isFromReactMemberLoose(node, memberName, name);
+    const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
+    if (skipImportCheck) return isFromReactMemberLoose(node, memberName, name);
     return isFromReactMemberStrict(node, memberName, name, importSource, context.sourceCode.getScope(node));
   };
 }

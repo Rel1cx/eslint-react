@@ -27,7 +27,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -45,7 +44,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -66,7 +64,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -85,7 +82,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -107,7 +103,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -132,7 +127,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -154,7 +148,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -171,7 +164,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -189,7 +181,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -210,7 +201,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -229,7 +219,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -251,7 +240,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -282,7 +270,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "@pika/react",
-          strictImportCheck: true,
         },
       },
     },
@@ -302,7 +289,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -322,7 +308,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -336,7 +321,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -348,7 +332,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -360,7 +343,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -372,7 +354,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -386,7 +367,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },
@@ -402,7 +382,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           importSource: "react",
-          strictImportCheck: true,
         },
       },
     },

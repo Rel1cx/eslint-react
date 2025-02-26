@@ -45,16 +45,16 @@ For example, if you are using `@pika/react` instead of `react`, you can set the 
 import React from "@pika/react";
 ```
 
-### `strictImportCheck`
+### `skipImportCheck`
 
-Check both the shape and the import to determine if an API is from React before applying the rules.
+When determining whether an API originates from React, bypass the import source check.
 
-This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
+By default, the rule checks only the shape of the API to determine if it is a React API. If `skipImportCheck` is set to `false`, the rule will check both the shape and the import source.
 
-For example, if you set the `strictImportCheck` to `true`, then the `memo` function from `irrelevant-library` will not be recognized as React's `memo`:
+For example, when `skipImportCheck` is set to false, the `memo` function from `unrelated-library` will not be recognized as React's `memo`.
 
 ```ts
-import { memo } from "irrelevant-library";
+import { memo } from "unrelated-library";
 
 const NonComponentFunction = memo(() => {
   //                         ^^^^
