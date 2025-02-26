@@ -52,7 +52,7 @@
   "peerDependencies": {
     "react": "^19.0.0"
   },
-  "packageManager": "pnpm@10.5.0",
+  "packageManager": "pnpm@10.5.1",
   "engines": {
     "node": ">=18.18.0"
   }
