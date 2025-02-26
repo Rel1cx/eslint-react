@@ -7,8 +7,8 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
-import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../utils";
 import type { ERComponentHint } from "./component-collector-hint";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
