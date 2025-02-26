@@ -1,16 +1,16 @@
 import * as AST from "@eslint-react/ast";
 import {
   ERComponentHint,
+  isCreateElementCall,
   isDeclaredInRenderPropLoose,
   isDirectValueOfRenderPropertyLoose,
-  isInsideCreateElementProps,
   isInsideRenderMethod,
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -156,3 +156,17 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+/**
+ * Determines whether inside `createElement`'s props.
+ * @param context The rule context
+ * @param node The AST node to check
+ * @returns `true` if the node is inside createElement's props
+ */
+function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node) {
+  const call = AST.findParentNode(node, isCreateElementCall(context));
+  if (call == null) return false;
+  const prop = AST.findParentNode(node, AST.is(T.ObjectExpression));
+  if (prop == null) return false;
+  return prop === call.arguments[1];
+}
