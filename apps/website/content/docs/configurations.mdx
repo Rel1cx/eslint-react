@@ -49,9 +49,11 @@ import React from "@pika/react";
 
 When determining whether an API originates from React, bypass the import source check.
 
-By default, the rule checks only the shape of the API to determine if it is a React API. If `skipImportCheck` is set to `false`, the rule will check both the shape and the import source.
+By default, the rule checks only the shape of the API to determine if it is a React API. If `skipImportCheck` is set to `false`, both the shape and the import source will be checked.
 
-For example, when `skipImportCheck` is set to false, the `memo` function from `unrelated-library` will not be recognized as React's `memo`.
+This prevents false positives when using unrelated third-party libraries that have APIs similar to React.
+
+For example, when `skipImportCheck` is set to `false`, the `memo` function from `unrelated-library` will not be recognized as React's `memo`.
 
 ```ts
 import { memo } from "unrelated-library";
