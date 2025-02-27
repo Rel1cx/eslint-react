@@ -2,23 +2,20 @@
 import fs from "node:fs/promises";
 
 import { createCanvas, loadImage } from "@napi-rs/canvas";
-import { ofetch } from "ofetch";
-
-interface GitHubRepo {
-  owner: {
-    avatar_url: string;
-  };
-}
+import { isMatching, P } from "ts-pattern";
 
 async function fetchGitHubAvatar(repo: string, token?: string): Promise<string> {
   if (token == null) {
     throw new Error("GitHub token is required");
   }
-  const data = await ofetch<GitHubRepo>(`https://api.github.com/repos/${repo}`, {
+  const data = await fetch(`https://api.github.com/repos/${repo}`, {
     headers: {
       Authorization: `token ${token}`,
     },
-  });
+  }).then((res) => res.json());
+  if (!isMatching({ owner: { avatar_url: P.string } }, data)) {
+    throw new Error(`Invalid response: ${JSON.stringify(data)}`);
+  }
   return data.owner.avatar_url;
 }
 

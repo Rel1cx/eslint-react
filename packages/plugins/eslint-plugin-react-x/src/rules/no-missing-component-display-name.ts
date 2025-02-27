@@ -36,9 +36,9 @@ export default createRule<[], MessageID>({
     } = useComponentCollector(
       context,
       {
-        hint: DEFAULT_COMPONENT_HINT,
         collectDisplayName: true,
         collectHookCalls: false,
+        hint: DEFAULT_COMPONENT_HINT,
       },
     );
     return {

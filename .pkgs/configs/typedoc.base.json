@@ -13,9 +13,7 @@
     "alphabetical"
   ],
   "plugin": [
-    "typedoc-plugin-inline-sources",
     "typedoc-plugin-markdown",
-    "typedoc-plugin-mdn-links",
     "typedoc-plugin-missing-exports"
   ],
   "theme": "default",
