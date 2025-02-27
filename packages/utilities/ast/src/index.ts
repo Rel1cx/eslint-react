@@ -1,6 +1,7 @@
 export * from "./find-parent-node";
 export * from "./function-init-path";
 export * from "./get-class-identifier";
+export * from "./get-ecma-expression";
 export * from "./get-function-identifier";
 export * from "./get-literal-value-type";
 export * from "./get-nested-call-expressions";
@@ -20,4 +21,3 @@ export * from "./is-this-expression";
 export * from "./to-readable-node-name";
 export * from "./to-readable-node-type";
 export type * from "./types";
-export * from "./unwrap-type-expression";

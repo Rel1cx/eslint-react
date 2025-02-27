@@ -71,7 +71,7 @@ export default createRule<[], MessageID>({
             if (!AST.isFunction(iter)) return;
             const arg0 = call?.arguments[0];
             if (call == null || arg0 == null) return;
-            if (AST.unwrapTypeExpression(arg0) !== iter) {
+            if (AST.getEcmaExpression(arg0) !== iter) {
               return;
             }
             keyedEntries.set(call, {
