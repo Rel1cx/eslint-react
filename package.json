@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.28.1-next.3",
+  "version": "1.28.1-beta.3",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -119,6 +119,7 @@
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.0",
       "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
+      "lucide-react": "^0.476.0",
       "next": "^15.2.0",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
