@@ -4,9 +4,9 @@ import { isTsOnlyExpression } from "./is";
 import type { TSESTreeTSOnlyExpression } from "./types";
 
 /**
- * Gets the ecma expression from a TS expression.
+ * Gets the ECMAScript expression from a TS expression.
  * @param node The TS expression.
- * @returns The ecma expression within the TS expression.
+ * @returns The ECMAScript expression within the TS expression.
  */
 export function getEcmaExpression(node: TSESTree.Node): Exclude<
   TSESTree.Node,
