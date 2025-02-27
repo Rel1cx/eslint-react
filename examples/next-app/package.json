@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/config-inspector": "^1.0.0",
+    "@eslint/config-inspector": "^1.0.1",
     "@eslint/js": "^9.21.0",
     "@next/eslint-plugin-next": "^15.2.0",
     "@tsconfig/next": "^2.0.3",
