@@ -159,6 +159,9 @@ importers:
       typedoc-plugin-markdown:
         specifier: ^4.4.2
         version: 4.4.2(typedoc@0.27.9(typescript@5.8.1-rc))
+      typedoc-plugin-mdn-links:
+        specifier: ^4.0.14
+        version: 4.0.14(typedoc@0.27.9(typescript@5.8.1-rc))
       typedoc-plugin-missing-exports:
         specifier: ^3.1.0
         version: 3.1.0(typedoc@0.27.9(typescript@5.8.1-rc))
@@ -5397,7 +5400,6 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
-    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -6685,6 +6687,11 @@ packages:
     engines: {node: '>= 18'}
     peerDependencies:
       typedoc: 0.27.x
+
+  typedoc-plugin-mdn-links@4.0.14:
+    resolution: {integrity: sha512-IDILzJr4OzNb5uAWWRMZYny80Q6jUQerAwskdYbNMwaHMRwsB3+y8oqYYE7/PyH+kJVvJnCC4G2wnAQ3CLdgqA==}
+    peerDependencies:
+      typedoc: 0.26.x || 0.27.x
 
   typedoc-plugin-missing-exports@3.1.0:
     resolution: {integrity: sha512-Sogbaj+qDa21NjB3SlIw4JXSwmcl/WOjwiPNaVEcPhpNG/MiRTtpwV81cT7h1cbu9StpONFPbddYWR0KV/fTWA==}
@@ -13076,6 +13083,10 @@ snapshots:
   type-fest@4.35.0: {}
 
   typedoc-plugin-markdown@4.4.2(typedoc@0.27.9(typescript@5.8.1-rc)):
+    dependencies:
+      typedoc: 0.27.9(typescript@5.8.1-rc)
+
+  typedoc-plugin-mdn-links@4.0.14(typedoc@0.27.9(typescript@5.8.1-rc)):
     dependencies:
       typedoc: 0.27.9(typescript@5.8.1-rc)
 

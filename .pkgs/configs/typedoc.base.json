@@ -14,6 +14,7 @@
   ],
   "plugin": [
     "typedoc-plugin-markdown",
+    "typedoc-plugin-mdn-links",
     "typedoc-plugin-missing-exports"
   ],
   "theme": "default",
