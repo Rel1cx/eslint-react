@@ -54,6 +54,7 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
+    "@eslint-react/var": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.25.0",
     "@typescript-eslint/type-utils": "^8.25.0",
     "@typescript-eslint/types": "^8.25.0",
