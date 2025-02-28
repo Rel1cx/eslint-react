@@ -8,7 +8,7 @@ import { isCreateElementCall } from "../utils";
 import { ERComponentHint } from "./component-collector-hint";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
 
-/** internal */
+/** @internal */
 export function hasValidHierarchy(context: RuleContext, node: AST.TSESTreeFunction, hint: bigint) {
   if (isChildrenOfCreateElement(context, node) || isFunctionOfRenderMethod(node)) {
     return false;

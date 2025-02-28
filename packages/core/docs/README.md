@@ -10,8 +10,6 @@
 
 ## Namespaces
 
-- [isCallFromReact](namespaces/isCallFromReact/README.md)
-- [isFromReact](namespaces/isFromReact/README.md)
 - [useComponentCollector](namespaces/useComponentCollector/README.md)
 - [useComponentCollectorLegacy](namespaces/useComponentCollectorLegacy/README.md)
 - [useHookCollector](namespaces/useHookCollector/README.md)
@@ -52,9 +50,6 @@
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
-- [hasValidHierarchy](functions/hasValidHierarchy.md)
-- [isCallFromReact](functions/isCallFromReact.md)
-- [isCallFromReactObject](functions/isCallFromReactObject.md)
 - [isChildrenCount](functions/isChildrenCount.md)
 - [isChildrenCountCall](functions/isChildrenCountCall.md)
 - [isChildrenForEach](functions/isChildrenForEach.md)
@@ -81,10 +76,6 @@
 - [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
 - [isForwardRef](functions/isForwardRef.md)
 - [isForwardRefCall](functions/isForwardRefCall.md)
-- [isFromReact](functions/isFromReact.md)
-- [isFromReactLoose](functions/isFromReactLoose.md)
-- [isFromReactObject](functions/isFromReactObject.md)
-- [isFromReactStrict](functions/isFromReactStrict.md)
 - [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md)
 - [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md)
 - [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md)

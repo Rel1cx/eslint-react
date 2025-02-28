@@ -1,6 +1,6 @@
 import type * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
-import { ERPhaseRelevance } from "@eslint-react/core";
+import { ERPhaseRelevance, isInstanceIdEqual } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
-import { createRule, getPhaseKindOfFunction, isInstanceIdEqual } from "../utils";
+import { createRule, getPhaseKindOfFunction } from "../utils";
 
 // #region Rule Metadata
 

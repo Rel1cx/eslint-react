@@ -1,6 +1,10 @@
-import { DISPLAY_NAME_ASSIGNMENT_SELECTOR, isCreateContextCall } from "@eslint-react/core";
+import {
+  DISPLAY_NAME_ASSIGNMENT_SELECTOR,
+  getInstanceId,
+  isCreateContextCall,
+  isInstanceIdEqual,
+} from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
@@ -44,7 +48,7 @@ export default createRule<[], MessageID>({
       },
       "Program:exit"() {
         for (const call of createCalls) {
-          const id = VAR.getVariableId(call);
+          const id = getInstanceId(call);
           if (id == null) {
             context.report({
               messageId: "noMissingContextDisplayName",
@@ -57,10 +61,7 @@ export default createRule<[], MessageID>({
               const left = node.left;
               if (left.type !== T.MemberExpression) return false;
               const object = left.object;
-              return VAR.isVariableIdEqual(id, object, [
-                context.sourceCode.getScope(id),
-                context.sourceCode.getScope(object),
-              ]);
+              return isInstanceIdEqual(context, id, object);
             });
           if (!hasDisplayNameAssignment) {
             context.report({
