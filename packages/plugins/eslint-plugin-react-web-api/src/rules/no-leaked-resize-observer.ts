@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
-import { ERPhaseRelevance } from "@eslint-react/core";
+import { ERPhaseRelevance, getInstanceId, isInstanceIdEqual } from "@eslint-react/core";
 import { _, or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -8,7 +8,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { isMatching, match, P } from "ts-pattern";
 
-import { createRule, getPhaseKindOfFunction, isInstanceIdEqual } from "../utils";
+import { createRule, getPhaseKindOfFunction } from "../utils";
 import type { ObserverEntry, ObserverMethod } from "./../models";
 
 // #region Rule Metadata
@@ -185,7 +185,7 @@ export default createRule<[], MessageID>({
         if (!isNewResizeObserver(node)) {
           return;
         }
-        const id = VAR.getVariableId(node);
+        const id = getInstanceId(node);
         if (id == null) {
           context.report({
             messageId: "unexpectedFloatingInstance",

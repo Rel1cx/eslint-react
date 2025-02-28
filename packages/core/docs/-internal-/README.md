@@ -165,12 +165,6 @@
 
 ***
 
-### ClassDeclaration
-
-> **ClassDeclaration**: `"ClassDeclaration"`
-
-***
-
 ### ClassExpression
 
 > **ClassExpression**: `"ClassExpression"`
@@ -699,12 +693,6 @@
 
 ***
 
-### TSDeclareFunction
-
-> **TSDeclareFunction**: `"TSDeclareFunction"`
-
-***
-
 ### TSDeclareKeyword
 
 > **TSDeclareKeyword**: `"TSDeclareKeyword"`
@@ -765,12 +753,6 @@
 
 ***
 
-### TSImportEqualsDeclaration
-
-> **TSImportEqualsDeclaration**: `"TSImportEqualsDeclaration"`
-
-***
-
 ### TSImportType
 
 > **TSImportType**: `"TSImportType"`
@@ -828,12 +810,6 @@
 ### tsModule
 
 > **tsModule**: `"tsModule"`
-
-***
-
-### TSModuleDeclaration
-
-> **TSModuleDeclaration**: `"TSModuleDeclaration"`
 
 ***
 
@@ -1080,12 +1056,6 @@
 ### Variable
 
 > **Variable**: `"Variable"`
-
-***
-
-### VariableDeclaration
-
-> **VariableDeclaration**: `"VariableDeclaration"`
 
 ***
 

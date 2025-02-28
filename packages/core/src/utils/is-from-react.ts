@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-param */
 import { type _, dual } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS, unsafeDecodeSettings } from "@eslint-react/shared";
@@ -9,7 +10,7 @@ import { isInitializedFromReact } from "./is-initialized-from-react";
 
 const defaultImportSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource;
 
-/* @internal */
+/** @internal */
 export function isFromReactLoose(node: TSESTree.Node | _, name: string) {
   switch (node?.type) {
     case T.Identifier:
@@ -23,7 +24,7 @@ export function isFromReactLoose(node: TSESTree.Node | _, name: string) {
   }
 }
 
-/* @internal */
+/** @internal */
 export function isFromReactStrict(
   node: TSESTree.Node | _,
   name: string,
@@ -43,7 +44,7 @@ export function isFromReactStrict(
   }
 }
 
-/* @internal */
+/** @internal */
 export declare namespace isFromReact {
   type ReturnType = {
     (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.Identifier | TSESTree.MemberExpression;
@@ -51,7 +52,7 @@ export declare namespace isFromReact {
   };
 }
 
-/* @internal */
+/** @internal */
 export function isFromReact(name: string): isFromReact.ReturnType {
   // dprint-ignore
   return dual(2, (context: RuleContext, node: TSESTree.Node | _): node is TSESTree.Identifier | TSESTree.MemberExpression => {
@@ -62,7 +63,7 @@ export function isFromReact(name: string): isFromReact.ReturnType {
   });
 }
 
-/* @internal */
+/** @internal */
 export function isFromReactObject(objectName: string, propertyName: string): isFromReact.ReturnType {
   // dprint-ignore
   return dual(2, (context: RuleContext, node: TSESTree.Node | _): node is TSESTree.Identifier | TSESTree.MemberExpression => {
@@ -79,7 +80,7 @@ export function isFromReactObject(objectName: string, propertyName: string): isF
   });
 }
 
-/* @internal */
+/** @internal */
 export declare namespace isCallFromReact {
   type ReturnType = {
     (context: RuleContext): (node: TSESTree.Node) => node is TSESTree.CallExpression;
@@ -87,7 +88,7 @@ export declare namespace isCallFromReact {
   };
 }
 
-/* @internal */
+/** @internal */
 export function isCallFromReact(name: string): isCallFromReact.ReturnType {
   return dual(2, (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression => {
     if (node.type !== T.CallExpression) return false;
@@ -95,7 +96,7 @@ export function isCallFromReact(name: string): isCallFromReact.ReturnType {
   });
 }
 
-/* @internal */
+/** @internal */
 export function isCallFromReactObject(objectName: string, propertyName: string): isCallFromReact.ReturnType {
   return dual(2, (context: RuleContext, node: TSESTree.Node): node is TSESTree.CallExpression => {
     if (node.type !== T.CallExpression) return false;
