@@ -11,7 +11,7 @@ import { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { isOneOf, isTsAssertionExpression } from "./is";
+import { isMethodOrProperty, isTsAssertionExpression } from "./is";
 import type { TSESTreeFunction } from "./types";
 
 export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | _ {
@@ -40,7 +40,7 @@ export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFuncti
       return node.parent.key;
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
-    case isOneOf([T.MethodDefinition, T.PropertyDefinition])(node.parent)
+    case isMethodOrProperty(node.parent)
       && node.parent.value === node
       && node.parent.key.type === T.Identifier:
       return node.parent.key;
