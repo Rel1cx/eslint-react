@@ -5,19 +5,19 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
-  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
-  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.7
-  typedarray: npm:@socketregistry/typedarray@^1.0.5
   '@types/react': ^19.0.10
   '@types/react-dom': ^19.0.4
   cross-spawn: ^7.0.6
   esbuild: ^0.25.0
+  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
   lucide-react: ^0.476.0
   next: ^15.2.0
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
+  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.7
   ts-api-utils: ^2.0.1
+  typedarray: npm:@socketregistry/typedarray@^1.0.5
   typescript: 5.8.1-rc
 
 importers:

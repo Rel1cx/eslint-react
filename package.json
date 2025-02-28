@@ -110,9 +110,11 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "@swc/core",
+      "dprint",
       "esbuild",
       "lefthook",
-      "nx"
+      "nx",
+      "sharp"
     ],
     "overrides": {
       "@types/react": "^19.0.10",
