@@ -1,8 +1,10 @@
-import * as AST from "@eslint-react/ast";
 import { isCreateContextCall } from "@eslint-react/core";
+import { _, identity } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
+import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -33,7 +35,11 @@ export default createRule<[], MessageID>({
         if (!isCreateContextCall(context, node)) return;
         const id = VAR.getVariableId(node);
         if (id == null) return;
-        const name = context.sourceCode.getText(AST.getEcmaExpression(id));
+        const name = match(id)
+          .with({ type: T.Identifier, name: P.select() }, identity)
+          .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
+          .otherwise(() => _);
+        if (name == null) return;
         if (name.endsWith("Context")) return;
         context.report({
           messageId: "contextName",
