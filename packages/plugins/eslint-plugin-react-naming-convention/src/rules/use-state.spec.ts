@@ -12,33 +12,20 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "badValueOrSetterName",
       }],
     },
     {
       code: /* tsx */ `
         function Component() {
-          const [state, setValue] = useState(0);
+          const [state, set] = useState(0);
 
           return <div />;
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "badValueOrSetterName",
       }],
-      settings: {
-        "react-x": {
-          skipImportCheck: true,
-        },
-      },
     },
     {
       code: /* tsx */ `
@@ -51,11 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "badValueOrSetterName",
       }],
     },
     {
@@ -69,11 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "badValueOrSetterName",
       }],
     },
     {
@@ -87,11 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "badValueOrSetterName",
       }],
     },
     {
@@ -99,25 +74,27 @@ ruleTester.run(RULE_NAME, rule, {
         import { useState } from "react";
 
         function Component() {
-          const [state, setstate] = useLocalStorageState(0);
+          const [{foo, bar, baz}, setFooBar] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
 
           return <div />;
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "badValueOrSetterName",
       }],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useState: ["useLocalStorageState"],
-          },
-        },
-      },
+    },
+    {
+      code: /* tsx */ `
+        import { useState } from 'react';
+
+        export function useTest(): [number, (n: number) => void] {
+          const [count1, setCount] = useState(0);
+          return [count1, setCount];
+        }
+      `,
+      errors: [{
+        messageId: "badValueOrSetterName",
+      }],
     },
   ],
   valid: [
@@ -149,19 +126,13 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    {
-      code: /* tsx */ `
-        function Component() {
-          const [state, setValue] = useState(0);
+    /* tsx */ `
+      import { useState } from 'react';
 
-          return <div />;
-        }
-      `,
-      settings: {
-        "react-x": {
-          skipImportCheck: false,
-        },
-      },
-    },
+      export function useTest(): [number, (n: number) => void] {
+        const [count, setCount] = useState(0);
+        return [count, setCount];
+      }
+    `,
   ],
 });
