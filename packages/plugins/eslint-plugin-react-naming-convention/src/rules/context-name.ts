@@ -1,7 +1,6 @@
-import { isCreateContextCall } from "@eslint-react/core";
+import { getInstanceId, isCreateContextCall } from "@eslint-react/core";
 import { _, identity } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
@@ -33,7 +32,7 @@ export default createRule<[], MessageID>({
     return {
       CallExpression(node) {
         if (!isCreateContextCall(context, node)) return;
-        const id = VAR.getVariableId(node);
+        const id = getInstanceId(node);
         if (id == null) return;
         const name = match(id)
           .with({ type: T.Identifier, name: P.select() }, identity)
