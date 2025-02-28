@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.28.1-next.6",
+  "version": "1.28.1-next.7",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -58,10 +58,10 @@
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
     "@stylistic/eslint-plugin": "^4.1.0",
-    "@swc/core": "^1.11.4",
+    "@swc/core": "^1.11.5",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.13.7",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/parser": "^8.25.0",
@@ -85,7 +85,7 @@
     "lefthook": "^1.11.2",
     "markdownlint": "^0.37.4",
     "nx": "20.4.2",
-    "publint": "^0.3.6",
+    "publint": "^0.3.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "skott": "^0.35.4",
@@ -99,7 +99,7 @@
     "typedoc-plugin-markdown": "^4.4.2",
     "typedoc-plugin-mdn-links": "^4.0.14",
     "typedoc-plugin-missing-exports": "^3.1.0",
-    "typescript": "^5.7.3",
+    "typescript": "^5.8.2",
     "typescript-eslint": "^8.25.0",
     "vitest": "^3.0.7"
   },
@@ -117,19 +117,19 @@
       "sharp"
     ],
     "overrides": {
+      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
+      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
+      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.7",
+      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "@types/react": "^19.0.10",
       "@types/react-dom": "^19.0.4",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.0",
-      "is-core-module": "npm:@socketregistry/is-core-module@^1.0.7",
-      "lucide-react": "^0.476.0",
+      "lucide-react": "^0.477.0",
       "next": "^15.2.0",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
-      "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.6",
-      "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.7",
       "ts-api-utils": "^2.0.1",
-      "typedarray": "npm:@socketregistry/typedarray@^1.0.5",
       "typescript": "5.8.1-rc"
     }
   }

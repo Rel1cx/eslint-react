@@ -21,14 +21,14 @@
     "@tsconfig/next": "^2.0.3",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.13.7",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "eslint": "^9.21.0",
     "eslint-config-flat-gitignore": "^2.1.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
-    "typescript": "^5.7.3",
+    "typescript": "^5.8.2",
     "typescript-eslint": "^8.25.0"
   },
   "engines": {
