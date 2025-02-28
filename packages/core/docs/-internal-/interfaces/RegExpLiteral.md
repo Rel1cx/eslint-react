@@ -72,7 +72,7 @@ The loc property is defined as nullable by ESTree, but ESLint requires this prop
 
 ### type
 
-> **type**: [`Literal`](../enumerations/AST_NODE_TYPES.md#literal)
+> **type**: [`Literal`](../README.md#literal)
 
 #### Inherited from
 

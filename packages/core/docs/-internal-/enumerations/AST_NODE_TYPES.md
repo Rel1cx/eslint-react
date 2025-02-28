@@ -116,12 +116,6 @@
 
 ***
 
-### Literal
-
-> **Literal**: `"Literal"`
-
-***
-
 ### MethodDefinition
 
 > **MethodDefinition**: `"MethodDefinition"`
@@ -515,6 +509,12 @@ Re-exports [JSXText](../README.md#jsxtext)
 ### LabeledStatement
 
 Re-exports [LabeledStatement](../README.md#labeledstatement)
+
+***
+
+### Literal
+
+Re-exports [Literal](../README.md#literal)
 
 ***
 

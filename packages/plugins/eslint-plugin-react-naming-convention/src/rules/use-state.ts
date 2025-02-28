@@ -1,6 +1,6 @@
+import { getInstanceId } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { snakeCase } from "string-ts";
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
         if (node.parent.type !== T.VariableDeclarator) {
           context.report({ messageId: "badValueOrSetterName", node });
         }
-        const id = VAR.getVariableId(node);
+        const id = getInstanceId(node);
         if (id?.type !== T.ArrayPattern) {
           context.report({ messageId: "badValueOrSetterName", node });
           return;

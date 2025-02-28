@@ -12,12 +12,12 @@
 
 ## Extended by
 
-- [`StringLiteral`](StringLiteral.md)
 - [`BigIntLiteral`](BigIntLiteral.md)
 - [`BooleanLiteral`](BooleanLiteral.md)
 - [`NullLiteral`](NullLiteral.md)
 - [`NumberLiteral`](NumberLiteral.md)
 - [`RegExpLiteral`](RegExpLiteral.md)
+- [`StringLiteral`](StringLiteral.md)
 
 ## Properties
 
@@ -63,7 +63,7 @@ The loc property is defined as nullable by ESTree, but ESLint requires this prop
 
 ### type
 
-> **type**: [`Literal`](../enumerations/AST_NODE_TYPES.md#literal)
+> **type**: [`Literal`](../README.md#literal)
 
 #### Overrides
 
