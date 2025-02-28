@@ -58,7 +58,7 @@
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
     "@stylistic/eslint-plugin": "^4.1.0",
-    "@swc/core": "^1.11.1",
+    "@swc/core": "^1.11.4",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.13.5",
