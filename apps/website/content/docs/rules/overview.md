@@ -114,6 +114,7 @@ full: true
 | Rule                                                           | ✅ | Features | Description                                                                      |
 | :------------------------------------------------------------- | :- | :------- | :------------------------------------------------------------------------------- |
 | [`component-name`](./naming-convention-component-name)         | 0️⃣  | `🔍` `⚙️` | Enforces naming conventions for components.                                      |
+| [`context-name`](./naming-convention-context-name)             | 0️⃣  | `🔍`     | Enforces naming conventions for context providers.                               |
 | [`filename`](./naming-convention-filename)                     | 0️⃣  | `🔍` `⚙️` | Enforces naming convention for JSX files.                                        |
 | [`filename-extension`](./naming-convention-filename-extension) | 0️⃣  | `🔍` `⚙️` | Enforces consistent use of the JSX file extension.                               |
 | [`use-state`](./naming-convention-use-state)                   | 0️⃣  | `🔍`     | Enforces destructuring and symmetric naming of `useState` hook value and setter. |

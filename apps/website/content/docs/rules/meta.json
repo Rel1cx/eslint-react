@@ -82,6 +82,7 @@
     "hooks-extra-prefer-use-state-lazy-initialization",
     "---Naming Convention Rules---",
     "naming-convention-component-name",
+    "naming-convention-context-name",
     "naming-convention-filename",
     "naming-convention-filename-extension",
     "naming-convention-use-state",
