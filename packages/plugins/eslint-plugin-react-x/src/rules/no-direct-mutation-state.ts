@@ -47,7 +47,7 @@ function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
   return AST.isOneOf([T.FunctionDeclaration, T.FunctionExpression])(node)
-    && AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node.parent)
+    && AST.isMethodOrProperty(node.parent)
     && node.parent.key.type === T.Identifier
     && node.parent.key.name === "constructor";
 }

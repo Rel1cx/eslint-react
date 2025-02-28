@@ -16,7 +16,7 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isComponentDidMount(node: TSESTree.Node) {
-  return AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node)
+  return AST.isMethodOrProperty(node)
     && node.key.type === T.Identifier
     && node.key.name === "componentDidMount";
 }
