@@ -88,6 +88,7 @@ export const rules = {
 
   // Part: Naming Convention
   "@eslint-react/naming-convention/component-name": "warn",
+  "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/filename": "warn",
   "@eslint-react/naming-convention/filename-extension": "warn",
   "@eslint-react/naming-convention/use-state": "warn",

@@ -998,6 +998,9 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.25.0
         version: 8.25.0

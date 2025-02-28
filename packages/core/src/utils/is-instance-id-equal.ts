@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";

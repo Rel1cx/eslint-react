@@ -1,9 +1,11 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrUpdate } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import * as JSX from "@eslint-react/jsx";
+import { getSettingsFromContext, type RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { compare } from "compare-versions";
 
 import { createRule } from "../utils";
 
@@ -30,19 +32,18 @@ export default createRule<[], MessageID>({
   },
   name: RULE_NAME,
   create(context) {
+    const { version } = getSettingsFromContext(context);
+    const isReact18OrBelow = compare(version, "19.0.0", "<");
     const { ctx, listeners } = useComponentCollector(context);
     const constructions = new Map<AST.TSESTreeFunction, VAR.ValueConstruction[]>();
 
     return {
       ...listeners,
       JSXOpeningElement(node) {
-        const openingElementName = node.name;
-        if (openingElementName.type !== T.JSXMemberExpression) {
-          return;
-        }
-        if (openingElementName.property.name !== "Provider") {
-          return;
-        }
+        const fullName = JSX.getElementName(node.parent);
+        const selfName = fullName.split(".").at(-1);
+        if (selfName == null) return;
+        if (!isContextName(selfName, isReact18OrBelow)) return;
         const functionEntry = ctx.getCurrentEntry();
         if (functionEntry == null) return;
         const attribute = node
@@ -86,3 +87,11 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+function isContextName(name: string, isReact18OrBelow: boolean): boolean {
+  if (name === "Provider") return true;
+  if (!isReact18OrBelow) {
+    return name.endsWith("Context") || name.endsWith("CONTEXT");
+  }
+  return false;
+}
