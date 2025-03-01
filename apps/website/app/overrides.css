@@ -82,3 +82,8 @@ button {
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   font-size: 1em;
 }
+
+figure.fd-codeblock.shiki {
+  /* improve code block readability */
+  background-color: color-mix(in oklab, var(--color-fd-secondary) 25%, transparent);
+}
