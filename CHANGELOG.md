@@ -1,3 +1,21 @@
+## v1.29.0 (2025-03-01)
+
+### ✨ New
+
+- feat(plugins/naming-convention): add `context-name` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/952
+
+### 🐞 Fixes
+
+- fix: fixed `naming-convention/use-state` works in components only, closes #953 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/954
+
+### 🪄 Improvements
+
+- docs: use `recommended-typescript` for typescript files by @bluwy in https://github.com/Rel1cx/eslint-react/pull/949
+
+### New Contributors
+
+- @bluwy made their first contribution in https://github.com/Rel1cx/eslint-react/pull/949
+
 ## v1.28.0 (2025-02-26)
 
 ### ✨ New
@@ -175,7 +193,7 @@ function useAuth() {
 - docs: add 'Min. React' column to rules overview page by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/880>
 - docs: add features section to rules overview page by @Rel1cx
 
-## New Contributors
+### New Contributors
 
 - @danielrentz made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/877>
 
@@ -314,7 +332,7 @@ function useAuth() {
 - docs: use a standard mono-width font for the docs, closes #835 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/837>
 - Undeprecate `hooks-extra-no-direct-set-state-in-use-layout-effect` and remove it from recommended presets, closes #839 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/840>
 
-## New Contributors
+### New Contributors
 
 - @imjordanxd made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/829>
 - @neovov made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/831>
