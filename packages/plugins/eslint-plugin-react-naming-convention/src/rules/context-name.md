@@ -41,6 +41,8 @@ const ThemeContext = createContext({});
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/context-name.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/context-name.spec.ts)
 
+---
+
 ## See Also
 
 - [`component-name`](./naming-convention-component-name)\
