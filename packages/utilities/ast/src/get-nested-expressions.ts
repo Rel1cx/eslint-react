@@ -8,9 +8,8 @@ import { ASTUtils } from "@typescript-eslint/utils";
  * @returns A partially applied function bound to a predicate of type T. The returned function can be called passing a
  * node, and it will return an array of all nested expressions of type T.
  */
-export function getNestedExpressionsOfType<TNodeType extends T>(
-  type: TNodeType,
-): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
+// dprint-ignore
+export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
   const isNodeOfType = ASTUtils.isNodeOfType(type);
   return function(node) {
     const boundGetNestedExpressionsOfType = getNestedExpressionsOfType(type);
@@ -110,3 +109,17 @@ export function getNestedExpressionsOfType<TNodeType extends T>(
     return expressions;
   };
 }
+
+/**
+ * Get all nested new expressions in an expression like node
+ * @param node The node to get the nested new expressions from
+ * @returns All nested new expressions
+ */
+export const getNestedNewExpressions = getNestedExpressionsOfType(T.NewExpression);
+
+/**
+ * Get all nested call expressions in a expression like node
+ * @param node The node to get the nested call expressions from
+ * @returns All nested call expressions
+ */
+export const getNestedCallExpressions = getNestedExpressionsOfType(T.CallExpression);

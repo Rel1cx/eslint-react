@@ -31,6 +31,8 @@ Prevents non-stable values (i.e. object literals) from being used as a value for
 
 React will re-render all consumers of a context whenever the context value changes, and if the value is not stable, this can lead to unnecessary re-renders.
 
+In React 19 and later, the [`Context` component can be used via `<Context>` instead of `<Context.Provider>`](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider), so it is recommended to use the [`context-name`](./naming-convention-context-name) rule to avoid false negatives.
+
 ## Examples
 
 ### Failing

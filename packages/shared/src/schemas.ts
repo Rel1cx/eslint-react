@@ -17,6 +17,7 @@ export const CustomComponentPropSchema = object({
   as: optional(string()),
   /**
    * Whether the prop is controlled or not in the user-defined component.
+   * @internal
    * @example
    * `true`
    */
@@ -174,11 +175,8 @@ export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   ...parse(ESLintReactSettingsSchema, {}),
   importSource: "react",
-  jsxPragma: "createElement",
-  jsxPragmaFrag: "Fragment",
   polymorphicPropName: "as",
   skipImportCheck: true,
-  strict: false,
   version: "detect",
   additionalHooks: {
     useEffect: ["useIsomorphicLayoutEffect"],

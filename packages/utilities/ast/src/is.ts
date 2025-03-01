@@ -154,7 +154,15 @@ export const isLeftHandSideExpressionType = isOneOf([
   T.TSTypeAssertion,
 ]);
 
-export const isTypeExpression = isOneOf([
+export const isTsOnlyExpression = isOneOf([
+  T.TSAsExpression,
+  T.TSTypeAssertion,
+  T.TSNonNullExpression,
+  T.TSSatisfiesExpression,
+  T.TSInstantiationExpression,
+]);
+
+export const isTsAssertionExpression = isOneOf([
   T.TSAsExpression,
   T.TSTypeAssertion,
   T.TSNonNullExpression,

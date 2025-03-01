@@ -1,11 +1,11 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isGetDerivedStateFromProps } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import { _, constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { CamelCase } from "string-ts";
-import { isMatching, P } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -17,8 +17,23 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
+function isKeyLiteral(
+  node:
+    | TSESTree.MemberExpression
+    | TSESTree.MethodDefinition
+    | TSESTree.Property
+    | TSESTree.PropertyDefinition,
+  key: TSESTree.Node,
+) {
+  return match(key)
+    .with({ type: T.Literal }, constTrue)
+    .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
+    .with({ type: T.Identifier }, () => !node.computed)
+    .otherwise(constFalse);
+}
+
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
+  if (AST.isTsOnlyExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
@@ -179,7 +194,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const hasState = node.id.properties.some((prop) => {
-          if (prop.type === T.Property && AST.isKeyLiteralLike(prop, prop.key)) {
+          if (prop.type === T.Property && isKeyLiteral(prop, prop.key)) {
             return getName(prop.key) === "state";
           }
           return false;

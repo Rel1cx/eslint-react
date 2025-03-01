@@ -17,7 +17,7 @@ export const RULE_FEATURES = [
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
+  if (AST.isTsOnlyExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
@@ -47,7 +47,7 @@ function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
   return AST.isOneOf([T.FunctionDeclaration, T.FunctionExpression])(node)
-    && AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node.parent)
+    && AST.isMethodOrProperty(node.parent)
     && node.parent.key.type === T.Identifier
     && node.parent.key.name === "constructor";
 }

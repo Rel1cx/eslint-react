@@ -1,12 +1,13 @@
 import { isReactHookCall, isReactHookCallWithNameAlias } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
-import { createRule, getAssociatedTokens } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-use-context";
 
@@ -102,3 +103,24 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+function getAssociatedTokens(context: RuleContext, node: TSESTree.Node) {
+  {
+    const tokenBefore = context.sourceCode.getTokenBefore(node);
+    const tokenAfter = context.sourceCode.getTokenAfter(node);
+    const tokens = [];
+
+    // If this is not the only entry, then the line above this one
+    // will become the last line, and should not have a trailing comma.
+    if (tokenAfter?.value !== "," && tokenBefore?.value === ",") {
+      tokens.push(tokenBefore);
+    }
+
+    // If this is not the last entry, then we need to remove the comma from this line.
+    if (tokenAfter?.value === ",") {
+      tokens.push(tokenAfter);
+    }
+
+    return tokens;
+  }
+}
