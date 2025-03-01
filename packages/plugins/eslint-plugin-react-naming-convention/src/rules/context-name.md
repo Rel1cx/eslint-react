@@ -20,7 +20,7 @@ react-naming-convention/context-name
 
 ## What it does
 
-Enforces naming conventions for context providers.
+Enforces consistent naming conventions for context providers.
 
 ## Examples
 
