@@ -129,3 +129,8 @@ export default [
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename.spec.ts)
+
+## See Also
+
+- [`filename-extension`](./filename-extension):
+  Enforces consistent use of the JSX file extension.

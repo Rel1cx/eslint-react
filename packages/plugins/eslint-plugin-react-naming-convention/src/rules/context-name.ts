@@ -19,10 +19,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce context name to end with `Context`.",
+      description: "enforce context name to end with 'Context'",
     },
     messages: {
-      contextName: "Context name must end with `Context`.",
+      contextName: "Context name must end with 'Context'.",
     },
     schema: [],
   },

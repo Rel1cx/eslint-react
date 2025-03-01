@@ -77,3 +77,8 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.spec.ts)
+
+## See Also
+
+- [`context-name`](./naming-convention-context-name)\
+  Enforces naming conventions for context providers.
