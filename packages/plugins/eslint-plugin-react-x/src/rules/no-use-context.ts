@@ -49,7 +49,7 @@ export default createRule<[], MessageID>({
         }
         context.report({
           messageId: "noUseContext",
-          node,
+          node: node.callee,
           fix(fixer) {
             switch (node.callee.type) {
               case T.Identifier:

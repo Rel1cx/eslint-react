@@ -111,11 +111,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using Array index as 'key'",
+      description: "disallow using an item's index in the array as its key",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noArrayIndexKey: "Do not use Array index as 'key'.",
+      noArrayIndexKey: "Do not use item index in the array as its key.",
     },
     schema: [],
   },

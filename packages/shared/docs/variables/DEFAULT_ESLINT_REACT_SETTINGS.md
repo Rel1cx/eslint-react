@@ -48,7 +48,7 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 > `readonly` `optional` **jsxPragma**: `string`
 
-The identifier that’s used for JSX Element creation.
+The identifier that's used for JSX Element creation.
 
 #### Default
 
@@ -60,7 +60,7 @@ The identifier that’s used for JSX Element creation.
 
 > `readonly` `optional` **jsxPragmaFrag**: `string`
 
-The identifier that’s used for JSX fragment elements.
+The identifier that's used for JSX fragment elements.
 
 #### Description
 

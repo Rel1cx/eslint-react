@@ -148,7 +148,7 @@ This allows to specify a custom import location for React when not using the off
 
 `string` = `...`
 
-The identifier that’s used for JSX Element creation.
+The identifier that's used for JSX Element creation.
 
 **Default**
 
@@ -160,7 +160,7 @@ The identifier that’s used for JSX Element creation.
 
 `string` = `...`
 
-The identifier that’s used for JSX fragment elements.
+The identifier that's used for JSX fragment elements.
 
 **Description**
 
@@ -206,7 +206,7 @@ This can prevent false positives when using a irrelevant third-party library tha
 
 `string` = `...`
 
-React version to use, "detect" means auto detect React version from the project’s dependencies.
+React version to use, "detect" means auto detect React version from the project's dependencies.
 If `importSource` is specified, an equivalent version of React should be provided here.
 
 **Example**
@@ -357,7 +357,7 @@ This allows to specify a custom import location for React when not using the off
 
 > `optional` **jsxPragma**: `string`
 
-The identifier that’s used for JSX Element creation.
+The identifier that's used for JSX Element creation.
 
 #### Default
 
@@ -369,7 +369,7 @@ The identifier that’s used for JSX Element creation.
 
 > `optional` **jsxPragmaFrag**: `string`
 
-The identifier that’s used for JSX fragment elements.
+The identifier that's used for JSX fragment elements.
 
 #### Description
 
@@ -415,7 +415,7 @@ This can prevent false positives when using a irrelevant third-party library tha
 
 > `optional` **version**: `string`
 
-React version to use, "detect" means auto detect React version from the project’s dependencies.
+React version to use, "detect" means auto detect React version from the project's dependencies.
 If `importSource` is specified, an equivalent version of React should be provided here.
 
 #### Example

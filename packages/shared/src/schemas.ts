@@ -98,13 +98,13 @@ export const ESLintReactSettingsSchema = object({
    */
   importSource: optional(string()),
   /**
-   * The identifier that’s used for JSX Element creation.
+   * The identifier that's used for JSX Element creation.
    * @default `"createElement"`
    * @deprecated
    */
   jsxPragma: optional(string()),
   /**
-   * The identifier that’s used for JSX fragment elements.
+   * The identifier that's used for JSX fragment elements.
    * @description This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
    * @default `"Fragment"`
    * @deprecated
@@ -127,7 +127,7 @@ export const ESLintReactSettingsSchema = object({
    */
   skipImportCheck: optional(boolean(), true),
   /**
-   * React version to use, "detect" means auto detect React version from the project’s dependencies.
+   * React version to use, "detect" means auto detect React version from the project's dependencies.
    * If `importSource` is specified, an equivalent version of React should be provided here.
    * @example `"18.3.1"`
    * @default `"detect"`
