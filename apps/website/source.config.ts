@@ -15,7 +15,7 @@ export default defineConfig({
       langs: ["js", "ts", "jsx", "tsx", "html", "mdx"],
       lazy: true,
       themes: {
-        dark: "aurora-x",
+        dark: "plastic",
         light: "github-light",
       },
       transformers: [
