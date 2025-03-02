@@ -529,35 +529,14 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       import * as React from "react";
 
       interface HSV {
-        h: number;
-        s: number;
-        v: number;
+        readonly h: number;
+        readonly s: number;
+        readonly v: number;
       }
       interface ValuePickerProps {
         readonly Disabled: boolean;
         readonly Hsv: HSV
         readonly onChange: () => void;
-      }
-      export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
-        return <div />
-      }
-    `,
-    /* tsx */ `
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      import * as React from "react";
-
-      interface HSV {
-        h: number;
-        s: number;
-        v: number;
-      }
-      interface ValuePickerProps {
-        readonly Disabled: boolean;
-        readonly Hsv: HSV
-        // TODO: Support checking if function is readonly
-        onChange: () => void;
       }
       export function ValuePicker({ Disabled, Hsv, onChange }: ValuePickerProps) {
         return <div />

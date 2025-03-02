@@ -1135,9 +1135,6 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.21.0(jiti@2.4.2)
-      is-immutable-type:
-        specifier: ^5.0.1
-        version: 5.0.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
       string-ts:
         specifier: ^2.2.1
         version: 2.2.1
@@ -5102,12 +5099,6 @@ packages:
   is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
 
-  is-immutable-type@5.0.1:
-    resolution: {integrity: sha512-LkHEOGVZZXxGl8vDs+10k3DvP++SEoYEAJLRk6buTFi6kD7QekThV7xHS0j6gpnUCQ0zpud/gMDGiV4dQneLTg==}
-    peerDependencies:
-      eslint: '*'
-      typescript: ^5.8.2
-
   is-inside-container@1.0.0:
     resolution: {integrity: sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk+MG/Qxmp/vtETEF3tRA==}
     engines: {node: '>=14.16'}
@@ -5690,10 +5681,6 @@ packages:
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
-
-  minimatch@10.0.1:
-    resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
-    engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -6626,11 +6613,6 @@ packages:
   ts-blank-space@0.6.0:
     resolution: {integrity: sha512-/idfg2ezyTe9YjfLPoFEjFnBCM0rnB1yp64q7+ujaz4UwBSasA28hiOW3FoRLXLpNMtwE3JlnuLZdOUoZNxhrQ==}
     engines: {node: '>=18.0.0'}
-
-  ts-declaration-location@1.0.5:
-    resolution: {integrity: sha512-WqmlO9IoeYwCqJ2E9kHMcY9GZhhfLYItC3VnHDlPOrg6nNdUWS4wn4hhDZUPt60m1EvtjPIZyprTjpI992Bgzw==}
-    peerDependencies:
-      typescript: ^5.8.2
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
@@ -11119,16 +11101,6 @@ snapshots:
 
   is-hexadecimal@2.0.1: {}
 
-  is-immutable-type@5.0.1(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2):
-    dependencies:
-      '@typescript-eslint/type-utils': 8.25.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
-      eslint: 9.21.0(jiti@2.4.2)
-      ts-api-utils: 2.0.1(typescript@5.8.2)
-      ts-declaration-location: 1.0.5(typescript@5.8.2)
-      typescript: 5.8.2
-    transitivePeerDependencies:
-      - supports-color
-
   is-inside-container@1.0.0:
     dependencies:
       is-docker: 3.0.0
@@ -11965,10 +11937,6 @@ snapshots:
   mimic-fn@2.1.0: {}
 
   min-indent@1.0.1: {}
-
-  minimatch@10.0.1:
-    dependencies:
-      brace-expansion: 2.0.1
 
   minimatch@3.1.2:
     dependencies:
@@ -13042,11 +13010,6 @@ snapshots:
 
   ts-blank-space@0.6.0:
     dependencies:
-      typescript: 5.8.2
-
-  ts-declaration-location@1.0.5(typescript@5.8.2):
-    dependencies:
-      minimatch: 10.0.1
       typescript: 5.8.2
 
   ts-interface-checker@0.1.13: {}
