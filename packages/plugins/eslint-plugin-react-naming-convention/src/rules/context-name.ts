@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
           .with({ type: T.Identifier, name: P.select() }, identity)
           .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
           .otherwise(() => _);
-        if (name != null && /^[A-Z]/.test(name) && name.endsWith("Context")) return;
+        if (name != null && /^[A-Z]/u.test(name) && name.endsWith("Context")) return;
         context.report({
           messageId: "contextName",
           node: id,

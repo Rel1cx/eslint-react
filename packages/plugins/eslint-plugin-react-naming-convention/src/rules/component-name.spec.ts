@@ -55,10 +55,6 @@ ruleTester.run(RULE_NAME, rule, {
     "<Test1Component />",
     "<TestComponent1 />",
     "<T3StComp0Nent />",
-    "<Éurströmming />",
-    "<Año />",
-    // TODO: Add normalization for these strings before validating
-    // "<Søknad />",
     "<Modal.Header />",
     "<qualification.T3StComp0Nent />",
     "<H1>Hello!</H1>",

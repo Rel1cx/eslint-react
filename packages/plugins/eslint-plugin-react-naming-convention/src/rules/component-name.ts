@@ -5,7 +5,6 @@ import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -76,55 +75,36 @@ const schema = [
 
 function normalizeOptions(options: Options) {
   const opts = options[0];
-  if (opts == null) {
-    return defaultOptions[0];
-  }
-  if (typeof opts === "string") {
-    return { ...defaultOptions[0], rule: opts } as const;
-  }
+  const defaultOpts = defaultOptions[0];
+  if (opts == null) return defaultOpts;
   return {
-    ...opts,
-    excepts: opts.excepts?.map((pattern) => new RegExp(pattern, "u")) ?? [],
+    ...defaultOpts,
+    ...typeof opts === "string"
+      ? { rule: opts }
+      : {
+        ...opts,
+        excepts: opts.excepts?.map((pattern) => new RegExp(pattern, "u")) ?? [],
+      },
   } as const;
 }
 
 function getViolationMessage(name: string | _, options: ReturnType<typeof normalizeOptions>): MessageID | _ {
   if (name == null) return _;
-  const {
-    allowAllCaps = false,
-    allowLeadingUnderscore = false,
-    allowNamespace = false,
-    excepts,
-    rule,
-  } = options;
-  if (excepts.some((regex) => regex.test(name))) {
-    return _;
-  }
-  let normalized = name
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036F]/g, "");
-  normalized = normalized.split(".").at(-1) ?? normalized;
-  if (allowNamespace) {
-    normalized = normalized.replace(":", "");
-  }
-  if (allowLeadingUnderscore) {
-    normalized = normalized.replace(/^_/, "");
-  }
-  return match(rule)
-    .with("CONSTANT_CASE", () =>
-      RE_CONSTANT_CASE.test(normalized)
-        ? _
-        : "useConstantCase")
-    .with("PascalCase", () => {
-      // Allow all caps if the string is shorter than 4 characters. e.g. UI, CSS, SVG, etc.
+  if (options.excepts.some((regex) => regex.test(name))) return _;
+  let normalized = name.split(".").at(-1) ?? name;
+  if (options.allowNamespace) normalized = normalized.replace(":", "");
+  if (options.allowLeadingUnderscore) normalized = normalized.replace(/^_/, "");
+  switch (options.rule) {
+    case "CONSTANT_CASE":
+      return RE_CONSTANT_CASE.test(normalized) ? _ : "useConstantCase";
+    case "PascalCase":
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
-        return allowAllCaps
-          ? _
-          : "usePascalCase";
+        return options.allowAllCaps ? _ : "usePascalCase";
       }
       return RE_PASCAL_CASE.test(normalized) ? _ : "usePascalCase";
-    })
-    .otherwise(() => _);
+    default:
+      return _;
+  }
 }
 
 export default createRule<Options, MessageID>({
