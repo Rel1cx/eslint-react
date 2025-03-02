@@ -3,7 +3,6 @@ import type { RuleFeature } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import type { ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
 import type { CamelCase } from "string-ts";
 import type ts from "typescript";
 
@@ -17,15 +16,6 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-function isReadonlyType(type: ts.Type, services: ParserServicesWithTypeInformation): boolean {
-  try {
-    const im = getTypeImmutability(services.program, type);
-    return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
-  } catch {
-    return true;
-  }
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -53,7 +43,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           const propsType = getConstrainedTypeAtLocation(services, props);
-          if (isTypeReadonly(services.program, propsType) || isReadonlyType(propsType, services)) {
+          if (isTypeReadonly(services.program, propsType)) {
             continue;
           }
           context.report({ messageId: "preferReadOnlyProps", node: props });
