@@ -31,7 +31,7 @@ Disallows using `<Context.Provider>`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 
-In addition, it is recommended to enable [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
+In addition, it is recommended to enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
 
 A **safe** codemod is available for this rule.
 

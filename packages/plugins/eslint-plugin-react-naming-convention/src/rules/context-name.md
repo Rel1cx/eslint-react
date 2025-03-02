@@ -18,6 +18,12 @@ react-naming-convention/context-name
 
 `🔍`
 
+**Presets**
+
+- `recommended`
+- `recommended-typescript`
+- `recommended-type-checked`
+
 ## What it does
 
 Enforces consistent naming conventions for context providers.
