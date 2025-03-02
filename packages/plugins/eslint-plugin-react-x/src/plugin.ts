@@ -112,11 +112,11 @@ export const plugin = {
     "use-jsx-vars": useJsxVars,
 
     // Part: deprecated rules
-    /** @deprecated Use `no-duplicate-jsx-props` instead. */
+    /** @deprecated Use `no-duplicate-jsx-props` instead */
     "jsx-no-duplicate-props": noDuplicateJsxProps,
-    /** @deprecated Use `use-jsx-vars` instead. */
+    /** @deprecated Use `use-jsx-vars` instead */
     "jsx-uses-vars": useJsxVars,
-    /** @deprecated Use `no-complex-conditional-rendering` instead. */
+    /** @deprecated Use `no-complex-conditional-rendering` instead */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
   },
 } as const;

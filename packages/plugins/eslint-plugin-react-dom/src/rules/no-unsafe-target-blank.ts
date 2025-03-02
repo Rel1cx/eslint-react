@@ -5,7 +5,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CamelCase } from "string-ts";
 
-import { createRule, findCustomComponent, findCustomComponentProp, getElementNameOnJsxAndDom } from "../utils";
+import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
 
     return {
       JSXElement(node: TSESTree.JSXElement) {
-        const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
+        const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
           context,
           node,
           polymorphicPropName,

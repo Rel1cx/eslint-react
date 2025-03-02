@@ -3,7 +3,7 @@ import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { CamelCase } from "string-ts";
 
-import { createRule, findCustomComponent, findCustomComponentProp, getElementNameOnJsxAndDom } from "../utils";
+import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 
     return {
       JSXElement(node) {
-        const [elementNameOnJsx, elementNameOnDom] = getElementNameOnJsxAndDom(
+        const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
           context,
           node,
           polymorphicPropName,

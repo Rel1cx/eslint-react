@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
     }
     return {
       JSXElement(node) {
-        const [name, ...rest] = JSX.getElementName(node).split(".").reverse();
+        const [name, ...rest] = JSX.getElementType(node).split(".").reverse();
         if (name !== "Provider") return;
         const contextName = rest.reverse().join(".");
         context.report({
