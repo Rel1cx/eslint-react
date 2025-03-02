@@ -19,10 +19,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce context name to end with 'Context'",
+      description: "enforces context name to be a valid component name with the suffix 'Context'",
     },
     messages: {
-      contextName: "Context name must end with 'Context'.",
+      contextName:
+        "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>', it's name must be a valid component name with the suffix 'Context'.",
     },
     schema: [],
   },
@@ -38,8 +39,7 @@ export default createRule<[], MessageID>({
           .with({ type: T.Identifier, name: P.select() }, identity)
           .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
           .otherwise(() => _);
-        if (name == null) return;
-        if (name.endsWith("Context")) return;
+        if (name != null && /^[A-Z]/.test(name) && name.endsWith("Context")) return;
         context.report({
           messageId: "contextName",
           node: id,

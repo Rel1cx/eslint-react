@@ -83,4 +83,4 @@ function MyComponent() {
 ## See Also
 
 - [`context-name`](./naming-convention-context-name)\
-  Enforces naming conventions for context providers.
+  Enforces context name to be a valid component name with the suffix 'Context'.

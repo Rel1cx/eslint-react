@@ -28,18 +28,32 @@ react-naming-convention/context-name
 
 Enforces consistent naming conventions for context providers.
 
+In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`. This rule enforces that the context has a valid component name with the suffix `Context`.
+
 ## Examples
 
 ### Failing
 
 ```tsx
-const Theme = createContext({});
+const theme = createContext("");
+```
+
+```tsx
+const Theme = createContext("");
+```
+
+```tsx
+const themecontext = createContext("");
+```
+
+```tsx
+const themeContext = createContext("");
 ```
 
 ### Passing
 
 ```tsx
-const ThemeContext = createContext({});
+const ThemeContext = createContext("");
 ```
 
 ## Implementation

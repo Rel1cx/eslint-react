@@ -4,17 +4,43 @@ import rule, { RULE_NAME } from "./context-name";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: `
-      import { createContext } from "react";
-      const Foo = createContext({});
-    `,
+      code: /* tsx */ `
+        import { createContext } from "react";
+        const Theme = createContext("");
+      `,
       errors: [{ messageId: "contextName" }],
     },
     {
-      code: `
-      import { createContext } from "react";
-      const Ctx = createContext({});
-    `,
+      code: /* tsx */ `
+        import { createContext } from "react";
+        const theme = createContext("");
+      `,
+      errors: [{ messageId: "contextName" }],
+    },
+    {
+      code: /* tsx */ `
+        import React from "react";
+        const Theme = React.createContext("");
+      `,
+      errors: [{ messageId: "contextName" }],
+    },
+    {
+      code: /* tsx */ `
+        import React from "react";
+        const theme = React.createContext("");
+      `,
+      errors: [{ messageId: "contextName" }],
+    },
+    {
+      code: /* tsx */ `
+        const themecontext = React.createContext("");
+      `,
+      errors: [{ messageId: "contextName" }],
+    },
+    {
+      code: /* tsx */ `
+        const themeContext = React.createContext("");
+      `,
       errors: [{ messageId: "contextName" }],
     },
   ],
@@ -22,7 +48,14 @@ ruleTester.run(RULE_NAME, rule, {
     ...allFunctions,
     /* tsx */ `
       import { createContext } from "react";
-      const MyContext = createContext({});
+      const ThemeContext = createContext("");
+    `,
+    /* tsx */ `
+      import React from "react";
+      const ThemeContext = React.createContext("");
+    `,
+    /* tsx */ `
+      const ThemeContext = createContext("");
     `,
   ],
 });
