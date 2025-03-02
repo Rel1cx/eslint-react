@@ -6,25 +6,9 @@ import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
 import tseslint from "typescript-eslint";
 import globals from "globals";
-import { isInEditorEnv } from "@eslint-react/shared";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
-
-function getOptimalParserConfig(project = "tsconfig.json") {
-  switch (true) {
-    case isInEditorEnv():
-    case process.argv.includes("--fix"):
-      return {
-        parser: tseslint.parser,
-        parserOptions: {
-          project,
-          tsconfigRootDir: import.meta.dirname,
-        },
-      };
-  }
-  return { parser: tsBlankEslintParser };
-}
 
 export default [
   // base configuration for browser environment source files
@@ -34,10 +18,11 @@ export default [
       globals: {
         ...globals.browser,
       },
-      ...getOptimalParserConfig(),
+      parser: tsBlankEslintParser,
     },
     rules: {
       ...eslintJs.configs.recommended.rules,
+      "no-unused-vars": "off",
     },
   },
   // base configuration for node environment source files (*.config.js, etc.)
@@ -48,7 +33,7 @@ export default [
       globals: {
         ...globals.node,
       },
-      ...getOptimalParserConfig("tsconfig.node.json"),
+      parser: tsBlankEslintParser,
     },
     rules: {
       ...eslintJs.configs.recommended.rules,
