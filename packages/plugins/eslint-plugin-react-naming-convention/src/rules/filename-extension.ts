@@ -13,7 +13,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "useJsxFileExtension"
-  | "useJsxFileExtensionAsNeeded";
+  | "useNonJsxFileExtension";
 
 type Allow = "always" | "as-needed";
 
@@ -75,7 +75,7 @@ export default createRule<Options, MessageID>({
     },
     messages: {
       useJsxFileExtension: "Use {{extensions}} file extension for JSX files.",
-      useJsxFileExtensionAsNeeded: "Do not use {{extensions}} file extension for files without JSX.",
+      useNonJsxFileExtension: "Do not use {{extensions}} file extension for files without JSX.",
     },
     schema,
   },
@@ -123,7 +123,7 @@ export default createRule<Options, MessageID>({
           && allow === "as-needed"
         ) {
           context.report({
-            messageId: "useJsxFileExtensionAsNeeded",
+            messageId: "useNonJsxFileExtension",
             node,
             data: {
               extensions: extensionsString,

@@ -14,7 +14,7 @@ export const RULE_FEATURES = [
   "CHK",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "badValueOrSetterName";
+export type MessageID = "invalid";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      badValueOrSetterName: "An useState call is not destructured into value + setter pair.",
+      invalid: "An useState call is not destructured into value + setter pair.",
     },
     schema: [],
   },
@@ -33,23 +33,23 @@ export default createRule<[], MessageID>({
     return {
       "CallExpression[callee.name='useState']"(node: TSESTree.CallExpression) {
         if (node.parent.type !== T.VariableDeclarator) {
-          context.report({ messageId: "badValueOrSetterName", node });
+          context.report({ messageId: "invalid", node });
         }
         const id = getInstanceId(node);
         if (id?.type !== T.ArrayPattern) {
-          context.report({ messageId: "badValueOrSetterName", node });
+          context.report({ messageId: "invalid", node });
           return;
         }
         const [value, setter] = id.elements;
         if (value == null || setter == null) {
-          context.report({ messageId: "badValueOrSetterName", node });
+          context.report({ messageId: "invalid", node });
           return;
         }
         const setterName = match(setter)
           .with({ type: T.Identifier }, (id) => id.name)
           .otherwise(() => _);
         if (setterName == null || !setterName.startsWith("set")) {
-          context.report({ messageId: "badValueOrSetterName", node });
+          context.report({ messageId: "invalid", node });
           return;
         }
         const valueName = match(value)
@@ -65,7 +65,7 @@ export default createRule<[], MessageID>({
           })
           .otherwise(() => _);
         if (valueName == null || `set_${valueName}` !== snakeCase(setterName)) {
-          context.report({ messageId: "badValueOrSetterName", node });
+          context.report({ messageId: "invalid", node });
           return;
         }
       },

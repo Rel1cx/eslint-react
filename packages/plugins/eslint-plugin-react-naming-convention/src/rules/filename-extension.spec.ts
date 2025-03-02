@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: withoutJSX,
       errors: [
         {
-          messageId: "useJsxFileExtensionAsNeeded",
+          messageId: "useNonJsxFileExtension",
         },
       ],
       filename: "react.tsx",
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: withoutJSX,
       errors: [
         {
-          messageId: "useJsxFileExtensionAsNeeded",
+          messageId: "useNonJsxFileExtension",
         },
       ],
       filename: "react.tsx",

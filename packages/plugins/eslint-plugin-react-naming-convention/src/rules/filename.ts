@@ -16,8 +16,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "filenameCaseMismatch"
-  | "filenameEmpty";
+  | "filenameEmpty"
+  | "filenameInvalid";
 
 type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
@@ -85,8 +85,8 @@ export default createRule<Options, MessageID>({
       description: "enforce naming convention for JSX filenames",
     },
     messages: {
-      filenameCaseMismatch: "A file with name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
       filenameEmpty: "A file must have non-empty name.",
+      filenameInvalid: "A file with name '{{name}}' does not match {{rule}}. Rename it to '{{suggestion}}'.",
     },
     schema,
   },
@@ -135,7 +135,7 @@ export default createRule<Options, MessageID>({
           return;
         }
         context.report({
-          messageId: "filenameCaseMismatch",
+          messageId: "filenameInvalid",
           node,
           data: {
             name: context.filename,

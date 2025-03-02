@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import type { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
@@ -15,9 +15,7 @@ export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID =
-  | "usePascalCase"
-  | "useConstantCase";
+export type MessageID = "invalid";
 
 type Case = "CONSTANT_CASE" | "PascalCase";
 
@@ -88,22 +86,20 @@ function normalizeOptions(options: Options) {
   } as const;
 }
 
-function getViolationMessage(name: string | _, options: ReturnType<typeof normalizeOptions>): MessageID | _ {
-  if (name == null) return _;
-  if (options.excepts.some((regex) => regex.test(name))) return _;
+function isValidComponentName(name: string | _, options: ReturnType<typeof normalizeOptions>) {
+  if (name == null) return true;
+  if (options.excepts.some((regex) => regex.test(name))) return true;
   let normalized = name.split(".").at(-1) ?? name;
   if (options.allowNamespace) normalized = normalized.replace(":", "");
   if (options.allowLeadingUnderscore) normalized = normalized.replace(/^_/, "");
   switch (options.rule) {
     case "CONSTANT_CASE":
-      return RE_CONSTANT_CASE.test(normalized) ? _ : "useConstantCase";
+      return RE_CONSTANT_CASE.test(normalized);
     case "PascalCase":
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
-        return options.allowAllCaps ? _ : "usePascalCase";
+        return options.allowAllCaps;
       }
-      return RE_PASCAL_CASE.test(normalized) ? _ : "usePascalCase";
-    default:
-      return _;
+      return RE_PASCAL_CASE.test(normalized);
   }
 }
 
@@ -112,18 +108,17 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     docs: {
-      description: "enforce component naming convention to 'PascalCase' or 'CONSTANT_CASE'",
+      description: "enforce naming convention for components",
     },
     messages: {
-      useConstantCase: "Component name '{{name}}' must be in CONSTANT_CASE.",
-      usePascalCase: "Component name '{{name}}' must be in PascalCase.",
+      invalid: "A component name '{{name}}' does not match {{rule}}.",
     },
     schema,
   },
   name: RULE_NAME,
   create(context) {
     const options = normalizeOptions(context.options);
-
+    const { rule } = options;
     const collector = useComponentCollector(context);
     const collectorLegacy = useComponentCollectorLegacy();
 
@@ -135,14 +130,11 @@ export default createRule<Options, MessageID>({
         if (/^[a-z]/u.test(name)) {
           return;
         }
-        const violation = getViolationMessage(name, options);
-        if (violation == null) return;
+        if (isValidComponentName(name, options)) return;
         context.report({
-          messageId: violation,
+          messageId: "invalid",
           node,
-          data: {
-            name,
-          },
+          data: { name, rule },
         });
       },
       "Program:exit"(node) {
@@ -152,28 +144,22 @@ export default createRule<Options, MessageID>({
           const id = AST.getFunctionIdentifier(component);
           if (id?.name == null) continue;
           const name = id.name;
-          const violation = getViolationMessage(name, options);
-          if (violation == null) continue;
+          if (isValidComponentName(name, options)) return;
           context.report({
-            messageId: violation,
+            messageId: "invalid",
             node: id,
-            data: {
-              name,
-            },
+            data: { name, rule },
           });
         }
         for (const { node: component } of classComponents.values()) {
           const id = AST.getClassIdentifier(component);
           if (id?.name == null) continue;
           const name = id.name;
-          const violation = getViolationMessage(name, options);
-          if (violation == null) continue;
+          if (isValidComponentName(name, options)) continue;
           context.report({
-            messageId: violation,
+            messageId: "invalid",
             node: id,
-            data: {
-              case: options.rule,
-            },
+            data: { name, rule },
           });
         }
       },

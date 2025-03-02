@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
     {
@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
     {
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
     {
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
     {
@@ -66,7 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
     {
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
     {
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "badValueOrSetterName",
+        messageId: "invalid",
       }],
     },
   ],

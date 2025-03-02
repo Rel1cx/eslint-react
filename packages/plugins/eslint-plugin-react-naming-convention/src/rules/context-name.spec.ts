@@ -8,40 +8,40 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const Theme = createContext("");
       `,
-      errors: [{ messageId: "contextName" }],
+      errors: [{ messageId: "invalid" }],
     },
     {
       code: /* tsx */ `
         import { createContext } from "react";
         const theme = createContext("");
       `,
-      errors: [{ messageId: "contextName" }],
+      errors: [{ messageId: "invalid" }],
     },
     {
       code: /* tsx */ `
         import React from "react";
         const Theme = React.createContext("");
       `,
-      errors: [{ messageId: "contextName" }],
+      errors: [{ messageId: "invalid" }],
     },
     {
       code: /* tsx */ `
         import React from "react";
         const theme = React.createContext("");
       `,
-      errors: [{ messageId: "contextName" }],
+      errors: [{ messageId: "invalid" }],
     },
     {
       code: /* tsx */ `
         const themecontext = React.createContext("");
       `,
-      errors: [{ messageId: "contextName" }],
+      errors: [{ messageId: "invalid" }],
     },
     {
       code: /* tsx */ `
         const themeContext = React.createContext("");
       `,
-      errors: [{ messageId: "contextName" }],
+      errors: [{ messageId: "invalid" }],
     },
   ],
   valid: [
