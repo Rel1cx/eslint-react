@@ -8,7 +8,7 @@ import { toString } from "./to-string";
  * @param node The JSX element node
  * @returns The name of the element
  */
-export function getElementName(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+export function getElementType(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (node.type === T.JSXFragment) {
     return "";
   }

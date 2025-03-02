@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   create(context) {
     return {
       JSXElement(node) {
-        const name = JSX.getElementName(node);
+        const name = JSX.getElementType(node);
         if (typeof name !== "string" || !name.includes(":")) {
           return;
         }

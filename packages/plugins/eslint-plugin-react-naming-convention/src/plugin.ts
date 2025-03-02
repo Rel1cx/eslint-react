@@ -11,10 +11,10 @@ export const plugin = {
     version,
   },
   rules: {
-    "component-name": componentName,
-    "context-name": contextName,
-    filename,
-    "filename-extension": filenameExtension,
-    "use-state": useState,
+    ["component-name"]: componentName,
+    ["context-name"]: contextName,
+    ["filename"]: filename,
+    ["filename-extension"]: filenameExtension,
+    ["use-state"]: useState,
   },
 } as const;

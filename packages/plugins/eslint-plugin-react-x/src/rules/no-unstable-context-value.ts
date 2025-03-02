@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
     return {
       ...listeners,
       JSXOpeningElement(node) {
-        const fullName = JSX.getElementName(node.parent);
+        const fullName = JSX.getElementType(node.parent);
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;

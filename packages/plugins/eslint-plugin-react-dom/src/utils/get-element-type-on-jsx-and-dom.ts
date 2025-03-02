@@ -2,13 +2,13 @@ import * as JSX from "@eslint-react/jsx";
 import type { CustomComponentNormalized, RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export function getElementNameOnJsxAndDom(
+export function getElementTypeOnJsxAndDom(
   context: RuleContext,
   node: TSESTree.JSXElement,
   polymorphicPropName?: string,
   additionalComponents: CustomComponentNormalized[] = [],
 ): [string, string] {
-  const name = JSX.getElementName(node);
+  const name = JSX.getElementType(node);
   // Skip JsxIntrinsicElements
   if (name === name.toLowerCase()) return [name, name];
   // Get the component name using the `settings["react-x"].additionalComponents` setting

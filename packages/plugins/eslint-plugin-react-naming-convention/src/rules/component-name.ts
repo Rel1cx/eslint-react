@@ -1,31 +1,29 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { _ } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "component-name";
-
-export const RULE_FEATURES = [
-  "CHK",
-  "CFG",
-] as const satisfies RuleFeature[];
-
-export type MessageID = "invalid";
-
 type Case = "CONSTANT_CASE" | "PascalCase";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
+  | _
   | Case
-  | undefined
   | {
     allowAllCaps?: boolean;
+    /**
+     * @todo Remove in the next major version
+     * @deprecated Component names now need to start with an uppercase letter instead of a non-lowercase letter. This means `_Button` or `_component` are no longer valid. (@kassens) in https://github.com/facebook/react/pull/25162
+     */
     allowLeadingUnderscore?: boolean;
+    /**
+     * @todo Remove in the next major version
+     * @deprecated This option has no actual effect on the rule
+     */
     allowNamespace?: boolean;
     excepts?: readonly string[];
     rule?: Case;
@@ -36,8 +34,6 @@ type Options = readonly [
 const defaultOptions = [
   {
     allowAllCaps: false,
-    allowLeadingUnderscore: false,
-    allowNamespace: false,
     excepts: [],
     rule: "PascalCase",
   },
@@ -55,7 +51,15 @@ const schema = [
         additionalProperties: false,
         properties: {
           allowAllCaps: { type: "boolean" },
+          /**
+           * @todo Remove in the next major version
+           * @deprecated
+           */
           allowLeadingUnderscore: { type: "boolean" },
+          /**
+           * @todo Remove in the next major version
+           * @deprecated
+           */
           allowNamespace: { type: "boolean" },
           excepts: {
             type: "array",
@@ -71,37 +75,14 @@ const schema = [
   },
 ] satisfies [JSONSchema4];
 
-function normalizeOptions(options: Options) {
-  const opts = options[0];
-  const defaultOpts = defaultOptions[0];
-  if (opts == null) return defaultOpts;
-  return {
-    ...defaultOpts,
-    ...typeof opts === "string"
-      ? { rule: opts }
-      : {
-        ...opts,
-        excepts: opts.excepts?.map((pattern) => new RegExp(pattern, "u")) ?? [],
-      },
-  } as const;
-}
+export const RULE_NAME = "component-name";
 
-function isValidComponentName(name: string | _, options: ReturnType<typeof normalizeOptions>) {
-  if (name == null) return true;
-  if (options.excepts.some((regex) => regex.test(name))) return true;
-  let normalized = name.split(".").at(-1) ?? name;
-  if (options.allowNamespace) normalized = normalized.replace(":", "");
-  if (options.allowLeadingUnderscore) normalized = normalized.replace(/^_/, "");
-  switch (options.rule) {
-    case "CONSTANT_CASE":
-      return RE_CONSTANT_CASE.test(normalized);
-    case "PascalCase":
-      if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
-        return options.allowAllCaps;
-      }
-      return RE_PASCAL_CASE.test(normalized);
-  }
-}
+export const RULE_FEATURES = [
+  "CHK",
+  "CFG",
+] as const satisfies RuleFeature[];
+
+export type MessageID = "invalid";
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -125,18 +106,6 @@ export default createRule<Options, MessageID>({
     return {
       ...collector.listeners,
       ...collectorLegacy.listeners,
-      JSXOpeningElement(node) {
-        const name = JSX.getElementName(node.parent);
-        if (/^[a-z]/u.test(name)) {
-          return;
-        }
-        if (isValidComponentName(name, options)) return;
-        context.report({
-          messageId: "invalid",
-          node,
-          data: { name, rule },
-        });
-      },
       "Program:exit"(node) {
         const functionComponents = collector.ctx.getAllComponents(node);
         const classComponents = collectorLegacy.ctx.getAllComponents(node);
@@ -144,7 +113,7 @@ export default createRule<Options, MessageID>({
           const id = AST.getFunctionIdentifier(component);
           if (id?.name == null) continue;
           const name = id.name;
-          if (isValidComponentName(name, options)) return;
+          if (isValidName(name, options)) return;
           context.report({
             messageId: "invalid",
             node: id,
@@ -155,7 +124,7 @@ export default createRule<Options, MessageID>({
           const id = AST.getClassIdentifier(component);
           if (id?.name == null) continue;
           const name = id.name;
-          if (isValidComponentName(name, options)) continue;
+          if (isValidName(name, options)) continue;
           context.report({
             messageId: "invalid",
             node: id,
@@ -167,3 +136,33 @@ export default createRule<Options, MessageID>({
   },
   defaultOptions,
 });
+
+function normalizeOptions(options: Options) {
+  const opts = options[0];
+  const defaultOpts = defaultOptions[0];
+  if (opts == null) return defaultOpts;
+  return {
+    ...defaultOpts,
+    ...typeof opts === "string"
+      ? { rule: opts }
+      : {
+        ...opts,
+        excepts: opts.excepts?.map((pattern) => new RegExp(pattern, "u")) ?? [],
+      },
+  } as const;
+}
+
+function isValidName(name: string | _, options: ReturnType<typeof normalizeOptions>) {
+  if (name == null) return true;
+  if (options.excepts.some((regex) => regex.test(name))) return true;
+  const normalized = name.split(".").at(-1) ?? name;
+  switch (options.rule) {
+    case "CONSTANT_CASE":
+      return RE_CONSTANT_CASE.test(normalized);
+    case "PascalCase":
+      if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
+        return options.allowAllCaps;
+      }
+      return RE_PASCAL_CASE.test(normalized);
+  }
+}

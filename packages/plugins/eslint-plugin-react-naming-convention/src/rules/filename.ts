@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import type { _ } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -23,15 +24,15 @@ type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
+  | _
   | Case
-  | undefined
   | {
     /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
      */
     excepts?: readonly string[];
     /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
      */
     extensions?: readonly string[];
     rule?: Case;
