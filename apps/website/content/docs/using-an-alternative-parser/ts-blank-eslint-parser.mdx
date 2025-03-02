@@ -17,7 +17,7 @@ Use it only if you are okay with the limitations.
 ## Install
 
 ```package-install copy
-npm install --save-dev eslint typescript-eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin@next
+npm install --save-dev eslint @eslint/js globals ts-blank-eslint-parser @eslint-react/eslint-plugin@next
 ```
 
 ## Setup
@@ -26,27 +26,10 @@ npm install --save-dev eslint typescript-eslint @eslint/js globals ts-blank-esli
 // @ts-check
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
-import { isInEditorEnv } from "@eslint-react/shared";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
-import tseslint from "typescript-eslint";
 import globals from "globals";
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
-
-function getOptimalParserConfig(project = "tsconfig.json") {
-  switch (true) {
-    case isInEditorEnv():
-    case process.argv.includes("--fix"):
-      return {
-        parser: tseslint.parser,
-        parserOptions: {
-          project,
-          tsconfigRootDir: import.meta.dirname,
-        },
-      };
-  }
-  return { parser: tsBlankEslintParser };
-}
 
 export default [
   // base configuration for browser environment source files
@@ -56,7 +39,7 @@ export default [
       globals: {
         ...globals.browser,
       },
-      ...getOptimalParserConfig(),
+      parser: tsBlankEslintParser,
     },
     rules: {
       ...eslintJs.configs.recommended.rules,
