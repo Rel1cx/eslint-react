@@ -1,5 +1,6 @@
 import * as AST from "@eslint-react/ast";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import { _ } from "@eslint-react/eff";
+import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -46,8 +47,8 @@ export function isNodeValueEqual(
       && b.type === T.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
-      const aVarNode = getVariableNode(aVar, 0);
-      const bVarNode = getVariableNode(bVar, 0);
+      const aVarNode = getVariableNodeLoose(aVar, 0);
+      const bVarNode = getVariableNodeLoose(bVar, 0);
       const aVarNodeParent = aVarNode?.parent;
       const bVarNodeParent = bVarNode?.parent;
       const aDef = aVar?.defs.at(0);
@@ -104,4 +105,13 @@ export function isNodeValueEqual(
       return aStatic.kind !== "none" && bStatic.kind !== "none" && aStatic.value === bStatic.value;
     }
   }
+}
+
+function getVariableNodeLoose(variable: Variable | _, at: number): ReturnType<typeof getVariableNode> {
+  if (variable == null) return _;
+  const node = getVariableNode(variable, at);
+  if (node != null) return node;
+  const def = variable.defs.at(at);
+  if (def?.type === DefinitionType.Parameter && AST.isFunction(def.node)) return def.node;
+  return _;
 }

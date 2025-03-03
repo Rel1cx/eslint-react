@@ -1,4 +1,3 @@
-import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
@@ -24,9 +23,6 @@ export function getVariableNode(variable: Variable | _, at: number):
       return def.node;
     case def.type === DefinitionType.ClassName
       && def.node.type === T.ClassDeclaration:
-      return def.node;
-    case def.type === DefinitionType.Parameter
-      && AST.isFunction(def.node):
       return def.node;
     case "init" in def.node
       && def.node.init != null
