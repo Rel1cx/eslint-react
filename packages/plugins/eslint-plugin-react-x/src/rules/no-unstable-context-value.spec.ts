@@ -269,6 +269,6 @@ ruleTester.run(RULE_NAME, rule, {
       const Provider = ({foo, children}: {foo: {}, children: React.ReactNode}) => {
         return <Context value={foo}>{children}</Context>;
       };
-    `
+    `,
   ],
 });
