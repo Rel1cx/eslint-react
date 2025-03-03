@@ -265,5 +265,10 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    /* tsx */ `
+      const Provider = ({foo, children}: {foo: {}, children: React.ReactNode}) => {
+        return <Context value={foo}>{children}</Context>;
+      };
+    `
   ],
 });
