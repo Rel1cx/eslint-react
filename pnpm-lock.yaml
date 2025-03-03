@@ -40,8 +40,8 @@ importers:
         specifier: workspace:*
         version: link:.pkgs/eslint-plugin-local
       '@stylistic/eslint-plugin':
-        specifier: ^4.1.0
-        version: 4.1.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
+        specifier: ^4.2.0
+        version: 4.2.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
       '@swc/core':
         specifier: ^1.11.5
         version: 1.11.5(@swc/helpers@0.5.15)
@@ -701,10 +701,10 @@ importers:
         version: 6.0.5
       ts-blank-eslint-parser:
         specifier: ^0.3.3
-        version: 0.3.3(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.6.0)
+        version: 0.3.3(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.6.1)
       ts-blank-space:
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^0.6.1
+        version: 0.6.1
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -3323,8 +3323,8 @@ packages:
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
 
-  '@stylistic/eslint-plugin@4.1.0':
-    resolution: {integrity: sha512-bytbL7qiici7yPyEiId0fGPK9kjQbzcPMj2aftPfzTCyJ/CRSKdtI+iVjM0LSGzGxfunflI+MDDU9vyIIeIpoQ==}
+  '@stylistic/eslint-plugin@4.2.0':
+    resolution: {integrity: sha512-8hXezgz7jexGHdo5WN6JBEIPHCSFyyU4vgbxevu4YLVS5vl+sxqAAGyXSzfNDyR6xMNSH5H1x67nsXcYMOHtZA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=9.0.0'
@@ -6581,8 +6581,8 @@ packages:
       meriyah: ^6.0.5
       ts-blank-space: ^0.5.0
 
-  ts-blank-space@0.6.0:
-    resolution: {integrity: sha512-/idfg2ezyTe9YjfLPoFEjFnBCM0rnB1yp64q7+ujaz4UwBSasA28hiOW3FoRLXLpNMtwE3JlnuLZdOUoZNxhrQ==}
+  ts-blank-space@0.6.1:
+    resolution: {integrity: sha512-LcM3W5HEyzTaXUeQITV8ploUOGe+zuuoFYsCfPscFLhx3bZn2sSfHMKxsULVG/zA7an9UhReiHv4Kk/6QzlpXQ==}
     engines: {node: '>=18.0.0'}
 
   ts-interface-checker@0.1.13:
@@ -9023,7 +9023,7 @@ snapshots:
 
   '@standard-schema/spec@1.0.0': {}
 
-  '@stylistic/eslint-plugin@4.1.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)':
+  '@stylistic/eslint-plugin@4.2.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)':
     dependencies:
       '@typescript-eslint/utils': 8.25.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2)
       eslint: 9.21.0(jiti@2.4.2)
@@ -12917,13 +12917,13 @@ snapshots:
     dependencies:
       typescript: 5.8.2
 
-  ts-blank-eslint-parser@0.3.3(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.6.0):
+  ts-blank-eslint-parser@0.3.3(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.6.1):
     dependencies:
       eslint-scope: 8.2.0
       meriyah: 6.0.5
-      ts-blank-space: 0.6.0
+      ts-blank-space: 0.6.1
 
-  ts-blank-space@0.6.0:
+  ts-blank-space@0.6.1:
     dependencies:
       typescript: 5.8.2
 
