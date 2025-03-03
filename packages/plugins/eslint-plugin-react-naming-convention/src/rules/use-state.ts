@@ -53,7 +53,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const valueName = match(value)
-          .with({ type: T.Identifier }, (id) => id.name)
+          .with({ type: T.Identifier }, ({ name }) => snakeCase(name))
           .with({ type: T.ObjectPattern }, ({ properties }) => {
             const values = properties.reduce<string[]>((acc, prop) => {
               if (prop.type === T.Property && prop.key.type === T.Identifier) {

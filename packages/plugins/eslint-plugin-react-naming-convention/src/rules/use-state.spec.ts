@@ -134,5 +134,10 @@ ruleTester.run(RULE_NAME, rule, {
         return [count, setCount];
       }
     `,
+    /* tsx */ `const [myCount, setMyCount] = useState(0);`,
+    /* tsx */ `const [fooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    /* tsx */ `const [fooBarBaz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    /* tsx */ `const [foo_bar_baz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    /* tsx */ `const [FooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
   ],
 });
