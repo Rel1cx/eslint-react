@@ -71,7 +71,7 @@ export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression | _) 
   };
 }
 
-export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: string[]) {
+export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: _ | string[] = []) {
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
     skipImportCheck = true,

@@ -20,7 +20,7 @@
 
 ### alias
 
-`string`[]
+`undefined` | `string`[]
 
 ## Returns
 
