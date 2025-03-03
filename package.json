@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.29.1-beta.8",
+  "version": "1.30.0-next.0",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -36,7 +36,7 @@
     "format:write": "dprint fmt",
     "inspect:deps": "skott -e .ts",
     "inspect:eslint-config": "eslint-config-inspector",
-    "lint": "pnpm run lint:deps && pnpm run lint:publish && pnpm run lint:ts && pnpm run lint:es",
+    "lint": "pnpm run lint:deps && pnpm run lint:publish && pnpm run lint:ts && pnpm run lint:es && pnpm run lint:examples",
     "lint:deps": "skott -m file-tree -e .ts -s",
     "lint:es": "eslint . --max-warnings 100",
     "lint:examples": "pnpm m -F \"./examples/*\" run lint",

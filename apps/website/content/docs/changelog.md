@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v1.30.0 (2025-03-03)
+
+### ✨ New
+
+- feat: add `naming-convention/use-state` and `naming-convention/context-name` to recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/956
+
+### 🐞 Fixes
+
+- fix: correct readonly checks and test cases in `prefer-read-only-props` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/957
+- fix: rework `naming-convention/component-name` rule to follow [eslint-plugin-react-hooks@5.0](https://github.com/facebook/react/releases/tag/eslint-plugin-react-hooks%405.0.0) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/959
+  > Component names now need to start with an uppercase letter instead of a non-lowercase letter. This means `_Button` or `_component` are no longer valid.
+- fix: `naming-convention/use-state` fails with multiple words, closes #960 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/961
+
 ## v1.29.0 (2025-03-01)
 
 ### ✨ New
