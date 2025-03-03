@@ -2,18 +2,18 @@
 /* eslint-disable simple-import-sort/imports */
 import url from "node:url";
 
-import eslintJs from "@eslint/js";
-import eslintMarkdown from "@eslint/markdown";
-import eslintStylistic from "@stylistic/eslint-plugin";
-import eslintConfigFlatGitignore from "eslint-config-flat-gitignore";
-import eslintPluginDeMorgan from "eslint-plugin-de-morgan";
-import eslintPluginJsdoc from "eslint-plugin-jsdoc";
-import eslintPluginLocal from "@local/eslint-plugin-local";
-import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
-import eslintPluginRegexp from "eslint-plugin-regexp";
-import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
-import eslintPluginVitest from "eslint-plugin-vitest";
+import js from "@eslint/js";
+import markdown from "@eslint/markdown";
+import stylistic from "@stylistic/eslint-plugin";
+import configFlatGitignore from "eslint-config-flat-gitignore";
+import pluginDeMorgan from "eslint-plugin-de-morgan";
+import pluginJsdoc from "eslint-plugin-jsdoc";
+import pluginLocal from "@local/eslint-plugin-local";
+import pluginPerfectionist from "eslint-plugin-perfectionist";
+import pluginRegexp from "eslint-plugin-regexp";
+import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import pluginUnicorn from "eslint-plugin-unicorn";
+import pluginVitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -30,7 +30,7 @@ const GLOB_TEST = [
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
 const GLOB_IGNORES = [
-  ...eslintConfigFlatGitignore().ignores,
+  ...configFlatGitignore().ignores,
   "apps",
   "docs",
   "test",
@@ -97,7 +97,7 @@ export default tseslint.config(
   },
   {
     extends: [
-      eslintMarkdown.configs.recommended,
+      markdown.configs.recommended,
     ],
     files: GLOB_MD,
     ignores: [
@@ -112,12 +112,12 @@ export default tseslint.config(
   {
     files: [...GLOB_JS, ...GLOB_TS],
     extends: [
-      eslintJs.configs.recommended,
+      js.configs.recommended,
       ...tseslint.configs.strict,
-      eslintPluginDeMorgan.configs.recommended,
-      eslintPluginPerfectionist.configs["recommended-natural"],
-      eslintPluginRegexp.configs["flat/recommended"],
-      eslintPluginJsdoc.configs["flat/recommended-typescript-error"],
+      pluginDeMorgan.configs.recommended,
+      pluginPerfectionist.configs["recommended-natural"],
+      pluginRegexp.configs["flat/recommended"],
+      pluginJsdoc.configs["flat/recommended-typescript-error"],
     ],
     languageOptions: {
       parser: tseslint.parser,
@@ -130,10 +130,10 @@ export default tseslint.config(
       },
     },
     plugins: {
-      ["@stylistic"]: eslintStylistic,
-      ["local"]: eslintPluginLocal,
-      ["simple-import-sort"]: eslintPluginSimpleImportSort,
-      ["unicorn"]: eslintPluginUnicorn,
+      ["@stylistic"]: stylistic,
+      ["local"]: pluginLocal,
+      ["simple-import-sort"]: pluginSimpleImportSort,
+      ["unicorn"]: pluginUnicorn,
     },
   },
   {
@@ -302,7 +302,7 @@ export default tseslint.config(
     files: GLOB_TEST,
     languageOptions: {
       globals: {
-        ...eslintPluginVitest.environments.env.globals,
+        ...pluginVitest.environments.env.globals,
       },
       parser: tseslint.parser,
       parserOptions: {
@@ -314,11 +314,11 @@ export default tseslint.config(
       },
     },
     plugins: {
-      vitest: eslintPluginVitest,
+      vitest: pluginVitest,
     },
     rules: {
       ...disableTypeCheckedRules,
-      ...eslintPluginVitest.configs.recommended.rules,
+      ...pluginVitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "local/avoid-multiline-template-expression": "off",
       "@nx/enforce-module-boundaries": "off",

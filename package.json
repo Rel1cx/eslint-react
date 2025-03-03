@@ -97,7 +97,7 @@
     "type-fest": "^4.36.0",
     "typedoc": "^0.27.9",
     "typedoc-plugin-markdown": "^4.4.2",
-    "typedoc-plugin-mdn-links": "^4.0.15",
+    "typedoc-plugin-mdn-links": "^5.0.1",
     "typedoc-plugin-missing-exports": "^3.1.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.25.0",
