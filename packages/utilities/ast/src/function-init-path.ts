@@ -104,75 +104,30 @@ export type FunctionInitPath =
   ];
 
 export function getFunctionInitPath(node: TSESTreeFunction): FunctionInitPath | _ {
-  const { parent } = node;
   if (node.type === T.FunctionDeclaration) {
     return [node] as const;
   }
-  if (parent.type === T.VariableDeclarator) {
-    return [
-      parent.parent,
-      parent,
-      node,
-    ] as const;
-  }
-  if (
-    parent.type === T.CallExpression
-    && parent.parent.type === T.VariableDeclarator
-  ) {
-    return [
-      parent.parent.parent,
-      parent.parent,
-      parent,
-      node,
-    ] as const;
-  }
-  if (
-    parent.type === T.CallExpression
-    && parent.parent.type === T.CallExpression
-    && parent.parent.parent.type === T.VariableDeclarator
-  ) {
-    return [
-      parent.parent.parent.parent,
-      parent.parent.parent,
-      parent.parent,
-      parent,
-      node,
-    ] as const;
-  }
-  if (
-    parent.type === T.Property
-    && parent.parent.type === T.ObjectExpression
-    && parent.parent.parent.type === T.VariableDeclarator
-  ) {
-    return [
-      parent.parent.parent.parent,
-      parent.parent.parent,
-      parent.parent,
-      parent,
-      node,
-    ] as const;
-  }
-  if (
-    parent.type === T.MethodDefinition
-    && parent.parent.parent.type === T.ClassDeclaration
-  ) {
-    return [
-      parent.parent.parent,
-      parent.parent,
-      parent,
-      node,
-    ] as const;
-  }
-  if (
-    parent.type === T.PropertyDefinition
-    && parent.parent.parent.type === T.ClassDeclaration
-  ) {
-    return [
-      parent.parent.parent,
-      parent.parent,
-      parent,
-      node,
-    ] as const;
+  const { parent } = node;
+  switch (true) {
+    case parent.type === T.VariableDeclarator:
+      return [parent.parent, parent, node] as const;
+    case parent.type === T.CallExpression
+      && parent.parent.type === T.VariableDeclarator:
+      return [parent.parent.parent, parent.parent, parent, node] as const;
+    case parent.type === T.CallExpression
+      && parent.parent.type === T.CallExpression
+      && parent.parent.parent.type === T.VariableDeclarator:
+      return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
+    case parent.type === T.Property
+      && parent.parent.type === T.ObjectExpression
+      && parent.parent.parent.type === T.VariableDeclarator:
+      return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
+    case parent.type === T.MethodDefinition
+      && parent.parent.parent.type === T.ClassDeclaration:
+      return [parent.parent.parent, parent.parent, parent, node] as const;
+    case parent.type === T.PropertyDefinition
+      && parent.parent.parent.type === T.ClassDeclaration:
+      return [parent.parent.parent, parent.parent, parent, node] as const;
   }
   return _;
 }
