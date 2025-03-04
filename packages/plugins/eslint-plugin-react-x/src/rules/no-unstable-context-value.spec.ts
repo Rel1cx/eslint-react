@@ -270,5 +270,19 @@ ruleTester.run(RULE_NAME, rule, {
         return <Context value={foo}>{children}</Context>;
       };
     `,
+    /* tsx */ `
+      const MyContext = React.createContext<string>("");
+
+      export function MyFunctionComponent({ children, x }: { children: React.ReactNode; x: string }) {
+        return <MyContext value={x}>{children}</MyContext>;
+      }
+
+      export const MyConstComponent: React.FunctionComponent<{
+        children: React.ReactNode;
+        x: string;
+      }> = ({ children, x }) => {
+        return <MyContext value={x}>{children}</MyContext>;
+      };
+    `,
   ],
 });
