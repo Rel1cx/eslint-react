@@ -1,3 +1,17 @@
+## v1.30.1 (2025-03-04)
+
+### 🐞 Fixes
+
+- fix(utilities/var): fix variable init node retrieval, fixes #964 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/965
+
+### 🪄 Improvements
+
+- refactor(plugins/hooks-extra): improve code reusability by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/963
+
+### New Contributors
+
+- @mrginglymus made their first contribution in https://github.com/Rel1cx/eslint-react/pull/964
+
 ## v1.30.0 (2025-03-03)
 
 ### ✨ New
