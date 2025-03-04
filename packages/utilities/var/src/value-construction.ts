@@ -3,7 +3,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { getVariableNode } from "./get-variable-node";
+import { getVariableInitNode } from "./get-variable-init-node";
 
 export type ValueConstruction =
   | { kind: "ArrayExpression"; node: TSESTree.ArrayExpression }
@@ -85,7 +85,7 @@ export function getValueConstruction(
         return _;
       }
       const variable = initialScope.set.get(node.name);
-      const variableNode = getVariableNode(variable, -1);
+      const variableNode = getVariableInitNode(variable, -1);
       return getValueConstruction(variableNode, initialScope, hint);
     }
     case T.Literal: {

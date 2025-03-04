@@ -4,7 +4,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-export function getVariableNode(variable: Variable | _, at: number):
+export function getVariableInitNode(variable: Variable | _, at: number):
   | _
   | TSESTree.ClassDeclaration
   | TSESTree.ClassDeclarationWithName

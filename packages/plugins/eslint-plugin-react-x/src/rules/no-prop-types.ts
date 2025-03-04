@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
           return;
         }
         const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
-        const variableNode = VAR.getVariableNode(variable, 0);
+        const variableNode = VAR.getVariableInitNode(variable, 0);
         if (variableNode != null && (AST.isFunction(variableNode) || isClassComponent(variableNode))) {
           context.report({ messageId: "noPropTypes", node: property });
         }

@@ -14,7 +14,7 @@ export function isFromHookCall(
   const hookAlias = settings.additionalHooks[name] ?? [];
   return (topLevelId: TSESTree.Identifier) => {
     const variable = VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
-    const variableNode = VAR.getVariableNode(variable, 0);
+    const variableNode = VAR.getVariableInitNode(variable, 0);
     if (variableNode == null) return false;
     if (variableNode.type !== T.CallExpression) return false;
     if (!isReactHookCallWithNameAlias(context, name, hookAlias)(variableNode)) return false;

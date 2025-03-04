@@ -183,7 +183,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         id: string | TSESTree.Identifier,
         initialScope: Scope.Scope,
       ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-        const node = VAR.getVariableNode(VAR.findVariable(id, initialScope), 0);
+        const node = VAR.getVariableInitNode(VAR.findVariable(id, initialScope), 0);
         switch (node?.type) {
           case T.ArrowFunctionExpression:
           case T.FunctionDeclaration:

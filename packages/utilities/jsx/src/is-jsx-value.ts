@@ -138,7 +138,7 @@ export function isJSXValue(
       }
       const variable = VAR.findVariable(name, jsxCtx.getScope(node));
       const variableNode = variable
-        && VAR.getVariableNode(variable, 0);
+        && VAR.getVariableInitNode(variable, 0);
       return !!variableNode
         && isJSXValue(variableNode, jsxCtx, hint);
     }

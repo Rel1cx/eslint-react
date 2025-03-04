@@ -75,7 +75,7 @@ function getSignalValueExpression(node: TSESTree.Node | _, initialScope: Scope):
   if (node == null) return _;
   switch (node.type) {
     case T.Identifier: {
-      return getSignalValueExpression(VAR.getVariableNode(VAR.findVariable(node, initialScope), 0), initialScope);
+      return getSignalValueExpression(VAR.getVariableInitNode(VAR.findVariable(node, initialScope), 0), initialScope);
     }
     case T.MemberExpression:
       return node;
@@ -111,7 +111,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     switch (node.type) {
       case T.Identifier: {
         const variable = VAR.findVariable(node, initialScope);
-        const variableNode = VAR.getVariableNode(variable, 0);
+        const variableNode = VAR.getVariableInitNode(variable, 0);
         if (variableNode?.type === T.ObjectExpression) {
           return getOpts(variableNode);
         }

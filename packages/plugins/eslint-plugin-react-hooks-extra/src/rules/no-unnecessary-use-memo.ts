@@ -65,7 +65,7 @@ export default createRule<[], MessageID>({
           .with({ type: T.ArrayExpression }, (n) => n.elements.length === 0)
           .with({ type: T.Identifier }, (n) => {
             const variable = VAR.findVariable(n.name, initialScope);
-            const variableNode = VAR.getVariableNode(variable, 0);
+            const variableNode = VAR.getVariableInitNode(variable, 0);
             if (variableNode?.type !== T.ArrayExpression) {
               return false;
             }
@@ -86,7 +86,7 @@ export default createRule<[], MessageID>({
           .with({ type: T.FunctionExpression }, identity)
           .with({ type: T.Identifier }, (n) => {
             const variable = VAR.findVariable(n.name, initialScope);
-            const variableNode = VAR.getVariableNode(variable, 0);
+            const variableNode = VAR.getVariableInitNode(variable, 0);
             if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
               return _;
             }

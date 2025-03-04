@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { findVariable } from "./find-variable";
-import { getVariableNode } from "./get-variable-node";
+import { getVariableInitNode } from "./get-variable-init-node";
 
 export function findPropertyInProperties(
   name: string,
@@ -22,7 +22,7 @@ export function findPropertyInProperties(
         case T.Identifier: {
           if (seen.has(prop.argument.name)) return false;
           const variable = findVariable(prop.argument.name, initialScope);
-          const variableNode = getVariableNode(variable, 0);
+          const variableNode = getVariableInitNode(variable, 0);
           if (variableNode?.type === T.ObjectExpression) {
             seen.add(prop.argument.name);
             return findPropertyInProperties(
