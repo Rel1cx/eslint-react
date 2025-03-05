@@ -36,8 +36,8 @@
     "Noto Color Emoji";
 
   --font-family-mono:
+    var(--font-ibm_plex_mono),
     ui-monospace,
-    SFMono-Regular,
     Menlo,
     Monaco,
     Consolas,
