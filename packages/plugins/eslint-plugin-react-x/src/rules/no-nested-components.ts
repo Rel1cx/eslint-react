@@ -8,7 +8,6 @@ import {
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -83,7 +82,7 @@ export default createRule<[], MessageID>({
             continue;
           }
           // Do not mark anonymous function components to reduce false positives
-          if (name === _) {
+          if (name == null) {
             continue;
           }
           const isInsideProperty = component.parent.type === T.Property;
