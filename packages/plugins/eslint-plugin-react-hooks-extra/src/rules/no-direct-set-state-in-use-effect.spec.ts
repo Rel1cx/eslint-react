@@ -785,5 +785,21 @@ ruleTester.run(RULE_NAME, rule, {
         // ...use tooltipHeight in the rendering logic below...
       }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/967
+    /* tsx */ `
+      import { useEffect, useState, useCallback } from "react";
+
+      function useCustomHook() {
+        const [something, setSomething] = useState('');
+
+        const test = useCallback(() => {
+          setSomething('') // doesn't trigger the rules
+
+          ;(() => {
+            setSomething('') // trigger the rules
+          })()
+        }, [])
+      }
+    `,
   ],
 });

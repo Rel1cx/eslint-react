@@ -107,8 +107,9 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
       match(getCallKind(node))
         .with("setState", () => {
           switch (true) {
-            case pEntry.node === setupFunction
-              || pEntry.kind === "immediate": {
+            case pEntry.node === setupFunction:
+            case pEntry.kind === "immediate"
+              && AST.findParentNode(pEntry.node, AST.isFunction) === setupFunction: {
               onViolation(context, node, {
                 name: context.sourceCode.getText(node.callee),
               });
