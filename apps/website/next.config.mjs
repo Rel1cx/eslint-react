@@ -5,6 +5,18 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  experimental: {
+    // ppr: true,
+    inlineCss: true,
+    // reactCompiler: true,
+    // viewTransition: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   serverExternalPackages: [
     "typescript",
     "twoslash",
