@@ -72,4 +72,4 @@ declare function generateTodos(): string[];
 
 ## Further Reading
 
-- [Official React documentation on useState](https://react.dev/reference/react/useState)
+- [React: useState](https://react.dev/reference/react/useState#setstate)
