@@ -1,3 +1,9 @@
+## v1.30.2 (2025-03-05)
+
+### 🐞 Fixes
+
+- fix(plugins/hooks-extra): misidentification of `set` function in IIFE inside of hooks as its inside of `useEffect`, `useLayoutEffect`, closes #967 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/968
+
 ## v1.30.1 (2025-03-04)
 
 ### 🐞 Fixes
