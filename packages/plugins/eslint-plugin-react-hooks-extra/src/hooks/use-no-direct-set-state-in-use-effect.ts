@@ -16,8 +16,20 @@ import {
   isVariableDeclaratorFromHookCall,
 } from "../utils";
 
-type CallKind = "other" | "setState" | "then" | "useEffect" | "useLayoutEffect" | "useState";
-type FunctionKind = "cleanup" | "deferred" | "immediate" | "other" | "setup";
+type CallKind =
+  | "useEffect"
+  | "useLayoutEffect"
+  | "useState"
+  | "setState"
+  | "then"
+  | "other";
+
+type FunctionKind =
+  | "setup"
+  | "cleanup"
+  | "deferred"
+  | "immediate"
+  | "other";
 
 export declare namespace useNoDirectSetStateInUseEffect {
   type Options<Ctx> = {
