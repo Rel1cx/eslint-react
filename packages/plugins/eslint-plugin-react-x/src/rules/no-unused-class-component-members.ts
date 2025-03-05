@@ -58,7 +58,7 @@ function isKeyLiteral(
 // anywhere that a literal may be used as a key (e.g., member expressions,
 // method definitions, ObjectExpression property keys).
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTsOnlyExpression(node)) {
+  if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {

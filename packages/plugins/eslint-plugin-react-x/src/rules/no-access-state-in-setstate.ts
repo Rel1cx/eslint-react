@@ -33,7 +33,7 @@ function isKeyLiteral(
 }
 
 function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTsOnlyExpression(node)) {
+  if (AST.isTypeExpression(node)) {
     return getName(node.expression);
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {

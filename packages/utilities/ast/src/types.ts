@@ -65,14 +65,14 @@ export type TSESTreeTypeDeclaration =
   | TSESTree.TSInterfaceDeclaration
   | TSESTree.TSTypeAliasDeclaration;
 
-export type TSESTreeTSOnlyExpression =
+export type TSESTreeTypeExpression =
   | TSESTree.TSAsExpression
   | TSESTree.TSNonNullExpression
   | TSESTree.TSSatisfiesExpression
   | TSESTree.TSTypeAssertion
   | TSESTree.TSInstantiationExpression;
 
-export type TSESTreeTSAssertionExpression =
+export type TSESTreeTypeAssertionExpression =
   | TSESTree.TSAsExpression
   | TSESTree.TSNonNullExpression
   | TSESTree.TSSatisfiesExpression
