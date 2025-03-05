@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
-import { _, constFalse, constTrue } from "@eslint-react/eff";
+import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -30,23 +30,6 @@ function isKeyLiteral(
     .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
     .with({ type: T.Identifier }, () => !node.computed)
     .otherwise(constFalse);
-}
-
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
-    return getName(node.expression);
-  }
-  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return node.name;
-  }
-  if (node.type === T.Literal) {
-    return String(node.value);
-  }
-  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
-  }
-
-  return _;
 }
 
 export default createRule<[], MessageID>({
@@ -119,7 +102,7 @@ export default createRule<[], MessageID>({
         if (setState == null || hasThisState) {
           return;
         }
-        if (getName(node.property) !== "state") {
+        if (AST.getPropertyName(node.property) !== "state") {
           return;
         }
         context.report({ messageId: "noAccessStateInSetstate", node });
@@ -159,7 +142,7 @@ export default createRule<[], MessageID>({
           .some((prop) =>
             prop.type === T.Property
             && isKeyLiteral(prop, prop.key)
-            && getName(prop.key) === "state"
+            && AST.getPropertyName(prop.key) === "state"
           );
         if (!hasState) {
           return;

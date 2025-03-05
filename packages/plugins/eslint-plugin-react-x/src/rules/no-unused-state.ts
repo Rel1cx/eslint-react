@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import { isClassComponent, isGetDerivedStateFromProps } from "@eslint-react/core";
-import { _, constFalse, constTrue } from "@eslint-react/eff";
+import { isAssignmentToThisState, isClassComponent, isGetDerivedStateFromProps } from "@eslint-react/core";
+import type { _ } from "@eslint-react/eff";
+import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -30,31 +31,6 @@ function isKeyLiteral(
     .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
     .with({ type: T.Identifier }, () => !node.computed)
     .otherwise(constFalse);
-}
-
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
-    return getName(node.expression);
-  }
-  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return node.name;
-  }
-  if (node.type === T.Literal) {
-    return String(node.value);
-  }
-  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
-  }
-
-  return _;
-}
-
-function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
-  const { left } = node;
-
-  return left.type === T.MemberExpression
-    && AST.isThisExpression(left.object)
-    && getName(left.property) === "state";
 }
 
 export default createRule<[], MessageID>({
@@ -109,7 +85,7 @@ export default createRule<[], MessageID>({
         }
         return;
       }
-      if (getName(node.key) === "state") {
+      if (AST.getPropertyName(node.key) === "state") {
         stateDefs.set(currentClass, { node: node.key, isUsed: false });
       }
     }
@@ -148,7 +124,7 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `this.state`
-        if (getName(node.property) !== "state") {
+        if (AST.getPropertyName(node.property) !== "state") {
           return;
         }
         const currentClass = classEntries.at(-1);
@@ -195,7 +171,7 @@ export default createRule<[], MessageID>({
         }
         const hasState = node.id.properties.some((prop) => {
           if (prop.type === T.Property && isKeyLiteral(prop, prop.key)) {
-            return getName(prop.key) === "state";
+            return AST.getPropertyName(prop.key) === "state";
           }
           return false;
         });

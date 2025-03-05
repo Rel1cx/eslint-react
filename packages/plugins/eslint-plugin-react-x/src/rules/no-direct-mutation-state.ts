@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import { isAssignmentToThisState, isClassComponent } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -15,33 +14,6 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
-    return getName(node.expression);
-  }
-  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return node.name;
-  }
-  if (node.type === T.Literal) {
-    return node.value?.toString();
-  }
-  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
-  }
-
-  return _;
-}
-
-function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
-  const { left } = node;
-
-  return (
-    left.type === T.MemberExpression
-    && AST.isThisExpression(left.object)
-    && getName(left.property) === "state"
-  );
-}
 
 function isConstructorFunction(
   node: TSESTree.Node,

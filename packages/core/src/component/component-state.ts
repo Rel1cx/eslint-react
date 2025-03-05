@@ -13,3 +13,10 @@ export function isThisSetState(node: TSESTree.CallExpression) {
     && callee.property.name === "setState"
   );
 }
+
+export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
+  const { left } = node;
+  return left.type === T.MemberExpression
+    && AST.isThisExpression(left.object)
+    && AST.getPropertyName(left.property) === "state";
+}

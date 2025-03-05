@@ -50,6 +50,7 @@
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
 - [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
+- [isAssignmentToThisState](functions/isAssignmentToThisState.md)
 - [isChildrenCount](functions/isChildrenCount.md)
 - [isChildrenCountCall](functions/isChildrenCountCall.md)
 - [isChildrenForEach](functions/isChildrenForEach.md)

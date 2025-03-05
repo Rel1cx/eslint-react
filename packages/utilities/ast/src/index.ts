@@ -7,6 +7,7 @@ export * from "./get-literal-value-type";
 export * from "./get-nested-expressions";
 export * from "./get-nested-identifiers";
 export * from "./get-nested-return-statements";
+export * from "./get-property-name";
 export * from "./get-top-level-identifier";
 export * from "./is";
 export * from "./is-empty-function";

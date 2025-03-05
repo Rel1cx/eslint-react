@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent } from "@eslint-react/core";
-import { _, constFalse, constTrue } from "@eslint-react/eff";
+import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -54,26 +54,6 @@ function isKeyLiteral(
     .otherwise(constFalse);
 }
 
-// Return the name of an identifier or the string value of a literal. Useful
-// anywhere that a literal may be used as a key (e.g., member expressions,
-// method definitions, ObjectExpression property keys).
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
-    return getName(node.expression);
-  }
-  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return node.name;
-  }
-  if (node.type === T.Literal) {
-    return node.value?.toString();
-  }
-  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
-  }
-
-  return _;
-}
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -112,7 +92,7 @@ export default createRule<[], MessageID>({
         return;
       }
       for (const def of defs) {
-        const methodName = getName(def);
+        const methodName = AST.getPropertyName(def);
         if (methodName == null) {
           continue;
         }
@@ -170,7 +150,7 @@ export default createRule<[], MessageID>({
           return;
         }
         // detect `this.property()`, `x = this.property`, etc.
-        const propertyName = getName(node.property);
+        const propertyName = AST.getPropertyName(node.property);
         if (propertyName != null) {
           propertyUsages.get(currentClass)?.add(propertyName);
         }
@@ -192,7 +172,7 @@ export default createRule<[], MessageID>({
         if (node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === T.Property && isKeyLiteral(prop, prop.key)) {
-              const keyName = getName(prop.key);
+              const keyName = AST.getPropertyName(prop.key);
               if (keyName != null) {
                 propertyUsages.get(currentClass)?.add(keyName);
               }
