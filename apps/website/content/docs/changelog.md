@@ -6,13 +6,13 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- fix(plugins/hooks-extra): misidentification of `set` function in IIFE inside of hooks as its inside of `useEffect`, `useLayoutEffect`, closes #967 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/968
+- fix(plugins/hooks-extra): misidentification of `set` function in IIFE inside of hooks as its inside of `useEffect`, `useLayoutEffect`, closes [#967](https://github.com/Rel1cx/eslint-react/issues/967) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/968
 
 ## v1.30.1 (2025-03-04)
 
 ### 🐞 Fixes
 
-- fix(utilities/var): fix variable init node retrieval, fixes #964 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/965
+- fix(utilities/var): fix variable init node retrieval, fixes [#964](https://github.com/Rel1cx/eslint-react/pull/964) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/965
 
 ### 🪄 Improvements
 
