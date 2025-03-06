@@ -27,7 +27,7 @@ react-x/no-forward-ref
 
 ## What it does
 
-Disallows using `React.forwardRef`.
+Replaces `forwardRef` with passing `ref` as a prop.
 
 In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 

@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'componentWillReceiveProps'",
+      description: "replace 'componentWillReceiveProps' with 'UNSAFE_componentWillReceiveProps'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

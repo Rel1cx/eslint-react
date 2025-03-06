@@ -27,7 +27,7 @@ react-x/no-component-will-update
 
 ## What it does
 
-Prevents usage of `componentWillUpdate` in class components.
+Replaces `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
 
 This API has been renamed from `componentWillUpdate` to `UNSAFE_componentWillUpdate`. The old name has been deprecated. In a future major version of React, only the new name will work.
 

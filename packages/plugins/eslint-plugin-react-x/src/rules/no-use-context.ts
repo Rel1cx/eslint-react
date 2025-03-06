@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow the use of 'useContext'",
+      description: "replace 'useContext' with 'use'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

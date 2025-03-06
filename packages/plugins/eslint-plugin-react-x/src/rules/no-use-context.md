@@ -27,7 +27,7 @@ react-x/no-use-context
 
 ## What it does
 
-Disallows using `React.useContext`.
+Replaces `useContext` with `use`.
 
 In React 19, `use` is preferred over `useContext` because it is more flexible.
 

@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow the use of 'forwardRef'",
+      description: "replace 'forwardRef' with passing 'ref' as a prop",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

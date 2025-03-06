@@ -27,7 +27,7 @@ react-x/no-context-provider
 
 ## What it does
 
-Disallows using `<Context.Provider>`.
+Replaces `<Context.Provider>` with `<Context>`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 

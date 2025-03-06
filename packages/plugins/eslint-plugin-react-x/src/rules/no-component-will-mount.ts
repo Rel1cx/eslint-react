@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'componentWillMount'",
+      description: "replace 'componentWillMount' with 'UNSAFE_componentWillMount'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

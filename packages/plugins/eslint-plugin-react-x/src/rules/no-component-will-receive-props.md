@@ -27,7 +27,7 @@ react-x/no-component-will-receive-props
 
 ## What it does
 
-Prevents usage of `componentWillReceiveProps` in class components.
+Replaces `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
 
 This API has been renamed from `componentWillReceiveProps` to `UNSAFE_componentWillReceiveProps`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
