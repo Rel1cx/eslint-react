@@ -5,19 +5,19 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  is-core-module: npm:@socketregistry/is-core-module@^1.0.7
-  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.6
-  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.7
-  typedarray: npm:@socketregistry/typedarray@^1.0.5
   '@types/react': ^19.0.10
   '@types/react-dom': ^19.0.4
   cross-spawn: ^7.0.6
   esbuild: ^0.25.0
+  is-core-module: npm:@socketregistry/is-core-module@^1.0.8
   lucide-react: ^0.477.0
   next: ^15.2.1
   react: ^19.0.0
   react-dom: ^19.0.0
+  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.7
+  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.8
   ts-api-utils: ^2.0.1
+  typedarray: npm:@socketregistry/typedarray@^1.0.6
   typescript: ^5.8.2
 
 importers:
@@ -702,15 +702,9 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.0.0
-      meriyah:
-        specifier: ^6.0.5
-        version: 6.0.5
       ts-blank-eslint-parser:
-        specifier: ^0.3.3
-        version: 0.3.3(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.6.1)
-      ts-blank-space:
-        specifier: ^0.6.1
-        version: 0.6.1
+        specifier: ^0.4.2
+        version: 0.4.2
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -3320,17 +3314,17 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
-  '@socketregistry/is-core-module@1.0.7':
-    resolution: {integrity: sha512-aQ0Egq4PesHYPv+GI78RiDKdHvgkjOZGsOopWSQNaR9C4fZuH80YryEv9zJoX+9UmcNLYUACFjDwt71Ena7r8A==}
-    engines: {node: '>=18.20.4'}
+  '@socketregistry/is-core-module@1.0.8':
+    resolution: {integrity: sha512-Mh1h6n3XrVjL8o2zDcWSOOPtrHFxNxOPxUfxqzfGlKSl8zRYZr7X4kOJBxyR7AQBAlgeFJyKeupDQIdqiZnTUw==}
+    engines: {node: '>=18.20.7'}
 
-  '@socketregistry/safe-buffer@1.0.6':
-    resolution: {integrity: sha512-1ZTYFb9BVgK2a/uYIR6la7dJOnC2ccvqbxNsvq91SCMAdMKJe9gnPHM8E36GoVgL7SUE90+cUbzPHAYzouz6UQ==}
-    engines: {node: '>=18.20.4'}
+  '@socketregistry/safe-buffer@1.0.7':
+    resolution: {integrity: sha512-ybEvCjKLAxw269qYGN1Xaitiwfcs0eOuzhgPuvo+K9bP9fF6bHLwdbqXj86u8ESEGrgayKR5symjjiQ6JP953w==}
+    engines: {node: '>=18.20.7'}
 
-  '@socketregistry/typedarray@1.0.5':
-    resolution: {integrity: sha512-52UUh8c5XLtjj6V9XZYS8BXVj819b7qa5XpSnP+X+pZaeThSDp04SMK0qEdUvQVk0ewDkMZbMJEmrqlCMcYzjQ==}
-    engines: {node: '>=18.20.4'}
+  '@socketregistry/typedarray@1.0.6':
+    resolution: {integrity: sha512-0rs1eSGkqKdH8CCvVKXBdLDCh0Z04fWRD88uqfUfh+mvMqNaJEKUCeavhXJOK1ObxAJPMGIDpckjq4K5riny7w==}
+    engines: {node: '>=18.20.7'}
 
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
@@ -6600,13 +6594,9 @@ packages:
     peerDependencies:
       typescript: ^5.8.2
 
-  ts-blank-eslint-parser@0.3.3:
-    resolution: {integrity: sha512-rMDlOg8bSAvC3OhBHHnI0k/2INatZ7faSYwOlLiMi572aBi6JHcv/05WOrze3p7P2hbwsy4Hkp/OaWtBlyAlkg==}
+  ts-blank-eslint-parser@0.4.2:
+    resolution: {integrity: sha512-cZ2cjGaSZoA8AqCvjQUQEhDqZrS5y+ZpI4085/LrUdxEue6m0V0m0Qhn+QEl8MP7snrSBZII0gxEu54y5lfabw==}
     engines: {node: '>=18.18.0'}
-    peerDependencies:
-      eslint-scope: ^8.2.0
-      meriyah: ^6.0.5
-      ts-blank-space: ^0.5.0
 
   ts-blank-space@0.6.1:
     resolution: {integrity: sha512-LcM3W5HEyzTaXUeQITV8ploUOGe+zuuoFYsCfPscFLhx3bZn2sSfHMKxsULVG/zA7an9UhReiHv4Kk/6QzlpXQ==}
@@ -9056,11 +9046,11 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@socketregistry/is-core-module@1.0.7': {}
+  '@socketregistry/is-core-module@1.0.8': {}
 
-  '@socketregistry/safe-buffer@1.0.6': {}
+  '@socketregistry/safe-buffer@1.0.7': {}
 
-  '@socketregistry/typedarray@1.0.5': {}
+  '@socketregistry/typedarray@1.0.6': {}
 
   '@standard-schema/spec@1.0.0': {}
 
@@ -9892,7 +9882,7 @@ snapshots:
       debug: 2.6.9
       negotiator: 0.6.4
       on-headers: 1.0.2
-      safe-buffer: '@socketregistry/safe-buffer@1.0.6'
+      safe-buffer: '@socketregistry/safe-buffer@1.0.7'
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
@@ -9906,7 +9896,7 @@ snapshots:
       buffer-from: 1.1.2
       inherits: 2.0.4
       readable-stream: 3.6.2
-      typedarray: '@socketregistry/typedarray@1.0.5'
+      typedarray: '@socketregistry/typedarray@1.0.6'
 
   confbox@0.1.8: {}
 
@@ -10086,7 +10076,7 @@ snapshots:
       deps-regex: 0.2.0
       findup-sync: 5.0.0
       ignore: 5.3.2
-      is-core-module: '@socketregistry/is-core-module@1.0.7'
+      is-core-module: '@socketregistry/is-core-module@1.0.8'
       js-yaml: 3.14.1
       json5: 2.2.3
       lodash: 4.17.21
@@ -10274,7 +10264,7 @@ snapshots:
   eslint-import-resolver-node@0.3.9:
     dependencies:
       debug: 3.2.7
-      is-core-module: '@socketregistry/is-core-module@1.0.7'
+      is-core-module: '@socketregistry/is-core-module@1.0.8'
       resolve: 1.22.10
     transitivePeerDependencies:
       - supports-color
@@ -12623,7 +12613,7 @@ snapshots:
 
   resolve@1.22.10:
     dependencies:
-      is-core-module: '@socketregistry/is-core-module@1.0.7'
+      is-core-module: '@socketregistry/is-core-module@1.0.8'
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
@@ -12862,7 +12852,7 @@ snapshots:
 
   string_decoder@1.3.0:
     dependencies:
-      safe-buffer: '@socketregistry/safe-buffer@1.0.6'
+      safe-buffer: '@socketregistry/safe-buffer@1.0.7'
 
   stringify-entities@4.0.4:
     dependencies:
@@ -12984,7 +12974,7 @@ snapshots:
     dependencies:
       typescript: 5.8.2
 
-  ts-blank-eslint-parser@0.3.3(eslint-scope@8.2.0)(meriyah@6.0.5)(ts-blank-space@0.6.1):
+  ts-blank-eslint-parser@0.4.2:
     dependencies:
       eslint-scope: 8.2.0
       meriyah: 6.0.5
