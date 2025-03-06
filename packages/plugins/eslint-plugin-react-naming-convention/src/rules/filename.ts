@@ -7,7 +7,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, toRegExp } from "../utils";
 
 export const RULE_NAME = "filename";
 
@@ -104,7 +104,7 @@ export default createRule<Options, MessageID>({
 
     function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
       const shouldIgnore = ignores
-        .map((pattern) => new RegExp(pattern, "u"))
+        .map(toRegExp)
         .some((pattern) => pattern.test(name));
       if (shouldIgnore) return true;
 

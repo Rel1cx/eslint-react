@@ -5,7 +5,7 @@ import type { RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createRule } from "../utils";
+import { createRule, toRegExp } from "../utils";
 
 type Case = "CONSTANT_CASE" | "PascalCase";
 
@@ -147,7 +147,7 @@ function normalizeOptions(options: Options) {
       ? { rule: opts }
       : {
         ...opts,
-        excepts: opts.excepts?.map((pattern) => new RegExp(pattern, "u")) ?? [],
+        excepts: opts.excepts?.map(toRegExp) ?? [],
       },
   } as const;
 }

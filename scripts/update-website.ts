@@ -25,7 +25,7 @@ const [
   [[], []],
 );
 
-await Promise.all(files.map(async ([src, dest]) => fs.copyFile(src, dest)));
+await Promise.all(files.map(([src, dest]) => fs.copyFile(src, dest)));
 
 // fs.writeFileSync(path.join("apps", "website", "content", "docs", "rules", "data.json"), JSON.stringify(rules, null, 2));
 
