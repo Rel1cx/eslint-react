@@ -1,3 +1,13 @@
+## v1.31.0 (2025-03-07)
+
+### ✨ New
+
+- feat: enhance regex handling in naming convention rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/969
+
+### 🪄 Improvements
+
+- docs: improve rules descriptions by @Rel1cx
+
 ## v1.30.2 (2025-03-05)
 
 ### 🐞 Fixes
