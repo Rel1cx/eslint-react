@@ -20,6 +20,7 @@ title: Roadmap
 - [x] `no-component-will-update`
 - [x] `no-context-provider`
 - [x] `no-forward-ref`
+- [ ] `no-string-refs`
 
 ### Add auto-fix feature to rules that can be auto-fixed safely
 
@@ -48,6 +49,15 @@ title: Roadmap
 
 ### New Rules
 
+- [x] `no-context-provider` - Replaces usages of `<Context.Provider>` with `<Context>` (React 19).
+- [x] `no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19).
+- [x] `no-use-context` - Replaces usages of `useContext` with `use` (React 19).
+- [ ] `react-dom/no-render` - Replaces usages of `ReactDom.render()` with `createRoot(node).render()` (React 19).
+- [ ] `react-dom/no-hydrate` - Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()` (React 19).
+- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19).
+- [ ] `react-dom/no-use-form-state` - Replaces the usages of `useFormState()` to use `useActionState()` (React 19).
+- [ ] `react-dom/no-test-utils-act` - Replaces the usages of `TestUtils.act()` to use `React.act()` (React 19).
+- [x] `naming-convention/context-name` - Enforces context name to be a valid component name with the suffix `Context` (React 19).
 - [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739)).
 - [ ] `hooks-extra/no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
 

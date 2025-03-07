@@ -27,7 +27,7 @@ react-x/no-use-context
 
 ## What it does
 
-Replaces `useContext` with `use`.
+Replaces usages of `useContext` with `use`.
 
 In React 19, `use` is preferred over `useContext` because it is more flexible.
 
@@ -74,6 +74,6 @@ function Button() {
 ## See Also
 
 - [`no-context-provider`](./no-context-provider)\
-  Disallows using `<Context.Provider>`.
+  Replaces usages of `<Context.Provider>` with `<Context>`.
 - [`no-forward-ref`](./no-forward-ref)\
-  Disallows using `React.forwardRef`.
+  Replace usages of `forwardRef` with passing `ref` as a prop.

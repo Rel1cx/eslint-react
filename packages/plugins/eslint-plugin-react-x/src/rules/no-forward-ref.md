@@ -27,7 +27,7 @@ react-x/no-forward-ref
 
 ## What it does
 
-Replaces `forwardRef` with passing `ref` as a prop.
+Replaces usages of `forwardRef` with passing `ref` as a prop.
 
 In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 
@@ -99,6 +99,6 @@ function MyInput({ ref, value, onChange }: MyInputProps & { ref: React.RefObject
 ## See Also
 
 - [`no-context-provider`](./no-context-provider)\
-  Disallows using `<Context.Provider>`.
+  Replaces usages of `<Context.Provider>` with `<Context>`.
 - [`no-use-context`](./no-use-context)\
-  Disallows using `React.useContext`.
+  Replaces usages of `useContext` with `use`.

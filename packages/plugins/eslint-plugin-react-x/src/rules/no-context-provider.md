@@ -27,7 +27,7 @@ react-x/no-context-provider
 
 ## What it does
 
-Replaces `<Context.Provider>` with `<Context>`.
+Replaces usages of `<Context.Provider>` with `<Context>`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 
@@ -79,6 +79,6 @@ function App({ children }) {
 ## See Also
 
 - [`no-forward-ref`](./no-forward-ref)\
-  Disallows using `React.forwardRef`.
+  Replaces usages of `forwardRef` with passing `ref` as a prop.
 - [`no-use-context`](./no-use-context)\
-  Disallows using `React.useContext`.
+  Replaces usages of `useContext` with `use`.

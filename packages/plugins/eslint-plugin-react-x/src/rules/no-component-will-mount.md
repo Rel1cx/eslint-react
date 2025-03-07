@@ -27,7 +27,7 @@ react-x/no-component-will-mount
 
 ## What it does
 
-Replaces `componentWillMount` with `UNSAFE_componentWillMount`.
+Replaces usages of `componentWillMount` with `UNSAFE_componentWillMount`.
 
 This API has been renamed from `componentWillMount` to `UNSAFE_componentWillMount`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
@@ -81,6 +81,6 @@ class MyComponent extends React.Component<MyComponentProps> {
 ## See Also
 
 - [no-component-will-receive-props](./no-component-will-receive-props)\
-  Prevents usage of `componentWillReceiveProps` in class components.
+  Replace usages of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
 - [no-component-will-update](./no-component-will-update)\
-  Prevents usage of `componentWillUpdate` in class components.
+  Replace usages of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
