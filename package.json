@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.30.3-next.2",
+  "version": "1.30.3-beta.2",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -54,7 +54,7 @@
   "devDependencies": {
     "@eslint/config-inspector": "^1.0.2",
     "@eslint/js": "^9.21.0",
-    "@eslint/markdown": "^6.2.2",
+    "@eslint/markdown": "^6.3.0",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
     "@stylistic/eslint-plugin": "^4.2.0",
@@ -101,9 +101,9 @@
     "typedoc-plugin-missing-exports": "^3.1.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.0",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.8"
   },
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.6.1",
   "engines": {
     "node": ">=18.18.0"
   },
