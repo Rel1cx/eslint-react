@@ -44,7 +44,8 @@ await fs.writeFile(path.join("apps", "website", "content", "docs", "changelog.md
 // workaround for @tailwindcss/postcss plugin not working with symlinked node_modules
 const linkPath = path.join("apps", "website", "node_modules", "fumadocs-ui", "dist");
 const realPath = await fs.realpath(linkPath);
-const distPath = path.join("apps", "website", "components", "fumadocs-ui");
+const distPath = path.join("apps", "website", "deps", "fumadocs-ui");
+await fs.mkdir(distPath, { recursive: true });
 await fs.rm(distPath, { force: true, recursive: true });
 await fs.cp(
   realPath,
@@ -55,10 +56,10 @@ await fs.cp(
 // generate tailwindcss sources
 // const sourcePath = path.join("apps", "website", "app", "sources.css");
 // const sourceCode = [
+//   `@source "../deps/fumadocs-ui/**/*.js";`,
 //   '@source ".";',
 //   '@source "../components";',
 //   '@source "../content";',
-//   `@source "../components/fumadocs-ui/**/*.js";`,
 // ].join("\n");
 
 // await fs.writeFile(sourcePath, sourceCode);
