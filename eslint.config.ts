@@ -242,47 +242,6 @@ export default tseslint.config(
       "local/avoid-multiline-template-expression": "warn",
       "local/no-shadow-underscore": "error",
       "local/prefer-eqeq-nullish-comparison": "warn",
-      // Part: nx rules
-      "@nx/enforce-module-boundaries": [
-        "off", // TODO: enable
-        {
-          allow: [],
-          depConstraints: [
-            {
-              sourceTag: "utilities:eff",
-              onlyDependOnLibsWithTags: [],
-            },
-            {
-              sourceTag: "utilities:ast",
-              onlyDependOnLibsWithTags: ["utilities:eff"],
-            },
-            {
-              sourceTag: "utilities:var",
-              onlyDependOnLibsWithTags: ["utilities:eff", "utilities:ast"],
-            },
-            {
-              sourceTag: "utilities:jsx",
-              onlyDependOnLibsWithTags: ["utilities:eff", "utilities:ast", "utilities:var"],
-            },
-            {
-              sourceTag: "shared",
-              onlyDependOnLibsWithTags: ["utilities:eff"],
-            },
-            {
-              sourceTag: "core",
-              onlyDependOnLibsWithTags: ["utilities:*", "shared"],
-            },
-            {
-              sourceTag: "plugins:eslint-plugin-react-*",
-              onlyDependOnLibsWithTags: ["utilities:*", "shared", "core"],
-            },
-            {
-              sourceTag: "plugins:eslint-plugin",
-              onlyDependOnLibsWithTags: ["utilities:*", "shared", "core", "plugins:eslint-plugin-react-*"],
-            },
-          ],
-        },
-      ],
     },
   },
   {
