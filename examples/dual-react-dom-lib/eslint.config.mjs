@@ -38,6 +38,7 @@ export default tseslint.config(
   {
     files: TSCONFIG_NODE.include,
     ignores: TSCONFIG_NODE.exclude,
+    extends: [tseslint.configs.disableTypeChecked],
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.node.json",
@@ -45,32 +46,23 @@ export default tseslint.config(
       },
     },
     rules: {
-      ...tseslint.configs.disableTypeChecked.rules,
       "no-console": "off",
     },
   },
   // react specific configurations
   {
     files: TSCONFIG.include,
-    ...eslintPluginReactx.configs["recommended-type-checked"],
-  },
-  {
-    files: TSCONFIG.include,
-    ...eslintPluginReactDom.configs.recommended,
-  },
-  {
-    files: TSCONFIG.include,
-    ...eslintPluginReactWebApi.configs.recommended,
-  },
-  {
-    files: TSCONFIG.include,
-    ...eslintPluginReactHooksExtra.configs.recommended,
-  },
-  {
-    files: TSCONFIG.include,
+    extends: [
+      eslintPluginReactx.configs["recommended-type-checked"],
+      eslintPluginReactDom.configs.recommended,
+      eslintPluginReactWebApi.configs.recommended,
+      eslintPluginReactHooksExtra.configs.recommended,
+    ],
     plugins: {
       "react-hooks": eslintPluginReactHooks,
     },
-    rules: eslintPluginReactHooks.configs.recommended.rules,
+    rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
+    },
   },
 );

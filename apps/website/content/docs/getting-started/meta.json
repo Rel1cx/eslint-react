@@ -1,8 +1,8 @@
 {
   "title": "Getting Started",
   "pages": [
-    "typescript",
-    "javascript"
+    "javascript",
+    "typescript"
   ],
   "defaultOpen": true
 }
