@@ -58,15 +58,7 @@ button {
 
 .prose table thead tr th code,
 .prose table tbody tr td code {
-  font-family: var(--font-family-mono);
   white-space: nowrap;
-}
-
-.prose code,
-.prose kbd,
-.prose samp,
-.prose pre {
-  font-family: var(--font-family-mono);
 }
 
 .prose .fd-codeblock code {
@@ -76,7 +68,7 @@ button {
 
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   padding: .125rem .25em;
-  font-size: .9em;
+  font-size: 14px;
 }
 
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {

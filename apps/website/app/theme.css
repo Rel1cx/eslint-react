@@ -7,7 +7,7 @@
     --color-fd-card: hsl(0, 0%, 100%);
     --color-fd-foreground: hsl(240, 6%, 25%);
     --color-fd-muted-foreground: hsl(240, 6%, 50%);
-    --color-fd-muted: hsl(0, 0%, 96.1%);
+    --color-fd-muted: hsl(0, 0%, 96%);
     --color-fd-popover-foreground: hsl(0, 0%, 15.1%);
     --color-fd-popover: hsl(0, 0%, 100%);
     --color-fd-primary-foreground: hsl(0, 0%, 98%);
@@ -26,7 +26,7 @@
     --color-fd-card: hsl(0, 0%, 9.8%);
     --color-fd-foreground: hsl(0, 0%, 92%);
     --color-fd-muted-foreground: hsl(0, 0%, 60.9%);
-    --color-fd-muted: hsl(0, 0%, 12.9%);
+    --color-fd-muted: hsl(0, 0%, 15%);
     --color-fd-popover-foreground: hsl(0, 0%, 88%);
     --color-fd-popover: hsl(0, 0%, 9.8%);
     --color-fd-primary-foreground: hsl(0, 0%, 9%);
@@ -37,14 +37,7 @@
 }
 
 .prose {
-    --tw-prose-body: color-mix(in oklab,
-            var(--color-fd-foreground) 85%,
-            transparent);
-    --tw-prose-headings: color-mix(in oklab,
-            var(--color-fd-foreground) 85%,
-            transparent);
     --tw-prose-links: var(--color-fd-primary);
-    --tw-prose-code: var(--color-fd-primary);
 }
 
 .prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
