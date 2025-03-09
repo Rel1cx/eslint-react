@@ -7,13 +7,13 @@ import tsBlankEslintParser from "ts-blank-eslint-parser";
 import tseslint from "typescript-eslint";
 import globals from "globals";
 
-import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 export default tseslint.config(
   // base configuration for browser environment source files
   {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
     extends: [eslintJs.configs.recommended],
     languageOptions: {
       globals: {
@@ -42,7 +42,7 @@ export default tseslint.config(
   },
   // react specific configurations
   {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
     extends: [
       eslintReact.configs["recommended-typescript"],
       eslintPluginReactRefresh.configs.recommended,

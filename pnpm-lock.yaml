@@ -384,60 +384,6 @@ importers:
         specifier: ^8.26.0
         version: 8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
 
-  examples/dual-react-dom-lib:
-    devDependencies:
-      '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.22.0
-      '@tsconfig/node22':
-        specifier: ^22.0.0
-        version: 22.0.0
-      '@tsconfig/strictest':
-        specifier: ^2.0.5
-        version: 2.0.5
-      '@types/node':
-        specifier: ^22.13.10
-        version: 22.13.10
-      '@types/react':
-        specifier: ^19.0.10
-        version: 19.0.10
-      eslint:
-        specifier: ^9.22.0
-        version: 9.22.0(jiti@2.4.2)
-      eslint-plugin-react-dom:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-dom
-      eslint-plugin-react-hooks:
-        specifier: ^5.2.0
-        version: 5.2.0(eslint@9.22.0(jiti@2.4.2))
-      eslint-plugin-react-hooks-extra:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-hooks-extra
-      eslint-plugin-react-naming-convention:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-naming-convention
-      eslint-plugin-react-web-api:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-web-api
-      eslint-plugin-react-x:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-x
-      eslint-plugin-vitest:
-        specifier: ^0.5.4
-        version: 0.5.4(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)(vitest@3.0.8(@types/debug@4.1.12)(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.1)(tsx@4.19.3)(yaml@2.7.0))
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(@swc/core@1.11.8(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
-      typescript-eslint:
-        specifier: ^8.26.0
-        version: 8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
-
   examples/next-app:
     dependencies:
       next:
