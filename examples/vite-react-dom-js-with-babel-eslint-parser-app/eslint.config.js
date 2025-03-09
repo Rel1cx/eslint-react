@@ -6,13 +6,13 @@ import babelEslintParser from "@babel/eslint-parser";
 import globals from "globals";
 import { defineConfig } from "eslint/config";
 
-import JSCONFIG from "./jsconfig.json" with { type: "json" };
+import JSCONFIG_APP from "./jsconfig.app.json" with { type: "json" };
 import JSCONFIG_NODE from "./jsconfig.node.json" with { type: "json" };
 
 export default defineConfig([
   // base configuration for browser environment source files
   {
-    files: JSCONFIG.include,
+    files: JSCONFIG_APP.include,
     extends: [eslintJs.configs.recommended],
     languageOptions: {
       globals: {
@@ -54,7 +54,7 @@ export default defineConfig([
   },
   // react specific configurations
   {
-    files: JSCONFIG.include,
+    files: JSCONFIG_APP.include,
     extends: [
       eslintReact.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,

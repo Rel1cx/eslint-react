@@ -4,7 +4,7 @@ import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
@@ -19,14 +19,14 @@ export default tseslint.config(
   },
   // base configuration for browser environment source files
   {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
     extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: "./tsconfig.app.json",
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -48,7 +48,7 @@ export default tseslint.config(
   },
   // react specific configurations
   {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
     extends: [
       eslintReact.configs["recommended-type-checked"],
       eslintPluginReactRefresh.configs.recommended,
