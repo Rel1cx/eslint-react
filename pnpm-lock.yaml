@@ -277,6 +277,9 @@ importers:
       tailwind-merge:
         specifier: ^3.0.2
         version: 3.0.2
+      twoslash:
+        specifier: ^0.3.1
+        version: 0.3.1(typescript@5.8.2)
     devDependencies:
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
