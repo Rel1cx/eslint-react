@@ -15,7 +15,8 @@
     "erasableSyntaxOnly": true,
     "paths": {
       "#": ["."],
-      "#/*": ["./*"]
+      "#/*": ["./*"],
+      "#/.source": ["./.source/index.ts"]
     },
     "plugins": [
       {

@@ -14,11 +14,15 @@ npm install --save-dev eslint @eslint/js @eslint-react/eslint-plugin
 ```js title="eslint.config.js"
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import { defineConfig } from "eslint/config";
 
-export default [
+export default defineConfig([
   {
     files: ["**/*.js", "**/*.jsx"],
-    ...eslintJs.configs.recommended,
+    extends: [
+      eslintJs.configs.recommended,
+      eslintReact.configs.recommended,
+    ],
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {
@@ -26,17 +30,12 @@ export default [
         },
       },
     },
-  },
-  {
-    files: ["**/*.js", "**/*.jsx"],
-    ...eslintReact.configs.recommended,
-  },
-  {
-    files: ["**/*.js", "**/*.jsx"],
     rules: {
+      // Add `globals` if you need this rule
+      "no-undef": "off",
       // Put rules you want to override here
       "@eslint-react/prefer-shorthand-boolean": "warn",
     },
   },
-];
+]);
 ```
