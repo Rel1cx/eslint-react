@@ -130,4 +130,4 @@ full: true
 
 ## References
 
-- [Deprecated rules ↗](/docs/deprecated#rules)
+- [Deprecated Rules ↗](/docs/deprecated#rules)
