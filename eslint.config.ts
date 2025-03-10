@@ -2,6 +2,7 @@
 /* eslint-disable simple-import-sort/imports */
 import url from "node:url";
 
+import * as base from "@local/configs/eslint";
 import js from "@eslint/js";
 import markdown from "@eslint/markdown";
 import stylistic from "@stylistic/eslint-plugin";
@@ -31,45 +32,18 @@ const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
 const GLOB_IGNORES = [
   ...configFlatGitignore().ignores,
+  ...GLOB_JS,
   "apps",
   "docs",
   "test",
   "examples",
-];
-
-const templateIndentAnnotations = [
-  "outdent",
-  "dedent",
-  "html",
-  "tsx",
-  "ts",
+  "**/*.d.ts",
 ];
 
 const packagesTsConfigs = [
   "packages/*/tsconfig.json",
   "packages/*/*/tsconfig.json",
 ];
-
-const p11tOptions = {
-  type: "natural",
-  ignoreCase: false,
-};
-
-const p11tGroups = {
-  customGroups: {
-    id: ["^_$", "^id$", "^key$", "^self$"],
-    type: ["^type$", "^kind$"],
-    meta: [
-      "^name$",
-      "^meta$",
-      "^title$",
-      "^description$",
-    ],
-    alias: ["^alias$", "^as$"],
-    rules: ["^node$", "^messageId$"],
-  },
-  groups: ["id", "type", "meta", "alias", "rules", "unknown"],
-};
 
 export default tseslint.config(
   { ignores: GLOB_IGNORES },
@@ -88,7 +62,7 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_JS, ...GLOB_TS],
+    files: GLOB_TS,
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
@@ -114,115 +88,11 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_JS, ...GLOB_TS],
+    files: GLOB_TS,
+    extends: [
+      base.typescript,
+    ],
     rules: {
-      eqeqeq: ["error", "smart"],
-      "no-undef": "off",
-      "no-console": "error",
-      "no-else-return": "error",
-      "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
-      "no-implicit-coercion": ["error", { allow: ["!!"] }],
-      "no-mixed-operators": "warn",
-      "prefer-object-has-own": "error",
-      // Part: custom rules
-      "no-restricted-syntax": [
-        "error",
-        {
-          message: "no optional",
-          selector: "TSPropertySignature[optional=true]",
-        },
-      ],
-      // Part: typescript-eslint rules
-      "@typescript-eslint/ban-ts-comment": [
-        "error",
-        {
-          minimumDescriptionLength: 5,
-          "ts-check": false,
-          "ts-expect-error": "allow-with-description",
-          "ts-ignore": true,
-          "ts-nocheck": true,
-        },
-      ],
-      "@typescript-eslint/ban-types": "off",
-      "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/no-namespace": "off",
-      "@typescript-eslint/no-empty-object-type": "off",
-      "@typescript-eslint/no-misused-promises": "off",
-      "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-      "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
-      "@typescript-eslint/consistent-type-exports": "error",
-      "@typescript-eslint/strict-boolean-expressions": ["error", {
-        allowAny: false,
-        allowNullableBoolean: false,
-        allowNullableEnum: false,
-        allowNullableNumber: false,
-        allowNullableObject: false,
-        allowNullableString: false,
-        allowNumber: true,
-        allowString: false,
-      }],
-      // Part: jsdoc rules
-      "jsdoc/check-param-names": "warn",
-      "jsdoc/check-tag-names": "warn",
-      "jsdoc/informative-docs": "off",
-      "jsdoc/lines-before-block": "off",
-      "jsdoc/require-jsdoc": "off",
-      "jsdoc/require-param": "warn",
-      "jsdoc/require-param-description": "warn",
-      "jsdoc/require-returns": "off",
-      "jsdoc/require-yields": "warn",
-      "jsdoc/tag-lines": "off",
-      // Part: simple-import-sort rules
-      "simple-import-sort/exports": "warn",
-      "simple-import-sort/imports": "warn",
-      // Part: stylistic rules
-      "@stylistic/arrow-parens": ["warn", "always"],
-      "@stylistic/no-multi-spaces": ["warn"],
-      "@stylistic/operator-linebreak": [
-        "warn",
-        "before",
-      ],
-      "@stylistic/quote-props": ["error", "as-needed"],
-      // Part: perfectionist rules
-      "perfectionist/sort-exports": "off",
-      "perfectionist/sort-imports": "off",
-      "perfectionist/sort-interfaces": [
-        "warn",
-        {
-          ...p11tOptions,
-          ...p11tGroups,
-        },
-      ],
-      "perfectionist/sort-intersection-types": "off",
-      "perfectionist/sort-modules": "off",
-      "perfectionist/sort-named-exports": "off",
-      "perfectionist/sort-named-imports": "off",
-      "perfectionist/sort-object-types": [
-        "warn",
-        {
-          ...p11tOptions,
-          ...p11tGroups,
-        },
-      ],
-      "perfectionist/sort-objects": [
-        "warn",
-        {
-          ...p11tOptions,
-          ...p11tGroups,
-          partitionByComment: "^Part:.*",
-        },
-      ],
-      "perfectionist/sort-switch-case": "off",
-      "perfectionist/sort-union-types": "off",
-      // Part: unicorn rules
-      "unicorn/template-indent": [
-        "warn",
-        {
-          comments: templateIndentAnnotations,
-          tags: templateIndentAnnotations,
-        },
-      ],
       // Part: local rules
       "local/avoid-multiline-template-expression": "warn",
       "local/no-shadow-underscore": "error",
@@ -230,7 +100,7 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_JS, ...GLOB_SCRIPT, ...GLOB_CONFIG],
+    files: [...GLOB_SCRIPT, ...GLOB_CONFIG],
     extends: [
       tseslint.configs.disableTypeChecked,
     ],

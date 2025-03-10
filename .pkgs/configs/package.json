@@ -4,8 +4,21 @@
   "private": true,
   "description": "Local config bases for use in the workspace",
   "sideEffects": false,
+  "type": "module",
   "exports": {
+    "./eslint": {
+      "types": "./eslint.d.ts",
+      "import": "./eslint.js"
+    },
     "./tsconfig.base.json": "./tsconfig.base.json",
     "./typedoc.base.json": "./typedoc.base.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint:publish": "publint",
+    "lint:ts": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0"
   }
 }
