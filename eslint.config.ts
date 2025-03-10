@@ -280,7 +280,6 @@ export default tseslint.config(
       ...pluginVitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "local/avoid-multiline-template-expression": "off",
-      "@nx/enforce-module-boundaries": "off",
     },
   },
   {
@@ -297,7 +296,6 @@ export default tseslint.config(
     },
     rules: {
       "no-console": "off",
-      "@nx/enforce-module-boundaries": "off",
       ...disableTypeCheckedRules,
     },
   },
@@ -313,7 +311,6 @@ export default tseslint.config(
     },
     rules: {
       ...disableTypeCheckedRules,
-      "@nx/enforce-module-boundaries": "off",
     },
   },
 );
