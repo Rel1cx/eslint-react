@@ -71,35 +71,13 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-const enableTypeCheckedRules = {
-  ...tseslint.configs.strictTypeCheckedOnly
-    .map((x) => x.rules)
-    .reduce((a, b) => ({ ...a, ...b }), {}),
-  "@typescript-eslint/consistent-type-exports": "error",
-  "@typescript-eslint/strict-boolean-expressions": ["error", {
-    allowAny: false,
-    allowNullableBoolean: false,
-    allowNullableEnum: false,
-    allowNullableNumber: false,
-    allowNullableObject: false,
-    allowNullableString: false,
-    allowNumber: true,
-    allowString: false,
-  }],
-} satisfies typeof tseslint.configs.disableTypeChecked.rules;
-
-const disableTypeCheckedRules = Object.fromEntries(Object.keys(enableTypeCheckedRules).map((x) => [x, "off"]));
-
 export default tseslint.config(
+  { ignores: GLOB_IGNORES },
   {
-    name: "global-ignores",
-    ignores: GLOB_IGNORES,
-  },
-  {
+    files: GLOB_MD,
     extends: [
       markdown.configs.recommended,
     ],
-    files: GLOB_MD,
     ignores: [
       "packages/**/docs/**/*.md",
     ],
@@ -113,20 +91,19 @@ export default tseslint.config(
     files: [...GLOB_JS, ...GLOB_TS],
     extends: [
       js.configs.recommended,
-      ...tseslint.configs.strict,
+      ...tseslint.configs.strictTypeChecked,
       pluginDeMorgan.configs.recommended,
-      pluginPerfectionist.configs["recommended-natural"],
-      pluginRegexp.configs["flat/recommended"],
       pluginJsdoc.configs["flat/recommended-typescript-error"],
+      pluginRegexp.configs["flat/recommended"],
+      pluginPerfectionist.configs["recommended-natural"],
     ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        allowAutomaticSingleRunInference: true,
         project: packagesTsConfigs,
         projectService: true,
         tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: false,
+        // warnOnUnsupportedTypeScriptVersion: false,
       },
     },
     plugins: {
@@ -140,14 +117,12 @@ export default tseslint.config(
     files: [...GLOB_JS, ...GLOB_TS],
     rules: {
       eqeqeq: ["error", "smart"],
+      "no-undef": "off",
       "no-console": "error",
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
       "no-implicit-coercion": ["error", { allow: ["!!"] }],
       "no-mixed-operators": "warn",
-      "no-process-exit": "error",
-      "no-undef": "off",
-      "one-var": ["error", "never"],
       "prefer-object-has-own": "error",
       // Part: custom rules
       "no-restricted-syntax": [
@@ -176,7 +151,17 @@ export default tseslint.config(
       "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
-      ...enableTypeCheckedRules,
+      "@typescript-eslint/consistent-type-exports": "error",
+      "@typescript-eslint/strict-boolean-expressions": ["error", {
+        allowAny: false,
+        allowNullableBoolean: false,
+        allowNullableEnum: false,
+        allowNullableNumber: false,
+        allowNullableObject: false,
+        allowNullableString: false,
+        allowNumber: true,
+        allowString: false,
+      }],
       // Part: jsdoc rules
       "jsdoc/check-param-names": "warn",
       "jsdoc/check-tag-names": "warn",
@@ -245,7 +230,10 @@ export default tseslint.config(
     },
   },
   {
-    files: GLOB_JS,
+    files: [...GLOB_JS, ...GLOB_SCRIPT, ...GLOB_CONFIG],
+    extends: [
+      tseslint.configs.disableTypeChecked,
+    ],
     languageOptions: {
       parserOptions: {
         project: false,
@@ -253,64 +241,30 @@ export default tseslint.config(
       },
     },
     rules: {
-      ...disableTypeCheckedRules,
-      "@typescript-eslint/no-var-requires": "off",
+      "no-console": "off",
     },
   },
   {
     files: GLOB_TEST,
+    extends: [
+      pluginVitest.configs.recommended,
+    ],
     languageOptions: {
       globals: {
         ...pluginVitest.environments.env.globals,
       },
-      parser: tseslint.parser,
       parserOptions: {
-        allowAutomaticSingleRunInference: true,
         project: "tsconfig.json",
         projectService: true,
         tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: false,
       },
     },
     plugins: {
       vitest: pluginVitest,
     },
     rules: {
-      ...disableTypeCheckedRules,
-      ...pluginVitest.configs.recommended.rules,
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "local/avoid-multiline-template-expression": "off",
-    },
-  },
-  {
-    files: GLOB_SCRIPT,
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        allowAutomaticSingleRunInference: true,
-        project: "tsconfig.json",
-        projectService: true,
-        tsconfigRootDir: dirname,
-        warnOnUnsupportedTypeScriptVersion: false,
-      },
-    },
-    rules: {
-      "no-console": "off",
-      ...disableTypeCheckedRules,
-    },
-  },
-  {
-    files: GLOB_CONFIG,
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        allowAutomaticSingleRunInference: true,
-        project: false,
-        projectService: false,
-      },
-    },
-    rules: {
-      ...disableTypeCheckedRules,
     },
   },
 );
