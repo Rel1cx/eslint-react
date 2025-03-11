@@ -114,10 +114,10 @@ full: true
 | Rule                                                           | ✅ | Features | Description                                                                      |
 | :------------------------------------------------------------- | :- | :------- | :------------------------------------------------------------------------------- |
 | [`component-name`](./naming-convention-component-name)         | 0️⃣  | `🔍` `⚙️` | Enforces naming conventions for components.                                      |
-| [`context-name`](./naming-convention-context-name)             | 1️⃣  | `🔍`     | Enforces context name to be a valid component name with the suffix `Context`.    |
+| [`context-name`](./naming-convention-context-name)             | 0️⃣  | `🔍`     | Enforces context name to be a valid component name with the suffix `Context`.    |
 | [`filename`](./naming-convention-filename)                     | 0️⃣  | `🔍` `⚙️` | Enforces consistent file naming conventions.                                     |
 | [`filename-extension`](./naming-convention-filename-extension) | 0️⃣  | `🔍` `⚙️` | Enforces consistent use of the JSX file extension.                               |
-| [`use-state`](./naming-convention-use-state)                   | 1️⃣  | `🔍`     | Enforces destructuring and symmetric naming of `useState` hook value and setter. |
+| [`use-state`](./naming-convention-use-state)                   | 0️⃣  | `🔍`     | Enforces destructuring and symmetric naming of `useState` hook value and setter. |
 
 ## Debug Rules
 

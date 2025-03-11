@@ -18,12 +18,6 @@ react-naming-convention/use-state
 
 `🔍`
 
-**Presets**
-
-- `recommended`
-- `recommended-typescript`
-- `recommended-type-checked`
-
 ## What it does
 
 Enforces destructuring and symmetric naming of `useState` hook value and setter
