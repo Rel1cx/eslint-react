@@ -4,11 +4,11 @@ var templateIndentAnnotations = [
   "dedent",
   "html",
   "tsx",
-  "ts",
+  "ts"
 ];
 var p11tOptions = {
   type: "natural",
-  ignoreCase: false,
+  ignoreCase: false
 };
 var p11tGroups = {
   customGroups: {
@@ -18,30 +18,30 @@ var p11tGroups = {
       "^name$",
       "^meta$",
       "^title$",
-      "^description$",
+      "^description$"
     ],
     alias: ["^alias$", "^as$"],
-    rules: ["^node$", "^messageId$"],
+    rules: ["^node$", "^messageId$"]
   },
-  groups: ["id", "type", "meta", "alias", "rules", "unknown"],
+  groups: ["id", "type", "meta", "alias", "rules", "unknown"]
 };
 var typescript = {
   rules: {
     eqeqeq: ["error", "smart"],
-    "no-undef": "off",
     "no-console": "error",
     "no-else-return": "error",
     "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
     "no-implicit-coercion": ["error", { allow: ["!!"] }],
     "no-mixed-operators": "warn",
+    "no-undef": "off",
     "prefer-object-has-own": "error",
     // Part: custom rules
     "no-restricted-syntax": [
       "error",
       {
         message: "no optional",
-        selector: "TSPropertySignature[optional=true]",
-      },
+        selector: "TSPropertySignature[optional=true]"
+      }
     ],
     // Part: typescript-eslint rules
     "@typescript-eslint/ban-ts-comment": [
@@ -51,18 +51,18 @@ var typescript = {
         "ts-check": false,
         "ts-expect-error": "allow-with-description",
         "ts-ignore": true,
-        "ts-nocheck": true,
-      },
+        "ts-nocheck": true
+      }
     ],
     "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/consistent-type-exports": "error",
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
     "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
-    "@typescript-eslint/consistent-type-exports": "error",
     "@typescript-eslint/strict-boolean-expressions": ["error", {
       allowAny: false,
       allowNullableBoolean: false,
@@ -71,7 +71,7 @@ var typescript = {
       allowNullableObject: false,
       allowNullableString: false,
       allowNumber: true,
-      allowString: false,
+      allowString: false
     }],
     // Part: jsdoc rules
     "jsdoc/check-param-names": "warn",
@@ -92,7 +92,7 @@ var typescript = {
     "@stylistic/no-multi-spaces": ["warn"],
     "@stylistic/operator-linebreak": [
       "warn",
-      "before",
+      "before"
     ],
     "@stylistic/quote-props": ["error", "as-needed"],
     // Part: perfectionist rules
@@ -102,8 +102,8 @@ var typescript = {
       "warn",
       {
         ...p11tOptions,
-        ...p11tGroups,
-      },
+        ...p11tGroups
+      }
     ],
     "perfectionist/sort-intersection-types": "off",
     "perfectionist/sort-modules": "off",
@@ -113,16 +113,16 @@ var typescript = {
       "warn",
       {
         ...p11tOptions,
-        ...p11tGroups,
-      },
+        ...p11tGroups
+      }
     ],
     "perfectionist/sort-objects": [
       "warn",
       {
         ...p11tOptions,
         ...p11tGroups,
-        partitionByComment: "^Part:.*",
-      },
+        partitionByComment: "^Part:.*"
+      }
     ],
     "perfectionist/sort-switch-case": "off",
     "perfectionist/sort-union-types": "off",
@@ -131,10 +131,10 @@ var typescript = {
       "warn",
       {
         comments: templateIndentAnnotations,
-        tags: templateIndentAnnotations,
-      },
-    ],
-  },
+        tags: templateIndentAnnotations
+      }
+    ]
+  }
 };
 
 export { typescript };
