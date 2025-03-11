@@ -1,8 +1,9 @@
 /* eslint-disable perfectionist/sort-objects */
 import dedent from "dedent";
-import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import { Link } from "next-view-transitions";
+
+import { CodeBlock } from "#/components/code-block";
 
 export function SettingsTypeTable() {
   return (
@@ -39,7 +40,7 @@ export function SettingsTypeTable() {
           description: <Link href="#additionalcomponents">An array of components and its attributes mapping ⤵</Link>,
           default: "[]",
           typeDescription: (
-            <DynamicCodeBlock
+            <CodeBlock
               code={dedent`
                 type CustomComponent = {
                   name: string;
@@ -60,7 +61,7 @@ export function SettingsTypeTable() {
           description: <Link href="#additionalhooks">An object of aliases for React built-in Hooks ⤵</Link>,
           default: "{}",
           typeDescription: (
-            <DynamicCodeBlock
+            <CodeBlock
               code={dedent`
                 type ReactBuiltInHookName =
                   | "use"

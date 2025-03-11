@@ -1,3 +1,4 @@
+import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/page";
@@ -7,6 +8,9 @@ import { source } from "#/lib/source";
 
 const mdxComponents = {
   ...defaultMdxComponents,
+  Popup,
+  PopupContent,
+  PopupTrigger,
   Tab,
   Tabs,
 };

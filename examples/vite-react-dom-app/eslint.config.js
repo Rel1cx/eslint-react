@@ -4,7 +4,7 @@ import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
@@ -19,14 +19,14 @@ export default tseslint.config(
   },
   // base configuration for browser environment source files
   {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
     extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: "./tsconfig.app.json",
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -35,6 +35,7 @@ export default tseslint.config(
   {
     files: TSCONFIG_NODE.include,
     ignores: TSCONFIG_NODE.exclude,
+    extends: [tseslint.configs.disableTypeChecked],
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.node.json",
@@ -42,31 +43,21 @@ export default tseslint.config(
       },
     },
     rules: {
-      ...tseslint.configs.disableTypeChecked.rules,
       "no-console": "off",
     },
   },
-  // React configuration
+  // react specific configurations
   {
-    files: TSCONFIG.include,
-    ...eslintReact.configs["recommended-type-checked"],
-  },
-  // React Hooks configuration
-  {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
+    extends: [
+      eslintReact.configs["recommended-type-checked"],
+      eslintPluginReactRefresh.configs.recommended,
+    ],
     plugins: {
       "react-hooks": eslintPluginReactHooks,
     },
-    rules: eslintPluginReactHooks.configs.recommended.rules,
-  },
-  // React Refresh configuration
-  {
-    files: TSCONFIG.include,
-    plugins: {
-      "react-refresh": eslintPluginReactRefresh,
-    },
     rules: {
-      "react-refresh/only-export-components": "warn",
+      ...eslintPluginReactHooks.configs.recommended.rules,
     },
   },
 );

@@ -7,13 +7,14 @@ import tsBlankEslintParser from "ts-blank-eslint-parser";
 import tseslint from "typescript-eslint";
 import globals from "globals";
 
-import TSCONFIG from "./tsconfig.json" with { type: "json" };
+import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
-export default [
+export default tseslint.config(
   // base configuration for browser environment source files
   {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
+    extends: [eslintJs.configs.recommended],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -21,7 +22,6 @@ export default [
       parser: tsBlankEslintParser,
     },
     rules: {
-      ...eslintJs.configs.recommended.rules,
       "no-unused-vars": "off",
     },
   },
@@ -29,6 +29,7 @@ export default [
   {
     files: TSCONFIG_NODE.include,
     ignores: TSCONFIG_NODE.exclude,
+    extends: [eslintJs.configs.recommended],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -36,31 +37,21 @@ export default [
       parser: tsBlankEslintParser,
     },
     rules: {
-      ...eslintJs.configs.recommended.rules,
       "no-console": "off",
     },
   },
-  // React configuration
+  // react specific configurations
   {
-    files: TSCONFIG.include,
-    ...eslintReact.configs["recommended-typescript"],
-  },
-  // React Hooks configuration
-  {
-    files: TSCONFIG.include,
+    files: TSCONFIG_APP.include,
+    extends: [
+      eslintReact.configs["recommended-typescript"],
+      eslintPluginReactRefresh.configs.recommended,
+    ],
     plugins: {
       "react-hooks": eslintPluginReactHooks,
     },
-    rules: eslintPluginReactHooks.configs.recommended.rules,
-  },
-  // React Refresh configuration
-  {
-    files: TSCONFIG.include,
-    plugins: {
-      "react-refresh": eslintPluginReactRefresh,
-    },
     rules: {
-      "react-refresh/only-export-components": "warn",
+      ...eslintPluginReactHooks.configs.recommended.rules,
     },
   },
-];
+);
