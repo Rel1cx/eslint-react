@@ -28,9 +28,6 @@ importers:
       '@eslint/config-inspector':
         specifier: ^1.0.2
         version: 1.0.2(eslint@9.22.0(jiti@2.4.2))
-      '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.22.0
       '@eslint/markdown':
         specifier: ^6.3.0
         version: 6.3.0
@@ -40,9 +37,6 @@ importers:
       '@local/eslint-plugin-local':
         specifier: workspace:*
         version: link:.pkgs/eslint-plugin-local
-      '@stylistic/eslint-plugin':
-        specifier: ^4.2.0
-        version: 4.2.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
       '@swc/core':
         specifier: ^1.11.8
         version: 1.11.8(@swc/helpers@0.5.15)
@@ -91,24 +85,6 @@ importers:
       eslint-config-flat-gitignore:
         specifier: ^2.1.0
         version: 2.1.0(eslint@9.22.0(jiti@2.4.2))
-      eslint-plugin-de-morgan:
-        specifier: ^1.2.0
-        version: 1.2.0(eslint@9.22.0(jiti@2.4.2))
-      eslint-plugin-jsdoc:
-        specifier: ^50.6.6
-        version: 50.6.6(eslint@9.22.0(jiti@2.4.2))
-      eslint-plugin-perfectionist:
-        specifier: ^4.10.1
-        version: 4.10.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
-      eslint-plugin-regexp:
-        specifier: ^2.7.0
-        version: 2.7.0(eslint@9.22.0(jiti@2.4.2))
-      eslint-plugin-simple-import-sort:
-        specifier: ^12.1.1
-        version: 12.1.1(eslint@9.22.0(jiti@2.4.2))
-      eslint-plugin-unicorn:
-        specifier: ^57.0.0
-        version: 57.0.0(eslint@9.22.0(jiti@2.4.2))
       eslint-plugin-vitest:
         specifier: ^0.5.4
         version: 0.5.4(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)(vitest@3.0.8(@types/debug@4.1.12)(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.1)(tsx@4.19.3)(yaml@2.7.0))
@@ -177,10 +153,34 @@ importers:
         version: 3.0.8(@types/debug@4.1.12)(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.1)(tsx@4.19.3)(yaml@2.7.0)
 
   .pkgs/configs:
-    devDependencies:
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(@swc/core@1.11.8(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
+    dependencies:
+      '@eslint/js':
+        specifier: ^9.22.0
+        version: 9.22.0
+      '@stylistic/eslint-plugin':
+        specifier: ^4.2.0
+        version: 4.2.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+      eslint-plugin-de-morgan:
+        specifier: ^1.2.0
+        version: 1.2.0(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-jsdoc:
+        specifier: ^50.6.6
+        version: 50.6.6(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-perfectionist:
+        specifier: ^4.10.1
+        version: 4.10.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+      eslint-plugin-regexp:
+        specifier: ^2.7.0
+        version: 2.7.0(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-simple-import-sort:
+        specifier: ^12.1.1
+        version: 12.1.1(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-unicorn:
+        specifier: ^57.0.0
+        version: 57.0.0(eslint@9.22.0(jiti@2.4.2))
+      typescript-eslint:
+        specifier: ^8.26.1
+        version: 8.26.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
 
   .pkgs/eslint-plugin-local:
     dependencies:
@@ -196,6 +196,12 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../packages/utilities/var
+      '@eslint/js':
+        specifier: ^9.22.0
+        version: 9.22.0
+      '@stylistic/eslint-plugin':
+        specifier: ^4.2.0
+        version: 4.2.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
       '@typescript-eslint/scope-manager':
         specifier: ^8.26.1
         version: 8.26.1
@@ -211,6 +217,24 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0
         version: 9.22.0(jiti@2.4.2)
+      eslint-plugin-de-morgan:
+        specifier: ^1.2.0
+        version: 1.2.0(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-jsdoc:
+        specifier: ^50.6.6
+        version: 50.6.6(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-perfectionist:
+        specifier: ^4.10.1
+        version: 4.10.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+      eslint-plugin-regexp:
+        specifier: ^2.7.0
+        version: 2.7.0(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-simple-import-sort:
+        specifier: ^12.1.1
+        version: 12.1.1(eslint@9.22.0(jiti@2.4.2))
+      eslint-plugin-unicorn:
+        specifier: ^57.0.0
+        version: 57.0.0(eslint@9.22.0(jiti@2.4.2))
       string-ts:
         specifier: ^2.2.1
         version: 2.2.1

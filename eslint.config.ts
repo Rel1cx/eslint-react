@@ -1,19 +1,9 @@
-/* eslint-disable perfectionist/sort-objects */
-/* eslint-disable simple-import-sort/imports */
 import url from "node:url";
 
-import * as base from "@local/configs/eslint";
-import js from "@eslint/js";
 import markdown from "@eslint/markdown";
-import stylistic from "@stylistic/eslint-plugin";
-import configFlatGitignore from "eslint-config-flat-gitignore";
-import pluginDeMorgan from "eslint-plugin-de-morgan";
-import pluginJsdoc from "eslint-plugin-jsdoc";
+import * as configs from "@local/configs/eslint";
 import pluginLocal from "@local/eslint-plugin-local";
-import pluginPerfectionist from "eslint-plugin-perfectionist";
-import pluginRegexp from "eslint-plugin-regexp";
-import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
-import pluginUnicorn from "eslint-plugin-unicorn";
+import configFlatGitignore from "eslint-config-flat-gitignore";
 import pluginVitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
 
@@ -48,10 +38,10 @@ const packagesTsConfigs = [
 export default tseslint.config(
   { ignores: GLOB_IGNORES },
   {
-    files: GLOB_MD,
     extends: [
       markdown.configs.recommended,
     ],
+    files: GLOB_MD,
     ignores: [
       "packages/**/docs/**/*.md",
     ],
@@ -62,15 +52,11 @@ export default tseslint.config(
     },
   },
   {
-    files: GLOB_TS,
     extends: [
-      js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
-      pluginDeMorgan.configs.recommended,
-      pluginJsdoc.configs["flat/recommended-typescript-error"],
-      pluginRegexp.configs["flat/recommended"],
-      pluginPerfectionist.configs["recommended-natural"],
+      configs.typescript,
     ],
+    files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -81,17 +67,8 @@ export default tseslint.config(
       },
     },
     plugins: {
-      ["@stylistic"]: stylistic,
       ["local"]: pluginLocal,
-      ["simple-import-sort"]: pluginSimpleImportSort,
-      ["unicorn"]: pluginUnicorn,
     },
-  },
-  {
-    files: GLOB_TS,
-    extends: [
-      base.typescript,
-    ],
     rules: {
       // Part: local rules
       "local/avoid-multiline-template-expression": "warn",
@@ -100,10 +77,10 @@ export default tseslint.config(
     },
   },
   {
-    files: [...GLOB_SCRIPT, ...GLOB_CONFIG],
     extends: [
       tseslint.configs.disableTypeChecked,
     ],
+    files: [...GLOB_SCRIPT, ...GLOB_CONFIG],
     languageOptions: {
       parserOptions: {
         project: false,
@@ -115,10 +92,10 @@ export default tseslint.config(
     },
   },
   {
-    files: GLOB_TEST,
     extends: [
       pluginVitest.configs.recommended,
     ],
+    files: GLOB_TEST,
     languageOptions: {
       globals: {
         ...pluginVitest.environments.env.globals,

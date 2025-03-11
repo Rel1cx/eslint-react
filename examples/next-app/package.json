@@ -1,6 +1,6 @@
 {
   "name": "@examples/next-app",
-  "version": "",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "next build",

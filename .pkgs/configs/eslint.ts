@@ -1,9 +1,16 @@
-type Severity = 0 | 1 | 2;
-type SeverityString = "error" | "off" | "warn";
-type RuleLevel = Severity | SeverityString;
-type RuleLevelAndOptions = [RuleLevel, ...unknown[]];
-type RuleEntry = RuleLevel | RuleLevelAndOptions;
-type RulesRecord = Partial<Record<string, RuleEntry>>;
+import js from "@eslint/js";
+import stylistic from "@stylistic/eslint-plugin";
+import pluginDeMorgan from "eslint-plugin-de-morgan";
+import pluginJsdoc from "eslint-plugin-jsdoc";
+import pluginPerfectionist from "eslint-plugin-perfectionist";
+import pluginRegexp from "eslint-plugin-regexp";
+import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import pluginUnicorn from "eslint-plugin-unicorn";
+import tseslint from "typescript-eslint";
+
+type ConfigArray = ReturnType<typeof tseslint.config>;
+
+const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 
 const templateIndentAnnotations = [
   "outdent",
@@ -34,7 +41,21 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-export const typescript: { rules: RulesRecord } = {
+export const typescript: ConfigArray = tseslint.config({
+  extends: [
+    js.configs.recommended,
+    ...tseslint.configs.strict,
+    pluginDeMorgan.configs.recommended,
+    pluginJsdoc.configs["flat/recommended-typescript-error"],
+    pluginRegexp.configs["flat/recommended"],
+    pluginPerfectionist.configs["recommended-natural"],
+  ],
+  files: GLOB_TS,
+  plugins: {
+    ["@stylistic"]: stylistic,
+    ["simple-import-sort"]: pluginSimpleImportSort,
+    ["unicorn"]: pluginUnicorn,
+  },
   rules: {
     eqeqeq: ["error", "smart"],
     "no-console": "error",
@@ -144,4 +165,4 @@ export const typescript: { rules: RulesRecord } = {
       },
     ],
   },
-};
+});
