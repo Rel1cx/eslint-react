@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-only";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children } from 'react';
 
         function Box({ children }) {
@@ -17,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const { Children } = require('react');
 
         function Box({ children }) {
@@ -30,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from 'react';
 
         function Box({ children }) {
@@ -43,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react';
 
         function Box({ children }) {
@@ -59,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     {
-      code: /* tsx */ `
+      code: tsx`
         const Children = {
           only: () => [],
         }
@@ -75,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    /* tsx */ `
+    tsx`
       import { Children } from 'react';
 
       function SeparatorList({ children }) {
@@ -87,7 +89,7 @@ ruleTester.run(RULE_NAME, rule, {
         // ...
       }
     `,
-    /* tsx */ `
+    tsx`
       import { Children } from 'react';
 
       function RowList({ children }) {

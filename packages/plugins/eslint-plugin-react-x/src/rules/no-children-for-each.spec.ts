@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-for-each";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children } from 'react';
 
         function SeparatorList({ children }) {
@@ -21,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const { Children } = require('react');
 
         function SeparatorList({ children }) {
@@ -38,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from 'react';
 
         function SeparatorList({ children }) {
@@ -55,7 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react';
 
         function SeparatorList({ children }) {
@@ -76,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
 
     {
-      code: /* tsx */ `
+      code: tsx`
         const Children = {
           forEach: () => undefined,
         }
@@ -96,7 +98,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    /* tsx */ `
+    tsx`
       import { Children } from 'react';
 
       function RowList({ children }) {

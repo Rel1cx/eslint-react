@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unused-state";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         class ClassComputedTemplatePropertyTest extends React.Component {
           constructor() {
             this.state = {}
@@ -22,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           handleClick() {}
@@ -39,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           handleScroll() {}
@@ -57,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           handleClick = () => {}
@@ -74,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           action = async () => {}
@@ -91,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {};
           async action() {
@@ -110,7 +112,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {};
           * action() {
@@ -129,7 +131,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {};
           async * action() {
@@ -148,7 +150,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           getInitialState() {}
@@ -165,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           action = function() {
@@ -184,7 +186,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ClassAssignPropertyInMethodTest extends React.Component {
           state = {}
           foo = 3;
@@ -201,7 +203,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ClassAssignPropertyInMethodTest extends React.Component {
           state = {}
           constructor() {
@@ -220,7 +222,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           foo;
@@ -237,7 +239,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           foo = a;
@@ -254,7 +256,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           ['foo'];
@@ -271,7 +273,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           ['foo'] = a;
@@ -288,7 +290,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           foo = a;
           state = {}
@@ -305,7 +307,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           private foo;
           state = {}
@@ -322,7 +324,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
          state = {}
          private foo() {}
@@ -339,7 +341,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           state = {}
           private foo = 3;
@@ -358,21 +360,21 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         shouldComponentUpdate() {
           return true;
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         shouldComponentUpdate = () => {
           return true;
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       function Foo() {
         return class Bar extends React.Component {
           shouldComponentUpdate() {
@@ -381,7 +383,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       }
     `,
-    /* tsx */ `
+    tsx`
       class SmockTestForTypeOfNullError extends React.Component {
         handleClick() {}
         foo;
@@ -391,7 +393,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         handleClick() {}
         render() {
@@ -399,7 +401,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       var Foo = createReactClass({
         handleClick() {},
         render() {
@@ -407,7 +409,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       })
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         action() {}
         componentDidMount() {
@@ -418,7 +420,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       var Foo = createReactClass({
         action() {},
         componentDidMount() {
@@ -429,7 +431,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       })
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         action() {}
         componentDidMount() {
@@ -441,7 +443,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         getValue() {}
         componentDidMount() {
@@ -452,7 +454,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         handleClick = () => {}
         render() {
@@ -460,7 +462,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         renderContent() {}
         render() {
@@ -468,7 +470,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         renderContent() {}
         render() {
@@ -480,7 +482,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         property = {}
         render() {
@@ -488,7 +490,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         action = () => {}
         anotherAction = () => {
@@ -499,7 +501,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         action = () => {}
         anotherAction = () => this.action()
@@ -508,7 +510,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         getValue = () => {}
         value = this.getValue()
@@ -517,13 +519,13 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo {
         action = () => {}
         anotherAction = () => this.action()
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         action = async () => {}
         render() {
@@ -531,7 +533,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         async action() {
           console.log('error');
@@ -541,7 +543,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         * action() {
           console.log('error');
@@ -551,7 +553,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         async * action() {
           console.log('error');
@@ -561,7 +563,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         action = function() {
           console.log('error');
@@ -571,7 +573,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassPropertyTest extends React.Component {
         foo;
         render() {
@@ -579,7 +581,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassPropertyTest extends React.Component {
         foo = a;
         render() {
@@ -587,7 +589,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         ['foo'] = a;
         render() {
@@ -595,7 +597,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         ['foo'];
         render() {
@@ -603,7 +605,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassComputedTemplatePropertyTest extends React.Component {
         [\`foo\`] = a;
         render() {
@@ -611,7 +613,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassComputedTemplatePropertyTest extends React.Component {
         state = {}
         render() {
@@ -619,7 +621,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassComputedTemplatePropertyTest extends React.Component {
         constructor() {
           this.state = {}
@@ -629,7 +631,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassLiteralComputedMemberTest extends React.Component {
         ['foo']() {}
         render() {
@@ -637,7 +639,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassComputedTemplateMemberTest extends React.Component {
         [\`foo\`]() {}
         render() {
@@ -645,7 +647,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassUseAssignTest extends React.Component {
         foo() {}
         render() {
@@ -654,7 +656,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassUseAssignTest extends React.Component {
         foo() {}
         render() {
@@ -663,7 +665,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassUseDestructuringTest extends React.Component {
         foo() {}
         render() {
@@ -672,7 +674,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassUseDestructuringTest extends React.Component {
         ['foo']() {}
         render() {
@@ -681,7 +683,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassComputedMemberTest extends React.Component {
         [foo]() {}
         render() {
@@ -689,7 +691,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassWithLifecycleMethods extends React.Component {
         constructor(props) {
           super(props);
@@ -712,19 +714,19 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       function StatelessFnUnaffectedTest(props) {
         return <SomeComponent foo={props.foo} />;
       };
     `,
-    /* tsx */ `
+    tsx`
       class NoStateTest extends React.Component {
         render() {
           return <SomeComponent />;
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class CtorStateTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -734,7 +736,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromVariableTest extends React.Component {
         constructor() {
           this.state = { [foo]: 0 };
@@ -744,7 +746,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromBooleanLiteralTest extends React.Component {
         constructor() {
           this.state = { [false]: 0 };
@@ -754,7 +756,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromNumberLiteralTest extends React.Component {
         constructor() {
           this.state = { [345]: 0 };
@@ -764,7 +766,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromExpressionTest extends React.Component {
         constructor() {
           this.state = { [foo + bar]: 0 };
@@ -774,7 +776,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromBinaryExpressionTest extends React.Component {
         constructor() {
           this.state = { [1 + 2 * 8]: 0 };
@@ -784,7 +786,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromStringLiteralTest extends React.Component {
         constructor() {
           this.state = { ['foo']: 0 };
@@ -794,7 +796,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromTemplateLiteralTest extends React.Component {
         constructor() {
           this.state = { [\`foo\${bar}\`]: 0 };
@@ -804,7 +806,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedKeyFromTemplateLiteralTest extends React.Component {
         constructor() {
           this.state = { [\`foo\`]: 0 };
@@ -814,7 +816,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class SetStateTest extends React.Component {
         onFooChange(newFoo) {
           this.setState({ foo: newFoo });
@@ -824,7 +826,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ClassPropertyStateTest extends React.Component {
         state = { foo: 0 };
         render() {
@@ -832,7 +834,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class OptionalChaining extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -842,7 +844,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class VariableDeclarationTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -853,7 +855,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class DestructuringTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -864,7 +866,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ShorthandDestructuringTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -875,7 +877,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class AliasDeclarationTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -886,7 +888,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class AliasAssignmentTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -898,7 +900,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class DestructuringAliasTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -909,7 +911,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ShorthandDestructuringAliasTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -920,7 +922,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class RestPropertyTest extends React.Component {
         constructor() {
           this.state = {
@@ -934,7 +936,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class DeepDestructuringTest extends React.Component {
         state = { foo: 0, bar: 0 };
         render() {
@@ -945,7 +947,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // A cleverer analysis might recognize that the following should be errors,
     // but they're out of scope for this lint rule.
-    /* tsx */ `
+    tsx`
       class MethodArgFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -957,7 +959,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class AssignedToObjectFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -968,7 +970,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComputedAccessFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0, bar: 1 };
@@ -979,7 +981,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class JsxSpreadFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -989,7 +991,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class AliasedJsxSpreadFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -1000,7 +1002,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ObjectSpreadFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -1011,7 +1013,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ShadowingFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -1027,7 +1029,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class NonRenderClassMethodFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0, bar: 0 };
@@ -1045,7 +1047,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ArrowFunctionClassMethodDestructuringFalseNegativeTest extends React.Component {
         constructor() {
           this.state = { foo: 0 };
@@ -1062,7 +1064,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ArrowFunctionClassMethodWithClassPropertyTransformFalseNegativeTest extends React.Component {
         state = { foo: 0 };
 
@@ -1077,7 +1079,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ArrowFunctionClassMethodDeepDestructuringFalseNegativeTest extends React.Component {
         state = { foo: { bar: 0 } };
 
@@ -1092,7 +1094,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ArrowFunctionClassMethodDestructuringAssignmentFalseNegativeTest extends React.Component {
         state = { foo: 0 };
 
@@ -1107,7 +1109,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ThisStateAsAnObject extends React.Component {
         state = {
           active: true
@@ -1118,7 +1120,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class GetDerivedStateFromPropsTest extends Component {
         constructor(props) {
           super(props);
@@ -1141,7 +1143,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ComponentDidUpdateTest extends Component {
         constructor(props) {
           super(props);
@@ -1162,7 +1164,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class ShouldComponentUpdateTest extends Component {
         constructor(props) {
           super(props);
@@ -1180,7 +1182,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class NestedScopesTest extends Component {
         constructor(props) {
           super(props);
@@ -1200,7 +1202,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         state = {
           initial: 'foo',
@@ -1216,7 +1218,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         constructor(props) {
           super(props);
@@ -1235,7 +1237,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         constructor(props) {
           super(props);
@@ -1254,7 +1256,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class SetStateDestructuringCallback extends Component {
         state = {
             used: 1, unused: 2
@@ -1269,7 +1271,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class SetStateCallbackStateCondition extends Component {
         state = {
             isUsed: true,
@@ -1283,7 +1285,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         handleChange = function() {
           this.setState(() => ({ foo: value }));
@@ -1293,7 +1295,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         handleChange = function() {
           this.setState(state => ({ foo: value }));
@@ -1303,7 +1305,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         static handleChange = () => {
           this.setState(state => ({ foo: value }));
@@ -1313,7 +1315,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends Component {
         state = {
           thisStateAliasProp,
@@ -1363,7 +1365,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       interface Props {}
 
       interface State {
@@ -1384,7 +1386,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       }
     `,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         onCancel = (data) => {
           console.log('Cancelled', data)
@@ -1396,7 +1398,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class KarmaRefundPillComponent extends GenericPillComponent {
         renderContent = () => {
           const { action } = this.props
@@ -1413,13 +1415,13 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class AutoControlledComponent<P = {}, S = {}> extends UIComponent<P, S> {
         static getDerivedStateFromProps: React.GetDerivedStateFromProps<any, any>
       }
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
         export const commonMixinWrapper = ComposeComponent => class extends ComposeComponent {
           static getDerivedStateFromProps = ComposeComponent.getDerivedStateFromProps;
           render() { return <div />; }
@@ -1427,7 +1429,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React, { PureComponent } from 'react';
 
         class TestNoUnusedState extends React.Component {
@@ -1456,7 +1458,7 @@ ruleTester.run(RULE_NAME, rule, {
         export default TestNoUnusedState;
       `,
     },
-    /* tsx */ `
+    tsx`
       class Component extends React.Component {
         static getDerivedStateFromProps = ({value, disableAnimation}: ToggleProps, {isControlled, isOn}: ToggleState) => {
           return { isControlled, isOn };

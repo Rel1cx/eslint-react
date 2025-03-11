@@ -1,17 +1,19 @@
+import tsx from "dedent";
+
 import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-forward-ref";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { forwardRef } from 'react'
         const Component = forwardRef((props) => {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import { forwardRef } from 'react'
         const Component = ({ ref, ...props }) => {
           return null;
@@ -24,12 +26,12 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { forwardRef } from 'react'
         const Component = forwardRef((props) => null);
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import { forwardRef } from 'react'
         const Component = ({ ref, ...props }) => null;
       `,
@@ -40,14 +42,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { forwardRef } from 'react'
         const Component = forwardRef(function (props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import { forwardRef } from 'react'
         const Component = function ({ ref, ...props }) {
           return null;
@@ -60,14 +62,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { forwardRef } from 'react'
         const Component = forwardRef(function Component(props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import { forwardRef } from 'react'
         const Component = function Component({ ref, ...props }) {
           return null;
@@ -80,14 +82,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef((props) => {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = ({ ref, ...props }) => {
           return null;
@@ -100,12 +102,12 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef((props) => null);
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = ({ ref, ...props }) => null;
       `,
@@ -116,14 +118,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef(function (props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function ({ ref, ...props }) {
           return null;
@@ -136,14 +138,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef(function Component(props) {
           return null;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, ...props }) {
           return null;
@@ -156,14 +158,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef(function Component(props, ref) {
           return <div ref={ref} />;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, ...props }) {
           return <div ref={ref} />;
@@ -176,7 +178,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         interface ComponentProps {
           foo: string;
@@ -186,7 +188,7 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         interface ComponentProps {
           foo: string;
@@ -202,14 +204,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef<HTMLElement, { foo: string }>(function Component(props, ref) {
           return <div ref={ref}>{props.foo}</div>;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, ...props }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={ref}>{props.foo}</div>;
@@ -222,14 +224,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef<HTMLElement, { foo: string }>(function Component({ foo }, ref) {
           return <div ref={ref}>{foo}</div>;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={ref}>{foo}</div>;
@@ -242,14 +244,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef<HTMLElement, { foo: string }>(function Component({ foo }, r) {
           return <div ref={r}>{foo}</div>;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref: r, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={r}>{foo}</div>;
@@ -262,14 +264,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         const Component = React.forwardRef<HTMLElement, { foo: string, bar: number }>(function Component({ foo, ...rest }, r) {
           return <div ref={r}>{foo}</div>;
         });
       `,
       errors: [{ messageId: "noForwardRef" }],
-      output: /* tsx */ `
+      output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref: r, foo, ...rest }: { foo: string, bar: number } & { ref?: React.RefObject<HTMLElement | null> }) {
           return <div ref={r}>{foo}</div>;
@@ -284,7 +286,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
         React.forwardRef(function Component(props) {
           return null;
@@ -297,7 +299,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react'
 
         const Component = React.forwardRef((props, ref) => {
@@ -310,14 +312,14 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    /* tsx */ `
+    tsx`
       import * as React from 'react'
 
       const Component = ({ ref }) => {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import * as React from 'react'
 
       const Component = ({ ref, ...props }) => {

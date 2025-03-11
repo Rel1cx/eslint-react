@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-interval";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         class Example extends React.Component {
           componentDidMount() {
             setInterval(this.handleInterval, 1000);
@@ -18,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             setInterval(() => {}, 1000);
@@ -32,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             window.setInterval(() => {}, 1000);
@@ -46,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const intervalId = global.setInterval(() => {}, 1000);
@@ -60,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const intervalId = globalThis.setInterval(() => {}, 1000);
@@ -76,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       class Example extends React.Component {
         _intervalId: number | null = null;
         componentDidMount() {
@@ -89,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -99,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -109,7 +111,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -119,7 +121,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -129,7 +131,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -139,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -149,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useRef } from "react";
 
       function Example() {

@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-resize-observer";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from 'react';
 
         function Component() {
@@ -23,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React, { useEffect, useRef } from 'react';
 
         function Example() {
@@ -45,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from 'react';
 
         function Component() {
@@ -63,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from 'react';
 
         function Component() {
@@ -86,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from 'react';
 
         function Component() {
@@ -112,7 +114,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from 'react';
 
         function Component() {
@@ -138,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Component } from 'react';
 
         class MyComponent extends Component {
@@ -160,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -175,7 +177,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import React, { useEffect, useRef } from 'react';
 
       function Example() {
@@ -191,7 +193,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div ref={ref} />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -207,7 +209,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -223,7 +225,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -241,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -256,7 +258,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -277,7 +279,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -294,7 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from 'react';
 
       function Component() {
@@ -312,7 +314,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // TODO: Add support for `ResizeObserver` instance in `useRef`
-    // /* tsx */ `
+    // tsx`
     //   import { useEffect, useRef } from 'react';
 
     //   function Component() {
@@ -331,7 +333,7 @@ ruleTester.run(RULE_NAME, rule, {
     //     return <div />;
     //   }
     // `,
-    // /* tsx */ `
+    // tsx`
     //   import { useEffect, useRef } from 'react';
 
     //   function Component() {

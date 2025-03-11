@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-direct-set-state-in-use-effect";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
@@ -20,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
@@ -36,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
@@ -52,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const index = 1;
@@ -69,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const index = 1;
@@ -86,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         const index = 1;
@@ -110,7 +112,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         const index = 1;
@@ -134,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const index = 1;
         function Component() {
           const data = useCustomState(0);
@@ -157,7 +159,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const index = 1;
         function Component() {
           const data = useCustomState(0);
@@ -180,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
@@ -198,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -217,7 +219,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -239,7 +241,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
@@ -261,7 +263,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -277,7 +279,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -295,7 +297,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -314,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
@@ -331,7 +333,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
@@ -348,7 +350,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
@@ -365,7 +367,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
@@ -382,7 +384,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
@@ -398,7 +400,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // TODO: Add cleanup function check
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     import { useEffect, useState } from "react";
 
     //     const Component = () => {
@@ -417,7 +419,7 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     // TODO: Add cleanup function check
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     import { useEffect, useState } from "react";
 
     //     const Component = () => {
@@ -437,7 +439,7 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     // TODO: Add cleanup function check
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     import { useEffect, useState } from "react";
 
     //     const Component = () => {
@@ -451,7 +453,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   ],
     // },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -465,7 +467,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -479,7 +481,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -496,7 +498,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -513,7 +515,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
@@ -530,7 +532,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         const Component1 = () => {
@@ -557,7 +559,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect, useState } from "react";
 
         function useCustomHook() {
@@ -590,7 +592,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       function Component() {
@@ -602,7 +604,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       function Component() {
@@ -613,7 +615,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       function Component() {
@@ -624,7 +626,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const Component = () => {
@@ -637,7 +639,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const index = 0;
@@ -649,7 +651,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const index = 0;
@@ -664,7 +666,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const Component = () => {
@@ -677,7 +679,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const Component = () => {
@@ -693,7 +695,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const Component = () => {
@@ -709,7 +711,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const Component1 = () => {
@@ -726,7 +728,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       const Component1 = () => {
@@ -745,7 +747,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState } from "react";
 
       function useCustomHook() {
@@ -770,7 +772,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, [handlerWatcher])
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState, useRef } from "react";
 
       function Tooltip() {
@@ -786,7 +788,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // https://github.com/Rel1cx/eslint-react/issues/967
-    /* tsx */ `
+    tsx`
       import { useEffect, useState, useCallback } from "react";
 
       function useCustomHook() {

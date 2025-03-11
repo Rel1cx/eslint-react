@@ -6,6 +6,8 @@
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unknown-property";
 
+import tsx from "dedent";
+
 ruleTester.run(RULE_NAME, rule, {
   invalid: [{
     code: '<div hasOwnProperty="should not be allowed property"></div>;',

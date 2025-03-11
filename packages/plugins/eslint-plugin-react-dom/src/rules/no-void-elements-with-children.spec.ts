@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-void-elements-with-children";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<br>Foo</br>;`,
+      code: tsx`<br>Foo</br>;`,
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
@@ -13,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<br children="Foo" />;`,
+      code: tsx`<br children="Foo" />;`,
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
@@ -22,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<img {...props} children="Foo" />;`,
+      code: tsx`<img {...props} children="Foo" />;`,
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
@@ -31,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
+      code: tsx`<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
           messageId: "noVoidElementsWithChildren",

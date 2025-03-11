@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./component-name";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         function Test_component() {
             return <div>foo</div>
         }
@@ -12,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "invalid", data: { name: "Test_component", rule: "PascalCase" } }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function TestComponent() {
             return <div>foo</div>
         }
@@ -21,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function TestComponent() {
             return <div>foo</div>
         }
@@ -33,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: ["CONSTANT_CASE"],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function FULLUPPERCASE() {
             return <div>foo</div>
         }
@@ -42,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowAllCaps: false, rule: "PascalCase" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function AppHome() {
             return <div>foo</div>
         }
@@ -51,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function _Test() {
          return (
            <div />
@@ -67,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function _Test() {
          return (
            <div />
@@ -84,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "PascalCase" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function _TEST() {
          return (
            <div />
@@ -103,26 +105,26 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
-    /* tsx */ `
+    tsx`
       function AppHome() {
           return <div>foo</div>
       }
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
         function APP_HOME() {
             return <div>foo</div>
         }
       `,
       options: [{ rule: "CONSTANT_CASE" }],
     },
-    /* tsx */ `
+    tsx`
       const AppHome = () => {
           return <div>foo</div>
       }
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
         const APP_HOME = () => {
             return <div>foo</div>
         }
@@ -130,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowAllCaps: true, rule: "CONSTANT_CASE" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const AppHome = function () {
             return <div>foo</div>
         }
@@ -138,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ rule: "PascalCase" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const AppHome = function () {
             return <div>foo</div>
         }

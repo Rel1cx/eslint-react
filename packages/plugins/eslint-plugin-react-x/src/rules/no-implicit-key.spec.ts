@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-implicit-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = { key: "1" };
 
         const App = () => {
@@ -22,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
 
         const App = () => {
         const props = { key: "1" };
@@ -41,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return [
                     <div {...{ key: "1" }}>1</div>,
@@ -57,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return [
                     <div {...{...{ key: "1" }}}>1</div>,
@@ -73,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props1 = { key: "1" };
         const App = () => {
             const props2 = { key: "1" };
@@ -93,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props1 = { key: "1" };
         const props4 = { key: "4" };
         const App = () => {
@@ -118,12 +120,12 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return [<div key="1">1</div>]
       };
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return [
                   <div key="1">1</div>,
@@ -132,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
                ]
       };
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return [1, 2, 3].map((item) => <div key={Math.random()}>{item}</div>)
       };
