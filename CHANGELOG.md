@@ -1,3 +1,14 @@
+## v1.32.0 (2025-03-12)
+
+### ✨ New
+
+- feat: revert 'feat: add naming-convention/use-state and naming-convention/context-name to recommended presets by @Rel1cx in #956' by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/982
+
+### 🪄 Improvements
+
+- docs: update eslint configs in examples to use extends by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/978
+- docs: update ts configs in examples to use project references by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/979
+
 ## v1.31.0 (2025-03-07)
 
 ### ✨ New
