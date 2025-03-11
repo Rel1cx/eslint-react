@@ -1,9 +1,12 @@
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 
+import type { RuleContext } from "../../../../shared/src/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-render";
@@ -37,13 +40,16 @@ export default createRule<[], MessageID>({
     }
     const reactDomNames = new Set<string>();
     const renderNames = new Set<string>();
+
     return {
       CallExpression(node) {
         switch (true) {
-          case node.callee.type === T.Identifier && renderNames.has(node.callee.name):
+          case node.callee.type === T.Identifier
+            && renderNames.has(node.callee.name):
             context.report({
               messageId: "noRender",
               node,
+              fix: getFix(context, node),
             });
             return;
           case node.callee.type === T.MemberExpression
@@ -54,6 +60,7 @@ export default createRule<[], MessageID>({
             context.report({
               messageId: "noRender",
               node,
+              fix: getFix(context, node),
             });
             return;
         }
@@ -80,3 +87,21 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+function getFix(context: RuleContext, node: TSESTree.CallExpression) {
+  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  return (fixer: RuleFixer) => {
+    const [arg0, arg1] = node.arguments;
+    if (arg0 == null || arg1 == null) return null;
+    const fixedCallExpressionText = [
+      "createRoot",
+      "(" + getText(arg1) + ")" + ".",
+      "render",
+      "(" + getText(arg0) + ")",
+    ].join("");
+    return [
+      fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom";\n'),
+      fixer.replaceText(node, fixedCallExpressionText),
+    ];
+  };
+}
