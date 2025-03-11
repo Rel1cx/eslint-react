@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-render-return-value";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `var Hello = ReactDOM.render(<div />, document.body);`,
+      code: tsx`var Hello = ReactDOM.render(<div />, document.body);`,
       errors: [
         {
           messageId: "noRenderReturnValue",
@@ -12,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var o = {
           inst: ReactDOM.render(<div />, document.body)
         };
@@ -24,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function render () {
           return ReactDOM.render(<div />, document.body)
         }
@@ -36,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var render = (a, b) => ReactDOM.render(a, b)
       `,
       errors: [
@@ -46,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         this.o = ReactDOM.render(<div />, document.body);
       `,
       errors: [
@@ -56,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var v; v = ReactDOM.render(<div />, document.body);
       `,
       errors: [
@@ -69,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     "ReactDOM.render(<div />, document.body);",
-    /* tsx */ `
+    tsx`
       let node;
       ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
     `,

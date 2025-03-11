@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-button-type";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<button>Click me</button>;`,
+      code: tsx`<button>Click me</button>;`,
       errors: [
         {
           messageId: "noMissingButtonType",
@@ -12,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<PolyComponent as="button">Click me</PolyComponent>;`,
+      code: tsx`<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [
         {
           messageId: "noMissingButtonType",
@@ -31,17 +33,17 @@ ruleTester.run(RULE_NAME, rule, {
     "<span />;",
     '<button type="button">Click me</button>;',
     'const Button = () => <button type="button">Click me</button>;',
-    /* tsx */ `
+    tsx`
       function App() {
           return <button type="button">Click me</button>;
       }
     `,
-    /* tsx */ `
+    tsx`
       function App() {
           return <button type={ true ? "button" : "submit" }>Click me</button>;
       }
     `,
-    /* tsx */ `
+    tsx`
       const props = {
         type: "button",
       };
@@ -51,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
         function App() {
             return <Button>Click me</Button>;
         }

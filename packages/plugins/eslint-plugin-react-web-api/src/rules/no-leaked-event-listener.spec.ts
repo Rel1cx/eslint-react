@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-event-listener";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         class Example extends React.Component {
           componentDidMount() {
             window.addEventListener("resize", this.handleResize);
@@ -18,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", handleResize);
@@ -32,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize1 = () => {};
@@ -51,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", () => {});
@@ -77,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", () => {}, { once: true });
@@ -103,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize1 = () => {};
@@ -118,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", () => {}, { once: true });
@@ -145,7 +147,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const ab = new AbortController();
@@ -163,7 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -181,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -199,7 +201,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -217,7 +219,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -235,7 +237,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -253,7 +255,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -271,7 +273,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -289,7 +291,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -307,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -326,7 +328,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -346,7 +348,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const options = { capture: true };
@@ -365,7 +367,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Example() {
           useEffect(() => {
             const options = { capture: true };
@@ -384,7 +386,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const abortController = new AbortController();
         function Example() {
           const rHandleResize = useRef(() => {});
@@ -407,7 +409,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const abortController1 = new AbortController();
         const abortController2 = new AbortController();
         function Example() {
@@ -428,7 +430,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -458,7 +460,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -489,7 +491,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -520,7 +522,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -550,7 +552,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -581,7 +583,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -612,7 +614,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useEffect } from "react";
 
         export const Component = () => {
@@ -645,7 +647,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       class Example extends React.Component {
         componentDidMount() {
           window.addEventListener("resize", this.handleResize);
@@ -655,7 +657,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Example extends React.Component {
         componentDidMount() {
           window.removeEventListener("resize", this.handleResize);
@@ -665,7 +667,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Example extends React.Component {
         componentDidMount() {
           window.addEventListener("resize", this.handleResize);
@@ -676,7 +678,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -687,7 +689,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -699,7 +701,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -710,7 +712,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -721,7 +723,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -732,7 +734,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -743,7 +745,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -755,7 +757,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -767,7 +769,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -779,7 +781,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -791,7 +793,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -803,7 +805,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const handleResize = useCallback(() => {}, []);
         useEffect(() => {
@@ -814,7 +816,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const handleResize = useMemo(() => () => {}, []);
         useEffect(() => {
@@ -825,7 +827,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -836,7 +838,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -853,7 +855,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -866,7 +868,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -880,7 +882,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -893,7 +895,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useLayoutEffect(() => {
@@ -906,7 +908,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -917,7 +919,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -930,7 +932,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         const rHandleResize = useRef(() => {});
         useLayoutEffect(() => {
@@ -943,7 +945,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       const abortController = new AbortController();
       function Example() {
         const rHandleResize = useRef(() => {});
@@ -955,7 +957,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       const abortController = new AbortController();
       function Example() {
         const rHandleResize = useRef(() => {});
@@ -968,7 +970,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
             const ac = new AbortController()
@@ -977,7 +979,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, [])
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
             const ac = new AbortController()
@@ -987,7 +989,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, [])
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example() {
         useEffect(() => {
             const ac = new AbortController()
@@ -999,7 +1001,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     // TODO: This case is not supported yet.
-    // /* tsx */ `
+    // tsx`
     //   function Example() {
     //     const rHandleResize = useRef(() => {});
     //     useEffect(() => {
@@ -1011,7 +1013,7 @@ ruleTester.run(RULE_NAME, rule, {
     //     }, []);
     //   }
     // `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       export const Component = () => {
@@ -1034,7 +1036,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       export const Component = () => {
@@ -1057,7 +1059,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       export const Component = () => {
@@ -1080,7 +1082,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       export const Component = () => {
@@ -1103,7 +1105,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       export const Component = () => {
@@ -1126,7 +1128,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -1153,7 +1155,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect } from "react";
 
       export const Component = () => {

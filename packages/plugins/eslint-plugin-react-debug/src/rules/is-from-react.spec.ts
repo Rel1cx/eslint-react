@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./is-from-react";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "react";
         const identifier = React;
       `,
@@ -15,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
         const identifier = React;
       `,
@@ -31,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
         const identifier = React.Children;
       `,
@@ -48,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
         function Component() {
           const Fragment = React.Fragment;
@@ -68,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
         function Component() {
           return <React.Fragment />;
@@ -86,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
         function Component() {
           const Fragment = React.Fragment;
@@ -107,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
         const Children = React.Children;
         function Component() {
@@ -131,7 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React, { Children } from "@pika/react";
         function Component() {
           const toArr = Children.toArray;
@@ -152,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
         const identifier = React;
       `,
@@ -168,7 +170,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
         const identifier = React.Children;
       `,
@@ -185,7 +187,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
         function Component() {
           const Fragment = React.Fragment;
@@ -205,7 +207,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
         function Component() {
           return <React.Fragment />;
@@ -223,7 +225,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
         function Component() {
           const Fragment = React.Fragment;
@@ -244,7 +246,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
         const Children = React.Children;
         function Component() {
@@ -274,7 +276,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children } from "react";
         function Component() {
           const Children = {
@@ -293,7 +295,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children as ReactChildren } from "react";
         function Component() {
           const Children = {
@@ -314,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import notReact from "not-react";
         const identifier = notReact;
       `,
@@ -325,7 +327,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Component } from "not-react";
         const identifier = Component;
       `,
@@ -336,7 +338,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children } from "not-react";
         const identifier = Children;
       `,
@@ -347,7 +349,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children } from "not-react";
         const identifier = Children.toArray;
       `,
@@ -358,7 +360,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const Children = {
           toArray: () => {},
         }
@@ -371,7 +373,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const Children = {
           toArray: () => {},
         }

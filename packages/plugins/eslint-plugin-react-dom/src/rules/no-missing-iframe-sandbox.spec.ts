@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-iframe-sandbox";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<iframe />;`,
+      code: tsx`<iframe />;`,
       errors: [
         {
           messageId: "noMissingIframeSandbox",
@@ -12,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<iframe sandbox />;`,
+      code: tsx`<iframe sandbox />;`,
       errors: [
         {
           messageId: "noMissingIframeSandbox",
@@ -20,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<PolyComponent as="iframe"/>;`,
+      code: tsx`<PolyComponent as="iframe"/>;`,
       errors: [
         {
           messageId: "noMissingIframeSandbox",
@@ -33,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `<PolyComponent as="iframe" sandbox />;`,
+      code: tsx`<PolyComponent as="iframe" sandbox />;`,
       errors: [
         {
           messageId: "noMissingIframeSandbox",
@@ -56,13 +58,13 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    /* tsx */ `
+    tsx`
       function App() {
           return <iframe sandbox="allow-downloads" />;
       }
     `,
     {
-      code: /* tsx */ `<PolyComponent as="iframe" sandbox="" />;`,
+      code: tsx`<PolyComponent as="iframe" sandbox="" />;`,
       settings: {
         "react-x": {
           polymorphicPropName: "as",
@@ -70,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = {
           sandbox: "allow-downloads",
         };
@@ -86,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = {
           sandbox: "allow-downloads",
         };

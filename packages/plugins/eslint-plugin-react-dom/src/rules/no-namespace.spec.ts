@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-namespace";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<ns:testcomponent />`,
+      code: tsx`<ns:testcomponent />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -13,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<ns:testComponent />`,
+      code: tsx`<ns:testComponent />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -22,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<ns:test_component />`,
+      code: tsx`<ns:test_component />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -31,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<ns:TestComponent />`,
+      code: tsx`<ns:TestComponent />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -40,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<Ns:testcomponent />`,
+      code: tsx`<Ns:testcomponent />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -49,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<Ns:testComponent />`,
+      code: tsx`<Ns:testComponent />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -58,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<Ns:test_component />`,
+      code: tsx`<Ns:test_component />`,
       errors: [{
         messageId: "noNamespace",
         data: {
@@ -67,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `<Ns:TestComponent />`,
+      code: tsx`<Ns:TestComponent />`,
       errors: [{
         messageId: "noNamespace",
         data: {

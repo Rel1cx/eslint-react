@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unnecessary-use-memo";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useMemo } from "react";
 
         const Comp = () => {
@@ -23,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useMemo } from "react";
 
         const deps = [];
@@ -43,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useMemo } from "react";
 
         const Comp = () => {
@@ -63,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState, useMemo } from "react";
 
         function MyComponent() {
@@ -79,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState, useMemo } from "react";
 
         function MyComponent() {
@@ -97,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       const Comp = () => {
@@ -106,26 +108,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    /* tsx */ `
+    tsx`
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    /* tsx */ `
+    tsx`
       function useData(key) {
           return useSWR(key);
       }
     `,
-    /* tsx */ `
+    tsx`
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    /* tsx */ `
+    tsx`
       const useData = (key) => useSWR(key);
     `,
-    /* tsx */ `
+    tsx`
       const onClick = () => {
         console.log("clicked");
       };
@@ -134,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button onClick={onClick} />;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useMemo } from "react";
 
       function App({ items }) {
@@ -142,7 +144,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{count}</div>;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useMemo } from "react";
 
       const Comp = () => {
@@ -159,7 +161,7 @@ ruleTester.run(RULE_NAME, rule, {
               }, [])
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useMemo } from "react";
       const deps = []
       const Comp = () => {
@@ -176,7 +178,7 @@ ruleTester.run(RULE_NAME, rule, {
               const refItem = useMemo(cb, deps)
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useMemo } from "react";
 
       function MyComponent() {
@@ -188,7 +190,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useMemo } from "react";
 
       function MyComponent() {
@@ -198,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useMemo } from "react";
 
       function MyComponent() {
@@ -208,7 +210,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useMemo } from "react";
 
       function MyComponent() {
@@ -218,7 +220,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useMemo } from "react";
 
       function MyComponent() {
@@ -228,7 +230,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useMemo } from "react";
 
       function MyComponent() {

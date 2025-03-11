@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-set-state-in-component-did-mount";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         class Foo extends React.Component {
           componentDidMount() {
             this.setState({ foo: "bar" });
@@ -16,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const Foo = class extends React.Component {
           componentDidMount() {
             this.setState({ foo: "bar" });
@@ -30,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         componentDidMount() {
           class Bar extends Baz {

@@ -1,3 +1,5 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unsafe-target-blank";
 
@@ -16,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noUnsafeTargetBlank" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = { href: "https://react.dev", target: "_blank" };
         const a = <a {...props}></a>;
       `,
@@ -69,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const a = <a href="https://react.dev" target="_blank"></a>;
         const b = <Link to="https://react.dev" target="_blank"></Link>;
       `,
@@ -96,7 +98,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const a = <Link href="https://react.dev" target="_blank"></Link>;
         const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
       `,
@@ -131,7 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const a = <Link href="https://react.dev" target="_blank"></Link>;
         const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
       `,
@@ -163,7 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const a = <Link href="https://react.dev"></Link>;
       `,
       errors: [{ messageId: "noUnsafeTargetBlank" }],
@@ -200,15 +202,15 @@ ruleTester.run(RULE_NAME, rule, {
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
     '<Box href="https://react.dev" target="_blank"></Box>',
-    /* tsx */ `
+    tsx`
       const props = { href: "https://react.dev", target: "_blank", rel: "noreferrer" };
       const a = <a {...props}></a>;
     `,
-    /* tsx */ `
+    tsx`
       const props = { href: "https://react.dev", rel: "noreferrer" };
       const a = <a target="_blank" {...props}></a>;
     `,
-    /* tsx */ `
+    tsx`
       const props1 = { href: "https://react.dev", target: "_blank" } as const;
       const a1 = <a {...props1} target="_self"></a>;
       const props2 = { href: "https://react.dev", target: "_self" } as const;
@@ -326,7 +328,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const a = <Link href="https://react.dev" target="_blank"></Link>;
         const b = <LinkButton href="https://react.dev" target="_blank"></LinkButton>;
       `,
@@ -357,7 +359,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const a = <Link href="https://react.dev"></Link>;
       `,
       settings: {
@@ -383,7 +385,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // TODO: Implement this
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     const a = <Button component="a" href="https://react.dev"></Button>;
     //   `,
     //   settings: {
@@ -406,7 +408,7 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     // TODO: Implement this
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     const a = <Button component="a" href="https://react.dev"></Button>;
     //   `,
     //   settings: {

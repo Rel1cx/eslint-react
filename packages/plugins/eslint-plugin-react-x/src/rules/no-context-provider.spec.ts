@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-context-provider";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: "<Context.Provider />",
+      code: tsx`<Context.Provider />`,
       errors: [
         {
           messageId: "noContextProvider",
@@ -13,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: "<Context />",
+      output: tsx`<Context />`,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -21,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: "<ThemeContext.Provider><App /></ThemeContext.Provider>",
+      code: tsx`<ThemeContext.Provider><App /></ThemeContext.Provider>`,
       errors: [
         {
           messageId: "noContextProvider",
@@ -30,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: "<ThemeContext><App /></ThemeContext>",
+      output: tsx`<ThemeContext><App /></ThemeContext>`,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -38,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: "<Context.Provider>{children}</Context.Provider>",
+      code: tsx`<Context.Provider>{children}</Context.Provider>`,
       errors: [
         {
           messageId: "noContextProvider",
@@ -47,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: "<Context>{children}</Context>",
+      output: tsx`<Context>{children}</Context>`,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -55,7 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: "<Foo.Bar.Provider>{children}</Foo.Bar.Provider>",
+      code: tsx`<Foo.Bar.Provider>{children}</Foo.Bar.Provider>`,
       errors: [
         {
           messageId: "noContextProvider",
@@ -64,7 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: "<Foo.Bar>{children}</Foo.Bar>",
+      output: tsx`<Foo.Bar>{children}</Foo.Bar>`,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -74,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      code: "<Context.Provider />",
+      code: tsx`<Context.Provider />`,
       settings: {
         "react-x": {
           version: "18.0.0",

@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-read-only-props";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -21,7 +23,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -38,7 +40,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -55,7 +57,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -72,7 +74,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -89,7 +91,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -106,7 +108,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -123,7 +125,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -140,7 +142,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -157,7 +159,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -177,7 +179,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -204,7 +206,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -231,7 +233,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     { // memo with generic
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -248,7 +250,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     { // memo with generic and default props
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -267,7 +269,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     { // forwardRef with generic
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -284,7 +286,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     { // forwardRef with generic and default props
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -303,7 +305,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     { // memo and forwardRef with generic
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -321,7 +323,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     // union type with readonly and non-readonly variants
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -342,7 +344,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     // union type with readonly and non-readonly variants
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -363,7 +365,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     // intersection type with readonly and non-readonly variants
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -384,7 +386,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
     {
       // types inside namespace
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -422,7 +424,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -434,7 +436,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div className={props.className} id={props.id} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -445,7 +447,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div className={props.className} id={props.id} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -455,7 +457,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -465,7 +467,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={props.id} className={props.className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -475,7 +477,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -488,7 +490,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -500,7 +502,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -511,7 +513,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -522,7 +524,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} />
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -543,7 +545,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     // memo with generic
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -555,7 +557,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       });
     `,
     // memo with generic and default props
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -568,7 +570,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       });
     `,
     // forwardRef with generic
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -580,7 +582,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       });
     `,
     // forwardRef with generic and default props
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -593,7 +595,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       });
     `,
     // memo and forwardRef with generic
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -604,7 +606,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div id={id} className={className} ref={ref} />
       }));
     `, // union type with readonly and non-readonly variants
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -618,7 +620,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     // intersection type with readonly and non-readonly variants
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -632,7 +634,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     // types inside namespace
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 

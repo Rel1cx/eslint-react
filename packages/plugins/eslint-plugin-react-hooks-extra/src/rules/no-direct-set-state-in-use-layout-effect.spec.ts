@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-direct-set-state-in-use-layout-effect";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         function Component() {
@@ -20,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -44,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         function Component() {
@@ -60,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         function Component() {
@@ -76,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const index = 1;
@@ -93,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const index = 1;
@@ -110,7 +112,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect } from "react";
 
         const index = 1;
@@ -134,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         const index = 1;
@@ -158,7 +160,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const index = 1;
         function Component() {
           const data = useCustomState(0);
@@ -181,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const index = 1;
         function Component() {
           const data = useCustomState(0);
@@ -204,7 +206,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         function Component() {
@@ -222,7 +224,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -241,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -263,7 +265,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState, useCallback } from "react";
 
         const Component = () => {
@@ -285,7 +287,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -301,7 +303,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -319,7 +321,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -338,7 +340,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState, useCallback } from "react";
 
         const Component = () => {
@@ -355,7 +357,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState, useMemo } from "react";
 
         const Component = () => {
@@ -372,7 +374,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState, useCallback } from "react";
 
         const Component = () => {
@@ -389,7 +391,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState, useMemo } from "react";
 
         const Component = () => {
@@ -406,7 +408,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState, useMemo } from "react";
 
         const Component = () => {
@@ -422,7 +424,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // TODO: Add cleanup function check
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     import { useLayoutEffect, useState } from "react";
 
     //     const Component = () => {
@@ -441,7 +443,7 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     // TODO: Add cleanup function check
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     import { useLayoutEffect, useState } from "react";
 
     //     const Component = () => {
@@ -461,7 +463,7 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     // TODO: Add cleanup function check
     // {
-    //   code: /* tsx */ `
+    //   code: tsx`
     //     import { useLayoutEffect, useState } from "react";
 
     //     const Component = () => {
@@ -475,7 +477,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   ],
     // },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -489,7 +491,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -503,7 +505,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -520,7 +522,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -537,7 +539,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component = () => {
@@ -554,7 +556,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         const Component1 = () => {
@@ -581,7 +583,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useLayoutEffect, useState } from "react";
 
         function useCustomHook() {
@@ -614,7 +616,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       function Component() {
@@ -626,7 +628,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       function Component() {
@@ -637,7 +639,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       function Component() {
@@ -648,7 +650,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const Component = () => {
@@ -661,7 +663,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const index = 0;
@@ -673,7 +675,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const index = 0;
@@ -688,7 +690,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const Component = () => {
@@ -701,7 +703,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const Component = () => {
@@ -717,7 +719,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const Component = () => {
@@ -733,7 +735,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const Component1 = () => {
@@ -750,7 +752,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       const Component1 = () => {
@@ -769,7 +771,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useLayoutEffect, useState } from "react";
 
       function useCustomHook() {
@@ -794,7 +796,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, [handlerWatcher])
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useEffect, useState, useRef } from "react";
 
       function Tooltip() {

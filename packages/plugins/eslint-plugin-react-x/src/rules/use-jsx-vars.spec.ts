@@ -1,3 +1,5 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./use-jsx-vars";
 
@@ -6,7 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     {
-      code: /* tsx */ `
+      code: tsx`
         function foo() {
           var App;
           var bar = React.render(<App/>);
@@ -16,19 +18,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var App;
         React.render(<App/>);
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var a = 1;
         React.render(<img src={a} />);
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var App;
         function f() {
           return <App />;
@@ -37,19 +39,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var App;
         <App.Hello />
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class HelloMessage {};
         <HelloMessage />
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class HelloMessage {
           render() {
             var HelloMessage = <div>Hello</div>;
@@ -60,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function foo() {
           var App = { Foo: { Bar: {} } };
           var bar = React.render(<App.Foo.Bar/>);
@@ -70,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function foo() {
           var App = { Foo: { Bar: { Baz: {} } } };
           var bar = React.render(<App.Foo.Bar.Baz/>);
@@ -80,13 +82,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var object;
         React.render(<object.Tag />);
       `,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         var object;
         React.render(<object.tag />);
       `,
