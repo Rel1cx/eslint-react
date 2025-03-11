@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./use-state";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         function Component() {
           const [state, setValue] = useState(0);
 
@@ -16,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Component() {
           const [state, set] = useState(0);
 
@@ -28,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -42,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -56,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -70,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -84,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from 'react';
 
         export function useTest(): [number, (n: number) => void] {
@@ -99,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       function Component() {
@@ -108,7 +110,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       function Component() {
@@ -117,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       function Component() {
@@ -126,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState } from 'react';
 
       export function useTest(): [number, (n: number) => void] {
@@ -134,10 +136,10 @@ ruleTester.run(RULE_NAME, rule, {
         return [count, setCount];
       }
     `,
-    /* tsx */ `const [myCount, setMyCount] = useState(0);`,
-    /* tsx */ `const [fooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
-    /* tsx */ `const [fooBarBaz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
-    /* tsx */ `const [foo_bar_baz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
-    /* tsx */ `const [FooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [myCount, setMyCount] = useState(0);`,
+    tsx`const [fooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [fooBarBaz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [foo_bar_baz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [FooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
   ],
 });

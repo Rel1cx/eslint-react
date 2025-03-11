@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-complex-conditional-rendering";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         function Component({ hideShapes, debugSvg }) {
           return <div>{hideShapes ? null : debugSvg ? <ShapesWithSVGs /> : <ShapesToDisplay />}</div>;
         }
@@ -16,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         type AppProps = {
           items: string[];
           count: number;
@@ -33,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const someCondition = 0;
         const SomeComponent = () => <div />;
 
@@ -59,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const someCondition = 0;
         const SomeComponent = () => <div />;
 
@@ -85,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const someCondition = 0;
         const SomeComponent = () => <div />;
 
@@ -111,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const someCondition = 0;
         const SomeComponent = () => <div />;
 
@@ -140,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
           return (
               <>
@@ -160,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
           return (
               <>
@@ -182,7 +184,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       function Component({ hideShapes, debugSvg }) {
         // Early return if_to render
         if (hideShapes) {
@@ -192,7 +194,7 @@ ruleTester.run(RULE_NAME, rule, {
         return debugSvg ? <ShapesWithSVGs /> : <ShapesToDisplay />;
       }
     `,
-    /* tsx */ `
+    tsx`
         const foo = Math.random() > 0.5;
         const bar = "bar";
 
@@ -200,7 +202,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{foo || bar}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type AppProps = {
           foo: string;
         }
@@ -209,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{foo}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type AppProps = {
           items: string[];
         }
@@ -218,7 +220,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>There are {items.length} elements</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type AppProps = {
           items: string[];
           count: number;
@@ -228,7 +230,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{!count && 'No results found'}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type ListProps = {
           items: string[];
         }
@@ -245,7 +247,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{!!items.length && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type ListProps = {
           items: string[];
         }
@@ -262,7 +264,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{Boolean(items.length) && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type ListProps = {
           items: string[];
         }
@@ -279,7 +281,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{items.length > 0 && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type ListProps = {
           items: string[];
         }
@@ -296,7 +298,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{items.length ? <List items={items}/> : null}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type ListProps = {
           items: string[];
         }
@@ -314,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count ? <List items={items}/> : null}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         type ListProps = {
           items: string[];
         }
@@ -332,7 +334,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{!!count && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
         return (
             <>
@@ -343,7 +345,7 @@ ruleTester.run(RULE_NAME, rule, {
             )
         }
     `,
-    /* tsx */ `
+    tsx`
       const foo = Math.random() > 0.5;
       const bar = 0;
       function App() {
@@ -373,7 +375,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
       `,
-    /* tsx */ `
+    tsx`
       const someCondition = JSON.parse("") as any;
       const SomeComponent = () => <div />;
 
@@ -390,7 +392,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       const someCondition = JSON.parse("") as unknown;
       const SomeComponent = () => <div />;
 
@@ -407,7 +409,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       const someCondition = 0
       const SomeComponent = () => <div />;
 
@@ -424,7 +426,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       const someCondition = 1
       const SomeComponent = () => <div />;
 
@@ -441,7 +443,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       const SomeComponent = () => <div />;
       const App = ({
         someCondition,
@@ -458,7 +460,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       const someCondition = true
       const SomeComponent = () => <div />;
 
@@ -477,7 +479,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       const SomeComponent = () => <div />;
       const someFunction = (input: unknown): 10 => 10
 
@@ -485,7 +487,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <>{someCondition ? someFunction(someCondition) : <SomeComponent />}</>;
       };
     `,
-    /* tsx */ `
+    tsx`
       const SomeComponent = () => <div />;
 
       const App = ({
@@ -500,7 +502,7 @@ ruleTester.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       type AppProps<T> = {
         someFunction: (data: T) => React.ReactNode;
       };
@@ -509,7 +511,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <>{!!someFunction && someFunction<number>(1)}</>;
       }
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
         return (
             <>
@@ -519,7 +521,7 @@ ruleTester.run(RULE_NAME, rule, {
             )
         }
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
         return (
             <>
@@ -529,12 +531,12 @@ ruleTester.run(RULE_NAME, rule, {
             )
         }
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
         return <div title={0 && 1 && 2 || 3 && 4 && 5}>Hello</div>
         }
     `,
-    /* tsx */ `
+    tsx`
       function Example({ condition1, condition2, condition3, condition4 }) {
         return (
           <div>
@@ -544,7 +546,7 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    /* tsx */ `
+    tsx`
       function Example({ condition1, condition2, condition3, condition4 }) {
         const shouldDisplay1 = condition1 && condition2;
         const shouldDisplay2 = condition3 && condition4;

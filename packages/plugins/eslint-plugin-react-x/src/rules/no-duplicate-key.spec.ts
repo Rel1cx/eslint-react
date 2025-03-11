@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-duplicate-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return [
                     <div key="1">1</div>,
@@ -35,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return  (<div>
                         <div key="1">1</div>
@@ -66,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return [1, 2, 3].map((item) => <div key="1">{item}</div>)
         };
@@ -81,7 +83,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return [1, 2, 3].map((item) => { return <div key="1">{item}</div> })
         };
@@ -96,7 +98,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return nested.map((item) => {
                 return <div key="1">{item.map((i) => <div key="a">{i}</div>)}</div>
@@ -119,7 +121,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return nested.map((foo) => {
                 return <div key="foo">{foo.map((bar) => <div key="bar">{bar.map((baz) => <div key="baz">{baz}</div>)}</div>)}</div>
@@ -148,7 +150,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return nested?.map((foo) => {
                 return <div key="foo">{foo!.map((bar) => <div key="bar">{bar!!.map(((baz) => <div key="baz">{baz}</div>)!!! as A satisfies B)}</div>)}</div>
@@ -177,7 +179,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => {
             return nested.map((foo) => {
                 return <div key="foo">{foo.notmap((bar) => <div key="bar">{bar.map((baz) => <div key="baz">{baz}</div>)}</div>)}</div>
@@ -202,12 +204,12 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return [<div key="1">1</div>]
       };
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return [
                   <div key="1">1</div>,
@@ -216,12 +218,12 @@ ruleTester.run(RULE_NAME, rule, {
                ]
       };
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return [1, 2, 3].map((item) => { const key = item; return <div key={key}>{item}</div> })
       };
     `,
-    /* tsx */ `
+    tsx`
       const App = () => {
           return nested.map((item) => {
               return <div key={item}>{item.map((i) => { return <div key={i}>{i}</div> })}</div>

@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unsafe-iframe-sandbox";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<iframe sandbox="allow-scripts allow-same-origin" />;`,
+      code: tsx`<iframe sandbox="allow-scripts allow-same-origin" />;`,
       errors: [
         {
           messageId: "noUnsafeIframeSandbox",
@@ -12,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `<PolyComponent as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
+      code: tsx`<PolyComponent as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
       errors: [
         {
           messageId: "noUnsafeIframeSandbox",
@@ -26,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // TODO: Investigate the necessity of supporting props lookup for spread props
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = {
           sandbox: "allow-scripts allow-same-origin",
         };
@@ -52,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    /* tsx */ `
+    tsx`
       function App() {
           return <iframe sandbox="allow-downloads" />;
       }

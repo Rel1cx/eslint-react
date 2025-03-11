@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unstable-context-value";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = {}
             return <Context.Provider value={foo}></Context.Provider>;
@@ -19,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <Context.Provider value={foo}></Context.Provider>
@@ -36,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function App() {
             const foo = new Object();
             return <Context.Provider value={foo}></Context.Provider>
@@ -53,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = () => {}
             return <Context.Provider value={foo}></Context.Provider>
@@ -70,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function App() {
             const foo = {
                 bar: () => {}
@@ -89,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = {}
             return <Context value={foo}></Context>;
@@ -109,7 +111,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <CONTEXT value={foo}></CONTEXT>
@@ -131,7 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <ThemeContext value={foo}></ThemeContext>
@@ -153,7 +155,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <THEME_CONTEXT value={foo}></THEME_CONTEXT>
@@ -177,44 +179,44 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
         function App() {
           const foo = useMemo(() => ({}), [])
           return <Context.Provider value={foo}></Context.Provider>
       }
     `,
-    /* tsx */ `
+    tsx`
         function App() {
           const foo = useMemo(() => [], [])
           return <Context.Provider value={foo}></Context.Provider>
       }
     `,
-    /* tsx */ `
+    tsx`
         const foo = {}
         function App() {
           return <Context.Provider value={foo}></Context.Provider>;
       }
     `,
-    /* tsx */ `
+    tsx`
         const foo = []
         function App() {
           return <Context.Provider value={foo}></Context.Provider>;
       }
     `,
-    /* tsx */ `
+    tsx`
         const foo = new Object()
         function App() {
           return <Context.Provider value={foo}></Context.Provider>;
       }
     `,
-    /* tsx */ `
+    tsx`
       const foo = () => {}
               function App() {
                   return <Context.Provider value={foo}></Context.Provider>;
               }
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = {}
             return <Context value={foo}></Context>;
@@ -227,7 +229,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <CONTEXT value={foo}></CONTEXT>
@@ -240,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <ThemeContext value={foo}></ThemeContext>
@@ -253,7 +255,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
           function App() {
             const foo = []
             return <THEME_CONTEXT value={foo}></THEME_CONTEXT>
@@ -265,12 +267,12 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    /* tsx */ `
+    tsx`
       const Provider = ({foo, children}: {foo: {}, children: React.ReactNode}) => {
         return <Context value={foo}>{children}</Context>;
       };
     `,
-    /* tsx */ `
+    tsx`
       const MyContext = React.createContext<string>("");
 
       export function MyFunctionComponent({ children, x }: { children: React.ReactNode; x: string }) {

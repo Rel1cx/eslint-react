@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-useless-custom-hooks";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         const useClassnames = (obj) => {
             var k, cls='';
             for (k in obj) {
@@ -26,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function useClassnames(obj) {
             var k, cls='';
             for (k in obj) {
@@ -48,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function useNestedHook() {
             const [state, setState] = useState("state");
             function useInnerHook () {
@@ -68,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function useNestedHook() {
             const useInnerHook = () => {
                 const [state, setState] = useState("state");
@@ -88,7 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function useNestedHook() {
             const useInnerHook = () => {
                 return "inner hook";
@@ -113,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export function useNestedHook() {
             const fn = () => {
                 const [state, setState] = useState("state");
@@ -135,11 +137,11 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       // Allow empty functions.
       const useNoop = () => {};
     `,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       const Comp = () => {
@@ -148,26 +150,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    /* tsx */ `
+    tsx`
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    /* tsx */ `
+    tsx`
       function useData(key) {
           return useSWR(key);
       }
     `,
-    /* tsx */ `
+    tsx`
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    /* tsx */ `
+    tsx`
       const useData = (key) => useSWR(key);
     `,
-    /* tsx */ `
+    tsx`
       function useAuth() {
         // TODO: Replace with this line when authentication is implemented:
         // return useContext(Auth);

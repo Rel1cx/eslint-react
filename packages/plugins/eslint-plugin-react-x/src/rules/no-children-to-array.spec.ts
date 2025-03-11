@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-to-array";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { Children } from 'react';
 
         export default function ReversedList({ children }) {
@@ -18,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const { Children } = require('react');
 
         export default function ReversedList({ children }) {
@@ -32,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from 'react';
 
         export default function ReversedList({ children }) {
@@ -46,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import * as React from 'react';
 
         export default function ReversedList({ children }) {
@@ -62,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       import { Children } from 'react';
 
       function SeparatorList({ children }) {
@@ -74,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
         // ...
       }
     `,
-    /* tsx */ `
+    tsx`
       import { Children } from 'react';
 
       function RowList({ children }) {
@@ -90,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
         const Children = {
           toArray: () => [],
         }
