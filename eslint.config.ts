@@ -43,6 +43,7 @@ export default tseslint.config(
     ],
     files: GLOB_MD,
     ignores: [
+      "**/README.md",
       "packages/**/docs/**/*.md",
     ],
     language: "markdown/gfm",
