@@ -10,6 +10,7 @@ import tseslint from "typescript-eslint";
 
 type ConfigArray = ReturnType<typeof tseslint.config>;
 
+const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 
 const templateIndentTags = [
@@ -44,6 +45,9 @@ const p11tGroups = {
 };
 
 export const typescript: ConfigArray = tseslint.config(
+  {
+    ignores: GLOB_JS,
+  },
   {
     extends: [
       js.configs.recommended,

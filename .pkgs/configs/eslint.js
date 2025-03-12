@@ -7,6 +7,7 @@ import pluginRegexp from "eslint-plugin-regexp";
 import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import pluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
+const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 const templateIndentTags = [
     "ts",
@@ -37,6 +38,8 @@ const p11tGroups = {
     groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 export const typescript = tseslint.config({
+    ignores: GLOB_JS,
+}, {
     extends: [
         js.configs.recommended,
         ...tseslint.configs.strict,
