@@ -1,4 +1,4 @@
-import { getInstanceId, isCreateContextCall } from "@eslint-react/core";
+import { getInstanceId, isComponentName, isCreateContextCall } from "@eslint-react/core";
 import { _, identity } from "@eslint-react/eff";
 import type { RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
           .with({ type: T.Identifier, name: P.select() }, identity)
           .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
           .otherwise(() => _);
-        if (name != null && /^[A-Z]/u.test(name) && name.endsWith("Context")) return;
+        if (name != null && isComponentName(name) && name.endsWith("Context")) return;
         context.report({
           messageId: "invalid",
           node: id,

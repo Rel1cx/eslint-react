@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / hasNoneOrValidComponentName
+[@eslint-react/core](../README.md) / hasNoneOrLooseComponentName
 
-# Function: hasNoneOrValidComponentName()
+# Function: hasNoneOrLooseComponentName()
 
-> **hasNoneOrValidComponentName**(`context`, `node`): `boolean`
+> **hasNoneOrLooseComponentName**(`context`, `node`): `boolean`
 
 ## Parameters
 

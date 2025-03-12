@@ -43,13 +43,14 @@
 - [ERComponentHint](variables/ERComponentHint.md)
 - [ERPhaseRelevance](variables/ERPhaseRelevance.md)
 - [RE\_COMPONENT\_NAME](variables/RE_COMPONENT_NAME.md)
+- [RE\_COMPONENT\_NAME\_LOOSE](variables/RE_COMPONENT_NAME_LOOSE.md)
 - [RE\_HOOK\_NAME](variables/RE_HOOK_NAME.md)
 
 ## Functions
 
 - [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
 - [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
-- [hasNoneOrValidComponentName](functions/hasNoneOrValidComponentName.md)
+- [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md)
 - [isAssignmentToThisState](functions/isAssignmentToThisState.md)
 - [isChildrenCount](functions/isChildrenCount.md)
 - [isChildrenCountCall](functions/isChildrenCountCall.md)
@@ -67,6 +68,7 @@
 - [isComponentDidCatch](functions/isComponentDidCatch.md)
 - [isComponentDidMount](functions/isComponentDidMount.md)
 - [isComponentName](functions/isComponentName.md)
+- [isComponentNameLoose](functions/isComponentNameLoose.md)
 - [isComponentWillUnmount](functions/isComponentWillUnmount.md)
 - [isCreateContext](functions/isCreateContext.md)
 - [isCreateContextCall](functions/isCreateContextCall.md)

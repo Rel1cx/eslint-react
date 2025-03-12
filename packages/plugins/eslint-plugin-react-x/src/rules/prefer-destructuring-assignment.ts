@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { isComponentName, useComponentCollector } from "@eslint-react/core";
+import { isComponentNameLoose, useComponentCollector } from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -61,7 +61,7 @@ export default createRule<[], MessageID>({
           }
           const id = AST.getFunctionIdentifier(block);
           return id != null
-            && isComponentName(id.name)
+            && isComponentNameLoose(id.name)
             && components.some((component) => component.node === block);
         }
 
