@@ -5,6 +5,7 @@ import { glob } from "./lib/glob";
 
 const docs = glob(["packages/plugins/eslint-plugin-react-*/src/rules/*.md"]);
 
+// TODO: Generate the meta.json file as well
 const [
   files,
   // rules,
