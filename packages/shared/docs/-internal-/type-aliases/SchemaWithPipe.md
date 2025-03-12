@@ -20,4 +20,4 @@ The pipe items.
 
 ## Type Parameters
 
-• **TPipe** *extends* \[[`BaseSchema`](../interfaces/BaseSchema.md)\<`unknown`, `unknown`, [`BaseIssue`](../interfaces/BaseIssue.md)\<`unknown`\>\>, `...PipeItem<any, unknown, BaseIssue<unknown>>[]`\]
+• **TPipe** *extends* readonly \[[`BaseSchema`](../interfaces/BaseSchema.md)\<`unknown`, `unknown`, [`BaseIssue`](../interfaces/BaseIssue.md)\<`unknown`\>\>, `...PipeItem<any, unknown, BaseIssue<unknown>>[]`\]
