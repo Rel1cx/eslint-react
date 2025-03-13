@@ -6,7 +6,7 @@
 
 ### 🪄 Improvements
 
-- refactor(plugins/x): rename `ensure-forward-ref-using-ref` to `no-useless-forward-ref`
+- refactor(plugins/x): rename `ensure-forward-ref-using-ref` to `no-useless-forward-ref` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/987
 
 ### 📝 Changes you should be aware of
 
@@ -16,6 +16,8 @@ The following rules have been renamed:
 - `@eslint-react/ensure-forward-ref-using-ref` to `@eslint-react/no-useless-forward-ref`
 
 The old rule names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.32.1...v1.33.0
 
 ## v1.32.1 (2025-03-13)
 
