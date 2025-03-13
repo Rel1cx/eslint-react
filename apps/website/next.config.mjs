@@ -90,6 +90,11 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/rules/ensure-forward-ref-using-ref",
+        destination: "/docs/rules/no-useless-forward-ref",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/dom-no-children-in-void-dom-elements",
         destination: "/docs/rules/dom-no-void-elements-with-children",
         permanent: true,
@@ -112,11 +117,6 @@ const config = {
       {
         source: "/docs/rules/hooks-extra-no-redundant-custom-hook",
         destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
-        permanent: true,
-      },
-      {
-        source: "/docs/rules/debug-react-hooks",
-        destination: "/docs/rules/debug-hook",
         permanent: true,
       },
     ];

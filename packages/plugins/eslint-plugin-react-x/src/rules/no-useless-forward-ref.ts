@@ -6,7 +6,7 @@ import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "ensure-forward-ref-using-ref";
+export const RULE_NAME = "no-useless-forward-ref";
 
 export const RULE_FEATURES = [
   "CHK",
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      ensureForwardRefUsingRef: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",
+      noUselessForwardRef: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",
     },
     schema: [],
   },
@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
           return;
         }
         context.report({
-          messageId: "ensureForwardRefUsingRef",
+          messageId: "noUselessForwardRef",
           node: component,
         });
       },
