@@ -74,7 +74,7 @@ Before submitting your contribution though, please make sure to take a moment an
 
 ##### Core & Shared Modules
 
-- `packages/core`: Utility module for static analysis of React core APIs and Patterns.
+- `packages/core`: Utility module for static analysis of React core APIs and patterns.
 - `packages/shared`: Shared constants, types and functions.
 
 #### Public Packages
