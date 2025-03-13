@@ -12,6 +12,11 @@ title: Changelog
 
 The following rules have been renamed:
 
+- `react-x/ensure-forward-ref-using-ref` to `react-x/no-useless-forward-ref`
+- `@eslint-react/ensure-forward-ref-using-ref` to `@eslint-react/no-useless-forward-ref`
+
+The old rule names will still be available until the next major update to avoid breaking changes.
+
 ## v1.32.1 (2025-03-13)
 
 ### 🐞 Fixes
