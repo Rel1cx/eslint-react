@@ -2,7 +2,11 @@
 title: Changelog
 ---
 
-## v1.33.0 (Draft)
+## v1.33.0 (2025-03-14)
+
+### 🐞 Fixes
+
+- fix: update rule severity for `no-flush-sync` and `no-void-elements-with-children` in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/988
 
 ### 🪄 Improvements
 
