@@ -5,7 +5,6 @@ import reactx from "eslint-plugin-react-x";
 export const name = "@eslint-react/core";
 
 export const rules = {
-  "@eslint-react/ensure-forward-ref-using-ref": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",
@@ -42,6 +41,7 @@ export const rules = {
   "@eslint-react/no-unused-class-component-members": "warn",
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
+  "@eslint-react/no-useless-forward-ref": "warn",
   "@eslint-react/use-jsx-vars": "warn",
 } as const satisfies RulePreset;
 

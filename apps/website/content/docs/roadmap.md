@@ -32,7 +32,7 @@ title: Roadmap
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 
-- [ ] `ensure-forward-ref-using-ref`
+- [ ] `no-useless-forward-ref`
 - [ ] `no-leaked-conditional-rendering`
 - [ ] `no-redundant-should-component-update`
 - [ ] `no-unused-class-component-members`

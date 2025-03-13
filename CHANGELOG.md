@@ -1,3 +1,13 @@
+## v1.33.0 (Draft)
+
+### 🪄 Improvements
+
+- refactor(plugins/x): rename `ensure-forward-ref-using-ref` to `no-useless-forward-ref`
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
 ## v1.32.1 (2025-03-13)
 
 ### 🐞 Fixes
