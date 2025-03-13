@@ -8,7 +8,6 @@ import pluginVitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 const GLOB_MD = ["*.md", "**/*.md"];
 const GLOB_TEST = [
@@ -22,7 +21,6 @@ const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
 const GLOB_IGNORES = [
   ...configFlatGitignore().ignores,
-  ...GLOB_JS,
   "apps",
   "docs",
   "test",
@@ -43,11 +41,12 @@ export default tseslint.config(
     ],
     files: GLOB_MD,
     ignores: [
+      "**/README.md",
       "packages/**/docs/**/*.md",
     ],
     language: "markdown/gfm",
     rules: {
-      "markdown/no-html": "error",
+      "markdown/no-html": "warn",
       "markdown/no-missing-label-refs": "off",
     },
   },

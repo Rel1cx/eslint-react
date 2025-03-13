@@ -1,3 +1,9 @@
+## v1.32.1 (2025-03-13)
+
+### 🐞 Fixes
+
+- fix: fixed `no-context-provider` replaces `<Provider>` with `<>`, closes #984 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/985
+
 ## v1.32.0 (2025-03-12)
 
 ### ✨ New

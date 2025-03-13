@@ -26,4 +26,4 @@ The pipe items.
 
 ## Type Parameters
 
-• **TPipe** *extends* \[[`BaseSchema`](../interfaces/BaseSchema.md)\<`unknown`, `unknown`, [`BaseIssue`](../interfaces/BaseIssue.md)\<`unknown`\>\> \| [`BaseSchemaAsync`](../interfaces/BaseSchemaAsync.md)\<`unknown`, `unknown`, [`BaseIssue`](../interfaces/BaseIssue.md)\<`unknown`\>\>, ...(PipeItem\<any, unknown, BaseIssue\<unknown\>\> \| PipeItemAsync\<any, unknown, BaseIssue\<unknown\>\>)\[\]\]
+• **TPipe** *extends* readonly \[[`BaseSchema`](../interfaces/BaseSchema.md)\<`unknown`, `unknown`, [`BaseIssue`](../interfaces/BaseIssue.md)\<`unknown`\>\> \| [`BaseSchemaAsync`](../interfaces/BaseSchemaAsync.md)\<`unknown`, `unknown`, [`BaseIssue`](../interfaces/BaseIssue.md)\<`unknown`\>\>, ...(PipeItem\<any, unknown, BaseIssue\<unknown\>\> \| PipeItemAsync\<any, unknown, BaseIssue\<unknown\>\>)\[\]\]

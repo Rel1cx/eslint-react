@@ -13,7 +13,7 @@ import type { ERComponentHint } from "./component-collector-hint";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
-import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
+import { getComponentNameFromIdentifier, hasNoneOrLooseComponentName } from "./component-name";
 import type { ERFunctionComponent } from "./component-semantic-node";
 import { hasValidHierarchy } from "./hierarchy";
 
@@ -101,7 +101,7 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const { body } = entry.node;
-      const isComponent = hasNoneOrValidComponentName(context, entry.node)
+      const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && JSX.isJSXValue(body, jsxCtx, hint)
         && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;
@@ -150,7 +150,7 @@ export function useComponentCollector(
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) return;
-      const isComponent = hasNoneOrValidComponentName(context, entry.node)
+      const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && JSX.isJSXValue(node.argument, jsxCtx, hint)
         && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;

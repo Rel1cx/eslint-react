@@ -1,6 +1,5 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 
-export const version = fs
-  .readFileSync("VERSION", "utf-8")
-  .trim()
-  .replace("v", "");
+export const version = await fs
+  .readFile("VERSION", "utf-8")
+  .then((v) => v.trim().replace("v", ""));

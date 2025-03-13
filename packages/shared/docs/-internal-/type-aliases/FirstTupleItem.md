@@ -12,4 +12,4 @@ Extracts first tuple item.
 
 ## Type Parameters
 
-• **TTuple** *extends* \[`unknown`, `...unknown[]`\]
+• **TTuple** *extends* readonly \[`unknown`, `...unknown[]`\]

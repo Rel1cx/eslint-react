@@ -1,3 +1,4 @@
+import { isComponentNameLoose } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -24,38 +25,37 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noContextProvider:
-        "In React 19, you can render '<{{contextName}}>' as a provider instead of '<{{contextName}}.Provider>'.",
+      noContextProvider: "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>'.",
     },
     schema: [],
   },
   name: RULE_NAME,
   create(context) {
-    if (!context.sourceCode.text.includes(".Provider")) return {};
+    if (!context.sourceCode.text.includes("Provider")) return {};
     const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) {
-      return {};
-    }
+    if (compare(version, "19.0.0", "<")) return {};
     return {
       JSXElement(node) {
-        const [name, ...rest] = JSX.getElementType(node).split(".").reverse();
-        if (name !== "Provider") return;
-        const contextName = rest.reverse().join(".");
+        const fullName = JSX.getElementType(node);
+        const parts = fullName.split(".");
+        const selfName = parts.pop();
+        const contextFullName = parts.join(".");
+        const contextSelfName = parts.pop();
+        if (selfName !== "Provider") return;
         context.report({
           messageId: "noContextProvider",
           node,
-          data: {
-            contextName,
-          },
           fix(fixer) {
+            if (contextSelfName == null) return null;
+            if (!isComponentNameLoose(contextSelfName)) return null;
             const openingElement = node.openingElement;
             const closingElement = node.closingElement;
             if (closingElement == null) {
-              return fixer.replaceText(openingElement.name, contextName);
+              return fixer.replaceText(openingElement.name, contextFullName);
             }
             return [
-              fixer.replaceText(openingElement.name, contextName),
-              fixer.replaceText(closingElement.name, contextName),
+              fixer.replaceText(openingElement.name, contextFullName),
+              fixer.replaceText(closingElement.name, contextFullName),
             ];
           },
         });

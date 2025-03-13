@@ -1,8 +1,9 @@
-<!-- eslint-disable markdown/no-html -->
-
 <p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint React</h1>
+
+[![Version](https://img.shields.io/npm/v/eslint-plugin-react-x?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
+[![Downloads](https://img.shields.io/npm/dt/eslint-plugin-react-x.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
 
 More than 80 high-quality linting rules for writing better React code.
 
