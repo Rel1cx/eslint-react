@@ -7,6 +7,7 @@ export const rules = {
   "react-dom/no-dangerously-set-innerhtml": "warn",
   "react-dom/no-dangerously-set-innerhtml-with-children": "error",
   "react-dom/no-find-dom-node": "error",
+  "react-dom/no-flush-sync": "error",
   "react-dom/no-missing-button-type": "warn",
   "react-dom/no-missing-iframe-sandbox": "warn",
   "react-dom/no-namespace": "error",
@@ -15,7 +16,7 @@ export const rules = {
   "react-dom/no-unknown-property": "warn",
   "react-dom/no-unsafe-iframe-sandbox": "warn",
   "react-dom/no-unsafe-target-blank": "warn",
-  "react-dom/no-void-elements-with-children": "warn",
+  "react-dom/no-void-elements-with-children": "error",
 } as const satisfies RulePreset;
 
 export const settings = {
