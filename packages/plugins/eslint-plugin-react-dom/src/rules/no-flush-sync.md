@@ -18,6 +18,13 @@ react-dom/no-flush-sync
 
 `🔍`
 
+**Presets**
+
+- `dom`
+- `recommended`
+- `recommended-typescript`
+- `recommended-type-checked`
+
 ## What it does
 
 This rule reports usages of `flushSync`.

@@ -20,7 +20,6 @@ full: true
 | :----------------------------------------------------------------------------------- | :- | :------------ | :---------------------------------------------------------------------------------------------------- | :------: |
 | [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)                               | 0️⃣  | `🔍` `🔧`     | Enforces the use of explicit boolean values for boolean attributes.                                   |          |
 | [`avoid-shorthand-fragment`](./avoid-shorthand-fragment)                             | 0️⃣  | `🔍`          | Enforces the use of explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax.   |          |
-| [`no-useless-forward-ref`](./no-useless-forward-ref)                                 | 1️⃣  | `🔍`          | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                       |          |
 | [`no-access-state-in-setstate`](./no-access-state-in-setstate)                       | 2️⃣  | `🔍`          | Prevents accessing `this.state` inside `setState` calls.                                              |          |
 | [`no-array-index-key`](./no-array-index-key)                                         | 1️⃣  | `🔍`          | Prevents using an item's index in the array as its key                                                |          |
 | [`no-children-count`](./no-children-count)                                           | 1️⃣  | `🔍`          | Prevents using `Children.count`.                                                                      |          |
@@ -63,6 +62,7 @@ full: true
 | [`no-unused-class-component-members`](./no-unused-class-component-members)           | 1️⃣  | `🔍`          | Warns unused class component methods and properties.                                                  |          |
 | [`no-unused-state`](./no-unused-state)                                               | 1️⃣  | `🔍`          | Warns unused class component state.                                                                   |          |
 | [`no-use-context`](./no-use-context)                                                 | 1️⃣  | `🔍` `🔄`     | Replaces usages of `useContext` with `use`.                                                           | >=19.0.0 |
+| [`no-useless-forward-ref`](./no-useless-forward-ref)                                 | 1️⃣  | `🔍`          | Requires that components wrapped with `forwardRef` must have a `ref` parameter.                       |          |
 | [`no-useless-fragment`](./no-useless-fragment)                                       | 1️⃣  | `🔍` `🔧` `⚙️` | Prevents using useless `fragment` components or `<>` syntax.                                          |          |
 | [`prefer-destructuring-assignment`](./prefer-destructuring-assignment)               | 0️⃣  | `🔍`          | Enforces using destructuring assignment over property assignment.                                     |          |
 | [`prefer-react-namespace-import`](./prefer-react-namespace-import)                   | 0️⃣  | `🔍` `🔧`     | Enforces React is imported via a namespace import                                                     |          |
@@ -75,19 +75,19 @@ full: true
 
 | Rule                                                                                             | ✅ | Features      | Description                                                                            |
 | :----------------------------------------------------------------------------------------------- | :- | :------------ | :------------------------------------------------------------------------------------- |
-| [`no-void-elements-with-children`](./dom-no-void-elements-with-children)                         | 2️⃣  | `🔍`          | Prevents using `children` in void DOM elements.                                        |
-| [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children) | 2️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML` and `children` at the same time. |
 | [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml)                             | 1️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML`.                                 |
+| [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children) | 2️⃣  | `🔍`          | Prevents DOM elements using `dangerouslySetInnerHTML` and `children` at the same time. |
 | [`no-find-dom-node`](./dom-no-find-dom-node)                                                     | 2️⃣  | `🔍`          | Prevents using `findDOMNode`.                                                          |
-| [`no-flush-sync`](./dom-no-flush-sync)                                                           | 1️⃣  | `🔍`          | Prevents using `flushSync`.                                                            |
+| [`no-flush-sync`](./dom-no-flush-sync)                                                           | 2️⃣  | `🔍`          | Prevents using `flushSync`.                                                            |
 | [`no-missing-button-type`](./dom-no-missing-button-type)                                         | 1️⃣  | `🔍`          | Enforces explicit `type` attribute for `button` elements.                              |
 | [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)                                   | 1️⃣  | `🔍`          | Enforces explicit `sandbox` attribute for `iframe` elements.                           |
 | [`no-namespace`](./dom-no-namespace)                                                             | 2️⃣  | `🔍`          | Enforces the absence of a `namespace` in React elements.                               |
 | [`no-render-return-value`](./dom-no-render-return-value)                                         | 2️⃣  | `🔍`          | Prevents using the return value of `ReactDOM.render`.                                  |
 | [`no-script-url`](./dom-no-script-url)                                                           | 1️⃣  | `🔍`          | Prevents using `javascript:` URLs as the value of attributes.                          |
-| [`no-unknown-property`](./dom-no-unknown-property)                                               | 0️⃣  | `🔍` `🔧` `⚙️` | Prevents using unknown `DOM` property                                                  |
+| [`no-unknown-property`](./dom-no-unknown-property)                                               | 1️⃣  | `🔍` `🔧` `⚙️` | Prevents using unknown `DOM` property                                                  |
 | [`no-unsafe-iframe-sandbox`](./dom-no-unsafe-iframe-sandbox)                                     | 1️⃣  | `🔍`          | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.  |
 | [`no-unsafe-target-blank`](./dom-no-unsafe-target-blank)                                         | 1️⃣  | `🔍`          | Prevents using `target="_blank"` without `rel="noreferrer noopener"`.                  |
+| [`no-void-elements-with-children`](./dom-no-void-elements-with-children)                         | 2️⃣  | `🔍`          | Prevents using `children` in void DOM elements.                                        |
 
 ## Web API Rules
 
