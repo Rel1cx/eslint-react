@@ -16,7 +16,7 @@ const GLOB_TEST = [
   "**/spec.{ts,tsx,cts,mts}",
   "**/test.{ts,tsx,cts,mts}",
 ];
-// const GLOB_YAML = ["*.{yaml,yml}", "**/*.{yaml,yml}"];
+
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
 const GLOB_IGNORES = [
