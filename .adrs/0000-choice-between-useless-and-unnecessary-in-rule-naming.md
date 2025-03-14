@@ -6,11 +6,12 @@ Accepted
 
 ## Context
 
-When naming rules related to identifying redundant or non-functional code (e.g., in linting or static analysis), the terms "useless" and "unnecessary" both convey a sense of superfluity. However, their nuanced semantic differences could lead to ambiguity if misapplied. For example, a `forwardRef`-wrapped component that is never passed a `ref` is entirely without purpose, but other scenarios might involve optional code that is only redundant in specific contexts. A consistent naming convention is needed to ensure clarity and accuracy in rule documentation and error messaging.
+When naming rules related to identifying redundant or non-functional code (e.g., in linting or static analysis), the terms "useless" and "unnecessary" both convey a sense of superfluity. However, their nuanced semantic differences could lead to ambiguity if misapplied. For example, a `forwardRef` call with no `ref` usage is entirely without purpose, but other scenarios might involve optional code that is only redundant in specific contexts. A consistent naming convention is needed to ensure clarity and accuracy in rule documentation and error messaging.
 
 ## Decision
 
-Use "useless" to describe code that has no functional purpose under any circumstances (e.g., a `forwardRef` with no `ref` usage).
+Use "useless" to describe code that has no functional purpose under any circumstances (e.g., a `forwardRef` call with no `ref` usage).
+
 Use "unnecessary" to describe code that is contextually redundant but not strictly non-functional (e.g., an `useEffect` that runs event-specific logic).
 
 ## Consequences
