@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using unstable nested components",
+      description: "prevents nesting component definitions inside other components",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
