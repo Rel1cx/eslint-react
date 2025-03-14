@@ -1,7 +1,6 @@
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
-import forwardRefUsingRef from "./rules/ensure-forward-ref-using-ref";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key";
 import noChildrenCount from "./rules/no-children-count";
@@ -29,7 +28,7 @@ import noLeakedConditionalRendering from "./rules/no-leaked-conditional-renderin
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
 import noMissingContextDisplayName from "./rules/no-missing-context-display-name";
 import noMissingKey from "./rules/no-missing-key";
-import noNestedComponents from "./rules/no-nested-components";
+import noNestedComponentDefinitions from "./rules/no-nested-component-definitions";
 import noPropTypes from "./rules/no-prop-types";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
@@ -44,6 +43,7 @@ import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members";
 import noUnusedState from "./rules/no-unused-state";
 import noUseContext from "./rules/no-use-context";
+import noUselessForwardRef from "./rules/no-useless-forward-ref";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferReactNamespaceImport from "./rules/prefer-react-namespace-import";
@@ -60,7 +60,6 @@ export const plugin = {
   rules: {
     "avoid-shorthand-boolean": avoidShorthandBoolean,
     "avoid-shorthand-fragment": avoidShorthandFragment,
-    "ensure-forward-ref-using-ref": forwardRefUsingRef,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,
     "no-children-count": noChildrenCount,
@@ -88,7 +87,7 @@ export const plugin = {
     "no-missing-component-display-name": noMissingComponentDisplayName,
     "no-missing-context-display-name": noMissingContextDisplayName,
     "no-missing-key": noMissingKey,
-    "no-nested-components": noNestedComponents,
+    "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-prop-types": noPropTypes,
     "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
@@ -103,6 +102,7 @@ export const plugin = {
     "no-unused-class-component-members": noUnusedClassComponentMembers,
     "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
+    "no-useless-forward-ref": noUselessForwardRef,
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-react-namespace-import": preferReactNamespaceImport,
@@ -112,11 +112,15 @@ export const plugin = {
     "use-jsx-vars": useJsxVars,
 
     // Part: deprecated rules
+    /** @deprecated Use `no-useless-forward-ref` instead */
+    "ensure-forward-ref-using-ref": noUselessForwardRef,
     /** @deprecated Use `no-duplicate-jsx-props` instead */
     "jsx-no-duplicate-props": noDuplicateJsxProps,
     /** @deprecated Use `use-jsx-vars` instead */
     "jsx-uses-vars": useJsxVars,
     /** @deprecated Use `no-complex-conditional-rendering` instead */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
+    /** @deprecated Use `no-nested-component-definitions` instead */
+    "no-nested-components": noNestedComponentDefinitions,
   },
 } as const;

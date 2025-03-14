@@ -14,7 +14,7 @@
 
 #### context
 
-[`Readonly`](../-internal-/type-aliases/Readonly.md)
+[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
 
 ### Returns
 
@@ -38,7 +38,7 @@
 
 #### context
 
-[`Readonly`](../-internal-/type-aliases/Readonly.md)
+[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
 
 #### node
 

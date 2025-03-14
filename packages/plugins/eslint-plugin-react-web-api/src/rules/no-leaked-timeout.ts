@@ -1,10 +1,11 @@
 import type * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance, isInstanceIdEqual } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, P } from "ts-pattern";
 
 import type { TimerEntry } from "../models";
@@ -72,96 +73,98 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("setTimeout")) {
-      return {};
-    }
-    const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
-    const sEntries: TimerEntry[] = [];
-    const rEntries: TimerEntry[] = [];
-    function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-      return isInstanceIdEqual(context, a.timerId, b.timerId);
-    }
-    return {
-      [":function"](node: AST.TSESTreeFunction) {
-        const kind = getPhaseKindOfFunction(node) ?? "other";
-        fEntries.push({ kind, node });
-      },
-      [":function:exit"]() {
-        fEntries.pop();
-      },
-      ["CallExpression"](node) {
-        const fEntry = fEntries.findLast((f) => f.kind !== "other");
-        if (!ERPhaseRelevance.has(fEntry?.kind)) {
-          return;
-        }
-        switch (getCallKind(node)) {
-          case "setTimeout": {
-            const timeoutIdNode = VAR.getVariableDeclaratorId(node);
-            if (timeoutIdNode == null) {
-              context.report({
-                messageId: "expectedTimeoutId",
-                node,
-              });
-              break;
-            }
-            sEntries.push({
-              kind: "timeout",
-              node,
-              callee: node.callee,
-              phase: fEntry.kind,
-              timerId: timeoutIdNode,
-            });
-            break;
-          }
-          case "clearTimeout": {
-            const [timeoutIdNode] = node.arguments;
-            if (timeoutIdNode == null) {
-              break;
-            }
-            rEntries.push({
-              kind: "timeout",
-              node,
-              callee: node.callee,
-              phase: fEntry.kind,
-              timerId: timeoutIdNode,
-            });
-            break;
-          }
-        }
-      },
-      ["Program:exit"]() {
-        for (const sEntry of sEntries) {
-          if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
-            continue;
-          }
-          switch (sEntry.phase) {
-            case "setup":
-            case "cleanup":
-              context.report({
-                messageId: "expectedClearTimeoutInCleanup",
-                node: sEntry.node,
-                data: {
-                  kind: "useEffect",
-                },
-              });
-              continue;
-            case "mount":
-            case "unmount":
-              context.report({
-                messageId: "expectedClearTimeoutInUnmount",
-                node: sEntry.node,
-                data: {
-                  kind: "componentDidMount",
-                },
-              });
-              continue;
-          }
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("setTimeout")) {
+    return {};
+  }
+  const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
+  const sEntries: TimerEntry[] = [];
+  const rEntries: TimerEntry[] = [];
+  function isInverseEntry(a: TimerEntry, b: TimerEntry) {
+    return isInstanceIdEqual(context, a.timerId, b.timerId);
+  }
+  return {
+    [":function"](node: AST.TSESTreeFunction) {
+      const kind = getPhaseKindOfFunction(node) ?? "other";
+      fEntries.push({ kind, node });
+    },
+    [":function:exit"]() {
+      fEntries.pop();
+    },
+    ["CallExpression"](node) {
+      const fEntry = fEntries.findLast((f) => f.kind !== "other");
+      if (!ERPhaseRelevance.has(fEntry?.kind)) {
+        return;
+      }
+      switch (getCallKind(node)) {
+        case "setTimeout": {
+          const timeoutIdNode = VAR.getVariableDeclaratorId(node);
+          if (timeoutIdNode == null) {
+            context.report({
+              messageId: "expectedTimeoutId",
+              node,
+            });
+            break;
+          }
+          sEntries.push({
+            kind: "timeout",
+            node,
+            callee: node.callee,
+            phase: fEntry.kind,
+            timerId: timeoutIdNode,
+          });
+          break;
+        }
+        case "clearTimeout": {
+          const [timeoutIdNode] = node.arguments;
+          if (timeoutIdNode == null) {
+            break;
+          }
+          rEntries.push({
+            kind: "timeout",
+            node,
+            callee: node.callee,
+            phase: fEntry.kind,
+            timerId: timeoutIdNode,
+          });
+          break;
+        }
+      }
+    },
+    ["Program:exit"]() {
+      for (const sEntry of sEntries) {
+        if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
+          continue;
+        }
+        switch (sEntry.phase) {
+          case "setup":
+          case "cleanup":
+            context.report({
+              messageId: "expectedClearTimeoutInCleanup",
+              node: sEntry.node,
+              data: {
+                kind: "useEffect",
+              },
+            });
+            continue;
+          case "mount":
+          case "unmount":
+            context.report({
+              messageId: "expectedClearTimeoutInUnmount",
+              node: sEntry.node,
+              data: {
+                kind: "componentDidMount",
+              },
+            });
+            continue;
+        }
+      }
+    },
+  };
+}
 
 // #endregion

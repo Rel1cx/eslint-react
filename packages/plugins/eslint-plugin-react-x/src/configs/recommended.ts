@@ -4,7 +4,6 @@ import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 export const name = "react-x/recommended";
 
 export const rules = {
-  "react-x/ensure-forward-ref-using-ref": "warn",
   "react-x/no-access-state-in-setstate": "error",
   "react-x/no-array-index-key": "warn",
   "react-x/no-children-count": "warn",
@@ -26,7 +25,7 @@ export const rules = {
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
   "react-x/no-missing-key": "error",
-  "react-x/no-nested-components": "error",
+  "react-x/no-nested-component-definitions": "error",
   "react-x/no-prop-types": "error",
   "react-x/no-redundant-should-component-update": "error",
   "react-x/no-set-state-in-component-did-mount": "warn",
@@ -41,6 +40,7 @@ export const rules = {
   "react-x/no-unused-class-component-members": "warn",
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
+  "react-x/no-useless-forward-ref": "warn",
   "react-x/use-jsx-vars": "warn",
 } as const satisfies RulePreset;
 

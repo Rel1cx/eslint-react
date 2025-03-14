@@ -1,7 +1,8 @@
 import { isComponentNameLoose } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 
@@ -30,37 +31,39 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("Provider")) return {};
-    const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) return {};
-    return {
-      JSXElement(node) {
-        const fullName = JSX.getElementType(node);
-        const parts = fullName.split(".");
-        const selfName = parts.pop();
-        const contextFullName = parts.join(".");
-        const contextSelfName = parts.pop();
-        if (selfName !== "Provider") return;
-        context.report({
-          messageId: "noContextProvider",
-          node,
-          fix(fixer) {
-            if (contextSelfName == null) return null;
-            if (!isComponentNameLoose(contextSelfName)) return null;
-            const openingElement = node.openingElement;
-            const closingElement = node.closingElement;
-            if (closingElement == null) {
-              return fixer.replaceText(openingElement.name, contextFullName);
-            }
-            return [
-              fixer.replaceText(openingElement.name, contextFullName),
-              fixer.replaceText(closingElement.name, contextFullName),
-            ];
-          },
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("Provider")) return {};
+  const { version } = getSettingsFromContext(context);
+  if (compare(version, "19.0.0", "<")) return {};
+  return {
+    JSXElement(node) {
+      const fullName = JSX.getElementType(node);
+      const parts = fullName.split(".");
+      const selfName = parts.pop();
+      const contextFullName = parts.join(".");
+      const contextSelfName = parts.pop();
+      if (selfName !== "Provider") return;
+      context.report({
+        messageId: "noContextProvider",
+        node,
+        fix(fixer) {
+          if (contextSelfName == null) return null;
+          if (!isComponentNameLoose(contextSelfName)) return null;
+          const openingElement = node.openingElement;
+          const closingElement = node.closingElement;
+          if (closingElement == null) {
+            return fixer.replaceText(openingElement.name, contextFullName);
+          }
+          return [
+            fixer.replaceText(openingElement.name, contextFullName),
+            fixer.replaceText(closingElement.name, contextFullName),
+          ];
+        },
+      });
+    },
+  };
+}

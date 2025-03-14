@@ -4,9 +4,10 @@ import {
   isCreateContextCall,
   isInstanceIdEqual,
 } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -32,46 +33,48 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("createContext")) return {};
-    // `React.createContext` calls
-    const createCalls: TSESTree.CallExpression[] = [];
-    // `context.displayName = ...` assignment expressions
-    const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
-    return {
-      CallExpression(node) {
-        if (!isCreateContextCall(context, node)) return;
-        createCalls.push(node);
-      },
-      [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
-        displayNameAssignments.push(node);
-      },
-      "Program:exit"() {
-        for (const call of createCalls) {
-          const id = getInstanceId(call);
-          if (id == null) {
-            context.report({
-              messageId: "noMissingContextDisplayName",
-              node: call,
-            });
-            continue;
-          }
-          const hasDisplayNameAssignment = displayNameAssignments
-            .some((node) => {
-              const left = node.left;
-              if (left.type !== T.MemberExpression) return false;
-              const object = left.object;
-              return isInstanceIdEqual(context, id, object);
-            });
-          if (!hasDisplayNameAssignment) {
-            context.report({
-              messageId: "noMissingContextDisplayName",
-              node: call,
-            });
-          }
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("createContext")) return {};
+  // `React.createContext` calls
+  const createCalls: TSESTree.CallExpression[] = [];
+  // `context.displayName = ...` assignment expressions
+  const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
+  return {
+    CallExpression(node) {
+      if (!isCreateContextCall(context, node)) return;
+      createCalls.push(node);
+    },
+    [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
+      displayNameAssignments.push(node);
+    },
+    "Program:exit"() {
+      for (const call of createCalls) {
+        const id = getInstanceId(call);
+        if (id == null) {
+          context.report({
+            messageId: "noMissingContextDisplayName",
+            node: call,
+          });
+          continue;
+        }
+        const hasDisplayNameAssignment = displayNameAssignments
+          .some((node) => {
+            const left = node.left;
+            if (left.type !== T.MemberExpression) return false;
+            const object = left.object;
+            return isInstanceIdEqual(context, id, object);
+          });
+        if (!hasDisplayNameAssignment) {
+          context.report({
+            messageId: "noMissingContextDisplayName",
+            node: call,
+          });
+        }
+      }
+    },
+  };
+}

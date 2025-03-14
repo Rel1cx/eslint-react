@@ -1,4 +1,5 @@
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { useNoDirectSetStateInUseEffect } from "../hooks/use-no-direct-set-state-in-use-effect";
@@ -26,14 +27,16 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
-    return useNoDirectSetStateInUseEffect(context, {
-      onViolation(ctx, node, data) {
-        ctx.report({ messageId: "noDirectSetStateInUseLayoutEffect", node, data });
-      },
-      useEffectKind: "useLayoutEffect",
-    });
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
+  return useNoDirectSetStateInUseEffect(context, {
+    onViolation(ctx, node, data) {
+      ctx.report({ messageId: "noDirectSetStateInUseLayoutEffect", node, data });
+    },
+    useEffectKind: "useLayoutEffect",
+  });
+}

@@ -2,11 +2,12 @@ import * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance, isInversePhase } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
 import { createRule, getPhaseKindOfFunction } from "../utils";
@@ -162,155 +163,157 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("addEventListener")) {
-      return {};
-    }
-    if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) {
-      return {};
-    }
-    const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
-    const aEntries: AEntry[] = [];
-    const rEntries: REntry[] = [];
-    const abortedSignals: TSESTree.Expression[] = [];
-    function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
-      switch (true) {
-        case a.type === T.MemberExpression
-          && b.type === T.MemberExpression:
-          return AST.isNodeEqual(a.object, b.object);
-
-        // TODO: Maybe there other cases to consider here.
-        default:
-          return false;
-      }
-    }
-    function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
-      const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
-      const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-      if (!isInversePhase(aPhase, rPhase)) {
-        return false;
-      }
-      return isSameObject(aCallee, rCallee)
-        && AST.isNodeEqual(aListener, rListener)
-        && VAR.isNodeValueEqual(aType, rType, [
-          context.sourceCode.getScope(aType),
-          context.sourceCode.getScope(rType),
-        ])
-        && aCapture === rCapture;
-    }
-    function checkInlineFunction(
-      node: TSESTree.CallExpression,
-      callKind: EventMethodKind,
-      options: typeof defaultOptions,
-    ) {
-      const listener = node.arguments.at(1);
-      if (!AST.isFunction(listener)) {
-        return;
-      }
-      if (options.signal != null) {
-        return;
-      }
-      context.report({
-        messageId: "unexpectedInlineFunction",
-        node: listener,
-        data: { eventMethodKind: callKind },
-      });
-    }
-    return {
-      [":function"](node: AST.TSESTreeFunction) {
-        const kind = getFunctionKind(node);
-        fEntries.push({ kind, node });
-      },
-      [":function:exit"]() {
-        fEntries.pop();
-      },
-      ["CallExpression"](node) {
-        const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-        if (fKind == null) {
-          return;
-        }
-        if (!ERPhaseRelevance.has(fKind)) {
-          return;
-        }
-        match(getCallKind(node))
-          .with("addEventListener", (callKind) => {
-            const [type, listener, options] = node.arguments;
-            if (type == null || listener == null) {
-              return;
-            }
-            const opts = options == null
-              ? defaultOptions
-              : getOptions(options, context.sourceCode.getScope(options));
-            const { callee } = node;
-            checkInlineFunction(node, callKind, opts);
-            aEntries.push({
-              ...opts,
-              kind: "addEventListener",
-              type,
-              node,
-              callee,
-              listener,
-              phase: fKind,
-            });
-          })
-          .with("removeEventListener", (callKind) => {
-            const [type, listener, options] = node.arguments;
-            if (type == null || listener == null) {
-              return;
-            }
-            const opts = options == null
-              ? defaultOptions
-              : getOptions(options, context.sourceCode.getScope(options));
-            const { callee } = node;
-            checkInlineFunction(node, callKind, opts);
-            rEntries.push({
-              ...opts,
-              kind: "removeEventListener",
-              type,
-              node,
-              callee,
-              listener,
-              phase: fKind,
-            });
-          })
-          .with("abort", () => {
-            abortedSignals.push(node.callee);
-          })
-          .otherwise(() => _);
-      },
-      ["Program:exit"]() {
-        for (const aEntry of aEntries) {
-          const signal = aEntry.signal;
-          if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
-            continue;
-          }
-          if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
-            continue;
-          }
-          switch (aEntry.phase) {
-            case "setup":
-            case "cleanup":
-              context.report({
-                messageId: "expectedRemoveEventListenerInCleanup",
-                node: aEntry.node,
-                data: {
-                  effectMethodKind: "useEffect",
-                },
-              });
-              continue;
-            case "mount":
-            case "unmount":
-              context.report({
-                messageId: "expectedRemoveEventListenerInUnmount",
-                node: aEntry.node,
-              });
-              continue;
-          }
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("addEventListener")) {
+    return {};
+  }
+  if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) {
+    return {};
+  }
+  const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
+  const aEntries: AEntry[] = [];
+  const rEntries: REntry[] = [];
+  const abortedSignals: TSESTree.Expression[] = [];
+  function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
+    switch (true) {
+      case a.type === T.MemberExpression
+        && b.type === T.MemberExpression:
+        return AST.isNodeEqual(a.object, b.object);
+
+      // TODO: Maybe there other cases to consider here.
+      default:
+        return false;
+    }
+  }
+  function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
+    const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
+    const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
+    if (!isInversePhase(aPhase, rPhase)) {
+      return false;
+    }
+    return isSameObject(aCallee, rCallee)
+      && AST.isNodeEqual(aListener, rListener)
+      && VAR.isNodeValueEqual(aType, rType, [
+        context.sourceCode.getScope(aType),
+        context.sourceCode.getScope(rType),
+      ])
+      && aCapture === rCapture;
+  }
+  function checkInlineFunction(
+    node: TSESTree.CallExpression,
+    callKind: EventMethodKind,
+    options: typeof defaultOptions,
+  ) {
+    const listener = node.arguments.at(1);
+    if (!AST.isFunction(listener)) {
+      return;
+    }
+    if (options.signal != null) {
+      return;
+    }
+    context.report({
+      messageId: "unexpectedInlineFunction",
+      node: listener,
+      data: { eventMethodKind: callKind },
+    });
+  }
+  return {
+    [":function"](node: AST.TSESTreeFunction) {
+      const kind = getFunctionKind(node);
+      fEntries.push({ kind, node });
+    },
+    [":function:exit"]() {
+      fEntries.pop();
+    },
+    ["CallExpression"](node) {
+      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
+      if (fKind == null) {
+        return;
+      }
+      if (!ERPhaseRelevance.has(fKind)) {
+        return;
+      }
+      match(getCallKind(node))
+        .with("addEventListener", (callKind) => {
+          const [type, listener, options] = node.arguments;
+          if (type == null || listener == null) {
+            return;
+          }
+          const opts = options == null
+            ? defaultOptions
+            : getOptions(options, context.sourceCode.getScope(options));
+          const { callee } = node;
+          checkInlineFunction(node, callKind, opts);
+          aEntries.push({
+            ...opts,
+            kind: "addEventListener",
+            type,
+            node,
+            callee,
+            listener,
+            phase: fKind,
+          });
+        })
+        .with("removeEventListener", (callKind) => {
+          const [type, listener, options] = node.arguments;
+          if (type == null || listener == null) {
+            return;
+          }
+          const opts = options == null
+            ? defaultOptions
+            : getOptions(options, context.sourceCode.getScope(options));
+          const { callee } = node;
+          checkInlineFunction(node, callKind, opts);
+          rEntries.push({
+            ...opts,
+            kind: "removeEventListener",
+            type,
+            node,
+            callee,
+            listener,
+            phase: fKind,
+          });
+        })
+        .with("abort", () => {
+          abortedSignals.push(node.callee);
+        })
+        .otherwise(() => _);
+    },
+    ["Program:exit"]() {
+      for (const aEntry of aEntries) {
+        const signal = aEntry.signal;
+        if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
+          continue;
+        }
+        if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
+          continue;
+        }
+        switch (aEntry.phase) {
+          case "setup":
+          case "cleanup":
+            context.report({
+              messageId: "expectedRemoveEventListenerInCleanup",
+              node: aEntry.node,
+              data: {
+                effectMethodKind: "useEffect",
+              },
+            });
+            continue;
+          case "mount":
+          case "unmount":
+            context.report({
+              messageId: "expectedRemoveEventListenerInUnmount",
+              node: aEntry.node,
+            });
+            continue;
+        }
+      }
+    },
+  };
+}
 
 // #endregion

@@ -98,6 +98,8 @@ function MyInput({ ref, value, onChange }: MyInputProps & { ref: React.RefObject
 
 ## See Also
 
+- [`no-useless-forward-ref`](./no-useless-forward-ref)\
+  Enforces that `forwardRef` is only used when a `ref` parameter is declared.
 - [`no-context-provider`](./no-context-provider)\
   Replaces usages of `<Context.Provider>` with `<Context>`.
 - [`no-use-context`](./no-use-context)\

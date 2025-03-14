@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./ensure-forward-ref-using-ref";
+import rule, { RULE_NAME } from "./no-useless-forward-ref";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -12,14 +12,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
         import { forwardRef } from 'react'
         forwardRef((props) => null);
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
@@ -46,14 +46,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
         import * as React from 'react'
         React.forwardRef((props) => null);
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
     {
       code: tsx`
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "ensureForwardRefUsingRef" }],
+      errors: [{ messageId: "noUselessForwardRef" }],
     },
   ],
   valid: [

@@ -1,5 +1,6 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -25,22 +26,24 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXElement(node) {
-        const name = JSX.getElementType(node);
-        if (typeof name !== "string" || !name.includes(":")) {
-          return;
-        }
-        context.report({
-          messageId: "noNamespace",
-          node: node.openingElement.name,
-          data: {
-            name,
-          },
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXElement(node) {
+      const name = JSX.getElementType(node);
+      if (typeof name !== "string" || !name.includes(":")) {
+        return;
+      }
+      context.report({
+        messageId: "noNamespace",
+        node: node.openingElement.name,
+        data: {
+          name,
+        },
+      });
+    },
+  };
+}

@@ -92,7 +92,7 @@ This never-used property exists only as a convenience for code that tries to acc
 
 ### type
 
-> **type**: [`Program`](../../../README.md#program)
+> **type**: [`Program`](../../../enumerations/AST_NODE_TYPES.md#program)
 
 #### Inherited from
 

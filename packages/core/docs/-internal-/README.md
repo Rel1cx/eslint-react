@@ -531,12 +531,6 @@
 
 ***
 
-### Program
-
-> **Program**: `"Program"`
-
-***
-
 ### Punctuator
 
 > **Punctuator**: `"Punctuator"`
@@ -1823,6 +1817,7 @@
 - [ReportFixFunction](type-aliases/ReportFixFunction.md)
 - [ResolutionMode](type-aliases/ResolutionMode.md)
 - [Reverse](type-aliases/Reverse.md)
+- [RuleContext](type-aliases/RuleContext.md)
 - [RuleFunction](type-aliases/RuleFunction.md)
 - [RuleListener](type-aliases/RuleListener.md)
 - [RuleListenerCatchAllBaseCase](type-aliases/RuleListenerCatchAllBaseCase.md)

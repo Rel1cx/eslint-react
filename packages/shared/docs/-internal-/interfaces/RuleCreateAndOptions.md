@@ -9,7 +9,6 @@
 ## Extended by
 
 - [`RuleWithMetaAndName`](RuleWithMetaAndName.md)
-- [`RuleWithMeta`](RuleWithMeta.md)
 
 ## Type Parameters
 
