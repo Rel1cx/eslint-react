@@ -1,5 +1,6 @@
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -25,25 +26,27 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("flushSync")) return {};
-    return {
-      CallExpression(node) {
-        const { callee } = node;
-        switch (callee.type) {
-          case T.Identifier:
-            if (callee.name === "flushSync") {
-              context.report({ messageId: "noFlushSync", node });
-            }
-            return;
-          case T.MemberExpression:
-            if (callee.property.type === T.Identifier && callee.property.name === "flushSync") {
-              context.report({ messageId: "noFlushSync", node });
-            }
-            return;
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("flushSync")) return {};
+  return {
+    CallExpression(node) {
+      const { callee } = node;
+      switch (callee.type) {
+        case T.Identifier:
+          if (callee.name === "flushSync") {
+            context.report({ messageId: "noFlushSync", node });
+          }
+          return;
+        case T.MemberExpression:
+          if (callee.property.type === T.Identifier && callee.property.name === "flushSync") {
+            context.report({ messageId: "noFlushSync", node });
+          }
+          return;
+      }
+    },
+  };
+}

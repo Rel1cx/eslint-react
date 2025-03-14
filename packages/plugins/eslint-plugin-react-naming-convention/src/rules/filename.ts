@@ -1,9 +1,10 @@
 import path from "node:path";
 
 import type { _ } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -92,60 +93,62 @@ export default createRule<Options, MessageID>({
     schema,
   },
   name: RULE_NAME,
-  create(context) {
-    const options = context.options[0] ?? defaultOptions[0];
-    const rule = typeof options === "string"
-      ? options
-      : options.rule ?? "PascalCase";
-    const excepts = typeof options === "string"
-      ? []
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      : options.excepts ?? [];
-
-    function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      const shouldIgnore = ignores
-        .map(toRegExp)
-        .some((pattern) => pattern.test(name));
-      if (shouldIgnore) return true;
-
-      return match(casing)
-        .with("PascalCase", () => RE_PASCAL_CASE.test(name))
-        .with("camelCase", () => RE_CAMEL_CASE.test(name))
-        .with("kebab-case", () => RE_KEBAB_CASE.test(name))
-        .with("snake_case", () => RE_SNAKE_CASE.test(name))
-        .exhaustive();
-    }
-
-    function getSuggestion(name: string, casing: Case = rule) {
-      return match(casing)
-        .with("PascalCase", () => pascalCase(name))
-        .with("camelCase", () => camelCase(name))
-        .with("kebab-case", () => kebabCase(name))
-        .with("snake_case", () => snakeCase(name))
-        .exhaustive();
-    }
-
-    return {
-      Program(node) {
-        const [basename = "", ...rest] = path.basename(context.filename).split(".");
-        if (basename.length === 0) {
-          context.report({ messageId: "filenameEmpty", node });
-          return;
-        }
-        if (validate(basename)) {
-          return;
-        }
-        context.report({
-          messageId: "filenameInvalid",
-          node,
-          data: {
-            name: context.filename,
-            rule,
-            suggestion: [getSuggestion(basename), ...rest].join("."),
-          },
-        });
-      },
-    };
-  },
+  create,
   defaultOptions,
 });
+
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const options = context.options[0] ?? defaultOptions[0];
+  const rule = typeof options === "string"
+    ? options
+    : options.rule ?? "PascalCase";
+  const excepts = typeof options === "string"
+    ? []
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    : options.excepts ?? [];
+
+  function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
+    const shouldIgnore = ignores
+      .map(toRegExp)
+      .some((pattern) => pattern.test(name));
+    if (shouldIgnore) return true;
+
+    return match(casing)
+      .with("PascalCase", () => RE_PASCAL_CASE.test(name))
+      .with("camelCase", () => RE_CAMEL_CASE.test(name))
+      .with("kebab-case", () => RE_KEBAB_CASE.test(name))
+      .with("snake_case", () => RE_SNAKE_CASE.test(name))
+      .exhaustive();
+  }
+
+  function getSuggestion(name: string, casing: Case = rule) {
+    return match(casing)
+      .with("PascalCase", () => pascalCase(name))
+      .with("camelCase", () => camelCase(name))
+      .with("kebab-case", () => kebabCase(name))
+      .with("snake_case", () => snakeCase(name))
+      .exhaustive();
+  }
+
+  return {
+    Program(node) {
+      const [basename = "", ...rest] = path.basename(context.filename).split(".");
+      if (basename.length === 0) {
+        context.report({ messageId: "filenameEmpty", node });
+        return;
+      }
+      if (validate(basename)) {
+        return;
+      }
+      context.report({
+        messageId: "filenameInvalid",
+        node,
+        data: {
+          name: context.filename,
+          rule,
+          suggestion: [getSuggestion(basename), ...rest].join("."),
+        },
+      });
+    },
+  };
+}

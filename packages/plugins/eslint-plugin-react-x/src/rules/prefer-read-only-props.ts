@@ -1,7 +1,8 @@
 import { useComponentCollector } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -28,26 +29,28 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const services = ESLintUtils.getParserServices(context, false);
-    const { ctx, listeners } = useComponentCollector(context);
-    return {
-      ...listeners,
-      "Program:exit"(node) {
-        const components = ctx.getAllComponents(node);
-        for (const [, component] of components) {
-          const [props] = component.node.params;
-          if (props == null) {
-            continue;
-          }
-          const propsType = getConstrainedTypeAtLocation(services, props);
-          if (isTypeReadonly(services.program, propsType)) {
-            continue;
-          }
-          context.report({ messageId: "preferReadOnlyProps", node: props });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const services = ESLintUtils.getParserServices(context, false);
+  const { ctx, listeners } = useComponentCollector(context);
+  return {
+    ...listeners,
+    "Program:exit"(node) {
+      const components = ctx.getAllComponents(node);
+      for (const [, component] of components) {
+        const [props] = component.node.params;
+        if (props == null) {
+          continue;
+        }
+        const propsType = getConstrainedTypeAtLocation(services, props);
+        if (isTypeReadonly(services.program, propsType)) {
+          continue;
+        }
+        context.report({ messageId: "preferReadOnlyProps", node: props });
+      }
+    },
+  };
+}

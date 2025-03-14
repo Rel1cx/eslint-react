@@ -1,5 +1,6 @@
 import { useHookCollector } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -25,26 +26,28 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const { ctx, listeners } = useHookCollector();
-
-    return {
-      ...listeners,
-      "Program:exit"(node) {
-        const allHooks = ctx.getAllHooks(node);
-
-        for (const { name, node, hookCalls } of allHooks.values()) {
-          context.report({
-            messageId: "hook",
-            node,
-            data: {
-              name,
-              hookCalls: hookCalls.length,
-            },
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const { ctx, listeners } = useHookCollector();
+
+  return {
+    ...listeners,
+    "Program:exit"(node) {
+      const allHooks = ctx.getAllHooks(node);
+
+      for (const { name, node, hookCalls } of allHooks.values()) {
+        context.report({
+          messageId: "hook",
+          node,
+          data: {
+            name,
+            hookCalls: hookCalls.length,
+          },
+        });
+      }
+    },
+  };
+}

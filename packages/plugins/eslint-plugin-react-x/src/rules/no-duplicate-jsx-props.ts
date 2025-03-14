@@ -1,5 +1,6 @@
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -25,29 +26,31 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXOpeningElement(node) {
-        const props: string[] = [];
-        for (const attr of node.attributes) {
-          if (attr.type === T.JSXSpreadAttribute) {
-            continue;
-          }
-          const name = attr.name.name;
-          if (typeof name !== "string") {
-            continue;
-          }
-          if (!props.includes(name)) {
-            props.push(name);
-            continue;
-          }
-          context.report({
-            messageId: "noDuplicateJsxProps",
-            node: attr,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXOpeningElement(node) {
+      const props: string[] = [];
+      for (const attr of node.attributes) {
+        if (attr.type === T.JSXSpreadAttribute) {
+          continue;
+        }
+        const name = attr.name.name;
+        if (typeof name !== "string") {
+          continue;
+        }
+        if (!props.includes(name)) {
+          props.push(name);
+          continue;
+        }
+        context.report({
+          messageId: "noDuplicateJsxProps",
+          node: attr,
+        });
+      }
+    },
+  };
+}

@@ -1,5 +1,6 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -26,23 +27,25 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
-    return {
-      JSXElement(node) {
-        const attributes = node.openingElement.attributes;
-        const attribute = JSX.getAttribute(
-          "dangerouslySetInnerHTML",
-          attributes,
-          context.sourceCode.getScope(node),
-        );
-        if (attribute == null) return;
-        context.report({
-          messageId: "noDangerouslySetInnerhtml",
-          node: attribute,
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
+  return {
+    JSXElement(node) {
+      const attributes = node.openingElement.attributes;
+      const attribute = JSX.getAttribute(
+        "dangerouslySetInnerHTML",
+        attributes,
+        context.sourceCode.getScope(node),
+      );
+      if (attribute == null) return;
+      context.report({
+        messageId: "noDangerouslySetInnerhtml",
+        node: attribute,
+      });
+    },
+  };
+}

@@ -1,6 +1,7 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
@@ -37,50 +38,52 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const settings = getSettingsFromContext(context);
-    const polymorphicPropName = settings.polymorphicPropName;
-    const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
-    return {
-      JSXElement(node) {
-        const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
-          context,
-          node,
-          polymorphicPropName,
-          additionalComponents,
-        );
-
-        if (elementNameOnDom !== "iframe") return;
-
-        const elementScope = context.sourceCode.getScope(node);
-        const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
-        const customComponentProp = findCustomComponentProp("sandbox", customComponent?.attributes ?? []);
-        const propNameOnJsx = customComponentProp?.name ?? "sandbox";
-        const attributeNode = JSX.getAttribute(
-          propNameOnJsx,
-          node.openingElement.attributes,
-          elementScope,
-        );
-        if (attributeNode != null) {
-          const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
-          if (attributeValue.kind === "some" && !hasSafeSandbox(attributeValue.value)) {
-            context.report({
-              messageId: "noUnsafeIframeSandbox",
-              node: attributeNode,
-            });
-            return;
-          }
-        }
-        if (customComponentProp?.defaultValue == null) return;
-        if (!hasSafeSandbox(customComponentProp.defaultValue)) {
-          context.report({
-            messageId: "noUnsafeIframeSandbox",
-            node,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const settings = getSettingsFromContext(context);
+  const polymorphicPropName = settings.polymorphicPropName;
+  const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
+  return {
+    JSXElement(node) {
+      const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
+        context,
+        node,
+        polymorphicPropName,
+        additionalComponents,
+      );
+
+      if (elementNameOnDom !== "iframe") return;
+
+      const elementScope = context.sourceCode.getScope(node);
+      const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
+      const customComponentProp = findCustomComponentProp("sandbox", customComponent?.attributes ?? []);
+      const propNameOnJsx = customComponentProp?.name ?? "sandbox";
+      const attributeNode = JSX.getAttribute(
+        propNameOnJsx,
+        node.openingElement.attributes,
+        elementScope,
+      );
+      if (attributeNode != null) {
+        const attributeScope = context.sourceCode.getScope(attributeNode);
+        const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
+        if (attributeValue.kind === "some" && !hasSafeSandbox(attributeValue.value)) {
+          context.report({
+            messageId: "noUnsafeIframeSandbox",
+            node: attributeNode,
+          });
+          return;
+        }
+      }
+      if (customComponentProp?.defaultValue == null) return;
+      if (!hasSafeSandbox(customComponentProp.defaultValue)) {
+        context.report({
+          messageId: "noUnsafeIframeSandbox",
+          node,
+        });
+      }
+    },
+  };
+}

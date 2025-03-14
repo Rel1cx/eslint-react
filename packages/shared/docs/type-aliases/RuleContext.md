@@ -4,11 +4,17 @@
 
 [@eslint-react/shared](../README.md) / RuleContext
 
-# Type Alias: RuleContext
+# Type Alias: RuleContext\<MessageIds, Options\>
 
-> **RuleContext**: [`Parameters`](../-internal-/type-aliases/Parameters.md)\<`RuleCreator`\>\[`0`\]
+> **RuleContext**\<`MessageIds`, `Options`\>: [`RuleContext`](../-internal-/interfaces/RuleContext.md)\<`MessageIds`, `Options`\>
 
 Rule context.
+
+## Type Parameters
+
+• **MessageIds** *extends* `string` = `string`
+
+• **Options** *extends* readonly `unknown`[] = readonly `unknown`[]
 
 ## Since
 

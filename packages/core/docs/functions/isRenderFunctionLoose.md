@@ -20,7 +20,7 @@ _ = <Component renderRow={() => <div />} />
 
 ### context
 
-[`Readonly`](../-internal-/type-aliases/Readonly.md)
+[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
 
 The rule context
 

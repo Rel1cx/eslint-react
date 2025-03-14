@@ -12,7 +12,7 @@
 
 ### a
 
-...\[[`Readonly`](../-internal-/type-aliases/Readonly.md)\<[`RuleContext`](../-internal-/interfaces/RuleContext.md)\<`string`, readonly `unknown`[]\>\>, [`CallExpression`](../-internal-/interfaces/CallExpression.md)\]
+...\[[`RuleContext`](../-internal-/type-aliases/RuleContext.md), [`CallExpression`](../-internal-/interfaces/CallExpression.md)\]
 
 ## Returns
 

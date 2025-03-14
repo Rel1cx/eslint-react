@@ -1,6 +1,7 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -28,30 +29,32 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXElement(node: TSESTree.JSXElement) {
-        if (!JSX.isFragmentElement(node)) return;
-        const hasAttributes = node.openingElement.attributes.length > 0;
-        if (hasAttributes) {
-          return;
-        }
-        context.report({
-          messageId: "preferShorthandFragment",
-          node,
-          fix: (fixer) => {
-            const { closingElement, openingElement } = node;
-            if (closingElement == null) {
-              return [];
-            }
-            return [
-              fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
-              fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
-            ];
-          },
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXElement(node: TSESTree.JSXElement) {
+      if (!JSX.isFragmentElement(node)) return;
+      const hasAttributes = node.openingElement.attributes.length > 0;
+      if (hasAttributes) {
+        return;
+      }
+      context.report({
+        messageId: "preferShorthandFragment",
+        node,
+        fix: (fixer) => {
+          const { closingElement, openingElement } = node;
+          if (closingElement == null) {
+            return [];
+          }
+          return [
+            fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
+            fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
+          ];
+        },
+      });
+    },
+  };
+}

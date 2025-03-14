@@ -122,6 +122,12 @@
 
 ***
 
+### Program
+
+> **Program**: `"Program"`
+
+***
+
 ### Property
 
 > **Property**: `"Property"`
@@ -557,12 +563,6 @@ Re-exports [ObjectPattern](../README.md#objectpattern)
 ### PrivateIdentifier
 
 Re-exports [PrivateIdentifier](../README.md#privateidentifier)
-
-***
-
-### Program
-
-Re-exports [Program](../README.md#program)
 
 ***
 

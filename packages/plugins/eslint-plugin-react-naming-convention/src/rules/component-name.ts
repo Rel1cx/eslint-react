@@ -1,9 +1,10 @@
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { _ } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule, toRegExp } from "../utils";
 
@@ -97,45 +98,47 @@ export default createRule<Options, MessageID>({
     schema,
   },
   name: RULE_NAME,
-  create(context) {
-    const options = normalizeOptions(context.options);
-    const { rule } = options;
-    const collector = useComponentCollector(context);
-    const collectorLegacy = useComponentCollectorLegacy();
-
-    return {
-      ...collector.listeners,
-      ...collectorLegacy.listeners,
-      "Program:exit"(node) {
-        const functionComponents = collector.ctx.getAllComponents(node);
-        const classComponents = collectorLegacy.ctx.getAllComponents(node);
-        for (const { node: component } of functionComponents.values()) {
-          const id = AST.getFunctionIdentifier(component);
-          if (id?.name == null) continue;
-          const name = id.name;
-          if (isValidName(name, options)) return;
-          context.report({
-            messageId: "invalid",
-            node: id,
-            data: { name, rule },
-          });
-        }
-        for (const { node: component } of classComponents.values()) {
-          const id = AST.getClassIdentifier(component);
-          if (id?.name == null) continue;
-          const name = id.name;
-          if (isValidName(name, options)) continue;
-          context.report({
-            messageId: "invalid",
-            node: id,
-            data: { name, rule },
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions,
 });
+
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const options = normalizeOptions(context.options);
+  const { rule } = options;
+  const collector = useComponentCollector(context);
+  const collectorLegacy = useComponentCollectorLegacy();
+
+  return {
+    ...collector.listeners,
+    ...collectorLegacy.listeners,
+    "Program:exit"(node) {
+      const functionComponents = collector.ctx.getAllComponents(node);
+      const classComponents = collectorLegacy.ctx.getAllComponents(node);
+      for (const { node: component } of functionComponents.values()) {
+        const id = AST.getFunctionIdentifier(component);
+        if (id?.name == null) continue;
+        const name = id.name;
+        if (isValidName(name, options)) return;
+        context.report({
+          messageId: "invalid",
+          node: id,
+          data: { name, rule },
+        });
+      }
+      for (const { node: component } of classComponents.values()) {
+        const id = AST.getClassIdentifier(component);
+        if (id?.name == null) continue;
+        const name = id.name;
+        if (isValidName(name, options)) continue;
+        context.report({
+          messageId: "invalid",
+          node: id,
+          data: { name, rule },
+        });
+      }
+    },
+  };
+}
 
 function normalizeOptions(options: Options) {
   const opts = options[0];

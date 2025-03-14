@@ -1,7 +1,8 @@
 import { getInstanceId, isComponentName, isCreateContextCall } from "@eslint-react/core";
 import { _, identity } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { match, P } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -26,24 +27,26 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("createContext")) return {};
-    return {
-      CallExpression(node) {
-        if (!isCreateContextCall(context, node)) return;
-        const id = getInstanceId(node);
-        if (id == null) return;
-        const name = match(id)
-          .with({ type: T.Identifier, name: P.select() }, identity)
-          .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
-          .otherwise(() => _);
-        if (name != null && isComponentName(name) && name.endsWith("Context")) return;
-        context.report({
-          messageId: "invalid",
-          node: id,
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("createContext")) return {};
+  return {
+    CallExpression(node) {
+      if (!isCreateContextCall(context, node)) return;
+      const id = getInstanceId(node);
+      if (id == null) return;
+      const name = match(id)
+        .with({ type: T.Identifier, name: P.select() }, identity)
+        .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
+        .otherwise(() => _);
+      if (name != null && isComponentName(name) && name.endsWith("Context")) return;
+      context.report({
+        messageId: "invalid",
+        node: id,
+      });
+    },
+  };
+}

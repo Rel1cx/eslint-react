@@ -8,8 +8,8 @@
 
 ## Extended by
 
-- [`ESLintScopeVariable`](ESLintScopeVariable.md)
 - [`Variable`](Variable.md)
+- [`ESLintScopeVariable`](ESLintScopeVariable.md)
 
 ## Constructors
 

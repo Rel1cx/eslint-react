@@ -1,5 +1,6 @@
 import { DEFAULT_COMPONENT_HINT, ERComponentFlag, useComponentCollector } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -26,34 +27,36 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const { ctx, listeners } = useComponentCollector(
-      context,
-      {
-        collectDisplayName: true,
-        collectHookCalls: true,
-        hint: DEFAULT_COMPONENT_HINT,
-      },
-    );
-    return {
-      ...listeners,
-      "Program:exit"(node) {
-        const components = ctx.getAllComponents(node);
-        for (const { name = "anonymous", node, displayName, flag, hookCalls } of components.values()) {
-          context.report({
-            messageId: "functionComponent",
-            node,
-            data: {
-              name,
-              displayName: displayName != null ? context.sourceCode.getText(displayName) : "none",
-              forwardRef: (flag & ERComponentFlag.ForwardRef) > 0n,
-              hookCalls: hookCalls.length,
-              memo: (flag & ERComponentFlag.Memo) > 0n,
-            },
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const { ctx, listeners } = useComponentCollector(
+    context,
+    {
+      collectDisplayName: true,
+      collectHookCalls: true,
+      hint: DEFAULT_COMPONENT_HINT,
+    },
+  );
+  return {
+    ...listeners,
+    "Program:exit"(node) {
+      const components = ctx.getAllComponents(node);
+      for (const { name = "anonymous", node, displayName, flag, hookCalls } of components.values()) {
+        context.report({
+          messageId: "functionComponent",
+          node,
+          data: {
+            name,
+            displayName: displayName != null ? context.sourceCode.getText(displayName) : "none",
+            forwardRef: (flag & ERComponentFlag.ForwardRef) > 0n,
+            hookCalls: hookCalls.length,
+            memo: (flag & ERComponentFlag.Memo) > 0n,
+          },
+        });
+      }
+    },
+  };
+}

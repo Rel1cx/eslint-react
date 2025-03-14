@@ -7,7 +7,8 @@
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare, compareVersions } from "compare-versions";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 // ------------------------------------------------------------------------------
 // Constants
@@ -1045,6 +1046,12 @@ function getStandardName(name, context) {
 // Rule Definition
 // ------------------------------------------------------------------------------
 
+type MessageID =
+  | "dataLowercaseRequired"
+  | "invalidPropOnTag"
+  | "unknownProp"
+  | "unknownPropWithStandardName";
+
 const messages = {
   dataLowercaseRequired:
     "React does not recognize data-* props with uppercase characters on a DOM element. Found '{{name}}', use '{{lowerCaseName}}' instead",
@@ -1056,6 +1063,7 @@ const messages = {
 
 export default createRule({
   meta: {
+    type: "problem",
     docs: {
       description: "disallow usage of unknown DOM property",
     },
@@ -1079,113 +1087,115 @@ export default createRule({
     }],
   },
   name: RULE_NAME,
-  create(context) {
-    function getIgnoreConfig() {
-      return context.options[0]?.ignore || DEFAULTS.ignore;
-    }
+  create,
+  defaultOptions: [],
+});
 
-    function getRequireDataLowercase() {
-      return context.options[0] && typeof context.options[0].requireDataLowercase !== "undefined"
-        ? !!context.options[0].requireDataLowercase
-        : DEFAULTS.requireDataLowercase;
-    }
+export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
+  function getIgnoreConfig() {
+    return context.options[0]?.ignore || DEFAULTS.ignore;
+  }
 
-    return {
-      JSXAttribute(node) {
-        const ignoreNames = getIgnoreConfig();
-        const actualName = getText(context, node.name);
-        if (ignoreNames.indexOf(actualName) >= 0) {
-          return;
-        }
-        const name = normalizeAttributeCase(actualName);
+  function getRequireDataLowercase() {
+    return context.options[0] && typeof context.options[0].requireDataLowercase !== "undefined"
+      ? !!context.options[0].requireDataLowercase
+      : DEFAULTS.requireDataLowercase;
+  }
 
-        // Ignore tags like <Foo.bar />
-        if (tagNameHasDot(node)) {
-          return;
-        }
+  return {
+    JSXAttribute(node) {
+      const ignoreNames = getIgnoreConfig();
+      const actualName = getText(context, node.name);
+      if (ignoreNames.indexOf(actualName) >= 0) {
+        return;
+      }
+      const name = normalizeAttributeCase(actualName);
 
-        if (isValidDataAttribute(name)) {
-          if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
-            report(context, messages.dataLowercaseRequired, "dataLowercaseRequired", {
-              node,
-              data: {
-                name: actualName,
-                lowerCaseName: actualName.toLowerCase(),
-              },
-            });
-          }
+      // Ignore tags like <Foo.bar />
+      if (tagNameHasDot(node)) {
+        return;
+      }
 
-          return;
-        }
-
-        if (isValidAriaAttribute(name)) return;
-
-        const tagName = getTagName(node);
-
-        if (tagName === "fbt" || tagName === "fbs") return; // fbt/fbs nodes are bonkers, let's not go there
-
-        if (!isValidHTMLTagInJSX(node)) return;
-
-        // Let's dive deeper into tags that are HTML/DOM elements (`<button>`), and not React components (`<Button />`)
-
-        // Some attributes are allowed on some tags only
-        const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
-          ? ATTRIBUTE_TAGS_MAP[name]
-          : null;
-        if (tagName && allowedTags) {
-          // Scenario 1A: Allowed attribute found where not supposed to, report it
-          if (allowedTags.indexOf(tagName) === -1) {
-            report(context, messages.invalidPropOnTag, "invalidPropOnTag", {
-              node,
-              data: {
-                name: actualName,
-                allowedTags: allowedTags.join(", "),
-                tagName,
-              },
-            });
-          }
-          // Scenario 1B: There are allowed attributes on allowed tags, no need to report it
-          return;
-        }
-
-        // Let's see if the attribute is a close version to some standard property name
-        const standardName = getStandardName(name, context);
-
-        const hasStandardNameButIsNotUsed = standardName && standardName !== name;
-        const usesStandardName = standardName && standardName === name;
-
-        if (usesStandardName) {
-          // Scenario 2A: The attribute name is the standard name, no need to report it
-          return;
-        }
-
-        if (hasStandardNameButIsNotUsed) {
-          // Scenario 2B: The name of the attribute is close to a standard one, report it with the standard name
-          report(context, messages.unknownPropWithStandardName, "unknownPropWithStandardName", {
+      if (isValidDataAttribute(name)) {
+        if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
+          report(context, messages.dataLowercaseRequired, "dataLowercaseRequired", {
             node,
             data: {
               name: actualName,
-              standardName,
-            },
-            fix(fixer) {
-              return fixer.replaceText(node.name, standardName);
+              lowerCaseName: actualName.toLowerCase(),
             },
           });
-          return;
         }
 
-        // Scenario 3: We have an attribute that is unknown, report it
-        report(context, messages.unknownProp, "unknownProp", {
+        return;
+      }
+
+      if (isValidAriaAttribute(name)) return;
+
+      const tagName = getTagName(node);
+
+      if (tagName === "fbt" || tagName === "fbs") return; // fbt/fbs nodes are bonkers, let's not go there
+
+      if (!isValidHTMLTagInJSX(node)) return;
+
+      // Let's dive deeper into tags that are HTML/DOM elements (`<button>`), and not React components (`<Button />`)
+
+      // Some attributes are allowed on some tags only
+      const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
+        ? ATTRIBUTE_TAGS_MAP[name]
+        : null;
+      if (tagName && allowedTags) {
+        // Scenario 1A: Allowed attribute found where not supposed to, report it
+        if (allowedTags.indexOf(tagName) === -1) {
+          report(context, messages.invalidPropOnTag, "invalidPropOnTag", {
+            node,
+            data: {
+              name: actualName,
+              allowedTags: allowedTags.join(", "),
+              tagName,
+            },
+          });
+        }
+        // Scenario 1B: There are allowed attributes on allowed tags, no need to report it
+        return;
+      }
+
+      // Let's see if the attribute is a close version to some standard property name
+      const standardName = getStandardName(name, context);
+
+      const hasStandardNameButIsNotUsed = standardName && standardName !== name;
+      const usesStandardName = standardName && standardName === name;
+
+      if (usesStandardName) {
+        // Scenario 2A: The attribute name is the standard name, no need to report it
+        return;
+      }
+
+      if (hasStandardNameButIsNotUsed) {
+        // Scenario 2B: The name of the attribute is close to a standard one, report it with the standard name
+        report(context, messages.unknownPropWithStandardName, "unknownPropWithStandardName", {
           node,
           data: {
             name: actualName,
+            standardName,
+          },
+          fix(fixer) {
+            return fixer.replaceText(node.name, standardName);
           },
         });
-      },
-    };
-  },
-  defaultOptions: [],
-});
+        return;
+      }
+
+      // Scenario 3: We have an attribute that is unknown, report it
+      report(context, messages.unknownProp, "unknownProp", {
+        node,
+        data: {
+          name: actualName,
+        },
+      });
+    },
+  };
+}
 
 function has(obj, key) {
   return Object.hasOwn(obj, key);
