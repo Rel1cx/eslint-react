@@ -26,7 +26,7 @@ export const rules = {
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
   "@eslint-react/no-missing-key": "error",
-  "@eslint-react/no-nested-components": "error",
+  "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-prop-types": "error",
   "@eslint-react/no-redundant-should-component-update": "error",
   "@eslint-react/no-set-state-in-component-did-mount": "warn",

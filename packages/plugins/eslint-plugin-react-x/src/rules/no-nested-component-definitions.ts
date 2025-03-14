@@ -16,15 +16,15 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-nested-components";
+export const RULE_NAME = "no-nested-component-definitions";
 
 export const RULE_FEATURES = [
   "CHK",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "nestedComponent"
-  | "nestedComponentInProps";
+  | "noNestedComponentDefinition"
+  | "noNestedComponentDefinitionInProps";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -34,8 +34,10 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      nestedComponent: "Do not nest components inside other components. Move it to the top level.",
-      nestedComponentInProps: "Do not nest components inside props. Move it to the top level or pass it as a prop.",
+      noNestedComponentDefinition:
+        "Do not nest component definitions inside other components. Move it to the top level.",
+      noNestedComponentDefinitionInProps:
+        "Do not nest component definitions inside props. Move it to the top level or pass it as a prop.",
     },
     schema: [],
   },
@@ -96,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (isInsideJSXPropValue) {
           if (!isDeclaredInRenderPropLoose(component)) {
             context.report({
-              messageId: "nestedComponentInProps",
+              messageId: "noNestedComponentDefinitionInProps",
               node: component,
               data: {
                 name,
@@ -108,7 +110,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         if (isInsideCreateElementProps(context, component)) {
           context.report({
-            messageId: "nestedComponentInProps",
+            messageId: "noNestedComponentDefinitionInProps",
             node: component,
             data: {
               name,
@@ -123,8 +125,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (isParentComponentNotDirectValueOfRenderProperty) {
           context.report({
             messageId: isInsideProperty
-              ? "nestedComponentInProps"
-              : "nestedComponent",
+              ? "noNestedComponentDefinitionInProps"
+              : "noNestedComponentDefinition",
             node: component,
             data: {
               name,
@@ -135,7 +137,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         if (isInsideRenderMethod(component)) {
           context.report({
-            messageId: "nestedComponent",
+            messageId: "noNestedComponentDefinition",
             node: component,
             data: {
               name,
@@ -148,7 +150,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         context.report({
-          messageId: "nestedComponent",
+          messageId: "noNestedComponentDefinition",
           node: component,
           data: {
             name,

@@ -28,7 +28,7 @@ import noLeakedConditionalRendering from "./rules/no-leaked-conditional-renderin
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name";
 import noMissingContextDisplayName from "./rules/no-missing-context-display-name";
 import noMissingKey from "./rules/no-missing-key";
-import noNestedComponents from "./rules/no-nested-components";
+import noNestedComponentDefinitions from "./rules/no-nested-component-definitions";
 import noPropTypes from "./rules/no-prop-types";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
@@ -87,7 +87,7 @@ export const plugin = {
     "no-missing-component-display-name": noMissingComponentDisplayName,
     "no-missing-context-display-name": noMissingContextDisplayName,
     "no-missing-key": noMissingKey,
-    "no-nested-components": noNestedComponents,
+    "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-prop-types": noPropTypes,
     "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
@@ -120,5 +120,7 @@ export const plugin = {
     "jsx-uses-vars": useJsxVars,
     /** @deprecated Use `no-complex-conditional-rendering` instead */
     "no-complicated-conditional-rendering": noComplexConditionalRendering,
+    /** @deprecated Use `no-nested-component-definitions` instead */
+    "no-nested-components": noNestedComponentDefinitions,
   },
 } as const;

@@ -95,6 +95,11 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/rules/no-nested-components",
+        destination: "/docs/rules/no-nested-component-definitions",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/dom-no-children-in-void-dom-elements",
         destination: "/docs/rules/dom-no-void-elements-with-children",
         permanent: true,

@@ -1,17 +1,17 @@
 ---
-title: no-nested-components
+title: no-nested-component-definitions
 ---
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
-react-x/no-nested-components
+react-x/no-nested-component-definitions
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/no-nested-components
+@eslint-react/no-nested-component-definitions
 ```
 
 **Features**
@@ -63,8 +63,8 @@ When a child component needs some data from a parent, [pass it by props](https:/
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-components.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-components.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions.spec.ts)
 
 ## Further Reading
 
