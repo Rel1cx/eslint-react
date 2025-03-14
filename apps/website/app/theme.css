@@ -44,6 +44,15 @@
     border: none;
 }
 
+.dark .prose {
+    --tw-prose-body:
+        color-mix(in oklab, var(--color-fd-foreground) 80%, transparent);
+}
+
+.dark .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #ffffff;
+}
+
 .dark #nd-sidebar {
     --color-fd-muted: hsl(0, 0%, 16%);
     --color-fd-secondary: hsl(0, 0%, 18%);

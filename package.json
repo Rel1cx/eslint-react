@@ -115,7 +115,7 @@
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.1",
       "is-core-module": "npm:@socketregistry/is-core-module@^1.0.8",
-      "lucide-react": "^0.479.0",
+      "lucide-react": "^0.480.0",
       "next": "^15.2.2",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
