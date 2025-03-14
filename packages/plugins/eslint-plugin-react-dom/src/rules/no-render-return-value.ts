@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -34,37 +35,39 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      CallExpression(node) {
-        const { callee, parent } = node;
-        if (callee.type !== T.MemberExpression) {
-          return;
-        }
-        if (callee.object.type !== T.Identifier) {
-          return;
-        }
-        if (!("name" in callee.object)) {
-          return;
-        }
-        const objectName = callee.object.name;
-        if (
-          objectName.toLowerCase() !== "reactdom"
-          || callee.property.type !== T.Identifier
-          || callee.property.name !== "render"
-          || !AST.isOneOf(banParentTypes)(parent)
-        ) {
-          return;
-        }
-        context.report({
-          messageId: "noRenderReturnValue",
-          node,
-          data: {
-            objectName,
-          },
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    CallExpression(node) {
+      const { callee, parent } = node;
+      if (callee.type !== T.MemberExpression) {
+        return;
+      }
+      if (callee.object.type !== T.Identifier) {
+        return;
+      }
+      if (!("name" in callee.object)) {
+        return;
+      }
+      const objectName = callee.object.name;
+      if (
+        objectName.toLowerCase() !== "reactdom"
+        || callee.property.type !== T.Identifier
+        || callee.property.name !== "render"
+        || !AST.isOneOf(banParentTypes)(parent)
+      ) {
+        return;
+      }
+      context.report({
+        messageId: "noRenderReturnValue",
+        node,
+        data: {
+          objectName,
+        },
+      });
+    },
+  };
+}

@@ -1,4 +1,5 @@
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -24,15 +25,17 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXFragment(node) {
-        context.report({
-          messageId: "avoidShorthandFragment",
-          node,
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXFragment(node) {
+      context.report({
+        messageId: "avoidShorthandFragment",
+        node,
+      });
+    },
+  };
+}

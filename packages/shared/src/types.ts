@@ -1,4 +1,4 @@
-import type { ESLintUtils } from "@typescript-eslint/utils";
+import type * as tseslint from "@typescript-eslint/utils/ts-eslint";
 
 /**
  * Rule severity.
@@ -20,23 +20,16 @@ export type RuleDeclaration = [RuleSeverity, Record<string, unknown>?] | RuleSev
 export type RulePreset = Record<string, RuleDeclaration>;
 
 /**
- * Rule creator function.
- * @since 0.0.1
- * @internal
- */
-type RuleCreator = Parameters<ReturnType<typeof ESLintUtils.RuleCreator>>[0]["create"];
-
-/**
  * Rule context.
  * @since 0.0.1
  */
-export type RuleContext = Parameters<RuleCreator>[0];
-
-/**
- * Rule options.
- * @since 0.0.1
- */
-export type RuleOptions = Parameters<RuleCreator>[1];
+export type RuleContext<
+  MessageIds extends string = string,
+  Options extends readonly unknown[] = readonly unknown[],
+> = tseslint.RuleContext<
+  MessageIds,
+  Options
+>;
 
 /**
  * Rule namespace.

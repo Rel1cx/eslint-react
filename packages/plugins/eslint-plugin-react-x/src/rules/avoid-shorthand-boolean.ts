@@ -1,6 +1,6 @@
 import * as JSX from "@eslint-react/jsx";
 import type { RuleFeature } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
+import type { RuleContext, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -28,22 +28,24 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXAttribute(node: TSESTree.JSXAttribute) {
-        // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
-        if (node.value === null) {
-          context.report({
-            messageId: "avoidShorthandBoolean",
-            node,
-            data: {
-              propName: JSX.getAttributeName(node),
-            },
-            fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXAttribute(node) {
+      // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
+      if (node.value === null) {
+        context.report({
+          messageId: "avoidShorthandBoolean",
+          node,
+          data: {
+            propName: JSX.getAttributeName(node),
+          },
+          fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
+        });
+      }
+    },
+  };
+}

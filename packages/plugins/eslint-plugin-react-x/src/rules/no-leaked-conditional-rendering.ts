@@ -1,13 +1,13 @@
 import * as AST from "@eslint-react/ast";
 import { _, identity } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
@@ -188,88 +188,88 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) {
-      return {};
-    }
+  create,
+  defaultOptions: [],
+});
 
-    const { version } = getSettingsFromContext(context);
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) return {};
 
-    // Allowed left node type variants
-    const allowedVariants = [
-      "any",
-      "boolean",
-      "nullish",
-      "object",
-      "falsy boolean",
-      "truthy bigint",
-      "truthy boolean",
-      "truthy number",
-      "truthy string",
-      ...compare(version, "18.0.0", "<")
-        ? []
-        : ["string", "falsy string"] as const,
-    ] as const satisfies VariantType[];
+  const { version } = getSettingsFromContext(context);
 
-    const services = ESLintUtils.getParserServices(context, false);
-    function getReportDescriptor(node: TSESTree.Expression | _): ReportDescriptor<MessageID> | _ {
-      if (node == null) return _;
-      return match<typeof node, ReportDescriptor<MessageID> | _>(node)
-        .when(AST.isJSX, () => _)
-        .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
-          const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
-          if (isLeftUnaryNot) {
-            return getReportDescriptor(right);
-          }
-          const initialScope = context.sourceCode.getScope(left);
-          const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
-            || VAR
-                .toStaticValue({ kind: "lazy", node: left, initialScope })
-                .value === "NaN";
-          if (isLeftNan) {
-            return {
-              messageId: "noLeakedConditionalRendering",
-              node: left,
-              data: { value: context.sourceCode.getText(left) },
-            } as const;
-          }
-          const leftType = getConstrainedTypeAtLocation(services, left);
-          const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
-          const isLeftValid = Array
-            .from(leftTypeVariants.values())
-            .every((type) => allowedVariants.some((allowed) => allowed === type));
-          if (isLeftValid) {
-            return getReportDescriptor(right);
-          }
+  // Allowed left node type variants
+  const allowedVariants = [
+    "any",
+    "boolean",
+    "nullish",
+    "object",
+    "falsy boolean",
+    "truthy bigint",
+    "truthy boolean",
+    "truthy number",
+    "truthy string",
+    ...compare(version, "18.0.0", "<")
+      ? []
+      : ["string", "falsy string"] as const,
+  ] as const satisfies VariantType[];
+
+  const services = ESLintUtils.getParserServices(context, false);
+  function getReportDescriptor(node: TSESTree.Expression | _): ReportDescriptor<MessageID> | _ {
+    if (node == null) return _;
+    return match<typeof node, ReportDescriptor<MessageID> | _>(node)
+      .when(AST.isJSX, () => _)
+      .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+        const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
+        if (isLeftUnaryNot) {
+          return getReportDescriptor(right);
+        }
+        const initialScope = context.sourceCode.getScope(left);
+        const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
+          || VAR
+              .toStaticValue({ kind: "lazy", node: left, initialScope })
+              .value === "NaN";
+        if (isLeftNan) {
           return {
             messageId: "noLeakedConditionalRendering",
             node: left,
             data: { value: context.sourceCode.getText(left) },
           } as const;
-        })
-        .with({ type: T.ConditionalExpression }, ({ alternate, consequent }) => {
-          return getReportDescriptor(consequent) ?? getReportDescriptor(alternate);
-        })
-        .with({ type: T.Identifier }, (n) => {
-          const variable = VAR.findVariable(n.name, context.sourceCode.getScope(n));
-          const initExpression = match(variable?.defs.at(0)?.node)
-            .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, identity)
-            .otherwise(() => _);
-          return getReportDescriptor(initExpression);
-        })
-        .otherwise(() => _);
-    }
-    const visitorFunction = (node: TSESTree.Expression) => {
-      const descriptor = getReportDescriptor(node);
-      if (descriptor == null) return;
-      context.report(descriptor);
-    };
-    return {
-      "JSXExpressionContainer > ConditionalExpression": visitorFunction,
-      "JSXExpressionContainer > LogicalExpression": visitorFunction,
-    };
-  },
-  defaultOptions: [],
-});
+        }
+        const leftType = getConstrainedTypeAtLocation(services, left);
+        const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType));
+        const isLeftValid = Array
+          .from(leftTypeVariants.values())
+          .every((type) => allowedVariants.some((allowed) => allowed === type));
+        if (isLeftValid) {
+          return getReportDescriptor(right);
+        }
+        return {
+          messageId: "noLeakedConditionalRendering",
+          node: left,
+          data: { value: context.sourceCode.getText(left) },
+        } as const;
+      })
+      .with({ type: T.ConditionalExpression }, ({ alternate, consequent }) => {
+        return getReportDescriptor(consequent) ?? getReportDescriptor(alternate);
+      })
+      .with({ type: T.Identifier }, (n) => {
+        const variable = VAR.findVariable(n.name, context.sourceCode.getScope(n));
+        const initExpression = match(variable?.defs.at(0)?.node)
+          .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, identity)
+          .otherwise(() => _);
+        return getReportDescriptor(initExpression);
+      })
+      .otherwise(() => _);
+  }
+  const visitorFunction = (node: TSESTree.Expression) => {
+    const descriptor = getReportDescriptor(node);
+    if (descriptor == null) return;
+    context.report(descriptor);
+  };
+  return {
+    "JSXExpressionContainer > ConditionalExpression": visitorFunction,
+    "JSXExpressionContainer > LogicalExpression": visitorFunction,
+  };
+}
 
 // #endregion

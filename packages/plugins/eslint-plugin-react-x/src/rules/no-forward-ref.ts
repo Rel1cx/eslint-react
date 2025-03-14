@@ -5,7 +5,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
@@ -35,29 +35,31 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("forwardRef")) {
-      return {};
-    }
-    const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) {
-      return {};
-    }
-    return {
-      CallExpression(node) {
-        if (!isForwardRefCall(context, node)) {
-          return;
-        }
-        context.report({
-          messageId: "noForwardRef",
-          node,
-          fix: getFix(context, node),
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("forwardRef")) {
+    return {};
+  }
+  const { version } = getSettingsFromContext(context);
+  if (compare(version, "19.0.0", "<")) {
+    return {};
+  }
+  return {
+    CallExpression(node) {
+      if (!isForwardRefCall(context, node)) {
+        return;
+      }
+      context.report({
+        messageId: "noForwardRef",
+        node,
+        fix: getFix(context, node),
+      });
+    },
+  };
+}
 
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {

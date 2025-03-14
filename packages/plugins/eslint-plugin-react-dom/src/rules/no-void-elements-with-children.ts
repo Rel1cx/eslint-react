@@ -1,5 +1,6 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -45,37 +46,39 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXElement(node) {
-        const elementName = JSX.getElementType(node);
-        if (elementName.length === 0 || !voidElements.has(elementName)) {
-          return;
-        }
-        if (node.children.length > 0) {
-          context.report({
-            messageId: "noVoidElementsWithChildren",
-            node,
-            data: {
-              element: elementName,
-            },
-          });
-        }
-        const { attributes } = node.openingElement;
-        const initialScope = context.sourceCode.getScope(node);
-        const hasAttribute = (name: string) => JSX.hasAttribute(name, attributes, initialScope);
-        if (hasAttribute("children") || hasAttribute("dangerouslySetInnerHTML")) {
-          // e.g. <br children="Foo" />
-          context.report({
-            messageId: "noVoidElementsWithChildren",
-            node,
-            data: {
-              element: elementName,
-            },
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXElement(node) {
+      const elementName = JSX.getElementType(node);
+      if (elementName.length === 0 || !voidElements.has(elementName)) {
+        return;
+      }
+      if (node.children.length > 0) {
+        context.report({
+          messageId: "noVoidElementsWithChildren",
+          node,
+          data: {
+            element: elementName,
+          },
+        });
+      }
+      const { attributes } = node.openingElement;
+      const initialScope = context.sourceCode.getScope(node);
+      const hasAttribute = (name: string) => JSX.hasAttribute(name, attributes, initialScope);
+      if (hasAttribute("children") || hasAttribute("dangerouslySetInnerHTML")) {
+        // e.g. <br children="Foo" />
+        context.report({
+          messageId: "noVoidElementsWithChildren",
+          node,
+          data: {
+            element: elementName,
+          },
+        });
+      }
+    },
+  };
+}

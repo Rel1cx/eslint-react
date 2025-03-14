@@ -1,6 +1,7 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
@@ -26,50 +27,52 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const settings = getSettingsFromContext(context);
-    const polymorphicPropName = settings.polymorphicPropName;
-    const additionalComponents = settings.additionalComponents.filter((c) => c.as === "button");
-
-    return {
-      JSXElement(node) {
-        const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
-          context,
-          node,
-          polymorphicPropName,
-          additionalComponents,
-        );
-
-        if (elementNameOnDom !== "button") return;
-
-        const elementScope = context.sourceCode.getScope(node);
-        const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
-        const customComponentProp = findCustomComponentProp("type", customComponent?.attributes ?? []);
-        const propNameOnJsx = customComponentProp?.name ?? "type";
-        const attributeNode = JSX.getAttribute(
-          propNameOnJsx,
-          node.openingElement.attributes,
-          elementScope,
-        );
-        if (attributeNode != null) {
-          const attributeScope = context.sourceCode.getScope(attributeNode);
-          const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
-          if (attributeValue.kind === "some" && typeof attributeValue.value !== "string") {
-            context.report({
-              messageId: "noMissingButtonType",
-              node: attributeNode,
-            });
-          }
-          return;
-        }
-        if (typeof customComponentProp?.defaultValue !== "string") {
-          context.report({
-            messageId: "noMissingButtonType",
-            node,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const settings = getSettingsFromContext(context);
+  const polymorphicPropName = settings.polymorphicPropName;
+  const additionalComponents = settings.additionalComponents.filter((c) => c.as === "button");
+
+  return {
+    JSXElement(node) {
+      const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
+        context,
+        node,
+        polymorphicPropName,
+        additionalComponents,
+      );
+
+      if (elementNameOnDom !== "button") return;
+
+      const elementScope = context.sourceCode.getScope(node);
+      const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
+      const customComponentProp = findCustomComponentProp("type", customComponent?.attributes ?? []);
+      const propNameOnJsx = customComponentProp?.name ?? "type";
+      const attributeNode = JSX.getAttribute(
+        propNameOnJsx,
+        node.openingElement.attributes,
+        elementScope,
+      );
+      if (attributeNode != null) {
+        const attributeScope = context.sourceCode.getScope(attributeNode);
+        const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
+        if (attributeValue.kind === "some" && typeof attributeValue.value !== "string") {
+          context.report({
+            messageId: "noMissingButtonType",
+            node: attributeNode,
+          });
+        }
+        return;
+      }
+      if (typeof customComponentProp?.defaultValue !== "string") {
+        context.report({
+          messageId: "noMissingButtonType",
+          node,
+        });
+      }
+    },
+  };
+}

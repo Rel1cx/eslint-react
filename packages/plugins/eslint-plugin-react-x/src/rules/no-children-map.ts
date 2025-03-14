@@ -1,5 +1,6 @@
 import { isChildrenMap } from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -39,3 +40,16 @@ export default createRule<[], MessageID>({
   },
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    MemberExpression(node) {
+      if (isChildrenMap(context, node)) {
+        context.report({
+          messageId: "noChildrenMap",
+          node: node.property,
+        });
+      }
+    },
+  };
+}

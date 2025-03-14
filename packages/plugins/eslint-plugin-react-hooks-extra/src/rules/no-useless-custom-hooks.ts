@@ -2,6 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { useHookCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -36,35 +37,37 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const { ctx, listeners } = useHookCollector();
-    return {
-      ...listeners,
-      "Program:exit"(node) {
-        const allHooks = ctx.getAllHooks(node);
-        for (const { name, node, hookCalls } of allHooks.values()) {
-          // Skip empty functions
-          if (AST.isEmptyFunction(node)) {
-            continue;
-          }
-          // Skip useful hooks
-          if (hookCalls.length > 0) {
-            continue;
-          }
-          // Skip hooks with comments that contain calls to other hooks
-          if (isNodeContainsUseCallComments(context, node)) {
-            continue;
-          }
-          context.report({
-            messageId: "noUselessCustomHooks",
-            node,
-            data: {
-              name,
-            },
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const { ctx, listeners } = useHookCollector();
+  return {
+    ...listeners,
+    "Program:exit"(node) {
+      const allHooks = ctx.getAllHooks(node);
+      for (const { name, node, hookCalls } of allHooks.values()) {
+        // Skip empty functions
+        if (AST.isEmptyFunction(node)) {
+          continue;
+        }
+        // Skip useful hooks
+        if (hookCalls.length > 0) {
+          continue;
+        }
+        // Skip hooks with comments that contain calls to other hooks
+        if (isNodeContainsUseCallComments(context, node)) {
+          continue;
+        }
+        context.report({
+          messageId: "noUselessCustomHooks",
+          node,
+          data: {
+            name,
+          },
+        });
+      }
+    },
+  };
+}

@@ -3,7 +3,7 @@ import * as JSX from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -17,7 +17,7 @@ export const RULE_FEATURES = [
 
 export type MessageID = "uselessFragment";
 
-type Options = [
+type Options = readonly [
   {
     allowExpressions: boolean;
   },
@@ -186,17 +186,19 @@ export default createRule<Options, MessageID>({
     }],
   },
   name: RULE_NAME,
-  create(context, [option]) {
-    const { allowExpressions = true } = option;
-    return {
-      JSXElement(node) {
-        if (!JSX.isFragmentElement(node)) return;
-        checkAndReport(context, node, allowExpressions);
-      },
-      JSXFragment(node) {
-        checkAndReport(context, node, allowExpressions);
-      },
-    };
-  },
+  create,
   defaultOptions,
 });
+
+export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
+  const { allowExpressions = true } = option;
+  return {
+    JSXElement(node) {
+      if (!JSX.isFragmentElement(node)) return;
+      checkAndReport(context, node, allowExpressions);
+    },
+    JSXFragment(node) {
+      checkAndReport(context, node, allowExpressions);
+    },
+  };
+}
