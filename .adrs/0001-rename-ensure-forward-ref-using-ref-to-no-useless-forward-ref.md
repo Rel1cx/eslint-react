@@ -10,7 +10,7 @@ Renaming the `ensure-forward-ref-using-ref` rule to align with the existing rule
 
 ## Decision
 
-Rename the rule to **`no-useless-forward-ref`** to the `no-<category>-<term>` pattern used in similar rules (e.g., `no-useless-fragment`).
+Rename the rule to **`no-useless-forward-ref`** adhere to the `no-<category>-<term>` pattern used in similar rules (e.g., `no-useless-fragment`).
 
 ## Consequences
 
