@@ -1,3 +1,21 @@
+## v1.34.0 (2025-03-15)
+
+### 🪄 Improvements
+
+- refactor: export the create function of each rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/989
+- refactor(plugins/x): rename `no-nested-components` rule to `no-nested-component-definitions` and update related docs by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/990
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
+- `react-x/no-nested-components` to `react-x/no-nested-component-definitions`
+- `@eslint-react/no-nested-components` to `@eslint-react/no-nested-component-definitions`
+
+The old rule names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.33.0...v1.34.0
+
 ## v1.33.0 (2025-03-14)
 
 ### 🐞 Fixes
