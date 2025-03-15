@@ -87,7 +87,7 @@
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "type-fest": "^4.37.0",
-    "typedoc": "^0.27.9",
+    "typedoc": "0.27.9",
     "typedoc-plugin-markdown": "^4.4.2",
     "typedoc-plugin-mdn-links": "^5.0.1",
     "typedoc-plugin-missing-exports": "^3.1.0",
