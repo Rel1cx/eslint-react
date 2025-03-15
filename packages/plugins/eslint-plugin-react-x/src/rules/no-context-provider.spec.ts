@@ -6,7 +6,7 @@ import rule, { RULE_NAME } from "./no-context-provider";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: tsx`<Provider />`,
+      code: tsx`<context.Provider />`,
       errors: [
         {
           messageId: "noContextProvider",
@@ -101,6 +101,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // TODO: Evaluate the necessity of supporting this kind of usage
+    // {
+    //   code: tsx`
+    //     const Provider = Context.Provider;
+
+    //     function Component() {
+    //       return <Provider>hello world</Provider>;
+    //     }
+    //   `,
+    //   errors: [
+    //     {
+    //       messageId: "noContextProvider",
+    //     },
+    //   ],
+    //   settings: {
+    //     "react-x": {
+    //       version: "19.0.0",
+    //     },
+    //   },
+    // },
   ],
   valid: [
     {
@@ -145,6 +165,20 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`<ThemeContext>{children}</ThemeContext>`,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import { Provider } from "jotai";
+
+        function Component() {
+          return <Provider>hello world</Provider>;
+        }
+      `,
       settings: {
         "react-x": {
           version: "19.0.0",

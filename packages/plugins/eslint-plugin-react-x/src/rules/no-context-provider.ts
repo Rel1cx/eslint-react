@@ -47,11 +47,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const contextFullName = parts.join(".");
       const contextSelfName = parts.pop();
       if (selfName !== "Provider") return;
+      if (contextSelfName == null) return;
       context.report({
         messageId: "noContextProvider",
         node,
         fix(fixer) {
-          if (contextSelfName == null) return null;
           if (!isComponentNameLoose(contextSelfName)) return null;
           const openingElement = node.openingElement;
           const closingElement = node.closingElement;
