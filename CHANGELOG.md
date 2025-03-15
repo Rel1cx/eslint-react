@@ -1,3 +1,11 @@
+## v1.34.1 (2025-03-15)
+
+### 🐞 Fixes
+
+- fix: false positive in `react-x/no-context-provider` on symbols named `Provider` which are imported from third-party libs, closes #991 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/992
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.34.0...v1.34.1
+
 ## v1.34.0 (2025-03-15)
 
 ### 🪄 Improvements
