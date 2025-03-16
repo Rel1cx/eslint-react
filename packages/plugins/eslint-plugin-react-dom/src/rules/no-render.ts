@@ -100,7 +100,7 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression) {
       "(" + getText(arg0) + ")",
     ].join("");
     return [
-      fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom";\n'),
+      fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom/client";\n'),
       fixer.replaceText(node, fixedCallExpressionText),
     ];
   };
