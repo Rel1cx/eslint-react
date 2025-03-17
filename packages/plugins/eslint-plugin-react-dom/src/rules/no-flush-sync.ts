@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "warns against using `flushSync`",
+      description: "disallow 'flushSync'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

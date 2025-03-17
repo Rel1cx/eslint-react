@@ -27,7 +27,7 @@ react-dom/no-use-form-state
 
 ## What it does
 
-Replaces the usages of `useFormState` to use `useActionState`.
+Replaces the usages of `useFormState` with `useActionState`.
 
 An **safe** codemod is available for this rule.
 

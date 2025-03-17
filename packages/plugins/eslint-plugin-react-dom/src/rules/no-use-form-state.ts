@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "replace usages of 'ReactDom.render()' with 'createRoot(node).render()'",
+      description: "replace the usages of 'useFormState' with 'useActionState'",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
