@@ -46,11 +46,9 @@ ReactDom.render(<Component />, document.getElementById("app"));
 
 ```tsx
 import { createRoot } from "react-dom/client";
-import ReactDom from "react-dom";
 import Component from "Component";
 
-const root = createRoot(document.getElementById("app"));
-root.render(<Component />);
+createRoot(document.getElementById("app")).render(<Component />);
 ```
 
 ## Implementation
@@ -60,6 +58,12 @@ root.render(<Component />);
 
 ## Further Reading
 
+- [React: react-dom/render](https://18.react.dev/reference/react-dom/render)
+- [React: react-dom/createRoot](https://react.dev/reference/react-dom/client/createRoot)
+
 ---
 
 ## See Also
+
+- [no-render-return-value](./no-render-return-value.md)\
+  Prevents usage of the return value of `ReactDOM.render`.

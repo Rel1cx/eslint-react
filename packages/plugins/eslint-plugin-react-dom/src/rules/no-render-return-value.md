@@ -64,4 +64,11 @@ ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 
 ## Further Reading
 
-- [Legacy React: react-dom/render](https://legacy.reactjs.org/docs/react-dom.html#render)
+- [React: react-dom/render](https://18.react.dev/reference/react-dom/render)
+
+---
+
+## See Also
+
+- [no-render](./no-render.md)\
+  Replaces usages of `ReactDom.render()` with `createRoot(node).render()`.

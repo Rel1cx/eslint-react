@@ -35,9 +35,8 @@ export default createRule<[], MessageID>({
   create(context) {
     if (!context.sourceCode.text.includes("render")) return {};
     const settings = getSettingsFromContext(context);
-    if (compare(settings.version, "19.0.0", "<")) {
-      return {};
-    }
+    if (compare(settings.version, "18.0.0", "<")) return {};
+
     const reactDomNames = new Set<string>();
     const renderNames = new Set<string>();
 
@@ -54,9 +53,9 @@ export default createRule<[], MessageID>({
             return;
           case node.callee.type === T.MemberExpression
             && node.callee.object.type === T.Identifier
-            && reactDomNames.has(node.callee.object.name)
             && node.callee.property.type === T.Identifier
-            && node.callee.property.name === "render":
+            && node.callee.property.name === "render"
+            && reactDomNames.has(node.callee.object.name):
             context.report({
               messageId: "noRender",
               node,
