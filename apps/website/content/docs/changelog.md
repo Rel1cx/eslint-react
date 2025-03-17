@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## v1.35.0 (2025-03-18)
+
+### ✨ New
+
+- feat(plugins/dom): add `no-render` rule to replace `ReactDom.render()` with `createRoot(node).render()`, closes #972 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/993
+- feat(plugins/dom): add `no-hydrate` rule to replace `ReactDom.hydrate()` with `hydrateRoot()`, closes #973 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/995
+
+### 🪄 Improvements
+
+- refactor: rename `hooks-extra/no-useless-custom-hooks` to `hooks-extra/no-unnecessary-use-prefix` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/996
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
+- `react-hooks-extra/no-useless-custom-hooks` to `react-hooks-extra/no-unnecessary-use-prefix`
+- `@eslint-react/hooks-extra/no-useless-custom-hooks` to `@eslint-react/hooks-extra/no-unnecessary-use-prefix`
+
+The old rule names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.34.1...v1.35.0
+
 ## v1.34.1 (2025-03-15)
 
 ### 🐞 Fixes
