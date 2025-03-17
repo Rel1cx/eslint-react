@@ -116,12 +116,17 @@ const config = {
       },
       {
         source: "/docs/rules/hooks-extra-ensure-custom-hooks-using-other-hooks",
-        destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
         permanent: true,
       },
       {
         source: "/docs/rules/hooks-extra-no-redundant-custom-hook",
-        destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
         permanent: true,
       },
     ];

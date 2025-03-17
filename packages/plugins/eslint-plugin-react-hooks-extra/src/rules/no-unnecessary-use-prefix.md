@@ -1,17 +1,17 @@
 ---
-title: no-useless-custom-hooks
+title: no-unnecessary-use-prefix
 ---
 
 **Full Name in `eslint-plugin-react-hooks-extra`**
 
 ```plain copy
-react-hooks-extra/no-useless-custom-hooks
+react-hooks-extra/no-unnecessary-use-prefix
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/hooks-extra/no-useless-custom-hooks
+@eslint-react/hooks-extra/no-unnecessary-use-prefix
 ```
 
 **Features**
@@ -26,7 +26,7 @@ react-hooks-extra/no-useless-custom-hooks
 
 ## What it does
 
-Enforces custom Hooks to use at least one other Hook inside.
+Enforces that a function with the `use` prefix should call at least one Hook inside of it.
 
 If your function doesn’t call any Hooks, avoid the `use` prefix. Instead, write it as a regular function without the `use` prefix. For example, `useSorted` below doesn’t call Hooks, so call it `getSorted` instead:
 
@@ -120,8 +120,8 @@ function useAuth() {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-useless-custom-hooks.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-useless-custom-hooks.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-prefix.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-prefix.spec.ts)
 
 ## Further Reading
 

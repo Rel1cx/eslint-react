@@ -34,7 +34,7 @@ export default tseslint.config({
   },
   rules: {
     // Put rules you want to override here
-    "react-hooks-extra/no-useless-custom-hooks": "warn",
+    "react-hooks-extra/no-unnecessary-use-prefix": "warn",
   },
 });
 ```
