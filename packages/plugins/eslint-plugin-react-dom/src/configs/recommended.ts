@@ -8,6 +8,7 @@ export const rules = {
   "react-dom/no-dangerously-set-innerhtml-with-children": "error",
   "react-dom/no-find-dom-node": "error",
   "react-dom/no-flush-sync": "error",
+  "react-dom/no-hydrate": "error",
   "react-dom/no-missing-button-type": "warn",
   "react-dom/no-missing-iframe-sandbox": "warn",
   "react-dom/no-namespace": "error",

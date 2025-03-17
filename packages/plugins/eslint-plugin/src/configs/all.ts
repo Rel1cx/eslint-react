@@ -63,6 +63,8 @@ export const rules = {
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
   "@eslint-react/dom/no-find-dom-node": "error",
+  "@eslint-react/dom/no-flush-sync": "error",
+  "@eslint-react/dom/no-hydrate": "error",
   "@eslint-react/dom/no-missing-button-type": "warn",
   "@eslint-react/dom/no-missing-iframe-sandbox": "warn",
   "@eslint-react/dom/no-namespace": "error",
@@ -73,7 +75,7 @@ export const rules = {
   "@eslint-react/dom/no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom/no-unsafe-target-blank": "warn",
   "@eslint-react/dom/no-use-form-state": "error",
-  "@eslint-react/dom/no-void-elements-with-children": "warn",
+  "@eslint-react/dom/no-void-elements-with-children": "error",
 
   "@eslint-react/web-api/no-leaked-event-listener": "warn",
   "@eslint-react/web-api/no-leaked-interval": "warn",
