@@ -17,6 +17,7 @@ export const rules = {
   "react-dom/no-unknown-property": "warn",
   "react-dom/no-unsafe-iframe-sandbox": "warn",
   "react-dom/no-unsafe-target-blank": "warn",
+  "react-dom/no-use-form-state": "error",
   "react-dom/no-void-elements-with-children": "error",
 } as const satisfies RulePreset;
 

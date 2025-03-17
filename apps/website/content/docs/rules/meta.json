@@ -68,6 +68,7 @@
     "dom-no-unknown-property",
     "dom-no-unsafe-iframe-sandbox",
     "dom-no-unsafe-target-blank",
+    "dom-no-use-form-state",
     "dom-no-void-elements-with-children",
     "---Web API Rules---",
     "web-api-no-leaked-event-listener",
