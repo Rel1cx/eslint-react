@@ -18,6 +18,7 @@ export const rules = {
   "@eslint-react/dom/no-unknown-property": "warn",
   "@eslint-react/dom/no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom/no-unsafe-target-blank": "warn",
+  "@eslint-react/dom/no-use-form-state": "error",
   "@eslint-react/dom/no-void-elements-with-children": "error",
 } as const satisfies RulePreset;
 

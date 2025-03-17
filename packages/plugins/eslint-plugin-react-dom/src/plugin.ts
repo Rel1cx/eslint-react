@@ -12,6 +12,7 @@ import noScriptUrl from "./rules/no-script-url";
 import noUnknownProperty from "./rules/no-unknown-property";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
+import noUseFormState from "./rules/no-use-form-state";
 import noVoidElementsWithChildren from "./rules/no-void-elements-with-children";
 
 export const plugin = {
@@ -33,6 +34,7 @@ export const plugin = {
     "no-unknown-property": noUnknownProperty,
     "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
     "no-unsafe-target-blank": noUnsafeTargetBlank,
+    "no-use-form-state": noUseFormState,
     "no-void-elements-with-children": noVoidElementsWithChildren,
 
     // Part: deprecated rules
