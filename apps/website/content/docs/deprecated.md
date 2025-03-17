@@ -8,7 +8,7 @@ full: true
 
 | Rule                                                                                                       | Replaced by                                                                          | Deprecated in |
 | :--------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- | :------------ |
-| [`ensure-custom-hooks-using-other-hooks`](/docs/rules/hooks-extra-no-useless-custom-hooks)                 | [`no-useless-custom-hooks`](/docs/rules/hooks-extra-no-useless-custom-hooks)         | 1.13.0        |
+| [`ensure-custom-hooks-using-other-hooks`](/docs/rules/hooks-extra-no-unnecessary-use-prefix)               | [`no-unnecessary-use-prefix`](/docs/rules/hooks-extra-no-unnecessary-use-prefix)     | 1.13.0        |
 | [`ensure-forward-ref-using-ref`](/docs/rules/ensure-forward-ref-using-ref)                                 | [`no-useless-forward-ref`](/docs/rules/no-useless-forward-ref)                       | 1.33.0        |
 | [`ensure-use-callback-has-non-empty-deps`](/docs/rules/hooks-extra-ensure-use-callback-has-non-empty-deps) | [`no-unnecessary-use-callback`](/docs/rules/hooks-extra-no-unnecessary-use-callback) | 1.13.0        |
 | [`ensure-use-memo-has-non-empty-deps`](/docs/rules/hooks-extra-ensure-use-memo-has-non-empty-deps)         | [`no-unnecessary-use-memo`](/docs/rules/hooks-extra-no-unnecessary-use-memo)         | 1.13.0        |
@@ -17,7 +17,8 @@ full: true
 | [`no-children-in-void-dom-elements`](/docs/rules/dom-no-children-in-void-dom-elements)                     | [`no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children)   | 1.22.0        |
 | [`no-complicated-conditional-rendering`](/docs/rules/no-complicated-conditional-rendering)                 | [`no-complex-conditional-rendering`](/docs/rules/no-complex-conditional-rendering)   | 1.6.0         |
 | [`no-nested-components`](/docs/rules/no-nested-components)                                                 | [`no-nested-component-definitions`](/docs/rules/no-nested-component-definitions)     | 1.34.0        |
-| [`no-redundant-custom-hook`](/docs/rules/hooks-extra-no-useless-custom-hooks)                              | [`no-useless-custom-hooks`](/docs/rules/hooks-extra-no-useless-custom-hooks)         | 1.21.0        |
+| [`no-redundant-custom-hook`](/docs/rules/hooks-extra-no-unnecessary-use-prefix)                            | [`no-unnecessary-use-prefix`](/docs/rules/hooks-extra-no-unnecessary-use-prefix)     | 1.21.0        |
+| [`no-useless-custom-hooks`](/docs/rules/hooks-extra-no-unnecessary-use-prefix)                             | [`no-unnecessary-use-prefix`](/docs/rules/hooks-extra-no-unnecessary-use-prefix)     | 1.21.0        |
 
 ## Presets
 

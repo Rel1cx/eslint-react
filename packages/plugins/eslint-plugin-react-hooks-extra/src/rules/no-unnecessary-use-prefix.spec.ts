@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-useless-custom-hooks";
+import rule, { RULE_NAME } from "./no-unnecessary-use-prefix";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

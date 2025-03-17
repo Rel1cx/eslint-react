@@ -7,7 +7,7 @@ import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-useless-custom-hooks";
+export const RULE_NAME = "no-unnecessary-use-prefix";
 
 export const RULE_FEATURES = [
   "CHK",
