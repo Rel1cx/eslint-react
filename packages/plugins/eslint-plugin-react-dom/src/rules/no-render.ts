@@ -93,15 +93,9 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression) {
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;
     if (arg0 == null || arg1 == null) return null;
-    const fixedCallExpressionText = [
-      "createRoot",
-      "(" + getText(arg1) + ")" + ".",
-      "render",
-      "(" + getText(arg0) + ")",
-    ].join("");
     return [
       fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom/client";\n'),
-      fixer.replaceText(node, fixedCallExpressionText),
+      fixer.replaceText(node, `createRoot(${getText(arg1)}).render(${getText(arg0)})`),
     ];
   };
 }
