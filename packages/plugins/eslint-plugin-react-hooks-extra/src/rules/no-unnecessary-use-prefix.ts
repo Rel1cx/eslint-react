@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noUselessCustomHooks: "A custom Hook '{{name}}' should use at least one other hook.",
+      noUnnecessaryUsePrefix: "A custom Hook '{{name}}' should use at least one other hook.",
     },
     schema: [],
   },
@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         context.report({
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           node,
           data: {
             name,

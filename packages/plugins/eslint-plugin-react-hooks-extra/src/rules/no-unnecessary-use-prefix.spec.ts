@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useClassnames",
           },
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useClassnames",
           },
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useInnerHook",
           },
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useNestedHook",
           },
@@ -101,13 +101,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useNestedHook",
           },
         },
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useInnerHook",
           },
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUselessCustomHooks",
+          messageId: "noUnnecessaryUsePrefix",
           data: {
             name: "useNestedHook",
           },
