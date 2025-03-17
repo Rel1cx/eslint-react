@@ -65,5 +65,7 @@ createRoot(document.getElementById("app")).render(<Component />);
 
 ## See Also
 
-- [no-render-return-value](./no-render-return-value.md)\
+- [no-render-return-value](./dom-no-render-return-value)\
   Prevents usage of the return value of `ReactDOM.render`.
+- [no-hydrate](./dom-no-hydrate)\
+  Replaces usages of `ReactDom.hydrate()` with `createRoot(node).hydrate()`.
