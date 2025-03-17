@@ -33,9 +33,9 @@ More than 80 high-quality linting rules for writing better React code.
 > [!NOTE]\
 > ESLint React requires the following minimum versions:
 >
-> - node@18.18.0
-> - eslint@8.57.0
-> - typescript@4.9.5
+> - `node@18.18.0`
+> - `eslint@8.57.0`
+> - `typescript@4.9.5`
 
 ### Install
 
