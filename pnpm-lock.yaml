@@ -373,8 +373,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1(eslint@9.22.0(jiti@2.4.2))
       eslint-plugin-import-x:
-        specifier: ^4.7.1
-        version: 4.7.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+        specifier: ^4.8.0
+        version: 4.8.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
       eslint-plugin-mdx:
         specifier: ^3.2.0
         version: 3.2.0(eslint@9.22.0(jiti@2.4.2))
@@ -4492,8 +4492,8 @@ packages:
     peerDependencies:
       eslint: '>=8.0.0'
 
-  eslint-plugin-import-x@4.7.1:
-    resolution: {integrity: sha512-Gaf0YL05qYNk6MRFujSNGtwGl5ExQE4P8aREBELpYYjA37guFpv0AR6B+Y226KgfkRn0iP4FlQIqG4JhfN6k3A==}
+  eslint-plugin-import-x@4.8.0:
+    resolution: {integrity: sha512-rCZftKo2QvFfV62MomJuIog74NrsfdEriJZxcNPEnjwrHpfHge6ZfUe+Pp2f4pqZe+ArtH8RapwqxLc1O+KJYw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -5686,10 +5686,6 @@ packages:
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
-
-  minimatch@10.0.1:
-    resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
-    engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -10343,7 +10339,7 @@ snapshots:
     dependencies:
       eslint: 9.22.0(jiti@2.4.2)
 
-  eslint-plugin-import-x@4.7.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2):
+  eslint-plugin-import-x@4.8.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2):
     dependencies:
       '@types/doctrine': 0.0.9
       '@typescript-eslint/utils': 8.26.1(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
@@ -10352,8 +10348,7 @@ snapshots:
       eslint: 9.22.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
       get-tsconfig: 4.10.0
-      is-glob: 4.0.3
-      minimatch: 10.0.1
+      picomatch: 4.0.2
       rspack-resolver: 1.1.0
       semver: 7.7.1
       stable-hash: 0.0.5
@@ -11936,10 +11931,6 @@ snapshots:
   mimic-fn@2.1.0: {}
 
   min-indent@1.0.1: {}
-
-  minimatch@10.0.1:
-    dependencies:
-      brace-expansion: 2.0.1
 
   minimatch@3.1.2:
     dependencies:
