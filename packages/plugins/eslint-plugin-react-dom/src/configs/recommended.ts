@@ -11,6 +11,7 @@ export const rules = {
   "react-dom/no-missing-button-type": "warn",
   "react-dom/no-missing-iframe-sandbox": "warn",
   "react-dom/no-namespace": "error",
+  "react-dom/no-render": "error",
   "react-dom/no-render-return-value": "error",
   "react-dom/no-script-url": "warn",
   "react-dom/no-unknown-property": "warn",

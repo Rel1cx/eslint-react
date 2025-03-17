@@ -6,6 +6,7 @@ import noFlushSync from "./rules/no-flush-sync";
 import noMissingButtonType from "./rules/no-missing-button-type";
 import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox";
 import noNamespace from "./rules/no-namespace";
+import noRender from "./rules/no-render";
 import noRenderReturnValue from "./rules/no-render-return-value";
 import noScriptUrl from "./rules/no-script-url";
 import noUnknownProperty from "./rules/no-unknown-property";
@@ -26,6 +27,7 @@ export const plugin = {
     "no-missing-button-type": noMissingButtonType,
     "no-missing-iframe-sandbox": noMissingIframeSandbox,
     "no-namespace": noNamespace,
+    "no-render": noRender,
     "no-render-return-value": noRenderReturnValue,
     "no-script-url": noScriptUrl,
     "no-unknown-property": noUnknownProperty,
