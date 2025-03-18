@@ -25,7 +25,7 @@ react-x/no-component-will-receive-props
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
 

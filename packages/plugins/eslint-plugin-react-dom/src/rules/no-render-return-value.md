@@ -25,7 +25,7 @@ react-dom/no-render-return-value
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents usage of the return value of `ReactDOM.render`.
 

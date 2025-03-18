@@ -18,7 +18,7 @@ react-x/prefer-shorthand-boolean
 
 `🔍` `🔧`
 
-## What it does
+## Description
 
 Enforces the use of shorthand syntax for boolean attributes.
 

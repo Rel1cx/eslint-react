@@ -22,7 +22,7 @@ react-debug/function-component
 
 - `debug`
 
-## What it does
+## Description
 
 Reports all function components. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
 

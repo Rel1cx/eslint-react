@@ -25,7 +25,7 @@ react-dom/no-find-dom-node
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 This rule disallows the use of `findDOMNode`.
 

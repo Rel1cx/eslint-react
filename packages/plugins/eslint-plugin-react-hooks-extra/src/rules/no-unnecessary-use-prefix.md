@@ -24,7 +24,7 @@ react-hooks-extra/no-unnecessary-use-prefix
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces that a function with the `use` prefix should call at least one Hook inside of it.
 

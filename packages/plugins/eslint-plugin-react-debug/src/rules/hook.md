@@ -22,7 +22,7 @@ react-debug/hook
 
 - `debug`
 
-## What it does
+## Description
 
 Reports all React Hooks. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
 

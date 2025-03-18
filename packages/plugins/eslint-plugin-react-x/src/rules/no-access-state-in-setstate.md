@@ -25,7 +25,7 @@ react-x/no-access-state-in-setstate
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows accessing `this.state` inside `setState` calls.
 

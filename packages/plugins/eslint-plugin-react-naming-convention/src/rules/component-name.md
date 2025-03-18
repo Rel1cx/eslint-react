@@ -18,7 +18,7 @@ react-naming-convention/component-name
 
 `🔍` `⚙️`
 
-## What it does
+## Description
 
 Enforces naming conventions for components.
 

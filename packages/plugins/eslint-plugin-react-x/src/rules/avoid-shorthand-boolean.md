@@ -18,7 +18,7 @@ react-x/avoid-shorthand-boolean
 
 `🔍` `🔧`
 
-## What it does
+## Description
 
 Enforces the use of explicit boolean values for boolean attributes.
 

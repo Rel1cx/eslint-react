@@ -25,7 +25,7 @@ react-x/no-useless-forward-ref
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces that `forwardRef` is only used when a `ref` parameter is declared.
 

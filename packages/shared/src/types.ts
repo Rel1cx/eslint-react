@@ -48,3 +48,9 @@ export type RuleFeature =
   | "FIX" // Fixable
   | "MOD" // Codemod
   | "TSC"; // TypeScript Type Checking
+
+export type RuleStatus =
+  | "stable" // Stable
+  | "experimental" // Experimental
+  | "deprecated" // Deprecated
+  | "removed"; // Removed

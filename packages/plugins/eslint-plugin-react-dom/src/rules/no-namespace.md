@@ -25,7 +25,7 @@ react-dom/no-namespace
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces the absence of a `namespace` in React elements.
 

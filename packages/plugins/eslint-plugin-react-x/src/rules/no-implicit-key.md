@@ -25,7 +25,7 @@ react-x/no-implicit-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).
 

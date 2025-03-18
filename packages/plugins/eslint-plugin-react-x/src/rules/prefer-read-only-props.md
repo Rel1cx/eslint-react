@@ -18,7 +18,7 @@ react-x/prefer-read-only-props
 
 `🔍` `💭`
 
-## What it does
+## Description
 
 This rule enforces that function components props are read-only.
 

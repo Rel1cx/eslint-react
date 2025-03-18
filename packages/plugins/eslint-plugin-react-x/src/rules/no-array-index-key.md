@@ -25,7 +25,7 @@ react-x/no-array-index-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns when using an item's index in the array as its key.
 

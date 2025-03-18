@@ -25,7 +25,7 @@ react-x/no-nested-component-definitions
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents nesting component definitions inside other components.
 

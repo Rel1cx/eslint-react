@@ -25,7 +25,7 @@ react-x/no-forward-ref
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `forwardRef` with passing `ref` as a prop.
 

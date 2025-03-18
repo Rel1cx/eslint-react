@@ -19,7 +19,7 @@ react-x/use-jsx-vars
 - `core`
 - `recommended`
 
-## What it does
+## Description
 
 Marks variables used in JSX as used.
 

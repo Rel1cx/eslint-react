@@ -25,7 +25,7 @@ react-dom/no-missing-button-type
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces explicit `type` attribute for `button` elements.
 

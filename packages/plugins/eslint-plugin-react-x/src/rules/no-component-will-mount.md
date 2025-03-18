@@ -25,7 +25,7 @@ react-x/no-component-will-mount
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `componentWillMount` with `UNSAFE_componentWillMount`.
 

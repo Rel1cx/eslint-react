@@ -25,7 +25,7 @@ react-x/no-missing-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents missing `key` on items in list rendering.
 

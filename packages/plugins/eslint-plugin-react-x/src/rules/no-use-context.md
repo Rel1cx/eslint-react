@@ -25,7 +25,7 @@ react-x/no-use-context
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `useContext` with `use`.
 

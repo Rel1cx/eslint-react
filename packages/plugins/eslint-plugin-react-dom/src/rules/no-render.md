@@ -25,7 +25,7 @@ react-dom/no-render
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `ReactDom.render()` with `createRoot(node).render()`.
 

@@ -24,7 +24,7 @@ react-hooks-extra/no-direct-set-state-in-use-effect
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
 

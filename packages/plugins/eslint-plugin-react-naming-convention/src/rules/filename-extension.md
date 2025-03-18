@@ -18,7 +18,7 @@ react-naming-convention/filename-extension
 
 `🔍` `⚙️`
 
-## What it does
+## Description
 
 Enforces consistent use of the JSX file extension.
 

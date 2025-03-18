@@ -25,7 +25,7 @@ react-x/no-unsafe-component-will-mount
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns the usage of `UNSAFE_componentWillMount` in class components.
 

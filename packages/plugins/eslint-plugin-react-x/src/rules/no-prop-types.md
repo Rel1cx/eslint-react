@@ -25,7 +25,7 @@ react-x/no-prop-types
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows using `propTypes` property in favor of TypeScript or another type-checking solution.
 

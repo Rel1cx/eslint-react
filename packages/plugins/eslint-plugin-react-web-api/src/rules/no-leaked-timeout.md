@@ -25,7 +25,7 @@ react-web-api/no-leaked-timeout
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces that every `setTimeout` in a component or custom Hook has a corresponding `clearTimeout`.
 

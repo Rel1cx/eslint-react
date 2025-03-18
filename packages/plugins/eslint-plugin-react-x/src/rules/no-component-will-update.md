@@ -25,7 +25,7 @@ react-x/no-component-will-update
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
 

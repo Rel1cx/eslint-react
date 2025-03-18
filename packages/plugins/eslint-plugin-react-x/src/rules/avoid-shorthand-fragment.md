@@ -18,7 +18,7 @@ react-x/avoid-shorthand-fragment
 
 `🔍`
 
-## What it does
+## Description
 
 Enforces the use of explicit `<Fragment>` or `<React.Fragment>` components instead of the shorthand `<>` or `</>` syntax.
 

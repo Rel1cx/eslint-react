@@ -18,7 +18,7 @@ react-x/no-complex-conditional-rendering
 
 `🔍`
 
-## What it does
+## Description
 
 Warns when conditional rendering is too complex.
 

@@ -18,7 +18,7 @@ react-naming-convention/context-name
 
 `🔍`
 
-## What it does
+## Description
 
 Enforces consistent naming conventions for context providers.
 

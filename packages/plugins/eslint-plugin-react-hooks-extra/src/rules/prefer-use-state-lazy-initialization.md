@@ -24,7 +24,7 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces function calls made inside `useState` to be wrapped in an `initializer function`.
 

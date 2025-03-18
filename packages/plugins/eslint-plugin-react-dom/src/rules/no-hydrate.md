@@ -25,7 +25,7 @@ react-dom/no-hydrate
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()`.
 

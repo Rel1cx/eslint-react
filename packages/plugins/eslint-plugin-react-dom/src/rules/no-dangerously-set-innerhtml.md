@@ -25,7 +25,7 @@ react-dom/no-dangerously-set-innerhtml
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns when using `dangerouslySetInnerHTML`.
 

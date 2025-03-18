@@ -25,7 +25,7 @@ react-x/no-context-provider
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces usages of `<Context.Provider>` with `<Context>`.
 

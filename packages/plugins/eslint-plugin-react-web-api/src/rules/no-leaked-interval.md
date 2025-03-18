@@ -25,7 +25,7 @@ react-web-api/no-leaked-interval
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces that every `setInterval` in a component or custom Hook has a corresponding `clearInterval`.
 

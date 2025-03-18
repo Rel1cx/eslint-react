@@ -25,7 +25,7 @@ react-dom/no-void-elements-with-children
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of `children` in void DOM elements.
 

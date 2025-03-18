@@ -25,7 +25,7 @@ react-dom/no-flush-sync
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 This rule reports usages of `flushSync`.
 

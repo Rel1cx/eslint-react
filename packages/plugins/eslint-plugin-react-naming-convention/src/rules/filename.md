@@ -18,7 +18,7 @@ react-naming-convention/filename
 
 `🔍` `⚙️`
 
-## What it does
+## Description
 
 Enforces consistent file naming conventions. Can be used to enforce PascalCase, camelCase, kebab-case, snake_case. By default, it enforces PascalCase.
 

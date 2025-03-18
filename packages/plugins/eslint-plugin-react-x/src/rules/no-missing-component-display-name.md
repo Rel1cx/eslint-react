@@ -18,7 +18,7 @@ react-x/no-missing-component-display-name
 
 `🔍`
 
-## What it does
+## Description
 
 Enforces that all components have a `displayName` or `name` which React can use as its `displayName` in devtools.
 

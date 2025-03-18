@@ -18,7 +18,7 @@ react-naming-convention/use-state
 
 `🔍`
 
-## What it does
+## Description
 
 Enforces destructuring and symmetric naming of `useState` hook value and setter
 

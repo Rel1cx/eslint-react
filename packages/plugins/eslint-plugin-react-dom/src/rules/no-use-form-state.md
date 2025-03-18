@@ -25,7 +25,7 @@ react-dom/no-use-form-state
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Replaces the usages of `useFormState` with `useActionState`.
 

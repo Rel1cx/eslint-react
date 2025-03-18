@@ -25,7 +25,7 @@ react-dom/no-unsafe-target-blank
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of `target="_blank"` without `rel="noreferrer noopener"`.
 

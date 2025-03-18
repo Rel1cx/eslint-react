@@ -25,7 +25,7 @@ react-x/no-clone-element
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows the use of `cloneElement`.
 
