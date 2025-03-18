@@ -84,18 +84,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           && classComponents.some((component) => component.node === node);
       };
       for (const { name, node: component } of functionComponents) {
-        // Do not mark objects containing render methods
-        if (isDirectValueOfRenderPropertyLoose(component)) {
-          continue;
-        }
         // Do not mark anonymous function components to reduce false positives
-        if (name == null) {
-          continue;
-        }
-        const isInsideProperty = component.parent.type === T.Property;
-        const isInsideJSXPropValue = component.parent.type === T.JSXAttribute
-          || JSX.findParentAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
-        if (isInsideJSXPropValue) {
+        if (name == null) continue;
+        // Do not mark objects containing render methods
+        if (isDirectValueOfRenderPropertyLoose(component)) continue;
+        if (isInsideJSXAttributeValue(component)) {
           if (!isDeclaredInRenderPropLoose(component)) {
             context.report({
               messageId: "noNestedComponentDefinitionInProps",
@@ -120,11 +113,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         const parentComponent = AST.findParentNode(component, isFunctionComponent);
-        const isParentComponentNotDirectValueOfRenderProperty = parentComponent != null
-          && !isDirectValueOfRenderPropertyLoose(parentComponent);
-        if (isParentComponentNotDirectValueOfRenderProperty) {
+        if (parentComponent != null && !isDirectValueOfRenderPropertyLoose(parentComponent)) {
           context.report({
-            messageId: isInsideProperty
+            messageId: component.parent.type === T.Property
               ? "noNestedComponentDefinitionInProps"
               : "noNestedComponentDefinition",
             node: component,
@@ -159,6 +150,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
+}
+
+/**
+ * Determines whether the node is inside JSX attribute value
+ * @param node The AST node to check
+ * @returns `true` if the node is inside JSX attribute value
+ */
+function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
+  return node.parent.type === T.JSXAttribute
+    || JSX.findParentAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
 }
 
 /**
