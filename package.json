@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.36.0-next.2",
+  "version": "1.36.0-beta.2",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -60,7 +60,7 @@
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.13.10",
-    "@types/react": "^19.0.10",
+    "@types/react": "^19.0.11",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/parser": "^8.26.1",
     "@typescript-eslint/rule-tester": "^8.26.1",
@@ -87,7 +87,7 @@
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "type-fest": "^4.37.0",
-    "typedoc": "0.27.9",
+    "typedoc": "^0.28.0",
     "typedoc-plugin-markdown": "^4.5.0",
     "typedoc-plugin-mdn-links": "^5.0.1",
     "typedoc-plugin-missing-exports": "^3.1.0",
@@ -109,13 +109,13 @@
       "sharp"
     ],
     "overrides": {
-      "@types/react": "^19.0.10",
+      "@types/react": "^19.0.11",
       "@types/react-dom": "^19.0.4",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.1",
       "is-core-module": "npm:@socketregistry/is-core-module@^1.0.8",
       "lucide-react": "^0.482.0",
-      "next": "^15.2.2",
+      "next": "^15.2.3",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
       "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.7",
