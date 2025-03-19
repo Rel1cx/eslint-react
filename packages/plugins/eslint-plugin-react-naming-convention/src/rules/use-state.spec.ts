@@ -8,13 +8,37 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
+          useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "missingDestructuring",
+      }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const data = useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "missingDestructuring",
+      }],
+    },
+    {
+      code: tsx`
+        function Component() {
           const [state, setValue] = useState(0);
 
           return <div />;
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
     {
@@ -26,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
     {
@@ -40,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
     {
@@ -54,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
     {
@@ -68,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
     {
@@ -82,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
     {
@@ -95,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidSetterNaming",
       }],
     },
   ],

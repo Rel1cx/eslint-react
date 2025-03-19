@@ -20,7 +20,12 @@ react-naming-convention/use-state
 
 ## Description
 
-Enforces destructuring and symmetric naming of `useState` hook value and setter
+Enforces destructuring and symmetric naming of `useState` hook value and setter.
+
+This rule ensures two things:
+
+1. The `useState` hook is destructured into a value and setter pair.
+2. The value and setter are named symmetrically (e.g. `count` and `setCount`).
 
 ## Examples
 
