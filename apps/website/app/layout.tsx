@@ -16,7 +16,7 @@ const ibm_plex_mono = IBM_Plex_Mono({
 });
 
 export const metadata = {
-  description: "More than 80 high-quality linting rules for writing better React code.",
+  description: "More than 80 high-quality linting rules to identify possible problems in your React 19 code.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",

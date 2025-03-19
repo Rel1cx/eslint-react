@@ -15,7 +15,9 @@ export default function HomePage() {
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
       <ESLintReact />
       <article className="prose max-w-none">
-        <p className="text-center">More than 80 high-quality linting rules for writing better React code.</p>
+        <p className="text-center">
+          More than 80 high-quality linting rules to identify possible problems in your React 19 code.
+        </p>
         <h2>Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {features.map(([title, description]) => <Card description={description} key={title} title={title} />)}

@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
   "version": "1.36.2-beta.1",
-  "description": "More than 80 high-quality linting rules for writing better React code.",
+  "description": "More than 80 high-quality linting rules to identify possible problems in your React 19 code.",
   "keywords": [
     "react",
     "eslint",
