@@ -25,7 +25,7 @@ react-web-api/no-leaked-resize-observer
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces that every `ResizeObserver` created in a component or custom Hook has a corresponding `ResizeObserver.disconnect()`.
 

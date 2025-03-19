@@ -12,6 +12,7 @@ export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree
     case T.CallExpression:
       return toReadableNodeName(node.callee, getText);
     case T.Identifier:
+    case T.PrivateIdentifier:
       return node.name;
     case T.JSXIdentifier:
       return `<${node.name}>`;

@@ -25,13 +25,13 @@ react-x/no-implicit-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).
 
 This makes it hard to see if the key was passed correctly to the element or where it came from.
 
-And it's also be proposed to be deprecated is this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149)
+And it's also be proposed to be deprecated is this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149).
 
 ## Examples
 

@@ -1,8 +1,10 @@
+import tsx from "dedent";
+
 export const createElementComponent = "const CreateElementComponent = () => React.createElement('div', null, null)";
 
 export const arrowFunctionComponent = "const FunctionComponent = () => <div></div>";
 
-export const functionComponent = /* tsx */ `
+export const functionComponent = tsx`
   /// <reference types="react" />
   /// <reference types="react-dom" />
 
@@ -11,7 +13,7 @@ export const functionComponent = /* tsx */ `
   }
 `;
 
-export const memoComponent = /* tsx */ `
+export const memoComponent = tsx`
   /// <reference types="react" />
   /// <reference types="react-dom" />
 
@@ -20,7 +22,7 @@ export const memoComponent = /* tsx */ `
   const MemoComponent = memo(() => <div></div>)
 `;
 
-export const forwardRefComponent = /* tsx */ `
+export const forwardRefComponent = tsx`
   /// <reference types="react" />
   /// <reference types="react-dom" />
 
@@ -29,7 +31,7 @@ export const forwardRefComponent = /* tsx */ `
   const ForwardRefComponent = forwardRef((props, ref) => <div></div>)
 `;
 
-export const memoForwardRefComponent = /* tsx */ `
+export const memoForwardRefComponent = tsx`
   /// <reference types="react" />
   /// <reference types="react-dom" />
 

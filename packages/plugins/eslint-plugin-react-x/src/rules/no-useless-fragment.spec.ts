@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-useless-fragment";
@@ -6,7 +7,7 @@ import rule, { RULE_NAME } from "./no-useless-fragment";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<></>`,
+      code: tsx`<></>`,
       errors: [{
         type: T.JSXFragment,
         messageId: "uselessFragment",
@@ -17,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: /* tsx */ `<p><>foo</></p>`,
+      code: tsx`<p><>foo</></p>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -34,10 +35,10 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `<p>foo</p>`,
+      output: tsx`<p>foo</p>`,
     },
     {
-      code: /* tsx */ `<p>moo<>foo</></p>`,
+      code: tsx`<p>moo<>foo</></p>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -57,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: "<p>moofoo</p>",
     },
     {
-      code: /* tsx */ `<p><>{meow}</></p>`,
+      code: tsx`<p><>{meow}</></p>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -70,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: "<p>{meow}</p>",
     },
     {
-      code: /* tsx */ `<><div/></>`,
+      code: tsx`<><div/></>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -80,10 +81,10 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `<div/>`,
+      output: tsx`<div/>`,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <>
           <div/>
         </>
@@ -97,12 +98,12 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `
+      output: tsx`
         <div/>
       `,
     },
     {
-      code: /* tsx */ `<Fragment />`,
+      code: tsx`<Fragment />`,
       errors: [
         {
           type: T.JSXElement,
@@ -115,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <React.Fragment>
           <Foo />
         </React.Fragment>
@@ -129,12 +130,12 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `
+      output: tsx`
         <Foo />
       `,
     },
     {
-      code: /* tsx */ `<Eeee><>foo</></Eeee>`,
+      code: tsx`<Eeee><>foo</></Eeee>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -147,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: /* tsx */ `<div><>foo</></div>`,
+      code: tsx`<div><>foo</></div>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -167,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: "<div>foo</div>",
     },
     {
-      code: /* tsx */ `<div><>{"a"}{"b"}</></div>`,
+      code: tsx`<div><>{"a"}{"b"}</></div>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -180,7 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<div>{"a"}{"b"}</div>',
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <section>
           <Eeee />
           <Eeee />
@@ -196,7 +197,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `
+      output: tsx`
         <section>
           <Eeee />
           <Eeee />
@@ -205,7 +206,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `<div><Fragment>{"a"}{"b"}</Fragment></div>`,
+      code: tsx`<div><Fragment>{"a"}{"b"}</Fragment></div>`,
       errors: [
         {
           type: T.JSXElement,
@@ -219,7 +220,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       // whitespace tricky case
-      code: /* tsx */ `
+      code: tsx`
         <section>
           git<>
             <b>hub</b>.
@@ -244,7 +245,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `
+      output: tsx`
         <section>
           git<b>hub</b>.
 
@@ -253,7 +254,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: /* tsx */ `<div>a <>{""}{""}</> a</div>`,
+      code: tsx`<div>a <>{""}{""}</> a</div>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -266,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<div>a {""}{""} a</div>',
     },
     {
-      code: /* tsx */ `const Comp = () => (<html><React.Fragment /></html>);`,
+      code: tsx`const Comp = () => (<html><React.Fragment /></html>);`,
       errors: [
         {
           type: T.JSXElement,
@@ -283,11 +284,11 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `const Comp = () => (<html></html>);`,
+      output: tsx`const Comp = () => (<html></html>);`,
     },
     // Ensure allowExpressions still catches expected violations
     {
-      code: /* tsx */ `<><Foo>{moo}</Foo></>`,
+      code: tsx`<><Foo>{moo}</Foo></>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -297,23 +298,10 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
       ],
-      output: /* tsx */ `<Foo>{moo}</Foo>`,
+      output: tsx`<Foo>{moo}</Foo>`,
     },
     {
-      code: /* tsx */ `<>{moo}</>`,
-      errors: [
-        {
-          type: T.JSXFragment,
-          messageId: "uselessFragment",
-          data: {
-            reason: "contains less than two children",
-          },
-        },
-      ],
-      options: [{ allowExpressions: false }],
-    },
-    {
-      code: /* tsx */ `<Foo><>{moo}</></Foo>`,
+      code: tsx`<>{moo}</>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -326,7 +314,20 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowExpressions: false }],
     },
     {
-      code: /* tsx */ `<React.Fragment><>{moo}</></React.Fragment>`,
+      code: tsx`<Foo><>{moo}</></Foo>`,
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "uselessFragment",
+          data: {
+            reason: "contains less than two children",
+          },
+        },
+      ],
+      options: [{ allowExpressions: false }],
+    },
+    {
+      code: tsx`<React.Fragment><>{moo}</></React.Fragment>`,
       errors: [
         {
           type: T.JSXElement,
@@ -344,10 +345,10 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       options: [{ allowExpressions: false }],
-      output: /* tsx */ `<>{moo}</>`,
+      output: tsx`<>{moo}</>`,
     },
     {
-      code: /* tsx */ `<Foo bar={<>baz</>}/>`,
+      code: tsx`<Foo bar={<>baz</>}/>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -360,7 +361,7 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowExpressions: false }],
     },
     {
-      code: /* tsx */ `<Foo><><Bar/><Baz/></></Foo>`,
+      code: tsx`<Foo><><Bar/><Baz/></></Foo>`,
       errors: [
         {
           type: T.JSXFragment,
@@ -387,42 +388,42 @@ ruleTester.run(RULE_NAME, rule, {
     "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
     "<>{foos.map(foo => foo)}</>",
     "<>{moo}</>",
-    /* tsx */ `
+    tsx`
       function Foo() {
       	return <>&nbsp;</>;
       }
     `,
-    /* tsx */ `
+    tsx`
       function Foo() {
       	return <>a&nbsp;b</>;
       }
     `,
-    /* tsx */ `
+    tsx`
       <>
         {moo}
       </>
     `,
-    /* tsx */ `
+    tsx`
       <>{children}</>
     `,
-    /* tsx */ `
+    tsx`
       <>{props.children}</>
     `,
-    /* tsx */ `
+    tsx`
       <>
         {children}
         {moo}
       </>
     `,
-    /* tsx */ `
+    tsx`
       <>
         {props.children}
         {moo}
       </>
     `,
-    /* tsx */ `<>{cloneElement(children, { ref: childrenRef })}</>`,
+    tsx`<>{cloneElement(children, { ref: childrenRef })}</>`,
     {
-      code: /* tsx */ `
+      code: tsx`
         <SomeReact.SomeFragment>
           {<Foo />}
         </SomeReact.SomeFragment>
@@ -435,11 +436,11 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `{foo}`,
+      code: tsx`{foo}`,
       options: [{ allowExpressions: false }],
     },
     {
-      code: /* tsx */ `<Foo bar={<><Bar/><Baz/></>} />`,
+      code: tsx`<Foo bar={<><Bar/><Baz/></>} />`,
       options: [{ allowExpressions: false }],
     },
   ],

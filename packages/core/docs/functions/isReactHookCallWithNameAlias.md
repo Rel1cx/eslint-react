@@ -6,21 +6,21 @@
 
 # Function: isReactHookCallWithNameAlias()
 
-> **isReactHookCallWithNameAlias**(`name`, `context`, `alias`): (`node`) => `boolean`
+> **isReactHookCallWithNameAlias**(`context`, `name`, `alias`): (`node`) => `boolean`
 
 ## Parameters
+
+### context
+
+`RuleContext`
 
 ### name
 
 `string`
 
-### context
-
-[`Readonly`](../-internal-/type-aliases/Readonly.md)
-
 ### alias
 
-`string`[]
+`undefined` | `string`[]
 
 ## Returns
 
@@ -30,7 +30,7 @@
 
 #### node
 
-[`CallExpression`](../-internal-/interfaces/CallExpression.md)
+`CallExpression`
 
 ### Returns
 

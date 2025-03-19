@@ -1,22 +1,24 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-comment-textnodes";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<div>// invalid</div>`,
+      code: tsx`<div>// invalid</div>`,
       errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
-      code: /* tsx */ `<>// invalid</>`,
+      code: tsx`<>// invalid</>`,
       errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
-      code: /* tsx */ `<div>/* invalid */</div>`,
+      code: tsx`<div>/* invalid */</div>`,
       errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <div>
         // invalid
         </div>
@@ -24,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <div>
         abcdef
         /* invalid */
@@ -34,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noCommentTextnodes" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <div>
         {'abcdef'}
         // invalid

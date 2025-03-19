@@ -25,7 +25,7 @@ react-x/no-create-ref
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents usage of `createRef()` in function components.
 

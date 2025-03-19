@@ -25,7 +25,7 @@ react-x/no-children-to-array
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of `Children.toArray` from the `react` package.
 

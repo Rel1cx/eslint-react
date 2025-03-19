@@ -1,11 +1,13 @@
+// TODO: Add more tests
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unnecessary-use-callback";
 
-// TODO: Add more tests
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState, useCallback } from "react";
 
         function MyComponent() {
@@ -22,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState, useCallback } from "react";
 
         function MyComponent() {
@@ -39,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useCallback } from "react";
 
         const Comp = () => {
@@ -57,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useCallback } from "react";
 
         const deps = [];
@@ -76,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useCallback } from "react";
 
         const Comp = () => {
@@ -95,7 +97,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useCallback } from "react";
 
         const Comp = () => {
@@ -114,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const { useCallback } = require("react");
 
         const Comp = () => {
@@ -133,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "react";
 
         const Comp = () => {
@@ -152,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "roact";
 
         function App({ items }) {
@@ -173,7 +175,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import Roact from "roact";
 
         function App({ items }) {
@@ -194,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useCallback } from "roact";
 
         function App({ items }) {
@@ -215,7 +217,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "@pika/react";
 
         function App({ items }) {
@@ -236,7 +238,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import Pika from "@pika/react";
 
         function App({ items }) {
@@ -257,7 +259,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useCallback } from "@pika/react";
 
         function App({ items }) {
@@ -278,7 +280,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("roact");
 
         function App({ items }) {
@@ -299,7 +301,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const Roact = require("roact");
 
         function App({ items }) {
@@ -320,7 +322,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const { useCallback } = require("roact");
 
         function App({ items }) {
@@ -341,7 +343,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const React = require("@pika/react");
 
         function App({ items }) {
@@ -362,7 +364,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const Pika = require("@pika/react");
 
         function App({ items }) {
@@ -383,7 +385,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const { useCallback } = require("@pika/react");
 
         function App({ items }) {
@@ -404,7 +406,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from "react";
 
         const Comp = () => {
@@ -432,7 +434,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       const Comp = () => {
@@ -441,26 +443,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button />;
       };
     `,
-    /* tsx */ `
+    tsx`
       const useData = (key) => {
           return useSWR(key);
       }
     `,
-    /* tsx */ `
+    tsx`
       function useData(key) {
           return useSWR(key);
       }
     `,
-    /* tsx */ `
+    tsx`
       function useData(key) {
           const data = useSWR(key);
           return data;
       }
     `,
-    /* tsx */ `
+    tsx`
       const useData = (key) => useSWR(key);
     `,
-    /* tsx */ `
+    tsx`
       const onClick = () => {
         console.log("clicked");
       };
@@ -469,7 +471,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button onClick={onClick} />;
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useCallback } from "react";
 
       const Comp = ({ theme }) => {
@@ -481,7 +483,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <Button sx={style} />
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState, useCallback } from "react";
 
       function MyComponent() {
@@ -491,7 +493,7 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useCallback } from "react";
 
       const Comp = () => {
@@ -508,7 +510,7 @@ ruleTester.run(RULE_NAME, rule, {
               }, [])
       };
     `,
-    /* tsx */ `
+    tsx`
       import { useCallback } from "react";
       const deps = []
       const Comp = () => {

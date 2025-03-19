@@ -10,7 +10,9 @@
     "moduleDetection": "force",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "noEmit": true
   },
   "include": [
     "*.ts",

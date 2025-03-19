@@ -6,18 +6,18 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 export function isFromHookCall(
-  name: (typeof REACT_BUILD_IN_HOOKS)[number],
   context: RuleContext,
+  name: (typeof REACT_BUILD_IN_HOOKS)[number],
   settings: ESLintReactSettingsNormalized,
   predicate: (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => boolean = constTrue,
 ) {
   const hookAlias = settings.additionalHooks[name] ?? [];
   return (topLevelId: TSESTree.Identifier) => {
     const variable = VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
-    const variableNode = VAR.getVariableNode(variable, 0);
+    const variableNode = VAR.getVariableInitNode(variable, 0);
     if (variableNode == null) return false;
     if (variableNode.type !== T.CallExpression) return false;
-    if (!isReactHookCallWithNameAlias(name, context, hookAlias)(variableNode)) return false;
+    if (!isReactHookCallWithNameAlias(context, name, hookAlias)(variableNode)) return false;
     return predicate(topLevelId, variableNode);
   };
 }

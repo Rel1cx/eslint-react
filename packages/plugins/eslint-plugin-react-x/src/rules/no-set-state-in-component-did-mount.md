@@ -25,7 +25,7 @@ react-x/no-set-state-in-component-did-mount
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.
 

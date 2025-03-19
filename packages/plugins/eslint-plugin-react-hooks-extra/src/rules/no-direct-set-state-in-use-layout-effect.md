@@ -18,7 +18,7 @@ react-hooks-extra/no-direct-set-state-in-use-layout-effect
 
 `🔍`
 
-## What it does
+## Description
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
 

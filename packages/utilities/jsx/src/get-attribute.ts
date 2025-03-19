@@ -26,7 +26,7 @@ export function getAttribute(
     switch (attr.argument.type) {
       case T.Identifier: {
         const variable = VAR.findVariable(attr.argument.name, initialScope);
-        const variableNode = VAR.getVariableNode(variable, 0);
+        const variableNode = VAR.getVariableInitNode(variable, 0);
         if (variableNode?.type === T.ObjectExpression) {
           return VAR.findPropertyInProperties(name, variableNode.properties, initialScope) != null;
         }

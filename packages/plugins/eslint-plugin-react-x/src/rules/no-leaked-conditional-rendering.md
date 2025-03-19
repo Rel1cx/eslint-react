@@ -22,7 +22,7 @@ react-x/no-leaked-conditional-rendering
 
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents problematic leaked values from being rendered.
 

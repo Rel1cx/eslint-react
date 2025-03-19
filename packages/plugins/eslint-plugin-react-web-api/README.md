@@ -12,27 +12,31 @@ npm install --save-dev eslint-plugin-react-web-api
 ## Setup
 
 ```js
+// eslint.config.js
+
 // @ts-check
-
 import js from "@eslint/js";
-import reactWebAPI from "eslint-plugin-react-web-api";
+import reactWebApi from "eslint-plugin-react-web-api";
+import tseslint from "typescript-eslint";
 
-export default [
-  js.configs.recommended,
-  {
-    files: ["**/*.{ts,tsx}"],
-    plugins: [
-      "react-web-api": reactWebAPI,
-      rules: {
-        // react-web-api recommended rules
-        "react-web-api/no-leaked-event-listener": "warn",
-        "react-web-api/no-leaked-interval": "warn",
-        "react-web-api/no-leaked-resize-observer": "warn",
-        "react-web-api/no-leaked-timeout": "warn",
-      }
-    ],
+export default tseslint.config({
+  files: ["**/*.ts", "**/*.tsx"],
+  extends: [
+    js.configs.recommended,
+    tseslint.configs.recommended,
+    reactWebApi.configs.recommended,
+  ],
+  languageOptions: {
+    parser: tseslint.parser,
+    parserOptions: {
+      projectService: true,
+    },
   },
-];
+  rules: {
+    // Put rules you want to override here
+    "react-web-api/no-leaked-event-listener": "warn",
+  },
+});
 ```
 
 ## Rules

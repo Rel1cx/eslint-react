@@ -3,14 +3,16 @@ import eslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
+import { defineConfig } from "eslint/config";
 
-import JSCONFIG from "./jsconfig.json" with { type: "json" };
+import JSCONFIG_APP from "./jsconfig.app.json" with { type: "json" };
 import JSCONFIG_NODE from "./jsconfig.node.json" with { type: "json" };
 
-export default [
+export default defineConfig([
   // base configuration for browser environment source files
   {
-    files: JSCONFIG.include,
+    files: JSCONFIG_APP.include,
+    extends: [eslintJs.configs.recommended],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -21,45 +23,33 @@ export default [
         },
       },
     },
-    rules: {
-      ...eslintJs.configs.recommended.rules,
-    },
   },
   // base configuration for node environment source files (*.config.js, etc.)
   {
     files: JSCONFIG_NODE.include,
     ignores: JSCONFIG_NODE.exclude,
+    extends: [eslintJs.configs.recommended],
     languageOptions: {
       globals: {
         ...globals.node,
       },
     },
     rules: {
-      ...eslintJs.configs.recommended.rules,
       "no-console": "off",
     },
   },
-  // React configuration
+  // react specific configurations
   {
-    files: JSCONFIG.include,
-    ...eslintReact.configs.recommended,
-  },
-  // React Hooks configuration
-  {
-    files: JSCONFIG.include,
+    files: JSCONFIG_APP.include,
+    extends: [
+      eslintReact.configs.recommended,
+      eslintPluginReactRefresh.configs.recommended,
+    ],
     plugins: {
       "react-hooks": eslintPluginReactHooks,
     },
-    rules: eslintPluginReactHooks.configs.recommended.rules,
-  },
-  // React Refresh configuration
-  {
-    files: JSCONFIG.include,
-    plugins: {
-      "react-refresh": eslintPluginReactRefresh,
-    },
     rules: {
-      "react-refresh/only-export-components": "warn",
+      ...eslintPluginReactHooks.configs.recommended.rules,
     },
   },
-];
+]);

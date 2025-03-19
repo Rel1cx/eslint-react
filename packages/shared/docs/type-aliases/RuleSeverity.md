@@ -6,7 +6,7 @@
 
 # Type Alias: RuleSeverity
 
-> **RuleSeverity**: `"error"` \| `"off"` \| `"warn"`
+> **RuleSeverity** = `"error"` \| `"off"` \| `"warn"`
 
 Rule severity.
 

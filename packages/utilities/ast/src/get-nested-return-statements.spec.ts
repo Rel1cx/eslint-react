@@ -3,6 +3,7 @@ import path from "node:path";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+import tsx from "dedent";
 import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../../test";
@@ -20,7 +21,7 @@ function parse(code: string) {
 describe("get nested return statements from function", () => {
   it.each([
     [
-      /* tsx */ `
+      tsx`
         function Foo() {
           return <div />;
         }
@@ -28,7 +29,7 @@ describe("get nested return statements from function", () => {
       [{ type: T.ReturnStatement, argument: { type: T.JSXElement } }],
     ],
     [
-      /* tsx */ `
+      tsx`
         function Bar() {
           return Math.random() > 0.5 ? <div /> : null;
         }
@@ -36,7 +37,7 @@ describe("get nested return statements from function", () => {
       [{ type: T.ReturnStatement, argument: { type: T.ConditionalExpression } }],
     ],
     [
-      /* tsx */ `
+      tsx`
         function Bar() {
           if (Math.random() > 0.5) {
             return <div />;
@@ -51,7 +52,7 @@ describe("get nested return statements from function", () => {
       ],
     ],
     [
-      /* tsx */ `
+      tsx`
         function Baz() {
           if (Math.random() > 0.5) {
             return <div />;
@@ -73,7 +74,7 @@ describe("get nested return statements from function", () => {
       ],
     ],
     [
-      /* tsx */ `
+      tsx`
         function Baz() {
           if (Math.random() > 0.5) {
             return <div />;

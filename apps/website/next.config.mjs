@@ -5,6 +5,22 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  experimental: {
+    // ppr: true,
+    inlineCss: true,
+    // reactCompiler: true,
+    // viewTransition: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  serverExternalPackages: [
+    "typescript",
+    "twoslash",
+  ],
   redirects() {
     return [
       {
@@ -74,6 +90,16 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/rules/ensure-forward-ref-using-ref",
+        destination: "/docs/rules/no-useless-forward-ref",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/no-nested-components",
+        destination: "/docs/rules/no-nested-component-definitions",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/dom-no-children-in-void-dom-elements",
         destination: "/docs/rules/dom-no-void-elements-with-children",
         permanent: true,
@@ -90,17 +116,17 @@ const config = {
       },
       {
         source: "/docs/rules/hooks-extra-ensure-custom-hooks-using-other-hooks",
-        destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
         permanent: true,
       },
       {
         source: "/docs/rules/hooks-extra-no-redundant-custom-hook",
-        destination: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
         permanent: true,
       },
       {
-        source: "/docs/rules/debug-react-hooks",
-        destination: "/docs/rules/debug-hook",
+        source: "/docs/rules/hooks-extra-no-useless-custom-hooks",
+        destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
         permanent: true,
       },
     ];

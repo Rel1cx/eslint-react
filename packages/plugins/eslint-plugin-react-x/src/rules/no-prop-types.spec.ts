@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-prop-types";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         function App() {
             return <div />
         }
@@ -13,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noPropTypes" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Input extends React.Component {
           render() {
             return <input />;
@@ -24,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noPropTypes" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class Input extends React.Component {
           static propTypes = {};
 
@@ -38,17 +40,17 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       function App() {
           return <div />
       }
     `,
-    /* tsx */ `
+    tsx`
       function App() {
           return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       class Input extends React.Component {
         render() {
           return <input />;

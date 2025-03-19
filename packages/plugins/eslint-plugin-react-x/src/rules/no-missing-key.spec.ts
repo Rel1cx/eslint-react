@@ -1,30 +1,32 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `[<App />];`,
+      code: tsx`[<App />];`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[<App {...key} />];`,
+      code: tsx`[<App {...key} />];`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[<App key={0}/>, <App />];`,
+      code: tsx`[<App key={0}/>, <App />];`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2 ,3].map(function(x) { return <App /> });`,
+      code: tsx`[1, 2 ,3].map(function(x) { return <App /> });`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2 ,3].map(x => <App />);`,
+      code: tsx`[1, 2 ,3].map(x => <App />);`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2 ,3].map(x => x && <App x={x} />);`,
+      code: tsx`[1, 2 ,3].map(x => x && <App x={x} />);`,
       errors: [{ messageId: "missingKey" }],
     },
     {
@@ -36,31 +38,31 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2 ,3].map(x => { return <App /> });`,
+      code: tsx`[1, 2 ,3].map(x => { return <App /> });`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `Array.from([1, 2 ,3], function(x) { return <App /> });`,
+      code: tsx`Array.from([1, 2 ,3], function(x) { return <App /> });`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `Array.from([1, 2 ,3], (x => { return <App /> }));`,
+      code: tsx`Array.from([1, 2 ,3], (x => { return <App /> }));`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `Array.from([1, 2 ,3], (x => <App />));`,
+      code: tsx`Array.from([1, 2 ,3], (x => <App />));`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2, 3]?.map(x => <BabelEslintApp />)`,
+      code: tsx`[1, 2, 3]?.map(x => <BabelEslintApp />)`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2, 3]?.map(x => <TypescriptEslintApp />)`,
+      code: tsx`[1, 2, 3]?.map(x => <TypescriptEslintApp />)`,
       errors: [{ messageId: "missingKey" }],
     },
     {
-      code: /* tsx */ `[1, 2, 3].map(x => <>{x}</>);`,
+      code: tsx`[1, 2, 3].map(x => <>{x}</>);`,
       errors: [
         {
           messageId: "unexpectedFragmentSyntax",
@@ -68,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `[<></>];`,
+      code: tsx`[<></>];`,
       errors: [
         {
           messageId: "unexpectedFragmentSyntax",
@@ -76,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const Test = () => {
           const list = [1, 2, 3, 4, 5];
 
@@ -99,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const TestO = () => {
           const list = [1, 2, 3, 4, 5];
 
@@ -128,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const TestCase = () => {
           const list = [1, 2, 3, 4, 5];
 
@@ -150,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Explain() {
           return (
             <div>
@@ -186,6 +188,28 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // TODO: Fix this test case
+    // {
+    //   code: tsx`
+    //     const CustomDescription = (props: CustomDescriptionProps) => {
+    //     	const { items } = props;
+
+    //     	const newItems = items.map((item) => {
+    //     		const label = <div>{item.label}</div>;
+
+    //     		return { label, children: item.children };
+
+    //     		// This one works without any error
+    //     		return { label: <div>{item.label}</div>, children: item.children };
+    //     	});
+
+    //     	return <Descriptions items={newItems} />;
+    //     };
+    //   `,
+    //   errors: [
+    //     { messageId: "missingKey" },
+    //   ],
+    // },
   ],
   valid: [
     ...allValid,
@@ -212,13 +236,13 @@ ruleTester.run(RULE_NAME, rule, {
     "<App {...{}} />;",
     '<App key="keyBeforeSpread" {...{}} />;',
     '<div key="keyBeforeSpread" {...{}} />;',
-    /* tsx */ `
+    tsx`
       const spans = [
         <span key="notunique"/>,
         <span key="notunique"/>,
       ];
     `,
-    /* tsx */ `
+    tsx`
       function Component(props) {
         return hasPayment ? (
           <div className="stuff">
@@ -230,7 +254,7 @@ ruleTester.run(RULE_NAME, rule, {
         ) : null;
       }
     `,
-    /* tsx */ `
+    tsx`
       import React, { FC, useRef, useState } from 'react';
 
       import './ResourceVideo.sass';
@@ -254,14 +278,14 @@ ruleTester.run(RULE_NAME, rule, {
 
       export default ResourceVideo;
     `,
-    /* tsx */ `
+    tsx`
       // testrule.jsx
       const trackLink = () => {};
       const getAnalyticsUiElement = () => {};
 
       const onTextButtonClick = (e, item) => trackLink([, getAnalyticsUiElement(item), item.name], e);
     `,
-    /* tsx */ `
+    tsx`
       function Component({ allRatings }) {
         return (
           <RatingDetailsStyles>
@@ -282,14 +306,14 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    /* tsx */ `
+    tsx`
       const baz = foo?.bar?.()?.[1] ?? 'qux';
 
       qux()?.map()
 
       const directiveRanges = comments?.map(tryParseTSDirective)
     `,
-    /* tsx */ `
+    tsx`
       import { observable } from "mobx";
 
       export interface ClusterFrameInfo {
@@ -300,11 +324,11 @@ ruleTester.run(RULE_NAME, rule, {
       export const clusterFrameMap = observable.map<string, ClusterFrameInfo>();
     `,
     "React.Children.toArray([1, 2 ,3].map(x => <App />));",
-    /* tsx */ `
+    tsx`
       import { Children } from "react";
       Children.toArray([1, 2 ,3].map(x => <App />));
     `,
-    /* tsx */ `
+    tsx`
       import React from 'react';
       const { Children } = React;
 

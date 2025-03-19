@@ -25,7 +25,7 @@ react-dom/no-unsafe-iframe-sandbox
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
 

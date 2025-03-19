@@ -25,7 +25,7 @@ react-x/no-duplicate-key
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents duplicate `key` on elements in the same array or a list of `children`.
 

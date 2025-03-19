@@ -12,7 +12,7 @@
 
 ### node
 
-`undefined` | [`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+`undefined` | `TSESTreeFunction`
 
 ## Returns
 

@@ -7,15 +7,15 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
-import { isChildrenOfCreateElement } from "../element";
+import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
-import { DEFAULT_COMPONENT_HINT, ERComponentHint } from "./component-collector-hint";
-import { COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "./component-display-name";
+import type { ERComponentHint } from "./component-collector-hint";
+import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
-import { isFunctionOfRenderMethod } from "./component-lifecycle";
-import { getComponentNameFromIdentifier, hasNoneOrValidComponentName } from "./component-name";
+import { getComponentNameFromIdentifier, hasNoneOrLooseComponentName } from "./component-name";
 import type { ERFunctionComponent } from "./component-semantic-node";
+import { hasValidHierarchy } from "./hierarchy";
 
 type FunctionEntry = {
   key: string;
@@ -24,19 +24,37 @@ type FunctionEntry = {
   isComponent: boolean;
 };
 
+export declare namespace useComponentCollector {
+  type Options = {
+    collectDisplayName?: boolean;
+    collectHookCalls?: boolean;
+    hint?: ERComponentHint;
+  };
+  type ReturnType = {
+    ctx: {
+      getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
+      getCurrentEntries: () => FunctionEntry[];
+      getCurrentEntry: () => FunctionEntry | _;
+    };
+    listeners: ESLintUtils.RuleListener;
+  };
+}
+
 /**
  * Get a ctx and listeners for the rule to collect function components
  * @param context The ESLint rule context
- * @param hint The hint to use
  * @param options The options to use
  * @returns The component collector
  */
 export function useComponentCollector(
   context: RuleContext,
-  hint = DEFAULT_COMPONENT_HINT,
   options: useComponentCollector.Options = {},
 ): useComponentCollector.ReturnType {
-  const { collectDisplayName = false, collectHookCalls = false } = options;
+  const {
+    collectDisplayName = false,
+    collectHookCalls = false,
+    hint = DEFAULT_COMPONENT_HINT,
+  } = options;
 
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, ERFunctionComponent>();
@@ -83,12 +101,12 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const { body } = entry.node;
-      const isComponent = hasNoneOrValidComponentName(entry.node, context)
+      const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && JSX.isJSXValue(body, jsxCtx, hint)
-        && hasValidHierarchy(entry.node, context, hint);
+        && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
-      const id = getFunctionComponentIdentifier(entry.node, context);
+      const id = getFunctionComponentIdentifier(context, entry.node);
       const name = getComponentNameFromIdentifier(id);
       const key = getId();
       components.set(key, {
@@ -106,7 +124,7 @@ export function useComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [COMPONENT_DISPLAY_NAME_ASSIGNMENT_SELECTOR](node: TSESTree.AssignmentExpression) {
+        [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
           if (left.type !== T.MemberExpression) return;
           const componentName = left.object.type === T.Identifier
@@ -132,13 +150,13 @@ export function useComponentCollector(
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) return;
-      const isComponent = hasNoneOrValidComponentName(entry.node, context)
+      const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && JSX.isJSXValue(node.argument, jsxCtx, hint)
-        && hasValidHierarchy(entry.node, context, hint);
+        && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
-      const id = getFunctionComponentIdentifier(entry.node, context);
+      const id = getFunctionComponentIdentifier(context, entry.node);
       const name = getComponentNameFromIdentifier(id);
       components.set(entry.key, {
         id,
@@ -155,50 +173,6 @@ export function useComponentCollector(
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
-}
-
-export declare namespace useComponentCollector {
-  type Options = {
-    collectDisplayName?: boolean;
-    collectHookCalls?: boolean;
-  };
-  type ReturnType = {
-    ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
-      getCurrentEntries: () => FunctionEntry[];
-      getCurrentEntry: () => FunctionEntry | _;
-    };
-    listeners: ESLintUtils.RuleListener;
-  };
-}
-
-function hasValidHierarchy(node: AST.TSESTreeFunction, context: RuleContext, hint: bigint) {
-  if (isChildrenOfCreateElement(node, context) || isFunctionOfRenderMethod(node)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipObjectMethod && AST.isFunctionOfObjectMethod(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipClassMethod && AST.isFunctionOfClassMethod(node.parent)) {
-    return false;
-  }
-  if (hint & ERComponentHint.SkipClassProperty && AST.isFunctionOfClassProperty(node.parent)) {
-    return false;
-  }
-  const boundaryNode = AST.findParentNode(
-    node,
-    AST.isOneOf([
-      T.JSXExpressionContainer,
-      T.ArrowFunctionExpression,
-      T.FunctionExpression,
-      T.Property,
-      T.ClassBody,
-    ]),
-  );
-  return boundaryNode == null || boundaryNode.type !== T.JSXExpressionContainer;
 }
 
 function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {

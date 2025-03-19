@@ -5,7 +5,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow the use of 'forwardRef'",
+      description: "replace usages of 'forwardRef' with passing 'ref' as a prop",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
@@ -35,31 +35,33 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("forwardRef")) {
-      return {};
-    }
-    const { version } = getSettingsFromContext(context);
-    if (compare(version, "19.0.0", "<")) {
-      return {};
-    }
-    return {
-      CallExpression(node) {
-        if (!isForwardRefCall(node, context)) {
-          return;
-        }
-        context.report({
-          messageId: "noForwardRef",
-          node,
-          fix: getFix(node, context),
-        });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
 
-function getFix(node: TSESTree.CallExpression, context: RuleContext): (fixer: RuleFixer) => RuleFix[] {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("forwardRef")) {
+    return {};
+  }
+  const { version } = getSettingsFromContext(context);
+  if (compare(version, "19.0.0", "<")) {
+    return {};
+  }
+  return {
+    CallExpression(node) {
+      if (!isForwardRefCall(context, node)) {
+        return;
+      }
+      context.report({
+        messageId: "noForwardRef",
+        node,
+        fix: getFix(context, node),
+      });
+    },
+  };
+}
+
+function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
     if (componentNode == null || !AST.isFunction(componentNode)) {
@@ -120,6 +122,8 @@ function getComponentPropsFixes(
         : [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])],
     ] as const;
   }
+  const typeArg0Text = getText(typeArg0);
+  const typeArg1Text = getText(typeArg1);
   return [
     fixer.replaceText(
       arg0,
@@ -128,11 +132,11 @@ function getComponentPropsFixes(
         fixedArg1Text + ",",
         fixedArg0Text,
         "}:",
-        getText(typeArg1),
+        typeArg1Text,
         "&",
         "{",
         `ref?:`,
-        `React.RefObject<${getText(typeArg0)} | null>`,
+        `React.RefObject<${typeArg0Text} | null>`,
         "}",
       ].join(" "),
     ),

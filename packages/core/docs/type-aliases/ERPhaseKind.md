@@ -6,4 +6,4 @@
 
 # Type Alias: ERPhaseKind
 
-> **ERPhaseKind**: [`EREffectPhaseKind`](EREffectPhaseKind.md) \| [`ERLifecyclePhaseKind`](ERLifecyclePhaseKind.md)
+> **ERPhaseKind** = [`EREffectPhaseKind`](EREffectPhaseKind.md) \| [`ERLifecyclePhaseKind`](ERLifecyclePhaseKind.md)

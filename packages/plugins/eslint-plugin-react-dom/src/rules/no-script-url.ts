@@ -1,7 +1,8 @@
 import * as JSX from "@eslint-react/jsx";
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -31,24 +32,26 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXAttribute(node) {
-        if (node.name.type !== T.JSXIdentifier || node.value == null) {
-          return;
-        }
-        const attributeScope = context.sourceCode.getScope(node);
-        const attributeName = JSX.getAttributeName(node);
-        const attributeValue = JSX.getAttributeValue(node, attributeName, attributeScope);
-        if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
-        if (RE_JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
-          context.report({
-            messageId: "noScriptUrl",
-            node: node.value,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXAttribute(node) {
+      if (node.name.type !== T.JSXIdentifier || node.value == null) {
+        return;
+      }
+      const attributeScope = context.sourceCode.getScope(node);
+      const attributeName = JSX.getAttributeName(node);
+      const attributeValue = JSX.getAttributeValue(node, attributeName, attributeScope);
+      if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
+      if (RE_JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
+        context.report({
+          messageId: "noScriptUrl",
+          node: node.value,
+        });
+      }
+    },
+  };
+}

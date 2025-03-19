@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-use-state-lazy-initialization";
@@ -172,7 +173,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `useLocalStorageState(1 || ${expression})`,
+      code: tsx`useLocalStorageState(1 || ${expression})`,
       errors: [
         {
           type: T.LogicalExpression,
@@ -270,7 +271,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from 'react';
 
         function getValue() {

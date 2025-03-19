@@ -29,7 +29,6 @@
     "test/fixtures"
   ],
   "include": [
-    "src",
-    "typings"
+    "src"
   ]
 }

@@ -44,25 +44,41 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 > `readonly` **importSource**: `"react"` = `"react"`
 
-### jsxPragma
+### ~~jsxPragma?~~
 
-> `readonly` **jsxPragma**: `"createElement"` = `"createElement"`
+> `readonly` `optional` **jsxPragma**: `string`
 
-### jsxPragmaFrag
+The identifier that's used for JSX Element creation.
 
-> `readonly` **jsxPragmaFrag**: `"Fragment"` = `"Fragment"`
+#### Default
+
+`"createElement"`
+
+#### Deprecated
+
+### ~~jsxPragmaFrag?~~
+
+> `readonly` `optional` **jsxPragmaFrag**: `string`
+
+The identifier that's used for JSX fragment elements.
+
+#### Description
+
+This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
+
+#### Default
+
+`"Fragment"`
+
+#### Deprecated
 
 ### polymorphicPropName
 
 > `readonly` **polymorphicPropName**: `"as"` = `"as"`
 
-### strict
+### skipImportCheck
 
-> `readonly` **strict**: `false` = `false`
-
-### strictImportCheck
-
-> `readonly` **strictImportCheck**: `false` = `false`
+> `readonly` **skipImportCheck**: `true` = `true`
 
 ### version
 

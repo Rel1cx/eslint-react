@@ -25,7 +25,7 @@ react-dom/no-dangerously-set-innerhtml-with-children
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows DOM elements using `children` and `dangerouslySetInnerHTML` at the same time.
 

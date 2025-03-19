@@ -24,7 +24,7 @@ class Component extends React.Component {
 
 ### node
 
-[`Node`](../-internal-/type-aliases/Node.md)
+`Node`
 
 The AST node being checked
 

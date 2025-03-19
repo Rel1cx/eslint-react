@@ -3,23 +3,25 @@ title: TypeScript
 description: Getting started with TypeScript setup
 ---
 
+<Callout type="info">
+
+ESLint React requires the following minimum versions:
+
+- `node@18.18.0`
+- `eslint@8.57.0`
+- `typescript@4.9.5`
+
+</Callout>
+
 ## Install
 
-```sh copy title="Terminal"
-# npm
+```package-install copy
 npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
-
-# pnpm
-pnpm add --save-dev typescript-eslint @eslint-react/eslint-plugin
-
-# yarn
-yarn add --dev typescript-eslint @eslint-react/eslint-plugin
 ```
 
 ## Setup
 
 ```js title="eslint.config.js"
-
 // @ts-check
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
@@ -30,7 +32,7 @@ export default tseslint.config({
   extends: [
     eslintJs.configs.recommended,
     tseslint.configs.recommended,
-    eslintReact.configs.recommended,
+    eslintReact.configs["recommended-typescript"],
   ],
   languageOptions: {
     parser: tseslint.parser,

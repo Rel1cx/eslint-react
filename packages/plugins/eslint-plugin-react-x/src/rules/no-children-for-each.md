@@ -25,7 +25,7 @@ react-x/no-children-for-each
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of `Children.forEach` from the `react` package.
 

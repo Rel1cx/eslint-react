@@ -159,4 +159,12 @@ export const isTypeExpression = isOneOf([
   T.TSTypeAssertion,
   T.TSNonNullExpression,
   T.TSSatisfiesExpression,
+  T.TSInstantiationExpression,
+]);
+
+export const isTypeAssertionExpression = isOneOf([
+  T.TSAsExpression,
+  T.TSTypeAssertion,
+  T.TSNonNullExpression,
+  T.TSSatisfiesExpression,
 ]);

@@ -1,46 +1,48 @@
+import ts from "dedent";
+
 import { ruleTester } from "../../../../test";
 import rule, { RULE_NAME } from "./no-shadow-underscore";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* ts */ `
+      code: ts`
         const _ = 1;
       `,
       errors: [{ messageId: "noShadowUnderscore" }],
     },
     {
-      code: /* ts */ `
+      code: ts`
         const [_, foo] = [1, 2];
       `,
       errors: [{ messageId: "noShadowUnderscore" }],
     },
     {
-      code: /* ts */ `
+      code: ts`
         const { name: _, ...rest } = { name: "foo", age: 20 };
       `,
       errors: [{ messageId: "noShadowUnderscore" }],
     },
   ],
   valid: [
-    /* ts */ `
+    ts`
       const __ = 1;
     `,
-    /* ts */ `
+    ts`
       const [__, foo] = [1, 2];
     `,
-    /* ts */ `
+    ts`
       const { name: __, ...rest } = { name: "foo", age: 20 };
     `,
-    /* ts */ `
+    ts`
       import { _ } from "@eslint-react/eff";
     `,
-    /* ts */ `
+    ts`
       import { _ } from "@eslint-react/eff";
 
       const value = _;
     `,
-    /* ts */ `
+    ts`
       import { _ } from "@eslint-react/eff";
 
       function foo() {

@@ -1,9 +1,9 @@
 import * as AST from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import { isAssignmentToThisState, isClassComponent } from "@eslint-react/core";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -16,38 +16,11 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
-    return getName(node.expression);
-  }
-  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return node.name;
-  }
-  if (node.type === T.Literal) {
-    return node.value?.toString();
-  }
-  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
-  }
-
-  return _;
-}
-
-function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
-  const { left } = node;
-
-  return (
-    left.type === T.MemberExpression
-    && AST.isThisExpression(left.object)
-    && getName(left.property) === "state"
-  );
-}
-
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
   return AST.isOneOf([T.FunctionDeclaration, T.FunctionExpression])(node)
-    && AST.isOneOf([T.MethodDefinition, T.PropertyDefinition])(node.parent)
+    && AST.isMethodOrProperty(node.parent)
     && node.parent.key.type === T.Identifier
     && node.parent.key.name === "constructor";
 }
@@ -65,31 +38,31 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      AssignmentExpression(node: TSESTree.AssignmentExpression) {
-        if (!isAssignmentToThisState(node)) {
-          return;
-        }
-        const parentClass = AST.findParentNode(
-          node,
-          AST.isOneOf([
-            T.ClassDeclaration,
-            T.ClassExpression,
-          ]),
-        );
-        if (parentClass == null) return;
-        if (
-          isClassComponent(parentClass)
-          && context.sourceCode.getScope(node).block !== AST.findParentNode(node, isConstructorFunction)
-        ) {
-          context.report({
-            messageId: "noDirectMutationState",
-            node,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    AssignmentExpression(node: TSESTree.AssignmentExpression) {
+      if (!isAssignmentToThisState(node)) return;
+      const parentClass = AST.findParentNode(
+        node,
+        AST.isOneOf([
+          T.ClassDeclaration,
+          T.ClassExpression,
+        ]),
+      );
+      if (parentClass == null) return;
+      if (
+        isClassComponent(parentClass)
+        && context.sourceCode.getScope(node).block !== AST.findParentNode(node, isConstructorFunction)
+      ) {
+        context.report({
+          messageId: "noDirectMutationState",
+          node,
+        });
+      }
+    },
+  };
+}

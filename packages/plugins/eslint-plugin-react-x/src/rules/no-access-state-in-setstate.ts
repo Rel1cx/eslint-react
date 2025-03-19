@@ -1,10 +1,12 @@
 import * as AST from "@eslint-react/ast";
 import { isClassComponent, isThisSetState } from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
-import type { RuleFeature } from "@eslint-react/shared";
+import { constFalse, constTrue } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -16,21 +18,19 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function getName(node: TSESTree.Expression | TSESTree.PrivateIdentifier): string | _ {
-  if (AST.isTypeExpression(node)) {
-    return getName(node.expression);
-  }
-  if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
-    return node.name;
-  }
-  if (node.type === T.Literal) {
-    return String(node.value);
-  }
-  if (node.type === T.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
-  }
-
-  return _;
+function isKeyLiteral(
+  node:
+    | TSESTree.MemberExpression
+    | TSESTree.MethodDefinition
+    | TSESTree.Property
+    | TSESTree.PropertyDefinition,
+  key: TSESTree.Node,
+) {
+  return match(key)
+    .with({ type: T.Literal }, constTrue)
+    .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
+    .with({ type: T.Identifier }, () => !node.computed)
+    .otherwise(constFalse);
 }
 
 export default createRule<[], MessageID>({
@@ -46,111 +46,113 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    if (!context.sourceCode.text.includes("setState")) {
-      return {};
-    }
-    const classEntries: [
-      node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
-      isComponent: boolean,
-    ][] = [];
-    const methodEntries: [
-      node: AST.TSESTreeMethodOrProperty,
-      isStatic: boolean,
-    ][] = [];
-    const setStateEntries: [
-      node: TSESTree.CallExpression,
-      hasThisState: boolean,
-    ][] = [];
-    return {
-      CallExpression(node) {
-        if (!isThisSetState(node)) {
-          return;
-        }
-        setStateEntries.push([node, false]);
-      },
-      "CallExpression:exit"(node) {
-        if (!isThisSetState(node)) {
-          return;
-        }
-        setStateEntries.pop();
-      },
-      ClassDeclaration(node) {
-        classEntries.push([node, isClassComponent(node)]);
-      },
-      "ClassDeclaration:exit"() {
-        classEntries.pop();
-      },
-      ClassExpression(node) {
-        classEntries.push([node, isClassComponent(node)]);
-      },
-      "ClassExpression:exit"() {
-        classEntries.pop();
-      },
-      MemberExpression(node) {
-        if (!AST.isThisExpression(node.object)) {
-          return;
-        }
-        const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
-        if (currClass == null || !isComponent) {
-          return;
-        }
-        const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
-        if (currMethod == null || isStatic) {
-          return;
-        }
-        const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
-        if (setState == null || hasThisState) {
-          return;
-        }
-        if (getName(node.property) !== "state") {
-          return;
-        }
-        context.report({ messageId: "noAccessStateInSetstate", node });
-      },
-      MethodDefinition(node) {
-        methodEntries.push([node, node.static]);
-      },
-      "MethodDefinition:exit"() {
-        methodEntries.pop();
-      },
-      PropertyDefinition(node) {
-        methodEntries.push([node, node.static]);
-      },
-      "PropertyDefinition:exit"() {
-        methodEntries.pop();
-      },
-      VariableDeclarator(node) {
-        const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
-        if (currClass == null || !isComponent) {
-          return;
-        }
-        const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
-        if (currMethod == null || isStatic) {
-          return;
-        }
-        const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
-        if (setState == null || hasThisState) {
-          return;
-        }
-        // detect `{ foo, state: baz } = this`
-        if (node.init == null || !AST.isThisExpression(node.init) || node.id.type !== T.ObjectPattern) {
-          return;
-        }
-        const hasState = node
-          .id
-          .properties
-          .some((prop) =>
-            prop.type === T.Property
-            && AST.isKeyLiteralLike(prop, prop.key)
-            && getName(prop.key) === "state"
-          );
-        if (!hasState) {
-          return;
-        }
-        context.report({ messageId: "noAccessStateInSetstate", node });
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("setState")) {
+    return {};
+  }
+  const classEntries: [
+    node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
+    isComponent: boolean,
+  ][] = [];
+  const methodEntries: [
+    node: AST.TSESTreeMethodOrProperty,
+    isStatic: boolean,
+  ][] = [];
+  const setStateEntries: [
+    node: TSESTree.CallExpression,
+    hasThisState: boolean,
+  ][] = [];
+  return {
+    CallExpression(node) {
+      if (!isThisSetState(node)) {
+        return;
+      }
+      setStateEntries.push([node, false]);
+    },
+    "CallExpression:exit"(node) {
+      if (!isThisSetState(node)) {
+        return;
+      }
+      setStateEntries.pop();
+    },
+    ClassDeclaration(node) {
+      classEntries.push([node, isClassComponent(node)]);
+    },
+    "ClassDeclaration:exit"() {
+      classEntries.pop();
+    },
+    ClassExpression(node) {
+      classEntries.push([node, isClassComponent(node)]);
+    },
+    "ClassExpression:exit"() {
+      classEntries.pop();
+    },
+    MemberExpression(node) {
+      if (!AST.isThisExpression(node.object)) {
+        return;
+      }
+      const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
+      if (currClass == null || !isComponent) {
+        return;
+      }
+      const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
+      if (currMethod == null || isStatic) {
+        return;
+      }
+      const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
+      if (setState == null || hasThisState) {
+        return;
+      }
+      if (AST.getPropertyName(node.property) !== "state") {
+        return;
+      }
+      context.report({ messageId: "noAccessStateInSetstate", node });
+    },
+    MethodDefinition(node) {
+      methodEntries.push([node, node.static]);
+    },
+    "MethodDefinition:exit"() {
+      methodEntries.pop();
+    },
+    PropertyDefinition(node) {
+      methodEntries.push([node, node.static]);
+    },
+    "PropertyDefinition:exit"() {
+      methodEntries.pop();
+    },
+    VariableDeclarator(node) {
+      const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
+      if (currClass == null || !isComponent) {
+        return;
+      }
+      const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
+      if (currMethod == null || isStatic) {
+        return;
+      }
+      const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
+      if (setState == null || hasThisState) {
+        return;
+      }
+      // detect `{ foo, state: baz } = this`
+      if (node.init == null || !AST.isThisExpression(node.init) || node.id.type !== T.ObjectPattern) {
+        return;
+      }
+      const hasState = node
+        .id
+        .properties
+        .some((prop) =>
+          prop.type === T.Property
+          && isKeyLiteral(prop, prop.key)
+          && AST.getPropertyName(prop.key) === "state"
+        );
+      if (!hasState) {
+        return;
+      }
+      context.report({ messageId: "noAccessStateInSetstate", node });
+    },
+  };
+}

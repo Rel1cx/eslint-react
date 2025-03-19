@@ -11,6 +11,7 @@ Please make sure to read the Pull Request Guidelines: https://github.com/Rel1cx/
 - [ ] Bugfix
 - [ ] Feature
 - [ ] Docs
+- [ ] Test
 - [ ] New Binding issue #___
 - [ ] Code style update
 - [ ] Refactor

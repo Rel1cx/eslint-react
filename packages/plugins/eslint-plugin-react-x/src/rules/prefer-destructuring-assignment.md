@@ -18,7 +18,7 @@ react-x/prefer-destructuring-assignment
 
 `🔍`
 
-## What it does
+## Description
 
 Enforces the use of destructuring assignment over property assignment.
 

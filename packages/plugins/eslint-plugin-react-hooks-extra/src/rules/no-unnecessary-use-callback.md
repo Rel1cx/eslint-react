@@ -18,7 +18,7 @@ react-hooks-extra/no-unnecessary-use-callback
 
 `🔍`
 
-## What it does
+## Description
 
 Disallows unnecessary usage of `useCallback`.
 

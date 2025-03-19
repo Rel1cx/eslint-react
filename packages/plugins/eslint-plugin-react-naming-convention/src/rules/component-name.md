@@ -18,13 +18,13 @@ react-naming-convention/component-name
 
 `🔍` `⚙️`
 
-## What it does
+## Description
 
 Enforces naming conventions for components.
 
 ## Examples
 
-This rule enforces naming conventions for components. Can be used to enforce PascalCase and CONSTANT_CASE. By default, it enforces PascalCase.
+This rule enforces naming conventions for components. Can be used to enforce `PascalCase` and `CONSTANT_CASE`. By default, it enforces `PascalCase`.
 
 ### Failing
 
@@ -50,13 +50,13 @@ function MyComponent() {
 
 ## Rule Options
 
-- `rule`: The rule to apply to the file name. Default is `"PascalCase"`. Possible values:
-  1. `PascalCase`: PascalCase
-  2. `CONSTANT_CASE`: CONSTANT_CASE
+- `rule`: The rule to apply to the component name. Possible values:
+  - `PascalCase` (default)
+  - `CONSTANT_CASE`
 - `excepts`: (optional) An array of component names that are allowed to not follow the rule.
-- `allowAllCaps`: (optional) If `true`, allows all caps file names. Default is `false`.
-- `allowNamespace`: (optional) If `true`, allows namespace in JSX elements. Default is `false`.
-- `allowLeadingUnderscore`: (optional) If `true`, allows leading underscore in file names. Default is `false`.
+- `allowAllCaps`: (optional) If `true`, allows all caps component names. Default is `false`.
+
+## Rule Options Examples
 
 ```json
 {
@@ -66,10 +66,7 @@ function MyComponent() {
 
 ```json
 {
-  "@eslint-react/naming-convention/component-name": [
-    "warn",
-    { "rule": "PascalCase", "excepts": ["MyComponent"] }
-  ]
+  "@eslint-react/naming-convention/component-name": ["warn", { "rule": "PascalCase", "allowAllCaps": true }]
 }
 ```
 
@@ -77,3 +74,10 @@ function MyComponent() {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.spec.ts)
+
+---
+
+## See Also
+
+- [`context-name`](./naming-convention-context-name)\
+  Enforces context name to be a valid component name with the suffix `Context`.

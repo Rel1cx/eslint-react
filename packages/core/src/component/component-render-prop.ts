@@ -12,11 +12,11 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * _ = <Component renderRow={() => <div />} />
  * `                         ^^^^^^^^^^^^^   `
  * ```
- * @param node The AST node to check
  * @param context The rule context
+ * @param node The AST node to check
  * @returns `true` if node is a render function, `false` if not
  */
-export function isRenderFunctionLoose(node: AST.TSESTreeFunction, context: RuleContext) {
+export function isRenderFunctionLoose(context: RuleContext, node: AST.TSESTreeFunction) {
   const { body, parent } = node;
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (AST.getFunctionIdentifier(node)?.name.startsWith("render")) {
@@ -43,18 +43,18 @@ export function isRenderFunctionLoose(node: AST.TSESTreeFunction, context: RuleC
  * _ = <Component renderRow={() => <div />} />
  * `              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
  * ```
- * @param node The AST node to check
  * @param context The rule context
+ * @param node The AST node to check
  * @returns `true` if node is a render prop, `false` if not
  */
-export function isRenderPropLoose(node: TSESTree.JSXAttribute, context: RuleContext) {
+export function isRenderPropLoose(context: RuleContext, node: TSESTree.JSXAttribute) {
   if (node.name.type !== T.JSXIdentifier) {
     return false;
   }
   return node.name.name.startsWith("render")
     && node.value?.type === T.JSXExpressionContainer
     && AST.isFunction(node.value.expression)
-    && isRenderFunctionLoose(node.value.expression, context);
+    && isRenderFunctionLoose(context, node.value.expression);
 }
 
 /**

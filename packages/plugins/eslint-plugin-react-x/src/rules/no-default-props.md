@@ -25,7 +25,7 @@ react-x/no-default-props
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows using `defaultProps` property in favor of ES6 default parameters.
 

@@ -6,4 +6,4 @@
 
 # Type Alias: ERComponentFlag
 
-> **ERComponentFlag**: `bigint`
+> **ERComponentFlag** = `bigint`

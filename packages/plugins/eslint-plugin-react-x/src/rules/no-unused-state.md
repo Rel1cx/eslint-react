@@ -25,7 +25,7 @@ react-x/no-unused-state
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns unused class component state.
 

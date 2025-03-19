@@ -14,6 +14,10 @@ react-dom/no-dangerously-set-innerhtml
 @eslint-react/dom/no-dangerously-set-innerhtml
 ```
 
+**Features**
+
+`🔍`
+
 **Presets**
 
 - `dom`
@@ -21,7 +25,7 @@ react-dom/no-dangerously-set-innerhtml
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns when using `dangerouslySetInnerHTML`.
 

@@ -18,7 +18,7 @@ react-x/prefer-react-namespace-import
 
 `🔍` `🔧`
 
-## What it does
+## Description
 
 Enforces React is imported via a namespace import.
 

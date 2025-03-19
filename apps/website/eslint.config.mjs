@@ -1,14 +1,15 @@
-import eslintJs from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
-import eslintMarkdown from "@eslint/markdown";
-import eslintPluginDeMorgan from "eslint-plugin-de-morgan";
-import eslintPluginMdx from "eslint-plugin-mdx";
-import eslintPluginNext from "@next/eslint-plugin-next";
-import eslintPluginPerfectionist from "eslint-plugin-perfectionist";
-import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import js from "@eslint/js";
+import react from "@eslint-react/eslint-plugin";
+import markdown from "@eslint/markdown";
+import pluginDeMorgan from "eslint-plugin-de-morgan";
+import pluginMdx from "eslint-plugin-mdx";
+import pluginNext from "@next/eslint-plugin-next";
+import pluginPerfectionist from "eslint-plugin-perfectionist";
+import pluginReactHooks from "eslint-plugin-react-hooks";
+import pluginReactRefresh from "eslint-plugin-react-refresh";
+import pluginReactCompiler from "eslint-plugin-react-compiler";
+import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import pluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
 import gitignore from "eslint-config-flat-gitignore";
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -53,7 +54,7 @@ export default tseslint.config(
   {
     files: GLOB_MD,
     extends: [
-      eslintMarkdown.configs.recommended,
+      markdown.configs.recommended,
     ],
     language: "markdown/gfm",
     rules: {
@@ -62,23 +63,23 @@ export default tseslint.config(
     },
   },
   {
-    ...eslintPluginMdx.flat,
+    ...pluginMdx.flat,
     files: GLOB_MDX,
-    processor: eslintPluginMdx.createRemarkProcessor({
+    processor: pluginMdx.createRemarkProcessor({
       lintCodeBlocks: false,
     }),
   },
   {
     files: GLOB_TS,
     extends: [
-      eslintJs.configs.recommended,
+      js.configs.recommended,
       tseslint.configs.recommended,
-      eslintPluginDeMorgan.configs.recommended,
-      eslintPluginPerfectionist.configs["recommended-natural"],
+      pluginDeMorgan.configs.recommended,
+      pluginPerfectionist.configs["recommended-natural"],
     ],
     plugins: {
-      "simple-import-sort": eslintPluginSimpleImportSort,
-      unicorn: eslintPluginUnicorn,
+      "simple-import-sort": pluginSimpleImportSort,
+      unicorn: pluginUnicorn,
     },
     rules: {
       "simple-import-sort/imports": "warn",
@@ -138,19 +139,20 @@ export default tseslint.config(
   },
   {
     files: TSCONFIG.include,
-    ...eslintReact.configs["recommended-type-checked"],
+    ...react.configs["recommended-type-checked"],
   },
+  pluginReactCompiler.configs.recommended,
   {
     files: TSCONFIG.include,
     plugins: {
-      "react-hooks": eslintPluginReactHooks,
+      "react-hooks": pluginReactHooks,
     },
-    rules: eslintPluginReactHooks.configs.recommended.rules,
+    rules: pluginReactHooks.configs.recommended.rules,
   },
   {
     files: TSCONFIG.include,
     plugins: {
-      "react-refresh": eslintPluginReactRefresh,
+      "react-refresh": pluginReactRefresh,
     },
     rules: {
       "react-refresh/only-export-components": "warn",
@@ -159,11 +161,11 @@ export default tseslint.config(
   {
     files: TSCONFIG.include,
     plugins: {
-      "@next/next": eslintPluginNext,
+      "@next/next": pluginNext,
     },
     rules: {
-      ...eslintPluginNext.configs.recommended.rules,
-      ...eslintPluginNext.configs["core-web-vitals"].rules,
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs["core-web-vitals"].rules,
     },
   },
   {

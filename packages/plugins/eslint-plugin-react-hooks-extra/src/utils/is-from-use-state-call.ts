@@ -12,5 +12,5 @@ export function isFromUseStateCall(context: RuleContext, settings: ESLintReactSe
     }
     return parent.id.elements.findIndex((e) => e?.type === T.Identifier && e.name === topLevelId.name) === 1;
   };
-  return isFromHookCall("useState", context, settings, predicate);
+  return isFromHookCall(context, "useState", settings, predicate);
 }

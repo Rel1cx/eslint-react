@@ -7,6 +7,15 @@ import { ERComponentFlag } from "./component-flag";
 import type { ERClassComponent } from "./component-semantic-node";
 import { isClassComponent, isPureComponent } from "./is";
 
+export declare namespace useComponentCollectorLegacy {
+  type ReturnType = {
+    ctx: {
+      getAllComponents: (node: TSESTree.Program) => Map<string, ERClassComponent>;
+    };
+    listeners: ESLintUtils.RuleListener;
+  };
+}
+
 /**
  * Get a ctx and listeners for the rule to collect class components
  * @returns The context and listeners for the rule
@@ -54,13 +63,4 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
   } as const satisfies ESLintUtils.RuleListener;
 
   return { ctx, listeners } as const;
-}
-
-export declare namespace useComponentCollectorLegacy {
-  type ReturnType = {
-    ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, ERClassComponent>;
-    };
-    listeners: ESLintUtils.RuleListener;
-  };
 }

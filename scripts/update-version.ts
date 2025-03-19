@@ -1,11 +1,11 @@
 import fs from "node:fs";
 
-import pc from "picocolors";
+import ansis from "ansis";
 import { isMatching, match, P } from "ts-pattern";
 
-import { ignores } from "./ignores";
-import { glob } from "./lib";
-import { version } from "./version";
+import { glob } from "./lib/glob";
+import { ignores } from "./lib/ignores";
+import { version } from "./lib/version";
 
 const GLOB_PACKAGE_JSON = ["package.json", "packages/*/package.json", "packages/*/*/package.json"];
 
@@ -19,7 +19,7 @@ async function update(path: string) {
     .with({ version: P.select(P.string) }, (v) => v)
     .otherwise(() => "0.0.0");
   if (oldVersion === newVersion) {
-    console.info(pc.greenBright(`Skipping ${path} as it's already on version ${newVersion}`));
+    console.info(ansis.greenBright(`Skipping ${path} as it's already on version ${newVersion}`));
     return;
   }
   const packageJsonUpdated = {
@@ -27,7 +27,7 @@ async function update(path: string) {
     version: newVersion,
   };
   fs.writeFileSync(path, JSON.stringify(packageJsonUpdated, null, 2) + "\n");
-  console.info(pc.green(`Updated ${path} to version ${packageJsonUpdated.version}`));
+  console.info(ansis.green(`Updated ${path} to version ${packageJsonUpdated.version}`));
 }
 
 async function main() {

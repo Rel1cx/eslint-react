@@ -25,7 +25,7 @@ react-x/no-unsafe-component-will-receive-props
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns the usage of `UNSAFE_componentWillReceiveProps` in class components.
 

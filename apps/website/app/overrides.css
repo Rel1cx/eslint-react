@@ -36,12 +36,16 @@
     "Noto Color Emoji";
 
   --font-family-mono:
+    var(--font-ibm_plex_mono),
     ui-monospace,
-    SFMono-Regular,
     Menlo,
     Monaco,
     Consolas,
     monospace;
+}
+
+button {
+  cursor: pointer;
 }
 
 #nd-docs-layout #nd-sidebar a[data-active] {
@@ -54,15 +58,7 @@
 
 .prose table thead tr th code,
 .prose table tbody tr td code {
-  font-family: var(--font-family-mono);
   white-space: nowrap;
-}
-
-.prose code,
-.prose kbd,
-.prose samp,
-.prose pre {
-  font-family: var(--font-family-mono);
 }
 
 .prose .fd-codeblock code {
@@ -72,9 +68,14 @@
 
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   padding: .125rem .25em;
-  font-size: .9em;
+  font-size: 14px;
 }
 
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   font-size: 1em;
+}
+
+figure.fd-codeblock.shiki {
+  /* improve code block readability */
+  background-color: color-mix(in oklab, var(--color-fd-secondary) 25%, transparent);
 }

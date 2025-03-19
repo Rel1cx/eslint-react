@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-use-context";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useContext } from 'react'
 
         export const Component = () => {
@@ -16,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import { use } from 'react'
 
         export const Component = () => {
@@ -31,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useContext } from 'react'
 
         export const Component = () => {
@@ -43,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import { use } from 'react'
 
         export const Component = () => {
@@ -58,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { use, useContext } from 'react'
 
         export const Component = () => {
@@ -70,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import { use } from 'react'
 
         export const Component = () => {
@@ -85,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { use, useContext, useState } from 'react'
 
         export const Component = () => {
@@ -97,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import { use, useState } from 'react'
 
         export const Component = () => {
@@ -112,7 +114,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import {use,useContext,useState} from 'react'
 
         export const Component = () => {
@@ -124,7 +126,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import {use,useState} from 'react'
 
         export const Component = () => {
@@ -139,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from 'react'
 
         export const Component = () => {
@@ -150,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import React from 'react'
 
         export const Component = () => {
@@ -165,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { use, useContext as useCtx } from 'react'
 
         export const Component = () => {
@@ -177,7 +179,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noUseContext" },
         { messageId: "noUseContext" },
       ],
-      output: /* tsx */ `
+      output: tsx`
         import { use } from 'react'
 
         export const Component = () => {
@@ -194,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useContext } from 'react'
 
         export const Component = () => {
@@ -209,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { use } from 'react'
 
         export const Component = () => {
@@ -224,7 +226,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import React from 'react'
 
         export const Component = () => {

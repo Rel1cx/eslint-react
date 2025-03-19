@@ -1,13 +1,11 @@
-import {
-  DEFAULT_COMPONENT_HINT,
-  isReactHookCallWithNameLoose,
-  isUseStateCall,
-  useComponentCollector,
-} from "@eslint-react/core";
-import type { RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { getInstanceId } from "@eslint-react/core";
+import { _ } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { capitalize } from "string-ts";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { snakeCase } from "string-ts";
+import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -17,15 +15,7 @@ export const RULE_FEATURES = [
   "CHK",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "unexpected";
-
-function isSetterNameLoose(name: string) {
-  // eslint-disable-next-line @typescript-eslint/no-misused-spread
-  const fourthChar = [...name][3];
-
-  return name.startsWith("set")
-    && fourthChar === fourthChar?.toUpperCase();
-}
+export type MessageID = "missingDestructuring" | "invalidSetterNaming";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -35,69 +25,58 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      unexpected: "An useState call is not destructured into value + setter pair.",
+      invalidSetterNaming:
+        "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
+      missingDestructuring:
+        "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
     },
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
-    const {
-      ctx,
-      listeners,
-    } = useComponentCollector(
-      context,
-      DEFAULT_COMPONENT_HINT,
-      {
-        collectDisplayName: false,
-        collectHookCalls: true,
-      },
-    );
-
-    return {
-      ...listeners,
-      "Program:exit"(node) {
-        const components = ctx.getAllComponents(node);
-        for (const { hookCalls } of components.values()) {
-          if (hookCalls.length === 0) {
-            continue;
-          }
-          for (const hookCall of hookCalls) {
-            if (!isUseStateCall(hookCall, context) && !alias.some(isReactHookCallWithNameLoose(hookCall))) {
-              continue;
-            }
-            if (hookCall.parent.type !== T.VariableDeclarator) {
-              continue;
-            }
-            const { id } = hookCall.parent;
-            switch (id.type) {
-              case T.Identifier: {
-                context.report({ messageId: "unexpected", node: id });
-                break;
-              }
-              case T.ArrayPattern: {
-                const [state, setState] = id.elements;
-                if (state?.type === T.ObjectPattern && setState?.type === T.Identifier) {
-                  if (!isSetterNameLoose(setState.name)) {
-                    context.report({ messageId: "unexpected", node: id });
-                  }
-                  break;
-                }
-                if (state?.type !== T.Identifier || setState?.type !== T.Identifier) {
-                  return;
-                }
-                const [stateName, setStateName] = [state.name, setState.name];
-                const expectedSetterName = `set${capitalize(stateName)}`;
-                if (setStateName === expectedSetterName) {
-                  return;
-                }
-                context.report({ messageId: "unexpected", node: id });
-              }
-            }
-          }
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    "CallExpression[callee.name='useState']"(node: TSESTree.CallExpression) {
+      if (node.parent.type !== T.VariableDeclarator) {
+        context.report({ messageId: "missingDestructuring", node });
+        return;
+      }
+      const id = getInstanceId(node);
+      if (id?.type !== T.ArrayPattern) {
+        context.report({ messageId: "missingDestructuring", node });
+        return;
+      }
+      const [value, setter] = id.elements;
+      if (value == null || setter == null) {
+        context.report({ messageId: "missingDestructuring", node });
+        return;
+      }
+      const setterName = match(setter)
+        .with({ type: T.Identifier }, (id) => id.name)
+        .otherwise(() => _);
+      if (setterName == null || !setterName.startsWith("set")) {
+        context.report({ messageId: "invalidSetterNaming", node });
+        return;
+      }
+      const valueName = match(value)
+        .with({ type: T.Identifier }, ({ name }) => snakeCase(name))
+        .with({ type: T.ObjectPattern }, ({ properties }) => {
+          const values = properties.reduce<string[]>((acc, prop) => {
+            if (prop.type === T.Property && prop.key.type === T.Identifier) {
+              return [...acc, prop.key.name];
+            }
+            return acc;
+          }, []);
+          return values.join("_");
+        })
+        .otherwise(() => _);
+      if (valueName == null || `set_${valueName}` !== snakeCase(setterName)) {
+        context.report({ messageId: "invalidSetterNaming", node });
+        return;
+      }
+    },
+  };
+}

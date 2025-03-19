@@ -6,7 +6,7 @@
 
 # Type Alias: RuleNamespace
 
-> **RuleNamespace**: `"x"` \| `"dom"` \| `"web-api"` \| `"hooks-extra"` \| `"naming-convention"` \| `"debug"`
+> **RuleNamespace** = `"x"` \| `"dom"` \| `"web-api"` \| `"hooks-extra"` \| `"naming-convention"` \| `"debug"`
 
 Rule namespace.
 

@@ -17,6 +17,7 @@ export const CustomComponentPropSchema = object({
   as: optional(string()),
   /**
    * Whether the prop is controlled or not in the user-defined component.
+   * @internal
    * @example
    * `true`
    */
@@ -97,13 +98,13 @@ export const ESLintReactSettingsSchema = object({
    */
   importSource: optional(string()),
   /**
-   * The identifier that’s used for JSX Element creation.
+   * The identifier that's used for JSX Element creation.
    * @default `"createElement"`
    * @deprecated
    */
   jsxPragma: optional(string()),
   /**
-   * The identifier that’s used for JSX fragment elements.
+   * The identifier that's used for JSX fragment elements.
    * @description This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
    * @default `"Fragment"`
    * @deprecated
@@ -120,11 +121,13 @@ export const ESLintReactSettingsSchema = object({
    */
   strict: optional(boolean(), false),
   /**
-   * @internal
+   * Check both the shape and the import to determine if an API is from React.
+   * @description This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
+   * @default `true`
    */
-  strictImportCheck: optional(boolean(), false),
+  skipImportCheck: optional(boolean(), true),
   /**
-   * React version to use, "detect" means auto detect React version from the project’s dependencies.
+   * React version to use, "detect" means auto detect React version from the project's dependencies.
    * If `importSource` is specified, an equivalent version of React should be provided here.
    * @example `"18.3.1"`
    * @default `"detect"`
@@ -172,11 +175,8 @@ export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   ...parse(ESLintReactSettingsSchema, {}),
   importSource: "react",
-  jsxPragma: "createElement",
-  jsxPragmaFrag: "Fragment",
   polymorphicPropName: "as",
-  strict: false,
-  strictImportCheck: false,
+  skipImportCheck: true,
   version: "detect",
   additionalHooks: {
     useEffect: ["useIsomorphicLayoutEffect"],

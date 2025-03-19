@@ -25,7 +25,7 @@ react-x/no-unstable-default-props
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents usage of referential-type values as default props in object destructuring.
 

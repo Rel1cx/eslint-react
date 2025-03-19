@@ -1,0 +1,9 @@
+[**@eslint-react/shared**](../README.md)
+
+***
+
+[@eslint-react/shared](../README.md) / RuleStatus
+
+# Type Alias: RuleStatus
+
+> **RuleStatus** = `"stable"` \| `"experimental"` \| `"deprecated"` \| `"removed"`

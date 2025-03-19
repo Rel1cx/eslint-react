@@ -1,28 +1,30 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-shorthand-fragment";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<React.Fragment><div /></React.Fragment>`,
+      code: tsx`<React.Fragment><div /></React.Fragment>`,
       errors: [
         {
           messageId: "preferShorthandFragment",
         },
       ],
-      output: "<><div /></>",
+      output: tsx`<><div /></>`,
     },
     {
-      code: /* tsx */ `<Fragment><div /></Fragment>`,
+      code: tsx`<Fragment><div /></Fragment>`,
       errors: [
         {
           messageId: "preferShorthandFragment",
         },
       ],
-      output: "<><div /></>",
+      output: tsx`<><div /></>`,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         <React.Fragment>
             <div />
         </React.Fragment>
@@ -32,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "preferShorthandFragment",
         },
       ],
-      output: `
+      output: tsx`
         <>
             <div />
         </>
@@ -41,16 +43,16 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    "<><Foo /><Bar /></>",
-    "<>foo<div /></>",
-    "<> <div /></>",
-    '<>{"moo"} </>',
-    "<NotFragment />",
-    "<React.NotFragment />",
-    "<Foo><><div /><div /></></Foo>",
-    '<div p={<>{"a"}{"b"}</>} />',
-    "<Fragment key={item.id}>{item.value}</Fragment>",
-    "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
-    "<>{foos.map(foo => foo)}</>",
+    tsx`<><Foo /><Bar /></>`,
+    tsx`<>foo<div /></>`,
+    tsx`<> <div /></>`,
+    tsx`<>{"moo"} </>`,
+    tsx`<NotFragment />`,
+    tsx`<React.NotFragment />`,
+    tsx`<Foo><><div /><div /></></Foo>`,
+    tsx`<div p={<>{"a"}{"b"}</>} />`,
+    tsx`<Fragment key={item.id}>{item.value}</Fragment>`,
+    tsx`<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />`,
+    tsx`<>{foos.map(foo => foo)}</>`,
   ],
 });

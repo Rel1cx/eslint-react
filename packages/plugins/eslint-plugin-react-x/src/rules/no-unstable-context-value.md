@@ -25,7 +25,7 @@ react-x/no-unstable-context-value
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`.
 

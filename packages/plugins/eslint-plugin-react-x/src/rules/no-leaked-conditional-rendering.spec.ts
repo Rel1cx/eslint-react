@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -20,7 +22,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -37,7 +39,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -54,7 +56,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -67,7 +69,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -80,7 +82,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -99,7 +101,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -118,7 +120,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -129,7 +131,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -140,7 +142,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -151,7 +153,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -162,7 +164,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -181,7 +183,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -204,35 +206,35 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
       const a = <>{!(0) && <Foo />}</>;
       const b = <>{!(NaN) && <Foo />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
       const a = <>{!!(0) && <Foo />}</>;
       const b = <>{!!(NaN) && <Foo />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
       const a = <>{!!!(0) && <Foo />}</>;
       const b = <>{!!!(NaN) && <Foo />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
       let x: number | undefined;
       const a = <>{!x && <Foo />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -240,7 +242,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const y = 2;
       const a = <>{!x ? !x && <Foo /> : y && <Bar />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -253,7 +255,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const c = <>{!z && <Foo />}</>;
       const d = <>{w && <Foo />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -266,7 +268,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const c = <>{!z && <Foo />}</>;
       const d = <>{w && <Foo />}</>;
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -274,7 +276,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const bar = "bar";
       const a = <div>{0 || bar}</div>
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -282,14 +284,14 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const bar = "bar";
       const a = <div>{foo || bar}</div>
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
       type AppProps = { foo: string; }
       const App = ({ foo }: AppProps) => <div>{foo}</div>
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -300,7 +302,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>There are {items.length} elements</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -312,7 +314,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{!count && 'No results found'}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -329,7 +331,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{!!items.length && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -346,7 +348,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{Boolean(items.length) && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -363,7 +365,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{items.length > 0 && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -380,7 +382,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{items.length ? <List items={items}/> : null}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -398,7 +400,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{count ? <List items={items}/> : null}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -416,7 +418,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{!!count && <List items={items}/>}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -432,7 +434,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -444,7 +446,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -454,7 +456,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
                 {NaN ? <Foo /> : null}
                 </>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -470,7 +472,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -478,7 +480,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -486,7 +488,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -494,7 +496,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -502,7 +504,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -510,7 +512,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -518,7 +520,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition ? (<SomeComponent prop1={val1} prop2={val2} />) : someCondition ? null : <div />}</>
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -538,7 +540,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -562,7 +564,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -583,7 +585,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -606,7 +608,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -616,7 +618,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <>{someCondition ? someFunction(someCondition) : <SomeComponent />}</>;
       };
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -629,7 +631,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <>{someCondition && <SomeComponent />}</>;
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -640,7 +642,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <>{!!someFunction && someFunction<number>(1)}</>;
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -659,7 +661,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         )
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -676,7 +678,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -694,7 +696,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       }
     `,
-    /* tsx */ `
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -711,7 +713,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       };
     `,
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
@@ -725,7 +727,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 

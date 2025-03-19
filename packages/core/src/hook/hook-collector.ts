@@ -12,6 +12,15 @@ type FunctionEntry = {
   isHook: boolean;
 };
 
+export declare namespace useHookCollector {
+  type ReturnType = {
+    ctx: {
+      getAllHooks(node: TSESTree.Program): Map<string, ERHook>;
+    };
+    listeners: ESLintUtils.RuleListener;
+  };
+}
+
 export function useHookCollector(): useHookCollector.ReturnType {
   const hooks = new Map<string, ERHook>();
   const functionEntries: FunctionEntry[] = [];
@@ -63,13 +72,4 @@ export function useHookCollector(): useHookCollector.ReturnType {
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
-}
-
-export declare namespace useHookCollector {
-  type ReturnType = {
-    ctx: {
-      getAllHooks(node: TSESTree.Program): Map<string, ERHook>;
-    };
-    listeners: ESLintUtils.RuleListener;
-  };
 }

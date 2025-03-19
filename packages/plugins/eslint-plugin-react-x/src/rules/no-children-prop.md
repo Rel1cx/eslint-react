@@ -18,9 +18,9 @@ react-x/no-children-prop
 
 `🔍`
 
-## What it does
+## Description
 
-Disallows passing 'children' as a prop.
+Disallows passing `children` as a prop.
 
 Most of the time, `children` should be actual `children`, not passed in as a `prop`.
 

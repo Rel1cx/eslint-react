@@ -1,10 +1,36 @@
+import tsx from "dedent";
+
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./use-state";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
+        function Component() {
+          useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "missingDestructuring",
+      }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const data = useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "missingDestructuring",
+      }],
+    },
+    {
+      code: tsx`
         function Component() {
           const [state, setValue] = useState(0);
 
@@ -12,36 +38,23 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "invalidSetterNaming",
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function Component() {
-          const [state, setValue] = useState(0);
+          const [state, set] = useState(0);
 
           return <div />;
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "invalidSetterNaming",
       }],
-      settings: {
-        "react-x": {
-          strictImportCheck: false,
-        },
-      },
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -51,15 +64,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "invalidSetterNaming",
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -69,15 +78,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "invalidSetterNaming",
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
@@ -87,42 +92,40 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "invalidSetterNaming",
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { useState } from "react";
 
         function Component() {
-          const [state, setstate] = useLocalStorageState(0);
+          const [{foo, bar, baz}, setFooBar] = useState({foo: "bbb", bar: "aaa", baz: "qqq"})
 
           return <div />;
         }
       `,
       errors: [{
-        messageId: "unexpected",
-        data: {
-          setterName: "setState",
-          stateName: "state",
-        },
+        messageId: "invalidSetterNaming",
       }],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useState: ["useLocalStorageState"],
-          },
-        },
-      },
+    },
+    {
+      code: tsx`
+        import { useState } from 'react';
+
+        export function useTest(): [number, (n: number) => void] {
+          const [count1, setCount] = useState(0);
+          return [count1, setCount];
+        }
+      `,
+      errors: [{
+        messageId: "invalidSetterNaming",
+      }],
     },
   ],
   valid: [
     ...allFunctions,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       function Component() {
@@ -131,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       function Component() {
@@ -140,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    /* tsx */ `
+    tsx`
       import { useState } from "react";
 
       function Component() {
@@ -149,19 +152,18 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    {
-      code: /* tsx */ `
-        function Component() {
-          const [state, setValue] = useState(0);
+    tsx`
+      import { useState } from 'react';
 
-          return <div />;
-        }
-      `,
-      settings: {
-        "react-x": {
-          strictImportCheck: true,
-        },
-      },
-    },
+      export function useTest(): [number, (n: number) => void] {
+        const [count, setCount] = useState(0);
+        return [count, setCount];
+      }
+    `,
+    tsx`const [myCount, setMyCount] = useState(0);`,
+    tsx`const [fooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [fooBarBaz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [foo_bar_baz, set_foo_bar_baz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
+    tsx`const [FooBarBaz, setFooBarBaz] = useState({foo: "bbb", bar: "aaa", baz: "qqq"});`,
   ],
 });

@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-direct-mutation-state";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         class Hello extends React.Component {
           constructor(props) {
             super(props)
@@ -23,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       class Foo extends React.Component {
         componentDidMount() {
           class Bar extends Baz {
@@ -34,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       class Hello extends React.Component {
         constructor(props) {
           super(props)
@@ -45,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    /* tsx */ `
+    tsx`
       import React from "react";
 
       class MyComponent extends React.Component {

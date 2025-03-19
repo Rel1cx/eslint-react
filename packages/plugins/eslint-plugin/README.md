@@ -1,14 +1,15 @@
-<!-- eslint-disable markdown/no-html -->
-
 <p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint React</h1>
+
+[![Version](https://img.shields.io/npm/v/eslint-plugin-react-x?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
+[![Downloads](https://img.shields.io/npm/dt/eslint-plugin-react-x.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
 
 More than 80 high-quality linting rules for writing better React code.
 
 ## Features
 
-- **Modern**: First-class support for TypeScript, React 19, polymorphic components.
+- **Modern**: First-class support for TypeScript, React 19, and more.
 - **Flexible**: Increased flexibility with more granular severity control.
 - **Performant**: Built with performance in mind, optimized for large codebases.
 - **Comprehensive**: Handles complex scenarios and identifies problems that other tools might miss.
@@ -28,6 +29,13 @@ More than 80 high-quality linting rules for writing better React code.
 - [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - All rules and config presets from the above plugins.
 
 ## Installation
+
+> [!NOTE]\
+> ESLint React requires the following minimum versions:
+>
+> - `node@18.18.0`
+> - `eslint@8.57.0`
+> - `typescript@4.9.5`
 
 ### Install
 
@@ -50,7 +58,7 @@ export default tseslint.config({
   extends: [
     eslintJs.configs.recommended,
     tseslint.configs.recommended,
-    eslintReact.configs.recommended,
+    eslintReact.configs["recommended-typescript"],
   ],
   languageOptions: {
     parser: tseslint.parser,
@@ -83,7 +91,7 @@ export default tseslint.config({
 ### General Purpose
 
 - **Recommended** (`recommended`)\
-  Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.
+  Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
   _This preset includes the `core`, `dom`, and `web-api` presets._
 
 ### TypeScript Specialized
@@ -118,11 +126,8 @@ export default tseslint.config({
 - [`eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - Rebecca's ESLint config preset.
 - [`eslint-config-sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
 - [`eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - Sukka's ESLint config preset.
-- [`fullstacksjs/eslint-config`](https://github.com/fullstacksjs/eslint-config) - FullstacksJS ESLint config preset.
 
 _Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
-
-Find more on [GitHub Dependents](https://github.com/Rel1cx/eslint-react/network/dependents).
 
 ## Contributing
 

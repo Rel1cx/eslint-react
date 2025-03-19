@@ -3,10 +3,17 @@ import "./overrides.css";
 
 import { RootProvider } from "fumadocs-ui/provider";
 import type { Metadata } from "next";
+import { IBM_Plex_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
 
 import { baseUrl } from "../lib/metadata";
+
+const ibm_plex_mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-ibm_plex_mono",
+  weight: ["400", "500", "700"],
+});
 
 export const metadata = {
   description: "More than 80 high-quality linting rules for writing better React code.",
@@ -20,7 +27,7 @@ export const metadata = {
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
+      <html className={ibm_plex_mono.variable} lang="en" suppressHydrationWarning>
         <meta content="#fff" name="msapplication-TileColor" />
         <meta content="en" httpEquiv="Content-Language" />
         <meta content="ESLint React" name="apple-mobile-web-app-title" />

@@ -1,8 +1,9 @@
 /* eslint-disable perfectionist/sort-objects */
 import dedent from "dedent";
-import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import { Link } from "next-view-transitions";
+
+import { CodeBlock } from "#/components/code-block";
 
 export function SettingsTypeTable() {
   return (
@@ -18,6 +19,15 @@ export function SettingsTypeTable() {
           description: <Link href="#importsource">The source where React is imported from ⤵</Link>,
           default: "react",
         },
+        skipImportCheck: {
+          type: "boolean",
+          description: (
+            <Link href="#skipimportcheck">
+              When determining whether an API originates from React, bypass the import source check. ⤵
+            </Link>
+          ),
+          default: "true",
+        },
         polymorphicPropName: {
           type: "string",
           description: (
@@ -30,7 +40,7 @@ export function SettingsTypeTable() {
           description: <Link href="#additionalcomponents">An array of components and its attributes mapping ⤵</Link>,
           default: "[]",
           typeDescription: (
-            <DynamicCodeBlock
+            <CodeBlock
               code={dedent`
                 type CustomComponent = {
                   name: string;
@@ -51,7 +61,7 @@ export function SettingsTypeTable() {
           description: <Link href="#additionalhooks">An object of aliases for React built-in Hooks ⤵</Link>,
           default: "{}",
           typeDescription: (
-            <DynamicCodeBlock
+            <CodeBlock
               code={dedent`
                 type ReactBuiltInHookName =
                   | "use"

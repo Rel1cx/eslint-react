@@ -2,7 +2,7 @@
   "name": "@local/eslint-plugin-local",
   "version": "0.0.0",
   "private": true,
-  "description": "Local ESLint pluginf for use in the workspace",
+  "description": "Local ESLint plugin for use in the workspace",
   "sideEffects": false,
   "type": "module",
   "exports": {
@@ -25,18 +25,26 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.24.1",
-    "@typescript-eslint/type-utils": "^8.24.1",
-    "@typescript-eslint/types": "^8.24.1",
-    "@typescript-eslint/utils": "^8.24.1",
+    "@eslint/js": "^9.22.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/scope-manager": "^8.26.1",
+    "@typescript-eslint/type-utils": "^8.26.1",
+    "@typescript-eslint/types": "^8.26.1",
+    "@typescript-eslint/utils": "^8.26.1",
+    "eslint-plugin-de-morgan": "^1.2.1",
+    "eslint-plugin-jsdoc": "^50.6.8",
+    "eslint-plugin-perfectionist": "^4.10.1",
+    "eslint-plugin-regexp": "^2.7.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unicorn": "^57.0.0",
     "string-ts": "^2.2.1",
     "ts-pattern": "^5.6.2"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.0.10",
+    "@types/react": "^19.0.11",
     "@types/react-dom": "^19.0.4",
-    "tsup": "^8.3.6"
+    "tsup": "^8.4.0"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",

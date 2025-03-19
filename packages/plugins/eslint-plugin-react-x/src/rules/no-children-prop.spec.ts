@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-children-prop";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<div children />;`, // not a valid use case but make sure we don't crash
+      code: tsx`<div children />;`, // not a valid use case but make sure we don't crash
       errors: [{ messageId: "noChildrenProp" }],
     },
     {
@@ -12,11 +14,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noChildrenProp" }],
     },
     {
-      code: /* tsx */ `<div children={<div />} />;`,
+      code: tsx`<div children={<div />} />;`,
       errors: [{ messageId: "noChildrenProp" }],
     },
     {
-      code: /* tsx */ `<div children={[<div />, <div />]} />;`,
+      code: tsx`<div children={[<div />, <div />]} />;`,
       errors: [{ messageId: "noChildrenProp" }],
     },
     {

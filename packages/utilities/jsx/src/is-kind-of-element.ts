@@ -2,7 +2,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { getElementName } from "./get-element-name";
+import { getElementType } from "./get-element-type";
 import { hasAttribute } from "./has-attribute";
 
 /**
@@ -12,7 +12,7 @@ import { hasAttribute } from "./has-attribute";
  */
 export function isFragmentElement(node: TSESTree.Node) {
   if (node.type !== T.JSXElement) return false;
-  return getElementName(node)
+  return getElementType(node)
     .split(".")
     .at(-1) === "Fragment";
 }

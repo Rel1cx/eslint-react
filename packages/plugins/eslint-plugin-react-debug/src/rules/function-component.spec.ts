@@ -1,10 +1,12 @@
+import tsx from "dedent";
+
 import { allFunctions, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./function-component";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         function App({ foo }) {
             return <div>foo</div>
         }
@@ -24,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         interface Props {
           foo: string;
         }
@@ -43,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = React.memo(() => <div>foo</div>)
       `,
       errors: [{
@@ -58,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = React.memo(function App() {
             return <div>foo</div>
         })
@@ -77,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = React.memo(function App() {
             const [state, setState] = useState(0);
 
@@ -98,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = React.forwardRef(() => <div>foo</div>)
       `,
       errors: [{
@@ -113,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { memo } from "react";
 
         const MemoComponent = memo(() => <div></div>)
@@ -130,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { memo } from "react";
 
         const MemoComponent = memo(function Component() {
@@ -150,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const ForwardRefComponent = React.forwardRef(() => <div></div>)
       `,
       errors: [{
@@ -165,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         import { memo, forwardRef } from "react";
 
         const MemoForwardRefComponent = memo(forwardRef(() => <div></div>))
@@ -182,7 +184,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))
       `,
       errors: [{
@@ -197,7 +199,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentWithHooks() {
           const [state, setState] = useState(0);
 
@@ -216,7 +218,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = () => React.createElement('div', null, 'foo')
       `,
       errors: [{
@@ -231,7 +233,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -268,7 +270,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           function UnstableNestedFunctionComponent() {
             return React.createElement("div", null);
@@ -305,7 +307,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const UnstableNestedVariableComponent = () => {
             return <div />;
@@ -342,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const UnstableNestedVariableComponent = () => {
             return React.createElement("div", null);
@@ -379,7 +381,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const ParentComponent = () => {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -416,7 +418,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const ParentComponent = () => {
           function UnstableNestedFunctionComponent() {
             return React.createElement("div", null);
@@ -453,7 +455,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export default () => {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -490,7 +492,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         export default () => {
           function UnstableNestedFunctionComponent() {
             return React.createElement("div", null);
@@ -527,7 +529,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const ParentComponent = () => {
           const UnstableNestedVariableComponent = () => {
             return <div />;
@@ -564,7 +566,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const ParentComponent = () => {
           const UnstableNestedVariableComponent = () => {
             return React.createElement("div", null);
@@ -601,7 +603,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           class UnstableNestedClassComponent extends React.Component {
             render() {
@@ -628,7 +630,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           class UnstableNestedClassComponent extends React.Component {
             render() {
@@ -655,7 +657,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ParentComponent extends React.Component {
           render() {
             function UnstableNestedFunctionComponent() {
@@ -682,7 +684,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ParentComponent extends React.Component {
           render() {
             function UnstableNestedClassComponent() {
@@ -709,7 +711,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ParentComponent extends React.Component {
           render() {
             const UnstableNestedVariableComponent = () => {
@@ -765,7 +767,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           function getComponent() {
             function NestedUnstableFunctionComponent() {
@@ -806,7 +808,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           function getComponent() {
             function NestedUnstableFunctionComponent() {
@@ -843,7 +845,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentWithProps(props) {
           return <div />;
         }
@@ -883,7 +885,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentWithProps(props) {
           return React.createElement("div", null);
         }
@@ -930,7 +932,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentWithProps(props) {
           return <div />;
         }
@@ -965,7 +967,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentWithProps(props) {
           return React.createElement("div", null);
         }
@@ -1000,7 +1002,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function RenderPropComponent(props) {
           return props.render({});
         }
@@ -1047,7 +1049,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentForProps(props) {
           return <div />;
         }
@@ -1082,7 +1084,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ComponentForProps(props) {
           return React.createElement("div", null);
         }
@@ -1117,7 +1119,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           return (
             <ComponentForProps someMap={{ Header: () => <div /> }} />
@@ -1148,7 +1150,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ParentComponent extends React.Component {
           render() {
             const List = () => {
@@ -1173,7 +1175,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         class ParentComponent extends React.Component {
           render() {
             const List = (props) => {
@@ -1205,7 +1207,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           return (
             <SomeComponent>
@@ -1234,7 +1236,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const thingElement = thing.match({
             loading: () => <div />,
@@ -1262,7 +1264,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const rows = [
             {
@@ -1288,7 +1290,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(() => {
             return <div />;
@@ -1325,7 +1327,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(
             () => React.createElement("div", null),
@@ -1362,7 +1364,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(
             function () {
@@ -1401,7 +1403,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function ParentComponent() {
           const UnstableNestedComponent = React.memo(
             function () {
@@ -1440,7 +1442,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const MyComponent1 = (() => null)!;
         const MyComponent2 = (() => null)!!;
         const MyComponent3 = (() => null)!!! as A;
@@ -1501,7 +1503,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function App() {
           return createElement("div", null, <div></div>);
         }
@@ -1526,22 +1528,22 @@ ruleTester.run(RULE_NAME, rule, {
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
     "const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
-    /* tsx */ `
+    tsx`
       export const action = (() => {
         return null;
       });
     `,
-    /* tsx */ `
+    tsx`
       export const action = (() => {
         return null;
       }) as ActionFUnction;
     `,
-    /* tsx */ `
+    tsx`
       export const action = (() => {
         return null;
       }) satisfies ActionFUnction;
     `,
-    /* tsx */ `
+    tsx`
       export const action = (() => {
         return null;
       }) as ActionFUnction satisfies ActionFUnction;

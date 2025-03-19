@@ -25,7 +25,7 @@ react-dom/no-missing-iframe-sandbox
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces explicit `sandbox` attribute for `iframe` elements.
 

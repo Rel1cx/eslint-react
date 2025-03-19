@@ -25,7 +25,7 @@ react-x/no-redundant-should-component-update
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents usage of `shouldComponentUpdate` when extending `React.PureComponent`.
 

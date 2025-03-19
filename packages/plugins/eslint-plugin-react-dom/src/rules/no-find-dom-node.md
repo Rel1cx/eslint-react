@@ -25,7 +25,7 @@ react-dom/no-find-dom-node
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 This rule disallows the use of `findDOMNode`.
 
@@ -80,4 +80,4 @@ class AutoSelectingInput extends Component {
 
 ## Further Reading
 
-- [React: APIs findDOMNode](https://react.dev/reference/react-dom/findDOMNode)
+- [React DOM: APIs findDOMNode](https://react.dev/reference/react-dom/findDOMNode)

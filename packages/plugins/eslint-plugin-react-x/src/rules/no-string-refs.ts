@@ -1,6 +1,7 @@
-import type { RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
@@ -41,20 +42,22 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      JSXAttribute(node) {
-        if (node.name.name !== "ref") {
-          return;
-        }
-        if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
-          context.report({
-            messageId: "noStringRefs",
-            node,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
+    JSXAttribute(node) {
+      if (node.name.name !== "ref") {
+        return;
+      }
+      if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
+        context.report({
+          messageId: "noStringRefs",
+          node,
+        });
+      }
+    },
+  };
+}

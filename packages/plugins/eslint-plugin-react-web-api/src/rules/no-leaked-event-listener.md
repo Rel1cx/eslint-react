@@ -25,7 +25,7 @@ react-web-api/no-leaked-event-listener
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Enforces that every `addEventListener` in a component or custom Hook has a corresponding `removeEventListener`.
 

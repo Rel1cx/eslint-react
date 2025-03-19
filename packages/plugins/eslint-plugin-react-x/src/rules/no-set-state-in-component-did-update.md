@@ -25,7 +25,7 @@ react-x/no-set-state-in-component-did-update
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks.
 

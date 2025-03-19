@@ -25,7 +25,7 @@ react-x/no-useless-fragment
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of useless fragments.
 

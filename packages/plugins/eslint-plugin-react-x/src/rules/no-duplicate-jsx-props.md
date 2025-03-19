@@ -23,7 +23,7 @@ react-x/no-duplicate-jsx-props
 - `core`
 - `recommended`
 
-## What it does
+## Description
 
 This rule prevents the use of duplicate props in JSX elements.
 

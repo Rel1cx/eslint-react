@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "dprint.dprint"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "dprint.dprint"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[typescript]": {
     "editor.defaultFormatter": "dprint.dprint"
@@ -14,11 +14,6 @@
     "editor.defaultFormatter": "dprint.dprint",
     "editor.insertSpaces": true,
     "editor.tabSize": 2
-  },
-  "editor.codeActionsOnSave": {
-    "eslint.autoFix": "never",
-    "source.fixAll": "never",
-    "source.organizeImports": "never"
   },
   "eslint.validate": [
     "javascript",

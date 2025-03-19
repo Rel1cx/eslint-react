@@ -25,7 +25,7 @@ react-x/no-direct-mutation-state
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows direct mutation of `this.state`.
 

@@ -25,7 +25,7 @@ react-dom/no-script-url
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents usage of `javascript:` URLs as the value of attributes.
 

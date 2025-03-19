@@ -12,7 +12,7 @@
 
 ### node
 
-`undefined` | [`Node`](../-internal-/type-aliases/Node.md)
+`undefined` | `Node`
 
 ## Returns
 

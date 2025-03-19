@@ -22,7 +22,7 @@ react-debug/class-component
 
 - `debug`
 
-## What it does
+## Description
 
 Reports all class components. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
 

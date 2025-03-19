@@ -64,3 +64,16 @@ export type TSESTreeDestructuringPattern =
 export type TSESTreeTypeDeclaration =
   | TSESTree.TSInterfaceDeclaration
   | TSESTree.TSTypeAliasDeclaration;
+
+export type TSESTreeTypeExpression =
+  | TSESTree.TSAsExpression
+  | TSESTree.TSNonNullExpression
+  | TSESTree.TSSatisfiesExpression
+  | TSESTree.TSTypeAssertion
+  | TSESTree.TSInstantiationExpression;
+
+export type TSESTreeTypeAssertionExpression =
+  | TSESTree.TSAsExpression
+  | TSESTree.TSNonNullExpression
+  | TSESTree.TSSatisfiesExpression
+  | TSESTree.TSTypeAssertion;

@@ -25,7 +25,7 @@ react-x/no-unused-class-component-members
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Warns unused class component methods and properties.
 

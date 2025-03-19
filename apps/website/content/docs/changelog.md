@@ -2,6 +2,186 @@
 title: Changelog
 ---
 
+## v1.36.1 (2025-03-19)
+
+### 🪄 Improvements
+
+- refactor(naming-convention/use-state): enhance error messaging and docs, closes #980 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/997
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.35.0...v1.36.1
+
+## v1.35.0 (2025-03-18)
+
+### ✨ New
+
+- feat(plugins/dom): add `no-render` rule to replace `ReactDom.render()` with `createRoot(node).render()`, closes #972 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/993
+- feat(plugins/dom): add `no-hydrate` rule to replace `ReactDom.hydrate()` with `hydrateRoot()`, closes #973 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/995
+
+### 🪄 Improvements
+
+- refactor: rename `hooks-extra/no-useless-custom-hooks` to `hooks-extra/no-unnecessary-use-prefix` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/996
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
+- `react-hooks-extra/no-useless-custom-hooks` to `react-hooks-extra/no-unnecessary-use-prefix`
+- `@eslint-react/hooks-extra/no-useless-custom-hooks` to `@eslint-react/hooks-extra/no-unnecessary-use-prefix`
+
+The old rule names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.34.1...v1.35.0
+
+## v1.34.1 (2025-03-15)
+
+### 🐞 Fixes
+
+- fix: false positive in `react-x/no-context-provider` on symbols named `Provider` which are imported from third-party libs, closes #991 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/992
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.34.0...v1.34.1
+
+## v1.34.0 (2025-03-15)
+
+### 🪄 Improvements
+
+- refactor: export the create function of each rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/989
+- refactor(plugins/x): rename `no-nested-components` rule to `no-nested-component-definitions` and update related docs by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/990
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
+- `react-x/no-nested-components` to `react-x/no-nested-component-definitions`
+- `@eslint-react/no-nested-components` to `@eslint-react/no-nested-component-definitions`
+
+The old rule names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.33.0...v1.34.0
+
+## v1.33.0 (2025-03-14)
+
+### 🐞 Fixes
+
+- fix: update rule severity for `no-flush-sync` and `no-void-elements-with-children` in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/988
+
+### 🪄 Improvements
+
+- refactor(plugins/x): rename `ensure-forward-ref-using-ref` to `no-useless-forward-ref` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/987
+
+### 📝 Changes you should be aware of
+
+The following rules have been renamed:
+
+- `react-x/ensure-forward-ref-using-ref` to `react-x/no-useless-forward-ref`
+- `@eslint-react/ensure-forward-ref-using-ref` to `@eslint-react/no-useless-forward-ref`
+
+The old rule names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.32.1...v1.33.0
+
+## v1.32.1 (2025-03-13)
+
+### 🐞 Fixes
+
+- fix: fixed `no-context-provider` replaces `<Provider>` with `<>`, closes #984 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/985
+
+## v1.32.0 (2025-03-12)
+
+### ✨ New
+
+- feat: revert 'feat: add naming-convention/use-state and naming-convention/context-name to recommended presets by @Rel1cx in #956' by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/982
+
+### 🪄 Improvements
+
+- docs: update eslint configs in examples to use extends by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/978
+- docs: update ts configs in examples to use project references by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/979
+
+## v1.31.0 (2025-03-07)
+
+### ✨ New
+
+- feat: enhance regex handling in naming convention rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/969
+
+### 🪄 Improvements
+
+- docs: improve rules descriptions by @Rel1cx
+
+## v1.30.2 (2025-03-05)
+
+### 🐞 Fixes
+
+- fix(plugins/hooks-extra): misidentification of `set` function in IIFE inside of hooks as its inside of `useEffect`, `useLayoutEffect`, closes [#967](https://github.com/Rel1cx/eslint-react/issues/967) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/968
+
+## v1.30.1 (2025-03-04)
+
+### 🐞 Fixes
+
+- fix(utilities/var): fix variable init node retrieval, fixes [#964](https://github.com/Rel1cx/eslint-react/pull/964) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/965
+
+### 🪄 Improvements
+
+- refactor(plugins/hooks-extra): improve code reusability by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/963
+
+### New Contributors
+
+- @mrginglymus made their first contribution in https://github.com/Rel1cx/eslint-react/pull/964
+
+## v1.30.0 (2025-03-03)
+
+### ✨ New
+
+- feat: add `naming-convention/use-state` and `naming-convention/context-name` to recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/956
+
+### 🐞 Fixes
+
+- fix: correct readonly checks and test cases in `prefer-read-only-props` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/957
+- fix: rework `naming-convention/component-name` rule to follow [eslint-plugin-react-hooks@5.0](https://github.com/facebook/react/releases/tag/eslint-plugin-react-hooks%405.0.0) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/959
+  > Component names now need to start with an uppercase letter instead of a non-lowercase letter. This means `_Button` or `_component` are no longer valid.
+- fix: `naming-convention/use-state` fails with multiple words, closes #960 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/961
+
+## v1.29.0 (2025-03-01)
+
+### ✨ New
+
+- feat(plugins/naming-convention): add `context-name` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/952
+
+### 🐞 Fixes
+
+- fix: fixed `naming-convention/use-state` works in components only, closes #953 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/954
+
+### 🪄 Improvements
+
+- docs: use `recommended-typescript` for typescript files by @bluwy in https://github.com/Rel1cx/eslint-react/pull/949
+
+### New Contributors
+
+- @bluwy made their first contribution in https://github.com/Rel1cx/eslint-react/pull/949
+
+## v1.28.0 (2025-02-26)
+
+### ✨ New
+
+- feat(plugins/dom): add `no-flush-sync` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/942
+- feat: add [`skipImportCheck`](https://eslint-react.xyz/docs/configurations#skipimportcheck) setting by @Rel1cx
+
+### 🪄 Improvements
+
+- refactor: code optimization by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/945
+- refactor: consistent ordering of arguments to context-aware utility functions by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/946
+
+## v1.27.0 (2025-02-21)
+
+### ✨ New
+
+- feat: add presets exports to modular plugins by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/940>
+- feat: add `no-missing-context-display-name` rule by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/941>
+
+### 🪄 Improvements
+
+- refactor: improve error messages by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/936> and <https://github.com/Rel1cx/eslint-react/pull/937>
+- refactor: add `useEffect` to `additionalHooks` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/938>
+- refactor: change severity of `no-duplicate-key` rule from `error` to `warn` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/939>
+
 ## v1.26.2 (2025-02-06)
 
 ### 🐞 Fixes
@@ -154,7 +334,7 @@ function useAuth() {
 - docs: add 'Min. React' column to rules overview page by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/880>
 - docs: add features section to rules overview page by @Rel1cx
 
-## New Contributors
+### New Contributors
 
 - @danielrentz made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/877>
 
@@ -293,7 +473,7 @@ function useAuth() {
 - docs: use a standard mono-width font for the docs, closes #835 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/837>
 - Undeprecate `hooks-extra-no-direct-set-state-in-use-layout-effect` and remove it from recommended presets, closes #839 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/840>
 
-## New Contributors
+### New Contributors
 
 - @imjordanxd made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/829>
 - @neovov made their first contribution in <https://github.com/Rel1cx/eslint-react/pull/831>
@@ -343,12 +523,12 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- `hooks-extra/no-useless-custom-hooks` should allow custom Hooks with empty body
+- `hooks-extra/no-redundant-custom-hook` should allow custom Hooks with empty body
 
 ### 🪄 Improvements
 
 - Rename `debug/react-hooks` to `debug/hook`
-- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-useless-custom-hooks`
+- Rename `hooks-extra/ensure-custom-using-hooks` to `hooks-extra/no-redundant-custom-hook`
 - Rename `hooks-extra/ensure-use-memo-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-memo`
 - Rename `hooks-extra/ensure-use-callback-has-non-empty-deps` to `hooks-extra/no-unnecessary-use-callback`
 - Upgrade `@typescript-eslint`'s packages to `^8.4.0`

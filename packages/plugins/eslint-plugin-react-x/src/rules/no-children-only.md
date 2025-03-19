@@ -25,7 +25,7 @@ react-x/no-children-only
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of `Children.only` from the `react` package.
 

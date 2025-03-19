@@ -4,7 +4,7 @@ title: Configurations
 
 import { SettingsTypeTable } from "./configurations";
 
-A [configuration object](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-objects) is used to configure the behavior of the rules in ESLint React. You can define the settings object in the `settings["react-x"]` field of your ESLint configuration file.
+ESLint React supports reading settings from the `react-x` key in the [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object of your ESLint configuration file.
 
 ```ts title="eslint.config.js"
 export default [
@@ -41,8 +41,27 @@ This allows to specify a custom import location for React when not using the off
 
 For example, if you are using `@pika/react` instead of `react`, you can set the `importSource` to `@pika/react`:
 
-```tsx
+```ts
 import React from "@pika/react";
+```
+
+### `skipImportCheck`
+
+When determining whether an API originates from React, bypass the import source check.
+
+By default, the rule checks only the shape of the API to determine if it is a React API. If `skipImportCheck` is set to `false`, both the shape and the import source will be checked.
+
+This prevents false positives when using unrelated third-party libraries that have APIs similar to React.
+
+For example, when `skipImportCheck` is set to `false`, the `memo` function from `unrelated-library` will not be recognized as React's `memo`.
+
+```ts
+import { memo } from "unrelated-library";
+
+const NonComponentFunction = memo(() => {
+  //                         ^^^^
+  //                         - This will not be recognized as React's memo
+});
 ```
 
 ### `polymorphicPropName`
@@ -115,19 +134,19 @@ For example, if you set the `additionalHooks` to:
 
 then the React Hook call:
 
-```tsx
+```ts
 useIsomorphicLayoutEffect(() => { setCount(count => count + 1); }, []);
 ```
 
 will be evaluated as:
 
-```tsx
+```ts
 useEffect(() => { setCount(count => count + 1); }, []);
 ```
 
 and:
 
-```tsx
+```ts
 useLayoutEffect(() => { setCount(count => count + 1); }, []);
 ```
 
@@ -142,7 +161,7 @@ export default [
   // ...
   {
     files: ["**/*.{ts,tsx}"],
-    ...eslintReact.configs.recommended,
+    ...eslintReact.configs["recommended-typescript"],
     settings: {
       "react-x": {
         version: "19.0.0",

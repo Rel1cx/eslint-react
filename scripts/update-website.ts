@@ -1,10 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { glob } from "./lib";
+import { glob } from "./lib/glob";
 
 const docs = glob(["packages/plugins/eslint-plugin-react-*/src/rules/*.md"]);
 
+// TODO: Generate the meta.json file as well
 const [
   files,
   // rules,
@@ -25,7 +26,7 @@ const [
   [[], []],
 );
 
-await Promise.all(files.map(async ([src, dest]) => fs.copyFile(src, dest)));
+await Promise.all(files.map(([src, dest]) => fs.copyFile(src, dest)));
 
 // fs.writeFileSync(path.join("apps", "website", "content", "docs", "rules", "data.json"), JSON.stringify(rules, null, 2));
 
@@ -39,12 +40,13 @@ const changelogWithFrontmatter = [
   changelog,
 ].join("\n");
 
-await fs.writeFile(path.join("apps", "website", "content", "changelog.md"), changelogWithFrontmatter);
+await fs.writeFile(path.join("apps", "website", "content", "docs", "changelog.md"), changelogWithFrontmatter);
 
 // workaround for @tailwindcss/postcss plugin not working with symlinked node_modules
 const linkPath = path.join("apps", "website", "node_modules", "fumadocs-ui", "dist");
 const realPath = await fs.realpath(linkPath);
-const distPath = path.join("apps", "website", "components", "fumadocs-ui");
+const distPath = path.join("apps", "website", "deps", "fumadocs-ui");
+await fs.mkdir(distPath, { recursive: true });
 await fs.rm(distPath, { force: true, recursive: true });
 await fs.cp(
   realPath,
@@ -55,10 +57,10 @@ await fs.cp(
 // generate tailwindcss sources
 // const sourcePath = path.join("apps", "website", "app", "sources.css");
 // const sourceCode = [
+//   `@source "../deps/fumadocs-ui/**/*.js";`,
 //   '@source ".";',
 //   '@source "../components";',
 //   '@source "../content";',
-//   `@source "../components/fumadocs-ui/**/*.js";`,
 // ].join("\n");
 
 // await fs.writeFile(sourcePath, sourceCode);

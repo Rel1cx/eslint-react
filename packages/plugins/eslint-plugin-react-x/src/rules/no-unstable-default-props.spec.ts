@@ -1,3 +1,5 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unstable-default-props";
 
@@ -79,7 +81,7 @@ const expectedViolations = [
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `
+      code: tsx`
         function App({ foo = [], ...rest }) {
             return null
         }
@@ -93,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function App({ foo = {}, ...rest }) {
             return null
         }
@@ -107,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function App(props) {
             const { foo = [] } = props
             return null
@@ -122,7 +124,7 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         function App({
             a = {},
             b = ['one', 'two'],
@@ -142,7 +144,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: expectedViolations,
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const App = ({
             a = {},
             b = ['one', 'two'],
@@ -164,31 +166,31 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    /* tsx */ `
+    tsx`
       const emptyFunction = () => {}
 
       function App({ foo = emptyFunction }) {
           return null
       }
     `,
-    /* tsx */ `
+    tsx`
       const emptyFunction = () => {}
 
       function App({ foo = emptyFunction, ...rest }) {
           return null
       }
     `,
-    /* tsx */ `
+    tsx`
         function App({ foo = 1, baz = 'hello' }) {
           return null
       }
     `,
-    /* tsx */ `
+    tsx`
         function App(props) {
           return null
       }
     `,
-    /* tsx */ `
+    tsx`
         function App(props) {
             return null
         }
@@ -196,17 +198,17 @@ ruleTester.run(RULE_NAME, rule, {
           foo: () => {}
       }
     `,
-    /* tsx */ `
+    tsx`
         const App = () => {
           return null
       }
     `,
-    /* tsx */ `
+    tsx`
       const App = ({ foo = 1 }) => {
           return null
       }
     `,
-    /* tsx */ `
+    tsx`
       const emptyArray = [];
       function Component(props) {
         const { items = emptyArray } = props;
@@ -214,10 +216,10 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{items}</div>;
       }
     `,
-    /* tsx */ `
+    tsx`
       export default function NonComponent({ foo = {} }) {}
     `,
-    /* tsx */ `
+    tsx`
       export function DrawerItem(props: Props) {
         const { colors, fonts } = useTheme();
 

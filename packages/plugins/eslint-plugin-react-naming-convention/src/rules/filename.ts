@@ -1,12 +1,14 @@
 import path from "node:path";
 
-import type { RuleFeature } from "@eslint-react/shared";
+import type { _ } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, toRegExp } from "../utils";
 
 export const RULE_NAME = "filename";
 
@@ -16,22 +18,22 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "filenameCaseMismatch"
-  | "filenameEmpty";
+  | "filenameEmpty"
+  | "filenameInvalid";
 
 type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
 /* eslint-disable no-restricted-syntax */
 type Options = readonly [
+  | _
   | Case
-  | undefined
   | {
     /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
      */
     excepts?: readonly string[];
     /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead.
+     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
      */
     extensions?: readonly string[];
     rule?: Case;
@@ -85,66 +87,68 @@ export default createRule<Options, MessageID>({
       description: "enforce naming convention for JSX filenames",
     },
     messages: {
-      filenameCaseMismatch: "A file with name '{{name}}' does not match {{rule}}. Should rename to '{{suggestion}}'.",
       filenameEmpty: "A file must have non-empty name.",
+      filenameInvalid: "A file with name '{{name}}' does not match {{rule}}. Rename it to '{{suggestion}}'.",
     },
     schema,
   },
   name: RULE_NAME,
-  create(context) {
-    const options = context.options[0] ?? defaultOptions[0];
-    const rule = typeof options === "string"
-      ? options
-      : options.rule ?? "PascalCase";
-    const excepts = typeof options === "string"
-      ? []
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      : options.excepts ?? [];
-
-    function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-      const shouldIgnore = ignores
-        .map((pattern) => new RegExp(pattern, "u"))
-        .some((pattern) => pattern.test(name));
-      if (shouldIgnore) return true;
-
-      return match(casing)
-        .with("PascalCase", () => RE_PASCAL_CASE.test(name))
-        .with("camelCase", () => RE_CAMEL_CASE.test(name))
-        .with("kebab-case", () => RE_KEBAB_CASE.test(name))
-        .with("snake_case", () => RE_SNAKE_CASE.test(name))
-        .exhaustive();
-    }
-
-    function getSuggestion(name: string, casing: Case = rule) {
-      return match(casing)
-        .with("PascalCase", () => pascalCase(name))
-        .with("camelCase", () => camelCase(name))
-        .with("kebab-case", () => kebabCase(name))
-        .with("snake_case", () => snakeCase(name))
-        .exhaustive();
-    }
-
-    return {
-      Program(node) {
-        const [basename = "", ...rest] = path.basename(context.filename).split(".");
-        if (basename.length === 0) {
-          context.report({ messageId: "filenameEmpty", node });
-          return;
-        }
-        if (validate(basename)) {
-          return;
-        }
-        context.report({
-          messageId: "filenameCaseMismatch",
-          node,
-          data: {
-            name: context.filename,
-            rule,
-            suggestion: [getSuggestion(basename), ...rest].join("."),
-          },
-        });
-      },
-    };
-  },
+  create,
   defaultOptions,
 });
+
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const options = context.options[0] ?? defaultOptions[0];
+  const rule = typeof options === "string"
+    ? options
+    : options.rule ?? "PascalCase";
+  const excepts = typeof options === "string"
+    ? []
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    : options.excepts ?? [];
+
+  function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
+    const shouldIgnore = ignores
+      .map(toRegExp)
+      .some((pattern) => pattern.test(name));
+    if (shouldIgnore) return true;
+
+    return match(casing)
+      .with("PascalCase", () => RE_PASCAL_CASE.test(name))
+      .with("camelCase", () => RE_CAMEL_CASE.test(name))
+      .with("kebab-case", () => RE_KEBAB_CASE.test(name))
+      .with("snake_case", () => RE_SNAKE_CASE.test(name))
+      .exhaustive();
+  }
+
+  function getSuggestion(name: string, casing: Case = rule) {
+    return match(casing)
+      .with("PascalCase", () => pascalCase(name))
+      .with("camelCase", () => camelCase(name))
+      .with("kebab-case", () => kebabCase(name))
+      .with("snake_case", () => snakeCase(name))
+      .exhaustive();
+  }
+
+  return {
+    Program(node) {
+      const [basename = "", ...rest] = path.basename(context.filename).split(".");
+      if (basename.length === 0) {
+        context.report({ messageId: "filenameEmpty", node });
+        return;
+      }
+      if (validate(basename)) {
+        return;
+      }
+      context.report({
+        messageId: "filenameInvalid",
+        node,
+        data: {
+          name: context.filename,
+          rule,
+          suggestion: [getSuggestion(basename), ...rest].join("."),
+        },
+      });
+    },
+  };
+}

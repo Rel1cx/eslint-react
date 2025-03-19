@@ -6,4 +6,4 @@
 
 # Type Alias: ERComponentHint
 
-> **ERComponentHint**: `bigint`
+> **ERComponentHint** = `bigint`

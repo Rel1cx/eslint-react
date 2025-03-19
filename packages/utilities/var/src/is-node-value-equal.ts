@@ -1,10 +1,11 @@
 import * as AST from "@eslint-react/ast";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import { _ } from "@eslint-react/eff";
+import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { findVariable } from "./find-variable";
-import { getVariableNode } from "./get-variable-node";
+import { getVariableInitNode } from "./get-variable-init-node";
 import { toStaticValue } from "./lazy-value";
 
 const thisBlockTypes = [
@@ -46,8 +47,8 @@ export function isNodeValueEqual(
       && b.type === T.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
-      const aVarNode = getVariableNode(aVar, 0);
-      const bVarNode = getVariableNode(bVar, 0);
+      const aVarNode = getVariableInitNodeLoose(aVar, 0);
+      const bVarNode = getVariableInitNodeLoose(bVar, 0);
       const aVarNodeParent = aVarNode?.parent;
       const bVarNodeParent = bVarNode?.parent;
       const aDef = aVar?.defs.at(0);
@@ -104,4 +105,13 @@ export function isNodeValueEqual(
       return aStatic.kind !== "none" && bStatic.kind !== "none" && aStatic.value === bStatic.value;
     }
   }
+}
+
+function getVariableInitNodeLoose(variable: Variable | _, at: number): ReturnType<typeof getVariableInitNode> {
+  if (variable == null) return _;
+  const node = getVariableInitNode(variable, at);
+  if (node != null) return node;
+  const def = variable.defs.at(at);
+  if (def?.type === DefinitionType.Parameter && AST.isFunction(def.node)) return def.node;
+  return _;
 }

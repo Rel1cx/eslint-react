@@ -25,7 +25,7 @@ react-x/no-children-map
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Prevents the use of `Children.map` from the `react` package.
 

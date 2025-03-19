@@ -25,7 +25,7 @@ react-x/no-string-refs
 - `recommended-typescript`
 - `recommended-type-checked`
 
-## What it does
+## Description
 
 Disallows using deprecated `string refs`.
 

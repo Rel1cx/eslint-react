@@ -1,18 +1,20 @@
+import tsx from "dedent";
+
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-dangerously-set-innerhtml";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: /* tsx */ `<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
       errors: [{ messageId: "noDangerouslySetInnerhtml" }],
     },
     {
-      code: /* tsx */ `<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
       errors: [{ messageId: "noDangerouslySetInnerhtml" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = {
             dangerouslySetInnerHTML: { __html: "HTML" }
         }
@@ -21,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noDangerouslySetInnerhtml" }],
     },
     {
-      code: /* tsx */ `
+      code: tsx`
         const props = {
             children: "Children",
             dangerouslySetInnerHTML: { __html: "HTML" }

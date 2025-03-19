@@ -2,7 +2,9 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleDetection": "force",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "noEmit": true
   },
   "include": [
     "*.js",
