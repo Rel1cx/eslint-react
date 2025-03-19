@@ -1,4 +1,4 @@
-# ADR 0000: Choice between "useless" and "unnecessary" in rule naming
+# ADR 0001: Choice between "useless" and "unnecessary" in rule naming
 
 ## Status
 
