@@ -14,10 +14,6 @@ react-dom/no-find-dom-node
 @eslint-react/dom/no-find-dom-node
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

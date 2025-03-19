@@ -16,7 +16,7 @@ react-x/no-leaked-conditional-rendering
 
 **Features**
 
-`🔍` `💭`
+`💭`
 
 **Presets**
 

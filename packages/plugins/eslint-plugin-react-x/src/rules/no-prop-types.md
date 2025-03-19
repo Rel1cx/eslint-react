@@ -14,10 +14,6 @@ react-x/no-prop-types
 @eslint-react/no-prop-types
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

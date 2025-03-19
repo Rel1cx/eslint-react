@@ -17,7 +17,6 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 export const RULE_NAME = "no-unknown-property";
 
 export const RULE_FEATURES = [
-  "CHK",
   "FIX",
 ] as const satisfies RuleFeature[];
 

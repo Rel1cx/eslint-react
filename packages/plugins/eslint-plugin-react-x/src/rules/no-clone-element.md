@@ -14,10 +14,6 @@ react-x/no-clone-element
 @eslint-react/no-clone-element
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

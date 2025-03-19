@@ -14,10 +14,6 @@ react-web-api/no-leaked-resize-observer
 @eslint-react/web-api/no-leaked-resize-observer
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `web-api`

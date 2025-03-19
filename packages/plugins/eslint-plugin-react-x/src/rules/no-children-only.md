@@ -14,10 +14,6 @@ react-x/no-children-only
 @eslint-react/no-children-only
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

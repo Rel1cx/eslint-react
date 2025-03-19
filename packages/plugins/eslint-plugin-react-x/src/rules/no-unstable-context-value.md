@@ -14,10 +14,6 @@ react-x/no-unstable-context-value
 @eslint-react/no-unstable-context-value
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

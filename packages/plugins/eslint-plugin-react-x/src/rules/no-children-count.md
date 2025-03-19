@@ -14,10 +14,6 @@ react-x/no-children-count
 @eslint-react/no-children-count
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

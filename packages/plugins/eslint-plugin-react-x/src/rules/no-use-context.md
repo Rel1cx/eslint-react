@@ -16,7 +16,7 @@ react-x/no-use-context
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 

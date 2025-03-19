@@ -16,7 +16,7 @@ react-naming-convention/filename
 
 **Features**
 
-`🔍` `⚙️`
+`⚙️`
 
 ## Description
 

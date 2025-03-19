@@ -14,10 +14,6 @@ react-x/no-unused-state
 @eslint-react/no-unused-state
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

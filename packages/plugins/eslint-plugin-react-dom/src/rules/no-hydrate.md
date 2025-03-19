@@ -16,7 +16,7 @@ react-dom/no-hydrate
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 

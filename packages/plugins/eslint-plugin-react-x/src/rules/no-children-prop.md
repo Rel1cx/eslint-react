@@ -14,10 +14,6 @@ react-x/no-children-prop
 @eslint-react/no-children-prop
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Disallows passing `children` as a prop.

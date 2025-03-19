@@ -16,7 +16,7 @@ react-dom/no-render
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 

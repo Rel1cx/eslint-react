@@ -14,10 +14,6 @@ react-x/no-useless-forward-ref
 @eslint-react/no-useless-forward-ref
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

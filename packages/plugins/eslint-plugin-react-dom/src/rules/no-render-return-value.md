@@ -14,10 +14,6 @@ react-dom/no-render-return-value
 @eslint-react/dom/no-render-return-value
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

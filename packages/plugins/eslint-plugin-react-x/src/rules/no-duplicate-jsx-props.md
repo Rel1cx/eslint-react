@@ -14,10 +14,6 @@ react-x/no-duplicate-jsx-props
 @eslint-react/no-duplicate-jsx-props
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

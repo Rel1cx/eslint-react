@@ -15,9 +15,7 @@ import { createRule, getPhaseKindOfFunction } from "../utils";
 
 export const RULE_NAME = "no-leaked-interval";
 
-export const RULE_FEATURES = [
-  "CHK",
-] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "expectedClearIntervalInCleanup"

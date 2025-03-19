@@ -14,10 +14,6 @@ react-x/no-create-ref
 @eslint-react/no-create-ref
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

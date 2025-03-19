@@ -43,12 +43,15 @@ export type RuleNamespace = "x" | "dom" | "web-api" | "hooks-extra" | "naming-co
  */
 export type RuleFeature =
   | "CFG" // Configurable
-  | "CHK" // Checking
   | "DBG" // Debugging
   | "FIX" // Fixable
   | "MOD" // Codemod
   | "TSC"; // TypeScript Type Checking
 
+/**
+ * Rule status.
+ * @since 1.36.0
+ */
 export type RuleStatus =
   | "stable" // Stable
   | "experimental" // Experimental

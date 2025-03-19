@@ -14,10 +14,6 @@ react-x/no-children-for-each
 @eslint-react/no-children-for-each
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

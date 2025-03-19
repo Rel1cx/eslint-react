@@ -14,10 +14,6 @@ react-x/no-unused-class-component-members
 @eslint-react/no-unused-class-component-members
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

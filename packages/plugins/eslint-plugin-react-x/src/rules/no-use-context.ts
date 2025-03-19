@@ -13,7 +13,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-use-context";
 
 export const RULE_FEATURES = [
-  "CHK",
   "MOD",
 ] as const satisfies RuleFeature[];
 

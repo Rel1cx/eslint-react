@@ -14,10 +14,6 @@ react-x/no-set-state-in-component-did-mount
 @eslint-react/no-set-state-in-component-did-mount
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

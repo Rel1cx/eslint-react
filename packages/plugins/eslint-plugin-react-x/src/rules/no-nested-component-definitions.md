@@ -14,10 +14,6 @@ react-x/no-nested-component-definitions
 @eslint-react/no-nested-component-definitions
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

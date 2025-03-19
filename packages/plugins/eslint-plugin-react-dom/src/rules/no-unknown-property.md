@@ -16,7 +16,7 @@ react-dom/no-unknown-property
 
 **Features**
 
-`🔍` `🔧` `⚙️`
+`🔧` `⚙️`
 
 **Presets**
 

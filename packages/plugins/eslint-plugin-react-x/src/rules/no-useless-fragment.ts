@@ -10,7 +10,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-useless-fragment";
 
 export const RULE_FEATURES = [
-  "CHK",
   "FIX",
   "CFG",
 ] as const satisfies RuleFeature[];

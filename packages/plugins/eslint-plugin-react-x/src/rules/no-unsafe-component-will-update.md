@@ -14,10 +14,6 @@ react-x/no-unsafe-component-will-update
 @eslint-react/no-unsafe-component-will-update
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

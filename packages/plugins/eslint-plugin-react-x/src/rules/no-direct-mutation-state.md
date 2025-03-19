@@ -14,10 +14,6 @@ react-x/no-direct-mutation-state
 @eslint-react/no-direct-mutation-state
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

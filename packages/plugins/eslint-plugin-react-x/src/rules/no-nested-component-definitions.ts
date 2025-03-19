@@ -18,9 +18,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
-export const RULE_FEATURES = [
-  "CHK",
-] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "noNestedComponentDefinition"

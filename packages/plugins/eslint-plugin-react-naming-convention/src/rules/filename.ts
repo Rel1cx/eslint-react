@@ -13,7 +13,6 @@ import { createRule, toRegExp } from "../utils";
 export const RULE_NAME = "filename";
 
 export const RULE_FEATURES = [
-  "CHK",
   "CFG",
 ] as const satisfies RuleFeature[];
 

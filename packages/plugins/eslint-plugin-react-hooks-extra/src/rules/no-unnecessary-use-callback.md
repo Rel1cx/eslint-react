@@ -14,10 +14,6 @@ react-hooks-extra/no-unnecessary-use-callback
 @eslint-react/hooks-extra/no-unnecessary-use-callback
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Disallows unnecessary usage of `useCallback`.

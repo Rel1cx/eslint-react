@@ -14,10 +14,6 @@ react-web-api/no-leaked-event-listener
 @eslint-react/web-api/no-leaked-event-listener
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `web-api`

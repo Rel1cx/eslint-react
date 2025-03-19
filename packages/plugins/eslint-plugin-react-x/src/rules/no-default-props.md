@@ -14,10 +14,6 @@ react-x/no-default-props
 @eslint-react/no-default-props
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

@@ -16,7 +16,7 @@ react-x/no-context-provider
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 
