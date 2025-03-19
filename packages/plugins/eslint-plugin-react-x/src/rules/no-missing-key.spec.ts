@@ -188,6 +188,28 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // TODO: Fix this test case
+    // {
+    //   code: tsx`
+    //     const CustomDescription = (props: CustomDescriptionProps) => {
+    //     	const { items } = props;
+
+    //     	const newItems = items.map((item) => {
+    //     		const label = <div>{item.label}</div>;
+
+    //     		return { label, children: item.children };
+
+    //     		// This one works without any error
+    //     		return { label: <div>{item.label}</div>, children: item.children };
+    //     	});
+
+    //     	return <Descriptions items={newItems} />;
+    //     };
+    //   `,
+    //   errors: [
+    //     { messageId: "missingKey" },
+    //   ],
+    // },
   ],
   valid: [
     ...allValid,

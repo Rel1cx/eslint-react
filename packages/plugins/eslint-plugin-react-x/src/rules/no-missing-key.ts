@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { report, type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -38,6 +38,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const state = { isWithinChildrenToArray: false };
+
   function checkIteratorElement(node: TSESTree.Node): null | ReportDescriptor<MessageID> {
     switch (node.type) {
       case T.JSXElement: {
@@ -84,13 +85,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function checkBlockStatement(node: TSESTree.BlockStatement) {
     const descriptors: ReportDescriptor<MessageID>[] = [];
     for (const statement of AST.getNestedReturnStatements(node)) {
-      if (statement.argument == null) {
-        continue;
-      }
+      if (statement.argument == null) continue;
       const descriptor = checkIteratorElement(statement.argument);
-      if (descriptor != null) {
-        descriptors.push(descriptor);
-      }
+      if (descriptor != null) descriptors.push(descriptor);
     }
     return descriptors;
   }
@@ -107,7 +104,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
         if (!JSX.hasAttribute("key", element.openingElement.attributes, initialScope)) {
-          context.report({
+          report(context)({
             messageId: "missingKey",
             node: element,
           });
@@ -119,24 +116,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (state.isWithinChildrenToArray) {
         return;
       }
-      const isMapCallLike = AST.isMapCallLoose(node);
-      if (!isMapCallLike && !isArrayFromCall(node)) {
+      const isMapCall = AST.isMapCallLoose(node);
+      if (!isMapCall && !isArrayFromCall(node)) {
         return;
       }
-      const fn = node.arguments[isMapCallLike ? 0 : 1];
-      if (fn?.type !== T.ArrowFunctionExpression && fn?.type !== T.FunctionExpression) {
+      const fn = node.arguments[isMapCall ? 0 : 1];
+      if (!AST.isFunction(fn)) {
         return;
       }
       if (fn.body.type === T.BlockStatement) {
         for (const descriptor of checkBlockStatement(fn.body)) {
-          context.report(descriptor);
+          report(context)(descriptor);
         }
         return;
       }
-      const descriptor = checkExpression(fn.body);
-      if (descriptor != null) {
-        context.report(descriptor);
-      }
+      report(context)(checkExpression(fn.body));
     },
     "CallExpression:exit"(node) {
       if (!isChildrenToArrayCall(context, node)) {
@@ -149,7 +143,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       if (node.parent.type === T.ArrayExpression) {
-        context.report({
+        report(context)({
           messageId: "unexpectedFragmentSyntax",
           node,
         });

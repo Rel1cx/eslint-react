@@ -85,6 +85,7 @@ export const typescript: ConfigArray = tseslint.config(
       "@typescript-eslint/consistent-type-exports": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-misused-promises": "warn",
       "@typescript-eslint/no-namespace": "off",
