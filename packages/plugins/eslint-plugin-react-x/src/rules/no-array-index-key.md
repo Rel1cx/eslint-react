@@ -14,10 +14,6 @@ react-x/no-array-index-key
 @eslint-react/no-array-index-key
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

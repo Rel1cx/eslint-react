@@ -9,7 +9,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "prefer-eqeq-nullish-comparison";
 
 export const RULE_FEATURES = [
-  "CHK",
   "FIX",
 ] as const satisfies RuleFeature[];
 

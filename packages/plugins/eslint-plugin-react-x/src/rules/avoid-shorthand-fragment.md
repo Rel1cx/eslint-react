@@ -14,10 +14,6 @@ react-x/avoid-shorthand-fragment
 @eslint-react/avoid-shorthand-fragment
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Enforces the use of explicit `<Fragment>` or `<React.Fragment>` components instead of the shorthand `<>` or `</>` syntax.

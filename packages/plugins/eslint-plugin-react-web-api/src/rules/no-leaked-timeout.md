@@ -14,10 +14,6 @@ react-web-api/no-leaked-timeout
 @eslint-react/web-api/no-leaked-timeout
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `web-api`

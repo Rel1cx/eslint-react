@@ -16,7 +16,7 @@ react-x/prefer-shorthand-fragment
 
 **Features**
 
-`🔍` `🔧`
+`🔧`
 
 ## Description
 

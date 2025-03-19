@@ -14,10 +14,6 @@ react-x/no-unsafe-component-will-receive-props
 @eslint-react/no-unsafe-component-will-receive-props
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

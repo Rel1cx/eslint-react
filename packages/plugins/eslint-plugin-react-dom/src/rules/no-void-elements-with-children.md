@@ -14,10 +14,6 @@ react-dom/no-void-elements-with-children
 @eslint-react/dom/no-void-elements-with-children
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

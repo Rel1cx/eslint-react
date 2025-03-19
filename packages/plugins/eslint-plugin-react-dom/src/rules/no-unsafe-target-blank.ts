@@ -10,9 +10,7 @@ import { createRule, findCustomComponent, findCustomComponentProp, getElementTyp
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
-export const RULE_FEATURES = [
-  "CHK",
-] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

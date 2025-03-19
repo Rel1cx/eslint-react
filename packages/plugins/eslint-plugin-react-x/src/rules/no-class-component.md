@@ -14,10 +14,6 @@ react-x/no-class-component
 @eslint-react/no-class-component
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

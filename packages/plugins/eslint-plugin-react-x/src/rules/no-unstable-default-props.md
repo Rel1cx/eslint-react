@@ -14,10 +14,6 @@ react-x/no-unstable-default-props
 @eslint-react/no-unstable-default-props
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

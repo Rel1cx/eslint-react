@@ -14,10 +14,6 @@ react-x/no-string-refs
 @eslint-react/no-string-refs
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

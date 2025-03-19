@@ -6,7 +6,7 @@
 
 # Type Alias: RuleFeature
 
-> **RuleFeature** = `"CFG"` \| `"CHK"` \| `"DBG"` \| `"FIX"` \| `"MOD"` \| `"TSC"`
+> **RuleFeature** = `"CFG"` \| `"DBG"` \| `"FIX"` \| `"MOD"` \| `"TSC"`
 
 Rule feature.
 

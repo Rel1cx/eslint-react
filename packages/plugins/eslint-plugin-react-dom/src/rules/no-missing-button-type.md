@@ -14,10 +14,6 @@ react-dom/no-missing-button-type
 @eslint-react/dom/no-missing-button-type
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

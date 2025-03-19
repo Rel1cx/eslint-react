@@ -14,10 +14,6 @@ react-x/prefer-destructuring-assignment
 @eslint-react/prefer-destructuring-assignment
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Enforces the use of destructuring assignment over property assignment.

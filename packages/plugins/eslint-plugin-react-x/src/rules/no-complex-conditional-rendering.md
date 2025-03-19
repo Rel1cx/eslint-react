@@ -14,10 +14,6 @@ react-x/no-complex-conditional-rendering
 @eslint-react/no-complex-conditional-rendering
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Warns when conditional rendering is too complex.

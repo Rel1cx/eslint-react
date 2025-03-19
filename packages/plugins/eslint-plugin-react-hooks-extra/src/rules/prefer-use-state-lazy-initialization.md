@@ -14,10 +14,6 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 @eslint-react/hooks-extra/prefer-use-state-lazy-initialization
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `recommended`

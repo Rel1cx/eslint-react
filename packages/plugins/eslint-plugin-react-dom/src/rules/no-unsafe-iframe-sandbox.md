@@ -14,10 +14,6 @@ react-dom/no-unsafe-iframe-sandbox
 @eslint-react/dom/no-unsafe-iframe-sandbox
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

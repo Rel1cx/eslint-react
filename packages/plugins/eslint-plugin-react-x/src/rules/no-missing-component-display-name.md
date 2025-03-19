@@ -14,10 +14,6 @@ react-x/no-missing-component-display-name
 @eslint-react/no-missing-component-display-name
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Enforces that all components have a `displayName` or `name` which React can use as its `displayName` in devtools.

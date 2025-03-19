@@ -14,10 +14,6 @@ react-x/no-access-state-in-setstate
 @eslint-react/no-access-state-in-setstate
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

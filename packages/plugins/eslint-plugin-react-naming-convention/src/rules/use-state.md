@@ -14,10 +14,6 @@ react-naming-convention/use-state
 @eslint-react/naming-convention/use-state
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Enforces destructuring and symmetric naming of `useState` hook value and setter.

@@ -14,10 +14,6 @@ react-dom/no-dangerously-set-innerhtml-with-children
 @eslint-react/dom/no-dangerously-set-innerhtml-with-children
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

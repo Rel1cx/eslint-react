@@ -11,7 +11,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-component-will-receive-props";
 
 export const RULE_FEATURES = [
-  "CHK",
   "MOD",
 ] as const satisfies RuleFeature[];
 

@@ -14,10 +14,6 @@ react-x/no-comment-textnodes
 @eslint-react/no-comment-textnodes
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

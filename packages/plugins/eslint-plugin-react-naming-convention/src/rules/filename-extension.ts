@@ -9,7 +9,6 @@ import { createRule } from "../utils";
 export const RULE_NAME = "filename-extension";
 
 export const RULE_FEATURES = [
-  "CHK",
   "CFG",
 ] as const satisfies RuleFeature[];
 

@@ -16,7 +16,7 @@ react-x/no-forward-ref
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 

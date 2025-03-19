@@ -16,7 +16,7 @@ react-x/no-component-will-receive-props
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 

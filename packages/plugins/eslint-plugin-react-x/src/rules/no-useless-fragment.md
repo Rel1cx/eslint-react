@@ -16,7 +16,7 @@ react-x/no-useless-fragment
 
 **Features**
 
-`🔍` `🔧` `⚙️`
+`🔧` `⚙️`
 
 **Presets**
 

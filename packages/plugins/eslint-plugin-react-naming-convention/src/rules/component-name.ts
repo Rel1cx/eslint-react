@@ -79,7 +79,6 @@ const schema = [
 export const RULE_NAME = "component-name";
 
 export const RULE_FEATURES = [
-  "CHK",
   "CFG",
 ] as const satisfies RuleFeature[];
 

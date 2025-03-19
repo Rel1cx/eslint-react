@@ -16,9 +16,7 @@ import type { ObserverEntry, ObserverMethod } from "./../models";
 
 export const RULE_NAME = "no-leaked-resize-observer";
 
-export const RULE_FEATURES = [
-  "CHK",
-] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "expectedDisconnectInControlFlow"

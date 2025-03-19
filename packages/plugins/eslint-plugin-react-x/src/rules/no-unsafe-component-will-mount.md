@@ -14,10 +14,6 @@ react-x/no-unsafe-component-will-mount
 @eslint-react/no-unsafe-component-will-mount
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

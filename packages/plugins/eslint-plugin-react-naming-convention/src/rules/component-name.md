@@ -16,7 +16,7 @@ react-naming-convention/component-name
 
 **Features**
 
-`🔍` `⚙️`
+`⚙️`
 
 ## Description
 

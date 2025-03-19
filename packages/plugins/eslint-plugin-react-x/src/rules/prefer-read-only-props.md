@@ -16,7 +16,7 @@ react-x/prefer-read-only-props
 
 **Features**
 
-`🔍` `💭`
+`💭`
 
 ## Description
 

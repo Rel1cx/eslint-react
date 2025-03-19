@@ -14,10 +14,6 @@ react-x/no-children-to-array
 @eslint-react/no-children-to-array
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

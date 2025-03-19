@@ -14,10 +14,6 @@ react-x/no-redundant-should-component-update
 @eslint-react/no-redundant-should-component-update
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

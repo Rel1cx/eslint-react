@@ -14,10 +14,6 @@ react-naming-convention/context-name
 @eslint-react/naming-convention/context-name
 ```
 
-**Features**
-
-`🔍`
-
 ## Description
 
 Enforces consistent naming conventions for context providers.

@@ -14,10 +14,6 @@ react-x/no-set-state-in-component-did-update
 @eslint-react/no-set-state-in-component-did-update
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

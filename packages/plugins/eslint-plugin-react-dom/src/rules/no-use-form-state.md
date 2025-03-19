@@ -16,7 +16,7 @@ react-dom/no-use-form-state
 
 **Features**
 
-`🔍` `🔄`
+`🔄`
 
 **Presets**
 

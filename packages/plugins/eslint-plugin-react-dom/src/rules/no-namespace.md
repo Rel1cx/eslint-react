@@ -14,10 +14,6 @@ react-dom/no-namespace
 @eslint-react/dom/no-namespace
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

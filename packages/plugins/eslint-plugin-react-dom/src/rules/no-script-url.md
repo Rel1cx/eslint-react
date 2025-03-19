@@ -14,10 +14,6 @@ react-dom/no-script-url
 @eslint-react/dom/no-script-url
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

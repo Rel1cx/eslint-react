@@ -14,10 +14,6 @@ react-dom/no-flush-sync
 @eslint-react/dom/no-flush-sync
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `dom`

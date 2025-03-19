@@ -14,10 +14,6 @@ react-x/no-missing-key
 @eslint-react/no-missing-key
 ```
 
-**Features**
-
-`🔍`
-
 **Presets**
 
 - `core`

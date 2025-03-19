@@ -16,7 +16,7 @@ react-x/prefer-shorthand-boolean
 
 **Features**
 
-`🔍` `🔧`
+`🔧`
 
 ## Description
 
