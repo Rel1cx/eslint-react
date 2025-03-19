@@ -2,6 +2,12 @@
 title: Changelog
 ---
 
+## v1.36.2 (2025-03-20)
+
+No notable changes have been made in this release.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.36.1...v1.36.2
+
 ## v1.36.1 (2025-03-19)
 
 ### 🪄 Improvements
