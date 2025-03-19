@@ -1,3 +1,11 @@
+## v1.35.1 (2025-03-19)
+
+### 🪄 Improvements
+
+- refactor(naming-convention/use-state): enhance error messaging and docs, closes #980 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/997
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.35.0...v1.35.1
+
 ## v1.35.0 (2025-03-18)
 
 ### ✨ New
