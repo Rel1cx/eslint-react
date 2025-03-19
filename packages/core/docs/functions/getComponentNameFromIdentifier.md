@@ -12,7 +12,7 @@
 
 ### node
 
-`undefined` | [`Identifier`](../-internal-/interfaces/Identifier.md) | [`Identifier`](../-internal-/interfaces/Identifier.md)[]
+`undefined` | `Identifier` | `Identifier`[]
 
 ## Returns
 

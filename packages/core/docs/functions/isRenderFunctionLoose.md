@@ -20,13 +20,13 @@ _ = <Component renderRow={() => <div />} />
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 The rule context
 
 ### node
 
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+`TSESTreeFunction`
 
 The AST node to check
 

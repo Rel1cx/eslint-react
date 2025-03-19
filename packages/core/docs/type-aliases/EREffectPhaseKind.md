@@ -6,4 +6,4 @@
 
 # Type Alias: EREffectPhaseKind
 
-> **EREffectPhaseKind**: `"cleanup"` \| `"setup"`
+> **EREffectPhaseKind** = `"cleanup"` \| `"setup"`

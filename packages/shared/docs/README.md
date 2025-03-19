@@ -4,10 +4,6 @@
 
 # @eslint-react/shared
 
-## Modules
-
-- [\<internal\>](-internal-/README.md)
-
 ## Interfaces
 
 - [CustomComponentNormalized](interfaces/CustomComponentNormalized.md)
@@ -25,6 +21,7 @@
 - [RuleNamespace](type-aliases/RuleNamespace.md)
 - [RulePreset](type-aliases/RulePreset.md)
 - [RuleSeverity](type-aliases/RuleSeverity.md)
+- [RuleStatus](type-aliases/RuleStatus.md)
 
 ## Variables
 
@@ -32,6 +29,7 @@
 - [CustomComponentSchema](variables/CustomComponentSchema.md)
 - [CustomHooksSchema](variables/CustomHooksSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
+- [defineSettings](variables/defineSettings.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)
 - [RE\_CAMEL\_CASE](variables/RE_CAMEL_CASE.md)
@@ -45,7 +43,6 @@
 
 ## Functions
 
-- [defineSettings](functions/defineSettings.md)
 - [getId](functions/getId.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)

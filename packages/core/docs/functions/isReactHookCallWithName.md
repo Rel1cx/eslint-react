@@ -12,11 +12,11 @@
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 ### node
 
-`undefined` | [`CallExpression`](../-internal-/interfaces/CallExpression.md)
+`undefined` | `CallExpression`
 
 ## Returns
 

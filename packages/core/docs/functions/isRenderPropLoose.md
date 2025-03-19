@@ -18,7 +18,7 @@ _ = <Component renderRow={() => <div />} />
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 The rule context
 

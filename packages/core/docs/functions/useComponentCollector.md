@@ -6,7 +6,7 @@
 
 # Function: useComponentCollector()
 
-> **useComponentCollector**(`context`, `options`): [`ReturnType`](../namespaces/useComponentCollector/type-aliases/ReturnType.md)
+> **useComponentCollector**(`context`, `options`): [`ReturnType`](../@eslint-react/namespaces/useComponentCollector/type-aliases/ReturnType.md)
 
 Get a ctx and listeners for the rule to collect function components
 
@@ -14,18 +14,18 @@ Get a ctx and listeners for the rule to collect function components
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 The ESLint rule context
 
 ### options
 
-[`Options`](../namespaces/useComponentCollector/type-aliases/Options.md) = `{}`
+[`Options`](../@eslint-react/namespaces/useComponentCollector/type-aliases/Options.md) = `{}`
 
 The options to use
 
 ## Returns
 
-[`ReturnType`](../namespaces/useComponentCollector/type-aliases/ReturnType.md)
+[`ReturnType`](../@eslint-react/namespaces/useComponentCollector/type-aliases/ReturnType.md)
 
 The component collector

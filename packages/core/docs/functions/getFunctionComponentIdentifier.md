@@ -6,18 +6,18 @@
 
 # Function: getFunctionComponentIdentifier()
 
-> **getFunctionComponentIdentifier**(`context`, `node`): `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md) \| [`Identifier`](../-internal-/interfaces/Identifier.md)[]
+> **getFunctionComponentIdentifier**(`context`, `node`): `undefined` \| `Identifier` \| `Identifier`[]
 
 ## Parameters
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 ### node
 
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+`TSESTreeFunction`
 
 ## Returns
 
-`undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md) \| [`Identifier`](../-internal-/interfaces/Identifier.md)[]
+`undefined` \| `Identifier` \| `Identifier`[]

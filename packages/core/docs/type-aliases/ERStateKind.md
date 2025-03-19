@@ -6,4 +6,4 @@
 
 # Type Alias: ERStateKind
 
-> **ERStateKind**: `"actionState"` \| `"state"`
+> **ERStateKind** = `"actionState"` \| `"state"`

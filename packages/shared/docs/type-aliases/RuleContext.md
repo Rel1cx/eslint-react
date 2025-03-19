@@ -6,15 +6,19 @@
 
 # Type Alias: RuleContext\<MessageIds, Options\>
 
-> **RuleContext**\<`MessageIds`, `Options`\>: [`RuleContext`](../-internal-/interfaces/RuleContext.md)\<`MessageIds`, `Options`\>
+> **RuleContext**\<`MessageIds`, `Options`\> = `tseslint.RuleContext`\<`MessageIds`, `Options`\>
 
 Rule context.
 
 ## Type Parameters
 
-• **MessageIds** *extends* `string` = `string`
+### MessageIds
 
-• **Options** *extends* readonly `unknown`[] = readonly `unknown`[]
+`MessageIds` *extends* `string` = `string`
+
+### Options
+
+`Options` *extends* readonly `unknown`[] = readonly `unknown`[]
 
 ## Since
 

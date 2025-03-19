@@ -6,8 +6,8 @@
 
 # Function: useHookCollector()
 
-> **useHookCollector**(): [`ReturnType`](../namespaces/useHookCollector/type-aliases/ReturnType.md)
+> **useHookCollector**(): [`ReturnType`](../@eslint-react/namespaces/useHookCollector/type-aliases/ReturnType.md)
 
 ## Returns
 
-[`ReturnType`](../namespaces/useHookCollector/type-aliases/ReturnType.md)
+[`ReturnType`](../@eslint-react/namespaces/useHookCollector/type-aliases/ReturnType.md)

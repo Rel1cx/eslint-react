@@ -6,4 +6,4 @@
 
 # Type Alias: EREffectKind
 
-> **EREffectKind**: `"useEffect"` \| `"useLayoutEffect"` \| `"useInsertionEffect"`
+> **EREffectKind** = `"useEffect"` \| `"useLayoutEffect"` \| `"useInsertionEffect"`

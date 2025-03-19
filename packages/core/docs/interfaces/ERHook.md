@@ -34,13 +34,13 @@
 
 ### hookCalls
 
-> **hookCalls**: [`CallExpression`](../-internal-/interfaces/CallExpression.md)[]
+> **hookCalls**: `CallExpression`[]
 
 ***
 
 ### id
 
-> **id**: `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md)
+> **id**: `undefined` \| `Identifier`
 
 #### Overrides
 
@@ -80,7 +80,7 @@
 
 ### node
 
-> **node**: [`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+> **node**: `TSESTreeFunction`
 
 #### Overrides
 

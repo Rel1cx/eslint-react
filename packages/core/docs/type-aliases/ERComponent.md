@@ -6,4 +6,4 @@
 
 # Type Alias: ERComponent
 
-> **ERComponent**: [`ERClassComponent`](../interfaces/ERClassComponent.md) \| [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)
+> **ERComponent** = [`ERClassComponent`](../interfaces/ERClassComponent.md) \| [`ERFunctionComponent`](../interfaces/ERFunctionComponent.md)
