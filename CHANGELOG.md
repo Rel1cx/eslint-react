@@ -1,3 +1,11 @@
+## v1.37.0 (2025-03-20)
+
+### 🪄 Improvements
+
+- refactor: remove `hooks-extra/prefer-use-state-lazy-initialization` from recommended presets by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1001>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.36.3...v1.37.0>
+
 ## v1.36.3 (2025-03-20)
 
 ### 🐞 Fixes
