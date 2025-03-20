@@ -7,6 +7,7 @@ title: Changelog
 ### 🪄 Improvements
 
 - refactor: remove `hooks-extra/prefer-use-state-lazy-initialization` from recommended presets by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1001>
+  > Based on feedback of this rule, the current implementation produces more false positives than expected, so to ensure the overall quality of the rules in the recommended presets we provide, I'm removing it from the presets for now, and should add it back after we implement a better heuristic for deciding which function calls should be allowed.
 
 **Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.36.3...v1.37.0>
 

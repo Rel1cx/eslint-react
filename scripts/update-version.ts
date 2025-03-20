@@ -7,7 +7,11 @@ import { glob } from "./lib/glob";
 import { ignores } from "./lib/ignores";
 import { version } from "./lib/version";
 
-const GLOB_PACKAGE_JSON = ["package.json", "packages/*/package.json", "packages/*/*/package.json"];
+const GLOB_PACKAGE_JSON = [
+  "package.json",
+  "packages/*/package.json",
+  "packages/*/*/package.json",
+];
 
 async function update(path: string) {
   const packageJson = JSON.parse(fs.readFileSync(path, "utf8"));
@@ -26,7 +30,7 @@ async function update(path: string) {
     ...packageJson,
     version: newVersion,
   };
-  fs.writeFileSync(path, JSON.stringify(packageJsonUpdated, null, 2) + "\n");
+  fs.writeFileSync(path, `${JSON.stringify(packageJsonUpdated, null, 2)}\n`);
   console.info(ansis.green(`Updated ${path} to version ${packageJsonUpdated.version}`));
 }
 

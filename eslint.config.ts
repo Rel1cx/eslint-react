@@ -67,7 +67,7 @@ export default tseslint.config(
       },
     },
     plugins: {
-      ["local"]: pluginLocal,
+      local: pluginLocal,
     },
     rules: {
       // Part: local rules
