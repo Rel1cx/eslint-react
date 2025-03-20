@@ -260,6 +260,27 @@ ruleTester.run(RULE_NAME, rule, {
     'const { useState } = require("react"); useState(1 < 2 ? 3 : 4)',
     'const { useState } = require("react"); useState(1 == 2 ? 3 : 4)',
     'const { useState } = require("react"); useState(1 === 2 ? 3 : 4)',
+    "const [state, setState] = useState(use(promise));",
+    {
+      code: tsx`
+        import { useState, use } from 'react';
+
+        const promise = Promise.resolve();
+
+        function App() {
+          const [state, setState] = useState(use(promise));
+
+          return null;
+        }
+
+        export default App;
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
     {
       code: "useLocalStorageState()",
       settings: {

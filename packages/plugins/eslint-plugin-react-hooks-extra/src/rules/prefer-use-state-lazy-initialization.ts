@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as AST from "@eslint-react/ast";
-import { isReactHookCall, isReactHookCallWithNameLoose, isUseStateCall } from "@eslint-react/core";
+import { isReactHookCall, isReactHookCallWithNameLoose, isReactHookName, isUseStateCall } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -14,8 +14,16 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// variables should be defined here
-const ALLOW_LIST = ["Boolean", "String", "Number"];
+// identifier names for allowed function names
+const ALLOW_LIST = [
+  "Boolean",
+  "String",
+  "Number",
+];
+
+function isAllowedName(name: string): boolean {
+  return ALLOW_LIST.includes(name) || isReactHookName(name);
+}
 
 // rule takes inspiration from https://github.com/facebook/react/issues/26520
 export default createRule<[], MessageID>({
@@ -54,11 +62,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const nestedCallExpressions = AST.getNestedCallExpressions(useStateInput);
       const hasFunctionCall = nestedCallExpressions.some((n) => {
         return "name" in n.callee
-          && !ALLOW_LIST.includes(n.callee.name);
+          && !isAllowedName(n.callee.name);
       });
       const hasNewCall = AST.getNestedNewExpressions(useStateInput).some((n) => {
         return "name" in n.callee
-          && !ALLOW_LIST.includes(n.callee.name);
+          && !isAllowedName(n.callee.name);
       });
       if (!hasFunctionCall && !hasNewCall) {
         return;
