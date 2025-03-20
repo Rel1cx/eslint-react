@@ -136,11 +136,3 @@ Please follow our [contributing guidelines](./.github/CONTRIBUTING.md).
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Inspiration
-
-- [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid)
-- [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional)
-- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
-- [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
-- [biomejs.dev/linter/rules-sources/#eslint-plugin-react](https://biomejs.dev/linter/rules-sources/#eslint-plugin-react)
