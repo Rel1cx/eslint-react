@@ -101,26 +101,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // TODO: Evaluate the necessity of supporting this kind of usage
-    // {
-    //   code: tsx`
-    //     const Provider = Context.Provider;
-
-    //     function Component() {
-    //       return <Provider>hello world</Provider>;
-    //     }
-    //   `,
-    //   errors: [
-    //     {
-    //       messageId: "noContextProvider",
-    //     },
-    //   ],
-    //   settings: {
-    //     "react-x": {
-    //       version: "19.0.0",
-    //     },
-    //   },
-    // },
   ],
   valid: [
     {
