@@ -26,6 +26,7 @@ function isAllowedName(name: string): boolean {
 }
 
 // rule takes inspiration from https://github.com/facebook/react/issues/26520
+// TODO: Deprecate this rule when React Compiler is stable enough to be used in production https://github.com/facebook/react/issues/26520#issuecomment-2140795892
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",

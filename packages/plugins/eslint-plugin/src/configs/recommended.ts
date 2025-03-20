@@ -15,7 +15,6 @@ export const rules = {
   ...webApi.rules,
   "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
   "@eslint-react/hooks-extra/no-unnecessary-use-prefix": "warn",
-  "@eslint-react/hooks-extra/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 export const plugins = {

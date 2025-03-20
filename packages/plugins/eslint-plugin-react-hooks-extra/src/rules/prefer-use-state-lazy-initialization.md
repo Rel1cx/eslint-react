@@ -14,12 +14,6 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 @eslint-react/hooks-extra/prefer-use-state-lazy-initialization
 ```
 
-**Presets**
-
-- `recommended`
-- `recommended-typescript`
-- `recommended-type-checked`
-
 ## Description
 
 Enforces function calls made inside `useState` to be wrapped in an `initializer function`.
