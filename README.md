@@ -116,19 +116,6 @@ export default tseslint.config({
 
 - [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
 
-## Notable Projects Using ESLint React
-
-[![used-by](https://eslint-react.xyz/used_by.png)](https://github.com/Rel1cx/eslint-react/blob/main/assets/NOTABLE_PROJECTS_USING_ESLINT_REACT)
-
-## Community ESLint Configs Adopting ESLint React
-
-- [`antfu/eslint-config`](https://github.com/antfu/eslint-config) - Anthony's ESLint config preset.
-- [`eslint-config-rebeccastevens`](https://github.com/RebeccaStevens/eslint-config-rebeccastevens) - Rebecca's ESLint config preset.
-- [`eslint-config-sheriff`](https://github.com/AndreaPontrandolfo/sheriff) - A comprehensive and opinionated Typescript-first ESLint configuration.
-- [`eslint-config-sukka`](https://github.com/SukkaW/eslint-config-sukka) - Sukka's ESLint config preset.
-
-_Data collected from GitHub dependents network, if there are any mismatch or outdated information, feel free to [open issue](https://github.com/Rel1cx/eslint-react/issues/new?assignees=&labels=type%3A+documentation&projects=&template=docs_report.md&title=%5Bdocs%5D+) or pull request._
-
 ## Contributing
 
 Please follow our [contributing guidelines](./.github/CONTRIBUTING.md).

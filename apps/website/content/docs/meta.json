@@ -2,16 +2,17 @@
   "title": "Documentation",
   "pages": [
     "getting-started",
-    "---Reference---",
+    "---Core Reference---",
     "rules",
     "presets",
     "configurations",
-    "!---Advanced Usage---",
+    "!---Advanced Topics---",
     "!advanced-configuration",
     "!using-an-alternative-parser",
     "---Other---",
-    "faq",
+    "changelog",
     "roadmap",
-    "changelog"
+    "used-by",
+    "faq"
   ]
 }
