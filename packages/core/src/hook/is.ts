@@ -34,8 +34,8 @@ export function isReactHookCall(node: TSESTree.Node | _) {
   return false;
 }
 
-export function isReactHookCallWithName(context: RuleContext, node: TSESTree.CallExpression | _) {
-  if (node == null) return constFalse;
+export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Node | _) {
+  if (node == null || node.type !== T.CallExpression) return constFalse;
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
     skipImportCheck = true,
@@ -57,8 +57,8 @@ export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Cal
   };
 }
 
-export function isReactHookCallWithNameLoose(node: TSESTree.CallExpression | _) {
-  if (node == null) return constFalse;
+export function isReactHookCallWithNameLoose(node: TSESTree.Node | _) {
+  if (node == null || node.type !== T.CallExpression) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {
       case T.Identifier:
@@ -109,16 +109,20 @@ export function isUseEffectCallLoose(node: TSESTree.Node | _) {
   }
 }
 
+export const isUseCall = flip(isReactHookCallWithName)("use");
+export const isUseActionStateCall = flip(isReactHookCallWithName)("useActionState");
 export const isUseCallbackCall = flip(isReactHookCallWithName)("useCallback");
 export const isUseContextCall = flip(isReactHookCallWithName)("useContext");
 export const isUseDebugValueCall = flip(isReactHookCallWithName)("useDebugValue");
 export const isUseDeferredValueCall = flip(isReactHookCallWithName)("useDeferredValue");
 export const isUseEffectCall = flip(isReactHookCallWithName)("useEffect");
+export const isUseFormStatusCall = flip(isReactHookCallWithName)("useFormStatus");
 export const isUseIdCall = flip(isReactHookCallWithName)("useId");
 export const isUseImperativeHandleCall = flip(isReactHookCallWithName)("useImperativeHandle");
 export const isUseInsertionEffectCall = flip(isReactHookCallWithName)("useInsertionEffect");
 export const isUseLayoutEffectCall = flip(isReactHookCallWithName)("useLayoutEffect");
 export const isUseMemoCall = flip(isReactHookCallWithName)("useMemo");
+export const isUseOptimisticCall = flip(isReactHookCallWithName)("useOptimistic");
 export const isUseReducerCall = flip(isReactHookCallWithName)("useReducer");
 export const isUseRefCall = flip(isReactHookCallWithName)("useRef");
 export const isUseStateCall = flip(isReactHookCallWithName)("useState");

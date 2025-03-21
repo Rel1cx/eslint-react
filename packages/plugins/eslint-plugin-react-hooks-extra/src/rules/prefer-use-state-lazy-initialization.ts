@@ -1,6 +1,12 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as AST from "@eslint-react/ast";
-import { isReactHookCall, isReactHookCallWithNameLoose, isReactHookName, isUseStateCall } from "@eslint-react/core";
+import {
+  isReactHookCall,
+  isReactHookCallWithNameLoose,
+  isReactHookNameLoose,
+  isUseCall,
+  isUseStateCall,
+} from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -21,12 +27,7 @@ const ALLOW_LIST = [
   "Number",
 ];
 
-function isAllowedName(name: string): boolean {
-  return ALLOW_LIST.includes(name) || isReactHookName(name);
-}
-
 // rule takes inspiration from https://github.com/facebook/react/issues/26520
-// TODO: Deprecate this rule when React Compiler is stable enough to be used in production https://github.com/facebook/react/issues/26520#issuecomment-2140795892
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -60,22 +61,25 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (useStateInput == null) {
         return;
       }
-      const nestedCallExpressions = AST.getNestedCallExpressions(useStateInput);
-      const hasFunctionCall = nestedCallExpressions.some((n) => {
-        return "name" in n.callee
-          && !isAllowedName(n.callee.name);
-      });
-      const hasNewCall = AST.getNestedNewExpressions(useStateInput).some((n) => {
-        return "name" in n.callee
-          && !isAllowedName(n.callee.name);
-      });
-      if (!hasFunctionCall && !hasNewCall) {
-        return;
+      for (const expr of AST.getNestedNewExpressions(useStateInput)) {
+        if (!("name" in expr.callee)) continue;
+        if (ALLOW_LIST.includes(expr.callee.name)) continue;
+        if (AST.findParentNode(expr, (n) => isUseCall(context, n)) != null) continue;
+        context.report({
+          messageId: "preferUseStateLazyInitialization",
+          node: expr,
+        });
       }
-      context.report({
-        messageId: "preferUseStateLazyInitialization",
-        node: useStateInput,
-      });
+      for (const expr of AST.getNestedCallExpressions(useStateInput)) {
+        if (!("name" in expr.callee)) continue;
+        if (isReactHookNameLoose(expr.callee.name)) continue;
+        if (ALLOW_LIST.includes(expr.callee.name)) continue;
+        if (AST.findParentNode(expr, (n) => isUseCall(context, n)) != null) continue;
+        context.report({
+          messageId: "preferUseStateLazyInitialization",
+          node: expr,
+        });
+      }
     },
   };
 }
