@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v1.37.1 (2025-03-22)
+
+### 🐞 Fixes
+
+- fix: enhance `hooks-extra/prefer-use-state-lazy-initialization` to correctly detect other hooks called within `useState(...)` by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1006>
+
+### 🪄 Improvements
+
+- docs: improve rule description and error message by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1003> and <https://github.com/Rel1cx/eslint-react/pull/1007>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.0...v1.37.1>
+
 ## v1.37.0 (2025-03-20)
 
 ### 🪄 Improvements
