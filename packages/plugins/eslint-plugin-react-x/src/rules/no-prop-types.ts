@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'propTypes' property in components",
+      description: "Disallow `propTypes` in favor of TypeScript or another type-checking solution.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

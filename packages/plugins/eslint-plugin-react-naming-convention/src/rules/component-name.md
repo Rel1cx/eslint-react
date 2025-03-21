@@ -24,8 +24,6 @@ Enforces naming conventions for components.
 
 ## Examples
 
-This rule enforces naming conventions for components. Can be used to enforce `PascalCase` and `CONSTANT_CASE`. By default, it enforces `PascalCase`.
-
 ### Failing
 
 ```tsx

@@ -23,7 +23,7 @@ react-dom/no-void-elements-with-children
 
 ## Description
 
-Prevents the use of `children` in void DOM elements.
+Disallow `children` in void DOM elements.
 
 Self-closing HTML elements (e.g. `<img />`, `<br />`, `<hr />`) are collectively known as void DOM elements. React will give you a warning if you try to give these children:
 

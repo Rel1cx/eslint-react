@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require 'key' when rendering list",
+      description: "Disallow missing `key` on items in list rendering.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

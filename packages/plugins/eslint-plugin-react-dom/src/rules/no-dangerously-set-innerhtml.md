@@ -23,7 +23,7 @@ react-dom/no-dangerously-set-innerhtml
 
 ## Description
 
-Warns when using `dangerouslySetInnerHTML`.
+Disallow `dangerouslySetInnerHTML`.
 
 This should be used with extreme caution! If the HTML inside isn’t trusted (for example, if it’s based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability.
 

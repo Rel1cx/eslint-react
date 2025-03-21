@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow direct mutation of state",
+      description: "Disallow direct mutation of `this.state`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

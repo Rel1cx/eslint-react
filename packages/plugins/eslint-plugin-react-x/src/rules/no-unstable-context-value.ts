@@ -20,7 +20,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow passing constructed values to context providers",
+      description:
+        "Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

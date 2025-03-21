@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "report all function components, including anonymous ones",
+      description: "Reports all function components.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

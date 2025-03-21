@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'Children.map'",
+      description: "Disallow `Children.map`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

@@ -23,7 +23,7 @@ react-x/no-clone-element
 
 ## Description
 
-Disallows the use of `cloneElement`.
+Disallow `cloneElement`.
 
 Using cloneElement is uncommon and can lead to fragile code. This also makes it harder to trace the data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
 

@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "report all identifiers that are initialized from React.",
+      description: "Report all identifiers that are initialized from React.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

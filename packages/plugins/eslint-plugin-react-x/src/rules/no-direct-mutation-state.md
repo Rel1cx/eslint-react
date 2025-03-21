@@ -23,7 +23,7 @@ react-x/no-direct-mutation-state
 
 ## Description
 
-Disallows direct mutation of `this.state`.
+Disallow direct mutation of `this.state`.
 
 NEVER mutate `this.state` directly, as calling `setState()` afterwards may replace the mutation you made. Treat `this.state` as if it were immutable.
 

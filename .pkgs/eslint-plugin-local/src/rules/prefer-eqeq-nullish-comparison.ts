@@ -16,7 +16,7 @@ export default createRule({
   meta: {
     type: "suggestion",
     docs: {
-      description: "enforce eqeqeq preferences around nullish comparisons",
+      description: "Enforces eqeqeq preferences around nullish comparisons.",
     },
     fixable: "code",
     hasSuggestions: true,

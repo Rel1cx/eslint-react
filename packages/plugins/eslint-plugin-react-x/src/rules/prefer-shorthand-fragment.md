@@ -20,7 +20,7 @@ react-x/prefer-shorthand-fragment
 
 ## Description
 
-Enforces the use of shorthand syntax for fragments.
+Enforces shorthand syntax for fragments.
 
 A **safe** auto-fix is available for this rule.
 

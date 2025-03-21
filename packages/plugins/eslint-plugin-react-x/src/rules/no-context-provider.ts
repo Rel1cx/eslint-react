@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "replace usages of '<Context.Provider>' with '<Context>'",
+      description: "Replace usages of `<Context.Provider>` with `<Context>`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

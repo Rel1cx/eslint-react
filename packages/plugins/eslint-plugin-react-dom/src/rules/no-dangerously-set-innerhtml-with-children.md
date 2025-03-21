@@ -23,7 +23,7 @@ react-dom/no-dangerously-set-innerhtml-with-children
 
 ## Description
 
-Disallows DOM elements using `children` and `dangerouslySetInnerHTML` at the same time.
+Disallow `dangerouslySetInnerHTML` and `children` at the same time.
 
 When using `dangerouslySetInnerHTML`, the content of the DOM element is set from the `__html` property. The content of the DOM element is completely replaced, so the children will not be rendered as expected.
 

@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'defaultProps' property in components",
+      description: "Disallow `defaultProps` property in favor of ES6 default parameters.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

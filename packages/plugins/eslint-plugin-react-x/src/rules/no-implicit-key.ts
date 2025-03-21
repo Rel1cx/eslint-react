@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow implicit 'key' props",
+      description: "Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

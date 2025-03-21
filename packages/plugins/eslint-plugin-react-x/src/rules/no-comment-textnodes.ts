@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow comments from being inserted as text nodes",
+      description: "Prevents comments from being inserted as text nodes.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

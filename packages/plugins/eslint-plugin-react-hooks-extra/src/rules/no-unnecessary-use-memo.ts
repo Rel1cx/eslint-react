@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow unnecessary usage of 'useMemo'",
+      description: "Disallow unnecessary usage of `useMemo`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

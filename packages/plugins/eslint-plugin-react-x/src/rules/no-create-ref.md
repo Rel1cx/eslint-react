@@ -23,7 +23,7 @@ react-x/no-create-ref
 
 ## Description
 
-Prevents usage of `createRef()` in function components.
+Disallow `createRef` in function components.
 
 `createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
 

@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow unused state of class component",
+      description: "Warns unused class component state.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

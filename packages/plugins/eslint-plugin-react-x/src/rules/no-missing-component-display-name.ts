@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require 'displayName' for 'memo' and 'forwardRef' components",
+      description: "Enforces that all components have a `displayName` which can be used in devtools.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

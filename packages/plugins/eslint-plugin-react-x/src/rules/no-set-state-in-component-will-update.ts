@@ -24,7 +24,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'setState' in 'componentWillUpdate'",
+      description:
+        "Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

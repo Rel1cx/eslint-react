@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "replace usages of 'ReactDom.render()' with 'createRoot(node).render()'",
+      description: "Replaces usages of `ReactDom.render()` with `createRoot(node).render()`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

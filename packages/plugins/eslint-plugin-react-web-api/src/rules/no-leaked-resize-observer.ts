@@ -87,7 +87,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce cleanup of 'ResizeObserver' instances in components and custom Hooks.",
+      description: "Prevents leaked `ResizeObserver` in a component or custom Hook.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

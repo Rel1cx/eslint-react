@@ -23,7 +23,7 @@ react-x/no-children-for-each
 
 ## Description
 
-Prevents the use of `Children.forEach` from the `react` package.
+Disallow the use of `Children.forEach` from the `react` package.
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 

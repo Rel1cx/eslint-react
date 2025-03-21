@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow when a DOM component is using both 'children' and 'dangerouslySetInnerHTML'",
+      description: "Disallow `dangerouslySetInnerHTML` and `children` at the same time.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

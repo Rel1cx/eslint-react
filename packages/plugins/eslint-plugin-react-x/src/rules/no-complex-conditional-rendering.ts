@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow complex conditional rendering",
+      description: "Disallow complex conditional rendering in JSX expressions.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that 'iframe' component have an explicit 'sandbox' attribute",
+      description: "Enforces explicit `sandbox` attribute for `iframe` elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

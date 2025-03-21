@@ -23,7 +23,7 @@ react-x/no-string-refs
 
 ## Description
 
-Disallows using deprecated `string refs`.
+Disallow deprecated string `refs`.
 
 String refs are deprecated in React. Use callback refs instead.
 

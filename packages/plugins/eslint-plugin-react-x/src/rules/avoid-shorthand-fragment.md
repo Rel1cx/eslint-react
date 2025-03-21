@@ -16,7 +16,7 @@ react-x/avoid-shorthand-fragment
 
 ## Description
 
-Enforces the use of explicit `<Fragment>` or `<React.Fragment>` components instead of the shorthand `<>` or `</>` syntax.
+Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax.
 
 ## Examples
 

@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce the use of shorthand syntax for boolean attributes",
+      description: "Enforces shorthand syntax for boolean attributes.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

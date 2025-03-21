@@ -20,7 +20,7 @@ react-x/prefer-read-only-props
 
 ## Description
 
-This rule enforces that function components props are read-only.
+Enforces read-only props in components.
 
 Props are read-only snapshots in time: every render receives a new version of props. You can't change props. This rule enforces that you don't accidentally mutate props.
 

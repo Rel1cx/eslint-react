@@ -21,7 +21,7 @@ react-x/no-duplicate-jsx-props
 
 ## Description
 
-This rule prevents the use of duplicate props in JSX elements.
+Disallow duplicate props in JSX elements.
 
 ## Examples
 

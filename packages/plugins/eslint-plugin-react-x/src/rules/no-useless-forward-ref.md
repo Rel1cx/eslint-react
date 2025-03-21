@@ -23,7 +23,7 @@ react-x/no-useless-forward-ref
 
 ## Description
 
-Enforces that `forwardRef` is only used when a `ref` parameter is declared.
+Disallow useless `forwardRef` calls on components that don't use `ref`s.
 
 This rule enforces that:
 

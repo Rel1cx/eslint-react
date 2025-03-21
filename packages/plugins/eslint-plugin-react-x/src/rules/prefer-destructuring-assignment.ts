@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce using destructuring assignment in component props and context",
+      description: "Enforces destructuring assignment for component props and context.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

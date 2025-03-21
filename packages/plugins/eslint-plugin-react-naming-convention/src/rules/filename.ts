@@ -83,7 +83,7 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     docs: {
-      description: "enforce naming convention for JSX filenames",
+      description: "Enforces consistent file naming conventions.",
     },
     messages: {
       filenameEmpty: "A file must have non-empty name.",

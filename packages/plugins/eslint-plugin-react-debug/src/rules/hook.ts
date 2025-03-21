@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "report all React Hooks",
+      description: "Reports all React Hooks.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

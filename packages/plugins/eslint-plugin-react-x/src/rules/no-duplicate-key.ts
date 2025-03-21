@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow duplicate keys when rendering list",
+      description: "Disallow duplicate `key` on elements in the same array or a list of `children`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

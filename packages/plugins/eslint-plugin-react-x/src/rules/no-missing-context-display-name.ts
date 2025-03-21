@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "require 'displayName' for contexts.",
+      description: "Enforces that all contexts have a `displayName` which can be used in devtools.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

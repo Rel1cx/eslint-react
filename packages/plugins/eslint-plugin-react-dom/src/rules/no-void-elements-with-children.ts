@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow void elements (AKA self-closing elements) from having children",
+      description: "Disallow `children` in void DOM elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

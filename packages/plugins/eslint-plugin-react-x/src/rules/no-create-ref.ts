@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'createRef' in function components",
+      description: "Disallow `createRef` in function components.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

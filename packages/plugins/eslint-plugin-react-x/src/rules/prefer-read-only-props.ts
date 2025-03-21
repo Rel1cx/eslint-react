@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce read-only props in components",
+      description: "Enforces read-only props in components.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

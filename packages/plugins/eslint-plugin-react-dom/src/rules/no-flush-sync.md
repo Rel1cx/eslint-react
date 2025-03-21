@@ -23,7 +23,7 @@ react-dom/no-flush-sync
 
 ## Description
 
-This rule reports usages of `flushSync`.
+Disallow `flushSync`.
 
 `flushSync` can significantly hurt performance, and may unexpectedly force pending Suspense boundaries to show their fallback state.
 

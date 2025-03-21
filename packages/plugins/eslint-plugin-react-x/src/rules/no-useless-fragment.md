@@ -18,16 +18,9 @@ react-x/no-useless-fragment
 
 `🔧` `⚙️`
 
-**Presets**
-
-- `core`
-- `recommended`
-- `recommended-typescript`
-- `recommended-type-checked`
-
 ## Description
 
-Prevents the use of useless fragments.
+Disallow useless fragment elements.
 
 A fragment is redundant if it contains only one child, or if it is the child of a html element, and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
 

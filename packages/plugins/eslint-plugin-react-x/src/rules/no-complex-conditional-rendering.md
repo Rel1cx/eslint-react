@@ -16,7 +16,7 @@ react-x/no-complex-conditional-rendering
 
 ## Description
 
-Warns when conditional rendering is too complex.
+Disallow complex conditional rendering in JSX expressions.
 
 ## Examples
 
