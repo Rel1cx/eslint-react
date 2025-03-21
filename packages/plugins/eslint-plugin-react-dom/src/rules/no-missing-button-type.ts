@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that button component have an explicit 'type' attribute",
+      description: "Enforces explicit `type` attribute for `button` elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

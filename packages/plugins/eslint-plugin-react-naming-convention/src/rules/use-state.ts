@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce destructuring and symmetric naming of 'useState' hook value and setter",
+      description: "Enforces destructuring and symmetric naming of `useState` hook value and setter.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

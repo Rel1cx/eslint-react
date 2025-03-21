@@ -23,7 +23,7 @@ react-dom/no-find-dom-node
 
 ## Description
 
-This rule disallows the use of `findDOMNode`.
+Disallow `findDOMNode`.
 
 This API will be removed in a future major version of React. [See the alternatives](https://react.dev/reference/react-dom/findDOMNode#alternatives).
 

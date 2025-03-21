@@ -23,7 +23,7 @@ react-x/no-duplicate-key
 
 ## Description
 
-Prevents duplicate `key` on elements in the same array or a list of `children`.
+Disallow duplicate `key` on elements in the same array or a list of `children`.
 
 React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
 

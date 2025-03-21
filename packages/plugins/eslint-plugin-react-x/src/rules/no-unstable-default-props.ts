@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using unstable value as default param in function component",
+      description: "Prevents using referential-type values as default props in object destructuring.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

@@ -23,7 +23,7 @@ react-x/no-unstable-default-props
 
 ## Description
 
-Prevents usage of referential-type values as default props in object destructuring.
+Prevents using referential-type values as default props in object destructuring.
 
 When using object destructuring syntax you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, then each time the destructuring is evaluated, the JS engine will create a new, distinct value in the destructured variable.
 

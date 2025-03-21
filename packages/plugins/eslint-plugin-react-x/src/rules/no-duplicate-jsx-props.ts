@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow duplicate props",
+      description: "Disallow duplicate props in JSX elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

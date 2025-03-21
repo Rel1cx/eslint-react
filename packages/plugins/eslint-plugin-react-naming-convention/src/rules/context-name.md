@@ -16,7 +16,7 @@ react-naming-convention/context-name
 
 ## Description
 
-Enforces consistent naming conventions for context providers.
+Enforces context name to be a valid component name with the suffix `Context`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`. This rule enforces that the context has a valid component name with the suffix `Context`.
 

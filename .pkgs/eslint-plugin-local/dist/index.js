@@ -49,9 +49,7 @@ function getRequireExpressionArguments(node) {
 
 // src/rules/avoid-multiline-template-expression.ts
 var RULE_NAME = "avoid-multiline-template-expression";
-var RULE_FEATURES = [
-  "CHK"
-];
+var RULE_FEATURES = [];
 var avoid_multiline_template_expression_default = createRule({
   meta: {
     type: "problem",
@@ -82,9 +80,7 @@ var avoid_multiline_template_expression_default = createRule({
 
 // src/rules/no-shadow-underscore.ts
 var RULE_NAME2 = "no-shadow-underscore";
-var RULE_FEATURES2 = [
-  "CHK"
-];
+var RULE_FEATURES2 = [];
 var no_shadow_underscore_default = createRule({
   meta: {
     type: "problem",
@@ -119,7 +115,7 @@ var prefer_eqeq_nullish_comparison_default = createRule({
   meta: {
     type: "suggestion",
     docs: {
-      description: "enforce eqeqeq preferences around nullish comparisons"
+      description: "Enforces eqeqeq preferences around nullish comparisons."
     },
     fixable: "code",
     hasSuggestions: true,

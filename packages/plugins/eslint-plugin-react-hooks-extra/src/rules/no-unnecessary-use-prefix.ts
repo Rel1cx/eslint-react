@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that a function with the 'use' prefix should use at least one Hook inside of it",
+      description: "Enforces that a function with the `use` prefix should use at least one Hook inside of it.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

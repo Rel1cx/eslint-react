@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce the use of shorthand syntax for fragments",
+      description: "Enforces shorthand syntax for fragments.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",

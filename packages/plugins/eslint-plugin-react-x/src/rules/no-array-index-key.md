@@ -23,7 +23,7 @@ react-x/no-array-index-key
 
 ## Description
 
-Warns when using an item's index in the array as its key.
+Disallow an item's index in the array as its key.
 
 The order of items in a list rendering can change over time if an item is inserted, deleted, or the array is reordered. Indexes as keys often lead to subtle and confusing errors.
 

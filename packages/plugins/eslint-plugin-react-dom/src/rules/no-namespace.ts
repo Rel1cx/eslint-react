@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce that namespaces are not used in React elements",
+      description: "Enforces the absence of a `namespace` in React elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

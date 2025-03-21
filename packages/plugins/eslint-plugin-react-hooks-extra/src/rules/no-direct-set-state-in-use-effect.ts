@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow direct calls to the 'set' function of 'useState' in 'useEffect'",
+      description: "Disallow direct calls to the `set` function of `useState` in `useEffect`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

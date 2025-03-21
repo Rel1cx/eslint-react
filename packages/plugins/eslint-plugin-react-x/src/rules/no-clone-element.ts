@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'cloneElement'",
+      description: "Disallow `cloneElement`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

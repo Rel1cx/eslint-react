@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'javascript:' URLs as JSX event handler prop's value",
+      description: "Disallow `javascript:` URLs as attribute values.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

@@ -26,6 +26,46 @@ const defaultOptions = [{
   allowExpressions: true,
 }] as const satisfies Options;
 
+export default createRule<Options, MessageID>({
+  meta: {
+    type: "problem",
+    defaultOptions: [...defaultOptions],
+    docs: {
+      description: "Disallow useless fragment elements.",
+    },
+    fixable: "code",
+    messages: {
+      uselessFragment: "A fragment {{reason}} is useless.",
+    },
+    schema: [{
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        allowExpressions: {
+          type: "boolean",
+          description: "Allow fragments with a single expression child",
+        },
+      },
+    }],
+  },
+  name: RULE_NAME,
+  create,
+  defaultOptions,
+});
+
+export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
+  const { allowExpressions = true } = option;
+  return {
+    JSXElement(node) {
+      if (!JSX.isFragmentElement(node)) return;
+      doCheck(context, node, allowExpressions);
+    },
+    JSXFragment(node) {
+      doCheck(context, node, allowExpressions);
+    },
+  };
+}
+
 function trimLikeReact(text: string) {
   const leadingSpaces = /^\s*/.exec(text)?.[0] ?? "";
   const trailingSpaces = /\s*$/.exec(text)?.[0] ?? "";
@@ -160,44 +200,4 @@ function doCheck(
     }
   }
   return;
-}
-
-export default createRule<Options, MessageID>({
-  meta: {
-    type: "problem",
-    defaultOptions: [...defaultOptions],
-    docs: {
-      description: "disallow useless fragments",
-    },
-    fixable: "code",
-    messages: {
-      uselessFragment: "A fragment {{reason}} is useless.",
-    },
-    schema: [{
-      type: "object",
-      additionalProperties: false,
-      properties: {
-        allowExpressions: {
-          type: "boolean",
-          description: "Allow fragments with a single expression child",
-        },
-      },
-    }],
-  },
-  name: RULE_NAME,
-  create,
-  defaultOptions,
-});
-
-export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
-  const { allowExpressions = true } = option;
-  return {
-    JSXElement(node) {
-      if (!JSX.isFragmentElement(node)) return;
-      doCheck(context, node, allowExpressions);
-    },
-    JSXFragment(node) {
-      doCheck(context, node, allowExpressions);
-    },
-  };
 }

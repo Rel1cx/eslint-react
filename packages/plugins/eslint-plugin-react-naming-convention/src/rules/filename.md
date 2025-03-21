@@ -20,7 +20,7 @@ react-naming-convention/filename
 
 ## Description
 
-Enforces consistent file naming conventions. Can be used to enforce PascalCase, camelCase, kebab-case, snake_case. By default, it enforces PascalCase.
+Enforces consistent file naming conventions.
 
 ## Examples
 

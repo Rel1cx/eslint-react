@@ -23,7 +23,7 @@ react-x/no-missing-key
 
 ## Description
 
-Prevents missing `key` on items in list rendering.
+Disallow missing `key` on items in list rendering.
 
 React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
 

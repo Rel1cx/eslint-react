@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using deprecated string refs",
+      description: "Disallow deprecated string `refs`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

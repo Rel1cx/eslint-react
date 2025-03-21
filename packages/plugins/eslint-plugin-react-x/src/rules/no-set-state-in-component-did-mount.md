@@ -23,7 +23,7 @@ react-x/no-set-state-in-component-did-mount
 
 ## Description
 
-Disallows calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.
+Disallow calling `this.setState` in `componentDidMount` outside of functions, such as callbacks.
 
 Updating the state after a component mount will trigger a second `render()` call and can lead to property/layout thrashing.
 

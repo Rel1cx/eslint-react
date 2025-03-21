@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow 'findDOMNode'",
+      description: "Disallow `findDOMNode`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

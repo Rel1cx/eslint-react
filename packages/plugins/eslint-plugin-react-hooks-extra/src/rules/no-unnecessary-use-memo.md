@@ -16,7 +16,7 @@ react-hooks-extra/no-unnecessary-use-memo
 
 ## Description
 
-Disallows unnecessary usage of `useMemo`.
+Disallow unnecessary usage of `useMemo`.
 
 React Hooks `useMemo` has empty dependencies array like what's in the examples, are unnecessary. The hook can be removed and it's value can be calculated in the component body or hoisted to the outer scope of the component.
 

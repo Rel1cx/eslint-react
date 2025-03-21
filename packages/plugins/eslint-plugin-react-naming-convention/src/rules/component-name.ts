@@ -89,7 +89,7 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     docs: {
-      description: "enforce naming convention for components",
+      description: "Enforces naming conventions for components.",
     },
     messages: {
       invalid: "A component name '{{name}}' does not match {{rule}}.",

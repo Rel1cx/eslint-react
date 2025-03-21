@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow accessing 'this.state' within 'setState'",
+      description: "Disallow accessing `this.state` inside `setState` calls.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

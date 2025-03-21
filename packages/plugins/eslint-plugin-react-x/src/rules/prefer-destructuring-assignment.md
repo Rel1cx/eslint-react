@@ -16,7 +16,7 @@ react-x/prefer-destructuring-assignment
 
 ## Description
 
-Enforces the use of destructuring assignment over property assignment.
+Enforces destructuring assignment for component props and context.
 
 ## Examples
 

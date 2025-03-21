@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow function calls in 'useState' that aren't wrapped in an initializer function",
+      description: "Enforces function calls made inside `useState` to be wrapped in an `initializer function`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

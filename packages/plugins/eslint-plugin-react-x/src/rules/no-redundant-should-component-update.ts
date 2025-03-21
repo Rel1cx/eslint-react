@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using 'shouldComponentUpdate' in class component extends 'React.PureComponent'",
+      description: "Disallow `shouldComponentUpdate` when extending `React.PureComponent`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

@@ -23,7 +23,7 @@ react-dom/no-render-return-value
 
 ## Description
 
-Prevents usage of the return value of `ReactDOM.render`.
+Disallow the return value of `ReactDOM.render`.
 
 `ReactDOM.render()` currently returns a reference to the root ReactComponent instance. However, using this return value is legacy and should be avoided because future versions of React may render components asynchronously in some cases. If you need a reference to the root ReactComponent instance, the preferred solution is to attach a [callback ref](https://react.dev/learn/manipulating-the-dom-with-refs) to the root element.
 

@@ -16,7 +16,7 @@ react-x/no-missing-context-display-name
 
 ## Description
 
-Enforces that all contexts have a `displayName` which React can use as its `displayName` in devtools.
+Enforces that all contexts have a `displayName` which can be used in devtools.
 
 ## Examples
 

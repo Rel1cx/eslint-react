@@ -14,7 +14,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow using shorthand fragment syntax",
+      description: "Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

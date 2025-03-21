@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "disallow usage of the return value of 'ReactDOM.render'",
+      description: "Disallow the return value of `ReactDOM.render`.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {

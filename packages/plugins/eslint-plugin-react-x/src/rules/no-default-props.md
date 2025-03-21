@@ -23,7 +23,7 @@ react-x/no-default-props
 
 ## Description
 
-Disallows using `defaultProps` property in favor of ES6 default parameters.
+Disallow `defaultProps` property in favor of ES6 default parameters.
 
 The `defaultProps` will be removed from functional components in React 19 in place of ES6 default parameters. If you’re using `defaultProps`, it is recommend to migrate to ES6 default parameters.
 
