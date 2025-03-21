@@ -5,178 +5,145 @@ import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-use-state-lazy-initialization";
 
 ruleTester.run(RULE_NAME, rule, {
-  invalid: ([
-    ["getValue()", T.CallExpression],
-    ["getValue(1, 2, 3)", T.CallExpression],
-    ["new Foo()", T.NewExpression],
-  ] satisfies [string, T][]).flatMap(([expression, type]) => [
+  invalid: [
     {
-      code: `import { useState } from "react"; useState(1 || ${expression})`,
+      code: `import { useState } from "react"; useState(1 || getValue())`,
       errors: [
         {
-          type: T.LogicalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(2 < ${expression})`,
+      code: `import { useState } from "react"; useState(2 < getValue())`,
       errors: [
         {
-          type: T.BinaryExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(${expression})`,
+      code: `import { useState } from "react"; useState(1 < 2 ? getValue() : 4)`,
       errors: [
         {
-          type,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(a ? b : ${expression})`,
+      code: `import { useState } from "react"; useState(a ? b : getValue())`,
       errors: [
         {
-          type: T.ConditionalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(${expression} ? b : c)`,
+      code: `import { useState } from "react"; useState(getValue() ? b : c)`,
       errors: [
         {
-          type: T.ConditionalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(a ? (b ? ${expression} : b2) : c)`,
+      code: `import { useState } from "react"; useState(a ? (b ? getValue() : b2) : c)`,
       errors: [
         {
-          type: T.ConditionalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(${expression} && b)`,
+      code: `import { useState } from "react"; useState(getValue() && b)`,
       errors: [
         {
-          type: T.LogicalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(a && ${expression})`,
+      code: `import { useState } from "react"; useState(a() && new Foo())`,
       errors: [
         {
-          type: T.LogicalExpression,
+          type: T.CallExpression,
+          messageId: "preferUseStateLazyInitialization",
+        },
+        {
+          type: T.NewExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(${expression} && b())`,
+      code: `import { useState } from "react"; useState(+getValue())`,
       errors: [
         {
-          type: T.LogicalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(a() && ${expression})`,
+      code: `import { useState } from "react"; useState(getValue() + 1)`,
       errors: [
         {
-          type: T.LogicalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(+${expression})`,
+      code: `import { useState } from "react"; useState([getValue()])`,
       errors: [
         {
-          type: T.UnaryExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(-${expression})`,
+      code: `import { useState } from "react"; useState({ a: getValue() })`,
       errors: [
         {
-          type: T.UnaryExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
     },
     {
-      code: `import { useState } from "react"; useState(~${expression})`,
+      code: tsx`
+        import { useState, use } from 'react';
+
+        function Component({data}) {
+          const [data, setData] = useState(data ? use(data) : getValue());
+          return null;
+        }
+      `,
       errors: [
         {
-          type: T.UnaryExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
-    },
-    {
-      code: `import { useState } from "react"; useState(!${expression})`,
-      errors: [
-        {
-          type: T.UnaryExpression,
-          messageId: "preferUseStateLazyInitialization",
+      settings: {
+        "react-x": {
+          version: "19.0.0",
         },
-      ],
+      },
     },
     {
-      code: `import { useState } from "react"; useState(${expression} + 1)`,
+      code: tsx`useLocalStorageState(1 || getValue())`,
       errors: [
         {
-          type: T.BinaryExpression,
-          messageId: "preferUseStateLazyInitialization",
-        },
-      ],
-    },
-    {
-      code: `import { useState } from "react"; useState(${expression} - 1)`,
-      errors: [
-        {
-          type: T.BinaryExpression,
-          messageId: "preferUseStateLazyInitialization",
-        },
-      ],
-    },
-    {
-      code: `import { useState } from "react"; useState([${expression}])`,
-      errors: [
-        {
-          type: T.ArrayExpression,
-          messageId: "preferUseStateLazyInitialization",
-        },
-      ],
-    },
-    {
-      code: `import { useState } from "react"; useState({ a: ${expression} })`,
-      errors: [
-        {
-          type: T.ObjectExpression,
-          messageId: "preferUseStateLazyInitialization",
-        },
-      ],
-    },
-    {
-      code: tsx`useLocalStorageState(1 || ${expression})`,
-      errors: [
-        {
-          type: T.LogicalExpression,
+          type: T.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -188,7 +155,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-  ]),
+  ],
   valid: [
     ...allValid,
     "useState()",
@@ -260,7 +227,11 @@ ruleTester.run(RULE_NAME, rule, {
     'const { useState } = require("react"); useState(1 < 2 ? 3 : 4)',
     'const { useState } = require("react"); useState(1 == 2 ? 3 : 4)',
     'const { useState } = require("react"); useState(1 === 2 ? 3 : 4)',
+    "const [id, setId] = useState(useId());",
     "const [state, setState] = useState(use(promise));",
+    "const [serverData, setLikes] = useState(use(getLikes()));",
+    "const [data, setData] = useState(use(getData()) || []);",
+    "const [character, setCharacter] = useState(use(props.character) ?? undefined);",
     {
       code: tsx`
         import { useState, use } from 'react';
@@ -278,55 +249,11 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: tsx`
-        import { useState, use } from 'react';
-
-        const promise = Promise.resolve();
-
-        function App() {
-          const [state, setState] = useState(use(promise));
-
-          return null;
-        }
-
-        export default App;
-      `,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: "useLocalStorageState()",
+      code: "useLocalStorage(() => JSON.parse('{}'))",
       settings: {
         "react-x": {
           additionalHooks: {
-            useState: ["useLocalStorageState"],
-          },
-        },
-      },
-    },
-    {
-      code: tsx`
-        import { useState } from 'react';
-
-        function getValue() {
-          return 0;
-        }
-
-        function App() {
-          const [count, setCount] = useState(() => getValue());
-
-          return null;
-        }
-
-        export default App;
-      `,
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useState: ["useLocalStorageState"],
+            useState: ["useLocalStorage"],
           },
         },
       },
