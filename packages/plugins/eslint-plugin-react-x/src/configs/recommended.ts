@@ -41,6 +41,7 @@ export const rules = {
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
+  "react-x/no-useless-fragment": "warn",
   "react-x/use-jsx-vars": "warn",
 } as const satisfies RulePreset;
 
