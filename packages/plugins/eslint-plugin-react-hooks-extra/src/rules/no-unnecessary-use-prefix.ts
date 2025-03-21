@@ -26,11 +26,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "enforce custom Hooks to use at least one other hook inside",
+      description: "enforce that a function with the 'use' prefix should use at least one Hook inside of it",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noUnnecessaryUsePrefix: "A custom Hook '{{name}}' should use at least one other hook.",
+      noUnnecessaryUsePrefix:
+        "If your function doesn't call any Hooks, avoid the 'use' prefix. Instead, write it as a regular function without the 'use' prefix.",
     },
     schema: [],
   },
