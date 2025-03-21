@@ -6,4 +6,4 @@
 
 # Variable: ERPhaseRelevance
 
-> `const` **ERPhaseRelevance**: `BiRecord`\<\{ `mount`: `"unmount"`; `setup`: `"cleanup"`; \}\>
+> `const` **ERPhaseRelevance**: [`BiRecord`](../-internal-/classes/BiRecord.md)\<\{ `mount`: `"unmount"`; `setup`: `"cleanup"`; \}\>

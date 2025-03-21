@@ -14,7 +14,7 @@
 
 ### displayName
 
-> **displayName**: `undefined` \| `Expression`
+> **displayName**: `undefined` \| [`Expression`](../-internal-/type-aliases/Expression.md)
 
 ***
 
@@ -40,7 +40,7 @@
 
 ### id
 
-> **id**: `undefined` \| `Identifier`
+> **id**: `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md)
 
 #### Overrides
 
@@ -70,7 +70,7 @@
 
 ### methods
 
-> **methods**: `TSESTreeMethodOrProperty`[]
+> **methods**: [`TSESTreeMethodOrProperty`](../-internal-/type-aliases/TSESTreeMethodOrProperty.md)[]
 
 ***
 
@@ -86,7 +86,7 @@
 
 ### node
 
-> **node**: `TSESTreeClass`
+> **node**: [`TSESTreeClass`](../-internal-/type-aliases/TSESTreeClass.md)
 
 #### Overrides
 

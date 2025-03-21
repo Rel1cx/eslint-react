@@ -12,7 +12,7 @@
 
 ### node
 
-`AssignmentExpression`
+[`AssignmentExpression`](../-internal-/interfaces/AssignmentExpression.md)
 
 ## Returns
 

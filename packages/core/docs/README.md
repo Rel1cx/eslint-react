@@ -4,6 +4,10 @@
 
 # @eslint-react/core
 
+## Modules
+
+- [\<internal\>](-internal-/README.md)
+
 ## Namespaces
 
 - [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md)
@@ -61,16 +65,20 @@
 - [isInversePhase](variables/isInversePhase.md)
 - [isMemo](variables/isMemo.md)
 - [isMemoCall](variables/isMemoCall.md)
+- [isUseActionStateCall](variables/isUseActionStateCall.md)
+- [isUseCall](variables/isUseCall.md)
 - [isUseCallbackCall](variables/isUseCallbackCall.md)
 - [isUseContextCall](variables/isUseContextCall.md)
 - [isUseDebugValueCall](variables/isUseDebugValueCall.md)
 - [isUseDeferredValueCall](variables/isUseDeferredValueCall.md)
 - [isUseEffectCall](variables/isUseEffectCall.md)
+- [isUseFormStatusCall](variables/isUseFormStatusCall.md)
 - [isUseIdCall](variables/isUseIdCall.md)
 - [isUseImperativeHandleCall](variables/isUseImperativeHandleCall.md)
 - [isUseInsertionEffectCall](variables/isUseInsertionEffectCall.md)
 - [isUseLayoutEffectCall](variables/isUseLayoutEffectCall.md)
 - [isUseMemoCall](variables/isUseMemoCall.md)
+- [isUseOptimisticCall](variables/isUseOptimisticCall.md)
 - [isUseReducerCall](variables/isUseReducerCall.md)
 - [isUseRefCall](variables/isUseRefCall.md)
 - [isUseStateCall](variables/isUseStateCall.md)
@@ -111,6 +119,7 @@
 - [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
 - [isReactHookName](functions/isReactHookName.md)
+- [isReactHookNameLoose](functions/isReactHookNameLoose.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
 - [isRenderMethodLike](functions/isRenderMethodLike.md)
 - [isRenderPropLoose](functions/isRenderPropLoose.md)

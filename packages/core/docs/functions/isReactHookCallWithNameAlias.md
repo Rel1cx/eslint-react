@@ -12,7 +12,7 @@
 
 ### context
 
-`RuleContext`
+[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
 
 ### name
 
@@ -30,7 +30,7 @@
 
 #### node
 
-`CallExpression`
+[`CallExpression`](../-internal-/interfaces/CallExpression.md)
 
 ### Returns
 

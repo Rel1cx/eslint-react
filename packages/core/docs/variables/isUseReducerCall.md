@@ -12,7 +12,7 @@
 
 ### a
 
-...\[`RuleContext`, `CallExpression`\]
+...\[[`RuleContext`](../-internal-/type-aliases/RuleContext.md), [`Node`](../-internal-/type-aliases/Node.md)\]
 
 ## Returns
 

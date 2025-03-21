@@ -30,4 +30,4 @@
 
 ### listeners
 
-> **listeners**: `ESLintUtils.RuleListener`
+> **listeners**: [`RuleListener`](../../../../-internal-/type-aliases/RuleListener.md)

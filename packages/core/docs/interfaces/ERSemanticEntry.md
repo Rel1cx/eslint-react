@@ -10,7 +10,7 @@
 
 ### node
 
-> **node**: `Node`
+> **node**: [`Node`](../-internal-/type-aliases/Node.md)
 
 ***
 

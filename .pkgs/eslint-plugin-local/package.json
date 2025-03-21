@@ -25,7 +25,7 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@eslint/js": "^9.22.0",
+    "@eslint/js": "^9.23.0",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@typescript-eslint/scope-manager": "^8.27.0",
     "@typescript-eslint/type-utils": "^8.27.0",

@@ -14,7 +14,7 @@ Get a ctx and listeners for the rule to collect function components
 
 ### context
 
-`RuleContext`
+[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
 
 The ESLint rule context
 

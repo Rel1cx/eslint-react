@@ -12,7 +12,7 @@
 
 ### node
 
-`undefined` | `CallExpression`
+`undefined` | [`Node`](../-internal-/type-aliases/Node.md)
 
 ## Returns
 

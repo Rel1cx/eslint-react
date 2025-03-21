@@ -4,6 +4,10 @@
 
 # @eslint-react/shared
 
+## Modules
+
+- [\<internal\>](-internal-/README.md)
+
 ## Interfaces
 
 - [CustomComponentNormalized](interfaces/CustomComponentNormalized.md)

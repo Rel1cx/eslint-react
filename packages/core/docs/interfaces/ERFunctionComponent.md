@@ -14,7 +14,7 @@
 
 ### displayName
 
-> **displayName**: `undefined` \| `Expression`
+> **displayName**: `undefined` \| [`Expression`](../-internal-/type-aliases/Expression.md)
 
 ***
 
@@ -40,13 +40,13 @@
 
 ### hookCalls
 
-> **hookCalls**: `CallExpression`[]
+> **hookCalls**: [`CallExpression`](../-internal-/interfaces/CallExpression.md)[]
 
 ***
 
 ### id
 
-> **id**: `undefined` \| `Identifier` \| `Identifier`[]
+> **id**: `undefined` \| [`Identifier`](../-internal-/interfaces/Identifier.md) \| [`Identifier`](../-internal-/interfaces/Identifier.md)[]
 
 #### Overrides
 
@@ -56,7 +56,7 @@
 
 ### initPath
 
-> **initPath**: `undefined` \| `FunctionInitPath`
+> **initPath**: `undefined` \| [`FunctionInitPath`](../-internal-/type-aliases/FunctionInitPath.md)
 
 ***
 
@@ -92,7 +92,7 @@
 
 ### node
 
-> **node**: `TSESTreeFunction`
+> **node**: [`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 
 #### Overrides
 
