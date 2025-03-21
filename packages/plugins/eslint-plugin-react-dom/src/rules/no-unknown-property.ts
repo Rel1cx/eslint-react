@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 /* eslint-disable */
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 // TODO: Port to TypeScript
-
+// @ts-nocheck
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
-import { compare, compareVersions } from "compare-versions";
+import { compare } from "compare-versions";
+import { createReport } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -1091,6 +1090,7 @@ export default createRule({
 });
 
 export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
+  const report = createReport(context);
   function getIgnoreConfig() {
     return context.options[0]?.ignore || DEFAULTS.ignore;
   }
@@ -1117,8 +1117,9 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
 
       if (isValidDataAttribute(name)) {
         if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
-          report(context, messages.dataLowercaseRequired, "dataLowercaseRequired", {
+          report({
             node,
+            messageId: "dataLowercaseRequired",
             data: {
               name: actualName,
               lowerCaseName: actualName.toLowerCase(),
@@ -1146,8 +1147,9 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       if (tagName && allowedTags) {
         // Scenario 1A: Allowed attribute found where not supposed to, report it
         if (allowedTags.indexOf(tagName) === -1) {
-          report(context, messages.invalidPropOnTag, "invalidPropOnTag", {
+          report({
             node,
+            messageId: "invalidPropOnTag",
             data: {
               name: actualName,
               allowedTags: allowedTags.join(", "),
@@ -1172,8 +1174,9 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
 
       if (hasStandardNameButIsNotUsed) {
         // Scenario 2B: The name of the attribute is close to a standard one, report it with the standard name
-        report(context, messages.unknownPropWithStandardName, "unknownPropWithStandardName", {
+        report({
           node,
+          messageId: "unknownPropWithStandardName",
           data: {
             name: actualName,
             standardName,
@@ -1186,8 +1189,9 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       }
 
       // Scenario 3: We have an attribute that is unknown, report it
-      report(context, messages.unknownProp, "unknownProp", {
+      report({
         node,
+        messageId: "unknownProp",
         data: {
           name: actualName,
         },
@@ -1202,13 +1206,6 @@ function has(obj, key) {
 
 function getText(context, node) {
   return context.sourceCode.getText(node);
-}
-
-function report(context, message, messageId, data) {
-  context.report({
-    messageId,
-    ...data,
-  });
 }
 
 function testReactVersion(context, comparator, version) {

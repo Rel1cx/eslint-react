@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import { report, type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -35,6 +35,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const report = createReport(context);
   const state = { isWithinChildrenToArray: false };
 
   function checkIteratorElement(node: TSESTree.Node): null | ReportDescriptor<MessageID> {
@@ -102,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
         if (!JSX.hasAttribute("key", element.openingElement.attributes, initialScope)) {
-          report(context)({
+          report({
             messageId: "missingKey",
             node: element,
           });
@@ -123,12 +124,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       if (fn.body.type === T.BlockStatement) {
-        for (const descriptor of checkBlockStatement(fn.body)) {
-          report(context)(descriptor);
-        }
+        checkBlockStatement(fn.body).forEach(report);
         return;
       }
-      report(context)(checkExpression(fn.body));
+      report(checkExpression(fn.body));
     },
     "CallExpression:exit"(node) {
       if (!isChildrenToArrayCall(context, node)) {
@@ -141,7 +140,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       if (node.parent.type === T.ArrayExpression) {
-        report(context)({
+        report({
           messageId: "unexpectedFragmentSyntax",
           node,
         });

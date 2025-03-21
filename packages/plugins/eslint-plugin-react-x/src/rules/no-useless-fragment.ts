@@ -36,7 +36,7 @@ function trimLikeReact(text: string) {
   return text.slice(start, end);
 }
 
-function checkAndReport(
+function doCheck(
   context: RuleContext,
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
@@ -194,10 +194,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   return {
     JSXElement(node) {
       if (!JSX.isFragmentElement(node)) return;
-      checkAndReport(context, node, allowExpressions);
+      doCheck(context, node, allowExpressions);
     },
     JSXFragment(node) {
-      checkAndReport(context, node, allowExpressions);
+      doCheck(context, node, allowExpressions);
     },
   };
 }
