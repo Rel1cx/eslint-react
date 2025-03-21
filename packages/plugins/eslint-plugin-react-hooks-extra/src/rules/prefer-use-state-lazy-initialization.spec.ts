@@ -265,6 +265,22 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState, use } from 'react';
 
+        function Shell({data}) {
+          const [root, setRoot] = useState(use(data));
+          updateRoot = setRoot;
+          return root;
+        }
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import { useState, use } from 'react';
+
         const promise = Promise.resolve();
 
         function App() {
