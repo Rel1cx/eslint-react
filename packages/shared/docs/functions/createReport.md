@@ -2,11 +2,13 @@
 
 ***
 
-[@eslint-react/shared](../README.md) / report
+[@eslint-react/shared](../README.md) / createReport
 
-# Function: report()
+# Function: createReport()
 
-> **report**\<`MessageID`\>(`context`): (`descriptor`) => `void`
+> **createReport**\<`MessageID`\>(`context`): (`descriptor`) => `void`
+
+Creates a report function that can conditionally report a descriptor.
 
 ## Type Parameters
 
@@ -20,9 +22,13 @@
 
 [`RuleContext`](../type-aliases/RuleContext.md)
 
+The context of the rule
+
 ## Returns
 
 `Function`
+
+A function that takes a descriptor and reports it if it's not null or undefined
 
 ### Parameters
 

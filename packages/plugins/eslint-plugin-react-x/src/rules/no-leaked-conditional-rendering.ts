@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { _, flow, identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext, report } from "@eslint-react/shared";
+import { createReport, getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -260,7 +260,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       })
       .otherwise(() => _);
   }
-  const visitorFunction = flow(getReportDescriptor, report(context));
+  const visitorFunction = flow(getReportDescriptor, createReport(context));
   return {
     "JSXExpressionContainer > ConditionalExpression": visitorFunction,
     "JSXExpressionContainer > LogicalExpression": visitorFunction,

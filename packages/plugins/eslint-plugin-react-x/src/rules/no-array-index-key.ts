@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { report, unsafeDecodeSettings } from "@eslint-react/shared";
+import { createReport, unsafeDecodeSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -127,6 +127,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const report = createReport(context);
   const indexParamNames: Array<string | _> = [];
 
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
@@ -217,7 +218,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         getReportDescriptors(prop.value)
-          .map(report(context));
+          .forEach(report);
       }
     },
     "CallExpression:exit"() {
@@ -234,7 +235,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       getReportDescriptors(node.value.expression)
-        .map(report(context));
+        .forEach(report);
     },
   };
 }
