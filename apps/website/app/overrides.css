@@ -44,6 +44,10 @@
     monospace;
 }
 
+body {
+  font-family: var(--font-family-body);
+}
+
 button {
   cursor: pointer;
 }
