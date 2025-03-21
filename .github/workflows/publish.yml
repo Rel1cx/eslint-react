@@ -7,10 +7,10 @@ on:
       - "**"
     paths-ignore:
       - "**/*.gitignore"
-      - .adrs/**
       - .editorconfig
       - apps/**
       - examples/**
+      - decisions/**
   pull_request: null
 jobs:
   publish:
