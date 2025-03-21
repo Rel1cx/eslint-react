@@ -42,6 +42,7 @@ export const rules = {
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
+  "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/use-jsx-vars": "warn",
 } as const satisfies RulePreset;
 
