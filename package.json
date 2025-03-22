@@ -26,7 +26,7 @@
   "author": "Eva1ent<rel1cx@proton.me>",
   "type": "module",
   "scripts": {
-    "build": "pnpm run update:version && nx run-many -t build --projects=\"packages/**\"",
+    "build": "pnpm run update:all && nx run-many -t build --projects=\"packages/**\"",
     "build:all": "nx run-many -t build",
     "build:docs": "nx run-many -t build:docs --projects=\"packages/**\" && pnpm run update:readme",
     "build:pkgs": "pnpm -F \"./.pkgs/*\" run build",
@@ -44,7 +44,7 @@
     "lint:spell": "cspell lint --relative --no-progress \"**\"",
     "lint:ts": "pnpm m run lint:ts",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
-    "prepare": "lefthook install && pnpm run update:all && pnpm run build",
+    "prepare": "lefthook install && pnpm run build",
     "test": "vitest run --logHeapUsage",
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
     "update:readme": "tsx ./scripts/update-readme.ts",
