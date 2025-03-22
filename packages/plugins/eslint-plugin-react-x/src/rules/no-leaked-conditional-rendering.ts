@@ -10,7 +10,7 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
-import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionConstituents } from "ts-api-utils";
+import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";
 
@@ -235,7 +235,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           } as const;
         }
         const leftType = getConstrainedTypeAtLocation(services, left);
-        const leftTypeVariants = inspectVariantTypes(unionConstituents(leftType));
+        const leftTypeVariants = inspectVariantTypes(unionTypeParts(leftType)); // eslint-disable-line @typescript-eslint/no-deprecated
         const isLeftValid = Array
           .from(leftTypeVariants.values())
           .every((type) => allowedVariants.some((allowed) => allowed === type));
