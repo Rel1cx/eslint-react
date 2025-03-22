@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, P } from "ts-pattern";
 
-import type { TimerEntry } from "../models";
+import type { TimerEntry } from "../types";
 import { createRule, getPhaseKindOfFunction } from "../utils";
 
 // #region Rule Metadata

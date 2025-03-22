@@ -10,8 +10,8 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching, match, P } from "ts-pattern";
 
+import type { EventListenerEntry } from "../types";
 import { createRule, getPhaseKindOfFunction } from "../utils";
-import type { EventListenerEntry } from "./../models";
 
 // #region Rule Metadata
 

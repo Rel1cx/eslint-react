@@ -3,7 +3,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import { nullThrows, NullThrowsReasons, type RuleListener } from "@typescript-eslint/utils/eslint-utils";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
