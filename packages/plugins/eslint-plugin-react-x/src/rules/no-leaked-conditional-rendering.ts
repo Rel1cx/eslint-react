@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { _, flow, identity } from "@eslint-react/eff";
+import { _, flow } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { createReport, getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -253,10 +253,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       })
       .with({ type: T.Identifier }, (n) => {
         const variable = VAR.findVariable(n.name, context.sourceCode.getScope(n));
-        const initExpression = match(variable?.defs.at(0)?.node)
-          .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, identity)
+        const variableDefNode = variable?.defs.at(0)?.node;
+        return match(variableDefNode)
+          .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, getReportDescriptor)
           .otherwise(() => _);
-        return getReportDescriptor(initExpression);
       })
       .otherwise(() => _);
   }
