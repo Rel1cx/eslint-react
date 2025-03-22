@@ -1,3 +1,11 @@
+## v1.37.2 (2025-03-22)
+
+### 🐞 Fixes
+
+- fix: `prefer-read-only-props` false positive using React types, closes #962 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1008>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.1...v1.37.2>
+
 ## v1.37.1 (2025-03-22)
 
 ### 🐞 Fixes
