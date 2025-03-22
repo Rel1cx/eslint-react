@@ -24,18 +24,7 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      MemberExpression(node) {
-        if (isChildrenMap(context, node)) {
-          context.report({
-            messageId: "noChildrenMap",
-            node: node.property,
-          });
-        }
-      },
-    };
-  },
+  create,
   defaultOptions: [],
 });
 

@@ -63,20 +63,21 @@ var avoid_multiline_template_expression_default = createRule({
     schema: []
   },
   name: RULE_NAME,
-  create(context) {
-    return {
-      TemplateLiteral: (node) => {
-        if (AST.isMultiLine(node)) {
-          context.report({
-            messageId: "avoidMultilineTemplateExpression",
-            node
-          });
-        }
-      }
-    };
-  },
+  create,
   defaultOptions: []
 });
+function create(context) {
+  return {
+    TemplateLiteral: (node) => {
+      if (AST.isMultiLine(node)) {
+        context.report({
+          messageId: "avoidMultilineTemplateExpression",
+          node
+        });
+      }
+    }
+  };
+}
 
 // src/rules/no-shadow-underscore.ts
 var RULE_NAME2 = "no-shadow-underscore";
@@ -94,22 +95,23 @@ var no_shadow_underscore_default = createRule({
     schema: []
   },
   name: RULE_NAME2,
-  create(context) {
-    return {
-      "Identifier[name='_']"(node) {
-        const initialScope = context.sourceCode.getScope(node);
-        const isFromImport = isInitializedFromSource("_", "@eslint-react/eff", initialScope);
-        if (!isFromImport) {
-          context.report({
-            messageId: "noShadowUnderscore",
-            node
-          });
-        }
-      }
-    };
-  },
+  create: create2,
   defaultOptions: []
 });
+function create2(context) {
+  return {
+    "Identifier[name='_']"(node) {
+      const initialScope = context.sourceCode.getScope(node);
+      const isFromImport = isInitializedFromSource("_", "@eslint-react/eff", initialScope);
+      if (!isFromImport) {
+        context.report({
+          messageId: "noShadowUnderscore",
+          node
+        });
+      }
+    }
+  };
+}
 var RULE_NAME3 = "prefer-eqeq-nullish-comparison";
 var prefer_eqeq_nullish_comparison_default = createRule({
   meta: {
@@ -126,59 +128,60 @@ var prefer_eqeq_nullish_comparison_default = createRule({
     schema: []
   },
   name: RULE_NAME3,
-  create(context) {
-    return {
-      BinaryExpression(node) {
-        if (node.operator === "===" || node.operator === "!==") {
-          const offendingChild = [node.left, node.right].find(
-            (child) => child.type === AST_NODE_TYPES.Identifier && child.name === "undefined" || child.type === AST_NODE_TYPES.Literal && child.raw === "null"
-          );
-          if (offendingChild == null) {
-            return;
-          }
-          const operatorToken = nullThrows(
-            context.sourceCode.getFirstTokenBetween(
-              node.left,
-              node.right,
-              (token) => token.value === node.operator
-            ),
-            NullThrowsReasons.MissingToken(node.operator, "binary expression")
-          );
-          const wasLeft = node.left === offendingChild;
-          const nullishKind = offendingChild.type === AST_NODE_TYPES.Identifier ? "undefined" : "null";
-          const looseOperator = node.operator === "===" ? "==" : "!=";
-          context.report({
-            messageId: "unexpectedComparison",
-            data: {
-              nullishKind,
-              strictOperator: node.operator
-            },
-            loc: wasLeft ? {
-              end: operatorToken.loc.end,
-              start: node.left.loc.start
-            } : {
-              end: node.right.loc.end,
-              start: operatorToken.loc.start
-            },
-            suggest: [
-              {
-                messageId: "useLooseComparisonSuggestion",
-                data: {
-                  looseOperator
-                },
-                fix: (fixer) => [
-                  fixer.replaceText(offendingChild, "null"),
-                  fixer.replaceText(operatorToken, looseOperator)
-                ]
-              }
-            ]
-          });
-        }
-      }
-    };
-  },
+  create: create3,
   defaultOptions: []
 });
+function create3(context) {
+  return {
+    BinaryExpression(node) {
+      if (node.operator === "===" || node.operator === "!==") {
+        const offendingChild = [node.left, node.right].find(
+          (child) => child.type === AST_NODE_TYPES.Identifier && child.name === "undefined" || child.type === AST_NODE_TYPES.Literal && child.raw === "null"
+        );
+        if (offendingChild == null) {
+          return;
+        }
+        const operatorToken = nullThrows(
+          context.sourceCode.getFirstTokenBetween(
+            node.left,
+            node.right,
+            (token) => token.value === node.operator
+          ),
+          NullThrowsReasons.MissingToken(node.operator, "binary expression")
+        );
+        const wasLeft = node.left === offendingChild;
+        const nullishKind = offendingChild.type === AST_NODE_TYPES.Identifier ? "undefined" : "null";
+        const looseOperator = node.operator === "===" ? "==" : "!=";
+        context.report({
+          messageId: "unexpectedComparison",
+          data: {
+            nullishKind,
+            strictOperator: node.operator
+          },
+          loc: wasLeft ? {
+            end: operatorToken.loc.end,
+            start: node.left.loc.start
+          } : {
+            end: node.right.loc.end,
+            start: operatorToken.loc.start
+          },
+          suggest: [
+            {
+              messageId: "useLooseComparisonSuggestion",
+              data: {
+                looseOperator
+              },
+              fix: (fixer) => [
+                fixer.replaceText(offendingChild, "null"),
+                fixer.replaceText(operatorToken, looseOperator)
+              ]
+            }
+          ]
+        });
+      }
+    }
+  };
+}
 
 // src/index.ts
 var index_default = {

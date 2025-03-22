@@ -27,34 +27,7 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create(context) {
-    function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
-      if (AST.isOneOf([T.JSXAttribute, T.JSXExpressionContainer])(node.parent)) {
-        return false;
-      }
-      const rawValue = context.sourceCode.getText(node);
-      return /^\s*\/(?:\/|\*)/mu.test(rawValue);
-    }
-    const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal): void => {
-      if (!AST.isOneOf([T.JSXElement, T.JSXFragment])(node.parent)) {
-        return;
-      }
-      if (!hasCommentLike(node)) {
-        return;
-      }
-      if (!node.parent.type.includes("JSX")) {
-        return;
-      }
-      context.report({
-        messageId: "noCommentTextnodes",
-        node,
-      });
-    };
-    return {
-      JSXText: visitorFunction,
-      Literal: visitorFunction,
-    };
-  },
+  create,
   defaultOptions: [],
 });
 
