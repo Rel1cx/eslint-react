@@ -1,9 +1,11 @@
 import { useComponentCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
 import type { CamelCase } from "string-ts";
+import type ts from "typescript";
 
 import { createRule } from "../utils";
 
@@ -45,11 +47,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         const propsType = getConstrainedTypeAtLocation(services, props);
-        if (isTypeReadonly(services.program, propsType)) {
+        if (isTypeReadonlyLoose(services, propsType)) {
           continue;
         }
         context.report({ messageId: "preferReadOnlyProps", node: props });
       }
     },
   };
+}
+
+function isTypeReadonlyLoose(services: ParserServicesWithTypeInformation, type: ts.Type): boolean {
+  if (isTypeReadonly(services.program, type)) return true;
+  try {
+    const im = getTypeImmutability(services.program, type);
+    return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
+  } catch {
+    return true;
+  }
 }

@@ -428,6 +428,29 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
+      import { useState } from 'react';
+      import './App.css';
+
+      export default function App(
+        props: Readonly<React.HTMLAttributes<HTMLDivElement>>
+      ) {
+        const [count, setCount] = useState(0);
+
+        return (
+          <>
+            <div className="card" id={props.id}>
+              <button type="button" onClick={() => setCount((count) => count + 1)}>
+                count is {count}
+              </button>
+            </div>
+          </>
+        );
+      }
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
       import * as React from "react";
 
       type DeepReadonly<T> = Readonly<{[K in keyof T]: T[K] extends (number | string | symbol) ? Readonly<T[K]> : T[K] extends Array<infer A> ? Readonly<Array<DeepReadonly<A>>> : DeepReadonly<T[K]>;}>;
