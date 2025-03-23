@@ -1,17 +1,18 @@
 import js from "@eslint/js";
-import react from "@eslint-react/eslint-plugin";
 import markdown from "@eslint/markdown";
+import react from "@eslint-react/eslint-plugin";
+// @ts-expect-error - no types for this package
+import pluginNext from "@next/eslint-plugin-next";
+import gitignore from "eslint-config-flat-gitignore";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
 import pluginMdx from "eslint-plugin-mdx";
-import pluginNext from "@next/eslint-plugin-next";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
-import pluginReactCompiler from "eslint-plugin-react-compiler";
 import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import pluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
-import gitignore from "eslint-config-flat-gitignore";
+
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
@@ -52,10 +53,10 @@ const p11tGroups = {
 
 export default tseslint.config(
   {
-    files: GLOB_MD,
     extends: [
       markdown.configs.recommended,
     ],
+    files: GLOB_MD,
     language: "markdown/gfm",
     rules: {
       "markdown/no-html": "error",
@@ -70,20 +71,18 @@ export default tseslint.config(
     }),
   },
   {
-    files: GLOB_TS,
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
       pluginDeMorgan.configs.recommended,
       pluginPerfectionist.configs["recommended-natural"],
     ],
+    files: GLOB_TS,
     plugins: {
       "simple-import-sort": pluginSimpleImportSort,
       unicorn: pluginUnicorn,
     },
     rules: {
-      "simple-import-sort/imports": "warn",
-      "simple-import-sort/exports": "warn",
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
       "perfectionist/sort-interfaces": [
@@ -114,6 +113,8 @@ export default tseslint.config(
       ],
       "perfectionist/sort-switch-case": "off",
       "perfectionist/sort-union-types": "off",
+      "simple-import-sort/exports": "warn",
+      "simple-import-sort/imports": "warn",
       "unicorn/template-indent": [
         "warn",
         {
@@ -124,10 +125,10 @@ export default tseslint.config(
     },
   },
   {
-    files: TSCONFIG.include,
     extends: [
       tseslint.configs.recommendedTypeChecked,
     ],
+    files: TSCONFIG.include,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -141,7 +142,6 @@ export default tseslint.config(
     files: TSCONFIG.include,
     ...react.configs["recommended-type-checked"],
   },
-  pluginReactCompiler.configs.recommended,
   {
     files: TSCONFIG.include,
     plugins: {
@@ -179,8 +179,8 @@ export default tseslint.config(
     files: [...GLOB_JS, ...GLOB_CONFIG],
     rules: {
       ...tseslint.configs.disableTypeChecked.rules,
-      "no-undef": "off",
       "no-console": "off",
+      "no-undef": "off",
     },
   },
   gitignore(),
