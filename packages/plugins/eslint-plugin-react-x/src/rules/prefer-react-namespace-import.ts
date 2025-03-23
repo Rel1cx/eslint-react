@@ -10,6 +10,7 @@ export const RULE_NAME = "prefer-react-namespace-import";
 
 export const RULE_FEATURES = [
   "FIX",
+  "EXP",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;

@@ -13,6 +13,7 @@ export const RULE_NAME = "prefer-read-only-props";
 
 export const RULE_FEATURES = [
   "TSC",
+  "EXP",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
