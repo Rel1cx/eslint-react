@@ -1,8 +1,8 @@
 import type { _ } from "@eslint-react/eff";
-import { isObject } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { isObject } from "@eslint-react/eff";
 
 import { createRule } from "../utils";
 

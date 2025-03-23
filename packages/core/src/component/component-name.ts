@@ -1,7 +1,7 @@
 import type * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
+import { _ } from "@eslint-react/eff";
 
 import { getFunctionComponentIdentifier } from "./component-id";
 

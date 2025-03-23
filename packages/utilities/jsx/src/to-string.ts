@@ -1,5 +1,5 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**
  * Get the stringified representation of a JSX node

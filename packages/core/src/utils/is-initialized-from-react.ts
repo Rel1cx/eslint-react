@@ -1,8 +1,8 @@
+import type { Scope } from "@typescript-eslint/scope-manager";
+import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { _, identity } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
-import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
 

@@ -1,9 +1,9 @@
-// Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
-import * as AST from "@eslint-react/ast";
-import { isForwardRefCall } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+// Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
+import * as AST from "@eslint-react/ast";
+import { isForwardRefCall } from "@eslint-react/core";
 
 import { createRule } from "../utils";
 

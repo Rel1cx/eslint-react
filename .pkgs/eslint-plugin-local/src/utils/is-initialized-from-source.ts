@@ -1,8 +1,8 @@
+import type { Scope } from "@typescript-eslint/scope-manager";
+import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import { findVariable } from "@eslint-react/var";
-import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**

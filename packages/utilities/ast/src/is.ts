@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import type { TSESTree } from "@typescript-eslint/utils";
 import { or } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils } from "@typescript-eslint/utils";
 
 export const is = ASTUtils.isNodeOfType;

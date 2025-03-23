@@ -3,9 +3,9 @@ import url from "node:url";
 import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
 import pluginLocal from "@local/eslint-plugin-local";
-import { globalIgnores } from "eslint/config";
 import configFlatGitignore from "eslint-config-flat-gitignore";
 import pluginVitest from "eslint-plugin-vitest";
+import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));

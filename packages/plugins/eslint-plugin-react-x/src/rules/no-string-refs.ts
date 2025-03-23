@@ -1,8 +1,8 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 

@@ -1,9 +1,9 @@
 /* eslint-disable perfectionist/sort-objects */
+import { CodeBlock } from "#/components/code-block";
 import dedent from "dedent";
 import { TypeTable } from "fumadocs-ui/components/type-table";
-import { Link } from "next-view-transitions";
 
-import { CodeBlock } from "#/components/code-block";
+import { Link } from "next-view-transitions";
 
 export function SettingsTypeTable() {
   return (

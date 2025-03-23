@@ -4,7 +4,6 @@ import pluginDeMorgan from "eslint-plugin-de-morgan";
 import pluginJsdoc from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
-import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import pluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
 const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
@@ -101,7 +100,6 @@ export const typescript = tseslint.config({
     files: GLOB_TS,
     plugins: {
         ["@stylistic"]: stylistic,
-        ["simple-import-sort"]: pluginSimpleImportSort,
         ["unicorn"]: pluginUnicorn,
     },
     rules: {
@@ -109,18 +107,31 @@ export const typescript = tseslint.config({
         "@stylistic/no-multi-spaces": ["warn"],
         "@stylistic/operator-linebreak": ["warn", "before"],
         "@stylistic/quote-props": ["error", "as-needed"],
-        "simple-import-sort/exports": "warn",
-        "simple-import-sort/imports": "warn",
-        "perfectionist/sort-exports": "off",
-        "perfectionist/sort-imports": "off",
+        "perfectionist/sort-exports": ["warn", { type: "natural", order: "asc" }],
+        "perfectionist/sort-imports": ["warn", {
+                type: "natural",
+                groups: [
+                    "type",
+                    ["parent-type", "sibling-type", "index-type", "internal-type"],
+                    "builtin",
+                    "external",
+                    "internal",
+                    ["parent", "sibling", "index"],
+                    "side-effect",
+                    "object",
+                    "unknown",
+                ],
+                newlinesBetween: "ignore",
+                order: "asc",
+            }],
         "perfectionist/sort-interfaces": [
             "warn",
             { ...p11tOptions, ...p11tGroups },
         ],
         "perfectionist/sort-intersection-types": "off",
         "perfectionist/sort-modules": "off",
-        "perfectionist/sort-named-exports": "off",
-        "perfectionist/sort-named-imports": "off",
+        "perfectionist/sort-named-exports": ["warn", { type: "natural", order: "asc" }],
+        "perfectionist/sort-named-imports": ["warn", { type: "natural", order: "asc" }],
         "perfectionist/sort-object-types": [
             "warn",
             { ...p11tOptions, ...p11tGroups },

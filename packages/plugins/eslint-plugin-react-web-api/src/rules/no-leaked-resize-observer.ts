@@ -1,15 +1,15 @@
-import * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ObserverEntry, ObserverMethod } from "../types";
+import * as AST from "@eslint-react/ast";
 import { ERPhaseRelevance, getInstanceId, isInstanceIdEqual } from "@eslint-react/core";
 import { _, or } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
-import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { isMatching, match, P } from "ts-pattern";
 
-import type { ObserverEntry, ObserverMethod } from "../types";
+import { isMatching, match, P } from "ts-pattern";
 import { createRule, getPhaseKindOfFunction } from "../utils";
 
 // #region Rule Metadata

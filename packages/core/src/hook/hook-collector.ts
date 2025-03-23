@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
-import { getId } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-
-import { isReactHookName } from "./hook-name";
 import type { ERHook } from "./hook-semantic-node";
+import * as AST from "@eslint-react/ast";
+
+import { getId } from "@eslint-react/shared";
+import { isReactHookName } from "./hook-name";
 import { isReactHookCall } from "./is";
 
 type FunctionEntry = {

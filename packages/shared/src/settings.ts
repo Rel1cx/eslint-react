@@ -1,16 +1,16 @@
 /* eslint-disable no-restricted-syntax */
 import type { _ } from "@eslint-react/eff";
-import { identity } from "@eslint-react/eff";
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import type { PartialDeep } from "type-fest";
+import type { CustomHooks, ESLintReactSettings } from "./schemas";
+import { identity } from "@eslint-react/eff";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";
 import { match, P } from "ts-pattern";
-import type { PartialDeep } from "type-fest";
-import { parse } from "valibot";
 
+import { parse } from "valibot";
 import { getReactVersion } from "./get-react-version";
-import type { CustomHooks, ESLintReactSettings } from "./schemas";
 import { DEFAULT_ESLINT_REACT_SETTINGS, ESLintSettingsSchema } from "./schemas";
 
 export interface CustomComponentNormalized {
