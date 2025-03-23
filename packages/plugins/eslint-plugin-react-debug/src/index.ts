@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/shared";
+import type { RulePreset } from "@eslint-react/kit";
 
 import * as allConfig from "./configs/all";
 import { plugin } from "./plugin";

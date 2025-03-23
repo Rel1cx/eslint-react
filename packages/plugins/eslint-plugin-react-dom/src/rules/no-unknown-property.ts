@@ -5,8 +5,8 @@
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare } from "compare-versions";
-import { createReport } from "@eslint-react/shared";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { createReport } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 // ------------------------------------------------------------------------------

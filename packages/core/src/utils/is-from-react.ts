@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { type _, dual } from "@eslint-react/eff";
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS, unsafeDecodeSettings } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";

@@ -71,6 +71,7 @@ Before submitting your contribution though, please make sure to take a moment an
 - `packages/utilities/ast`: TSESTree AST utility module.
 - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables.
 - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
+- `packages/utilities/kit`: ESLint React's Plugin Kit for building plugins and rules.
 
 ##### Core & Shared Modules
 

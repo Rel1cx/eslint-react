@@ -1,5 +1,5 @@
 import { isChildrenOnly } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 

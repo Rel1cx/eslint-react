@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/shared";
+import type { RulePreset } from "@eslint-react/kit";
 
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";

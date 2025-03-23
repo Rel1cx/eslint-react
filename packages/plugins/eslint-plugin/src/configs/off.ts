@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/shared";
+import type { RulePreset } from "@eslint-react/kit";
 
 import { rules as allRules } from "./all";
 import { rules as disableTypeCheckedRules } from "./disable-type-checked";
