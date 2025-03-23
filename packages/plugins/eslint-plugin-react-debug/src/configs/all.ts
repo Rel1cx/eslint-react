@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/shared";
+import type { RulePreset } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 
 export const name = "react-debug/all";

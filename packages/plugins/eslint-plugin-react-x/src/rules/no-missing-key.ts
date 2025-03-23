@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isChildrenToArrayCall } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";

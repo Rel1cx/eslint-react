@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
+    "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.27.0",
     "@typescript-eslint/type-utils": "^8.27.0",

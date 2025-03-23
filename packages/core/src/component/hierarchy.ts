@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/shared";
+import { type RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 

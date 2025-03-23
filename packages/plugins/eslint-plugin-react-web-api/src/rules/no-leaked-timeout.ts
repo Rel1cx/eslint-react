@@ -1,7 +1,7 @@
 import type * as AST from "@eslint-react/ast";
 import type { ERPhaseKind } from "@eslint-react/core";
 import { ERPhaseRelevance, isInstanceIdEqual } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
