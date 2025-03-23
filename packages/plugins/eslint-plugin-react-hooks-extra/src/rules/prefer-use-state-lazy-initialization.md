@@ -14,6 +14,10 @@ react-hooks-extra/prefer-use-state-lazy-initialization
 @eslint-react/hooks-extra/prefer-use-state-lazy-initialization
 ```
 
+**Features**
+
+`🧪`
+
 ## Description
 
 Enforces function calls made inside `useState` to be wrapped in an `initializer function`.

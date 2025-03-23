@@ -14,6 +14,10 @@ react-hooks-extra/no-unnecessary-use-memo
 @eslint-react/hooks-extra/no-unnecessary-use-memo
 ```
 
+**Features**
+
+`🧪`
+
 ## Description
 
 Disallow unnecessary usage of `useMemo`.

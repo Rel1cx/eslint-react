@@ -14,6 +14,10 @@ react-x/no-complex-conditional-rendering
 @eslint-react/no-complex-conditional-rendering
 ```
 
+**Features**
+
+`🧪`
+
 ## Description
 
 Disallow complex conditional rendering in JSX expressions.

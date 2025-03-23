@@ -14,7 +14,6 @@
 - [RuleFeature](type-aliases/RuleFeature.md)
 - [RulePreset](type-aliases/RulePreset.md)
 - [RuleSeverity](type-aliases/RuleSeverity.md)
-- [RuleStatus](type-aliases/RuleStatus.md)
 
 ## Variables
 

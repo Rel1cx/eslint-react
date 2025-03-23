@@ -40,14 +40,5 @@ export type RuleFeature =
   | "DBG" // Debugging
   | "FIX" // Fixable
   | "MOD" // Codemod
-  | "TSC"; // TypeScript Type Checking
-
-/**
- * Rule status.
- * @since 1.36.0
- */
-export type RuleStatus =
-  | "stable" // Stable
-  | "experimental" // Experimental
-  | "deprecated" // Deprecated
-  | "removed"; // Removed
+  | "TSC" // TypeScript Type Checking
+  | "EXP"; // Experimental

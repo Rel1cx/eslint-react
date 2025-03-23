@@ -14,6 +14,10 @@ react-x/no-implicit-key
 @eslint-react/no-implicit-key
 ```
 
+**Features**
+
+`🧪`
+
 **Presets**
 
 - `core`

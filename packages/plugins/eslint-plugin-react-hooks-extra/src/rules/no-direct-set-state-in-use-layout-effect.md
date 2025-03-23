@@ -14,6 +14,10 @@ react-hooks-extra/no-direct-set-state-in-use-layout-effect
 @eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect
 ```
 
+**Features**
+
+`🧪`
+
 ## Description
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
