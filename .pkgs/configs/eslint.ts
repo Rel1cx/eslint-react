@@ -125,11 +125,20 @@ export const typescript: ConfigArray = tseslint.config(
         type: "natural",
         groups: [
           "type",
-          ["parent-type", "sibling-type", "index-type", "internal-type"],
+          [
+            "parent-type",
+            "sibling-type",
+            "index-type",
+            "internal-type",
+          ],
           "builtin",
           "external",
           "internal",
-          ["parent", "sibling", "index"],
+          [
+            "parent",
+            "sibling",
+            "index",
+          ],
           "side-effect",
           "object",
           "unknown",

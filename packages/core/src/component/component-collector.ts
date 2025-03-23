@@ -7,9 +7,9 @@ import type { ERFunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-
 import { getId } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+
 import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
