@@ -1,6 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import {
   ERComponentHint,
@@ -12,17 +13,15 @@ import {
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID =
-  | "noNestedComponentDefinition"
-  | "noNestedComponentDefinitionInProps";
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -32,10 +31,8 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noNestedComponentDefinition:
-        "Do not nest component definitions inside other components. Move it to the top level.",
-      noNestedComponentDefinitionInProps:
-        "Do not nest component definitions inside props. Move it to the top level or pass it as a prop.",
+      noNestedComponentDefinitions:
+        "Do not nest component definitions inside other components or props. {{suggestion}}",
     },
     schema: [],
   },
@@ -89,10 +86,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (isInsideJSXAttributeValue(component)) {
           if (!isDeclaredInRenderPropLoose(component)) {
             context.report({
-              messageId: "noNestedComponentDefinitionInProps",
+              messageId: "noNestedComponentDefinitions",
               node: component,
               data: {
                 name,
+                suggestion: "Move it to the top level or pass it as a prop.",
               },
             });
           }
@@ -101,10 +99,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         if (isInsideCreateElementProps(context, component)) {
           context.report({
-            messageId: "noNestedComponentDefinitionInProps",
+            messageId: "noNestedComponentDefinitions",
             node: component,
             data: {
               name,
+              suggestion: "Move it to the top level or pass it as a prop.",
             },
           });
 
@@ -113,12 +112,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const parentComponent = AST.findParentNode(component, isFunctionComponent);
         if (parentComponent != null && !isDirectValueOfRenderPropertyLoose(parentComponent)) {
           context.report({
-            messageId: component.parent.type === T.Property
-              ? "noNestedComponentDefinitionInProps"
-              : "noNestedComponentDefinition",
+            messageId: "noNestedComponentDefinitions",
             node: component,
             data: {
               name,
+              suggestion: component.parent.type === T.Property
+                ? "Move it to the top level or pass it as a prop."
+                : "Move it to the top level.",
             },
           });
 
@@ -126,10 +126,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         if (isInsideRenderMethod(component)) {
           context.report({
-            messageId: "noNestedComponentDefinition",
+            messageId: "noNestedComponentDefinitions",
             node: component,
             data: {
               name,
+              suggestion: "Move it to the top level.",
             },
           });
         }
@@ -139,10 +140,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         context.report({
-          messageId: "noNestedComponentDefinition",
+          messageId: "noNestedComponentDefinitions",
           node: component,
           data: {
             name,
+            suggestion: component.parent.type === T.Property
+              ? "Move it to the top level or pass it as a prop."
+              : "Move it to the top level.",
           },
         });
       }
