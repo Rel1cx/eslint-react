@@ -1,11 +1,11 @@
-import { isInitializedFromReact } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import { isInitializedFromReact } from "@eslint-react/core";
+import { getSettingsFromContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 

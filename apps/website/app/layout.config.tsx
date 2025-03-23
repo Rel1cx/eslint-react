@@ -1,9 +1,9 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import type { StaticImageData } from "next/image";
-import React from "react";
-
 import logo from "#/assets/logo.svg";
+
 import { Image } from "#/components/ui/image";
+import React from "react";
 
 /**
  * Shared layout configurations

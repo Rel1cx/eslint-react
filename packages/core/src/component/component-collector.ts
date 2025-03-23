@@ -1,21 +1,21 @@
 /* eslint-disable no-restricted-syntax */
+import type { RuleContext } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ERComponentHint } from "./component-collector-hint";
+import type { ERFunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/kit";
-import { getId } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
 
+import { getId } from "@eslint-react/shared";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
-import type { ERComponentHint } from "./component-collector-hint";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
 import { getFunctionComponentIdentifier } from "./component-id";
 import { getComponentNameFromIdentifier, hasNoneOrLooseComponentName } from "./component-name";
-import type { ERFunctionComponent } from "./component-semantic-node";
 import { hasValidHierarchy } from "./hierarchy";
 
 type FunctionEntry = {

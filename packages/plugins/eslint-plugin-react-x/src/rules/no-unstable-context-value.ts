@@ -1,12 +1,12 @@
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrUpdate } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 
 import { createRule } from "../utils";

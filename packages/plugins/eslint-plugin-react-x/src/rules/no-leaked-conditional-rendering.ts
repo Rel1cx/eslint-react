@@ -1,15 +1,15 @@
+import type { TSESTree } from "@typescript-eslint/types";
+import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import { _, flow } from "@eslint-react/eff";
 import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
-import type { CamelCase } from "string-ts";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";

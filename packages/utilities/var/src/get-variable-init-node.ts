@@ -1,7 +1,7 @@
-import { _ } from "@eslint-react/eff";
 import type { Variable } from "@typescript-eslint/scope-manager";
-import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { _ } from "@eslint-react/eff";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 export function getVariableInitNode(variable: Variable | _, at: number):

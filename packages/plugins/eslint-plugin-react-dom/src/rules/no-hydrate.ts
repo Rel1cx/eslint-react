@@ -1,10 +1,10 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
+import { getSettingsFromContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { compare } from "compare-versions";
 
 import { createRule } from "../utils";
 

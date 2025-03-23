@@ -1,7 +1,7 @@
-import * as JSX from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/kit";
 import type { CustomComponentNormalized } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
+import * as JSX from "@eslint-react/jsx";
 
 export function getElementTypeOnJsxAndDom(
   context: RuleContext,

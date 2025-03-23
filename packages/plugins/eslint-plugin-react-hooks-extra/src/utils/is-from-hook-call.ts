@@ -1,9 +1,9 @@
-import { isReactHookCallWithNameAlias } from "@eslint-react/core";
-import { constTrue } from "@eslint-react/eff";
 import type { REACT_BUILD_IN_HOOKS, RuleContext } from "@eslint-react/kit";
 import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
+import { isReactHookCallWithNameAlias } from "@eslint-react/core";
+import { constTrue } from "@eslint-react/eff";
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 export function isFromHookCall(

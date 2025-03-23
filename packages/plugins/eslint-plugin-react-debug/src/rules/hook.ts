@@ -1,7 +1,7 @@
-import { useHookCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import { useHookCollector } from "@eslint-react/core";
 
 import { createRule } from "../utils";
 

@@ -1,13 +1,13 @@
-import "./base.css";
-import "./overrides.css";
-
-import { RootProvider } from "fumadocs-ui/provider";
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
-import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
 
+import { RootProvider } from "fumadocs-ui/provider";
+import { ViewTransitions } from "next-view-transitions";
+import { IBM_Plex_Mono } from "next/font/google";
 import { baseUrl } from "../lib/metadata";
+import "./base.css";
+
+import "./overrides.css";
 
 const ibm_plex_mono = IBM_Plex_Mono({
   subsets: ["latin"],

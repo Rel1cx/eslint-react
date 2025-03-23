@@ -1,10 +1,10 @@
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { ERClassComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
-import { getId } from "@eslint-react/shared";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
+import { getId } from "@eslint-react/shared";
 import { ERComponentFlag } from "./component-flag";
-import type { ERClassComponent } from "./component-semantic-node";
 import { isClassComponent, isPureComponent } from "./is";
 
 export declare namespace useComponentCollectorLegacy {

@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { isTypeExpression } from "./is";
 import type { TSESTreeTypeExpression } from "./types";
+import { isTypeExpression } from "./is";
 
 /**
  * Recursively get the inner expression until it's not a TypeExpression
