@@ -1,7 +1,8 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCallWithNameAlias } from "@eslint-react/core";
 import { _, getOrUpdate } from "@eslint-react/eff";
-import { getSettingsFromContext, type RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/kit";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";

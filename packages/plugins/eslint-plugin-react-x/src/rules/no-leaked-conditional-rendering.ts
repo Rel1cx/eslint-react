@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { _, flow } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { createReport, getSettingsFromContext } from "@eslint-react/shared";
+import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";

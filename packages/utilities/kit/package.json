@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "1.38.0-next.0",
+  "version": "1.38.0-beta.3",
   "description": "ESLint React's Plugin Kit for building plugins and rules.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -36,6 +36,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
