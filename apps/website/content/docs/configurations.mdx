@@ -4,7 +4,7 @@ title: Configurations
 
 import { SettingsTypeTable } from "./configurations";
 
-ESLint React supports reading settings from the `react-x` key in the [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object of your ESLint configuration file.
+ESLint React reads configurations from the `react-x` key within ESLint's [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object. Configure these properties in your ESLint configuration file:
 
 ```ts title="eslint.config.js"
 export default [
@@ -12,34 +12,31 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.0.0",
+        version: "19.0.0", // React version for analysis
+        // ...other configurations
       },
     },
   },
 ];
 ```
 
-## Properties
+## Configuration Properties
 
 <SettingsTypeTable />
 
-## Descriptions
+## Property Specifications
 
 ### `version`
 
-React version to perform the analysis, `"detect"` means auto detect React version from the project's dependencies.
-
-If failed to detect, it will use the `19.0.0` version.
+Defines the React version for semantic analysis.
+- `"detect"`: Auto-detects from project dependencies (defaults to `19.0.0` if undetectable)
+- `string`: Explicit version specification (e.g., `"18.2.0"`)
 
 ### `importSource`
 
-<Callout type="info">If `importSource` is specified, an equivalent version of React should be provided to the [`version`](#version) setting.</Callout>
+Customizes the React module import source. Useful for non-standard distributions.
 
-The source where React is imported from.
-
-This allows to specify a custom import location for React when not using the official distribution.
-
-For example, if you are using `@pika/react` instead of `react`, you can set the `importSource` to `@pika/react`:
+Example for using `@pika/react` instead of `react`:
 
 ```ts
 import React from "@pika/react";
@@ -47,46 +44,38 @@ import React from "@pika/react";
 
 ### `skipImportCheck`
 
-When determining whether an API originates from React, bypass the import source check.
+Controls whether to verify the import source when identifying React APIs.
 
-By default, the rule checks only the shape of the API to determine if it is a React API. If `skipImportCheck` is set to `false`, both the shape and the import source will be checked.
-
-This prevents false positives when using unrelated third-party libraries that have APIs similar to React.
-
-For example, when `skipImportCheck` is set to `false`, the `memo` function from `unrelated-library` will not be recognized as React's `memo`.
+Default is `true` (checks only API shape). When `false`, both shape and import source are verified, preventing false positives from third-party libraries with similar APIs.
 
 ```ts
 import { memo } from "unrelated-library";
 
 const NonComponentFunction = memo(() => {
-  //                         ^^^^
-  //                         - This will not be recognized as React's memo
+  // When skipImportCheck: false, this isn't recognized as React's memo
 });
 ```
 
 ### `polymorphicPropName`
 
-You can optionally use the `polymorphicPropName` setting to define the prop your code uses to create polymorphic components. This setting will be used determine the element type in rules that require semantic context.
+Defines the prop used for polymorphic components. Helps rules determine element types for semantic context.
 
-For example, if you set the `polymorphicPropName` setting to `as` then this element:
+Example with `polymorphicPropName` set to `as`:
 
 ```tsx
 <Box as="h3">Configurations</Box>
+// Evaluated as an h3 element
 ```
 
-will be evaluated as an `h3`.
+### `additionalComponents` (Experimental)
 
-If no `polymorphicPropName` is set, then the component will be evaluated as `Box`.
+<Callout type="info">Consider using `polymorphicPropName` instead when possible, as it's simpler and more efficient.</Callout>
 
-### `additionalComponents`
+<Callout type="warn">Experimental feature that may lack stability and documentation.</Callout>
 
-<Callout type="info">Before using `additionalComponents`, consider whether `polymorphicPropName` can be used instead, as it simpler and more efficient.</Callout>
+Maps components and their attributes for comprehensive analysis. Supports default attribute values.
 
-<Callout type="warn">This is an experimental feature that can be unstable and lacks documentation.</Callout>
-
-An array of components and its attributes mapping. It allows the related rules to do even more comprehensive analysis. You can also provide default values for attributes here, that will be used when that attribute is not present.
-
-For example, if you set the `additionalComponents` to:
+Example configuration:
 
 ```json
 [
@@ -103,62 +92,31 @@ For example, if you set the `additionalComponents` to:
 ]
 ```
 
-then this element:
+This makes `<EmbedContent src="https://eslint-react.xyz" />{:tsx}` evaluate as `<iframe src="https://eslint-react.xyz" sandbox="" />{:tsx}`.
 
-```tsx
-<EmbedContent src="https://eslint-react.xyz" />
-```
+### `additionalHooks` (Experimental)
 
-will be evaluated as an:
+<Callout type="warn">
+Intended for edge cases. We suggest to use this option **very sparingly, if at all**. Generally saying, we recommend most custom Hooks do not vary the built-in React Hooks, and instead provide a higher-level API that is more focused around a specific use case.
+</Callout>
 
-```tsx
-<iframe src="https://eslint-react.xyz" sandbox="" />
-```
+Alias variants to built-in React Hooks for rule compatibility:
 
-So that both the `dom/no-missing-iframe-sandbox` and `dom/no-unsafe-iframe-sandbox` rules can perform checks on it.
-
-### `additionalHooks`
-
-<Callout type="warn">This is intended to cover edge cases. We suggest using the built-in React Hooks whenever possible.</Callout>
-
-A object of aliases for React built-in Hooks. ESLint React will recognize these aliases as equivalent to the built-in Hooks in all its rules.
-
-For example, if you set the `additionalHooks` to:
-
-```json
-{
-  useEffect: ["useIsomorphicLayoutEffect"]
+```js
+additionalHooks: {
+  useEffect: ["useIsomorphicLayoutEffect"],
   useLayoutEffect: ["useIsomorphicLayoutEffect"]
 }
 ```
 
-then the React Hook call:
+Treats `useIsomorphicLayoutEffect` as both `useEffect` and `useLayoutEffect` in rule checks.
 
-```ts
-useIsomorphicLayoutEffect(() => { setCount(count => count + 1); }, []);
-```
-
-will be evaluated as:
-
-```ts
-useEffect(() => { setCount(count => count + 1); }, []);
-```
-
-and:
-
-```ts
-useLayoutEffect(() => { setCount(count => count + 1); }, []);
-```
-
-So that both the `hooks-extra/no-direct-set-state-in-use-effect` and `hooks-extra/no-direct-set-state-in-use-layout-effect` rules can perform checks on it.
-
-## Examples
+## Complete Configuration Example
 
 ```ts title="eslint.config.js"
 import eslintReact from "@eslint-react/eslint-plugin";
 
 export default [
-  // ...
   {
     files: ["**/*.{ts,tsx}"],
     ...eslintReact.configs["recommended-typescript"],
@@ -169,26 +127,27 @@ export default [
         polymorphicPropName: "as",
         additionalHooks: {
           useEffect: ["useIsomorphicLayoutEffect"],
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
+          useLayoutEffect: ["useIsomorphicLayoutEffect"]
         },
         additionalComponents: [
           {
             name: "Link",
             as: "a",
             attributes: [
-              { name: "to", as: "href" },
-            ],
+              { name: "to", as: "href" }  // Maps 'to' prop to 'href' attribute
+            ]
           },
           {
             name: "EmbedContent",
             as: "iframe",
             attributes: [
               { name: "sandbox", defaultValue: "" }
-            ],
-          },
-        ],
-      },
-    },
-  },
+            ]
+          }
+        ]
+      }
+    }
+  }
 ];
 ```
+
