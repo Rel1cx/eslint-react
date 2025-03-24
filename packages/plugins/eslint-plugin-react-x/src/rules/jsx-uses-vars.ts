@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Marks variables used in JSX as used.",
+      description: "Marks variables used in JSX elements as used.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
