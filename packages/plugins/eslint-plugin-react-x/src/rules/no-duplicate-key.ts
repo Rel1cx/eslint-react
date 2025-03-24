@@ -3,7 +3,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import * as JSX from "@eslint-react/jsx";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
