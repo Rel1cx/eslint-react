@@ -9,7 +9,9 @@
       "ES2021",
       "DOM",
       "DOM.Iterable"
-    ]
+    ],
+    "allowJs": true,
+    "noEmit": true
   },
   "include": [
     "src/**/*.js",
