@@ -4,7 +4,6 @@ import * as configs from "@local/configs/eslint";
 // @ts-expect-error - no types for this package
 import pluginNext from "@next/eslint-plugin-next";
 import gitignore from "eslint-config-flat-gitignore";
-import pluginMdx from "eslint-plugin-mdx";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
@@ -23,19 +22,18 @@ export default tseslint.config(
     extends: [
       markdown.configs.recommended,
     ],
-    files: GLOB_MD,
+    files: [...GLOB_MD, ...GLOB_MDX],
     language: "markdown/gfm",
     rules: {
-      "markdown/no-html": "error",
+      "markdown/no-html": "warn",
       "markdown/no-missing-label-refs": "off",
     },
   },
   {
-    ...pluginMdx.flat,
     files: GLOB_MDX,
-    processor: pluginMdx.createRemarkProcessor({
-      lintCodeBlocks: false,
-    }),
+    rules: {
+      "markdown/no-html": "off",
+    },
   },
   {
     extends: [
