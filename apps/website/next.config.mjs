@@ -75,13 +75,13 @@ const config = {
       },
       // Redirects for deprecated rules
       {
-        source: "/docs/rules/jsx-uses-vars",
-        destination: "/docs/rules/use-jsx-vars",
+        source: "/docs/rules/use-jsx-vars",
+        destination: "/docs/rules/jsx-uses-vars",
         permanent: true,
       },
       {
         source: "/docs/rules/jsx-no-duplicate-props",
-        destination: "/docs/rules/no-duplicate-jsx-props",
+        destination: "/docs/rules/jsx-no-duplicate-props",
         permanent: true,
       },
       {

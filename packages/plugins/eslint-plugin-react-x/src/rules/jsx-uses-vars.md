@@ -1,17 +1,17 @@
 ---
-title: use-jsx-vars
+title: jsx-uses-vars
 ---
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
-react-x/use-jsx-vars
+react-x/jsx-uses-vars
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/use-jsx-vars
+@eslint-react/jsx-uses-vars
 ```
 
 **Presets**
@@ -44,5 +44,5 @@ const Hello = require("./Hello");
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-jsx-vars.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-vars.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-vars.spec.ts)

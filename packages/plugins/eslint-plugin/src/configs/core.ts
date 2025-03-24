@@ -21,7 +21,7 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
-  "@eslint-react/no-duplicate-jsx-props": "warn",
+  "@eslint-react/jsx-no-duplicate-props": "warn",
   "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
@@ -43,7 +43,7 @@ export const rules = {
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
   "@eslint-react/no-useless-fragment": "warn",
-  "@eslint-react/use-jsx-vars": "warn",
+  "@eslint-react/jsx-uses-vars": "warn",
 } as const satisfies RulePreset;
 
 export const plugins = {

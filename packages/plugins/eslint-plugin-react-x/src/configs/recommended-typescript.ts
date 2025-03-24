@@ -6,8 +6,8 @@ export const name = "react-x/recommended-typescript";
 
 export const rules = {
   ...recommended.rules,
-  "react-x/no-duplicate-jsx-props": "off",
-  "react-x/use-jsx-vars": "off",
+  "react-x/jsx-no-duplicate-props": "off",
+  "react-x/jsx-uses-vars": "off",
 } as const satisfies RulePreset;
 
 export const settings = {
