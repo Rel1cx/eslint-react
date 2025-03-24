@@ -1,25 +1,25 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-duplicate-jsx-props";
+import rule, { RULE_NAME } from "./jsx-no-duplicate-props";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<div a="1" a="2" />;`,
-      errors: [{ messageId: "noDuplicateJsxProps" }],
+      errors: [{ messageId: "jsxNoDuplicateProps" }],
     },
     {
       code: tsx`<div a="1" b="2" a="3" />;`,
-      errors: [{ messageId: "noDuplicateJsxProps" }],
+      errors: [{ messageId: "jsxNoDuplicateProps" }],
     },
     {
       code: tsx`<div a="1" {...b} a="2" />;`,
-      errors: [{ messageId: "noDuplicateJsxProps" }],
+      errors: [{ messageId: "jsxNoDuplicateProps" }],
     },
     {
       code: tsx`<div a="1" {...a} {...b} a="2" />;`,
-      errors: [{ messageId: "noDuplicateJsxProps" }],
+      errors: [{ messageId: "jsxNoDuplicateProps" }],
     },
   ],
   valid: [

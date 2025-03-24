@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-duplicate-jsx-props";
+export const RULE_NAME = "jsx-uses-vars";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -15,11 +15,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow duplicate props in JSX elements.",
+      description: "Marks variables used in JSX as used.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noDuplicateJsxProps: "This JSX property is assigned multiple times.",
+      jsxUsesVars: "JSX variables should be marked as used.",
     },
     schema: [],
   },
@@ -31,23 +31,22 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node) {
-      const props: string[] = [];
-      for (const attr of node.attributes) {
-        if (attr.type === T.JSXSpreadAttribute) {
-          continue;
+      switch (node.name.type) {
+        case T.JSXIdentifier: {
+          // Skip JsxIntrinsicElements
+          if (/^[a-z]/u.test(node.name.name)) {
+            return;
+          }
+          context.sourceCode.markVariableAsUsed(node.name.name, node);
+          break;
         }
-        const name = attr.name.name;
-        if (typeof name !== "string") {
-          continue;
+        case T.JSXMemberExpression: {
+          const { object } = node.name;
+          if (object.type === T.JSXIdentifier) {
+            context.sourceCode.markVariableAsUsed(object.name, node);
+          }
+          break;
         }
-        if (!props.includes(name)) {
-          props.push(name);
-          continue;
-        }
-        context.report({
-          messageId: "noDuplicateJsxProps",
-          node: attr,
-        });
       }
     },
   };
