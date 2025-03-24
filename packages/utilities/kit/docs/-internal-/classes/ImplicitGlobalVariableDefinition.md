@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ImplicitGlobalVariableDefinition()
+### Constructor
 
 > **new ImplicitGlobalVariableDefinition**(`name`, `node`): `ImplicitGlobalVariableDefinition`
 

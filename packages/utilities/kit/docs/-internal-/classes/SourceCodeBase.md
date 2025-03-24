@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new SourceCodeBase()
+### Constructor
 
 > **new SourceCodeBase**(`text`, `ast`): `SourceCodeBase`
 
@@ -38,7 +38,7 @@ The Program node of the AST representing the code. This AST should be created fr
 
 [`TokenStore`](TokenStore.md).[`constructor`](TokenStore.md#constructor)
 
-### new SourceCodeBase()
+### Constructor
 
 > **new SourceCodeBase**(`config`): `SourceCodeBase`
 

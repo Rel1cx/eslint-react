@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new CatchClauseDefinition()
+### Constructor
 
 > **new CatchClauseDefinition**(`name`, `node`): `CatchClauseDefinition`
 

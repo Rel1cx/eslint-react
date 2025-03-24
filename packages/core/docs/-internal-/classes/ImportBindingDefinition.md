@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ImportBindingDefinition()
+### Constructor
 
 > **new ImportBindingDefinition**(`name`, `node`, `decl`): `ImportBindingDefinition`
 
@@ -38,7 +38,7 @@
 
 [`DefinitionBase`](DefinitionBase.md).[`constructor`](DefinitionBase.md#constructor)
 
-### new ImportBindingDefinition()
+### Constructor
 
 > **new ImportBindingDefinition**(`name`, `node`, `decl`): `ImportBindingDefinition`
 

@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new FunctionNameDefinition()
+### Constructor
 
 > **new FunctionNameDefinition**(`name`, `node`): `FunctionNameDefinition`
 

@@ -14,7 +14,7 @@
 
 ## Constructors
 
-### new BiRecord()
+### Constructor
 
 > **new BiRecord**\<`T`\>(`original`, `reversed`?): `BiRecord`\<`T`\>
 

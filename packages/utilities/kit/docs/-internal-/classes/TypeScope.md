@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TypeScope()
+### Constructor
 
 > **new TypeScope**(`scopeManager`, `upperScope`, `block`): `TypeScope`
 

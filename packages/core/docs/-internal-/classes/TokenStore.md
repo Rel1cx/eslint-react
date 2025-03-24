@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TokenStore()
+### Constructor
 
 > **new TokenStore**(): `TokenStore`
 

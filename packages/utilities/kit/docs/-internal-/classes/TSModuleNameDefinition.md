@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TSModuleNameDefinition()
+### Constructor
 
 > **new TSModuleNameDefinition**(`name`, `node`): `TSModuleNameDefinition`
 

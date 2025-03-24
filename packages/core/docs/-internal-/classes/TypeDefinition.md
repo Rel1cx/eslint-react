@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TypeDefinition()
+### Constructor
 
 > **new TypeDefinition**(`name`, `node`): `TypeDefinition`
 

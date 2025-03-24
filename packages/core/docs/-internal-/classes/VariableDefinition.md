@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new VariableDefinition()
+### Constructor
 
 > **new VariableDefinition**(`name`, `node`, `decl`): `VariableDefinition`
 

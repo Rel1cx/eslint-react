@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TSModuleScope()
+### Constructor
 
 > **new TSModuleScope**(`scopeManager`, `upperScope`, `block`): `TSModuleScope`
 

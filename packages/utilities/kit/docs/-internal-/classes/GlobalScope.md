@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new GlobalScope()
+### Constructor
 
 > **new GlobalScope**(`scopeManager`, `block`): `GlobalScope`
 

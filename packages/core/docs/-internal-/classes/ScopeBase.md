@@ -43,7 +43,7 @@
 
 ## Constructors
 
-### new ScopeBase()
+### Constructor
 
 > **new ScopeBase**\<`Type`, `Block`, `Upper`\>(`scopeManager`, `type`, `upperScope`, `block`, `isMethodDefinition`): `ScopeBase`\<`Type`, `Block`, `Upper`\>
 

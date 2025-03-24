@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ModuleScope()
+### Constructor
 
 > **new ModuleScope**(`scopeManager`, `upperScope`, `block`): `ModuleScope`
 

@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TSEnumScope()
+### Constructor
 
 > **new TSEnumScope**(`scopeManager`, `upperScope`, `block`): `TSEnumScope`
 

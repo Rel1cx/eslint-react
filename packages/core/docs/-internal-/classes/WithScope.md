@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new WithScope()
+### Constructor
 
 > **new WithScope**(`scopeManager`, `upperScope`, `block`): `WithScope`
 

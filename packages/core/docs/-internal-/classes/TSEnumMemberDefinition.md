@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new TSEnumMemberDefinition()
+### Constructor
 
 > **new TSEnumMemberDefinition**(`name`, `node`): `TSEnumMemberDefinition`
 

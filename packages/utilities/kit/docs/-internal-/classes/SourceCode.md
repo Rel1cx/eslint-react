@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new SourceCode()
+### Constructor
 
 > **new SourceCode**(`text`, `ast`): `SourceCode`
 
@@ -38,7 +38,7 @@ The Program node of the AST representing the code. This AST should be created fr
 
 `SourceCode_base.constructor`
 
-### new SourceCode()
+### Constructor
 
 > **new SourceCode**(`config`): `SourceCode`
 

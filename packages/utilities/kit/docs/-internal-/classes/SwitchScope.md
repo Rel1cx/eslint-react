@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new SwitchScope()
+### Constructor
 
 > **new SwitchScope**(`scopeManager`, `upperScope`, `block`): `SwitchScope`
 

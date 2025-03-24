@@ -40,7 +40,7 @@
 
 ## Constructors
 
-### new DefinitionBase()
+### Constructor
 
 > **new DefinitionBase**\<`Type`, `Node`, `Parent`, `Name`\>(`type`, `name`, `node`, `parent`): `DefinitionBase`\<`Type`, `Node`, `Parent`, `Name`\>
 

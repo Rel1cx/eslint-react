@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new CatchScope()
+### Constructor
 
 > **new CatchScope**(`scopeManager`, `upperScope`, `block`): `CatchScope`
 

@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ConditionalTypeScope()
+### Constructor
 
 > **new ConditionalTypeScope**(`scopeManager`, `upperScope`, `block`): `ConditionalTypeScope`
 

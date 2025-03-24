@@ -14,7 +14,7 @@ A Variable represents a locally scoped identifier. These include arguments to fu
 
 ## Constructors
 
-### new Variable()
+### Constructor
 
 > **new Variable**(`name`, `scope`): `Variable`
 

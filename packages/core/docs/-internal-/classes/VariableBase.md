@@ -13,7 +13,7 @@
 
 ## Constructors
 
-### new VariableBase()
+### Constructor
 
 > **new VariableBase**(`name`, `scope`): `VariableBase`
 

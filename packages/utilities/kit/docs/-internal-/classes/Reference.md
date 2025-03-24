@@ -10,7 +10,7 @@ A Reference represents a single occurrence of an identifier in code.
 
 ## Constructors
 
-### new Reference()
+### Constructor
 
 > **new Reference**(`identifier`, `scope`, `flag`, `writeExpr`?, `maybeImplicitGlobal`?, `init`?, `referenceType`?): `Reference`
 

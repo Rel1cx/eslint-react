@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ForScope()
+### Constructor
 
 > **new ForScope**(`scopeManager`, `upperScope`, `block`): `ForScope`
 

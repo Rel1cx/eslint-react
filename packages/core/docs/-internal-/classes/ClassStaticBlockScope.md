@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ClassStaticBlockScope()
+### Constructor
 
 > **new ClassStaticBlockScope**(`scopeManager`, `upperScope`, `block`): `ClassStaticBlockScope`
 

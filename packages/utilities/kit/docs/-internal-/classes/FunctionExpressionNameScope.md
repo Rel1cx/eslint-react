@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new FunctionExpressionNameScope()
+### Constructor
 
 > **new FunctionExpressionNameScope**(`scopeManager`, `upperScope`, `block`): `FunctionExpressionNameScope`
 

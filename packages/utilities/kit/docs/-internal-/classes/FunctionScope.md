@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new FunctionScope()
+### Constructor
 
 > **new FunctionScope**(`scopeManager`, `upperScope`, `block`, `isMethodDefinition`): `FunctionScope`
 

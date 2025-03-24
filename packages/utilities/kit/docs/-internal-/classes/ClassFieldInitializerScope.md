@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ClassFieldInitializerScope()
+### Constructor
 
 > **new ClassFieldInitializerScope**(`scopeManager`, `upperScope`, `block`): `ClassFieldInitializerScope`
 

@@ -15,7 +15,7 @@ This is declared here for consumers to use
 
 ## Constructors
 
-### new ESLintScopeVariable()
+### Constructor
 
 > **new ESLintScopeVariable**(`name`, `scope`): `ESLintScopeVariable`
 

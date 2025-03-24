@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ParameterDefinition()
+### Constructor
 
 > **new ParameterDefinition**(`name`, `node`, `rest`): `ParameterDefinition`
 

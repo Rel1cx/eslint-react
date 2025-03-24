@@ -12,7 +12,7 @@ https://eslint.org/docs/latest/developer-guide/scope-manager-interface#scopemana
 
 ## Constructors
 
-### new ScopeManager()
+### Constructor
 
 > **new ScopeManager**(`options`): `ScopeManager`
 

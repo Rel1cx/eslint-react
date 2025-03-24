@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new BlockScope()
+### Constructor
 
 > **new BlockScope**(`scopeManager`, `upperScope`, `block`): `BlockScope`
 

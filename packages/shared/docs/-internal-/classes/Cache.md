@@ -14,7 +14,7 @@
 
 ## Constructors
 
-### new Cache()
+### Constructor
 
 > **new Cache**\<`Fn`\>(`options`): `Cache`\<`Fn`\>
 

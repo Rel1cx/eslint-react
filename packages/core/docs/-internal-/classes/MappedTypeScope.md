@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new MappedTypeScope()
+### Constructor
 
 > **new MappedTypeScope**(`scopeManager`, `upperScope`, `block`): `MappedTypeScope`
 

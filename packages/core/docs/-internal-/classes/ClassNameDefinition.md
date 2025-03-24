@@ -12,7 +12,7 @@
 
 ## Constructors
 
-### new ClassNameDefinition()
+### Constructor
 
 > **new ClassNameDefinition**(`name`, `node`): `ClassNameDefinition`
 
