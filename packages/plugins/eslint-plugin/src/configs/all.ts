@@ -12,6 +12,9 @@ export const name = "@eslint-react/all";
 export const rules = {
   "@eslint-react/avoid-shorthand-boolean": "off",
   "@eslint-react/avoid-shorthand-fragment": "off",
+  "@eslint-react/jsx-no-duplicate-props": "warn",
+  "@eslint-react/jsx-no-undef": "error",
+  "@eslint-react/jsx-uses-vars": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",
@@ -31,7 +34,6 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
-  "@eslint-react/jsx-no-duplicate-props": "warn",
   "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
@@ -58,7 +60,6 @@ export const rules = {
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-shorthand-boolean": "warn",
   "@eslint-react/prefer-shorthand-fragment": "warn",
-  "@eslint-react/jsx-uses-vars": "warn",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",

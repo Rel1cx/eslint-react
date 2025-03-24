@@ -53,6 +53,7 @@
     "prefer-shorthand-boolean",
     "prefer-shorthand-fragment",
     "jsx-no-duplicate-props",
+    "jsx-no-undef",
     "jsx-uses-vars",
     "---DOM Rules---",
     "dom-no-dangerously-set-innerhtml",
