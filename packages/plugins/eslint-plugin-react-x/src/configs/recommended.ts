@@ -4,6 +4,9 @@ import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 export const name = "react-x/recommended";
 
 export const rules = {
+  "react-x/jsx-no-duplicate-props": "warn",
+  "react-x/jsx-no-undef": "error",
+  "react-x/jsx-uses-vars": "warn",
   "react-x/no-access-state-in-setstate": "error",
   "react-x/no-array-index-key": "warn",
   "react-x/no-children-count": "warn",
@@ -20,7 +23,6 @@ export const rules = {
   "react-x/no-create-ref": "error",
   "react-x/no-default-props": "error",
   "react-x/no-direct-mutation-state": "error",
-  "react-x/jsx-no-duplicate-props": "warn",
   "react-x/no-duplicate-key": "warn",
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
@@ -41,7 +43,6 @@ export const rules = {
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
-  "react-x/jsx-uses-vars": "warn",
 } as const satisfies RulePreset;
 
 export const settings = {
