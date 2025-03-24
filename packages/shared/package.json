@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/node22": "^22.0.1",
     "@types/picomatch": "^3.0.2",
     "fast-equals": "^5.2.2",
     "micro-memoize": "^4.1.3",

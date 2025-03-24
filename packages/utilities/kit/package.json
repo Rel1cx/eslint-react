@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/node22": "^22.0.1",
     "tsup": "^8.4.0",
     "type-fest": "^4.37.0"
   },
