@@ -1,9 +1,11 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as VAR from "@eslint-react/var";
+import { _ } from "@eslint-react/eff";
 
+import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-no-undef";
@@ -31,24 +33,22 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
-    JSXIdentifier(node) {
-      if (node.name === "this") {
-        return;
-      }
+    JSXOpeningElement(node) {
+      const name = match(node.name)
+        .with({ type: T.JSXIdentifier }, (n) => n.name)
+        .with({ type: T.JSXMemberExpression, object: { type: T.JSXIdentifier } }, (n) => n.object.name)
+        .otherwise(() => _);
+      if (name == null) return;
+      if (name === "this") return;
       // Skip JsxIntrinsicElements
-      if (/^[a-z]/u.test(node.name)) {
-        return;
-      }
-      // Skip JSXMemberExpression property
-      if (node.parent.type === T.JSXMemberExpression && node.parent.property === node) {
-        return;
-      }
-      const initialScope = context.sourceCode.getScope(node);
-      if (VAR.findVariable(node.name, initialScope) == null) {
+      if (/^[a-z]/u.test(name)) return;
+      if (VAR.findVariable(name, context.sourceCode.getScope(node)) == null) {
         context.report({
           messageId: "jsxNoUndef",
           node,
-          data: { name: node.name },
+          data: {
+            name,
+          },
         });
       }
     },

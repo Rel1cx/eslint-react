@@ -2,12 +2,6 @@
 title: jsx-no-undef
 ---
 
-<Callout type="warn" title="CAUTION">
-
-**This rule hasn’t been released yet. If you want to try it, you can install the `beta` version of the plugin.**
-
-</Callout>
-
 **Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
@@ -19,11 +13,6 @@ react-x/jsx-no-undef
 ```plain copy
 @eslint-react/jsx-no-undef
 ```
-
-**Presets**
-
-- `core`
-- `recommended`
 
 ## Description
 

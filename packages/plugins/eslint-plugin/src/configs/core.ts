@@ -6,7 +6,6 @@ export const name = "@eslint-react/core";
 
 export const rules = {
   "@eslint-react/jsx-no-duplicate-props": "warn",
-  "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/jsx-uses-vars": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
