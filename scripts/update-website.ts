@@ -20,7 +20,7 @@ const [
     const title = isPluginX
       ? basename
       : `${catename}/${basename}`;
-    const dest = path.join("apps", "website", "content", "docs", "rules", `${name}.md`);
+    const dest = path.join("apps", "website", "content", "docs", "rules", `${name}.mdx`);
     return [[...files, [doc, dest]], [...rules, [name, title]]] as const;
   },
   [[], []],

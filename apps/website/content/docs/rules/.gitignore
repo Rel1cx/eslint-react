@@ -1,2 +1,4 @@
 *.md
+*.mdx
 !overview.md
+!overview.mdx
