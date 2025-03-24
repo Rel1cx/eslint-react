@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "1.38.0-next.6",
+  "version": "1.38.0-next.7",
   "description": "ESLint React's Plugin Kit for building plugins and rules.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -49,7 +49,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node22": "^22.0.1",
     "tsup": "^8.4.0",
-    "type-fest": "^4.37.0"
+    "type-fest": "^4.38.0"
   },
   "peerDependencies": {
     "@typescript-eslint/utils": "^8.27.0"
