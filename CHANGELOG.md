@@ -1,3 +1,17 @@
+## v1.38.0 (2025-03-25)
+
+### ✨ New
+
+- feat: add `react-x/jsx-no-undef` rule, closes #1016 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1018>
+- feat: add `hooks-extra/prefer-use-state-lazy-initialization` rule to recommended presets by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1019>
+- docs: add experimental status to rules overview by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1012>
+
+### 🪄 Improvements
+
+- refactor: Undeprecate `react-x/jsx-uses-vars` and `react-x/jsx-no-duplicate-props` rules by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1017>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.3...1.38.0>
+
 ## v1.37.3 (2025-03-22)
 
 ### 🐞 Fixes

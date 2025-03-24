@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.38.0-beta.11",
+  "version": "1.38.0-next.12",
   "description": "A set of composable linting rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -55,10 +55,10 @@
     "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.27.0",
-    "@typescript-eslint/type-utils": "^8.27.0",
-    "@typescript-eslint/types": "^8.27.0",
-    "@typescript-eslint/utils": "^8.27.0",
+    "@typescript-eslint/scope-manager": "^8.28.0",
+    "@typescript-eslint/type-utils": "^8.28.0",
+    "@typescript-eslint/types": "^8.28.0",
+    "@typescript-eslint/utils": "^8.28.0",
     "compare-versions": "^6.1.1",
     "is-immutable-type": "^5.0.1",
     "string-ts": "^2.2.1",
