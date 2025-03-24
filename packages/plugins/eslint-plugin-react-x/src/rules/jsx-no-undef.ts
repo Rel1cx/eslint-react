@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      jsxNoUndef: "JSX variable {{name}} is not defined.",
+      jsxNoUndef: "JSX variable '{{name}}' is not defined.",
     },
     schema: [],
   },
