@@ -19,21 +19,6 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const reactChildrenMethod = ["forEach", "map"] as const;
 
-const iteratorFunctionIndexParamPosition = new Map<string, number>([
-  ["every", 1],
-  ["filter", 1],
-  ["find", 1],
-  ["findIndex", 1],
-  ["findLast", 1],
-  ["findLastIndex", 1],
-  ["flatMap", 1],
-  ["forEach", 1],
-  ["map", 1],
-  ["reduce", 2],
-  ["reduceRight", 2],
-  ["some", 1],
-]);
-
 function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
   return reactChildrenMethod.some((method) => method === name);
 }
@@ -66,7 +51,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return _;
   }
   const { name } = callee.property;
-  if (!iteratorFunctionIndexParamPosition.has(name)) {
+  if (!AST.ITERATOR_FUNCTION_INDEX_PARAM_POSITION.has(name)) {
     return _;
   }
   const callbackArg = node.arguments[isUsingReactChildren(context, node) ? 1 : 0];
@@ -77,7 +62,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return _;
   }
   const { params } = callbackArg;
-  const indexParamPosition = iteratorFunctionIndexParamPosition.get(name);
+  const indexParamPosition = AST.ITERATOR_FUNCTION_INDEX_PARAM_POSITION.get(name);
   if (indexParamPosition == null) {
     return _;
   }

@@ -6,7 +6,7 @@
 
 # Type Alias: PartialReadonlyMapDeep\<KeyType, ValueType, Options\>
 
-> **PartialReadonlyMapDeep**\<`KeyType`, `ValueType`, `Options`\> = `object` & `ReadonlyMap`\<[`PartialDeep`](PartialDeep.md)\<`KeyType`, `Options`\>, [`PartialDeep`](PartialDeep.md)\<`ValueType`, `Options`\>\>
+> **PartialReadonlyMapDeep**\<`KeyType`, `ValueType`, `Options`\> = `object` & `ReadonlyMap`\<[`_PartialDeep`](PartialDeep.md)\<`KeyType`, `Options`\>, [`_PartialDeep`](PartialDeep.md)\<`ValueType`, `Options`\>\>
 
 Same as `PartialDeep`, but accepts only `ReadonlyMap`s as inputs. Internal helper for `PartialDeep`.
 
@@ -22,4 +22,4 @@ Same as `PartialDeep`, but accepts only `ReadonlyMap`s as inputs. Internal helpe
 
 ### Options
 
-`Options` *extends* [`PartialDeepOptions`](PartialDeepOptions.md)
+`Options` *extends* [`Required`](Required.md)\<[`PartialDeepOptions`](PartialDeepOptions.md)\>

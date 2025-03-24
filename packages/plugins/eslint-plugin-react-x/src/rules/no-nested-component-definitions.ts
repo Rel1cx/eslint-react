@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hint = ERComponentHint.SkipMapCallback
+  const hint = ERComponentHint.SkipArrayMapArgument
     | ERComponentHint.SkipNullLiteral
     | ERComponentHint.SkipUndefined
     | ERComponentHint.SkipBooleanLiteral

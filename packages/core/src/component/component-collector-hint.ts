@@ -20,9 +20,9 @@ export const ERComponentHint = {
    */
   SkipForwardRef: 1n << 65n,
   /**
-   * Skip function component defined in map function callback
+   * Skip function component defined as array map argument
    */
-  SkipMapCallback: 1n << 66n,
+  SkipArrayMapArgument: 1n << 66n,
   /**
    * Skip function component defined on object method
    */
@@ -40,7 +40,7 @@ export const ERComponentHint = {
 export const DEFAULT_COMPONENT_HINT = 0n
   | ERComponentHint.SkipBooleanLiteral
   | ERComponentHint.SkipEmptyArray
-  | ERComponentHint.SkipMapCallback
+  | ERComponentHint.SkipArrayMapArgument
   | ERComponentHint.SkipNumberLiteral
   | ERComponentHint.SkipStringLiteral
   | ERComponentHint.SkipUndefined

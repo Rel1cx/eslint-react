@@ -3,8 +3,9 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import * as JSX from "@eslint-react/jsx";
 
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
@@ -69,7 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           break;
         }
         default: {
-          const call = AST.findParentNode(jsxElement, AST.isMapCallLoose);
+          const call = AST.findParentNode(jsxElement, AST.isArrayMapCallLoose);
           const iter = AST.findParentNode(jsxElement, (n) => n === call || AST.isFunction(n));
           if (!AST.isFunction(iter)) return;
           const arg0 = call?.arguments[0];

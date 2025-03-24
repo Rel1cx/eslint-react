@@ -6,7 +6,7 @@
 
 # Type Alias: PartialSetDeep\<T, Options\>
 
-> **PartialSetDeep**\<`T`, `Options`\> = `object` & [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<[`PartialDeep`](PartialDeep.md)\<`T`, `Options`\>\>
+> **PartialSetDeep**\<`T`, `Options`\> = `object` & [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<[`_PartialDeep`](PartialDeep.md)\<`T`, `Options`\>\>
 
 Same as `PartialDeep`, but accepts only `Set`s as inputs. Internal helper for `PartialDeep`.
 
@@ -18,4 +18,4 @@ Same as `PartialDeep`, but accepts only `Set`s as inputs. Internal helper for `P
 
 ### Options
 
-`Options` *extends* [`PartialDeepOptions`](PartialDeepOptions.md)
+`Options` *extends* [`Required`](Required.md)\<[`PartialDeepOptions`](PartialDeepOptions.md)\>

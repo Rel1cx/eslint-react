@@ -16,6 +16,12 @@ hints for component collector
 
 > `readonly` **None**: `0n`
 
+### SkipArrayMapArgument
+
+> `readonly` **SkipArrayMapArgument**: `bigint`
+
+Skip function component defined as array map argument
+
 ### SkipBigIntLiteral
 
 > `readonly` **SkipBigIntLiteral**: `bigint`
@@ -49,12 +55,6 @@ Skip function component defined on class property
 > `readonly` **SkipForwardRef**: `bigint`
 
 Skip function component created by React.forwardRef
-
-### SkipMapCallback
-
-> `readonly` **SkipMapCallback**: `bigint`
-
-Skip function component defined in map function callback
 
 ### SkipMemo
 

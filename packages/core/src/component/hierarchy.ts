@@ -1,9 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
+import * as JSX from "@eslint-react/jsx";
 import { type RuleContext } from "@eslint-react/kit";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../utils";
 import { ERComponentHint } from "./component-collector-hint";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
@@ -13,9 +14,6 @@ export function hasValidHierarchy(context: RuleContext, node: AST.TSESTreeFuncti
   if (isChildrenOfCreateElement(context, node) || isFunctionOfRenderMethod(node)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipMapCallback && AST.isMapCallLoose(node.parent)) {
-    return false;
-  }
   if (hint & ERComponentHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
@@ -23,6 +21,9 @@ export function hasValidHierarchy(context: RuleContext, node: AST.TSESTreeFuncti
     return false;
   }
   if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
+    return false;
+  }
+  if (hint & ERComponentHint.SkipArrayMapArgument && AST.isArrayMapCallLoose(node.parent)) {
     return false;
   }
   const boundaryNode = AST.findParentNode(

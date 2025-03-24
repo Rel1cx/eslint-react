@@ -10,7 +10,7 @@
 
 ## See
 
-[PartialDeep](PartialDeep.md)
+PartialDeep
 
 ## Properties
 

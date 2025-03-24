@@ -6,18 +6,6 @@
 
 # \<internal\>
 
-## Array
-
-- [PartialDeep](type-aliases/PartialDeep.md)
-
-## Map
-
-- [PartialDeep](type-aliases/PartialDeep.md)
-
-## Object
-
-- [PartialDeep](type-aliases/PartialDeep.md)
-
 ## Other
 
 - [Cache](classes/Cache.md)
@@ -67,6 +55,7 @@
 - [SuccessDataset](interfaces/SuccessDataset.md)
 - [UnknownDataset](interfaces/UnknownDataset.md)
 - [UnknownPathItem](interfaces/UnknownPathItem.md)
+- [\_PartialDeep](type-aliases/PartialDeep.md)
 - [AnyFn](type-aliases/AnyFn.md)
 - [Awaited](type-aliases/Awaited.md)
 - [BuiltIns](type-aliases/BuiltIns.md)
@@ -137,10 +126,6 @@
 - [SchemaWithPipe](type-aliases/SchemaWithPipe.md)
 - [SchemaWithPipeAsync](type-aliases/SchemaWithPipeAsync.md)
 - [StandardResult](type-aliases/StandardResult.md)
-
-## Set
-
-- [PartialDeep](type-aliases/PartialDeep.md)
 
 ## Type
 

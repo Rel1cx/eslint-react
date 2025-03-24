@@ -115,7 +115,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (state.isWithinChildrenToArray) {
         return;
       }
-      const isMapCall = AST.isMapCallLoose(node);
+      const isMapCall = AST.isArrayMapCallLoose(node);
       if (!isMapCall && !isArrayFromCall(node)) {
         return;
       }

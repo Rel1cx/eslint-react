@@ -6,7 +6,7 @@
 
 # Type Alias: PartialReadonlySetDeep\<T, Options\>
 
-> **PartialReadonlySetDeep**\<`T`, `Options`\> = `object` & `ReadonlySet`\<[`PartialDeep`](PartialDeep.md)\<`T`, `Options`\>\>
+> **PartialReadonlySetDeep**\<`T`, `Options`\> = `object` & `ReadonlySet`\<[`_PartialDeep`](PartialDeep.md)\<`T`, `Options`\>\>
 
 Same as `PartialDeep`, but accepts only `ReadonlySet`s as inputs. Internal helper for `PartialDeep`.
 
@@ -18,4 +18,4 @@ Same as `PartialDeep`, but accepts only `ReadonlySet`s as inputs. Internal helpe
 
 ### Options
 
-`Options` *extends* [`PartialDeepOptions`](PartialDeepOptions.md)
+`Options` *extends* [`Required`](Required.md)\<[`PartialDeepOptions`](PartialDeepOptions.md)\>
