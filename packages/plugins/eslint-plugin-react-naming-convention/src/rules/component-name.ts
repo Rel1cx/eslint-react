@@ -4,9 +4,9 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
-import { RE_CONSTANT_CASE, RE_PASCAL_CASE } from "@eslint-react/kit";
+import { RE_CONSTANT_CASE, RE_PASCAL_CASE, toRegExp } from "@eslint-react/kit";
 
-import { createRule, toRegExp } from "../utils";
+import { createRule } from "../utils";
 
 type Case = "CONSTANT_CASE" | "PascalCase";
 
