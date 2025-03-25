@@ -63,6 +63,31 @@ function MyComponent({ name }: MyComponentProps) {
 }
 ```
 
+```tsx
+import React, { Component } from "react";
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+// This is an exception to the rule, as ErrorBoundary is a special case.
+class ErrorBoundary extends Component<ErrorBoundaryProps> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+```
+
 ## Implementation
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component.ts)

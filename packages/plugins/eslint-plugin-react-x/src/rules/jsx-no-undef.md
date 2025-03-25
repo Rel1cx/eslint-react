@@ -22,40 +22,21 @@ This rule is used to prevent the use of undefined variables in JSX. It checks fo
 
 ### Failing
 
-```jsx
-const MyComponent = () => {
-  return (
-    <div>
-      <Foo />
-    </div>
-  );
-};
+```tsx
+import React from "react";
+
+const button = <MyButton />;
+//              ^^^^^^^^
+//              - 'MyButton' is not defined
 ```
 
 ### Passing
 
-```jsx
-import Foo from "./Foo";
+```tsx
+import React from "react";
+import MyButton from "./MyButton";
 
-const MyComponent = () => {
-  return (
-    <div>
-      <Foo />
-    </div>
-  );
-};
-```
-
-```jsx
-const Foo = () => <div>Foo</div>;
-
-const MyComponent = () => {
-  return (
-    <div>
-      <Foo />
-    </div>
-  );
-};
+const button = <MyButton />;
 ```
 
 ## Implementation

@@ -9,7 +9,7 @@
 > **isDeclaredInRenderPropLoose**(`node`): `boolean`
 
 Unsafe check whether given node is declared inside a render prop
-```jsx
+```tsx
 _ = <Component renderRow={"node"} />
 `                         ^^^^^^   `
 _ = <Component rows={ [{ render: "node" }] } />

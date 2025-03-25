@@ -42,9 +42,9 @@ function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((todo) => (
-        <Todo {...todo} />
-      {/* ^^^^^^^^^^^^^^^ */}
-      {/* - Missing 'key' for element when rendering list. */}
+        <Todo
+          {...todo}
+        />
       ))}
     </ul>
   );
@@ -63,7 +63,12 @@ interface MyComponentProps {
 function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
-      {items.map((todo) => <Todo key={todo.id} {...todo} />)}
+      {items.map((todo) => (
+        <Todo
+          key={todo.id}
+          {...todo}
+        />
+      ))}
     </ul>
   );
 }

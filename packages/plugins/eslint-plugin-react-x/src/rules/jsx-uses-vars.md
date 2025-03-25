@@ -31,13 +31,13 @@ This rule only has an effect when the `no-unused-vars` rule is enabled.
 ### Failing
 
 ```tsx
-const Hello = require("./Hello");
+import Hello from "./Hello";
 ```
 
 ### Passing
 
 ```tsx
-const Hello = require("./Hello");
+import Hello from "./Hello";
 
 <Hello name="John" />;
 ```

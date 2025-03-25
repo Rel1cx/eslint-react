@@ -29,23 +29,19 @@ A **safe** auto-fix is available for this rule.
 ### Failing
 
 ```tsx
-import React from "react";
-
-function MyComponent() {
-  return <button disabled />;
-  //             ^^^^^^^^
-  //             - Avoid using shorthand syntax for 'disabled' attribute.
-}
+const Input = <input type="checkbox" checked />;
+//                                   ^^^^^^^
+//                                   - Expected `checked={true}` instead of `checked`
+const button = <button disabled />;
+//                     ^^^^^^^^
+//                     - Expected `disabled={true}` instead of `disabled`
 ```
 
 ### Passing
 
 ```tsx
-import React from "react";
-
-function MyComponent() {
-  return <button disabled={true} />;
-}
+const Input = <input type="checkbox" checked={true} />;
+const button = <button disabled={true} />;
 ```
 
 ## Implementation

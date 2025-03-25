@@ -40,7 +40,8 @@ A **safe** codemod is available for this rule.
 ### Failing
 
 ```tsx
-const ThemeContext = createContext("");
+import React from "react";
+import ThemeContext from "./ThemeContext";
 
 function App({ children }) {
   return (
@@ -54,7 +55,8 @@ function App({ children }) {
 ### Passing
 
 ```tsx
-const ThemeContext = createContext("");
+import React from "react";
+import ThemeContext from "./ThemeContext";
 
 function App({ children }) {
   return (

@@ -9,7 +9,7 @@
 > **isInsideRenderMethod**(`node`): `boolean`
 
 Check whether given node is declared inside class component's render block
-```jsx
+```tsx
 class Component extends React.Component {
   render() {
     class NestedClassComponent extends React.Component {

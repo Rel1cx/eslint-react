@@ -34,7 +34,7 @@ This could be a mistake during code editing or it could be a misunderstanding of
 ```tsx
 import React from "react";
 
-function MyComponent() {
+function MyComponent1() {
   return <div>// empty div</div>;
   //          ^^^^^^^^^^^^
   //          - Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.
