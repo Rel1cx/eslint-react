@@ -28,7 +28,5 @@
 ## Functions
 
 - [createReport](functions/createReport.md)
-- [isInEditorEnv](functions/isInEditorEnv.md)
-- [isInGitHooksOrLintStaged](functions/isInGitHooksOrLintStaged.md)
 - [isRegExp](functions/isRegExp.md)
 - [toRegExp](functions/toRegExp.md)
