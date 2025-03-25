@@ -11,13 +11,13 @@ description: Getting started with TypeScript setup
 
 </Callout>
 
-## Install
+## Installation
 
 ```package-install copy
 npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```
 
-## Setup
+## Configure ESLint
 
 ```js title="eslint.config.js"
 // @ts-check
@@ -27,20 +27,37 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config({
   files: ["**/*.ts", "**/*.tsx"],
+
+  // Extend recommended rule sets from:
+  // 1. ESLint JS's recommended rules
+  // 2. TypeScript ESLint recommended rules
+  // 3. ESLint React's recommended-typescript rules
   extends: [
     eslintJs.configs.recommended,
     tseslint.configs.recommended,
     eslintReact.configs["recommended-typescript"],
   ],
+
+  // Configure language/parsing options
   languageOptions: {
+    // Use TypeScript ESLint parser for TypeScript files
     parser: tseslint.parser,
     parserOptions: {
+      // Enable project service for better TypeScript integration
       projectService: true,
     },
   },
+
+  // Custom rule overrides (modify rule levels or disable rules)
   rules: {
-    // Put rules you want to override here
+    // Example: Show warning for non-shorthand boolean attributes
     "@eslint-react/prefer-shorthand-boolean": "warn",
   },
 });
 ```
+
+## Resources
+
+- [Configure ESLint](https://eslint.org/docs/latest/use/configure/)
+- [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [WebStorm ESLint integration](https://www.jetbrains.com/help/webstorm/eslint.html)
