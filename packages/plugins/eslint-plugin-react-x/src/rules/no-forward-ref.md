@@ -71,6 +71,8 @@ const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(
 ### After
 
 ```tsx
+import React from "react";
+
 function MyInput({ ref, ...props }) {
   return <input ref={ref} {...props} />;
 }
