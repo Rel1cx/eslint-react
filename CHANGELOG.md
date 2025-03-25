@@ -8,7 +8,7 @@
 
 ### 🪄 Improvements
 
-- refactor: Undeprecate `react-x/jsx-uses-vars` and `react-x/jsx-no-duplicate-props` rules by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1017>
+- refactor: undeprecate `react-x/jsx-uses-vars` and `react-x/jsx-no-duplicate-props` rules by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1017>
 
 **Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.3...1.38.0>
 
