@@ -118,6 +118,8 @@ export default tseslint.config({
 
 ## Contributing
 
+Contributions are welcome!
+
 Please follow our [contributing guidelines](./.github/CONTRIBUTING.md).
 
 ## License
