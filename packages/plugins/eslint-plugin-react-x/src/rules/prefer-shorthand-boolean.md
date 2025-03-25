@@ -22,8 +22,6 @@ react-x/prefer-shorthand-boolean
 
 Enforces shorthand syntax for boolean attributes.
 
-A **safe** auto-fix is available for this rule.
-
 ## Examples
 
 ### Failing

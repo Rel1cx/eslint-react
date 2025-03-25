@@ -33,11 +33,9 @@ In React 19, you can render `<Context>` as a provider instead of `<Context.Provi
 
 In addition, it is recommended to enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
 
-A **safe** codemod is available for this rule.
-
 ## Examples
 
-### Failing
+### Before
 
 ```tsx
 import React from "react";
@@ -52,7 +50,7 @@ function App({ children }) {
 }
 ```
 
-### Passing
+### After
 
 ```tsx
 import React from "react";

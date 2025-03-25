@@ -22,8 +22,6 @@ react-x/prefer-react-namespace-import
 
 Enforces React is imported via a namespace import.
 
-A **safe** auto-fix is available for this rule.
-
 ## Examples
 
 ### Failing

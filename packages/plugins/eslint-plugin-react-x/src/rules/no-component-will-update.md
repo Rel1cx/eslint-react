@@ -31,11 +31,9 @@ Replaces usages of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
 
 This API has been renamed from `componentWillUpdate` to `UNSAFE_componentWillUpdate`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
-A **safe** codemod is available for this rule.
-
 ## Examples
 
-### Failing
+### Before
 
 ```tsx
 import React from "react";
@@ -47,7 +45,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Passing
+### After
 
 ```tsx
 import React from "react";

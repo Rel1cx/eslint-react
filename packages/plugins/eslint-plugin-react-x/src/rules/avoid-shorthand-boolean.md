@@ -22,8 +22,6 @@ react-x/avoid-shorthand-boolean
 
 Enforces explicit boolean values for boolean attributes.
 
-A **safe** auto-fix is available for this rule.
-
 ## Examples
 
 ### Failing

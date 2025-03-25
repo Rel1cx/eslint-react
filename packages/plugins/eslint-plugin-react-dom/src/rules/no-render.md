@@ -29,11 +29,9 @@ react-dom/no-render
 
 Replaces usages of `ReactDom.render()` with `createRoot(node).render()`.
 
-An **unsafe** codemod is available for this rule.
-
 ## Examples
 
-### Failing
+### Before
 
 ```tsx
 import ReactDom from "react-dom";
@@ -42,7 +40,7 @@ import Component from "Component";
 ReactDom.render(<Component />, document.getElementById("app"));
 ```
 
-### Passing
+### After
 
 ```tsx
 import { createRoot } from "react-dom/client";

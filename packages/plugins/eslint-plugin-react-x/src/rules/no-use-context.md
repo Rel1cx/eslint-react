@@ -33,11 +33,9 @@ In React 19, `use` is preferred over `useContext` because it is more flexible.
 
 In addition, it is recommended to enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
 
-An **unsafe** codemod is available for this rule.
-
 ## Examples
 
-### Failing
+### Before
 
 ```tsx
 import { useContext } from "react";
@@ -48,7 +46,7 @@ function Button() {
 }
 ```
 
-### Passing
+### After
 
 ```tsx
 import { use } from "react";

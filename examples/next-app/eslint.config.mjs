@@ -37,10 +37,6 @@ export default tseslint.config(
   },
   {
     files: TSCONFIG.include,
-    ...eslintReact.configs["recommended-type-checked"],
-  },
-  {
-    files: TSCONFIG.include,
     extends: [
       eslintReact.configs["recommended-type-checked"],
       eslintPluginReactRefresh.configs.recommended,

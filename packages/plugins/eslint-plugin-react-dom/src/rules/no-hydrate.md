@@ -29,11 +29,9 @@ react-dom/no-hydrate
 
 Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()`.
 
-An **unsafe** codemod is available for this rule.
-
 ## Examples
 
-### Failing
+### Before
 
 ```tsx
 import ReactDom from "react-dom";
@@ -42,7 +40,7 @@ import Component from "Component";
 ReactDom.hydrate(<Component />, document.getElementById("app"));
 ```
 
-### Passing
+### After
 
 ```tsx
 import { hydrateRoot } from "react-dom/client";
