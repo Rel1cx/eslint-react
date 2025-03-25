@@ -9,7 +9,7 @@
 > **isRenderPropLoose**(`context`, `node`): `boolean`
 
 Unsafe check whether given JSXAttribute is a render prop
-```jsx
+```tsx
 _ = <Component renderRow={() => <div />} />
 `              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
 ```

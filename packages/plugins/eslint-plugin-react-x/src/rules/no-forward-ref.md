@@ -40,11 +40,13 @@ An **unsafe** codemod is available for this rule.
 ### Failing
 
 ```tsx
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 
-const MyInput = forwardRef(function MyInput(props, ref) {
-  return <input ref={ref} {...props} />;
-});
+const MyInput = forwardRef(
+  function MyInput(props, ref) {
+    return <input ref={ref} {...props} />;
+  },
+);
 ```
 
 ```tsx
@@ -55,12 +57,17 @@ interface MyInputProps {
   onChange: (value: string) => void;
 }
 
-const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(function MyInput(
-  { value, onChange },
-  ref,
-) {
-  return <input ref={ref} value={value} onChange={(e) => onChange(e.target.value)} />;
-});
+const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(
+  function MyInput({ value, onChange }, ref) {
+    return (
+      <input
+        ref={ref}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    );
+  },
+);
 ```
 
 ### Passing
@@ -79,8 +86,18 @@ interface MyInputProps {
   onChange: (value: string) => void;
 }
 
-function MyInput({ ref, value, onChange }: MyInputProps & { ref: React.RefObject<HTMLInputElement> }) {
-  return <input ref={ref} value={value} onChange={(e) => onChange(e.target.value)} />;
+function MyInput({
+  ref,
+  value,
+  onChange,
+}: MyInputProps & { ref: React.RefObject<HTMLInputElement> }) {
+  return (
+    <input
+      ref={ref}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
 }
 ```
 

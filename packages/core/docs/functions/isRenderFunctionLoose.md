@@ -9,7 +9,7 @@
 > **isRenderFunctionLoose**(`context`, `node`): `boolean`
 
 Unsafe check whether given node is a render function
-```jsx
+```tsx
 const renderRow = () => <div />
 `                 ^^^^^^^^^^^^`
 _ = <Component renderRow={() => <div />} />

@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**
  * Unsafe check whether given node is a render function
- * ```jsx
+ * ```tsx
  * const renderRow = () => <div />
  * `                 ^^^^^^^^^^^^`
  * _ = <Component renderRow={() => <div />} />
@@ -39,7 +39,7 @@ export function isRenderFunctionLoose(context: RuleContext, node: AST.TSESTreeFu
 
 /**
  * Unsafe check whether given JSXAttribute is a render prop
- * ```jsx
+ * ```tsx
  * _ = <Component renderRow={() => <div />} />
  * `              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
  * ```
@@ -59,7 +59,7 @@ export function isRenderPropLoose(context: RuleContext, node: TSESTree.JSXAttrib
 
 /**
  * Unsafe check whether given node is declared directly inside a render property
- * ```jsx
+ * ```tsx
  * const rows = { render: () => <div /> }
  * `                      ^^^^^^^^^^^^^ `
  * _ = <Component rows={ [{ render: () => <div /> }] } />
@@ -80,7 +80,7 @@ export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
 
 /**
  * Unsafe check whether given node is declared inside a render prop
- * ```jsx
+ * ```tsx
  * _ = <Component renderRow={"node"} />
  * `                         ^^^^^^   `
  * _ = <Component rows={ [{ render: "node" }] } />

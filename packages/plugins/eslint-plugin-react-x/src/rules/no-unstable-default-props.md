@@ -162,8 +162,8 @@ interface MyComponentProps {
 }
 
 function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
-  //                 -------------------------------------
-  //                 - Primitives are all compared by value, so are safe to be inlined as default props.
+  //                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  //                   - Primitives are all compared by value, so are safe to be inlined as default props.
   return null;
 }
 ```

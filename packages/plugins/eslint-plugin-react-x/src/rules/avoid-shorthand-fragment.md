@@ -25,7 +25,7 @@ Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>`
 ```tsx
 import React from "react";
 
-function MyComponent() {
+export function MyComponent() {
   return (
     <>
       <button />
@@ -40,7 +40,7 @@ function MyComponent() {
 ```tsx
 import React, { Fragment } from "react";
 
-function MyComponent() {
+export function MyComponent() {
   return (
     <Fragment>
       <button />
