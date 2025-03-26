@@ -26,7 +26,7 @@ More than 80 high-quality linting rules to identify possible problems in your Re
 
 ### All-In-One
 
-- [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - All rules and config presets from the above plugins.
+- [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - Main plugin combining all rules and presets from the above packages.
 
 ## Installation
 
