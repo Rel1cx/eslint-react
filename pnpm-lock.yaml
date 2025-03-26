@@ -163,8 +163,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1(eslint@9.23.0(jiti@2.4.2))
       eslint-plugin-function:
-        specifier: ^0.0.4
-        version: 0.0.4(eslint@9.23.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.2))(typescript@5.8.2)
+        specifier: ^0.0.5
+        version: 0.0.5(eslint@9.23.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.2))(typescript@5.8.2)
       eslint-plugin-jsdoc:
         specifier: ^50.6.9
         version: 50.6.9(eslint@9.23.0(jiti@2.4.2))
@@ -4496,8 +4496,8 @@ packages:
     peerDependencies:
       eslint: '>=8.0.0'
 
-  eslint-plugin-function@0.0.4:
-    resolution: {integrity: sha512-ck4FUZsNBq4lUVCU5+6fqrKuC5E1TGQe8I2tUtMvlzmbxB9RYEd5CQ7nK4TPiceZKpGq0FJD4T/W0jXW0SO/ag==}
+  eslint-plugin-function@0.0.5:
+    resolution: {integrity: sha512-V4nMlSu9fWeg7GZhRpDh7fteXuhXbs2LGHCIY5oKE7CfdUEuHv5Yyhr8AQmKtUdlbfzMZqwM0Tgr4wzK8II3bQ==}
     engines: {bun: '>=1.0.15', node: '>=18.18.0'}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -10131,7 +10131,7 @@ snapshots:
     dependencies:
       eslint: 9.23.0(jiti@2.4.2)
 
-  eslint-plugin-function@0.0.4(eslint@9.23.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.2))(typescript@5.8.2):
+  eslint-plugin-function@0.0.5(eslint@9.23.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.2))(typescript@5.8.2):
     dependencies:
       '@eslint-react/ast': 1.38.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
       '@eslint-react/eff': 1.38.0
@@ -10141,7 +10141,6 @@ snapshots:
       '@typescript-eslint/types': 8.28.0
       '@typescript-eslint/utils': 8.28.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
       eslint: 9.23.0(jiti@2.4.2)
-      string-ts: 2.2.1
       ts-api-utils: 2.1.0(typescript@5.8.2)
       ts-pattern: 5.6.2
       typescript: 5.8.2
