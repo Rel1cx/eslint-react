@@ -6,7 +6,7 @@
 
 # Function: isFunctionOfUseEffectSetup()
 
-> **isFunctionOfUseEffectSetup**(`node`): `undefined` \| `boolean`
+> **isFunctionOfUseEffectSetup**(`node`): `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`undefined` \| `boolean`
+`boolean`

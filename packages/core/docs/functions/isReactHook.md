@@ -6,7 +6,7 @@
 
 # Function: isReactHook()
 
-> **isReactHook**(`node`): `undefined` \| `boolean`
+> **isReactHook**(`node`): `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`undefined` \| `boolean`
+`boolean`

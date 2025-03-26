@@ -13,5 +13,6 @@ export function isFromUseStateCall(context: RuleContext, settings: ESLintReactSe
     }
     return parent.id.elements.findIndex((e) => e?.type === T.Identifier && e.name === topLevelId.name) === 1;
   };
+  // eslint-disable-next-line function/function-return-boolean
   return isFromHookCall(context, "useState", settings, predicate);
 }

@@ -8,6 +8,7 @@ import { isFromUseStateCall } from "./is-from-use-state-call";
 
 export function isSetFunctionCall(context: RuleContext, settings: ESLintReactSettingsNormalized) {
   const isIdFromUseStateCall = isFromUseStateCall(context, settings);
+  // eslint-disable-next-line function/function-return-boolean
   return (node: TSESTree.CallExpression) => {
     switch (node.callee.type) {
       // const data = useState();

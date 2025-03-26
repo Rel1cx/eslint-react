@@ -52,6 +52,8 @@ export declare namespace isFromReact {
   };
 }
 
+/* eslint-disable function/function-return-boolean */
+
 /** @internal */
 export function isFromReact(name: string): isFromReact.ReturnType {
   // dprint-ignore
@@ -103,3 +105,5 @@ export function isCallFromReactObject(objectName: string, propertyName: string):
     return isFromReactObject(objectName, propertyName)(context, node.callee);
   });
 }
+
+/* eslint-enable function/function-return-boolean */

@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
+import pluginFunction from "eslint-plugin-function";
 import pluginJsdoc from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
@@ -100,9 +101,11 @@ export const typescript = tseslint.config({
     files: GLOB_TS,
     plugins: {
         ["@stylistic"]: stylistic,
+        ["function"]: pluginFunction,
         ["unicorn"]: pluginUnicorn,
     },
     rules: {
+        "function/function-return-boolean": "error",
         "@stylistic/arrow-parens": ["warn", "always"],
         "@stylistic/no-multi-spaces": ["warn"],
         "@stylistic/operator-linebreak": ["warn", "before"],
@@ -168,5 +171,13 @@ export const typescript = tseslint.config({
                 tags: templateIndentTags,
             },
         ],
+    },
+});
+export const disableTypeChecked = tseslint.config({
+    extends: [
+        tseslint.configs.disableTypeChecked,
+    ],
+    rules: {
+        "function/function-return-boolean": "off",
     },
 });

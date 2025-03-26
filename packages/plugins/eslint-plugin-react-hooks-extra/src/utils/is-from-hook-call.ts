@@ -13,6 +13,7 @@ export function isFromHookCall(
   predicate: (topLevelId: TSESTree.Identifier, call: TSESTree.CallExpression) => boolean = constTrue,
 ) {
   const hookAlias = settings.additionalHooks[name] ?? [];
+  // eslint-disable-next-line function/function-return-boolean
   return (topLevelId: TSESTree.Identifier) => {
     const variable = VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
     const variableNode = VAR.getVariableInitNode(variable, 0);

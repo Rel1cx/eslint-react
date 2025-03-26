@@ -6,7 +6,7 @@
 
 # Function: isFunctionOfUseEffectCleanup()
 
-> **isFunctionOfUseEffectCleanup**(`node`): `undefined` \| `boolean`
+> **isFunctionOfUseEffectCleanup**(`node`): `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`undefined` \| `boolean`
+`boolean`

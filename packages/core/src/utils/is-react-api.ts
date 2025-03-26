@@ -1,3 +1,4 @@
+/* eslint-disable function/function-return-boolean */
 import { isCallFromReact, isCallFromReactObject, isFromReact, isFromReactObject } from "./is-from-react";
 
 export function isReactAPI(name: string): ReturnType<typeof isFromReact>;

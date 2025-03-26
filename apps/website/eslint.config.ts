@@ -1,8 +1,6 @@
 import react from "@eslint-react/eslint-plugin";
 import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
-// @ts-expect-error - no types for this package
-import pluginNext from "@next/eslint-plugin-next";
 import gitignore from "eslint-config-flat-gitignore";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
@@ -59,13 +57,10 @@ export default tseslint.config(
       },
     },
     plugins: {
-      "@next/next": pluginNext,
       "react-hooks": pluginReactHooks,
       "react-refresh": pluginReactRefresh,
     },
     rules: {
-      ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs["core-web-vitals"].rules,
       ...pluginReactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": "warn",
     },
@@ -78,9 +73,11 @@ export default tseslint.config(
     },
   },
   {
+    extends: [
+      configs.disableTypeChecked,
+    ],
     files: [...GLOB_JS, ...GLOB_CONFIG],
     rules: {
-      ...tseslint.configs.disableTypeChecked.rules,
       "no-console": "off",
       "no-undef": "off",
     },

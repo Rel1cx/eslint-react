@@ -1,7 +1,8 @@
+import type { _ } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
-import { _, constFalse, flip } from "@eslint-react/eff";
+import { constFalse, flip } from "@eslint-react/eff";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -10,7 +11,7 @@ import { isInitializedFromReact } from "../utils";
 import { isReactHookName } from "./hook-name";
 
 export function isReactHook(node: AST.TSESTreeFunction | _) {
-  if (node == null) return _;
+  if (node == null) return false;
   const id = AST.getFunctionIdentifier(node);
   return id?.name != null && isReactHookName(id.name);
 }
@@ -34,6 +35,7 @@ export function isReactHookCall(node: TSESTree.Node | _) {
   return false;
 }
 
+/* eslint-disable function/function-return-boolean */
 export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Node | _) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
   const {
@@ -92,6 +94,7 @@ export function isReactHookCallWithNameAlias(context: RuleContext, name: string,
     }
   };
 }
+/* eslint-enable function/function-return-boolean */
 
 export function isUseEffectCallLoose(node: TSESTree.Node | _) {
   if (node == null) return false;

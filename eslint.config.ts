@@ -78,7 +78,7 @@ export default tseslint.config(
   },
   {
     extends: [
-      tseslint.configs.disableTypeChecked,
+      configs.disableTypeChecked,
     ],
     files: [...GLOB_SCRIPT, ...GLOB_CONFIG],
     languageOptions: {
