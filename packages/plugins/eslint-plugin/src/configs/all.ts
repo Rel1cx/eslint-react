@@ -10,8 +10,8 @@ import * as dom from "./dom";
 export const name = "@eslint-react/all";
 
 export const rules = {
-  "@eslint-react/avoid-shorthand-boolean": "off",
-  "@eslint-react/avoid-shorthand-fragment": "off",
+  "@eslint-react/avoid-shorthand-boolean": "warn",
+  "@eslint-react/avoid-shorthand-fragment": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
   "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/jsx-uses-vars": "warn",
