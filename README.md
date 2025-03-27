@@ -68,7 +68,7 @@ export default tseslint.config({
   },
   rules: {
     // Put rules you want to override here
-    "@eslint-react/prefer-shorthand-boolean": "warn",
+    "@eslint-react/no-class-component": "error",
   },
 });
 ```

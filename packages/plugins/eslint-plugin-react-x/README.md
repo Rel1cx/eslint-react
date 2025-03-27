@@ -34,7 +34,7 @@ export default tseslint.config({
   },
   rules: {
     // Put rules you want to override here
-    "react-x/prefer-shorthand-boolean": "warn",
+    "react-x/no-class-component": "warn",
   },
 });
 ```
