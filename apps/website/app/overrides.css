@@ -83,3 +83,7 @@ figure.fd-codeblock.shiki {
   /* improve code block readability */
   background-color: color-mix(in oklab, var(--color-fd-secondary) 25%, transparent);
 }
+
+.bsky-post [class^="embed-module_externalThumbnail"] {
+  display: none;
+}

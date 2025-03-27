@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@chevrotain/regexp-to-ast": "^11.0.3",
+    "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "fumadocs-core": "15.0.14",
     "fumadocs-docgen": "2.0.0",
