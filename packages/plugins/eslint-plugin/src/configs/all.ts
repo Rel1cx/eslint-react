@@ -58,8 +58,8 @@ export const rules = {
   "@eslint-react/no-useless-forward-ref": "warn",
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
-  "@eslint-react/prefer-shorthand-boolean": "warn",
-  "@eslint-react/prefer-shorthand-fragment": "warn",
+  "@eslint-react/prefer-shorthand-boolean": "off",
+  "@eslint-react/prefer-shorthand-fragment": "off",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
