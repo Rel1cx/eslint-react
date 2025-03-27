@@ -6,7 +6,7 @@
 
 # Function: hasNoneOrLooseComponentName()
 
-> **hasNoneOrLooseComponentName**(`context`, `node`): `boolean`
+> **hasNoneOrLooseComponentName**(`context`, `fn`): `boolean`
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 [`RuleContext`](../-internal-/type-aliases/RuleContext.md)
 
-### node
+### fn
 
 [`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
 

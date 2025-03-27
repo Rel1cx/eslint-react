@@ -19,7 +19,7 @@ function isComponentWrapperCall(
     || isReactHookCallWithNameLoose(node)("useCallback");
 }
 
-export function getFunctionComponentIdentifier(
+export function getFunctionComponentId(
   context: RuleContext,
   node: AST.TSESTreeFunction,
 ): TSESTree.Identifier | TSESTree.Identifier[] | _ {

@@ -14,8 +14,8 @@ import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { ERComponentFlag } from "./component-flag";
-import { getFunctionComponentIdentifier } from "./component-id";
-import { getComponentNameFromIdentifier, hasNoneOrLooseComponentName } from "./component-name";
+import { getFunctionComponentId } from "./component-id";
+import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
 import { hasValidHierarchy } from "./hierarchy";
 
 type FunctionEntry = {
@@ -107,8 +107,8 @@ export function useComponentCollector(
         && hasValidHierarchy(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
-      const id = getFunctionComponentIdentifier(context, entry.node);
-      const name = getComponentNameFromIdentifier(id);
+      const id = getFunctionComponentId(context, entry.node);
+      const name = getComponentNameFromId(id);
       const key = getId();
       components.set(key, {
         id,
@@ -157,8 +157,8 @@ export function useComponentCollector(
       if (!isComponent) return;
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
-      const id = getFunctionComponentIdentifier(context, entry.node);
-      const name = getComponentNameFromIdentifier(id);
+      const id = getFunctionComponentId(context, entry.node);
+      const name = getComponentNameFromId(id);
       components.set(entry.key, {
         id,
         key: entry.key,

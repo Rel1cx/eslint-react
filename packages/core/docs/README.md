@@ -90,8 +90,8 @@
 
 ## Functions
 
-- [getComponentNameFromIdentifier](functions/getComponentNameFromIdentifier.md)
-- [getFunctionComponentIdentifier](functions/getFunctionComponentIdentifier.md)
+- [getComponentNameFromId](functions/getComponentNameFromId.md)
+- [getFunctionComponentId](functions/getFunctionComponentId.md)
 - [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md)
 - [isAssignmentToThisState](functions/isAssignmentToThisState.md)
 - [isClassComponent](functions/isClassComponent.md)
