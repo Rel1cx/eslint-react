@@ -1,4 +1,5 @@
 import { ESLintReact } from "#/components/eslint-react";
+
 import { Card, Cards } from "fumadocs-ui/components/card";
 
 import { Link } from "next-view-transitions";
@@ -8,6 +9,39 @@ const features = [
   ["Flexible", "Increased flexibility with more granular severity control."],
   ["Performant", "Built with performance in mind, optimized for large codebases."],
   ["Comprehensive", "Handles complex scenarios and identifies problems that other tools might miss."],
+] as const;
+
+const plugins = [
+  [
+    "eslint-plugin-react-x",
+    "Core rules (renderer-agnostic, compatible with x-platform).",
+    "https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x",
+  ],
+  [
+    "eslint-plugin-react-dom",
+    "DOM specific rules for React DOM.",
+    "https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom",
+  ],
+  [
+    "eslint-plugin-react-web-api",
+    "Rules for interacting with Web APIs.",
+    "https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api",
+  ],
+  [
+    "eslint-plugin-react-hooks-extra",
+    "Extra React Hooks rules.",
+    "https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra",
+  ],
+  [
+    "eslint-plugin-react-naming-convention",
+    "Naming convention rules.",
+    "https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention",
+  ],
+  [
+    "@eslint-react/eslint-plugin",
+    "Main plugin combining all rules and presets from the above packages.",
+    "https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin",
+  ],
 ] as const;
 
 export default function HomePage() {
@@ -21,6 +55,12 @@ export default function HomePage() {
         <h2>Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {features.map(([title, description]) => <Card description={description} key={title} title={title} />)}
+        </Cards>
+        <h2>ESLint Plugins</h2>
+        <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {plugins.map(([title, description, href]) => (
+            <Card description={description} href={href} key={title} title={title} />
+          ))}
         </Cards>
         <h2>Roadmap</h2>
         <p>

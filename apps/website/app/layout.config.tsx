@@ -32,12 +32,23 @@ export const baseOptions: BaseLayoutProps = {
     },
     {
       active: "nested-url",
+      text: "Community",
+      url: "/docs/community",
+    },
+    {
+      active: "nested-url",
+      text: "Changelog",
+      url: "/docs/changelog",
+    },
+    {
+      active: "nested-url",
       text: "Roadmap",
       url: "/docs/roadmap",
     },
     {
-      text: "Changelog",
-      url: "/docs/changelog",
+      active: "nested-url",
+      text: "FAQ",
+      url: "/FAQ",
     },
   ],
   nav: {
