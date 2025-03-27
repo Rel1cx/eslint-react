@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.38.1 (2025-03-27)
+
+### 🐞 Fixes
+
+- fix(eslint-plugin): disable `prefer-shorthand-*` rules in `all` config by @Rel1cx in <https://github.com/Rel1cx/eslint-react/commit/a9e6ef9f97f968bb9366af3e5b40138fb4b6b679>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.0...v1.38.1>
+
 ## v1.38.0 (2025-03-25)
 
 ### ✨ New
