@@ -16,7 +16,7 @@ npm install --save-dev eslint-plugin-react-x
 
 // @ts-check
 import js from "@eslint/js";
-import reactx from "eslint-plugin-react-x";
+import react from "eslint-plugin-react-x";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config({
@@ -24,7 +24,7 @@ export default tseslint.config({
   extends: [
     js.configs.recommended,
     tseslint.configs.recommended,
-    reactx.configs.recommended,
+    react.configs.recommended,
   ],
   languageOptions: {
     parser: tseslint.parser,
