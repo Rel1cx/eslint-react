@@ -14,15 +14,15 @@
   },
   "markdown": {},
   "excludes": [
+    ".pkgs/**/*.d.ts",
+    ".pkgs/**/*.js",
     "**/.next",
     "**/*-lock.json",
     "**/*-lock.yaml",
     "**/dist",
     "**/node_modules",
     "**/test/fixtures",
-    "packages/**/docs",
-    ".pkgs/**/*.d.ts",
-    ".pkgs/**/*.js"
+    "packages/**/docs"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.94.0.wasm",
