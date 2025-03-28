@@ -35,7 +35,6 @@ export function CommunityShowcases() {
     <div className="not-prose grid grid-cols-1 gap-4 md:grid-cols-2">
       {repos.map(({ owner, repo }) => (
         <GitHubRepo
-          className="shadow-sm"
           key={`${owner}/${repo}`}
           owner={owner}
           repo={repo}
@@ -50,7 +49,6 @@ export function CommunityPresets() {
     <div className="not-prose grid grid-cols-1 gap-4 md:grid-cols-2">
       {presets.map(({ owner, repo }) => (
         <GitHubRepo
-          className="shadow-sm"
           key={`${owner}/${repo}`}
           owner={owner}
           repo={repo}
