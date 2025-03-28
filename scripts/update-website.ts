@@ -7,7 +7,7 @@ import { glob } from "./lib/glob";
  * Build script for processing and copying documentation to the website
  *
  * This script:
- * 1. Collects rule documentation from ESLint plugins
+ * 1. Collects rule documentation from ESLint Plugins
  * 2. Copies them to the website with proper naming
  * 3. Processes the changelog
  * 4. Sets up dependencies for the website build
