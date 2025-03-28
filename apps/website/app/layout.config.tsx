@@ -2,7 +2,7 @@ import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import type { StaticImageData } from "next/image";
 import logo from "#/assets/logo.svg";
 
-import { Image } from "#/components/ui/Image";
+import Image from "next/image";
 import React from "react";
 
 /**
@@ -54,7 +54,7 @@ export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
       <>
-        <Image alt="logo" height="20" src={logo as StaticImageData} width="20" />ESLint React
+        <Image alt="logo" height="20" quality={100} src={logo as StaticImageData} width="20" />ESLint React
       </>
     ),
   },
