@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.38.3-beta.0",
+  "version": "1.38.3-next.1",
   "description": "A series of composable ESLint Plugins for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
