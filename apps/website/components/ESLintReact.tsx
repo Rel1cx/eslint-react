@@ -1,9 +1,9 @@
 import type { StaticImageData } from "next/image";
 import logo from "#/assets/logo.svg";
 
-import React from "react";
+import { Image } from "#/components/ui/Image";
 
-import { Image } from "./ui/image";
+import React from "react";
 
 export function ESLintReact() {
   return (

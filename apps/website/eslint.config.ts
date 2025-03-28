@@ -13,6 +13,7 @@ const GLOB_JS = ["**/*.js", "**/*.jsx"];
 const GLOB_MD = ["**/*.md"];
 const GLOB_MDX = ["**/*.mdx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
+const GLOB_COMPONENT = ["components/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 
 export default tseslint.config(
@@ -62,6 +63,7 @@ export default tseslint.config(
     },
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
+      "@eslint-react/naming-convention/filename": ["error", { rule: "kebab-case" }],
       "react-refresh/only-export-components": "warn",
     },
   },
@@ -70,6 +72,12 @@ export default tseslint.config(
     rules: {
       "@typescript-eslint/require-await": "off",
       "react-refresh/only-export-components": "off",
+    },
+  },
+  {
+    files: GLOB_COMPONENT,
+    rules: {
+      "@eslint-react/naming-convention/filename": ["error", { rule: "PascalCase" }],
     },
   },
   {
