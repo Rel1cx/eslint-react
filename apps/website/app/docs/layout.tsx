@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {...baseOptions}
       links={baseOptions.links?.slice(1, -1) ?? []}
       // the position of navbar
-      nav={{ ...baseOptions.nav, mode: "auto" }}
+      nav={{ ...baseOptions.nav, mode: "top" }}
       // the position of Sidebar Tabs
       tabMode="navbar"
       tree={source.pageTree}
