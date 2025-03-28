@@ -1,4 +1,4 @@
-import { ESLintReact } from "#/components/eslint-react";
+import { ESLintReact } from "#/components/ESLintReact";
 
 import { Card, Cards } from "fumadocs-ui/components/card";
 

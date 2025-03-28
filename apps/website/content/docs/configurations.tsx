@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
-import { CodeBlock } from "#/components/code-block";
+import { CodeBlock } from "#/components/ui/CodeBlock";
 import dedent from "dedent";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 
