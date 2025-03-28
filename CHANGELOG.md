@@ -1,3 +1,11 @@
+## v1.38.3 (2025-03-28)
+
+### 🪄 Improvements
+
+- docs: switch back to the original slogan by @Rel1cx in <https://github.com/Rel1cx/eslint-react/commit/e0e4d460c>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.2...1.38.3>
+
 ## v1.38.2 (2025-03-27)
 
 ### 🐞 Fixes
