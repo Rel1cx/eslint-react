@@ -23,6 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DocsLayout
       {...baseOptions}
+      links={baseOptions.links?.slice(1, -1) ?? []}
       // the position of navbar
       nav={{ ...baseOptions.nav, mode: "auto" }}
       // the position of Sidebar Tabs
