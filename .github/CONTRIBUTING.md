@@ -20,3 +20,7 @@ Thank you for your interest in contributing to ESLint React! This guide will hel
 - **New Features** - Provide strong rationale, preferably with prior discussion
 - **Bug Fixes** - Include `(fix: #xxxx)` in your PR title and detailed description
 - **Documentation Changes** - Include `(docs: #xxxx)` in your PR title and detailed description
+
+## References
+
+- [Monorepo Structure](https://eslint-react.xyz/docs/contributing#monorepo-structure)
