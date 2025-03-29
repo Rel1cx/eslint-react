@@ -8,7 +8,7 @@ title: Changelog
 
 - chore: update default React version to 19.1.0 in documentation and settings by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1023>
 
-**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.3...1.38.4>
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.3...v1.38.4>
 
 ## v1.38.3 (2025-03-28)
 
@@ -16,7 +16,7 @@ title: Changelog
 
 - docs: switch back to the original slogan by @Rel1cx in <https://github.com/Rel1cx/eslint-react/commit/e0e4d460c>
 
-**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.2...1.38.3>
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.2...v1.38.3>
 
 ## v1.38.2 (2025-03-27)
 
@@ -38,7 +38,7 @@ title: Changelog
 
 - refactor: undeprecate `react-x/jsx-uses-vars` and `react-x/jsx-no-duplicate-props` rules by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1017>
 
-**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.3...1.38.0>
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.3...v1.38.0>
 
 ## v1.37.3 (2025-03-22)
 
