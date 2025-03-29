@@ -31,6 +31,11 @@ export const baseOptions: BaseLayoutProps = {
     },
     {
       active: "nested-url",
+      text: "Contributing",
+      url: "/docs/contributing",
+    },
+    {
+      active: "nested-url",
       text: "Community",
       url: "/docs/community",
     },

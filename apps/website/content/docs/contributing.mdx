@@ -4,44 +4,17 @@ title: Contributing
 
 Contributions are welcome!
 
+## Getting Started
+
+To get started with the project, follow these steps:
+
 Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md).
 
-## Repository Structure
+## Reference
 
-### Local Packages
+This section provides a reference to the repository structure and the relationships between different components.
 
-- `.pkgs/configs`: Workspace config bases
-- `.pkgs/eslint-plugin-local`: Internal workspace ESLint plugin
-
-### Internal Packages
-
-- **Utilities**
-  - `packages/utilities/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library)
-  - `packages/utilities/ast`: TSESTree AST utility module for static analysis
-  - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
-  - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX
-  - `packages/utilities/kit`: ESLint React's Plugin Kit for building plugins and rules
-- **Core & Shared**
-  - `packages/core`: Utility module for static analysis of React core APIs and patterns
-  - `packages/shared`: Shared constants, types and functions
-
-### Public Packages
-
-- **ESLint Plugins**
-  - `eslint-plugin-react-x`: Core React rules
-  - `eslint-plugin-react-dom`: React DOM rules
-  - `eslint-plugin-react-web-api`: Web API interaction rules
-  - `eslint-plugin-react-hooks-extra`: Extra React Hooks rules
-  - `eslint-plugin-react-naming-convention`: Naming convention rules
-  - `eslint-plugin-react-debug`: Debugging rules for inspecting React patterns in code
-  - `eslint-plugin`: Main plugin combining all rules and presets from the above packages
-
-### Documentation
-
-- `apps/website`: Documentation website
-- `apps/playground`: Interactive playground (WIP)
-
-## Repository Structure Diagram
+### Monorepo Structure
 
 ```mermaid
 flowchart TB
@@ -165,3 +138,36 @@ flowchart TB
     classDef plugins fill:#f5b7b1,stroke:#78281f,stroke-width:2px;
     classDef external fill:#d2b4de,stroke:#4a235a,stroke-width:2px;
 ```
+
+### Local Packages
+
+- `.pkgs/configs`: Workspace config bases
+- `.pkgs/eslint-plugin-local`: Internal workspace ESLint plugin
+
+### Internal Packages
+
+- **Utilities**
+  - `packages/utilities/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library)
+  - `packages/utilities/ast`: TSESTree AST utility module for static analysis
+  - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
+  - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX
+  - `packages/utilities/kit`: ESLint React's Plugin Kit for building plugins and rules
+- **Core & Shared**
+  - `packages/core`: Utility module for static analysis of React core APIs and patterns
+  - `packages/shared`: Shared constants, types and functions
+
+### Public Packages
+
+- **ESLint Plugins**
+  - `eslint-plugin-react-x`: Core React rules
+  - `eslint-plugin-react-dom`: React DOM rules
+  - `eslint-plugin-react-web-api`: Web API interaction rules
+  - `eslint-plugin-react-hooks-extra`: Extra React Hooks rules
+  - `eslint-plugin-react-naming-convention`: Naming convention rules
+  - `eslint-plugin-react-debug`: Debugging rules for inspecting React patterns in code
+  - `eslint-plugin`: Main plugin combining all rules and presets from the above packages
+
+### Documentation
+
+- `apps/website`: Documentation website
+- `apps/playground`: Interactive playground (WIP)
