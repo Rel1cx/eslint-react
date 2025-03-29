@@ -2,6 +2,7 @@ import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
 import { remarkDocGen, remarkInstall } from "fumadocs-docgen";
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
 import { transformerTwoslash } from "fumadocs-twoslash";
+import { remarkMermaid } from "@theguild/remark-mermaid";
 
 export const docs = defineDocs({
   dir: "content/docs",
@@ -25,8 +26,9 @@ export default defineConfig({
       ],
     },
     remarkPlugins: [
-      [remarkDocGen, { generators: [] }],
+      remarkMermaid,
       remarkInstall,
+      [remarkDocGen, { generators: [] }],
     ],
   },
 });
