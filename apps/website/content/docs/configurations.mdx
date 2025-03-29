@@ -12,7 +12,7 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.0.0", // React version for analysis
+        version: "19.1.0", // React version for analysis
         // ...other configurations
       },
     },
@@ -29,8 +29,9 @@ export default [
 ### `version`
 
 Defines the React version for semantic analysis.
-- `"detect"`: Auto-detects from project dependencies (defaults to `19.0.0` if undetectable)
-- `string`: Explicit version specification (e.g., `"18.2.0"`)
+
+- `"detect"`: Auto-detects from project dependencies (defaults to `19.1.0` if undetectable)
+- `string`: Explicit version specification (e.g., `"18.3.1"`)
 
 ### `importSource`
 
@@ -122,7 +123,7 @@ export default [
     ...eslintReact.configs["recommended-typescript"],
     settings: {
       "react-x": {
-        version: "19.0.0",
+        version: "19.1.0",
         importSource: "react",
         polymorphicPropName: "as",
         additionalHooks: {
@@ -150,4 +151,3 @@ export default [
   }
 ];
 ```
-

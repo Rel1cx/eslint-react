@@ -106,7 +106,7 @@ export const toNormalizedSettings = memoize(
       polymorphicPropName,
       skipImportCheck,
       version: match(version)
-        .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.0.0"))
+        .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
         .otherwise(identity),
     };
   },
