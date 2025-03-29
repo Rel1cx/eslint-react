@@ -10,7 +10,6 @@ export const RULE_NAME = "prefer-react-namespace-import";
 
 export const RULE_FEATURES = [
   "FIX",
-  "EXP",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
@@ -24,7 +23,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      preferReactNamespaceImport: 'Prefer importing React as `import * as React from "{{importSource}}";`',
+      preferReactNamespaceImport: "Prefer importing React as 'import * as React from \"{{importSource}}\"';",
     },
     schema: [],
   },

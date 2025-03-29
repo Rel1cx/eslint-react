@@ -16,7 +16,7 @@ react-x/prefer-react-namespace-import
 
 **Features**
 
-`🔧` `🧪`
+`🔧`
 
 ## Description
 
