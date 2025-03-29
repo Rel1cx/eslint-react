@@ -43,7 +43,6 @@ export const rules = {
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
-  "@eslint-react/no-useless-fragment": "warn",
 } as const satisfies RulePreset;
 
 export const plugins = {
