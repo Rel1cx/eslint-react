@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.38.4 (2025-03-29)
+
+### 🪄 Improvements
+
+- chore: update default React version to 19.1.0 in documentation and settings by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1023>
+
+**Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.38.3...1.38.4>
+
 ## v1.38.3 (2025-03-28)
 
 ### 🪄 Improvements
