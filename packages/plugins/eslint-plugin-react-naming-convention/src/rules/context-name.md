@@ -14,6 +14,12 @@ react-naming-convention/context-name
 @eslint-react/naming-convention/context-name
 ```
 
+**Presets**
+
+- `recommended`
+- `recommended-typescript`
+- `recommended-type-checked`
+
 ## Description
 
 Enforces context name to be a valid component name with the suffix `Context`.
