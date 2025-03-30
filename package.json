@@ -38,7 +38,7 @@
     "inspect:eslint-config": "eslint-config-inspector",
     "lint": "pnpm run lint:deps && pnpm run lint:publish && pnpm run lint:ts && pnpm run lint:es && pnpm run lint:examples",
     "lint:deps": "skott -m file-tree -e .ts -s",
-    "lint:es": "eslint . --max-warnings 100",
+    "lint:es": "eslint . --max-warnings 10",
     "lint:examples": "pnpm m -F \"./examples/*\" run lint",
     "lint:publish": "pnpm m run lint:publish",
     "lint:spell": "cspell lint --relative --no-progress \"**\"",
