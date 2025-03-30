@@ -3,15 +3,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import {
-  ComponentCollectorHint,
-  isCreateElementCall,
-  isDeclaredInRenderPropLoose,
-  isDirectValueOfRenderPropertyLoose,
-  isInsideRenderMethod,
-  useComponentCollector,
-  useComponentCollectorLegacy,
-} from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -42,17 +34,17 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hint = ComponentCollectorHint.SkipArrayMapArgument
-    | ComponentCollectorHint.SkipNullLiteral
-    | ComponentCollectorHint.SkipUndefined
-    | ComponentCollectorHint.SkipBooleanLiteral
-    | ComponentCollectorHint.SkipStringLiteral
-    | ComponentCollectorHint.SkipNumberLiteral
-    | ComponentCollectorHint.StrictLogical
-    | ComponentCollectorHint.StrictConditional;
+  const hint = ER.ComponentCollectorHint.SkipArrayMapArgument
+    | ER.ComponentCollectorHint.SkipNullLiteral
+    | ER.ComponentCollectorHint.SkipUndefined
+    | ER.ComponentCollectorHint.SkipBooleanLiteral
+    | ER.ComponentCollectorHint.SkipStringLiteral
+    | ER.ComponentCollectorHint.SkipNumberLiteral
+    | ER.ComponentCollectorHint.StrictLogical
+    | ER.ComponentCollectorHint.StrictConditional;
 
-  const collector = useComponentCollector(context, { hint });
-  const collectorLegacy = useComponentCollectorLegacy();
+  const collector = ER.useComponentCollector(context, { hint });
+  const collectorLegacy = ER.useComponentCollectorLegacy();
 
   return {
     ...collector.listeners,
@@ -82,9 +74,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Do not mark anonymous function components to reduce false positives
         if (name == null) continue;
         // Do not mark objects containing render methods
-        if (isDirectValueOfRenderPropertyLoose(component)) continue;
+        if (ER.isDirectValueOfRenderPropertyLoose(component)) continue;
         if (isInsideJSXAttributeValue(component)) {
-          if (!isDeclaredInRenderPropLoose(component)) {
+          if (!ER.isDeclaredInRenderPropLoose(component)) {
             context.report({
               messageId: "noNestedComponentDefinitions",
               node: component,
@@ -110,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         const parentComponent = AST.findParentNode(component, isFunctionComponent);
-        if (parentComponent != null && !isDirectValueOfRenderPropertyLoose(parentComponent)) {
+        if (parentComponent != null && !ER.isDirectValueOfRenderPropertyLoose(parentComponent)) {
           context.report({
             messageId: "noNestedComponentDefinitions",
             node: component,
@@ -124,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
           continue;
         }
-        if (isInsideRenderMethod(component)) {
+        if (ER.isInsideRenderMethod(component)) {
           context.report({
             messageId: "noNestedComponentDefinitions",
             node: component,
@@ -171,7 +163,7 @@ function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
  * @returns `true` if the node is inside createElement's props
  */
 function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node) {
-  const call = AST.findParentNode(node, isCreateElementCall(context));
+  const call = AST.findParentNode(node, ER.isCreateElementCall(context));
   if (call == null) return false;
   const prop = AST.findParentNode(node, AST.is(T.ObjectExpression));
   if (prop == null) return false;

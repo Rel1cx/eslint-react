@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isReactHookCall, isReactHookCallWithNameLoose, isUseCallbackCall } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { _, identity } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -42,11 +42,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const alias = getSettingsFromContext(context).additionalHooks.useCallback ?? [];
   return {
     CallExpression(node) {
-      if (!isReactHookCall(node)) {
+      if (!ER.isReactHookCall(node)) {
         return;
       }
       const initialScope = context.sourceCode.getScope(node);
-      if (!isUseCallbackCall(context, node) && !alias.some(isReactHookCallWithNameLoose(node))) {
+      if (!ER.isUseCallbackCall(context, node) && !alias.some(ER.isReactHookCallWithNameLoose(node))) {
         return;
       }
       const scope = context.sourceCode.getScope(node);

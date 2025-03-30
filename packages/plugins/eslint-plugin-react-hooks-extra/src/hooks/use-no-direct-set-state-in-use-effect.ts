@@ -2,7 +2,7 @@ import type { RuleContext } from "@eslint-react/kit";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
-import { isReactHookCallWithNameAlias } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { _, getOrUpdate } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -47,10 +47,10 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   const { onViolation, useEffectKind } = options;
   const settings = getSettingsFromContext(context);
   const additionalHooks = settings.additionalHooks;
-  const isUseEffectLikeCall = isReactHookCallWithNameAlias(context, useEffectKind, additionalHooks[useEffectKind]);
-  const isUseStateCall = isReactHookCallWithNameAlias(context, "useState", additionalHooks.useState);
-  const isUseMemoCall = isReactHookCallWithNameAlias(context, "useMemo", additionalHooks.useMemo);
-  const isUseCallbackCall = isReactHookCallWithNameAlias(context, "useCallback", additionalHooks.useCallback);
+  const isUseEffectLikeCall = ER.isReactHookCallWithNameAlias(context, useEffectKind, additionalHooks[useEffectKind]);
+  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", additionalHooks.useState);
+  const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", additionalHooks.useMemo);
+  const isUseCallbackCall = ER.isReactHookCallWithNameAlias(context, "useCallback", additionalHooks.useCallback);
   const isSetStateCall = isSetFunctionCall(context, settings);
   const isIdFromUseStateCall = isFromUseStateCall(context, settings);
 

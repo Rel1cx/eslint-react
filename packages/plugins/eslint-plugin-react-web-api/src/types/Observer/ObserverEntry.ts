@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-object-types */
-import type { SemanticEntry } from "@eslint-react/core";
+import type * as ER from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { ObserverKind } from "./ObserverKind";
@@ -11,7 +11,7 @@ export type ObserverEntry =
     callee: TSESTree.Node;
     observer: TSESTree.Node;
     observerKind: ObserverKind;
-  } & SemanticEntry
+  } & ER.SemanticEntry
   | {
     kind: "observe";
     node: TSESTree.CallExpression;
@@ -19,7 +19,7 @@ export type ObserverEntry =
     callee: TSESTree.Node;
     observer: TSESTree.Node;
     observerKind: ObserverKind;
-  } & SemanticEntry
+  } & ER.SemanticEntry
   | {
     kind: "unobserve";
     node: TSESTree.CallExpression;
@@ -27,4 +27,4 @@ export type ObserverEntry =
     callee: TSESTree.Node;
     observer: TSESTree.Node;
     observerKind: ObserverKind;
-  } & SemanticEntry;
+  } & ER.SemanticEntry;

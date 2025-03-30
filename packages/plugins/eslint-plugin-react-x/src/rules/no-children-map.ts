@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { isChildrenMap } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     MemberExpression(node) {
-      if (isChildrenMap(context, node)) {
+      if (ER.isChildrenMap(context, node)) {
         context.report({
           messageId: "noChildrenMap",
           node: node.property,

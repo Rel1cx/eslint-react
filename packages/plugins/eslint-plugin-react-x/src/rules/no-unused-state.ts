@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isAssignmentToThisState, isClassComponent, isGetDerivedStateFromProps } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMatching, match, P } from "ts-pattern";
@@ -59,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   function classExit() {
     const currentClass = classEntries.pop();
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !ER.isClassComponent(currentClass)) {
       return;
     }
     const className = AST.getClassIdentifier(currentClass)?.name;
@@ -78,11 +78,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
     methodEntries.push(node);
     const currentClass = classEntries.at(-1);
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !ER.isClassComponent(currentClass)) {
       return;
     }
     if (node.static) {
-      if (isGetDerivedStateFromProps(node) && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)) {
+      if (ER.isGetDerivedStateFromProps(node) && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)) {
         const defNode = stateDefs.get(currentClass)?.node;
         stateDefs.set(currentClass, { node: defNode, isUsed: true });
       }
@@ -104,11 +104,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     AssignmentExpression(node) {
-      if (!isAssignmentToThisState(node)) {
+      if (!ER.isAssignmentToThisState(node)) {
         return;
       }
       const currentClass = classEntries.at(-1);
-      if (currentClass == null || !isClassComponent(currentClass)) {
+      if (currentClass == null || !ER.isClassComponent(currentClass)) {
         return;
       }
       const currentConstructor = constructorEntries.at(-1);
@@ -131,7 +131,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const currentClass = classEntries.at(-1);
-      if (currentClass == null || !isClassComponent(currentClass)) {
+      if (currentClass == null || !ER.isClassComponent(currentClass)) {
         return;
       }
       const currentMethod = methodEntries.at(-1);
@@ -155,7 +155,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "PropertyDefinition:exit": methodExit,
     VariableDeclarator(node) {
       const currentClass = classEntries.at(-1);
-      if (currentClass == null || !isClassComponent(currentClass)) {
+      if (currentClass == null || !ER.isClassComponent(currentClass)) {
         return;
       }
       const currentMethod = methodEntries.at(-1);

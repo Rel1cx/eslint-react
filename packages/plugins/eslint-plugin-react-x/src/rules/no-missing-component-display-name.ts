@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { DEFAULT_COMPONENT_HINT, ComponentFlag, useComponentCollector } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -34,12 +34,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const {
     ctx,
     listeners,
-  } = useComponentCollector(
+  } = ER.useComponentCollector(
     context,
     {
       collectDisplayName: true,
       collectHookCalls: false,
-      hint: DEFAULT_COMPONENT_HINT,
+      hint: ER.DEFAULT_COMPONENT_HINT,
     },
   );
   return {
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"(node) {
       const components = ctx.getAllComponents(node);
       for (const { node, displayName, flag } of components.values()) {
-        const isMemoOrForwardRef = (flag & (ComponentFlag.ForwardRef | ComponentFlag.Memo)) > 0n;
+        const isMemoOrForwardRef = (flag & (ER.ComponentFlag.ForwardRef | ER.ComponentFlag.Memo)) > 0n;
         if (AST.getFunctionIdentifier(node) != null) {
           continue;
         }

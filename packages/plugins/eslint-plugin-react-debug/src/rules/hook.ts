@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { useHookCollector } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useHookCollector();
+  const { ctx, listeners } = ER.useHookCollector();
 
   return {
     ...listeners,

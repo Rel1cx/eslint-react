@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
-import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { getOrUpdate } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, listeners } = ER.useComponentCollector(context);
   const constructions = new Map<AST.TSESTreeFunction, VAR.ValueConstruction[]>();
 
   return {
@@ -64,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const initialScope = context.sourceCode.getScope(valueExpression);
       const construction = VAR.getValueConstruction(valueExpression, initialScope);
       if (construction == null) return;
-      if (isReactHookCall(construction.node)) {
+      if (ER.isReactHookCall(construction.node)) {
         return;
       }
       getOrUpdate(constructions, functionEntry.node, () => []).push(construction);

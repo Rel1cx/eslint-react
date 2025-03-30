@@ -3,13 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as AST from "@eslint-react/ast";
-import {
-  isReactHookCall,
-  isReactHookCallWithNameLoose,
-  isReactHookNameLoose,
-  isUseCall,
-  isUseStateCall,
-} from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 
 import { createRule } from "../utils";
@@ -53,10 +47,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
   return {
     CallExpression(node) {
-      if (!isReactHookCall(node)) {
+      if (!ER.isReactHookCall(node)) {
         return;
       }
-      if (!isUseStateCall(context, node) && !alias.some(isReactHookCallWithNameLoose(node))) {
+      if (!ER.isUseStateCall(context, node) && !alias.some(ER.isReactHookCallWithNameLoose(node))) {
         return;
       }
       const [useStateInput] = node.arguments;
@@ -66,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const expr of AST.getNestedNewExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
-        if (AST.findParentNode(expr, (n) => isUseCall(context, n)) != null) continue;
+        if (AST.findParentNode(expr, (n) => ER.isUseCall(context, n)) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,
@@ -74,9 +68,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       for (const expr of AST.getNestedCallExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
-        if (isReactHookNameLoose(expr.callee.name)) continue;
+        if (ER.isReactHookNameLoose(expr.callee.name)) continue;
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
-        if (AST.findParentNode(expr, (n) => isUseCall(context, n)) != null) continue;
+        if (AST.findParentNode(expr, (n) => ER.isUseCall(context, n)) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,

@@ -1,4 +1,4 @@
-import type { SemanticEntry } from "@eslint-react/core";
+import type * as ER from "@eslint-react/core";
 import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -11,7 +11,7 @@ export type EventListenerEntry =
     capture: boolean | _;
     listener: TSESTree.Node;
     signal: TSESTree.Node | _;
-  } & SemanticEntry
+  } & ER.SemanticEntry
   | {
     kind: "removeEventListener";
     type: TSESTree.Node;
@@ -19,4 +19,4 @@ export type EventListenerEntry =
     callee: TSESTree.Node;
     capture: boolean | _;
     listener: TSESTree.Node;
-  } & SemanticEntry;
+  } & ER.SemanticEntry;

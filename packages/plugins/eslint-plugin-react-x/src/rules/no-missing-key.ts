@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
-import { isChildrenToArrayCall } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -111,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     CallExpression(node) {
-      state.isWithinChildrenToArray ||= isChildrenToArrayCall(context, node);
+      state.isWithinChildrenToArray ||= ER.isChildrenToArrayCall(context, node);
       if (state.isWithinChildrenToArray) {
         return;
       }
@@ -130,7 +130,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       report(checkExpression(fn.body));
     },
     "CallExpression:exit"(node) {
-      if (!isChildrenToArrayCall(context, node)) {
+      if (!ER.isChildrenToArrayCall(context, node)) {
         return;
       }
       state.isWithinChildrenToArray = false;

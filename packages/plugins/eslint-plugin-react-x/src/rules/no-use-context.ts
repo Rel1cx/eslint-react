@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { isReactHookCall, isReactHookCallWithNameAlias } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -45,10 +45,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     CallExpression(node) {
-      if (!isReactHookCall(node)) {
+      if (!ER.isReactHookCall(node)) {
         return;
       }
-      if (!isReactHookCallWithNameAlias(context, "useContext", [...useContextAlias])(node)) {
+      if (!ER.isReactHookCallWithNameAlias(context, "useContext", [...useContextAlias])(node)) {
         return;
       }
       context.report({

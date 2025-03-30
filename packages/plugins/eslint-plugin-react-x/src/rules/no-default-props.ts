@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isClassComponent, isComponentNameLoose } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -45,17 +45,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (property.type !== T.Identifier || property.name !== "defaultProps") {
         return;
       }
-      if (!isComponentNameLoose(object.name)) {
+      if (!ER.isComponentNameLoose(object.name)) {
         return;
       }
       const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
       const variableNode = VAR.getVariableInitNode(variable, 0);
       if (variableNode == null) return;
-      if (!AST.isFunction(variableNode) && !isClassComponent(variableNode)) return;
+      if (!AST.isFunction(variableNode) && !ER.isClassComponent(variableNode)) return;
       context.report({ messageId: "noDefaultProps", node: property });
     },
     PropertyDefinition(node) {
-      if (!isClassComponent(node.parent.parent)) {
+      if (!ER.isClassComponent(node.parent.parent)) {
         return;
       }
       if (!node.static || node.key.type !== T.Identifier || node.key.name !== "defaultProps") {

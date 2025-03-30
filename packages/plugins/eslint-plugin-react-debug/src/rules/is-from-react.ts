@@ -3,7 +3,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { isInitializedFromReact } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
@@ -43,13 +43,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       case node.parent.type === T.MemberExpression
         && node.parent.property === node
         && node.parent.object.type === T.Identifier:
-        return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+        return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
       case node.parent.type === T.JSXMemberExpression
         && node.parent.property === node
         && node.parent.object.type === T.JSXIdentifier:
-        return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+        return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
       default:
-        return isInitializedFromReact(name, importSource, initialScope);
+        return ER.isInitializedFromReact(name, importSource, initialScope);
     }
   }
 

@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { isComponentNameLoose } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         messageId: "noContextProvider",
         node,
         fix(fixer) {
-          if (!isComponentNameLoose(contextSelfName)) return null;
+          if (!ER.isComponentNameLoose(contextSelfName)) return null;
           const openingElement = node.openingElement;
           const closingElement = node.closingElement;
           if (closingElement == null) {

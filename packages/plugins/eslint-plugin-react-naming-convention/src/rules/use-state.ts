@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { getInstanceId } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { snakeCase } from "string-ts";
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         context.report({ messageId: "missingDestructuring", node });
         return;
       }
-      const id = getInstanceId(node);
+      const id = ER.getInstanceId(node);
       if (id?.type !== T.ArrayPattern) {
         context.report({ messageId: "missingDestructuring", node });
         return;

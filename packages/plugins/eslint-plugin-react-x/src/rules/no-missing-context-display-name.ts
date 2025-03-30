@@ -2,12 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import {
-  DISPLAY_NAME_ASSIGNMENT_SELECTOR,
-  getInstanceId,
-  isCreateContextCall,
-  isInstanceIdEqual,
-} from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -43,15 +38,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
   return {
     CallExpression(node) {
-      if (!isCreateContextCall(context, node)) return;
+      if (!ER.isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
-    [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
+    [ER.DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
       displayNameAssignments.push(node);
     },
     "Program:exit"() {
       for (const call of createCalls) {
-        const id = getInstanceId(call);
+        const id = ER.getInstanceId(call);
         if (id == null) {
           context.report({
             messageId: "noMissingContextDisplayName",
@@ -64,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             const left = node.left;
             if (left.type !== T.MemberExpression) return false;
             const object = left.object;
-            return isInstanceIdEqual(context, id, object);
+            return ER.isInstanceIdEqual(context, id, object);
           });
         if (!hasDisplayNameAssignment) {
           context.report({

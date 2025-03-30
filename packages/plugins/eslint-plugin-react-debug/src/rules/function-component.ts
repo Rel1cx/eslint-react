@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { DEFAULT_COMPONENT_HINT, ComponentFlag, useComponentCollector } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -32,12 +32,12 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useComponentCollector(
+  const { ctx, listeners } = ER.useComponentCollector(
     context,
     {
       collectDisplayName: true,
       collectHookCalls: true,
-      hint: DEFAULT_COMPONENT_HINT,
+      hint: ER.DEFAULT_COMPONENT_HINT,
     },
   );
   return {
@@ -51,9 +51,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           data: {
             name,
             displayName: displayName != null ? context.sourceCode.getText(displayName) : "none",
-            forwardRef: (flag & ComponentFlag.ForwardRef) > 0n,
+            forwardRef: (flag & ER.ComponentFlag.ForwardRef) > 0n,
             hookCalls: hookCalls.length,
-            memo: (flag & ComponentFlag.Memo) > 0n,
+            memo: (flag & ER.ComponentFlag.Memo) > 0n,
           },
         });
       }

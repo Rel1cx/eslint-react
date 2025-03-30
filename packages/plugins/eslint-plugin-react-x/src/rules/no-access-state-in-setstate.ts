@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isClassComponent, isThisSetState } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
@@ -66,25 +66,25 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ][] = [];
   return {
     CallExpression(node) {
-      if (!isThisSetState(node)) {
+      if (!ER.isThisSetState(node)) {
         return;
       }
       setStateEntries.push([node, false]);
     },
     "CallExpression:exit"(node) {
-      if (!isThisSetState(node)) {
+      if (!ER.isThisSetState(node)) {
         return;
       }
       setStateEntries.pop();
     },
     ClassDeclaration(node) {
-      classEntries.push([node, isClassComponent(node)]);
+      classEntries.push([node, ER.isClassComponent(node)]);
     },
     "ClassDeclaration:exit"() {
       classEntries.pop();
     },
     ClassExpression(node) {
-      classEntries.push([node, isClassComponent(node)]);
+      classEntries.push([node, ER.isClassComponent(node)]);
     },
     "ClassExpression:exit"() {
       classEntries.pop();

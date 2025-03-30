@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
@@ -37,7 +37,7 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
     return true;
   }
   if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, importSource, initialScope);
+    return ER.isInitializedFromReact(callee.object.object.name, importSource, initialScope);
   }
   return false;
 }
@@ -121,7 +121,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
-    return isCreateElementCall(context, node) || isCloneElementCall(context, node);
+    return ER.isCreateElementCall(context, node) || ER.isCloneElementCall(context, node);
   }
 
   function getReportDescriptors(node: TSESTree.Node): ReportDescriptor<MessageID>[] {

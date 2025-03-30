@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import type ts from "typescript";
-import { useComponentCollector } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, listeners } = ER.useComponentCollector(context);
   return {
     ...listeners,
     "Program:exit"(node) {

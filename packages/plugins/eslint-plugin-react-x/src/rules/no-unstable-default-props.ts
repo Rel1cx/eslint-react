@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { getOrUpdate } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -41,7 +41,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, listeners } = ER.useComponentCollector(context);
   const declarators = new Map<
     AST.TSESTreeFunction,
     ObjectDestructuringDeclarator[]
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (construction == null) {
             continue;
           }
-          if (isReactHookCall(construction.node)) {
+          if (ER.isReactHookCall(construction.node)) {
             continue;
           }
           const forbiddenType = AST.toReadableNodeType(right);

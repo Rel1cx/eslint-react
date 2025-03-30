@@ -1,11 +1,10 @@
-import type { ComponentPhaseKind } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { EventListenerEntry } from "../types";
 import * as AST from "@eslint-react/ast";
-import { ComponentPhaseRelevance, isInversePhase } from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
@@ -28,7 +27,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ComponentPhaseKind | "other";
+type FunctionKind = ER.ComponentPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
@@ -189,7 +188,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
     const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
     const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-    if (!isInversePhase(aPhase, rPhase)) {
+    if (!ER.isInversePhase(aPhase, rPhase)) {
       return false;
     }
     return isSameObject(aCallee, rCallee)
@@ -231,7 +230,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (fKind == null) {
         return;
       }
-      if (!ComponentPhaseRelevance.has(fKind)) {
+      if (!ER.ComponentPhaseRelevance.has(fKind)) {
         return;
       }
       match(getCallKind(node))

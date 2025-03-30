@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isForwardRefCall } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     CallExpression(node) {
-      if (!isForwardRefCall(context, node)) {
+      if (!ER.isForwardRefCall(context, node)) {
         return;
       }
       context.report({

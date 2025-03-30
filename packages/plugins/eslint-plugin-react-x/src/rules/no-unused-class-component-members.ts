@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
+import * as ER from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
@@ -77,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
   function classEnter(node: AST.TSESTreeClass) {
     classEntries.push(node);
-    if (!isClassComponent(node)) {
+    if (!ER.isClassComponent(node)) {
       return;
     }
     propertyDefs.set(node, new Set());
@@ -85,7 +85,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   function classExit() {
     const currentClass = classEntries.pop();
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !ER.isClassComponent(currentClass)) {
       return;
     }
     const className = AST.getClassIdentifier(currentClass)?.name;
@@ -116,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
     methodEntries.push(node);
     const currentClass = classEntries.at(-1);
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !ER.isClassComponent(currentClass)) {
       return;
     }
     if (node.static) {
@@ -141,7 +141,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || currentMethod == null) {
         return;
       }
-      if (!isClassComponent(currentClass) || currentMethod.static) {
+      if (!ER.isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
       if (!AST.isThisExpression(node.object) || !isKeyLiteral(node, node.property)) {
@@ -168,7 +168,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || currentMethod == null) {
         return;
       }
-      if (!isClassComponent(currentClass) || currentMethod.static) {
+      if (!ER.isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
       // detect `{ foo, bar: baz } = this`
