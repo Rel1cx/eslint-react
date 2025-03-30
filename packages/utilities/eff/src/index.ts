@@ -36,19 +36,31 @@ export function identity<T>(x: T): T {
 }
 
 /**
+ * Returns a function that always returns the same value.
+ * @param x - The value to return.
+ */
+export function constant<T>(x: T) {
+  return () => x;
+}
+
+/**
  * Do nothing and return void
  */
-export const constVoid = () => {};
+export function constVoid() {}
 
 /**
  * Do nothing and return true
  */
-export const constTrue = () => true as const;
+export function constTrue() {
+  return true as const;
+}
 
 /**
  * Do nothing and return false
  */
-export const constFalse = () => false as const;
+export function constFalse() {
+  return false as const;
+}
 
 // Ported from https://github.com/Effect-TS/effect/blob/main/packages/effect/src/Function.ts
 /**

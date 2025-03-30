@@ -1,0 +1,59 @@
+{
+  // Whether or not to remove any trailing whitespace from lines of a buffer
+  // before saving it.
+  "remove_trailing_whitespace_on_save": true,
+  // Whether to start a new line with a comment when a previous line is a comment as well.
+  "extend_comment_on_newline": true,
+  // Removes any lines containing only whitespace at the end of the file and
+  // ensures just one newline at the end.
+  "ensure_final_newline_on_save": true,
+  // Whether or not to perform a buffer format before saving
+  //
+  // Keep in mind, if the autosave with delay is enabled, format_on_save will be ignored
+  "format_on_save": "on",
+  // How to perform a buffer format. This setting can take 4 values:
+  //
+  // 1. Format code using the current language server:
+  //     "formatter": "language_server"
+  // 2. Format code using an external command:
+  //     "formatter": {
+  //       "external": {
+  //         "command": "prettier",
+  //         "arguments": ["--stdin-filepath", "{buffer_path}"]
+  //       }
+  //     }
+  // 3. Format code using Zed's Prettier integration:
+  //     "formatter": "prettier"
+  // 4. Default. Format files using Zed's Prettier integration (if applicable),
+  //    or falling back to formatting via language server:
+  //     "formatter": "auto"
+  "formatter": {
+    "external": {
+      "command": "node_modules/.bin/dprint",
+      "arguments": [
+        "fmt",
+        "--stdin",
+        "{buffer_path}"
+      ]
+    }
+  },
+  // How to soft-wrap long lines of text.
+  // Possible values:
+  //
+  // 1. Prefer a single line generally, unless an overly long line is encountered.
+  //      "soft_wrap": "none",
+  //      "soft_wrap": "prefer_line", // (deprecated, same as "none")
+  // 2. Soft wrap lines that overflow the editor.
+  //      "soft_wrap": "editor_width",
+  // 3. Soft wrap lines at the preferred line length.
+  //      "soft_wrap": "preferred_line_length",
+  // 4. Soft wrap lines at the preferred line length or the editor width (whichever is smaller).
+  //      "soft_wrap": "bounded",
+  "soft_wrap": "none",
+  // The column at which to soft-wrap lines, for buffers where soft-wrap
+  // is enabled.
+  "preferred_line_length": 120,
+  "prettier": {
+    "allowed": false
+  }
+}
