@@ -1,10 +1,10 @@
 import type * as AST from "@eslint-react/ast";
-import type { ERPhaseKind } from "@eslint-react/core";
+import type { ComponentPhaseKind } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { TimerEntry } from "../types";
-import { ERPhaseRelevance, isInstanceIdEqual } from "@eslint-react/core";
+import { ComponentPhaseRelevance, isInstanceIdEqual } from "@eslint-react/core";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
@@ -26,7 +26,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ERPhaseKind | "other";
+type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "setTimeout" | "clearTimeout";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
@@ -95,7 +95,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["CallExpression"](node) {
       const fEntry = fEntries.findLast((f) => f.kind !== "other");
-      if (!ERPhaseRelevance.has(fEntry?.kind)) {
+      if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
         return;
       }
       switch (getCallKind(node)) {

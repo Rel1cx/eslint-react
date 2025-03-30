@@ -24,4 +24,4 @@
 
 ### hint?
 
-> `optional` **hint**: [`ERComponentHint`](../../../../type-aliases/ERComponentHint.md)
+> `optional` **hint**: [`ComponentCollectorHint`](../../../../type-aliases/ComponentCollectorHint.md)

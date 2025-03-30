@@ -4,7 +4,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import {
-  ERComponentHint,
+  ComponentCollectorHint,
   isCreateElementCall,
   isDeclaredInRenderPropLoose,
   isDirectValueOfRenderPropertyLoose,
@@ -42,14 +42,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hint = ERComponentHint.SkipArrayMapArgument
-    | ERComponentHint.SkipNullLiteral
-    | ERComponentHint.SkipUndefined
-    | ERComponentHint.SkipBooleanLiteral
-    | ERComponentHint.SkipStringLiteral
-    | ERComponentHint.SkipNumberLiteral
-    | ERComponentHint.StrictLogical
-    | ERComponentHint.StrictConditional;
+  const hint = ComponentCollectorHint.SkipArrayMapArgument
+    | ComponentCollectorHint.SkipNullLiteral
+    | ComponentCollectorHint.SkipUndefined
+    | ComponentCollectorHint.SkipBooleanLiteral
+    | ComponentCollectorHint.SkipStringLiteral
+    | ComponentCollectorHint.SkipNumberLiteral
+    | ComponentCollectorHint.StrictLogical
+    | ComponentCollectorHint.StrictConditional;
 
   const collector = useComponentCollector(context, { hint });
   const collectorLegacy = useComponentCollectorLegacy();

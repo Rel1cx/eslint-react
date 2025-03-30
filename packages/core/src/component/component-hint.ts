@@ -1,12 +1,12 @@
 /* eslint-disable perfectionist/sort-objects */
 import * as JSX from "@eslint-react/jsx";
 
-export type ComponentCollectorHint = bigint;
+export type ComponentHint = bigint;
 
 /**
  * hints for component collector
  */
-export const ComponentCollectorHint = {
+export const ComponentHint = {
   /**
    * 1n << 0n - 1n << 63n are reserved for JSXValueHint
    */
@@ -38,12 +38,12 @@ export const ComponentCollectorHint = {
 } as const;
 
 export const DEFAULT_COMPONENT_HINT = 0n
-  | ComponentCollectorHint.SkipBooleanLiteral
-  | ComponentCollectorHint.SkipEmptyArray
-  | ComponentCollectorHint.SkipArrayMapArgument
-  | ComponentCollectorHint.SkipNumberLiteral
-  | ComponentCollectorHint.SkipStringLiteral
-  | ComponentCollectorHint.SkipUndefined
-  | ComponentCollectorHint.StrictArray
-  | ComponentCollectorHint.StrictConditional
-  | ComponentCollectorHint.StrictLogical;
+  | ComponentHint.SkipBooleanLiteral
+  | ComponentHint.SkipEmptyArray
+  | ComponentHint.SkipArrayMapArgument
+  | ComponentHint.SkipNumberLiteral
+  | ComponentHint.SkipStringLiteral
+  | ComponentHint.SkipUndefined
+  | ComponentHint.StrictArray
+  | ComponentHint.StrictConditional
+  | ComponentHint.StrictLogical;

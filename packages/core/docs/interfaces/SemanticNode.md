@@ -2,15 +2,15 @@
 
 ***
 
-[@eslint-react/core](../README.md) / ERSemanticNode
+[@eslint-react/core](../README.md) / SemanticNode
 
-# Interface: ERSemanticNode
+# Interface: SemanticNode
 
 ## Extended by
 
-- [`ERFunctionComponent`](ERFunctionComponent.md)
-- [`ERClassComponent`](ERClassComponent.md)
-- [`ERHook`](ERHook.md)
+- [`FunctionComponent`](FunctionComponent.md)
+- [`ClassComponent`](ClassComponent.md)
+- [`Hook`](Hook.md)
 
 ## Properties
 

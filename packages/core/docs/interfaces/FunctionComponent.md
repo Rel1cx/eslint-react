@@ -2,13 +2,13 @@
 
 ***
 
-[@eslint-react/core](../README.md) / ERFunctionComponent
+[@eslint-react/core](../README.md) / FunctionComponent
 
-# Interface: ERFunctionComponent
+# Interface: FunctionComponent
 
 ## Extends
 
-- [`ERSemanticNode`](ERSemanticNode.md)
+- [`SemanticNode`](SemanticNode.md)
 
 ## Properties
 
@@ -24,7 +24,7 @@
 
 #### Overrides
 
-[`ERSemanticNode`](ERSemanticNode.md).[`flag`](ERSemanticNode.md#flag)
+[`SemanticNode`](SemanticNode.md).[`flag`](SemanticNode.md#flag)
 
 ***
 
@@ -34,7 +34,7 @@
 
 #### Overrides
 
-[`ERSemanticNode`](ERSemanticNode.md).[`hint`](ERSemanticNode.md#hint)
+[`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#hint)
 
 ***
 
@@ -50,7 +50,7 @@
 
 #### Overrides
 
-[`ERSemanticNode`](ERSemanticNode.md).[`id`](ERSemanticNode.md#id)
+[`SemanticNode`](SemanticNode.md).[`id`](SemanticNode.md#id)
 
 ***
 
@@ -66,7 +66,7 @@
 
 #### Inherited from
 
-[`ERSemanticNode`](ERSemanticNode.md).[`key`](ERSemanticNode.md#key)
+[`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#key)
 
 ***
 
@@ -76,7 +76,7 @@
 
 #### Overrides
 
-[`ERSemanticNode`](ERSemanticNode.md).[`kind`](ERSemanticNode.md#kind)
+[`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind)
 
 ***
 
@@ -86,7 +86,7 @@
 
 #### Inherited from
 
-[`ERSemanticNode`](ERSemanticNode.md).[`name`](ERSemanticNode.md#name)
+[`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#name)
 
 ***
 
@@ -96,4 +96,4 @@
 
 #### Overrides
 
-[`ERSemanticNode`](ERSemanticNode.md).[`node`](ERSemanticNode.md#node)
+[`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#node)

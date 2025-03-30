@@ -16,7 +16,7 @@
 
 #### getAllComponents()
 
-> **getAllComponents**: (`node`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERClassComponent`](../../../../interfaces/ERClassComponent.md)\>
+> **getAllComponents**: (`node`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ClassComponent`](../../../../interfaces/ClassComponent.md)\>
 
 ##### Parameters
 
@@ -26,7 +26,7 @@
 
 ##### Returns
 
-[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ERClassComponent`](../../../../interfaces/ERClassComponent.md)\>
+[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`ClassComponent`](../../../../interfaces/ClassComponent.md)\>
 
 ***
 

@@ -1,7 +1,7 @@
 import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
-export interface ERSemanticNode {
+export interface SemanticNode {
   id:
     | _
     | TSESTree.Identifier

@@ -16,32 +16,32 @@
 
 ## Interfaces
 
-- [ERClassComponent](interfaces/ERClassComponent.md)
-- [ERFunctionComponent](interfaces/ERFunctionComponent.md)
-- [ERHook](interfaces/ERHook.md)
-- [ERSemanticEntry](interfaces/ERSemanticEntry.md)
-- [ERSemanticNode](interfaces/ERSemanticNode.md)
+- [ClassComponent](interfaces/ClassComponent.md)
+- [FunctionComponent](interfaces/FunctionComponent.md)
+- [Hook](interfaces/Hook.md)
+- [SemanticEntry](interfaces/SemanticEntry.md)
+- [SemanticNode](interfaces/SemanticNode.md)
 
 ## Type Aliases
 
-- [ERComponent](type-aliases/ERComponent.md)
-- [ERComponentFlag](type-aliases/ERComponentFlag.md)
-- [ERComponentHint](type-aliases/ERComponentHint.md)
-- [ERComponentKind](type-aliases/ERComponentKind.md)
-- [EREffectKind](type-aliases/EREffectKind.md)
-- [EREffectPhaseKind](type-aliases/EREffectPhaseKind.md)
-- [ERHookKind](type-aliases/ERHookKind.md)
-- [ERLifecyclePhaseKind](type-aliases/ERLifecyclePhaseKind.md)
-- [ERPhaseKind](type-aliases/ERPhaseKind.md)
-- [ERStateKind](type-aliases/ERStateKind.md)
+- [Component](type-aliases/Component.md)
+- [ComponentCollectorHint](type-aliases/ComponentCollectorHint.md)
+- [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md)
+- [ComponentFlag](type-aliases/ComponentFlag.md)
+- [ComponentKind](type-aliases/ComponentKind.md)
+- [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md)
+- [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md)
+- [ComponentStateKind](type-aliases/ComponentStateKind.md)
+- [EffectKind](type-aliases/EffectKind.md)
+- [HookKind](type-aliases/HookKind.md)
 
 ## Variables
 
+- [ComponentCollectorHint](variables/ComponentCollectorHint.md)
+- [ComponentFlag](variables/ComponentFlag.md)
+- [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md)
 - [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
 - [DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
-- [ERComponentFlag](variables/ERComponentFlag.md)
-- [ERComponentHint](variables/ERComponentHint.md)
-- [ERPhaseRelevance](variables/ERPhaseRelevance.md)
 - [isChildrenCount](variables/isChildrenCount.md)
 - [isChildrenCountCall](variables/isChildrenCountCall.md)
 - [isChildrenForEach](variables/isChildrenForEach.md)

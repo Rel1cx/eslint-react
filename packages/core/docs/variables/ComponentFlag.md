@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / ERComponentFlag
+[@eslint-react/core](../README.md) / ComponentFlag
 
-# Variable: ERComponentFlag
+# Variable: ComponentFlag
 
-> **ERComponentFlag**: `object`
+> **ComponentFlag**: `object`
 
 ## Type declaration
 

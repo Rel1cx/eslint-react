@@ -1,10 +1,10 @@
-import type { ERPhaseKind } from "@eslint-react/core";
+import type { ComponentPhaseKind } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { ObserverEntry, ObserverMethod } from "../types";
 import * as AST from "@eslint-react/ast";
-import { ERPhaseRelevance, getInstanceId, isInstanceIdEqual } from "@eslint-react/core";
+import { ComponentPhaseRelevance, getInstanceId, isInstanceIdEqual } from "@eslint-react/core";
 import { _, or } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
@@ -27,7 +27,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ERPhaseKind | "other";
+type FunctionKind = ComponentPhaseKind | "other";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type CallKind = ObserverMethod | EffectMethodKind | "other";
 
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
-    phase: ERPhaseKind;
+    phase: ComponentPhaseKind;
     phaseNode: AST.TSESTreeFunction;
   }[] = [];
   const oEntries: OEntry[] = [];
@@ -132,7 +132,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-      if (fKind == null || !ERPhaseRelevance.has(fKind)) {
+      if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
         return;
       }
       const { object } = node.callee;
@@ -182,7 +182,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ["NewExpression"](node) {
       const fEntry = fEntries.findLast((x) => x.kind !== "other");
       if (fEntry == null) return;
-      if (!ERPhaseRelevance.has(fEntry.kind)) {
+      if (!ComponentPhaseRelevance.has(fEntry.kind)) {
         return;
       }
       if (!isNewResizeObserver(node)) {

@@ -1,16 +1,16 @@
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ERClassComponent } from "./component-semantic-node";
+import type { ClassComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 
 import { getId } from "@eslint-react/shared";
-import { ERComponentFlag } from "./component-flag";
+import { ComponentFlag } from "./component-flag";
 import { isClassComponent, isPureComponent } from "./is";
 
 export declare namespace useComponentCollectorLegacy {
   type ReturnType = {
     ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, ERClassComponent>;
+      getAllComponents: (node: TSESTree.Program) => Map<string, ClassComponent>;
     };
     listeners: ESLintUtils.RuleListener;
   };
@@ -21,7 +21,7 @@ export declare namespace useComponentCollectorLegacy {
  * @returns The context and listeners for the rule
  */
 export function useComponentCollectorLegacy(): useComponentCollectorLegacy.ReturnType {
-  const components = new Map<string, ERClassComponent>();
+  const components = new Map<string, ClassComponent>();
 
   const ctx = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,8 +37,8 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
     const id = AST.getClassIdentifier(node);
     const key = getId();
     const flag = isPureComponent(node)
-      ? ERComponentFlag.PureComponent
-      : ERComponentFlag.None;
+      ? ComponentFlag.PureComponent
+      : ComponentFlag.None;
     components.set(
       key,
       {

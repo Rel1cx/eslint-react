@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-objects */
-export type ERComponentFlag = bigint;
+export type ComponentFlag = bigint;
 
-export const ERComponentFlag = {
+export const ComponentFlag = {
   None: 0n,
   PureComponent: 1n << 0n,
   CreateElement: 1n << 1n,

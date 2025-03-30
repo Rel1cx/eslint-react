@@ -12,7 +12,7 @@
 
 ### a
 
-[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
 ## Returns
 
@@ -22,7 +22,7 @@
 
 #### b
 
-[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
 ### Returns
 
@@ -32,11 +32,11 @@
 
 ### a
 
-[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
 ### b
 
-[`ERPhaseKind`](../type-aliases/ERPhaseKind.md)
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
 ## Returns
 

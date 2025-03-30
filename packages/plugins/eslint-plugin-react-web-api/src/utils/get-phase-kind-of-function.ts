@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import type { ERPhaseKind } from "@eslint-react/core";
+import type { ComponentPhaseKind } from "@eslint-react/core";
 import {
   isFunctionOfComponentDidMount,
   isFunctionOfComponentWillUnmount,
@@ -10,7 +10,7 @@ import { _ } from "@eslint-react/eff";
 import { match } from "ts-pattern";
 
 export function getPhaseKindOfFunction(node: AST.TSESTreeFunction) {
-  return match<AST.TSESTreeFunction, ERPhaseKind | _>(node)
+  return match<AST.TSESTreeFunction, ComponentPhaseKind | _>(node)
     .when(isFunctionOfUseEffectSetup, () => "setup")
     .when(isFunctionOfUseEffectCleanup, () => "cleanup")
     .when(isFunctionOfComponentDidMount, () => "mount")

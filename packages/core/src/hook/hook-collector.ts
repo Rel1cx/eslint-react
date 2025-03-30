@@ -1,5 +1,5 @@
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ERHook } from "./hook-semantic-node";
+import type { Hook } from "./hook-semantic-node";
 import * as AST from "@eslint-react/ast";
 
 import { getId } from "@eslint-react/shared";
@@ -15,14 +15,14 @@ type FunctionEntry = {
 export declare namespace useHookCollector {
   type ReturnType = {
     ctx: {
-      getAllHooks(node: TSESTree.Program): Map<string, ERHook>;
+      getAllHooks(node: TSESTree.Program): Map<string, Hook>;
     };
     listeners: ESLintUtils.RuleListener;
   };
 }
 
 export function useHookCollector(): useHookCollector.ReturnType {
-  const hooks = new Map<string, ERHook>();
+  const hooks = new Map<string, Hook>();
   const functionEntries: FunctionEntry[] = [];
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionIdentifier(node);

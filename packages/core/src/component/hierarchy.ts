@@ -5,7 +5,7 @@ import { type RuleContext } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../utils";
-import { ERComponentHint } from "./component-collector-hint";
+import { ComponentCollectorHint } from "./component-collector-hint";
 import { isFunctionOfRenderMethod } from "./component-lifecycle";
 
 /** @internal */
@@ -13,16 +13,16 @@ export function hasValidHierarchy(context: RuleContext, node: AST.TSESTreeFuncti
   if (isChildrenOfCreateElement(context, node) || isFunctionOfRenderMethod(node)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
+  if (hint & ComponentCollectorHint.SkipObjectMethod && isFunctionOfObjectMethod(node.parent)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
+  if (hint & ComponentCollectorHint.SkipClassMethod && isFunctionOfClassMethod(node.parent)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
+  if (hint & ComponentCollectorHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
     return false;
   }
-  if (hint & ERComponentHint.SkipArrayMapArgument && AST.isArrayMapCallLoose(node.parent)) {
+  if (hint & ComponentCollectorHint.SkipArrayMapArgument && AST.isArrayMapCallLoose(node.parent)) {
     return false;
   }
   const boundaryNode = AST.findParentNode(

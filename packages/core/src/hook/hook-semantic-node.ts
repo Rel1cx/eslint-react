@@ -2,10 +2,10 @@ import type * as AST from "@eslint-react/ast";
 import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ERSemanticNode } from "../semantic-node";
+import type { SemanticNode } from "../semantic-node";
 
 /* eslint-disable perfectionist/sort-interfaces */
-export interface ERHook extends ERSemanticNode {
+export interface Hook extends SemanticNode {
   // The identifier of the hook
   id: TSESTree.Identifier | _;
   // The AST node of the hook

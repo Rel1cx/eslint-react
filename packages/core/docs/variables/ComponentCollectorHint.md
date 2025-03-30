@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / ERComponentHint
+[@eslint-react/core](../README.md) / ComponentCollectorHint
 
-# Variable: ERComponentHint
+# Variable: ComponentCollectorHint
 
-> **ERComponentHint**: `object`
+> **ComponentCollectorHint**: `object`
 
 hints for component collector
 

@@ -2,8 +2,8 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ERComponentHint } from "./component-collector-hint";
-import type { ERFunctionComponent } from "./component-semantic-node";
+import type { ComponentCollectorHint } from "./component-collector-hint";
+import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
@@ -13,7 +13,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
-import { ERComponentFlag } from "./component-flag";
+import { ComponentFlag } from "./component-flag";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
 import { hasValidHierarchy } from "./hierarchy";
@@ -29,11 +29,11 @@ export declare namespace useComponentCollector {
   type Options = {
     collectDisplayName?: boolean;
     collectHookCalls?: boolean;
-    hint?: ERComponentHint;
+    hint?: ComponentCollectorHint;
   };
   type ReturnType = {
     ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, ERFunctionComponent>;
+      getAllComponents: (node: TSESTree.Program) => Map<string, FunctionComponent>;
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | _;
     };
@@ -58,7 +58,7 @@ export function useComponentCollector(
   } = options;
 
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
-  const components = new Map<string, ERFunctionComponent>();
+  const components = new Map<string, FunctionComponent>();
   const functionEntries: FunctionEntry[] = [];
 
   const getCurrentEntry = () => functionEntries.at(-1);
@@ -176,13 +176,13 @@ export function useComponentCollector(
   return { ctx, listeners } as const;
 }
 
-function getComponentFlag(initPath: ERFunctionComponent["initPath"]) {
-  let flag = ERComponentFlag.None;
+function getComponentFlag(initPath: FunctionComponent["initPath"]) {
+  let flag = ComponentFlag.None;
   if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
-    flag |= ERComponentFlag.Memo;
+    flag |= ComponentFlag.Memo;
   }
   if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
-    flag |= ERComponentFlag.ForwardRef;
+    flag |= ComponentFlag.ForwardRef;
   }
   return flag;
 }

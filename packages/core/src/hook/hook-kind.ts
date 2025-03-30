@@ -1,4 +1,4 @@
-export type ERHookKind =
+export type HookKind =
   | "custom"
   | "useActionState"
   | "useCallback"

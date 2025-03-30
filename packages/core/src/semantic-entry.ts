@@ -1,9 +1,9 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ERPhaseKind } from "./component/component-phase";
+import type { ComponentPhaseKind } from "./component/component-phase";
 
-export interface ERSemanticEntry {
+export interface SemanticEntry {
   // kind: string;
   node: TSESTree.Node;
-  phase: ERPhaseKind;
+  phase: ComponentPhaseKind;
 }
