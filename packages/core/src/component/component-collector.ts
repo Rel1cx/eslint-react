@@ -14,8 +14,8 @@ import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { isValidComponentDefinition } from "./component-definition";
-import { getComponentFlagFromInitPath } from "./component-flag";
 import { getFunctionComponentId } from "./component-id";
+import { getComponentFlagFromInitPath } from "./component-init-path";
 import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
 
 type FunctionEntry = {
