@@ -90,16 +90,20 @@
 
 ## Functions
 
+- [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md)
 - [getComponentNameFromId](functions/getComponentNameFromId.md)
 - [getFunctionComponentId](functions/getFunctionComponentId.md)
 - [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md)
 - [isAssignmentToThisState](functions/isAssignmentToThisState.md)
+- [isChildrenOfCreateElement](functions/isChildrenOfCreateElement.md)
 - [isClassComponent](functions/isClassComponent.md)
 - [isComponentDidCatch](functions/isComponentDidCatch.md)
 - [isComponentDidMount](functions/isComponentDidMount.md)
 - [isComponentName](functions/isComponentName.md)
 - [isComponentNameLoose](functions/isComponentNameLoose.md)
 - [isComponentWillUnmount](functions/isComponentWillUnmount.md)
+- [isComponentWrapperCall](functions/isComponentWrapperCall.md)
+- [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md)
 - [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
 - [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md)
 - [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md)

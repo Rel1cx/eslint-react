@@ -4,7 +4,7 @@ import * as JSX from "@eslint-react/jsx";
 export type ComponentCollectorHint = bigint;
 
 /**
- * hints for component collector
+ * Hints for component collector
  */
 export const ComponentCollectorHint = {
   /**
@@ -37,6 +37,9 @@ export const ComponentCollectorHint = {
   SkipClassProperty: 1n << 69n,
 } as const;
 
+/**
+ * Default component collector hint
+ */
 export const DEFAULT_COMPONENT_HINT = 0n
   | ComponentCollectorHint.SkipBooleanLiteral
   | ComponentCollectorHint.SkipEmptyArray

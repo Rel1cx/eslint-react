@@ -17,7 +17,7 @@ export declare namespace useComponentCollectorLegacy {
 }
 
 /**
- * Get a ctx and listeners for the rule to collect class components
+ * Get a ctx and listeners object for the rule to collect class components
  * @returns The context and listeners for the rule
  */
 export function useComponentCollectorLegacy(): useComponentCollectorLegacy.ReturnType {

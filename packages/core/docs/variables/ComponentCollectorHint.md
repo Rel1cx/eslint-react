@@ -8,7 +8,7 @@
 
 > **ComponentCollectorHint**: `object`
 
-hints for component collector
+Hints for component collector
 
 ## Type declaration
 

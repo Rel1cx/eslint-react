@@ -7,3 +7,5 @@
 # Variable: DEFAULT\_COMPONENT\_HINT
 
 > `const` **DEFAULT\_COMPONENT\_HINT**: `bigint`
+
+Default component collector hint

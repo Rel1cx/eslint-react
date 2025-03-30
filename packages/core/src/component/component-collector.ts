@@ -13,10 +13,10 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
 import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
-import { ComponentFlag } from "./component-flag";
+import { isValidComponentDefinition } from "./component-definition";
+import { getComponentFlagFromInitPath } from "./component-flag";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
-import { hasValidHierarchy } from "./hierarchy";
 
 type FunctionEntry = {
   key: string;
@@ -104,7 +104,7 @@ export function useComponentCollector(
       const { body } = entry.node;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && JSX.isJSXValue(body, jsxCtx, hint)
-        && hasValidHierarchy(context, entry.node, hint);
+        && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
@@ -117,7 +117,7 @@ export function useComponentCollector(
         name,
         node: entry.node,
         displayName: _,
-        flag: getComponentFlag(initPath),
+        flag: getComponentFlagFromInitPath(initPath),
         hint,
         hookCalls: entry.hookCalls,
         initPath,
@@ -153,7 +153,7 @@ export function useComponentCollector(
       if (entry == null) return;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && JSX.isJSXValue(node.argument, jsxCtx, hint)
-        && hasValidHierarchy(context, entry.node, hint);
+        && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
@@ -166,7 +166,7 @@ export function useComponentCollector(
         name,
         node: entry.node,
         displayName: _,
-        flag: getComponentFlag(initPath),
+        flag: getComponentFlagFromInitPath(initPath),
         hint,
         hookCalls: entry.hookCalls,
         initPath,
@@ -174,15 +174,4 @@ export function useComponentCollector(
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, listeners } as const;
-}
-
-function getComponentFlag(initPath: FunctionComponent["initPath"]) {
-  let flag = ComponentFlag.None;
-  if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
-    flag |= ComponentFlag.Memo;
-  }
-  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
-    flag |= ComponentFlag.ForwardRef;
-  }
-  return flag;
 }

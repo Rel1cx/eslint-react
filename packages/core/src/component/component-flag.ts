@@ -1,3 +1,6 @@
+import type { FunctionComponent } from "./component-semantic-node";
+import * as AST from "@eslint-react/ast";
+
 /* eslint-disable perfectionist/sort-objects */
 export type ComponentFlag = bigint;
 
@@ -9,3 +12,14 @@ export const ComponentFlag = {
   ForwardRef: 1n << 3n,
   Async: 1n << 4n,
 };
+
+export function getComponentFlagFromInitPath(initPath: FunctionComponent["initPath"]) {
+  let flag = ComponentFlag.None;
+  if (initPath != null && AST.hasCallInFunctionInitPath("memo", initPath)) {
+    flag |= ComponentFlag.Memo;
+  }
+  if (initPath != null && AST.hasCallInFunctionInitPath("forwardRef", initPath)) {
+    flag |= ComponentFlag.ForwardRef;
+  }
+  return flag;
+}

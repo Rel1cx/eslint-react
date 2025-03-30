@@ -10,5 +10,6 @@ export * from "./component-phase";
 export * from "./component-render-prop";
 export type * from "./component-semantic-node";
 export * from "./component-state";
+export * from "./component-wrapper";
 export * from "./hierarchy";
 export * from "./is";

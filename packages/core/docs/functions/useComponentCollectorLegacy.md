@@ -8,7 +8,7 @@
 
 > **useComponentCollectorLegacy**(): [`ReturnType`](../@eslint-react/namespaces/useComponentCollectorLegacy/type-aliases/ReturnType.md)
 
-Get a ctx and listeners for the rule to collect class components
+Get a ctx and listeners object for the rule to collect class components
 
 ## Returns
 
