@@ -46,7 +46,7 @@ Minimum supported versions:
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 
-- [ ] `no-useless-forward-ref`
+- [ ] `no-prop-types`
 - [ ] `no-leaked-conditional-rendering`
 - [ ] `no-redundant-should-component-update`
 - [ ] `no-unused-class-component-members`

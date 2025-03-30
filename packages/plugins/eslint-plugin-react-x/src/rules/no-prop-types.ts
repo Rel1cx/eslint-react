@@ -14,6 +14,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
+// TODO: Add suggestion-fix to replace propTypes with TypeScript types
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
