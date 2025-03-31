@@ -1,10 +1,32 @@
-import type { REACT_BUILD_IN_HOOKS, RuleContext } from "@eslint-react/kit";
+import type { RuleContext } from "@eslint-react/kit";
 import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as ER from "@eslint-react/core";
 import { constTrue } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+
+export const REACT_BUILD_IN_HOOKS = [
+  "use",
+  "useActionState",
+  "useCallback",
+  "useContext",
+  "useDebugValue",
+  "useDeferredValue",
+  "useEffect",
+  "useFormStatus",
+  "useId",
+  "useImperativeHandle",
+  "useInsertionEffect",
+  "useLayoutEffect",
+  "useMemo",
+  "useOptimistic",
+  "useReducer",
+  "useRef",
+  "useState",
+  "useSyncExternalStore",
+  "useTransition",
+] as const;
 
 export function isFromHookCall(
   context: RuleContext,

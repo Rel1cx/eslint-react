@@ -8,6 +8,10 @@
 
 - [\<internal\>](-internal-/README.md)
 
+## Namespaces
+
+- [JsxRuntime](@eslint-react/namespaces/JsxRuntime/README.md)
+
 ## Type Aliases
 
 - [RuleContext](type-aliases/RuleContext.md)
@@ -20,10 +24,12 @@
 - [RE\_CAMEL\_CASE](variables/RE_CAMEL_CASE.md)
 - [RE\_CONSTANT\_CASE](variables/RE_CONSTANT_CASE.md)
 - [RE\_JAVASCRIPT\_PROTOCOL](variables/RE_JAVASCRIPT_PROTOCOL.md)
+- [RE\_JS\_EXT](variables/RE_JS_EXT.md)
 - [RE\_KEBAB\_CASE](variables/RE_KEBAB_CASE.md)
 - [RE\_PASCAL\_CASE](variables/RE_PASCAL_CASE.md)
+- [RE\_REGEXP\_STR](variables/RE_REGEXP_STR.md)
 - [RE\_SNAKE\_CASE](variables/RE_SNAKE_CASE.md)
-- [REACT\_BUILD\_IN\_HOOKS](variables/REACT_BUILD_IN_HOOKS.md)
+- [RE\_TS\_EXT](variables/RE_TS_EXT.md)
 
 ## Functions
 
