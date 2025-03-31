@@ -5,6 +5,7 @@ export const name = "react-x/recommended";
 
 export const rules = {
   "react-x/jsx-no-duplicate-props": "warn",
+  "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
   "react-x/no-access-state-in-setstate": "error",
   "react-x/no-array-index-key": "warn",

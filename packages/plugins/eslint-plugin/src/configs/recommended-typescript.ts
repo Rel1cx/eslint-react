@@ -8,6 +8,7 @@ export const rules = {
   ...recommended.rules,
   "@eslint-react/dom/no-unknown-property": "off",
   "@eslint-react/jsx-no-duplicate-props": "off",
+  "@eslint-react/jsx-uses-react": "off",
   "@eslint-react/jsx-uses-vars": "off",
 } as const satisfies RulePreset;
 

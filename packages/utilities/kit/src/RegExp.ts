@@ -38,7 +38,15 @@ export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 // eslint-disable-next-line no-control-regex
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
-// Ported from https://github.com/sveltejs/eslint-plugin-svelte/blob/main/packages/eslint-plugin-svelte/src/utils/regexp.ts
+/**
+ * Regular expression for matching a JSX pragma comment.
+ */
+export const RE_JSX_ANNOTATION = /@jsx\s+(\S+)/;
+
+/**
+ * Regular expression for matching a valid JavaScript identifier.
+ */
+export const RE_JS_IDENTIFIER = /^[_$a-z][\w$]*$/i;
 
 /**
  * Regular expression for matching a RegExp string.
@@ -49,7 +57,7 @@ export const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u;
  * Convert a string to the `RegExp`.
  * Normal strings (e.g. `"foo"`) is converted to `/^foo$/` of `RegExp`.
  * Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
- *
+ * @see https://github.com/sveltejs/eslint-plugin-svelte/blob/main/packages/eslint-plugin-svelte/src/utils/regexp.ts
  * @param string The string to convert.
  * @returns Returns the `RegExp`.
  */

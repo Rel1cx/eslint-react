@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      jsxUsesVars: "JSX variables should be marked as used.",
+      jsxUsesVars: "",
     },
     schema: [],
   },
