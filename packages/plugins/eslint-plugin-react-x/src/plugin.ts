@@ -3,6 +3,7 @@ import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
 import jsxNoUndef from "./rules/jsx-no-undef";
+import jsxUsesReact from "./rules/jsx-uses-react";
 import jsxUsesVars from "./rules/jsx-uses-vars";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key";
@@ -113,6 +114,7 @@ export const plugin = {
     // Part: JSX only rules
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-no-undef": jsxNoUndef,
+    "jsx-uses-react": jsxUsesReact,
     "jsx-uses-vars": jsxUsesVars,
 
     // Part: deprecated rules

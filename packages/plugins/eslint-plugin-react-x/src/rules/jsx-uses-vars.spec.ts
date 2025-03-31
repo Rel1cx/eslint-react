@@ -1,9 +1,10 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./jsx-uses-vars";
+import rule from "./jsx-uses-vars";
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run("no-unused-vars", rule, {
+  // TODO: Add invalid test cases
   invalid: [],
   valid: [
     ...allValid,

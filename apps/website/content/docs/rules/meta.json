@@ -4,6 +4,7 @@
     "---Core Rules---",
     "jsx-no-duplicate-props",
     "jsx-no-undef",
+    "jsx-uses-react",
     "jsx-uses-vars",
     "no-access-state-in-setstate",
     "no-array-index-key",

@@ -37,3 +37,7 @@ Returns the `RegExp`.
 #### Returns
 
 `boolean`
+
+## See
+
+https://github.com/sveltejs/eslint-plugin-svelte/blob/main/packages/eslint-plugin-svelte/src/utils/regexp.ts
