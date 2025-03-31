@@ -2,6 +2,17 @@
 title: Changelog
 ---
 
+## v1.40.0 (2025-04-01)
+
+### ✨ New
+
+- feat(react-x): add `react-x/jsx-uses-react` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1027
+- feat: enable `react-x/jsx-uses-react` rule in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1027
+- feat: enable `naming-convention/context-name` rule in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1024
+- feat(kit): add `JsxRuntime` module by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1025
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.38.4...v1.40.0
+
 ## v1.38.4 (2025-03-29)
 
 ### 🪄 Improvements
