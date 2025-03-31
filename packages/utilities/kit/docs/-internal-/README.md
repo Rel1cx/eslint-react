@@ -8,6 +8,7 @@
 
 ## Namespaces
 
+- [CompilerOptions](namespaces/CompilerOptions/README.md)
 - [SourceCode](namespaces/SourceCode/README.md)
 
 ## Enumerations
@@ -1719,6 +1720,7 @@
 - [ClassLikeDeclaration](type-aliases/ClassLikeDeclaration.md)
 - [ColonToken](type-aliases/ColonToken.md)
 - [Comment](type-aliases/Comment.md)
+- [CompilerOptions](type-aliases/CompilerOptions.md)
 - [CompilerOptionsValue](type-aliases/CompilerOptionsValue.md)
 - [CompoundAssignmentOperator](type-aliases/CompoundAssignmentOperator.md)
 - [ConciseBody](type-aliases/ConciseBody.md)
@@ -1776,6 +1778,7 @@
 - [JSDocNamespaceBody](type-aliases/JSDocNamespaceBody.md)
 - [JSDocParsingMode](type-aliases/JSDocParsingMode.md)
 - [JsonObjectExpression](type-aliases/JsonObjectExpression.md)
+- [JSX](type-aliases/JSX.md)
 - [JsxAttributeLike](type-aliases/JsxAttributeLike.md)
 - [JsxAttributeName](type-aliases/JsxAttributeName.md)
 - [JsxAttributeValue](type-aliases/JsxAttributeValue.md)
