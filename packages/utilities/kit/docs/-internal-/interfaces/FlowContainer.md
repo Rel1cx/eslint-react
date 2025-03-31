@@ -12,6 +12,7 @@
 
 ## Extended by
 
+- [`ExpressionStatement`](ExpressionStatement-1.md)
 - [`Identifier`](Identifier-1.md)
 - [`ElementAccessExpression`](ElementAccessExpression.md)
 - [`PropertyAccessExpression`](PropertyAccessExpression.md)
@@ -22,7 +23,6 @@
 - [`ContinueStatement`](ContinueStatement-1.md)
 - [`DebuggerStatement`](DebuggerStatement-1.md)
 - [`DoStatement`](DoStatement.md)
-- [`ExpressionStatement`](ExpressionStatement-1.md)
 - [`ForInStatement`](ForInStatement-1.md)
 - [`ForOfStatement`](ForOfStatement-1.md)
 - [`ForStatement`](ForStatement-1.md)

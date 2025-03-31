@@ -1,8 +1,8 @@
 import type { RuleContext } from "../Rule";
-import { getTsconfig, type TsConfigJson } from "get-tsconfig";
+import { type CompilerOptions, JsxEmit } from "typescript";
 
 export type JsxRuntimeOptions = Pick<
-  TsConfigJson.CompilerOptions,
+  CompilerOptions,
   // Specifies the object invoked for `createElement` and `__spread` when targeting `'react'` JSX emit.
   | "reactNamespace"
   // Specifies what JSX code is generated.
@@ -15,26 +15,18 @@ export type JsxRuntimeOptions = Pick<
   | "jsxImportSource"
 >;
 
-export const defaultJsxRuntimeOptions = {
-  jsx: "react-jsx",
-  jsxFactory: "React.createElement",
-  jsxFragmentFactory: "React.Fragment",
-  jsxImportSource: "react",
-  reactNamespace: "React",
-} as const satisfies JsxRuntimeOptions;
-
-const tsconfigCache = new Map<string, unknown>();
-
-// TODO: Add `jsconfig.json` support for JavaScript projects.
+/**
+ * Get JsxRuntimeOptions from RuleContext
+ * @param context The RuleContext
+ * @returns JsxRuntimeOptions
+ */
 export function getJsxRuntimeOptionsFromContext(context: RuleContext) {
-  const tsconfigResult = getTsconfig(context.cwd, "tsconfig.json", tsconfigCache);
-  const compilerOptions = tsconfigResult?.config.compilerOptions;
-  if (compilerOptions == null) return defaultJsxRuntimeOptions;
+  const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
   return {
-    jsx: compilerOptions.jsx ?? defaultJsxRuntimeOptions.jsx,
-    jsxFactory: compilerOptions.jsxFactory ?? defaultJsxRuntimeOptions.jsxFactory,
-    jsxFragmentFactory: compilerOptions.jsxFragmentFactory ?? defaultJsxRuntimeOptions.jsxFragmentFactory,
-    jsxImportSource: compilerOptions.jsxImportSource ?? defaultJsxRuntimeOptions.jsxImportSource,
-    reactNamespace: compilerOptions.reactNamespace ?? defaultJsxRuntimeOptions.reactNamespace,
+    jsx: options.jsx ?? JsxEmit.ReactJSX,
+    jsxFactory: options.jsxFactory ?? "React.createElement",
+    jsxFragmentFactory: options.jsxFragmentFactory ?? "React.Fragment",
+    jsxImportSource: options.jsxImportSource ?? "react",
+    reactNamespace: options.reactNamespace ?? "React",
   };
 }

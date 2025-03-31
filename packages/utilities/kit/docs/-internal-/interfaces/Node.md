@@ -12,10 +12,10 @@
 
 ## Extended by
 
+- [`Token`](Token.md)
 - [`Declaration`](Declaration.md)
 - [`LocalsContainer`](LocalsContainer.md)
 - [`Statement`](Statement.md)
-- [`Token`](Token.md)
 - [`Bundle`](Bundle.md)
 - [`TypeNode`](TypeNode.md)
 - [`Expression`](Expression.md)
@@ -37,8 +37,8 @@
 - [`ObjectBindingPattern`](ObjectBindingPattern.md)
 - [`TemplateSpan`](TemplateSpan.md)
 - [`VariableDeclarationList`](VariableDeclarationList.md)
-- [`JSDocContainer`](JSDocContainer.md)
 - [`FlowContainer`](FlowContainer.md)
+- [`JSDocContainer`](JSDocContainer.md)
 - [`ImportTypeAssertionContainer`](ImportTypeAssertionContainer.md)
 - [`JSDocTag`](JSDocTag.md)
 - [`LiteralLikeNode`](LiteralLikeNode.md)

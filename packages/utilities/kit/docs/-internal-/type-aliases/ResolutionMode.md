@@ -6,4 +6,4 @@
 
 # Type Alias: ResolutionMode
 
-> **ResolutionMode** = [`ESNext`](../README.md#esnext) \| [`CommonJS`](../README.md#commonjs) \| `undefined`
+> **ResolutionMode** = [`ESNext`](../enumerations/ModuleKind.md#esnext) \| [`CommonJS`](../enumerations/ModuleKind.md#commonjs) \| `undefined`

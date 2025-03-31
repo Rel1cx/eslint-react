@@ -12,12 +12,12 @@
 
 ## Extended by
 
+- [`ExpressionStatement`](ExpressionStatement-1.md)
 - [`Block`](Block.md)
 - [`BreakStatement`](BreakStatement-1.md)
 - [`ContinueStatement`](ContinueStatement-1.md)
 - [`DebuggerStatement`](DebuggerStatement-1.md)
 - [`EmptyStatement`](EmptyStatement-1.md)
-- [`ExpressionStatement`](ExpressionStatement-1.md)
 - [`IfStatement`](IfStatement-1.md)
 - [`ImportDeclaration`](ImportDeclaration-1.md)
 - [`LabeledStatement`](LabeledStatement-1.md)
