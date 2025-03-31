@@ -19,7 +19,7 @@
     "fumadocs-twoslash": "3.1.0",
     "fumadocs-typescript": "4.0.0",
     "fumadocs-ui": "15.2.0",
-    "lucide-react": "^0.485.0",
+    "lucide-react": "^0.486.0",
     "next": "^15.2.4",
     "next-view-transitions": "^0.3.4",
     "react": "^19.1.0",
@@ -60,6 +60,6 @@
     "tailwindcss": "^4.0.17",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.28.0"
+    "typescript-eslint": "^8.29.0"
   }
 }
