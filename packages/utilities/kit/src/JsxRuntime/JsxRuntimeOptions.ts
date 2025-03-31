@@ -1,4 +1,4 @@
-import type { RuleContext } from "../_Rule";
+import type { RuleContext } from "../Rule";
 import { getTsconfig, type TsConfigJson } from "get-tsconfig";
 
 export type JsxRuntimeOptions = Pick<
