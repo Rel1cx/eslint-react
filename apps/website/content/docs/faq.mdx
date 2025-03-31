@@ -6,7 +6,7 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 <Accordions>
 
-<Accordion title="Why create eslint-react?">
+<Accordion title="Why create ESLint React?">
 
 The existing `eslint-plugin-react` is a plugin for `react-dom` but named react[¹], it only supports React DOM[²] and does not being expected to be used with x-platform.
 
@@ -14,11 +14,19 @@ Although you can use it with other renderers, it will always assume that you are
 
 Unfortunately, the maintainers of `eslint-plugin-react` refuse to change that[⁴].
 
-Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.html#beyond-the-dom) we believe the future of React Linter is not limited to the DOM. This influences every decision made in `eslint-react`, and it is the reason why we created it.
+Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.html#beyond-the-dom) we believe the future of React Linter is not limited to the DOM. This influences every decision made in ESLint React, and it is the reason why we created it.
 
 </Accordion>
 
-<Accordion title="What is included in eslint-react?">
+<Accordion title='Why is there no "jsx-runtime" preset in ESLint React?'>
+
+ESLint React uses the same JSX runtime as specified in your `tsconfig.json` or `jsconfig.json` and adjusts the relevant rules accordingly.
+
+This avoids potential issues where the JSX runtime configured in ESLint might conflict with the one configured in `tsconfig.json` or `jsconfig.json`.
+
+</Accordion>
+
+<Accordion title="What is included in ESLint React?">
 
 Currently, it includes the following:
 
@@ -29,7 +37,7 @@ Currently, it includes the following:
   - `packages/utilities/ast`: TSESTree AST utility module.
   - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables.
   - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX.
-  - `packages/utilities/kit`: ESLint React's Plugin Kit for building plugins and rules.
+  - `packages/utilities/kit`: ESLint React's plugin kit for building plugins and rules.
 - **Core & Shared Modules**
   - `packages/core`: Utility module for static analysis of React core APIs and patterns.
   - `packages/shared`: Shared constants, types and functions.
@@ -37,13 +45,13 @@ Currently, it includes the following:
 **Public Packages**
 
 - **ESLint Plugins**
-  - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core React rules.
-  - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - React DOM rules.
-  - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
-  - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
-  - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
-  - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
-  - [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - Main plugin combining all rules and presets from the above packages.
+  - [`eslint-plugin-react-x`](https://github.com/Rel1cx/ESLint React/tree/main/packages/plugins/eslint-plugin-react-x) - Core React rules.
+  - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/ESLint React/tree/main/packages/plugins/eslint-plugin-react-dom) - React DOM rules.
+  - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/ESLint React/tree/main/packages/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
+  - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/ESLint React/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
+  - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/ESLint React/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
+  - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/ESLint React/tree/main/packages/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
+  - [`@ESLint React/eslint-plugin`](https://www.npmjs.com/package/@ESLint React/eslint-plugin) - Main plugin combining all rules and presets from the above packages.
 
 **Website & Playground**
 
@@ -54,11 +62,11 @@ You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecologic
 
 </Accordion>
 
-<Accordion title="Is there anything to note about migrating from eslint-plugin-react to eslint-react?">
+<Accordion title="Is there anything to note about migrating from eslint-plugin-react to ESLint React?">
 
-Please be aware that some rules may behave differently when transitioning to `eslint-react`. The rules in `eslint-react` are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to `eslint-react` adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
+Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
 
-To smoothly transition, we suggest reviewing the rules in `eslint-react` and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
+To smoothly transition, we suggest reviewing the rules in ESLint React and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
 
 </Accordion>
 
