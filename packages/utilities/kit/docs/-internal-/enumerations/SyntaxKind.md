@@ -608,12 +608,6 @@ Only the JSDoc scanner produces BacktickToken. The normal scanner produces NoSub
 
 ***
 
-### ExpressionStatement
-
-> **ExpressionStatement**: `244`
-
-***
-
 ### ExpressionWithTypeArguments
 
 > **ExpressionWithTypeArguments**: `233`
@@ -2365,6 +2359,12 @@ Use SyntaxKind.JSDoc
 ### EndOfFileToken
 
 Re-exports [EndOfFileToken](../README.md#endoffiletoken)
+
+***
+
+### ExpressionStatement
+
+Re-exports [ExpressionStatement](../README.md#expressionstatement-1)
 
 ***
 

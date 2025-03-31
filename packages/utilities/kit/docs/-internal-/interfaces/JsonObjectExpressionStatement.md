@@ -74,7 +74,7 @@
 
 ### kind
 
-> `readonly` **kind**: [`ExpressionStatement`](../enumerations/SyntaxKind.md#expressionstatement)
+> `readonly` **kind**: [`ExpressionStatement`](../README.md#expressionstatement-1)
 
 #### Inherited from
 

@@ -14,6 +14,12 @@
 
 ***
 
+### CommonJS
+
+> **CommonJS**: `1`
+
+***
+
 ### ES2015
 
 > **ES2015**: `5`
@@ -29,6 +35,12 @@
 ### ES2022
 
 > **ES2022**: `7`
+
+***
+
+### ESNext
+
+> **ESNext**: `99`
 
 ***
 
@@ -71,15 +83,3 @@
 ### UMD
 
 > **UMD**: `3`
-
-## References
-
-### CommonJS
-
-Re-exports [CommonJS](../README.md#commonjs)
-
-***
-
-### ESNext
-
-Re-exports [ESNext](../README.md#esnext)

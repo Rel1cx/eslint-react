@@ -6,7 +6,9 @@
 
 # Function: getJsxRuntimeOptionsFromContext()
 
-> **getJsxRuntimeOptionsFromContext**(`context`): \{ `jsx`: `"react-jsx"`; `jsxFactory`: `"React.createElement"`; `jsxFragmentFactory`: `"React.Fragment"`; `jsxImportSource`: `"react"`; `reactNamespace`: `"React"`; \} \| \{ `jsx`: [`JSX`](../../../../-internal-/type-aliases/JSX.md); `jsxFactory`: `string`; `jsxFragmentFactory`: `string`; `jsxImportSource`: `string`; `reactNamespace`: `string`; \}
+> **getJsxRuntimeOptionsFromContext**(`context`): `object`
+
+Get JsxRuntimeOptions from RuleContext
 
 ## Parameters
 
@@ -14,6 +16,30 @@
 
 [`RuleContext`](../../../../type-aliases/RuleContext.md)
 
+The RuleContext
+
 ## Returns
 
-\{ `jsx`: `"react-jsx"`; `jsxFactory`: `"React.createElement"`; `jsxFragmentFactory`: `"React.Fragment"`; `jsxImportSource`: `"react"`; `reactNamespace`: `"React"`; \} \| \{ `jsx`: [`JSX`](../../../../-internal-/type-aliases/JSX.md); `jsxFactory`: `string`; `jsxFragmentFactory`: `string`; `jsxImportSource`: `string`; `reactNamespace`: `string`; \}
+`object`
+
+JsxRuntimeOptions
+
+### jsx
+
+> **jsx**: [`JsxEmit`](../../../../-internal-/enumerations/JsxEmit.md)
+
+### jsxFactory
+
+> **jsxFactory**: `string`
+
+### jsxFragmentFactory
+
+> **jsxFragmentFactory**: `string`
+
+### jsxImportSource
+
+> **jsxImportSource**: `string`
+
+### reactNamespace
+
+> **reactNamespace**: `string`

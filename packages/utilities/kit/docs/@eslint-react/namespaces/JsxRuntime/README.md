@@ -10,10 +10,6 @@
 
 - [JsxRuntimeOptions](type-aliases/JsxRuntimeOptions.md)
 
-## Variables
-
-- [defaultJsxRuntimeOptions](variables/defaultJsxRuntimeOptions.md)
-
 ## Functions
 
 - [getJsxRuntimeOptionsFromContext](functions/getJsxRuntimeOptionsFromContext.md)
