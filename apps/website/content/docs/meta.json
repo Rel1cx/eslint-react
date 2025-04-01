@@ -5,15 +5,12 @@
     "---Core Reference---",
     "rules",
     "presets",
-    "configurations",
-    "!---Advanced Topics---",
-    "!advanced-configuration",
-    "!using-an-alternative-parser",
-    "---Other---",
-    "contributing",
-    "community",
-    "changelog",
+    "configuration",
+    "---Project Information---",
     "roadmap",
-    "faq"
+    "changelog",
+    "faq",
+    "community",
+    "contributing"
   ]
 }

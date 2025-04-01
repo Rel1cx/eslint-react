@@ -1,0 +1,12 @@
+{
+  "title": "Configuration",
+  "pages": [
+    "configure-analyzer",
+    "!configure-fixer",
+    "configure-language-config",
+    "configure-language-preference",
+    "!---Advanced Configuration---",
+    "!enhanced-additional-components",
+    "!using-custom-parsers"
+  ]
+}

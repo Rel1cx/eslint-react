@@ -1,0 +1,64 @@
+import { CodeBlock } from "#/components/ui/CodeBlock";
+import dedent from "dedent";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+
+import { Link } from "next-view-transitions";
+
+export function JSXRuntimeTypeTable() {
+  return (
+    <TypeTable
+      type={{
+        jsx: {
+          type: "JSXTransform",
+          description: <Link href="https://www.typescriptlang.org/tsconfig/#jsx">The JSX transform to use</Link>,
+          default: '"react-jsx"',
+          required: true,
+          typeDescription: (
+            <CodeBlock
+              code={dedent`
+                type JSXTransform =
+                  | "none"
+                  | "react-jsx"
+                  | "react-jsxdev"
+                  | "preserve"
+                  | "react-native"
+                  | "react";
+              `}
+              lang="ts"
+            />
+          ),
+        },
+        jsxFactory: {
+          type: "string",
+          description: (
+            <Link href="https://www.typescriptlang.org/tsconfig/#jsxFactory">
+              The factory function to use when creating JSX elements
+            </Link>
+          ),
+          default: '"React.createElement"',
+          required: true,
+        },
+        jsxFragmentFactory: {
+          type: "string",
+          description: (
+            <Link href="https://www.typescriptlang.org/tsconfig/#jsxFragmentFactory">
+              The factory function to use when creating JSX fragments
+            </Link>
+          ),
+          default: '"React.Fragment"',
+          required: true,
+        },
+        jsxImportSource: {
+          type: "string",
+          description: (
+            <Link href="https://www.typescriptlang.org/tsconfig/#jsxImportSource">
+              The source module to import JSX elements from
+            </Link>
+          ),
+          default: '"react"',
+          required: true,
+        },
+      }}
+    />
+  );
+}

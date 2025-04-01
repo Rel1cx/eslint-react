@@ -1,10 +1,12 @@
 ---
-title: Configurations
+title: "Configure Analyzer"
 ---
 
-import { SettingsTypeTable } from "./configurations";
+import { AnalyzerPropertyTypeTable } from "./configure-analyzer";
 
-ESLint React reads configurations from the `react-x` key within ESLint's [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object. Configure these properties in your ESLint configuration file:
+ESLint React reads analyzer properties from the `react-x` key within ESLint's [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object.
+
+You can provide the following properties to customize the analyzer behavior:
 
 ```ts title="eslint.config.js"
 export default [
@@ -13,16 +15,16 @@ export default [
     settings: {
       "react-x": {
         version: "19.1.0", // React version for analysis
-        // ...other configurations
+        // ...other properties
       },
     },
   },
 ];
 ```
 
-## Configuration Properties
+## Properties
 
-<SettingsTypeTable />
+<AnalyzerPropertyTypeTable />
 
 ## Property Specifications
 
@@ -64,7 +66,7 @@ Defines the prop used for polymorphic components. Helps rules determine element 
 Example with `polymorphicPropName` set to `as`:
 
 ```tsx
-<Box as="h3">Configurations</Box>
+<Box as="h3">Hello</Box>
 // Evaluated as an h3 element
 ```
 

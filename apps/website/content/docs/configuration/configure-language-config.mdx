@@ -1,0 +1,15 @@
+---
+title: "Configure Language Config"
+---
+
+import { JSXRuntimeTypeTable } from "./configure-language-config";
+
+ESLint React uses your project configuration to determine how to lint your React code. This page explains which parts in your project configuration are respected by ESLint React.
+
+## JSX Runtime
+
+ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration files to determines how to perform the JSX analysis internally.
+
+The following [compiler options](https://www.typescriptlang.org/tsconfig/#compilerOptions) are respected:
+
+<JSXRuntimeTypeTable />
