@@ -43,6 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         messageId: "preferReactNamespaceImport",
         node: hasOtherSpecifiers ? node : node.parent,
         data: { importSource },
+        // TODO: Use `settings.languagePreference` to determine what code style to use in the fixer (e.g. single or double quotes)
         fix(fixer) {
           const quote = node.parent.source.raw.at(0) ?? "'";
           const isTypeImport = node.parent.importKind === "type";

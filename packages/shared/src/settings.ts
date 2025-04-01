@@ -126,6 +126,6 @@ export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSetti
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
-    "react-x"?: Partial<ESLintReactSettings>;
+    ["react-x"]?: Partial<ESLintReactSettings>;
   }
 }
