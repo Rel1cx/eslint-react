@@ -11,8 +11,8 @@ import { isFunction } from "./is";
  * @returns The nested return statements in the node
  */
 export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
-  const returnStatements: TSESTree.ReturnStatement[] = [];
-  const functionNode = isFunction(node)
+  const statements: TSESTree.ReturnStatement[] = [];
+  const boundaryNode = isFunction(node)
     ? node
     : findParentNode(node, isFunction);
   simpleTraverse(node, {
@@ -21,11 +21,11 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
         return;
       }
       const parentFunction = findParentNode(node, isFunction);
-      if (parentFunction !== functionNode) {
+      if (parentFunction !== boundaryNode) {
         return;
       }
-      returnStatements.push(node);
+      statements.push(node);
     },
   });
-  return returnStatements;
+  return statements;
 }

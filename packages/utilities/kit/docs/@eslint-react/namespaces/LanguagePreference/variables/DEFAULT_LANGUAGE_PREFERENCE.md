@@ -12,42 +12,26 @@ The default language preference.
 
 ## Type declaration
 
-### bracketSameLine
-
-> **bracketSameLine**: `boolean`
-
-### bracketSpacing
-
-> **bracketSpacing**: `boolean`
-
-### endOfLine
-
-> **endOfLine**: `"lf"` \| `"crlf"` \| `"cr"` \| `"auto"`
-
 ### indentStyle
 
-> **indentStyle**: `"tab"` \| `"space"`
+> `readonly` **indentStyle**: `"space"` = `"space"`
 
 ### indentWidth
 
-> **indentWidth**: `number`
-
-### insertFinalNewline
-
-> **insertFinalNewline**: `boolean`
+> `readonly` **indentWidth**: `2` = `2`
 
 ### jsxQuoteStyle
 
-> **jsxQuoteStyle**: `"preferDouble"` \| `"preferSingle"`
+> `readonly` **jsxQuoteStyle**: `"double"` = `"double"`
 
 ### quoteStyle
 
-> **quoteStyle**: `"preferDouble"` \| `"preferSingle"` \| `"alwaysDouble"` \| `"alwaysSingle"`
+> `readonly` **quoteStyle**: `"single"` = `"single"`
 
-### semicolon
+### semicolons
 
-> **semicolon**: `"always"` \| `"prefer"` \| `"asi"`
+> `readonly` **semicolons**: `"always"` = `"always"`
 
-### trailingComma
+### trailingCommas
 
-> **trailingComma**: `"all"` \| `"es5"` \| `"none"`
+> `readonly` **trailingCommas**: `"all"` = `"all"`
