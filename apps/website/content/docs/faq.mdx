@@ -20,9 +20,11 @@ Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.ht
 
 <Accordion title='Why is there no "jsx-runtime" preset in ESLint React?'>
 
-ESLint React uses the same JSX runtime options as specified in your `tsconfig.json` or `jsconfig.json` and adjusts the relevant rules accordingly.
+ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration files to determines how to perform the JSX analysis internally. This means that you don't need to configure the JSX runtime in ESLint React, as it will automatically use the one configured in your project.
 
-This avoids potential issues where the JSX runtime configured in ESLint might conflict with the one configured in `tsconfig.json` or `jsconfig.json`.
+Additionally, this approach avoids potential problems where the JSX runtime configured in `eslint.config.js` might conflict with the one configured in `tsconfig.json` or `jsconfig.json`.
+
+For more information, see the [JSX Runtime](/docs/configuration/configure-language-config#jsx-runtime) section on the [Configure Language Config](/docs/configuration/configure-language-config) page.
 
 </Accordion>
 
