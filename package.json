@@ -56,10 +56,10 @@
     "@eslint/markdown": "^6.3.0",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
-    "@swc/core": "^1.11.15",
+    "@swc/core": "^1.11.16",
     "@tsconfig/node22": "^22.0.1",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.13.16",
+    "@types/node": "^22.13.17",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/parser": "^8.29.0",
@@ -86,7 +86,7 @@
     "ts-pattern": "^5.7.0",
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
-    "type-fest": "^4.38.0",
+    "type-fest": "^4.39.0",
     "typedoc": "^0.28.1",
     "typedoc-plugin-markdown": "^4.6.0",
     "typedoc-plugin-mdn-links": "^5.0.1",
@@ -94,7 +94,7 @@
     "typescript-eslint": "^8.29.0",
     "vitest": "^3.1.1"
   },
-  "packageManager": "pnpm@10.7.0",
+  "packageManager": "pnpm@10.7.1",
   "engines": {
     "node": ">=18.18.0"
   },

@@ -51,7 +51,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node22": "^22.0.1",
     "tsup": "^8.4.0",
-    "type-fest": "^4.38.0"
+    "type-fest": "^4.39.0"
   },
   "engines": {
     "bun": ">=1.0.15",
