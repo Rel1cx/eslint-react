@@ -14,7 +14,7 @@ export const DEFAULT_LANGUAGE_PREFERENCE = parse(LanguagePreferenceSchema, {});
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
-    // eslint-disable-next-line no-restricted-syntax
-    languagePreference?: Partial<LanguagePreference>;
+    // TODO: Add the language preference to the shared configuration settings when it is ready.
+    // languagePreference?: Partial<LanguagePreference>;
   }
 }
