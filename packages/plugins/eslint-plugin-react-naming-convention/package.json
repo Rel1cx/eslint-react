@@ -20,7 +20,7 @@
     "directory": "packages/plugins/eslint-plugin-react-naming-convention"
   },
   "license": "MIT",
-  "author": "Eva1ent<rel1cx@proton.me>",
+  "author": "Rel1cx<rel1cx@proton.me>",
   "sideEffects": false,
   "exports": {
     ".": {
