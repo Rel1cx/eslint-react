@@ -2,7 +2,7 @@
 import type { _ } from "@eslint-react/eff";
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";
-import type { CustomHooks, ESLintReactSettings } from "./schemas";
+import type { CustomHooks, ESLintReactSettings, LanguagePreference } from "./schemas";
 import { identity } from "@eslint-react/eff";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
@@ -11,7 +11,7 @@ import { match, P } from "ts-pattern";
 
 import { parse } from "valibot";
 import { getReactVersion } from "./get-react-version";
-import { DEFAULT_ESLINT_REACT_SETTINGS, ESLintSettingsSchema } from "./schemas";
+import { DEFAULT_ESLINT_REACT_SETTINGS, DEFAULT_LANGUAGE_PREFERENCE, ESLintSettingsSchema } from "./schemas";
 
 export interface CustomComponentNormalized {
   name: string;
@@ -117,6 +117,10 @@ export function getSettingsFromContext(context: { settings: unknown }): ESLintRe
   return toNormalizedSettings(decodeSettings(context.settings));
 }
 
+export function getLanguagePreferenceFromContext(context: { settings: unknown }): LanguagePreference {
+  return parse(ESLintSettingsSchema, context.settings).languagePreference ?? DEFAULT_LANGUAGE_PREFERENCE;
+}
+
 /**
  * A helper function to define settings for "react-x" with type checking in JavaScript files.
  * @param settings The settings.
@@ -126,6 +130,7 @@ export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSetti
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
-    "react-x"?: Partial<ESLintReactSettings>;
+    languagePreference?: Partial<LanguagePreference>;
+    ["react-x"]?: Partial<ESLintReactSettings>;
   }
 }

@@ -15,8 +15,11 @@ Base issue interface.
 ## Extended by
 
 - [`ObjectIssue`](ObjectIssue.md)
-- [`StringIssue`](StringIssue.md)
 - [`BooleanIssue`](BooleanIssue.md)
+- [`UnionIssue`](UnionIssue.md)
+- [`LiteralIssue`](LiteralIssue.md)
+- [`NumberIssue`](NumberIssue.md)
+- [`StringIssue`](StringIssue.md)
 - [`ArrayIssue`](ArrayIssue.md)
 
 ## Type Parameters

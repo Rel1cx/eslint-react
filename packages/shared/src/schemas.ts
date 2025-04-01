@@ -1,6 +1,64 @@
 /* eslint-disable perfectionist/sort-objects */
 import type { InferOutput } from "valibot";
-import { array, boolean, object, optional, parse, string } from "valibot";
+import { array, boolean, literal, number, object, optional, parse, string, union } from "valibot";
+
+/**
+ * @internal
+ */
+export const LanguagePreferenceSchema = object({
+  bracketSameLine: optional(boolean(), false),
+  bracketSpacing: optional(boolean(), true),
+  endOfLine: optional(
+    union([
+      literal("lf"),
+      literal("crlf"),
+      literal("cr"),
+      literal("auto"),
+    ]),
+    "lf",
+  ),
+  indentStyle: optional(
+    union([
+      literal("tab"),
+      literal("space"),
+    ]),
+    "space",
+  ),
+  indentWidth: optional(number(), 2),
+  insertFinalNewline: optional(boolean(), true),
+  quoteStyle: optional(
+    union([
+      literal("alwaysDouble"),
+      literal("alwaysSingle"),
+      literal("preferDouble"),
+      literal("preferSingle"),
+    ]),
+    "preferSingle",
+  ),
+  jsxQuoteStyle: optional(
+    union([
+      literal("preferDouble"),
+      literal("preferSingle"),
+    ]),
+    "preferDouble",
+  ),
+  semicolon: optional(
+    union([
+      literal("always"),
+      literal("prefer"),
+      literal("asi"),
+    ]),
+    "always",
+  ),
+  trailingComma: optional(
+    union([
+      literal("all"),
+      literal("es5"),
+      literal("none"),
+    ]),
+    "all",
+  ),
+});
 
 export const CustomComponentPropSchema = object({
   /**
@@ -150,8 +208,14 @@ export const ESLintReactSettingsSchema = object({
 /**
  * @internal
  */
+export type LanguagePreference = InferOutput<typeof LanguagePreferenceSchema>;
+
+/**
+ * @internal
+ */
 export const ESLintSettingsSchema = optional(
   object({
+    languagePreference: optional(LanguagePreferenceSchema),
     "react-x": optional(ESLintReactSettingsSchema),
     /** @deprecated Use `react-x` instead */
     reactOptions: optional(ESLintReactSettingsSchema),
@@ -168,6 +232,11 @@ export type CustomHooks = InferOutput<typeof CustomHooksSchema>;
 export type ESLintReactSettings = InferOutput<typeof ESLintReactSettingsSchema>;
 
 export type ESLintSettings = InferOutput<typeof ESLintSettingsSchema>;
+
+/**
+ * The default language preference.
+ */
+export const DEFAULT_LANGUAGE_PREFERENCE = parse(LanguagePreferenceSchema, {});
 
 /**
  * The default ESLint settings for "react-x".

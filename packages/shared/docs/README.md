@@ -27,6 +27,7 @@
 - [CustomComponentSchema](variables/CustomComponentSchema.md)
 - [CustomHooksSchema](variables/CustomHooksSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
+- [DEFAULT\_LANGUAGE\_PREFERENCE](variables/DEFAULT_LANGUAGE_PREFERENCE.md)
 - [defineSettings](variables/defineSettings.md)
 - [GITHUB\_URL](variables/GITHUB_URL.md)
 - [NPM\_SCOPE](variables/NPM_SCOPE.md)
@@ -35,5 +36,6 @@
 ## Functions
 
 - [getId](functions/getId.md)
+- [getLanguagePreferenceFromContext](functions/getLanguagePreferenceFromContext.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)
