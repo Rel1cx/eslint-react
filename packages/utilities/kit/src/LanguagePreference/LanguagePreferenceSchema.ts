@@ -1,20 +1,9 @@
-import { boolean, literal, number, object, optional, union } from "valibot";
+import { literal, number, object, optional, union } from "valibot";
 
 /**
  * @internal
  */
 export const LanguagePreferenceSchema = object({
-  bracketSameLine: optional(boolean(), false),
-  bracketSpacing: optional(boolean(), true),
-  endOfLine: optional(
-    union([
-      literal("lf"),
-      literal("crlf"),
-      literal("cr"),
-      literal("auto"),
-    ]),
-    "lf",
-  ),
   indentStyle: optional(
     union([
       literal("tab"),
@@ -23,37 +12,35 @@ export const LanguagePreferenceSchema = object({
     "space",
   ),
   indentWidth: optional(number(), 2),
-  insertFinalNewline: optional(boolean(), true),
-  jsxQuoteStyle: optional(
-    union([
-      literal("preferDouble"),
-      literal("preferSingle"),
-    ]),
-    "preferDouble",
-  ),
   quoteStyle: optional(
     union([
-      literal("alwaysDouble"),
-      literal("alwaysSingle"),
-      literal("preferDouble"),
-      literal("preferSingle"),
+      literal("single"),
+      literal("double"),
     ]),
-    "preferSingle",
+    "single",
   ),
-  semicolon: optional(
+  semicolons: optional(
     union([
       literal("always"),
-      literal("prefer"),
-      literal("asi"),
+      literal("asNeeded"),
     ]),
     "always",
   ),
-  trailingComma: optional(
+  trailingCommas: optional(
     union([
       literal("all"),
       literal("es5"),
       literal("none"),
     ]),
     "all",
+  ),
+
+  // JSX specific options
+  jsxQuoteStyle: optional(
+    union([
+      literal("single"),
+      literal("double"),
+    ]),
+    "double",
   ),
 });

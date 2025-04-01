@@ -1,6 +1,6 @@
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { type InferOutput, parse } from "valibot";
-import { LanguagePreferenceSchema } from "./LanguagePreferenceSchema";
+import type { LanguagePreferenceSchema } from "./LanguagePreferenceSchema";
+import { type InferOutput } from "valibot";
 
 /**
  * @internal
@@ -10,7 +10,14 @@ export type LanguagePreference = InferOutput<typeof LanguagePreferenceSchema>;
 /**
  * The default language preference.
  */
-export const DEFAULT_LANGUAGE_PREFERENCE = parse(LanguagePreferenceSchema, {});
+export const DEFAULT_LANGUAGE_PREFERENCE = {
+  indentStyle: "space",
+  indentWidth: 2,
+  jsxQuoteStyle: "double",
+  quoteStyle: "single",
+  semicolons: "always",
+  trailingCommas: "all",
+} as const satisfies LanguagePreference;
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
