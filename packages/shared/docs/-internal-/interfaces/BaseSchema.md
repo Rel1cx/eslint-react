@@ -11,12 +11,9 @@ Base schema interface.
 ## Extended by
 
 - [`ObjectSchema`](ObjectSchema.md)
+- [`StringSchema`](StringSchema.md)
 - [`OptionalSchema`](OptionalSchema.md)
 - [`BooleanSchema`](BooleanSchema.md)
-- [`UnionSchema`](UnionSchema.md)
-- [`LiteralSchema`](LiteralSchema.md)
-- [`NumberSchema`](NumberSchema.md)
-- [`StringSchema`](StringSchema.md)
 - [`ArraySchema`](ArraySchema.md)
 - [`ExactOptionalSchema`](ExactOptionalSchema.md)
 - [`NullishSchema`](NullishSchema.md)

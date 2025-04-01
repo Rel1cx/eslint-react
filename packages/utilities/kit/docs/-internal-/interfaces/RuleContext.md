@@ -98,7 +98,7 @@ The full path of the file on disk without any code block information (unlike `fi
 
 ### settings
 
-> **settings**: [`SharedConfigurationSettings`](SharedConfigurationSettings.md)
+> **settings**: `SharedConfigurationSettings`
 
 The shared settings from configuration.
 We do not have any shared settings in this plugin.

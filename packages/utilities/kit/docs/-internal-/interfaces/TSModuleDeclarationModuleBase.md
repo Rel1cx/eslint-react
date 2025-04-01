@@ -73,7 +73,7 @@ Use [kind](TSModuleDeclarationBase.md#kind) instead
 
 ### id
 
-> **id**: [`Identifier`](Identifier.md) \| [`Literal`](../type-aliases/Literal.md) \| [`TSQualifiedName`](TSQualifiedName.md)
+> **id**: [`Identifier`](Identifier.md) \| [`Literal`](../type-aliases/Literal-1.md) \| [`TSQualifiedName`](TSQualifiedName.md)
 
 The name of the module
 ```

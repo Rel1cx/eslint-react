@@ -6,4 +6,4 @@
 
 # Type Alias: LiteralExpression
 
-> **LiteralExpression** = [`Literal`](Literal.md) \| [`TemplateLiteral`](../interfaces/TemplateLiteral.md)
+> **LiteralExpression** = [`Literal`](Literal-1.md) \| [`TemplateLiteral`](../interfaces/TemplateLiteral.md)
