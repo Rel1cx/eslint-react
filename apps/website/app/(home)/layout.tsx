@@ -7,8 +7,8 @@ import { HomeLayout } from "fumadocs-ui/layouts/home";
 const links = [
   {
     active: "nested-url",
-    text: "Getting Started",
-    url: "/docs/getting-started",
+    text: "Docs",
+    url: "/docs/getting-started/typescript",
   },
   {
     active: "nested-url",
@@ -22,13 +22,8 @@ const links = [
   },
   {
     active: "nested-url",
-    text: "Contributing",
-    url: "/docs/contributing",
-  },
-  {
-    active: "nested-url",
-    text: "Community",
-    url: "/docs/community",
+    text: "Roadmap",
+    url: "/docs/roadmap",
   },
   {
     active: "nested-url",
@@ -37,13 +32,8 @@ const links = [
   },
   {
     active: "nested-url",
-    text: "Roadmap",
-    url: "/docs/roadmap",
-  },
-  {
-    active: "nested-url",
-    text: "FAQ",
-    url: "/FAQ",
+    text: "Community",
+    url: "/docs/community",
   },
 ] as const satisfies LinkItemType[];
 
