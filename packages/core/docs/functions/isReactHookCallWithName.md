@@ -12,11 +12,11 @@
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 ### node
 
-`undefined` | [`Node`](../-internal-/type-aliases/Node.md)
+`undefined` | `Node`
 
 ## Returns
 

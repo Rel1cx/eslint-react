@@ -12,7 +12,7 @@
 
 ### a
 
-...\[[`RuleContext`](../-internal-/type-aliases/RuleContext.md), [`Node`](../-internal-/type-aliases/Node.md)\]
+...\[`RuleContext`, `Node`\]
 
 ## Returns
 

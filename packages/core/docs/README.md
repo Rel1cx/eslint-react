@@ -4,10 +4,6 @@
 
 # @eslint-react/core
 
-## Modules
-
-- [\<internal\>](-internal-/README.md)
-
 ## Namespaces
 
 - [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md)

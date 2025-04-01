@@ -30,22 +30,22 @@
 
 #### getCurrentEntries()
 
-> **getCurrentEntries**: () => [`FunctionEntry`](../../../../-internal-/type-aliases/FunctionEntry.md)[]
+> **getCurrentEntries**: () => `FunctionEntry`[]
 
 ##### Returns
 
-[`FunctionEntry`](../../../../-internal-/type-aliases/FunctionEntry.md)[]
+`FunctionEntry`[]
 
 #### getCurrentEntry()
 
-> **getCurrentEntry**: () => [`FunctionEntry`](../../../../-internal-/type-aliases/FunctionEntry.md) \| [`_`](../../../../-internal-/type-aliases.md)
+> **getCurrentEntry**: () => `FunctionEntry` \| `_`
 
 ##### Returns
 
-[`FunctionEntry`](../../../../-internal-/type-aliases/FunctionEntry.md) \| [`_`](../../../../-internal-/type-aliases.md)
+`FunctionEntry` \| `_`
 
 ***
 
 ### listeners
 
-> **listeners**: [`RuleListener`](../../../../-internal-/type-aliases/RuleListener.md)
+> **listeners**: `ESLintUtils.RuleListener`

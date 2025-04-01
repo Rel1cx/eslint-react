@@ -12,7 +12,7 @@
 
 ### initPath
 
-`undefined` | [`FunctionInitPath`](../-internal-/type-aliases/FunctionInitPath.md)
+`undefined` | `FunctionInitPath`
 
 ## Returns
 

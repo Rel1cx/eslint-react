@@ -26,7 +26,7 @@ JsxRuntimeOptions
 
 ### jsx
 
-> **jsx**: [`JsxEmit`](../../../../-internal-/enumerations/JsxEmit.md)
+> **jsx**: `JsxEmit`
 
 ### jsxFactory
 

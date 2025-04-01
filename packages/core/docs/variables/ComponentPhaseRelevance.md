@@ -6,4 +6,4 @@
 
 # Variable: ComponentPhaseRelevance
 
-> `const` **ComponentPhaseRelevance**: [`BiRecord`](../-internal-/classes/BiRecord.md)\<\{ `mount`: `"unmount"`; `setup`: `"cleanup"`; \}\>
+> `const` **ComponentPhaseRelevance**: `BiRecord`\<\{ `mount`: `"unmount"`; `setup`: `"cleanup"`; \}\>

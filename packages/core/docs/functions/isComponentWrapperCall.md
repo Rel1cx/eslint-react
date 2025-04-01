@@ -14,13 +14,13 @@ Check if the node is a call expression for a component wrapper
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 The ESLint rule context
 
 ### node
 
-[`Node`](../-internal-/type-aliases/Node.md)
+`Node`
 
 The node to check
 

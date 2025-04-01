@@ -4,10 +4,6 @@
 
 # @eslint-react/kit
 
-## Modules
-
-- [\<internal\>](-internal-/README.md)
-
 ## Namespaces
 
 - [JsxRuntime](@eslint-react/namespaces/JsxRuntime/README.md)

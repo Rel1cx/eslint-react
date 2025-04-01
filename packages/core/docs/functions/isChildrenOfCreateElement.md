@@ -14,13 +14,13 @@ Determines whether inside `createElement`'s children.
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 The rule context
 
 ### node
 
-[`Node`](../-internal-/type-aliases/Node.md)
+`Node`
 
 The AST node to check
 

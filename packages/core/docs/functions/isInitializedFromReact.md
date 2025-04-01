@@ -26,7 +26,7 @@ The import source to check against
 
 ### initialScope
 
-[`Scope`](../-internal-/type-aliases/Scope.md)
+`Scope`
 
 Initial scope to search for the identifier
 

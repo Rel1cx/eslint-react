@@ -6,7 +6,7 @@
 
 # Type Alias: RuleContext\<MessageIds, Options\>
 
-> **RuleContext**\<`MessageIds`, `Options`\> = [`RuleContext`](../-internal-/interfaces/RuleContext.md)\<`MessageIds`, `Options`\>
+> **RuleContext**\<`MessageIds`, `Options`\> = `tseslint.RuleContext`\<`MessageIds`, `Options`\>
 
 Rule context.
 

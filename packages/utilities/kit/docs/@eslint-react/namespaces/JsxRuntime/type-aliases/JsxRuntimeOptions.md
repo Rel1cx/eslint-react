@@ -6,4 +6,4 @@
 
 # Type Alias: JsxRuntimeOptions
 
-> **JsxRuntimeOptions** = [`Pick`](../../../../-internal-/type-aliases/Pick.md)\<[`CompilerOptions`](../../../../-internal-/interfaces/CompilerOptions.md), `"reactNamespace"` \| `"jsx"` \| `"jsxFactory"` \| `"jsxFragmentFactory"` \| `"jsxImportSource"`\>
+> **JsxRuntimeOptions** = [`Pick`](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys)\<`CompilerOptions`, `"reactNamespace"` \| `"jsx"` \| `"jsxFactory"` \| `"jsxFragmentFactory"` \| `"jsxImportSource"`\>

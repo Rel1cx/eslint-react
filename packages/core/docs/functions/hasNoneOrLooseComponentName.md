@@ -12,11 +12,11 @@
 
 ### context
 
-[`RuleContext`](../-internal-/type-aliases/RuleContext.md)
+`RuleContext`
 
 ### fn
 
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+`TSESTreeFunction`
 
 ## Returns
 

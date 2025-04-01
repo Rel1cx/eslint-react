@@ -34,7 +34,7 @@ A function that takes a descriptor and reports it if it's not null or undefined
 
 #### descriptor
 
-`undefined` | `null` | [`ReportDescriptor`](../-internal-/type-aliases/ReportDescriptor.md)\<`MessageID`\>
+`undefined` | `null` | `ReportDescriptor`\<`MessageID`\>
 
 ### Returns
 

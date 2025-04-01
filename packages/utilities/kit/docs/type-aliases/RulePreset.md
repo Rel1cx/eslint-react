@@ -6,7 +6,7 @@
 
 # Type Alias: RulePreset
 
-> **RulePreset** = [`Record`](../-internal-/type-aliases/Record.md)\<`string`, `RuleDeclaration`\>
+> **RulePreset** = [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleDeclaration`\>
 
 Rule config preset.
 

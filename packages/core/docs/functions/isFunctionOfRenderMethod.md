@@ -12,7 +12,7 @@
 
 ### node
 
-[`TSESTreeFunction`](../-internal-/type-aliases/TSESTreeFunction.md)
+`TSESTreeFunction`
 
 ## Returns
 
