@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { jsx, jsxFactory, jsxFragmentFactory, reactNamespace } = JsxRuntime.getJsxRuntimeOptionsFromContext(context);
   const jsxAnnotation = getJsxAnnotation(context);
-  if (jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev || jsx === JsxEmit.Preserve) return {};
+  if (jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev) return {};
 
   function handleJsxElement(node: TSESTree.Node) {
     if (jsxAnnotation == null) {
