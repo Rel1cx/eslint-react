@@ -24,6 +24,7 @@
 - [RE\_JS\_EXT](variables/RE_JS_EXT.md)
 - [RE\_JS\_IDENTIFIER](variables/RE_JS_IDENTIFIER.md)
 - [RE\_JSX\_ANNOTATION](variables/RE_JSX_ANNOTATION.md)
+- [RE\_JSX\_FRAG\_ANNOTATION](variables/RE_JSX_FRAG_ANNOTATION.md)
 - [RE\_KEBAB\_CASE](variables/RE_KEBAB_CASE.md)
 - [RE\_PASCAL\_CASE](variables/RE_PASCAL_CASE.md)
 - [RE\_REGEXP\_STR](variables/RE_REGEXP_STR.md)

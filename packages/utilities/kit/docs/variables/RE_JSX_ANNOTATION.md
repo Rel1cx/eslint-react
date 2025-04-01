@@ -8,4 +8,4 @@
 
 > `const` **RE\_JSX\_ANNOTATION**: [`RegExp`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
 
-Regular expression for matching a JSX pragma comment.
+Regular expression for matching a `@jsx` annotation comment.

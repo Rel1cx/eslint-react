@@ -22,7 +22,6 @@ export type JsxRuntimeOptions = Pick<
  */
 export function getJsxRuntimeOptionsFromContext(context: RuleContext) {
   const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
-  console.log(options);
   return {
     jsx: options.jsx ?? JsxEmit.ReactJSX,
     jsxFactory: options.jsxFactory ?? "React.createElement",
