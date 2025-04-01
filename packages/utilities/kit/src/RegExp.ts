@@ -39,9 +39,14 @@ export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
 /**
- * Regular expression for matching a JSX pragma comment.
+ * Regular expression for matching a `@jsx` annotation comment.
  */
-export const RE_JSX_ANNOTATION = /@jsx\s+(\S+)/;
+export const RE_JSX_ANNOTATION = /@jsx\s+(\S+)/u;
+
+/**
+ * Regular expression for matching a `@jsxFrag` annotation comment.
+ */
+export const RE_JSX_FRAG_ANNOTATION = /@jsxFrag\s+(\S+)/u;
 
 /**
  * Regular expression for matching a valid JavaScript identifier.
