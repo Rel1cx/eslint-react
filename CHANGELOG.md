@@ -5,7 +5,7 @@
 - feat(react-x): enhance `jsx-uses-react` rule to support `@jsx` and `@jsxFrag` annotation comments by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1029
 - feat(kit): add `LanguagePreference` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1028
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.0...v1.40.1
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.0...v1.41.0
 
 ## v1.40.0 (2025-04-01)
 
