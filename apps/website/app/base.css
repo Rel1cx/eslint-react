@@ -4,8 +4,9 @@
 @import "fumadocs-twoslash/twoslash.css";
 @import "tailwindcss-animated";
 
-@source "../deps/fumadocs-ui/**/*.js";
+@source "../node_modules/fumadocs-ui/dist";
 
 @source ".";
 @source "../components";
 @source "../content";
+@source './components/**/*.{js,ts,jsx,tsx,mdx}';

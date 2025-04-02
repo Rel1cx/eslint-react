@@ -70,30 +70,3 @@ const changelogWithFrontmatter = [
 
 // Write the processed changelog to the website content directory
 await fs.writeFile(path.join("apps", "website", "content", "docs", "changelog.md"), changelogWithFrontmatter);
-
-// Workaround for @tailwindcss/postcss plugin not working with symlinked node_modules:
-// 1. Find the actual (real) path of the symlinked fumadocs-ui
-// 2. Copy the entire directory to a non-symlinked location in the website deps
-// 3. This ensures Tailwind can properly process the CSS in these files
-const linkPath = path.join("apps", "website", "node_modules", "fumadocs-ui", "dist");
-const realPath = await fs.realpath(linkPath);
-const distPath = path.join("apps", "website", "deps", "fumadocs-ui");
-await fs.mkdir(distPath, { recursive: true });
-await fs.rm(distPath, { force: true, recursive: true });
-await fs.cp(
-  realPath,
-  distPath,
-  { dereference: true, recursive: true }, // dereference ensures we copy actual files, not symlinks
-);
-
-// Commented out: Generate tailwindcss source mapping configuration
-// This would tell Tailwind which directories to scan for CSS classes
-// const sourcePath = path.join("apps", "website", "app", "sources.css");
-// const sourceCode = [
-//   `@source "../deps/fumadocs-ui/**/*.js";`,
-//   '@source ".";',
-//   '@source "../components";',
-//   '@source "../content";',
-// ].join("\n");
-
-// await fs.writeFile(sourcePath, sourceCode);
