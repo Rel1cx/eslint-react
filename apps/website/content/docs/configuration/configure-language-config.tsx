@@ -12,7 +12,6 @@ export function JSXRuntimeTypeTable() {
           type: "JSXTransform",
           description: <Link href="https://www.typescriptlang.org/tsconfig/#jsx">The JSX transform to use</Link>,
           default: '"react-jsx"',
-          required: true,
           typeDescription: (
             <CodeBlock
               code={dedent`
@@ -36,7 +35,6 @@ export function JSXRuntimeTypeTable() {
             </Link>
           ),
           default: '"React.createElement"',
-          required: true,
         },
         jsxFragmentFactory: {
           type: "string",
@@ -46,7 +44,6 @@ export function JSXRuntimeTypeTable() {
             </Link>
           ),
           default: '"React.Fragment"',
-          required: true,
         },
         jsxImportSource: {
           type: "string",
@@ -56,7 +53,6 @@ export function JSXRuntimeTypeTable() {
             </Link>
           ),
           default: '"react"',
-          required: true,
         },
       }}
     />
