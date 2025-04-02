@@ -3,6 +3,8 @@ title: TypeScript
 description: Getting started using ESLint React in your TypeScript React project
 ---
 
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
 <Callout type="info" title="This instruction requires the following minimum versions:">
 
 - `node@18.18.0`
@@ -11,11 +13,19 @@ description: Getting started using ESLint React in your TypeScript React project
 
 </Callout>
 
+<Steps>
+
+<Step>
+
 ## Installation
 
 ```package-install copy
 npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```
+
+</Step>
+
+<Step>
 
 ## Configure ESLint
 
@@ -55,7 +65,24 @@ export default tseslint.config({
 });
 ```
 
-## Resources
+</Step>
 
-- [Configure ESLint](https://eslint.org/docs/latest/use/configure/)
-- [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+<Step>
+
+## Configure TypeScript (Optional)
+
+```jsonc title="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...other options
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "noEmit": true,
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
+```
+
+</Step>
+
+</Steps>
