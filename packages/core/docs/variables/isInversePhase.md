@@ -6,38 +6,46 @@
 
 # Variable: isInversePhase()
 
-> `const` **isInversePhase**: (`a`) => (`b`) => `boolean`(`a`, `b`) => `boolean`
+> `const` **isInversePhase**: \{(`a`): (`b`) => `boolean`; (`a`, `b`): `boolean`; \}
 
-## Parameters
+## Call Signature
 
-### a
+> (`a`): (`b`) => `boolean`
+
+### Parameters
+
+#### a
 
 [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
-## Returns
+### Returns
 
-`Function`
+> (`b`): `boolean`
+
+#### Parameters
+
+##### b
+
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+
+#### Returns
+
+`boolean`
+
+## Call Signature
+
+> (`a`, `b`): `boolean`
 
 ### Parameters
+
+#### a
+
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
 #### b
 
 [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
 
 ### Returns
-
-`boolean`
-
-## Parameters
-
-### a
-
-[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
-
-### b
-
-[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
-
-## Returns
 
 `boolean`

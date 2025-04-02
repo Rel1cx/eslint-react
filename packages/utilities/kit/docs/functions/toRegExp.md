@@ -28,6 +28,8 @@ Returns the `RegExp`.
 
 ### test()
 
+> **test**(`s`): `boolean`
+
 #### Parameters
 
 ##### s

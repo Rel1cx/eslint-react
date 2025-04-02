@@ -24,7 +24,7 @@
 
 ## Returns
 
-`Function`
+> (`node`): `boolean`
 
 ### Parameters
 

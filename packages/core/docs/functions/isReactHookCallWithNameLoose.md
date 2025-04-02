@@ -16,7 +16,7 @@
 
 ## Returns
 
-`Function`
+> (`name`): `boolean`
 
 ### Parameters
 

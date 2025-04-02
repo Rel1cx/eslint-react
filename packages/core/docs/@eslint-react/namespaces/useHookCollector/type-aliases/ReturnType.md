@@ -16,6 +16,8 @@
 
 #### getAllHooks()
 
+> **getAllHooks**(`node`): [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\>
+
 ##### Parameters
 
 ###### node

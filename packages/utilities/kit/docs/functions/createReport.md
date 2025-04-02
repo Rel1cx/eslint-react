@@ -26,9 +26,9 @@ The context of the rule
 
 ## Returns
 
-`Function`
-
 A function that takes a descriptor and reports it if it's not null or undefined
+
+> (`descriptor`): `void`
 
 ### Parameters
 
