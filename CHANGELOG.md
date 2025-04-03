@@ -1,3 +1,11 @@
+## v1.40.3 (2025-04-04)
+
+### 🐞 Fixes
+
+- fix: fixed `no-useless-fragment` false positive when using `&nbsp;`, closes #1035 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1036
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.2...v1.40.3
+
 ## v1.40.2 (2025-04-03)
 
 ### 🐞 Fixes
