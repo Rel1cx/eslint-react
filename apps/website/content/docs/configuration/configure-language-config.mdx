@@ -14,22 +14,26 @@ ESLint React references your language config to determine how to perform static 
 
 ## JSX Runtime
 
-ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration file to determine the JSX runtime type. If nothing is specified, it defaults to [`automatic`](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
+ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration file to determine the JSX runtime type.
 
 The following [compiler options](https://www.typescriptlang.org/tsconfig/#compilerOptions) are respected:
 
 <JSXRuntimeTypeTable />
 
+**If nothing is specified, it defaults to [`automatic`](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)**.
+
 Since this part does not perform type checking, there is **almost no performance impact**.
 
 ## Rules that Need Type Information
 
-ESLint React uses the Typed Linting API from `typescript-eslint` to retrieve type information for the rules that require it. The `project` or `projectService` options in `parserOptions` must be set correctly for the rules to work.
+ESLint React uses the Typed Linting API from `typescript-eslint` to retrieve type information for the rules that require it.
 
 The following rules require type information:
 
 - [`react-x/prefer-read-only-props`](/docs/rules/prefer-read-only-props)
 - [`react-x/no-leaked-conditional-rendering`](/docs/rules/no-leaked-conditional-rendering)
+
+**The `project` or `projectService` options in `parserOptions` must be set correctly for the rules to work**.
 
 Enabling these rules **will have performance impact**, but they are more powerful than traditional lint rules.
 
