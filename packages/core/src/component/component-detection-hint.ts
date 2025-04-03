@@ -1,16 +1,16 @@
 /* eslint-disable perfectionist/sort-objects */
 import * as JSX from "@eslint-react/jsx";
 
-export type ComponentCollectorHint = bigint;
+export type ComponentDetectionHint = bigint;
 
 /**
  * Hints for component collector
  */
-export const ComponentCollectorHint = {
+export const ComponentDetectionHint = {
   /**
-   * 1n << 0n - 1n << 63n are reserved for JSXValueHint
+   * 1n << 0n - 1n << 63n are reserved for JSXDetectionHint
    */
-  ...JSX.JSXValueHint,
+  ...JSX.JSXDetectionHint,
   /**
    * Skip function component created by React.memo
    */
@@ -38,15 +38,15 @@ export const ComponentCollectorHint = {
 } as const;
 
 /**
- * Default component collector hint
+ * Default component detection hint
  */
-export const DEFAULT_COMPONENT_HINT = 0n
-  | ComponentCollectorHint.SkipBooleanLiteral
-  | ComponentCollectorHint.SkipEmptyArray
-  | ComponentCollectorHint.SkipArrayMapArgument
-  | ComponentCollectorHint.SkipNumberLiteral
-  | ComponentCollectorHint.SkipStringLiteral
-  | ComponentCollectorHint.SkipUndefined
-  | ComponentCollectorHint.StrictArray
-  | ComponentCollectorHint.StrictConditional
-  | ComponentCollectorHint.StrictLogical;
+export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
+  | ComponentDetectionHint.SkipBooleanLiteral
+  | ComponentDetectionHint.SkipEmptyArray
+  | ComponentDetectionHint.SkipArrayMapArgument
+  | ComponentDetectionHint.SkipNumberLiteral
+  | ComponentDetectionHint.SkipStringLiteral
+  | ComponentDetectionHint.SkipUndefined
+  | ComponentDetectionHint.StrictArray
+  | ComponentDetectionHint.StrictConditional
+  | ComponentDetectionHint.StrictLogical;

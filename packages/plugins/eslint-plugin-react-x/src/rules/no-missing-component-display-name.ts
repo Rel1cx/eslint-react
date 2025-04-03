@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       collectDisplayName: true,
       collectHookCalls: false,
-      hint: ER.DEFAULT_COMPONENT_HINT,
+      hint: ER.DEFAULT_COMPONENT_DETECTION_HINT,
     },
   );
   return {

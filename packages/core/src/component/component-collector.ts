@@ -2,7 +2,7 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ComponentCollectorHint } from "./component-collector-hint";
+import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
@@ -12,8 +12,8 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
-import { DEFAULT_COMPONENT_HINT } from "./component-collector-hint";
 import { isValidComponentDefinition } from "./component-definition";
+import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
 import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
@@ -29,7 +29,7 @@ export declare namespace useComponentCollector {
   type Options = {
     collectDisplayName?: boolean;
     collectHookCalls?: boolean;
-    hint?: ComponentCollectorHint;
+    hint?: ComponentDetectionHint;
   };
   type ReturnType = {
     ctx: {
@@ -54,7 +54,7 @@ export function useComponentCollector(
   const {
     collectDisplayName = false,
     collectHookCalls = false,
-    hint = DEFAULT_COMPONENT_HINT,
+    hint = DEFAULT_COMPONENT_DETECTION_HINT,
   } = options;
 
   const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
@@ -76,7 +76,7 @@ export function useComponentCollector(
       .some((r) => {
         return context.sourceCode.getScope(r).block === entry.node
           && r.argument != null
-          && !JSX.isJSXValue(r.argument, jsxCtx, hint);
+          && !JSX.isJSXLike(r.argument, jsxCtx, hint);
       });
     if (shouldDrop) {
       components.delete(entry.key);
@@ -103,7 +103,7 @@ export function useComponentCollector(
       if (entry == null) return;
       const { body } = entry.node;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && JSX.isJSXValue(body, jsxCtx, hint)
+        && JSX.isJSXLike(body, jsxCtx, hint)
         && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
@@ -152,7 +152,7 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && JSX.isJSXValue(node.argument, jsxCtx, hint)
+        && JSX.isJSXLike(node.argument, jsxCtx, hint)
         && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;

@@ -21,7 +21,7 @@
 ## Type Aliases
 
 - [Component](type-aliases/Component.md)
-- [ComponentCollectorHint](type-aliases/ComponentCollectorHint.md)
+- [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md)
 - [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md)
 - [ComponentFlag](type-aliases/ComponentFlag.md)
 - [ComponentKind](type-aliases/ComponentKind.md)
@@ -33,10 +33,10 @@
 
 ## Variables
 
-- [ComponentCollectorHint](variables/ComponentCollectorHint.md)
+- [ComponentDetectionHint](variables/ComponentDetectionHint.md)
 - [ComponentFlag](variables/ComponentFlag.md)
 - [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md)
-- [DEFAULT\_COMPONENT\_HINT](variables/DEFAULT_COMPONENT_HINT.md)
+- [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md)
 - [DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
 - [isChildrenCount](variables/isChildrenCount.md)
 - [isChildrenCountCall](variables/isChildrenCountCall.md)
@@ -125,6 +125,7 @@
 - [isRenderPropLoose](functions/isRenderPropLoose.md)
 - [isThisSetState](functions/isThisSetState.md)
 - [isUseEffectCallLoose](functions/isUseEffectCallLoose.md)
+- [isValidComponentDefinition](functions/isValidComponentDefinition.md)
 - [useComponentCollector](functions/useComponentCollector.md)
 - [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md)
 - [useHookCollector](functions/useHookCollector.md)

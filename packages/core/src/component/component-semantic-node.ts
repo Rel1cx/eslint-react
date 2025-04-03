@@ -3,7 +3,7 @@ import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticNode } from "../semantic-node";
-import type { ComponentCollectorHint } from "./component-collector-hint";
+import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { ComponentFlag } from "./component-flag";
 
 /* eslint-disable perfectionist/sort-interfaces */
@@ -15,7 +15,7 @@ export interface FunctionComponent extends SemanticNode {
   kind: "function";
   node: AST.TSESTreeFunction;
   flag: ComponentFlag;
-  hint: ComponentCollectorHint;
+  hint: ComponentDetectionHint;
   initPath:
     | _
     | AST.FunctionInitPath;
@@ -32,7 +32,7 @@ export interface ClassComponent extends SemanticNode {
   kind: "class";
   node: AST.TSESTreeClass;
   flag: ComponentFlag;
-  hint: ComponentCollectorHint;
+  hint: ComponentDetectionHint;
   methods: AST.TSESTreeMethodOrProperty[];
   displayName:
     | _

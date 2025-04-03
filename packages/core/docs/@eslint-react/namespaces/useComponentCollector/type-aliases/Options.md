@@ -24,4 +24,4 @@
 
 ### hint?
 
-> `optional` **hint**: [`ComponentCollectorHint`](../../../../type-aliases/ComponentCollectorHint.md)
+> `optional` **hint**: [`ComponentDetectionHint`](../../../../type-aliases/ComponentDetectionHint.md)

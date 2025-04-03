@@ -25,15 +25,15 @@ export function isRenderFunctionLoose(context: RuleContext, node: AST.TSESTreeFu
       && parent.parent.name.type === T.JSXIdentifier
       && parent.parent.name.name.startsWith("render");
   }
-  return JSX.isJSXValue(
+  return JSX.isJSXLike(
     body,
     {
       getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node),
     },
-    JSX.JSXValueHint.SkipNullLiteral
-      | JSX.JSXValueHint.SkipUndefined
-      | JSX.JSXValueHint.StrictLogical
-      | JSX.JSXValueHint.StrictConditional,
+    JSX.JSXDetectionHint.SkipNullLiteral
+      | JSX.JSXDetectionHint.SkipUndefined
+      | JSX.JSXDetectionHint.StrictLogical
+      | JSX.JSXDetectionHint.StrictConditional,
   );
 }
 

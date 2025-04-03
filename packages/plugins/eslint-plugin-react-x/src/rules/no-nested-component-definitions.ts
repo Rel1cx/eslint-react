@@ -34,14 +34,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hint = ER.ComponentCollectorHint.SkipArrayMapArgument
-    | ER.ComponentCollectorHint.SkipNullLiteral
-    | ER.ComponentCollectorHint.SkipUndefined
-    | ER.ComponentCollectorHint.SkipBooleanLiteral
-    | ER.ComponentCollectorHint.SkipStringLiteral
-    | ER.ComponentCollectorHint.SkipNumberLiteral
-    | ER.ComponentCollectorHint.StrictLogical
-    | ER.ComponentCollectorHint.StrictConditional;
+  const hint = ER.ComponentDetectionHint.SkipArrayMapArgument
+    | ER.ComponentDetectionHint.SkipNullLiteral
+    | ER.ComponentDetectionHint.SkipUndefined
+    | ER.ComponentDetectionHint.SkipBooleanLiteral
+    | ER.ComponentDetectionHint.SkipStringLiteral
+    | ER.ComponentDetectionHint.SkipNumberLiteral
+    | ER.ComponentDetectionHint.StrictLogical
+    | ER.ComponentDetectionHint.StrictConditional;
 
   const collector = ER.useComponentCollector(context, { hint });
   const collectorLegacy = ER.useComponentCollectorLegacy();
