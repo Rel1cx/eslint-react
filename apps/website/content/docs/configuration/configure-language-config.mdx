@@ -20,7 +20,7 @@ The following [compiler options](https://www.typescriptlang.org/tsconfig/#compil
 
 <JSXRuntimeTypeTable />
 
-Since this part does not perform type checking, there is almost no performance impact.
+Since this part does not perform type checking, there is **almost no performance impact**.
 
 ## Rules that Need Type Information
 
@@ -31,7 +31,7 @@ The following rules require type information:
 - [`react-x/prefer-read-only-props`](/docs/rules/prefer-read-only-props)
 - [`react-x/no-leaked-conditional-rendering`](/docs/rules/no-leaked-conditional-rendering)
 
-Enabling these rules can impact performance because it requires TypeScript to analyze the entire project. Therefore, these rules run slower than traditional lint rules, but they are also more powerful in functionality.
+Enabling these rules **will have performance impact**, but they are more powerful than traditional lint rules.
 
 ## Resources
 
