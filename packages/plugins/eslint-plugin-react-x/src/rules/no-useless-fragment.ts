@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   const { allowExpressions = true } = option;
   return {
     JSXElement(node) {
-      if (!JSX.isFragmentElement(node)) return;
+      if (!JSX.isJsxFragmentElement(node)) return;
       checkNode(context, node, allowExpressions);
     },
     JSXFragment(node) {
@@ -65,13 +65,6 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     },
   };
 }
-
-/**
- * Check if a node is a Literal or JSXText
- * @param node The AST node to check
- * @returns boolean `true` if the node is a Literal or JSXText
- */
-const isLiteral = AST.isOneOf([T.Literal, T.JSXText]);
 
 /**
  * Check if a Literal or JSXText node is whitespace
@@ -88,7 +81,7 @@ function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * @returns boolean
  */
 function isPaddingSpaces(node: TSESTree.Node) {
-  return isLiteral(node)
+  return JSX.isJsxText(node)
     && isWhiteSpace(node)
     && node.raw.includes("\n");
 }
@@ -108,55 +101,20 @@ function checkNode(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
 ) {
-  function fix(fixer: RuleFixer) {
-    // Not safe to fix fragments without a jsx parent.
-    if (node.parent.type !== T.JSXElement && node.parent.type !== T.JSXFragment) {
-      // const a = <></>
-      if (node.children.length === 0) {
-        return null;
-      }
-
-      // const a = <>cat {meow}</>
-      if (
-        node.children.some(
-          (child) =>
-            (isLiteral(child) && !isWhiteSpace(child))
-            || AST.is(T.JSXExpressionContainer)(child),
-        )
-      ) {
-        return null;
-      }
-    }
-
-    // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
-    if (JSX.isUserDefinedElement(node.parent)) {
-      return null;
-    }
-
-    const opener = node.type === T.JSXFragment ? node.openingFragment : node.openingElement;
-    const closer = node.type === T.JSXFragment ? node.closingFragment : node.closingElement;
-
-    const childrenText = opener.type === T.JSXOpeningElement && opener.selfClosing
-      ? ""
-      : context.sourceCode.getText().slice(opener.range[1], closer?.range[0]);
-
-    return fixer.replaceText(node, trimLikeReact(childrenText));
-  }
-
   const initialScope = context.sourceCode.getScope(node);
   // return if the fragment is keyed (e.g. <Fragment key={key}>)
-  if (JSX.isKeyedElement(node, initialScope)) {
+  if (JSX.isJsxKeyedElement(node, initialScope)) {
     return;
   }
   // report if the fragment is placed inside a built-in component (e.g. <div><></></div>)
-  if (JSX.isBuiltInElement(node.parent)) {
+  if (JSX.isJsxBuiltInElement(node.parent)) {
     context.report({
       messageId: "uselessFragment",
       node,
       data: {
         reason: "placed inside a built-in component",
       },
-      fix,
+      fix: getFix(context, node),
     });
   }
   // report and return if the fragment has no children (e.g. <></>)
@@ -167,7 +125,7 @@ function checkNode(
       data: {
         reason: "contains less than two children",
       },
-      fix,
+      fix: getFix(context, node),
     });
     return;
   }
@@ -177,7 +135,7 @@ function checkNode(
     case allowExpressions
       && !isChildElement
       && node.children.length === 1
-      && isLiteral(node.children.at(0)): {
+      && JSX.isJsxText(node.children.at(0)): {
       return;
     }
     // <Foo><>hello, world</></Foo>
@@ -189,7 +147,7 @@ function checkNode(
         data: {
           reason: "contains less than two children",
         },
-        fix,
+        fix: getFix(context, node),
       });
       return;
     }
@@ -204,7 +162,7 @@ function checkNode(
         data: {
           reason: "contains less than two children",
         },
-        fix,
+        fix: getFix(context, node),
       });
       return;
     }
@@ -221,10 +179,42 @@ function checkNode(
         data: {
           reason: "contains less than two children",
         },
-        fix,
+        fix: getFix(context, node),
       });
       return;
     }
   }
   return;
+}
+
+function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+  if (!canFix(node)) return null;
+  return (fixer: RuleFixer) => {
+    const opener = node.type === T.JSXFragment ? node.openingFragment : node.openingElement;
+    const closer = node.type === T.JSXFragment ? node.closingFragment : node.closingElement;
+
+    const childrenText = opener.type === T.JSXOpeningElement && opener.selfClosing
+      ? ""
+      : context.sourceCode.getText().slice(opener.range[1], closer?.range[0]);
+
+    return fixer.replaceText(node, trimLikeReact(childrenText));
+  };
+}
+
+function canFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+  if (node.parent.type === T.JSXElement || node.parent.type === T.JSXFragment) {
+    // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
+    return !JSX.isJsxUserDefinedElement(node.parent);
+  }
+  // Not safe to fix fragments without a jsx parent.
+  // const a = <></>
+  if (node.children.length === 0) {
+    return false;
+  }
+  // dprint-ignore
+  // const a = <>{meow}</>
+  if (node.children.some((child) => (JSX.isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child))) {
+    return false;
+  }
+  return true;
 }
