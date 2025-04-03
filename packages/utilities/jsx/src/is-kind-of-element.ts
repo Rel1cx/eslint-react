@@ -14,7 +14,7 @@ export function isFragmentElement(node: TSESTree.Node) {
   if (node.type !== T.JSXElement) return false;
   return getElementType(node)
     .split(".")
-    .at(-1)?.endsWith("Fragment");
+    .at(-1) === "Fragment";
 }
 
 /**
