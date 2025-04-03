@@ -6,7 +6,7 @@ import { JSXRuntimeTypeTable } from "./configure-language-config";
 
 <Callout title="TIP">
 
-Once you've correctly configured the `project` or `projectService` in `parserOptions` for the files to be analyzed, ESLint React utilizes the information within to make more accurate determinations.
+Once you've correctly configured the `project` or `projectService` options in `parserOptions` for the files to be analyzed, ESLint React utilizes the information within to make more accurate determinations.
 
 </Callout>
 
@@ -24,14 +24,14 @@ Since this part does not perform type checking, there is almost no performance i
 
 ## Rules that Need Type Information
 
+ESLint React uses the Typed Linting API from `typescript-eslint` to retrieve type information for the rules that require it. The `project` or `projectService` options in `parserOptions` must be set correctly for the rules to work.
+
 The following rules require type information:
 
 - [`react-x/prefer-read-only-props`](/docs/rules/prefer-read-only-props)
 - [`react-x/no-leaked-conditional-rendering`](/docs/rules/no-leaked-conditional-rendering)
 
-These rules will not work if you do not provide a `project` or `projectService` in the `parserOptions`.
-
-This part has a performance impact, as it requires TypeScript to analyze the entire project. As a result, these rules are slower than traditional lint rules but are much more powerful.
+Enabling these rules can impact performance because it requires TypeScript to analyze the entire project. Therefore, these rules run slower than traditional lint rules, but they are also more powerful in functionality.
 
 ## Resources
 
