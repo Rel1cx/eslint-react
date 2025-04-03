@@ -58,12 +58,39 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   return {
     JSXElement(node) {
       if (!JSX.isFragmentElement(node)) return;
-      doCheck(context, node, allowExpressions);
+      checkNode(context, node, allowExpressions);
     },
     JSXFragment(node) {
-      doCheck(context, node, allowExpressions);
+      checkNode(context, node, allowExpressions);
     },
   };
+}
+
+/**
+ * Check if a node is a Literal or JSXText
+ * @param node The AST node to check
+ * @returns boolean `true` if the node is a Literal or JSXText
+ */
+const isLiteral = AST.isOneOf([T.Literal, T.JSXText]);
+
+/**
+ * Check if a Literal or JSXText node is whitespace
+ * @param node The AST node to check
+ * @returns boolean `true` if the node is whitespace
+ */
+function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
+  return typeof node.value === "string" && node.raw.trim() === "";
+}
+
+/**
+ * Check if a Literal or JSXText node is padding spaces
+ * @param node The AST node to check
+ * @returns boolean
+ */
+function isPaddingSpaces(node: TSESTree.Node) {
+  return isLiteral(node)
+    && isWhiteSpace(node)
+    && node.raw.includes("\n");
 }
 
 function trimLikeReact(text: string) {
@@ -76,7 +103,7 @@ function trimLikeReact(text: string) {
   return text.slice(start, end);
 }
 
-function doCheck(
+function checkNode(
   context: RuleContext,
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
@@ -93,7 +120,7 @@ function doCheck(
       if (
         node.children.some(
           (child) =>
-            (JSX.isLiteral(child) && !JSX.isWhiteSpace(child))
+            (isLiteral(child) && !isWhiteSpace(child))
             || AST.is(T.JSXExpressionContainer)(child),
         )
       ) {
@@ -150,7 +177,7 @@ function doCheck(
     case allowExpressions
       && !isChildElement
       && node.children.length === 1
-      && JSX.isLiteral(node.children.at(0)): {
+      && isLiteral(node.children.at(0)): {
       return;
     }
     // <Foo><>hello, world</></Foo>
@@ -182,7 +209,7 @@ function doCheck(
       return;
     }
   }
-  const nonPaddingChildren = node.children.filter((child) => !JSX.isPaddingSpaces(child));
+  const nonPaddingChildren = node.children.filter((child) => !isPaddingSpaces(child));
   const firstNonPaddingChild = nonPaddingChildren.at(0);
   switch (true) {
     case nonPaddingChildren.length === 0:
