@@ -4,74 +4,118 @@
 
 /* base theme variables */
 @theme {
-    /* background and foreground color */
-    --color-fd-background: hsl(0, 0%, 100%);
-    --color-fd-foreground: hsl(240, 6%, 25%);
+  /* background and foreground color */
+  --color-fd-background: hsl(0, 0%, 100%);
+  --color-fd-foreground: hsl(240, 6%, 25%);
 
-    /* card and popover */
-    --color-fd-card: hsl(0, 0%, 100%);
-    --color-fd-card-foreground: hsl(0, 0%, 3.9%);
-    --color-fd-popover: hsl(0, 0%, 100%);
-    --color-fd-popover-foreground: hsl(0, 0%, 15.1%);
+  /* card and popover */
+  --color-fd-card: hsl(0, 0%, 100%);
+  --color-fd-card-foreground: hsl(0, 0%, 3.9%);
+  --color-fd-popover: hsl(0, 0%, 100%);
+  --color-fd-popover-foreground: hsl(0, 0%, 15.1%);
 
-    /* primary and secondary color */
-    --color-fd-primary: hsl(210, 100%, 44%);
-    --color-fd-primary-foreground: hsl(0, 0%, 98%);
-    --color-fd-secondary: hsl(240, 6%, 97%);
-    --color-fd-secondary-foreground: hsl(0, 0%, 9%);
+  /* primary and secondary color */
+  --color-fd-primary: hsl(210, 100%, 44%);
+  --color-fd-primary-foreground: hsl(0, 0%, 98%);
+  --color-fd-secondary: hsl(240, 6%, 97%);
+  --color-fd-secondary-foreground: hsl(0, 0%, 9%);
 
-    /* border and ring color */
-    --color-fd-border: hsl(0, 0%, 89.8%);
-    --color-fd-ring: hsl(0, 0%, 63.9%);
+  /* border and ring color */
+  --color-fd-border: hsl(0, 0%, 89.8%);
+  --color-fd-ring: hsl(0, 0%, 63.9%);
 
-    /* muted text color */
-    --color-fd-muted: hsl(0, 0%, 96%);
-    --color-fd-muted-foreground: hsl(240, 6%, 50%);
+  /* muted text color */
+  --color-fd-muted: hsl(0, 0%, 96%);
+  --color-fd-muted-foreground: hsl(240, 6%, 50%);
 
-    /* accent color */
-    --color-fd-accent: hsl(0, 0%, 94.1%);
-    --color-fd-accent-foreground: hsl(240, 6%, 25%);
+  /* accent color */
+  --color-fd-accent: hsl(0, 0%, 94.1%);
+  --color-fd-accent-foreground: hsl(240, 6%, 25%);
 }
 
 /* dark theme variables override */
 .dark {
-    --color-fd-background: hsl(0, 0%, 7.04%);
-    --color-fd-foreground: hsl(0, 0%, 92%);
+  --color-fd-background: hsl(0, 0%, 7.04%);
+  --color-fd-foreground: hsl(0, 0%, 92%);
 
-    --color-fd-card: hsl(0, 0%, 9.8%);
-    --color-fd-card-foreground: hsl(0, 0%, 98%);
-    --color-fd-popover: hsl(0, 0%, 9.8%);
-    --color-fd-popover-foreground: hsl(0, 0%, 88%);
+  --color-fd-card: hsl(0, 0%, 9.8%);
+  --color-fd-card-foreground: hsl(0, 0%, 98%);
+  --color-fd-popover: hsl(0, 0%, 9.8%);
+  --color-fd-popover-foreground: hsl(0, 0%, 88%);
 
-    --color-fd-primary: hsl(0, 0%, 98%);
-    --color-fd-primary-foreground: hsl(0, 0%, 9%);
-    --color-fd-secondary: hsl(0, 0%, 12.9%);
-    --color-fd-secondary-foreground: hsl(0, 0%, 98%);
+  --color-fd-primary: hsl(0, 0%, 98%);
+  --color-fd-primary-foreground: hsl(0, 0%, 9%);
+  --color-fd-secondary: hsl(0, 0%, 12.9%);
+  --color-fd-secondary-foreground: hsl(0, 0%, 98%);
 
-    --color-fd-border: hsl(0, 0%, 14%);
-    --color-fd-ring: hsl(0, 0%, 54.9%);
+  --color-fd-border: hsl(0, 0%, 14%);
+  --color-fd-ring: hsl(0, 0%, 54.9%);
 
-    --color-fd-muted: hsl(0, 0%, 12.9%);
-    --color-fd-muted-foreground: hsl(0, 0%, 60.9%);
+  --color-fd-muted: hsl(0, 0%, 12.9%);
+  --color-fd-muted-foreground: hsl(0, 0%, 60.9%);
 
-    --color-fd-accent: hsl(0, 0%, 16.9%);
-    --color-fd-accent-foreground: hsl(0, 0%, 90%);
+  --color-fd-accent: hsl(0, 0%, 16.9%);
+  --color-fd-accent-foreground: hsl(0, 0%, 90%);
 }
 
 /* font definition */
 :root {
-  --font-family-body: "SF Pro Text", "SF Pro Icons", system-ui, ...;
-  --font-family-ui: system-ui, ...;
-  --font-family-mono: var(--font-ibm_plex_mono), ui-monospace, ...;
+  --font-family-body:
+    "SF Pro Text",
+    "SF Pro Icons",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --font-family-ui:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --font-family-mono:
+    var(--font-ibm_plex_mono),
+    ui-monospace,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
 }
 
 /******************
   global base style
 ******************/
 :focus-visible {
+  outline: none;
+}
+
+:focus-visible:not([class*="outline-none"]) {
   outline: 2px solid var(--color-fd-primary);
   outline-offset: -2px;
-  box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--color-fd-primary) 20%, transparent);
+  /* box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--color-fd-primary) 20%, transparent); */
 }
 
 body {
@@ -82,10 +126,15 @@ button {
   cursor: pointer;
 }
 
+[role="tabpanel"]:focus-visible {
+  outline: none;
+}
+
 /***********************
   sidebar specific style
 ***********************/
 #nd-docs-layout #nd-sidebar {
+
   /* link active state */
   a[data-active] {
     font-weight: 400;
@@ -118,23 +167,24 @@ button {
 *************************/
 .prose {
   font-family: var(--font-family-body);
-
-  /* link color */
   --tw-prose-links: var(--color-fd-primary);
 
-  /* code block style */
   .fd-codeblock.shiki {
     background-color: color-mix(in oklab, var(--color-fd-secondary) 25%, transparent);
   }
 
-  /* inline code style */
+  .fd-codeblock,
+  [data-radix-scroll-area-viewport],
+  [data-radix-scroll-area-viewport]>div {
+    outline: none;
+  }
+
   :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
     border: none;
     padding: .125rem .25em;
     font-size: 14px;
   }
 
-  /* table style */
   table {
     font-size: 1em;
 
