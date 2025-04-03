@@ -14,6 +14,7 @@ export * from "./is";
 export * from "./is-array-map-call";
 export * from "./is-empty-function";
 export * from "./is-kind-of-literal";
+export * from "./is-line-break";
 export * from "./is-multi-line";
 export * from "./is-node-equal";
 export * from "./is-this-expression";

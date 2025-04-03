@@ -29,7 +29,7 @@ export function isKeyedElement(node: TSESTree.Node, initialScope?: Scope) {
 }
 
 /**
- * Check if a node is a `JSXFragment` of `Built-in Component` type
+ * Check if a node is a `JSXElement` of built-in component
  * @param node The AST node to check
  * @returns `true` if the node is a `JSXFragment` of `Built-in Component` type
  */
@@ -41,7 +41,7 @@ export function isBuiltInElement(node: TSESTree.Node) {
 }
 
 /**
- * Check if a node is a `JSXElement` of `User-Defined Component` type
+ * Check if a node is a `JSXElement` of user-defined component
  * @param node The AST node to check
  * @returns `true` if the node is a `JSXElement` of `User-Defined Component` type
  */
