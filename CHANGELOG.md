@@ -1,3 +1,17 @@
+## v1.40.2 (2025-04-03)
+
+### 🐞 Fixes
+
+- fix(react-x): fixed `jsx-uses-react` rule for `preserve` mode by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1031
+- fix: use initial release year and consistent username in LICENSE by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1032
+
+### 🪄 Improvements
+
+- refactor(kit): simplify `LanguagePreferenceSchema` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1033
+- refactor(website): reorganize CSS and improve theme by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1034
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.1...v1.40.2
+
 ## v1.40.1 (2025-04-01)
 
 ### ✨ New
