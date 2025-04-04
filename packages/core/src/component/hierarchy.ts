@@ -4,7 +4,9 @@ import { type RuleContext } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../utils";
-import { isRenderMethodLike } from "./component-lifecycle";
+import { isComponentDidMount, isComponentWillUnmount } from "./component-lifecycle";
+import { isRenderLike } from "./component-render";
+import { isRenderMethodLike } from "./component-render-method";
 import { isClassComponent } from "./is";
 
 /**
@@ -38,5 +40,37 @@ export function isChildrenOfCreateElement(context: RuleContext, node: TSESTree.N
  * @returns `true` if node is inside class component's render block, `false` if not
  */
 export function isInsideRenderMethod(node: TSESTree.Node) {
-  return AST.findParentNode(node, (n) => isRenderMethodLike(n) && isClassComponent(n.parent.parent)) != null;
+  return AST.findParentNode(node, (n) => isRenderLike(n) && isClassComponent(n.parent.parent)) != null;
+}
+
+export function isFunctionOfComponentDidMount(node: TSESTree.Node) {
+  return AST.isFunction(node)
+    && isComponentDidMount(node.parent)
+    && node.parent.value === node;
+}
+
+export function isFunctionOfComponentWillUnmount(node: TSESTree.Node) {
+  return AST.isFunction(node)
+    && isComponentWillUnmount(node.parent)
+    && node.parent.value === node;
+}
+
+/**
+ * Check whether given node is a function of a render method of a class component
+ * @example
+ * ```tsx
+ * class Component extends React.Component {
+ *   renderHeader = () => <div />;
+ *   renderFooter = () => <div />;
+ * }
+ * ```
+ * @param node The AST node to check
+ * @returns `true` if node is a render function, `false` if not
+ */
+export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
+  if (!isRenderMethodLike(node.parent)) {
+    return false;
+  }
+
+  return isClassComponent(node.parent.parent.parent);
 }

@@ -1,3 +1,4 @@
+export * from "./hierarchy";
 export * from "./hook-collector";
 export type * from "./hook-kind";
 export * from "./hook-name";
