@@ -9,15 +9,15 @@ import { DEFAULT_JSX_DETECTION_HINT, JSXDetectionHint } from "./jsx-detection-hi
 
 /**
  * Heuristic decision to determine if a node is a JSX-like node.
+ * @param code The sourceCode object
+ * @param code.getScope The function to get the scope of a node
  * @param node The AST node to check
- * @param jsxCtx The requirements for the check
- * @param jsxCtx.getScope The function to get the scope of a node
  * @param hint The `JSXDetectionHint` to use
  * @returns boolean
  */
-export function isJSXLike(
+export function isJsxLike(
+  code: { getScope: (node: TSESTree.Node) => Scope },
   node: TSESTree.Node | _ | null,
-  jsxCtx: { getScope: (node: TSESTree.Node) => Scope },
   hint: JSXDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
   switch (node?.type) {
@@ -59,15 +59,15 @@ export function isJSXLike(
     }
     case T.ArrayExpression: {
       if (hint & JSXDetectionHint.StrictArray) {
-        return node.elements.every((n) => isJSXLike(n, jsxCtx, hint));
+        return node.elements.every((n) => isJsxLike(code, n, hint));
       }
-      return node.elements.some((n) => isJSXLike(n, jsxCtx, hint));
+      return node.elements.some((n) => isJsxLike(code, n, hint));
     }
     case T.LogicalExpression: {
       if (hint & JSXDetectionHint.StrictLogical) {
-        return isJSXLike(node.left, jsxCtx, hint) && isJSXLike(node.right, jsxCtx, hint);
+        return isJsxLike(code, node.left, hint) && isJsxLike(code, node.right, hint);
       }
-      return isJSXLike(node.left, jsxCtx, hint) || isJSXLike(node.right, jsxCtx, hint);
+      return isJsxLike(code, node.left, hint) || isJsxLike(code, node.right, hint);
     }
     case T.ConditionalExpression: {
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
@@ -76,14 +76,14 @@ export function isJSXLike(
             return !(hint & JSXDetectionHint.SkipEmptyArray);
           }
           if (hint & JSXDetectionHint.StrictArray) {
-            return node.consequent.every((n: TSESTree.Expression) => isJSXLike(n, jsxCtx, hint));
+            return node.consequent.every((n: TSESTree.Expression) => isJsxLike(code, n, hint));
           }
-          return node.consequent.some((n: TSESTree.Expression) => isJSXLike(n, jsxCtx, hint));
+          return node.consequent.some((n: TSESTree.Expression) => isJsxLike(code, n, hint));
         }
-        return isJSXLike(node.consequent, jsxCtx, hint);
+        return isJsxLike(code, node.consequent, hint);
       }
       function rightHasJSX(node: TSESTree.ConditionalExpression) {
-        return isJSXLike(node.alternate, jsxCtx, hint);
+        return isJsxLike(code, node.alternate, hint);
       }
       if (hint & JSXDetectionHint.StrictConditional) {
         return leftHasJSX(node) && rightHasJSX(node);
@@ -92,7 +92,7 @@ export function isJSXLike(
     }
     case T.SequenceExpression: {
       const exp = node.expressions.at(-1);
-      return isJSXLike(exp, jsxCtx, hint);
+      return isJsxLike(code, exp, hint);
     }
     case T.CallExpression: {
       if (hint & JSXDetectionHint.SkipCreateElement) {
@@ -114,11 +114,11 @@ export function isJSXLike(
       if (AST.isJSXTagNameExpression(node)) {
         return true;
       }
-      const variable = VAR.findVariable(name, jsxCtx.getScope(node));
+      const variable = VAR.findVariable(name, code.getScope(node));
       const variableNode = variable
         && VAR.getVariableInitNode(variable, 0);
       return !!variableNode
-        && isJSXLike(variableNode, jsxCtx, hint);
+        && isJsxLike(code, variableNode, hint);
     }
   }
   return false;

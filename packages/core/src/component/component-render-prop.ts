@@ -25,11 +25,9 @@ export function isRenderFunctionLoose(context: RuleContext, node: AST.TSESTreeFu
       && parent.parent.name.type === T.JSXIdentifier
       && parent.parent.name.name.startsWith("render");
   }
-  return JSX.isJSXLike(
+  return JSX.isJsxLike(
+    context.sourceCode,
     body,
-    {
-      getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node),
-    },
     JSX.JSXDetectionHint.SkipNullLiteral
       | JSX.JSXDetectionHint.SkipUndefined
       | JSX.JSXDetectionHint.StrictLogical

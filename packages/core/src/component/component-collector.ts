@@ -57,7 +57,6 @@ export function useComponentCollector(
     hint = DEFAULT_COMPONENT_DETECTION_HINT,
   } = options;
 
-  const jsxCtx = { getScope: (node: TSESTree.Node) => context.sourceCode.getScope(node) } as const;
   const components = new Map<string, FunctionComponent>();
   const functionEntries: FunctionEntry[] = [];
 
@@ -76,7 +75,7 @@ export function useComponentCollector(
       .some((r) => {
         return context.sourceCode.getScope(r).block === entry.node
           && r.argument != null
-          && !JSX.isJSXLike(r.argument, jsxCtx, hint);
+          && !JSX.isJsxLike(context.sourceCode, r.argument, hint);
       });
     if (shouldDrop) {
       components.delete(entry.key);
@@ -103,7 +102,7 @@ export function useComponentCollector(
       if (entry == null) return;
       const { body } = entry.node;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && JSX.isJSXLike(body, jsxCtx, hint)
+        && JSX.isJsxLike(context.sourceCode, body, hint)
         && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
@@ -152,7 +151,7 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && JSX.isJSXLike(node.argument, jsxCtx, hint)
+        && JSX.isJsxLike(context.sourceCode, node.argument, hint)
         && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;
