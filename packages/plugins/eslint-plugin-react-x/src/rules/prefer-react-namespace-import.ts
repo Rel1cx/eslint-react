@@ -1,7 +1,7 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 
 import { createRule } from "../utils";
@@ -43,26 +43,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         messageId: "preferReactNamespaceImport",
         node: hasOtherSpecifiers ? node : node.parent,
         data: { importSource },
-        // TODO: Use `settings.languagePreference` to determine what code style to use in the fixer (e.g. single or double quotes)
         fix(fixer) {
+          const importDeclarationText = context.sourceCode.getText(node.parent);
+          const semi = importDeclarationText.endsWith(";") ? ";" : "";
           const quote = node.parent.source.raw.at(0) ?? "'";
           const isTypeImport = node.parent.importKind === "type";
           const importStringPrefix = `import${isTypeImport ? " type" : ""}`;
           const importSourceQuoted = `${quote}${importSource}${quote}`;
-          const sourceCode = context.sourceCode.getText(node.parent);
-          const semiColon = sourceCode.endsWith(";") ? ";" : "";
           if (!hasOtherSpecifiers) {
             return fixer.replaceText(
               node.parent,
-              `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semiColon}`,
+              `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
             );
           }
-
+          // dprint-ignore
           // remove the default specifier and prepend the namespace import specifier
-          const specifiers = sourceCode.slice(sourceCode.indexOf("{"), sourceCode.indexOf("}") + 1);
+          const specifiers = importDeclarationText.slice(importDeclarationText.indexOf("{"), importDeclarationText.indexOf("}") + 1);
           return fixer.replaceText(
             node.parent,
-            `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semiColon}\n${importStringPrefix} ${specifiers} from ${importSourceQuoted}${semiColon}`,
+            [
+              `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
+              `${importStringPrefix} ${specifiers} from ${importSourceQuoted}${semi}`,
+            ].join("\n"),
           );
         },
       });
