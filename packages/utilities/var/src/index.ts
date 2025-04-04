@@ -1,3 +1,4 @@
+export * from "./construction";
 export * from "./find-property-in-properties";
 export * from "./find-variable";
 export * from "./get-child-scopes";
@@ -6,4 +7,3 @@ export * from "./get-variable-init-node";
 export * from "./get-variables";
 export * from "./is-node-value-equal";
 export * from "./lazy-value";
-export * from "./value-construction";

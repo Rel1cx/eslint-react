@@ -72,10 +72,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const { value } = prop;
           const { right } = value;
           const initialScope = context.sourceCode.getScope(value);
-          const construction = VAR.getValueConstruction(
+          const construction = VAR.getConstructionDetectionResult(
             value,
             initialScope,
-            VAR.ValueConstructionHint.StrictCallExpression,
+            VAR.ConstructionDetectionHint.StrictCallExpression,
           );
           if (construction == null) {
             continue;
