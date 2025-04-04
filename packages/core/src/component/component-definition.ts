@@ -4,8 +4,7 @@ import { type RuleContext } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMatching, P } from "ts-pattern";
 import { ComponentDetectionHint } from "./component-detection-hint";
-import { isFunctionOfRenderMethod } from "./component-lifecycle";
-import { isChildrenOfCreateElement } from "./hierarchy";
+import { isChildrenOfCreateElement, isFunctionOfRenderMethod } from "./hierarchy";
 
 const isFunctionOfClassMethod = isMatching({
   type: P.union(T.ArrowFunctionExpression, T.FunctionExpression),

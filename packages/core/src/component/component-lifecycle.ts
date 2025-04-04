@@ -2,20 +2,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { isClassComponent } from "./is";
-
-export function isComponentDidMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && node.key.type === T.Identifier
-    && node.key.name === "componentDidMount";
-}
-
-export function isComponentWillUnmount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillUnmount";
-}
-
 export function isComponentDidCatch(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
   return AST.isMethodOrProperty(node)
     && !node.static
@@ -23,11 +9,102 @@ export function isComponentDidCatch(node: TSESTree.Node): node is AST.TSESTreeMe
     && node.key.name === "componentDidCatch";
 }
 
-export function isGetDerivedStateFromError(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+export function isComponentDidMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentDidMount";
+}
+
+export function isComponentDidUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentDidUpdate";
+}
+
+export function isComponentWillMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentWillMount";
+}
+
+export function isComponentWillReceiveProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentWillReceiveProps";
+}
+
+export function isComponentWillUnmount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentWillUnmount";
+}
+
+export function isComponentWillUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "componentWillUpdate";
+}
+
+export function isGetChildContext(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "getChildContext";
+}
+
+export function isGetDefaultProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
   return AST.isMethodOrProperty(node)
     && node.static
     && node.key.type === T.Identifier
-    && node.key.name === "getDerivedStateFromError";
+    && node.key.name === "getDefaultProps";
+}
+
+export function isGetInitialState(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "getInitialState";
+}
+
+export function isGetSnapshotBeforeUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "getSnapshotBeforeUpdate";
+}
+
+export function isShouldComponentUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "shouldComponentUpdate";
+}
+
+export function isUnsafeComponentWillMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "UNSAFE_componentWillMount";
+}
+
+export function isUnsafeComponentWillReceiveProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "UNSAFE_componentWillReceiveProps";
+}
+
+export function isUnsafeComponentWillUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+  return AST.isMethodOrProperty(node)
+    && !node.static
+    && node.key.type === T.Identifier
+    && node.key.name === "UNSAFE_componentWillUpdate";
 }
 
 export function isGetDerivedStateFromProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
@@ -37,29 +114,9 @@ export function isGetDerivedStateFromProps(node: TSESTree.Node): node is AST.TSE
     && node.key.name === "getDerivedStateFromProps";
 }
 
-export function isFunctionOfComponentDidMount(node: TSESTree.Node) {
-  return AST.isFunction(node)
-    && isComponentDidMount(node.parent)
-    && node.parent.value === node;
-}
-
-export function isFunctionOfComponentWillUnmount(node: TSESTree.Node) {
-  return AST.isFunction(node)
-    && isComponentWillUnmount(node.parent)
-    && node.parent.value === node;
-}
-
-export function isRenderMethodLike(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+export function isGetDerivedStateFromError(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
   return AST.isMethodOrProperty(node)
+    && node.static
     && node.key.type === T.Identifier
-    && node.key.name === "render"
-    && node.parent.parent.type === T.ClassDeclaration;
-}
-
-export function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
-  if (!isRenderMethodLike(node.parent)) {
-    return false;
-  }
-
-  return isClassComponent(node.parent.parent.parent);
+    && node.key.name === "getDerivedStateFromError";
 }
