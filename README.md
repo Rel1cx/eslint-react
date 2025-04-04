@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/eslint-plugin-react-x?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
 [![Downloads](https://img.shields.io/npm/dt/eslint-plugin-react-x.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
 
-A series of composable ESLint Plugins for libraries and frameworks that use React as a UI runtime.
+A set of composable linting rules for libraries and frameworks that use React as a UI runtime.
 
 ## Features
 

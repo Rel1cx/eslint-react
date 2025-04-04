@@ -16,7 +16,7 @@ const ibm_plex_mono = IBM_Plex_Mono({
 });
 
 export const metadata = {
-  description: "A series of composable ESLint Plugins for libraries and frameworks that use React as a UI runtime.",
+  description: "A set of composable linting rules for libraries and frameworks that use React as a UI runtime.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",
