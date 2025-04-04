@@ -16,12 +16,6 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function isComponentWillUpdate(node: TSESTree.ClassElement) {
-  return AST.isMethodOrProperty(node)
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillReceiveProps";
-}
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -50,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const { node: component } of components.values()) {
         const { body } = component.body;
         for (const member of body) {
-          if (isComponentWillUpdate(member)) {
+          if (ER.isComponentWillReceiveProps(member)) {
             context.report({
               messageId: "noComponentWillReceiveProps",
               node: member,

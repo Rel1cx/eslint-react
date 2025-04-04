@@ -19,6 +19,15 @@ export const DEFAULT_LANGUAGE_PREFERENCE = {
   trailingCommas: "all",
 } as const satisfies LanguagePreference;
 
+/**
+ * Get a copy of the default LanguagePreference.
+ */
+export function make(): LanguagePreference {
+  return {
+    ...DEFAULT_LANGUAGE_PREFERENCE,
+  };
+}
+
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
     // TODO: Add the language preference to the shared configuration settings when it is ready.

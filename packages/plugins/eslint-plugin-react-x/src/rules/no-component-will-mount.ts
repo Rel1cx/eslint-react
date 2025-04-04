@@ -16,12 +16,6 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function isComponentWillMount(node: TSESTree.ClassElement) {
-  return AST.isMethodOrProperty(node)
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillMount";
-}
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -51,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const { node: component } of components.values()) {
         const { body } = component.body;
         for (const member of body) {
-          if (isComponentWillMount(member)) {
+          if (ER.isComponentWillMount(member)) {
             context.report({
               messageId: "noComponentWillMount",
               node: member,

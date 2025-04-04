@@ -9,3 +9,7 @@
 ## Variables
 
 - [DEFAULT\_LANGUAGE\_PREFERENCE](variables/DEFAULT_LANGUAGE_PREFERENCE.md)
+
+## Functions
+
+- [make](functions/make.md)

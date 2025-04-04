@@ -14,12 +14,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function isComponentWillUpdate(node: TSESTree.Node) {
-  return AST.isMethodOrProperty(node)
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillUpdate";
-}
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -47,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const clazz = AST.findParentNode(node, ER.isClassComponent);
-      const method = AST.findParentNode(node, (n) => n === clazz || isComponentWillUpdate(n));
+      const method = AST.findParentNode(node, (n) => n === clazz || ER.isComponentWillUpdate(n));
       if (clazz == null || method == null || method === clazz) return;
       const methodScope = context.sourceCode.getScope(method);
       const upperScope = context.sourceCode.getScope(node).upper;
