@@ -49,7 +49,7 @@ export function isInitializedFromReact(
     // check for: `variable = require('react')` or `variable = require('react').variable`
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
-    if (arg0 == null || !AST.isKindOfLiteral(arg0, "string")) {
+    if (arg0 == null || !AST.isLiteral(arg0, "string")) {
       return false;
     }
     // check for: `require('react')` or `require('react/...')`
