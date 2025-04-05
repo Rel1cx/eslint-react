@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import type { _ } from "@eslint-react/eff";
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";

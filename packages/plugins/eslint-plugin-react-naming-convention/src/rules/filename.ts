@@ -21,7 +21,6 @@ export type MessageID =
 
 type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
-/* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | _
   | Case
@@ -37,7 +36,6 @@ type Options = readonly [
     rule?: Case;
   },
 ];
-/* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [
   {

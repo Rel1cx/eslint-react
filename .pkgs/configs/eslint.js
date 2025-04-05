@@ -54,13 +54,13 @@ export const typescript = tseslint.config({
         "no-mixed-operators": "warn",
         "no-undef": "off",
         "prefer-object-has-own": "error",
-        "no-restricted-syntax": [
-            "error",
-            {
-                message: "no optional",
-                selector: "TSPropertySignature[optional=true]",
-            },
-        ],
+        // "no-restricted-syntax": [
+        //   "error",
+        //   {
+        //     message: "no optional",
+        //     selector: "TSPropertySignature[optional=true]",
+        //   },
+        // ],
         "@typescript-eslint/ban-ts-comment": [
             "error",
             {
@@ -105,7 +105,7 @@ export const typescript = tseslint.config({
         ["unicorn"]: pluginUnicorn,
     },
     rules: {
-        "function/function-return-boolean": "error",
+        "function/function-return-boolean": ["error", { pattern: "/^(is|has|can|should)/" }],
         "@stylistic/arrow-parens": ["warn", "always"],
         "@stylistic/no-multi-spaces": ["warn"],
         "@stylistic/operator-linebreak": ["warn", "before"],

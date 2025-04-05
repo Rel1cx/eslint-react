@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";

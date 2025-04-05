@@ -18,7 +18,6 @@ export type MessageID =
 
 type Allow = "always" | "as-needed";
 
-/* eslint-disable no-restricted-syntax */
 type Options = readonly [
   | _
   | Allow
@@ -28,7 +27,6 @@ type Options = readonly [
     ignoreFilesWithoutCode?: boolean;
   },
 ];
-/* eslint-enable no-restricted-syntax */
 
 const defaultOptions = [{
   allow: "as-needed",
