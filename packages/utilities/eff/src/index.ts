@@ -1060,49 +1060,15 @@ export function zipWith<T, U, V>(
   return result;
 }
 
-/**
- * Creates a new array with `element` interspersed in between each element of `input`
- * if there is more than 1 value in `input`. Otherwise, returns the existing array.
- * @param input - The input array.
- * @param element - The element to intersperse.
- * @returns A new array with the element interspersed.
- */
-export function intersperse<T>(input: T[], element: T): T[] {
-  if (input.length <= 1) {
-    return input;
-  }
-  const result: T[] = [];
-  for (let i = 0, n = input.length; i < n; i++) {
-    if (i !== 0) result.push(element);
-    result.push(input[i]!);
-  }
-  return result;
-}
-
-export function concatenate<T>(array1: T[], array2: T[]): T[];
-export function concatenate<T>(array1: readonly T[], array2: readonly T[]): readonly T[];
-export function concatenate<T>(array1: T[], array2: T[] | undefined): T[];
-export function concatenate<T>(array1: T[] | undefined, array2: T[]): T[];
-export function concatenate<T>(array1: readonly T[], array2: readonly T[] | undefined): readonly T[];
-export function concatenate<T>(array1: readonly T[] | undefined, array2: readonly T[]): readonly T[];
-export function concatenate<T>(array1: T[] | undefined, array2: T[] | undefined): T[] | undefined;
-export function concatenate<T>(
-  array1: readonly T[] | undefined,
-  array2: readonly T[] | undefined,
-): readonly T[] | undefined;
-export function concatenate<T>(
-  array1: readonly T[] | undefined,
-  array2: readonly T[] | undefined,
-): readonly T[] | undefined {
-  if (array2 === undefined || array2.length === 0) return array1;
-  if (array1 === undefined || array1.length === 0) return array2;
-  return [...array1, ...array2];
-}
-
-// #endregion
-
 // #region Map & Set
 
+/**
+ * Retrieves a value from a Map if the key exists, or computes and stores a new value if it doesn't.
+ * @param map - The Map to get from or update
+ * @param key - The key to look up in the Map
+ * @param callback - The function to call to generate a new value if the key doesn't exist
+ * @returns The existing value for the key, or the newly computed value
+ */
 export function getOrUpdate<K, V>(map: Map<K, V>, key: K, callback: () => V): V {
   if (map.has(key)) {
     return map.get(key)!;
@@ -1112,6 +1078,13 @@ export function getOrUpdate<K, V>(map: Map<K, V>, key: K, callback: () => V): V 
   return value;
 }
 
+/**
+ * Attempts to add a value to a Set, but only if it doesn't already exist.
+ *
+ * @param set - The Set to potentially add to
+ * @param value - The value to add if it doesn't already exist in the Set
+ * @returns true if the value was added, false if it already existed
+ */
 export function tryAddToSet<T>(set: Set<T>, value: T): boolean {
   if (!set.has(value)) {
     set.add(value);
