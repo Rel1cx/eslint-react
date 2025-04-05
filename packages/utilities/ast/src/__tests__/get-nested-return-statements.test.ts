@@ -1,4 +1,4 @@
-import type { TSESTreeFunction } from "./types";
+import type { TSESTreeFunction } from "../types";
 
 import path from "node:path";
 import { parseForESLint } from "@typescript-eslint/parser";
@@ -7,9 +7,9 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import tsx from "dedent";
 
 import { describe, expect, it } from "vitest";
-import { getFixturesRootDir } from "../../../../test";
-import { getNestedReturnStatements } from "./get-nested-return-statements";
-import { isFunction } from "./is";
+import { getFixturesRootDir } from "../../../../../test";
+import { getNestedReturnStatements } from "../get-nested-return-statements";
+import { isFunction } from "../is";
 
 function parse(code: string) {
   return parseForESLint(code, {
