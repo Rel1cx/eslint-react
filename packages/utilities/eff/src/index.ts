@@ -11,7 +11,7 @@
 /* eslint-disable local/prefer-eqeq-nullish-comparison */
 /* eslint-disable prefer-rest-params */
 
-// #region Primitive
+// #region Helper
 
 /**
  * 1-byte version `undefined`, produces fewer bytes than `undefined` or `void 0` in output files.
@@ -22,6 +22,23 @@ export type _ = undefined; // eslint-disable-line local/no-shadow-underscore
  * 1-byte version `undefined`, produces fewer bytes than `undefined` or `void 0` in output files.
  */
 export const _ = undefined; // eslint-disable-line local/no-shadow-underscore
+
+export type Pretty<T> =
+  & {
+    [P in keyof T]: T[P];
+  }
+  & {};
+
+/**
+ * An extension of Extract for type predicates which falls back to the base
+ * in order to narrow the `unknown` case.
+ *
+ * @example
+ *   function isMyType<T>(data: T | MyType): data is NarrowedTo<T, MyType> { ... }
+ */
+export type NarrowedTo<T, Base> = Extract<T, Base> extends never ? Base
+  : 0 extends 1 & NoInfer<T> ? Base
+  : Extract<T, Base>;
 
 // #endregion
 
@@ -1007,28 +1024,21 @@ export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null |
 
 // #endregion
 
-// #region Helper
+// #region Object & Array
 
-export type Pretty<T> =
-  & {
-    [P in keyof T]: T[P];
+export function chunk<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+
+  if (size <= 0) {
+    return chunks;
   }
-  & {};
 
-/**
- * An extension of Extract for type predicates which falls back to the base
- * in order to narrow the `unknown` case.
- *
- * @example
- *   function isMyType<T>(data: T | MyType): data is NarrowedTo<T, MyType> { ... }
- */
-export type NarrowedTo<T, Base> = Extract<T, Base> extends never ? Base
-  : 0 extends 1 & NoInfer<T> ? Base
-  : Extract<T, Base>;
+  for (let i = 0, j = array.length; i < j; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
 
-// #endregion
-
-// #region Array
+  return chunks;
+}
 
 /**
  * Creates a new array from two supplied arrays by calling the supplied function
