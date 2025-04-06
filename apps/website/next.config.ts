@@ -36,7 +36,7 @@ const config = {
       },
       {
         source: "/docs/getting-started",
-        destination: "/docs/getting-started/javascript",
+        destination: "/docs/getting-started/typescript",
         permanent: true,
       },
       {
