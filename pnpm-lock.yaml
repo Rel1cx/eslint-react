@@ -372,8 +372,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1(eslint@9.24.0(jiti@2.4.2))
       eslint-plugin-import-x:
-        specifier: ^4.10.0
-        version: 4.10.0(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
+        specifier: ^4.10.1
+        version: 4.10.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint-plugin-perfectionist:
         specifier: ^4.11.0
         version: 4.11.0(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
@@ -4846,8 +4846,8 @@ packages:
       ts-api-utils: ^2.1.0
       typescript: ^5.8.3
 
-  eslint-plugin-import-x@4.10.0:
-    resolution: {integrity: sha512-5ej+0WILhX3D6wkcdsyYmPp10SUIK6fmuZ6KS8nf9MD8CJ6/S/3Dl7m21g+MLeaTMsvcEXo3JunNAbgHwXxs/g==}
+  eslint-plugin-import-x@4.10.1:
+    resolution: {integrity: sha512-enOdwV6uQOVS0MRfQwWEYqDnyAjLy5q1221+/A+EC7h43jjNOxX7kQ/qbnDqbAOL3N3d+u//iXrYO/70AbdAUg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -10998,7 +10998,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import-x@4.10.0(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3):
+  eslint-plugin-import-x@4.10.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3):
     dependencies:
       '@pkgr/core': 0.2.0
       '@types/doctrine': 0.0.9

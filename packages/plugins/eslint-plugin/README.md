@@ -2,8 +2,8 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-[![Version](https://img.shields.io/npm/v/eslint-plugin-react-x?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
-[![Downloads](https://img.shields.io/npm/dt/eslint-plugin-react-x.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/eslint-plugin-react-x)
+[![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
 A set of composable linting rules for libraries and frameworks that use React as a UI runtime.
 
