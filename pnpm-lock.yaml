@@ -9,15 +9,11 @@ overrides:
   '@types/react-dom': ^19.1.1
   cross-spawn: ^7.0.6
   esbuild: ^0.25.2
-  is-core-module: npm:@socketregistry/is-core-module@^1.0.8
   lucide-react: ^0.487.0
   next: ^15.2.4
   react: ^19.1.0
   react-dom: ^19.1.0
-  safe-buffer: npm:@socketregistry/safe-buffer@^1.0.7
-  safer-buffer: npm:@socketregistry/safer-buffer@^1.0.8
   ts-api-utils: ^2.1.0
-  typedarray: npm:@socketregistry/typedarray@^1.0.6
   typescript: ^5.8.3
 
 importers:
@@ -302,8 +298,8 @@ importers:
         specifier: ^3.2.1
         version: 3.2.1
       tailwind-merge:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.2.0
+        version: 3.2.0
       twoslash:
         specifier: ^0.3.1
         version: 0.3.1(typescript@5.8.3)
@@ -3374,18 +3370,6 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
-  '@socketregistry/is-core-module@1.0.8':
-    resolution: {integrity: sha512-Mh1h6n3XrVjL8o2zDcWSOOPtrHFxNxOPxUfxqzfGlKSl8zRYZr7X4kOJBxyR7AQBAlgeFJyKeupDQIdqiZnTUw==}
-    engines: {node: '>=18.20.7'}
-
-  '@socketregistry/safe-buffer@1.0.7':
-    resolution: {integrity: sha512-ybEvCjKLAxw269qYGN1Xaitiwfcs0eOuzhgPuvo+K9bP9fF6bHLwdbqXj86u8ESEGrgayKR5symjjiQ6JP953w==}
-    engines: {node: '>=18.20.7'}
-
-  '@socketregistry/safer-buffer@1.0.8':
-    resolution: {integrity: sha512-fhzOsFGskb8VZvmoJrF1cEBy3zigwbxL+JPwkeBlF7iCwlPcNrmHAnBc3JwLzypj+1I+815WZ5m9L8h6Iws9vQ==}
-    engines: {node: '>=18.20.7'}
-
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
 
@@ -5413,6 +5397,10 @@ packages:
     resolution: {integrity: sha512-f4RqJKBUe5rQkJ2eJEJBXSticB3hGbN9j0yxxMQFqIW89Jp9WYFtzfTcRlstDKVUTRzSOTLKRfO9vIztenwtxA==}
     engines: {node: '>=18.20'}
 
+  is-core-module@2.16.1:
+    resolution: {integrity: sha512-UfoeMA6fIJ8wTYFEUjelnaGI67v6+N7qXJEvQuIGa99l4xsCruSYOVSQ0uPANn4dAzm8lkYPaKLrrijLq7x23w==}
+    engines: {node: '>= 0.4'}
+
   is-decimal@2.0.1:
     resolution: {integrity: sha512-AAB9hiomQs5DXWcRB1rqsxGUstbRroFOPPVAomNk/3XHR5JyEZChOyTWe2oayKnsSsr/kcGqF+z6yuH6HHpN0A==}
 
@@ -6651,6 +6639,12 @@ packages:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
     engines: {node: '>=6'}
 
+  safe-buffer@5.2.1:
+    resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
+
+  safer-buffer@2.1.2:
+    resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+
   scheduler@0.26.0:
     resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
 
@@ -6858,8 +6852,8 @@ packages:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  tailwind-merge@3.1.0:
-    resolution: {integrity: sha512-aV27Oj8B7U/tAOMhJsSGdWqelfmudnGMdXIlMnk1JfsjwSjts6o8HyfN7SFH3EztzH4YH8kk6GbLTHzITJO39Q==}
+  tailwind-merge@3.2.0:
+    resolution: {integrity: sha512-FQT/OVqCD+7edmmJpsgCsY820RTD5AkBryuG5IUqR5YQZSdj5xlH5nLgH7YPths7WsLPSpSBNneJdM8aS8aeFA==}
 
   tailwindcss-animated@2.0.0:
     resolution: {integrity: sha512-anNNGpxNgjydD8p1lcJjxxH+XbjW6KR8Xs29owTrbcf3tOJ6IRblpyFob43HBkfxFJJTAfFQqugoEG2b1EsR0A==}
@@ -9397,12 +9391,6 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@socketregistry/is-core-module@1.0.8': {}
-
-  '@socketregistry/safe-buffer@1.0.7': {}
-
-  '@socketregistry/safer-buffer@1.0.8': {}
-
   '@standard-schema/spec@1.0.0': {}
 
   '@stylistic/eslint-plugin@4.2.0(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)':
@@ -10401,7 +10389,7 @@ snapshots:
       debug: 2.6.9
       negotiator: 0.6.4
       on-headers: 1.0.2
-      safe-buffer: '@socketregistry/safe-buffer@1.0.7'
+      safe-buffer: 5.2.1
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
@@ -10787,7 +10775,7 @@ snapshots:
       deps-regex: 0.2.0
       findup-sync: 5.0.0
       ignore: 5.3.2
-      is-core-module: '@socketregistry/is-core-module@1.0.8'
+      is-core-module: 2.16.1
       js-yaml: 3.14.1
       json5: 2.2.3
       lodash: 4.17.21
@@ -10972,7 +10960,7 @@ snapshots:
   eslint-import-resolver-node@0.3.9:
     dependencies:
       debug: 3.2.7
-      is-core-module: '@socketregistry/is-core-module@1.0.8'
+      is-core-module: 2.16.1
       resolve: 1.22.10
     transitivePeerDependencies:
       - supports-color
@@ -11404,7 +11392,7 @@ snapshots:
       mdast-util-to-hast: 13.2.0
       react: 19.1.0
       shiki: 3.2.1
-      tailwind-merge: 3.1.0
+      tailwind-merge: 3.2.0
       twoslash: 0.3.1(typescript@5.8.3)
     transitivePeerDependencies:
       - '@types/react'
@@ -11449,7 +11437,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       react-medium-image-zoom: 5.2.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      tailwind-merge: 3.1.0
+      tailwind-merge: 3.2.0
     optionalDependencies:
       tailwindcss: 4.1.3
     transitivePeerDependencies:
@@ -11665,7 +11653,7 @@ snapshots:
 
   iconv-lite@0.6.3:
     dependencies:
-      safer-buffer: '@socketregistry/safer-buffer@1.0.8'
+      safer-buffer: 2.1.2
 
   ieee754@1.2.1: {}
 
@@ -11734,6 +11722,10 @@ snapshots:
   is-builtin-module@5.0.0:
     dependencies:
       builtin-modules: 5.0.0
+
+  is-core-module@2.16.1:
+    dependencies:
+      hasown: 2.0.2
 
   is-decimal@2.0.1: {}
 
@@ -13274,7 +13266,7 @@ snapshots:
 
   resolve@1.22.10:
     dependencies:
-      is-core-module: '@socketregistry/is-core-module@1.0.8'
+      is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
@@ -13336,6 +13328,10 @@ snapshots:
   sade@1.8.1:
     dependencies:
       mri: 1.2.0
+
+  safe-buffer@5.2.1: {}
+
+  safer-buffer@2.1.2: {}
 
   scheduler@0.26.0: {}
 
@@ -13517,7 +13513,7 @@ snapshots:
 
   string_decoder@1.3.0:
     dependencies:
-      safe-buffer: '@socketregistry/safe-buffer@1.0.7'
+      safe-buffer: 5.2.1
 
   stringify-entities@4.0.4:
     dependencies:
@@ -13584,7 +13580,7 @@ snapshots:
       '@pkgr/core': 0.1.2
       tslib: 2.8.1
 
-  tailwind-merge@3.1.0: {}
+  tailwind-merge@3.2.0: {}
 
   tailwindcss-animated@2.0.0(tailwindcss@4.1.3):
     dependencies:
