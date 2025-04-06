@@ -30,6 +30,18 @@
       "mdx"
     ]
   },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/.vscode"
+  ],
   "languages": {
     "Markdown": {
       "format_on_save": "on",
