@@ -8,24 +8,24 @@
 
 ## Properties
 
-### jsx
+### jsx?
 
-> **jsx**: `undefined` \| `string`
-
-***
-
-### jsxFrag
-
-> **jsxFrag**: `undefined` \| `string`
+> `optional` **jsx**: `string`
 
 ***
 
-### jsxImportSource
+### jsxFrag?
 
-> **jsxImportSource**: `undefined` \| `string`
+> `optional` **jsxFrag**: `string`
 
 ***
 
-### jsxRuntime
+### jsxImportSource?
 
-> **jsxRuntime**: `undefined` \| `string`
+> `optional` **jsxImportSource**: `string`
+
+***
+
+### jsxRuntime?
+
+> `optional` **jsxRuntime**: `string`

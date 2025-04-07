@@ -1,5 +1,5 @@
+import type { _ } from "@eslint-react/eff";
 import type { RuleContext } from "../Rule";
-import { _ } from "@eslint-react/eff";
 
 /**
  * Regular expression for matching a `@jsx` annotation comment.
@@ -22,19 +22,14 @@ export const RE_JSX_RT_ANNOTATION_JSX_RUNTIME = /@jsxRuntime\s+(\S+)/u;
 export const RE_JSX_RT_ANNOTATION_JSX_IMPORT_SOURCE = /@jsxImportSource\s+(\S+)/u;
 
 export interface JsxRuntimeAnnotation {
-  jsx: _ | string;
-  jsxFrag: _ | string;
-  jsxImportSource: _ | string;
-  jsxRuntime: _ | string;
+  jsx?: _ | string;
+  jsxFrag?: _ | string;
+  jsxImportSource?: _ | string;
+  jsxRuntime?: _ | string;
 }
 
 export function make(): JsxRuntimeAnnotation {
-  return {
-    jsx: _,
-    jsxFrag: _,
-    jsxImportSource: _,
-    jsxRuntime: _,
-  };
+  return {};
 }
 
 /**
