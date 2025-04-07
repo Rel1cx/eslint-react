@@ -16,7 +16,7 @@ export default function HomePage() {
       <ESLintReact />
       <article className="prose max-w-none">
         <p className="text-center">
-          A set of composable linting rules for libraries and frameworks that use React as a UI runtime.
+          A series of composable ESLint rules for React and friends.
         </p>
         <h2>Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">

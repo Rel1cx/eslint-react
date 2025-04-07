@@ -1,6 +1,6 @@
 # eslint-plugin-react-x
 
-A set of composable linting rules for libraries and frameworks that use React as a UI runtime.
+A series of composable ESLint rules for React and friends.
 
 ## Install
 
