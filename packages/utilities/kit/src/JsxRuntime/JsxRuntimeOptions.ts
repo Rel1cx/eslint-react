@@ -20,7 +20,7 @@ export type JsxRuntimeOptions = Pick<
  * @param context The RuleContext
  * @returns JsxRuntimeOptions
  */
-export function getJsxRuntimeOptionsFromContext(context: RuleContext) {
+export function getJsxRuntimeOptions(context: RuleContext) {
   const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
   return {
     jsx: options.jsx ?? JsxEmit.ReactJSX,
