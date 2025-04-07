@@ -21,7 +21,7 @@ react-x/jsx-uses-react
 
 ## Description
 
-Marks React variables as used when JSX is used in the file.
+Marks React variables as used when JSX is used.
 
 If you are using the `@jsx` pragma this rule will mark the designated variable and not the React one.
 

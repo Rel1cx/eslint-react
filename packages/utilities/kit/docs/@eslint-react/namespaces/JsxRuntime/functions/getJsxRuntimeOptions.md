@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/kit](../../../../README.md) / [JsxRuntime](../README.md) / getJsxRuntimeOptionsFromContext
+[@eslint-react/kit](../../../../README.md) / [JsxRuntime](../README.md) / getJsxRuntimeOptions
 
-# Function: getJsxRuntimeOptionsFromContext()
+# Function: getJsxRuntimeOptions()
 
-> **getJsxRuntimeOptionsFromContext**(`context`): `object`
+> **getJsxRuntimeOptions**(`context`): `object`
 
 Get JsxRuntimeOptions from RuleContext
 

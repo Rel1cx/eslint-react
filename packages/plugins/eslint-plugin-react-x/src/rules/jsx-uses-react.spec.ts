@@ -31,10 +31,6 @@ debug
         errors: [
           {
             messageId: "jsxUsesReact",
-            data: { name: "React" },
-          },
-          {
-            messageId: "jsxUsesReact",
             data: { name: "React.createElement" },
           },
         ],
