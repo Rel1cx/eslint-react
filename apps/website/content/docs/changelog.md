@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.40.4 (2025-04-07)
+
+### 🐞 Fixes
+
+- fix: refactor JSX runtime annotation handling by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1038
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.3...v1.40.4
+
 ## v1.40.3 (2025-04-04)
 
 ### 🐞 Fixes
