@@ -43,11 +43,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const baseDescriptor = {
     messageId: "jsx",
     data: {
-      jsx: jsxConfig.jsx,
+      jsx: match(jsxConfig.jsx)
+        .with(JsxEmit.None, () => "none")
+        .with(JsxEmit.ReactJSX, () => "react-jsx")
+        .with(JsxEmit.ReactJSXDev, () => "react-jsx-dev")
+        .with(JsxEmit.React, () => "react")
+        .with(JsxEmit.ReactNative, () => "react-native")
+        .with(JsxEmit.Preserve, () => "preserve")
+        .otherwise(() => "unknown"),
       jsxFactory: jsxConfig.jsxFactory,
       jsxFragmentFactory: jsxConfig.jsxFragmentFactory,
       jsxImportSource: jsxConfig.jsxImportSource,
-      jsxRuntime: match<JsxEmit>(jsxConfig.jsx)
+      jsxRuntime: match(jsxConfig.jsx)
         .with(P.union(JsxEmit.None, JsxEmit.ReactJSX, JsxEmit.ReactJSXDev), () => "automatic")
         .otherwise(() => "classic"),
     },

@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            jsx: JsxEmit.ReactJSX,
+            jsx: "react-jsx",
             jsxFactory: "React.createElement",
             jsxFragmentFactory: "React.Fragment",
             jsxImportSource: "react",
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            jsx: JsxEmit.React,
+            jsx: "react",
             jsxFactory: "Preact.h",
             jsxFragmentFactory: "Preact.Fragment",
             jsxImportSource: "preact",
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            jsx: JsxEmit.React,
+            jsx: "react",
             jsxFactory: "React.createElement",
             jsxFragmentFactory: "React.Fragment",
             jsxImportSource: "react",
