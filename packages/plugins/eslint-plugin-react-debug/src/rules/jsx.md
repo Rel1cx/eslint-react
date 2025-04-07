@@ -24,7 +24,14 @@ react-debug/jsx
 
 ## Description
 
-Reports all JSX elements. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
+Reports all JSX elements with config properties `jsx`, `jsxFactory`, `jsxFragmentFactory`, `jsxImportSource`, and `jsxRuntime`.
+
+- `jsx`
+- `jsxFactory`
+- `jsxFragmentFactory`
+- `jsxImportSource`
+- `jsxRuntime`
+- `jsxImportSource` is the source of the JSX factory and fragment factory functions.
 
 ## Examples
 
