@@ -6,7 +6,7 @@
 
 ## Namespaces
 
-- [JsxRuntime](@eslint-react/namespaces/JsxRuntime/README.md)
+- [JsxRuntimeOptions](@eslint-react/namespaces/JsxRuntimeOptions/README.md)
 - [LanguagePreference](@eslint-react/namespaces/LanguagePreference/README.md)
 
 ## Type Aliases
@@ -18,6 +18,10 @@
 
 ## Variables
 
+- [RE\_ANNOTATION\_JSX](variables/RE_ANNOTATION_JSX.md)
+- [RE\_ANNOTATION\_JSX\_FRAG](variables/RE_ANNOTATION_JSX_FRAG.md)
+- [RE\_ANNOTATION\_JSX\_IMPORT\_SOURCE](variables/RE_ANNOTATION_JSX_IMPORT_SOURCE.md)
+- [RE\_ANNOTATION\_JSX\_RUNTIME](variables/RE_ANNOTATION_JSX_RUNTIME.md)
 - [RE\_CAMEL\_CASE](variables/RE_CAMEL_CASE.md)
 - [RE\_CONSTANT\_CASE](variables/RE_CONSTANT_CASE.md)
 - [RE\_JAVASCRIPT\_PROTOCOL](variables/RE_JAVASCRIPT_PROTOCOL.md)

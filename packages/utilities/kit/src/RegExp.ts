@@ -49,6 +49,26 @@ export const RE_JS_IDENTIFIER = /^[_$a-z][\w$]*$/i;
 export const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u;
 
 /**
+ * Regular expression for matching a `@jsx` annotation comment.
+ */
+export const RE_ANNOTATION_JSX = /@jsx\s+(\S+)/u;
+
+/**
+ * Regular expression for matching a `@jsxFrag` annotation comment.
+ */
+export const RE_ANNOTATION_JSX_FRAG = /@jsxFrag\s+(\S+)/u;
+
+/**
+ * Regular expression for matching a `@jsxRuntime` annotation comment.
+ */
+export const RE_ANNOTATION_JSX_RUNTIME = /@jsxRuntime\s+(\S+)/u;
+
+/**
+ * Regular expression for matching a `@jsxImportSource` annotation comment.
+ */
+export const RE_ANNOTATION_JSX_IMPORT_SOURCE = /@jsxImportSource\s+(\S+)/u;
+
+/**
  * Convert a string to the `RegExp`.
  * Normal strings (e.g. `"foo"`) is converted to `/^foo$/` of `RegExp`.
  * Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.

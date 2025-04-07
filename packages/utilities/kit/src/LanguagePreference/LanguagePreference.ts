@@ -28,6 +28,10 @@ export function make(): LanguagePreference {
   };
 }
 
+export function getFromContext() {
+  throw new Error("getFromContext is not implemented");
+}
+
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
     // TODO: Add the language preference to the shared configuration settings when it is ready.

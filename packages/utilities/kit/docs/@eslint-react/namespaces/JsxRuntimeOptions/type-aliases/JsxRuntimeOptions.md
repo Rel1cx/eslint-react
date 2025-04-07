@@ -2,7 +2,7 @@
 
 ***
 
-[@eslint-react/kit](../../../../README.md) / [JsxRuntime](../README.md) / JsxRuntimeOptions
+[@eslint-react/kit](../../../../README.md) / [JsxRuntimeOptions](../README.md) / JsxRuntimeOptions
 
 # Type Alias: JsxRuntimeOptions
 
