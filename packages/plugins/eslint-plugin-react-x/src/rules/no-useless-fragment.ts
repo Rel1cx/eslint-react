@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   const { allowExpressions = true } = option;
   return {
     JSXElement(node) {
-      if (!JSX.isJsxFragmentElement(node)) return;
+      if (!JSX.isFragmentElement(node)) return;
       checkNode(context, node, allowExpressions);
     },
     JSXFragment(node) {
@@ -103,16 +103,16 @@ function checkNode(
 ) {
   const initialScope = context.sourceCode.getScope(node);
   // return if the fragment is keyed (e.g. <Fragment key={key}>)
-  if (JSX.isJsxKeyedElement(node, initialScope)) {
+  if (JSX.isKeyedElement(node, initialScope)) {
     return;
   }
-  // report if the fragment is placed inside a built-in component (e.g. <div><></></div>)
-  if (JSX.isJsxBuiltInElement(node.parent)) {
+  // report if the fragment is placed inside a host component (e.g. <div><></></div>)
+  if (JSX.isHostElement(node.parent)) {
     context.report({
       messageId: "uselessFragment",
       node,
       data: {
-        reason: "placed inside a built-in component",
+        reason: "placed inside a host component",
       },
       fix: getFix(context, node),
     });
@@ -204,7 +204,7 @@ function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFr
 function canFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (node.parent.type === T.JSXElement || node.parent.type === T.JSXFragment) {
     // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
-    return !JSX.isJsxUserDefinedElement(node.parent);
+    return JSX.isHostElement(node.parent);
   }
   // Not safe to fix fragments without a jsx parent.
   // const a = <></>

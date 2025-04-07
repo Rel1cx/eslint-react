@@ -8,6 +8,16 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { DEFAULT_JSX_DETECTION_HINT, JSXDetectionHint } from "./jsx-detection-hint";
 
 /**
+ * Check if a node is a `JSXText` or a `Literal` node
+ * @param node The AST node to check
+ * @returns `true` if the node is a `JSXText` or a `Literal` node
+ */
+export function isJsxText(node: TSESTree.Node | null | _): node is TSESTree.JSXText | TSESTree.Literal {
+  if (node == null) return false;
+  return node.type === T.JSXText || node.type === T.Literal;
+}
+
+/**
  * Heuristic decision to determine if a node is a JSX-like node.
  * @param code The sourceCode object
  * @param code.getScope The function to get the scope of a node

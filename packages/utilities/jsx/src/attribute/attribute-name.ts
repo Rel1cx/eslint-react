@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
-import { toString } from "./to-string";
+import { toString } from "../to-string";
 
 /**
  * Get the stringified name of a JSX attribute

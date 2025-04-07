@@ -10,7 +10,7 @@ export const CustomComponentPropSchema = object({
    */
   name: string(),
   /**
-   * The name of the prop in the built-in component.
+   * The name of the prop in the host component.
    * @example
    * "href"
    */
@@ -44,13 +44,13 @@ export const CustomComponentSchema = object({
    */
   name: string(),
   /**
-   * The name of the built-in component that the user-defined component represents.
+   * The name of the host component that the user-defined component represents.
    * @example
    * "a"
    */
   as: optional(string()),
   /**
-   * Attributes mapping between the user-defined component and the built-in component.
+   * Attributes mapping between the user-defined component and the host component.
    * @example
    * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
    */

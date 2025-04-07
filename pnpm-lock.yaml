@@ -126,14 +126,14 @@ importers:
         specifier: ^4.39.1
         version: 4.39.1
       typedoc:
-        specifier: ^0.28.1
-        version: 0.28.1(typescript@5.8.3)
+        specifier: ^0.28.2
+        version: 0.28.2(typescript@5.8.3)
       typedoc-plugin-markdown:
         specifier: ^4.6.1
-        version: 4.6.1(typedoc@0.28.1(typescript@5.8.3))
+        version: 4.6.1(typedoc@0.28.2(typescript@5.8.3))
       typedoc-plugin-mdn-links:
         specifier: ^5.0.1
-        version: 5.0.1(typedoc@0.28.1(typescript@5.8.3))
+        version: 5.0.1(typedoc@0.28.2(typescript@5.8.3))
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -156,8 +156,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1(eslint@9.24.0(jiti@2.4.2))
       eslint-plugin-function:
-        specifier: ^0.0.12
-        version: 0.0.12(eslint@9.24.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)
+        specifier: ^0.0.13
+        version: 0.0.13(eslint@9.24.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)
       eslint-plugin-jsdoc:
         specifier: ^50.6.9
         version: 50.6.9(eslint@9.24.0(jiti@2.4.2))
@@ -2427,8 +2427,8 @@ packages:
   '@formatjs/intl-localematcher@0.6.1':
     resolution: {integrity: sha512-ePEgLgVCqi2BBFnTMWPfIghu6FkbZnnBVhO2sSxvLfrdFw7wCHAHiDoM2h4NRgjbaY7+B7HgOLZGkK187pZTZg==}
 
-  '@gerrit0/mini-shiki@3.2.1':
-    resolution: {integrity: sha512-HbzRC6MKB6U8kQhczz0APKPIzFHTrcqhaC7es2EXInq1SpjPVnpVSIsBe6hNoLWqqCx1n5VKiPXq6PfXnHZKOQ==}
+  '@gerrit0/mini-shiki@3.2.2':
+    resolution: {integrity: sha512-vaZNGhGLKMY14HbF53xxHNgFO9Wz+t5lTlGNpl2N9xFiKQ0I5oIe0vKjU9dh7Nb3Dw6lZ7wqUE0ri+zcdpnK+Q==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -4822,11 +4822,11 @@ packages:
     peerDependencies:
       eslint: '>=8.0.0'
 
-  eslint-plugin-function@0.0.12:
-    resolution: {integrity: sha512-+WKz0c3gHp1kxkjFslrZdaOUGDd024zMy5ESOeBi5ZSUrBVDHSue9Z9OwI6t3jiOsVIDuy3omqysojf87onoIg==}
+  eslint-plugin-function@0.0.13:
+    resolution: {integrity: sha512-QoXtNtZjsOtlqK74scDwBKbPMnuKmhu8kwpNzObuQabcRyDFXJztepDGxlFEG1t6lKMA5eatTOXNInW6SXEeuw==}
     engines: {bun: '>=1.0.15', node: '>=18.18.0'}
     peerDependencies:
-      eslint: ^9.23.0
+      eslint: ^9.24.0
       ts-api-utils: ^2.1.0
       typescript: ^5.8.3
 
@@ -7022,8 +7022,8 @@ packages:
     peerDependencies:
       typedoc: 0.27.x || 0.28.x
 
-  typedoc@0.28.1:
-    resolution: {integrity: sha512-Mn2VPNMaxoe/hlBiLriG4U55oyAa3Xo+8HbtEwV7F5WEOPXqtxzGuMZhJYHaqFJpajeQ6ZDUC2c990NAtTbdgw==}
+  typedoc@0.28.2:
+    resolution: {integrity: sha512-9Giuv+eppFKnJ0oi+vxqLM817b/IrIsEMYgy3jj6zdvppAfDqV3d6DXL2vXUg2TnlL62V48th25Zf/tcQKAJdg==}
     engines: {node: '>= 18', pnpm: '>= 10'}
     hasBin: true
     peerDependencies:
@@ -8559,9 +8559,11 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@gerrit0/mini-shiki@3.2.1':
+  '@gerrit0/mini-shiki@3.2.2':
     dependencies:
       '@shikijs/engine-oniguruma': 3.2.1
+      '@shikijs/langs': 3.2.1
+      '@shikijs/themes': 3.2.1
       '@shikijs/types': 3.2.1
       '@shikijs/vscode-textmate': 10.0.2
 
@@ -10969,7 +10971,7 @@ snapshots:
     dependencies:
       eslint: 9.24.0(jiti@2.4.2)
 
-  eslint-plugin-function@0.0.12(eslint@9.24.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3):
+  eslint-plugin-function@0.0.13(eslint@9.24.0(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3):
     dependencies:
       '@eslint-react/ast': 1.40.3(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       '@eslint-react/eff': 1.40.3
@@ -13734,17 +13736,17 @@ snapshots:
 
   type-fest@4.39.1: {}
 
-  typedoc-plugin-markdown@4.6.1(typedoc@0.28.1(typescript@5.8.3)):
+  typedoc-plugin-markdown@4.6.1(typedoc@0.28.2(typescript@5.8.3)):
     dependencies:
-      typedoc: 0.28.1(typescript@5.8.3)
+      typedoc: 0.28.2(typescript@5.8.3)
 
-  typedoc-plugin-mdn-links@5.0.1(typedoc@0.28.1(typescript@5.8.3)):
+  typedoc-plugin-mdn-links@5.0.1(typedoc@0.28.2(typescript@5.8.3)):
     dependencies:
-      typedoc: 0.28.1(typescript@5.8.3)
+      typedoc: 0.28.2(typescript@5.8.3)
 
-  typedoc@0.28.1(typescript@5.8.3):
+  typedoc@0.28.2(typescript@5.8.3):
     dependencies:
-      '@gerrit0/mini-shiki': 3.2.1
+      '@gerrit0/mini-shiki': 3.2.2
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5

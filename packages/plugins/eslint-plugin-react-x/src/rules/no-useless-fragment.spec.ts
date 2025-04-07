@@ -35,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
         {
           type: T.JSXFragment,
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
       ],
       output: "<p>{meow}</p>",
@@ -160,7 +160,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
         {
           type: T.JSXFragment,
@@ -176,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
       ],
       output: '<div>{"a"}{"b"}</div>',
@@ -192,7 +192,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
       ],
       output: `
@@ -208,7 +208,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXElement,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
       ],
       output: '<div>{"a"}{"b"}</div>',
@@ -227,13 +227,13 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
           line: 3,
         },
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
           line: 7,
         },
       ],
@@ -250,7 +250,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXFragment,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
         },
       ],
       output: '<div>a {""}{""} a</div>',
@@ -267,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           type: T.JSXElement,
           messageId: "uselessFragment",
-          data: { reason: "placed inside a built-in component" },
+          data: { reason: "placed inside a host component" },
           line: 4,
         },
         {

@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node: TSESTree.JSXElement) {
-      if (!JSX.isJsxFragmentElement(node)) return;
+      if (!JSX.isFragmentElement(node)) return;
       const hasAttributes = node.openingElement.attributes.length > 0;
       if (hasAttributes) {
         return;

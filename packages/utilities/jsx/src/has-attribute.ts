@@ -1,7 +1,6 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-
-import { getAttribute } from "./get-attribute";
+import { getAttribute } from "./attribute";
 
 export function hasAttribute(
   name: string,

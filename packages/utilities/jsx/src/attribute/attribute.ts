@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { getAttributeName } from "./get-attribute-name";
+import { getAttributeName } from "./attribute-name";
 
 /**
  * Get the JSX attribute node with the given name
