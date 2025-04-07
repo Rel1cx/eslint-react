@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import type { CamelCase } from "string-ts";
-import { JsxRuntimeConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { JsxConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { JsxEmit } from "typescript";
 import { createRule } from "../utils";
 
@@ -30,12 +30,12 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const jsxRuntimeConfig = {
-    ...JsxRuntimeConfig.getFromContext(context),
-    ...JsxRuntimeConfig.getFromAnnotation(context),
+  const jsxConfig = {
+    ...JsxConfig.getFromContext(context),
+    ...JsxConfig.getFromAnnotation(context),
   };
 
-  const { jsx, jsxFactory, jsxFragmentFactory } = jsxRuntimeConfig;
+  const { jsx, jsxFactory, jsxFragmentFactory } = jsxConfig;
 
   if (jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev) return {};
 

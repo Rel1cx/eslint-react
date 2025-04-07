@@ -39,8 +39,8 @@ export const ruleTesterWithTypes = new RuleTester({
   languageOptions: defaultLanguageOptionsWithTypes,
 });
 
-export function getProjectForJsxRuntime(jsxRuntime: JsxEmit) {
-  switch (jsxRuntime) {
+export function getProjectForJsxEmit(jsxEmit: JsxEmit) {
+  switch (jsxEmit) {
     case JsxEmit.None:
     case JsxEmit.ReactJSX:
     case JsxEmit.ReactJSXDev:

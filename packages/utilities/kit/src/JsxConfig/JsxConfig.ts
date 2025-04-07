@@ -8,7 +8,7 @@ import {
   RE_ANNOTATION_JSX_RUNTIME,
 } from "../RegExp";
 
-export type JsxRuntimeConfig = Pick<
+export type JsxConfig = Pick<
   CompilerOptions,
   // Specifies the object invoked for `createElement` and `__spread` when targeting `'react'` JSX emit.
   | "reactNamespace"
@@ -23,17 +23,17 @@ export type JsxRuntimeConfig = Pick<
 >;
 
 /**
- * Create a JsxRuntimeConfig object
- * @returns JsxRuntimeConfig
+ * Create a JsxConfig object
+ * @returns JsxConfig
  */
-export function make(): JsxRuntimeConfig {
+export function make(): JsxConfig {
   return {};
 }
 
 /**
- * Get JsxRuntimeConfig from RuleContext
+ * Get JsxConfig from RuleContext
  * @param context The RuleContext
- * @returns JsxRuntimeConfig
+ * @returns JsxConfig
  */
 export function getFromContext(context: RuleContext) {
   const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
@@ -47,24 +47,24 @@ export function getFromContext(context: RuleContext) {
 }
 
 /**
- * Get JsxRuntimeConfig from annotation
+ * Get JsxConfig from annotation
  * @param context The RuleContext
- * @returns JsxRuntimeConfig
+ * @returns JsxConfig
  */
 export function getFromAnnotation(context: RuleContext) {
   if (!context.sourceCode.text.includes("@jsx")) return {};
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
-  for (const comment of context.sourceCode.getAllComments()) {
+  for (const comment of context.sourceCode.getAllComments().reverse()) {
     const value = comment.value;
-    jsx = value.match(RE_ANNOTATION_JSX)?.[1];
-    jsxFrag = value.match(RE_ANNOTATION_JSX_FRAG)?.[1];
-    jsxRuntime = value.match(RE_ANNOTATION_JSX_RUNTIME)?.[1];
-    jsxImportSource = value.match(RE_ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
+    jsx ??= value.match(RE_ANNOTATION_JSX)?.[1];
+    jsxFrag ??= value.match(RE_ANNOTATION_JSX_FRAG)?.[1];
+    jsxRuntime ??= value.match(RE_ANNOTATION_JSX_RUNTIME)?.[1];
+    jsxImportSource ??= value.match(RE_ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
   }
   const options = make();
   if (jsx != null) options.jsxFactory = jsx;
   if (jsxFrag != null) options.jsxFragmentFactory = jsxFrag;
-  if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? JsxEmit.ReactJSX : JsxEmit.ReactJSXDev;
+  if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? JsxEmit.React : JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
   return options;
 }

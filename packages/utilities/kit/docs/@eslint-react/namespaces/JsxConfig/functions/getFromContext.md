@@ -2,13 +2,13 @@
 
 ***
 
-[@eslint-react/kit](../../../../README.md) / [JsxRuntimeConfig](../README.md) / getFromContext
+[@eslint-react/kit](../../../../README.md) / [JsxConfig](../README.md) / getFromContext
 
 # Function: getFromContext()
 
 > **getFromContext**(`context`): `object`
 
-Get JsxRuntimeConfig from RuleContext
+Get JsxConfig from RuleContext
 
 ## Parameters
 
@@ -22,7 +22,7 @@ The RuleContext
 
 `object`
 
-JsxRuntimeConfig
+JsxConfig
 
 ### jsx
 
