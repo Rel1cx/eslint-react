@@ -2,13 +2,13 @@
 
 ***
 
-[@eslint-react/kit](../../../README.md) / JsxRuntimeOptions
+[@eslint-react/kit](../../../README.md) / JsxRuntimeConfig
 
-# JsxRuntimeOptions
+# JsxRuntimeConfig
 
 ## Type Aliases
 
-- [JsxRuntimeOptions](type-aliases/JsxRuntimeOptions.md)
+- [JsxRuntimeConfig](type-aliases/JsxRuntimeConfig.md)
 
 ## Functions
 

@@ -8,7 +8,7 @@ import {
   RE_ANNOTATION_JSX_RUNTIME,
 } from "../RegExp";
 
-export type JsxRuntimeOptions = Pick<
+export type JsxRuntimeConfig = Pick<
   CompilerOptions,
   // Specifies the object invoked for `createElement` and `__spread` when targeting `'react'` JSX emit.
   | "reactNamespace"
@@ -23,17 +23,17 @@ export type JsxRuntimeOptions = Pick<
 >;
 
 /**
- * Create a JsxRuntimeOptions object
- * @returns JsxRuntimeOptions
+ * Create a JsxRuntimeConfig object
+ * @returns JsxRuntimeConfig
  */
-export function make(): JsxRuntimeOptions {
+export function make(): JsxRuntimeConfig {
   return {};
 }
 
 /**
- * Get JsxRuntimeOptions from RuleContext
+ * Get JsxRuntimeConfig from RuleContext
  * @param context The RuleContext
- * @returns JsxRuntimeOptions
+ * @returns JsxRuntimeConfig
  */
 export function getFromContext(context: RuleContext) {
   const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
@@ -47,9 +47,9 @@ export function getFromContext(context: RuleContext) {
 }
 
 /**
- * Get JsxRuntimeOptions from annotation
+ * Get JsxRuntimeConfig from annotation
  * @param context The RuleContext
- * @returns JsxRuntimeOptions
+ * @returns JsxRuntimeConfig
  */
 export function getFromAnnotation(context: RuleContext) {
   if (!context.sourceCode.text.includes("@jsx")) return {};
