@@ -28,6 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
+            type: "element",
             jsx: "react-jsx",
             jsxFactory: "React.createElement",
             jsxFragmentFactory: "React.Fragment",
@@ -50,6 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
+            type: "element",
             jsx: "react",
             jsxFactory: "Preact.h",
             jsxFragmentFactory: "Preact.Fragment",
@@ -69,6 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
+            type: "element",
             jsx: "react",
             jsxFactory: "React.createElement",
             jsxFragmentFactory: "React.Fragment",

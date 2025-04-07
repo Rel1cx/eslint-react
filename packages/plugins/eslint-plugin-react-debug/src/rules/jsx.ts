@@ -1,8 +1,8 @@
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import * as JSX from "@eslint-react/jsx";
 import { JsxConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { match, P } from "ts-pattern";
-
 import { JsxEmit } from "typescript";
 import { createRule } from "../utils";
 
@@ -18,12 +18,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Reports all React Hooks.",
+      description: "Reports all JSX elements and fragments.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsx:
-        "[jsx] jsx: '{{jsx}}', jsxFactory: '{{jsxFactory}}', jsxFragmentFactory: '{{jsxFragmentFactory}}', jsxRuntime: '{{jsxRuntime}}' jsxImportSource: '{{jsxImportSource}}'",
+        "[jsx {{type}}] jsx: '{{jsx}}', jsxFactory: '{{jsxFactory}}', jsxFragmentFactory: '{{jsxFragmentFactory}}', jsxRuntime: '{{jsxRuntime}}' jsxImportSource: '{{jsxImportSource}}'",
     },
     schema: [],
   },
@@ -40,9 +40,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...jsxConfigFromAnnotation,
   };
 
-  const baseDescriptor = {
+  const getDescriptor = (type: string) => ({
     messageId: "jsx",
     data: {
+      type,
       jsx: match(jsxConfig.jsx)
         .with(JsxEmit.None, () => "none")
         .with(JsxEmit.ReactJSX, () => "react-jsx")
@@ -58,17 +59,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .with(P.union(JsxEmit.None, JsxEmit.ReactJSX, JsxEmit.ReactJSXDev), () => "automatic")
         .otherwise(() => "classic"),
     },
-  } as const;
+  } as const);
+
   return {
     JSXElement(node) {
+      const isFragment = JSX.isFragmentElement(node);
       context.report({
-        ...baseDescriptor,
+        ...getDescriptor(isFragment ? "fragment" : "element"),
         node,
       });
     },
     JSXFragment(node) {
       context.report({
-        ...baseDescriptor,
+        ...getDescriptor("fragment"),
         node,
       });
     },

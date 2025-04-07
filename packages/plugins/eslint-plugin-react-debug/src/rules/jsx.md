@@ -20,7 +20,7 @@ react-debug/jsx
 
 ## Description
 
-Reports all JSX elements with config properties `jsx`, `jsxFactory`, `jsxFragmentFactory`, `jsxImportSource`, and `jsxRuntime`.
+Reports all JSX elements and fragments.
 
 - `jsx`
 - `jsxFactory`
@@ -47,7 +47,7 @@ import React from "react";
 
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
-//              - [jsx] jsx: 'react-jsx', jsxFactory: 'React.createElement', jsxFragmentFactory: 'React.Fragment', jsxRuntime: 'automatic', jsxImportSource: 'react'
+//              - [jsx element] jsx: 'react-jsx', jsxFactory: 'React.createElement', jsxFragmentFactory: 'React.Fragment', jsxRuntime: 'automatic', jsxImportSource: 'react'
 ```
 
 ```tsx
@@ -60,7 +60,7 @@ import Preact from "preact";
 
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
-//              - [jsx] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxRuntime: 'classic', jsxImportSource: 'preact'
+//              - [jsx element] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxRuntime: 'classic', jsxImportSource: 'preact'
 ```
 
 ## Implementation
