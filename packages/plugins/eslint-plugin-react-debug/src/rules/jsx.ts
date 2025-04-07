@@ -2,6 +2,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as JSX from "@eslint-react/jsx";
 import { JsxConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
 import { JsxEmit } from "typescript";
 import { createRule } from "../utils";
@@ -40,40 +41,39 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...jsxConfigFromAnnotation,
   };
 
-  const getDescriptor = (type: string) => ({
-    messageId: "jsx",
-    data: {
-      type,
-      jsx: match(jsxConfig.jsx)
-        .with(JsxEmit.None, () => "none")
-        .with(JsxEmit.ReactJSX, () => "react-jsx")
-        .with(JsxEmit.ReactJSXDev, () => "react-jsx-dev")
-        .with(JsxEmit.React, () => "react")
-        .with(JsxEmit.ReactNative, () => "react-native")
-        .with(JsxEmit.Preserve, () => "preserve")
-        .otherwise(() => "unknown"),
-      jsxFactory: jsxConfig.jsxFactory,
-      jsxFragmentFactory: jsxConfig.jsxFragmentFactory,
-      jsxImportSource: jsxConfig.jsxImportSource,
-      jsxRuntime: match(jsxConfig.jsx)
-        .with(P.union(JsxEmit.None, JsxEmit.ReactJSX, JsxEmit.ReactJSXDev), () => "automatic")
-        .otherwise(() => "classic"),
-    },
-  } as const);
+  function getReportDescriptor(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+    return {
+      messageId: "jsx",
+      node,
+      data: {
+        type: match(node)
+          .with({ type: T.JSXElement }, (n) => JSX.isFragmentElement(n) ? "fragment" : "element")
+          .with({ type: T.JSXFragment }, () => "fragment")
+          .exhaustive(),
+        jsx: match(jsxConfig.jsx)
+          .with(JsxEmit.None, () => "none")
+          .with(JsxEmit.ReactJSX, () => "react-jsx")
+          .with(JsxEmit.ReactJSXDev, () => "react-jsx-dev")
+          .with(JsxEmit.React, () => "react")
+          .with(JsxEmit.ReactNative, () => "react-native")
+          .with(JsxEmit.Preserve, () => "preserve")
+          .otherwise(() => "unknown"),
+        jsxFactory: jsxConfig.jsxFactory,
+        jsxFragmentFactory: jsxConfig.jsxFragmentFactory,
+        jsxImportSource: jsxConfig.jsxImportSource,
+        jsxRuntime: match(jsxConfig.jsx)
+          .with(P.union(JsxEmit.None, JsxEmit.ReactJSX, JsxEmit.ReactJSXDev), () => "automatic")
+          .otherwise(() => "classic"),
+      },
+    } as const;
+  }
 
   return {
     JSXElement(node) {
-      const isFragment = JSX.isFragmentElement(node);
-      context.report({
-        ...getDescriptor(isFragment ? "fragment" : "element"),
-        node,
-      });
+      context.report(getReportDescriptor(node));
     },
     JSXFragment(node) {
-      context.report({
-        ...getDescriptor("fragment"),
-        node,
-      });
+      context.report(getReportDescriptor(node));
     },
   };
 }
