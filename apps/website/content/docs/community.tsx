@@ -21,7 +21,6 @@ const repos = [
   { owner: "TanStack", repo: "router" },
   { owner: "TanStack", repo: "store" },
   { owner: "toss", repo: "suspensive" },
-  { owner: "upleveled", repo: "eslint-config-upleveled" },
   { owner: "XYOracleNetwork", repo: "sdk-xyo-react-js" },
 ];
 
@@ -30,6 +29,7 @@ const presets = [
   { owner: "antfu", repo: "eslint-config" },
   { owner: "RebeccaStevens", repo: "eslint-config-rebeccastevens" },
   { owner: "SukkaW", repo: "eslint-config-sukka" },
+  { owner: "upleveled", repo: "eslint-config-upleveled" },
 ];
 
 export function CommunityShowcases() {
