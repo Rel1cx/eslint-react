@@ -6,7 +6,7 @@
 
 ## Namespaces
 
-- [JsxRuntimeOptions](@eslint-react/namespaces/JsxRuntimeOptions/README.md)
+- [JsxRuntimeConfig](@eslint-react/namespaces/JsxRuntimeConfig/README.md)
 - [LanguagePreference](@eslint-react/namespaces/LanguagePreference/README.md)
 
 ## Type Aliases
