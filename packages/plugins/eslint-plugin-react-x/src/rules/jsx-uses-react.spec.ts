@@ -3,7 +3,7 @@ import tsx from "dedent";
 
 import { JsxEmit } from "typescript";
 import { defaultLanguageOptionsWithTypes, getProjectForJsxRuntime } from "../../../../../test";
-import rule, { debug, RULE_NAME } from "./jsx-uses-react";
+import rule, { RULE_NAME } from "./jsx-uses-react";
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -16,8 +16,8 @@ const ruleTester = new RuleTester({
   },
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions, @typescript-eslint/no-unnecessary-condition
-debug
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+process.env["ESLINT_REACT_DEBUG"] === "1"
   ? ruleTester.run(RULE_NAME, rule, {
     invalid: [
       {

@@ -12,4 +12,5 @@
 
 ## Functions
 
+- [getFromContext](functions/getFromContext.md)
 - [make](functions/make.md)
