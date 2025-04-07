@@ -18,10 +18,6 @@ react-debug/is-from-react
 
 `🐞`
 
-**Presets**
-
-- `debug`
-
 ## Description
 
 Reports all identifiers that are initialized from React. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.

@@ -18,10 +18,6 @@ react-debug/jsx
 
 `🐞`
 
-**Presets**
-
-- `debug`
-
 ## Description
 
 Reports all JSX elements with config properties `jsx`, `jsxFactory`, `jsxFragmentFactory`, `jsxImportSource`, and `jsxRuntime`.

@@ -18,10 +18,6 @@ react-debug/function-component
 
 `🐞`
 
-**Presets**
-
-- `debug`
-
 ## Description
 
 Reports all function components. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
