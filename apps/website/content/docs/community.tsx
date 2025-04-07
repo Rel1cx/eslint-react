@@ -17,6 +17,7 @@ const repos = [
   { owner: "refined-github", repo: "refined-github" },
   { owner: "RSSNext", repo: "Follow" },
   { owner: "TanStack", repo: "form" },
+  { owner: "TanStack", repo: "pacer" },
   { owner: "TanStack", repo: "query" },
   { owner: "TanStack", repo: "router" },
   { owner: "TanStack", repo: "store" },
