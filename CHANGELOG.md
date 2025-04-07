@@ -1,3 +1,11 @@
+## v1.41.0 (2025-04-08)
+
+### ✨ New
+
+- feat: add `react-debug/jsx` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1041
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.4...1.41.0
+
 ## v1.40.4 (2025-04-07)
 
 ### 🐞 Fixes
