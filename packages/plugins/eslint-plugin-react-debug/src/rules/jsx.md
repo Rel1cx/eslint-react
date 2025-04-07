@@ -60,7 +60,7 @@ import Preact from "preact";
 
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
-//              - [jsx] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxImportSource: 'preact', jsxRuntime: 'classic', jsxImportSource: 'preact'
+//              - [jsx] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxRuntime: 'classic', jsxImportSource: 'preact'
 ```
 
 ## Implementation
