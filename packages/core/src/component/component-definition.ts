@@ -39,7 +39,7 @@ export function isValidComponentDefinition(context: RuleContext, node: AST.TSEST
   if (hint & ComponentDetectionHint.SkipClassProperty && isFunctionOfClassProperty(node.parent)) {
     return false;
   }
-  if (hint & ComponentDetectionHint.SkipArrayMapArgument && AST.isArrayMapCallLoose(node.parent)) {
+  if (hint & ComponentDetectionHint.SkipArrayMapArgument && AST.isArrayMapCall(node.parent)) {
     return false;
   }
   const boundaryNode = AST.findParentNode(

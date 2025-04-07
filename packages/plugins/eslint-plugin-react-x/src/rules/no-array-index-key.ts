@@ -51,7 +51,8 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return _;
   }
   const { name } = callee.property;
-  if (!AST.ITERATOR_FUNCTION_INDEX_PARAM_POSITION.has(name)) {
+  const indexPosition = AST.getArrayMethodIndexParamPosition(name);
+  if (indexPosition === -1) {
     return _;
   }
   const callbackArg = node.arguments[isUsingReactChildren(context, node) ? 1 : 0];
@@ -62,14 +63,10 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return _;
   }
   const { params } = callbackArg;
-  const indexParamPosition = AST.ITERATOR_FUNCTION_INDEX_PARAM_POSITION.get(name);
-  if (indexParamPosition == null) {
+  if (params.length < indexPosition + 1) {
     return _;
   }
-  if (params.length < indexParamPosition + 1) {
-    return _;
-  }
-  const param = params.at(indexParamPosition);
+  const param = params.at(indexPosition);
 
   return param != null && "name" in param
     ? param.name

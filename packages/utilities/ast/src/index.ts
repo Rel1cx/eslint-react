@@ -1,4 +1,4 @@
-export * from "./constants";
+export * from "./array-methods";
 export * from "./find-parent-node";
 export * from "./function-init-path";
 export * from "./get-class-identifier";
@@ -11,7 +11,6 @@ export * from "./get-nested-return-statements";
 export * from "./get-property-name";
 export * from "./get-top-level-identifier";
 export * from "./is";
-export * from "./is-array-map-call";
 export * from "./is-empty-function";
 export * from "./is-line-break";
 export * from "./is-literal";

@@ -69,7 +69,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           break;
         }
         default: {
-          const call = AST.findParentNode(jsxElement, AST.isArrayMapCallLoose);
+          const call = AST.findParentNode(jsxElement, AST.isArrayMapCall);
           const iter = AST.findParentNode(jsxElement, (n) => n === call || AST.isFunction(n));
           if (!AST.isFunction(iter)) return;
           const arg0 = call?.arguments[0];
