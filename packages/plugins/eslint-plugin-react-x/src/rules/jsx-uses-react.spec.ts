@@ -2,7 +2,7 @@ import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 
 import { JsxEmit } from "typescript";
-import { defaultLanguageOptionsWithTypes, getProjectForJsxRuntime } from "../../../../../test";
+import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit } from "../../../../../test";
 import rule, { RULE_NAME } from "./jsx-uses-react";
 
 const ruleTester = new RuleTester({
@@ -10,7 +10,7 @@ const ruleTester = new RuleTester({
     ...defaultLanguageOptionsWithTypes,
     parserOptions: {
       ...defaultLanguageOptionsWithTypes.parserOptions,
-      project: getProjectForJsxRuntime(JsxEmit.React),
+      project: getProjectForJsxEmit(JsxEmit.React),
       projectService: false,
     },
   },

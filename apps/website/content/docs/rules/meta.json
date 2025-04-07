@@ -95,6 +95,7 @@
     "debug-class-component",
     "debug-function-component",
     "debug-hook",
-    "debug-is-from-react"
+    "debug-is-from-react",
+    "debug-jsx"
   ]
 }
