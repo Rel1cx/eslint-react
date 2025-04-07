@@ -2,7 +2,7 @@ import type { _ } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { hasAttribute } from "../has-attribute";
+import { hasAttribute } from "../attribute";
 import { getElementType } from "./element-type";
 
 export function isHostElement(node: TSESTree.Node) {
