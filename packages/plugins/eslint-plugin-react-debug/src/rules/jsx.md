@@ -22,13 +22,6 @@ react-debug/jsx
 
 Reports all JSX elements and fragments.
 
-- `jsx`
-- `jsxFactory`
-- `jsxFragmentFactory`
-- `jsxImportSource`
-- `jsxRuntime`
-- `jsxImportSource` is the source of the JSX factory and fragment factory functions.
-
 ## Examples
 
 ```json title="tsconfig.json"
