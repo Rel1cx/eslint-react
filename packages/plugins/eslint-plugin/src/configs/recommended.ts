@@ -3,14 +3,14 @@ import reactDebug from "eslint-plugin-react-debug";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 
-import * as core from "./core";
 import * as dom from "./dom";
 import * as webApi from "./web-api";
+import * as x from "./x";
 
 export const name = "@eslint-react/recommended";
 
 export const rules = {
-  ...core.rules,
+  ...x.rules,
   ...dom.rules,
   ...webApi.rules,
 
@@ -23,7 +23,7 @@ export const rules = {
 } as const satisfies RulePreset;
 
 export const plugins = {
-  ...core.plugins,
+  ...x.plugins,
   ...dom.plugins,
   ...webApi.plugins,
   "@eslint-react/debug": reactDebug,

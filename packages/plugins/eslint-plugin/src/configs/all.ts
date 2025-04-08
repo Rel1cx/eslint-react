@@ -4,8 +4,8 @@ import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import reactWebApi from "eslint-plugin-react-web-api";
 
-import * as core from "./core";
 import * as dom from "./dom";
+import * as x from "./x";
 
 export const name = "@eslint-react/all";
 
@@ -99,7 +99,7 @@ export const rules = {
 } as const satisfies RulePreset;
 
 export const plugins = {
-  ...core.plugins,
+  ...x.plugins,
   ...dom.plugins,
   "@eslint-react/debug": reactDebug,
   "@eslint-react/hooks-extra": reactHooksExtra,
