@@ -116,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const isMapCall = AST.isArrayMapCall(node);
-      if (!isMapCall && !isArrayFromCall(node)) {
+      if (!isMapCall && !AST.isArrayFromCall(node)) {
         return;
       }
       const fn = node.arguments[isMapCall ? 0 : 1];
@@ -147,11 +147,4 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
-}
-
-function isArrayFromCall(node: TSESTree.Node): node is TSESTree.CallExpression {
-  return node.type === T.CallExpression
-    && node.callee.type === T.MemberExpression
-    && node.callee.property.type === T.Identifier
-    && node.callee.property.name === "from";
 }

@@ -20,8 +20,6 @@ Enforces destructuring assignment for component props and context.
 
 ## Examples
 
-This rule aims to enforce the use of destructuring assignment over property assignment.
-
 ### Failing
 
 ```tsx

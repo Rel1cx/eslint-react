@@ -25,11 +25,9 @@ react-dom/no-unsafe-iframe-sandbox
 
 Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
 
-If `sandbox` attribute is not set, the iframe content can have abilities that are not intended to be allowed.
+This rule reports cases where attribute contains `allow-scripts` and `allow-same-origin` at the same time as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
 
 ## Examples
-
-This rule reports cases where attribute contains `allow-scripts` and `allow-same-origin` at the same time as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
 
 ### Failing
 

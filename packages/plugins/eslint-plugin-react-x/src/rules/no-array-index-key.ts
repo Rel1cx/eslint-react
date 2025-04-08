@@ -51,7 +51,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return _;
   }
   const { name } = callee.property;
-  const indexPosition = AST.getArrayMethodIndexParamPosition(name);
+  const indexPosition = AST.getArrayMethodCallbackIndexParamPosition(name);
   if (indexPosition === -1) {
     return _;
   }
