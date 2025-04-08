@@ -16,7 +16,7 @@ react-x/no-unused-class-component-members
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

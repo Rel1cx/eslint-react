@@ -16,7 +16,7 @@ react-x/no-children-to-array
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

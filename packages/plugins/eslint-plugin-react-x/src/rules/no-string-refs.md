@@ -16,7 +16,7 @@ react-x/no-string-refs
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

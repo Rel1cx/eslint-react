@@ -16,7 +16,7 @@ react-x/jsx-uses-vars
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 
 ## Description

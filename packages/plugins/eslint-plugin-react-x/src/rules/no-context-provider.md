@@ -20,7 +20,7 @@ react-x/no-context-provider
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

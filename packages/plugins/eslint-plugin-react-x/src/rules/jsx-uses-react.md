@@ -16,7 +16,7 @@ react-x/jsx-uses-react
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 
 ## Description

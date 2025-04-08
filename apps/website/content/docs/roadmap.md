@@ -20,7 +20,7 @@ Minimum supported versions:
 
 ### Plugins (with ecological niche explanation)
 
-- [x] `eslint-plugin-react-x` - Core rules (renderer-agnostic, compatible with x-platform)
+- [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
 - [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`

@@ -16,7 +16,7 @@ react-x/no-clone-element
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

@@ -16,7 +16,7 @@ react-x/no-direct-mutation-state
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

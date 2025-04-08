@@ -16,7 +16,7 @@ react-x/no-access-state-in-setstate
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`
