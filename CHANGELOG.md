@@ -9,6 +9,7 @@
 The following presets have been renamed:
 
 - `core` to `x`
+- `core-legacy` to `x-legacy`
 
 The old preset names will still be available until the next major update to avoid breaking changes.
 
