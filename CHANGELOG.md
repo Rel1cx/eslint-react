@@ -1,4 +1,4 @@
-## v1.42.0 (2025-04-08)
+## v1.42.1 (2025-04-08)
 
 ### ✨ New
 
@@ -12,7 +12,7 @@ The following presets have been renamed:
 
 The old preset names will still be available until the next major update to avoid breaking changes.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.41.0...v1.42.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.41.0...v1.42.1
 
 ## v1.41.0 (2025-04-08)
 
