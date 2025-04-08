@@ -24,5 +24,5 @@ full: true
 
 | Preset    | Replaced by   | Deprecated in |
 | :-------- | :------------ | :------------ |
-| `core`    | `x`           | 1.42.0        |
+| `core`    | `x`           | 1.42.1        |
 | `off-dom` | `disable-dom` | 1.10.0        |
