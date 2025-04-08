@@ -35,8 +35,6 @@ And it's also be proposed to be deprecated is this RFC: [Deprecate spreading key
 
 ## Examples
 
-This rule aims to prevent spreading key from objects.
-
 ### Failing
 
 ```tsx
