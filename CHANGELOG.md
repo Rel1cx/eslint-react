@@ -1,3 +1,19 @@
+## v1.42.0 (2025-04-08)
+
+### ✨ New
+
+- feat: rename `core` preset to `x` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1042
+
+### 📝 Changes you should be aware of
+
+The following presets have been renamed:
+
+- `core` to `x`
+
+The old preset names will still be available until the next major update to avoid breaking changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.41.0...v1.42.0
+
 ## v1.41.0 (2025-04-08)
 
 ### ✨ New
