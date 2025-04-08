@@ -59,6 +59,10 @@ export default {
     ["x"]: xConfig,
     ["x-legacy"]: toLegacyConfig(xConfig),
     // Part: deprecated presets
+    /** @deprecated Use `x` instead */
+    ["core"]: xConfig,
+    /** @deprecated Use `x-legacy` instead */
+    ["core-legacy"]: toLegacyConfig(xConfig),
     /** @deprecated Use `disable-dom` instead */
     ["off-dom"]: disableDomConfig,
     /** @deprecated Use `disable-dom-legacy` instead */
