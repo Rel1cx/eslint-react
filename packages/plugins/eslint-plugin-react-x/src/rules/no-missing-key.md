@@ -16,7 +16,7 @@ react-x/no-missing-key
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

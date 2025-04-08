@@ -16,7 +16,7 @@ react-x/no-set-state-in-component-did-mount
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

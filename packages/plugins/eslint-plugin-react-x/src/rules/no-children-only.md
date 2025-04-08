@@ -16,7 +16,7 @@ react-x/no-children-only
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

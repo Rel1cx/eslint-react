@@ -16,7 +16,7 @@ react-x/no-comment-textnodes
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

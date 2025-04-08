@@ -20,7 +20,7 @@ react-x/no-implicit-key
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

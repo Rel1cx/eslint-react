@@ -16,7 +16,7 @@ react-x/no-array-index-key
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

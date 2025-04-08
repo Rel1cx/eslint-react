@@ -16,7 +16,7 @@ react-x/no-prop-types
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

@@ -16,7 +16,7 @@ react-x/jsx-no-duplicate-props
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 
 ## Description

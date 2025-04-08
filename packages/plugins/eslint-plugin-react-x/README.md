@@ -42,4 +42,4 @@ export default tseslint.config({
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#core-rules>
+<https://eslint-react.xyz/docs/rules/overview#x-rules>

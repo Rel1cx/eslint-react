@@ -16,7 +16,7 @@ react-x/no-unsafe-component-will-update
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

@@ -20,7 +20,7 @@ react-x/no-forward-ref
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

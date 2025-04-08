@@ -16,7 +16,7 @@ react-x/no-unused-state
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

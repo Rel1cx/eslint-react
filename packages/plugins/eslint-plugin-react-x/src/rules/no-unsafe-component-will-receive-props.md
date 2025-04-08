@@ -16,7 +16,7 @@ react-x/no-unsafe-component-will-receive-props
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

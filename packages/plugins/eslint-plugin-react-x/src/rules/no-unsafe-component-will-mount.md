@@ -16,7 +16,7 @@ react-x/no-unsafe-component-will-mount
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

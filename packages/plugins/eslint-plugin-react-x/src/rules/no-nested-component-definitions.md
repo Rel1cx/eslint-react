@@ -16,7 +16,7 @@ react-x/no-nested-component-definitions
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

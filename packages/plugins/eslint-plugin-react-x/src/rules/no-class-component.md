@@ -16,7 +16,7 @@ react-x/no-class-component
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`

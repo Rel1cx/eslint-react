@@ -20,7 +20,7 @@ react-x/no-component-will-mount
 
 **Presets**
 
-- `core`
+- `x`
 - `recommended`
 - `recommended-typescript`
 - `recommended-type-checked`
