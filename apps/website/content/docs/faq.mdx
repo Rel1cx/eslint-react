@@ -6,29 +6,19 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 <Accordions>
 
-<Accordion title="Why create ESLint React?">
+<Accordion title="Why?">
 
-The existing `eslint-plugin-react` is a plugin for `react-dom` but named react[¹], it only supports React DOM[²] and does not being expected to be used with x-platform.
+ESLint React was created to address the fundamental limitations of `eslint-plugin-react` in modern React development ecosystems. While the existing plugin uses the name "react", its implementation specifically targets React DOM and maintains DOM-centric assumptions that create friction when used with alternative renderers like React Native, React Three Fiber, or custom reconcilers. This implicit DOM dependency persists despite React's core design principle of renderer-agnosticism as outlined in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.html#beyond-the-dom).
 
-Although you can use it with other renderers, it will always assume that you are using the React DOM, even if you are working with a codebase that uses a different renderer. This can sometimes cause confusion and problems[³].
+Our solution treating DOM as one of many supported targets rather than the default assumption. This paradigm shift enables:
 
-Unfortunately, the maintainers of `eslint-plugin-react` refuse to change that[⁴].
-
-Just as in [Beyond the DOM](https://legacy.reactjs.org/docs/design-principles.html#beyond-the-dom) we believe the future of React Linter is not limited to the DOM. This influences every decision made in ESLint React, and it is the reason why we created it.
-
-</Accordion>
-
-<Accordion title='Why is there no "jsx-runtime" preset in ESLint React?'>
-
-ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration files to determines how to perform the JSX analysis internally. This means that you don't need to configure the JSX runtime in ESLint React, as it will automatically use the one configured in your project.
-
-Additionally, this approach avoids potential problems where the JSX runtime configured in `eslint.config.js` might conflict with the one configured in `tsconfig.json` or `jsconfig.json`.
-
-For more information, see the [JSX Runtime](/docs/configuration/configure-language-config#jsx-runtime) section on the [Configure Language Config](/docs/configuration/configure-language-config) page.
+- Context-aware checks adapting to different environments
+- Future-proof architecture for emerging React-based platforms
+- Consistent code quality standards and shmelless linting experiences
 
 </Accordion>
 
-<Accordion title="What is included in ESLint React?">
+<Accordion title="What's included?">
 
 Currently, it includes the following:
 
@@ -64,7 +54,17 @@ You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecologic
 
 </Accordion>
 
-<Accordion title="Is there anything to note about migrating from eslint-plugin-react to ESLint React?">
+<Accordion title='Why is there no "jsx-runtime" preset?'>
+
+ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration files to determines how to perform the JSX analysis internally. This means that you don't need to configure the JSX runtime in ESLint React, as it will automatically use the one configured in your project.
+
+Additionally, this approach avoids potential problems where the JSX runtime configured in `eslint.config.js` might conflict with the one configured in `tsconfig.json` or `jsconfig.json`.
+
+For more information, see the [JSX Runtime](/docs/configuration/configure-language-config#jsx-runtime) section on the [Configure Language Config](/docs/configuration/configure-language-config) page.
+
+</Accordion>
+
+<Accordion title="Is there anything to note about migrating from eslint-plugin-react?">
 
 Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
 
@@ -73,8 +73,3 @@ To smoothly transition, we suggest reviewing the rules in ESLint React and runni
 </Accordion>
 
 </Accordions>
-
-[¹]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1930936266
-[²]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1314565853
-[³]: https://github.com/pmndrs/gltf-react-three/issues/38#issuecomment-2057794974
-[⁴]: https://github.com/jsx-eslint/eslint-plugin-react/issues/3423#issuecomment-1314644323
