@@ -74,7 +74,7 @@
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.4.2",
-    "lefthook": "^1.11.7",
+    "lefthook": "^1.11.8",
     "markdownlint": "^0.37.4",
     "nx": "20.7.1",
     "publint": "^0.3.10",
