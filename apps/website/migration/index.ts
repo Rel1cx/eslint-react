@@ -11,8 +11,14 @@ export const redirects = [
     destination: "/docs/using-an-alternative-parser/ts-blank-eslint-parser",
     permanent: true,
   },
+  // Redirects for old preset links
   {
     source: "https://eslint-react.xyz/docs/rules/overview#core-rules",
+    destination: "https://eslint-react.xyz/docs/rules/overview#x-rules",
+    permanent: true,
+  },
+  {
+    source: "https://eslint-react.xyz/docs/rules/overview#react-rules",
     destination: "https://eslint-react.xyz/docs/rules/overview#x-rules",
     permanent: true,
   },
