@@ -10,7 +10,11 @@ export function JSXConfigTypeTable() {
       type={{
         jsx: {
           type: "JSXTransform",
-          description: <Link href="https://www.typescriptlang.org/tsconfig/#jsx">The JSX transform to use</Link>,
+          description: (
+            <Link href="https://www.typescriptlang.org/tsconfig/#jsx">
+              The JSX transform to use ↗
+            </Link>
+          ),
           default: '"react-jsx"',
           typeDescription: (
             <CodeBlock
@@ -31,7 +35,7 @@ export function JSXConfigTypeTable() {
           type: "string",
           description: (
             <Link href="https://www.typescriptlang.org/tsconfig/#jsxFactory">
-              The factory function to use when creating JSX elements
+              The factory function to use when creating JSX elements ↗
             </Link>
           ),
           default: '"React.createElement"',
@@ -40,7 +44,7 @@ export function JSXConfigTypeTable() {
           type: "string",
           description: (
             <Link href="https://www.typescriptlang.org/tsconfig/#jsxFragmentFactory">
-              The factory function to use when creating JSX fragments
+              The factory function to use when creating JSX fragments ↗
             </Link>
           ),
           default: '"React.Fragment"',
@@ -49,7 +53,7 @@ export function JSXConfigTypeTable() {
           type: "string",
           description: (
             <Link href="https://www.typescriptlang.org/tsconfig/#jsxImportSource">
-              The source module to import JSX elements from
+              The source module to import JSX elements from ↗
             </Link>
           ),
           default: '"react"',
