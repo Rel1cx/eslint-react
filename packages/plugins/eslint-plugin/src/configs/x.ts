@@ -2,7 +2,7 @@ import type { RulePreset } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import react from "eslint-plugin-react-x";
 
-export const name = "@eslint-react/core";
+export const name = "@eslint-react/x";
 
 export const rules = {
   "@eslint-react/jsx-no-duplicate-props": "warn",

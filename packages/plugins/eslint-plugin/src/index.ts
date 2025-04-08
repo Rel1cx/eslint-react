@@ -8,7 +8,6 @@ import react from "eslint-plugin-react-x";
 
 import { name, version } from "../package.json";
 import * as allConfig from "./configs/all";
-import * as coreConfig from "./configs/core";
 import * as debugConfig from "./configs/debug";
 import * as disableDebugConfig from "./configs/disable-debug";
 import * as disableDomConfig from "./configs/disable-dom";
@@ -19,6 +18,7 @@ import * as offConfig from "./configs/off";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
+import * as xConfig from "./configs/x";
 import { padKeysLeft } from "./utils";
 
 function toLegacyConfig({ rules }: { rules: RulePreset }) {
@@ -36,8 +36,6 @@ export default {
   configs: {
     ["all"]: allConfig,
     ["all-legacy"]: toLegacyConfig(allConfig),
-    ["core"]: coreConfig,
-    ["core-legacy"]: toLegacyConfig(coreConfig),
     ["debug"]: debugConfig,
     ["debug-legacy"]: toLegacyConfig(debugConfig),
     ["disable-debug"]: disableDebugConfig,
@@ -58,6 +56,8 @@ export default {
     ["recommended-type-checked-legacy"]: toLegacyConfig(recommendedTypeCheckedConfig),
     ["recommended-typescript"]: recommendedTypeScriptConfig,
     ["recommended-typescript-legacy"]: toLegacyConfig(recommendedTypeScriptConfig),
+    ["x"]: xConfig,
+    ["x-legacy"]: toLegacyConfig(xConfig),
     // Part: deprecated presets
     /** @deprecated Use `disable-dom` instead */
     ["off-dom"]: disableDomConfig,
