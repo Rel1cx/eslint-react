@@ -34,7 +34,7 @@ Minimum supported versions:
 - [x] `no-component-will-update`
 - [x] `no-context-provider`
 - [x] `no-forward-ref`
-- [ ] `no-string-refs`
+- [x] `no-string-refs`
 
 ### Add auto-fix feature to rules that can be auto-fixed safely
 
