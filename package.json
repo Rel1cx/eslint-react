@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.42.2-next.3",
+  "version": "1.42.2-next.4",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -61,7 +61,7 @@
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.14.0",
     "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
     "@typescript-eslint/parser": "^8.29.1",
     "@typescript-eslint/rule-tester": "^8.29.1",
     "@typescript-eslint/types": "^8.29.1",
@@ -109,11 +109,11 @@
     ],
     "overrides": {
       "@types/react": "^19.1.0",
-      "@types/react-dom": "^19.1.1",
+      "@types/react-dom": "^19.1.2",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.2",
       "lucide-react": "^0.487.0",
-      "next": "^15.2.4",
+      "next": "^15.2.5",
       "react": "^19.1.0",
       "react-dom": "^19.1.0",
       "ts-api-utils": "^2.1.0",
