@@ -82,26 +82,37 @@ export default tseslint.config({
 
 ### Bare Bones
 
-- **x** (`x`)\
+- `x`\
   Enable rules for `"react"`.
-- **DOM** (`dom`)\
+- `dom`\
   Enable rules for `"react-dom"`.
-- **Web API** (`web-api`)\
+- `web-api`\
   Enable rules for interacting with Web APIs.
 
 ### General Purpose
 
-- **Recommended** (`recommended`)\
+- `recommended`\
   Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
   _This preset includes the `x`, `dom`, and `web-api` presets._
 
 ### TypeScript Specialized
 
-- **Recommended TypeScript** (`recommended-typescript`)\
+- `recommended-typescript`\
   Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
 
-- **Recommended Type-Checked** (`recommended-type-checked`)\
+- `recommended-type-checked`\
   Same as the `recommended-typescript` preset but enables additional rules that require type information.
+
+### Other
+
+- `disable-dom`\
+  Disable rules in the `dom` preset.
+- `disable-web-api`\
+  Disable rules in the `web-api` preset.
+- `disable-type-checked`\
+  Disable rules that require type information.
+- `off`\
+  Disable all rules in this plugin except for debug rules.
 
 [Full Presets List ↗](https://eslint-react.xyz/docs/presets)
 
