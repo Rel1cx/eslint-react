@@ -1,6 +1,4 @@
-import { GitHubRepo } from "#/components/GitHubRepo";
-
-const repos = [
+export const projects = [
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
@@ -25,38 +23,10 @@ const repos = [
   { owner: "XYOracleNetwork", repo: "sdk-xyo-react-js" },
 ];
 
-const presets = [
+export const presets = [
   { owner: "AndreaPontrandolfo", repo: "sheriff" },
   { owner: "antfu", repo: "eslint-config" },
   { owner: "RebeccaStevens", repo: "eslint-config-rebeccastevens" },
   { owner: "SukkaW", repo: "eslint-config-sukka" },
   { owner: "upleveled", repo: "eslint-config-upleveled" },
 ];
-
-export function CommunityShowcases() {
-  return (
-    <div className="not-prose grid grid-cols-1 gap-4 md:grid-cols-2">
-      {repos.map(({ owner, repo }) => (
-        <GitHubRepo
-          key={`${owner}/${repo}`}
-          owner={owner}
-          repo={repo}
-        />
-      ))}
-    </div>
-  );
-}
-
-export function CommunityPresets() {
-  return (
-    <div className="not-prose grid grid-cols-1 gap-4 md:grid-cols-2">
-      {presets.map(({ owner, repo }) => (
-        <GitHubRepo
-          key={`${owner}/${repo}`}
-          owner={owner}
-          repo={repo}
-        />
-      ))}
-    </div>
-  );
-}

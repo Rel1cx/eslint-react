@@ -3,12 +3,13 @@ title: Community
 description: "Discover the growing community around ESLint React"
 ---
 
-import { BskyPost } from "../../components/BskyPost";
-import { CommunityShowcases, CommunityPresets } from "./community";
+import { BskyPost } from "#/components/BskyPost";
+import { GitHubRepoGrid } from "#/components/GitHubRepoGrid";
+import { projects, presets } from "./community.tsx"
 
 ## OSS Projects Using ESLint React
 
-<CommunityShowcases />
+<GitHubRepoGrid repos={projects} />
 
 <small>
 
@@ -28,4 +29,4 @@ Find more on [https://x.com/search?q=eslint-react.xyz](https://x.com/search?q=es
 
 **Community Maintained Presets that use ESLint React**
 
-<CommunityPresets />
+<GitHubRepoGrid repos={presets} />
