@@ -58,7 +58,8 @@ class Input extends React.Component {
     this.refs.input.focus();
   };
   render() {
-    return <input ref={ref => this.refs.input = ref} />;
+    // dprint-ignore
+    return <input ref={ref => { this.refs.input = ref; }} />;
   }
 }
 ```
