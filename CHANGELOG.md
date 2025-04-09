@@ -1,3 +1,11 @@
+## v1.43.0 (2025-04-10)
+
+### ✨ New
+
+- feat: add codemod feature to `react-x/no-string-refs`, closes #1044 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1045
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.42.1...v1.43.0
+
 ## v1.42.1 (2025-04-08)
 
 ### ✨ New
