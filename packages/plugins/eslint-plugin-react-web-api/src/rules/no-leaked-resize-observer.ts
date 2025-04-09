@@ -1,10 +1,11 @@
+import type { _ } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { ObserverEntry, ObserverMethod } from "../types";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { _, or } from "@eslint-react/eff";
+import { or } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
@@ -176,7 +177,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             phase: fKind,
           });
         })
-        .otherwise(() => _);
+        .otherwise(() => null);
     },
     ["NewExpression"](node) {
       const fEntry = fEntries.findLast((x) => x.kind !== "other");

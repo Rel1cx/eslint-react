@@ -199,8 +199,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!("value" in prop)) {
           continue;
         }
-        getReportDescriptors(prop.value)
-          .forEach(report);
+        for (const descriptor of getReportDescriptors(prop.value)) {
+          report(descriptor);
+        }
       }
     },
     "CallExpression:exit"() {
@@ -216,8 +217,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.value?.type !== T.JSXExpressionContainer) {
         return;
       }
-      getReportDescriptors(node.value.expression)
-        .forEach(report);
+      for (const descriptor of getReportDescriptors(node.value.expression)) {
+        report(descriptor);
+      }
     },
   };
 }

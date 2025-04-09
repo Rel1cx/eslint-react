@@ -2,7 +2,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as ER from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -54,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const setterName = match(setter)
         .with({ type: T.Identifier }, (id) => id.name)
-        .otherwise(() => _);
+        .otherwise(() => null);
       if (setterName == null || !setterName.startsWith("set")) {
         context.report({ messageId: "invalidSetterNaming", node });
         return;
@@ -70,7 +69,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }, []);
           return values.join("_");
         })
-        .otherwise(() => _);
+        .otherwise(() => null);
       if (valueName == null || `set_${valueName}` !== snakeCase(setterName)) {
         context.report({ messageId: "invalidSetterNaming", node });
         return;

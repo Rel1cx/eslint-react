@@ -1,7 +1,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { _ } from "@eslint-react/eff";
 
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -37,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const name = match(node.name)
         .with({ type: T.JSXIdentifier }, (n) => n.name)
         .with({ type: T.JSXMemberExpression, object: { type: T.JSXIdentifier } }, (n) => n.object.name)
-        .otherwise(() => _);
+        .otherwise(() => null);
       if (name == null) return;
       if (name === "this") return;
       // Skip JsxIntrinsicElements

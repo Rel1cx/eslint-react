@@ -4,7 +4,6 @@ import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -96,12 +95,12 @@ function getComponentPropsFixes(
   const fixedArg0Text = match(arg0)
     .with({ type: T.Identifier }, (n) => `...${n.name}`)
     .with({ type: T.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
-    .otherwise(() => _);
+    .otherwise(() => null);
   const fixedArg1Text = match(arg1)
     .with(P.nullish, () => "ref")
     .with({ type: T.Identifier, name: "ref" }, () => "ref")
     .with({ type: T.Identifier, name: P.string }, (n) => `ref: ${n.name}`)
-    .otherwise(() => _);
+    .otherwise(() => null);
   if (fixedArg0Text == null || fixedArg1Text == null) {
     return [];
   }

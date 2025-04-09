@@ -277,7 +277,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .with("abort", () => {
           abortedSignals.push(node.callee);
         })
-        .otherwise(() => _);
+        .otherwise(() => null);
     },
     ["Program:exit"]() {
       for (const aEntry of aEntries) {

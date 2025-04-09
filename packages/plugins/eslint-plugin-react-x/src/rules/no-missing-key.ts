@@ -4,8 +4,9 @@ import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import * as JSX from "@eslint-react/jsx";
 import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-key";
@@ -112,22 +113,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     CallExpression(node) {
       state.isWithinChildrenToArray ||= ER.isChildrenToArrayCall(context, node);
-      if (state.isWithinChildrenToArray) {
+      if (state.isWithinChildrenToArray) return;
+      const callback = match(node)
+        .when(AST.isArrayMapCall, (n) => n.arguments[0])
+        .when(AST.isArrayFromCall, (n) => n.arguments[1])
+        .otherwise(() => null);
+      if (!AST.isFunction(callback)) return;
+      const body = callback.body;
+      if (body.type === T.BlockStatement) {
+        checkBlockStatement(body).forEach(report);
         return;
       }
-      const isMapCall = AST.isArrayMapCall(node);
-      if (!isMapCall && !AST.isArrayFromCall(node)) {
-        return;
-      }
-      const fn = node.arguments[isMapCall ? 0 : 1];
-      if (!AST.isFunction(fn)) {
-        return;
-      }
-      if (fn.body.type === T.BlockStatement) {
-        checkBlockStatement(fn.body).forEach(report);
-        return;
-      }
-      report(checkExpression(fn.body));
+      report(checkExpression(body));
     },
     "CallExpression:exit"(node) {
       if (!ER.isChildrenToArrayCall(context, node)) {

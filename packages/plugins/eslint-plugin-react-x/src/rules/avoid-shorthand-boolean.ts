@@ -33,8 +33,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
-      // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
-      if (node.value === null) {
+      if (node.value == null) {
         context.report({
           messageId: "avoidShorthandBoolean",
           node,

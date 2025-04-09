@@ -31,15 +31,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      const attribute = JSX.getAttribute(
-        "children",
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      if (attribute != null) {
+      const attributes = node.openingElement.attributes;
+      const childrenProp = JSX.getAttribute("children", attributes, context.sourceCode.getScope(node));
+      if (childrenProp != null) {
         context.report({
           messageId: "noChildrenProp",
-          node: attribute,
+          node: childrenProp,
         });
       }
     },

@@ -3,7 +3,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { _, getOrUpdate } from "@eslint-react/eff";
+import { constVoid, getOrUpdate } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -143,7 +143,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           if (pEntry.node !== setupFunction) return;
           indFunctionCalls.push(node);
         })
-        .otherwise(() => _);
+        .otherwise(constVoid);
     },
     Identifier(node) {
       if (node.parent.type === T.CallExpression && node.parent.callee === node) {

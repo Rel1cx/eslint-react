@@ -86,11 +86,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const variable = VAR.findVariable(n.name, initialScope);
           const variableNode = VAR.getVariableInitNode(variable, 0);
           if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
-            return _;
+            return null;
           }
           return variableNode;
         })
-        .otherwise(() => _);
+        .otherwise(() => null);
       if (arg0Node == null) return;
 
       const arg0NodeScope = context.sourceCode.getScope(arg0Node);

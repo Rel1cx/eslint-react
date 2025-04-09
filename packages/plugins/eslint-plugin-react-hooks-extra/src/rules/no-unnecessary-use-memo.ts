@@ -3,7 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { _, identity } from "@eslint-react/eff";
+import { identity } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -91,11 +91,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const variable = VAR.findVariable(n.name, initialScope);
           const variableNode = VAR.getVariableInitNode(variable, 0);
           if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
-            return _;
+            return null;
           }
           return variableNode;
         })
-        .otherwise(() => _);
+        .otherwise(() => null);
       if (arg0Node == null) return;
 
       const arg0NodeScope = context.sourceCode.getScope(arg0Node);

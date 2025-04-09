@@ -1,7 +1,7 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
-import { _, identity } from "@eslint-react/eff";
+import { identity } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
@@ -12,12 +12,12 @@ import { match, P } from "ts-pattern";
  * @returns The require expression arguments or undefined if the node is not a require expression
  */
 function getRequireExpressionArguments(node: TSESTree.Node) {
-  return match<typeof node, TSESTree.CallExpressionArgument[] | _>(node)
+  return match<typeof node, TSESTree.CallExpressionArgument[] | null>(node)
     // require("source")
     .with({ type: T.CallExpression, arguments: P.select(), callee: { type: T.Identifier, name: "require" } }, identity)
     // require("source").variable
     .with({ type: T.MemberExpression, object: P.select() }, getRequireExpressionArguments)
-    .otherwise(() => _);
+    .otherwise(() => null);
 }
 
 /**

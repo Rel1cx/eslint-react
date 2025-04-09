@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const name = match(id)
         .with({ type: T.Identifier, name: P.select() }, identity)
         .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
-        .otherwise(() => _);
+        .otherwise(() => null);
       if (name != null && ER.isComponentName(name) && name.endsWith("Context")) return;
       context.report({
         messageId: "invalid",

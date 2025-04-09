@@ -31,13 +31,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      if (!ER.isCloneElementCall(context, node)) {
-        return;
+      if (ER.isCloneElementCall(context, node)) {
+        context.report({
+          messageId: "noCloneElement",
+          node,
+        });
       }
-      context.report({
-        messageId: "noCloneElement",
-        node,
-      });
     },
   };
 }

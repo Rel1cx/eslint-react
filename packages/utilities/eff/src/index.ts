@@ -66,6 +66,13 @@ export function constant<T>(x: T) {
 export function constVoid() {}
 
 /**
+ * Do nothing and return null
+ */
+export function constNull() {
+  return null;
+}
+
+/**
  * Do nothing and return true
  */
 export function constTrue() {
