@@ -2,38 +2,27 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import * as ER from "@eslint-react/core";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-string-refs";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "MOD",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-function containsStringLiteral({ value }: TSESTree.JSXAttribute) {
-  return value?.type === T.Literal && typeof value.value === "string";
-}
-
-function containsStringExpressionContainer({ value }: TSESTree.JSXAttribute) {
-  if (value?.type !== T.JSXExpressionContainer) {
-    return false;
-  }
-  if (value.expression.type === T.Literal) {
-    return typeof value.expression.value === "string";
-  }
-
-  return value.expression.type === T.TemplateLiteral;
-}
 
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow deprecated string `refs`.",
+      description: "Replaces string refs with callback refs.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
     messages: {
       noStringRefs: "[Deprecated] Use callback refs instead.",
     },
@@ -45,17 +34,54 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const state = {
+    isWithinClassComponent: false,
+  };
+
+  function onClassBodyEnter(node: TSESTree.ClassBody) {
+    if (ER.isClassComponent(node.parent)) {
+      state.isWithinClassComponent = true;
+    }
+  }
+
+  function onClassBodyExit() {
+    state.isWithinClassComponent = false;
+  }
+
   return {
+    ClassBody: onClassBodyEnter,
+    "ClassBody:exit": onClassBodyExit,
     JSXAttribute(node) {
-      if (node.name.name !== "ref") {
-        return;
-      }
-      if (containsStringLiteral(node) || containsStringExpressionContainer(node)) {
-        context.report({
-          messageId: "noStringRefs",
-          node,
-        });
-      }
+      if (node.name.name !== "ref") return;
+      const refNameText = getAttributeValueText(context, node.value);
+      if (refNameText == null) return;
+      context.report({
+        messageId: "noStringRefs",
+        node,
+        fix(fixer) {
+          if (node.value == null) return null;
+          if (!state.isWithinClassComponent) return null;
+          return fixer.replaceText(node.value, `{(ref) => { this.refs[${refNameText}] = ref; }}`);
+        },
+      });
     },
   };
+}
+
+function getAttributeValueText(context: RuleContext, node: TSESTree.JSXAttribute["value"]) {
+  if (node == null) return null;
+  switch (true) {
+    case node.type === T.Literal
+      && typeof node.value === "string":
+      return context.sourceCode.getText(node);
+    case node.type === T.JSXExpressionContainer
+      && node.expression.type === T.Literal
+      && typeof node.expression.value === "string":
+      return context.sourceCode.getText(node.expression);
+    case node.type === T.JSXExpressionContainer
+      && node.expression.type === T.TemplateLiteral:
+      return context.sourceCode.getText(node.expression);
+    default:
+      return null;
+  }
 }
