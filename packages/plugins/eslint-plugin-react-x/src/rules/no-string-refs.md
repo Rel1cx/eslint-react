@@ -14,6 +14,10 @@ react-x/no-string-refs
 @eslint-react/no-string-refs
 ```
 
+**Features**
+
+`🔄`
+
 **Presets**
 
 - `x`
@@ -23,32 +27,39 @@ react-x/no-string-refs
 
 ## Description
 
-Disallow deprecated string `refs`.
+Replaces string refs with callback refs.
 
 String refs are deprecated in React. Use callback refs instead.
 
 ## Examples
 
-### Failing
+### Before
 
 ```tsx
 import React from "react";
 
-function MyComponent() {
-  return <div ref="ref" />;
-  //              ^^^^^
-  //              - [Deprecated] Use callback refs instead.
+class Input extends React.Component {
+  focus = () => {
+    this.refs.input.focus();
+  };
+  render() {
+    return <input ref="input" />;
+  }
 }
 ```
 
-### Passing
+### After
 
 ```tsx
-import React, { useRef } from "react";
+import React from "react";
 
-function MyComponent() {
-  const ref = useRef<HTMLDivElement>(null);
-  return <div ref={ref} />;
+class Input extends React.Component {
+  focus = () => {
+    this.refs.input.focus();
+  };
+  render() {
+    return <input ref={ref => this.refs.input = ref} />;
+  }
 }
 ```
 
