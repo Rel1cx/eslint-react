@@ -5,14 +5,14 @@
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of composable ESLint rules for React and friends.
+A series of future-proof ESLint rules for React and friends.
 
 ## Features
 
-- **Modern**: First-class support for TypeScript, React 19, and more.
-- **Flexible**: Increased flexibility with more granular severity control.
-- **Performant**: Built with performance in mind, optimized for large codebases.
-- **Comprehensive**: Handles complex scenarios and identifies problems that other tools might miss.
+- ⚡️ **Modern**: First-class support for TypeScript, React 19, and more.
+- 🎛️ **Flexible**: Increased flexibility with more granular severity control.
+- 🚀 **Performant**: Built with performance in mind, optimized for large codebases.
+- 🔍 **Comprehensive**: Handles complex scenarios and identifies problems that other tools might miss.
 
 ## Public Packages
 

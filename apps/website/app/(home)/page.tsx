@@ -1,13 +1,13 @@
 import { ESLintReact } from "#/components/ESLintReact";
-
 import { Card, Cards } from "fumadocs-ui/components/card";
+import { Gauge, SearchCheck, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
 
 const features = [
-  ["Modern", "First-class support for TypeScript, React 19, and more."],
-  ["Flexible", "Increased flexibility with more granular severity control."],
-  ["Performant", "Built with performance in mind, optimized for large codebases."],
-  ["Comprehensive", "Handles complex scenarios and identifies problems that other tools might miss."],
+  ["Modern", "First-class support for TypeScript, React 19, and more.", Zap],
+  ["Flexible", "Increased flexibility with more granular severity control.", Sliders],
+  ["Performant", "Built with performance in mind, optimized for large codebases.", Gauge],
+  ["Comprehensive", "Identifies problems that other tools might miss.", SearchCheck],
 ] as const;
 
 export default function HomePage() {
@@ -16,11 +16,18 @@ export default function HomePage() {
       <ESLintReact />
       <article className="prose max-w-none">
         <p className="text-center">
-          A series of composable ESLint rules for React and friends.
+          A series of future-proof ESLint rules for React and friends.
         </p>
         <h2>Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {features.map(([title, description]) => <Card description={description} key={title} title={title} />)}
+          {features.map(([title, description, Icon]) => (
+            <Card
+              description={description}
+              icon={<Icon />}
+              key={title}
+              title={title}
+            />
+          ))}
         </Cards>
         <h2>Roadmap</h2>
         <p>

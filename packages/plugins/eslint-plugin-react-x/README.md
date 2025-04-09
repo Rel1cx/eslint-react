@@ -1,6 +1,6 @@
 # eslint-plugin-react-x
 
-A series of composable ESLint rules for React and friends.
+A series of future-proof ESLint rules for React and friends.
 
 ## Install
 
