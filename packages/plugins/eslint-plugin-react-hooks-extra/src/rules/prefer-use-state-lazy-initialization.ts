@@ -68,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       for (const expr of AST.getNestedCallExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
-        if (ER.isReactHookNameLoose(expr.callee.name)) continue;
+        if (ER.isReactHookName(expr.callee.name)) continue;
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
         if (AST.findParentNode(expr, (n) => ER.isUseCall(context, n)) != null) continue;
         context.report({

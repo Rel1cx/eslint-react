@@ -37,7 +37,6 @@
 - [ComponentFlag](variables/ComponentFlag.md)
 - [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md)
 - [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md)
-- [DISPLAY\_NAME\_ASSIGNMENT\_SELECTOR](variables/DISPLAY_NAME_ASSIGNMENT_SELECTOR.md)
 - [isChildrenCount](variables/isChildrenCount.md)
 - [isChildrenCountCall](variables/isChildrenCountCall.md)
 - [isChildrenForEach](variables/isChildrenForEach.md)
@@ -80,9 +79,6 @@
 - [isUseStateCall](variables/isUseStateCall.md)
 - [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md)
 - [isUseTransitionCall](variables/isUseTransitionCall.md)
-- [RE\_COMPONENT\_NAME](variables/RE_COMPONENT_NAME.md)
-- [RE\_COMPONENT\_NAME\_LOOSE](variables/RE_COMPONENT_NAME_LOOSE.md)
-- [RE\_HOOK\_NAME](variables/RE_HOOK_NAME.md)
 
 ## Functions
 
@@ -128,7 +124,6 @@
 - [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
 - [isReactHookName](functions/isReactHookName.md)
-- [isReactHookNameLoose](functions/isReactHookNameLoose.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
 - [isRenderLike](functions/isRenderLike.md)
 - [isRenderMethodLike](functions/isRenderMethodLike.md)

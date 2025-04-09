@@ -2,19 +2,16 @@ import type * as AST from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { _ } from "@eslint-react/eff";
+import { RE } from "@eslint-react/kit";
 
 import { getFunctionComponentId } from "./component-id";
 
-export const RE_COMPONENT_NAME = /^[A-Z]/u;
-
-export const RE_COMPONENT_NAME_LOOSE = /^_?[A-Z]/u;
-
 export function isComponentName(name: string) {
-  return RE_COMPONENT_NAME.test(name);
+  return RE.COMPONENT_NAME.test(name);
 }
 
 export function isComponentNameLoose(name: string) {
-  return RE_COMPONENT_NAME_LOOSE.test(name);
+  return RE.COMPONENT_NAME_LOOSE.test(name);
 }
 
 export function getComponentNameFromId(id: TSESTree.Identifier | TSESTree.Identifier[] | _) {

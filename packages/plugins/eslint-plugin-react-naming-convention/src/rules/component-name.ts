@@ -4,7 +4,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { RE_CONSTANT_CASE, RE_PASCAL_CASE, toRegExp } from "@eslint-react/kit";
+import { RE } from "@eslint-react/kit";
 
 import { createRule } from "../utils";
 
@@ -147,7 +147,7 @@ function normalizeOptions(options: Options) {
       ? { rule: opts }
       : {
         ...opts,
-        excepts: opts.excepts?.map(toRegExp) ?? [],
+        excepts: opts.excepts?.map((s) => RE.toRegExp(s)) ?? [],
       },
   } as const;
 }
@@ -158,11 +158,11 @@ function isValidName(name: string | _, options: ReturnType<typeof normalizeOptio
   const normalized = name.split(".").at(-1) ?? name;
   switch (options.rule) {
     case "CONSTANT_CASE":
-      return RE_CONSTANT_CASE.test(normalized);
+      return RE.CONSTANT_CASE.test(normalized);
     case "PascalCase":
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
         return options.allowAllCaps;
       }
-      return RE_PASCAL_CASE.test(normalized);
+      return RE.PASCAL_CASE.test(normalized);
   }
 }

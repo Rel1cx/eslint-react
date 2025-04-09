@@ -1,10 +1,10 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrUpdate } from "@eslint-react/eff";
+import { SEL } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
@@ -16,11 +16,6 @@ export const RULE_NAME = "no-unstable-default-props";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-type ObjectDestructuringDeclarator = {
-  id: TSESTree.ObjectPattern;
-  init: TSESTree.Identifier;
-} & TSESTree.VariableDeclarator;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -44,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useComponentCollector(context);
   const declarators = new Map<
     AST.TSESTreeFunction,
-    ObjectDestructuringDeclarator[]
+    SEL.ObjectDestructuringVariableDeclarator[]
   >();
 
   return {
@@ -94,7 +89,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
     },
-    "VariableDeclarator[id.type='ObjectPattern'][init.type='Identifier']"(node: ObjectDestructuringDeclarator) {
+    [SEL.OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: SEL.ObjectDestructuringVariableDeclarator) {
       const functionEntry = ctx.getCurrentEntry();
       if (functionEntry == null) return;
       getOrUpdate(
