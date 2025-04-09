@@ -3,7 +3,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import path from "node:path";
-import { RE_CAMEL_CASE, RE_KEBAB_CASE, RE_PASCAL_CASE, RE_SNAKE_CASE, toRegExp } from "@eslint-react/kit";
+import { RE } from "@eslint-react/kit";
 import { camelCase, kebabCase, pascalCase, snakeCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -105,15 +105,15 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
   function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
     const shouldIgnore = ignores
-      .map(toRegExp)
+      .map((s) => RE.toRegExp(s))
       .some((pattern) => pattern.test(name));
     if (shouldIgnore) return true;
 
     return match(casing)
-      .with("PascalCase", () => RE_PASCAL_CASE.test(name))
-      .with("camelCase", () => RE_CAMEL_CASE.test(name))
-      .with("kebab-case", () => RE_KEBAB_CASE.test(name))
-      .with("snake_case", () => RE_SNAKE_CASE.test(name))
+      .with("PascalCase", () => RE.PASCAL_CASE.test(name))
+      .with("camelCase", () => RE.CAMEL_CASE.test(name))
+      .with("kebab-case", () => RE.KEBAB_CASE.test(name))
+      .with("snake_case", () => RE.SNAKE_CASE.test(name))
       .exhaustive();
   }
 

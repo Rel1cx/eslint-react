@@ -1,4 +1,6 @@
+export * from "./helpers";
 export * as JsxConfig from "./JsxConfig";
 export * as LanguagePreference from "./LanguagePreference";
-export * from "./RegExp";
-export * from "./Rule";
+export * as RE from "./RE";
+export * as SEL from "./SEL";
+export type * from "./types";

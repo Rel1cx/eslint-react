@@ -1,12 +1,7 @@
 /* eslint-disable perfectionist/sort-variable-declarations */
-import type { RuleContext } from "../Rule";
+import type { RuleContext } from "../types";
 import { type CompilerOptions, JsxEmit } from "typescript";
-import {
-  RE_ANNOTATION_JSX,
-  RE_ANNOTATION_JSX_FRAG,
-  RE_ANNOTATION_JSX_IMPORT_SOURCE,
-  RE_ANNOTATION_JSX_RUNTIME,
-} from "../RegExp";
+import * as RE from "../RE";
 
 export type JsxConfig = Pick<
   CompilerOptions,
@@ -56,10 +51,10 @@ export function getFromAnnotation(context: RuleContext) {
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
   for (const comment of context.sourceCode.getAllComments().reverse()) {
     const value = comment.value;
-    jsx ??= value.match(RE_ANNOTATION_JSX)?.[1];
-    jsxFrag ??= value.match(RE_ANNOTATION_JSX_FRAG)?.[1];
-    jsxRuntime ??= value.match(RE_ANNOTATION_JSX_RUNTIME)?.[1];
-    jsxImportSource ??= value.match(RE_ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
+    jsx ??= value.match(RE.ANNOTATION_JSX)?.[1];
+    jsxFrag ??= value.match(RE.ANNOTATION_JSX_FRAG)?.[1];
+    jsxRuntime ??= value.match(RE.ANNOTATION_JSX_RUNTIME)?.[1];
+    jsxImportSource ??= value.match(RE.ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
   }
   const options = make();
   if (jsx != null) options.jsxFactory = jsx;

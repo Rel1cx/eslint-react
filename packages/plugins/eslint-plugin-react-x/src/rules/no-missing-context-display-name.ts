@@ -1,8 +1,8 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
+import { type RuleContext, type RuleFeature, SEL } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -41,9 +41,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!ER.isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
-    [ER.DISPLAY_NAME_ASSIGNMENT_SELECTOR](node) {
-      displayNameAssignments.push(node);
-    },
     "Program:exit"() {
       for (const call of createCalls) {
         const id = ER.getInstanceId(call);
@@ -68,6 +65,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
         }
       }
+    },
+    [SEL.DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: SEL.DisplayNameAssignmentExpression) {
+      displayNameAssignments.push(node);
     },
   };
 }

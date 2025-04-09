@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as JSX from "@eslint-react/jsx";
-import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/kit";
+import { RE } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const attributeName = JSX.getAttributeName(node);
       const attributeValue = JSX.getAttributeValue(node, attributeName, attributeScope);
       if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
-      if (RE_JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
+      if (RE.JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
         context.report({
           messageId: "noScriptUrl",
           node: node.value,

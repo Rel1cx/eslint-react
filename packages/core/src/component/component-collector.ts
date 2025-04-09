@@ -1,4 +1,3 @@
-import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ComponentDetectionHint } from "./component-detection-hint";
@@ -6,10 +5,10 @@ import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
+import { type RuleContext, SEL } from "@eslint-react/kit";
 import { getId } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { DISPLAY_NAME_ASSIGNMENT_SELECTOR } from "../constants";
 import { isReactHookCall } from "../hook";
 import { isValidComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
@@ -96,7 +95,7 @@ export function useComponentCollector(
   const listeners = {
     ":function[type]": onFunctionEnter,
     ":function[type]:exit": onFunctionExit,
-    "ArrowFunctionExpression[type][body.type!='BlockStatement']"() {
+    "ArrowFunctionExpression[body.type!='BlockStatement']"() {
       const entry = getCurrentEntry();
       if (entry == null) return;
       const { body } = entry.node;
@@ -123,7 +122,7 @@ export function useComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [DISPLAY_NAME_ASSIGNMENT_SELECTOR](node: TSESTree.AssignmentExpression) {
+        [SEL.DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
           if (left.type !== T.MemberExpression) return;
           const componentName = left.object.type === T.Identifier
