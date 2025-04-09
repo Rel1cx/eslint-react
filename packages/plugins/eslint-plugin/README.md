@@ -82,7 +82,7 @@ export default tseslint.config({
 
 ### Bare Bones
 
-- **Core** (`core`)\
+- **x** (`x`)\
   Enable rules for `"react"`.
 - **DOM** (`dom`)\
   Enable rules for `"react-dom"`.
@@ -93,7 +93,7 @@ export default tseslint.config({
 
 - **Recommended** (`recommended`)\
   Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
-  _This preset includes the `core`, `dom`, and `web-api` presets._
+  _This preset includes the `x`, `dom`, and `web-api` presets._
 
 ### TypeScript Specialized
 
