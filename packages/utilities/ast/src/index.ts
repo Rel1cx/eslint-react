@@ -18,6 +18,8 @@ export * from "./is-line-break";
 export * from "./is-literal";
 export * from "./is-multi-line";
 export * from "./is-node-equal";
+export * from "./is-process-env-node-env";
+export * from "./is-process-env-node-env-compare";
 export * from "./is-this-expression";
 export * from "./to-readable-node-name";
 export * from "./to-readable-node-type";

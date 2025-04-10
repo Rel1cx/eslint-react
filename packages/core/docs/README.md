@@ -37,6 +37,8 @@
 - [ComponentFlag](variables/ComponentFlag.md)
 - [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md)
 - [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md)
+- [isCaptureOwnerStack](variables/isCaptureOwnerStack.md)
+- [isCaptureOwnerStackCall](variables/isCaptureOwnerStackCall.md)
 - [isChildrenCount](variables/isChildrenCount.md)
 - [isChildrenCountCall](variables/isChildrenCountCall.md)
 - [isChildrenForEach](variables/isChildrenForEach.md)
