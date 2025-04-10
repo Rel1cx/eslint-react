@@ -9,10 +9,10 @@ A series of future-proof ESLint rules for React and friends.
 
 ## Features
 
-- ⚡️ **Modern**: First-class support for TypeScript, React 19, and more.
-- 🎛️ **Flexible**: Increased flexibility with more granular severity control.
-- 🚀 **Performant**: Built with performance in mind, optimized for large codebases.
-- 🔍 **Comprehensive**: Handles complex scenarios and identifies problems that other tools might miss.
+- **Modern**: First-class support for TypeScript, React 19, and more.
+- **Flexible**: Increased flexibility with more granular severity control.
+- **Performant**: Built with performance in mind, optimized for large codebases.
+- **Comprehensive**: Handles complex scenarios and identifies problems that other tools might miss.
 
 ## Public Packages
 
