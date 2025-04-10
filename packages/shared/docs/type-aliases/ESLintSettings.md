@@ -6,4 +6,4 @@
 
 # Type Alias: ESLintSettings
 
-> **ESLintSettings** = `InferOutput`\<*typeof* `ESLintSettingsSchema`\>
+> **ESLintSettings** = `z.infer`\<*typeof* `ESLintSettingsSchema`\>
