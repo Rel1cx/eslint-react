@@ -77,7 +77,7 @@
     "lefthook": "^1.11.8",
     "markdownlint": "^0.37.4",
     "nx": "20.7.1",
-    "publint": "^0.3.10",
+    "publint": "^0.3.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "skott": "^0.35.4",
