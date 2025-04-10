@@ -1185,9 +1185,6 @@ importers:
       ts-pattern:
         specifier: ^5.7.0
         version: 5.7.0
-      valibot:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.8.3)
     devDependencies:
       '@local/configs':
         specifier: workspace:*
