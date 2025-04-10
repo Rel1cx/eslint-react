@@ -45,9 +45,9 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/kit": "workspace:*",
     "@typescript-eslint/utils": "^8.29.1",
+    "@zod/mini": "^4.0.0-beta.0",
     "picomatch": "^4.0.2",
-    "ts-pattern": "^5.7.0",
-    "valibot": "^1.0.0"
+    "ts-pattern": "^5.7.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",

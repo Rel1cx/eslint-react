@@ -14,19 +14,7 @@ The default ESLint settings for "react-x".
 
 ### additionalComponents?
 
-> `readonly` `optional` **additionalComponents**: `object`[]
-
-An array of user-defined components
-
-#### Description
-
-This is used to inform the ESLint React plugins how to treat these components during checks.
-
-#### Example
-
-```ts
-`[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
-```
+> `optional` **additionalComponents**: `object`[]
 
 ### additionalHooks
 
@@ -44,33 +32,13 @@ This is used to inform the ESLint React plugins how to treat these components du
 
 > `readonly` **importSource**: `"react"` = `"react"`
 
-### ~~jsxPragma?~~
+### jsxPragma?
 
-> `readonly` `optional` **jsxPragma**: `string`
+> `optional` **jsxPragma**: `string`
 
-The identifier that's used for JSX Element creation.
+### jsxPragmaFrag?
 
-#### Default
-
-`"createElement"`
-
-#### Deprecated
-
-### ~~jsxPragmaFrag?~~
-
-> `readonly` `optional` **jsxPragmaFrag**: `string`
-
-The identifier that's used for JSX fragment elements.
-
-#### Description
-
-This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
-
-#### Default
-
-`"Fragment"`
-
-#### Deprecated
+> `optional` **jsxPragmaFrag**: `string`
 
 ### polymorphicPropName
 
@@ -79,6 +47,10 @@ This should not be a member expression (i.e. use "Fragment" instead of "React.Fr
 ### skipImportCheck
 
 > `readonly` **skipImportCheck**: `true` = `true`
+
+### strict
+
+> `readonly` **strict**: `false` = `false`
 
 ### version
 
