@@ -247,8 +247,6 @@ function List({ items }) {
 
 The limitation may be lifted in the future.
 
-# 
-
 ## Implementation
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-layout-effect.ts)
