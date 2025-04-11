@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "1.44.0-next.0",
+  "version": "1.44.0-beta.0",
   "description": "A series of future-proof ESLint rules for React and friends.",
   "keywords": [
     "react",
