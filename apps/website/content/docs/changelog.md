@@ -10,7 +10,7 @@ title: Changelog
 
 ### 🪄 Improvements
 
-- refactor: replace `valibot` with `@zod/mini` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1050
+- perf: replace `valibot` with `@zod/mini` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1050
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.43.0...v1.44.0
 
