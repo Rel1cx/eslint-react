@@ -1,3 +1,13 @@
+## v1.45.0 (2025-04-11)
+
+### ✨ New
+
+- feat: add `react-x/no-misused-capture-owner-stack` rule, closes #1049 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1047
+- feat: add `react-x/no-nested-lazy-component-declarations` rule, closes #1048 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1052
+- feat: add `react-x/no-nested-lazy-component-declarations` rule to recommended presets by @Rel1cx
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.44.0...v1.45.0
+
 ## v1.44.0 (2025-04-11)
 
 ### ✨ New
