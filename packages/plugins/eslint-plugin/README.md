@@ -12,7 +12,7 @@ A series of composable ESLint rules for React and friends.
 - **Performant**: Built with performance in mind, optimized for large codebases.
 - **Future-proof**: Forward-looking architecture that anticipates future changes in React and TypeScript.
 - **Precision Control**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
-- **Context-aware Linting**: Rules that understand the context of your code and project configuration, providing more accurate linting results.
+- **Context-aware Linting**: Rules dynamically adapt to code structure and project settings, minimizing noise while maximizing relevance.
 
 ## Public Packages
 
