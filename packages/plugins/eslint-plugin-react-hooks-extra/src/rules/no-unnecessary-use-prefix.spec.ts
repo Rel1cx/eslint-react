@@ -142,6 +142,11 @@ ruleTester.run(RULE_NAME, rule, {
       const useNoop = () => {};
     `,
     tsx`
+      export const userInitials = () => {
+        return;
+      };
+    `,
+    tsx`
       import { useState } from "react";
 
       const Comp = () => {
@@ -153,6 +158,11 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const useData = (key) => {
           return useSWR(key);
+      }
+    `,
+    tsx`
+      const useData = (key) => {
+          return swr.useSWR(key);
       }
     `,
     tsx`
