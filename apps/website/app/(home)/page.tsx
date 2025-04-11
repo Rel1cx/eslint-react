@@ -1,6 +1,6 @@
 import { ESLintReact } from "#/components/ESLintReact";
 import { Card, Cards } from "fumadocs-ui/components/card";
-import { Eye, Shield, Sliders, Zap } from "lucide-react";
+import { CircleDotDashed, Shield, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
 
 const features = [
@@ -22,7 +22,7 @@ const features = [
   [
     "Context-aware Linting",
     "Rules dynamically adapt to code structure and project settings, minimizing noise while maximizing relevance.",
-    Eye,
+    CircleDotDashed,
   ],
 ] as const;
 
