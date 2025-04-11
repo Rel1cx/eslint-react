@@ -23,7 +23,7 @@ react-x/no-nested-component-definitions
 
 ## Description
 
-Prevents nesting component definitions inside other components.
+Disallow nesting component definitions inside other components.
 
 Nesting component definitions inside other components is a common mistake that can be extremely slow and cause issues and bugs, and the state of components defined during rendering will not be preserved by React. Instead, define every component at the top level.
 
@@ -65,3 +65,10 @@ When a child component needs some data from a parent, [pass it by props](https:/
 ## Further Reading
 
 - [React: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+
+---
+
+## See Also
+
+- [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations.md)\
+  Disallow nesting lazy component declarations inside other components.

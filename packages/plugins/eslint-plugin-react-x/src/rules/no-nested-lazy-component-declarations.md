@@ -64,3 +64,10 @@ function Editor() {
 ## Further Reading
 
 - [React: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+
+---
+
+## See Also
+
+- [`no-nested-component-definitions`](./no-nested-component-definitions.md)\
+  Disallow nesting component definitions inside other components.
