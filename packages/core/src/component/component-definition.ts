@@ -42,7 +42,7 @@ export function isValidComponentDefinition(context: RuleContext, node: AST.TSEST
   if (hint & ComponentDetectionHint.SkipArrayMapArgument && AST.isArrayMapCall(node.parent)) {
     return false;
   }
-  const boundaryNode = AST.findParentNode(
+  const significantParent = AST.findParentNode(
     node,
     AST.isOneOf([
       T.JSXExpressionContainer,
@@ -52,5 +52,5 @@ export function isValidComponentDefinition(context: RuleContext, node: AST.TSEST
       T.ClassBody,
     ]),
   );
-  return boundaryNode == null || boundaryNode.type !== T.JSXExpressionContainer;
+  return significantParent == null || significantParent.type !== T.JSXExpressionContainer;
 }

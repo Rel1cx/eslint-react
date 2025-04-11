@@ -30,6 +30,7 @@ export const rules = {
   "@eslint-react/no-missing-key": "error",
   "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-nested-component-definitions": "error",
+  "@eslint-react/no-nested-lazy-component-declarations": "warn",
   "@eslint-react/no-prop-types": "error",
   "@eslint-react/no-redundant-should-component-update": "error",
   "@eslint-react/no-set-state-in-component-did-mount": "warn",

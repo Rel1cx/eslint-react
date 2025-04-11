@@ -44,8 +44,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useHookCollector();
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const allHooks = ctx.getAllHooks(node);
+    "Program:exit"(program) {
+      const allHooks = ctx.getAllHooks(program);
       for (const { name, node, hookCalls } of allHooks.values()) {
         // Skip empty functions
         if (AST.isEmptyFunction(node)) {

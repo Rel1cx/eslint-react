@@ -34,8 +34,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useComponentCollectorLegacy();
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program);
       for (const { name = "anonymous", node: component } of components.values()) {
         context.report({
           messageId: "classComponent",

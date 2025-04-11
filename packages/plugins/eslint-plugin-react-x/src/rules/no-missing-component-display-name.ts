@@ -44,8 +44,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   );
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program);
       for (const { node, displayName, flag } of components.values()) {
         const isMemoOrForwardRef = (flag & (ER.ComponentFlag.ForwardRef | ER.ComponentFlag.Memo)) > 0n;
         if (AST.getFunctionIdentifier(node) != null) {

@@ -42,8 +42,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   );
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program);
       for (const { name = "anonymous", node, displayName, flag, hookCalls } of components.values()) {
         context.report({
           messageId: "functionComponent",

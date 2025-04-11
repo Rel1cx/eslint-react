@@ -52,10 +52,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
 
-    "Program:exit"(node) {
+    "Program:exit"(program) {
       const components = [
         ...ctx
-          .getAllComponents(node)
+          .getAllComponents(program)
           .values(),
       ];
       function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {

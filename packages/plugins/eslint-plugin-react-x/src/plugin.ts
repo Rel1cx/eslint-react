@@ -33,6 +33,7 @@ import noMissingContextDisplayName from "./rules/no-missing-context-display-name
 import noMissingKey from "./rules/no-missing-key";
 import noMisusedCaptureOwnerStack from "./rules/no-misused-capture-owner-stack";
 import noNestedComponentDefinitions from "./rules/no-nested-component-definitions";
+import noNestedLazyComponentDeclarations from "./rules/no-nested-lazy-component-declarations";
 import noPropTypes from "./rules/no-prop-types";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
@@ -91,6 +92,7 @@ export const plugin = {
     "no-missing-key": noMissingKey,
     "no-misused-capture-owner-stack": noMisusedCaptureOwnerStack,
     "no-nested-component-definitions": noNestedComponentDefinitions,
+    "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
     "no-prop-types": noPropTypes,
     "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,

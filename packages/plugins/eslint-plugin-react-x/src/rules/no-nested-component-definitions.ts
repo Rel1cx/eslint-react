@@ -49,17 +49,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     ...collector.listeners,
     ...collectorLegacy.listeners,
-    "Program:exit"(node) {
+    "Program:exit"(program) {
       const functionComponents = [
         ...collector
           .ctx
-          .getAllComponents(node)
+          .getAllComponents(program)
           .values(),
       ];
       const classComponents = [
         ...collectorLegacy
           .ctx
-          .getAllComponents(node)
+          .getAllComponents(program)
           .values(),
       ];
       const isFunctionComponent = (node: TSESTree.Node): node is AST.TSESTreeFunction => {

@@ -40,8 +40,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useComponentCollector(context);
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program);
       for (const [, component] of components) {
         const [props] = component.node.params;
         if (props == null) {

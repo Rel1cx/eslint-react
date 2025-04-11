@@ -108,9 +108,9 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return {
     ...collector.listeners,
     ...collectorLegacy.listeners,
-    "Program:exit"(node) {
-      const functionComponents = collector.ctx.getAllComponents(node);
-      const classComponents = collectorLegacy.ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const functionComponents = collector.ctx.getAllComponents(program);
+      const classComponents = collectorLegacy.ctx.getAllComponents(program);
       for (const { node: component } of functionComponents.values()) {
         const id = AST.getFunctionIdentifier(component);
         if (id?.name == null) continue;

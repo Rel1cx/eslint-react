@@ -44,8 +44,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program);
 
       for (const { name = "PureComponent", node: component, flag } of components.values()) {
         if ((flag & ER.ComponentFlag.PureComponent) === 0n) {

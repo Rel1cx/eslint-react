@@ -101,13 +101,13 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     JSXFragment() {
       hasJSXNode = true;
     },
-    "Program:exit"(node) {
+    "Program:exit"(program) {
       const fileNameExt = filename.slice(filename.lastIndexOf("."));
       const isJSXExt = extensions.includes(fileNameExt);
       if (hasJSXNode && !isJSXExt) {
         context.report({
           messageId: "useJsxFileExtension",
-          node,
+          node: program,
           data: {
             extensions: extensionsString,
           },
@@ -115,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         return;
       }
 
-      const hasCode = node.body.length > 0;
+      const hasCode = program.body.length > 0;
       const ignoreFilesWithoutCode = isObject(options) && options.ignoreFilesWithoutCode === true;
       if (!hasCode && ignoreFilesWithoutCode) {
         return;
@@ -127,7 +127,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       ) {
         context.report({
           messageId: "useNonJsxFileExtension",
-          node,
+          node: program,
           data: {
             extensions: extensionsString,
           },

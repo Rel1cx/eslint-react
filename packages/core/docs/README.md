@@ -60,6 +60,8 @@
 - [isForwardRef](variables/isForwardRef.md)
 - [isForwardRefCall](variables/isForwardRefCall.md)
 - [isInversePhase](variables/isInversePhase.md)
+- [isLazy](variables/isLazy.md)
+- [isLazyCall](variables/isLazyCall.md)
 - [isMemo](variables/isMemo.md)
 - [isMemoCall](variables/isMemoCall.md)
 - [isUseActionStateCall](variables/isUseActionStateCall.md)
