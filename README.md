@@ -7,11 +7,31 @@
 
 A series of composable ESLint rules for React and friends.
 
+## Table of Contents
+
+- [Features](#features)
+- [Public Packages](#public-packages)
+  - [Modular](#modular)
+  - [All-In-One](#all-in-one)
+- [Installation](#installation)
+  - [Install](#install)
+  - [Setup](#setup)
+- [Presets](#presets)
+  - [Bare Bones](#bare-bones)
+  - [General Purpose](#general-purpose)
+  - [TypeScript Specialized](#typescript-specialized)
+  - [Other](#other)
+- [Rules](#rules)
+- [FAQ](#faq)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Features
 
+- **Modern**: First-class support for TypeScript, React 19, and more.
+- **Flexible**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
 - **Performant**: Built with performance in mind, optimized for large codebases.
-- **Future-proof**: Forward-looking architecture that anticipates future changes in React and TypeScript.
-- **Precision Control**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
 - **Context-aware Linting**: Rules that understand the context of your code and project settings to provide more accurate linting.
 
 ## Public Packages

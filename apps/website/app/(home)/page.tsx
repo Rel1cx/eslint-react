@@ -1,24 +1,12 @@
 import { ESLintReact } from "#/components/ESLintReact";
 import { Card, Cards } from "fumadocs-ui/components/card";
-import { CircleDotDashed, Shield, Sliders, Zap } from "lucide-react";
+import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
 
 const features = [
-  [
-    "Performant",
-    "Built with performance in mind, optimized for large codebases.",
-    Zap,
-  ],
-  [
-    "Future-proof",
-    "Forward-looking architecture that anticipates future changes in React and TypeScript.",
-    Shield,
-  ],
-  [
-    "Precision Control",
-    "Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.",
-    Sliders,
-  ],
+  ["Modern", "First-class support for TypeScript, React 19, and more.", Zap],
+  ["Flexible", "Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.", Sliders],
+  ["Performant", "Built with performance in mind, optimized for large codebases.", Gauge],
   [
     "Context-aware Linting",
     "Rules that understand the context of your code and project settings to provide more accurate linting.",

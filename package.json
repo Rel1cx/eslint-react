@@ -59,8 +59,8 @@
     "@swc/core": "^1.11.20",
     "@tsconfig/node22": "^22.0.1",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^22.14.0",
-    "@types/react": "^19.1.0",
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.2",
     "@typescript-eslint/parser": "^8.29.1",
     "@typescript-eslint/rule-tester": "^8.29.1",
@@ -74,7 +74,7 @@
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.4.2",
-    "lefthook": "^1.11.8",
+    "lefthook": "^1.11.9",
     "markdownlint": "^0.37.4",
     "nx": "20.7.1",
     "publint": "^0.3.11",
@@ -109,7 +109,7 @@
       "sharp"
     ],
     "overrides": {
-      "@types/react": "^19.1.0",
+      "@types/react": "^19.1.1",
       "@types/react-dom": "^19.1.2",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.2",
