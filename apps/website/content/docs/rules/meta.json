@@ -34,6 +34,7 @@
     "no-missing-key",
     "no-misused-capture-owner-stack",
     "no-nested-component-definitions",
+    "no-nested-lazy-component-declarations",
     "no-prop-types",
     "no-redundant-should-component-update",
     "no-set-state-in-component-did-mount",

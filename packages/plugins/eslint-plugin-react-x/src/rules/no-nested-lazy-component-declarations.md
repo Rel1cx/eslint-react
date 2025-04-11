@@ -2,13 +2,13 @@
 title: no-nested-lazy-component-declarations
 ---
 
-**Full Name in `eslint-plugin-react-x`**
+**Full Name in `eslint-plugin-react-x@beta`**
 
 ```plain copy
 react-x/no-nested-lazy-component-declarations
 ```
 
-**Full Name in `@eslint-react/eslint-plugin`**
+**Full Name in `@eslint-react/eslint-plugin@beta`**
 
 ```plain copy
 @eslint-react/no-nested-lazy-component-declarations
@@ -23,7 +23,7 @@ react-x/no-nested-lazy-component-declarations
 
 ## Description
 
-Disallows nesting lazy component declarations inside other components.
+Disallow nesting lazy component declarations inside other components.
 
 When a lazy component is declared inside another component, it will be re-created on every render of the parent component. This can lead to unexpected behavior, such as resetting the state of the lazy component.
 

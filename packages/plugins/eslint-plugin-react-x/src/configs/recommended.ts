@@ -29,6 +29,7 @@ export const rules = {
   "react-x/no-missing-key": "error",
   "react-x/no-misused-capture-owner-stack": "error",
   "react-x/no-nested-component-definitions": "error",
+  "react-x/no-nested-lazy-component-declarations": "warn",
   "react-x/no-prop-types": "error",
   "react-x/no-redundant-should-component-update": "error",
   "react-x/no-set-state-in-component-did-mount": "warn",
