@@ -14,13 +14,6 @@ react-x/no-class-component
 @eslint-react/no-class-component
 ```
 
-**Presets**
-
-- `x`
-- `recommended`
-- `recommended-typescript`
-- `recommended-type-checked`
-
 ## Description
 
 Disallow class components except for error boundaries.

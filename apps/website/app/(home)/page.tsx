@@ -21,7 +21,7 @@ const features = [
   ],
   [
     "Context-aware Linting",
-    "Rules dynamically adapt to code structure and project settings, minimizing noise while maximizing relevance.",
+    "Rules that understand the context of your code and project settings to provide more accurate linting.",
     CircleDotDashed,
   ],
 ] as const;
