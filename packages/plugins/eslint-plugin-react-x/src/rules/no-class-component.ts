@@ -15,11 +15,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow class components.",
+      description: "Disallow class components except for error boundaries.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noClassComponent: "Do not use class components. Use function components instead.",
+      noClassComponent: "Avoid using class components. Use function components instead.",
     },
     schema: [],
   },

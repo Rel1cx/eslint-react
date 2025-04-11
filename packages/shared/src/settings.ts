@@ -3,12 +3,12 @@ import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-es
 import type { PartialDeep } from "type-fest";
 import type { CustomHooks, ESLintReactSettings } from "./schemas";
 import { identity } from "@eslint-react/eff";
+import * as z from "@zod/mini";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
 import pm from "picomatch";
-import { match, P } from "ts-pattern";
 
-import { parse } from "valibot";
+import { match, P } from "ts-pattern";
 import { getReactVersion } from "./get-react-version";
 import { DEFAULT_ESLINT_REACT_SETTINGS, ESLintSettingsSchema } from "./schemas";
 
@@ -61,7 +61,7 @@ export function unsafeDecodeSettings(data: unknown): PartialDeep<ESLintReactSett
 export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
   return {
     ...DEFAULT_ESLINT_REACT_SETTINGS,
-    ...parse(ESLintSettingsSchema, data)["react-x"] ?? {},
+    ...z.parse(ESLintSettingsSchema, data)?.["react-x"] ?? {},
   };
 }, { isEqual: (a, b) => a === b });
 
@@ -78,6 +78,7 @@ export const toNormalizedSettings = memoize(
     importSource = "react",
     polymorphicPropName = "as",
     skipImportCheck = true,
+    // strict = false,
     version,
     ...rest
   }: ESLintReactSettings): ESLintReactSettingsNormalized => {

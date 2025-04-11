@@ -1,13 +1,29 @@
 import { ESLintReact } from "#/components/ESLintReact";
 import { Card, Cards } from "fumadocs-ui/components/card";
-import { Gauge, SearchCheck, Sliders, Zap } from "lucide-react";
+import { Eye, Shield, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
 
 const features = [
-  ["Modern", "First-class support for TypeScript, React 19, and more.", Zap],
-  ["Flexible", "Increased flexibility with more granular severity control.", Sliders],
-  ["Performant", "Built with performance in mind, optimized for large codebases.", Gauge],
-  ["Comprehensive", "Identifies problems that other tools might miss.", SearchCheck],
+  [
+    "Performant",
+    "Built with performance in mind, optimized for large codebases.",
+    Zap,
+  ],
+  [
+    "Future-proof",
+    "Forward-looking architecture that anticipates future React features.",
+    Shield,
+  ],
+  [
+    "Precision Control",
+    "Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.",
+    Sliders,
+  ],
+  [
+    "Context-aware Linting",
+    "Rules that understand the context of your code and project configuration, providing more accurate linting results.",
+    Eye,
+  ],
 ] as const;
 
 export default function HomePage() {
