@@ -35,8 +35,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const allHooks = ctx.getAllHooks(node);
+    "Program:exit"(program) {
+      const allHooks = ctx.getAllHooks(program);
 
       for (const { name, node, hookCalls } of allHooks.values()) {
         context.report({

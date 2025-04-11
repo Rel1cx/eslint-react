@@ -7,6 +7,40 @@ import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { DEFAULT_JSX_DETECTION_HINT, JSXDetectionHint } from "./jsx-detection-hint";
 
+export type TSESTreeJSX =
+  | TSESTree.JSXAttribute
+  | TSESTree.JSXClosingElement
+  | TSESTree.JSXClosingFragment
+  | TSESTree.JSXElement
+  | TSESTree.JSXEmptyExpression
+  | TSESTree.JSXExpressionContainer
+  | TSESTree.JSXFragment
+  | TSESTree.JSXIdentifier
+  | TSESTree.JSXMemberExpression
+  | TSESTree.JSXNamespacedName
+  | TSESTree.JSXOpeningElement
+  | TSESTree.JSXOpeningFragment
+  | TSESTree.JSXSpreadAttribute
+  | TSESTree.JSXSpreadChild
+  | TSESTree.JSXText;
+
+export const isJSX = AST.isOneOf([
+  T.JSXAttribute,
+  T.JSXClosingElement,
+  T.JSXClosingFragment,
+  T.JSXElement,
+  T.JSXEmptyExpression,
+  T.JSXExpressionContainer,
+  T.JSXFragment,
+  T.JSXIdentifier,
+  T.JSXMemberExpression,
+  T.JSXNamespacedName,
+  T.JSXOpeningElement,
+  T.JSXOpeningFragment,
+  T.JSXSpreadAttribute,
+  T.JSXSpreadChild,
+  T.JSXText,
+]);
 /**
  * Check if a node is a `JSXText` or a `Literal` node
  * @param node The AST node to check
@@ -30,24 +64,9 @@ export function isJsxLike(
   node: TSESTree.Node | _ | null,
   hint: JSXDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
-  switch (node?.type) {
-    case T.JSXText:
-    case T.JSXElement:
-    case T.JSXFragment:
-    case T.JSXAttribute:
-    case T.JSXClosingElement:
-    case T.JSXClosingFragment:
-    case T.JSXEmptyExpression:
-    case T.JSXExpressionContainer:
-    case T.JSXIdentifier:
-    case T.JSXMemberExpression:
-    case T.JSXOpeningElement:
-    case T.JSXOpeningFragment:
-    case T.JSXSpreadAttribute:
-    case T.JSXSpreadChild:
-    case T.JSXNamespacedName: {
-      return true;
-    }
+  if (node == null) return false;
+  if (isJSX(node)) return true;
+  switch (node.type) {
     case T.Literal: {
       switch (typeof node.value) {
         case "boolean":

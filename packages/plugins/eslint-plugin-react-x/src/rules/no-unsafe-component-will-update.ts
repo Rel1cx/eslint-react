@@ -43,8 +43,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     ...listeners,
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node);
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program);
 
       for (const { node: component } of components.values()) {
         const { body } = component.body;

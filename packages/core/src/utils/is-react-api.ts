@@ -32,6 +32,7 @@ export const isCreateElement = isReactAPI("createElement");
 export const isCreateRef = isReactAPI("createRef");
 export const isForwardRef = isReactAPI("forwardRef");
 export const isMemo = isReactAPI("memo");
+export const isLazy = isReactAPI("lazy");
 
 export const isCaptureOwnerStackCall = isReactAPICall("captureOwnerStack");
 export const isChildrenCountCall = isReactAPICall("Children", "count");
@@ -45,3 +46,4 @@ export const isCreateElementCall = isReactAPICall("createElement");
 export const isCreateRefCall = isReactAPICall("createRef");
 export const isForwardRefCall = isReactAPICall("forwardRef");
 export const isMemoCall = isReactAPICall("memo");
+export const isLazyCall = isReactAPICall("lazy");

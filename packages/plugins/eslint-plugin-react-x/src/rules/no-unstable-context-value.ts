@@ -69,8 +69,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       getOrUpdate(constructions, functionEntry.node, () => []).push(construction);
     },
-    "Program:exit"(node) {
-      const components = ctx.getAllComponents(node).values();
+    "Program:exit"(program) {
+      const components = ctx.getAllComponents(program).values();
       for (const { node: component } of components) {
         for (const construction of constructions.get(component) ?? []) {
           const { kind, node: constructionNode } = construction;
