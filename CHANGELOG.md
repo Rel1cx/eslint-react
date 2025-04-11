@@ -1,3 +1,11 @@
+## v1.45.1 (2025-04-12)
+
+### 🐞 Fixes
+
+- fix: fixed `hooks-extra/no-unnecessary-use-prefix` case sensitivity fails, closes #1053 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1054
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.45.0...v1.45.1
+
 ## v1.45.0 (2025-04-11)
 
 ### ✨ New
