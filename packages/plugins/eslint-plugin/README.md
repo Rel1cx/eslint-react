@@ -9,10 +9,10 @@ A series of future-proof ESLint rules for React and friends.
 
 ## Features
 
-- **Modern**: First-class support for TypeScript, React 19, and more.
-- **Flexible**: Increased flexibility with more granular severity control.
 - **Performant**: Built with performance in mind, optimized for large codebases.
-- **Comprehensive**: Handles complex scenarios and identifies problems that other tools might miss.
+- **Future-proof**: Forward-looking architecture that anticipates future React features.
+- **Precision Control**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
+- **Context-aware Linting**: Rules that understand the context of your code and project configuration, providing more accurate linting results.
 
 ## Public Packages
 
