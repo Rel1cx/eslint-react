@@ -9,7 +9,6 @@ export * from "./get-nested-expressions";
 export * from "./get-nested-identifiers";
 export * from "./get-nested-return-statements";
 export * from "./get-property-name";
-export * from "./get-top-level-identifier";
 export * from "./is";
 export * from "./is-array-from-call";
 export * from "./is-array-map-call";
