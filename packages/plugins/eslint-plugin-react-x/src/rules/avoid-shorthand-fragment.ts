@@ -1,6 +1,6 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import { JsxConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 
 import { createRule } from "../utils";
 
@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      avoidShorthandFragment: "Avoid using shorthand fragment syntax. Use 'Fragment' component instead.",
+      avoidShorthandFragment: "Avoid using shorthand fragment syntax. Use '{{jsxFragmentFactory}}' component instead.",
     },
     schema: [],
   },
@@ -28,11 +28,21 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const jsxConfigFromContext = JsxConfig.getFromContext(context);
+  const jsxConfigFromAnnotation = JsxConfig.getFromAnnotation(context);
+  const jsxConfig = {
+    ...jsxConfigFromContext,
+    ...jsxConfigFromAnnotation,
+  };
+
   return {
     JSXFragment(node) {
       context.report({
         messageId: "avoidShorthandFragment",
         node,
+        data: {
+          jsxFragmentFactory: jsxConfig.jsxFragmentFactory,
+        },
       });
     },
   };
