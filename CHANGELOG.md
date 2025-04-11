@@ -1,3 +1,11 @@
+## v1.45.2 (2025-04-12)
+
+### 🪄 Improvements
+
+- docs: add table of contents to the README by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/b880cb95d2245f7034f47e883d944c9a8b4ecf5f
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.45.1...v1.45.2
+
 ## v1.45.1 (2025-04-12)
 
 ### 🐞 Fixes
