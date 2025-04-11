@@ -42,16 +42,13 @@ export default defineConfig([
     // Extend recommended rule sets from:
     // 1. ESLint JS's recommended rules
     // 2. ESLint React's recommended rules
-    extends: [
-      eslintJs.configs.recommended,
-      eslintReact.configs.recommended,
-    ],
+    extends: [eslintJs.configs.recommended, eslintReact.configs.recommended],
 
     // Configure language/parsing options
     languageOptions: {
       // Include browser global variables (window, document, etc.)
       globals: {
-        ...globals.browser
+        ...globals.browser,
       },
       parserOptions: {
         ecmaFeatures: {
@@ -97,7 +94,7 @@ export default [
     // ...other options
     "jsx": "react-jsx",
   },
-  "include": ["**/*.js", "**/*.jsx"]
+  "include": ["**/*.js", "**/*.jsx"],
 }
 ```
 

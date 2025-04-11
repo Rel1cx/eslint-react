@@ -72,7 +72,9 @@ Example with `polymorphicPropName` set to `as`:
 
 ### `additionalComponents` (Experimental)
 
-<Callout type="info">Consider using `polymorphicPropName` instead when possible, as it's simpler and more efficient.</Callout>
+<Callout type="info">
+  Consider using `polymorphicPropName` instead when possible, as it's simpler and more efficient.
+</Callout>
 
 <Callout type="warn">Experimental feature that may lack stability and documentation.</Callout>
 
@@ -100,7 +102,9 @@ This makes `<EmbedContent src="https://eslint-react.xyz" />{:tsx}` evaluate as `
 ### `additionalHooks` (Experimental)
 
 <Callout type="warn">
-Intended for edge cases. We suggest to use this option **very sparingly, if at all**. Generally saying, we recommend most custom Hooks do not vary the built-in React Hooks, and instead provide a higher-level API that is more focused around a specific use case.
+  Intended for edge cases. We suggest to use this option **very sparingly, if at all**. Generally saying, we recommend
+  most custom Hooks do not vary the built-in React Hooks, and instead provide a higher-level API that is more focused
+  around a specific use case.
 </Callout>
 
 Alias variants to built-in React Hooks for rule compatibility:
@@ -130,26 +134,26 @@ export default [
         polymorphicPropName: "as",
         additionalHooks: {
           useEffect: ["useIsomorphicLayoutEffect"],
-          useLayoutEffect: ["useIsomorphicLayoutEffect"]
+          useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },
         additionalComponents: [
           {
             name: "Link",
             as: "a",
             attributes: [
-              { name: "to", as: "href" }  // Maps 'to' prop to 'href' attribute
-            ]
+              { name: "to", as: "href" }, // Maps 'to' prop to 'href' attribute
+            ],
           },
           {
             name: "EmbedContent",
             as: "iframe",
             attributes: [
-              { name: "sandbox", defaultValue: "" }
-            ]
-          }
-        ]
-      }
-    }
-  }
+              { name: "sandbox", defaultValue: "" }, // Sets the default value for 'sandbox' attribute
+            ],
+          },
+        ],
+      },
+    },
+  },
 ];
 ```
