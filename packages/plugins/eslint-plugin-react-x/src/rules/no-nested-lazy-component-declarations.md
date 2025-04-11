@@ -2,13 +2,13 @@
 title: no-nested-lazy-component-declarations
 ---
 
-**Full Name in `eslint-plugin-react-x@beta`**
+**Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
 react-x/no-nested-lazy-component-declarations
 ```
 
-**Full Name in `@eslint-react/eslint-plugin@beta`**
+**Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
 @eslint-react/no-nested-lazy-component-declarations
