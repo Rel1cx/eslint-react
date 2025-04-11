@@ -1177,7 +1177,7 @@ importers:
         specifier: ^8.29.1
         version: 8.29.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       '@zod/mini':
-        specifier: ^4.0.0-beta.20250411T005215
+        specifier: ^4.0.0-beta.0
         version: 4.0.0-beta.20250411T005215
       picomatch:
         specifier: ^4.0.2

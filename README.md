@@ -10,7 +10,7 @@ A series of future-proof ESLint rules for React and friends.
 ## Features
 
 - **Performant**: Built with performance in mind, optimized for large codebases.
-- **Future-proof**: Forward-looking architecture that anticipates future React features.
+- **Future-proof**: Forward-looking architecture that anticipates future changes in React and TypeScript.
 - **Precision Control**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
 - **Context-aware Linting**: Rules that understand the context of your code and project configuration, providing more accurate linting results.
 

@@ -9,6 +9,7 @@ import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
+
 const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
 const GLOB_MD = ["*.md", "**/*.md"];
 const GLOB_TEST = [

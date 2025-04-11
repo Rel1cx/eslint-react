@@ -22,10 +22,66 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: tsx`<>text</>`,
+      code: tsx`
+        /** @jsx createElement */
+        /** @jsxFrag Fragment */
+
+        const element = <><div /></>;
+      `,
       errors: [
         {
           messageId: "avoidShorthandFragment",
+          data: {
+            jsxFragmentFactory: "Fragment",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
+        /** @jsx React.createElement */
+        /** @jsxFrag React.Fragment */
+
+        const element = <><div /></>;
+      `,
+      errors: [
+        {
+          messageId: "avoidShorthandFragment",
+          data: {
+            jsxFragmentFactory: "React.Fragment",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
+        /** @jsx h */
+        /** @jsxFrag Fragment */
+
+        const element = <><div /></>;
+      `,
+      errors: [
+        {
+          messageId: "avoidShorthandFragment",
+          data: {
+            jsxFragmentFactory: "Fragment",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
+        /** @jsx Preact.h */
+        /** @jsxFrag Preact.Fragment */
+
+        const element = <><div /></>;
+      `,
+      errors: [
+        {
+          messageId: "avoidShorthandFragment",
+          data: {
+            jsxFragmentFactory: "Preact.Fragment",
+          },
         },
       ],
     },

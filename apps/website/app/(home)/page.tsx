@@ -11,7 +11,7 @@ const features = [
   ],
   [
     "Future-proof",
-    "Forward-looking architecture that anticipates future React features.",
+    "Forward-looking architecture that anticipates future changes in React and TypeScript.",
     Shield,
   ],
   [
