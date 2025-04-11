@@ -16,7 +16,7 @@ const ibm_plex_mono = IBM_Plex_Mono({
 });
 
 export const metadata = {
-  description: "A series of future-proof ESLint rules for React and friends.",
+  description: "A series of composable ESLint rules for React and friends.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",

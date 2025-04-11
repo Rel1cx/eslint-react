@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 
-A series of future-proof ESLint rules for React and friends.
+A series of composable ESLint rules for React and friends.
 
 ## Features
 
