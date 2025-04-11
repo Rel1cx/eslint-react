@@ -23,7 +23,7 @@ react-x/no-class-component
 
 ## Description
 
-Disallow class components.
+Disallow class components except for error boundaries.
 
 Component is the base class for the React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
 
