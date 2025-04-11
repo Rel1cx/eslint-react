@@ -14,6 +14,10 @@ react-x/no-misused-capture-owner-stack
 @eslint-react/no-misused-capture-owner-stack
 ```
 
+**Features**
+
+`🧪`
+
 ## Description
 
 Prevents incorrect usage of `captureOwnerStack`.
