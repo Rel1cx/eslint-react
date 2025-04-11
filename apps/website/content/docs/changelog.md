@@ -6,7 +6,7 @@ title: Changelog
 
 ### ✨ New
 
-- feat: add JSX fragment factory to error message by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1051
+- feat: add JSX fragment factory to error message of `react-x/avoid-shorthand-fragment` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1051
 
 ### 🪄 Improvements
 
