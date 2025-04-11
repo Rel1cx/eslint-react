@@ -26,9 +26,9 @@ export default defineConfig({
       ],
     },
     remarkPlugins: [
-      remarkMermaid,
-      remarkInstall,
       [remarkDocGen, { generators: [] }],
+      remarkInstall,
+      remarkMermaid,
     ],
   },
 });

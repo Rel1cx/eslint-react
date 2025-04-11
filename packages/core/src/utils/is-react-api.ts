@@ -20,6 +20,7 @@ export function isReactAPICall(arg0: string, arg1?: string) {
     : isCallFromReactObject(arg0, arg1);
 }
 
+export const isCaptureOwnerStack = isReactAPI("captureOwnerStack");
 export const isChildrenCount = isReactAPI("Children", "count");
 export const isChildrenForEach = isReactAPI("Children", "forEach");
 export const isChildrenMap = isReactAPI("Children", "map");
@@ -32,6 +33,7 @@ export const isCreateRef = isReactAPI("createRef");
 export const isForwardRef = isReactAPI("forwardRef");
 export const isMemo = isReactAPI("memo");
 
+export const isCaptureOwnerStackCall = isReactAPICall("captureOwnerStack");
 export const isChildrenCountCall = isReactAPICall("Children", "count");
 export const isChildrenForEachCall = isReactAPICall("Children", "forEach");
 export const isChildrenMapCall = isReactAPICall("Children", "map");

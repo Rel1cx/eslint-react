@@ -32,6 +32,7 @@
     "no-missing-component-display-name",
     "no-missing-context-display-name",
     "no-missing-key",
+    "no-misused-capture-owner-stack",
     "no-nested-component-definitions",
     "no-prop-types",
     "no-redundant-should-component-update",

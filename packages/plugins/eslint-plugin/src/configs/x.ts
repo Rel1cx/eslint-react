@@ -28,6 +28,7 @@ export const rules = {
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
   "@eslint-react/no-missing-key": "error",
+  "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-prop-types": "error",
   "@eslint-react/no-redundant-should-component-update": "error",
