@@ -1,46 +1,41 @@
-import { literal, number, object, optional, union } from "valibot";
+import * as z from "@zod/mini";
 
 /**
  * @internal
  */
-export const LanguagePreferenceSchema = object({
-  indentStyle: optional(
-    union([
-      literal("tab"),
-      literal("space"),
+export const LanguagePreferenceSchema = z.object({
+  indentStyle: z.optional(
+    z.union([
+      z.literal("tab"),
+      z.literal("space"),
     ]),
-    "space",
   ),
-  indentWidth: optional(number(), 2),
-  quoteStyle: optional(
-    union([
-      literal("single"),
-      literal("double"),
+  indentWidth: z.optional(z.number()),
+  quoteStyle: z.optional(
+    z.union([
+      z.literal("single"),
+      z.literal("double"),
     ]),
-    "single",
   ),
-  semicolons: optional(
-    union([
-      literal("always"),
-      literal("asNeeded"),
+  semicolons: z.optional(
+    z.union([
+      z.literal("always"),
+      z.literal("asNeeded"),
     ]),
-    "always",
   ),
-  trailingCommas: optional(
-    union([
-      literal("all"),
-      literal("es5"),
-      literal("none"),
+  trailingCommas: z.optional(
+    z.union([
+      z.literal("all"),
+      z.literal("es5"),
+      z.literal("none"),
     ]),
-    "all",
   ),
 
   // JSX specific options
-  jsxQuoteStyle: optional(
-    union([
-      literal("single"),
-      literal("double"),
+  jsxQuoteStyle: z.optional(
+    z.union([
+      z.literal("single"),
+      z.literal("double"),
     ]),
-    "double",
   ),
-});
+}, {});

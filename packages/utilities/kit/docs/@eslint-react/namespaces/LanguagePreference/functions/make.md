@@ -14,26 +14,26 @@ Get a copy of the default LanguagePreference.
 
 `object`
 
-### indentStyle
+### indentStyle?
 
-> **indentStyle**: `"tab"` \| `"space"`
+> `optional` **indentStyle**: `"tab"` \| `"space"`
 
-### indentWidth
+### indentWidth?
 
-> **indentWidth**: `number`
+> `optional` **indentWidth**: `number`
 
-### jsxQuoteStyle
+### jsxQuoteStyle?
 
-> **jsxQuoteStyle**: `"single"` \| `"double"`
+> `optional` **jsxQuoteStyle**: `"single"` \| `"double"`
 
-### quoteStyle
+### quoteStyle?
 
-> **quoteStyle**: `"single"` \| `"double"`
+> `optional` **quoteStyle**: `"single"` \| `"double"`
 
-### semicolons
+### semicolons?
 
-> **semicolons**: `"always"` \| `"asNeeded"`
+> `optional` **semicolons**: `"always"` \| `"asNeeded"`
 
-### trailingCommas
+### trailingCommas?
 
-> **trailingCommas**: `"all"` \| `"es5"` \| `"none"`
+> `optional` **trailingCommas**: `"all"` \| `"es5"` \| `"none"`
