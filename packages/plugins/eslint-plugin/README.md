@@ -12,7 +12,7 @@ A series of composable ESLint rules for React and friends.
 - [Features](#features)
 - [Public Packages](#public-packages)
   - [Modular](#modular)
-  - [All-In-One](#all-in-one)
+  - [Unified](#unified)
 - [Installation](#installation)
   - [Install](#install)
   - [Setup](#setup)
