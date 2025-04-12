@@ -14,10 +14,10 @@ export default defineConfig({
     rehypeCodeOptions: {
       experimentalJSEngine: true,
       inline: "tailing-curly-colon",
-      langs: ["js", "ts", "jsx", "tsx", "html", "mdx"],
+      langs: ["js", "ts", "jsx", "tsx", "html", "md", "mdx", "css", "json", "yaml"],
       lazy: true,
       themes: {
-        dark: "vesper",
+        dark: "github-dark",
         light: "github-light",
       },
       transformers: [
