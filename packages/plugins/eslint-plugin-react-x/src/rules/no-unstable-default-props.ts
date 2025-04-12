@@ -3,7 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { getOrUpdate } from "@eslint-react/eff";
+import { getOrElseUpdate } from "@eslint-react/eff";
 import { SEL } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -92,7 +92,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     [SEL.OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: SEL.ObjectDestructuringVariableDeclarator) {
       const functionEntry = ctx.getCurrentEntry();
       if (functionEntry == null) return;
-      getOrUpdate(
+      getOrElseUpdate(
         declarators,
         functionEntry.node,
         () => [],

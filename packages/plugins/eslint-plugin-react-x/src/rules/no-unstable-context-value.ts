@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { getOrUpdate } from "@eslint-react/eff";
+import { getOrElseUpdate } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (ER.isReactHookCall(construction.node)) {
         return;
       }
-      getOrUpdate(constructions, functionEntry.node, () => []).push(construction);
+      getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
     },
     "Program:exit"(program) {
       const components = ctx.getAllComponents(program).values();

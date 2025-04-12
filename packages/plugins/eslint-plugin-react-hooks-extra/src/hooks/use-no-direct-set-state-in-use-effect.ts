@@ -3,7 +3,7 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { constVoid, getOrUpdate } from "@eslint-react/eff";
+import { constVoid, getOrElseUpdate } from "@eslint-react/eff";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -130,8 +130,8 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
             }
             default: {
               const vd = AST.findParentNode(node, isVariableDeclaratorFromHookCall);
-              if (vd == null) getOrUpdate(indSetStateCalls, pEntry.node, () => []).push(node);
-              else getOrUpdate(indSetStateCallsInUseMemoOrCallback, vd.init, () => []).push(node);
+              if (vd == null) getOrElseUpdate(indSetStateCalls, pEntry.node, () => []).push(node);
+              else getOrElseUpdate(indSetStateCallsInUseMemoOrCallback, vd.init, () => []).push(node);
             }
           }
         })
@@ -166,7 +166,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           }
           const vd = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
           if (vd != null) {
-            getOrUpdate(indSetStateCallsInUseEffectArg0, vd.init, () => []).push(node);
+            getOrElseUpdate(indSetStateCallsInUseEffectArg0, vd.init, () => []).push(node);
           }
           break;
         }
@@ -180,14 +180,14 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           if (isUseCallbackCall(node.parent)) {
             const vd = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
             if (vd != null) {
-              getOrUpdate(indSetStateCallsInUseEffectArg0, vd.init, () => []).push(node);
+              getOrElseUpdate(indSetStateCallsInUseEffectArg0, vd.init, () => []).push(node);
             }
             break;
           }
           // const [state, setState] = useState();
           // useEffect(setState);
           if (isUseEffectLikeCall(node.parent)) {
-            getOrUpdate(indSetStateCallsInUseEffectSetup, node.parent, () => []).push(node);
+            getOrElseUpdate(indSetStateCallsInUseEffectSetup, node.parent, () => []).push(node);
           }
         }
       }

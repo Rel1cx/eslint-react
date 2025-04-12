@@ -2,13 +2,13 @@
 
 ***
 
-[@eslint-react/eff](../README.md) / getOrUpdate
+[@eslint-react/eff](../README.md) / getOrElseUpdate
 
-# Function: getOrUpdate()
+# Function: getOrElseUpdate()
 
 ## Call Signature
 
-> **getOrUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
+> **getOrElseUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
 
 Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
 
@@ -50,7 +50,7 @@ The existing value for the key, or the newly computed value
 
 ## Call Signature
 
-> **getOrUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
+> **getOrElseUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
 
 Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
 

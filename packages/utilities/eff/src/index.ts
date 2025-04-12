@@ -1188,27 +1188,30 @@ export function zipWith<T, U, V>(
 // #region Map & Set
 
 /**
+ * Retrieves a value from a Map or WeakMap if the key exists, or computes a new value if it doesn't.
+ * @param map - The Map or WeakMap to get from
+ * @param key - The key to look up in the Map or WeakMap
+ * @param callback - The function to call to generate a new value if the key doesn't exist
+ */
+export function getOrElse<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: () => V): V;
+export function getOrElse<K, V>(map: Map<K, V>, key: K, callback: () => V): V;
+export function getOrElse<K extends WeakKey, V>(map: Map<K, V> | WeakMap<K, V>, key: K, callback: () => V): V {
+  if (map.has(key)) {
+    return map.get(key)!;
+  }
+  return callback();
+}
+
+/**
  * Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
  * @param map - The Map or WeakMap to get from or update
  * @param key - The key to look up in the Map or WeakMap
  * @param callback - The function to call to generate a new value if the key doesn't exist
  * @returns The existing value for the key, or the newly computed value
  */
-export function getOrUpdate<K extends WeakKey, V>(
-  map: WeakMap<K, V>,
-  key: K,
-  callback: () => V,
-): V;
-export function getOrUpdate<K, V>(
-  map: Map<K, V>,
-  key: K,
-  callback: () => V,
-): V;
-export function getOrUpdate<K extends WeakKey, V>(
-  map: Map<K, V> | WeakMap<K, V>,
-  key: K,
-  callback: () => V,
-): V {
+export function getOrElseUpdate<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: () => V): V;
+export function getOrElseUpdate<K, V>(map: Map<K, V>, key: K, callback: () => V): V;
+export function getOrElseUpdate<K extends WeakKey, V>(map: Map<K, V> | WeakMap<K, V>, key: K, callback: () => V): V {
   if (map.has(key)) {
     return map.get(key)!;
   }

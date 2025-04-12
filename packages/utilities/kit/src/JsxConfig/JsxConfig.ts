@@ -1,5 +1,5 @@
 import type { RuleContext } from "../types";
-import { getOrUpdate } from "@eslint-react/eff";
+import { getOrElseUpdate } from "@eslint-react/eff";
 import { type CompilerOptions, JsxEmit } from "typescript";
 import * as RE from "../RE";
 
@@ -49,7 +49,7 @@ const cache = new WeakMap<RuleContext["sourceCode"], JsxConfig>();
  * @returns JsxConfig
  */
 export function getFromAnnotation(context: RuleContext) {
-  return getOrUpdate(
+  return getOrElseUpdate(
     cache,
     context.sourceCode,
     () => {
