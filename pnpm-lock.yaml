@@ -1179,9 +1179,12 @@ importers:
       '@zod/mini':
         specifier: ^4.0.0-beta.0
         version: 4.0.0-beta.20250411T005215
-      picomatch:
-        specifier: ^4.0.2
-        version: 4.0.2
+      fast-equals:
+        specifier: ^5.2.2
+        version: 5.2.2
+      micro-memoize:
+        specifier: ^4.1.3
+        version: 4.1.3
       ts-pattern:
         specifier: ^5.7.0
         version: 5.7.0
@@ -1195,12 +1198,6 @@ importers:
       '@types/picomatch':
         specifier: ^4.0.0
         version: 4.0.0
-      fast-equals:
-        specifier: ^5.2.2
-        version: 5.2.2
-      micro-memoize:
-        specifier: ^4.1.3
-        version: 4.1.3
       tsup:
         specifier: ^8.4.0
         version: 8.4.0(@swc/core@1.11.20)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)

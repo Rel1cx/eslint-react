@@ -28,4 +28,18 @@
 
 ### re
 
-> **re**: [`RegExp`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+> **re**: `object`
+
+#### test()
+
+> **test**(`s`): `boolean`
+
+##### Parameters
+
+###### s
+
+`string`
+
+##### Returns
+
+`boolean`
