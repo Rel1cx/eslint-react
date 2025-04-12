@@ -18,11 +18,70 @@ react-hooks-extra/no-direct-set-state-in-use-layout-effect
 
 `🧪`
 
+**Presets**
+
+- `recommended`
+- `recommended-typescript`
+- `recommended-type-checked`
+
 ## Description
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
 
-This rule only checks for **direct** calls to the `set` function of `useState` in `useEffect`. It does not check for calls to `set` function in callbacks, event handlers, or `Promise.then` functions.
+Directly setting state in `useLayoutEffect` can lead to:
+
+- **Redundant state**: You might be duplicating derived values that could be computed during render.
+- **Unnecessary effects**: Triggering re-renders that could be avoided.
+- **Confusing logic**: It can make component behavior harder to reason about.
+
+### What counts as a violation?
+
+This is **not allowed**:
+
+```tsx
+useLayoutEffect(() => {
+  setFullName(firstName + " " + lastName);
+}, [firstName, lastName]);
+```
+
+Instead, compute the value during render:
+
+```tsx
+const fullName = firstName + " " + lastName;
+```
+
+### What is allowed?
+
+The rule **does not flag** indirect calls, such as:
+
+- Inside event handlers.
+- Inside `async` functions.
+- Inside `setTimeout`, `setInterval`, `Promise.then`, etc.
+
+### Known limitations
+
+- It doesn’t check `set` calls in `useLayoutEffect` cleanup functions.
+
+  ```tsx {2}
+  useLayoutEffect(() => {
+    return () => {
+      setFullName(firstName + " " + lastName); // ❌ Direct call
+    };
+  }, [firstName, lastName]);
+  ```
+
+- It doesn’t detect `set` calls in `async` functions are being called before or after the `await` statement.
+
+  ```tsx {2}
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      setFullName(data.name); // ❌ Direct call
+    };
+    fetchData();
+  }, []);
+  ```
+
+These limitations may be addressed in the future.
 
 ## Examples
 
@@ -239,13 +298,6 @@ function List({ items }) {
   // ...
 }
 ```
-
-## Known limitations
-
-- The `set` call to `useState` in the `cleanup` function of `useLayoutEffect` will not be checked.
-- The current implementation does not support determining whether a `set` function called in an `async` function is actually at least one `await` after.
-
-The limitation may be lifted in the future.
 
 ## Implementation
 
