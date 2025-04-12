@@ -24,9 +24,10 @@ react-x/no-leaked-conditional-rendering
 
 ## Description
 
-Prevents problematic leaked values from being rendered.
+Prevents bugs caused by rendering values like `0`, `NaN`, or `""` in JSX when using the `&&` operator. These values are falsy in JavaScript, but React may still attempt to render them, leading to:
 
-Using the `&&` operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
+- Unexpected UI output: For example, `{0 && <div />}` renders `0` in the DOM instead of nothing.
+- Crashes in React Native: Rendering `NaN`, `0`, or `""` can cause runtime crashes in versions before React 18.
 
 ## Examples
 
@@ -38,7 +39,7 @@ import React from "react";
 function MyComponent() {
   return <>{0 && <view />}</>;
   //        ^
-  //        - Possible unexpected value will be rendered (React Dom: renders undesired '0', React Native: crashes 💥).
+  //        - Possible unexpected value will be rendered (React DOM: renders undesired '0', React Native: crashes 💥).
 }
 ```
 
@@ -48,7 +49,7 @@ import React from "react";
 function MyComponent() {
   return <>{NaN && <div />}</>;
   //        ^^^
-  //        - Possible unexpected value will be rendered (React Dom: renders undesired 'NaN', React Native: crashes 💥).
+  //        - Possible unexpected value will be rendered (React DOM: renders undesired 'NaN', React Native: crashes 💥).
 }
 ```
 
@@ -58,14 +59,15 @@ import React from "react";
 function MyComponent() {
   return <>{"" && <div />}</>;
   //        ^^
-  //        - Possible unexpected value will be rendered (React Dom: renders nothing, React Native, with React below 18: crashes 💥).
+  //        - Possible unexpected value will be rendered (React DOM: renders nothing, React Native, with React below 18: crashes 💥).
 }
 ```
 
 This can be avoided by:
 
-- coercing the conditional to a boolean: `{!!someValue && <Something />}`
-- transforming the binary expression into a ternary expression which returns null for falsy values: `{someValue ? <Something /> : null}`
+- Coerce the value to a boolean: `{!!someValue && <Component />}`
+- Use a ternary: `{someValue ? <Component /> : null}`
+- Use comparisons: `{someValue > 0 && <Component />}`
 
 ### Failing
 
