@@ -68,7 +68,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
     } as const;
   }
-
   return {
     "JSXElement, JSXFragment": flow(getReportDescriptor, Report.make(context).send),
   };
