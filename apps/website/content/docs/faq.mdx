@@ -8,13 +8,15 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 
 <Accordion title="Why?">
 
-**ESLint React addresses critical gaps of the existing `eslint-plugin-react` in modern React ecosystems**. While named "react", the current plugin implementation specifically targets React DOM and maintains DOM-centric assumptions, creating friction when used with alternative renderers like React Native, React Three Fiber, or custom reconcilers.
+**ESLint React addresses critical gaps of the existing `eslint-plugin-react` in modern React ecosystems**. The current plugin assumes a DOM-centric model, which creates friction when working with alternative renderers like React Native, React Three Fiber, or custom renderers.
 
-Our solution treating DOM as one of many supported targets rather than the default assumption. This paradigm shift enables:
+Key goals of ESLint React include:
 
-- **Context-aware linting**: Adapting to different runtime environments
-- **Future-proof architecture**: Compatibility with emerging React platforms
-- **Unified code quality standards**: Seamless code specification experiences across platforms
+- **Context-aware linting**: It adapts to different runtime environments, ensuring that linting rules are relevant to the specific platform you’re targeting.
+- **Future-proof architecture**: Designed to be compatible with emerging React platforms and technologies.
+- **Unified code quality standards**: It enables consistent linting and code quality enforcement across various React-based projects, regardless of the rendering target.
+
+This makes ESLint React a more flexible and modern alternative for working across diverse React ecosystems.
 
 </Accordion>
 
