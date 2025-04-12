@@ -3,10 +3,10 @@ import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-es
 import type { PartialDeep } from "type-fest";
 import type { CustomHooks, ESLintReactSettings } from "./schemas";
 import { identity } from "@eslint-react/eff";
+import { RE } from "@eslint-react/kit";
 import * as z from "@zod/mini";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";
-import pm from "picomatch";
 
 import { match, P } from "ts-pattern";
 import { getReactVersion } from "./get-react-version";
@@ -16,7 +16,7 @@ export interface CustomComponentNormalized {
   name: string;
   as: string;
   attributes: CustomComponentPropNormalized[];
-  re: RegExp;
+  re: { test(s: string): boolean };
   // selector?: string | _;
 }
 
@@ -99,7 +99,7 @@ export const toNormalizedSettings = memoize(
             name,
             as,
           })),
-        re: pm.makeRe(name, { fastpaths: true }),
+        re: RE.toRegExp(name),
       })),
       additionalHooks,
       importSource,
