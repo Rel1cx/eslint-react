@@ -81,8 +81,6 @@ The rule **does not flag** indirect calls, such as:
   }, []);
   ```
 
-These limitations may be addressed in the future.
-
 ## Examples
 
 The first three cases are common valid use cases because they are not called the `set` function directly in `useEffect`:
