@@ -107,12 +107,18 @@ Linter rules can have false positives, false negatives, and some rules are depen
 
 | Rule                                                               | ✅  | Description                                                      |
 | :----------------------------------------------------------------- | :-- | :--------------------------------------------------------------- |
-| [`no-leaked-event-listener`](./web-api-no-leaked-event-listener)   | 1️⃣  | Prevents leaked `addEventListener` in a component or custom Hook |
-| [`no-leaked-interval`](./web-api-no-leaked-interval)               | 1️⃣  | Prevents leaked `setInterval` in a component or custom Hook      |
-| [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) | 1️⃣  | Prevents leaked `ResizeObserver` in a component or custom Hook   |
-| [`no-leaked-timeout`](./web-api-no-leaked-timeout)                 | 1️⃣  | Prevents leaked `setTimeout` in a component or custom Hook       |
+| [`no-leaked-event-listener`](./web-api-no-leaked-event-listener)   | 1️⃣  | Prevents leaked `addEventListener` in a component or custom hook |
+| [`no-leaked-interval`](./web-api-no-leaked-interval)               | 1️⃣  | Prevents leaked `setInterval` in a component or custom hook      |
+| [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) | 1️⃣  | Prevents leaked `ResizeObserver` in a component or custom hook   |
+| [`no-leaked-timeout`](./web-api-no-leaked-timeout)                 | 1️⃣  | Prevents leaked `setTimeout` in a component or custom hook       |
 
 ## Hooks Extra Rules
+
+<Callout type="info" title="NOTE">
+
+This section contains rules that are not part of the official `eslint-plugin-react-hooks` plugin but are useful for specific use cases or patterns.
+
+</Callout>
 
 | Rule                                                                                                 | ✅  |  🌟  | Description                                                                               |
 | :--------------------------------------------------------------------------------------------------- | :-- | :--: | :---------------------------------------------------------------------------------------- |
@@ -120,7 +126,7 @@ Linter rules can have false positives, false negatives, and some rules are depen
 | [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🧪` | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`            |
 | [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🧪` | Disallow unnecessary usage of `useCallback`                                               |
 | [`no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)                                   | 0️⃣  | `🧪` | Disallow unnecessary usage of `useMemo`                                                   |
-| [`no-unnecessary-use-prefix`](./hooks-extra-no-unnecessary-use-prefix)                               | 1️⃣  |      | Enforces that a function with the `use` prefix should use at least one Hook inside of it  |
+| [`no-unnecessary-use-prefix`](./hooks-extra-no-unnecessary-use-prefix)                               | 1️⃣  |      | Enforces that a function with the `use` prefix should use at least one hook inside of it  |
 | [`prefer-use-state-lazy-initialization`](./hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  |      | Enforces function calls made inside `useState` to be wrapped in an `initializer function` |
 
 ## Naming Convention Rules
@@ -134,6 +140,12 @@ Linter rules can have false positives, false negatives, and some rules are depen
 | [`use-state`](./naming-convention-use-state)                   | 0️⃣  |      | Enforces destructuring and symmetric naming of `useState` hook value and setter |
 
 ## Debug Rules
+
+<Callout type="info" title="TIP">
+
+These rules are useful for static analysis, code transformation, or when building custom tooling that needs to identify specific React patterns.
+
+</Callout>
 
 | Rule                                               | ✅  |  🌟  | Description                                             |
 | :------------------------------------------------- | :-- | :--: | :------------------------------------------------------ |
