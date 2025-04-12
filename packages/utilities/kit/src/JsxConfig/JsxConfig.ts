@@ -41,12 +41,15 @@ export function getFromContext(context: RuleContext) {
   };
 }
 
+const cache = new WeakMap<RuleContext["sourceCode"], JsxConfig>();
+
 /**
  * Get JsxConfig from annotation
  * @param context The RuleContext
  * @returns JsxConfig
  */
 export function getFromAnnotation(context: RuleContext) {
+  if (cache.has(context.sourceCode)) return cache.get(context.sourceCode);
   if (!context.sourceCode.text.includes("@jsx")) return {};
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
   for (const comment of context.sourceCode.getAllComments().reverse()) {
@@ -61,5 +64,6 @@ export function getFromAnnotation(context: RuleContext) {
   if (jsxFrag != null) options.jsxFragmentFactory = jsxFrag;
   if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? JsxEmit.React : JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
+  cache.set(context.sourceCode, options);
   return options;
 }
