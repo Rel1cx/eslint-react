@@ -3,7 +3,7 @@ import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import { _, flow } from "@eslint-react/eff";
-import { createReport, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { Report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -260,7 +260,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       })
       .otherwise(() => _);
   }
-  const visitorFunction = flow(getReportDescriptor, createReport(context));
+  const visitorFunction = flow(getReportDescriptor, Report.make(context).send);
   return {
     "JSXExpressionContainer > ConditionalExpression": visitorFunction,
     "JSXExpressionContainer > LogicalExpression": visitorFunction,
