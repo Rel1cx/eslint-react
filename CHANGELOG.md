@@ -1,3 +1,11 @@
+## v1.45.4 (2025-04-13)
+
+### 🪄 Improvements
+
+- perf: replace `Map` with `WeakMap` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1057
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.45.3...v1.45.4
+
 ## v1.45.3 (2025-04-12)
 
 ### 🪄 Improvements
