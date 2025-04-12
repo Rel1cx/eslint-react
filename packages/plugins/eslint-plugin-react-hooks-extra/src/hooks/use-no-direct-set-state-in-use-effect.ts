@@ -59,10 +59,10 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
 
   const indFunctionCalls: TSESTree.CallExpression[] = [];
-  const indSetStateCalls = new Map<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
-  const indSetStateCallsInUseEffectArg0 = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+  const indSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
+  const indSetStateCallsInUseEffectArg0 = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const indSetStateCallsInUseEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
-  const indSetStateCallsInUseMemoOrCallback = new Map<TSESTree.Node, TSESTree.CallExpression[]>();
+  const indSetStateCallsInUseMemoOrCallback = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
 
   const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
     setupFunctionRef.current = node;

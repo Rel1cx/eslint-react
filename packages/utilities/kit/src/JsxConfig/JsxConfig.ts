@@ -1,5 +1,5 @@
-/* eslint-disable perfectionist/sort-variable-declarations */
 import type { RuleContext } from "../types";
+import { getOrUpdate } from "@eslint-react/eff";
 import { type CompilerOptions, JsxEmit } from "typescript";
 import * as RE from "../RE";
 
@@ -49,21 +49,26 @@ const cache = new WeakMap<RuleContext["sourceCode"], JsxConfig>();
  * @returns JsxConfig
  */
 export function getFromAnnotation(context: RuleContext) {
-  if (cache.has(context.sourceCode)) return cache.get(context.sourceCode);
-  if (!context.sourceCode.text.includes("@jsx")) return {};
-  let jsx, jsxFrag, jsxRuntime, jsxImportSource;
-  for (const comment of context.sourceCode.getAllComments().reverse()) {
-    const value = comment.value;
-    jsx ??= value.match(RE.ANNOTATION_JSX)?.[1];
-    jsxFrag ??= value.match(RE.ANNOTATION_JSX_FRAG)?.[1];
-    jsxRuntime ??= value.match(RE.ANNOTATION_JSX_RUNTIME)?.[1];
-    jsxImportSource ??= value.match(RE.ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
-  }
-  const options = make();
-  if (jsx != null) options.jsxFactory = jsx;
-  if (jsxFrag != null) options.jsxFragmentFactory = jsxFrag;
-  if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? JsxEmit.React : JsxEmit.ReactJSX;
-  if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
-  cache.set(context.sourceCode, options);
-  return options;
+  return getOrUpdate(
+    cache,
+    context.sourceCode,
+    () => {
+      const options = make();
+      if (!context.sourceCode.text.includes("@jsx")) return options;
+      // eslint-disable-next-line perfectionist/sort-variable-declarations
+      let jsx, jsxFrag, jsxRuntime, jsxImportSource;
+      for (const comment of context.sourceCode.getAllComments().reverse()) {
+        const value = comment.value;
+        jsx ??= value.match(RE.ANNOTATION_JSX)?.[1];
+        jsxFrag ??= value.match(RE.ANNOTATION_JSX_FRAG)?.[1];
+        jsxRuntime ??= value.match(RE.ANNOTATION_JSX_RUNTIME)?.[1];
+        jsxImportSource ??= value.match(RE.ANNOTATION_JSX_IMPORT_SOURCE)?.[1];
+      }
+      if (jsx != null) options.jsxFactory = jsx;
+      if (jsxFrag != null) options.jsxFragmentFactory = jsxFrag;
+      if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? JsxEmit.React : JsxEmit.ReactJSX;
+      if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
+      return options;
+    },
+  );
 }

@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { ctx, listeners } = ER.useComponentCollector(context);
-  const constructions = new Map<AST.TSESTreeFunction, VAR.Construction[]>();
+  const constructions = new WeakMap<AST.TSESTreeFunction, VAR.Construction[]>();
 
   return {
     ...listeners,

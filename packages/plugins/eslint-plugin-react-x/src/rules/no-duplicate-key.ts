@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.getText().includes("key=")) {
     return {};
   }
-  const keyedEntries: Map<TSESTree.Node, KeyedEntry> = new Map();
+  const keyedEntries = new Map<TSESTree.Node, KeyedEntry>();
   function isKeyValueEqual(
     a: TSESTree.JSXAttribute,
     b: TSESTree.JSXAttribute,

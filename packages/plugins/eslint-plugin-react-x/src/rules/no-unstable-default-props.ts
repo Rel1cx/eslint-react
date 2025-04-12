@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useComponentCollector(context);
-  const declarators = new Map<
+  const declarators = new WeakMap<
     AST.TSESTreeFunction,
     SEL.ObjectDestructuringVariableDeclarator[]
   >();
