@@ -1,3 +1,11 @@
+## v1.45.3 (2025-04-12)
+
+### 🪄 Improvements
+
+- pref: replace `picomatch.makeRe` with `RE.toRegExp` for pattern matching by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1055
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.45.2...v1.45.3
+
 ## v1.45.2 (2025-04-12)
 
 ### 🪄 Improvements

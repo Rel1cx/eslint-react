@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "1.45.3-beta.0",
+  "version": "1.45.3",
   "description": "ESLint React's plugin kit for building plugins and rules.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
