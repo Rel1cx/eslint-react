@@ -6,41 +6,85 @@
 
 # Function: getOrUpdate()
 
+## Call Signature
+
 > **getOrUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
 
-Retrieves a value from a Map if the key exists, or computes and stores a new value if it doesn't.
+Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
 
-## Type Parameters
+### Type Parameters
 
-### K
+#### K
 
-`K`
+`K` *extends* `WeakKey`
 
-### V
+#### V
 
 `V`
 
-## Parameters
+### Parameters
 
-### map
+#### map
 
-[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`K`, `V`\>
+[`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)\<`K`, `V`\>
 
-The Map to get from or update
+The Map or WeakMap to get from or update
 
-### key
+#### key
 
 `K`
 
-The key to look up in the Map
+The key to look up in the Map or WeakMap
 
-### callback
+#### callback
 
 () => `V`
 
 The function to call to generate a new value if the key doesn't exist
 
-## Returns
+### Returns
+
+`V`
+
+The existing value for the key, or the newly computed value
+
+## Call Signature
+
+> **getOrUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
+
+Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
+
+### Type Parameters
+
+#### K
+
+`K`
+
+#### V
+
+`V`
+
+### Parameters
+
+#### map
+
+[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`K`, `V`\>
+
+The Map or WeakMap to get from or update
+
+#### key
+
+`K`
+
+The key to look up in the Map or WeakMap
+
+#### callback
+
+() => `V`
+
+The function to call to generate a new value if the key doesn't exist
+
+### Returns
 
 `V`
 
