@@ -5,7 +5,7 @@
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare } from "compare-versions";
-import { createReport } from "@eslint-react/kit";
+import { Report } from "@eslint-react/kit";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -1090,7 +1090,7 @@ export default createRule({
 });
 
 export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
-  const report = createReport(context);
+  const report = Report.make(context);
   function getIgnoreConfig() {
     return context.options[0]?.ignore || DEFAULTS.ignore;
   }
@@ -1117,7 +1117,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
 
       if (isValidDataAttribute(name)) {
         if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
-          report({
+          report.send({
             node,
             messageId: "dataLowercaseRequired",
             data: {
@@ -1147,7 +1147,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       if (tagName && allowedTags) {
         // Scenario 1A: Allowed attribute found where not supposed to, report it
         if (allowedTags.indexOf(tagName) === -1) {
-          report({
+          report.send({
             node,
             messageId: "invalidPropOnTag",
             data: {
@@ -1174,7 +1174,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
 
       if (hasStandardNameButIsNotUsed) {
         // Scenario 2B: The name of the attribute is close to a standard one, report it with the standard name
-        report({
+        report.send({
           node,
           messageId: "unknownPropWithStandardName",
           data: {
@@ -1189,7 +1189,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       }
 
       // Scenario 3: We have an attribute that is unknown, report it
-      report({
+      report.send({
         node,
         messageId: "unknownProp",
         data: {
