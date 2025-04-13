@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      classComponent: "[class component] name: {{name}}.",
+      classComponent: "{{json}}",
     },
     schema: [],
   },
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "classComponent",
           node: component,
           data: {
-            name,
+            json: JSON.stringify({ name }),
           },
         });
       }

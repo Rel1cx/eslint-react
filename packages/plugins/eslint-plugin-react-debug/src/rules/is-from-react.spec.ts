@@ -11,9 +11,33 @@ ruleTester.run(RULE_NAME, rule, {
         const identifier = React;
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "react" } },
-        { messageId: "isFromReact", data: { name: "identifier", importSource: "react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({
+              name: "React",
+              importSource: "react",
+            }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({
+              name: "identifier",
+              importSource: "react",
+            }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({
+              name: "React",
+              importSource: "react",
+            }),
+          },
+        },
       ],
     },
     {
@@ -22,9 +46,24 @@ ruleTester.run(RULE_NAME, rule, {
         const identifier = React;
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "identifier", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -38,10 +77,30 @@ ruleTester.run(RULE_NAME, rule, {
         const identifier = React.Children;
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "identifier", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -58,10 +117,30 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -77,9 +156,24 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -96,11 +190,36 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -118,13 +237,48 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "toArr", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "toArray", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "toArr", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "toArray", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -141,11 +295,36 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "toArr", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "toArray", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "toArr", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "toArray", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -159,9 +338,24 @@ ruleTester.run(RULE_NAME, rule, {
         const identifier = React;
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "identifier", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -175,10 +369,30 @@ ruleTester.run(RULE_NAME, rule, {
         const identifier = React.Children;
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "identifier", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -195,10 +409,30 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -214,9 +448,24 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -233,11 +482,36 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Fragment", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -261,13 +535,48 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "React", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "toArr", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "Children", importSource: "@pika/react" } },
-        { messageId: "isFromReact", data: { name: "toArray", importSource: "@pika/react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "toArr", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+          },
+        },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "toArray", importSource: "@pika/react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -286,7 +595,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "Children", importSource: "react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "Children", importSource: "react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -305,7 +619,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "isFromReact", data: { name: "ReactChildren", importSource: "react" } },
+        {
+          messageId: "isFromReact",
+          data: {
+            json: JSON.stringify({ name: "ReactChildren", importSource: "react" }),
+          },
+        },
       ],
       settings: {
         "react-x": {
