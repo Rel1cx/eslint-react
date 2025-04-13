@@ -21,11 +21,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Report all identifiers that are initialized from React.",
+      description: "Reports all identifiers that are initialized from React.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      isFromReact: "[initialized from react] name: '{{name}}', import source: '{{importSource}}'.",
+      isFromReact: "{{json}}",
     },
     schema: [],
   },
@@ -65,9 +65,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       messageId: "isFromReact",
       node,
       data: {
-        type: node.type,
-        name,
-        importSource,
+        json: JSON.stringify({
+          name,
+          importSource,
+        }),
       },
     });
   }

@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      hook: "[hook] name: {{name}}, hookCalls: {{hookCalls}}.",
+      hook: "{{json}}",
     },
     schema: [],
   },
@@ -43,8 +43,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "hook",
           node,
           data: {
-            name,
-            hookCalls: hookCalls.length,
+            json: JSON.stringify({
+              name,
+              hookCalls: hookCalls.length,
+            }),
           },
         });
       }

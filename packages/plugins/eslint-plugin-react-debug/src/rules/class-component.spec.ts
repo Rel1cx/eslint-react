@@ -13,7 +13,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -23,7 +28,12 @@ ruleTester.run(RULE_NAME, rule, {
             }
          };
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ClassComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -41,7 +51,12 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "UnstableNestedClassComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -62,8 +77,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "classComponent" },
-        { messageId: "classComponent" },
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "UnstableNestedClassComponent" }) },
+        },
       ],
     },
     {
@@ -85,8 +106,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "classComponent" },
-        { messageId: "classComponent" },
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "UnstableNestedClassComponent" }) },
+        },
       ],
     },
     {
@@ -105,7 +132,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -123,7 +155,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -141,7 +178,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -159,7 +201,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -173,7 +220,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
     {
       code: tsx`
@@ -194,7 +246,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "classComponent" }],
+      errors: [
+        {
+          messageId: "classComponent",
+          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+        },
+      ],
     },
   ],
   valid: [

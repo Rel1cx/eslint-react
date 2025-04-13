@@ -28,12 +28,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            type: "element",
-            jsx: "react-jsx",
-            jsxFactory: "React.createElement",
-            jsxFragmentFactory: "React.Fragment",
-            jsxImportSource: "react",
-            jsxRuntime: "automatic",
+            json: JSON.stringify({
+              type: "element",
+              jsx: "react-jsx",
+              jsxFactory: "React.createElement",
+              jsxFragmentFactory: "React.Fragment",
+              jsxImportSource: "react",
+              jsxRuntime: "automatic",
+            }),
           },
         },
       ],
@@ -51,12 +53,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            type: "element",
-            jsx: "react",
-            jsxFactory: "Preact.h",
-            jsxFragmentFactory: "Preact.Fragment",
-            jsxImportSource: "preact",
-            jsxRuntime: "classic",
+            json: JSON.stringify({
+              type: "element",
+              jsx: "react",
+              jsxFactory: "Preact.h",
+              jsxFragmentFactory: "Preact.Fragment",
+              jsxImportSource: "preact",
+              jsxRuntime: "classic",
+            }),
           },
         },
       ],
@@ -71,12 +75,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            type: "element",
-            jsx: "react",
-            jsxFactory: "React.createElement",
-            jsxFragmentFactory: "React.Fragment",
-            jsxImportSource: "react",
-            jsxRuntime: "classic",
+            json: JSON.stringify({
+              type: "element",
+              jsx: "react",
+              jsxFactory: "React.createElement",
+              jsxFragmentFactory: "React.Fragment",
+              jsxImportSource: "react",
+              jsxRuntime: "classic",
+            }),
           },
         },
       ],

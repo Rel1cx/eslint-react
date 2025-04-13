@@ -16,8 +16,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useToggle",
-            hookCalls: 1,
+            json: JSON.stringify({
+              name: "useToggle",
+              hookCalls: 1,
+            }),
           },
         },
       ],
@@ -33,8 +35,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useSorted",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useSorted",
+              hookCalls: 0,
+            }),
           },
         },
       ],
@@ -55,15 +59,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useToggle",
-            hookCalls: 1,
+            json: JSON.stringify({
+              name: "useToggle",
+              hookCalls: 1,
+            }),
           },
         },
         {
           messageId: "hook",
           data: {
-            name: "useSorted",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useSorted",
+              hookCalls: 0,
+            }),
           },
         },
       ],
@@ -86,8 +94,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useClassnames",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useClassnames",
+              hookCalls: 0,
+            }),
           },
         },
       ],
@@ -110,8 +120,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useClassnames",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useClassnames",
+              hookCalls: 0,
+            }),
           },
         },
       ],
@@ -131,15 +143,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useNestedHook",
-            hookCalls: 1,
+            json: JSON.stringify({
+              name: "useNestedHook",
+              hookCalls: 1,
+            }),
           },
         },
         {
           messageId: "hook",
           data: {
-            name: "useInnerHook",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useInnerHook",
+              hookCalls: 0,
+            }),
           },
         },
       ],
@@ -159,15 +175,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useNestedHook",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useNestedHook",
+              hookCalls: 0,
+            }),
           },
         },
         {
           messageId: "hook",
           data: {
-            name: "useInnerHook",
-            hookCalls: 1,
+            json: JSON.stringify({
+              name: "useInnerHook",
+              hookCalls: 1,
+            }),
           },
         },
       ],
@@ -187,8 +207,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            name: "useNestedHook",
-            hookCalls: 0,
+            json: JSON.stringify({
+              name: "useNestedHook",
+              hookCalls: 0,
+            }),
           },
         },
       ],

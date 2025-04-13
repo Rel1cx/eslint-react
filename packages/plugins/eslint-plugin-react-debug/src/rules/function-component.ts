@@ -21,8 +21,8 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      functionComponent:
-        "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}, displayName: {{displayName}}.",
+      functionComponent: "{{json}}",
+      // "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}, displayName: {{displayName}}.",
     },
     schema: [],
   },
@@ -49,11 +49,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "functionComponent",
           node,
           data: {
-            name,
-            displayName: displayName != null ? context.sourceCode.getText(displayName) : "none",
-            forwardRef: (flag & ER.ComponentFlag.ForwardRef) > 0n,
-            hookCalls: hookCalls.length,
-            memo: (flag & ER.ComponentFlag.Memo) > 0n,
+            json: JSON.stringify({
+              name,
+              displayName: displayName == null
+                ? "none"
+                : context.sourceCode.getText(displayName),
+              forwardRef: (flag & ER.ComponentFlag.ForwardRef) > 0n,
+              hookCalls: hookCalls.length,
+              memo: (flag & ER.ComponentFlag.Memo) > 0n,
+            }),
           },
         });
       }
