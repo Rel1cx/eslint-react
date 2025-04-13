@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       for (const lazy of lazyComponentDeclarations) {
         const significantParent = AST.findParentNode(lazy, (n) => {
-          if (ER.isJSX(n)) return true;
+          if (AST.isJSX(n)) return true;
           if (n.type === T.CallExpression) {
             return ER.isReactHookCall(n) || ER.isCreateElementCall(context, n) || ER.isCreateContextCall(context, n);
           }

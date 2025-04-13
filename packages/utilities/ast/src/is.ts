@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TSESTree } from "@typescript-eslint/utils";
 import { or } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -70,9 +69,14 @@ export const isJSXElement = is(T.JSXElement);
 
 export const isJSXFragment = is(T.JSXFragment);
 
+export const isJSXTagNameExpression = isOneOf([
+  T.JSXIdentifier,
+  T.JSXMemberExpression,
+  T.JSXNamespacedName,
+]);
+
 export const isJSX = isOneOf([
   T.JSXAttribute,
-  T.JSXSpreadChild,
   T.JSXClosingElement,
   T.JSXClosingFragment,
   T.JSXElement,
@@ -87,12 +91,6 @@ export const isJSX = isOneOf([
   T.JSXSpreadAttribute,
   T.JSXSpreadChild,
   T.JSXText,
-]);
-
-export const isJSXTagNameExpression = isOneOf([
-  T.JSXIdentifier,
-  T.JSXMemberExpression,
-  T.JSXNamespacedName,
 ]);
 
 export const isDestructuringPattern = isOneOf([

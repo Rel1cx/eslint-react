@@ -31,7 +31,6 @@
 - [EffectKind](type-aliases/EffectKind.md)
 - [HookKind](type-aliases/HookKind.md)
 - [JSXDetectionHint](type-aliases/JSXDetectionHint.md)
-- [TSESTreeJSX](type-aliases/TSESTreeJSX.md)
 
 ## Variables
 
@@ -63,7 +62,6 @@
 - [isForwardRef](variables/isForwardRef.md)
 - [isForwardRefCall](variables/isForwardRefCall.md)
 - [isInversePhase](variables/isInversePhase.md)
-- [isJSX](variables/isJSX.md)
 - [isLazy](variables/isLazy.md)
 - [isLazyCall](variables/isLazyCall.md)
 - [isMemo](variables/isMemo.md)
