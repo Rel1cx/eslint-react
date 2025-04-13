@@ -2,9 +2,8 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as JSX from "@eslint-react/jsx";
-import { getSettingsFromContext } from "@eslint-react/shared";
 
-import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
+import { createJsxElementResolver, createRule, findCustomComponent, findCustomComponentProp } from "../utils";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
@@ -56,23 +55,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const settings = getSettingsFromContext(context);
-  const polymorphicPropName = settings.polymorphicPropName;
-  const additionalComponents = settings.additionalComponents.filter((c) => c.as === "iframe");
+  const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
-        context,
-        node,
-        polymorphicPropName,
-        additionalComponents,
-      );
-
-      if (elementNameOnDom !== "iframe") return;
-
+      const { attributes, domElementType } = resolver.resolve(node);
+      if (domElementType !== "iframe") return;
       const elementScope = context.sourceCode.getScope(node);
-      const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
-      const customComponentProp = findCustomComponentProp("sandbox", customComponent?.attributes ?? []);
+      const customComponentProp = findCustomComponentProp("sandbox", attributes);
       const propNameOnJsx = customComponentProp?.name ?? "sandbox";
       const attributeNode = JSX.getAttribute(
         propNameOnJsx,

@@ -4,9 +4,8 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { _ } from "@eslint-react/eff";
 import * as JSX from "@eslint-react/jsx";
-import { getSettingsFromContext } from "@eslint-react/shared";
 
-import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
+import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
@@ -45,24 +44,15 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const settings = getSettingsFromContext(context);
-  const polymorphicPropName = settings.polymorphicPropName;
-  const additionalComponents = settings.additionalComponents.filter((c) => c.as === "a");
-
+  const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node: TSESTree.JSXElement) {
-      const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
-        context,
-        node,
-        polymorphicPropName,
-        additionalComponents,
-      );
-      if (elementNameOnDom !== "a") return;
+      const { attributes, domElementType } = resolver.resolve(node);
+      if (domElementType !== "a") return;
       const elementScope = context.sourceCode.getScope(node);
-      const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
 
       const getAttributeStringValue = (name: string) => {
-        const customComponentProp = findCustomComponentProp(name, customComponent?.attributes ?? []);
+        const customComponentProp = findCustomComponentProp(name, attributes);
         const propNameOnJsx = customComponentProp?.name ?? name;
         const attributeNode = JSX.getAttribute(
           propNameOnJsx,
