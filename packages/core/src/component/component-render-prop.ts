@@ -1,8 +1,8 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
-import * as JSX from "@eslint-react/jsx";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { isJsxLike, JSXDetectionHint } from "../jsx";
 
 /**
  * Unsafe check whether given node is a render function
@@ -25,13 +25,13 @@ export function isRenderFunctionLoose(context: RuleContext, node: AST.TSESTreeFu
       && parent.parent.name.type === T.JSXIdentifier
       && parent.parent.name.name.startsWith("render");
   }
-  return JSX.isJsxLike(
+  return isJsxLike(
     context.sourceCode,
     body,
-    JSX.JSXDetectionHint.SkipNullLiteral
-      | JSX.JSXDetectionHint.SkipUndefined
-      | JSX.JSXDetectionHint.StrictLogical
-      | JSX.JSXDetectionHint.StrictConditional,
+    JSXDetectionHint.SkipNullLiteral
+      | JSXDetectionHint.SkipUndefined
+      | JSXDetectionHint.StrictLogical
+      | JSXDetectionHint.StrictConditional,
   );
 }
 

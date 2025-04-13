@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as JSX from "@eslint-react/jsx";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      const elementName = JSX.getElementType(node);
+      const elementName = ER.getElementType(context, node);
       if (elementName.length === 0 || !voidElements.has(elementName)) {
         return;
       }
@@ -66,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
-      const hasAttribute = (name: string) => JSX.hasAttribute(name, attributes, initialScope);
+      const hasAttribute = (name: string) => ER.hasAttribute(context, name, attributes, initialScope);
       if (hasAttribute("children") || hasAttribute("dangerouslySetInnerHTML")) {
         // e.g. <br children="Foo" />
         context.report({

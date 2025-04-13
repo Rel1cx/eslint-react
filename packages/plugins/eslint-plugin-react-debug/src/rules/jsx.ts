@@ -1,7 +1,7 @@
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import * as ER from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
 import { JsxConfig, Report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
@@ -41,14 +41,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...jsxConfigFromAnnotation,
   };
 
-  function getReportDescriptor(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-    return {
+  function getReportDescriptor(context: RuleContext) {
+    return (node: TSESTree.JSXElement | TSESTree.JSXFragment) => ({
       messageId: "jsx",
       node,
       data: {
         json: JSON.stringify({
           type: match(node)
-            .with({ type: T.JSXElement }, (n) => JSX.isFragmentElement(n) ? "fragment" : "element")
+            .with({ type: T.JSXElement }, (n) => ER.isFragmentElement(context, n) ? "fragment" : "element")
             .with({ type: T.JSXFragment }, () => "fragment")
             .exhaustive(),
           jsx: match(jsxConfig.jsx)
@@ -67,9 +67,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             .otherwise(() => "classic"),
         }),
       },
-    } as const;
+    } as const);
   }
   return {
-    "JSXElement, JSXFragment": flow(getReportDescriptor, Report.make(context).send),
+    "JSXElement, JSXFragment": flow(getReportDescriptor(context), Report.make(context).send),
   };
 }

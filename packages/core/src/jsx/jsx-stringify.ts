@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @param node The JSX node
  * @returns The stringified representation
  */
-export function toString(
+export function stringifyJsx(
   node:
     | TSESTree.JSXIdentifier
     | TSESTree.JSXMemberExpression
@@ -23,13 +23,13 @@ export function toString(
     case T.JSXNamespacedName:
       return `${node.namespace.name}:${node.name.name}`;
     case T.JSXMemberExpression:
-      return `${toString(node.object)}.${toString(node.property)}`;
+      return `${stringifyJsx(node.object)}.${stringifyJsx(node.property)}`;
     case T.JSXText:
       return node.value;
     case T.JSXOpeningElement:
-      return `<${toString(node.name)}>`;
+      return `<${stringifyJsx(node.name)}>`;
     case T.JSXClosingElement:
-      return `</${toString(node.name)}>`;
+      return `</${stringifyJsx(node.name)}>`;
     case T.JSXOpeningFragment:
       return "<>";
     case T.JSXClosingFragment:

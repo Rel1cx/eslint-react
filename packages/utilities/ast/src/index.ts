@@ -20,6 +20,6 @@ export * from "./is-node-equal";
 export * from "./is-process-env-node-env";
 export * from "./is-process-env-node-env-compare";
 export * from "./is-this-expression";
-export * from "./to-readable-node-name";
+export * from "./stringify";
 export * from "./to-readable-node-type";
 export type * from "./types";

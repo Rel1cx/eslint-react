@@ -2,7 +2,7 @@ import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isUseEffectCallLoose } from "./is";
+import { isUseEffectCallLoose } from "./hook-is";
 
 export function isFunctionOfUseEffectSetup(node: TSESTree.Node | _) {
   if (node == null) return false;

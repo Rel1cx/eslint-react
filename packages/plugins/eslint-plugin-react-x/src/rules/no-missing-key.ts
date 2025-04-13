@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import * as JSX from "@eslint-react/jsx";
+
 import { Report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     switch (node.type) {
       case T.JSXElement: {
         const initialScope = context.sourceCode.getScope(node);
-        if (!JSX.hasAttribute("key", node.openingElement.attributes, initialScope)) {
+        if (!ER.hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
           return {
             messageId: "missingKey",
             node,
@@ -103,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
-        if (!JSX.hasAttribute("key", element.openingElement.attributes, initialScope)) {
+        if (!ER.hasAttribute(context, "key", element.openingElement.attributes, initialScope)) {
           report.send({
             messageId: "missingKey",
             node: element,

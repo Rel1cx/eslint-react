@@ -4,7 +4,6 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import * as JSX from "@eslint-react/jsx";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
@@ -153,7 +152,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  */
 function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
   return node.parent.type === T.JSXAttribute
-    || JSX.findParentAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
+    || ER.findParentAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
 }
 
 /**

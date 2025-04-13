@@ -7,17 +7,17 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @param getText A function that returns the text of the node in the source code
  * @returns Human readable node name
  */
-export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
+export function stringify(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
   switch (node.type) {
     case T.CallExpression:
-      return toReadableNodeName(node.callee, getText);
+      return stringify(node.callee, getText);
     case T.Identifier:
     case T.PrivateIdentifier:
       return node.name;
     case T.JSXIdentifier:
       return `<${node.name}>`;
     case T.JSXMemberExpression:
-      return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
+      return `${stringify(node.object, getText)}.${stringify(node.property, getText)}`;
     case T.JSXNamespacedName:
       return `${node.namespace.name}:${node.name.name}`;
     case T.JSXText:
@@ -25,7 +25,7 @@ export function toReadableNodeName(node: TSESTree.Node, getText: (node: TSESTree
     case T.Literal:
       return node.raw;
     case T.MemberExpression:
-      return `${toReadableNodeName(node.object, getText)}.${toReadableNodeName(node.property, getText)}`;
+      return `${stringify(node.object, getText)}.${stringify(node.property, getText)}`;
     default:
       return getText(node);
   }

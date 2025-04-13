@@ -29,7 +29,6 @@ flowchart TB
             subgraph "Utilities Modules"
                 AST["AST Module"]:::utilities
                 Eff["Eff Module"]:::utilities
-                JSX["JSX Module"]:::utilities
                 Kit["Kit Module"]:::utilities
                 Var["Var Module"]:::utilities
             end
@@ -69,13 +68,11 @@ flowchart TB
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
     Eff ---|"provides"| Core
-    JSX ---|"provides"| Core
     Kit ---|"provides"| Core
     Var ---|"provides"| Core
 
     AST ---|"provides"| ReactX
     Eff ---|"provides"| ReactX
-    JSX ---|"provides"| ReactX
     Kit ---|"provides"| ReactX
     Var ---|"provides"| ReactX
 
@@ -95,7 +92,6 @@ flowchart TB
     Scripts -->|"CI/CD"| Shared
     Scripts -->|"CI/CD"| AST
     Scripts -->|"CI/CD"| Eff
-    Scripts -->|"CI/CD"| JSX
     Scripts -->|"CI/CD"| Kit
     Scripts -->|"CI/CD"| Var
     Scripts -->|"CI/CD"| ReactX
@@ -113,7 +109,6 @@ flowchart TB
     click Shared "https://github.com/rel1cx/eslint-react/tree/main/packages/shared"
     click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/ast"
     click Eff "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/eff"
-    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/jsx"
     click Kit "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/kit"
     click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/var"
     click ReactX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
@@ -148,7 +143,6 @@ This section provides a summary of the packages in the monorepo.
   - `packages/utilities/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library)
   - `packages/utilities/ast`: TSESTree AST utility module for static analysis
   - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
-  - `packages/utilities/jsx`: TSESTree AST utility module for static analysis of JSX
   - `packages/utilities/kit`: ESLint React's plugin kit for building plugins and rules
 - **Core & Shared**
   - `packages/core`: Utility module for static analysis of React core APIs and patterns

@@ -1,8 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as JSX from "@eslint-react/jsx";
-
+import * as ER from "@eslint-react/core";
 import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
@@ -34,17 +33,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { attributes, domElementType } = resolver.resolve(node);
       if (domElementType !== "button") return;
-      const elementScope = context.sourceCode.getScope(node);
       const customComponentProp = findCustomComponentProp("type", attributes);
       const propNameOnJsx = customComponentProp?.name ?? "type";
-      const attributeNode = JSX.getAttribute(
+      const attributeNode = ER.getAttribute(
+        context,
         propNameOnJsx,
         node.openingElement.attributes,
-        elementScope,
+        context.sourceCode.getScope(node),
       );
       if (attributeNode != null) {
-        const attributeScope = context.sourceCode.getScope(attributeNode);
-        const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
+        const attributeValue = ER.getAttributeValue(
+          context,
+          attributeNode,
+          propNameOnJsx,
+        );
         if (attributeValue.kind === "some" && typeof attributeValue.value !== "string") {
           context.report({
             messageId: "noMissingButtonType",

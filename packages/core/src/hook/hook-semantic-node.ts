@@ -2,7 +2,7 @@ import type * as AST from "@eslint-react/ast";
 import type { _ } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { SemanticNode } from "../semantic-node";
+import type { SemanticNode } from "../semantic";
 
 /* eslint-disable perfectionist/sort-interfaces */
 export interface Hook extends SemanticNode {

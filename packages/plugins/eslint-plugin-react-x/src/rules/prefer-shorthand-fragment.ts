@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as JSX from "@eslint-react/jsx";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node: TSESTree.JSXElement) {
-      if (!JSX.isFragmentElement(node)) return;
+      if (!ER.isFragmentElement(context, node)) return;
       const hasAttributes = node.openingElement.attributes.length > 0;
       if (hasAttributes) {
         return;

@@ -700,9 +700,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../utilities/kit
@@ -804,9 +801,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../utilities/kit
@@ -865,9 +859,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../utilities/kit
@@ -926,9 +917,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../utilities/kit
@@ -987,9 +975,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../utilities/kit
@@ -1048,9 +1033,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../utilities/kit
@@ -1106,9 +1088,6 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../utilities/eff
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../../utilities/jsx
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../utilities/kit
@@ -1234,37 +1213,6 @@ importers:
         version: 8.4.0(@swc/core@1.11.20)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)
 
   packages/utilities/eff:
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../../.pkgs/configs
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(@swc/core@1.11.20)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)
-
-  packages/utilities/jsx:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../ast
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../eff
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../var
-      '@typescript-eslint/scope-manager':
-        specifier: ^8.29.1
-        version: 8.29.1
-      '@typescript-eslint/types':
-        specifier: ^8.29.1
-        version: 8.29.1
-      '@typescript-eslint/utils':
-        specifier: ^8.29.1
-        version: 8.29.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
-      ts-pattern:
-        specifier: ^5.7.0
-        version: 5.7.0
     devDependencies:
       '@local/configs':
         specifier: workspace:*
