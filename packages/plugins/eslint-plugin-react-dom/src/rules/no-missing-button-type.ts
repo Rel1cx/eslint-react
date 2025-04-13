@@ -2,9 +2,8 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as JSX from "@eslint-react/jsx";
-import { getSettingsFromContext } from "@eslint-react/shared";
 
-import { createRule, findCustomComponent, findCustomComponentProp, getElementTypeOnJsxAndDom } from "../utils";
+import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -30,24 +29,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const settings = getSettingsFromContext(context);
-  const polymorphicPropName = settings.polymorphicPropName;
-  const additionalComponents = settings.additionalComponents.filter((c) => c.as === "button");
-
+  const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const [elementNameOnJsx, elementNameOnDom] = getElementTypeOnJsxAndDom(
-        context,
-        node,
-        polymorphicPropName,
-        additionalComponents,
-      );
-
-      if (elementNameOnDom !== "button") return;
-
+      const { attributes, domElementType } = resolver.resolve(node);
+      if (domElementType !== "button") return;
       const elementScope = context.sourceCode.getScope(node);
-      const customComponent = findCustomComponent(elementNameOnJsx, additionalComponents);
-      const customComponentProp = findCustomComponentProp("type", customComponent?.attributes ?? []);
+      const customComponentProp = findCustomComponentProp("type", attributes);
       const propNameOnJsx = customComponentProp?.name ?? "type";
       const attributeNode = JSX.getAttribute(
         propNameOnJsx,
