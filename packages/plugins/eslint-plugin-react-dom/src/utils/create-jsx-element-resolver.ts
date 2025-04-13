@@ -1,6 +1,7 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
-import * as JSX from "@eslint-react/jsx";
+
+import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 
 export function createJsxElementResolver(context: RuleContext) {
@@ -10,7 +11,7 @@ export function createJsxElementResolver(context: RuleContext) {
   } = getSettingsFromContext(context);
   return {
     resolve(node: TSESTree.JSXElement) {
-      const name = JSX.getElementType(node);
+      const name = ER.getElementType(context, node);
       const component = additionalComponents
         .findLast((c) => c.name === name || c.re.test(name));
       const result = {
@@ -22,16 +23,17 @@ export function createJsxElementResolver(context: RuleContext) {
         return result;
       }
       const initialScope = context.sourceCode.getScope(node);
-      const polymorphicPropAttr = JSX.getAttribute(
+      const polymorphicPropAttr = ER.getAttribute(
+        context,
         polymorphicPropName,
         node.openingElement.attributes,
         initialScope,
       );
       if (polymorphicPropAttr != null) {
-        const polymorphicPropValue = JSX.getAttributeValue(
+        const polymorphicPropValue = ER.getAttributeValue(
+          context,
           polymorphicPropAttr,
           polymorphicPropName,
-          initialScope,
         );
         if (polymorphicPropValue.kind === "some" && typeof polymorphicPropValue.value === "string") {
           return {

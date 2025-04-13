@@ -1,7 +1,7 @@
 import type { RuleFeature } from "@eslint-react/kit";
 import type { RuleContext, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as JSX from "@eslint-react/jsx";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "avoidShorthandBoolean",
           node,
           data: {
-            propName: JSX.getAttributeName(node),
+            propName: ER.getAttributeName(context, node),
           },
           fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
         });

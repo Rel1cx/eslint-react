@@ -4,10 +4,10 @@ import { type RuleContext } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../utils";
+import { isClassComponent } from "./component-is";
 import { isComponentDidMount, isComponentWillUnmount } from "./component-lifecycle";
 import { isRenderLike } from "./component-render";
 import { isRenderMethodLike } from "./component-render-method";
-import { isClassComponent } from "./is";
 
 /**
  * Determines whether inside `createElement`'s children.

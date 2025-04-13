@@ -5,7 +5,7 @@ import { _ } from "@eslint-react/eff";
 
 import { getId } from "@eslint-react/shared";
 import { ComponentFlag } from "./component-flag";
-import { isClassComponent, isPureComponent } from "./is";
+import { isClassComponent, isPureComponent } from "./component-is";
 
 export declare namespace useComponentCollectorLegacy {
   type ReturnType = {

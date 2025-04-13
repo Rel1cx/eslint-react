@@ -2,8 +2,9 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+import * as ER from "@eslint-react/core";
+
 import { _ } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
 
 import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
 
@@ -54,14 +55,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const getAttributeStringValue = (name: string) => {
         const customComponentProp = findCustomComponentProp(name, attributes);
         const propNameOnJsx = customComponentProp?.name ?? name;
-        const attributeNode = JSX.getAttribute(
+        const attributeNode = ER.getAttribute(
+          context,
           propNameOnJsx,
           node.openingElement.attributes,
           elementScope,
         );
         if (attributeNode == null) return customComponentProp?.defaultValue;
-        const attributeScope = context.sourceCode.getScope(attributeNode);
-        const attributeValue = JSX.getAttributeValue(attributeNode, propNameOnJsx, attributeScope);
+        const attributeValue = ER.getAttributeValue(context, attributeNode, propNameOnJsx);
         if (attributeValue.kind === "some" && typeof attributeValue.value === "string") {
           return attributeValue.value;
         }

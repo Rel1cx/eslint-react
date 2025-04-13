@@ -14,7 +14,7 @@ Hints for component collector
 
 ### None
 
-> `readonly` **None**: `0n`
+> `readonly` **None**: `0n` = `0n`
 
 ### SkipArrayMapArgument
 

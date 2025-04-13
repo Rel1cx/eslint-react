@@ -2,7 +2,9 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as JSX from "@eslint-react/jsx";
+
+import * as ER from "@eslint-react/core";
+
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -36,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
       const initialScope = context.sourceCode.getScope(node);
-      const keyPropFound = JSX.getAttribute("key", node.attributes, initialScope);
+      const keyPropFound = ER.getAttribute(context, "key", node.attributes, initialScope);
       const keyPropOnElement = node.attributes
         .some((n) =>
           n.type === T.JSXAttribute

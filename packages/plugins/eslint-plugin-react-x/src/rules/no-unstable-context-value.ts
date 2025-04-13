@@ -3,7 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
+
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     ...listeners,
     JSXOpeningElement(node) {
-      const fullName = JSX.getElementType(node.parent);
+      const fullName = ER.getElementType(context, node.parent);
       const selfName = fullName.split(".").at(-1);
       if (selfName == null) return;
       if (!isContextName(selfName, isReact18OrBelow)) return;

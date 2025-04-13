@@ -4,7 +4,6 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import * as JSX from "@eslint-react/jsx";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
@@ -66,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       for (const lazy of lazyComponentDeclarations) {
         const significantParent = AST.findParentNode(lazy, (n) => {
-          if (JSX.isJSX(n)) return true;
+          if (ER.isJSX(n)) return true;
           if (n.type === T.CallExpression) {
             return ER.isReactHookCall(n) || ER.isCreateElementCall(context, n) || ER.isCreateContextCall(context, n);
           }

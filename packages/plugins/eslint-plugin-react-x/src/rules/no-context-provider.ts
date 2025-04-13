@@ -2,7 +2,7 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
-import * as JSX from "@eslint-react/jsx";
+
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
 
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compare(version, "19.0.0", "<")) return {};
   return {
     JSXElement(node) {
-      const fullName = JSX.getElementType(node);
+      const fullName = ER.getElementType(context, node);
       const parts = fullName.split(".");
       const selfName = parts.pop();
       const contextFullName = parts.join(".");

@@ -1,5 +1,6 @@
 /* eslint-disable perfectionist/sort-objects */
-import * as JSX from "@eslint-react/jsx";
+
+import { JSXDetectionHint } from "../jsx";
 
 export type ComponentDetectionHint = bigint;
 
@@ -10,7 +11,7 @@ export const ComponentDetectionHint = {
   /**
    * 1n << 0n - 1n << 63n are reserved for JSXDetectionHint
    */
-  ...JSX.JSXDetectionHint,
+  ...JSXDetectionHint,
   /**
    * Skip function component created by React.memo
    */

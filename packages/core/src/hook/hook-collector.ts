@@ -3,8 +3,8 @@ import type { Hook } from "./hook-semantic-node";
 import * as AST from "@eslint-react/ast";
 
 import { getId } from "@eslint-react/shared";
+import { isReactHookCall } from "./hook-is";
 import { isReactHookName } from "./hook-name";
-import { isReactHookCall } from "./is";
 
 type FunctionEntry = {
   key: string;

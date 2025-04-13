@@ -4,12 +4,12 @@ import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
-import * as JSX from "@eslint-react/jsx";
 import { type RuleContext, SEL } from "@eslint-react/kit";
 import { getId } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isReactHookCall } from "../hook";
+import { isJsxLike } from "../jsx";
 import { isValidComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
@@ -73,7 +73,7 @@ export function useComponentCollector(
       .some((r) => {
         return context.sourceCode.getScope(r).block === entry.node
           && r.argument != null
-          && !JSX.isJsxLike(context.sourceCode, r.argument, hint);
+          && !isJsxLike(context.sourceCode, r.argument, hint);
       });
     if (shouldDrop) {
       components.delete(entry.key);
@@ -100,7 +100,7 @@ export function useComponentCollector(
       if (entry == null) return;
       const { body } = entry.node;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && JSX.isJsxLike(context.sourceCode, body, hint)
+        && isJsxLike(context.sourceCode, body, hint)
         && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
@@ -149,7 +149,7 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && JSX.isJsxLike(context.sourceCode, node.argument, hint)
+        && isJsxLike(context.sourceCode, node.argument, hint)
         && isValidComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;

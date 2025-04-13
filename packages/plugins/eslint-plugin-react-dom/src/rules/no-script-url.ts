@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as JSX from "@eslint-react/jsx";
+import * as ER from "@eslint-react/core";
 import { RE } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -40,9 +40,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.name.type !== T.JSXIdentifier || node.value == null) {
         return;
       }
-      const attributeScope = context.sourceCode.getScope(node);
-      const attributeName = JSX.getAttributeName(node);
-      const attributeValue = JSX.getAttributeValue(node, attributeName, attributeScope);
+      const attributeName = ER.getAttributeName(context, node);
+      const attributeValue = ER.getAttributeValue(context, node, attributeName);
       if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
       if (RE.JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
         context.report({

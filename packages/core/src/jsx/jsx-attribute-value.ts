@@ -1,4 +1,4 @@
-import type { Scope } from "@typescript-eslint/scope-manager";
+import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -6,16 +6,17 @@ import { match, P } from "ts-pattern";
 
 /**
  * Get a StaticValue of the attribute value
+ * @param context The rule context
  * @param node The JSX attribute node
  * @param name The name of the attribute
- * @param initialScope The initial scope to use
  * @returns The StaticValue of the attribute value
  */
 export function getAttributeValue(
+  context: RuleContext,
   node: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
   name: string,
-  initialScope: Scope,
 ): Exclude<VAR.LazyValue, { kind: "lazy" }> {
+  const initialScope = context.sourceCode.getScope(node);
   switch (node.type) {
     case T.JSXAttribute:
       if (node.value?.type === T.Literal) {

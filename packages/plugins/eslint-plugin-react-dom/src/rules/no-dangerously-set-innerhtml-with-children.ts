@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import * as JSX from "@eslint-react/jsx";
+import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 
@@ -38,8 +38,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const attributes = node.openingElement.attributes;
       const initialScope = context.sourceCode.getScope(node);
-      const hasChildren = hasChildrenWithin(node) || JSX.hasAttribute("children", attributes, initialScope);
-      if (hasChildren && JSX.hasAttribute("dangerouslySetInnerHTML", attributes, initialScope)) {
+      const hasChildren = hasChildrenWithin(node) || ER.hasAttribute(context, "children", attributes, initialScope);
+      if (hasChildren && ER.hasAttribute(context, "dangerouslySetInnerHTML", attributes, initialScope)) {
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",
           node,

@@ -2,7 +2,9 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
-import * as JSX from "@eslint-react/jsx";
+
+import * as ER from "@eslint-react/core";
+
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -57,7 +59,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   const { allowExpressions = true } = option;
   return {
     JSXElement(node) {
-      if (!JSX.isFragmentElement(node)) return;
+      if (!ER.isFragmentElement(context, node)) return;
       checkNode(context, node, allowExpressions);
     },
     JSXFragment(node) {
@@ -81,7 +83,7 @@ function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * @returns boolean
  */
 function isPaddingSpaces(node: TSESTree.Node) {
-  return JSX.isJsxText(node)
+  return ER.isJsxText(node)
     && isWhiteSpace(node)
     && node.raw.includes("\n");
 }
@@ -103,11 +105,11 @@ function checkNode(
 ) {
   const initialScope = context.sourceCode.getScope(node);
   // return if the fragment is keyed (e.g. <Fragment key={key}>)
-  if (JSX.isKeyedElement(node, initialScope)) {
+  if (ER.isKeyedElement(context, node, initialScope)) {
     return;
   }
   // report if the fragment is placed inside a host component (e.g. <div><></></div>)
-  if (JSX.isHostElement(node.parent)) {
+  if (ER.isHostElement(context, node.parent)) {
     context.report({
       messageId: "uselessFragment",
       node,
@@ -135,7 +137,7 @@ function checkNode(
     case allowExpressions
       && !isChildElement
       && node.children.length === 1
-      && JSX.isJsxText(node.children.at(0)): {
+      && ER.isJsxText(node.children.at(0)): {
       return;
     }
     // <Foo><>hello, world</></Foo>
@@ -188,7 +190,7 @@ function checkNode(
 }
 
 function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-  if (!canFix(node)) return null;
+  if (!canFix(context, node)) return null;
   return (fixer: RuleFixer) => {
     const opener = node.type === T.JSXFragment ? node.openingFragment : node.openingElement;
     const closer = node.type === T.JSXFragment ? node.closingFragment : node.closingElement;
@@ -201,10 +203,10 @@ function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFr
   };
 }
 
-function canFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+function canFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (node.parent.type === T.JSXElement || node.parent.type === T.JSXFragment) {
     // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
-    return JSX.isHostElement(node.parent);
+    return ER.isHostElement(context, node.parent);
   }
   // Not safe to fix fragments without a jsx parent.
   // const a = <></>
@@ -213,7 +215,7 @@ function canFix(node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   }
   // dprint-ignore
   // const a = <>{meow}</>
-  if (node.children.some((child) => (JSX.isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child))) {
+  if (node.children.some((child) => (ER.isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child))) {
     return false;
   }
   return true;
