@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.47.0 (2025-04-14)
+
+### 🪄 Improvements
+
+- refactor: remove `@eslint-react/jsx` package and move functionality to `@eslint-react/core` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1060
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.46.0...v1.47.0
+
 ## v1.46.0 (2025-04-13)
 
 ### ✨ New
