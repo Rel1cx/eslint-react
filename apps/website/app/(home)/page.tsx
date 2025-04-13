@@ -9,7 +9,7 @@ const features = [
   ["Performant", "Built with performance in mind, optimized for large codebases.", Gauge],
   [
     "Context-aware Linting",
-    "Rules that understand the context of your code and project settings to provide more accurate linting.",
+    "Rules that understand the context of your code and project configuration to provide more accurate linting.",
     CircleDotDashed,
   ],
 ] as const;
