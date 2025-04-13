@@ -1,3 +1,11 @@
+## v1.46.0 (2025-04-13)
+
+### ✨ New
+
+- feat: use json for diagnostic output format of debug rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1058
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.45.3...v1.45.4
+
 ## v1.45.4 (2025-04-13)
 
 ### 🪄 Improvements
