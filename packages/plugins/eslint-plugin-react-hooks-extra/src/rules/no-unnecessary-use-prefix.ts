@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...listeners,
     "Program:exit"(program) {
       const allHooks = ctx.getAllHooks(program);
-      for (const { name, node, hookCalls } of allHooks.values()) {
+      for (const { id, name, node, hookCalls } of allHooks.values()) {
         // Skip empty functions
         if (AST.isEmptyFunction(node)) {
           continue;
@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         context.report({
           messageId: "noUnnecessaryUsePrefix",
-          node,
+          node: id ?? node,
           data: {
             name,
           },

@@ -30,6 +30,10 @@
       "mode": "auto"
     }
   ],
+  "eslint.rules.customizations": [
+    { "rule": "@eslint-react/debug/*", "severity": "info" },
+    { "rule": "@eslint-react/hooks-extra/no-unnecessary-use-prefix", "severity": "info" }
+  ],
   "files.exclude": {
     "**/.zed": true,
     "*.bundled_*.mjs": true
