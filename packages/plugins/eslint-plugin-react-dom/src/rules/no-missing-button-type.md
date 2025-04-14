@@ -60,7 +60,7 @@ function MyComponent() {
 
 ## Further Reading
 
-- [MDN: button - notes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#notes)
+- [MDN `button` notes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#notes)
 
 ---
 

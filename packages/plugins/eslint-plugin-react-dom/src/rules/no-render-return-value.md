@@ -60,7 +60,7 @@ ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 
 ## Further Reading
 
-- [React: react-dom/render](https://18.react.dev/reference/react-dom/render)
+- [React DOM `render`](https://18.react.dev/reference/react-dom/render)
 
 ---
 

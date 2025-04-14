@@ -63,9 +63,9 @@ function Editor() {
 
 ## Further Reading
 
-- [React: APIs Lazy](https://react.dev/reference/react/lazy)
+- [React `Lazy`](https://react.dev/reference/react/lazy)
   - [My lazy component’s state gets reset unexpectedly](https://react.dev/reference/react/lazy#my-lazy-components-state-gets-reset-unexpectedly)
-- [React: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+- [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
 
 ---
 

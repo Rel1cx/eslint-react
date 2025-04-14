@@ -71,9 +71,9 @@ function MyComponent() {
 
 ## Further Reading
 
-- [MDN: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
-- [MDN: clearTimeout](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)
-- [React: synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
+- [MDN: `setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+- [MDN: `clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)
+- [React Docs: Synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
 
 ---
 

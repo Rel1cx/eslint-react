@@ -64,7 +64,7 @@ When a child component needs some data from a parent, [pass it by props](https:/
 
 ## Further Reading
 
-- [React: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+- [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
 
 ---
 

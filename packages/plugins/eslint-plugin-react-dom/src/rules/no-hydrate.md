@@ -57,8 +57,8 @@ hydrateRoot(document.getElementById("app"), <Component />);
 
 ## Further Reading
 
-- [React: react-dom/hydrate](https://18.react.dev/reference/react-dom/hydrate)
-- [React: react-dom/createRoot](https://react.dev/reference/react-dom/client/hydrateRoot)
+- [React DOM `hydrate`](https://18.react.dev/reference/react-dom/hydrate)
+- [React DOM `createRoot`](https://react.dev/reference/react-dom/client/hydrateRoot)
 
 ---
 

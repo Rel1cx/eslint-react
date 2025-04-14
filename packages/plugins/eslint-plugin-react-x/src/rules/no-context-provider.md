@@ -72,7 +72,7 @@ function App({ children }) {
 
 ## Further Reading
 
-- [React: `<Context>` as a provider](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider)
+- [React Blog: `<Context>` as a provider](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider)
 
 ---
 

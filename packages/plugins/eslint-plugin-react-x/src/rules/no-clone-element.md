@@ -50,4 +50,4 @@ console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye
 
 ## Further Reading
 
-- [React: Legacy React APIs cloneElement](https://react.dev/reference/react/cloneElement)
+- [Legacy React APIs `cloneElement`](https://react.dev/reference/react/cloneElement)

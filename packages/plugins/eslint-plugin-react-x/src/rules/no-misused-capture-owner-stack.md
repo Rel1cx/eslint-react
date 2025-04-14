@@ -73,6 +73,6 @@ if (process.env.NODE_ENV !== "production") {
 
 ## Further Reading
 
-- [React: APIs `captureOwnerStack`](https://react.dev/reference/react/captureOwnerStack)
+- [React `captureOwnerStack`](https://react.dev/reference/react/captureOwnerStack)
   - [The Owner Stack is `null`](https://react.dev/reference/react/captureOwnerStack#the-owner-stack-is-null)
   - [`captureOwnerStack` is not available](https://react.dev/reference/react/captureOwnerStack#captureownerstack-is-not-available)

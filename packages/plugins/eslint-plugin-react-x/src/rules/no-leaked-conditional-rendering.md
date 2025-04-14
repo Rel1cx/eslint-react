@@ -251,7 +251,7 @@ function MyComponent({ items }: MyComponentProps) {
 
 ## Further Reading
 
-- [React: Conditional Rendering](https://react.dev/learn/conditional-rendering)
+- [React Docs: Conditional Rendering](https://react.dev/learn/conditional-rendering)
 
 ---
 

@@ -72,7 +72,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 
 ## Further Reading
 
-- [React: Legacy React APIs componentWillMount](https://react.dev/reference/react/Component#componentwillmount)
+- [Legacy React APIs `componentWillMount`](https://react.dev/reference/react/Component#componentwillmount)
 
 ---
 

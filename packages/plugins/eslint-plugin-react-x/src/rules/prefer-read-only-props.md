@@ -81,4 +81,4 @@ function MyComponent(props: Props) {
 
 ## Further Reading
 
-- [React: passing-props-to-a-component#recap](https://react.dev/learn/passing-props-to-a-component#recap)
+- [React Docs: Passing props to a component](https://react.dev/learn/passing-props-to-a-component#recap)
