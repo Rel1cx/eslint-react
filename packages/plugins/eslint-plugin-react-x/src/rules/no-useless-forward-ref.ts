@@ -1,7 +1,7 @@
+// Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-// Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       context.report({
         messageId: "noUselessForwardRef",
-        node: component,
+        node: node.callee,
       });
     },
   };

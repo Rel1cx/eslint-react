@@ -39,31 +39,17 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("useContext")) return {};
   const settings = getSettingsFromContext(context);
-  const useContextAlias = new Set<string>();
   if (compare(settings.version, "19.0.0", "<")) {
     return {};
   }
+  const useContextNames = new Set<string>();
+  const hookCalls = new Set<TSESTree.CallExpression>();
   return {
     CallExpression(node) {
       if (!ER.isReactHookCall(node)) {
         return;
       }
-      if (!ER.isReactHookCallWithNameAlias(context, "useContext", [...useContextAlias])(node)) {
-        return;
-      }
-      context.report({
-        messageId: "noUseContext",
-        node: node.callee,
-        fix(fixer) {
-          switch (node.callee.type) {
-            case T.Identifier:
-              return fixer.replaceText(node.callee, "use");
-            case T.MemberExpression:
-              return fixer.replaceText(node.callee.property, "use");
-          }
-          return null;
-        },
-      });
+      hookCalls.add(node);
     },
     ImportDeclaration(node) {
       if (node.source.value !== settings.importSource) {
@@ -78,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // import { useContext as useCtx } from 'react'
           if (specifier.local.name !== "useContext") {
             // add alias to useContextAlias to keep track of it in future call expressions
-            useContextAlias.add(specifier.local.name);
+            useContextNames.add(specifier.local.name);
           }
           context.report({
             messageId: "noUseContext",
@@ -91,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                   ...tokenBefore?.value === ","
                     ? [fixer.replaceTextRange([tokenBefore.range[1], specifier.range[0]], "")]
                     : [],
-                  ...getAssociatedTokens(
+                  ...getCorrelativeTokens(
                     context,
                     specifier,
                   ).map((token) => fixer.remove(token)),
@@ -103,26 +89,45 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
     },
+    "Program:exit"() {
+      const isUseContextCall = ER.isReactHookCallWithNameAlias(context, "useContext", [...useContextNames]);
+      for (const node of hookCalls) {
+        if (!isUseContextCall(node)) {
+          continue;
+        }
+        context.report({
+          messageId: "noUseContext",
+          node: node.callee,
+          fix(fixer) {
+            switch (node.callee.type) {
+              case T.Identifier:
+                return fixer.replaceText(node.callee, "use");
+              case T.MemberExpression:
+                return fixer.replaceText(node.callee.property, "use");
+            }
+            return null;
+          },
+        });
+      }
+    },
   };
 }
 
-function getAssociatedTokens(context: RuleContext, node: TSESTree.Node) {
-  {
-    const tokenBefore = context.sourceCode.getTokenBefore(node);
-    const tokenAfter = context.sourceCode.getTokenAfter(node);
-    const tokens = [];
+function getCorrelativeTokens(context: RuleContext, node: TSESTree.Node) {
+  const tokenBefore = context.sourceCode.getTokenBefore(node);
+  const tokenAfter = context.sourceCode.getTokenAfter(node);
+  const tokens = [];
 
-    // If this is not the only entry, then the line above this one
-    // will become the last line, and should not have a trailing comma.
-    if (tokenAfter?.value !== "," && tokenBefore?.value === ",") {
-      tokens.push(tokenBefore);
-    }
-
-    // If this is not the last entry, then we need to remove the comma from this line.
-    if (tokenAfter?.value === ",") {
-      tokens.push(tokenAfter);
-    }
-
-    return tokens;
+  // If this is not the only entry, then the line above this one
+  // will become the last line, and should not have a trailing comma.
+  if (tokenAfter?.value !== "," && tokenBefore?.value === ",") {
+    tokens.push(tokenBefore);
   }
+
+  // If this is not the last entry, then we need to remove the comma from this line.
+  if (tokenAfter?.value === ",") {
+    tokens.push(tokenAfter);
+  }
+
+  return tokens;
 }

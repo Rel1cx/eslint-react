@@ -39,13 +39,14 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("use")) return {};
   const alias = getSettingsFromContext(context).additionalHooks.useMemo ?? [];
+  const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", alias);
   return {
     CallExpression(node) {
       if (!ER.isReactHookCall(node)) {
         return;
       }
       const initialScope = context.sourceCode.getScope(node);
-      if (!ER.isUseMemoCall(context, node) && !alias.some(ER.isReactHookCallWithNameLoose(node))) {
+      if (!isUseMemoCall(node)) {
         return;
       }
       const scope = context.sourceCode.getScope(node);

@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!hasDisplayNameAssignment) {
           context.report({
             messageId: "noMissingContextDisplayName",
-            node: call,
+            node: id,
           });
         }
       }

@@ -38,15 +38,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
       const initialScope = context.sourceCode.getScope(node);
-      const keyPropFound = ER.getAttribute(context, "key", node.attributes, initialScope);
-      const keyPropOnElement = node.attributes
+      const keyProp = ER.getAttribute(context, "key", node.attributes, initialScope);
+      const isKeyPropOnElement = node.attributes
         .some((n) =>
           n.type === T.JSXAttribute
           && n.name.type === T.JSXIdentifier
           && n.name.name === "key"
         );
-      if (keyPropFound != null && !keyPropOnElement) {
-        context.report({ messageId: "noImplicitKey", node: keyPropFound });
+      if (keyProp != null && !isKeyPropOnElement) {
+        context.report({ messageId: "noImplicitKey", node: keyProp });
       }
     },
   };

@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       context.report({
         messageId: "preferShorthandBoolean",
-        node,
+        node: node.value ?? node,
         data: {
           propName,
         },
