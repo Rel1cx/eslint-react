@@ -34,8 +34,10 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+const hydrate = "hydrate";
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("hydrate")) return {};
+  if (!context.sourceCode.text.includes(hydrate)) return {};
   const settings = getSettingsFromContext(context);
   if (compare(settings.version, "18.0.0", "<")) return {};
 
@@ -56,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case node.callee.type === T.MemberExpression
           && node.callee.object.type === T.Identifier
           && node.callee.property.type === T.Identifier
-          && node.callee.property.name === "hydrate"
+          && node.callee.property.name === hydrate
           && reactDomNames.has(node.callee.object.name):
           context.report({
             messageId: "noHydrate",
@@ -73,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         switch (specifier.type) {
           case T.ImportSpecifier:
             if (specifier.imported.type !== T.Identifier) continue;
-            if (specifier.imported.name === "hydrate") {
+            if (specifier.imported.name === hydrate) {
               hydrateNames.add(specifier.local.name);
             }
             continue;

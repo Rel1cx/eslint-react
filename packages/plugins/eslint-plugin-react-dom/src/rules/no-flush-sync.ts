@@ -28,19 +28,21 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+const flushSync = "flushSync";
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("flushSync")) return {};
+  if (!context.sourceCode.text.includes(flushSync)) return {};
   return {
     CallExpression(node) {
       const { callee } = node;
       switch (callee.type) {
         case T.Identifier:
-          if (callee.name === "flushSync") {
+          if (callee.name === flushSync) {
             context.report({ messageId: "noFlushSync", node });
           }
           return;
         case T.MemberExpression:
-          if (callee.property.type === T.Identifier && callee.property.name === "flushSync") {
+          if (callee.property.type === T.Identifier && callee.property.name === flushSync) {
             context.report({ messageId: "noFlushSync", node });
           }
           return;

@@ -1,7 +1,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as AST from "@eslint-react/ast";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -18,7 +17,7 @@ const banParentTypes = [
   T.ReturnStatement,
   T.ArrowFunctionExpression,
   T.AssignmentExpression,
-] as const;
+];
 
 export default createRule<[], MessageID>({
   meta: {
@@ -28,7 +27,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noRenderReturnValue: "Do not depend on the return value from '{{objectName}}.render'.",
+      noRenderReturnValue: "Do not depend on the return value from 'ReactDOM.render'.",
     },
     schema: [],
   },
@@ -38,34 +37,50 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const reactDomNames = new Set<string>(["ReactDOM", "ReactDom"]);
+  const renderNames = new Set<string>();
+
   return {
     CallExpression(node) {
-      const { callee, parent } = node;
-      if (callee.type !== T.MemberExpression) {
-        return;
+      switch (true) {
+        case node.callee.type === T.Identifier
+          && renderNames.has(node.callee.name)
+          && banParentTypes.includes(node.parent.type):
+          context.report({
+            messageId: "noRenderReturnValue",
+            node,
+          });
+          return;
+        case node.callee.type === T.MemberExpression
+          && node.callee.object.type === T.Identifier
+          && node.callee.property.type === T.Identifier
+          && node.callee.property.name === "render"
+          && reactDomNames.has(node.callee.object.name)
+          && banParentTypes.includes(node.parent.type):
+          context.report({
+            messageId: "noRenderReturnValue",
+            node,
+          });
+          return;
       }
-      if (callee.object.type !== T.Identifier) {
-        return;
+    },
+    ImportDeclaration(node) {
+      const [baseSource] = node.source.value.split("/");
+      if (baseSource !== "react-dom") return;
+      for (const specifier of node.specifiers) {
+        switch (specifier.type) {
+          case T.ImportSpecifier:
+            if (specifier.imported.type !== T.Identifier) continue;
+            if (specifier.imported.name === "render") {
+              renderNames.add(specifier.local.name);
+            }
+            continue;
+          case T.ImportDefaultSpecifier:
+          case T.ImportNamespaceSpecifier:
+            reactDomNames.add(specifier.local.name);
+            continue;
+        }
       }
-      if (!("name" in callee.object)) {
-        return;
-      }
-      const objectName = callee.object.name;
-      if (
-        objectName.toLowerCase() !== "reactdom"
-        || callee.property.type !== T.Identifier
-        || callee.property.name !== "render"
-        || !AST.isOneOf(banParentTypes)(parent)
-      ) {
-        return;
-      }
-      context.report({
-        messageId: "noRenderReturnValue",
-        node,
-        data: {
-          objectName,
-        },
-      });
     },
   };
 }

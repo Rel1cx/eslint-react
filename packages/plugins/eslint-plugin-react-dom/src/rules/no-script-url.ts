@@ -40,8 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.name.type !== T.JSXIdentifier || node.value == null) {
         return;
       }
-      const attributeName = ER.getAttributeName(context, node);
-      const attributeValue = ER.getAttributeValue(context, node, attributeName);
+      const attributeValue = ER.getAttributeValue(context, node, ER.getAttributeName(context, node));
       if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
       if (RE.JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
         context.report({

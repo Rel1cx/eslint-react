@@ -29,15 +29,16 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+const dangerouslySetInnerHTML = "dangerouslySetInnerHTML";
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
+  if (!context.sourceCode.text.includes(dangerouslySetInnerHTML)) return {};
   return {
     JSXElement(node) {
-      const attributes = node.openingElement.attributes;
       const attribute = ER.getAttribute(
         context,
-        "dangerouslySetInnerHTML",
-        attributes,
+        dangerouslySetInnerHTML,
+        node.openingElement.attributes,
         context.sourceCode.getScope(node),
       );
       if (attribute == null) return;
