@@ -24,10 +24,9 @@ react-x/no-leaked-conditional-rendering
 
 ## Description
 
-Prevents bugs caused by rendering values like `0`, `NaN`, or `""` in JSX when using the `&&` operator. These values are falsy in JavaScript, but React may still attempt to render them, leading to:
+Prevents problematic leaked values from being rendered.
 
-- Unexpected UI output: For example, `{0 && <div />}` renders `0` in the DOM instead of nothing.
-- Crashes in React Native: Rendering `NaN`, `0`, or `""` can cause runtime crashes in versions before React 18.
+Using the `&&` operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
 
 ## Examples
 
