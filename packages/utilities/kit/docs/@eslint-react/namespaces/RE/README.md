@@ -17,6 +17,7 @@
 - [COMPONENT\_NAME\_LOOSE](variables/COMPONENT_NAME_LOOSE.md)
 - [CONSTANT\_CASE](variables/CONSTANT_CASE.md)
 - [HOOK\_NAME](variables/HOOK_NAME.md)
+- [HTML\_TAG](variables/HTML_TAG.md)
 - [JAVASCRIPT\_PROTOCOL](variables/JAVASCRIPT_PROTOCOL.md)
 - [JS\_EXT](variables/JS_EXT.md)
 - [JS\_IDENTIFIER](variables/JS_IDENTIFIER.md)
