@@ -1,3 +1,11 @@
+## v1.47.2 (2025-04-14)
+
+### 🐞 Fixes
+
+- fix: use smaller error marker range to reduce visual noise by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1064
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.47.1...v1.47.2
+
 ## v1.47.1 (2025-04-14)
 
 ### 🐞 Fixes
