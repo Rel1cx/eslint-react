@@ -32,14 +32,16 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+const dangerouslySetInnerHTML = "dangerouslySetInnerHTML";
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
+  if (!context.sourceCode.text.includes(dangerouslySetInnerHTML)) return {};
   return {
     JSXElement(node) {
       const attributes = node.openingElement.attributes;
       const initialScope = context.sourceCode.getScope(node);
       const hasChildren = hasChildrenWithin(node) || ER.hasAttribute(context, "children", attributes, initialScope);
-      if (hasChildren && ER.hasAttribute(context, "dangerouslySetInnerHTML", attributes, initialScope)) {
+      if (hasChildren && ER.hasAttribute(context, dangerouslySetInnerHTML, attributes, initialScope)) {
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",
           node,

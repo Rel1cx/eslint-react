@@ -28,19 +28,21 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+const findDOMNode = "findDOMNode";
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("findDOMNode")) return {};
+  if (!context.sourceCode.text.includes(findDOMNode)) return {};
   return {
     CallExpression(node) {
       const { callee } = node;
       switch (callee.type) {
         case T.Identifier:
-          if (callee.name === "findDOMNode") {
+          if (callee.name === findDOMNode) {
             context.report({ messageId: "noFindDomNode", node });
           }
           return;
         case T.MemberExpression:
-          if (callee.property.type === T.Identifier && callee.property.name === "findDOMNode") {
+          if (callee.property.type === T.Identifier && callee.property.name === findDOMNode) {
             context.report({ messageId: "noFindDomNode", node });
           }
           return;

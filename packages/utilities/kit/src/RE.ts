@@ -1,4 +1,9 @@
 /**
+ * Regular expressions for matching a HTML tag name
+ */
+export const HTML_TAG = /^[a-z][^-]*$/u;
+
+/**
  * Regular expression for matching a TypeScript file extension.
  */
 export const TS_EXT = /^[cm]?tsx?$/u;

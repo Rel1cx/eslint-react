@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const settings = getSettingsFromContext(context);
   if (compare(settings.version, "18.0.0", "<")) return {};
 
-  const reactDomNames = new Set<string>();
+  const reactDomNames = new Set<string>(["ReactDOM", "ReactDom"]);
   const renderNames = new Set<string>();
 
   return {
