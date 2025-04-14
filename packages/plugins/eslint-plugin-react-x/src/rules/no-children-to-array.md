@@ -52,7 +52,7 @@ function MyComponent({ children }: MyComponentProps) {
 
 ## Further Reading
 
-- [React: Legacy React APIs Children](https://react.dev/reference/react/Children)
+- [Legacy React APIs `Children`](https://react.dev/reference/react/Children)
 
 ---
 

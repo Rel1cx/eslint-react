@@ -188,7 +188,13 @@ import { useEffect } from "react";
 
 function MyComponent() {
   useEffect(() => {
-    const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+    const events = [
+      "mousemove",
+      "mousedown",
+      "keydown",
+      "scroll",
+      "touchstart",
+    ];
     const handleActivity = () => {};
 
     events.forEach((event) => {
@@ -254,7 +260,7 @@ function useCustomHook() {
 
 ## Further Reading
 
-- [MDN: EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
-- [MDN: EventTarget.removeEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
-- [React: Subscribing to events](https://react.dev/learn/synchronizing-with-effects#subscribing-to-events)
-- [React: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)
+- [MDN: `EventTarget.addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+- [MDN: `EventTarget.removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
+- [React Docs: Subscribing to events](https://react.dev/learn/synchronizing-with-effects#subscribing-to-events)
+- [React Docs: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)

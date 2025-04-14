@@ -76,4 +76,4 @@ class AutoSelectingInput extends Component {
 
 ## Further Reading
 
-- [React DOM: APIs findDOMNode](https://react.dev/reference/react-dom/findDOMNode)
+- [React DOM `findDOMNode`](https://react.dev/reference/react-dom/findDOMNode)

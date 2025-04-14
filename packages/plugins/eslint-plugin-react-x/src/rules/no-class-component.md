@@ -88,4 +88,4 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 
 ## Further Reading
 
-- [React: Legacy React APIs Component](https://react.dev/reference/react/Component)
+- [Legacy React APIs `Component`](https://react.dev/reference/react/Component)

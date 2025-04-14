@@ -48,4 +48,4 @@ flushSync(() => {
 
 ## Further Reading
 
-- [React DOM: APIs flushSync](https://react.dev/reference/react-dom/flushSync)
+- [React DOM `flushSync`](https://react.dev/reference/react-dom/flushSync)

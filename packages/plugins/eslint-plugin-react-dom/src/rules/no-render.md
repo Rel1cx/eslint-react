@@ -56,8 +56,8 @@ createRoot(document.getElementById("app")).render(<Component />);
 
 ## Further Reading
 
-- [React: react-dom/render](https://18.react.dev/reference/react-dom/render)
-- [React: react-dom/createRoot](https://react.dev/reference/react-dom/client/createRoot)
+- [React DOM `render`](https://18.react.dev/reference/react-dom/render)
+- [React DOM `createRoot`](https://react.dev/reference/react-dom/client/createRoot)
 
 ---
 

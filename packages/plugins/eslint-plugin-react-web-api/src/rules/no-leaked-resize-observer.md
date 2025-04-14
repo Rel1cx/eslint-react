@@ -75,5 +75,5 @@ function MyComponent() {
 
 ## Further Reading
 
-- [MDN: ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
-- [React: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)
+- [MDN: `ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
+- [React Docs: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)

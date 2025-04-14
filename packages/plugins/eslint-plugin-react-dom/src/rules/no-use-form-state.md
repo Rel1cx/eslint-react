@@ -78,4 +78,4 @@ function StatefulForm({}) {
 
 ## Further Reading
 
-- [React: useActionState](https://react.dev/reference/react/useActionState)
+- [React `useActionState` Hook](https://react.dev/reference/react/useActionState)

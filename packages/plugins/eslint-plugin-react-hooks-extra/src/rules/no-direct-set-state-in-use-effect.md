@@ -94,7 +94,7 @@ export default function Counter() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const handler = () => setCount(c => c + 1);
+    const handler = () => setCount((c) => c + 1);
     window.addEventListener("click", handler);
     return () => window.removeEventListener("click", handler);
   }, []);
@@ -113,7 +113,7 @@ export default function Counter() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCount(c => c + 1);
+      setCount((c) => c + 1);
     }, 1000);
     return () => clearInterval(intervalId);
   }, []);
@@ -133,8 +133,8 @@ export default function RemoteContent() {
   useEffect(() => {
     let discarded = false;
     fetch("https://eslint-react.xyz/content")
-      .then(resp => resp.text())
-      .then(text => {
+      .then((resp) => resp.text())
+      .then((text) => {
         if (discarded) return;
         setContent(text);
       });
@@ -207,7 +207,10 @@ import { useMemo, useState } from "react";
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState("");
   // ✅ Does not re-run getFilteredTodos() unless todos or filter change
-  const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
+  const visibleTodos = useMemo(
+    () => getFilteredTodos(todos, filter),
+    [todos, filter],
+  );
   // ...
 }
 ```
@@ -234,12 +237,7 @@ export default function ProfilePage({ userId }) {
 import { useState } from "react";
 
 export default function ProfilePage({ userId }) {
-  return (
-    <Profile
-      userId={userId}
-      key={userId}
-    />
-  );
+  return <Profile userId={userId} key={userId} />;
 }
 
 function Profile({ userId }) {
@@ -292,7 +290,7 @@ function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   // ✅ Best: Calculate everything during rendering
-  const selection = items.find(item => item.id === selectedId) ?? null;
+  const selection = items.find((item) => item.id === selectedId) ?? null;
   // ...
 }
 ```
@@ -304,9 +302,9 @@ function List({ items }) {
 
 ## Further Reading
 
-- [React: useState](https://react.dev/reference/react/useState#setstate)
-- [React: useEffect](https://react.dev/reference/react/useEffect)
-- [React: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+- [React `useState` Hook](https://react.dev/reference/react/useState)
+- [React `useEffect` Hook](https://react.dev/reference/react/useEffect)
+- [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 
 ---
 

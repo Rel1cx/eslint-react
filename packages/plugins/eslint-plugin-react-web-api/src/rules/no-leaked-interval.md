@@ -71,9 +71,9 @@ function MyComponent() {
 
 ## Further Reading
 
-- [MDN: setInterval](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)
-- [MDN: clearInterval](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)
-- [React: synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
+- [MDN: `setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)
+- [MDN: `clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)
+- [React Docs: Synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)
 
 ---
 

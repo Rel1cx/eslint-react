@@ -152,6 +152,6 @@ const cat = <>meow</>
 
 ## Further Reading
 
-- [React: Fragment](https://react.dev/reference/react/Fragment)
-- [React: Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)
-- [clemmy/react_state_preservation_behavior](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b)
+- [React `Fragment`](https://react.dev/reference/react/Fragment)
+- [React Docs: Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)
+- [GitHub Gist: `clemmy/react_state_preservation_behavior`](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b)

@@ -64,7 +64,7 @@ class MyComponent extends React.Component {
 
 ## Further Reading
 
-- [React: Legacy React APIs componentWillReceiveProps](https://react.dev/reference/react/Component#componentwillreceiveprops)
+- [Legacy React APIs `componentWillReceiveProps`](https://react.dev/reference/react/Component#componentwillreceiveprops)
 
 ---
 

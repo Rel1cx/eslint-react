@@ -63,7 +63,11 @@ function MyComponent() {
 import React from "react";
 
 function MyComponent() {
-  return <ul>{["a", "b"].map((id) => <li key="1">{id}</li>)}</ul>;
+  return (
+    <ul>
+      {["a", "b"].map((id) => <li key="1">{id}</li>)}
+    </ul>
+  );
   //                                     ^^^^^^^
   //                                     - A key must be unique. 'key="1"' is duplicated.
 }
@@ -99,7 +103,11 @@ function MyComponent() {
 import React from "react";
 
 function MyComponent() {
-  return <ul>{["a", "b"].map((id) => <li key={id}>{id}</li>)}</ul>;
+  return (
+    <ul>
+      {["a", "b"].map((id) => <li key={id}>{id}</li>)}
+    </ul>
+  );
 }
 ```
 
@@ -110,7 +118,7 @@ function MyComponent() {
 
 ## Further Reading
 
-- [React: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+- [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
 
 ---
 
