@@ -2,10 +2,11 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as ER from "@eslint-react/core";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { snakeCase } from "string-ts";
-import { match } from "ts-pattern";
 
+import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "use-state";
@@ -35,27 +36,44 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
+  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", alias);
   return {
-    "CallExpression[callee.name='useState']"(node: TSESTree.CallExpression) {
+    CallExpression(node: TSESTree.CallExpression) {
+      if (!isUseStateCall(node)) {
+        return;
+      }
       if (node.parent.type !== T.VariableDeclarator) {
-        context.report({ messageId: "missingDestructuring", node });
+        context.report({
+          messageId: "missingDestructuring",
+          node,
+        });
         return;
       }
       const id = ER.getInstanceId(node);
       if (id?.type !== T.ArrayPattern) {
-        context.report({ messageId: "missingDestructuring", node });
+        context.report({
+          messageId: "missingDestructuring",
+          node: id ?? node,
+        });
         return;
       }
       const [value, setter] = id.elements;
       if (value == null || setter == null) {
-        context.report({ messageId: "missingDestructuring", node });
+        context.report({
+          messageId: "missingDestructuring",
+          node: id,
+        });
         return;
       }
       const setterName = match(setter)
         .with({ type: T.Identifier }, (id) => id.name)
         .otherwise(() => null);
       if (setterName == null || !setterName.startsWith("set")) {
-        context.report({ messageId: "invalidSetterNaming", node });
+        context.report({
+          messageId: "invalidSetterNaming",
+          node: setter,
+        });
         return;
       }
       const valueName = match(value)
@@ -70,8 +88,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return values.join("_");
         })
         .otherwise(() => null);
-      if (valueName == null || `set_${valueName}` !== snakeCase(setterName)) {
-        context.report({ messageId: "invalidSetterNaming", node });
+      if (valueName == null) {
+        context.report({
+          messageId: "invalidSetterNaming",
+          node: value,
+        });
+        return;
+      }
+      if (snakeCase(setterName) !== `set_${valueName}`) {
+        context.report({
+          messageId: "invalidSetterNaming",
+          node: setter,
+        });
         return;
       }
     },

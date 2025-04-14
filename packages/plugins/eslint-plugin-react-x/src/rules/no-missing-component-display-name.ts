@@ -55,9 +55,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         if (displayName == null) {
+          const id = AST.getFunctionIdentifier(node);
           context.report({
             messageId: "noMissingComponentDisplayName",
-            node,
+            node: id ?? node,
           });
         }
       }

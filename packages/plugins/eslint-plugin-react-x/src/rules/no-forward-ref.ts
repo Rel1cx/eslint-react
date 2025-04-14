@@ -50,9 +50,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!ER.isForwardRefCall(context, node)) {
         return;
       }
+      const id = AST.getFunctionIdentifier(node);
       context.report({
         messageId: "noForwardRef",
-        node,
+        node: id ?? node,
         fix: getFix(context, node),
       });
     },

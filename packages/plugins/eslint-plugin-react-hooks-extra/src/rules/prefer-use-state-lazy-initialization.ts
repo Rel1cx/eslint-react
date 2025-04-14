@@ -1,7 +1,7 @@
+// Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-// Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -43,14 +43,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("use")) return {};
   const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
+  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", alias);
   return {
     CallExpression(node) {
       if (!ER.isReactHookCall(node)) {
         return;
       }
-      if (!ER.isUseStateCall(context, node) && !alias.some(ER.isReactHookCallWithNameLoose(node))) {
+      if (!isUseStateCall(node)) {
         return;
       }
       const [useStateInput] = node.arguments;
