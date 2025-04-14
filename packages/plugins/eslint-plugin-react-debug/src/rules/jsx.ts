@@ -6,7 +6,7 @@ import { JsxConfig, Report, type RuleContext, type RuleFeature } from "@eslint-r
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
 import { JsxEmit } from "typescript";
-import { createRule } from "../utils";
+import { createRule, stringify } from "../utils";
 
 export const RULE_NAME = "jsx";
 
@@ -46,11 +46,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       messageId: "jsx",
       node,
       data: {
-        json: JSON.stringify({
-          type: match(node)
+        json: stringify({
+          kind: match(node)
             .with({ type: T.JSXElement }, (n) => ER.isFragmentElement(context, n) ? "fragment" : "element")
             .with({ type: T.JSXFragment }, () => "fragment")
             .exhaustive(),
+          type: ER.getElementType(context, node),
           jsx: match(jsxConfig.jsx)
             .with(JsxEmit.None, () => "none")
             .with(JsxEmit.ReactJSX, () => "react-jsx")

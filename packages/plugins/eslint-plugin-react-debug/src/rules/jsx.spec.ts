@@ -4,6 +4,7 @@ import tsx from "dedent";
 import { JsxEmit } from "typescript";
 import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit } from "../../../../../test";
 
+import { stringify } from "../utils";
 import rule, { RULE_NAME } from "./jsx";
 
 const ruleTester = new RuleTester({
@@ -28,8 +29,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            json: JSON.stringify({
-              type: "element",
+            json: stringify({
+              kind: "element",
+              type: "div",
               jsx: "react-jsx",
               jsxFactory: "React.createElement",
               jsxFragmentFactory: "React.Fragment",
@@ -53,8 +55,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            json: JSON.stringify({
-              type: "element",
+            json: stringify({
+              kind: "element",
+              type: "div",
               jsx: "react",
               jsxFactory: "Preact.h",
               jsxFragmentFactory: "Preact.Fragment",
@@ -75,8 +78,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "jsx",
           data: {
-            json: JSON.stringify({
-              type: "element",
+            json: stringify({
+              kind: "element",
+              type: "div",
               jsx: "react",
               jsxFactory: "React.createElement",
               jsxFragmentFactory: "React.Fragment",

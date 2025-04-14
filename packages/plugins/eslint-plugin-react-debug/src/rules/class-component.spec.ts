@@ -1,6 +1,7 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
+import { stringify } from "../utils";
 import rule, { RULE_NAME } from "./class-component";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -16,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
@@ -31,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ClassComponent" }) },
+          data: { json: stringify({ name: "ClassComponent" }) },
         },
       ],
     },
@@ -54,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "UnstableNestedClassComponent" }) },
+          data: { json: stringify({ name: "UnstableNestedClassComponent" }) },
         },
       ],
     },
@@ -79,11 +80,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "UnstableNestedClassComponent" }) },
+          data: { json: stringify({ name: "UnstableNestedClassComponent" }) },
         },
       ],
     },
@@ -108,11 +109,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "UnstableNestedClassComponent" }) },
+          data: { json: stringify({ name: "UnstableNestedClassComponent" }) },
         },
       ],
     },
@@ -135,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
@@ -158,7 +159,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
@@ -181,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
@@ -204,7 +205,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
@@ -223,7 +224,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
@@ -249,7 +250,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "classComponent",
-          data: { json: JSON.stringify({ name: "ParentComponent" }) },
+          data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
     },
