@@ -7,6 +7,7 @@ export const rules = {
   "@eslint-react/debug/function-component": "warn",
   "@eslint-react/debug/hook": "warn",
   "@eslint-react/debug/is-from-react": "warn",
+  "@eslint-react/debug/jsx": "warn",
 } as const;
 
 export const plugins = {

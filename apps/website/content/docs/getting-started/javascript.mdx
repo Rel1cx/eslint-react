@@ -59,7 +59,7 @@ export default defineConfig([
 
     // Custom rule overrides (modify rule levels or disable rules)
     rules: {
-      "@eslint-react/no-class-component": "error",
+      "@eslint-react/no-missing-key": "warn",
     },
   },
 ]);
@@ -92,9 +92,9 @@ export default [
 {
   "compilerOptions": {
     // ...other options
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
-  "include": ["**/*.js", "**/*.jsx"],
+  "include": ["**/*.js", "**/*.jsx"]
 }
 ```
 

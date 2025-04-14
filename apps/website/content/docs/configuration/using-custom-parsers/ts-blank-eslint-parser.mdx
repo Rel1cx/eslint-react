@@ -32,7 +32,6 @@ import globals from "globals";
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
 export default [
-  // base configuration for browser environment source files
   {
     files: GLOB_TS,
     languageOptions: {
@@ -45,7 +44,6 @@ export default [
       ...eslintJs.configs.recommended.rules,
     },
   },
-  // React configuration
   {
     files: GLOB_TS,
     ...eslintReact.configs["recommended-typescript"],
