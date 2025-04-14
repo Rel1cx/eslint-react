@@ -1,6 +1,7 @@
 import tsx from "dedent";
 
 import { ruleTester } from "../../../../../test";
+import { stringify } from "../utils";
 import rule, { RULE_NAME } from "./is-from-react";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -14,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "React",
               importSource: "react",
             }),
@@ -23,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "identifier",
               importSource: "react",
             }),
@@ -32,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "React",
               importSource: "react",
             }),
@@ -49,19 +50,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+            json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
       ],
@@ -80,25 +81,25 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+            json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
       ],
@@ -120,25 +121,25 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
       ],
@@ -159,19 +160,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
       ],
@@ -193,31 +194,31 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
       ],
@@ -240,43 +241,43 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "toArr", importSource: "@pika/react" }),
+            json: stringify({ name: "toArr", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "toArray", importSource: "@pika/react" }),
+            json: stringify({ name: "toArray", importSource: "@pika/react" }),
           },
         },
       ],
@@ -298,31 +299,31 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "toArr", importSource: "@pika/react" }),
+            json: stringify({ name: "toArr", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "toArray", importSource: "@pika/react" }),
+            json: stringify({ name: "toArray", importSource: "@pika/react" }),
           },
         },
       ],
@@ -341,19 +342,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+            json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
       ],
@@ -372,25 +373,25 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "identifier", importSource: "@pika/react" }),
+            json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
       ],
@@ -412,25 +413,25 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
       ],
@@ -451,19 +452,19 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
       ],
@@ -485,31 +486,31 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Fragment", importSource: "@pika/react" }),
+            json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
       ],
@@ -538,43 +539,43 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "React", importSource: "@pika/react" }),
+            json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "toArr", importSource: "@pika/react" }),
+            json: stringify({ name: "toArr", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "@pika/react" }),
+            json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "toArray", importSource: "@pika/react" }),
+            json: stringify({ name: "toArray", importSource: "@pika/react" }),
           },
         },
       ],
@@ -598,7 +599,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "Children", importSource: "react" }),
+            json: stringify({ name: "Children", importSource: "react" }),
           },
         },
       ],
@@ -622,7 +623,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "isFromReact",
           data: {
-            json: JSON.stringify({ name: "ReactChildren", importSource: "react" }),
+            json: stringify({ name: "ReactChildren", importSource: "react" }),
           },
         },
       ],

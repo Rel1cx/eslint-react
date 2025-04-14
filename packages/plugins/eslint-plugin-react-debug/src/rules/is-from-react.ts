@@ -7,7 +7,7 @@ import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils";
+import { createRule, stringify } from "../utils";
 
 export const RULE_NAME = "is-from-react";
 
@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       messageId: "isFromReact",
       node,
       data: {
-        json: JSON.stringify({
+        json: stringify({
           name,
           importSource,
         }),

@@ -3,7 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 
-import { createRule } from "../utils";
+import { createRule, stringify } from "../utils";
 
 export const RULE_NAME = "hook";
 
@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "hook",
           node,
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name,
               hookCalls: hookCalls.length,
             }),

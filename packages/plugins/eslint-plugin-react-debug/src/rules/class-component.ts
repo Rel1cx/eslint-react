@@ -3,7 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 
-import { createRule } from "../utils";
+import { createRule, stringify } from "../utils";
 
 export const RULE_NAME = "class-component";
 
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "classComponent",
           node: component,
           data: {
-            json: JSON.stringify({ name }),
+            json: stringify({ name }),
           },
         });
       }

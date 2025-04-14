@@ -58,6 +58,7 @@ export default tseslint.config(
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
+      "@eslint-react/debug/jsx": "warn",
     },
   },
 );

@@ -1,6 +1,7 @@
 import tsx from "dedent";
 
 import { allFunctions, ruleTester } from "../../../../../test";
+import { stringify } from "../utils";
 import rule, { RULE_NAME } from "./hook";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -16,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useToggle",
               hookCalls: 1,
             }),
@@ -35,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useSorted",
               hookCalls: 0,
             }),
@@ -59,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useToggle",
               hookCalls: 1,
             }),
@@ -68,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useSorted",
               hookCalls: 0,
             }),
@@ -94,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useClassnames",
               hookCalls: 0,
             }),
@@ -120,7 +121,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useClassnames",
               hookCalls: 0,
             }),
@@ -143,7 +144,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useNestedHook",
               hookCalls: 1,
             }),
@@ -152,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useInnerHook",
               hookCalls: 0,
             }),
@@ -175,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useNestedHook",
               hookCalls: 0,
             }),
@@ -184,7 +185,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useInnerHook",
               hookCalls: 1,
             }),
@@ -207,7 +208,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "hook",
           data: {
-            json: JSON.stringify({
+            json: stringify({
               name: "useNestedHook",
               hookCalls: 0,
             }),
