@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.47.1 (2025-04-14)
+
+### 🐞 Fixes
+
+- fix: better debug rules message formatting by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1062
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.47.0...v1.47.1
+
 ## v1.47.0 (2025-04-14)
 
 ### 🪄 Improvements
