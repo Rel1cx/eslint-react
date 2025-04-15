@@ -55,7 +55,7 @@
     "@tsconfig/node22": "^22.0.1",
     "@types/picomatch": "^4.0.0",
     "tsup": "^8.4.0",
-    "type-fest": "^4.39.1"
+    "type-fest": "^4.40.0"
   },
   "engines": {
     "bun": ">=1.0.15",

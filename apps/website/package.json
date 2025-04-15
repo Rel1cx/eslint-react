@@ -50,7 +50,7 @@
     "dedent": "^1.5.3",
     "eslint": "^9.24.0",
     "eslint-plugin-de-morgan": "^1.2.1",
-    "eslint-plugin-import-x": "^4.10.3",
+    "eslint-plugin-import-x": "^4.10.5",
     "eslint-plugin-perfectionist": "^4.11.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
