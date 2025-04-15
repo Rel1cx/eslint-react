@@ -192,8 +192,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("&&") && !context.sourceCode.text.includes("?")) return {};
-
+  if (!context.sourceCode.text.includes("&&")) return {};
   const { version } = getSettingsFromContext(context);
 
   // Allowed left node type variants
@@ -213,10 +212,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ] as const satisfies VariantType[];
 
   const services = ESLintUtils.getParserServices(context, false);
-  function getReportDescriptor(node: TSESTree.Expression | _): ReportDescriptor<MessageID> | _ {
+  function getReportDescriptor(
+    node:
+      | _
+      | TSESTree.Expression
+      | TSESTree.JSXExpressionContainer
+      | TSESTree.JSXExpressionContainer["expression"],
+  ): ReportDescriptor<MessageID> | _ {
     if (node == null) return _;
+    if (AST.is(T.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
+    if (AST.isJSX(node)) return _;
+    if (AST.isTypeExpression(node)) return getReportDescriptor(node.expression);
     return match<typeof node, ReportDescriptor<MessageID> | _>(node)
-      .when(AST.isJSX, () => _)
       .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
         const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
         if (isLeftUnaryNot) {
@@ -260,10 +267,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       })
       .otherwise(() => _);
   }
-  const visitorFunction = flow(getReportDescriptor, Report.make(context).send);
   return {
-    "JSXExpressionContainer > ConditionalExpression": visitorFunction,
-    "JSXExpressionContainer > LogicalExpression": visitorFunction,
+    JSXExpressionContainer: flow(getReportDescriptor, Report.make(context).send),
   };
 }
 
