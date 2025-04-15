@@ -4,19 +4,19 @@
 
 [@eslint-react/kit](../../../../README.md) / [Reporter](../README.md) / Reporter
 
-# Interface: Reporter
+# Interface: Reporter\<TMessageID\>
+
+## Type Parameters
+
+### TMessageID
+
+`TMessageID` *extends* `string`
 
 ## Properties
 
 ### send()
 
-> **send**: \<`TMessageID`\>(`descriptor`) => `void`
-
-#### Type Parameters
-
-##### TMessageID
-
-`TMessageID` *extends* `string`
+> **send**: (`descriptor`) => `void`
 
 #### Parameters
 
@@ -32,13 +32,9 @@
 
 ### sendOrElse()
 
-> **sendOrElse**: \<`TMessageID`, `TElse`\>(`descriptor`, `cb`) => `undefined` \| `TElse`
+> **sendOrElse**: \<`TElse`\>(`descriptor`, `cb`) => `undefined` \| `TElse`
 
 #### Type Parameters
-
-##### TMessageID
-
-`TMessageID` *extends* `string`
 
 ##### TElse
 

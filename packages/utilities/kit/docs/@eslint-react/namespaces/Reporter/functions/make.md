@@ -6,7 +6,13 @@
 
 # Function: make()
 
-> **make**(`context`): [`Reporter`](../interfaces/Reporter.md)
+> **make**\<`TMessageID`\>(`context`): [`Reporter`](../interfaces/Reporter.md)\<`TMessageID`\>
+
+## Type Parameters
+
+### TMessageID
+
+`TMessageID` *extends* `string`
 
 ## Parameters
 
@@ -16,4 +22,4 @@
 
 ## Returns
 
-[`Reporter`](../interfaces/Reporter.md)
+[`Reporter`](../interfaces/Reporter.md)\<`TMessageID`\>

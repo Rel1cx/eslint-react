@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const report = RPT.make(context);
+  const report = RPT.make<MessageID>(context);
   const state = { isWithinChildrenToArray: false };
 
   function checkIteratorElement(node: TSESTree.Node): null | ReportDescriptor<MessageID> {
@@ -103,6 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
+        if (element?.type !== T.JSXElement) continue;
         if (!ER.hasAttribute(context, "key", element.openingElement.attributes, initialScope)) {
           report.send({
             messageId: "missingKey",

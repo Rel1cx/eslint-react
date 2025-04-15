@@ -1,4 +1,3 @@
-import type { TSESTree } from "@typescript-eslint/utils";
 import { or } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
