@@ -13,13 +13,14 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function isNodeContainsUseCallComments(
-  context: RuleContext,
-  node: TSESTree.Node,
-) {
+const WELL_KNOWN_HOOKS = [
+  "useMDXComponents",
+];
+
+function containsUseComments(context: RuleContext, node: TSESTree.Node) {
   return context.sourceCode
     .getCommentsInside(node)
-    .some((comment) => /use\w+\(/u.test(comment.value));
+    .some(({ value }) => /use\([\s\S]*?\)/u.test(value) || /use[A-Z0-9]\w*\([\s\S]*?\)/u.test(value));
 }
 
 export default createRule<[], MessageID>({
@@ -47,6 +48,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"(program) {
       const allHooks = ctx.getAllHooks(program);
       for (const { id, name, node, hookCalls } of allHooks.values()) {
+        // Skip well-known hooks
+        if (WELL_KNOWN_HOOKS.includes(name)) {
+          continue;
+        }
         // Skip empty functions
         if (AST.isEmptyFunction(node)) {
           continue;
@@ -56,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         // Skip hooks with comments that contain calls to other hooks
-        if (isNodeContainsUseCallComments(context, node)) {
+        if (containsUseComments(context, node)) {
           continue;
         }
         context.report({

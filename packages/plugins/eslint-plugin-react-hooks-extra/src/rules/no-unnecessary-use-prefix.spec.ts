@@ -186,5 +186,14 @@ ruleTester.run(RULE_NAME, rule, {
         return TEST_USER;
       }
     `,
+    tsx`
+      import type { MDXComponents } from 'mdx/types'
+
+      export function useMDXComponents(components: MDXComponents): MDXComponents {
+        return {
+          ...components,
+        }
+      }
+    `,
   ],
 });
