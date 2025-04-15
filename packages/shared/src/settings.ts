@@ -3,7 +3,7 @@ import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-es
 import type { PartialDeep } from "type-fest";
 import type { CustomHooks, ESLintReactSettings } from "./schemas";
 import { identity } from "@eslint-react/eff";
-import { RE } from "@eslint-react/kit";
+import { RegExp as RE } from "@eslint-react/kit";
 import * as z from "@zod/mini";
 import { shallowEqual } from "fast-equals";
 import memoize from "micro-memoize";

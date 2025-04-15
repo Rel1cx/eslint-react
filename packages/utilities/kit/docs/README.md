@@ -8,9 +8,9 @@
 
 - [JsxConfig](@eslint-react/namespaces/JsxConfig/README.md)
 - [LanguagePreference](@eslint-react/namespaces/LanguagePreference/README.md)
-- [RE](@eslint-react/namespaces/RE/README.md)
-- [Report](@eslint-react/namespaces/Report/README.md)
-- [SEL](@eslint-react/namespaces/SEL/README.md)
+- [RegExp](@eslint-react/namespaces/RegExp/README.md)
+- [Reporter](@eslint-react/namespaces/Reporter/README.md)
+- [Selector](@eslint-react/namespaces/Selector/README.md)
 
 ## Type Aliases
 

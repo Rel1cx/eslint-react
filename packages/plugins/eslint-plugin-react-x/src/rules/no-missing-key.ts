@@ -3,7 +3,7 @@ import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 
-import { Report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const report = Report.make(context);
+  const report = RPT.make(context);
   const state = { isWithinChildrenToArray: false };
 
   function checkIteratorElement(node: TSESTree.Node): null | ReportDescriptor<MessageID> {
