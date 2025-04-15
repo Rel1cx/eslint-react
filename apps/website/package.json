@@ -36,7 +36,7 @@
     "@eslint/markdown": "^6.3.0",
     "@local/configs": "workspace:*",
     "@mdx-js/mdx": "^3.1.0",
-    "@tailwindcss/postcss": "^4.1.3",
+    "@tailwindcss/postcss": "^4.1.4",
     "@theguild/remark-mermaid": "^0.3.0",
     "@tsconfig/next": "^2.0.3",
     "@tsconfig/node22": "^22.0.1",
@@ -44,7 +44,7 @@
     "@types/hast": "^3.0.4",
     "@types/mdx": "^2.0.13",
     "@types/node": "^22.14.1",
-    "@types/react": "^19.1.1",
+    "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "autoprefixer": "^10.4.21",
     "dedent": "^1.5.3",
@@ -57,9 +57,9 @@
     "eslint-plugin-unicorn": "^58.0.0",
     "importx": "^0.5.2",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.3",
+    "tailwindcss": "^4.1.4",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.29.1"
+    "typescript-eslint": "^8.30.1"
   }
 }
