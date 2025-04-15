@@ -64,14 +64,39 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (containsUseComments(context, node)) {
           continue;
         }
+        if (id != null) {
+          context.report({
+            messageId: "noUnnecessaryUsePrefix",
+            data: {
+              name,
+            },
+            loc: getPreferredLoc(context, id),
+          });
+          continue;
+        }
         context.report({
           messageId: "noUnnecessaryUsePrefix",
-          node: id ?? node,
+          node,
           data: {
             name,
           },
         });
       }
+    },
+  };
+}
+
+function getPreferredLoc(context: RuleContext, id: TSESTree.Identifier) {
+  if (AST.isMultiLine(id)) return id.loc;
+  if (!context.sourceCode.getText(id).startsWith("use")) return id.loc;
+  return {
+    end: {
+      column: id.loc.start.column + 3,
+      line: id.loc.start.line,
+    },
+    start: {
+      column: id.loc.start.column,
+      line: id.loc.start.line,
     },
   };
 }
