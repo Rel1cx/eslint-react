@@ -114,6 +114,14 @@ function useAuth() {
 }
 ```
 
+```tsx
+export function useMDXComponents(components) {
+  return {
+    ...components,
+  };
+}
+```
+
 ## Implementation
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-prefix.ts)
