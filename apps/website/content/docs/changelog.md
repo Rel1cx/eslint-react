@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.47.3 (2025-04-15)
+
+### 🐞 Fixes
+
+- fix: fixed potential false negatives in `no-leaked-conditional-rendering` when logical expressions are wrapped by type expressions by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1068
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.47.2...v1.47.3
+
 ## v1.47.2 (2025-04-14)
 
 ### 🐞 Fixes
