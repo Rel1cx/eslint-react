@@ -63,3 +63,14 @@ const Hello = <div>Hello</div>;
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-react.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-react.spec.ts)
+
+---
+
+## See Also
+
+- [`jsx-no-undef`](./jsx-no-undef)\
+  Prevents using variables in JSX that are not defined in the scope.
+- [`jsx-uses-vars`](./jsx-uses-vars)\
+  Marks variables used in JSX elements as used.
+- [`jsx-no-duplicated-props`](./jsx-no-duplicate-props)\
+  Disallow duplicate props in JSX elements.

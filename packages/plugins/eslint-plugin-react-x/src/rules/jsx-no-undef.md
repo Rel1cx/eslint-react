@@ -16,7 +16,7 @@ react-x/jsx-no-undef
 
 ## Description
 
-This rule is used to prevent the use of undefined variables in JSX. It checks for any undefined variables in the JSX code and reports them as errors.
+Prevents using variables in JSX that are not defined in the scope.
 
 ## Examples
 
@@ -43,3 +43,14 @@ const button = <MyButton />;
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-undef.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-undef.spec.ts)
+
+---
+
+## See Also
+
+- [`jsx-uses-vars`](./jsx-uses-vars)\
+  Marks variables used in JSX elements as used.
+- [`jsx-uses-react`](./jsx-uses-react)\
+  Marks React variables as used when JSX is used.
+- [`jsx-no-duplicated-props`](./jsx-no-duplicate-props)\
+  Disallow duplicate props in JSX elements.

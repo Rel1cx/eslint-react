@@ -46,3 +46,14 @@ import Hello from "./Hello";
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-vars.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-vars.spec.ts)
+
+---
+
+## See Also
+
+- [`jsx-no-undef`](./jsx-no-undef)\
+  Prevents using variables in JSX that are not defined in the scope.
+- [`jsx-uses-react`](./jsx-uses-react)\
+  Marks React variables as used when JSX is used.
+- [`jsx-no-duplicated-props`](./jsx-no-duplicate-props)\
+  Disallow duplicate props in JSX elements.
