@@ -4,7 +4,7 @@ import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import { SEL } from "@eslint-react/kit";
+import { Selector as SEL } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";

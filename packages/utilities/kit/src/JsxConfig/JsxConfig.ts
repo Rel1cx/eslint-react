@@ -1,7 +1,7 @@
 import type { RuleContext } from "../types";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import { type CompilerOptions, JsxEmit } from "typescript";
-import * as RE from "../RE";
+import * as RE from "../RegExp";
 
 export type JsxConfig = Pick<
   CompilerOptions,

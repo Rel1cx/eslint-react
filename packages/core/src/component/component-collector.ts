@@ -4,7 +4,7 @@ import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
-import { type RuleContext, SEL } from "@eslint-react/kit";
+import { type RuleContext, Selector as SEL } from "@eslint-react/kit";
 import { getId } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 

@@ -4,7 +4,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { RE } from "@eslint-react/kit";
+import { RegExp as RE } from "@eslint-react/kit";
 
 import { createRule } from "../utils";
 

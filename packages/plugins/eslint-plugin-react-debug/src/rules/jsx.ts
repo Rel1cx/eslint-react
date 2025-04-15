@@ -2,7 +2,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
-import { JsxConfig, Report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { JsxConfig, Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
 import { JsxEmit } from "typescript";
@@ -71,6 +71,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     } as const);
   }
   return {
-    "JSXElement, JSXFragment": flow(getReportDescriptor(context), Report.make(context).send),
+    "JSXElement, JSXFragment": flow(getReportDescriptor(context), RPT.make(context).send),
   };
 }

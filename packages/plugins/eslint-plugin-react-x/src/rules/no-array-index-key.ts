@@ -4,7 +4,7 @@ import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
-import { Report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { unsafeDecodeSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMatching } from "ts-pattern";
@@ -109,7 +109,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const report = Report.make(context);
+  const report = RPT.make(context);
   const indexParamNames: Array<string | _> = [];
 
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {

@@ -5,7 +5,7 @@
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createRule } from "../utils";
 import { compare } from "compare-versions";
-import { Report } from "@eslint-react/kit";
+import { Reporter as RPT } from "@eslint-react/kit";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -1090,7 +1090,7 @@ export default createRule({
 });
 
 export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
-  const report = Report.make(context);
+  const report = RPT.make(context);
   function getIgnoreConfig() {
     return context.options[0]?.ignore || DEFAULTS.ignore;
   }
