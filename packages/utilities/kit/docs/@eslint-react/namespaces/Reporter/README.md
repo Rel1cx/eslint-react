@@ -6,6 +6,10 @@
 
 # Reporter
 
+## Interfaces
+
+- [Reporter](interfaces/Reporter.md)
+
 ## Variables
 
 - [send](variables/send.md)

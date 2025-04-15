@@ -2,6 +2,12 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { RuleContext } from "./types";
 import { type _, dual } from "@eslint-react/eff";
 
+export interface Reporter {
+  send: <TMessageID extends string>(descriptor: _ | null | ReportDescriptor<TMessageID>) => void;
+  // dprint-ignore
+  sendOrElse: <TMessageID extends string, TElse>(descriptor: _ | null | ReportDescriptor<TMessageID>, cb: () => TElse) => _ | TElse;
+}
+
 export const send: {
   <TMessageID extends string>(context: RuleContext, descriptor: _ | null | ReportDescriptor<TMessageID>): void;
   <TMessageID extends string>(context: RuleContext): (descriptor: _ | null | ReportDescriptor<TMessageID>) => void;
@@ -20,10 +26,9 @@ export const sendOrElse: {
   return context.report(descriptor);
 });
 
-export const make = (context: RuleContext) => {
+export function make(context: RuleContext): Reporter {
   return {
-    send: (descriptor: _ | null | ReportDescriptor<string>) => send(context, descriptor),
-    // dprint-ignore
-    sendOrElse: (descriptor: _ | null | ReportDescriptor<string>, cb: () => unknown) => sendOrElse(context, descriptor, cb),
-  } as const;
-};
+    send: (...args) => send(context, ...args),
+    sendOrElse: (...args) => sendOrElse(context, ...args),
+  };
+}

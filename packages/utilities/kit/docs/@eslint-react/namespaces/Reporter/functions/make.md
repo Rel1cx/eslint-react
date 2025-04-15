@@ -6,7 +6,7 @@
 
 # Function: make()
 
-> **make**(`context`): `object`
+> **make**(`context`): [`Reporter`](../interfaces/Reporter.md)
 
 ## Parameters
 
@@ -16,36 +16,4 @@
 
 ## Returns
 
-`object`
-
-### send()
-
-> `readonly` **send**: (`descriptor`) => `void`
-
-#### Parameters
-
-##### descriptor
-
-`undefined` | `null` | `ReportDescriptor`\<`string`\>
-
-#### Returns
-
-`void`
-
-### sendOrElse()
-
-> `readonly` **sendOrElse**: (`descriptor`, `cb`) => `unknown`
-
-#### Parameters
-
-##### descriptor
-
-`undefined` | `null` | `ReportDescriptor`\<`string`\>
-
-##### cb
-
-() => `unknown`
-
-#### Returns
-
-`unknown`
+[`Reporter`](../interfaces/Reporter.md)
