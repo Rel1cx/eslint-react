@@ -5719,6 +5719,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -12267,7 +12268,7 @@ snapshots:
       micromark-util-resolve-all: 2.0.1
       micromark-util-subtokenize: 2.1.0
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-core-commonmark@2.0.3:
     dependencies:
@@ -12295,7 +12296,7 @@ snapshots:
       micromark-factory-whitespace: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
       parse-entities: 4.0.2
 
   micromark-extension-gfm-autolink-literal@2.1.0:
@@ -12303,18 +12304,18 @@ snapshots:
       micromark-util-character: 2.1.1
       micromark-util-sanitize-uri: 2.0.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-extension-gfm-footnote@2.1.0:
     dependencies:
       devlop: 1.1.0
-      micromark-core-commonmark: 2.0.2
+      micromark-core-commonmark: 2.0.3
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-normalize-identifier: 2.0.1
       micromark-util-sanitize-uri: 2.0.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-extension-gfm-strikethrough@2.1.0:
     dependencies:
@@ -12331,7 +12332,7 @@ snapshots:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-extension-gfm-table@2.1.1:
     dependencies:
@@ -12372,7 +12373,7 @@ snapshots:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-extension-mdx-expression@3.0.1:
     dependencies:
@@ -12429,14 +12430,14 @@ snapshots:
     dependencies:
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-factory-label@2.0.1:
     dependencies:
       devlop: 1.1.0
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-factory-mdx-expression@2.0.3:
     dependencies:
@@ -12453,26 +12454,26 @@ snapshots:
   micromark-factory-space@2.0.1:
     dependencies:
       micromark-util-character: 2.1.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-factory-title@2.0.1:
     dependencies:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-factory-whitespace@2.0.1:
     dependencies:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -12482,7 +12483,7 @@ snapshots:
     dependencies:
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-combine-extensions@2.0.1:
     dependencies:
@@ -12520,7 +12521,7 @@ snapshots:
 
   micromark-util-resolve-all@2.0.1:
     dependencies:
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-sanitize-uri@2.0.1:
     dependencies:
@@ -12533,7 +12534,7 @@ snapshots:
       devlop: 1.1.0
       micromark-util-chunked: 2.0.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-symbol@2.0.1: {}
 
@@ -12547,7 +12548,7 @@ snapshots:
       debug: 4.4.0
       decode-named-character-reference: 1.1.0
       devlop: 1.1.0
-      micromark-core-commonmark: 2.0.2
+      micromark-core-commonmark: 2.0.3
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-chunked: 2.0.1
@@ -12559,7 +12560,7 @@ snapshots:
       micromark-util-sanitize-uri: 2.0.1
       micromark-util-subtokenize: 2.1.0
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -12822,7 +12823,7 @@ snapshots:
       bl: 4.1.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
+      cli-spinners: 2.9.2
       is-interactive: 1.0.0
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
