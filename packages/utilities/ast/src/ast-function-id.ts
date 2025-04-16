@@ -8,11 +8,11 @@
  */
 
 import type { TSESTree } from "@typescript-eslint/types";
-import type { TSESTreeFunction } from "./types";
+import type { TSESTreeFunction } from "./ast-node";
 import { _ } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isMethodOrProperty, isTypeAssertionExpression } from "./is";
+import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-is";
 
 export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | _ {
   switch (true) {

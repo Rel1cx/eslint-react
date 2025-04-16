@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import type { TSESTreeClass } from "./types";
+import type { TSESTreeClass } from "./ast-node";
 import { _ } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";

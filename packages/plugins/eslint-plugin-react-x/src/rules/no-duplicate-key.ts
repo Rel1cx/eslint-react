@@ -74,7 +74,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!AST.isFunction(iter)) return;
           const arg0 = call?.arguments[0];
           if (call == null || arg0 == null) return;
-          if (AST.getEcmaExpression(arg0) !== iter) {
+          if (AST.getJSExpression(arg0) !== iter) {
             return;
           }
           keyedEntries.set(call, {
