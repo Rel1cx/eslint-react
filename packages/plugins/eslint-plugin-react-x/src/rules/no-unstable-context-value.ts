@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (value?.type !== T.JSXExpressionContainer) return;
       const valueExpression = value.expression;
       const initialScope = context.sourceCode.getScope(valueExpression);
-      const construction = VAR.getConstructionDetectionResult(valueExpression, initialScope);
+      const construction = VAR.getConstruction(valueExpression, initialScope);
       if (construction == null) return;
       if (ER.isReactHookCall(construction.node)) {
         return;

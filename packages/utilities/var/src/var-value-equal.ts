@@ -3,10 +3,9 @@ import * as AST from "@eslint-react/ast";
 import { _ } from "@eslint-react/eff";
 import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-
-import { findVariable } from "./find-variable";
-import { getVariableInitNode } from "./get-variable-init-node";
-import { toStaticValue } from "./lazy-value";
+import { findVariable } from "./var-collect";
+import { getVariableInitNode } from "./var-init-node";
+import { toStaticValue } from "./var-value";
 
 const thisBlockTypes = [
   T.FunctionDeclaration,
