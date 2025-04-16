@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!AST.isFunction(block)) {
           return false;
         }
-        const id = AST.getFunctionIdentifier(block);
+        const id = AST.getFunctionId(block);
         return id != null
           && ER.isComponentNameLoose(id.name)
           && components.some((component) => component.node === block);

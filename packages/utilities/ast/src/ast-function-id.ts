@@ -14,7 +14,7 @@ import { _ } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-is";
 
-export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | _ {
+export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | _ {
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node
@@ -56,7 +56,7 @@ export function getFunctionIdentifier(node: TSESTree.Expression | TSESTreeFuncti
     // const MaybeComponent = (() => {}) as FunctionComponent;
     // const MaybeComponent = (() => {}) satisfies FunctionComponent;
     case isTypeAssertionExpression(node.parent):
-      return getFunctionIdentifier(node.parent);
+      return getFunctionId(node.parent);
   }
   return _;
 }

@@ -19,7 +19,7 @@ import { isJsxLike, JSXDetectionHint } from "../jsx";
 export function isRenderFunctionLoose(context: RuleContext, node: AST.TSESTreeFunction) {
   const { body, parent } = node;
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (AST.getFunctionIdentifier(node)?.name.startsWith("render")) {
+  if (AST.getFunctionId(node)?.name.startsWith("render")) {
     return parent.type === T.JSXExpressionContainer
       && parent.parent.type === T.JSXAttribute
       && parent.parent.name.type === T.JSXIdentifier

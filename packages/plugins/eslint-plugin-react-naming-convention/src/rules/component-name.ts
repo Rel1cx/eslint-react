@@ -112,7 +112,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       const functionComponents = collector.ctx.getAllComponents(program);
       const classComponents = collectorLegacy.ctx.getAllComponents(program);
       for (const { node: component } of functionComponents.values()) {
-        const id = AST.getFunctionIdentifier(component);
+        const id = AST.getFunctionId(component);
         if (id?.name == null) continue;
         const name = id.name;
         if (isValidName(name, options)) return;
@@ -123,7 +123,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         });
       }
       for (const { node: component } of classComponents.values()) {
-        const id = AST.getClassIdentifier(component);
+        const id = AST.getClassId(component);
         if (id?.name == null) continue;
         const name = id.name;
         if (isValidName(name, options)) continue;

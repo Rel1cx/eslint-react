@@ -7,7 +7,7 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
-import { getClassIdentifier } from "../ast-class-id";
+import { getClassId } from "../ast-class-id";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -29,10 +29,11 @@ describe("get class identifier from class declaration", () => {
         if (node.type !== T.ClassDeclaration) {
           return;
         }
-        expect(getClassIdentifier(node)).include({ type: T.Identifier, name: expected });
+        expect(getClassId(node)).include({ type: T.Identifier, name: expected });
         n = node;
       },
     }, true);
+    ``;
     expect(n).not.toBeNull();
   });
 });
@@ -50,7 +51,7 @@ describe("get class identifier from class expression", () => {
         if (node.type !== T.ClassExpression) {
           return;
         }
-        expect(getClassIdentifier(node)).include({ type: T.Identifier, name: expected });
+        expect(getClassId(node)).include({ type: T.Identifier, name: expected });
         n = node;
       },
     }, true);

@@ -88,7 +88,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (currentClass == null || !ER.isClassComponent(currentClass)) {
       return;
     }
-    const className = AST.getClassIdentifier(currentClass)?.name;
+    const className = AST.getClassId(currentClass)?.name;
     const defs = propertyDefs.get(currentClass);
     const usages = propertyUsages.get(currentClass);
     if (defs == null) {

@@ -9,7 +9,7 @@ import tsx from "dedent";
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
 import { isFunction } from "../ast-is";
-import { getNestedReturnStatements } from "../ast-return-statement";
+import { getNestedReturnStatements } from "../ast-hierarchy";
 
 function parse(code: string) {
   return parseForESLint(code, {

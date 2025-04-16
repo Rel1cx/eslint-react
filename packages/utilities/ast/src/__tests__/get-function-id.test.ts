@@ -7,7 +7,7 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
-import { getFunctionIdentifier } from "../ast-function-id";
+import { getFunctionId } from "../ast-function-id";
 import { isFunction } from "../ast-is";
 
 function parse(code: string) {
@@ -29,7 +29,7 @@ describe("get function identifier from function declaration", () => {
         if (!isFunction(node)) {
           return;
         }
-        expect(getFunctionIdentifier(node)).include({ type: T.Identifier, name: expected });
+        expect(getFunctionId(node)).include({ type: T.Identifier, name: expected });
         n = node;
       },
     }, true);
@@ -64,7 +64,7 @@ describe("get function identifier from function expression", () => {
         if (!isFunction(node)) {
           return;
         }
-        expect(getFunctionIdentifier(node)).include({ type: T.Identifier, name: expected });
+        expect(getFunctionId(node)).include({ type: T.Identifier, name: expected });
         n = node;
       },
     }, true);

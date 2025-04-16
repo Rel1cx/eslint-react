@@ -9,7 +9,7 @@ export function getFunctionComponentId(
   context: RuleContext,
   node: AST.TSESTreeFunction,
 ): TSESTree.Identifier | TSESTree.Identifier[] | _ {
-  const functionId = AST.getFunctionIdentifier(node);
+  const functionId = AST.getFunctionId(node);
   if (functionId != null) {
     return functionId;
   }

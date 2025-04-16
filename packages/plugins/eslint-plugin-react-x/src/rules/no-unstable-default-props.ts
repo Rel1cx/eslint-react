@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (ER.isReactHookCall(construction.node)) {
             continue;
           }
-          const forbiddenType = AST.toReadableNodeType(right);
+          const forbiddenType = AST.toDelimiterCaseType(right);
           context.report({
             messageId: "noUnstableDefaultProps",
             node: right,

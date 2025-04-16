@@ -48,14 +48,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const components = ctx.getAllComponents(program);
       for (const { node, displayName, flag } of components.values()) {
         const isMemoOrForwardRef = (flag & (ER.ComponentFlag.ForwardRef | ER.ComponentFlag.Memo)) > 0n;
-        if (AST.getFunctionIdentifier(node) != null) {
+        if (AST.getFunctionId(node) != null) {
           continue;
         }
         if (!isMemoOrForwardRef) {
           continue;
         }
         if (displayName == null) {
-          const id = AST.getFunctionIdentifier(node);
+          const id = AST.getFunctionId(node);
           context.report({
             messageId: "noMissingComponentDisplayName",
             node: id ?? node,

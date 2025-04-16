@@ -25,7 +25,7 @@ export function useHookCollector(): useHookCollector.ReturnType {
   const hooks = new Map<string, Hook>();
   const functionEntries: FunctionEntry[] = [];
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
-    const id = AST.getFunctionIdentifier(node);
+    const id = AST.getFunctionId(node);
     const key = getId();
     const name = id?.name;
     if (name != null && isReactHookName(name)) {

@@ -12,7 +12,7 @@ import { isReactHookName } from "./hook-name";
 
 export function isReactHook(node: AST.TSESTreeFunction | _) {
   if (node == null) return false;
-  const id = AST.getFunctionIdentifier(node);
+  const id = AST.getFunctionId(node);
   return id?.name != null && isReactHookName(id.name);
 }
 

@@ -34,7 +34,7 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
     if (!isClassComponent(node)) {
       return;
     }
-    const id = AST.getClassIdentifier(node);
+    const id = AST.getClassId(node);
     const key = getId();
     const flag = isPureComponent(node)
       ? ComponentFlag.PureComponent
