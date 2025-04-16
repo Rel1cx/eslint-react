@@ -6,4 +6,4 @@
 
 # Variable: isForwardRef
 
-> `const` **isForwardRef**: `ReturnType`
+> `const` **isForwardRef**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

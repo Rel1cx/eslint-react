@@ -6,16 +6,14 @@
 
 # Function: getSettingsFromContext()
 
-> **getSettingsFromContext**(`context`): `ESLintReactSettingsNormalized`
+> **getSettingsFromContext**(`context`): [`ESLintReactSettingsNormalized`](../interfaces/ESLintReactSettingsNormalized.md)
 
 ## Parameters
 
 ### context
 
-#### settings
-
-`unknown`
+`RuleContext`
 
 ## Returns
 
-`ESLintReactSettingsNormalized`
+[`ESLintReactSettingsNormalized`](../interfaces/ESLintReactSettingsNormalized.md)

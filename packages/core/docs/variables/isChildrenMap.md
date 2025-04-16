@@ -6,4 +6,4 @@
 
 # Variable: isChildrenMap
 
-> `const` **isChildrenMap**: `ReturnType`
+> `const` **isChildrenMap**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

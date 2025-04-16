@@ -6,4 +6,4 @@
 
 # Variable: isMemo
 
-> `const` **isMemo**: `ReturnType`
+> `const` **isMemo**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

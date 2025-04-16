@@ -32,7 +32,7 @@ export default [
 
 Defines the React version for semantic analysis.
 
-- `"detect"`: Auto-detects from project dependencies (defaults to `19.1.0` if undetectable)
+- `detect`: Auto-detects from project dependencies (defaults to `19.1.0` if undetectable)
 - `string`: Explicit version specification (e.g., `"18.3.1"`)
 
 ### `importSource`
@@ -43,20 +43,6 @@ Example for using `@pika/react` instead of `react`:
 
 ```ts
 import React from "@pika/react";
-```
-
-### `skipImportCheck`
-
-Controls whether to verify the import source when identifying React APIs.
-
-Default is `true` (checks only API shape). When `false`, both shape and import source are verified, preventing false positives from third-party libraries with similar APIs.
-
-```ts
-import { memo } from "unrelated-library";
-
-const NonComponentFunction = memo(() => {
-  // When skipImportCheck: false, this isn't recognized as React's memo
-});
 ```
 
 ### `polymorphicPropName`
@@ -73,10 +59,13 @@ Example with `polymorphicPropName` set to `as`:
 ### `additionalComponents` (Experimental)
 
 <Callout type="info">
-  Consider using `polymorphicPropName` instead when possible, as it's simpler and more efficient.
+  Consider using `polymorphicPropName` instead when possible, as it's simpler
+  and more efficient.
 </Callout>
 
-<Callout type="warn">Experimental feature that may lack stability and documentation.</Callout>
+<Callout type="warn">
+  Experimental feature that may lack stability and documentation.
+</Callout>
 
 Maps components and their attributes for comprehensive analysis. Supports default attribute values.
 
@@ -102,9 +91,10 @@ This makes `<EmbedContent src="https://eslint-react.xyz" />{:tsx}` evaluate as `
 ### `additionalHooks` (Experimental)
 
 <Callout type="warn">
-  Intended for edge cases. We suggest to use this option **very sparingly, if at all**. Generally saying, we recommend
-  most custom Hooks do not vary the built-in React Hooks, and instead provide a higher-level API that is more focused
-  around a specific use case.
+  Intended for edge cases. We suggest to use this option **very sparingly, if at
+  all**. Generally saying, we recommend most custom Hooks do not vary the
+  built-in React Hooks, and instead provide a higher-level API that is more
+  focused around a specific use case.
 </Callout>
 
 Alias variants to built-in React Hooks for rule compatibility:

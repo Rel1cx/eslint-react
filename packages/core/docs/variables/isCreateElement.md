@@ -6,4 +6,4 @@
 
 # Variable: isCreateElement
 
-> `const` **isCreateElement**: `ReturnType`
+> `const` **isCreateElement**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

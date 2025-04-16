@@ -5,7 +5,7 @@ import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { _ } from "@eslint-react/eff";
 import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
-import { unsafeDecodeSettings } from "@eslint-react/shared";
+import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMatching } from "ts-pattern";
 
@@ -24,7 +24,7 @@ function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod
 }
 
 function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpression) {
-  const { importSource = "react" } = unsafeDecodeSettings(context.settings);
+  const { importSource = "react" } = coerceSettings(context.settings);
   const { callee } = node;
   if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
     return false;

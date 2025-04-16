@@ -6,4 +6,4 @@
 
 # Variable: isChildrenMapCall
 
-> `const` **isChildrenMapCall**: `ReturnType`
+> `const` **isChildrenMapCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

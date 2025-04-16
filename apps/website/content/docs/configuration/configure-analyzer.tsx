@@ -19,15 +19,6 @@ export function AnalyzerPropertyTypeTable() {
           description: <Link href="#importsource">The source where React is imported from ⤵</Link>,
           default: '"react"',
         },
-        skipImportCheck: {
-          type: "boolean",
-          description: (
-            <Link href="#skipimportcheck">
-              When determining whether an API originates from React, bypass the import source check. ⤵
-            </Link>
-          ),
-          default: "true",
-        },
         polymorphicPropName: {
           type: "string",
           description: (

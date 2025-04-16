@@ -3,7 +3,7 @@ import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { constFalse, flip } from "@eslint-react/eff";
-import { unsafeDecodeSettings } from "@eslint-react/shared";
+import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "../../../shared/src/schemas";
@@ -41,7 +41,7 @@ export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Nod
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
     skipImportCheck = true,
-  } = unsafeDecodeSettings(context.settings);
+  } = coerceSettings(context.settings);
   const initialScope = context.sourceCode.getScope(node);
   return (name: string) => {
     switch (true) {
@@ -77,7 +77,7 @@ export function isReactHookCallWithNameAlias(context: RuleContext, name: string,
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
     skipImportCheck = true,
-  } = unsafeDecodeSettings(context.settings);
+  } = coerceSettings(context.settings);
   return (node: TSESTree.CallExpression) => {
     const initialScope = context.sourceCode.getScope(node);
     switch (true) {

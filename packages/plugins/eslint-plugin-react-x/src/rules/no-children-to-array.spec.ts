@@ -64,50 +64,36 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    tsx`
-      import { Children } from 'react';
-
-      function SeparatorList({ children }) {
-        const result = [];
-        Children.forEach(children, (child, index) => {
-          result.push(child);
-          result.push(<hr key={index} />);
-        });
-        // ...
-      }
-    `,
-    tsx`
-      import { Children } from 'react';
-
-      function RowList({ children }) {
-        return (
-          <div className="RowList">
-            {Children.map(children, child =>
-              <div className="Row">
-                {child}
-              </div>
-            )}
-          </div>
-        );
-      }
-    `,
     {
       code: tsx`
-        const Children = {
-          toArray: () => [],
-        }
+        import { Children } from 'react';
 
-        export default function ReversedList({ children }) {
-          const result = Children.toArray(children);
-          result.reverse();
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
           // ...
         }
       `,
-      settings: {
-        "react-x": {
-          skipImportCheck: false,
-        },
-      },
+    },
+    {
+      code: tsx`
+        import { Children } from 'react';
+
+        function RowList({ children }) {
+          return (
+            <div className="RowList">
+              {Children.map(children, child =>
+                <div className="Row">
+                  {child}
+                </div>
+              )}
+            </div>
+          );
+        }
+      `,
     },
   ],
 });

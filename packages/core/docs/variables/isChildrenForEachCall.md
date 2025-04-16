@@ -6,4 +6,4 @@
 
 # Variable: isChildrenForEachCall
 
-> `const` **isChildrenForEachCall**: `ReturnType`
+> `const` **isChildrenForEachCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

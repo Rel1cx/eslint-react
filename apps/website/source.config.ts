@@ -1,8 +1,8 @@
+import { remarkMermaid } from "@theguild/remark-mermaid";
 import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
 import { remarkDocGen, remarkInstall } from "fumadocs-docgen";
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
 import { transformerTwoslash } from "fumadocs-twoslash";
-import { remarkMermaid } from "@theguild/remark-mermaid";
 
 export const docs = defineDocs({
   dir: "content/docs",
@@ -14,7 +14,25 @@ export default defineConfig({
     rehypeCodeOptions: {
       experimentalJSEngine: true,
       inline: "tailing-curly-colon",
-      langs: ["js", "ts", "jsx", "tsx", "html", "md", "mdx", "css", "json", "yaml"],
+      langs: [
+        "bash",
+        "css",
+        "html",
+        "js",
+        "json",
+        "jsx",
+        "lisp",
+        "log",
+        "md",
+        "mdx",
+        "regexp",
+        "sh",
+        "shell",
+        "ts",
+        "tsx",
+        "yaml",
+        "diff",
+      ],
       lazy: true,
       themes: {
         dark: "github-dark",

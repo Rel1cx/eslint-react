@@ -6,4 +6,4 @@
 
 # Variable: isCaptureOwnerStackCall
 
-> `const` **isCaptureOwnerStackCall**: `ReturnType`
+> `const` **isCaptureOwnerStackCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

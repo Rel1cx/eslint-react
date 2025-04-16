@@ -1,31 +1,41 @@
 /* eslint-disable function/function-return-boolean */
-import { isCallFromReact, isCallFromReactObject, isFromReact, isFromReactObject } from "./is-from-react";
+import type { RuleContext } from "@eslint-react/kit";
+import * as AST from "@eslint-react/ast";
+import { type _, dual } from "@eslint-react/eff";
+import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 
-export function isReactAPI(name: string): ReturnType<typeof isFromReact>;
-export function isReactAPI(objectName: string, propertyName: string): ReturnType<typeof isFromReactObject>;
-export function isReactAPI(arg0: string, arg1?: string) {
-  return arg1 == null
-    ? isFromReact(arg0)
-    : isFromReactObject(arg0, arg1);
+export declare namespace isReactAPI {
+  type ReturnType = {
+    (context: RuleContext, node: _ | null | TSESTree.Node): boolean;
+    (context: RuleContext): (node: _ | null | TSESTree.Node) => boolean;
+  };
 }
 
-export function isReactAPICall(name: string): ReturnType<typeof isCallFromReact>;
-export function isReactAPICall(
-  objectName: string,
-  propertyName: string,
-): ReturnType<typeof isCallFromReactObject>;
-export function isReactAPICall(arg0: string, arg1?: string) {
-  return arg1 == null
-    ? isCallFromReact(arg0)
-    : isCallFromReactObject(arg0, arg1);
+export function isReactAPI(api: string): isReactAPI.ReturnType {
+  return dual(2, (context: RuleContext, node: _ | null | TSESTree.Node) => {
+    if (node == null) return false;
+    const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+    const name = AST.stringify(node, getText);
+    if (name === api) return true;
+    if (name.substring(name.indexOf(".") + 1) === api) return true;
+    return false;
+  });
+}
+
+export function isReactAPICall(api: string): isReactAPI.ReturnType {
+  return dual(2, (context: RuleContext, node: _ | null | TSESTree.Node) => {
+    if (node == null) return false;
+    if (node.type !== T.CallExpression) return false;
+    return isReactAPI(api)(context, node.callee);
+  });
 }
 
 export const isCaptureOwnerStack = isReactAPI("captureOwnerStack");
-export const isChildrenCount = isReactAPI("Children", "count");
-export const isChildrenForEach = isReactAPI("Children", "forEach");
-export const isChildrenMap = isReactAPI("Children", "map");
-export const isChildrenOnly = isReactAPI("Children", "only");
-export const isChildrenToArray = isReactAPI("Children", "toArray");
+export const isChildrenCount = isReactAPI("Children.count");
+export const isChildrenForEach = isReactAPI("Children.forEach");
+export const isChildrenMap = isReactAPI("Children.map");
+export const isChildrenOnly = isReactAPI("Children.only");
+export const isChildrenToArray = isReactAPI("Children.toArray");
 export const isCloneElement = isReactAPI("cloneElement");
 export const isCreateContext = isReactAPI("createContext");
 export const isCreateElement = isReactAPI("createElement");
@@ -35,11 +45,11 @@ export const isMemo = isReactAPI("memo");
 export const isLazy = isReactAPI("lazy");
 
 export const isCaptureOwnerStackCall = isReactAPICall("captureOwnerStack");
-export const isChildrenCountCall = isReactAPICall("Children", "count");
-export const isChildrenForEachCall = isReactAPICall("Children", "forEach");
-export const isChildrenMapCall = isReactAPICall("Children", "map");
-export const isChildrenOnlyCall = isReactAPICall("Children", "only");
-export const isChildrenToArrayCall = isReactAPICall("Children", "toArray");
+export const isChildrenCountCall = isReactAPICall("Children.count");
+export const isChildrenForEachCall = isReactAPICall("Children.forEach");
+export const isChildrenMapCall = isReactAPICall("Children.map");
+export const isChildrenOnlyCall = isReactAPICall("Children.only");
+export const isChildrenToArrayCall = isReactAPICall("Children.toArray");
 export const isCloneElementCall = isReactAPICall("cloneElement");
 export const isCreateContextCall = isReactAPICall("createContext");
 export const isCreateElementCall = isReactAPICall("createElement");

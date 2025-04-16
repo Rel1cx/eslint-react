@@ -6,4 +6,4 @@
 
 # Variable: isCloneElement
 
-> `const` **isCloneElement**: `ReturnType`
+> `const` **isCloneElement**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
