@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v1.48.0 (2025-04-16)
+
+### 🐞 Fixes
+
+- fix: rewrite react api detection to better align with `eslint-plugin-react-hook` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1074
+- fix: use preferred loc in error maker in `hooks-extra/no-unnecessary-use-prefix` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1073
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.47.4...v1.48.0
+
 ## v1.47.4 (2025-04-15)
 
 ### 🐞 Fixes
