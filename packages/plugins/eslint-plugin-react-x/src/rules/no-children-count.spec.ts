@@ -55,11 +55,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "noChildrenCount",
       }],
-      settings: {
-        "react-x": {
-          importSource: "roact",
-        },
-      },
     },
     {
       code: tsx`
@@ -83,51 +78,34 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
     {
       code: tsx`
-        const Children = {
-          count: () => 1,
+        import { Children } from 'react';
+
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
+          // ...
         }
+      `,
+    },
+    {
+      code: tsx`
+        import { Children } from 'react';
 
         function RowList({ children }) {
           return (
-            <>
-              <h1>Total rows: {Children.count(children)}</h1>
-              ...
-            </>
+            <div className="RowList">
+              {Children.map(children, child =>
+                <div className="Row">
+                  {child}
+                </div>
+              )}
+            </div>
           );
         }
       `,
-      settings: {
-        "react-x": {
-          skipImportCheck: false,
-        },
-      },
     },
-    tsx`
-      import { Children } from 'react';
-
-      function SeparatorList({ children }) {
-        const result = [];
-        Children.forEach(children, (child, index) => {
-          result.push(child);
-          result.push(<hr key={index} />);
-        });
-        // ...
-      }
-    `,
-    tsx`
-      import { Children } from 'react';
-
-      function RowList({ children }) {
-        return (
-          <div className="RowList">
-            {Children.map(children, child =>
-              <div className="Row">
-                {child}
-              </div>
-            )}
-          </div>
-        );
-      }
-    `,
   ],
 });

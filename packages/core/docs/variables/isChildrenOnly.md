@@ -6,4 +6,4 @@
 
 # Variable: isChildrenOnly
 
-> `const` **isChildrenOnly**: `ReturnType`
+> `const` **isChildrenOnly**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

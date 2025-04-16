@@ -6,4 +6,4 @@
 
 # Variable: isChildrenToArray
 
-> `const` **isChildrenToArray**: `ReturnType`
+> `const` **isChildrenToArray**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

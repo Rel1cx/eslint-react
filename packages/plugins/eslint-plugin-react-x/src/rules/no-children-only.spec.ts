@@ -62,47 +62,34 @@ ruleTester.run(RULE_NAME, rule, {
     ...allValid,
     {
       code: tsx`
-        const Children = {
-          only: () => [],
-        }
+        import { Children } from 'react';
 
-        function Box({ children }) {
-          const element = Children.only(children);
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
           // ...
         }
       `,
-      settings: {
-        "react-x": {
-          skipImportCheck: false,
-        },
-      },
     },
-    tsx`
-      import { Children } from 'react';
+    {
+      code: tsx`
+        import { Children } from 'react';
 
-      function SeparatorList({ children }) {
-        const result = [];
-        Children.forEach(children, (child, index) => {
-          result.push(child);
-          result.push(<hr key={index} />);
-        });
-        // ...
-      }
-    `,
-    tsx`
-      import { Children } from 'react';
-
-      function RowList({ children }) {
-        return (
-          <div className="RowList">
-            {Children.map(children, child =>
-              <div className="Row">
-                {child}
-              </div>
-            )}
-          </div>
-        );
-      }
-    `,
+        function RowList({ children }) {
+          return (
+            <div className="RowList">
+              {Children.map(children, child =>
+                <div className="Row">
+                  {child}
+                </div>
+              )}
+            </div>
+          );
+        }
+      `,
+    },
   ],
 });

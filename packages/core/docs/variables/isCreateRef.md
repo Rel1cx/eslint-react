@@ -6,4 +6,4 @@
 
 # Variable: isCreateRef
 
-> `const` **isCreateRef**: `ReturnType`
+> `const` **isCreateRef**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

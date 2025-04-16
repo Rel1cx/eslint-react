@@ -1,15 +1,18 @@
-/* eslint-disable jsdoc/require-param */
 import type { _ } from "@eslint-react/eff";
-import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";
-import type { CustomHooks, ESLintReactSettings } from "./schemas";
+import type { CustomHooks, ESLintReactSettings, ESLintSettings } from "./schemas";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
-import { RegExp as RE } from "@eslint-react/kit";
-import * as z from "@zod/mini";
+import { RegExp as RE, type RuleContext } from "@eslint-react/kit";
 
 import { match, P } from "ts-pattern";
 import { getReactVersion } from "./get-react-version";
-import { DEFAULT_ESLINT_REACT_SETTINGS, ESLintSettingsSchema } from "./schemas";
+import {
+  DEFAULT_ESLINT_REACT_SETTINGS,
+  DEFAULT_ESLINT_SETTINGS,
+  isESLintReactSettings,
+  isESLintSettings,
+} from "./schemas";
 
 export interface CustomComponentNormalized {
   name: string;
@@ -26,99 +29,86 @@ export interface CustomComponentPropNormalized {
   defaultValue?: string | _;
 }
 
-/**
- * The normalized version of the `ESLintReactSettings`.
- * @internal
- */
 export interface ESLintReactSettingsNormalized {
   additionalComponents: CustomComponentNormalized[];
   additionalHooks: CustomHooks;
   importSource: string;
   polymorphicPropName: string | _;
   skipImportCheck: boolean;
-  // strict: boolean;
+  strict: boolean;
   version: string;
 }
 
-/**
- * A helper function to coerce settings from a data object.
- * @param data The data object.
- * @returns settings The settings.
- */
-export const coerceSettings = (data: unknown): PartialDeep<ESLintReactSettings> => {
-  // @ts-expect-error - skip type checking for unsafe cast
-  return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
+export const coerceESLintSettings = (settings: unknown): PartialDeep<ESLintSettings> => {
+  return settings as PartialDeep<ESLintSettings>;
 };
 
-const decodeCache = new Map<unknown, ESLintReactSettings>();
-
-/**
- * Decodes settings from a data object from `context.settings`.
- * @internal
- * @param data The data object.
- * @returns settings The settings.
- */
-export const decodeSettings = (data: unknown): ESLintReactSettings => {
-  return getOrElseUpdate(decodeCache, data, () => ({
-    ...DEFAULT_ESLINT_REACT_SETTINGS,
-    ...z.parse(ESLintSettingsSchema, data)?.["react-x"] ?? {},
-  }));
+export const decodeESLintSettings = (settings: unknown): ESLintSettings => {
+  if (isESLintSettings(settings)) {
+    return settings;
+  }
+  return DEFAULT_ESLINT_SETTINGS;
 };
 
-const normalizeCache = new Map<ESLintReactSettings, ESLintReactSettingsNormalized>();
+export const coerceSettings = (settings: unknown): PartialDeep<ESLintReactSettings> => {
+  return settings as PartialDeep<ESLintReactSettings>;
+};
 
-/**
- * @internal
- */
-export const normalizeSettings = (settings: ESLintReactSettings): ESLintReactSettingsNormalized => {
-  return getOrElseUpdate(normalizeCache, settings, () => {
-    const {
-      additionalComponents = [],
-      additionalHooks = {},
-      importSource = "react",
-      polymorphicPropName = "as",
-      skipImportCheck = true,
-      // strict = false,
-      version,
+export const decodeSettings = (settings: unknown): ESLintReactSettings => {
+  if (isESLintReactSettings(settings)) {
+    return settings;
+  }
+  return DEFAULT_ESLINT_REACT_SETTINGS;
+};
+
+export const normalizeSettings = ({
+  additionalComponents = [],
+  additionalHooks = {},
+  importSource = "react",
+  polymorphicPropName = "as",
+  skipImportCheck = true,
+  strict = true,
+  version,
+  ...rest
+}: ESLintReactSettings) => {
+  return {
+    ...rest,
+    additionalComponents: additionalComponents.map(({
+      name,
+      as = name,
+      attributes = [],
       ...rest
-    } = settings;
-    return {
+    }) => ({
       ...rest,
-      additionalComponents: additionalComponents.map(({
-        name,
-        as = name,
-        attributes = [],
-        ...rest
-      }) => ({
-        ...rest,
-        name,
-        as,
-        attributes: attributes
-          .map(({ name, as = name, ...rest }) => ({
-            ...rest,
-            name,
-            as,
-          })),
-        re: RE.toRegExp(name),
-      })),
-      additionalHooks,
-      importSource,
-      polymorphicPropName,
-      skipImportCheck,
-      version: match(version)
-        .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
-        .otherwise(identity),
-    };
-  });
+      name,
+      as,
+      attributes: attributes
+        .map(({ name, as = name, ...rest }) => ({
+          ...rest,
+          name,
+          as,
+        })),
+      re: RE.toRegExp(name),
+    })),
+    additionalHooks,
+    importSource,
+    polymorphicPropName,
+    skipImportCheck,
+    strict,
+    version: match(version)
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
+      .otherwise(identity),
+  } as const satisfies ESLintReactSettingsNormalized;
 };
 
-const settingsCache = new Map<unknown, ESLintReactSettingsNormalized>();
+const cache = new Map<unknown, ESLintReactSettingsNormalized>();
 
-export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
+export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
+  const settings = context.settings;
   return getOrElseUpdate(
-    settingsCache,
-    context.settings,
-    () => normalizeSettings(decodeSettings(context.settings)),
+    cache,
+    settings["react-x"],
+    () => normalizeSettings(decodeSettings(settings["react-x"])),
   );
 }
 

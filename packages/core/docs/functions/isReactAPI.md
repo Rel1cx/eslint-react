@@ -6,34 +6,14 @@
 
 # Function: isReactAPI()
 
-## Call Signature
+> **isReactAPI**(`api`): [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
 
-> **isReactAPI**(`name`): `ReturnType`
+## Parameters
 
-### Parameters
-
-#### name
+### api
 
 `string`
 
-### Returns
+## Returns
 
-`ReturnType`
-
-## Call Signature
-
-> **isReactAPI**(`objectName`, `propertyName`): `ReturnType`
-
-### Parameters
-
-#### objectName
-
-`string`
-
-#### propertyName
-
-`string`
-
-### Returns
-
-`ReturnType`
+[`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

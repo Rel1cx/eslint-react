@@ -6,4 +6,4 @@
 
 # Variable: isCreateContextCall
 
-> `const` **isCreateContextCall**: `ReturnType`
+> `const` **isCreateContextCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

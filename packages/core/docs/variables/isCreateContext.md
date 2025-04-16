@@ -6,4 +6,4 @@
 
 # Variable: isCreateContext
 
-> `const` **isCreateContext**: `ReturnType`
+> `const` **isCreateContext**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

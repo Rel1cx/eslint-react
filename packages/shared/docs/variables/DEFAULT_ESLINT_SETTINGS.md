@@ -2,48 +2,50 @@
 
 ***
 
-[@eslint-react/shared](../README.md) / DEFAULT\_ESLINT\_REACT\_SETTINGS
+[@eslint-react/shared](../README.md) / DEFAULT\_ESLINT\_SETTINGS
 
-# Variable: DEFAULT\_ESLINT\_REACT\_SETTINGS
+# Variable: DEFAULT\_ESLINT\_SETTINGS
 
-> `const` **DEFAULT\_ESLINT\_REACT\_SETTINGS**: `object`
-
-The default ESLint settings for "react-x".
+> `const` **DEFAULT\_ESLINT\_SETTINGS**: `object`
 
 ## Type declaration
 
-### additionalComponents
+### react-x
+
+> `readonly` **react-x**: `object` = `DEFAULT_ESLINT_REACT_SETTINGS`
+
+#### react-x.additionalComponents
 
 > `readonly` **additionalComponents**: \[\] = `[]`
 
-### additionalHooks
+#### react-x.additionalHooks
 
 > `readonly` **additionalHooks**: `object`
 
-#### additionalHooks.useEffect
+#### react-x.additionalHooks.useEffect
 
 > `readonly` **useEffect**: \[`"useIsomorphicLayoutEffect"`\]
 
-#### additionalHooks.useLayoutEffect
+#### react-x.additionalHooks.useLayoutEffect
 
 > `readonly` **useLayoutEffect**: \[`"useIsomorphicLayoutEffect"`\]
 
-### importSource
+#### react-x.importSource
 
 > `readonly` **importSource**: `"react"` = `"react"`
 
-### polymorphicPropName
+#### react-x.polymorphicPropName
 
 > `readonly` **polymorphicPropName**: `"as"` = `"as"`
 
-### skipImportCheck
+#### react-x.skipImportCheck
 
 > `readonly` **skipImportCheck**: `true` = `true`
 
-### strict
+#### react-x.strict
 
 > `readonly` **strict**: `true` = `true`
 
-### version
+#### react-x.version
 
 > `readonly` **version**: `"detect"` = `"detect"`

@@ -6,6 +6,7 @@
 
 ## Namespaces
 
+- [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md)
 - [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md)
 - [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md)
 - [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md)

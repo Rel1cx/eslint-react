@@ -6,4 +6,4 @@
 
 # Variable: isCreateRefCall
 
-> `const` **isCreateRefCall**: `ReturnType`
+> `const` **isCreateRefCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

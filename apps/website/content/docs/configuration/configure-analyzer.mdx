@@ -45,20 +45,6 @@ Example for using `@pika/react` instead of `react`:
 import React from "@pika/react";
 ```
 
-### `skipImportCheck`
-
-Controls whether to verify the import source when identifying React APIs.
-
-Default is `true` (checks only API shape). When `false`, both shape and import source are verified, preventing false positives from third-party libraries with similar APIs.
-
-```ts
-import { memo } from "unrelated-library";
-
-const NonComponentFunction = memo(() => {
-  // When skipImportCheck: false, this isn't recognized as React's memo
-});
-```
-
 ### `polymorphicPropName`
 
 Defines the prop used for polymorphic components. Helps rules determine element types for semantic context.

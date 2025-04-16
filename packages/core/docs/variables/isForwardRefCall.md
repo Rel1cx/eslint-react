@@ -6,4 +6,4 @@
 
 # Variable: isForwardRefCall
 
-> `const` **isForwardRefCall**: `ReturnType`
+> `const` **isForwardRefCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)

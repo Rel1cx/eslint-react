@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
         // Failing: Using named import directly without environment check
         import { captureOwnerStack } from "react";
 
-        const ownerStack = React.captureOwnerStack();
+        const ownerStack = captureOwnerStack();
 
         console.log("Owner Stack", ownerStack);
       `,

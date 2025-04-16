@@ -116,13 +116,14 @@ export const ESLintReactSettingsSchema = z.object({
    */
   polymorphicPropName: z.optional(z.string()),
   /**
+   * @default `true`
    * @internal
    */
   strict: z.optional(z.boolean()),
   /**
    * Check both the shape and the import to determine if an API is from React.
-   * @description This can prevent false positives when using a irrelevant third-party library that has similar APIs to React.
    * @default `true`
+   * @internal
    */
   skipImportCheck: z.optional(z.boolean()),
   /**
@@ -151,9 +152,7 @@ export const ESLintReactSettingsSchema = z.object({
  */
 export const ESLintSettingsSchema = z.optional(
   z.object({
-    "react-x": z.optional(ESLintReactSettingsSchema),
-    /** @deprecated Use `react-x` instead */
-    reactOptions: z.optional(ESLintReactSettingsSchema),
+    "react-x": z.optional(z.unknown()),
   }),
   {},
 );
@@ -164,22 +163,34 @@ export type CustomComponentProp = z.infer<typeof CustomComponentPropSchema>;
 
 export type CustomHooks = z.infer<typeof CustomHooksSchema>;
 
+export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
+
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 
-export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
+export function isESLintSettings(settings: unknown): settings is ESLintSettings {
+  return ESLintSettingsSchema.safeParse(settings).success;
+}
+
+export function isESLintReactSettings(settings: unknown): settings is ESLintReactSettings {
+  return ESLintReactSettingsSchema.safeParse(settings).success;
+}
 
 /**
  * The default ESLint settings for "react-x".
  */
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
-  ...z.parse(ESLintReactSettingsSchema, {}),
   version: "detect",
   importSource: "react",
-  strict: false,
+  strict: true,
   skipImportCheck: true,
   polymorphicPropName: "as",
+  additionalComponents: [],
   additionalHooks: {
     useEffect: ["useIsomorphicLayoutEffect"],
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
   },
 } as const satisfies ESLintReactSettings;
+
+export const DEFAULT_ESLINT_SETTINGS = {
+  "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
+} as const satisfies ESLintSettings;
