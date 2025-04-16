@@ -6,4 +6,4 @@
 
 # Variable: isMemoCall
 
-> `const` **isMemoCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
+> `const` **isMemoCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPICall/type-aliases/ReturnType.md)

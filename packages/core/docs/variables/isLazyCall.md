@@ -6,4 +6,4 @@
 
 # Variable: isLazyCall
 
-> `const` **isLazyCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
+> `const` **isLazyCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPICall/type-aliases/ReturnType.md)

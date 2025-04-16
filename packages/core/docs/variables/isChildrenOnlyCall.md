@@ -6,4 +6,4 @@
 
 # Variable: isChildrenOnlyCall
 
-> `const` **isChildrenOnlyCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
+> `const` **isChildrenOnlyCall**: [`ReturnType`](../@eslint-react/namespaces/isReactAPICall/type-aliases/ReturnType.md)

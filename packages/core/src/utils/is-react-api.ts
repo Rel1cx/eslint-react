@@ -6,28 +6,40 @@ import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isReactAPI {
   type ReturnType = {
-    (context: RuleContext, node: _ | null | TSESTree.Node): boolean;
-    (context: RuleContext): (node: _ | null | TSESTree.Node) => boolean;
+    (context: RuleContext, node: _ | null | TSESTree.Node): node is TSESTree.Identifier | TSESTree.MemberExpression;
+    (context: RuleContext): (node: _ | null | TSESTree.Node) => node is TSESTree.MemberExpression | TSESTree.Identifier;
   };
 }
 
 export function isReactAPI(api: string): isReactAPI.ReturnType {
-  return dual(2, (context: RuleContext, node: _ | null | TSESTree.Node) => {
+  const func = (context: RuleContext, node: _ | null | TSESTree.Node): node is
+    | TSESTree.Identifier
+    | TSESTree.MemberExpression =>
+  {
     if (node == null) return false;
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
     const name = AST.stringify(node, getText);
     if (name === api) return true;
     if (name.substring(name.indexOf(".") + 1) === api) return true;
     return false;
-  });
+  };
+  return dual(2, func);
 }
 
-export function isReactAPICall(api: string): isReactAPI.ReturnType {
-  return dual(2, (context: RuleContext, node: _ | null | TSESTree.Node) => {
+export declare namespace isReactAPICall {
+  type ReturnType = {
+    (context: RuleContext, node: _ | null | TSESTree.Node): node is TSESTree.CallExpression;
+    (context: RuleContext): (node: _ | null | TSESTree.Node) => node is TSESTree.CallExpression;
+  };
+}
+
+export function isReactAPICall(api: string): isReactAPICall.ReturnType {
+  const func = (context: RuleContext, node: _ | null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
     if (node.type !== T.CallExpression) return false;
     return isReactAPI(api)(context, node.callee);
-  });
+  };
+  return dual(2, func);
 }
 
 export const isCaptureOwnerStack = isReactAPI("captureOwnerStack");

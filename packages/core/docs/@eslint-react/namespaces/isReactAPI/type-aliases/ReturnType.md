@@ -6,11 +6,11 @@
 
 # Type Alias: ReturnType()
 
-> **ReturnType** = \{(`context`, `node`): `boolean`; (`context`): (`node`) => `boolean`; \}
+> **ReturnType** = \{(`context`, `node`): node is Identifier \| MemberExpression; (`context`): (`node`) => node is Identifier \| MemberExpression; \}
 
 ## Call Signature
 
-> (`context`, `node`): `boolean`
+> (`context`, `node`): node is Identifier \| MemberExpression
 
 ### Parameters
 
@@ -24,11 +24,11 @@
 
 ### Returns
 
-`boolean`
+node is Identifier \| MemberExpression
 
 ## Call Signature
 
-> (`context`): (`node`) => `boolean`
+> (`context`): (`node`) => node is Identifier \| MemberExpression
 
 ### Parameters
 
@@ -38,7 +38,7 @@
 
 ### Returns
 
-> (`node`): `boolean`
+> (`node`): node is Identifier \| MemberExpression
 
 #### Parameters
 
@@ -48,4 +48,4 @@
 
 #### Returns
 
-`boolean`
+node is Identifier \| MemberExpression

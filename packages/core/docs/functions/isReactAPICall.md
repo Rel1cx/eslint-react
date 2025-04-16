@@ -6,7 +6,7 @@
 
 # Function: isReactAPICall()
 
-> **isReactAPICall**(`api`): [`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
+> **isReactAPICall**(`api`): [`ReturnType`](../@eslint-react/namespaces/isReactAPICall/type-aliases/ReturnType.md)
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-[`ReturnType`](../@eslint-react/namespaces/isReactAPI/type-aliases/ReturnType.md)
+[`ReturnType`](../@eslint-react/namespaces/isReactAPICall/type-aliases/ReturnType.md)
