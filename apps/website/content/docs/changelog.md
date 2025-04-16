@@ -6,7 +6,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- fix: could not find "hooks-extra/no-direct-set-state-in-use-effect" in plugin "react-hooks-extra", closes #1077 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1078
+- fix: could not find `hooks-extra/no-direct-set-state-in-use-effect` in plugin `react-hooks-extra`, closes #1077 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1078
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.48.1...v1.48.2
 
