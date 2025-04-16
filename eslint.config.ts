@@ -3,7 +3,7 @@ import url from "node:url";
 import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
 import pluginLocal from "@local/eslint-plugin-local";
-import configFlatGitignore from "eslint-config-flat-gitignore";
+import gitIgnores from "eslint-config-flat-gitignore";
 import pluginVitest from "eslint-plugin-vitest";
 import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -22,7 +22,6 @@ const GLOB_TEST = [
 const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
 const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
 const GLOB_IGNORES = [
-  ...configFlatGitignore().ignores,
   "apps",
   "docs",
   "test",
@@ -36,6 +35,7 @@ const packagesTsConfigs = [
 ];
 
 export default tseslint.config(
+  gitIgnores(),
   globalIgnores(GLOB_IGNORES),
   {
     extends: [

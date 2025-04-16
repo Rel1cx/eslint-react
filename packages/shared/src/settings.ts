@@ -1,12 +1,11 @@
+/* eslint-disable jsdoc/require-param */
 import type { _ } from "@eslint-react/eff";
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";
 import type { CustomHooks, ESLintReactSettings } from "./schemas";
-import { identity } from "@eslint-react/eff";
+import { getOrElseUpdate, identity } from "@eslint-react/eff";
 import { RegExp as RE } from "@eslint-react/kit";
 import * as z from "@zod/mini";
-import { shallowEqual } from "fast-equals";
-import memoize from "micro-memoize";
 
 import { match, P } from "ts-pattern";
 import { getReactVersion } from "./get-react-version";
@@ -42,15 +41,16 @@ export interface ESLintReactSettingsNormalized {
 }
 
 /**
- * Unsafely casts settings from a data object from `context.settings`.
- * @internal
+ * A helper function to coerce settings from a data object.
  * @param data The data object.
  * @returns settings The settings.
  */
-export function unsafeDecodeSettings(data: unknown): PartialDeep<ESLintReactSettings> {
+export const coerceSettings = (data: unknown): PartialDeep<ESLintReactSettings> => {
   // @ts-expect-error - skip type checking for unsafe cast
   return (data?.["react-x"] ?? {}) as PartialDeep<ESLintReactSettings>;
-}
+};
+
+const decodeCache = new Map<unknown, ESLintReactSettings>();
 
 /**
  * Decodes settings from a data object from `context.settings`.
@@ -58,30 +58,30 @@ export function unsafeDecodeSettings(data: unknown): PartialDeep<ESLintReactSett
  * @param data The data object.
  * @returns settings The settings.
  */
-export const decodeSettings = memoize((data: unknown): ESLintReactSettings => {
-  return {
+export const decodeSettings = (data: unknown): ESLintReactSettings => {
+  return getOrElseUpdate(decodeCache, data, () => ({
     ...DEFAULT_ESLINT_REACT_SETTINGS,
     ...z.parse(ESLintSettingsSchema, data)?.["react-x"] ?? {},
-  };
-}, { isEqual: (a, b) => a === b });
+  }));
+};
+
+const normalizeCache = new Map<ESLintReactSettings, ESLintReactSettingsNormalized>();
 
 /**
- * The memoized version of `ESLintReactSettings`.
- * @param settings The settings.
- * @returns The normalized settings.
  * @internal
  */
-export const toNormalizedSettings = memoize(
-  ({
-    additionalComponents = [],
-    additionalHooks = {},
-    importSource = "react",
-    polymorphicPropName = "as",
-    skipImportCheck = true,
-    // strict = false,
-    version,
-    ...rest
-  }: ESLintReactSettings): ESLintReactSettingsNormalized => {
+export const normalizeSettings = (settings: ESLintReactSettings): ESLintReactSettingsNormalized => {
+  return getOrElseUpdate(normalizeCache, settings, () => {
+    const {
+      additionalComponents = [],
+      additionalHooks = {},
+      importSource = "react",
+      polymorphicPropName = "as",
+      skipImportCheck = true,
+      // strict = false,
+      version,
+      ...rest
+    } = settings;
     return {
       ...rest,
       additionalComponents: additionalComponents.map(({
@@ -109,12 +109,17 @@ export const toNormalizedSettings = memoize(
         .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
         .otherwise(identity),
     };
-  },
-  { isEqual: shallowEqual },
-);
+  });
+};
+
+const settingsCache = new Map<unknown, ESLintReactSettingsNormalized>();
 
 export function getSettingsFromContext(context: { settings: unknown }): ESLintReactSettingsNormalized {
-  return toNormalizedSettings(decodeSettings(context.settings));
+  return getOrElseUpdate(
+    settingsCache,
+    context.settings,
+    () => normalizeSettings(decodeSettings(context.settings)),
+  );
 }
 
 /**

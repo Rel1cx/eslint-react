@@ -28,13 +28,13 @@ Disallow duplicate props in JSX elements.
 ### Failing
 
 ```tsx
-<Hello name="John" name="Doe" />
+<Hello name="John" name="Doe" />;
 ```
 
 ### Passing
 
 ```tsx
-<Hello name="John" />
+<Hello name="John" />;
 ```
 
 ## Implementation

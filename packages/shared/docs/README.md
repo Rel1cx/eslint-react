@@ -30,6 +30,7 @@
 
 ## Functions
 
+- [coerceSettings](functions/coerceSettings.md)
 - [getId](functions/getId.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)

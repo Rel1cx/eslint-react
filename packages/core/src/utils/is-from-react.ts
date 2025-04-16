@@ -3,7 +3,7 @@ import type { RuleContext } from "@eslint-react/kit";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { type _, dual } from "@eslint-react/eff";
-import { DEFAULT_ESLINT_REACT_SETTINGS, unsafeDecodeSettings } from "@eslint-react/shared";
+import { coerceSettings, DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isInitializedFromReact } from "./is-initialized-from-react";
@@ -59,7 +59,7 @@ export function isFromReact(name: string): isFromReact.ReturnType {
   // dprint-ignore
   return dual(2, (context: RuleContext, node: TSESTree.Node | _): node is TSESTree.Identifier | TSESTree.MemberExpression => {
     if (node == null) return false;
-    const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
+    const { importSource = defaultImportSource, skipImportCheck = true } = coerceSettings(context.settings);
     if (skipImportCheck) return isFromReactLoose(node, name);
     return isFromReactStrict(node, name, importSource, context.sourceCode.getScope(node));
   });
@@ -70,7 +70,7 @@ export function isFromReactObject(objectName: string, propertyName: string): isF
   // dprint-ignore
   return dual(2, (context: RuleContext, node: TSESTree.Node | _): node is TSESTree.Identifier | TSESTree.MemberExpression => {
     if (node?.type !== T.MemberExpression) return false;
-    const { importSource = defaultImportSource, skipImportCheck = true } = unsafeDecodeSettings(context.settings);
+    const { importSource = defaultImportSource, skipImportCheck = true } = coerceSettings(context.settings);
     const { object, property } = node;
     if (skipImportCheck) return isFromReactLoose(object, objectName) && isFromReactLoose(property, propertyName);
     return isFromReactStrict(
