@@ -8,3 +8,11 @@ export function isArrayFromCall(node: TSESTree.Node, loose = true): node is TSES
   const name = node.callee.property.name;
   return name === "from" || (loose && name.startsWith("from"));
 }
+
+export function isArrayMapCall(node: TSESTree.Node, loose = true): node is TSESTree.CallExpression {
+  if (node.type !== T.CallExpression) return false;
+  if (node.callee.type !== T.MemberExpression) return false;
+  if (node.callee.property.type !== T.Identifier) return false;
+  const name = node.callee.property.name;
+  return name === "map" || (loose && name.endsWith("Map"));
+}

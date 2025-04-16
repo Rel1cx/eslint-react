@@ -221,7 +221,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
         for (const setStateCall of setStateCalls) {
           onViolation(context, setStateCall, {
-            name: AST.stringify(setStateCall, (n) => context.sourceCode.getText(n)),
+            name: AST.toString(setStateCall, (n) => context.sourceCode.getText(n)),
           });
         }
       }
@@ -229,7 +229,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
         for (const setStateCall of setStateCalls) {
           onViolation(context, setStateCall, {
-            name: AST.stringify(setStateCall, (n) => context.sourceCode.getText(n)),
+            name: AST.toString(setStateCall, (n) => context.sourceCode.getText(n)),
           });
         }
       }

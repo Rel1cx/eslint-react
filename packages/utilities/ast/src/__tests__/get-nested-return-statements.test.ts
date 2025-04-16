@@ -1,4 +1,4 @@
-import type { TSESTreeFunction } from "../types";
+import type { TSESTreeFunction } from "../ast-node";
 
 import path from "node:path";
 import { parseForESLint } from "@typescript-eslint/parser";
@@ -8,8 +8,8 @@ import tsx from "dedent";
 
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
-import { getNestedReturnStatements } from "../get-nested-return-statements";
-import { isFunction } from "../is";
+import { isFunction } from "../ast-is";
+import { getNestedReturnStatements } from "../ast-return-statement";
 
 function parse(code: string) {
   return parseForESLint(code, {

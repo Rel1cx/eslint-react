@@ -1,6 +1,27 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/typescript-estree";
-import { ASTUtils } from "@typescript-eslint/utils";
+import type { TSESTreeTypeExpression } from "./ast-node";
+
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { is, isTypeExpression } from "./ast-is";
+
+/**
+ * Recursively get the inner expression until it's not a TypeExpression
+ * @param node - The node to get the expression from
+ * @returns The inner expression
+ */
+export function getJSExpression(node: TSESTree.Node): Exclude<
+  TSESTree.Node,
+  TSESTreeTypeExpression
+> {
+  if (isTypeExpression(node)) {
+    return getJSExpression(node.expression);
+  }
+  return node;
+}
+
+export function isThisExpression(node: TSESTree.Expression) {
+  return getJSExpression(node).type === T.ThisExpression;
+}
 
 /**
  * Get all nested expressions of type T in an expression like node
@@ -10,7 +31,7 @@ import { ASTUtils } from "@typescript-eslint/utils";
  */
 // dprint-ignore
 export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
-  const isNodeOfType = ASTUtils.isNodeOfType(type);
+  const isNodeOfType = is(type);
   return function(node) {
     const boundGetNestedExpressionsOfType = getNestedExpressionsOfType(type);
     const expressions: Extract<TSESTree.Node, { type: TNodeType }>[] = [];

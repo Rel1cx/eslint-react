@@ -1,4 +1,3 @@
-/* eslint-disable local/prefer-eqeq-nullish-comparison */
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -22,6 +21,7 @@ export function isLiteral(node: TSESTree.Node, type?: LiteralType) {
     case "boolean":
       return typeof node.value === "boolean";
     case "null":
+      // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
       return node.value === null;
     case "number":
       return typeof node.value === "number";

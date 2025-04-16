@@ -1,4 +1,4 @@
-import type { TSESTreeClass } from "../types";
+import type { TSESTreeClass } from "../ast-node";
 
 import path from "node:path";
 import { parseForESLint } from "@typescript-eslint/parser";
@@ -7,7 +7,7 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
-import { getClassIdentifier } from "../get-class-identifier";
+import { getClassIdentifier } from "../ast-class-id";
 
 function parse(code: string) {
   return parseForESLint(code, {

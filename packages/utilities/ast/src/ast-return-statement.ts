@@ -1,9 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-
-import { findParentNode } from "./find-parent-node";
-import { isFunction } from "./is";
+import { findParentNode } from "./ast-hierarchy";
+import { isFunction } from "./ast-is";
 
 /**
  * Gets the nested return statements in the node that are within the same function

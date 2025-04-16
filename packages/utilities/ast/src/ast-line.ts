@@ -1,7 +1,15 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isOneOf } from "./is";
-import { isMultiLine } from "./is-multi-line";
+import { isOneOf } from "./ast-is";
+
+/**
+ * Check if a node is multiline
+ * @param node The AST node to check
+ * @returns  `true` if the node is multiline
+ */
+export function isMultiLine(node: TSESTree.Node) {
+  return node.loc.start.line !== node.loc.end.line;
+}
 
 /**
  * Check if a node is a line break

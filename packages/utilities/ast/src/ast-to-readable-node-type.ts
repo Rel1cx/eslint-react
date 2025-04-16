@@ -2,8 +2,13 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { getLiteralValueType } from "./get-literal-value-type";
-import { isJSX } from "./is";
+import { isJSX } from "./ast-is";
+
+function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
+  // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
+  if (input === null) return "null";
+  return typeof input;
+}
 
 /**
  * Returns human readable node type for given AST node
