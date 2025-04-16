@@ -115,31 +115,31 @@ import eslintReact from "@eslint-react/eslint-plugin";
 
 export default [
   {
-    files: ["**/*.{ts,tsx}"],
-    ...eslintReact.configs["recommended-typescript"],
+    files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.1.0",
-        importSource: "react",
-        polymorphicPropName: "as",
+        version: "19.1.0", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
+        importSource: "react", // Customize the import source for the React module (defaults to "react")
+        polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
+
+        // (Experimental) Alias custom Hooks to built-in React Hooks for rule compatibility
         additionalHooks: {
           useEffect: ["useIsomorphicLayoutEffect"],
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },
+
+        // (Experimental) Configure mapping for custom components and their attributes for more comprehensive analysis
+        // It's recommended to use polymorphicPropName when possible, as this option is more complex
         additionalComponents: [
           {
             name: "Link",
             as: "a",
-            attributes: [
-              { name: "to", as: "href" }, // Maps 'to' prop to 'href' attribute
-            ],
+            attributes: [{ name: "to", as: "href" }],
           },
           {
             name: "EmbedContent",
             as: "iframe",
-            attributes: [
-              { name: "sandbox", defaultValue: "" }, // Sets the default value for 'sandbox' attribute
-            ],
+            attributes: [{ name: "sandbox", defaultValue: "" }],
           },
         ],
       },
