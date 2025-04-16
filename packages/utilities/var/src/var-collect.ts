@@ -1,10 +1,33 @@
-import type { _ } from "@eslint-react/eff";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { _, dual } from "@eslint-react/eff";
+import { ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import * as ASTUtils from "@typescript-eslint/utils/ast-utils";
+import { getVariableInitNode } from "./var-init-node";
 
-import { findVariable } from "./find-variable";
-import { getVariableInitNode } from "./get-variable-init-node";
+/**
+ * Get all variables from the given scope up to the global scope
+ * @param initialScope The scope to start from
+ * @returns All variables from the given scope up to the global scope
+ */
+export function getVariables(initialScope: Scope): Variable[] {
+  let scope = initialScope;
+  const variables = [...scope.variables];
+  while (scope.type !== ScopeType.global) {
+    scope = scope.upper;
+    variables.push(...scope.variables);
+  }
+  return variables.reverse();
+}
+
+export const findVariable: {
+  (initialScope: Scope): (nameOrNode: string | TSESTree.Identifier | _) => Variable | _;
+  (nameOrNode: string | TSESTree.Identifier | _, initialScope: Scope): Variable | _;
+} = dual(2, (nameOrNode: string | TSESTree.Identifier | _, initialScope: Scope) => {
+  if (nameOrNode == null) return _;
+  return ASTUtils.findVariable(initialScope, nameOrNode) ?? _;
+});
 
 export function findPropertyInProperties(
   name: string,

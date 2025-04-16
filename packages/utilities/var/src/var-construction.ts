@@ -1,11 +1,25 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { Construction } from "./construction";
 import { _ } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { getVariableInitNode } from "../get-variable-init-node";
-import { ConstructionDetectionHint } from "./construction-detection-hint";
+import { getVariableInitNode } from "./var-init-node";
+
+export const ConstructionDetectionHint = {
+  None: 0n,
+  StrictCallExpression: 1n << 0n,
+};
+
+export type Construction =
+  | { kind: "ArrayExpression"; node: TSESTree.ArrayExpression }
+  | { kind: "CallExpression"; node: TSESTree.CallExpression }
+  | { kind: "ClassExpression"; node: TSESTree.ClassExpression }
+  | { kind: "FunctionDeclaration"; node: TSESTree.FunctionDeclaration }
+  | { kind: "FunctionExpression"; node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression }
+  | { kind: "JSXElement"; node: TSESTree.JSXElement | TSESTree.JSXFragment }
+  | { kind: "NewExpression"; node: TSESTree.NewExpression }
+  | { kind: "ObjectExpression"; node: TSESTree.ObjectExpression }
+  | { kind: "RegExpLiteral"; node: TSESTree.RegExpLiteral };
 
 /**
  * Detects the construction type of a given node.
@@ -14,7 +28,7 @@ import { ConstructionDetectionHint } from "./construction-detection-hint";
  * @param hint Optional hint to control the detection behavior.
  * @returns The construction type of the node, or `_` if not found.
  */
-export function getConstructionDetectionResult(
+export function getConstruction(
   node: TSESTree.Node | _,
   initialScope: Scope,
   hint = ConstructionDetectionHint.None,
@@ -43,22 +57,22 @@ export function getConstructionDetectionResult(
     }
     case T.MemberExpression: {
       if (!("object" in node)) return _;
-      return getConstructionDetectionResult(node.object, initialScope, hint);
+      return getConstruction(node.object, initialScope, hint);
     }
     case T.AssignmentExpression:
     case T.AssignmentPattern: {
       if (!("right" in node)) return _;
-      return getConstructionDetectionResult(node.right, initialScope, hint);
+      return getConstruction(node.right, initialScope, hint);
     }
     case T.LogicalExpression: {
-      const lvc = getConstructionDetectionResult(node.left, initialScope, hint);
+      const lvc = getConstruction(node.left, initialScope, hint);
       if (lvc == null) return _;
-      return getConstructionDetectionResult(node.right, initialScope, hint);
+      return getConstruction(node.right, initialScope, hint);
     }
     case T.ConditionalExpression: {
-      const cvc = getConstructionDetectionResult(node.consequent, initialScope, hint);
+      const cvc = getConstruction(node.consequent, initialScope, hint);
       if (cvc == null) return _;
-      return getConstructionDetectionResult(node.alternate, initialScope, hint);
+      return getConstruction(node.alternate, initialScope, hint);
     }
     case T.Identifier: {
       if (!("name" in node) || typeof node.name !== "string") {
@@ -66,7 +80,7 @@ export function getConstructionDetectionResult(
       }
       const variable = initialScope.set.get(node.name);
       const variableNode = getVariableInitNode(variable, -1);
-      return getConstructionDetectionResult(variableNode, initialScope, hint);
+      return getConstruction(variableNode, initialScope, hint);
     }
     case T.Literal: {
       if ("regex" in node) {
@@ -78,7 +92,7 @@ export function getConstructionDetectionResult(
       if (!("expression" in node) || typeof node.expression !== "object") {
         return _;
       }
-      return getConstructionDetectionResult(node.expression, initialScope, hint);
+      return getConstruction(node.expression, initialScope, hint);
     }
   }
 }

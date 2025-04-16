@@ -31,7 +31,10 @@
     }
   ],
   "eslint.rules.customizations": [
-    { "rule": "@eslint-react/debug/*", "severity": "info" }
+    {
+      "rule": "@eslint-react/debug/*",
+      "severity": "info"
+    }
   ],
   "files.exclude": {
     "**/.zed": true,
@@ -40,5 +43,5 @@
   "mdx.server.enable": true,
   "npm.packageManager": "pnpm",
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
 }

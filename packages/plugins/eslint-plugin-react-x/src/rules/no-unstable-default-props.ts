@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const { value } = prop;
           const { right } = value;
           const initialScope = context.sourceCode.getScope(value);
-          const construction = VAR.getConstructionDetectionResult(
+          const construction = VAR.getConstruction(
             value,
             initialScope,
             VAR.ConstructionDetectionHint.StrictCallExpression,
