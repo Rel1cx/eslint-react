@@ -4,13 +4,13 @@ title: no-leaked-event-listener
 
 **Full Name in `eslint-plugin-react-web-api`**
 
-```plain copy
+```sh copy
 react-web-api/no-leaked-event-listener
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/web-api/no-leaked-event-listener
 ```
 

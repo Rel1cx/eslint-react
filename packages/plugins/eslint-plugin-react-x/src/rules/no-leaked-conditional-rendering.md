@@ -4,13 +4,13 @@ title: no-leaked-conditional-rendering
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/no-leaked-conditional-rendering
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/no-leaked-conditional-rendering
 ```
 

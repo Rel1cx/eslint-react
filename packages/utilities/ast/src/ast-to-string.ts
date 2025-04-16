@@ -10,11 +10,6 @@ function getLiteralValueType(input: bigint | boolean | null | number | string | 
   return typeof input;
 }
 
-/**
- * Returns human readable node type for given AST node
- * @param node AST node
- * @returns Human readable node type
- */
 export function toDelimiterCaseType(node: TSESTree.Node, delimiter = " ") {
   if (node.type === T.Literal) {
     if ("regex" in node) {

@@ -4,13 +4,13 @@ title: jsx-no-duplicate-props
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/jsx-no-duplicate-props
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/jsx-no-duplicate-props
 ```
 

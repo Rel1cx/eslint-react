@@ -4,13 +4,13 @@ title: prefer-use-state-lazy-initialization
 
 **Full Name in `eslint-plugin-react-hooks-extra`**
 
-```plain copy
+```sh copy
 react-hooks-extra/prefer-use-state-lazy-initialization
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/hooks-extra/prefer-use-state-lazy-initialization
 ```
 

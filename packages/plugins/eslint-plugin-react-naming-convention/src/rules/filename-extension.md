@@ -4,13 +4,13 @@ title: filename-extension
 
 **Full Name in `eslint-plugin-react-naming-convention`**
 
-```plain copy
+```sh copy
 react-naming-convention/filename-extension
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/naming-convention/filename-extension
 ```
 

@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESTreeTypeExpression } from "./ast-node";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { is, isTypeExpression } from "./ast-is";
+import { isTypeExpression } from "./ast-is";
 
 /**
  * Recursively get the inner expression until it's not a TypeExpression

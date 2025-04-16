@@ -8,8 +8,8 @@ import tsx from "dedent";
 
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
-import { isFunction } from "../ast-is";
 import { getNestedReturnStatements } from "../ast-hierarchy";
+import { isFunction } from "../ast-is";
 
 function parse(code: string) {
   return parseForESLint(code, {

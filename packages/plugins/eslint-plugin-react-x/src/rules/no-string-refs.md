@@ -4,13 +4,13 @@ title: no-string-refs
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/no-string-refs
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/no-string-refs
 ```
 

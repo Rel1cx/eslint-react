@@ -4,13 +4,13 @@ title: function-component
 
 **Full Name in `eslint-plugin-react-debug`**
 
-```plain copy
+```sh copy
 react-debug/function-component
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/debug/function-component
 ```
 

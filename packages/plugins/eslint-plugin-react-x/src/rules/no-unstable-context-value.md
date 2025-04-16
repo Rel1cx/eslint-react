@@ -4,13 +4,13 @@ title: no-unstable-context-value
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/no-unstable-context-value
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/no-unstable-context-value
 ```
 

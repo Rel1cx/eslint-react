@@ -4,13 +4,13 @@ title: jsx-uses-react
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/jsx-uses-react
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/jsx-uses-react
 ```
 

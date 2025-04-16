@@ -1,5 +1,5 @@
-export * from "./ast-array-method-callback";
 export * from "./ast-array-method";
+export * from "./ast-array-method-callback";
 export * from "./ast-class-id";
 export * from "./ast-expression";
 export * from "./ast-function-id";
@@ -9,8 +9,8 @@ export * from "./ast-hierarchy";
 export * from "./ast-is";
 export * from "./ast-line";
 export * from "./ast-literal-is";
+export type * from "./ast-node";
 export * from "./ast-node-equal";
-export * from "./ast-node";
 export * from "./ast-process-env-node-env";
 export * from "./ast-property-name";
 export * from "./ast-to-string";

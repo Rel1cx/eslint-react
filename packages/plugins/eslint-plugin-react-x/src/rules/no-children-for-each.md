@@ -4,13 +4,13 @@ title: no-children-for-each
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/no-children-for-each
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/no-children-for-each
 ```
 

@@ -4,13 +4,13 @@ title: no-unnecessary-use-memo
 
 **Full Name in `eslint-plugin-react-hooks-extra`**
 
-```plain copy
+```sh copy
 react-hooks-extra/no-unnecessary-use-memo
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/hooks-extra/no-unnecessary-use-memo
 ```
 

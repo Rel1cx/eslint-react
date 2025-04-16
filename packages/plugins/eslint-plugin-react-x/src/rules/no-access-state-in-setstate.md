@@ -4,13 +4,13 @@ title: no-access-state-in-setstate
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/no-access-state-in-setstate
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/no-access-state-in-setstate
 ```
 

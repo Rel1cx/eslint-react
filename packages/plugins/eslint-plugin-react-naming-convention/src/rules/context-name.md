@@ -4,13 +4,13 @@ title: context-name
 
 **Full Name in `eslint-plugin-react-naming-convention`**
 
-```plain copy
+```sh copy
 react-naming-convention/context-name
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/naming-convention/context-name
 ```
 

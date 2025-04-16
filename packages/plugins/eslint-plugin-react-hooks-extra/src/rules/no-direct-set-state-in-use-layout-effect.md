@@ -4,13 +4,13 @@ title: no-direct-set-state-in-use-layout-effect
 
 **Full Name in `eslint-plugin-react-hooks-extra`**
 
-```plain copy
+```sh copy
 react-hooks-extra/no-direct-set-state-in-use-layout-effect
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect
 ```
 

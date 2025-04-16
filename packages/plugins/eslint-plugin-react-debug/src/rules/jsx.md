@@ -4,13 +4,13 @@ title: jsx
 
 **Full Name in `eslint-plugin-react-debug`**
 
-```plain copy
+```sh copy
 react-debug/jsx
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/debug/jsx
 ```
 

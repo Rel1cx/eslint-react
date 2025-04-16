@@ -4,13 +4,13 @@ title: no-dangerously-set-innerhtml
 
 **Full Name in `eslint-plugin-react-dom`**
 
-```plain copy
+```sh copy
 react-dom/no-dangerously-set-innerhtml
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/dom/no-dangerously-set-innerhtml
 ```
 

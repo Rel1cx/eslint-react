@@ -4,13 +4,13 @@ title: no-unsafe-component-will-update
 
 **Full Name in `eslint-plugin-react-x`**
 
-```plain copy
+```sh copy
 react-x/no-unsafe-component-will-update
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
-```plain copy
+```sh copy
 @eslint-react/no-unsafe-component-will-update
 ```
 

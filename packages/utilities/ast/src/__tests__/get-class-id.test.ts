@@ -33,7 +33,6 @@ describe("get class identifier from class declaration", () => {
         n = node;
       },
     }, true);
-    ``;
     expect(n).not.toBeNull();
   });
 });
