@@ -253,6 +253,67 @@ function useCustomHook() {
 }
 ```
 
+### Failing
+
+The following cases are intentionally considered as possible leaks:
+
+```tsx
+import { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    if (!el) {
+      return;
+    }
+
+    for (const [name, handler] of Object.entries(handlers)) {
+      //                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+      //                          - The entries are not guaranteed to be the same as the ones in the effect cleanup function.
+      el.addEventListener(name, handler);
+    }
+
+    return () => {
+      for (const [name, handler] of Object.entries(handlers)) {
+        //                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+        //                          - The entries are not guaranteed to be the same as the ones in the effect setup function.
+        el.removeEventListener(name, handler);
+      }
+    };
+  }, [el]);
+
+  return null;
+}
+```
+
+### Passing
+
+Instead, you should always use the same entries in both the setup and cleanup functions:
+
+```tsx
+import { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    if (!el) {
+      return;
+    }
+
+    const handlerEntries = Object.entries(handlers); // <- Use the same entries array
+
+    for (const [name, handler] of handlerEntries) {
+      el.addEventListener(name, handler);
+    }
+
+    return () => {
+      for (const [name, handler] of handlerEntries) {
+        el.removeEventListener(name, handler);
+      }
+    };
+  }, [el]);
+  return null;
+}
+```
+
 ## Implementation
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener.ts)
