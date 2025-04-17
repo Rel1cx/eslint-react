@@ -12,7 +12,7 @@
 
 ### fallback
 
-`string` = `"19.0.0"`
+`string`
 
 ## Returns
 
