@@ -46,12 +46,12 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
 ): useNoDirectSetStateInUseEffect.ReturnType {
   const { onViolation, useEffectKind } = options;
   const settings = getSettingsFromContext(context);
-  const additionalHooks = settings.additionalHooks;
+  const hooks = settings.additionalHooks;
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-  const isUseEffectLikeCall = ER.isReactHookCallWithNameAlias(context, useEffectKind, additionalHooks[useEffectKind]);
-  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", additionalHooks.useState);
-  const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", additionalHooks.useMemo);
-  const isUseCallbackCall = ER.isReactHookCallWithNameAlias(context, "useCallback", additionalHooks.useCallback);
+  const isUseEffectLikeCall = ER.isReactHookCallWithNameAlias(context, useEffectKind, hooks[useEffectKind]);
+  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", hooks.useState);
+  const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", hooks.useMemo);
+  const isUseCallbackCall = ER.isReactHookCallWithNameAlias(context, "useCallback", hooks.useCallback);
   const isSetStateCall = isSetFunctionCall(context, settings);
   const isIdFromUseStateCall = isFromUseStateCall(context, settings);
 

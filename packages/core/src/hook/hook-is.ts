@@ -3,10 +3,9 @@ import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { constFalse, flip } from "@eslint-react/eff";
-import { coerceSettings } from "@eslint-react/shared";
+import { coerceSettings, DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { DEFAULT_ESLINT_REACT_SETTINGS } from "../../../shared/src/schemas";
 import { isInitializedFromReact } from "../utils";
 import { isReactHookName } from "./hook-name";
 

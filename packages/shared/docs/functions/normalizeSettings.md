@@ -128,10 +128,6 @@
 
 `object`
 
-### additionalComponents
-
-> `readonly` **additionalComponents**: `object`[]
-
 ### additionalHooks
 
 > **additionalHooks**: `object`
@@ -211,6 +207,10 @@
 #### additionalHooks.useTransition?
 
 > `optional` **useTransition**: `string`[]
+
+### components
+
+> `readonly` **components**: `object`[]
 
 ### importSource
 

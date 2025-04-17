@@ -5,14 +5,11 @@ import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 
 export function createJsxElementResolver(context: RuleContext) {
-  const {
-    additionalComponents,
-    polymorphicPropName,
-  } = getSettingsFromContext(context);
+  const { components, polymorphicPropName } = getSettingsFromContext(context);
   return {
     resolve(node: TSESTree.JSXElement) {
       const name = ER.getElementType(context, node);
-      const component = additionalComponents
+      const component = components
         .findLast((c) => c.name === name || c.re.test(name));
       const result = {
         attributes: component?.attributes ?? [],

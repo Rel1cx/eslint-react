@@ -8,12 +8,6 @@
 
 ## Properties
 
-### additionalComponents
-
-> **additionalComponents**: [`CustomComponentNormalized`](CustomComponentNormalized.md)[]
-
-***
-
 ### additionalHooks
 
 > **additionalHooks**: `object`
@@ -93,6 +87,12 @@
 #### useTransition?
 
 > `optional` **useTransition**: `string`[]
+
+***
+
+### components
+
+> **components**: [`CustomComponentNormalized`](CustomComponentNormalized.md)[]
 
 ***
 
