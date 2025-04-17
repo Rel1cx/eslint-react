@@ -44,8 +44,6 @@ export function toString(node: TSESTree.Node, getText: (node: TSESTree.Node) => 
       return node.value;
     case T.Literal:
       return node.raw;
-    case T.CallExpression:
-      return toString(node.callee, getText);
     default:
       return getText(node);
   }

@@ -47,6 +47,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   const { onViolation, useEffectKind } = options;
   const settings = getSettingsFromContext(context);
   const additionalHooks = settings.additionalHooks;
+  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const isUseEffectLikeCall = ER.isReactHookCallWithNameAlias(context, useEffectKind, additionalHooks[useEffectKind]);
   const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", additionalHooks.useState);
   const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", additionalHooks.useMemo);
@@ -78,6 +79,13 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
     return node.parent?.type === T.CallExpression
       && node.parent.callee !== node
       && isUseEffectLikeCall(node.parent);
+  }
+
+  function getCallName(node: TSESTree.Node) {
+    if (node.type === T.CallExpression) {
+      return AST.toString(node.callee, getText);
+    }
+    return AST.toString(node, getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {
@@ -221,7 +229,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
         for (const setStateCall of setStateCalls) {
           onViolation(context, setStateCall, {
-            name: AST.toString(setStateCall, (n) => context.sourceCode.getText(n)),
+            name: getCallName(setStateCall),
           });
         }
       }
@@ -229,7 +237,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
         for (const setStateCall of setStateCalls) {
           onViolation(context, setStateCall, {
-            name: AST.toString(setStateCall, (n) => context.sourceCode.getText(n)),
+            name: getCallName(setStateCall),
           });
         }
       }

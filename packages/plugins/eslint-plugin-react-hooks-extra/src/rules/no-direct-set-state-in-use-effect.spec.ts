@@ -18,7 +18,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -34,7 +39,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data[1]",
+          },
+        },
       ],
     },
     {
@@ -50,7 +60,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data.at(1)",
+          },
+        },
       ],
     },
     {
@@ -67,7 +82,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data.at(index)",
+          },
+        },
       ],
     },
     {
@@ -84,7 +104,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
     },
     {
@@ -101,7 +126,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -125,7 +155,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -147,7 +182,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -170,7 +210,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "data.at(index)",
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -196,7 +241,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -215,7 +265,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -236,8 +291,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData1" } },
-        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData2" } },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: { name: "setData1" },
+        },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: { name: "setData2" },
+        },
       ],
     },
     {
@@ -258,8 +319,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData1" } },
-        { messageId: "noDirectSetStateInUseEffect", data: { name: "setData2" } },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: { name: "setData1" },
+        },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: { name: "setData2" },
+        },
       ],
     },
     {
@@ -293,7 +360,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -312,7 +384,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -329,7 +406,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -346,7 +428,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -363,7 +450,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -380,7 +472,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -395,7 +492,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     // TODO: Add cleanup function check
@@ -463,7 +565,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -477,7 +584,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -494,7 +606,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -511,7 +628,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -528,7 +650,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -554,8 +681,18 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
@@ -586,7 +723,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseEffect" },
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
   ],
