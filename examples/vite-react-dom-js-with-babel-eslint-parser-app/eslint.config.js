@@ -1,7 +1,12 @@
 import eslintJs from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginReactX from "eslint-plugin-react-x";
+import eslintPluginReactDom from "eslint-plugin-react-dom";
+import eslintPluginReactWebApi from "eslint-plugin-react-web-api";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactHooksExtra from "eslint-plugin-react-hooks-extra";
+import eslintPluginReactNamingConvention from "eslint-plugin-react-naming-convention";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import eslintPluginReactDebug from "eslint-plugin-react-debug";
 import babelEslintParser from "@babel/eslint-parser";
 import globals from "globals";
 import { defineConfig } from "eslint/config";
@@ -33,7 +38,9 @@ export default defineConfig([
   {
     files: JSCONFIG_NODE.include,
     ignores: JSCONFIG_NODE.exclude,
-    extends: [eslintJs.configs.recommended],
+    extends: [
+      eslintJs.configs.recommended,
+    ],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -56,8 +63,13 @@ export default defineConfig([
   {
     files: JSCONFIG_APP.include,
     extends: [
-      eslintReact.configs.recommended,
+      eslintPluginReactX.configs.recommended,
+      eslintPluginReactDom.configs.recommended,
+      eslintPluginReactWebApi.configs.recommended,
+      eslintPluginReactHooksExtra.configs.recommended,
+      eslintPluginReactNamingConvention.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,
+      eslintPluginReactDebug.configs.all,
     ],
     plugins: {
       "react-hooks": eslintPluginReactHooks,

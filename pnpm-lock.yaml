@@ -585,9 +585,6 @@ importers:
       '@babel/preset-react':
         specifier: ^7.26.3
         version: 7.26.3(@babel/core@7.26.10)
-      '@eslint-react/eslint-plugin':
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin
       '@eslint/config-inspector':
         specifier: ^1.0.2
         version: 1.0.2(eslint@9.24.0(jiti@2.4.2))
@@ -612,12 +609,30 @@ importers:
       eslint:
         specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
+      eslint-plugin-react-debug:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-debug
+      eslint-plugin-react-dom:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-dom
       eslint-plugin-react-hooks:
         specifier: ^5.2.0
         version: 5.2.0(eslint@9.24.0(jiti@2.4.2))
+      eslint-plugin-react-hooks-extra:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-hooks-extra
+      eslint-plugin-react-naming-convention:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-naming-convention
       eslint-plugin-react-refresh:
         specifier: ^0.4.19
         version: 0.4.19(eslint@9.24.0(jiti@2.4.2))
+      eslint-plugin-react-web-api:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-web-api
+      eslint-plugin-react-x:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-x
       globals:
         specifier: ^16.0.0
         version: 16.0.0
