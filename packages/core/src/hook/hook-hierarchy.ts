@@ -16,8 +16,8 @@ export function isFunctionOfUseEffectSetup(node: TSESTree.Node | _) {
 export function isFunctionOfUseEffectCleanup(node: TSESTree.Node | _) {
   if (node == null) return false;
   const pReturn = AST.findParentNode(node, AST.is(T.ReturnStatement));
-  const pFaunction = AST.findParentNode(node, AST.isFunction);
+  const pFunction = AST.findParentNode(node, AST.isFunction); // Correctly named variable
   const pFunctionOfReturn = AST.findParentNode(pReturn, AST.isFunction);
-  if (pFaunction !== pFunctionOfReturn) return false;
-  return isFunctionOfUseEffectSetup(pFaunction);
+  if (pFunction !== pFunctionOfReturn) return false; // Ensure consistent variable naming
+  return isFunctionOfUseEffectSetup(pFunction);
 }
