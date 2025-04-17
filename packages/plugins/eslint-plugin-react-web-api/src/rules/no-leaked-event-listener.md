@@ -255,8 +255,6 @@ function useCustomHook() {
 
 ### Failing
 
-The following cases are intentionally considered as possible leaks:
-
 ```tsx
 import { useEffect } from "react";
 
@@ -265,7 +263,7 @@ function MyComponent() {
     if (!el) {
       return;
     }
-
+    // The following cases are intentionally considered as possible leaks:
     for (const [name, handler] of Object.entries(handlers)) {
       //                          ^^^^^^^^^^^^^^^^^^^^^^^^^
       //                          - The entries are not guaranteed to be the same as the ones in the effect cleanup function.
@@ -287,8 +285,6 @@ function MyComponent() {
 
 ### Passing
 
-Instead, you should always use the same entries in both the setup and cleanup functions:
-
 ```tsx
 import { useEffect } from "react";
 
@@ -298,6 +294,7 @@ function MyComponent() {
       return;
     }
 
+    // Instead, always use the same entries in both the setup and cleanup functions:
     const handlerEntries = Object.entries(handlers); // <- Use the same entries array
 
     for (const [name, handler] of handlerEntries) {
