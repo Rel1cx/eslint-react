@@ -1,3 +1,12 @@
+## v1.48.3 (2025-04-17)
+
+### 🪄 Improvements
+
+- refactor: improve settings handling by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1080
+- docs: add more examples to `web-api/no-leaked-event-listener` docs by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1082
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.48.2...v1.48.3
+
 ## v1.48.2 (2025-04-16)
 
 ### 🐞 Fixes
