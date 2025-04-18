@@ -8,15 +8,13 @@ title: Roadmap
 
 Minimum supported versions:
 
-- [ ] `node@20.19.0`
-- [ ] `eslint@8.57.0`
-- [ ] `typescript@5.3.3`
+- [x] Node.js: 20.19.0
+- [x] ESLint: 9.24.0
+- [x] TypeScript: 4.9.5
 
 ### Package Distribution
 
-- [ ] Publish ESM-Only packages
-- [ ] Deprecate CommonJS distribution (will only provide migration guide for legacy environments)
-- [ ] Update all documentation examples to use ESM syntax (rules itself still support linting CommonJS code)
+- [x] Publish ESM-Only packages
 
 ### Plugins (with ecological niche explanation)
 
@@ -40,44 +38,46 @@ Minimum supported versions:
 
 - [ ] `function-component-definition`
 - [x] `no-useless-fragment`
-- [x] `jsx-shorthand-fragment`
-- [x] `prefer-namespace-import`
-- [x] `jsx-shorthand-boolean`
+- [x] `prefer-react-namespace-import`
+- [x] `prefer-shorthand-fragment`
+- [x] `prefer-shorthand-boolean`
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 
 - [ ] `no-prop-types`
-- [ ] `no-leaked-conditional-rendering`
 - [ ] `no-redundant-should-component-update`
 - [ ] `no-unused-class-component-members`
 - [ ] `no-unused-state`
-- [ ] `prefer-destructuring-assignment`
 - [ ] `dom/no-missing-button-type`
 - [ ] `dom/no-missing-iframe-sandbox`
 - [ ] `dom/no-unsafe-iframe-sandbox`
 - [ ] `dom/no-unsafe-target-blank`
-- [ ] `web-api/no-leaked-timeout`
-- [ ] `web-api/no-leaked-interval`
-- [ ] `web-api/no-leaked-event-listener`
-- [ ] `web-api/no-leaked-resize-observer`
 
 ### New Rules
 
+- [x] `jsx-no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
+- [x] `jsx-shorthand-boolean` - Enforces shorthand boolean attributes in JSX (Replaces `prefer-shorthand-boolean`)
+- [x] `jsx-shorthand-fragment` - Enforces shorthand fragment syntax in JSX (Replaces `prefer-shorthand-fragment`)
 - [x] `no-context-provider` - Replaces usages of `<Context.Provider>` with `<Context>` (React 19)
 - [x] `no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19)
 - [x] `no-use-context` - Replaces usages of `useContext` with `use` (React 19)
-- [x] `react-dom/no-render` - Replaces usages of `ReactDom.render()` with `createRoot(node).render()` (React 19)
-- [x] `react-dom/no-hydrate` - Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
-- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
-- [x] `react-dom/no-use-form-state` - Replaces the usages of `useFormState()` to use `useActionState()` (React 19)
+- [x] `prefer-namespace-import` - Enforces the use of namespace imports for React (Replaces `prefer-react-namespace-import`)
 - [ ] `react-dom/no-test-utils-act` - Replaces the usages of `TestUtils.act()` to use `React.act()` (React 19)
+- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
+- [x] `react-dom/no-hydrate` - Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
+- [x] `react-dom/no-render` - Replaces usages of `ReactDom.render()` with `createRoot(node).render()` (React 19)
+- [x] `react-dom/no-use-form-state` - Replaces the usages of `useFormState()` to use `useActionState()` (React 19)
+- [x] `react-dom/prefer-namespace-import` - Enforces the use of namespace imports for ReactDOM
 - [x] `naming-convention/context-name` - Enforces context name to be a valid component name with the suffix `Context` (React 19)
 - [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
 - [ ] `hooks-extra/no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
 
-### Advanced Configuration features
+### Removed Rules
 
-- [ ] Additional components ([`settings["react-x"].additionalComponents`](https://eslint-react.xyz/docs/configurations#additionalcomponents)) transitions from experimental to stable
+- [x] `no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
+- [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
+- [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
+- [x] `prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
 
 ### Versioning Policy
 
