@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - "2.0.0-next"
     tags-ignore:
       - "**"
     paths-ignore:
