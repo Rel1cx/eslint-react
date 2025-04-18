@@ -261,7 +261,6 @@ export const normalizeSettings = ({
   version,
   ...rest
 }: ESLintReactSettings) => {
-  const fallbackVersion = DEFAULT_ESLINT_REACT_SETTINGS.version;
   return {
     ...rest,
     components: additionalComponents.map((component) => {
@@ -285,7 +284,7 @@ export const normalizeSettings = ({
     skipImportCheck,
     strict,
     version: match(version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion(fallbackVersion))
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
       .otherwise(identity),
   } as const satisfies ESLintReactSettingsNormalized;
 };
