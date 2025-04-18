@@ -6,7 +6,9 @@ export const name = "react-x/recommended";
 export const rules = {
   "react-x/jsx-no-comment-textnodes": "warn",
   "react-x/jsx-no-duplicate-props": "warn",
-  "react-x/jsx-no-undef": "error",
+  // "react-x/jsx-no-undef": "error",
+  // "react-x/jsx-shorthand-boolean": "warn",
+  // "react-x/jsx-shorthand-fragment": "warn",
   "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
   "react-x/no-access-state-in-setstate": "error",
@@ -15,7 +17,9 @@ export const rules = {
   "react-x/no-children-for-each": "warn",
   "react-x/no-children-map": "warn",
   "react-x/no-children-only": "warn",
+  // "react-x/no-children-prop": "warn",
   "react-x/no-children-to-array": "warn",
+  // "react-x/no-class-component": "warn",
   "react-x/no-clone-element": "warn",
   "react-x/no-component-will-mount": "error",
   "react-x/no-component-will-receive-props": "error",
@@ -27,8 +31,10 @@ export const rules = {
   "react-x/no-duplicate-key": "warn",
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
+  // "react-x/no-missing-component-display-name": "warn",
+  // "react-x/no-missing-context-display-name": "warn",
   "react-x/no-missing-key": "error",
-  "react-x/no-misused-capture-owner-stack": "error",
+  // "react-x/no-misused-capture-owner-stack": "error",
   "react-x/no-nested-component-definitions": "error",
   "react-x/no-nested-lazy-component-declarations": "warn",
   "react-x/no-prop-types": "error",
@@ -46,6 +52,10 @@ export const rules = {
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
+  // "react-x/no-useless-fragment": "warn",
+  // "react-x/prefer-destructuring-assignment": "warn",
+  // "react-x/prefer-namespace-import": "warn",
+  // "react-x/prefer-read-only-props": "error",
 } as const satisfies RulePreset;
 
 export const settings = {
