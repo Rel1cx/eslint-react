@@ -26,11 +26,11 @@ jobs:
         run: pnpm run build
       - name: Test on node@23
         run: pnpm run test
-      - name: Setup node@18
+      - name: Setup node@20
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - name: Enable Corepack
         run: corepack enable
-      - name: Test on node@18
+      - name: Test on node@20
         run: pnpm run test
