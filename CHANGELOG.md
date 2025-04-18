@@ -1,3 +1,11 @@
+## v1.48.4 (2025-04-19)
+
+## 🐞 Fixes
+
+- fix: update fallback react version in settings to "19.1.0"
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.48.3...v1.48.4
+
 ## v1.48.3 (2025-04-17)
 
 ### 🪄 Improvements
