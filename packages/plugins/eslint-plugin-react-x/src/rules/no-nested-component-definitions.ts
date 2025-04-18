@@ -115,7 +115,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
           continue;
         }
-        if (ER.isInsideRenderMethod(component)) {
+        if (isInsideRenderMethod(component)) {
           context.report({
             messageId: "noNestedComponentDefinitions",
             node: component,
@@ -153,6 +153,25 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
   return node.parent.type === T.JSXAttribute
     || ER.findParentAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
+}
+
+/**
+ * Check whether given node is declared inside class component's render block
+ * ```tsx
+ * class Component extends React.Component {
+ *   render() {
+ *     class NestedClassComponent extends React.Component {
+ *      render() { return <div />; }
+ *     }
+ *     const nestedFunctionComponent = () => <div />;
+ *  }
+ * }
+ * ```
+ * @param node The AST node being checked
+ * @returns `true` if node is inside class component's render block, `false` if not
+ */
+function isInsideRenderMethod(node: TSESTree.Node) {
+  return AST.findParentNode(node, (n) => ER.isRenderLike(n) && ER.isClassComponent(n.parent.parent)) != null;
 }
 
 /**

@@ -1,14 +1,14 @@
+export * from "./component-children";
 export * from "./component-collector";
 export * from "./component-collector-legacy";
 export * from "./component-definition";
 export * from "./component-detection-hint";
 export * from "./component-flag";
-export * from "./component-hierarchy";
 export * from "./component-id";
 export * from "./component-init-path";
 export * from "./component-is";
 export type * from "./component-kind";
-export * from "./component-lifecycle";
+export * from "./component-method";
 export * from "./component-name";
 export * from "./component-phase";
 export * from "./component-render";
