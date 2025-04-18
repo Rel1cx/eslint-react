@@ -53,17 +53,19 @@ You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecologic
 
 </Accordion>
 
-<Accordion title='Why is there no "jsx-runtime" preset?'>
+<Accordion title="Why is there no 'jsx-runtime' preset?">
 
-ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration files to determines how to perform the JSX analysis internally. This means that you don't need to configure the JSX runtime in ESLint React, as it will automatically use the one configured in your project.
+ESLint React automatically detects your JSX transform configuration from `tsconfig.json` or `jsconfig.json` by reading `compilerOptions` (like `jsx`, `jsxImportSource`, etc.).
 
-Additionally, this approach avoids potential problems where the JSX runtime configured in `eslint.config.js` might conflict with the one configured in `tsconfig.json` or `jsconfig.json`.
+If these aren't set, it defaults to the `automatic` transform (React 17+), which uses `jsx-runtime` internally and doesn't require importing React.
 
-For more information, see the [JSX Runtime](/docs/configuration/configure-language-config#jsx-runtime) section on the [Configure Language Config](/docs/configuration/configure-language-config) page.
+Because the plugin automatically adapts to your settings or uses the appropriate default, a specific `'jsx-runtime'` preset isn't needed.
+
+For more details, see the [Configure Language Config](/docs/configuration/configure-language-config) page.
 
 </Accordion>
 
-<Accordion title="Is there anything to note about migrating from eslint-plugin-react?">
+<Accordion title="Is there anything to note about migrating from 'eslint-plugin-react'?">
 
 Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
 
