@@ -2,14 +2,11 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-
 import * as ER from "@eslint-react/core";
-
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "prefer-shorthand-boolean";
+export const RULE_NAME = "jsx-shorthand-fragment";
 
 export const RULE_FEATURES = [
   "FIX",
@@ -21,12 +18,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces shorthand syntax for boolean attributes.",
+      description: "Enforces the use of shorthand `<>` or `</>` syntax or `<React.Fragment>` element.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {
-      preferShorthandBoolean: "Use shorthand boolean attribute '{{propName}}'.",
+      jsxShorthandFragment: "Use fragment shorthand syntax instead of 'Fragment' component.",
     },
     schema: [],
   },
@@ -37,22 +34,25 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
-    JSXAttribute(node: TSESTree.JSXAttribute) {
-      const { value } = node;
-      const propName = ER.getAttributeName(context, node);
-      const hasValueTrue = value?.type === T.JSXExpressionContainer
-        && value.expression.type === T.Literal
-        && value.expression.value === true;
-      if (!hasValueTrue) {
+    JSXElement(node: TSESTree.JSXElement) {
+      if (!ER.isFragmentElement(context, node)) return;
+      const hasAttributes = node.openingElement.attributes.length > 0;
+      if (hasAttributes) {
         return;
       }
       context.report({
-        messageId: "preferShorthandBoolean",
-        node: node.value ?? node,
-        data: {
-          propName,
+        messageId: "jsxShorthandFragment",
+        node,
+        fix: (fixer) => {
+          const { closingElement, openingElement } = node;
+          if (closingElement == null) {
+            return [];
+          }
+          return [
+            fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
+            fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
+          ];
         },
-        fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
       });
     },
   };

@@ -4,7 +4,9 @@ import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 export const name = "react-x/recommended";
 
 export const rules = {
+  "react-x/jsx-no-comment-textnodes": "warn",
   "react-x/jsx-no-duplicate-props": "warn",
+  "react-x/jsx-no-undef": "error",
   "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
   "react-x/no-access-state-in-setstate": "error",
@@ -15,7 +17,6 @@ export const rules = {
   "react-x/no-children-only": "warn",
   "react-x/no-children-to-array": "warn",
   "react-x/no-clone-element": "warn",
-  "react-x/no-comment-textnodes": "warn",
   "react-x/no-component-will-mount": "error",
   "react-x/no-component-will-receive-props": "error",
   "react-x/no-component-will-update": "error",

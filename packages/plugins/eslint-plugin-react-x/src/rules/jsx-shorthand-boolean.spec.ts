@@ -1,14 +1,14 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./prefer-shorthand-boolean";
+import rule, { RULE_NAME } from "./jsx-shorthand-boolean";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<input disabled={true} />`,
       errors: [{
-        messageId: "preferShorthandBoolean",
+        messageId: "jsxShorthandBoolean",
         data: { propName: "disabled" },
       }],
       output: tsx`<input disabled />`,
@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<App foo={true} />`,
       errors: [{
-        messageId: "preferShorthandBoolean",
+        messageId: "jsxShorthandBoolean",
         data: { propName: "foo" },
       }],
       output: tsx`<App foo />`,
@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<App foo={true} bar />`,
       errors: [{
-        messageId: "preferShorthandBoolean",
+        messageId: "jsxShorthandBoolean",
         data: { propName: "foo" },
       }],
       output: tsx`<App foo bar />`,

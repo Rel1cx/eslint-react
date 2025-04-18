@@ -40,9 +40,9 @@ Minimum supported versions:
 
 - [ ] `function-component-definition`
 - [x] `no-useless-fragment`
-- [x] `prefer-shorthand-fragment`
-- [x] `prefer-react-namespace-import`
-- [x] `prefer-shorthand-boolean`
+- [x] `jsx-shorthand-fragment`
+- [x] `prefer-namespace-import`
+- [x] `jsx-shorthand-boolean`
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 

@@ -62,10 +62,10 @@ export const rules = {
   "@eslint-react/no-useless-forward-ref": "warn",
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
-  "@eslint-react/prefer-react-namespace-import": "warn",
+  "@eslint-react/prefer-namespace-import": "warn",
   // "@eslint-react/prefer-read-only-props": "warn",
-  "@eslint-react/prefer-shorthand-boolean": "off",
-  "@eslint-react/prefer-shorthand-fragment": "off",
+  "@eslint-react/jsx-shorthand-boolean": "off",
+  "@eslint-react/jsx-shorthand-fragment": "off",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",

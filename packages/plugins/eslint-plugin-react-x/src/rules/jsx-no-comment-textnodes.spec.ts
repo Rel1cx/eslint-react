@@ -1,21 +1,21 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-comment-textnodes";
+import rule, { RULE_NAME } from "./jsx-no-comment-textnodes";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<div>// invalid</div>`,
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
     {
       code: tsx`<>// invalid</>`,
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
     {
       code: tsx`<div>/* invalid */</div>`,
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
     {
       code: tsx`
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
         // invalid
         </div>
       `,
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
     {
       code: tsx`
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
         foo
         </div>
       `,
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
     {
       code: tsx`
@@ -43,11 +43,11 @@ ruleTester.run(RULE_NAME, rule, {
         {'foo'}
         </div>
       `,
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
     {
       code: "<span>/*</span>",
-      errors: [{ messageId: "noCommentTextnodes" }],
+      errors: [{ messageId: "jsxNoCommentTextnodes" }],
     },
   ],
   valid: [

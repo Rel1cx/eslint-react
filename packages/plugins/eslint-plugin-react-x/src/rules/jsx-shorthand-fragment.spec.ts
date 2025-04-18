@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./prefer-shorthand-fragment";
+import rule, { RULE_NAME } from "./jsx-shorthand-fragment";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<React.Fragment><div /></React.Fragment>`,
       errors: [
         {
-          messageId: "preferShorthandFragment",
+          messageId: "jsxShorthandFragment",
         },
       ],
       output: tsx`<><div /></>`,
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<Fragment><div /></Fragment>`,
       errors: [
         {
-          messageId: "preferShorthandFragment",
+          messageId: "jsxShorthandFragment",
         },
       ],
       output: tsx`<><div /></>`,
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferShorthandFragment",
+          messageId: "jsxShorthandFragment",
         },
       ],
       output: tsx`

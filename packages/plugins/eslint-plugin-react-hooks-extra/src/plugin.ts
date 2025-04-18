@@ -18,17 +18,5 @@ export const plugin = {
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
-
-    // Part: deprecated rules
-    /** @deprecated Use `no-unnecessary-use-prefix` instead */
-    "ensure-custom-hooks-using-other-hooks": noUnnecessaryUsePrefix,
-    /** @deprecated Use `no-unnecessary-use-callback` instead */
-    "ensure-use-callback-has-non-empty-deps": noUnnecessaryUseCallback,
-    /** @deprecated Use `no-unnecessary-use-memo` instead */
-    "ensure-use-memo-has-non-empty-deps": noUnnecessaryUseMemo,
-    /** @deprecated Use `no-unnecessary-use-prefix` instead */
-    "no-redundant-custom-hook": noUnnecessaryUsePrefix,
-    /** @deprecated Use `no-unnecessary-use-prefix` instead */
-    "no-useless-custom-hooks": noUnnecessaryUsePrefix,
   },
 } as const;

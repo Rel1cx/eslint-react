@@ -6,7 +6,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "prefer-react-namespace-import";
+export const RULE_NAME = "prefer-namespace-import";
 
 export const RULE_FEATURES = [
   "FIX",
@@ -18,12 +18,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces React is imported via a namespace import.",
+      description: "Enforces React Dom is imported via a namespace import.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {
-      preferReactNamespaceImport: "Prefer importing React as 'import * as React from \"{{importSource}}\"';",
+      preferNamespaceImport: "Prefer importing React DOM via a namespace import.",
     },
     schema: [],
   },
@@ -32,15 +32,20 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+const importSources = [
+  "react-dom",
+  "react-dom/client",
+  "react-dom/server",
+];
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { importSource } = getSettingsFromContext(context);
   return {
-    [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](
-      node: TSESTree.ImportDefaultSpecifier,
-    ) {
+    [`ImportDeclaration ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
+      const importSource = node.parent.source.value;
+      if (!importSources.includes(importSource)) return;
       const hasOtherSpecifiers = node.parent.specifiers.length > 1;
       context.report({
-        messageId: "preferReactNamespaceImport",
+        messageId: "preferNamespaceImport",
         node: hasOtherSpecifiers ? node : node.parent,
         data: { importSource },
         fix(fixer) {

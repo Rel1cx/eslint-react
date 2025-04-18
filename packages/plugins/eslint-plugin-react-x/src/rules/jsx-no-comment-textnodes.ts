@@ -7,7 +7,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-comment-textnodes";
+export const RULE_NAME = "jsx-no-comment-textnodes";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noCommentTextnodes:
+      jsxNoCommentTextnodes:
         "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
     },
     schema: [],
@@ -50,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       return;
     }
     context.report({
-      messageId: "noCommentTextnodes",
+      messageId: "jsxNoCommentTextnodes",
       node,
     });
   };

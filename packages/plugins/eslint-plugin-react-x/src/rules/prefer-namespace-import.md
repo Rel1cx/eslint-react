@@ -1,17 +1,17 @@
 ---
-title: prefer-react-namespace-import
+title: prefer-namespace-import
 ---
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-x/prefer-react-namespace-import
+react-x/prefer-namespace-import
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/prefer-react-namespace-import
+@eslint-react/prefer-namespace-import
 ```
 
 **Features**
@@ -50,5 +50,5 @@ import type { useState } from "react";
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-react-namespace-import.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-react-namespace-import.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-namespace-import.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-namespace-import.spec.ts)

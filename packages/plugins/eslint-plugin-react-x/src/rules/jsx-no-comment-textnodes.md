@@ -1,17 +1,17 @@
 ---
-title: no-comment-textnodes
+title: jsx-no-comment-textnodes
 ---
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-x/no-comment-textnodes
+react-x/jsx-no-comment-textnodes
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/no-comment-textnodes
+@eslint-react/jsx-no-comment-textnodes
 ```
 
 **Presets**
@@ -72,5 +72,5 @@ function MyComponent() {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-comment-textnodes.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-comment-textnodes.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-comment-textnodes.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-comment-textnodes.spec.ts)

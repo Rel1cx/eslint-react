@@ -1,8 +1,9 @@
 import { name, version } from "../package.json";
-import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
-import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
+import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
 import jsxNoUndef from "./rules/jsx-no-undef";
+import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean";
+import jsxShorthandFragment from "./rules/jsx-shorthand-fragment";
 import jsxUsesReact from "./rules/jsx-uses-react";
 import jsxUsesVars from "./rules/jsx-uses-vars";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
@@ -15,7 +16,6 @@ import noChildrenProp from "./rules/no-children-prop";
 import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
-import noCommentTextnodes from "./rules/no-comment-textnodes";
 import noComplexConditionalRendering from "./rules/no-complex-conditional-rendering";
 import noComponentWillMount from "./rules/no-component-will-mount";
 import noComponentWillReceiveProps from "./rules/no-component-will-receive-props";
@@ -51,10 +51,8 @@ import noUseContext from "./rules/no-use-context";
 import noUselessForwardRef from "./rules/no-useless-forward-ref";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
-import preferReactNamespaceImport from "./rules/prefer-react-namespace-import";
+import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
-import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
-import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
 
 export const plugin = {
   meta: {
@@ -62,8 +60,13 @@ export const plugin = {
     version,
   },
   rules: {
-    "avoid-shorthand-boolean": avoidShorthandBoolean,
-    "avoid-shorthand-fragment": avoidShorthandFragment,
+    "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
+    "jsx-no-duplicate-props": jsxNoDuplicateProps,
+    "jsx-no-undef": jsxNoUndef,
+    "jsx-shorthand-boolean": jsxShorthandBoolean,
+    "jsx-shorthand-fragment": jsxShorthandFragment,
+    "jsx-uses-react": jsxUsesReact,
+    "jsx-uses-vars": jsxUsesVars,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,
     "no-children-count": noChildrenCount,
@@ -74,7 +77,6 @@ export const plugin = {
     "no-children-to-array": noChildrenToArray,
     "no-class-component": noClassComponent,
     "no-clone-element": noCloneElement,
-    "no-comment-textnodes": noCommentTextnodes,
     "no-complex-conditional-rendering": noComplexConditionalRendering,
     "no-component-will-mount": noComponentWillMount,
     "no-component-will-receive-props": noComponentWillReceiveProps,
@@ -110,27 +112,7 @@ export const plugin = {
     "no-useless-forward-ref": noUselessForwardRef,
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
-    "prefer-react-namespace-import": preferReactNamespaceImport,
+    "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
-    "prefer-shorthand-boolean": preferShorthandBoolean,
-    "prefer-shorthand-fragment": preferShorthandFragment,
-
-    // Part: JSX only rules
-    "jsx-no-duplicate-props": jsxNoDuplicateProps,
-    "jsx-no-undef": jsxNoUndef,
-    "jsx-uses-react": jsxUsesReact,
-    "jsx-uses-vars": jsxUsesVars,
-
-    // Part: deprecated rules
-    /** @deprecated Use `no-useless-forward-ref` instead */
-    "ensure-forward-ref-using-ref": noUselessForwardRef,
-    /** @deprecated Use `no-complex-conditional-rendering` instead */
-    "no-complicated-conditional-rendering": noComplexConditionalRendering,
-    /** @deprecated Use `jsx-no-duplicate-props` instead */
-    "no-duplicate-jsx-props": jsxNoDuplicateProps,
-    /** @deprecated Use `no-nested-component-definitions` instead */
-    "no-nested-components": noNestedComponentDefinitions,
-    /** @deprecated Use `jsx-uses-vars` instead */
-    "use-jsx-vars": jsxUsesVars,
   },
 } as const;

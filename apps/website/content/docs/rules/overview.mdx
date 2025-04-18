@@ -31,8 +31,11 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 
 | Rule                                                                                 | ✅  |    🌟     | Description                                                                                         | `react`  |
 | :----------------------------------------------------------------------------------- | :-- | :-------: | :-------------------------------------------------------------------------------------------------- | :------: |
+| [`jsx-no-comment-textnodes`](./jsx-no-comment-textnodes)                             | 1️⃣  |           | Prevents comments from being inserted as text nodes                                                 |          |
 | [`jsx-no-duplicate-props`](./jsx-no-duplicate-props)                                 | 1️⃣  |           | Disallow duplicate props in JSX elements                                                            |          |
 | [`jsx-no-undef`](./jsx-no-undef)                                                     | 0️⃣  |           | Disallow undefined variables in JSX elements                                                        |          |
+| [`jsx-shorthand-boolean`](./jsx-shorthand-boolean)                                   | 0️⃣  |           | Enforces the use of _shorthand_ or _explicit_ boolean attributes                                    |          |
+| [`jsx-shorthand-fragment`](./jsx-shorthand-fragment)                                 | 0️⃣  |           | Enforces the use of shorthand `<>` or `</>` syntax or `<React.Fragment>` element                    |          |
 | [`jsx-uses-react`](./jsx-uses-react)                                                 | 1️⃣  |           | Marks React variables as used when JSX is used                                                      |          |
 | [`jsx-uses-vars`](./jsx-uses-vars)                                                   | 1️⃣  |           | Marks variables used in JSX elements as used                                                        |          |
 | [`no-access-state-in-setstate`](./no-access-state-in-setstate)                       | 2️⃣  |           | Disallow accessing `this.state` inside `setState` calls                                             |          |
@@ -45,7 +48,6 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`no-children-to-array`](./no-children-to-array)                                     | 1️⃣  |           | Disallow `Children.toArray`                                                                         |          |
 | [`no-class-component`](./no-class-component)                                         | 0️⃣  |           | Disallow class components except for error boundaries                                               |          |
 | [`no-clone-element`](./no-clone-element)                                             | 1️⃣  |           | Disallow `cloneElement`                                                                             |          |
-| [`no-comment-textnodes`](./no-comment-textnodes)                                     | 1️⃣  |           | Prevents comments from being inserted as text nodes                                                 |          |
 | [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)             | 0️⃣  |   `🧪`    | Disallow complex conditional rendering in JSX expressions                                           |          |
 | [`no-component-will-mount`](./no-component-will-mount)                               | 2️⃣  |   `🔄`    | Replaces usages of `componentWillMount` with `UNSAFE_componentWillMount`                            | >=16.3.0 |
 | [`no-component-will-receive-props`](./no-component-will-receive-props)               | 2️⃣  |   `🔄`    | Replaces usages of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`              | >=16.3.0 |
@@ -81,12 +83,8 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`no-useless-forward-ref`](./no-useless-forward-ref)                                 | 1️⃣  |           | Disallow useless `forwardRef` calls on components that don't use `ref`s                             |          |
 | [`no-useless-fragment`](./no-useless-fragment)                                       | 0️⃣  | `🔧` `⚙️` | Disallow useless fragment elements                                                                  |          |
 | [`prefer-destructuring-assignment`](./prefer-destructuring-assignment)               | 0️⃣  |           | Enforces destructuring assignment for component props and context                                   |          |
-| [`prefer-react-namespace-import`](./prefer-react-namespace-import)                   | 0️⃣  |   `🔧`    | Enforces React is imported via a namespace import                                                   |          |
+| [`prefer-namespace-import`](./prefer-namespace-import)                               | 0️⃣  |   `🔧`    | Enforces React is imported via a namespace import                                                   |          |
 | [`prefer-read-only-props`](./prefer-read-only-props)                                 | 0️⃣  | `💭` `🧪` | Enforces read-only props in components                                                              |          |
-| [`prefer-shorthand-boolean`](./prefer-shorthand-boolean)                             | 0️⃣  |   `🔧`    | Enforces shorthand syntax for boolean attributes                                                    |          |
-| [`prefer-shorthand-fragment`](./prefer-shorthand-fragment)                           | 0️⃣  |   `🔧`    | Enforces shorthand syntax for fragments                                                             |          |
-| [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)                               | 0️⃣  |   `🔧`    | Enforces explicit boolean values for boolean attributes                                             |          |
-| [`avoid-shorthand-fragment`](./avoid-shorthand-fragment)                             | 0️⃣  |           | Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax             |          |
 
 ## DOM Rules
 
