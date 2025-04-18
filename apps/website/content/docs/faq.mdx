@@ -53,15 +53,11 @@ You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecologic
 
 </Accordion>
 
-<Accordion title="Why is there no 'jsx-runtime' preset?">
+<Accordion title="Why isn't there a 'jsx-runtime' preset?">
 
-ESLint React automatically detects your JSX transform configuration from `tsconfig.json` or `jsconfig.json` by reading `compilerOptions` (like `jsx`, `jsxImportSource`, etc.).
+ESLint React automatically detects your JSX runtime type from the compiler options in your `tsconfig.json` or `jsconfig.json` file, as well as from JSX pragma comments (e.g., `/** @jsxRuntime automatic */`) in each file. This means you don't need to set a preset for the JSX runtime.
 
-If these aren't set, it defaults to the `automatic` transform (React 17+), which uses `jsx-runtime` internally and doesn't require importing React.
-
-Because the plugin automatically adapts to your settings or uses the appropriate default, a specific `'jsx-runtime'` preset isn't needed.
-
-For more details, see the [Configure Language Config](/docs/configuration/configure-language-config) page.
+For more information, see the [JSX Transform](/docs/configuration/configure-language-config#jsx-transform) section on the [Configure Language Config](/docs/configuration/configure-language-config) page.
 
 </Accordion>
 
