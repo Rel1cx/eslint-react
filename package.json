@@ -97,7 +97,7 @@
   },
   "packageManager": "pnpm@10.8.1",
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=20.19.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -214,7 +214,7 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       eslint-plugin-de-morgan:
         specifier: ^1.2.1
@@ -774,7 +774,7 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       eslint-plugin-react-debug:
         specifier: workspace:*
@@ -838,7 +838,7 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       string-ts:
         specifier: ^2.2.1
@@ -896,7 +896,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       string-ts:
         specifier: ^2.2.1
@@ -954,7 +954,7 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       string-ts:
         specifier: ^2.2.1
@@ -1012,7 +1012,7 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       string-ts:
         specifier: ^2.2.1
@@ -1067,7 +1067,7 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       string-ts:
         specifier: ^2.2.1
@@ -1128,7 +1128,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       eslint:
-        specifier: ^8.57.0 || ^9.0.0
+        specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
       is-immutable-type:
         specifier: ^5.0.1
@@ -5735,6 +5735,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
