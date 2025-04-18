@@ -11,6 +11,6 @@ export default {
   platform: "node",
   sourcemap: false,
   splitting: false,
-  target: "node18",
+  target: "node20",
   treeshake: true,
 } satisfies Options;
