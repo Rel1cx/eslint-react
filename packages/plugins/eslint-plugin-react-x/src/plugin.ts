@@ -16,7 +16,6 @@ import noChildrenProp from "./rules/no-children-prop";
 import noChildrenToArray from "./rules/no-children-to-array";
 import noClassComponent from "./rules/no-class-component";
 import noCloneElement from "./rules/no-clone-element";
-import noComplexConditionalRendering from "./rules/no-complex-conditional-rendering";
 import noComponentWillMount from "./rules/no-component-will-mount";
 import noComponentWillReceiveProps from "./rules/no-component-will-receive-props";
 import noComponentWillUpdate from "./rules/no-component-will-update";
@@ -77,7 +76,6 @@ export const plugin = {
     "no-children-to-array": noChildrenToArray,
     "no-class-component": noClassComponent,
     "no-clone-element": noCloneElement,
-    "no-complex-conditional-rendering": noComplexConditionalRendering,
     "no-component-will-mount": noComponentWillMount,
     "no-component-will-receive-props": noComponentWillReceiveProps,
     "no-component-will-update": noComponentWillUpdate,

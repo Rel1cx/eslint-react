@@ -10,10 +10,11 @@ import * as x from "./x";
 export const name = "@eslint-react/all";
 
 export const rules = {
-  "@eslint-react/avoid-shorthand-boolean": "warn",
-  "@eslint-react/avoid-shorthand-fragment": "warn",
+  "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
   "@eslint-react/jsx-no-undef": "error",
+  "@eslint-react/jsx-shorthand-boolean": "warn",
+  "@eslint-react/jsx-shorthand-fragment": "warn",
   "@eslint-react/jsx-uses-react": "warn",
   "@eslint-react/jsx-uses-vars": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
@@ -26,8 +27,6 @@ export const rules = {
   "@eslint-react/no-children-to-array": "warn",
   "@eslint-react/no-class-component": "warn",
   "@eslint-react/no-clone-element": "warn",
-  "@eslint-react/no-comment-textnodes": "warn",
-  "@eslint-react/no-complex-conditional-rendering": "warn",
   "@eslint-react/no-component-will-mount": "error",
   "@eslint-react/no-component-will-receive-props": "error",
   "@eslint-react/no-component-will-update": "error",
@@ -38,7 +37,6 @@ export const rules = {
   "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
-  // "@eslint-react/no-leaked-conditional-rendering": "warn",
   "@eslint-react/no-missing-component-display-name": "warn",
   "@eslint-react/no-missing-context-display-name": "warn",
   "@eslint-react/no-missing-key": "error",
@@ -63,9 +61,6 @@ export const rules = {
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
-  // "@eslint-react/prefer-read-only-props": "warn",
-  "@eslint-react/jsx-shorthand-boolean": "off",
-  "@eslint-react/jsx-shorthand-fragment": "off",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
