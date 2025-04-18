@@ -20,7 +20,7 @@ react-x/jsx-shorthand-boolean
 
 ## Description
 
-Enforces the use of _shorthand_ or _explicit_ boolean attributes.
+Enforces the use of shorthand or explicit boolean attributes.
 
 ## Examples
 

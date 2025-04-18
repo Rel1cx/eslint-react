@@ -64,4 +64,4 @@ function MyComponent() {
 ## See Also
 
 - [`jsx-shorthand-boolean`](./jsx-shorthand-boolean)\
-  Enforces the use of _shorthand_ or _explicit_ boolean attributes.
+  Enforces the use of shorthand or explicit boolean attributes.
