@@ -4,11 +4,11 @@ title: "Configure Language Config"
 
 import { JSXConfigTypeTable } from "./configure-language-config";
 
-ESLint React references your language config to determine how to perform static code analysis. This page details which parts of ESLint React utilize your language config.
+ESLint React uses your language configuration (`tsconfig.json`/`jsconfig.json`) for static analysis. Learn which specific features use this config here.
 
-## JSX Runtime
+## JSX Transform
 
-ESLint React reads your `tsconfig.json` or `jsconfig.json` configuration file to determine the JSX runtime type.
+ESLint React uses your compiler options to determine the JSX transform you are using. This is important for linting JSX syntax correctly.
 
 The following [compiler options](https://www.typescriptlang.org/tsconfig/#compilerOptions) are respected:
 
