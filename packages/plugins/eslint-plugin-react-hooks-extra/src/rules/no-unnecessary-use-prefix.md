@@ -14,6 +14,10 @@ react-hooks-extra/no-unnecessary-use-prefix
 @eslint-react/hooks-extra/no-unnecessary-use-prefix
 ```
 
+**Features**
+
+`🧪`
+
 **Presets**
 
 - `recommended`
