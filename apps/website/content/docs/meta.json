@@ -1,9 +1,10 @@
 {
   "title": "Documentation",
   "pages": [
+    "---Introduction---",
     "getting-started",
-    "---Core Concepts---",
     "glossary",
+    "faq",
     "---Core Reference---",
     "rules",
     "presets",
@@ -11,7 +12,6 @@
     "---Project Information---",
     "roadmap",
     "changelog",
-    "faq",
     "community",
     "contributing"
   ]
