@@ -2,8 +2,8 @@
   "title": "Configuration",
   "pages": [
     "configure-analyzer",
-    "configure-language-config",
     "!configure-language-preference",
+    "configure-language-config",
     "!---Advanced Configuration---",
     "!enhanced-additional-components",
     "!using-custom-parsers"
