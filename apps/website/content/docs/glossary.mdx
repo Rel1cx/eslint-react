@@ -1,0 +1,22 @@
+---
+title: "Glossary"
+description: "A collection of terms and concepts used in the ESLint React."
+---
+
+## L
+
+### Language Config
+
+The configuration file specifies the root files and the options for the features provided by the language service.
+
+ESLint React uses the Language Config to provide information (e.g. [JSX Transform](/docs/configuration/configure-language-config#jsx-transform)) about the code it is linting.
+
+For TypeScript or JavaScript files, the Language Config are typically named `tsconfig.json` or `jsconfig.json` and are located in the root of a project.
+
+For MDX files, the Language Config is the `"mdx"` property in the `tsconfig.json` file.
+
+### Language Preference
+
+Language Preference is a set of rules that represents the user's preference for how code should be formatted.
+
+ESLint React provides a way to customize the code style used in the internal fixer's output through Language Preference.
