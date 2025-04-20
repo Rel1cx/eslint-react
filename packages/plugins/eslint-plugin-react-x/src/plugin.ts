@@ -2,8 +2,6 @@ import { name, version } from "../package.json";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
 import jsxNoUndef from "./rules/jsx-no-undef";
-import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean";
-import jsxShorthandFragment from "./rules/jsx-shorthand-fragment";
 import jsxUsesReact from "./rules/jsx-uses-react";
 import jsxUsesVars from "./rules/jsx-uses-vars";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate";
@@ -62,8 +60,6 @@ export const plugin = {
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-no-undef": jsxNoUndef,
-    "jsx-shorthand-boolean": jsxShorthandBoolean,
-    "jsx-shorthand-fragment": jsxShorthandFragment,
     "jsx-uses-react": jsxUsesReact,
     "jsx-uses-vars": jsxUsesVars,
     "no-access-state-in-setstate": noAccessStateInSetstate,

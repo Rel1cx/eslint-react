@@ -7,8 +7,6 @@ export const rules = {
   "react-x/jsx-no-comment-textnodes": "warn",
   "react-x/jsx-no-duplicate-props": "warn",
   // "react-x/jsx-no-undef": "error",
-  // "react-x/jsx-shorthand-boolean": "warn",
-  // "react-x/jsx-shorthand-fragment": "warn",
   "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
   "react-x/no-access-state-in-setstate": "error",
