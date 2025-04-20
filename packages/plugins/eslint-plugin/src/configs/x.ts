@@ -51,7 +51,6 @@ export const rules = {
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
-  // "@eslint-react/no-useless-fragment": "warn",
   // "@eslint-react/prefer-destructuring-assignment": "warn",
   // "@eslint-react/prefer-namespace-import": "warn",
   // "@eslint-react/prefer-read-only-props": "error",
