@@ -49,7 +49,6 @@
     "no-unused-state",
     "no-use-context",
     "no-useless-forward-ref",
-    "no-useless-fragment",
     "prefer-destructuring-assignment",
     "prefer-namespace-import",
     "prefer-read-only-props",

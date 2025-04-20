@@ -37,7 +37,6 @@ Minimum supported versions:
 ### Add auto-fix feature to rules that can be auto-fixed safely
 
 - [ ] `function-component-definition`
-- [x] `no-useless-fragment`
 - [x] `prefer-namespace-import`
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
@@ -73,6 +72,7 @@ Minimum supported versions:
 - [x] `avoid-shorthand-boolean`
 - [x] `avoid-shorthand-fragment`
 - [x] `no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
+- [x] `no-useless-fragment`
 - [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
 - [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
 - [x] `prefer-shorthand-fragment`

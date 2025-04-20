@@ -50,7 +50,6 @@ export const rules = {
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
-  // "react-x/no-useless-fragment": "warn",
   // "react-x/prefer-destructuring-assignment": "warn",
   // "react-x/prefer-namespace-import": "warn",
   // "react-x/prefer-read-only-props": "error",

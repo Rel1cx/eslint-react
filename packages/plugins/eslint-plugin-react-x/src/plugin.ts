@@ -46,7 +46,6 @@ import noUnusedClassComponentMembers from "./rules/no-unused-class-component-mem
 import noUnusedState from "./rules/no-unused-state";
 import noUseContext from "./rules/no-use-context";
 import noUselessForwardRef from "./rules/no-useless-forward-ref";
-import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
@@ -104,7 +103,6 @@ export const plugin = {
     "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
     "no-useless-forward-ref": noUselessForwardRef,
-    "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
