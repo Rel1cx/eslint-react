@@ -44,8 +44,8 @@
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/kit": "workspace:*",
-    "@typescript-eslint/utils": "^8.30.1",
-    "@zod/mini": "^4.0.0-beta.20250415T232143",
+    "@typescript-eslint/utils": "^8.31.0",
+    "@zod/mini": "^4.0.0-beta.20250420T053007",
     "ts-pattern": "^5.7.0"
   },
   "devDependencies": {
