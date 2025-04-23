@@ -21,6 +21,8 @@ import noContextProvider from "./rules/no-context-provider";
 import noCreateRef from "./rules/no-create-ref";
 import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
+import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
+import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
 import noDuplicateKey from "./rules/no-duplicate-key";
 import noForwardRef from "./rules/no-forward-ref";
 import noImplicitKey from "./rules/no-implicit-key";
@@ -37,6 +39,9 @@ import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
 import noStringRefs from "./rules/no-string-refs";
+import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
+import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
+import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
 import noUnsafeComponentWillMount from "./rules/no-unsafe-component-will-mount";
 import noUnsafeComponentWillReceiveProps from "./rules/no-unsafe-component-will-receive-props";
 import noUnsafeComponentWillUpdate from "./rules/no-unsafe-component-will-update";
@@ -49,6 +54,7 @@ import noUselessForwardRef from "./rules/no-useless-forward-ref";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
+import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
 export const plugin = {
   meta: {
@@ -78,6 +84,8 @@ export const plugin = {
     "no-create-ref": noCreateRef,
     "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
+    "no-direct-set-state-in-use-effect": noDirectSetStateInUseEffect,
+    "no-direct-set-state-in-use-layout-effect": noDirectSetStateInUseLayoutEffect,
     "no-duplicate-key": noDuplicateKey,
     "no-forward-ref": noForwardRef,
     "no-implicit-key": noImplicitKey,
@@ -94,6 +102,9 @@ export const plugin = {
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
     "no-string-refs": noStringRefs,
+    "no-unnecessary-use-callback": noUnnecessaryUseCallback,
+    "no-unnecessary-use-memo": noUnnecessaryUseMemo,
+    "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
     "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
     "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,
     "no-unsafe-component-will-update": noUnsafeComponentWillUpdate,
@@ -106,5 +117,6 @@ export const plugin = {
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
+    "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
   },
 } as const;

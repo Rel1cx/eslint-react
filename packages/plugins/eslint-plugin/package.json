@@ -10,7 +10,6 @@
     "eslint-plugin-react-x",
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
-    "eslint-plugin-react-hooks-extra",
     "eslint-plugin-react-naming-convention"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
@@ -53,7 +52,6 @@
     "@typescript-eslint/utils": "^8.31.0",
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
-    "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*"

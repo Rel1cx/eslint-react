@@ -2,16 +2,16 @@
 title: no-unnecessary-use-callback
 ---
 
-**Full Name in `eslint-plugin-react-hooks-extra`**
+**Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-hooks-extra/no-unnecessary-use-callback
+react-x/no-unnecessary-use-callback
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/hooks-extra/no-unnecessary-use-callback
+@eslint-react/no-unnecessary-use-callback
 ```
 
 **Features**
@@ -56,12 +56,12 @@ function MyComponent() {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-callback.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-callback.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-callback.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-callback.spec.ts)
 
 ---
 
 ## See Also
 
-- [`no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)\
+- [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
   Disallows unnecessary usage of `useMemo`.

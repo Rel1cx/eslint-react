@@ -30,7 +30,6 @@
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-react-web-api": "workspace:*",

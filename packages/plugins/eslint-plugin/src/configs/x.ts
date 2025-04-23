@@ -27,6 +27,10 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
+  // "@eslint-react/prefer-destructuring-assignment": "warn",
+  // "@eslint-react/prefer-namespace-import": "warn",
+  // "@eslint-react/prefer-read-only-props": "error",
+  "@eslint-react/no-direct-set-state-in-use-effect": "warn",
   "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
@@ -42,6 +46,7 @@ export const rules = {
   "@eslint-react/no-set-state-in-component-did-update": "warn",
   "@eslint-react/no-set-state-in-component-will-update": "warn",
   "@eslint-react/no-string-refs": "error",
+  "@eslint-react/no-unnecessary-use-prefix": "warn",
   "@eslint-react/no-unsafe-component-will-mount": "warn",
   "@eslint-react/no-unsafe-component-will-receive-props": "warn",
   "@eslint-react/no-unsafe-component-will-update": "warn",
@@ -51,9 +56,7 @@ export const rules = {
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
-  // "@eslint-react/prefer-destructuring-assignment": "warn",
-  // "@eslint-react/prefer-namespace-import": "warn",
-  // "@eslint-react/prefer-read-only-props": "error",
+  "@eslint-react/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 export const plugins = {

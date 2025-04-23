@@ -2,16 +2,16 @@
 title: no-unnecessary-use-prefix
 ---
 
-**Full Name in `eslint-plugin-react-hooks-extra`**
+**Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-hooks-extra/no-unnecessary-use-prefix
+react-x/no-unnecessary-use-prefix
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/hooks-extra/no-unnecessary-use-prefix
+@eslint-react/no-unnecessary-use-prefix
 ```
 
 **Features**
@@ -128,8 +128,8 @@ export function useMDXComponents(components) {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-prefix.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-unnecessary-use-prefix.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-prefix.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-prefix.spec.ts)
 
 ## Further Reading
 
