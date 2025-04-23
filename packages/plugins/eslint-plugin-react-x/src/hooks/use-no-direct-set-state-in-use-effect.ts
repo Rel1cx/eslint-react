@@ -9,13 +9,7 @@ import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import {
-  isFromUseStateCall,
-  isFunctionOfImmediatelyInvoked,
-  isSetFunctionCall,
-  isThenCall,
-  isVariableDeclaratorFromHookCall,
-} from "../utils";
+import { isFromUseStateCall, isSetFunctionCall, isVariableDeclaratorFromHookCall } from "../utils";
 
 type CallKind =
   | "useEffect"
@@ -93,14 +87,14 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
       .when(isUseStateCall, () => "useState")
       .when(isUseEffectLikeCall, () => useEffectKind)
       .when(isSetStateCall, () => "setState")
-      .when(isThenCall, () => "then")
+      .when(AST.isThenCall, () => "then")
       .otherwise(() => "other");
   }
 
   function getFunctionKind(node: AST.TSESTreeFunction) {
     return match<AST.TSESTreeFunction, FunctionKind>(node)
       .when(isFunctionOfUseEffectSetup, () => "setup")
-      .when(isFunctionOfImmediatelyInvoked, () => "immediate")
+      .when(AST.isImmediatelyInvokedFunction, () => "immediate")
       .otherwise(() => "other");
   }
 

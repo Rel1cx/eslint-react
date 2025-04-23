@@ -2,17 +2,12 @@ import type { TSESTree } from "@typescript-eslint/types";
 import * as ER from "@eslint-react/core";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
-  & {
-    id: TSESTree.Identifier;
-    init:
-      & {
-        callee: TSESTree.Identifier | TSESTree.MemberExpression;
-      }
-      & TSESTree.CallExpression;
-  }
-  & TSESTree.VariableDeclarator
-{
+type VariableDeclaratorFromHookCall = {
+  id: TSESTree.Identifier;
+  init: { callee: TSESTree.Identifier | TSESTree.MemberExpression } & TSESTree.CallExpression;
+} & TSESTree.VariableDeclarator;
+
+export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is VariableDeclaratorFromHookCall {
   if (node.type !== T.VariableDeclarator) {
     return false;
   }

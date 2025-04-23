@@ -13,4 +13,5 @@ export type * from "./ast-node";
 export * from "./ast-node-equal";
 export * from "./ast-process-env-node-env";
 export * from "./ast-property-name";
+export * from "./ast-then";
 export * from "./ast-to-string";

@@ -1,13 +1,14 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { isReactHookName } from "./hook-name";
 
-export function isReactHookIdentifier(id: TSESTree.Identifier | TSESTree.MemberExpression) {
+export function isReactHookId(id: TSESTree.Identifier | TSESTree.MemberExpression) {
   switch (id.type) {
     case T.Identifier:
-      return id.name.startsWith("use");
+      return isReactHookName(id.name);
     case T.MemberExpression:
       return "name" in id.property
-        && id.property.name.startsWith("use");
+        && isReactHookName(id.property.name);
     default:
       return false;
   }

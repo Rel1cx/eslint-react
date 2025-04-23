@@ -140,6 +140,7 @@
 - [isReactHookCallWithName](functions/isReactHookCallWithName.md)
 - [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
+- [isReactHookId](functions/isReactHookId.md)
 - [isReactHookName](functions/isReactHookName.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
 - [isRenderLike](functions/isRenderLike.md)
