@@ -2,16 +2,16 @@
 title: prefer-use-state-lazy-initialization
 ---
 
-**Full Name in `eslint-plugin-react-hooks-extra`**
+**Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-hooks-extra/prefer-use-state-lazy-initialization
+react-x/prefer-use-state-lazy-initialization
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/hooks-extra/prefer-use-state-lazy-initialization
+@eslint-react/prefer-use-state-lazy-initialization
 ```
 
 **Presets**
@@ -63,8 +63,8 @@ declare function generateTodos(): string[];
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/prefer-use-state-lazy-initialization.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/prefer-use-state-lazy-initialization.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-use-state-lazy-initialization.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-use-state-lazy-initialization.spec.ts)
 
 ## Further Reading
 

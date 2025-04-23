@@ -1,17 +1,17 @@
 ---
-title: no-direct-set-state-in-use-effect
+title: no-direct-set-state-in-use-layout-effect
 ---
 
-**Full Name in `eslint-plugin-react-hooks-extra`**
+**Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-hooks-extra/no-direct-set-state-in-use-effect
+react-x/no-direct-set-state-in-use-layout-effect
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/hooks-extra/no-direct-set-state-in-use-effect
+@eslint-react/no-direct-set-state-in-use-layout-effect
 ```
 
 **Features**
@@ -26,9 +26,9 @@ react-hooks-extra/no-direct-set-state-in-use-effect
 
 ## Description
 
-Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
+Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
 
-Directly setting state in `useEffect` can lead to:
+Directly setting state in `useLayoutEffect` can lead to:
 
 - **Redundant state**: You might be duplicating derived values that could be computed during render.
 - **Unnecessary effects**: Triggering re-renders that could be avoided.
@@ -39,7 +39,7 @@ Directly setting state in `useEffect` can lead to:
 This is **not allowed**:
 
 ```tsx
-useEffect(() => {
+useLayoutEffect(() => {
   setFullName(firstName + " " + lastName);
 }, [firstName, lastName]);
 ```
@@ -60,10 +60,10 @@ The rule **does not flag** indirect calls, such as:
 
 ### Known limitations
 
-- It doesn’t check `set` calls in `useEffect` cleanup functions.
+- It doesn’t check `set` calls in `useLayoutEffect` cleanup functions.
 
   ```tsx {2}
-  useEffect(() => {
+  useLayoutEffect(() => {
     return () => {
       setFullName(firstName + " " + lastName); // ❌ Direct call
     };
@@ -73,7 +73,7 @@ The rule **does not flag** indirect calls, such as:
 - It doesn’t detect `set` calls in `async` functions are being called before or after the `await` statement.
 
   ```tsx {2}
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchData = async () => {
       setFullName(data.name); // ❌ Direct call
     };
@@ -83,17 +83,17 @@ The rule **does not flag** indirect calls, such as:
 
 ## Examples
 
-The first three cases are common valid use cases because they are not called the `set` function directly in `useEffect`:
+The first three cases are common valid use cases because they are not called the `set` function directly in `useLayoutEffect`:
 
 ### Passing
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handler = () => setCount((c) => c + 1);
     window.addEventListener("click", handler);
     return () => window.removeEventListener("click", handler);
@@ -106,12 +106,12 @@ export default function Counter() {
 ### Passing
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const intervalId = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
@@ -125,12 +125,12 @@ export default function Counter() {
 ### Passing
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export default function RemoteContent() {
   const [content, setContent] = useState("");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let discarded = false;
     fetch("https://eslint-react.xyz/content")
       .then((resp) => resp.text())
@@ -152,7 +152,7 @@ The following examples are derived from the [React documentation](https://react.
 ### Failing
 
 ```tsx
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 function Form() {
   const [firstName, setFirstName] = useState("Taylor");
@@ -160,7 +160,7 @@ function Form() {
 
   // 🔴 Avoid: redundant state and unnecessary Effect
   const [fullName, setFullName] = useState("");
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFullName(firstName + " " + lastName);
   }, [firstName, lastName]);
   // ...
@@ -184,14 +184,14 @@ function Form() {
 ### Failing
 
 ```tsx
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState("");
 
   // 🔴 Avoid: redundant state and unnecessary Effect
   const [visibleTodos, setVisibleTodos] = useState([]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setVisibleTodos(getFilteredTodos(todos, filter));
   }, [todos, filter]);
 
@@ -218,13 +218,13 @@ function TodoList({ todos, filter }) {
 ### Failing
 
 ```tsx
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export default function ProfilePage({ userId }) {
   const [comment, setComment] = useState("");
 
   // 🔴 Avoid: Resetting state on prop change in an Effect
-  useEffect(() => {
+  useLayoutEffect(() => {
     setComment("");
   }, [userId]);
   // ...
@@ -250,14 +250,14 @@ function Profile({ userId }) {
 ### Failing
 
 ```tsx
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selection, setSelection] = useState(null);
 
   // 🔴 Avoid: Adjusting state on prop change in an Effect
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSelection(null);
   }, [items]);
   // ...
@@ -297,18 +297,18 @@ function List({ items }) {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-effect.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra/src/rules/no-direct-set-state-in-use-effect.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-set-state-in-use-layout-effect.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-set-state-in-use-layout-effect.spec.ts)
 
 ## Further Reading
 
 - [React `useState` Hook](https://react.dev/reference/react/useState)
-- [React `useEffect` Hook](https://react.dev/reference/react/useEffect)
+- [React `useLayoutEffect` Hook](https://react.dev/reference/react/useLayoutEffect)
 - [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 
 ---
 
 ## See Also
 
-- [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect)\
-  Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
+- [`no-direct-set-state-in-use-effect`](./no-direct-set-state-in-use-effect)\
+  Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.

@@ -1,6 +1,5 @@
 import type { RulePreset } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
-import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import reactWebApi from "eslint-plugin-react-web-api";
 
@@ -32,6 +31,8 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
+  "@eslint-react/no-direct-set-state-in-use-effect": "warn",
+  "@eslint-react/no-direct-set-state-in-use-layout-effect": "warn",
   "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
@@ -47,6 +48,9 @@ export const rules = {
   "@eslint-react/no-set-state-in-component-did-update": "warn",
   "@eslint-react/no-set-state-in-component-will-update": "warn",
   "@eslint-react/no-string-refs": "error",
+  "@eslint-react/no-unnecessary-use-callback": "warn",
+  "@eslint-react/no-unnecessary-use-memo": "warn",
+  "@eslint-react/no-unnecessary-use-prefix": "warn",
   "@eslint-react/no-unsafe-component-will-mount": "warn",
   "@eslint-react/no-unsafe-component-will-receive-props": "warn",
   "@eslint-react/no-unsafe-component-will-update": "warn",
@@ -58,6 +62,7 @@ export const rules = {
   "@eslint-react/no-useless-forward-ref": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
+  "@eslint-react/prefer-use-state-lazy-initialization": "warn",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
@@ -81,13 +86,6 @@ export const rules = {
   "@eslint-react/web-api/no-leaked-resize-observer": "warn",
   "@eslint-react/web-api/no-leaked-timeout": "warn",
 
-  "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
-  "@eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
-  "@eslint-react/hooks-extra/no-unnecessary-use-callback": "warn",
-  "@eslint-react/hooks-extra/no-unnecessary-use-memo": "warn",
-  "@eslint-react/hooks-extra/no-unnecessary-use-prefix": "warn",
-  "@eslint-react/hooks-extra/prefer-use-state-lazy-initialization": "warn",
-
   "@eslint-react/naming-convention/component-name": "warn",
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/filename": "warn",
@@ -99,7 +97,6 @@ export const plugins = {
   ...x.plugins,
   ...dom.plugins,
   "@eslint-react/debug": reactDebug,
-  "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
   "@eslint-react/web-api": reactWebApi,
 };

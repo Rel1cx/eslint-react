@@ -26,6 +26,10 @@ export const rules = {
   "react-x/no-create-ref": "error",
   "react-x/no-default-props": "error",
   "react-x/no-direct-mutation-state": "error",
+  // "react-x/prefer-destructuring-assignment": "warn",
+  // "react-x/prefer-namespace-import": "warn",
+  // "react-x/prefer-read-only-props": "error",
+  "react-x/no-direct-set-state-in-use-effect": "warn",
   "react-x/no-duplicate-key": "warn",
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
@@ -41,6 +45,7 @@ export const rules = {
   "react-x/no-set-state-in-component-did-update": "warn",
   "react-x/no-set-state-in-component-will-update": "warn",
   "react-x/no-string-refs": "error",
+  "react-x/no-unnecessary-use-prefix": "warn",
   "react-x/no-unsafe-component-will-mount": "warn",
   "react-x/no-unsafe-component-will-receive-props": "warn",
   "react-x/no-unsafe-component-will-update": "warn",
@@ -50,9 +55,7 @@ export const rules = {
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
-  // "react-x/prefer-destructuring-assignment": "warn",
-  // "react-x/prefer-namespace-import": "warn",
-  // "react-x/prefer-read-only-props": "error",
+  "react-x/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies RulePreset;
 
 export const settings = {

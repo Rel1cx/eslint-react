@@ -21,7 +21,6 @@ Minimum supported versions:
 - [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
-- [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
 - ... (Free to combine with other plugins from the community)
 
@@ -65,7 +64,11 @@ Minimum supported versions:
 - [x] `react-dom/prefer-namespace-import` - Enforces the use of namespace imports for ReactDOM
 - [x] `naming-convention/context-name` - Enforces context name to be a valid component name with the suffix `Context` (React 19)
 - [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
-- [ ] `hooks-extra/no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
+- [ ] `no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
+
+### Removed Plugins
+
+- [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks` - Merged into `eslint-plugin-react-x`
 
 ### Removed Rules
 

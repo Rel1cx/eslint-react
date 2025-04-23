@@ -621,9 +621,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^5.2.0
         version: 5.2.0(eslint@9.25.1(jiti@2.4.2))
-      eslint-plugin-react-hooks-extra:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-hooks-extra
       eslint-plugin-react-naming-convention:
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin-react-naming-convention
@@ -785,9 +782,6 @@ importers:
       eslint-plugin-react-dom:
         specifier: workspace:*
         version: link:../eslint-plugin-react-dom
-      eslint-plugin-react-hooks-extra:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-hooks-extra
       eslint-plugin-react-naming-convention:
         specifier: workspace:*
         version: link:../eslint-plugin-react-naming-convention
@@ -898,64 +892,6 @@ importers:
       compare-versions:
         specifier: ^6.1.1
         version: 6.1.1
-      eslint:
-        specifier: ^9.25.0
-        version: 9.25.1(jiti@2.4.2)
-      string-ts:
-        specifier: ^2.2.1
-        version: 2.2.1
-      ts-pattern:
-        specifier: ^5.7.0
-        version: 5.7.0
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../../.pkgs/configs
-      '@types/react':
-        specifier: ^19.1.2
-        version: 19.1.2
-      '@types/react-dom':
-        specifier: ^19.1.2
-        version: 19.1.2(@types/react@19.1.2)
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(@swc/core@1.11.21)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)
-
-  packages/plugins/eslint-plugin-react-hooks-extra:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../../utilities/ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
-      '@eslint-react/kit':
-        specifier: workspace:*
-        version: link:../../utilities/kit
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../../utilities/var
-      '@typescript-eslint/scope-manager':
-        specifier: ^8.31.0
-        version: 8.31.0
-      '@typescript-eslint/type-utils':
-        specifier: ^8.31.0
-        version: 8.31.0(eslint@9.25.1(jiti@2.4.2))(typescript@5.8.3)
-      '@typescript-eslint/types':
-        specifier: ^8.31.0
-        version: 8.31.0
-      '@typescript-eslint/utils':
-        specifier: ^8.31.0
-        version: 8.31.0(eslint@9.25.1(jiti@2.4.2))(typescript@5.8.3)
       eslint:
         specifier: ^9.25.0
         version: 9.25.1(jiti@2.4.2)
