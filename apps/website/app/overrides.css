@@ -1,3 +1,14 @@
+.fd-callout .min-w-0.flex-1 {
+  display: flex;
+  flex-flow: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.fd-callout .min-w-0.flex-1>* {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 [aria-roledescription="flowchart-v2"] span.nodeLabel {
   filter: brightness(0.5);
 }

@@ -1,3 +1,4 @@
+import { Callout } from "#/components/ui/Callout";
 import { source } from "#/lib/source";
 import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
@@ -8,6 +9,7 @@ import { notFound } from "next/navigation";
 
 const mdxComponents = {
   ...defaultMdxComponents,
+  Callout,
   Popup,
   PopupContent,
   PopupTrigger,
