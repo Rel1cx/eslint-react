@@ -6,7 +6,7 @@
 
 # Function: coerceESLintSettings()
 
-> **coerceESLintSettings**(`settings`): `PartialDeep`\<`undefined` \| \{ `react-x`: `unknown`; \}\>
+> **coerceESLintSettings**(`settings`): `PartialDeep`\<`undefined` \| \{ `react-x?`: `unknown`; \}\>
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`PartialDeep`\<`undefined` \| \{ `react-x`: `unknown`; \}\>
+`PartialDeep`\<`undefined` \| \{ `react-x?`: `unknown`; \}\>
