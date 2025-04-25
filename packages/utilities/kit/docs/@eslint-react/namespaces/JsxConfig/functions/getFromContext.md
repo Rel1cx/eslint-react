@@ -26,7 +26,7 @@ JsxConfig
 
 ### jsx
 
-> **jsx**: `JsxEmit`
+> **jsx**: `4` \| `JsxEmit`
 
 ### jsxFactory
 
