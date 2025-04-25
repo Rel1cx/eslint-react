@@ -6,7 +6,7 @@
 
 # Function: getFromAnnotation()
 
-> **getFromAnnotation**(`context`): [`JsxConfig`](../type-aliases/JsxConfig.md)
+> **getFromAnnotation**(`context`): [`JsxConfig`](../interfaces/JsxConfig.md)
 
 Get JsxConfig from annotation
 
@@ -20,6 +20,6 @@ The RuleContext
 
 ## Returns
 
-[`JsxConfig`](../type-aliases/JsxConfig.md)
+[`JsxConfig`](../interfaces/JsxConfig.md)
 
 JsxConfig

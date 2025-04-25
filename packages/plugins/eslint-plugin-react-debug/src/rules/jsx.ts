@@ -5,8 +5,9 @@ import { flow } from "@eslint-react/eff";
 import { JsxConfig, Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { match, P } from "ts-pattern";
-import { JsxEmit } from "typescript";
 import { createRule, stringify } from "../utils";
+
+const { JsxEmit } = JsxConfig;
 
 export const RULE_NAME = "jsx";
 

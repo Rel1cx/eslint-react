@@ -6,9 +6,13 @@
 
 # JsxConfig
 
-## Type Aliases
+## Interfaces
 
-- [JsxConfig](type-aliases/JsxConfig.md)
+- [JsxConfig](interfaces/JsxConfig.md)
+
+## Variables
+
+- [JsxEmit](variables/JsxEmit.md)
 
 ## Functions
 

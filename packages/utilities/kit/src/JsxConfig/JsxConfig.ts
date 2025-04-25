@@ -1,21 +1,27 @@
+/* eslint-disable perfectionist/sort-objects */
 import type { RuleContext } from "../types";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import { type CompilerOptions, JsxEmit } from "typescript";
 import * as RE from "../RegExp";
 
-export type JsxConfig = Pick<
-  CompilerOptions,
-  // Specifies the object invoked for `createElement` and `__spread` when targeting `'react'` JSX emit.
-  | "reactNamespace"
+export const JsxEmit = {
+  None: 0,
+  Preserve: 1,
+  React: 2,
+  ReactNative: 3,
+  ReactJSX: 4,
+  ReactJSXDev: 5,
+} as const;
+
+export interface JsxConfig {
   // Specifies what JSX code is generated.
-  | "jsx"
+  jsx?: number;
   // Specifies the JSX factory function to use when targeting React JSX emit, e.g. `React.createElement` or `h`.
-  | "jsxFactory"
+  jsxFactory?: string;
   // Specifies the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'.
-  | "jsxFragmentFactory"
+  jsxFragmentFactory?: string;
   // Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.
-  | "jsxImportSource"
->;
+  jsxImportSource?: string;
+}
 
 /**
  * Create a JsxConfig object
