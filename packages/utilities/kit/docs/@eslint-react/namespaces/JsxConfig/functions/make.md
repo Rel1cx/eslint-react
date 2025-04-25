@@ -6,12 +6,12 @@
 
 # Function: make()
 
-> **make**(): [`JsxConfig`](../type-aliases/JsxConfig.md)
+> **make**(): [`JsxConfig`](../interfaces/JsxConfig.md)
 
 Create a JsxConfig object
 
 ## Returns
 
-[`JsxConfig`](../type-aliases/JsxConfig.md)
+[`JsxConfig`](../interfaces/JsxConfig.md)
 
 JsxConfig

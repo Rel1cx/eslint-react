@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.48.5 (2025-04-25)
+
+## 🐞 Fixes
+
+- fix: fixed named export 'JsxEmit' not found, closes #1095 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1096
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.48.4...v1.48.5
+
 ## v1.48.4 (2025-04-19)
 
 ## 🐞 Fixes

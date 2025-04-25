@@ -3,8 +3,9 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import type { CamelCase } from "string-ts";
 import { JsxConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
-import { JsxEmit } from "typescript";
 import { createRule } from "../utils";
+
+const { JsxEmit } = JsxConfig;
 
 export const RULE_NAME = "jsx-uses-react";
 

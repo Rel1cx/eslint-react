@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "2.0.0-next.6",
+  "version": "2.0.0-next.7",
   "description": "A set of composable ESLint rules for for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -63,7 +63,7 @@
     "tsup": "^8.4.0"
   },
   "peerDependencies": {
-    "eslint": "^9.25.0",
+    "eslint": "^9.25.1",
     "ts-api-utils": "^2.1.0",
     "typescript": "^4.9.5 || ^5.4.5"
   },

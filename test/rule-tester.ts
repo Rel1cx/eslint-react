@@ -1,7 +1,7 @@
 import { RuleTester, type RuleTesterConfig } from "@typescript-eslint/rule-tester";
 import * as vitest from "vitest";
 import { getFixturesRootDir } from "./helpers";
-import { JsxEmit } from "typescript";
+import ts from "typescript";
 
 RuleTester.it = vitest.it;
 RuleTester.itOnly = vitest.it.only;
@@ -39,17 +39,17 @@ export const ruleTesterWithTypes = new RuleTester({
   languageOptions: defaultLanguageOptionsWithTypes,
 });
 
-export function getProjectForJsxEmit(jsxEmit: JsxEmit) {
+export function getProjectForJsxEmit(jsxEmit: ts.JsxEmit) {
   switch (jsxEmit) {
-    case JsxEmit.None:
-    case JsxEmit.ReactJSX:
-    case JsxEmit.ReactJSXDev:
+    case ts.JsxEmit.None:
+    case ts.JsxEmit.ReactJSX:
+    case ts.JsxEmit.ReactJSXDev:
       return "tsconfig.json";
-    case JsxEmit.React:
+    case ts.JsxEmit.React:
       return "tsconfig.jsx-react.json";
-    case JsxEmit.ReactNative:
+    case ts.JsxEmit.ReactNative:
       return "tsconfig.jsx-react-native.json";
-    case JsxEmit.Preserve:
+    case ts.JsxEmit.Preserve:
       return "tsconfig.jsx-preserve.json";
   }
 }

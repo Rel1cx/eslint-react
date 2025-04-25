@@ -64,13 +64,13 @@ export const typescript: ConfigArray = tseslint.config(
       "no-undef": "off",
       "prefer-object-has-own": "error",
 
-      // "no-restricted-syntax": [
-      //   "error",
-      //   {
-      //     message: "no optional",
-      //     selector: "TSPropertySignature[optional=true]",
-      //   },
-      // ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          message: "no typescript named import",
+          selector: "ImportDeclaration[source.value='typescript'] ImportSpecifier",
+        },
+      ],
 
       "@typescript-eslint/ban-ts-comment": [
         "error",

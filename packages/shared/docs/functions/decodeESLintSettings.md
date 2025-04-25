@@ -6,7 +6,7 @@
 
 # Function: decodeESLintSettings()
 
-> **decodeESLintSettings**(`settings`): `undefined` \| \{ `react-x`: `unknown`; \}
+> **decodeESLintSettings**(`settings`): `undefined` \| \{ `react-x?`: `unknown`; \}
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`undefined` \| \{ `react-x`: `unknown`; \}
+`undefined` \| \{ `react-x?`: `unknown`; \}
