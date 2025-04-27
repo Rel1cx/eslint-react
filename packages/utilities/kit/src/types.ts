@@ -42,3 +42,5 @@ export type RuleFeature =
   | "MOD" // Codemod
   | "TSC" // TypeScript Type Checking
   | "EXP"; // Experimental
+
+export type RulePolicy = "prefer" | "avoid";
