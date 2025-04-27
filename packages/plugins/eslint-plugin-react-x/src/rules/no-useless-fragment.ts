@@ -32,7 +32,6 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     defaultOptions: [...defaultOptions],
-    deprecated: true,
     docs: {
       description: "Disallow useless fragment elements.",
     },
