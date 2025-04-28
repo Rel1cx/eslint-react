@@ -5,6 +5,8 @@
     "jsx-no-comment-textnodes",
     "jsx-no-duplicate-props",
     "jsx-no-undef",
+    "jsx-shorthand-boolean",
+    "jsx-shorthand-fragment",
     "jsx-uses-react",
     "jsx-uses-vars",
     "no-access-state-in-setstate",

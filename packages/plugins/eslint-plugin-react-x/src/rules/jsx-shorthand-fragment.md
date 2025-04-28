@@ -20,7 +20,7 @@ react-x/jsx-shorthand-fragment
 
 ## Description
 
-Enforces shorthand syntax for fragments.
+Enforces the use of shorthand syntax for fragments.
 
 ## Examples
 
