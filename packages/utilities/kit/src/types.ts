@@ -43,4 +43,4 @@ export type RuleFeature =
   | "TSC" // TypeScript Type Checking
   | "EXP"; // Experimental
 
-export type RulePolicy = "prefer" | "avoid";
+export type RulePolicy = number;

@@ -40,6 +40,25 @@ ruleTester.run(RULE_NAME, rule, {
         </>
       `,
     },
+    {
+      code: tsx`
+        <>
+            <div />
+        </>
+      `,
+      errors: [
+        {
+          messageId: "jsxShorthandFragment",
+          data: { message: "Use 'Fragment' component instead of fragment shorthand syntax." },
+        },
+      ],
+      options: [-1],
+      output: tsx`
+        <React.Fragment>
+            <div />
+        </React.Fragment>
+      `,
+    },
   ],
   valid: [
     ...allValid,
@@ -54,5 +73,13 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<Fragment key={item.id}>{item.value}</Fragment>`,
     tsx`<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />`,
     tsx`<>{foos.map(foo => foo)}</>`,
+    {
+      code: tsx`
+        <React.Fragment>
+            <div />
+        </React.Fragment>
+      `,
+      options: [-1],
+    },
   ],
 });

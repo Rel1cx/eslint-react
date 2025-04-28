@@ -5,6 +5,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
+import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
@@ -16,21 +17,19 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID =
-  | "omitAttributeValue"
-  | "setAttributeValue";
+export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type Options = readonly [
   | _
   | RulePolicy,
 ];
 
-const defaultOptions = ["prefer"] as const satisfies Options;
+const defaultOptions = [1] as const satisfies Options;
 
 const schema = [
   {
-    type: "string",
-    enum: ["prefer", "avoid"],
+    type: "integer",
+    enum: [-1, 1],
   },
 ] as const satisfies [JSONSchema4];
 
@@ -43,8 +42,7 @@ export default createRule<Options, MessageID>({
     },
     fixable: "code",
     messages: {
-      omitAttributeValue: "Value must be omitted for boolean attribute `{{propName}}`",
-      setAttributeValue: "Value must be set for boolean attribute `{{propName}}`",
+      jsxShorthandBoolean: "{{message}}",
     },
     schema,
   },
@@ -58,31 +56,35 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
       const { value } = node;
-      if (policy === "avoid" && value == null) {
-        context.report({
-          messageId: "setAttributeValue",
-          node,
-          data: {
-            propName: ER.getAttributeName(context, node),
-          },
-          fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
-        });
-        return;
-      }
-
-      const hasValueTrue = value?.type === T.JSXExpressionContainer
-        && value.expression.type === T.Literal
-        && value.expression.value === true;
       const propName = ER.getAttributeName(context, node);
-      if (policy === "prefer" && hasValueTrue) {
-        context.report({
-          messageId: "omitAttributeValue",
-          node: node.value ?? node,
-          data: {
-            propName,
-          },
-          fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
-        });
+
+      switch (true) {
+        case policy === 1
+          && value?.type === T.JSXExpressionContainer
+          && value.expression.type === T.Literal
+          && value.expression.value === true: {
+          context.report({
+            messageId: "jsxShorthandBoolean",
+            node,
+            data: {
+              message: `Omit attribute value for '${propName}'.`,
+            },
+            fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+          });
+          break;
+        }
+        case policy === -1
+          && value === null: { // eslint-disable-line local/prefer-eqeq-nullish-comparison
+          context.report({
+            messageId: "jsxShorthandBoolean",
+            node: node.value ?? node,
+            data: {
+              message: `Set attribute value for '${propName}'.`,
+            },
+            fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
+          });
+          break;
+        }
       }
     },
   };
