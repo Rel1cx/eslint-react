@@ -16,5 +16,6 @@
 
 - [RuleContext](type-aliases/RuleContext.md)
 - [RuleFeature](type-aliases/RuleFeature.md)
+- [RulePolicy](type-aliases/RulePolicy.md)
 - [RulePreset](type-aliases/RulePreset.md)
 - [RuleSeverity](type-aliases/RuleSeverity.md)
