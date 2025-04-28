@@ -6,4 +6,4 @@
 
 # Type Alias: RulePolicy
 
-> **RulePolicy** = `"prefer"` \| `"avoid"`
+> **RulePolicy** = `number`
