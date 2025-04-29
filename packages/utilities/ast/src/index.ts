@@ -1,5 +1,6 @@
 export * from "./ast-array-method";
 export * from "./ast-array-method-callback";
+export * from "./ast-array-pattern";
 export * from "./ast-class-id";
 export * from "./ast-expression";
 export * from "./ast-function-id";
