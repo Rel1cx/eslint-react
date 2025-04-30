@@ -112,9 +112,9 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
 
   function getCallName(node: TSESTree.Node) {
     if (node.type === T.CallExpression) {
-      return AST.toString(node.callee, getText);
+      return AST.toStringFormat(node.callee, getText);
     }
-    return AST.toString(node, getText);
+    return AST.toStringFormat(node, getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {
