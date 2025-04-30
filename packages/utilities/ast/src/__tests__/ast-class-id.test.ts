@@ -1,4 +1,4 @@
-import type { TSESTreeClass } from "../ast-node";
+import type { TSESTreeClass } from "../ast-node-types";
 
 import path from "node:path";
 import { parseForESLint } from "@typescript-eslint/parser";

@@ -1,8 +1,9 @@
+/* eslint-disable jsdoc/require-param */
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { isJSX } from "./ast-is";
+import { isJSX } from "./ast-node-is";
 
 function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
   // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
@@ -10,7 +11,10 @@ function getLiteralValueType(input: bigint | boolean | null | number | string | 
   return typeof input;
 }
 
-export function toDelimiterCaseType(node: TSESTree.Node, delimiter = " ") {
+/**
+ * @internal
+ */
+export function toDelimiterFormat(node: TSESTree.Node, delimiter = " ") {
   if (node.type === T.Literal) {
     if ("regex" in node) {
       return "RegExp literal";
@@ -24,12 +28,9 @@ export function toDelimiterCaseType(node: TSESTree.Node, delimiter = " ") {
 }
 
 /**
- * Returns human readable node name for given AST node
- * @param node AST node
- * @param getText A function that returns the text of the node in the source code
- * @returns Human readable node name
+ * @internal
  */
-export function toString(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
+export function toStringFormat(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
   switch (node.type) {
     case T.Identifier:
     case T.JSXIdentifier:
@@ -37,7 +38,7 @@ export function toString(node: TSESTree.Node, getText: (node: TSESTree.Node) => 
       return node.name;
     case T.MemberExpression:
     case T.JSXMemberExpression:
-      return `${toString(node.object, getText)}.${toString(node.property, getText)}`;
+      return `${toStringFormat(node.object, getText)}.${toStringFormat(node.property, getText)}`;
     case T.JSXNamespacedName:
       return `${node.namespace.name}:${node.name.name}`;
     case T.JSXText:

@@ -1,4 +1,4 @@
-import type { TSESTreeFunction } from "./ast-node";
+import type { TSESTreeFunction } from "./ast-node-types";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
