@@ -13,6 +13,7 @@ const templateIndentTags = [
     "ts",
     "tsx",
     "html",
+    "glsl",
     "dedent",
     "outdent",
 ];

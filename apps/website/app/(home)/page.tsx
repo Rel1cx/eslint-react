@@ -1,3 +1,4 @@
+import { Background } from "#/components/Background";
 import { ESLintReact } from "#/components/ESLintReact";
 import { Card, Cards } from "fumadocs-ui/components/card";
 import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
@@ -17,6 +18,7 @@ const features = [
 export default function HomePage() {
   return (
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
+      <Background />
       <ESLintReact />
       <article className="prose max-w-none">
         <p className="text-center">
