@@ -1,3 +1,4 @@
+import { EffectLayer } from "#/components/EffectLayer";
 import { ESLintReact } from "#/components/ESLintReact";
 import { Card, Cards } from "fumadocs-ui/components/card";
 import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
@@ -17,15 +18,14 @@ const features = [
 export default function HomePage() {
   return (
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
+      <EffectLayer />
       <ESLintReact />
       <article className="prose max-w-none">
-        <p className="text-center">
-          A series of composable ESLint rules for React and friends.
-        </p>
-        <h2>Features</h2>
+        <h2 className="isolate">Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {features.map(([title, description, Icon]) => (
             <Card
+              className="mix-blend-luminosity shadow-none"
               description={description}
               icon={<Icon />}
               key={title}
@@ -33,11 +33,11 @@ export default function HomePage() {
             />
           ))}
         </Cards>
-        <h2>Roadmap</h2>
+        <h2 className="isolate">Roadmap</h2>
         <p>
           Check out the <Link href="/roadmap">roadmap</Link> to see what's planned for the future.
         </p>
-        <h2>Contributing</h2>
+        <h2 className="isolate">Contributing</h2>
         <p>
           Want to contribute? Check out the{" "}
           <Link href="https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md">

@@ -27,5 +27,9 @@ export const baseOptions: BaseLayoutProps = {
         <span>ESLint React</span>
       </div>
     ),
+    transparentMode: "top",
+  },
+  themeSwitch: {
+    enabled: false,
   },
 };

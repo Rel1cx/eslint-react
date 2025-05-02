@@ -21,7 +21,6 @@ Minimum supported versions:
 - [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
-- [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks`
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
 - ... (Free to combine with other plugins from the community)
 
@@ -37,10 +36,7 @@ Minimum supported versions:
 ### Add auto-fix feature to rules that can be auto-fixed safely
 
 - [ ] `function-component-definition`
-- [x] `no-useless-fragment`
-- [x] `prefer-react-namespace-import`
-- [x] `prefer-shorthand-fragment`
-- [x] `prefer-shorthand-boolean`
+- [x] `prefer-namespace-import`
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 
@@ -56,8 +52,6 @@ Minimum supported versions:
 ### New Rules
 
 - [x] `jsx-no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
-- [x] `jsx-shorthand-boolean` - Enforces shorthand boolean attributes in JSX (Replaces `prefer-shorthand-boolean`)
-- [x] `jsx-shorthand-fragment` - Enforces shorthand fragment syntax in JSX (Replaces `prefer-shorthand-fragment`)
 - [x] `no-context-provider` - Replaces usages of `<Context.Provider>` with `<Context>` (React 19)
 - [x] `no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19)
 - [x] `no-use-context` - Replaces usages of `useContext` with `use` (React 19)
@@ -70,14 +64,21 @@ Minimum supported versions:
 - [x] `react-dom/prefer-namespace-import` - Enforces the use of namespace imports for ReactDOM
 - [x] `naming-convention/context-name` - Enforces context name to be a valid component name with the suffix `Context` (React 19)
 - [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
-- [ ] `hooks-extra/no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
+- [ ] `no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
+
+### Removed Plugins
+
+- [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks` - Merged into `eslint-plugin-react-x`
 
 ### Removed Rules
 
+- [x] `avoid-shorthand-boolean`
+- [x] `avoid-shorthand-fragment`
 - [x] `no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
+- [x] `no-useless-fragment`
 - [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
 - [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
-- [x] `prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
+- [x] `prefer-shorthand-fragment`
 
 ### Versioning Policy
 
