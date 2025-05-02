@@ -291,23 +291,16 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
 
 const styles = {
   root: cn(
-    "absolute",
-    "left-0",
-    "top-0",
-    "w-full",
-    "h-full",
     "z-[0]",
+    "absolute",
+    "inset-[0]",
     "pointer-events-none",
   ),
 
   canvas: cn(
     "w-full",
     "h-full",
-    "bg-transparent",
-    "opacity-0",
-    "transition-opacity",
-    "duration",
-    "ease-[ease-in-out]",
     "pointer-events-none",
+    "opacity-0",
   ),
 };
