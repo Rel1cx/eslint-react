@@ -243,6 +243,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     function update(time: number) {
       if (!isActive.current) return;
       uniforms.uTime.value = time * 0.001;
+      renderer.dpr = window.devicePixelRatio;
       renderer.render({ scene: mesh });
       rRaf.current = requestAnimationFrame(update);
     }
@@ -254,13 +255,11 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
       renderer.render({ scene: mesh });
     }
 
-    const ro = new ResizeObserver((entries) => {
-      if (!isActive.current) return;
-      if (entries.length == null) return;
-      requestAnimationFrame(() => {
-        resize(root.getBoundingClientRect());
-      });
-    });
+    function handleResize() {
+      resize(root.getBoundingClientRect());
+    }
+
+    const ro = new ResizeObserver(handleResize);
 
     ro.observe(root);
     rRaf.current = requestAnimationFrame(update);
