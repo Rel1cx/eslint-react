@@ -210,6 +210,11 @@ function createRenderer(canvas: HTMLCanvasElement, width: number, height: number
   });
 }
 
+function getDevicePixelRatio(precision = 3) {
+  const factor = Math.pow(10, precision);
+  return Math.round(window.devicePixelRatio * factor) / factor;
+}
+
 export type EffectLayerProps = PropsWithChildren<{
   className?: string;
 }>;
@@ -228,7 +233,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     const canvas = rCanvas.current;
     const rect = root.getBoundingClientRect();
     const uniforms = createUniforms(rect.width, rect.height);
-    const renderer = createRenderer(canvas, rect.width, rect.height, window.devicePixelRatio);
+    const renderer = createRenderer(canvas, rect.width, rect.height, getDevicePixelRatio());
 
     const { gl } = renderer;
     const geometry = new Triangle(gl);
@@ -243,7 +248,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     function update(time: number) {
       if (!isActive.current) return;
       uniforms.uTime.value = time * 0.001;
-      renderer.dpr = window.devicePixelRatio;
+      renderer.dpr = getDevicePixelRatio();
       renderer.render({ scene: mesh });
       rRaf.current = requestAnimationFrame(update);
     }
