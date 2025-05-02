@@ -15,6 +15,13 @@ const ibm_plex_mono = IBM_Plex_Mono({
   weight: ["400", "500", "700"],
 });
 
+const themeOptions = {
+  defaultTheme: "dark",
+  enabled: true,
+  enableSystem: false,
+  forcedTheme: "dark",
+};
+
 export const metadata = {
   description: "A series of composable ESLint rules for React and friends.",
   title: {
@@ -45,7 +52,9 @@ export default function Layout({ children }: { children: ReactNode }) {
           type="image/png"
         />
         <body className="flex flex-col min-h-screen">
-          <RootProvider>{children}</RootProvider>
+          <RootProvider theme={themeOptions}>
+            {children}
+          </RootProvider>
         </body>
       </html>
     </ViewTransitions>
