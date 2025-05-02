@@ -2,6 +2,7 @@
 
 import type { PropsWithChildren } from "react";
 import { cn } from "#/lib/cn";
+import { getDevicePixelRatio } from "#/lib/get-device-pixel-ratio";
 import glsl from "dedent";
 import { Mesh, Program, Renderer, Triangle, Vec2, Vec3 } from "ogl";
 import { useEffect, useRef } from "react";
@@ -210,11 +211,6 @@ function createRenderer(canvas: HTMLCanvasElement, width: number, height: number
   });
 }
 
-function getDevicePixelRatio(precision = 3) {
-  const factor = Math.pow(10, precision);
-  return Math.round(window.devicePixelRatio * factor) / factor;
-}
-
 export type EffectLayerProps = PropsWithChildren<{
   className?: string;
 }>;
@@ -233,7 +229,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     const canvas = rCanvas.current;
     const rect = root.getBoundingClientRect();
     const uniforms = createUniforms(rect.width, rect.height);
-    const renderer = createRenderer(canvas, rect.width, rect.height, getDevicePixelRatio());
+    const renderer = createRenderer(canvas, rect.width, rect.height, getDevicePixelRatio(2));
 
     const { gl } = renderer;
     const geometry = new Triangle(gl);
@@ -248,7 +244,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     function update(time: number) {
       if (!isActive.current) return;
       uniforms.uTime.value = time * 0.001;
-      renderer.dpr = getDevicePixelRatio();
+      renderer.dpr = getDevicePixelRatio(2);
       renderer.render({ scene: mesh });
       rRaf.current = requestAnimationFrame(update);
     }
