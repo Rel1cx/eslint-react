@@ -25,7 +25,7 @@ export default function HomePage() {
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {features.map(([title, description, Icon]) => (
             <Card
-              className="mix-blend-luminosity"
+              className="mix-blend-luminosity shadow-none"
               description={description}
               icon={<Icon />}
               key={title}
