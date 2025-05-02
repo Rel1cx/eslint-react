@@ -195,6 +195,21 @@ function createUniforms(width: number, height: number) {
   };
 }
 
+function createRenderer(canvas: HTMLCanvasElement, width: number, height: number, dpr = 2) {
+  return new Renderer({
+    alpha: true,
+    antialias: true,
+    canvas,
+    depth: false,
+    dpr,
+    height,
+    powerPreference: "high-performance",
+    premultipliedAlpha: true,
+    webgl: 2,
+    width,
+  });
+}
+
 export type EffectLayerProps = PropsWithChildren<{
   className?: string;
 }>;
@@ -203,6 +218,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
   const rRaf = useRef<number>(null);
   const rRoot = useRef<HTMLDivElement>(null);
   const rCanvas = useRef<HTMLCanvasElement>(null);
+  const isActive = useRef<boolean>(false);
 
   useEffect(() => {
     if (rRoot.current == null) return;
@@ -212,18 +228,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     const canvas = rCanvas.current;
     const rect = root.getBoundingClientRect();
     const uniforms = createUniforms(rect.width, rect.height);
-    const renderer = new Renderer({
-      alpha: true,
-      antialias: false,
-      canvas,
-      depth: false,
-      dpr: window.devicePixelRatio,
-      height: rect.height,
-      powerPreference: "high-performance",
-      premultipliedAlpha: true,
-      webgl: 2,
-      width: rect.width,
-    });
+    const renderer = createRenderer(canvas, rect.width, rect.height, window.devicePixelRatio);
 
     const { gl } = renderer;
     const geometry = new Triangle(gl);
@@ -236,27 +241,34 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
     const mesh = new Mesh(gl, { geometry, program });
 
     function update(time: number) {
+      if (!isActive.current) return;
       uniforms.uTime.value = time * 0.001;
       renderer.render({ scene: mesh });
       rRaf.current = requestAnimationFrame(update);
     }
 
+    function resize(rect: DOMRect) {
+      if (!isActive.current) return;
+      uniforms.uResolution.value.set(rect.width, rect.height);
+      renderer.setSize(rect.width, rect.height);
+      renderer.render({ scene: mesh });
+    }
+
     const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.target !== root) continue;
-        const rect = entry.contentRect;
-        uniforms.uResolution.value.set(rect.width, rect.height);
-        renderer.setSize(rect.width, rect.height);
-        renderer.render({ scene: mesh });
-        return;
-      }
+      if (!isActive.current) return;
+      if (entries.length == null) return;
+      requestAnimationFrame(() => {
+        resize(root.getBoundingClientRect());
+      });
     });
 
     ro.observe(root);
     rRaf.current = requestAnimationFrame(update);
     canvas.style.opacity = "1";
+    isActive.current = true;
 
     return () => {
+      isActive.current = false;
       canvas.style.opacity = "0";
       if (rRaf.current != null) cancelAnimationFrame(rRaf.current);
       ro.disconnect();
@@ -296,5 +308,6 @@ const styles = {
     "transition-opacity",
     "duration",
     "ease-[ease-in-out]",
+    "pointer-events-none",
   ),
 };
