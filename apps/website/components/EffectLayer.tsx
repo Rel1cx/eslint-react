@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-objects */
 "use client";
 
 import type { PropsWithChildren } from "react";
@@ -217,7 +216,7 @@ export type EffectLayerProps = PropsWithChildren<{
 }>;
 
 export function EffectLayer({ children, className }: EffectLayerProps) {
-  const rRaf = useRef<number>(null);
+  const rRaf = useRef<number>(-1);
   const rRoot = useRef<HTMLDivElement>(null);
   const rCanvas = useRef<HTMLCanvasElement>(null);
   const isActive = useRef<boolean>(false);
@@ -265,13 +264,13 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
 
     ro.observe(root);
     rRaf.current = requestAnimationFrame(update);
-    canvas.style.opacity = "1";
+    canvas.style.opacity = "0.5";
     isActive.current = true;
 
     return () => {
       isActive.current = false;
       canvas.style.opacity = "0";
-      if (rRaf.current != null) cancelAnimationFrame(rRaf.current);
+      cancelAnimationFrame(rRaf.current);
       ro.disconnect();
     };
   }, []);
@@ -291,16 +290,16 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
 }
 
 const styles = {
-  root: cn(
-    "z-[0]",
-    "absolute",
-    "inset-[0]",
-    "pointer-events-none",
-  ),
   canvas: cn(
     "w-full",
     "h-full",
     "pointer-events-none",
     "opacity-0",
+  ),
+  root: cn(
+    "z-[0]",
+    "absolute",
+    "inset-[0]",
+    "pointer-events-none",
   ),
 };
