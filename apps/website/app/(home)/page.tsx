@@ -20,7 +20,7 @@ export default function HomePage() {
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
       <EffectLayer />
       <ESLintReact />
-      <article className="prose max-w-none">
+      <article className="prose max-w-none isolate dark:isolation-auto">
         <h2 className="isolate">Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {features.map(([title, description, Icon]) => (

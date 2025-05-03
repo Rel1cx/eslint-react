@@ -16,10 +16,10 @@ const ibm_plex_mono = IBM_Plex_Mono({
 });
 
 const themeOptions = {
-  defaultTheme: "dark",
   enabled: true,
-  enableSystem: false,
-  forcedTheme: "dark",
+  enableSystem: true,
+  // defaultTheme: "dark",
+  // forcedTheme: "dark",
 };
 
 export const metadata = {
