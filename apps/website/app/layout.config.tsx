@@ -29,7 +29,4 @@ export const baseOptions: BaseLayoutProps = {
     ),
     transparentMode: "top",
   },
-  themeSwitch: {
-    enabled: false,
-  },
 };

@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 "use client";
 
 import type { PropsWithChildren } from "react";
@@ -199,7 +200,7 @@ function createUniforms(width: number, height: number) {
 function createRenderer(canvas: HTMLCanvasElement, width: number, height: number, dpr = 2) {
   return new Renderer({
     alpha: true,
-    antialias: true,
+    antialias: false,
     canvas,
     depth: false,
     dpr,
@@ -243,7 +244,7 @@ export function EffectLayer({ children, className }: EffectLayerProps) {
 
     function update(time: number) {
       if (!isActive.current) return;
-      uniforms.uTime.value = time * 0.001;
+      uniforms.uTime.value = time * 0.0005;
       renderer.dpr = getDevicePixelRatio(2);
       renderer.render({ scene: mesh });
       rRaf.current = requestAnimationFrame(update);
@@ -296,7 +297,6 @@ const styles = {
     "inset-[0]",
     "pointer-events-none",
   ),
-
   canvas: cn(
     "w-full",
     "h-full",
