@@ -37,7 +37,7 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/kit": "workspace:*",
     "@typescript-eslint/utils": "^8.31.1",
-    "@zod/mini": "^4.0.0-beta.20250430T185432",
+    "@zod/mini": "^4.0.0-beta.20250503T014749",
     "ts-pattern": "^5.7.0"
   },
   "devDependencies": {

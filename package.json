@@ -74,7 +74,7 @@
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.4.2",
     "lefthook": "^1.11.12",
-    "markdownlint": "^0.37.4",
+    "markdownlint": "^0.38.0",
     "nx": "20.8.1",
     "publint": "^0.3.12",
     "react": "^19.1.0",
