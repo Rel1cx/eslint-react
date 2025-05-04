@@ -1,6 +1,7 @@
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
+import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
 import jsxNoUndef from "./rules/jsx-no-undef";
 import jsxUsesReact from "./rules/jsx-uses-react";
@@ -116,6 +117,7 @@ export const plugin = {
     "prefer-shorthand-fragment": preferShorthandFragment,
 
     // Part: JSX only rules
+    "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-no-undef": jsxNoUndef,
     "jsx-uses-react": jsxUsesReact,
