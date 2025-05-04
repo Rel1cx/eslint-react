@@ -12,6 +12,7 @@ export const name = "@eslint-react/all";
 export const rules = {
   "@eslint-react/avoid-shorthand-boolean": "warn",
   "@eslint-react/avoid-shorthand-fragment": "warn",
+  "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
   "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/jsx-uses-react": "warn",

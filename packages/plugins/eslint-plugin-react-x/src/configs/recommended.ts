@@ -4,6 +4,7 @@ import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 export const name = "react-x/recommended";
 
 export const rules = {
+  "react-x/jsx-key-before-spread": "warn",
   "react-x/jsx-no-duplicate-props": "warn",
   "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
