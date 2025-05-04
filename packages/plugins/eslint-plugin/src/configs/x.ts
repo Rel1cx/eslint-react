@@ -6,6 +6,7 @@ export const name = "@eslint-react/x";
 
 export const rules = {
   "@eslint-react/jsx-no-comment-textnodes": "warn",
+  "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
   // "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/jsx-uses-react": "warn",

@@ -1,4 +1,5 @@
 import { name, version } from "../package.json";
+import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
 import jsxNoUndef from "./rules/jsx-no-undef";
@@ -64,6 +65,7 @@ export const plugin = {
     version,
   },
   rules: {
+    "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-no-undef": jsxNoUndef,
