@@ -55,13 +55,11 @@ flowchart TB
     Core -->|"dependency"| ReactX
     Core -->|"dependency"| ReactDOM
     Core -->|"dependency"| WebAPI
-    Core -->|"dependency"| HooksExtra
     Core -->|"dependency"| NamingConvention
 
     Shared -->|"dependency"| ReactX
     Shared -->|"dependency"| ReactDOM
     Shared -->|"dependency"| WebAPI
-    Shared -->|"dependency"| HooksExtra
     Shared -->|"dependency"| NamingConvention
 
     %% Utilities used by Core and Plugins
@@ -79,7 +77,6 @@ flowchart TB
     ReactX -->|"aggregated"| Aggregated
     ReactDOM -->|"aggregated"| Aggregated
     WebAPI -->|"aggregated"| Aggregated
-    HooksExtra -->|"aggregated"| Aggregated
     NamingConvention -->|"aggregated"| Aggregated
 
     %% Website Documentation uses Core and Shared docs
@@ -96,7 +93,6 @@ flowchart TB
     Scripts -->|"CI/CD"| ReactX
     Scripts -->|"CI/CD"| ReactDOM
     Scripts -->|"CI/CD"| WebAPI
-    Scripts -->|"CI/CD"| HooksExtra
     Scripts -->|"CI/CD"| NamingConvention
     Scripts -->|"CI/CD"| Aggregated
     Scripts -->|"CI/CD"| Tests
