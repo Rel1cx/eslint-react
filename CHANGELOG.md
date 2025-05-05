@@ -1,3 +1,11 @@
+## v1.49.0 (2025-05-05)
+
+### ✨ New
+
+- feat: add `jsx-key-before-spread`, closes #1093, closes #1087 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1105
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.48.5...v1.49.0
+
 ## v1.48.5 (2025-04-25)
 
 ## 🐞 Fixes

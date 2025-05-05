@@ -87,6 +87,8 @@ function MyComponent({ items }: MyComponentProps) {
 
 ## See Also
 
+- [`jsx-key-before-spread`](./jsx-key-before-spread)\
+  Enforces that the `key` attribute is placed before the spread attribute in JSX elements.
 - [`no-missing-key`](./no-missing-key)\
   Prevents missing `key` on items in list rendering.
 - [`no-duplicate-key`](./no-duplicate-key)\
