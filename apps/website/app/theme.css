@@ -172,3 +172,16 @@ button {
     color: #ffffff;
   }
 }
+
+.dark {
+
+  .shadow-2xs,
+  .shadow-xs,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: 0 0 #0000;
+  }
+}
