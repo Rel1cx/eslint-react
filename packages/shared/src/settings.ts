@@ -106,19 +106,6 @@ export const ESLintReactSettingsSchema = z.object({
    */
   importSource: z.optional(z.string()),
   /**
-   * The identifier that's used for JSX Element creation.
-   * @default `"createElement"`
-   * @deprecated
-   */
-  jsxPragma: z.optional(z.string()),
-  /**
-   * The identifier that's used for JSX fragment elements.
-   * @description This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
-   * @default `"Fragment"`
-   * @deprecated
-   */
-  jsxPragmaFrag: z.optional(z.string()),
-  /**
    * The name of the prop that is used for polymorphic components.
    * @description This is used to determine the type of the component.
    * @example `"as"`
