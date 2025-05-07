@@ -16,117 +16,192 @@
 
 `object`[] = `[]`
 
+An array of user-defined components
+
+**Description**
+
+This is used to inform the ESLint React plugins how to treat these components during checks.
+
+**Example**
+
+```ts
+`[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
+```
+
 #### additionalHooks?
 
 \{ `use?`: `string`[]; `useActionState?`: `string`[]; `useCallback?`: `string`[]; `useContext?`: `string`[]; `useDebugValue?`: `string`[]; `useDeferredValue?`: `string`[]; `useEffect?`: `string`[]; `useFormStatus?`: `string`[]; `useId?`: `string`[]; `useImperativeHandle?`: `string`[]; `useInsertionEffect?`: `string`[]; `useLayoutEffect?`: `string`[]; `useMemo?`: `string`[]; `useOptimistic?`: `string`[]; `useReducer?`: `string`[]; `useRef?`: `string`[]; `useState?`: `string`[]; `useSyncExternalStore?`: `string`[]; `useTransition?`: `string`[]; \} = `{}`
 
+A object to define additional hooks that are equivalent to the built-in React Hooks.
+
+**Description**
+
+ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
+
+**Example**
+
+```ts
+`{ useEffect: ["useIsomorphicLayoutEffect"] }`
+```
+
 #### additionalHooks.use?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useActionState?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useCallback?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useContext?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useDebugValue?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useDeferredValue?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useEffect?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useFormStatus?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useId?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useImperativeHandle?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useInsertionEffect?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useLayoutEffect?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useMemo?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useOptimistic?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useReducer?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useRef?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useState?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useSyncExternalStore?
 
-`string`[]
+`string`[] = `...`
 
 #### additionalHooks.useTransition?
 
-`string`[]
+`string`[] = `...`
 
 #### importSource?
 
 `string` = `"react"`
 
+The source where React is imported from.
+
+**Description**
+
+This allows to specify a custom import location for React when not using the official distribution.
+
+**Default**
+
+`"react"`
+
+**Example**
+
+```ts
+`"@pika/react"`
+```
+
 #### jsxPragma?
 
-`string`
+`string` = `...`
+
+The identifier that's used for JSX Element creation.
+
+**Default**
+
+`"createElement"`
+
+**Deprecated**
 
 #### jsxPragmaFrag?
 
-`string`
+`string` = `...`
+
+The identifier that's used for JSX fragment elements.
+
+**Description**
+
+This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
+
+**Default**
+
+`"Fragment"`
+
+**Deprecated**
 
 #### polymorphicPropName?
 
 `string` = `"as"`
 
-#### skipImportCheck?
+The name of the prop that is used for polymorphic components.
 
-`boolean` = `true`
+**Description**
 
-#### strict?
+This is used to determine the type of the component.
 
-`boolean` = `true`
+**Example**
+
+```ts
+`"as"`
+```
 
 #### version?
 
 `string`
 
-## Returns
+React version to use, "detect" means auto detect React version from the project's dependencies.
+If `importSource` is specified, an equivalent version of React should be provided here.
 
-`object`
+**Example**
+
+```ts
+`"18.3.1"`
+```
+
+**Default**
+
+`"detect"`
+
+## Returns
 
 ### additionalHooks
 
@@ -216,13 +291,33 @@
 
 > **importSource**: `string`
 
-### jsxPragma?
+### ~~jsxPragma?~~
 
-> `optional` **jsxPragma**: `string`
+> `readonly` `optional` **jsxPragma**: `string`
 
-### jsxPragmaFrag?
+The identifier that's used for JSX Element creation.
 
-> `optional` **jsxPragmaFrag**: `string`
+#### Default
+
+`"createElement"`
+
+#### Deprecated
+
+### ~~jsxPragmaFrag?~~
+
+> `readonly` `optional` **jsxPragmaFrag**: `string`
+
+The identifier that's used for JSX fragment elements.
+
+#### Description
+
+This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
+
+#### Default
+
+`"Fragment"`
+
+#### Deprecated
 
 ### polymorphicPropName
 

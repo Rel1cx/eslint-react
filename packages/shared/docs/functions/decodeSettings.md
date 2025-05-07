@@ -16,15 +16,37 @@
 
 ## Returns
 
-`object`
-
 ### additionalComponents?
 
 > `optional` **additionalComponents**: `object`[]
 
+An array of user-defined components
+
+#### Description
+
+This is used to inform the ESLint React plugins how to treat these components during checks.
+
+#### Example
+
+```ts
+`[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
+```
+
 ### additionalHooks?
 
 > `optional` **additionalHooks**: `object`
+
+A object to define additional hooks that are equivalent to the built-in React Hooks.
+
+#### Description
+
+ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
+
+#### Example
+
+```ts
+`{ useEffect: ["useIsomorphicLayoutEffect"] }`
+```
 
 #### additionalHooks.use?
 
@@ -106,26 +128,79 @@
 
 > `optional` **importSource**: `string`
 
-### jsxPragma?
+The source where React is imported from.
+
+#### Description
+
+This allows to specify a custom import location for React when not using the official distribution.
+
+#### Default
+
+`"react"`
+
+#### Example
+
+```ts
+`"@pika/react"`
+```
+
+### ~~jsxPragma?~~
 
 > `optional` **jsxPragma**: `string`
 
-### jsxPragmaFrag?
+The identifier that's used for JSX Element creation.
+
+#### Default
+
+`"createElement"`
+
+#### Deprecated
+
+### ~~jsxPragmaFrag?~~
 
 > `optional` **jsxPragmaFrag**: `string`
+
+The identifier that's used for JSX fragment elements.
+
+#### Description
+
+This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
+
+#### Default
+
+`"Fragment"`
+
+#### Deprecated
 
 ### polymorphicPropName?
 
 > `optional` **polymorphicPropName**: `string`
 
-### skipImportCheck?
+The name of the prop that is used for polymorphic components.
 
-> `optional` **skipImportCheck**: `boolean`
+#### Description
 
-### strict?
+This is used to determine the type of the component.
 
-> `optional` **strict**: `boolean`
+#### Example
+
+```ts
+`"as"`
+```
 
 ### version?
 
 > `optional` **version**: `string`
+
+React version to use, "detect" means auto detect React version from the project's dependencies.
+If `importSource` is specified, an equivalent version of React should be provided here.
+
+#### Example
+
+```ts
+`"18.3.1"`
+```
+
+#### Default
+
+`"detect"`
