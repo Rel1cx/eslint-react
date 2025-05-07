@@ -31,7 +31,6 @@
 - [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md)
 - [ComponentStateKind](type-aliases/ComponentStateKind.md)
 - [EffectKind](type-aliases/EffectKind.md)
-- [HookKind](type-aliases/HookKind.md)
 - [JSXDetectionHint](type-aliases/JSXDetectionHint.md)
 
 ## Variables
@@ -88,6 +87,7 @@
 - [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md)
 - [isUseTransitionCall](variables/isUseTransitionCall.md)
 - [JSXDetectionHint](variables/JSXDetectionHint.md)
+- [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md)
 
 ## Functions
 
