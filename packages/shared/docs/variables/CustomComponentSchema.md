@@ -6,7 +6,7 @@
 
 # Variable: CustomComponentSchema
 
-> `const` **CustomComponentSchema**: `ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `attributes`: `ZodMiniOptional`\<`ZodMiniArray`\<`ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `defaultValue`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}\>\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}\>
+> `const` **CustomComponentSchema**: `ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `attributes`: `ZodMiniOptional`\<`ZodMiniArray`\<`ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `defaultValue`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}, \{ \}\>\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}, \{ \}\>
 
 ## Description
 

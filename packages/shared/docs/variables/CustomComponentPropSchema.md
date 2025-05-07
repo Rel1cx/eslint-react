@@ -6,4 +6,4 @@
 
 # Variable: CustomComponentPropSchema
 
-> `const` **CustomComponentPropSchema**: `ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `defaultValue`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}\>
+> `const` **CustomComponentPropSchema**: `ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `defaultValue`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}, \{ \}\>
