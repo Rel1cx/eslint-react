@@ -56,7 +56,6 @@ Minimum supported versions:
 - [x] `no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19)
 - [x] `no-use-context` - Replaces usages of `useContext` with `use` (React 19)
 - [x] `prefer-namespace-import` - Enforces the use of namespace imports for React (Replaces `prefer-react-namespace-import`)
-- [ ] `react-dom/no-test-utils-act` - Replaces the usages of `TestUtils.act()` to use `React.act()` (React 19)
 - [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
 - [x] `react-dom/no-hydrate` - Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
 - [x] `react-dom/no-render` - Replaces usages of `ReactDom.render()` with `createRoot(node).render()` (React 19)
@@ -72,13 +71,12 @@ Minimum supported versions:
 
 ### Removed Rules
 
-- [x] `avoid-shorthand-boolean`
-- [x] `avoid-shorthand-fragment`
+- [x] `avoid-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
+- [x] `avoid-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
 - [x] `no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
-- [x] `no-useless-fragment`
 - [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
 - [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
-- [x] `prefer-shorthand-fragment`
+- [x] `prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
 
 ### Versioning Policy
 
