@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "2.0.0-beta.18",
+  "version": "2.0.0-next.19",
   "description": "ESLint React's plugin kit for building plugins and rules.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/utils": "^8.32.0",
+    "@typescript-eslint/utils": "^8.32.1",
     "@zod/mini": "^4.0.0-beta.20250505T195954",
     "ts-pattern": "^5.7.0"
   },
