@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.0-next.19",
+  "version": "2.0.0-next.20",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, naming-convention].",
   "keywords": [
@@ -73,7 +73,7 @@
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.4.2",
-    "lefthook": "^1.11.12",
+    "lefthook": "^1.11.13",
     "markdownlint": "^0.38.0",
     "nx": "20.8.1",
     "publint": "^0.3.12",
@@ -112,7 +112,7 @@
       "@types/react-dom": "^19.1.5",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.4",
-      "lucide-react": "^0.510.0",
+      "lucide-react": "^0.511.0",
       "next": "^15.3.2",
       "react": "^19.1.0",
       "react-dom": "^19.1.0",
