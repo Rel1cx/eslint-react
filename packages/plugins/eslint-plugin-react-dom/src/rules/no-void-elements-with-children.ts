@@ -3,7 +3,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 
-import { createRule } from "../utils";
+import { createJsxElementResolver, createRule } from "../utils";
 
 export const RULE_NAME = "no-void-elements-with-children";
 
@@ -49,9 +49,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const elementName = ER.getElementType(context, node);
+      const { domElementType: elementName } = resolver.resolve(node);
       if (elementName.length === 0 || !voidElements.has(elementName)) {
         return;
       }
