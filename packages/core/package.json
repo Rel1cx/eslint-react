@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/core",
-  "version": "1.50.0-beta.1",
+  "version": "1.50.0-next.2",
   "description": "ESLint React's ESLint utility module for static analysis of React core APIs and patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -47,16 +47,16 @@
     "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.32.0",
-    "@typescript-eslint/type-utils": "^8.32.0",
-    "@typescript-eslint/types": "^8.32.0",
-    "@typescript-eslint/utils": "^8.32.0",
+    "@typescript-eslint/scope-manager": "^8.32.1",
+    "@typescript-eslint/type-utils": "^8.32.1",
+    "@typescript-eslint/types": "^8.32.1",
+    "@typescript-eslint/utils": "^8.32.1",
     "birecord": "^0.1.1",
-    "ts-pattern": "^5.7.0"
+    "ts-pattern": "^5.7.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsup": "^8.4.0"
+    "tsup": "^8.5.0"
   },
   "engines": {
     "bun": ">=1.0.15",
