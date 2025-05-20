@@ -70,5 +70,5 @@ When a child component needs some data from a parent, [pass it by props](https:/
 
 ## See Also
 
-- [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations.md)\
+- [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations)\
   Disallow nesting lazy component declarations inside other components.
