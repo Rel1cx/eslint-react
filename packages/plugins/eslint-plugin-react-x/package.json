@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "2.0.0-next.20",
+  "version": "2.0.0-next.21",
   "description": "A set of composable ESLint rules for for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -53,14 +53,14 @@
     "compare-versions": "^6.1.1",
     "is-immutable-type": "^5.0.1",
     "string-ts": "^2.2.1",
-    "ts-pattern": "^5.7.0"
+    "ts-pattern": "^5.7.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.1.4",
+    "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "ts-api-utils": "^2.1.0",
-    "tsup": "^8.4.0"
+    "tsup": "^8.5.0"
   },
   "peerDependencies": {
     "eslint": "^9.26.0",

@@ -66,5 +66,5 @@ ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 
 ## See Also
 
-- [no-render](./dom-no-render.md)\
+- [no-render](./dom-no-render)\
   Replaces usages of `ReactDom.render()` with `createRoot(node).render()`.

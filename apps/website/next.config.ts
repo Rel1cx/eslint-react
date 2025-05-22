@@ -25,6 +25,16 @@ const config = {
   async redirects() {
     return [
       {
+        source: "/:path*.md",
+        destination: "/:path*",
+        permanent: false,
+      },
+      {
+        source: "/:path*.mdx",
+        destination: "/:path*",
+        permanent: false,
+      },
+      {
         source: "/docs",
         destination: "/docs/getting-started",
         permanent: true,

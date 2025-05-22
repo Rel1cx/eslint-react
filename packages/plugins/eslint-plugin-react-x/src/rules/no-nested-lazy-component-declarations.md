@@ -71,5 +71,5 @@ function Editor() {
 
 ## See Also
 
-- [`no-nested-component-definitions`](./no-nested-component-definitions.md)\
+- [`no-nested-component-definitions`](./no-nested-component-definitions)\
   Disallow nesting component definitions inside other components.

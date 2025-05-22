@@ -26,7 +26,7 @@
     "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^9.27.0",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@typescript-eslint/scope-manager": "^8.32.1",
     "@typescript-eslint/type-utils": "^8.32.1",
@@ -38,13 +38,13 @@
     "eslint-plugin-regexp": "^2.7.0",
     "eslint-plugin-unicorn": "^59.0.1",
     "string-ts": "^2.2.1",
-    "ts-pattern": "^5.7.0"
+    "ts-pattern": "^5.7.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.1.4",
+    "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
-    "tsup": "^8.4.0"
+    "tsup": "^8.5.0"
   },
   "peerDependencies": {
     "eslint": "^9.26.0",
