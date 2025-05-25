@@ -23,9 +23,18 @@ react-x/no-nested-component-definitions
 
 ## Description
 
-Disallow nesting component definitions inside other components.
+Disallows defining React components inside other components.
 
-Nesting component definitions inside other components is a common mistake that can be extremely slow and cause issues and bugs, and the state of components defined during rendering will not be preserved by React. Instead, define every component at the top level.
+Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
+
+When a component is defined inside another component:
+
+- It gets recreated on every render of the parent component
+- It loses its internal state when the parent rerenders
+- It defeats props memoization and optimization techniques
+- It creates new function references on every render
+
+Instead, define every component at the top level.
 
 ## Examples
 
