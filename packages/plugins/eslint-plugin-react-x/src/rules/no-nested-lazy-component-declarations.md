@@ -23,9 +23,16 @@ react-x/no-nested-lazy-component-declarations
 
 ## Description
 
-Disallow nesting lazy component declarations inside other components.
+Disallows defining React components inside other components.
 
-When a lazy component is declared inside another component, it will be re-created on every render of the parent component. This can lead to unexpected behavior, such as resetting the state of the lazy component.
+Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
+
+When a component is defined inside another component:
+
+- It gets recreated on every render of the parent component
+- It loses its internal state when the parent rerenders
+- It defeats props memoization and optimization techniques
+- It creates new function references on every render
 
 ## Examples
 
