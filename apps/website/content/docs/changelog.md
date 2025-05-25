@@ -4,12 +4,12 @@ title: Changelog
 
 ## v1.50.0 (2025-05-25)
 
-## 🐞 Fixes
+### 🐞 Fixes
 
 - fix: `polymorphicPropName` not work with `no-void-elements-with-children` by @huynhducduy in https://github.com/Rel1cx/eslint-react/pull/1108
 - fix: use stable version `zod`, closes #1110
 
-## New Contributors
+### New Contributors
 
 - @huynhducduy made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1108
 
@@ -25,7 +25,7 @@ title: Changelog
 
 ## v1.48.5 (2025-04-25)
 
-## 🐞 Fixes
+### 🐞 Fixes
 
 - fix: fixed named export 'JsxEmit' not found, closes #1095 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1096
 
@@ -33,7 +33,7 @@ title: Changelog
 
 ## v1.48.4 (2025-04-19)
 
-## 🐞 Fixes
+### 🐞 Fixes
 
 - fix: update fallback react version in settings to "19.1.0"
 
