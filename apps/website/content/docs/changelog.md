@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v1.50.0 (2025-05-25)
+
+## 🐞 Fixes
+
+- fix: `polymorphicPropName` not work with `no-void-elements-with-children` by @huynhducduy in https://github.com/Rel1cx/eslint-react/pull/1108
+- fix: use stable version `zod`, closes #1110
+
+## New Contributors
+
+- @huynhducduy made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1108
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.49.0...v1.50.0
+
 ## v1.49.0 (2025-05-05)
 
 ### ✨ New
