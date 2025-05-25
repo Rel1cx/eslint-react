@@ -5,8 +5,8 @@ import type { PartialDeep } from "type-fest";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
 import { RegExp as RE, type RuleContext } from "@eslint-react/kit";
 
-import * as z from "@zod/mini";
 import { match, P } from "ts-pattern";
+import { z } from "zod/v4";
 
 import { getReactVersion } from "./get-react-version";
 
@@ -150,7 +150,6 @@ export const ESLintSettingsSchema = z.optional(
   z.object({
     "react-x": z.optional(z.unknown()),
   }),
-  {},
 );
 
 export type CustomComponent = z.infer<typeof CustomComponentSchema>;

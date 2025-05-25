@@ -1,5 +1,5 @@
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import type * as z from "@zod/mini";
+import type { z } from "zod/v4";
 import type { LanguagePreferenceSchema } from "./LanguagePreferenceSchema";
 
 /**

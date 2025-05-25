@@ -100,7 +100,7 @@ function MyInput({
 
 ## Further Reading
 
-- [React `forwardRef`](https://react.dev/reference/react/forwardRef)
+- [React Docs: `forwardRef`](https://react.dev/reference/react/forwardRef)
 - [React Docs: `ref` as a prop](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
 
 ---

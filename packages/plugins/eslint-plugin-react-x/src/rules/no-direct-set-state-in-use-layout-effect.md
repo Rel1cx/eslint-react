@@ -302,8 +302,8 @@ function List({ items }) {
 
 ## Further Reading
 
-- [React `useState` Hook](https://react.dev/reference/react/useState)
-- [React `useLayoutEffect` Hook](https://react.dev/reference/react/useLayoutEffect)
+- [React Docs: `useState` Hook](https://react.dev/reference/react/useState)
+- [React Docs: `useLayoutEffect` Hook](https://react.dev/reference/react/useLayoutEffect)
 - [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 
 ---
