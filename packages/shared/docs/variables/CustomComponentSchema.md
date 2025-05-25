@@ -6,7 +6,7 @@
 
 # Variable: CustomComponentSchema
 
-> `const` **CustomComponentSchema**: `ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `attributes`: `ZodOptional`\<`ZodArray`\<`ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `defaultValue`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `as?`: `string`; `defaultValue?`: `string`; `name`: `string`; \}, \{ `as?`: `string`; `defaultValue?`: `string`; `name`: `string`; \}\>, `"many"`\>\>; `name`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `as?`: `string`; `attributes?`: `object`[]; `name`: `string`; \}, \{ `as?`: `string`; `attributes?`: `object`[]; `name`: `string`; \}\>
+> `const` **CustomComponentSchema**: `ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `attributes`: `ZodOptional`\<`ZodArray`\<`ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `defaultValue`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; \}, `$strip`\>\>\>; `name`: `ZodString`; \}, `$strip`\>
 
 ## Description
 

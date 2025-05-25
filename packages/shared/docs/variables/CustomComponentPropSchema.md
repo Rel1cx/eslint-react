@@ -6,4 +6,4 @@
 
 # Variable: CustomComponentPropSchema
 
-> `const` **CustomComponentPropSchema**: `ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `defaultValue`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `as?`: `string`; `defaultValue?`: `string`; `name`: `string`; \}, \{ `as?`: `string`; `defaultValue?`: `string`; `name`: `string`; \}\>
+> `const` **CustomComponentPropSchema**: `ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `defaultValue`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; \}, `$strip`\>
