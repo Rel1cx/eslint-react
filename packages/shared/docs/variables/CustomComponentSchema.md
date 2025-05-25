@@ -6,7 +6,7 @@
 
 # Variable: CustomComponentSchema
 
-> `const` **CustomComponentSchema**: `ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `attributes`: `ZodMiniOptional`\<`ZodMiniArray`\<`ZodMiniObject`\<\{ `as`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `defaultValue`: `ZodMiniOptional`\<`ZodMiniString`\<`string`\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}, \{ \}\>\>\>; `name`: `ZodMiniString`\<`string`\>; \}, \{ \}, \{ \}\>
+> `const` **CustomComponentSchema**: `ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `attributes`: `ZodOptional`\<`ZodArray`\<`ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `defaultValue`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `as?`: `string`; `defaultValue?`: `string`; `name`: `string`; \}, \{ `as?`: `string`; `defaultValue?`: `string`; `name`: `string`; \}\>, `"many"`\>\>; `name`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `as?`: `string`; `attributes?`: `object`[]; `name`: `string`; \}, \{ `as?`: `string`; `attributes?`: `object`[]; `name`: `string`; \}\>
 
 ## Description
 

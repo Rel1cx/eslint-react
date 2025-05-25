@@ -5,8 +5,8 @@ import type { PartialDeep } from "type-fest";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
 import { RegExp as RE, type RuleContext } from "@eslint-react/kit";
 
-import * as z from "@zod/mini";
 import { match, P } from "ts-pattern";
+import * as z from "zod";
 
 import { getReactVersion } from "./get-react-version";
 
