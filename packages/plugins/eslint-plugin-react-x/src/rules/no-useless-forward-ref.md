@@ -61,7 +61,7 @@ const MyComponent = React.forwardRef<HTMLButtonElement>((props, ref) => {
 
 ## Further Reading
 
-- [React `forwardRef`](https://react.dev/reference/react/forwardRef)
+- [React Docs: `forwardRef`](https://react.dev/reference/react/forwardRef)
 
 ---
 

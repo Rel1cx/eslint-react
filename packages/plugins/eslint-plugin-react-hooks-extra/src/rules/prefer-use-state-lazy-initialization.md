@@ -68,4 +68,4 @@ declare function generateTodos(): string[];
 
 ## Further Reading
 
-- [React `useState` Hook](https://react.dev/reference/react/useState#setstate)
+- [React Docs: `useState` Hook](https://react.dev/reference/react/useState#setstate)
