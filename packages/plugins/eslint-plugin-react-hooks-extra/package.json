@@ -1,13 +1,15 @@
 {
-  "name": "eslint-plugin-react-x",
+  "name": "eslint-plugin-react-hooks-extra",
   "version": "2.0.0-next.25",
-  "description": "A set of composable ESLint rules for for libraries and frameworks that use React as a UI runtime.",
+  "description": "ESLint React's ESLint plugin for React Hooks related rules.",
   "keywords": [
     "react",
+    "hooks",
+    "hooks-extra",
     "eslint",
     "eslint-react",
     "eslint-plugin",
-    "eslint-plugin-react-x"
+    "eslint-plugin-react-hooks-extra"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -16,7 +18,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/plugins/eslint-plugin-react-x"
+    "directory": "packages/plugins/eslint-plugin-react-hooks-extra"
   },
   "license": "MIT",
   "author": "Rel1cx<rel1cx@proton.me>",
@@ -50,8 +52,6 @@
     "@typescript-eslint/type-utils": "^8.32.1",
     "@typescript-eslint/types": "^8.33.0",
     "@typescript-eslint/utils": "^8.32.1",
-    "compare-versions": "^6.1.1",
-    "is-immutable-type": "^5.0.1",
     "string-ts": "^2.2.1",
     "ts-pattern": "^5.7.1"
   },
@@ -59,20 +59,15 @@
     "@local/configs": "workspace:*",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
-    "ts-api-utils": "^2.1.0",
     "tsup": "^8.5.0"
   },
   "peerDependencies": {
-    "eslint": "^9.27.0",
-    "ts-api-utils": "^2.1.0",
-    "typescript": "^4.9.5 || ^5.4.5"
+    "eslint": "^8.57.0 || ^9.0.0",
+    "typescript": "^4.9.5 || ^5.3.3"
   },
   "peerDependenciesMeta": {
     "eslint": {
       "optional": false
-    },
-    "ts-api-utils": {
-      "optional": true
     },
     "typescript": {
       "optional": true
@@ -80,7 +75,7 @@
   },
   "engines": {
     "bun": ">=1.0.15",
-    "node": ">=20.19.0"
+    "node": ">=18.18.0"
   },
   "publishConfig": {
     "access": "public"

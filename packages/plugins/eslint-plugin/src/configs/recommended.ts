@@ -1,5 +1,6 @@
 import type { RulePreset } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
+import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 
 import * as dom from "./dom";
@@ -21,6 +22,7 @@ export const plugins = {
   ...dom.plugins,
   ...webApi.plugins,
   "@eslint-react/debug": reactDebug,
+  "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
 };
 

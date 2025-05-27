@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/types": "^8.32.1",
+    "@typescript-eslint/types": "^8.33.0",
     "@typescript-eslint/typescript-estree": "^8.32.1",
     "@typescript-eslint/utils": "^8.32.1",
     "string-ts": "^2.2.1",
