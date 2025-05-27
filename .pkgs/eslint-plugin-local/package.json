@@ -28,10 +28,10 @@
     "@eslint-react/var": "workspace:*",
     "@eslint/js": "^9.27.0",
     "@stylistic/eslint-plugin": "^4.4.0",
-    "@typescript-eslint/scope-manager": "^8.32.1",
-    "@typescript-eslint/type-utils": "^8.32.1",
-    "@typescript-eslint/types": "^8.32.1",
-    "@typescript-eslint/utils": "^8.32.1",
+    "@typescript-eslint/scope-manager": "^8.33.0",
+    "@typescript-eslint/type-utils": "^8.33.0",
+    "@typescript-eslint/types": "^8.33.0",
+    "@typescript-eslint/utils": "^8.33.0",
     "eslint-plugin-de-morgan": "^1.2.1",
     "eslint-plugin-jsdoc": "^50.6.17",
     "eslint-plugin-perfectionist": "^4.13.0",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.1.5",
+    "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "tsup": "^8.5.0"
   },
