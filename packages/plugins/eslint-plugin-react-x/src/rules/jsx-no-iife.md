@@ -72,6 +72,24 @@ function MyComponent() {
 function MyComponent() {
   // hooks etc
 
+  const thingsList = useMemo(() => things.filter(callback), [things, callback]);
+
+  return (
+    <SomeJsx>
+      <SomeMoreJsx />
+      {thingsList.length === 0
+        ? <Empty />
+        : thingsList.map((thing) => <Thing key={thing.id} data={thing} />)}
+      <SomeMoreJsx />
+    </SomeJsx>
+  );
+}
+```
+
+```tsx
+function MyComponent() {
+  // hooks etc
+
   const thingsList = useMemo(() => {
     const filteredThings = things.filter(callback);
 
@@ -80,7 +98,7 @@ function MyComponent() {
     }
 
     return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
-  }, [things]);
+  }, [things, callback]);
 
   return (
     <SomeJsx>
