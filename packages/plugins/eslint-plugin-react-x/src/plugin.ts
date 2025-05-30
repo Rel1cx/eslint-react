@@ -3,6 +3,7 @@ import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
+import jsxNoIife from "./rules/jsx-no-iife";
 import jsxNoUndef from "./rules/jsx-no-undef";
 import jsxUsesReact from "./rules/jsx-uses-react";
 import jsxUsesVars from "./rules/jsx-uses-vars";
@@ -119,6 +120,7 @@ export const plugin = {
     // Part: JSX only rules
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
+    "jsx-no-iife": jsxNoIife,
     "jsx-no-undef": jsxNoUndef,
     "jsx-uses-react": jsxUsesReact,
     "jsx-uses-vars": jsxUsesVars,

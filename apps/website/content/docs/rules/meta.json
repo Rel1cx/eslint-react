@@ -4,6 +4,7 @@
     "---X Rules---",
     "jsx-key-before-spread",
     "jsx-no-duplicate-props",
+    "jsx-no-iife",
     "jsx-no-undef",
     "jsx-uses-react",
     "jsx-uses-vars",
