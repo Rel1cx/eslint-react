@@ -1,0 +1,83 @@
+{
+  "name": "eslint-plugin-react-hooks-extra",
+  "version": "2.0.0-next.27",
+  "description": "ESLint React's ESLint plugin for React Hooks related rules.",
+  "keywords": [
+    "react",
+    "hooks",
+    "hooks-extra",
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-hooks-extra"
+  ],
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
+    "directory": "packages/plugins/eslint-plugin-react-hooks-extra"
+  },
+  "license": "MIT",
+  "author": "Rel1cx<rel1cx@proton.me>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsup --dts-resolve",
+    "lint:publish": "publint",
+    "lint:ts": "tsc --noEmit",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "dependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/core": "workspace:*",
+    "@eslint-react/eff": "workspace:*",
+    "@eslint-react/kit": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
+    "@eslint-react/var": "workspace:*",
+    "@typescript-eslint/scope-manager": "^8.33.0",
+    "@typescript-eslint/type-utils": "^8.33.0",
+    "@typescript-eslint/types": "^8.33.0",
+    "@typescript-eslint/utils": "^8.33.0",
+    "string-ts": "^2.2.1",
+    "ts-pattern": "^5.7.1"
+  },
+  "devDependencies": {
+    "@local/configs": "workspace:*",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "tsup": "^8.5.0"
+  },
+  "peerDependencies": {
+    "eslint": "^8.57.0 || ^9.0.0",
+    "typescript": "^4.9.5 || ^5.3.3"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": false
+    },
+    "typescript": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "bun": ">=1.0.15",
+    "node": ">=18.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,6 +1,7 @@
 import type { RulePreset } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
+import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import reactWebApi from "eslint-plugin-react-web-api";
 import react from "eslint-plugin-react-x";
@@ -62,6 +63,7 @@ export default {
     ...react.rules,
     ...padKeysLeft(reactDom.rules, "dom/"),
     ...padKeysLeft(reactWebApi.rules, "web-api/"),
+    ...padKeysLeft(reactHooksExtra, "hooks-extra/"),
     ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
     ...padKeysLeft(reactDebug.rules, "debug/"),
   },
