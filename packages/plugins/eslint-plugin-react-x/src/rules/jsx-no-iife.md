@@ -2,13 +2,13 @@
 title: jsx-no-iife
 ---
 
-**Full Name in `eslint-plugin-react-x`**
+**Full Name in `eslint-plugin-react-x@beta`**
 
 ```sh copy
 react-x/jsx-no-iife
 ```
 
-**Full Name in `@eslint-react/eslint-plugin`**
+**Full Name in `@eslint-react/eslint-plugin@beta`**
 
 ```sh copy
 @eslint-react/jsx-no-iife
