@@ -2,6 +2,7 @@ import { name, version } from "../package.json";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
+import jsxNoIife from "./rules/jsx-no-iife";
 import jsxNoUndef from "./rules/jsx-no-undef";
 import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean";
 import jsxShorthandFragment from "./rules/jsx-shorthand-fragment";

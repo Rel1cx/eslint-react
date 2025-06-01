@@ -5,6 +5,7 @@
     "jsx-key-before-spread",
     "jsx-no-comment-textnodes",
     "jsx-no-duplicate-props",
+    "jsx-no-iife",
     "jsx-no-undef",
     "jsx-shorthand-boolean",
     "jsx-shorthand-fragment",

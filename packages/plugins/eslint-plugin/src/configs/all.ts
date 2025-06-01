@@ -12,6 +12,7 @@ export const name = "@eslint-react/all";
 export const rules = {
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
+  "@eslint-react/jsx-no-iife": "warn",
   "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/jsx-uses-react": "warn",
   "@eslint-react/jsx-uses-vars": "warn",
