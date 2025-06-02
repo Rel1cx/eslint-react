@@ -49,6 +49,7 @@ export const rules = {
   "@eslint-react/no-set-state-in-component-will-update": "warn",
   "@eslint-react/no-string-refs": "error",
   "@eslint-react/no-unnecessary-use-callback": "warn",
+  "@eslint-react/no-unnecessary-use-effect": "warn",
   "@eslint-react/no-unnecessary-use-memo": "warn",
   "@eslint-react/no-unnecessary-use-prefix": "warn",
   "@eslint-react/no-unsafe-component-will-mount": "warn",

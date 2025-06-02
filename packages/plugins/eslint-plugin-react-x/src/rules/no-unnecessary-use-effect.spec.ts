@@ -1,131 +1,137 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-direct-set-state-in-use-layout-effect";
+import rule, { RULE_NAME } from "./no-unnecessary-use-effect";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         function Component() {
           const [data, setData] = useState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             setData(1);
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
-      ],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useIsomorphicLayoutEffect(() => {
-            setData(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useEffect: ["useIsomorphicLayoutEffect"],
-            useLayoutEffect: ["useIsomorphicLayoutEffect"],
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
           },
         },
-      },
+      ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         function Component() {
           const data = useState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             data[1]();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data[1]",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         function Component() {
           const data = useState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             data.at(1)();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data.at(1)",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const index = 1;
         function Component() {
           const data = useState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             data.at(index)();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data.at(index)",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const index = 1;
         function Component() {
           const data = useState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             data[index]();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect } from "react";
+        import { useEffect } from "react";
 
         const index = 1;
         function Component() {
           const data = useCustomState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             data[index]();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
       settings: {
         "react-x": {
@@ -149,12 +155,17 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
       settings: {
         "react-x": {
           additionalHooks: {
-            useLayoutEffect: ["useCustomEffect"],
+            useEffect: ["useCustomEffect"],
           },
         },
       },
@@ -171,12 +182,17 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data[index]",
+          },
+        },
       ],
       settings: {
         "react-x": {
           additionalHooks: {
-            useLayoutEffect: ["useCustomEffect"],
+            useEffect: ["useCustomEffect"],
             useState: ["useCustomState"],
           },
         },
@@ -194,12 +210,17 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "data.at(index)",
+          },
+        },
       ],
       settings: {
         "react-x": {
           additionalHooks: {
-            useLayoutEffect: ["useCustomEffect"],
+            useEffect: ["useCustomEffect"],
             useState: ["useCustomState"],
           },
         },
@@ -207,11 +228,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         function Component() {
           const [data, setData] = useState(0);
-          useLayoutEffect(() => {
+          useEffect(() => {
             if (data === 0) {
               setData(1);
             }
@@ -220,16 +241,21 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(() => {
+          useEffect(() => {
           const onLoad = () => {
             setData();
           };
@@ -239,12 +265,17 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data1, setData1] = useState();
@@ -253,20 +284,26 @@ ruleTester.run(RULE_NAME, rule, {
             setData1();
             setData2();
           }
-          useLayoutEffect(() => {
+          useEffect(() => {
             setAll();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect", data: { name: "setData1" } },
-        { messageId: "noDirectSetStateInUseLayoutEffect", data: { name: "setData2" } },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: { name: "setData1" },
+        },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: { name: "setData2" },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState, useCallback } from "react";
+        import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
           const [data1, setData1] = useState();
@@ -275,40 +312,46 @@ ruleTester.run(RULE_NAME, rule, {
             setData1();
             setData2();
           })
-          useLayoutEffect(() => {
+          useEffect(() => {
             setAll();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect", data: { name: "setData1" } },
-        { messageId: "noDirectSetStateInUseLayoutEffect", data: { name: "setData2" } },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: { name: "setData1" },
+        },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: { name: "setData2" },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(() => {
+          useEffect(() => {
               (() => { setData() })();
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        { messageId: "noUnnecessaryUseEffect" },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(() => {
+          useEffect(() => {
             !(function onLoad() {
               setData()
             })();
@@ -317,16 +360,21 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(() => {
+          useEffect(() => {
             const setAll = () => {
               setData();
             }
@@ -336,100 +384,130 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState, useCallback } from "react";
+        import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           const setAll = useCallback(() => setData(), []);
-          useLayoutEffect(() => {
+          useEffect(() => {
             setAll()
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState, useMemo } from "react";
+        import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           const setAll = useMemo(() => () => setData(), []);
-          useLayoutEffect(() => {
+          useEffect(() => {
             setAll()
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState, useCallback } from "react";
+        import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           const setAll = useCallback(setData, []);
-          useLayoutEffect(() => {
+          useEffect(() => {
             setAll()
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState, useMemo } from "react";
+        import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           const setAll = useMemo(() => setData, []);
-          useLayoutEffect(() => {
+          useEffect(() => {
             setAll()
           }, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState, useMemo } from "react";
+        import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           const setAll = useMemo(() => setData, []);
-          useLayoutEffect(setAll, []);
+          useEffect(setAll, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     // TODO: Add cleanup function check
     // {
     //   code: tsx`
-    //     import { useLayoutEffect, useState } from "react";
+    //     import { useEffect, useState } from "react";
 
     //     const Component = () => {
     //       const [data, setData] = useState();
-    //       useLayoutEffect(() => {
+    //       useEffect(() => {
     //         return () => {
     //           setData();
     //         }
@@ -438,17 +516,17 @@ ruleTester.run(RULE_NAME, rule, {
     //     }
     //   `,
     //   errors: [
-    //     { messageId: "noDirectSetStateInUseLayoutEffect" },
+    //     { messageId: "noUnnecessaryUseEffect" },
     //   ],
     // },
     // TODO: Add cleanup function check
     // {
     //   code: tsx`
-    //     import { useLayoutEffect, useState } from "react";
+    //     import { useEffect, useState } from "react";
 
     //     const Component = () => {
     //       const [data, setData] = useState();
-    //       useLayoutEffect(() => {
+    //       useEffect(() => {
     //         const cleanup = () => {
     //           setData();
     //         }
@@ -458,93 +536,113 @@ ruleTester.run(RULE_NAME, rule, {
     //     }
     //   `,
     //   errors: [
-    //     { messageId: "noDirectSetStateInUseLayoutEffect" },
+    //     { messageId: "noUnnecessaryUseEffect" },
     //   ],
     // },
     // TODO: Add cleanup function check
     // {
     //   code: tsx`
-    //     import { useLayoutEffect, useState } from "react";
+    //     import { useEffect, useState } from "react";
 
     //     const Component = () => {
     //       const [data, setData] = useState();
-    //       useLayoutEffect(() => setData, []);
+    //       useEffect(() => setData, []);
     //       return null;
     //     }
     //   `,
     //   errors: [
-    //     { messageId: "noDirectSetStateInUseLayoutEffect" },
+    //     { messageId: "noUnnecessaryUseEffect" },
     //   ],
     // },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(() => setData(), []);
+          useEffect(() => setData(), []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(setData, []);
+          useEffect(setData, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           const setupFunction = () => {
             setData()
           }
-          useLayoutEffect(setupFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
           function setupFunction() {
             setData()
           }
-          useLayoutEffect(setupFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
           const [data, setData] = useState();
-          useLayoutEffect(setupFunction, []);
+          useEffect(setupFunction, []);
           function setupFunction() {
             setData()
           }
@@ -552,19 +650,24 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         const Component1 = () => {
           const [data, setData] = useState();
           const setupFunction = () => {
             setData()
           }
-          useLayoutEffect(setupFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
 
@@ -573,25 +676,35 @@ ruleTester.run(RULE_NAME, rule, {
           const setupFunction = () => {
             setData()
           }
-          useLayoutEffect(setupFunction, []);
+          useEffect(setupFunction, []);
           return null;
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
     {
       code: tsx`
-        import { useLayoutEffect, useState } from "react";
+        import { useEffect, useState } from "react";
 
         function useCustomHook() {
           const [data, setData] = useState();
           const handlerWatcher = () => {
               setData()
           }
-          useLayoutEffect(() => {
+          useEffect(() => {
               const abortController = new AbortController()
               new MutationObserverWatcher(searchAvatarMetaSelector())
                   .addListener('onChange', handlerWatcher)
@@ -610,52 +723,57 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDirectSetStateInUseLayoutEffect" },
+        {
+          messageId: "noUnnecessaryUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
       ],
     },
   ],
   valid: [
     ...allValid,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       function Component() {
         const [fn] = useState(() => () => "Function");
         // ...
-        useLayoutEffect(() => {
+        useEffect(() => {
           fn();
         }, []);
         return null;
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       function Component() {
         const [data, setData] = useState(0);
-        useLayoutEffect(() => {
+        useEffect(() => {
           const handler = () => setData(1);
         }, []);
         return null;
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       function Component() {
         const [data, setData] = useState(0);
-        useLayoutEffect(() => {
+        useEffect(() => {
           fetch().then(() => setData());
         }, []);
         return null;
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const Component = () => {
         const [data, setData] = useState();
-        useLayoutEffect(() => {
+        useEffect(() => {
         const onLoad = () => {
           setData();
         };
@@ -664,24 +782,24 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const index = 0;
       function Component() {
         const data = useState(() => 0);
-        useLayoutEffect(() => {
+        useEffect(() => {
           data.at(index)();
         }, []);
         return null;
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const index = 0;
       function Component() {
         const [data, setData] = useState(() => 0);
-        useLayoutEffect(() => {
+        useEffect(() => {
           void async function () {
             const ret = await fetch("https://eslint-react.xyz");
             setData(ret);
@@ -691,7 +809,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const Component = () => {
         const [data1, setData1] = useState();
@@ -704,7 +822,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const Component = () => {
         const [data1, setData1] = useState();
@@ -720,7 +838,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const Component = () => {
         const [data1, setData1] = useState();
@@ -736,7 +854,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const Component1 = () => {
         const [data, setData] = useState();
@@ -748,12 +866,12 @@ ruleTester.run(RULE_NAME, rule, {
 
       const Component2 = () => {
         const [data, setData] = useState();
-        useLayoutEffect(setupFunction, []);
+        useEffect(setupFunction, []);
         return null;
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       const Component1 = () => {
         const [data, setData] = useState();
@@ -765,21 +883,21 @@ ruleTester.run(RULE_NAME, rule, {
 
       const Component2 = () => {
         const [data, setData] = useState();
-        useLayoutEffect(() => {
+        useEffect(() => {
           setAll();
         }, []);
         return null;
       }
     `,
     tsx`
-      import { useLayoutEffect, useState } from "react";
+      import { useEffect, useState } from "react";
 
       function useCustomHook() {
         const [data, setData] = useState();
         const handlerWatcher = () => {
             setData()
         }
-        useLayoutEffect(() => {
+        useEffect(() => {
             const abortController = new AbortController()
             new MutationObserverWatcher(searchAvatarMetaSelector())
                 .addListener('onChange', handlerWatcher)
@@ -797,18 +915,34 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect, useState, useRef } from "react";
+      import { useLayoutEffect, useState, useRef } from "react";
 
       function Tooltip() {
         const ref = useRef(null);
         const [tooltipHeight, setTooltipHeight] = useState(0); // You don't know real height yet
 
-        useEffect(() => {
+        useLayoutEffect(() => {
           const { height } = ref.current.getBoundingClientRect();
           setTooltipHeight(height); // Re-render now that you know the real height
         }, []);
 
         // ...use tooltipHeight in the rendering logic below...
+      }
+    `,
+    // https://github.com/Rel1cx/eslint-react/issues/967
+    tsx`
+      import { useEffect, useState, useCallback } from "react";
+
+      function useCustomHook() {
+        const [something, setSomething] = useState('');
+
+        const test = useCallback(() => {
+          setSomething('') // doesn't trigger the rules
+
+          ;(() => {
+            setSomething('') // trigger the rules
+          })()
+        }, [])
       }
     `,
   ],

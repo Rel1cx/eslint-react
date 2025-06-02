@@ -1,17 +1,17 @@
 ---
-title: no-direct-set-state-in-use-effect
+title: no-unnecessary-use-effect
 ---
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```sh copy
-react-x/no-direct-set-state-in-use-effect
+react-x/no-unnecessary-use-effect
 ```
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```sh copy
-@eslint-react/no-direct-set-state-in-use-effect
+@eslint-react/no-unnecessary-use-effect
 ```
 
 **Features**
@@ -26,13 +26,7 @@ react-x/no-direct-set-state-in-use-effect
 
 ## Description
 
-Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
-
-Directly setting state in `useEffect` can lead to:
-
-- **Redundant state**: You might be duplicating derived values that could be computed during render.
-- **Unnecessary effects**: Triggering re-renders that could be avoided.
-- **Confusing logic**: It can make component behavior harder to reason about.
+Disallow unnecessary usage of `useEffect`.
 
 ### What counts as a violation?
 
@@ -297,8 +291,8 @@ function List({ items }) {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-set-state-in-use-effect.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-set-state-in-use-effect.spec.ts)
+- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-effect.ts)
+- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-effect.spec.ts)
 
 ## Further Reading
 

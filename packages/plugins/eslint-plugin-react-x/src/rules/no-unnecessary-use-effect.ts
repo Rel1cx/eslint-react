@@ -13,7 +13,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-direct-set-state-in-use-effect";
+export const RULE_NAME = "no-unnecessary-use-effect";
 
 export const RULE_FEATURES = [
   "EXP",
@@ -25,11 +25,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow direct calls to the `set` function of `useState` in `useEffect`.",
+      description: "Disallow unnecessary use of 'useEffect'.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noDirectSetStateInUseEffect: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",
+      // TODO: Align the error messages precisely with the 6 scenarios described in react.dev/learn/you-might-not-need-an-effect.
+      noUnnecessaryUseEffect:
+        "You Might Not Need an Effect. Visit https://react.dev/learn/you-might-not-need-an-effect to learn how to remove unnecessary Effects.",
     },
     schema: [],
   },
@@ -42,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
   return useNoDirectSetStateInUseEffect(context, {
     onViolation(ctx, node, data) {
-      ctx.report({ messageId: "noDirectSetStateInUseEffect", node, data });
+      ctx.report({ messageId: "noUnnecessaryUseEffect", node, data });
     },
     useEffectKind: "useEffect",
   });
