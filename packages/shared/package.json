@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "2.0.0-next.30",
+  "version": "2.0.0-next.31",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -38,7 +38,7 @@
     "@eslint-react/kit": "workspace:*",
     "@typescript-eslint/utils": "^8.33.0",
     "ts-pattern": "^5.7.1",
-    "zod": "^3.25.46"
+    "zod": "^3.25.48"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
