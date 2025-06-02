@@ -120,6 +120,19 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) | 1️⃣  | Prevents leaked `ResizeObserver` in a component or custom hook   |
 | [`no-leaked-timeout`](./web-api-no-leaked-timeout)                 | 1️⃣  | Prevents leaked `setTimeout` in a component or custom hook       |
 
+## Hooks Extra Rules
+
+<Callout type="info">
+
+This section contains rules that are not part of the official `eslint-plugin-react-hooks` plugin but are useful for specific use cases or patterns.
+
+</Callout>
+
+| Rule                                                                                                 | ✅  |  🌟  | Description                                                                               |
+| :--------------------------------------------------------------------------------------------------- | :-- | :--: | :---------------------------------------------------------------------------------------- |
+| [`no-direct-set-state-in-use-effect`](./hooks-extra-no-direct-set-state-in-use-effect)               | 1️⃣  |     | Disallow direct calls to the `set` function of `useState` in `useEffect`                  |
+| [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🧪` | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`            |
+
 ## Naming Convention Rules
 
 | Rule                                                           | ✅  |  🌟  | Description                                                                     |

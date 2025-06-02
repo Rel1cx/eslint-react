@@ -31,7 +31,6 @@ export const rules = {
   // "@eslint-react/prefer-destructuring-assignment": "warn",
   // "@eslint-react/prefer-namespace-import": "warn",
   // "@eslint-react/prefer-read-only-props": "error",
-  "@eslint-react/no-direct-set-state-in-use-effect": "warn",
   "@eslint-react/no-duplicate-key": "warn",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
