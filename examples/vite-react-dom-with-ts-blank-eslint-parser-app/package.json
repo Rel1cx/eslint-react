@@ -32,7 +32,7 @@
     "globals": "^16.2.0",
     "ts-blank-eslint-parser": "^0.4.3",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.0",
+    "typescript-eslint": "^8.33.1",
     "vite": "^6.3.5"
   },
   "engines": {
