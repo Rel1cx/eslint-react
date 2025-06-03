@@ -25,8 +25,6 @@ import noContextProvider from "./rules/no-context-provider";
 import noCreateRef from "./rules/no-create-ref";
 import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
-import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
-import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
 import noDuplicateKey from "./rules/no-duplicate-key";
 import noForwardRef from "./rules/no-forward-ref";
 import noImplicitKey from "./rules/no-implicit-key";
@@ -44,6 +42,7 @@ import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-di
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
 import noStringRefs from "./rules/no-string-refs";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
+import noUnnecessaryUseEffect from "./rules/no-unnecessary-use-effect";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
 import noUnsafeComponentWillMount from "./rules/no-unsafe-component-will-mount";
@@ -69,6 +68,7 @@ export const plugin = {
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
+    "jsx-no-iife": jsxNoIife,
     "jsx-no-undef": jsxNoUndef,
     "jsx-shorthand-boolean": jsxShorthandBoolean,
     "jsx-shorthand-fragment": jsxShorthandFragment,
@@ -91,8 +91,6 @@ export const plugin = {
     "no-create-ref": noCreateRef,
     "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
-    "no-direct-set-state-in-use-effect": noDirectSetStateInUseEffect,
-    "no-direct-set-state-in-use-layout-effect": noDirectSetStateInUseLayoutEffect,
     "no-duplicate-key": noDuplicateKey,
     "no-forward-ref": noForwardRef,
     "no-implicit-key": noImplicitKey,
@@ -110,6 +108,7 @@ export const plugin = {
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
     "no-string-refs": noStringRefs,
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
+    "no-unnecessary-use-effect": noUnnecessaryUseEffect,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
     "no-unsafe-component-will-mount": noUnsafeComponentWillMount,

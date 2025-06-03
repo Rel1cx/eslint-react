@@ -30,7 +30,6 @@ export const rules = {
   // "react-x/prefer-destructuring-assignment": "warn",
   // "react-x/prefer-namespace-import": "warn",
   // "react-x/prefer-read-only-props": "error",
-  "react-x/no-direct-set-state-in-use-effect": "warn",
   "react-x/no-duplicate-key": "warn",
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
