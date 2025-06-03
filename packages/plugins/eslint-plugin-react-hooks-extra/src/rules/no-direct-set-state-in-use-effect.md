@@ -66,7 +66,7 @@ The rule **does not flag** indirect calls, such as:
   }, [firstName, lastName]);
   ```
 
-- It doesn’t detect `set` calls in `async` functions are being called before or after the `await` statement.
+- It doesn’t detect `set` calls in `async` functions are being called before the `await` statement.
 
   ```tsx {2}
   useEffect(() => {
