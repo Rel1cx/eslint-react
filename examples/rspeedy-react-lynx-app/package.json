@@ -1,0 +1,35 @@
+{
+  "name": "@examples/rspeedy-react-lynx-app",
+  "version": "0.6.0",
+  "description": "An example shows how to use list in Lynx",
+  "license": "Apache-2.0",
+  "type": "module",
+  "files": [
+    "dist/",
+    "src/",
+    "lynx.config.mjs"
+  ],
+  "scripts": {
+    "build": "rspeedy build",
+    "dev": "rspeedy dev",
+    "preview": "rspeedy preview"
+  },
+  "dependencies": {
+    "@lynx-js/react": "^0.109.1"
+  },
+  "devDependencies": {
+    "@eslint/config-inspector": "^1.0.2",
+    "@eslint/js": "^9.28.0",
+    "@lynx-contrib/tailwind-preset": "^0.0.2",
+    "@lynx-js/qrcode-rsbuild-plugin": "^0.3.6",
+    "@lynx-js/react-rsbuild-plugin": "^0.10.2",
+    "@lynx-js/rspeedy": "^0.9.8",
+    "@lynx-js/types": "^3.3.0",
+    "@rsbuild/plugin-sass": "^1.3.1",
+    "@rsbuild/plugin-type-check": "^1.2.2",
+    "@types/react": "^19.1.6",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-x": "workspace:*",
+    "rsbuild-plugin-tailwindcss": "^0.2.1"
+  }
+}
