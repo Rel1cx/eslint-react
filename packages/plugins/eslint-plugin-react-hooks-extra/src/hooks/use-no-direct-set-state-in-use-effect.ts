@@ -9,13 +9,7 @@ import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import {
-  isFromUseStateCall,
-  isFunctionOfImmediatelyInvoked,
-  isSetFunctionCall,
-  isThenCall,
-  isVariableDeclaratorFromHookCall,
-} from "../utils";
+import { isFromUseStateCall, isSetFunctionCall, isThenCall, isVariableDeclaratorFromHookCall } from "../utils";
 
 type CallKind =
   | "useEffect"
@@ -98,10 +92,23 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   }
 
   function getFunctionKind(node: AST.TSESTreeFunction) {
-    return match<AST.TSESTreeFunction, FunctionKind>(node)
-      .when(isFunctionOfUseEffectSetup, () => "setup")
-      .when(isFunctionOfImmediatelyInvoked, () => "immediate")
-      .otherwise(() => "other");
+    switch (true) {
+      case node.async:
+      case node.parent.type === T.CallExpression && isThenCall(node.parent): {
+        return "deferred";
+      }
+      case node.type !== T.FunctionDeclaration
+        && node.parent.type === T.CallExpression
+        && node.parent.callee === node: {
+        return "immediate";
+      }
+      case isFunctionOfUseEffectSetup(node): {
+        return "setup";
+      }
+      default: {
+        return "other";
+      }
+    }
   }
 
   return {
@@ -128,6 +135,11 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
       match(getCallKind(node))
         .with("setState", () => {
           switch (true) {
+            case pEntry.kind === "deferred":
+            case pEntry.node.async: {
+              // do nothing, this is a deferred setState call
+              break;
+            }
             case pEntry.node === setupFunction:
             case pEntry.kind === "immediate"
               && AST.findParentNode(pEntry.node, AST.isFunction) === setupFunction: {
