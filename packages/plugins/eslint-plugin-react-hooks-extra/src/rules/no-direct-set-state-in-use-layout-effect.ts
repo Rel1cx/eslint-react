@@ -2,8 +2,8 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
+import { useNoDirectSetStateInUseEffect } from "../rules-hooks/use-no-direct-set-state-in-use-effect";
 import { createRule } from "../utils";
-import { useNoDirectSetStateInUseEffect } from "./no-direct-set-state-in-use-effect";
 
 export const RULE_NAME = "no-direct-set-state-in-use-layout-effect";
 

@@ -695,6 +695,57 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // https://github.com/Rel1cx/eslint-react/issues/1117
+    {
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [foo, setFoo] = useState(null);
+          const test = useCallback(() => {
+            setFoo('') // warning (fine)
+            fetch().then(() => { setFoo('') }); // warning (problem)
+          }, [])
+          useEffect(() => {
+            test();
+            fetch().then(() => { setFoo('') }); // no warning (fine)
+          }, [test]);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setFoo",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [foo, setFoo] = useState(null);
+          const test = () => {
+            setFoo('') // warning (fine)
+            fetch().then(() => { setFoo('') }); // no warning (fine)
+          }
+          useEffect(() => {
+            test();
+            fetch().then(() => { setFoo('') }); // no warning (fine)
+          }, [test]);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setFoo",
+          },
+        },
+      ],
+    },
     {
       code: tsx`
         import { useEffect, useState } from "react";
