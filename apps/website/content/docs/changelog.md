@@ -12,7 +12,7 @@ title: Changelog
 
 - fix: fixed `use-no-direct-set-state-in-use-effect` deferred setState calls detection, closes #1117 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1119
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.50.0...v1.50.1
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.50.0...v1.51.0
 
 ## v1.50.0 (2025-05-25)
 
