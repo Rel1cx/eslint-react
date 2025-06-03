@@ -47,6 +47,7 @@
     "no-set-state-in-component-will-update",
     "no-string-refs",
     "no-unnecessary-use-callback",
+    "no-unnecessary-use-effect",
     "no-unnecessary-use-memo",
     "no-unnecessary-use-prefix",
     "no-unsafe-component-will-mount",
