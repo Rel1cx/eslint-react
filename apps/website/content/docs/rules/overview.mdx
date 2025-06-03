@@ -35,6 +35,8 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`jsx-no-duplicate-props`](./jsx-no-duplicate-props)                                 | 1️⃣  |           | Disallow duplicate props in JSX elements                                                            |          |
 | [`jsx-no-iife`](./jsx-no-iife)                                                       | 0️⃣  |   `🧪`    | Disallows `IIFE` in JSX elements                                                                     |          |
 | [`jsx-no-undef`](./jsx-no-undef)                                                     | 0️⃣  |           | Disallow undefined variables in JSX elements                                                        |          |
+| [`jsx-shorthand-boolean`](./jsx-shorthand-boolean)                                   | 0️⃣  | `🔧` `⚙️` | Enforces the use of shorthand syntax for boolean attributes                                          |          |
+| [`jsx-shorthand-fragment`](./jsx-shorthand-fragment)                                 | 0️⃣  | `🔧` `⚙️` | Enforces the use of shorthand syntax for fragments                                                  |          |
 | [`jsx-uses-react`](./jsx-uses-react)                                                 | 1️⃣  |           | Marks React variables as used when JSX is used                                                      |          |
 | [`jsx-uses-vars`](./jsx-uses-vars)                                                   | 1️⃣  |           | Marks variables used in JSX elements as used                                                        |          |
 | [`no-access-state-in-setstate`](./no-access-state-in-setstate)                       | 2️⃣  |           | Disallow accessing `this.state` inside `setState` calls                                             |          |
@@ -72,6 +74,10 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update)     | 1️⃣  |           | Disallow calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks    |          |
 | [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update)   | 1️⃣  |           | Disallow calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks   |          |
 | [`no-string-refs`](./no-string-refs)                                                 | 2️⃣  |   `🔄`    | Replaces string refs with callback refs                                                             | >=16.3.0 |
+| [`no-unnecessary-use-callback`](./no-unnecessary-use-callback)                       | 0️⃣  |   `🧪`     | Disallow unnecessary usage of `useCallback`                                                         |          |
+| [`no-unnecessary-use-effect`](./no-unnecessary-use-effect)                           | 0️⃣  |   `🧪`     | Disallow unnecessary usage of `useEffect`                                                           |          |
+| [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)                               | 0️⃣  |   `🧪`     | Disallow unnecessary usage of `useMemo`                                                             |          |
+| [`no-unnecessary-use-prefix`](./no-unnecessary-use-prefix)                           | 0️⃣  |            | Enforces that a function with the `use` prefix should use at least one Hook inside of it            |          |
 | [`no-unsafe-component-will-mount`](./no-unsafe-component-will-mount)                 | 1️⃣  |           | Warns the usage of `UNSAFE_componentWillMount` in class components                                  |          |
 | [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props) | 1️⃣  |           | Warns the usage of `UNSAFE_componentWillReceiveProps` in class components                           |          |
 | [`no-unsafe-component-will-update`](./no-unsafe-component-will-update)               | 1️⃣  |           | Warns the usage of `UNSAFE_componentWillUpdate` in class components                                 |          |
@@ -85,10 +91,7 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`prefer-destructuring-assignment`](./prefer-destructuring-assignment)               | 0️⃣  |           | Enforces destructuring assignment for component props and context                                   |          |
 | [`prefer-react-namespace-import`](./prefer-react-namespace-import)                   | 0️⃣  |   `🔧`    | Enforces React is imported via a namespace import                                                   |          |
 | [`prefer-read-only-props`](./prefer-read-only-props)                                 | 0️⃣  |   `💭`    | Enforces read-only props in components                                                              |          |
-| [`prefer-shorthand-boolean`](./prefer-shorthand-boolean)                             | 0️⃣  |   `🔧`    | Enforces shorthand syntax for boolean attributes                                                    |          |
-| [`prefer-shorthand-fragment`](./prefer-shorthand-fragment)                           | 0️⃣  |   `🔧`    | Enforces shorthand syntax for fragments                                                             |          |
-| [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)                               | 0️⃣  |   `🔧`    | Enforces explicit boolean values for boolean attributes                                             |          |
-| [`avoid-shorthand-fragment`](./avoid-shorthand-fragment)                             | 0️⃣  |           | Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax             |          |
+| [`prefer-use-state-lazy-initialization`](./prefer-use-state-lazy-initialization)     | 1️⃣  |           | Enforces function calls made inside `useState` to be wrapped in an `initializer function`           |          |
 
 ## DOM Rules
 
