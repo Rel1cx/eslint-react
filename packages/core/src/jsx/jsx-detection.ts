@@ -53,6 +53,9 @@ export function isJsxLike(
       return !(hint & JSXDetectionHint.SkipStringLiteral);
     }
     case T.ArrayExpression: {
+      if (node.elements.length === 0) {
+        return !(hint & JSXDetectionHint.SkipEmptyArray);
+      }
       if (hint & JSXDetectionHint.StrictArray) {
         return node.elements.every((n) => isJsxLike(code, n, hint));
       }

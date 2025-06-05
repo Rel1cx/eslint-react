@@ -686,5 +686,46 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       export { ItemsListElementSkeleton }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1122
+    tsx`
+      import { useState } from 'react';
+
+          type Book = {
+            title: string,
+            author: string,
+          }
+          export default function MyComponent() {
+            const [books, setBooks] = useState<Book[]>([]);
+            const dropFirstBook = () => {
+              setBooks(
+                // Error in next line: A function component's props should be read-only.
+                // Source: @eslint-react/prefer-read-only-props
+                (currentBooks: Book[]) => {
+                  const newBooks: Book[] = [];
+                  // Considerable additional logic is found here in a non-toy example;
+                  // suggestions to just rewrite this as e.g.,
+                  // return [...currentBooks.slice(1)];
+                  // which gets the above line reported as compliant with the rule
+                  // are not nearly as helpful as they might seem,
+                  // though knowing about them might help find the root cause of the bug.
+                  newBooks.push(...currentBooks.slice(1));
+                  return newBooks;
+                }
+              );
+            };
+            //Please assume there's more that was simplified away for this bug demonstration.
+            if(books.length > 0) {
+              return(<>
+                The first book is {books[0].title}.
+                <button
+                  type='button'
+                  onClick={dropFirstBook}
+                > Remove it. </button>
+              </>);
+            } else {
+              return null;
+            }
+          }
+    `,
   ],
 });
