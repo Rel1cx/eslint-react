@@ -11,6 +11,7 @@ export const projects = [
   { owner: "onejs", repo: "one" },
   { owner: "payloadcms", repo: "payload" },
   { owner: "prettier", repo: "prettier" },
+  { owner: "primer", repo: "react" },
   { owner: "react-navigation", repo: "react-navigation" },
   { owner: "refined-github", repo: "refined-github" },
   { owner: "RSSNext", repo: "Follow" },

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-web-api",
-  "version": "1.50.1-next.6",
+  "version": "1.51.1-beta.1",
   "description": "ESLint React's ESLint plugin for interacting with Web APIs",
   "keywords": [
     "react",
@@ -64,7 +64,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.6",
     "tsup": "^8.5.0"
   },
   "peerDependencies": {
