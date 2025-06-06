@@ -1,3 +1,11 @@
+## v1.51.1 (2025-06-06)
+
+### 🐞 Fixes
+
+- fix: fixed jsx detection method not respect SkipEmptyArray hint, closes #1122 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1124
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.0...v1.51.1
+
 ## v1.51.0 (2025-06-03)
 
 ### ✨ New
