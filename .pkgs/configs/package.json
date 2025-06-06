@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@eslint/js": "^9.28.0",
-    "@stylistic/eslint-plugin": "^4.4.0",
+    "@stylistic/eslint-plugin": "^4.4.1",
     "eslint-plugin-de-morgan": "^1.2.1",
     "eslint-plugin-function": "^0.0.21",
     "eslint-plugin-jsdoc": "^50.7.1",

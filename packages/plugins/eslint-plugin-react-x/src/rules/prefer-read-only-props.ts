@@ -43,6 +43,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"(program) {
       const components = ctx.getAllComponents(program);
       for (const [, component] of components) {
+        if (component.id == null) continue;
+        if (component.name == null) continue;
         const [props] = component.node.params;
         if (props == null) {
           continue;

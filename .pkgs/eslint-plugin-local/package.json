@@ -27,7 +27,7 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@eslint/js": "^9.28.0",
-    "@stylistic/eslint-plugin": "^4.4.0",
+    "@stylistic/eslint-plugin": "^4.4.1",
     "@typescript-eslint/scope-manager": "^8.33.1",
     "@typescript-eslint/type-utils": "^8.33.1",
     "@typescript-eslint/types": "^8.33.1",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.6",
     "tsup": "^8.5.0"
   },
   "peerDependencies": {
