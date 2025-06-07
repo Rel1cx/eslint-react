@@ -3,7 +3,7 @@
   "pages": [
     "configure-analyzer",
     "!configure-language-preference",
-    "configure-language-config",
+    "configure-project-config",
     "!---Advanced Configuration---",
     "!enhanced-additional-components",
     "!using-custom-parsers"
