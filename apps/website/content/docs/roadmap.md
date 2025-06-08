@@ -77,7 +77,3 @@ Minimum supported versions:
 - [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
 - [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
 - [x] `prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
-
-### Versioning Policy
-
-- [ ] The versioning policy will be updated to follow the [Semantic Versioning 2.0.0](https://semver.org) and [ESLint's Semantic Versioning Policy](https://github.com/eslint/eslint#semantic-versioning-policy)
