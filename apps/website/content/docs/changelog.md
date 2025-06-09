@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.51.3 (2025-06-09)
+
+### 🐞 Fixes
+
+- fix: update messages for `react-x/jsx-no-iife` and `react-x/jsx-uses-vars` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1127
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.2...v1.51.3
+
 ## v1.51.2 (2025-06-08)
 
 ### 🐞 Fixes
