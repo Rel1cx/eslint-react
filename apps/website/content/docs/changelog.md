@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v1.51.3 (2025-06-09)
+
+### 🐞 Fixes
+
+- fix: update messages for `react-x/jsx-no-iife` and `react-x/jsx-uses-vars` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1127
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.2...v1.51.3
+
+## v1.51.2 (2025-06-08)
+
+### 🐞 Fixes
+
+- fix: skip function components without name in `react-x/prefer-read-only-props` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1125
+
+### 🪄 Improvements
+
+- docs: update references from 'Language Config' to 'Project Config' across documentation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1126
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.1...v1.51.2
+
 ## v1.51.1 (2025-06-06)
 
 ### 🐞 Fixes

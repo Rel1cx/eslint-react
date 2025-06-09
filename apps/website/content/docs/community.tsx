@@ -6,6 +6,7 @@ export const projects = [
   { owner: "flirtual", repo: "flirtual" },
   { owner: "hashintel", repo: "hash" },
   { owner: "kriasoft", repo: "graphql-starter-kit" },
+  { owner: "mgilangjanuar", repo: "buntal" },
   { owner: "npmgraph", repo: "npmgraph" },
   { owner: "offlegacy", repo: "event-tracker" },
   { owner: "onejs", repo: "one" },

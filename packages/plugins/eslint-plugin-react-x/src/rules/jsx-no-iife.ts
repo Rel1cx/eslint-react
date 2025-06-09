@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      jsxNoIife: "",
+      jsxNoIife: "Avoid using IIFE in JSX elements.",
     },
     schema: [],
   },
