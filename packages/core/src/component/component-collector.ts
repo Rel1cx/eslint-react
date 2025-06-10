@@ -67,17 +67,6 @@ export function useComponentCollector(
     const entry = functionEntries.at(-1);
     if (entry == null) return;
     if (!entry.isComponent) return functionEntries.pop();
-    const shouldDrop = AST.getNestedReturnStatements(entry.node.body)
-      .slice()
-      .reverse()
-      .some((r) => {
-        return context.sourceCode.getScope(r).block === entry.node
-          && r.argument != null
-          && !isJsxLike(context.sourceCode, r.argument, hint);
-      });
-    if (shouldDrop) {
-      components.delete(entry.key);
-    }
     return functionEntries.pop();
   };
 
