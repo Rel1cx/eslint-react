@@ -14,6 +14,10 @@ react-x/no-missing-context-display-name
 @eslint-react/no-missing-context-display-name
 ```
 
+**Features**
+
+`🔧`
+
 ## Description
 
 Enforces that all contexts have a `displayName` which can be used in devtools.
