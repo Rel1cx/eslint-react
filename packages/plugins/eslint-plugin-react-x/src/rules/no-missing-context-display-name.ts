@@ -9,7 +9,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-context-display-name";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
@@ -20,6 +22,7 @@ export default createRule<[], MessageID>({
       description: "Enforces that all contexts have a `displayName` which can be used in devtools.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
     messages: {
       noMissingContextDisplayName: "Add missing 'displayName' for context.",
     },
@@ -62,6 +65,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           context.report({
             messageId: "noMissingContextDisplayName",
             node: id,
+            fix: id.type === T.Identifier && id.parent === call.parent
+              ? ((fixer) => fixer.insertTextAfter(call, `\n${id.name}.displayName = ${JSON.stringify(id.name)}`))
+              : null,
           });
         }
       }

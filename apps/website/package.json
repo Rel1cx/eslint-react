@@ -44,8 +44,8 @@
     "@tsconfig/strictest": "^2.0.5",
     "@types/hast": "^3.0.4",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^22.15.30",
-    "@types/react": "^19.1.6",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10.4.21",
     "dedent": "^1.6.0",
@@ -61,6 +61,6 @@
     "tailwindcss": "^4.1.8",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.1"
+    "typescript-eslint": "^8.34.0"
   }
 }
