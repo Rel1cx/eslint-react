@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.51.3",
+  "version": "1.51.4-next.0",
   "description": "A set of composable ESLint rules for for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -54,10 +54,10 @@
     "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.33.1",
-    "@typescript-eslint/type-utils": "^8.33.1",
-    "@typescript-eslint/types": "^8.33.1",
-    "@typescript-eslint/utils": "^8.33.1",
+    "@typescript-eslint/scope-manager": "^8.34.0",
+    "@typescript-eslint/type-utils": "^8.34.0",
+    "@typescript-eslint/types": "^8.34.0",
+    "@typescript-eslint/utils": "^8.34.0",
     "compare-versions": "^6.1.1",
     "is-immutable-type": "^5.0.1",
     "string-ts": "^2.2.1",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.1.6",
+    "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
     "ts-api-utils": "^2.1.0",
     "tsup": "^8.5.0"
