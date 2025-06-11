@@ -21,6 +21,11 @@ export function make(): LanguagePreference {
   };
 }
 
+/**
+ * A default LanguagePreference object.
+ */
+export const defaultLanguagePreference = make();
+
 export function getFromContext() {
   throw new Error("getFromContext is not implemented");
 }
