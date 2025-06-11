@@ -31,7 +31,7 @@ A series of composable ESLint rules for React and friends.
 
 - **Modern**: First-class support for TypeScript, React 19, and more.
 - **Flexible**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
-- **Performant**: Built with performance in mind, optimized for large codebases.
+- **Performant**: Built with performance in mind, optimized for large codebases, **4-7x faster** than other ESLint plugins.
 - **Context-aware Linting**: Rules that understand the context of your code and project configuration to provide more accurate linting.
 
 ## Public Packages
