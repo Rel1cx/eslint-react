@@ -1,3 +1,15 @@
+## v1.52.1 (2025-06-11)
+
+### ✨ New
+
+- feat: add autofix for `no-missing-context-display-name` by @k-yle in https://github.com/Rel1cx/eslint-react/pull/1128
+
+### New Contributors
+
+- @k-yle made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1128
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.3...v1.52.1
+
 ## v1.51.3 (2025-06-09)
 
 ### 🐞 Fixes
