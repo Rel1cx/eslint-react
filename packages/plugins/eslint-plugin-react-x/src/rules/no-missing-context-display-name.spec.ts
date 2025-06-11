@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`const ctx = createContext();`,
       errors: [{ messageId: "noMissingContextDisplayName" }],
       output: tsx`
-        const ctx = createContext()
+        const ctx = createContext();
         ctx.displayName = "ctx";
       `,
     },
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "noMissingContextDisplayName" }],
       output: tsx`
         const ctx1 = createContext();
-        const ctx2 = createContext()
+        const ctx2 = createContext();
         ctx2.displayName = "ctx2";
         ctx1.displayName = "ctx";
       `,
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noMissingContextDisplayName" }],
       output: tsx`
-        const ctx = createContext()
+        const ctx = createContext();
         ctx.displayName = "ctx";
         ctx.displayname = "ctx";
       `,
