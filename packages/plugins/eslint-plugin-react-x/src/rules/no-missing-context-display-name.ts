@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, Selector as SEL } from "@eslint-react/kit";
+import { LanguagePreference, type RuleContext, type RuleFeature, Selector as SEL } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -62,12 +62,29 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return ER.isInstanceIdEqual(context, id, object);
           });
         if (!hasDisplayNameAssignment) {
+          const semi = LanguagePreference.defaultLanguagePreference.semicolons === "always"
+            ? ";"
+            : "";
           context.report({
             messageId: "noMissingContextDisplayName",
             node: id,
-            fix: id.type === T.Identifier && id.parent === call.parent
-              ? ((fixer) => fixer.insertTextAfter(call, `\n${id.name}.displayName = ${JSON.stringify(id.name)}`))
-              : null,
+            fix(fixer) {
+              if (id.type !== T.Identifier || id.parent !== call.parent) return [];
+              return fixer.insertTextAfter(
+                context.sourceCode.getTokenAfter(call) ?? call,
+                [
+                  "\n",
+                  id.name,
+                  ".",
+                  "displayName",
+                  " ",
+                  "=",
+                  " ",
+                  JSON.stringify(id.name),
+                  semi,
+                ].join(""),
+              );
+            },
           });
         }
       }
