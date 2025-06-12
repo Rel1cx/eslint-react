@@ -51,17 +51,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
       const variableNode = VAR.getVariableInitNode(variable, 0);
       if (variableNode == null) return;
-      if (!AST.isFunction(variableNode) && !ER.isClassComponent(variableNode)) return;
+      if (!AST.isFunction(variableNode)) return;
       context.report({ messageId: "noDefaultProps", node: property });
-    },
-    PropertyDefinition(node) {
-      if (!ER.isClassComponent(node.parent.parent)) {
-        return;
-      }
-      if (!node.static || node.key.type !== T.Identifier || node.key.name !== "defaultProps") {
-        return;
-      }
-      context.report({ messageId: "noDefaultProps", node });
     },
   };
 }

@@ -14,29 +14,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noDefaultProps" }],
     },
-    {
-      code: tsx`
-        class Input extends React.Component {
-          render() {
-            return <input />;
-          }
-        }
-        Input.defaultProps = {};
-      `,
-      errors: [{ messageId: "noDefaultProps" }],
-    },
-    {
-      code: tsx`
-        class Input extends React.Component {
-          static defaultProps = {};
-
-          render() {
-            return <input />;
-          }
-        }
-      `,
-      errors: [{ messageId: "noDefaultProps" }],
-    },
   ],
   valid: [
     ...allValid,
@@ -57,5 +34,26 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
+    {
+      code: tsx`
+        class Input extends React.Component {
+          static defaultProps = {};
+
+          render() {
+            return <input />;
+          }
+        }
+      `,
+    },
+    {
+      code: tsx`
+        class Input extends React.Component {
+          render() {
+            return <input />;
+          }
+        }
+        Input.defaultProps = {};
+      `,
+    },
   ],
 });
