@@ -1,4 +1,5 @@
 export const projects = [
+  { owner: "ant-design", repo: "ant-design" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
