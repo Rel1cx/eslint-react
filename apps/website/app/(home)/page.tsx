@@ -6,7 +6,11 @@ import { Link } from "next-view-transitions";
 const features = [
   ["Modern", "First-class support for TypeScript, React 19, and more.", Zap],
   ["Flexible", "Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.", Sliders],
-  ["Performant", "Built with performance in mind, optimized for large codebases.", Gauge],
+  [
+    "Performant",
+    "Built with performance in mind, optimized for large codebases, **4-7x faster** than other ESLint plugins.",
+    Gauge,
+  ],
   [
     "Context-aware Linting",
     "Rules that understand the context of your code and project configuration to provide more accurate linting.",

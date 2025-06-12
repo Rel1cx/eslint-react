@@ -6,6 +6,10 @@
 
 # LanguagePreference
 
+## Variables
+
+- [defaultLanguagePreference](variables/defaultLanguagePreference.md)
+
 ## Functions
 
 - [getFromContext](functions/getFromContext.md)

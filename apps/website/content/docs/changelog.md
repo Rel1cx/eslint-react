@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v1.52.2 (2025-06-12)
+
+### 🐞 Fixes
+
+- fix: `react-x/no-default-props` should report only function components, closes #1131 by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/681b10a7873e4764336a9e7a49dfd33c8bf1fbef
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.1...v1.52.2
+
+## v1.52.1 (2025-06-11)
+
+### ✨ New
+
+- feat: add autofix for `no-missing-context-display-name` by @k-yle in https://github.com/Rel1cx/eslint-react/pull/1128
+
+### New Contributors
+
+- @k-yle made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1128
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.3...v1.52.1
+
 ## v1.51.3 (2025-06-09)
 
 ### 🐞 Fixes

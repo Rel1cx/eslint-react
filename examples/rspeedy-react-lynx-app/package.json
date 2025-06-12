@@ -27,7 +27,7 @@
     "@lynx-js/types": "^3.3.0",
     "@rsbuild/plugin-sass": "^1.3.2",
     "@rsbuild/plugin-type-check": "^1.2.3",
-    "@types/react": "^19.1.7",
+    "@types/react": "^19.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-x": "workspace:*",
     "rsbuild-plugin-tailwindcss": "^0.2.1"
