@@ -8,7 +8,7 @@ const features = [
   ["Flexible", "Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.", Sliders],
   [
     "Performant",
-    "Built with performance in mind, optimized for large codebases, **4-7x faster** than other ESLint plugins.",
+    "Built with performance in mind, optimized for large codebases, 4-7x faster than other ESLint plugins.",
     Gauge,
   ],
   [
