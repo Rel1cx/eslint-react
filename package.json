@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "1.52.2",
+  "version": "1.52.3-next.0",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -56,7 +56,7 @@
     "@eslint/markdown": "^6.5.0",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
-    "@swc/core": "^1.12.0",
+    "@swc/core": "^1.12.1",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^24.0.1",
