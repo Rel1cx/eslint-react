@@ -1,7 +1,7 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { findVariable } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -46,7 +46,7 @@ export function isInitializedFromSource(
   return parent?.type === T.ImportDeclaration && parent.source.value === source;
 }
 
-function getRequireExpressionArguments(node: TSESTree.Node): TSESTree.CallExpressionArgument[] | _ {
+function getRequireExpressionArguments(node: TSESTree.Node): TSESTree.CallExpressionArgument[] | unit {
   switch (true) {
     // require('source')
     case node.type === T.CallExpression
@@ -59,5 +59,5 @@ function getRequireExpressionArguments(node: TSESTree.Node): TSESTree.CallExpres
       return getRequireExpressionArguments(node.object);
     }
   }
-  return _;
+  return unit;
 }

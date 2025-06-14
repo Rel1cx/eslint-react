@@ -1,6 +1,6 @@
 import * as AST from '@eslint-react/ast';
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
-import { _ } from '@eslint-react/eff';
+import { unit } from '@eslint-react/eff';
 import { findVariable } from '@eslint-react/var';
 import { AST_NODE_TYPES as AST_NODE_TYPES$1 } from '@typescript-eslint/types';
 import { nullThrows, NullThrowsReasons } from '@typescript-eslint/utils/eslint-utils';
@@ -44,7 +44,7 @@ function getRequireExpressionArguments(node) {
       return getRequireExpressionArguments(node.object);
     }
   }
-  return _;
+  return unit;
 }
 
 // src/rules/avoid-multiline-template-expression.ts

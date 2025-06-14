@@ -1,6 +1,6 @@
 import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { _, dual } from "@eslint-react/eff";
+import { dual, unit } from "@eslint-react/eff";
 import { ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import * as ASTUtils from "@typescript-eslint/utils/ast-utils";
@@ -22,11 +22,11 @@ export function getVariables(initialScope: Scope): Variable[] {
 }
 
 export const findVariable: {
-  (initialScope: Scope): (nameOrNode: string | TSESTree.Identifier | _) => Variable | _;
-  (nameOrNode: string | TSESTree.Identifier | _, initialScope: Scope): Variable | _;
-} = dual(2, (nameOrNode: string | TSESTree.Identifier | _, initialScope: Scope) => {
-  if (nameOrNode == null) return _;
-  return ASTUtils.findVariable(initialScope, nameOrNode) ?? _;
+  (initialScope: Scope): (nameOrNode: string | TSESTree.Identifier | unit) => Variable | unit;
+  (nameOrNode: string | TSESTree.Identifier | unit, initialScope: Scope): Variable | unit;
+} = dual(2, (nameOrNode: string | TSESTree.Identifier | unit, initialScope: Scope) => {
+  if (nameOrNode == null) return unit;
+  return ASTUtils.findVariable(initialScope, nameOrNode) ?? unit;
 });
 
 export function findPropertyInProperties(
@@ -34,7 +34,7 @@ export function findPropertyInProperties(
   properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[],
   initialScope: Scope,
   seen = new Set<string>(),
-): (typeof properties)[number] | _ {
+): (typeof properties)[number] | unit {
   return properties.findLast((prop) => {
     if (prop.type === T.Property) {
       return "name" in prop.key

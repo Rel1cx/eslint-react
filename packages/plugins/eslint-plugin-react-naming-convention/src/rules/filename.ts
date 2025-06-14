@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -22,7 +22,7 @@ export type MessageID =
 type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
 type Options = readonly [
-  | _
+  | unit
   | Case
   | {
     /**

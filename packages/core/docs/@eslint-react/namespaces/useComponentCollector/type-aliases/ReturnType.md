@@ -38,11 +38,11 @@
 
 #### getCurrentEntry()
 
-> **getCurrentEntry**: () => `FunctionEntry` \| `_`
+> **getCurrentEntry**: () => `FunctionEntry` \| `unit`
 
 ##### Returns
 
-`FunctionEntry` \| `_`
+`FunctionEntry` \| `unit`
 
 ***
 

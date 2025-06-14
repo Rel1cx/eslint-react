@@ -3,7 +3,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { type RuleContext, Selector as SEL } from "@eslint-react/kit";
 import { getId } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -33,7 +33,7 @@ export declare namespace useComponentCollector {
     ctx: {
       getAllComponents: (node: TSESTree.Program) => Map<string, FunctionComponent>;
       getCurrentEntries: () => FunctionEntry[];
-      getCurrentEntry: () => FunctionEntry | _;
+      getCurrentEntry: () => FunctionEntry | unit;
     };
     listeners: ESLintUtils.RuleListener;
   };
@@ -114,7 +114,7 @@ export function useComponentCollector(
         kind: "function",
         name,
         node: entry.node,
-        displayName: _,
+        displayName: unit,
         flag: getComponentFlagFromInitPath(initPath),
         hint,
         hookCalls: entry.hookCalls,
@@ -128,7 +128,7 @@ export function useComponentCollector(
           if (left.type !== T.MemberExpression) return;
           const componentName = left.object.type === T.Identifier
             ? left.object.name
-            : _;
+            : unit;
           const component = [...components.values()]
             .findLast(({ name }) => name != null && name === componentName);
           if (component == null) return;
@@ -163,7 +163,7 @@ export function useComponentCollector(
         kind: "function",
         name,
         node: entry.node,
-        displayName: _,
+        displayName: unit,
         flag: getComponentFlagFromInitPath(initPath),
         hint,
         hookCalls: entry.hookCalls,

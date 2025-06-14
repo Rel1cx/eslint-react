@@ -1,4 +1,4 @@
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { is, isFunction } from "./ast-is";
@@ -9,19 +9,22 @@ import { is, isFunction } from "./ast-is";
  * @param test The test function
  * @returns The parent node that satisfies the test function or `_` if not found
  */
-function findParentNode<A extends TSESTree.Node>(node: TSESTree.Node | _, test: (n: TSESTree.Node) => n is A): A | _;
+function findParentNode<A extends TSESTree.Node>(
+  node: TSESTree.Node | unit,
+  test: (n: TSESTree.Node) => n is A,
+): A | unit;
 /**
  * Find the parent node that satisfies the test function or `_` if not found
  * @param node The AST node
  * @param test The test function
  * @returns The parent node that satisfies the test function
  */
-function findParentNode(node: TSESTree.Node | _, test: (node: TSESTree.Node) => boolean): TSESTree.Node | _;
+function findParentNode(node: TSESTree.Node | unit, test: (node: TSESTree.Node) => boolean): TSESTree.Node | unit;
 function findParentNode<A extends TSESTree.Node>(
-  node: TSESTree.Node | _,
+  node: TSESTree.Node | unit,
   test: ((node: TSESTree.Node) => boolean) | ((n: TSESTree.Node) => n is A),
-): TSESTree.Node | A | _ {
-  if (node == null) return _;
+): TSESTree.Node | A | unit {
+  if (node == null) return unit;
   let parent = node.parent;
   while (parent != null && parent.type !== T.Program) {
     if (test(parent)) {
@@ -29,7 +32,7 @@ function findParentNode<A extends TSESTree.Node>(
     }
     parent = parent.parent;
   }
-  return _;
+  return unit;
 }
 
 export { findParentNode };

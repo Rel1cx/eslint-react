@@ -1,5 +1,5 @@
 import type * as ER from "@eslint-react/core";
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export type EventListenerEntry =
@@ -8,15 +8,15 @@ export type EventListenerEntry =
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
     callee: TSESTree.Node;
-    capture: boolean | _;
+    capture: boolean | unit;
     listener: TSESTree.Node;
-    signal: TSESTree.Node | _;
+    signal: TSESTree.Node | unit;
   } & ER.SemanticEntry
   | {
     kind: "removeEventListener";
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
     callee: TSESTree.Node;
-    capture: boolean | _;
+    capture: boolean | unit;
     listener: TSESTree.Node;
   } & ER.SemanticEntry;

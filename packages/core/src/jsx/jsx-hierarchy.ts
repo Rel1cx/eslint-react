@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
 import { constTrue } from "@eslint-react/eff";
@@ -13,7 +13,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 export function findParentAttribute(
   node: TSESTree.Node,
   test: (node: TSESTree.JSXAttribute) => boolean = constTrue,
-): TSESTree.JSXAttribute | _ {
+): TSESTree.JSXAttribute | unit {
   const guard = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
     return node.type === T.JSXAttribute && test(node);
   };

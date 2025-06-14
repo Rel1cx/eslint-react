@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -11,7 +11,7 @@ import { createRule } from "../utils";
 type Case = "CONSTANT_CASE" | "PascalCase";
 
 type Options = readonly [
-  | _
+  | unit
   | Case
   | {
     allowAllCaps?: boolean;
@@ -152,7 +152,7 @@ function normalizeOptions(options: Options) {
   } as const;
 }
 
-function isValidName(name: string | _, options: ReturnType<typeof normalizeOptions>) {
+function isValidName(name: string | unit, options: ReturnType<typeof normalizeOptions>) {
   if (name == null) return true;
   if (options.excepts.some((regex) => regex.test(name))) return true;
   const normalized = name.split(".").at(-1) ?? name;
