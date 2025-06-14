@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { findVariable } from "./var-collect";
@@ -106,11 +106,11 @@ export function isNodeValueEqual(
   }
 }
 
-function getVariableInitNodeLoose(variable: Variable | _, at: number): ReturnType<typeof getVariableInitNode> {
-  if (variable == null) return _;
+function getVariableInitNodeLoose(variable: Variable | unit, at: number): ReturnType<typeof getVariableInitNode> {
+  if (variable == null) return unit;
   const node = getVariableInitNode(variable, at);
   if (node != null) return node;
   const def = variable.defs.at(at);
   if (def?.type === DefinitionType.Parameter && AST.isFunction(def.node)) return def.node;
-  return _;
+  return unit;
 }

@@ -9,12 +9,12 @@
 
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESTreeFunction } from "./ast-node";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-is";
 
-export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | _ {
+export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): unit | TSESTree.Identifier {
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node
@@ -58,5 +58,5 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSE
     case isTypeAssertionExpression(node.parent):
       return getFunctionId(node.parent);
   }
-  return _;
+  return unit;
 }

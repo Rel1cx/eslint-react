@@ -5,7 +5,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { EventListenerEntry } from "../types";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
@@ -42,13 +42,13 @@ export type REntry = EventListenerEntry & { kind: "removeEventListener" };
 // #region Helpers
 
 const defaultOptions: {
-  capture: boolean | _;
-  // once: boolean | _;
-  signal: TSESTree.Node | _;
+  capture: boolean | unit;
+  // once: boolean | unit;
+  signal: TSESTree.Node | unit;
 } = {
   capture: false,
   // once: false,
-  signal: _,
+  signal: unit,
 };
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
@@ -69,8 +69,8 @@ function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
-function getSignalValueExpression(node: TSESTree.Node | _, initialScope: Scope): TSESTree.Node | _ {
-  if (node == null) return _;
+function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scope): TSESTree.Node | unit {
+  if (node == null) return unit;
   switch (node.type) {
     case T.Identifier: {
       return getSignalValueExpression(VAR.getVariableInitNode(VAR.findVariable(node, initialScope), 0), initialScope);
@@ -78,7 +78,7 @@ function getSignalValueExpression(node: TSESTree.Node | _, initialScope: Scope):
     case T.MemberExpression:
       return node;
     default:
-      return _;
+      return unit;
   }
 }
 
@@ -87,10 +87,10 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     return VAR.findPropertyInProperties(propName, properties, initialScope);
   }
   function getPropValue<A>(
-    prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | _,
+    prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | unit,
     filter: (value: unknown) => value is A = (a): a is A => true,
-  ): A | _ {
-    if (prop?.type !== T.Property) return _;
+  ): A | unit {
+    if (prop?.type !== T.Property) return unit;
     const { value } = prop;
     let v: unknown = value;
     switch (value.type) {
@@ -103,7 +103,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         break;
       }
     }
-    return filter(v) ? v : _;
+    return filter(v) ? v : unit;
   }
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
@@ -127,7 +127,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         const pSignal = findProp(node.properties, "signal");
         const vSignal = pSignal?.type === T.Property
           ? getSignalValueExpression(pSignal.value, initialScope)
-          : _;
+          : unit;
         return { capture: vCapture, signal: vSignal };
       }
       default: {

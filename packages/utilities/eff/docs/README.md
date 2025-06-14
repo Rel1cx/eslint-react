@@ -6,15 +6,15 @@
 
 ## Type Aliases
 
-- [\_](type-aliases.md)
 - [NarrowedTo](type-aliases/NarrowedTo.md)
 - [Pretty](type-aliases/Pretty.md)
+- [unit](type-aliases/unit.md)
 
 ## Variables
 
-- [\_](variables.md)
 - [compose](variables/compose.md)
 - [dual](variables/dual.md)
+- [unit](variables/unit.md)
 
 ## Functions
 

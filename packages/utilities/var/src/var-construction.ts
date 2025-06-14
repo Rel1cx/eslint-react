@@ -1,6 +1,6 @@
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getVariableInitNode } from "./var-init-node";
@@ -29,11 +29,11 @@ export type Construction =
  * @returns The construction type of the node, or `_` if not found.
  */
 export function getConstruction(
-  node: TSESTree.Node | _,
+  node: TSESTree.Node | unit,
   initialScope: Scope,
   hint = ConstructionDetectionHint.None,
-): Construction | _ {
-  if (node == null) return _;
+): Construction | unit {
+  if (node == null) return unit;
   switch (node.type) {
     case T.JSXElement:
     case T.JSXFragment:
@@ -53,30 +53,30 @@ export function getConstruction(
       if (hint & ConstructionDetectionHint.StrictCallExpression) {
         return { kind: "CallExpression", node } as const;
       }
-      return _;
+      return unit;
     }
     case T.MemberExpression: {
-      if (!("object" in node)) return _;
+      if (!("object" in node)) return unit;
       return getConstruction(node.object, initialScope, hint);
     }
     case T.AssignmentExpression:
     case T.AssignmentPattern: {
-      if (!("right" in node)) return _;
+      if (!("right" in node)) return unit;
       return getConstruction(node.right, initialScope, hint);
     }
     case T.LogicalExpression: {
       const lvc = getConstruction(node.left, initialScope, hint);
-      if (lvc == null) return _;
+      if (lvc == null) return unit;
       return getConstruction(node.right, initialScope, hint);
     }
     case T.ConditionalExpression: {
       const cvc = getConstruction(node.consequent, initialScope, hint);
-      if (cvc == null) return _;
+      if (cvc == null) return unit;
       return getConstruction(node.alternate, initialScope, hint);
     }
     case T.Identifier: {
       if (!("name" in node) || typeof node.name !== "string") {
-        return _;
+        return unit;
       }
       const variable = initialScope.set.get(node.name);
       const variableNode = getVariableInitNode(variable, -1);
@@ -86,11 +86,11 @@ export function getConstruction(
       if ("regex" in node) {
         return { kind: "RegExpLiteral", node } as const;
       }
-      return _;
+      return unit;
     }
     default: {
       if (!("expression" in node) || typeof node.expression !== "object") {
-        return _;
+        return unit;
       }
       return getConstruction(node.expression, initialScope, hint);
     }

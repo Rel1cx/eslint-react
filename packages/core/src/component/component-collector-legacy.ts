@@ -1,7 +1,7 @@
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ClassComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 
 import { getId } from "@eslint-react/shared";
 import { ComponentFlag } from "./component-flag";
@@ -48,7 +48,7 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
         name: id?.name,
         node,
         // TODO: Get displayName of class component
-        displayName: _,
+        displayName: unit,
         flag,
         hint: 0n,
         // TODO: Get methods of class component

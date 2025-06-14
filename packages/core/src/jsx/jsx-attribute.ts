@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -20,7 +20,7 @@ export function getAttribute(
   name: string,
   attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
   initialScope?: Scope,
-): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | _ {
+): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | unit {
   return attributes.findLast((attr) => {
     if (attr.type === T.JSXAttribute) {
       return getAttributeName(context, attr) === name;

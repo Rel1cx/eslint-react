@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -39,7 +39,7 @@ export type DEntry = ObserverEntry & { kind: "disconnect" };
 
 // #region Helpers
 
-function isNewResizeObserver(node: TSESTree.Node | _) {
+function isNewResizeObserver(node: TSESTree.Node | unit) {
   return node?.type === T.NewExpression
     && node.callee.type === T.Identifier
     && node.callee.name === "ResizeObserver";
@@ -210,8 +210,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const oentries = oEntries.filter((e) => ER.isInstanceIdEqual(context, e.observer, id));
         const uentries = uEntries.filter((e) => ER.isInstanceIdEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | _) => node?.type === T.CallExpression || AST.isConditional(node);
-        const isPhaseNode = (node: TSESTree.Node | _) => node === phaseNode;
+        const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || AST.isConditional(node);
+        const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
         const hasDynamicallyAdded = oentries
           .some((e) => !isPhaseNode(AST.findParentNode(e.node, or(isDynamic, isPhaseNode))));
         if (hasDynamicallyAdded) {

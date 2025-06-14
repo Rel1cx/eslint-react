@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
@@ -9,7 +9,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isInitializedFromReact } from "../utils";
 import { isReactHookName } from "./hook-name";
 
-export function isReactHook(node: AST.TSESTreeFunction | _) {
+export function isReactHook(node: AST.TSESTreeFunction | unit) {
   if (node == null) return false;
   const id = AST.getFunctionId(node);
   return id?.name != null && isReactHookName(id.name);
@@ -20,7 +20,7 @@ export function isReactHook(node: AST.TSESTreeFunction | _) {
  * @param node The node to check.
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
-export function isReactHookCall(node: TSESTree.Node | _) {
+export function isReactHookCall(node: TSESTree.Node | unit) {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;
@@ -35,7 +35,7 @@ export function isReactHookCall(node: TSESTree.Node | _) {
 }
 
 /* eslint-disable function/function-return-boolean */
-export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Node | _) {
+export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Node | unit) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
@@ -58,7 +58,7 @@ export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Nod
   };
 }
 
-export function isReactHookCallWithNameLoose(node: TSESTree.Node | _) {
+export function isReactHookCallWithNameLoose(node: TSESTree.Node | unit) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {
@@ -72,7 +72,7 @@ export function isReactHookCallWithNameLoose(node: TSESTree.Node | _) {
   };
 }
 
-export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: _ | string[] = []) {
+export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: unit | string[] = []) {
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
     skipImportCheck = true,
@@ -95,7 +95,7 @@ export function isReactHookCallWithNameAlias(context: RuleContext, name: string,
 }
 /* eslint-enable function/function-return-boolean */
 
-export function isUseEffectCallLoose(node: TSESTree.Node | _) {
+export function isUseEffectCallLoose(node: TSESTree.Node | unit) {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;

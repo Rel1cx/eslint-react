@@ -4,7 +4,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 
 import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
 
@@ -14,13 +14,13 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-function isExternalLinkLike(value: string | _) {
+function isExternalLinkLike(value: string | unit) {
   if (value == null) return false;
   return value.startsWith("https://")
     || /^(?:\w+:|\/\/)/u.test(value);
 }
 
-function isSafeRel(value: string | _) {
+function isSafeRel(value: string | unit) {
   if (value == null) return false;
   return value === "noreferrer"
     || /\bnoreferrer\b/u.test(value);
@@ -66,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (attributeValue.kind === "some" && typeof attributeValue.value === "string") {
           return attributeValue.value;
         }
-        return _;
+        return unit;
       };
 
       if (getAttributeStringValue("target") !== "_blank") {

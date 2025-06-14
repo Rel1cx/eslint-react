@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import type { TSESTree } from "@typescript-eslint/types";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /** @internal */
@@ -18,7 +18,7 @@ export function getInstanceId(node: TSESTree.Node, prev?: TSESTree.Node) {
     case node.type === T.BlockStatement
       || node.type === T.Program
       || node.parent === node:
-      return _;
+      return unit;
     default:
       return getInstanceId(node.parent, node);
   }

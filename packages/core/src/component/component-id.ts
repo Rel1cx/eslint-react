@@ -1,14 +1,14 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as AST from "@eslint-react/ast";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isComponentWrapperCallLoose } from "./component-wrapper";
 
 export function getFunctionComponentId(
   context: RuleContext,
   node: AST.TSESTreeFunction,
-): TSESTree.Identifier | TSESTree.Identifier[] | _ {
+): TSESTree.Identifier | TSESTree.Identifier[] | unit {
   const functionId = AST.getFunctionId(node);
   if (functionId != null) {
     return functionId;
@@ -34,5 +34,5 @@ export function getFunctionComponentId(
   ) {
     return parent.parent.parent.id;
   }
-  return _;
+  return unit;
 }

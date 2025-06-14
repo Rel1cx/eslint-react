@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const classEntries: AST.TSESTreeClass[] = [];
   const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
   const constructorEntries: TSESTree.MethodDefinition[] = [];
-  const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | _; isUsed: boolean }>();
+  const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | unit; isUsed: boolean }>();
   function classEnter(node: AST.TSESTreeClass) {
     classEntries.push(node);
   }
