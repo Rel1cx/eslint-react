@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESTreeFunction } from "./ast-node-types";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -103,7 +103,7 @@ export type FunctionInitPath =
     TSESTreeFunction,
   ];
 
-export function getFunctionInitPath(node: TSESTreeFunction): FunctionInitPath | _ {
+export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInitPath {
   if (node.type === T.FunctionDeclaration) {
     return [node] as const;
   }
@@ -129,7 +129,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): FunctionInitPath | 
       && parent.parent.parent.type === T.ClassDeclaration:
       return [parent.parent.parent, parent.parent, parent, node] as const;
   }
-  return _;
+  return unit;
 }
 
 export function hasCallInFunctionInitPath(callName: string, initPath: FunctionInitPath) {

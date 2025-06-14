@@ -3,7 +3,7 @@ import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -42,35 +42,35 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
   return false;
 }
 
-function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | _ {
+function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | unit {
   const { callee } = node;
   if (callee.type !== T.MemberExpression) {
-    return _;
+    return unit;
   }
   if (callee.property.type !== T.Identifier) {
-    return _;
+    return unit;
   }
   const { name } = callee.property;
   const indexPosition = AST.getArrayMethodCallbackIndexParamPosition(name);
   if (indexPosition === -1) {
-    return _;
+    return unit;
   }
   const callbackArg = node.arguments[isUsingReactChildren(context, node) ? 1 : 0];
   if (callbackArg == null) {
-    return _;
+    return unit;
   }
   if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(callbackArg)) {
-    return _;
+    return unit;
   }
   const { params } = callbackArg;
   if (params.length < indexPosition + 1) {
-    return _;
+    return unit;
   }
   const param = params.at(indexPosition);
 
   return param != null && "name" in param
     ? param.name
-    : _;
+    : unit;
 }
 
 function getIdentifiersFromBinaryExpression(
@@ -110,7 +110,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const report = RPT.make(context);
-  const indexParamNames: Array<string | _> = [];
+  const indexParamNames: Array<string | unit> = [];
 
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
     return node.type === T.Identifier

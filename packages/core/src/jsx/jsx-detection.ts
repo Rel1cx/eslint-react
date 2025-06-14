@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import * as AST from "@eslint-react/ast";
@@ -12,7 +12,7 @@ import { DEFAULT_JSX_DETECTION_HINT, JSXDetectionHint } from "./jsx-detection-hi
  * @param node The AST node to check
  * @returns `true` if the node is a `JSXText` or a `Literal` node
  */
-export function isJsxText(node: TSESTree.Node | null | _): node is TSESTree.JSXText | TSESTree.Literal {
+export function isJsxText(node: TSESTree.Node | null | unit): node is TSESTree.JSXText | TSESTree.Literal {
   if (node == null) return false;
   return node.type === T.JSXText || node.type === T.Literal;
 }
@@ -27,7 +27,7 @@ export function isJsxText(node: TSESTree.Node | null | _): node is TSESTree.JSXT
  */
 export function isJsxLike(
   code: { getScope: (node: TSESTree.Node) => Scope },
-  node: TSESTree.Node | _ | null,
+  node: TSESTree.Node | unit | null,
   hint: JSXDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
   if (node == null) return false;

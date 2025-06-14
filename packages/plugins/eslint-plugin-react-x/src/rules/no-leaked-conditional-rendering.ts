@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
-import { _, flow } from "@eslint-react/eff";
+import { flow, unit } from "@eslint-react/eff";
 import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
@@ -214,16 +214,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
   function getReportDescriptor(
     node:
-      | _
+      | unit
       | TSESTree.Expression
       | TSESTree.JSXExpressionContainer
       | TSESTree.JSXExpressionContainer["expression"],
-  ): ReportDescriptor<MessageID> | _ {
-    if (node == null) return _;
+  ): ReportDescriptor<MessageID> | unit {
+    if (node == null) return unit;
     if (AST.is(T.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
-    if (AST.isJSX(node)) return _;
+    if (AST.isJSX(node)) return unit;
     if (AST.isTypeExpression(node)) return getReportDescriptor(node.expression);
-    return match<typeof node, ReportDescriptor<MessageID> | _>(node)
+    return match<typeof node, ReportDescriptor<MessageID> | unit>(node)
       .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
         const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
         if (isLeftUnaryNot) {
@@ -263,9 +263,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
           .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, getReportDescriptor)
-          .otherwise(() => _);
+          .otherwise(() => unit);
       })
-      .otherwise(() => _);
+      .otherwise(() => unit);
   }
   return {
     JSXExpressionContainer: flow(getReportDescriptor, RPT.make(context).send),

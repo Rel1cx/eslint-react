@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-param */
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESTreeFunction } from "./ast-node-types";
-import { _ } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-node-is";
@@ -14,7 +14,7 @@ import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-node-is";
  * where JS gives anonymous function expressions names. We roughly detect the
  * same AST nodes with some exceptions to better fit our use case.
  */
-export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | _ {
+export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | unit {
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node
@@ -58,5 +58,5 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSE
     case isTypeAssertionExpression(node.parent):
       return getFunctionId(node.parent);
   }
-  return _;
+  return unit;
 }

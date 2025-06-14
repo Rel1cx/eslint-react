@@ -17,14 +17,14 @@
 // #region Helper
 
 /**
- * 1-byte version `undefined`, produces fewer bytes than `undefined` or `void 0` in output files.
+ * alias for `undefined`
  */
-export type _ = undefined;
+export type unit = undefined;
 
 /**
- * 1-byte version `undefined`, produces fewer bytes than `undefined` or `void 0` in output files.
+ * alias for `undefined`
  */
-export const _ = undefined;
+export const unit = undefined;
 
 export type Pretty<T> =
   & {

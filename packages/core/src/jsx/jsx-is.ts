@@ -1,4 +1,4 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -19,17 +19,17 @@ export function isKeyedElement(context: RuleContext, node: TSESTree.Node, initia
 
 export function isFragmentElement(
   context: RuleContext,
-  node: TSESTree.Node | null | _,
+  node: TSESTree.Node | null | unit,
   allowJSXFragment?: false,
 ): node is TSESTree.JSXElement;
 export function isFragmentElement(
   context: RuleContext,
-  node: TSESTree.Node | null | _,
+  node: TSESTree.Node | null | unit,
   allowJSXFragment?: true,
 ): node is TSESTree.JSXElement | TSESTree.JSXFragment;
 export function isFragmentElement(
   context: RuleContext,
-  node: TSESTree.Node | null | _,
+  node: TSESTree.Node | null | unit,
   allowJSXFragment = false,
 ): node is TSESTree.JSXElement | TSESTree.JSXFragment {
   if (node == null) return false;

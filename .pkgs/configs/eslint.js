@@ -98,7 +98,7 @@ export const typescript = tseslint.config({
         pluginJsdoc.configs["flat/recommended-typescript-error"],
         pluginRegexp.configs["flat/recommended"],
         pluginPerfectionist.configs["recommended-natural"],
-    ],
+    ], // TODO: Fix type error in plugin configs
     files: GLOB_TS,
     plugins: {
         ["@stylistic"]: stylistic,

@@ -1,15 +1,15 @@
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export interface SemanticNode {
   id:
-    | _
+    | unit
     | TSESTree.Identifier
     | TSESTree.Identifier[];
   key: string;
   kind: string;
   name:
-    | _
+    | unit
     | string;
   node: TSESTree.Node;
   flag: bigint;

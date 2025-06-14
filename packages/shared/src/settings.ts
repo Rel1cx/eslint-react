@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
@@ -193,8 +193,8 @@ export const DEFAULT_ESLINT_SETTINGS = {
 export interface CustomComponentPropNormalized {
   name: string;
   as: string;
-  // controlled?: boolean | _;
-  defaultValue?: string | _;
+  // controlled?: boolean | unit;
+  defaultValue?: string | unit;
 }
 
 export interface CustomComponentNormalized {
@@ -202,14 +202,14 @@ export interface CustomComponentNormalized {
   as: string;
   attributes: CustomComponentPropNormalized[];
   re: { test(s: string): boolean };
-  // selector?: string | _;
+  // selector?: string | unit;
 }
 
 export interface ESLintReactSettingsNormalized {
   additionalHooks: CustomHooks;
   components: CustomComponentNormalized[];
   importSource: string;
-  polymorphicPropName: string | _;
+  polymorphicPropName: string | unit;
   skipImportCheck: boolean;
   strict: boolean;
   version: string;

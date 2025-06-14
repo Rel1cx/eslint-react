@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-object-types */
 
-import type { _ } from "@eslint-react/eff";
+import type { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -10,20 +10,20 @@ export type LazyValue =
     // Not resolved yet
     kind: "lazy";
     node: TSESTree.Node;
-    initialScope: Scope | _;
+    initialScope: Scope | unit;
   }
   | {
     // Resolved to nothing
     kind: "none";
     node: TSESTree.Node;
-    initialScope: Scope | _;
+    initialScope: Scope | unit;
   }
   | {
     // Resolved to something
     kind: "some";
     node: TSESTree.Node;
     value: unknown;
-    initialScope: Scope | _;
+    initialScope: Scope | unit;
   };
 
 export function toStaticValue(lazyValue: LazyValue) {
