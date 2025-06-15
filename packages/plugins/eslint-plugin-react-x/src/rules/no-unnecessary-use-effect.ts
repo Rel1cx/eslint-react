@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      // TODO: Align the error messages precisely with the 6 scenarios described in react.dev/learn/you-might-not-need-an-effect.
+      // TODO: Align the error messages with the scenarios described in react.dev/learn/you-might-not-need-an-effect.
       noUnnecessaryUseEffect:
         "You Might Not Need an Effect. Visit https://react.dev/learn/you-might-not-need-an-effect to learn how to remove unnecessary Effects.",
     },
