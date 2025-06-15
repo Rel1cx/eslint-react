@@ -4,6 +4,7 @@ import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
 import pluginLocal from "@local/eslint-plugin-local";
 import gitIgnores from "eslint-config-flat-gitignore";
+import * as pluginFastImport from "eslint-plugin-fast-import";
 import pluginVitest from "eslint-plugin-vitest";
 import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -56,6 +57,7 @@ export default tseslint.config(
     extends: [
       ...tseslint.configs.strictTypeChecked,
       configs.typescript,
+      pluginFastImport.recommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
     languageOptions: {
@@ -75,6 +77,8 @@ export default tseslint.config(
       "local/avoid-multiline-template-expression": "warn",
       "local/no-shadow-underscore": "error",
       "local/prefer-eqeq-nullish-comparison": "warn",
+
+      "fast-import/no-unused-exports": "off",
     },
   },
   {
