@@ -1,4 +1,5 @@
 import { name, version } from "../package.json";
+
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
@@ -57,6 +58,13 @@ import preferDestructuringAssignment from "./rules/prefer-destructuring-assignme
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
+
+/* eslint-disable perfectionist/sort-imports */
+import avoidShorthandBoolean from "./rules-removed/avoid-shorthand-boolean";
+import avoidShorthandFragment from "./rules-removed/avoid-shorthand-fragment";
+import preferShorthandBoolean from "./rules-removed/prefer-shorthand-boolean";
+import preferShorthandFragment from "./rules-removed/prefer-shorthand-fragment";
+/* eslint-enable perfectionist/sort-imports */
 
 export const plugin = {
   meta: {
@@ -122,5 +130,11 @@ export const plugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
+
+    // Removed rules
+    "avoid-shorthand-boolean": avoidShorthandBoolean,
+    "avoid-shorthand-fragment": avoidShorthandFragment,
+    "prefer-shorthand-boolean": preferShorthandBoolean,
+    "prefer-shorthand-fragment": preferShorthandFragment,
   },
 } as const;
