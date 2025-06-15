@@ -23,7 +23,7 @@ const themeOptions = {
 };
 
 export const metadata = {
-  description: "A series of composable ESLint rules for React and friends.",
+  description: "4-7x faster composable ESLint rules for React and friends.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",
