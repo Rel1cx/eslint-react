@@ -30,6 +30,6 @@
     "@types/react": "^19.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-x": "workspace:*",
-    "rsbuild-plugin-tailwindcss": "^0.2.1"
+    "rsbuild-plugin-tailwindcss": "^0.2.2"
   }
 }
