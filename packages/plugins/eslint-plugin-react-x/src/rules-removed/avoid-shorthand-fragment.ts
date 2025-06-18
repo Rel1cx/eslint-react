@@ -13,6 +13,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
+    deprecated: true,
     docs: {
       description: "Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
@@ -20,6 +21,9 @@ export default createRule<[], MessageID>({
     messages: {
       avoidShorthandFragment: "Avoid using shorthand fragment syntax. Use '{{jsxFragmentFactory}}' component instead.",
     },
+    replacedBy: [
+      "react-x/jsx-shorthand-fragment",
+    ],
     schema: [],
   },
   name: RULE_NAME,

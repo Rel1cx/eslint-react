@@ -54,6 +54,7 @@ import noUnusedClassComponentMembers from "./rules/no-unused-class-component-mem
 import noUnusedState from "./rules/no-unused-state";
 import noUseContext from "./rules/no-use-context";
 import noUselessForwardRef from "./rules/no-useless-forward-ref";
+import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
@@ -64,6 +65,9 @@ import avoidShorthandBoolean from "./rules-removed/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules-removed/avoid-shorthand-fragment";
 import preferShorthandBoolean from "./rules-removed/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules-removed/prefer-shorthand-fragment";
+import preferReactNamespaceImport from "./rules-removed/prefer-react-namespace-import";
+import noCommentTextnodes from "./rules-removed/no-comment-textnodes";
+import noComplexConditionalRendering from "./rules-removed/no-complex-conditional-rendering";
 /* eslint-enable perfectionist/sort-imports */
 
 export const plugin = {
@@ -126,6 +130,7 @@ export const plugin = {
     "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
     "no-useless-forward-ref": noUselessForwardRef,
+    "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
@@ -134,6 +139,9 @@ export const plugin = {
     // Removed rules
     "avoid-shorthand-boolean": avoidShorthandBoolean,
     "avoid-shorthand-fragment": avoidShorthandFragment,
+    "no-comment-textnodes": noCommentTextnodes,
+    "no-complex-conditional-rendering": noComplexConditionalRendering,
+    "prefer-react-namespace-import": preferReactNamespaceImport,
     "prefer-shorthand-boolean": preferShorthandBoolean,
     "prefer-shorthand-fragment": preferShorthandFragment,
   },

@@ -55,6 +55,9 @@ export default tseslint.config(
     ],
     plugins: {
       "react-hooks": eslintPluginReactHooks,
+    },
+    rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
 
       // Place the v1 ruleset here to test the compatibility in the v2 branch
       "@eslint-react/avoid-shorthand-boolean": "warn",
@@ -150,9 +153,6 @@ export default tseslint.config(
       "@eslint-react/naming-convention/filename": "warn",
       "@eslint-react/naming-convention/filename-extension": "warn",
       "@eslint-react/naming-convention/use-state": "warn",
-    },
-    rules: {
-      ...eslintPluginReactHooks.configs.recommended.rules,
     },
   },
 );

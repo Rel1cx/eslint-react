@@ -20,6 +20,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
+    deprecated: true,
     docs: {
       description: "Enforces shorthand syntax for boolean attributes.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
@@ -28,6 +29,9 @@ export default createRule<[], MessageID>({
     messages: {
       preferShorthandBoolean: "Use shorthand boolean attribute '{{propName}}'.",
     },
+    replacedBy: [
+      "react-x/jsx-shorthand-boolean",
+    ],
     schema: [],
   },
   name: RULE_NAME,
