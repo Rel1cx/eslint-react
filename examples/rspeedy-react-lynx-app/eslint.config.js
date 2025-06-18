@@ -42,7 +42,6 @@ export default tseslint.config(
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
-      "react-x/no-unnecessary-use-effect": "warn",
     },
   },
   {

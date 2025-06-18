@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.0-next.46",
+  "version": "2.0.0-next.47",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, naming-convention].",
   "keywords": [
@@ -58,12 +58,12 @@
     "@swc/core": "^1.12.1",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^24.0.2",
+    "@types/node": "^24.0.3",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@typescript-eslint/parser": "^8.34.0",
-    "@typescript-eslint/rule-tester": "^8.34.0",
-    "@typescript-eslint/types": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.1",
+    "@typescript-eslint/rule-tester": "^8.34.1",
+    "@typescript-eslint/types": "^8.34.1",
     "ansis": "^4.1.0",
     "cspell": "^9.1.1",
     "dedent": "^1.6.0",
@@ -92,8 +92,8 @@
     "typedoc-plugin-markdown": "^4.6.4",
     "typedoc-plugin-mdn-links": "^5.0.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.34.0",
-    "vitest": "^3.2.3"
+    "typescript-eslint": "^8.34.1",
+    "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@10.12.1",
   "engines": {
@@ -113,7 +113,7 @@
       "@types/react-dom": "^19.1.6",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.5",
-      "lucide-react": "^0.515.0",
+      "lucide-react": "^0.516.0",
       "next": "^15.3.3",
       "react": "^19.1.0",
       "react-dom": "^19.1.0",
