@@ -44,3 +44,9 @@ export type RuleFeature =
   | "EXP"; // Experimental
 
 export type RulePolicy = number;
+
+export type RuleSuggest<MessageIds extends string = string> = {
+  messageId: MessageIds;
+  data?: Record<string, unknown>;
+  fix: tseslint.ReportFixFunction;
+};
