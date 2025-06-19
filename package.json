@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.0-next.47",
+  "version": "2.0.0-next.48",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, naming-convention].",
   "keywords": [
@@ -55,7 +55,7 @@
     "@eslint/markdown": "^6.5.0",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
-    "@swc/core": "^1.12.1",
+    "@swc/core": "^1.12.3",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^24.0.3",
@@ -113,8 +113,8 @@
       "@types/react-dom": "^19.1.6",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.5",
-      "lucide-react": "^0.516.0",
-      "next": "^15.3.3",
+      "lucide-react": "^0.518.0",
+      "next": "^15.3.4",
       "react": "^19.1.0",
       "react-dom": "^19.1.0",
       "ts-api-utils": "^2.1.0",
