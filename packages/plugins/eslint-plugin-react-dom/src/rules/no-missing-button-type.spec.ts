@@ -10,6 +10,23 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noMissingButtonType",
+          suggestions: [
+            {
+              messageId: "addButtonType",
+              data: { type: "button" },
+              output: tsx`<button type="button">Click me</button>;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "submit" },
+              output: tsx`<button type="submit">Click me</button>;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "reset" },
+              output: tsx`<button type="reset">Click me</button>;`,
+            },
+          ],
         },
       ],
     },
@@ -18,6 +35,23 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noMissingButtonType",
+          suggestions: [
+            {
+              messageId: "addButtonType",
+              data: { type: "button" },
+              output: tsx`<PolyComponent as="button" type="button">Click me</PolyComponent>;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "submit" },
+              output: tsx`<PolyComponent as="button" type="submit">Click me</PolyComponent>;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "reset" },
+              output: tsx`<PolyComponent as="button" type="reset">Click me</PolyComponent>;`,
+            },
+          ],
         },
       ],
       settings: {
