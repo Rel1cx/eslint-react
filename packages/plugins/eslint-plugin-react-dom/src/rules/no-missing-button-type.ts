@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "noMissingButtonType",
           node,
           suggest: getSuggest((type) => (fixer: RuleFixer) => {
-            return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
+            return fixer.insertTextAfter(node.openingElement.name, ` ${propNameOnJsx}="${type}"`);
           }),
         });
       }
