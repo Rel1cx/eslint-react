@@ -6,6 +6,56 @@ import rule, { RULE_NAME } from "./no-missing-button-type";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      code: tsx`<button />;`,
+      errors: [
+        {
+          messageId: "noMissingButtonType",
+          suggestions: [
+            {
+              messageId: "addButtonType",
+              data: { type: "button" },
+              output: tsx`<button type="button" />;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "submit" },
+              output: tsx`<button type="submit" />;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "reset" },
+              output: tsx`<button type="reset" />;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<button type />;`,
+      errors: [
+        {
+          messageId: "noMissingButtonType",
+          suggestions: [
+            {
+              messageId: "addButtonType",
+              data: { type: "button" },
+              output: tsx`<button type="button" />;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "submit" },
+              output: tsx`<button type="submit" />;`,
+            },
+            {
+              messageId: "addButtonType",
+              data: { type: "reset" },
+              output: tsx`<button type="reset" />;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       code: tsx`<button>Click me</button>;`,
       errors: [
         {
@@ -39,17 +89,17 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "addButtonType",
               data: { type: "button" },
-              output: tsx`<PolyComponent as="button" type="button">Click me</PolyComponent>;`,
+              output: tsx`<PolyComponent type="button" as="button">Click me</PolyComponent>;`,
             },
             {
               messageId: "addButtonType",
               data: { type: "submit" },
-              output: tsx`<PolyComponent as="button" type="submit">Click me</PolyComponent>;`,
+              output: tsx`<PolyComponent type="submit" as="button">Click me</PolyComponent>;`,
             },
             {
               messageId: "addButtonType",
               data: { type: "reset" },
-              output: tsx`<PolyComponent as="button" type="reset">Click me</PolyComponent>;`,
+              output: tsx`<PolyComponent type="reset" as="button">Click me</PolyComponent>;`,
             },
           ],
         },

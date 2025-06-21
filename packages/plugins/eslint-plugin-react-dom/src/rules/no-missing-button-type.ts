@@ -12,9 +12,9 @@ export const RULE_FEATURES = [
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 
-export type MessageID =
-  | CamelCase<typeof RULE_NAME>
-  | "addButtonType";
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
+
+export type RuleSuggestMessageID = "addButtonType";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -55,12 +55,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           attributeNode,
           propNameOnJsx,
         );
-        if (attributeValue.kind === "some" && typeof attributeValue.value !== "string") {
+        if (attributeValue.kind !== "some" || typeof attributeValue.value !== "string") {
           context.report({
             messageId: "noMissingButtonType",
             node: attributeNode,
             suggest: getSuggest((type) => (fixer: RuleFixer) => {
-              return fixer.replaceText(node, `${propNameOnJsx}="${type}"`);
+              return fixer.replaceText(attributeNode, `${propNameOnJsx}="${type}"`);
             }),
           });
         }
@@ -71,9 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "noMissingButtonType",
           node,
           suggest: getSuggest((type) => (fixer: RuleFixer) => {
-            const lastToken = context.sourceCode.getLastToken(node.openingElement);
-            if (lastToken == null) return null;
-            return fixer.insertTextBefore(lastToken, ` type="${type}"`);
+            return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
           }),
         });
       }
