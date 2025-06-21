@@ -14,6 +14,10 @@ react-dom/no-missing-iframe-sandbox
 @eslint-react/dom/no-missing-iframe-sandbox
 ```
 
+**Features**
+
+`🔧`
+
 **Presets**
 
 - `dom`

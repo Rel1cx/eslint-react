@@ -7,35 +7,13 @@ import { createJsxElementResolver, createRule, findCustomComponentProp } from ".
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
 
-const validTypes = [
-  "",
-  "allow-downloads",
-  "allow-downloads-without-user-activation",
-  "allow-forms",
-  "allow-modals",
-  "allow-orientation-lock",
-  "allow-pointer-lock",
-  "allow-popups",
-  "allow-popups-to-escape-sandbox",
-  "allow-presentation",
-  "allow-same-origin",
-  "allow-scripts",
-  "allow-storage-access-by-user-activation",
-  "allow-top-navigation",
-  "allow-top-navigation-by-user-activation",
-  "allow-top-navigation-to-custom-protocols",
-] as const;
-
-function hasValidSandBox(value: unknown) {
-  return typeof value === "string"
-    && value
-      .split(" ")
-      .every((value) => validTypes.some((valid) => valid === value));
-}
+export type RuleSuggestMessageID = "addIframeSandbox";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -44,7 +22,10 @@ export default createRule<[], MessageID>({
       description: "Enforces explicit `sandbox` attribute for `iframe` elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
+    hasSuggestions: true,
     messages: {
+      addIframeSandbox: "Add 'sandbox' attribute with value '{{value}}'.",
       noMissingIframeSandbox: "Add missing 'sandbox' attribute on 'iframe' component.",
     },
     schema: [],
@@ -74,17 +55,36 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           attributeNode,
           propNameOnJsx,
         );
-        if (attributeValue.kind === "some" && hasValidSandBox(attributeValue.value)) return;
-        context.report({
-          messageId: "noMissingIframeSandbox",
-          node: attributeNode,
-        });
+        if (attributeValue.kind !== "some" || typeof attributeValue.value !== "string") {
+          context.report({
+            messageId: "noMissingIframeSandbox",
+            node: attributeNode,
+            suggest: [
+              {
+                messageId: "addIframeSandbox",
+                data: { value: "" },
+                fix(fixer) {
+                  return fixer.replaceText(attributeNode, `${propNameOnJsx}=""`);
+                },
+              },
+            ],
+          });
+        }
         return;
       }
-      if (!hasValidSandBox(customComponentProp?.defaultValue)) {
+      if (typeof customComponentProp?.defaultValue !== "string") {
         context.report({
           messageId: "noMissingIframeSandbox",
           node,
+          suggest: [
+            {
+              messageId: "addIframeSandbox",
+              data: { value: "" },
+              fix(fixer) {
+                return fixer.insertTextAfter(node.openingElement.name, ` ${propNameOnJsx}=""`);
+              },
+            },
+          ],
         });
       }
     },
