@@ -1,9 +1,8 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as ER from "@eslint-react/core";
 
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
@@ -41,52 +40,34 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { attributes, domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
-      const customComponentProp = findCustomComponentProp("sandbox", attributes);
-      const propNameOnJsx = customComponentProp?.name ?? "sandbox";
-      const attributeNode = ER.getAttribute(
-        context,
-        propNameOnJsx,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      if (attributeNode != null) {
-        const attributeValue = ER.getAttributeValue(
-          context,
-          attributeNode,
-          propNameOnJsx,
-        );
-        if (attributeValue.kind !== "some" || typeof attributeValue.value !== "string") {
-          context.report({
-            messageId: "noMissingIframeSandbox",
-            node: attributeNode,
-            suggest: [
-              {
-                messageId: "addIframeSandbox",
-                data: { value: "" },
-                fix(fixer) {
-                  return fixer.replaceText(attributeNode, `${propNameOnJsx}=""`);
-                },
-              },
-            ],
-          });
-        }
-        return;
-      }
-      if (typeof customComponentProp?.defaultValue !== "string") {
+      const sandboxAttribute = resolveAttribute(context, attributes, node, "sandbox");
+      if (sandboxAttribute.attributeValueString != null) return;
+      if (sandboxAttribute.attribute == null) {
         context.report({
           messageId: "noMissingIframeSandbox",
-          node,
-          suggest: [
-            {
-              messageId: "addIframeSandbox",
-              data: { value: "" },
-              fix(fixer) {
-                return fixer.insertTextAfter(node.openingElement.name, ` ${propNameOnJsx}=""`);
-              },
+          node: node.openingElement,
+          suggest: [{
+            messageId: "addIframeSandbox",
+            data: { value: "" },
+            fix(fixer) {
+              return fixer.insertTextAfter(node.openingElement.name, ` ${sandboxAttribute.attributeName}=""`);
             },
-          ],
+          }],
         });
+        return;
       }
+      context.report({
+        messageId: "noMissingIframeSandbox",
+        node: sandboxAttribute.attributeValue?.node ?? sandboxAttribute.attribute,
+        suggest: [{
+          messageId: "addIframeSandbox",
+          data: { value: "" },
+          fix(fixer) {
+            if (sandboxAttribute.attribute == null) return null;
+            return fixer.replaceText(sandboxAttribute.attribute, `${sandboxAttribute.attributeName}=""`);
+          },
+        }],
+      });
     },
   };
 }
