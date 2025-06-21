@@ -6,7 +6,9 @@ import { createJsxElementResolver, createRule, findCustomComponentProp } from ".
 
 export const RULE_NAME = "no-missing-button-type";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 
