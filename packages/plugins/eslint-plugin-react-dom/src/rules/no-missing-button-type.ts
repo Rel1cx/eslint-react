@@ -1,8 +1,7 @@
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/kit";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as ER from "@eslint-react/core";
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -41,40 +40,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { attributes, domElementType } = resolver.resolve(node);
       if (domElementType !== "button") return;
-      const customComponentProp = findCustomComponentProp("type", attributes);
-      const propNameOnJsx = customComponentProp?.name ?? "type";
-      const attributeNode = ER.getAttribute(
-        context,
-        propNameOnJsx,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      if (attributeNode != null) {
-        const attributeValue = ER.getAttributeValue(
-          context,
-          attributeNode,
-          propNameOnJsx,
-        );
-        if (attributeValue.kind !== "some" || typeof attributeValue.value !== "string") {
-          context.report({
-            messageId: "noMissingButtonType",
-            node: attributeNode,
-            suggest: getSuggest((type) => (fixer: RuleFixer) => {
-              return fixer.replaceText(attributeNode, `${propNameOnJsx}="${type}"`);
-            }),
-          });
-        }
-        return;
-      }
-      if (typeof customComponentProp?.defaultValue !== "string") {
+      const typeAttribute = resolveAttribute(context, attributes, node, "type");
+      if (typeAttribute.attributeValueString != null) return;
+      if (typeAttribute.attribute == null) {
         context.report({
           messageId: "noMissingButtonType",
-          node,
+          node: node.openingElement,
           suggest: getSuggest((type) => (fixer: RuleFixer) => {
-            return fixer.insertTextAfter(node.openingElement.name, ` ${propNameOnJsx}="${type}"`);
+            return fixer.insertTextAfter(node.openingElement.name, ` ${typeAttribute.attributeName}="${type}"`);
           }),
         });
+        return;
       }
+      context.report({
+        messageId: "noMissingButtonType",
+        node: typeAttribute.attributeValue?.node ?? typeAttribute.attribute,
+        suggest: getSuggest((type) => (fixer: RuleFixer) => {
+          if (typeAttribute.attribute == null) return null;
+          return fixer.replaceText(typeAttribute.attribute, `${typeAttribute.attributeName}="${type}"`);
+        }),
+      });
     },
   };
 }

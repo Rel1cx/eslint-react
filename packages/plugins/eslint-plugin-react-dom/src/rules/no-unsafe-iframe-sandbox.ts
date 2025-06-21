@@ -1,9 +1,9 @@
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as ER from "@eslint-react/core";
-
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
@@ -15,7 +15,7 @@ const unsafeSandboxValues = [
   ["allow-scripts", "allow-same-origin"],
 ] as const;
 
-function hasSafeSandbox(value: unknown) {
+function isSafeSandbox(value: string | unit): value is string {
   if (typeof value !== "string") return false;
   return !unsafeSandboxValues.some((values) => {
     return values.every((v) => value.includes(v));
@@ -45,33 +45,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { attributes, domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
-      const customComponentProp = findCustomComponentProp("sandbox", attributes);
-      const propNameOnJsx = customComponentProp?.name ?? "sandbox";
-      const attributeNode = ER.getAttribute(
-        context,
-        propNameOnJsx,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      if (attributeNode != null) {
-        const attributeValue = ER.getAttributeValue(
-          context,
-          attributeNode,
-          propNameOnJsx,
-        );
-        if (attributeValue.kind === "some" && !hasSafeSandbox(attributeValue.value)) {
-          context.report({
-            messageId: "noUnsafeIframeSandbox",
-            node: attributeNode,
-          });
-          return;
-        }
-      }
-      if (customComponentProp?.defaultValue == null) return;
-      if (!hasSafeSandbox(customComponentProp.defaultValue)) {
+      const sandboxAttribute = resolveAttribute(context, attributes, node, "sandbox");
+      if (!isSafeSandbox(sandboxAttribute.attributeValueString)) {
         context.report({
           messageId: "noUnsafeIframeSandbox",
-          node,
+          node: sandboxAttribute.attributeValue?.node ?? sandboxAttribute.attribute ?? node,
         });
       }
     },

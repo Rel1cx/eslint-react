@@ -7,26 +7,80 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: '<a href="https://react.dev" target="_blank"></a>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<a rel="noreferrer noopener" href="https://react.dev" target="_blank"></a>',
+            },
+          ],
+        },
+      ],
     },
     {
       code: '<a href="https://react.dev" target={"_blank"}></a>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<a rel="noreferrer noopener" href="https://react.dev" target={"_blank"}></a>',
+            },
+          ],
+        },
+      ],
     },
     {
       code: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+            },
+          ],
+        },
+      ],
     },
     {
       code: tsx`
         const props = { href: "https://react.dev", target: "_blank" };
         const a = <a {...props}></a>;
       `,
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const props = { href: "https://react.dev", target: "_blank" };
+                const a = <a rel="noreferrer noopener" {...props}></a>;
+              `,
+            },
+          ],
+        },
+      ],
     },
     {
       code: '<PolyComponent as="a" href="https://react.dev" target="_blank"></PolyComponent>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output:
+                '<PolyComponent rel="noreferrer noopener" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           polymorphicPropName: "as",
@@ -35,7 +89,18 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<PolyComponent component="a" href="https://react.dev" target="_blank"></PolyComponent>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output:
+                '<PolyComponent rel="noreferrer noopener" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           polymorphicPropName: "component",
@@ -44,7 +109,17 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<Link href="https://react.dev" target="_blank"></Link>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<Link rel="noreferrer noopener" href="https://react.dev" target="_blank"></Link>',
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           additionalComponents: [
@@ -58,7 +133,17 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<Link href="https://react.dev" target="_blank" rel="noreferrer noopener"></Link>',
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           additionalComponents: [
@@ -75,7 +160,20 @@ ruleTester.run(RULE_NAME, rule, {
         const a = <a href="https://react.dev" target="_blank"></a>;
         const b = <Link to="https://react.dev" target="_blank"></Link>;
       `,
-      errors: [{ messageId: "noUnsafeTargetBlank" }], // should be 1 error
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const a = <a rel="noreferrer noopener" href="https://react.dev" target="_blank"></a>;
+                const b = <Link to="https://react.dev" target="_blank"></Link>;
+              `,
+            },
+          ],
+        },
+      ], // should be 1 error
       settings: {
         "react-x": {
           additionalComponents: [
@@ -103,8 +201,30 @@ ruleTester.run(RULE_NAME, rule, {
         const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
       `,
       errors: [
-        { messageId: "noUnsafeTargetBlank" },
-        { messageId: "noUnsafeTargetBlank" },
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const a = <Link rel="noreferrer noopener" href="https://react.dev" target="_blank"></Link>;
+                const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
+              `,
+            },
+          ],
+        },
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const a = <Link href="https://react.dev" target="_blank"></Link>;
+                const b = <LinkButton href="https://react.dev" target="_blank" relation="noreferrer noopener"></LinkButton>;
+              `,
+            },
+          ],
+        },
       ],
       settings: {
         "react-x": {
@@ -137,7 +257,20 @@ ruleTester.run(RULE_NAME, rule, {
         const a = <Link href="https://react.dev" target="_blank"></Link>;
         const b = <LinkButton href="https://react.dev" target="_blank" relation="noopener"></LinkButton>;
       `,
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const a = <Link href="https://react.dev" target="_blank"></Link>;
+                const b = <LinkButton href="https://react.dev" target="_blank" relation="noreferrer noopener"></LinkButton>;
+              `,
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           additionalComponents: [
@@ -168,7 +301,19 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const a = <Link href="https://react.dev"></Link>;
       `,
-      errors: [{ messageId: "noUnsafeTargetBlank" }],
+      errors: [
+        {
+          messageId: "noUnsafeTargetBlank",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const a = <Link rel="noreferrer noopener" href="https://react.dev"></Link>;
+              `,
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           additionalComponents: [

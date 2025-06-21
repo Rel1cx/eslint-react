@@ -1,18 +1,19 @@
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
+
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+
 import type { CamelCase } from "string-ts";
-import * as ER from "@eslint-react/core";
-
-import { unit } from "@eslint-react/eff";
-
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
+
+export type RuleSuggestMessageID = "addRelNoreferrerNoopener";
 
 function isExternalLinkLike(value: string | unit) {
   if (value == null) return false;
@@ -33,7 +34,10 @@ export default createRule<[], MessageID>({
       description: 'Disallow `target="_blank"` without `rel="noreferrer noopener"`.',
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
+    hasSuggestions: true,
     messages: {
+      addRelNoreferrerNoopener: `Add 'rel="noreferrer noopener"' to the link to prevent security risks.`,
       noUnsafeTargetBlank:
         `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
@@ -50,37 +54,44 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node: TSESTree.JSXElement) {
       const { attributes, domElementType } = resolver.resolve(node);
       if (domElementType !== "a") return;
-      const elementScope = context.sourceCode.getScope(node);
-
-      const getAttributeStringValue = (name: string) => {
-        const customComponentProp = findCustomComponentProp(name, attributes);
-        const propNameOnJsx = customComponentProp?.name ?? name;
-        const attributeNode = ER.getAttribute(
-          context,
-          propNameOnJsx,
-          node.openingElement.attributes,
-          elementScope,
-        );
-        if (attributeNode == null) return customComponentProp?.defaultValue;
-        const attributeValue = ER.getAttributeValue(context, attributeNode, propNameOnJsx);
-        if (attributeValue.kind === "some" && typeof attributeValue.value === "string") {
-          return attributeValue.value;
-        }
-        return unit;
-      };
-
-      if (getAttributeStringValue("target") !== "_blank") {
+      const targetAttribute = resolveAttribute(context, attributes, node, "target");
+      if (targetAttribute.attributeValueString !== "_blank") {
         return;
       }
-      if (!isExternalLinkLike(getAttributeStringValue("href"))) {
+      const hrefAttribute = resolveAttribute(context, attributes, node, "href");
+      if (!isExternalLinkLike(hrefAttribute.attributeValueString)) {
         return;
       }
-      if (isSafeRel(getAttributeStringValue("rel"))) {
+      const relAttribute = resolveAttribute(context, attributes, node, "rel");
+      if (isSafeRel(relAttribute.attributeValueString)) {
+        return;
+      }
+      if (relAttribute.attribute == null) {
+        context.report({
+          messageId: "noUnsafeTargetBlank",
+          node: node.openingElement,
+          suggest: [{
+            messageId: "addRelNoreferrerNoopener",
+            fix(fixer) {
+              return fixer.insertTextAfter(
+                node.openingElement.name,
+                ` ${relAttribute.attributeName}="noreferrer noopener"`,
+              );
+            },
+          }],
+        });
         return;
       }
       context.report({
         messageId: "noUnsafeTargetBlank",
-        node,
+        node: relAttribute.attributeValue?.node ?? relAttribute.attribute,
+        suggest: [{
+          messageId: "addRelNoreferrerNoopener",
+          fix(fixer) {
+            if (relAttribute.attribute == null) return null;
+            return fixer.replaceText(relAttribute.attribute, `${relAttribute.attributeName}="noreferrer noopener"`);
+          },
+        }],
       });
     },
   };
