@@ -122,7 +122,7 @@ export const typescript: ConfigArray = tseslint.config(
 
       "@stylistic/arrow-parens": ["warn", "always"],
       "@stylistic/no-multi-spaces": ["warn"],
-      "@stylistic/operator-linebreak": ["warn", "before"],
+      "@stylistic/operator-linebreak": "off",
       "@stylistic/quote-props": ["error", "as-needed"],
 
       "perfectionist/sort-exports": ["warn", { type: "natural", order: "asc" }],

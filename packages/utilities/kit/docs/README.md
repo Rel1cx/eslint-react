@@ -19,3 +19,4 @@
 - [RulePolicy](type-aliases/RulePolicy.md)
 - [RulePreset](type-aliases/RulePreset.md)
 - [RuleSeverity](type-aliases/RuleSeverity.md)
+- [RuleSuggest](type-aliases/RuleSuggest.md)

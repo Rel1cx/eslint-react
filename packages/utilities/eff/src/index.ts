@@ -10,6 +10,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/unified-signatures */
+/* eslint-disable jsdoc/check-param-names */
+/* eslint-disable jsdoc/require-param-description */
 /* eslint-disable local/no-shadow-underscore */
 /* eslint-disable local/prefer-eqeq-nullish-comparison */
 /* eslint-disable prefer-rest-params */
@@ -508,6 +510,7 @@ export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
  * ```
  *
  * @param a - The value to pipe.
+ * @param args
  * @since 1.0.0
  */
 export function pipe<A>(a: A): A;
@@ -968,6 +971,14 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
  * See also [`pipe`](#pipe).
  *
  * @param ab - The first function to apply.
+ * @param bc
+ * @param cd
+ * @param de
+ * @param ef
+ * @param fg
+ * @param gh
+ * @param hi
+ * @param ij
  * @example
  * ```ts
  * import * as assert from "node:assert"
