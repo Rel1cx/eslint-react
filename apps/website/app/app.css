@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tailwindcss-animated";
-@import "./theme.css";
+@import "./theme/theme.css";
 @import "fumadocs-ui/css/preset.css";
 @import "fumadocs-twoslash/twoslash.css";
 
