@@ -20,7 +20,7 @@
     "fumadocs-twoslash": "3.1.4",
     "fumadocs-typescript": "4.0.6",
     "fumadocs-ui": "15.5.4",
-    "lucide-react": "^0.522.0",
+    "lucide-react": "^0.523.0",
     "next": "^15.3.4",
     "next-view-transitions": "^0.3.4",
     "react": "^19.1.0",
@@ -44,7 +44,7 @@
     "@tsconfig/strictest": "^2.0.5",
     "@types/hast": "^3.0.4",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10.4.21",
@@ -61,6 +61,6 @@
     "tailwindcss": "^4.1.10",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.34.1"
+    "typescript-eslint": "^8.35.0"
   }
 }
