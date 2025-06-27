@@ -11,7 +11,7 @@
   "editor.codeActionsOnSave": {
     "source.formatting": "explicit",
     "source.fixAll": "never",
-    "source.fixAll.eslint": "explicit",
+    "source.fixAll.eslint": "never",
     "source.organizeImports": "never"
   },
   "eslint.validate": [
