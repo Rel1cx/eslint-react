@@ -1,7 +1,7 @@
 import { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import { is, isFunction } from "./ast-is";
+import { is, isFunction } from "./ast-node-is";
 
 /**
  * Find the parent node that satisfies the test function

@@ -53,8 +53,8 @@
 > [!NOTE]\
 > ESLint React requires the following minimum versions:
 >
-> - Node.js: 18.18.0
-> - ESLint: 8.57.0
+> - Node.js: 20.19.0
+> - ESLint: 9.24.0
 > - TypeScript: 4.9.5
 
 ### Install

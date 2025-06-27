@@ -3,7 +3,6 @@ import eslintPluginReactX from "eslint-plugin-react-x";
 import eslintPluginReactDom from "eslint-plugin-react-dom";
 import eslintPluginReactWebApi from "eslint-plugin-react-web-api";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactHooksExtra from "eslint-plugin-react-hooks-extra";
 import eslintPluginReactNamingConvention from "eslint-plugin-react-naming-convention";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import eslintPluginReactDebug from "eslint-plugin-react-debug";
@@ -66,7 +65,6 @@ export default defineConfig([
       eslintPluginReactX.configs.recommended,
       eslintPluginReactDom.configs.recommended,
       eslintPluginReactWebApi.configs.recommended,
-      eslintPluginReactHooksExtra.configs.recommended,
       eslintPluginReactNamingConvention.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,
       eslintPluginReactDebug.configs.all,

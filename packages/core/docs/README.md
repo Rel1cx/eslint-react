@@ -31,7 +31,6 @@
 - [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md)
 - [ComponentStateKind](type-aliases/ComponentStateKind.md)
 - [EffectKind](type-aliases/EffectKind.md)
-- [HookKind](type-aliases/HookKind.md)
 - [JSXDetectionHint](type-aliases/JSXDetectionHint.md)
 
 ## Variables
@@ -88,6 +87,7 @@
 - [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md)
 - [isUseTransitionCall](variables/isUseTransitionCall.md)
 - [JSXDetectionHint](variables/JSXDetectionHint.md)
+- [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md)
 
 ## Functions
 
@@ -119,12 +119,8 @@
 - [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md)
 - [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
 - [isFragmentElement](functions/isFragmentElement.md)
-- [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md)
-- [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md)
 - [isFunctionOfRender](functions/isFunctionOfRender.md)
 - [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md)
-- [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md)
-- [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md)
 - [isGetChildContext](functions/isGetChildContext.md)
 - [isGetDefaultProps](functions/isGetDefaultProps.md)
 - [isGetDerivedStateFromError](functions/isGetDerivedStateFromError.md)
@@ -133,7 +129,6 @@
 - [isGetSnapshotBeforeUpdate](functions/isGetSnapshotBeforeUpdate.md)
 - [isHostElement](functions/isHostElement.md)
 - [isInitializedFromReact](functions/isInitializedFromReact.md)
-- [isInsideRenderMethod](functions/isInsideRenderMethod.md)
 - [isJsxLike](functions/isJsxLike.md)
 - [isJsxText](functions/isJsxText.md)
 - [isKeyedElement](functions/isKeyedElement.md)
@@ -145,6 +140,7 @@
 - [isReactHookCallWithName](functions/isReactHookCallWithName.md)
 - [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
+- [isReactHookId](functions/isReactHookId.md)
 - [isReactHookName](functions/isReactHookName.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
 - [isRenderLike](functions/isRenderLike.md)

@@ -25,14 +25,7 @@ type Options = readonly [
   | unit
   | Case
   | {
-    /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
-     */
     excepts?: readonly string[];
-    /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
-     */
-    extensions?: readonly string[];
     rule?: Case;
   },
 ];
@@ -40,7 +33,6 @@ type Options = readonly [
 const defaultOptions = [
   {
     excepts: ["^index$"],
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
     rule: "PascalCase",
   },
 ] as const satisfies Options;
@@ -100,12 +92,10 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     : options.rule ?? "PascalCase";
   const excepts = typeof options === "string"
     ? []
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    : options.excepts ?? [];
+    : (options.excepts ?? []).map((s) => RE.toRegExp(s));
 
-  function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
+  function validate(name: string, casing: Case = rule, ignores = excepts) {
     const shouldIgnore = ignores
-      .map((s) => RE.toRegExp(s))
       .some((pattern) => pattern.test(name));
     if (shouldIgnore) return true;
 

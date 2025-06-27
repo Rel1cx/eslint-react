@@ -40,14 +40,10 @@ Minimum supported versions:
 
 ### Add suggestion-fix feature to rules that can be fixed interactively
 
-- [ ] `no-prop-types`
-- [ ] `no-redundant-should-component-update`
-- [ ] `no-unused-class-component-members`
-- [ ] `no-unused-state`
-- [ ] `dom/no-missing-button-type`
-- [ ] `dom/no-missing-iframe-sandbox`
+- [x] `dom/no-missing-button-type`
+- [x] `dom/no-missing-iframe-sandbox`
 - [ ] `dom/no-unsafe-iframe-sandbox`
-- [ ] `dom/no-unsafe-target-blank`
+- [x] `dom/no-unsafe-target-blank`
 
 ### New Rules
 

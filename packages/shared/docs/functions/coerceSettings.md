@@ -144,34 +144,6 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-### ~~jsxPragma?~~
-
-> `optional` **jsxPragma**: `string`
-
-The identifier that's used for JSX Element creation.
-
-#### Default
-
-`"createElement"`
-
-#### Deprecated
-
-### ~~jsxPragmaFrag?~~
-
-> `optional` **jsxPragmaFrag**: `string`
-
-The identifier that's used for JSX fragment elements.
-
-#### Description
-
-This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
-
-#### Default
-
-`"Fragment"`
-
-#### Deprecated
-
 ### polymorphicPropName?
 
 > `optional` **polymorphicPropName**: `string`

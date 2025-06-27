@@ -34,6 +34,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+// TODO: Rewrite the rule to use type checking
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {

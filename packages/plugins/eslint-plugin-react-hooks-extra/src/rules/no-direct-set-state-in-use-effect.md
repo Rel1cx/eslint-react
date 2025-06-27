@@ -14,6 +14,10 @@ react-hooks-extra/no-direct-set-state-in-use-effect
 @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
 ```
 
+**Features**
+
+`🧪`
+
 **Presets**
 
 - `recommended`

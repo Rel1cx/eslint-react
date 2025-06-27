@@ -1,9 +1,6 @@
-import module from "node:module";
-
 import { identity } from "@eslint-react/eff";
 import { match, P } from "ts-pattern";
-
-const _require = module.createRequire(import.meta.url);
+import { _require } from "./_require";
 
 export function getReactVersion(fallback: string): string {
   try {

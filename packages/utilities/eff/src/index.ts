@@ -1,3 +1,51 @@
+// #region Licenses
+
+// MIT License
+
+// Copyright(c) 2023 Effectful Technologies Inc
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files(the "Software"), to deal
+//     in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+// MIT License
+
+// Copyright(c) 2023 Rel1cx
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files(the "Software"), to deal
+//     in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+// region Directives
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -10,11 +58,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/unified-signatures */
+/* eslint-disable jsdoc/check-param-names */
+/* eslint-disable jsdoc/require-param-description */
 /* eslint-disable local/no-shadow-underscore */
 /* eslint-disable local/prefer-eqeq-nullish-comparison */
 /* eslint-disable prefer-rest-params */
 
-// #region Helper
+// #endregion
+
+// #region Helpers
 
 /**
  * alias for `undefined`
@@ -508,6 +560,7 @@ export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
  * ```
  *
  * @param a - The value to pipe.
+ * @param args
  * @since 1.0.0
  */
 export function pipe<A>(a: A): A;
@@ -968,6 +1021,14 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
  * See also [`pipe`](#pipe).
  *
  * @param ab - The first function to apply.
+ * @param bc
+ * @param cd
+ * @param de
+ * @param ef
+ * @param fg
+ * @param gh
+ * @param hi
+ * @param ij
  * @example
  * ```ts
  * import * as assert from "node:assert"

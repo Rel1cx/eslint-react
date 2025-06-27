@@ -3,11 +3,12 @@ import type { ReactNode } from "react";
 
 import { RootProvider } from "fumadocs-ui/provider";
 import { ViewTransitions } from "next-view-transitions";
+
 import { IBM_Plex_Mono } from "next/font/google";
 import { baseUrl } from "../lib/metadata";
-import "./base.css";
 
-import "./overrides.css";
+import "./app.css";
+import "./app.override.css";
 
 const ibm_plex_mono = IBM_Plex_Mono({
   subsets: ["latin"],

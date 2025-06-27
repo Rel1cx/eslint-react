@@ -140,34 +140,6 @@ This allows to specify a custom import location for React when not using the off
 `"@pika/react"`
 ```
 
-#### jsxPragma?
-
-`string` = `...`
-
-The identifier that's used for JSX Element creation.
-
-**Default**
-
-`"createElement"`
-
-**Deprecated**
-
-#### jsxPragmaFrag?
-
-`string` = `...`
-
-The identifier that's used for JSX fragment elements.
-
-**Description**
-
-This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
-
-**Default**
-
-`"Fragment"`
-
-**Deprecated**
-
 #### polymorphicPropName?
 
 `string` = `"as"`
@@ -202,6 +174,8 @@ If `importSource` is specified, an equivalent version of React should be provide
 `"detect"`
 
 ## Returns
+
+`object`
 
 ### additionalHooks
 
@@ -290,34 +264,6 @@ If `importSource` is specified, an equivalent version of React should be provide
 ### importSource
 
 > **importSource**: `string`
-
-### ~~jsxPragma?~~
-
-> `readonly` `optional` **jsxPragma**: `string`
-
-The identifier that's used for JSX Element creation.
-
-#### Default
-
-`"createElement"`
-
-#### Deprecated
-
-### ~~jsxPragmaFrag?~~
-
-> `readonly` `optional` **jsxPragmaFrag**: `string`
-
-The identifier that's used for JSX fragment elements.
-
-#### Description
-
-This should not be a member expression (i.e. use "Fragment" instead of "React.Fragment").
-
-#### Default
-
-`"Fragment"`
-
-#### Deprecated
 
 ### polymorphicPropName
 

@@ -35,6 +35,8 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`jsx-no-duplicate-props`](./jsx-no-duplicate-props)                                 | 1️⃣  |           | Disallow duplicate props in JSX elements                                                            |          |
 | [`jsx-no-iife`](./jsx-no-iife)                                                       | 0️⃣  |   `🧪`    | Disallows `IIFE` in JSX elements                                                                     |          |
 | [`jsx-no-undef`](./jsx-no-undef)                                                     | 0️⃣  |           | Disallow undefined variables in JSX elements                                                        |          |
+| [`jsx-shorthand-boolean`](./jsx-shorthand-boolean)                                   | 0️⃣  | `🔧` `⚙️` | Enforces the use of shorthand syntax for boolean attributes                                          |          |
+| [`jsx-shorthand-fragment`](./jsx-shorthand-fragment)                                 | 0️⃣  | `🔧` `⚙️` | Enforces the use of shorthand syntax for fragments                                                  |          |
 | [`jsx-uses-react`](./jsx-uses-react)                                                 | 1️⃣  |           | Marks React variables as used when JSX is used                                                      |          |
 | [`jsx-uses-vars`](./jsx-uses-vars)                                                   | 1️⃣  |           | Marks variables used in JSX elements as used                                                        |          |
 | [`no-access-state-in-setstate`](./no-access-state-in-setstate)                       | 2️⃣  |           | Disallow accessing `this.state` inside `setState` calls                                             |          |
@@ -72,6 +74,9 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update)     | 1️⃣  |           | Disallow calling `this.setState` in `componentDidUpdate` outside of functions, such as callbacks    |          |
 | [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update)   | 1️⃣  |           | Disallow calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks   |          |
 | [`no-string-refs`](./no-string-refs)                                                 | 2️⃣  |   `🔄`    | Replaces string refs with callback refs                                                             | >=16.3.0 |
+| [`no-unnecessary-use-callback`](./no-unnecessary-use-callback)                       | 0️⃣  |   `🧪`     | Disallow unnecessary usage of `useCallback`                                                         |          |
+| [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)                               | 0️⃣  |   `🧪`     | Disallow unnecessary usage of `useMemo`                                                             |          |
+| [`no-unnecessary-use-prefix`](./no-unnecessary-use-prefix)                           | 0️⃣  |            | Enforces that a function with the `use` prefix should use at least one Hook inside of it            |          |
 | [`no-unsafe-component-will-mount`](./no-unsafe-component-will-mount)                 | 1️⃣  |           | Warns the usage of `UNSAFE_componentWillMount` in class components                                  |          |
 | [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props) | 1️⃣  |           | Warns the usage of `UNSAFE_componentWillReceiveProps` in class components                           |          |
 | [`no-unsafe-component-will-update`](./no-unsafe-component-will-update)               | 1️⃣  |           | Warns the usage of `UNSAFE_componentWillUpdate` in class components                                 |          |
@@ -85,10 +90,7 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`prefer-destructuring-assignment`](./prefer-destructuring-assignment)               | 0️⃣  |           | Enforces destructuring assignment for component props and context                                   |          |
 | [`prefer-react-namespace-import`](./prefer-react-namespace-import)                   | 0️⃣  |   `🔧`    | Enforces React is imported via a namespace import                                                   |          |
 | [`prefer-read-only-props`](./prefer-read-only-props)                                 | 0️⃣  |   `💭`    | Enforces read-only props in components                                                              |          |
-| [`prefer-shorthand-boolean`](./prefer-shorthand-boolean)                             | 0️⃣  |   `🔧`    | Enforces shorthand syntax for boolean attributes                                                    |          |
-| [`prefer-shorthand-fragment`](./prefer-shorthand-fragment)                           | 0️⃣  |   `🔧`    | Enforces shorthand syntax for fragments                                                             |          |
-| [`avoid-shorthand-boolean`](./avoid-shorthand-boolean)                               | 0️⃣  |   `🔧`    | Enforces explicit boolean values for boolean attributes                                             |          |
-| [`avoid-shorthand-fragment`](./avoid-shorthand-fragment)                             | 0️⃣  |           | Enforces explicit `<Fragment>` components instead of the shorthand `<>` or `</>` syntax             |          |
+| [`prefer-use-state-lazy-initialization`](./prefer-use-state-lazy-initialization)     | 1️⃣  |           | Enforces function calls made inside `useState` to be wrapped in an `initializer function`           |          |
 
 ## DOM Rules
 
@@ -99,15 +101,15 @@ The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent fro
 | [`no-find-dom-node`](./dom-no-find-dom-node)                                                     | 2️⃣  |           | Disallow `findDOMNode`                                                               |             |
 | [`no-flush-sync`](./dom-no-flush-sync)                                                           | 2️⃣  |           | Disallow `flushSync`                                                                 |             |
 | [`no-hydrate`](./dom-no-hydrate)                                                                 | 2️⃣  |   `🔄`    | Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()`                         |  >=18.0.0   |
-| [`no-missing-button-type`](./dom-no-missing-button-type)                                         | 1️⃣  |           | Enforces explicit `type` attribute for `button` elements                             |             |
-| [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)                                   | 1️⃣  |           | Enforces explicit `sandbox` attribute for `iframe` elements                          |             |
+| [`no-missing-button-type`](./dom-no-missing-button-type)                                         | 1️⃣  |   `🔧`    | Enforces explicit `type` attribute for `button` elements                             |             |
+| [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)                                   | 1️⃣  |   `🔧`    | Enforces explicit `sandbox` attribute for `iframe` elements                          |             |
 | [`no-namespace`](./dom-no-namespace)                                                             | 2️⃣  |           | Enforces the absence of a `namespace` in React elements                              |             |
 | [`no-render`](./dom-no-render)                                                                   | 2️⃣  |   `🔄`    | Replaces usages of `ReactDom.render()` with `createRoot(node).render()`              |  >=18.0.0   |
 | [`no-render-return-value`](./dom-no-render-return-value)                                         | 2️⃣  |           | Disallow the return value of `ReactDOM.render`                                       |             |
 | [`no-script-url`](./dom-no-script-url)                                                           | 1️⃣  |           | Disallow `javascript:` URLs as attribute values                                      |             |
 | [`no-unknown-property`](./dom-no-unknown-property)                                               | 0️⃣  | `🔧` `⚙️` | Disallow unknown `DOM` property                                                      |             |
 | [`no-unsafe-iframe-sandbox`](./dom-no-unsafe-iframe-sandbox)                                     | 1️⃣  |           | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations |             |
-| [`no-unsafe-target-blank`](./dom-no-unsafe-target-blank)                                         | 1️⃣  |           | Disallow `target="_blank"` without `rel="noreferrer noopener"`                       |             |
+| [`no-unsafe-target-blank`](./dom-no-unsafe-target-blank)                                         | 1️⃣  |   `🔧`    | Disallow `target="_blank"` without `rel="noreferrer noopener"`                       |             |
 | [`no-use-form-state`](./dom-no-use-form-state)                                                   | 2️⃣  |   `🔄`    | Replaces usages of `useFormState` with `useActionState`                              |  >=19.0.0   |
 | [`no-void-elements-with-children`](./dom-no-void-elements-with-children)                         | 2️⃣  |           | Disallow `children` in void DOM elements                                             |             |
 
@@ -132,10 +134,6 @@ This section contains rules that are not part of the official `eslint-plugin-rea
 | :--------------------------------------------------------------------------------------------------- | :-- | :--: | :---------------------------------------------------------------------------------------- |
 | [`no-direct-set-state-in-use-effect`](./hooks-extra-no-direct-set-state-in-use-effect)               | 1️⃣  |     | Disallow direct calls to the `set` function of `useState` in `useEffect`                  |
 | [`no-direct-set-state-in-use-layout-effect`](./hooks-extra-no-direct-set-state-in-use-layout-effect) | 0️⃣  | `🧪` | Disallow direct calls to the `set` function of `useState` in `useLayoutEffect`            |
-| [`no-unnecessary-use-callback`](./hooks-extra-no-unnecessary-use-callback)                           | 0️⃣  | `🧪` | Disallow unnecessary usage of `useCallback`                                               |
-| [`no-unnecessary-use-memo`](./hooks-extra-no-unnecessary-use-memo)                                   | 0️⃣  | `🧪` | Disallow unnecessary usage of `useMemo`                                                   |
-| [`no-unnecessary-use-prefix`](./hooks-extra-no-unnecessary-use-prefix)                               | 1️⃣  |      | Enforces that a function with the `use` prefix should use at least one hook inside of it  |
-| [`prefer-use-state-lazy-initialization`](./hooks-extra-prefer-use-state-lazy-initialization)         | 1️⃣  |      | Enforces function calls made inside `useState` to be wrapped in an `initializer function` |
 
 ## Naming Convention Rules
 
