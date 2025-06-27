@@ -22,6 +22,7 @@
   - [TypeScript Specialized](#typescript-specialized)
   - [Other](#other)
 - [Rules](#rules)
+- [Benchmark](#benchmark)
 - [FAQ](#faq)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
@@ -31,7 +32,7 @@
 
 - **Modern**: First-class support for TypeScript, React 19, and more.
 - **Flexible**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
-- **Performant**: Built with performance in mind, optimized for large codebases, **4-7x faster** than other ESLint plugins.
+- **Performant**: Built with performance in mind, optimized for large codebases, [**4-7x faster**](https://github.com/Rel1cx/eslint-react-benchmark) than other ESLint plugins.
 - **Context-aware Linting**: Rules that understand the context of your code and project configuration to provide more accurate linting.
 
 ## Public Packages
@@ -149,6 +150,10 @@ export default tseslint.config({
 ## Rules
 
 [Rules Overview ↗](https://eslint-react.xyz/docs/rules/overview)
+
+## Benchmark
+
+[Benchmark Results ↗](https://github.com/Rel1cx/eslint-react-benchmark)
 
 ## FAQ
 
