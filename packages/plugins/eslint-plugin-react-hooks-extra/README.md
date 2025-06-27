@@ -35,8 +35,6 @@ export default tseslint.config({
   },
   rules: {
     // Put rules you want to override here
-    "react-hooks-extra/no-unnecessary-use-prefix": "warn",
-    "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
   },
 });
 ```
