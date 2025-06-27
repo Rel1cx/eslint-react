@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
           },
           rule: {
             name: "no-unnecessary-use-memo",
-            url: "https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-memo",
+            url: "https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo",
           },
         },
         {
@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
           },
           rule: {
             name: "no-unnecessary-use-memo",
-            url: "https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-memo",
+            url: "https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo",
           },
         },
       ],

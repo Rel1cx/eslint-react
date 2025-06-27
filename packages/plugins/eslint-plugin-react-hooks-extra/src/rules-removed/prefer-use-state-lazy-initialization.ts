@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
           },
           rule: {
             name: "prefer-use-state-lazy-initialization",
-            url: "https://next.eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization",
+            url: "https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization",
           },
         },
         {
@@ -49,7 +49,7 @@ export default createRule<[], MessageID>({
           },
           rule: {
             name: "prefer-use-state-lazy-initialization",
-            url: "https://next.eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization",
+            url: "https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization",
           },
         },
       ],

@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
           },
           rule: {
             name: "no-unnecessary-use-prefix",
-            url: "https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix",
+            url: "https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix",
           },
         },
         {
@@ -48,7 +48,7 @@ export default createRule<[], MessageID>({
           },
           rule: {
             name: "no-unnecessary-use-prefix",
-            url: "https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix",
+            url: "https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix",
           },
         },
       ],

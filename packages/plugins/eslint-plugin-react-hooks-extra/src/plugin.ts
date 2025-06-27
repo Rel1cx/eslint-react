@@ -21,22 +21,22 @@ export const plugin = {
 
     /**
      * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
-     * @see https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-callback
+     * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback
      */
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     /**
      * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
-     * @see https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-memo
+     * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo
      */
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     /**
      * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
-     * @see https://next.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix
+     * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix
      */
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
     /**
      * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
-     * @see https://next.eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization
+     * @see https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization
      */
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
   },
