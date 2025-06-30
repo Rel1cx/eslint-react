@@ -1,6 +1,7 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
   { owner: "ant-design", repo: "ant-design" },
+  { owner: "clientIO", repo: "joint" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
