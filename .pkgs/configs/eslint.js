@@ -13,6 +13,7 @@ const templateIndentTags = [
     "ts",
     "tsx",
     "html",
+    "glsl",
     "dedent",
     "outdent",
 ];
@@ -108,7 +109,7 @@ export const typescript = tseslint.config({
         "function/function-return-boolean": ["error", { pattern: "/^(is|has|can|should)/" }],
         "@stylistic/arrow-parens": ["warn", "always"],
         "@stylistic/no-multi-spaces": ["warn"],
-        "@stylistic/operator-linebreak": ["warn", "before"],
+        "@stylistic/operator-linebreak": "off",
         "@stylistic/quote-props": ["error", "as-needed"],
         "perfectionist/sort-exports": ["warn", { type: "natural", order: "asc" }],
         "perfectionist/sort-imports": ["warn", {

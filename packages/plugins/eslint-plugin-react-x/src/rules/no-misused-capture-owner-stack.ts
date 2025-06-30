@@ -72,8 +72,5 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function isDevelopmentOnlyCheck(node: TSESTree.Node) {
   if (node.type !== T.IfStatement) return false;
   if (AST.isProcessEnvNodeEnvCompare(node.test, "!==", "production")) return true;
-  // if (AST.isProcessEnvNodeEnvCompare(node.test, "===", "development")) return true;
-  // if (AST.isProcessEnvNodeEnvCompare(node.test, "!=", "production")) return true;
-  // if (AST.isProcessEnvNodeEnvCompare(node.test, "==", "development")) return true;
   return false;
 }
