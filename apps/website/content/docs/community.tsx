@@ -1,6 +1,7 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
   { owner: "ant-design", repo: "ant-design" },
+  { owner: "clientIO", repo: "joint" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
@@ -9,6 +10,7 @@ export const projects = [
   { owner: "hashintel", repo: "hash" },
   { owner: "kriasoft", repo: "graphql-starter-kit" },
   { owner: "kriasoft", repo: "react-starter-kit" },
+  { owner: "letstri", repo: "permix" },
   { owner: "mgilangjanuar", repo: "buntal" },
   { owner: "npmgraph", repo: "npmgraph" },
   { owner: "offlegacy", repo: "event-tracker" },
