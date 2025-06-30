@@ -22,7 +22,7 @@ react-hooks-extra/no-unnecessary-use-prefix
 
 ## Description
 
-Enforces that a function with the 'use' prefix should use at least one Hook inside of it.
+Enforces that a function with the `use` prefix should use at least one Hook inside of it.
 
 If your function doesn’t call any Hooks, avoid the `use` prefix. Instead, write it as a regular function without the `use` prefix. For example, `useSorted` below doesn’t call Hooks, so call it `getSorted` instead:
 
