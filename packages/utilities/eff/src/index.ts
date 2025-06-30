@@ -10,6 +10,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/unified-signatures */
+/* eslint-disable jsdoc/require-param */
 /* eslint-disable local/no-shadow-underscore */
 /* eslint-disable local/prefer-eqeq-nullish-comparison */
 /* eslint-disable prefer-rest-params */
