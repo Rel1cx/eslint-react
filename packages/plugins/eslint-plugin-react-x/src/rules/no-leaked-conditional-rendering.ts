@@ -111,24 +111,19 @@ function inspectVariantTypes(types: ts.Type[]) {
     variantTypes.add("nullish");
   }
   const booleans = types.filter(tsHelpers.isBooleanType);
+  const boolean0 = booleans[0];
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  switch (true) {
-    case booleans.length === 1 && booleans[0] != null: {
-      const first = booleans[0];
-      if (isTrueLiteralType(first)) {
-        variantTypes.add("truthy boolean");
-      } else if (isFalseLiteralType(first)) {
-        variantTypes.add("falsy boolean");
-      }
-      break;
+  if (booleans.length === 1 && boolean0 != null) {
+    if (isFalseLiteralType(boolean0)) {
+      variantTypes.add("falsy boolean");
+    } else if (isTrueLiteralType(boolean0)) {
+      variantTypes.add("truthy boolean");
     }
-    case booleans.length === 2: {
-      variantTypes.add("boolean");
-      break;
-    }
+  } else if (booleans.length === 2) {
+    variantTypes.add("boolean");
   }
   const strings = types.filter(tsHelpers.isStringType);
   if (strings.length > 0) {
