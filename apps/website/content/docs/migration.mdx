@@ -18,9 +18,21 @@ ESLint React is designed as a modern replacement for `eslint-plugin-react` with 
 
 ## Rule Comparison Table
 
-The following table compares all rules from `eslint-plugin-react` with their ESLint React equivalents:
+### Legend
 
-| Rule Name | ESLint React | Prev Status | Status |
+- 🔧 **Fully supported** - Rule is supported, and has an auto-fix
+- ✅ **Mostly supported** - Rule is supported but doesn't have an auto-fix
+- 🟡 **Partial support** - Similar but not identical functionality
+- ❌ **Not supported** - No equivalent rule
+- ➡️ **External plugin** - Rule is available in another ESLint plugin
+- 🚫 **Deprecated** - Rule is not applicable in modern React development (e.g. class-based components)
+- ⚠️ **Warning** - Rule has been deprecated in `eslint-plugin-react`
+
+### Table
+
+The following table compares all rules from `eslint-plugin-react` with their ESLint React (or external) equivalents:
+
+| `eslint-plugin-react` Rule Name | New Rule Name | Prev Status | Status |
 |-----------|:------------------------:|:---------------------------:|--------|
 | [`boolean-prop-naming`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md) |  | ✅ | ❌ |
 | [`button-has-type`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md) | [`dom-no-missing-button-type`](/docs/rules/dom-no-missing-button-type) | ✅ | 🔧 |
@@ -32,29 +44,29 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`forbid-dom-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-dom-props.md) |  | ✅ | ❌ |
 | [`forbid-elements`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md) |  | ✅ | ❌ |
 | [`forbid-foreign-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md) |  | ✅ | 🚫 |
-| [`forbid-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) | [`no-prop-types`](/docs/rules/no-prop-types) | ✅ | 🟡 |
+| [`forbid-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) | [`no-prop-types`](/docs/rules/no-prop-types) | ✅ | 🚫 |
 | [`forward-ref-uses-ref`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forward-ref-uses-ref.md) | [`no-useless-forward-ref`](/docs/rules/no-useless-forward-ref) | ✅ | 🟡 |
 | [`function-component-definition`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md) |  | 🔧 | ❌ |
 | [`hook-use-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/hook-use-state.md) | [`naming-convention-use-state`](/docs/rules/naming-convention-use-state) | ✅ | ✅ |
 | [`iframe-missing-sandbox`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/iframe-missing-sandbox.md) | [`dom-no-missing-iframe-sandbox`](/docs/rules/dom-no-missing-iframe-sandbox) | ✅ | 🔧 |
 | [`jsx-boolean-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md) | [`jsx-shorthand-boolean`](/docs/rules/jsx-shorthand-boolean) / [`avoid-shorthand-boolean`](/docs/rules/avoid-shorthand-boolean) | 🔧 | ✅ |
-| [`jsx-child-element-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-child-element-spacing.md) |  | ✅ | ❌ |
-| [`jsx-closing-bracket-location`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) |  | 🔧 | ❌ |
-| [`jsx-closing-tag-location`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md) |  | 🔧 | ❌ |
-| [`jsx-curly-brace-presence`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md) |  | 🔧 | ❌ |
-| [`jsx-curly-newline`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-newline.md) |  | 🔧 | ❌ |
-| [`jsx-curly-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md) |  | 🔧 | ❌ |
-| [`jsx-equals-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md) |  | 🔧 | ❌ |
+| [`jsx-child-element-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-child-element-spacing.md) | [`@stylistic/jsx-child-element-spacing`](https://eslint.style/rules/jsx-child-element-spacing) | ✅ | ➡️ |
+| [`jsx-closing-bracket-location`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) | [`@stylistic/jsx-closing-bracket-location`](https://eslint.style/rules/jsx-closing-bracket-location) | 🔧 | ➡️ |
+| [`jsx-closing-tag-location`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md) | [`@stylistic/jsx-closing-tag-location`](https://eslint.style/rules/jsx-closing-tag-location) | 🔧 | ➡️ |
+| [`jsx-curly-brace-presence`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md) | [`@stylistic/jsx-curly-brace-presence`](https://eslint.style/rules/jsx-curly-brace-presence) | 🔧 | ➡️ |
+| [`jsx-curly-newline`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-newline.md) | [`@stylistic/jsx-curly-newline`](https://eslint.style/rules/jsx-curly-newline) | 🔧 | ➡️ |
+| [`jsx-curly-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md) | [`@stylistic/jsx-curly-spacing`](https://eslint.style/rules/jsx-curly-spacing) | 🔧 | ➡️ |
+| [`jsx-equals-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md) | [`@stylistic/jsx-equals-spacing`](https://eslint.style/rules/jsx-equals-spacing) | 🔧 | ➡️ |
 | [`jsx-filename-extension`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md) | [`naming-convention-filename-extension`](/docs/rules/naming-convention-filename-extension) | ✅ | ✅ |
-| [`jsx-first-prop-new-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md) |  | 🔧 | ❌ |
+| [`jsx-first-prop-new-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md) | [`@stylistic/jsx-first-prop-new-line`](https://eslint.style/rules/jsx-first-prop-new-line) | 🔧 | ➡️ |
 | [`jsx-fragments`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-fragments.md) | [`jsx-shorthand-fragment`](/docs/rules/jsx-shorthand-fragment) / [`avoid-shorthand-fragment`](/docs/rules/avoid-shorthand-fragment) | 🔧 | ✅ |
 | [`jsx-handler-names`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-handler-names.md) |  | ✅ | ❌ |
-| [`jsx-indent`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md) |  | 🔧 | ❌ |
-| [`jsx-indent-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md) |  | 🔧 | ❌ |
+| [`jsx-indent`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md) | [`@stylistic/jsx-indent`](https://eslint.style/rules/jsx-indent) | 🔧 | ➡️ |
+| [`jsx-indent-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md) | [`@stylistic/jsx-indent-props`](https://eslint.style/rules/jsx-indent-props) | 🔧 | ➡️ |
 | [`jsx-key`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md) | [`no-missing-key`](/docs/rules/no-missing-key) | ✅ | ✅ |
 | [`jsx-max-depth`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-max-depth.md) |  | ✅ | ❌ |
-| [`jsx-max-props-per-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md) |  | 🔧 | ❌ |
-| [`jsx-newline`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-newline.md) |  | 🔧 | ❌ |
+| [`jsx-max-props-per-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md) | [`@stylistic/jsx-max-props-per-line`](https://eslint.style/rules/jsx-max-props-per-line) | 🔧 | ➡️ |
+| [`jsx-newline`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-newline.md) | [`@stylistic/jsx-newline`](https://eslint.style/rules/jsx-newline) | 🔧 | ➡️ |
 | [`jsx-no-bind`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md) |  | ✅ | ❌ |
 | [`jsx-no-comment-textnodes`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md) | [`jsx-no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes) / [`no-comment-textnodes`](/docs/rules/no-comment-textnodes) | ✅ | ✅ |
 | [`jsx-no-constructed-context-values`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md) | [`no-unstable-context-value`](/docs/rules/no-unstable-context-value) | ✅ | ✅ |
@@ -65,32 +77,32 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`jsx-no-target-blank`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md) | [`dom-no-unsafe-target-blank`](/docs/rules/dom-no-unsafe-target-blank) | 🔧 | ✅ |
 | [`jsx-no-undef`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-undef.md) | [`jsx-no-undef`](/docs/rules/jsx-no-undef) | ✅ | ✅ |
 | [`jsx-no-useless-fragment`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md) | [`no-useless-fragment`](/docs/rules/no-useless-fragment) | 🔧 | ✅ |
-| [`jsx-one-expression-per-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-one-expression-per-line.md) |  | 🔧 | ❌ |
+| [`jsx-one-expression-per-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-one-expression-per-line.md) | [`@stylistic/jsx-one-expression-per-line`](https://eslint.style/rules/jsx-one-expression-per-line) | 🔧 | ➡️ |
 | [`jsx-pascal-case`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md) | [`naming-convention-component-name`](/docs/rules/naming-convention-component-name) | ✅ | ✅ |
-| [`jsx-props-no-multi-spaces`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-multi-spaces.md) |  | 🔧 | ❌ |
+| [`jsx-props-no-multi-spaces`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-multi-spaces.md) | [`@stylistic/jsx-props-no-multi-spaces`](https://eslint.style/rules/jsx-props-no-multi-spaces) | 🔧 | ➡️ |
 | [`jsx-props-no-spread-multi`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spread-multi.md) |  | ✅ | ❌ |
 | [`jsx-props-no-spreading`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spreading.md) |  | ✅ | ❌ |
-| [`jsx-sort-default-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-default-props.md) |  | ✅ | ⚠️ |
-| [`jsx-sort-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md) |  | 🔧 | ❌ |
-| [`jsx-space-before-closing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md) |  | 🔧 | ⚠️ |
-| [`jsx-tag-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md) |  | 🔧 | ❌ |
+| [`jsx-sort-default-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-default-props.md) |  | ⚠️ |  |
+| [`jsx-sort-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md) | [`@stylistic/jsx-sort-props`](https://eslint.style/rules/jsx-sort-props) | 🔧 | ➡️ |
+| [`jsx-space-before-closing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md) |  | ⚠️ |  |
+| [`jsx-tag-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md) | [`@stylistic/jsx-tag-spacing`](https://eslint.style/rules/jsx-tag-spacing) | 🔧 | ➡️ |
 | [`jsx-uses-react`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-uses-react.md) | [`jsx-uses-react`](/docs/rules/jsx-uses-react) | ✅ | ✅ |
 | [`jsx-uses-vars`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md) | [`jsx-uses-vars`](/docs/rules/jsx-uses-vars) | ✅ | ✅ |
-| [`jsx-wrap-multilines`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md) |  | 🔧 | ❌ |
+| [`jsx-wrap-multilines`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md) | [`@stylistic/jsx-wrap-multilines`](https://eslint.style/rules/jsx-wrap-multilines) | 🔧 | ➡️ |
 | [`no-access-state-in-setstate`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md) | [`no-access-state-in-setstate`](/docs/rules/no-access-state-in-setstate) | ✅ | ✅ |
 | [`no-adjacent-inline-elements`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-adjacent-inline-elements.md) |  | ✅ | ❌ |
 | [`no-array-index-key`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md) | [`no-array-index-key`](/docs/rules/no-array-index-key) | ✅ | ✅ |
-| [`no-arrow-function-lifecycle`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-arrow-function-lifecycle.md) |  | 🔧 | ❌ |
+| [`no-arrow-function-lifecycle`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-arrow-function-lifecycle.md) |  | 🔧 | 🚫 |
 | [`no-children-prop`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md) | [`no-children-prop`](/docs/rules/no-children-prop) | ✅ | ✅ |
 | [`no-danger`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md) | [`dom-no-dangerously-set-innerhtml`](/docs/rules/dom-no-dangerously-set-innerhtml) | ✅ | ✅ |
 | [`no-danger-with-children`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md) | [`dom-no-dangerously-set-innerhtml-with-children`](/docs/rules/dom-no-dangerously-set-innerhtml-with-children) | ✅ | ✅ |
-| [`no-deprecated`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-deprecated.md) |  | ✅ | ❌ |
+| [`no-deprecated`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-deprecated.md) | [`no-component-will-mount`](/docs/rules/no-component-will-mount) + [`no-component-will-receive-props`](/docs/rules/no-component-will-receive-props) + [`no-component-will-update`](/docs/rules/no-component-will-update) + [`no-create-ref`](/docs/rules/no-create-ref) + [`no-forward-ref`](/docs/rules/no-forward-ref) | ✅ | 🟡 |
 | [`no-did-mount-set-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-did-mount-set-state.md) | [`no-set-state-in-component-did-mount`](/docs/rules/no-set-state-in-component-did-mount) | ✅ | ✅ |
 | [`no-did-update-set-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md) | [`no-set-state-in-component-did-update`](/docs/rules/no-set-state-in-component-did-update) | ✅ | ✅ |
 | [`no-direct-mutation-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md) | [`no-direct-mutation-state`](/docs/rules/no-direct-mutation-state) | ✅ | ✅ |
 | [`no-find-dom-node`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md) | [`dom-no-find-dom-node`](/docs/rules/dom-no-find-dom-node) | ✅ | ✅ |
 | [`no-invalid-html-attribute`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-invalid-html-attribute.md) |  | ✅ | ❌ |
-| [`no-is-mounted`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md) |  | ✅ | ❌ |
+| [`no-is-mounted`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md) |  | ✅ | 🚫 |
 | [`no-multi-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md) |  | ✅ | ❌ |
 | [`no-namespace`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-namespace.md) | [`dom-no-namespace`](/docs/rules/dom-no-namespace) | ✅ | ✅ |
 | [`no-object-type-as-default-prop`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-object-type-as-default-prop.md) | [`no-unstable-default-props`](/docs/rules/no-unstable-default-props) | ✅ | ✅ |
@@ -108,37 +120,23 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`no-unused-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md) |  | ✅ | 🚫 |
 | [`no-unused-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unused-state.md) | [`no-unused-state`](/docs/rules/no-unused-state) | ✅ | ✅ |
 | [`no-will-update-set-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-will-update-set-state.md) | [`no-set-state-in-component-will-update`](/docs/rules/no-set-state-in-component-will-update) | ✅ | ✅ |
-| [`prefer-es6-class`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md) |  | ✅ | ❌ |
-| [`prefer-exact-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-exact-props.md) |  | ✅ | ❌ |
-| [`prefer-read-only-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-read-only-props.md) | [`prefer-read-only-props`](/docs/rules/prefer-read-only-props) | 🔧 | 🟡 |
-| [`prefer-stateless-function`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md) |  | ✅ | ❌ |
+| [`prefer-es6-class`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md) |  | ✅ | 🚫 |
+| [`prefer-exact-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-exact-props.md) |  | ✅ | 🚫 |
+| [`prefer-read-only-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-read-only-props.md) | [`prefer-read-only-props`](/docs/rules/prefer-read-only-props) | 🔧 | 🚫 |
+| [`prefer-stateless-function`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md) |  | ✅ | 🚫 |
 | [`prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prop-types.md) | [`no-prop-types`](/docs/rules/no-prop-types) | ✅ | 🟡 |
 | [`react-in-jsx-scope`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md) |  | ✅ | 🚫 |
 | [`require-default-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-default-props.md) |  | ✅ | 🚫 |
-| [`require-optimization`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-optimization.md) |  | ✅ | ❌ |
-| [`require-render-return`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-render-return.md) |  | ✅ | ❌ |
-| [`self-closing-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md) |  | 🔧 | ❌ |
-| [`sort-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/sort-comp.md) |  | ✅ | ❌ |
-| [`sort-default-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/sort-default-props.md) |  | ✅ | ❌ |
-| [`sort-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/sort-prop-types.md) |  | 🔧 | ❌ |
-| [`state-in-constructor`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/state-in-constructor.md) |  | ✅ | ❌ |
-| [`static-property-placement`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/static-property-placement.md) |  | ✅ | ❌ |
+| [`require-optimization`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-optimization.md) |  | ✅ | 🚫 |
+| [`require-render-return`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-render-return.md) |  | ✅ | 🚫 |
+| [`self-closing-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md) | [`@stylistic/jsx-self-closing-comp`](https://eslint.style/rules/jsx-self-closing-comp) | 🔧 | ➡️ |
+| [`sort-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/sort-comp.md) |  | ✅ | 🚫 |
+| [`sort-default-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/sort-default-props.md) |  | ✅ | 🚫 |
+| [`sort-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/sort-prop-types.md) |  | 🔧 | 🚫 |
+| [`state-in-constructor`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/state-in-constructor.md) |  | ✅ | 🚫 |
+| [`static-property-placement`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/static-property-placement.md) |  | ✅ | 🚫 |
 | [`style-prop-object`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/style-prop-object.md) |  | ✅ | ❌ |
 | [`void-dom-elements-no-children`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) | [`dom-no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children) | ✅ | ✅ |
-
-
-## Legend
-
-### Status Column
-- ✅ **Fully supported** - Rule has a direct equivalent in ESLint React
-- 🟡 **Partial support** - ESLint React provides similar but not identical functionality
-- ❌ **Not supported** - No equivalent rule available in ESLint React
-- 🚫 **Deprecated** - Rule is not applicable in modern React development
-- ⚠️ **Warning** - Rule has been deprecated in eslint-plugin-react
-
-### Prev Status Column
-- ✅ **Standard rule** - Original rule provided linting without auto-fix
-- 🔧 **Fixable rule** - Original rule supported automatic fixes
 
 ### ESLint React Column
 - Rule names link to ESLint React documentation
