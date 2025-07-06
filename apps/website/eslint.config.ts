@@ -55,6 +55,7 @@ export default tseslint.config(
     rules: {
       "no-restricted-syntax": "off",
       "fast-import/no-unused-exports": "off",
+      "fast-import/no-unresolved-imports": "off",
     },
   },
   {
