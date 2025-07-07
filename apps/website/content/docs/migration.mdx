@@ -1,6 +1,7 @@
 ---
 title: "Migrating from eslint-plugin-react"
 description: "Complete guide for migrating from eslint-plugin-react to ESLint React"
+full: true
 ---
 
 import { Callout } from "fumadocs-ui/components/callout";
@@ -15,7 +16,6 @@ This guide provides a comprehensive comparison between [`eslint-plugin-react`](h
 
 ESLint React is designed as a modern replacement for `eslint-plugin-react` with improved performance, better TypeScript support, and more accurate rule implementations.
 However, not all rules have direct equivalents, and some behave differently.
-
 
 ## Rule Comparison Table
 
@@ -143,6 +143,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`void-dom-elements-no-children`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) | [`dom/no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children) | ✅ | ✅ |
 
 ### ESLint React Column
+
 - Rule names link to ESLint React documentation
 - Multiple rules separated by `/` indicate alternative approaches
 - Rules with `+` indicate multiple rules that together provide equivalent functionality
