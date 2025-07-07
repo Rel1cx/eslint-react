@@ -40,7 +40,7 @@ export default {
     ["debug"]: debugConfig,
     ["debug-legacy"]: toLegacyConfig(debugConfig),
     ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
-    ["disable-conflict-eslint-plugin-react-legacy"]:toLegacyConfig(disableConflictEslintPluginReact),
+    ["disable-conflict-eslint-plugin-react-legacy"]: toLegacyConfig(disableConflictEslintPluginReact),
     ["disable-debug"]: disableDebugConfig,
     ["disable-debug-legacy"]: toLegacyConfig(disableDebugConfig),
     ["disable-dom"]: disableDomConfig,
