@@ -9,6 +9,7 @@ import react from "eslint-plugin-react-x";
 import { name, version } from "../package.json";
 import * as allConfig from "./configs/all";
 import * as debugConfig from "./configs/debug";
+import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
 import * as disableDebugConfig from "./configs/disable-debug";
 import * as disableDomConfig from "./configs/disable-dom";
 import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
@@ -38,6 +39,8 @@ export default {
     ["all-legacy"]: toLegacyConfig(allConfig),
     ["debug"]: debugConfig,
     ["debug-legacy"]: toLegacyConfig(debugConfig),
+    ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
+    ["disable-conflict-eslint-plugin-react-legacy"]:toLegacyConfig(disableConflictEslintPluginReact),
     ["disable-debug"]: disableDebugConfig,
     ["disable-debug-legacy"]: toLegacyConfig(disableDebugConfig),
     ["disable-dom"]: disableDomConfig,
