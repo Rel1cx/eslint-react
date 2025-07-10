@@ -81,7 +81,6 @@
     }
   },
   "engines": {
-    "bun": ">=1.0.15",
     "node": ">=18.18.0"
   },
   "publishConfig": {
