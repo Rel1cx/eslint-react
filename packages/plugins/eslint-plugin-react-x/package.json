@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "2.0.0-beta.13",
+  "version": "2.0.0-beta.14",
   "description": "A set of composable ESLint rules for for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -79,7 +79,6 @@
     }
   },
   "engines": {
-    "bun": ">=1.0.15",
     "node": ">=20.19.0"
   },
   "publishConfig": {

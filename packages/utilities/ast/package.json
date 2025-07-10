@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "2.0.0-beta.13",
+  "version": "2.0.0-beta.14",
   "description": "ESLint React's TSESTree AST utility module.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -45,7 +45,6 @@
     "tsup": "^8.5.0"
   },
   "engines": {
-    "bun": ">=1.0.15",
     "node": ">=20.19.0"
   }
 }
