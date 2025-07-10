@@ -30,10 +30,10 @@
 
 ## Features
 
-- **Modern**: First-class support for TypeScript, React 19, and more.
-- **Flexible**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
+- **Modern**: First-class support for **TypeScript**, **React 19**, and more.
+- **Flexible**: Fully customizable rule severity levels, allowing you to **enforce** or **relax** rules as needed.
 - **Performant**: Built with performance in mind, optimized for large codebases, [**4-7x faster**](https://github.com/Rel1cx/eslint-react-benchmark) than other ESLint plugins.
-- **Context-aware Linting**: Rules that understand the context of your code and project configuration to provide more accurate linting.
+- **Context-aware Linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
 
 ## Public Packages
 
