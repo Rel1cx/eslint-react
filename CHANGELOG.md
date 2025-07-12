@@ -1,3 +1,11 @@
+## v1.52.3 (2025-07-13)
+
+### 🐞 Fixes
+
+- fix: remove `bun` engine requirement from `package.json` files, closes #1157 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1158
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.2...v1.52.3
+
 ## v1.52.2 (2025-06-12)
 
 ### 🐞 Fixes
