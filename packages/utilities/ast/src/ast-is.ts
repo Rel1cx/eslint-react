@@ -1,5 +1,4 @@
 import type { TSESTree } from "@typescript-eslint/types"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { or } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
 
@@ -31,32 +30,6 @@ export const isMethodOrProperty = isOneOf([
   T.PropertyDefinition,
   T.MethodDefinition,
 ]);
-
-export const isLoop = isOneOf([
-  T.DoWhileStatement,
-  T.ForInStatement,
-  T.ForOfStatement,
-  T.ForStatement,
-  T.WhileStatement,
-]);
-
-export const isControlFlow = or(
-  isLoop,
-  isOneOf([
-    T.IfStatement,
-    T.SwitchStatement,
-  ]),
-);
-
-export const isConditional = or(
-  isControlFlow,
-  isOneOf([
-    T.LogicalExpression,
-    T.ConditionalExpression,
-  ]),
-);
-
-export const isArrayTupleType = isOneOf([T.TSArrayType, T.TSTupleType]);
 
 export const isProperty = isOneOf([
   T.PropertyDefinition,
@@ -93,63 +66,12 @@ export const isJSX = isOneOf([
   T.JSXText,
 ]);
 
-export const isDestructuringPattern = isOneOf([
-  T.ArrayPattern,
-  T.AssignmentPattern,
-  T.ObjectPattern,
-  T.RestElement,
-]);
-
-export const isTypeDeclaration = isOneOf([
-  T.TSInterfaceDeclaration,
-  T.TSTypeAliasDeclaration,
-]);
-
-export const isLeftHandSideExpression = isOneOf([
-  T.ArrayExpression,
-  T.ArrayPattern,
-  T.ArrowFunctionExpression,
-  T.CallExpression,
-  T.ClassExpression,
-  T.FunctionExpression,
-  T.Identifier,
-  T.JSXElement,
-  T.JSXFragment,
-  T.Literal,
-  T.TemplateLiteral,
-  T.MemberExpression,
-  T.MetaProperty,
-  T.ObjectExpression,
-  T.ObjectPattern,
-  T.SequenceExpression,
-  T.Super,
-  T.TaggedTemplateExpression,
-  T.ThisExpression,
-]);
-
-export const isLeftHandSideExpressionType = isOneOf([
-  T.ArrayExpression,
-  T.ArrayPattern,
-  T.ArrowFunctionExpression,
-  T.CallExpression,
-  T.ClassExpression,
-  T.FunctionExpression,
-  T.Identifier,
-  T.JSXElement,
-  T.JSXFragment,
-  T.Literal,
-  T.TemplateLiteral,
-  T.MemberExpression,
-  T.MetaProperty,
-  T.ObjectExpression,
-  T.ObjectPattern,
-  T.SequenceExpression,
-  T.Super,
-  T.TaggedTemplateExpression,
-  T.ThisExpression,
-  T.TSAsExpression,
-  T.TSNonNullExpression,
-  T.TSTypeAssertion,
+export const isLoop = isOneOf([
+  T.DoWhileStatement,
+  T.ForInStatement,
+  T.ForOfStatement,
+  T.ForStatement,
+  T.WhileStatement,
 ]);
 
 export const isTypeExpression = isOneOf([

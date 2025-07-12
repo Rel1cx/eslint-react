@@ -10,7 +10,7 @@ import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
 import { isMatching, match, P } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction } from "../utils";
+import { createRule, getPhaseKindOfFunction, isConditional } from "../utils";
 
 // #region Rule Metadata
 
@@ -210,7 +210,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const oentries = oEntries.filter((e) => ER.isInstanceIdEqual(context, e.observer, id));
         const uentries = uEntries.filter((e) => ER.isInstanceIdEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || AST.isConditional(node);
+        const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
         const hasDynamicallyAdded = oentries
           .some((e) => !isPhaseNode(AST.findParentNode(e.node, or(isDynamic, isPhaseNode))));
