@@ -110,6 +110,7 @@
       "unrs-resolver"
     ],
     "overrides": {
+      "@eslint/plugin-kit": ">=0.3.3",
       "@types/react": "^19.1.8",
       "@types/react-dom": "^19.1.6",
       "cross-spawn": "^7.0.6",
