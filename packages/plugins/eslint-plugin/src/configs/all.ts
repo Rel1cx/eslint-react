@@ -63,6 +63,7 @@ export const rules = {
   "@eslint-react/no-unstable-context-value": "warn",
   "@eslint-react/no-unstable-default-props": "warn",
   "@eslint-react/no-unused-class-component-members": "warn",
+  "@eslint-react/no-unused-props": "warn",
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
