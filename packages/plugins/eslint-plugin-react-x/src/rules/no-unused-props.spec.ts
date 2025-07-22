@@ -12,9 +12,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
 
       function Component(props: Props) {
-        const {abc} = props;
-
-        return <p>{abc}</p>;
+        const { abc } = props;
+        return null;
       }
     `,
     errors: [{
@@ -35,9 +34,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
 
       function Component(props: Props) {
-        const {abc} = props;
-
-        return <p>{abc}</p>;
+        const { abc } = props;
+        return null;
       }
     `,
     errors: [{
@@ -53,9 +51,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   }, {
     code: tsx`
       function Component(props: { abc: string; hello: string; }) {
-        const {abc} = props;
-
-        return <p>{abc}</p>;
+        const { abc } = props;
+        return null;
       }
     `,
     errors: [{
@@ -71,7 +68,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   }, {
     code: tsx`
       function Component({ abc }: { abc: string; hello: string; }) {
-        return <p>{abc}</p>;
+        return null;
       }
     `,
     errors: [{
@@ -86,6 +83,47 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     }],
   }],
   valid: [
+    {
+      code: tsx`
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          const { abc, hello } = props;
+          return null;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        type Props = {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          const { abc, hello } = props;
+          return null;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          const { abc, hello } = props;
+          return null;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component({ abc, hello }: { abc: string; hello: string; }) {
+          return null;
+        }
+      `,
+    },
     ...allValid,
   ],
 });
