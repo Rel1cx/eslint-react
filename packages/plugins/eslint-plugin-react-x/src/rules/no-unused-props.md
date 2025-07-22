@@ -16,7 +16,7 @@ react-x/no-unused-props
 
 ## Description
 
-Warns unused component props declarations.
+Warns about unused component prop declarations.
 
 ## Examples
 
