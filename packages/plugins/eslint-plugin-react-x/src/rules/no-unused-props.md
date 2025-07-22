@@ -22,7 +22,31 @@ Warns about unused component prop declarations.
 
 ### Failing
 
+```tsx
+interface Props {
+  abc: string; // used
+  hello: string; // NOT used
+}
+
+function Component(props: Props) {
+  const { abc } = props; // `hello` isn't accessed from `props`
+  return null;
+}
+```
+
 ### Passing
+
+```tsx
+interface Props {
+  abc: string; // used
+  hello: string; // used
+}
+
+function Component(props: Props) {
+  const { abc, hello } = props;
+  return null;
+}
+```
 
 ## Implementation
 
