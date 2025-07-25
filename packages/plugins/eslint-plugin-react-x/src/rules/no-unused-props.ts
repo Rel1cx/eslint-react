@@ -50,7 +50,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (props == null) continue;
 
         const usedPropKeys = collectUsedPropKeys(context, props);
-        if (usedPropKeys == null) continue;
+        if (usedPropKeys == null) {
+          // unable to determine prop keys, bail out to avoid false positives
+          continue;
+        }
 
         const tsNode = services.esTreeNodeToTSNodeMap.get(props);
         const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
@@ -81,6 +84,7 @@ function collectUsedPropKeys(context: RuleContext<MessageID, []>, props: TSESTre
       return collectUsedPropKeysOfObjectPattern(context, props);
     }
     default: {
+      // unable to determine prop keys, bail out to avoid false positives
       return null;
     }
   }
@@ -89,18 +93,28 @@ function collectUsedPropKeys(context: RuleContext<MessageID, []>, props: TSESTre
 function collectUsedPropKeysOfObjectPattern(
   context: RuleContext<MessageID, []>,
   props: TSESTree.ObjectPattern,
-): Set<string> {
+): Set<string> | null {
   const usedKeys = new Set<string>();
 
   for (const prop of props.properties) {
     if (prop.type === T.Property) {
+      // Property
       if (prop.key.type === T.Identifier) {
         usedKeys.add(prop.key.name);
       } else if (prop.key.type === T.Literal && typeof prop.key.value === "string") {
         usedKeys.add(prop.key.value);
       }
     } else if (prop.argument.type === T.Identifier) {
-      // TODO: handle rest props destructuring here
+      // RestElement
+      const usedKeysOnRestElement = collectUsedPropKeysOfIdentifier(context, prop.argument);
+      if (usedKeysOnRestElement == null) {
+        // unable to determine prop keys, bail out to avoid false positives
+        return null;
+      }
+
+      for (const usedKeyOnRestElement of usedKeysOnRestElement) {
+        usedKeys.add(usedKeyOnRestElement);
+      }
     }
   }
 
@@ -150,7 +164,8 @@ function collectUsedPropKeysOfIdentifier(
       }
       default: {
         // the whole props object is referenced in some way we probably can't track
-        return null; // return null to avoid false positives
+        // => unable to determine prop keys, bail out to avoid false positives
+        return null;
       }
     }
   }
