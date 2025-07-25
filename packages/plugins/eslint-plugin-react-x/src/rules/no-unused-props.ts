@@ -153,10 +153,17 @@ function reportUnusedProp(
   if (declarations != null) {
     const decl = declarations[0];
     if (decl == null) return;
-    const esNode = services.tsNodeToESTreeNodeMap.get(decl);
+    const node = services.tsNodeToESTreeNodeMap.get(decl);
+
+    const nodeKey = node.type === T.TSPropertySignature
+        || node.type === T.PropertyDefinition
+        || node.type === T.Property
+      ? node.key
+      : node;
+
     context.report({
       messageId: "noUnusedProps",
-      node: esNode,
+      node: nodeKey,
       data: { name: prop.name },
     });
   }

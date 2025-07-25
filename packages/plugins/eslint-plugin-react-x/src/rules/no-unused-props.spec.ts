@@ -22,7 +22,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       data: {
         name: "hello",
       },
-      endColumn: 17,
+      endColumn: 8,
       endLine: 3,
       line: 3,
     }],
@@ -44,7 +44,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       data: {
         name: "hello",
       },
-      endColumn: 17,
+      endColumn: 8,
       endLine: 3,
       line: 3,
     }],
@@ -61,7 +61,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       data: {
         name: "hello",
       },
-      endColumn: 56,
+      endColumn: 47,
       endLine: 1,
       line: 1,
     }],
@@ -77,7 +77,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       data: {
         name: "hello",
       },
-      endColumn: 58,
+      endColumn: 49,
       endLine: 1,
       line: 1,
     }],
