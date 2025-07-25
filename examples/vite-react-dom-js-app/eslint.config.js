@@ -18,10 +18,15 @@ export default defineConfig([
         ...globals.browser,
       },
       parserOptions: {
+        project: "./jsconfig.app.json",
+        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },
       },
+    },
+    rules: {
+      "no-unused-vars": "off",
     },
   },
   // base configuration for node environment source files (*.config.js, etc.)
@@ -33,6 +38,10 @@ export default defineConfig([
       globals: {
         ...globals.node,
       },
+      parserOptions: {
+        project: "./jsconfig.node.json",
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
       "no-console": "off",
@@ -42,7 +51,7 @@ export default defineConfig([
   {
     files: JSCONFIG_APP.include,
     extends: [
-      eslintReact.configs.recommended,
+      eslintReact.configs["recommended-type-checked"],
       eslintPluginReactRefresh.configs.recommended,
     ],
     plugins: {
