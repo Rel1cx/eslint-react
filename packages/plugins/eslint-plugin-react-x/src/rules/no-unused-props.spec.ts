@@ -145,6 +145,55 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
     },
+    {
+      // valid, because we can't track what happens to the props object
+      code: tsx`
+        import { Component2 } from "./component2";
+      
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          return <Component2 {...props} />;
+        }
+      `,
+    },
+    {
+      // valid, because we can't track what happens to the props object
+      code: tsx`
+        import { anyFunction } from "./anyFunction";
+      
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          anyFunction(props);
+
+          return null;
+        }
+      `,
+    },
+    {
+      // valid, because we can't track what happens to the props object
+      code: tsx`
+        import { anyFunction } from "./anyFunction";
+      
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          anyFunction({ props });
+
+          return null;
+        }
+      `,
+    },
     ...allValid,
   ],
 });

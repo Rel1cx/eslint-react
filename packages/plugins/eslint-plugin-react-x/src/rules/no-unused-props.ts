@@ -119,25 +119,25 @@ function collectUsedPropKeysOfIdentifier(
 
   const usedPropKeys = new Set<string>();
   for (const ref of variable.references) {
-    const node = ref.identifier.parent;
+    const { parent } = ref.identifier;
 
-    switch (node.type) {
+    switch (parent.type) {
       case T.MemberExpression: {
         if (
-          node.object.type === T.Identifier
-          && node.object.name === propsName
-          && node.property.type === T.Identifier
+          parent.object.type === T.Identifier
+          && parent.object.name === propsName
+          && parent.property.type === T.Identifier
         ) {
-          usedPropKeys.add(node.property.name);
+          usedPropKeys.add(parent.property.name);
         }
         break;
       }
       case T.VariableDeclarator: {
         if (
-          node.id.type === T.ObjectPattern
-          && ref.identifier === node.init
+          parent.id.type === T.ObjectPattern
+          && ref.identifier === parent.init
         ) {
-          for (const prop of node.id.properties) {
+          for (const prop of parent.id.properties) {
             if (
               prop.type === T.Property
               && prop.key.type === T.Identifier
@@ -147,6 +147,10 @@ function collectUsedPropKeysOfIdentifier(
           }
         }
         break;
+      }
+      default: {
+        // the whole props object is referenced in some way we probably can't track
+        return null; // return null to avoid false positives
       }
     }
   }
