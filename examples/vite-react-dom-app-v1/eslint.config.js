@@ -90,7 +90,7 @@ export default tseslint.config(
       "@eslint-react/no-duplicate-key": "warn",
       "@eslint-react/no-forward-ref": "warn",
       "@eslint-react/no-implicit-key": "warn",
-      // "@eslint-react/no-leaked-conditional-rendering": "warn",
+      "@eslint-react/no-leaked-conditional-rendering": "warn",
       "@eslint-react/no-missing-component-display-name": "warn",
       "@eslint-react/no-missing-context-display-name": "warn",
       "@eslint-react/no-missing-key": "error",
@@ -115,7 +115,7 @@ export default tseslint.config(
       "@eslint-react/no-useless-fragment": "warn",
       "@eslint-react/prefer-destructuring-assignment": "warn",
       "@eslint-react/prefer-react-namespace-import": "warn",
-      // "@eslint-react/prefer-read-only-props": "warn",
+      "@eslint-react/prefer-read-only-props": "warn",
       "@eslint-react/prefer-shorthand-boolean": "off",
       "@eslint-react/prefer-shorthand-fragment": "off",
 
