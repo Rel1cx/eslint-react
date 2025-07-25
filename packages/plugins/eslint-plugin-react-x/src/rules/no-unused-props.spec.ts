@@ -84,6 +84,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   }],
   valid: [
     {
+      // valid, because all props are used
       code: tsx`
         interface Props {
           abc: string;
@@ -97,6 +98,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
     },
     {
+      // valid, because all props are used
       code: tsx`
         type Props = {
           abc: string;
@@ -110,6 +112,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
     },
     {
+      // valid, because all props are used
       code: tsx`
         function Component(props: { abc: string; hello: string; }) {
           const { abc, hello } = props;
@@ -118,8 +121,26 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
     },
     {
+      // valid, because all props are used
       code: tsx`
         function Component({ abc, hello }: { abc: string; hello: string; }) {
+          return null;
+        }
+      `,
+    },
+    {
+      // valid, because props are used by two components each accessing one prop
+      code: tsx`
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component({ abc }: Props) {
+          return null;
+        }
+
+        function Component2({ hello }: Props) {
           return null;
         }
       `,

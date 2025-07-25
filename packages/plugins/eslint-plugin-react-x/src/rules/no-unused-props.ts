@@ -42,6 +42,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const checker = services.program.getTypeChecker();
       const components = ctx.getAllComponents(program);
 
+      const totalDeclaredProps = new Set<ts.Symbol>();
+      const totalUsedProps = new Set<ts.Symbol>();
+
       for (const [, component] of components) {
         const [props] = component.node.params;
         if (props == null) continue;
@@ -52,11 +55,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const tsNode = services.esTreeNodeToTSNodeMap.get(props);
         const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
 
-        for (const prop of declaredProps) {
-          if (!usedPropKeys.has(prop.name)) {
-            reportUnusedProp(context, services, prop);
+        for (const declaredProp of declaredProps) {
+          totalDeclaredProps.add(declaredProp);
+
+          if (usedPropKeys.has(declaredProp.name)) {
+            totalUsedProps.add(declaredProp);
           }
         }
+      }
+
+      const unusedProps = totalDeclaredProps.difference(totalUsedProps);
+      for (const unusedProp of unusedProps) {
+        reportUnusedProp(context, services, unusedProp);
       }
     },
   };
@@ -79,7 +89,7 @@ function collectUsedPropKeys(context: RuleContext<MessageID, []>, props: TSESTre
 function collectUsedPropKeysOfObjectPattern(
   context: RuleContext<MessageID, []>,
   props: TSESTree.ObjectPattern,
-): Set<string> | null {
+): Set<string> {
   const usedKeys = new Set<string>();
 
   for (const prop of props.properties) {
