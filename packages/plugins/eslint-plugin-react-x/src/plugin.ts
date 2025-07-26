@@ -51,6 +51,7 @@ import noUnsafeComponentWillUpdate from "./rules/no-unsafe-component-will-update
 import noUnstableContextValue from "./rules/no-unstable-context-value";
 import noUnstableDefaultProps from "./rules/no-unstable-default-props";
 import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members";
+import noUnusedProps from "./rules/no-unused-props";
 import noUnusedState from "./rules/no-unused-state";
 import noUseContext from "./rules/no-use-context";
 import noUselessForwardRef from "./rules/no-useless-forward-ref";
@@ -127,6 +128,7 @@ export const plugin = {
     "no-unstable-context-value": noUnstableContextValue,
     "no-unstable-default-props": noUnstableDefaultProps,
     "no-unused-class-component-members": noUnusedClassComponentMembers,
+    "no-unused-props": noUnusedProps,
     "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
     "no-useless-forward-ref": noUselessForwardRef,
