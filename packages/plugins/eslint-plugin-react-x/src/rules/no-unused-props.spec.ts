@@ -280,6 +280,59 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       endLine: 1,
       line: 1,
     }],
+  }, {
+    // track uses of properties on rest element
+    code: tsx`
+      function Component(props: { abc: string; hello: string; }) {
+        const { ...rest } = props;
+        return <div>{rest.abc}</div>;
+      }
+    `,
+    errors: [{
+      messageId: "noUnusedProps",
+      column: 42,
+      data: {
+        name: "hello",
+      },
+      endColumn: 47,
+      endLine: 1,
+      line: 1,
+    }],
+  }, {
+    // track assignment
+    code: tsx`
+      function Component(props: { abc: string; hello: string; }) {
+        const abc = props.abc;
+        return <div>{abc}</div>;
+      }
+    `,
+    errors: [{
+      messageId: "noUnusedProps",
+      column: 42,
+      data: {
+        name: "hello",
+      },
+      endColumn: 47,
+      endLine: 1,
+      line: 1,
+    }],
+  }, {
+    // track computed member access
+    code: tsx`
+      function Component(props: { abc: string; hello: string; }) {
+        return <div>{props["abc"]}</div>;
+      }
+    `,
+    errors: [{
+      messageId: "noUnusedProps",
+      column: 42,
+      data: {
+        name: "hello",
+      },
+      endColumn: 47,
+      endLine: 1,
+      line: 1,
+    }],
   }],
   valid: [
     {
@@ -446,6 +499,18 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         import { anyFunction } from "./anyFunction";
 
         function Component({ abc, ...rest }: { abc: string; hello: string }) {
+          anyFunction(rest);
+          return null;
+        }
+      `,
+    },
+    {
+      // we can't track what happens to the rest object
+      code: tsx`
+        import { anyFunction } from "./anyFunction";
+      
+        function Component(props: { abc: string; hello: string; }) {
+          const { abc, ...rest } = props;
           anyFunction(rest);
           return null;
         }

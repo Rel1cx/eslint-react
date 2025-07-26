@@ -49,9 +49,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const [props] = component.node.params;
         if (props == null) continue;
 
-        const usedPropKeys = collectUsedPropKeys(context, props);
-        if (usedPropKeys == null) {
-          // unable to determine prop keys, bail out to avoid false positives
+        const usedPropKeys = new Set<string>();
+        const couldFindAllUsedPropKeys = collectUsedPropKeysOfParameter(context, usedPropKeys, props);
+        if (!couldFindAllUsedPropKeys) {
+          // unable to determine all used prop keys => bail out to avoid false positives
           continue;
         }
 
@@ -77,102 +78,131 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-function collectUsedPropKeys(context: RuleContext<MessageID, []>, props: TSESTree.Parameter): Set<string> | null {
-  switch (props.type) {
+function collectUsedPropKeysOfParameter(
+  context: RuleContext<MessageID, []>,
+  usedPropKeys: Set<string>,
+  parameter: TSESTree.Parameter,
+): boolean {
+  switch (parameter.type) {
     case T.Identifier: {
-      return collectUsedPropKeysOfIdentifier(context, props);
+      return collectUsedPropKeysOfIdentifier(context, usedPropKeys, parameter);
     }
     case T.ObjectPattern: {
-      return collectUsedPropKeysOfObjectPattern(context, props);
+      return collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parameter);
     }
     default: {
-      // unable to determine prop keys, bail out to avoid false positives
-      return null;
+      return false;
     }
   }
 }
 
 function collectUsedPropKeysOfObjectPattern(
   context: RuleContext<MessageID, []>,
-  props: TSESTree.ObjectPattern,
-): Set<string> | null {
-  const usedKeys = new Set<string>();
-
-  for (const prop of props.properties) {
-    if (prop.type === T.Property) {
-      // Property
-      if (prop.key.type === T.Identifier) {
-        usedKeys.add(prop.key.name);
-      } else if (prop.key.type === T.Literal && typeof prop.key.value === "string") {
-        usedKeys.add(prop.key.value);
+  usedPropKeys: Set<string>,
+  objectPattern: TSESTree.ObjectPattern,
+): boolean {
+  for (const property of objectPattern.properties) {
+    switch (property.type) {
+      case T.Property: {
+        const key = getKeyOfExpression(property.key);
+        if (key == null) return false;
+        usedPropKeys.add(key);
+        break;
       }
-    } else if (prop.argument.type === T.Identifier) {
-      // RestElement
-      const usedKeysOnRestElement = collectUsedPropKeysOfIdentifier(context, prop.argument);
-      if (usedKeysOnRestElement == null) {
-        // unable to determine prop keys, bail out to avoid false positives
-        return null;
-      }
-
-      for (const usedKeyOnRestElement of usedKeysOnRestElement) {
-        usedKeys.add(usedKeyOnRestElement);
+      case T.RestElement: {
+        if (!collectUsedPropsOfRestElement(context, usedPropKeys, property)) {
+          return false;
+        }
+        break;
       }
     }
   }
 
-  return usedKeys;
+  return true;
+}
+
+function collectUsedPropsOfRestElement(
+  context: RuleContext<MessageID, []>,
+  usedPropKeys: Set<string>,
+  restElement: TSESTree.RestElement,
+): boolean {
+  switch (restElement.argument.type) {
+    case T.Identifier: {
+      return collectUsedPropKeysOfIdentifier(context, usedPropKeys, restElement.argument);
+    }
+    default: {
+      return false;
+    }
+  }
 }
 
 function collectUsedPropKeysOfIdentifier(
   context: RuleContext<MessageID, []>,
-  props: TSESTree.Identifier,
-): Set<string> | null {
-  const propsName = props.name;
-  const scope = context.sourceCode.getScope(props);
-  const variable = scope.variables.find((v) => v.name === propsName);
+  usedPropKeys: Set<string>,
+  identifier: TSESTree.Identifier,
+): boolean {
+  const scope = context.sourceCode.getScope(identifier);
+  const variable = scope.variables.find((v) => v.name === identifier.name);
+  if (variable == null) return false;
 
-  if (variable == null) return null;
-
-  const usedPropKeys = new Set<string>();
   for (const ref of variable.references) {
+    if (ref.identifier === identifier) {
+      continue;
+    }
+
     const { parent } = ref.identifier;
 
     switch (parent.type) {
       case T.MemberExpression: {
         if (
           parent.object.type === T.Identifier
-          && parent.object.name === propsName
-          && parent.property.type === T.Identifier
+          && parent.object.name === identifier.name
         ) {
-          usedPropKeys.add(parent.property.name);
+          const key = getKeyOfExpression(parent.property);
+          if (key == null) return false;
+          usedPropKeys.add(key);
+        } else {
+          return false;
         }
         break;
       }
       case T.VariableDeclarator: {
         if (
           parent.id.type === T.ObjectPattern
-          && ref.identifier === parent.init
+          && parent.init === ref.identifier
         ) {
-          for (const prop of parent.id.properties) {
-            if (
-              prop.type === T.Property
-              && prop.key.type === T.Identifier
-            ) {
-              usedPropKeys.add(prop.key.name);
-            }
+          if (!collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parent.id)) {
+            return false;
           }
+        } else {
+          return false;
         }
         break;
       }
       default: {
-        // the whole props object is referenced in some way we probably can't track
-        // => unable to determine prop keys, bail out to avoid false positives
-        return null;
+        return false;
       }
     }
   }
 
-  return usedPropKeys;
+  return true;
+}
+
+function getKeyOfExpression(
+  expression: TSESTree.Expression | TSESTree.PrivateIdentifier,
+): string | null {
+  switch (expression.type) {
+    case T.Identifier: {
+      return expression.name;
+    }
+    case T.Literal: {
+      if (typeof expression.value === "string") {
+        return expression.value;
+      }
+    }
+  }
+
+  return null;
 }
 
 function reportUnusedProp(
