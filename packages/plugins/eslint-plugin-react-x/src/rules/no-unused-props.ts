@@ -219,14 +219,18 @@ function reportUnusedProp(
   const declaration = prop.getDeclarations()?.[0];
   if (declaration == null) return;
 
-  const node = services.tsNodeToESTreeNodeMap.get(declaration);
-  const keyNode = node.type === T.TSPropertySignature
-    ? node.key
-    : node;
+  const declarationNode = services.tsNodeToESTreeNodeMap.get(declaration);
+
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (declarationNode == null) return; // is undefined if declaration is in a different file
+
+  const nodeToReport = declarationNode.type === T.TSPropertySignature
+    ? declarationNode.key
+    : declarationNode;
 
   context.report({
     messageId: "noUnusedProps",
-    node: keyNode,
+    node: nodeToReport,
     data: { name: prop.name },
   });
 }
