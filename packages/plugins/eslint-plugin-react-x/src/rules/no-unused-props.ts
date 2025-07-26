@@ -1,4 +1,5 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { Reference } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -150,54 +151,59 @@ function collectUsedPropKeysOfIdentifier(
       continue;
     }
 
-    const { parent } = ref.identifier;
-
-    switch (parent.type) {
-      case T.MemberExpression: {
-        if (
-          parent.object.type === T.Identifier
-          && parent.object.name === identifier.name
-        ) {
-          const key = getKeyOfExpression(parent.property);
-          if (key == null) return false;
-          usedPropKeys.add(key);
-        } else {
-          return false;
-        }
-        break;
-      }
-      case T.VariableDeclarator: {
-        if (
-          parent.id.type === T.ObjectPattern
-          && parent.init === ref.identifier
-        ) {
-          if (!collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parent.id)) {
-            return false;
-          }
-        } else {
-          return false;
-        }
-        break;
-      }
-      default: {
-        return false;
-      }
+    if (!collectUsedPropKeysOfReference(context, usedPropKeys, identifier, ref)) {
+      return false;
     }
   }
 
   return true;
 }
 
+function collectUsedPropKeysOfReference(
+  context: RuleContext<MessageID, []>,
+  usedPropKeys: Set<string>,
+  identifier: TSESTree.Identifier,
+  ref: Reference,
+): boolean {
+  const { parent } = ref.identifier;
+
+  switch (parent.type) {
+    case T.MemberExpression: {
+      if (
+        parent.object.type === T.Identifier
+        && parent.object.name === identifier.name
+      ) {
+        const key = getKeyOfExpression(parent.property);
+        if (key == null) return false;
+        usedPropKeys.add(key);
+        return true;
+      }
+      break;
+    }
+    case T.VariableDeclarator: {
+      if (
+        parent.id.type === T.ObjectPattern
+        && parent.init === ref.identifier
+      ) {
+        return collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parent.id);
+      }
+      break;
+    }
+  }
+
+  return false;
+}
+
 function getKeyOfExpression(
-  expression: TSESTree.Expression | TSESTree.PrivateIdentifier,
+  expr: TSESTree.Expression | TSESTree.PrivateIdentifier,
 ): string | null {
-  switch (expression.type) {
+  switch (expr.type) {
     case T.Identifier: {
-      return expression.name;
+      return expr.name;
     }
     case T.Literal: {
-      if (typeof expression.value === "string") {
-        return expression.value;
+      if (typeof expr.value === "string") {
+        return expr.value;
       }
     }
   }
@@ -210,22 +216,17 @@ function reportUnusedProp(
   services: ParserServicesWithTypeInformation,
   prop: ts.Symbol,
 ) {
-  const declarations = prop.getDeclarations();
-  if (declarations != null) {
-    const decl = declarations[0];
-    if (decl == null) return;
-    const node = services.tsNodeToESTreeNodeMap.get(decl);
+  const declaration = prop.getDeclarations()?.[0];
+  if (declaration == null) return;
 
-    const nodeKey = node.type === T.TSPropertySignature
-        || node.type === T.PropertyDefinition
-        || node.type === T.Property
-      ? node.key
-      : node;
+  const node = services.tsNodeToESTreeNodeMap.get(declaration);
+  const keyNode = node.type === T.TSPropertySignature
+    ? node.key
+    : node;
 
-    context.report({
-      messageId: "noUnusedProps",
-      node: nodeKey,
-      data: { name: prop.name },
-    });
-  }
+  context.report({
+    messageId: "noUnusedProps",
+    node: keyNode,
+    data: { name: prop.name },
+  });
 }
