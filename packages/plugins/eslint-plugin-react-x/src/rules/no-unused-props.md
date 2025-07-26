@@ -18,6 +18,8 @@ react-x/no-unused-props
 
 Warns about unused component prop declarations.
 
+Unused props increase maintenance overhead and may mislead consumers of the component into thinking the prop is required or meaningful, even when it has no effect.
+
 ## Examples
 
 ### Failing
