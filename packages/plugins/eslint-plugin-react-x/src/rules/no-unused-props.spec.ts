@@ -333,6 +333,40 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       endLine: 1,
       line: 1,
     }],
+  }, {
+    // correct error span on complex prop type
+    code: tsx`
+      function Component({ abc }: { abc: string; hello: { abc: string; subHello: number | null }; }) {
+        return null;
+      }
+    `,
+    errors: [{
+      messageId: "noUnusedProps",
+      column: 44,
+      data: {
+        name: "hello",
+      },
+      endColumn: 49,
+      endLine: 1,
+      line: 1,
+    }],
+  }, {
+    // access of sub property should mark property as used
+    code: tsx`
+      function Component({ hello: { subHello } }: { abc: string; hello: { abc: string; subHello: number | null }; }) {
+        return null;
+      }
+    `,
+    errors: [{
+      messageId: "noUnusedProps",
+      column: 47,
+      data: {
+        name: "abc",
+      },
+      endColumn: 50,
+      endLine: 1,
+      line: 1,
+    }],
   }],
   valid: [
     {
