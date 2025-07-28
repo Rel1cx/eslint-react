@@ -20,6 +20,8 @@ Warns about unused component prop declarations.
 
 Unused props increase maintenance overhead and may mislead consumers of the component into thinking the prop is required or meaningful, even when it has no effect.
 
+This is the TypeScript-only version of [`eslint-plugin-react/no-unused-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md).
+
 ## Examples
 
 ### Failing
@@ -54,3 +56,8 @@ function Component(props: Props) {
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props.spec.ts)
+
+## See Also
+
+- [`no-prop-types`](/docs/rules/no-prop-types)\
+  Disallows `propTypes`
