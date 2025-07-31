@@ -790,6 +790,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div ref={ref}>{props.foo}</div>;
       };
     `,
+    // TODO: How should we handle situations where multiple components in a single file use the same props type definition, but each component uses a different part of it?
+    tsx`
+      interface Props {
+        foo: string;
+        bar: string;
+        baz: string;
+      }
+
+      function Component1({ foo, bar }: Props) {
+        return <div>{foo}</div>;
+      }
+
+      function Component2({ bar, baz }: Props) {
+        return <div>{bar}</div>;
+      }
+    `,
     ...allValid,
   ],
 });
