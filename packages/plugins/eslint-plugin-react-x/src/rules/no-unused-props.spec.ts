@@ -615,6 +615,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return null;
       }
     `,
+    // props are used by two components each accessing a different part of it
+    tsx`
+      interface Props {
+        foo: string;
+        bar: string;
+        baz: string;
+      }
+
+      function Component1({ foo, bar }: Props) {
+        return <div>{foo}</div>;
+      }
+
+      function Component2({ bar, baz }: Props) {
+        return <div>{bar}</div>;
+      }
+    `,
     // we can't track what happens to the props object
     tsx`
       import { Component2 } from "./component2";
@@ -789,22 +805,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const Component = function Component({ ref, ...props }: ComponentProps & { ref?: React.RefObject<HTMLElement | null> }) {
         return <div ref={ref}>{props.foo}</div>;
       };
-    `,
-    // TODO: How should we handle situations where multiple components in a single file use the same props type definition, but each component uses a different part of it?
-    tsx`
-      interface Props {
-        foo: string;
-        bar: string;
-        baz: string;
-      }
-
-      function Component1({ foo, bar }: Props) {
-        return <div>{foo}</div>;
-      }
-
-      function Component2({ bar, baz }: Props) {
-        return <div>{bar}</div>;
-      }
     `,
     ...allValid,
   ],
