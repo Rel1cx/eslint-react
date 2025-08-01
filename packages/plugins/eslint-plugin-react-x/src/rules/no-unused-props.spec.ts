@@ -796,7 +796,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div ref={ref}>{props.foo}</div>;
       });
     `,
-    // expect no false positives when using forwardRef
+    // expect no false positives when using ref as a prop
     tsx`
       import * as React from 'react'
       interface ComponentProps {
