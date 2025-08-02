@@ -607,7 +607,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         hello: string;
       }
 
-      function Component({ abc }: Props) {
+      function Component1({ abc }: Props) {
         return null;
       }
 
