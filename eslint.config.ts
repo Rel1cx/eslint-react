@@ -4,7 +4,7 @@ import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
 import pluginLocal from "@local/eslint-plugin-local";
 import gitIgnores from "eslint-config-flat-gitignore";
-import * as pluginFastImport from "eslint-plugin-fast-import";
+import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginVitest from "eslint-plugin-vitest";
 import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -57,7 +57,7 @@ export default tseslint.config(
     extends: [
       ...tseslint.configs.strictTypeChecked,
       configs.typescript,
-      pluginFastImport.recommended({ rootDir: dirname }),
+      fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
     languageOptions: {
@@ -66,7 +66,6 @@ export default tseslint.config(
         project: packagesTsConfigs,
         projectService: true,
         tsconfigRootDir: dirname,
-        // warnOnUnsupportedTypeScriptVersion: false,
       },
     },
     plugins: {

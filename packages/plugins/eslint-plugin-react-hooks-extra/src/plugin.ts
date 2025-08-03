@@ -1,10 +1,14 @@
 import { name, version } from "../package.json";
+
 import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
 import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
-import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
-import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
-import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
-import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
+
+/* eslint-disable perfectionist/sort-imports */
+import noUnnecessaryUseCallback from "./rules-removed/no-unnecessary-use-callback";
+import noUnnecessaryUseMemo from "./rules-removed/no-unnecessary-use-memo";
+import noUnnecessaryUsePrefix from "./rules-removed/no-unnecessary-use-prefix";
+import preferUseStateLazyInitialization from "./rules-removed/prefer-use-state-lazy-initialization";
+/* eslint-enable perfectionist/sort-imports */
 
 export const plugin = {
   meta: {
@@ -14,21 +18,26 @@ export const plugin = {
   rules: {
     "no-direct-set-state-in-use-effect": noDirectSetStateInUseEffect,
     "no-direct-set-state-in-use-layout-effect": noDirectSetStateInUseLayoutEffect,
-    "no-unnecessary-use-callback": noUnnecessaryUseCallback,
-    "no-unnecessary-use-memo": noUnnecessaryUseMemo,
-    "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
-    "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
 
-    // Part: deprecated rules
-    /** @deprecated Use `no-unnecessary-use-prefix` instead */
-    "ensure-custom-hooks-using-other-hooks": noUnnecessaryUsePrefix,
-    /** @deprecated Use `no-unnecessary-use-callback` instead */
-    "ensure-use-callback-has-non-empty-deps": noUnnecessaryUseCallback,
-    /** @deprecated Use `no-unnecessary-use-memo` instead */
-    "ensure-use-memo-has-non-empty-deps": noUnnecessaryUseMemo,
-    /** @deprecated Use `no-unnecessary-use-prefix` instead */
-    "no-redundant-custom-hook": noUnnecessaryUsePrefix,
-    /** @deprecated Use `no-unnecessary-use-prefix` instead */
-    "no-useless-custom-hooks": noUnnecessaryUsePrefix,
+    /**
+     * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
+     * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback
+     */
+    "no-unnecessary-use-callback": noUnnecessaryUseCallback,
+    /**
+     * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
+     * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo
+     */
+    "no-unnecessary-use-memo": noUnnecessaryUseMemo,
+    /**
+     * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
+     * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix
+     */
+    "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
+    /**
+     * @deprecated Use the same rule from `eslint-plugin-react-x` or `@eslint-react/eslint-plugin` instead.
+     * @see https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization
+     */
+    "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
   },
 } as const;

@@ -16,7 +16,7 @@ Get the stringified representation of a JSX node
 
 The JSX node
 
-`JSXIdentifier` | `JSXMemberExpression` | `JSXNamespacedName` | `JSXOpeningElement` | `JSXClosingElement` | `JSXOpeningFragment` | `JSXClosingFragment` | `JSXText`
+`JSXClosingElement` | `JSXClosingFragment` | `JSXIdentifier` | `JSXMemberExpression` | `JSXNamespacedName` | `JSXOpeningElement` | `JSXOpeningFragment` | `JSXText`
 
 ## Returns
 

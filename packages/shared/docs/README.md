@@ -36,7 +36,6 @@
 - [coerceSettings](functions/coerceSettings.md)
 - [decodeESLintSettings](functions/decodeESLintSettings.md)
 - [decodeSettings](functions/decodeSettings.md)
-- [getId](functions/getId.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)
 - [isESLintReactSettings](functions/isESLintReactSettings.md)

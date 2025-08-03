@@ -10,6 +10,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noMissingIframeSandbox",
+          suggestions: [
+            {
+              messageId: "addIframeSandbox",
+              data: { value: "" },
+              output: tsx`<iframe sandbox="" />;`,
+            },
+          ],
         },
       ],
     },
@@ -18,14 +25,28 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noMissingIframeSandbox",
+          suggestions: [
+            {
+              messageId: "addIframeSandbox",
+              data: { value: "" },
+              output: tsx`<iframe sandbox="" />;`,
+            },
+          ],
         },
       ],
     },
     {
-      code: tsx`<PolyComponent as="iframe"/>;`,
+      code: tsx`<PolyComponent as="iframe" />;`,
       errors: [
         {
           messageId: "noMissingIframeSandbox",
+          suggestions: [
+            {
+              messageId: "addIframeSandbox",
+              data: { value: "" },
+              output: tsx`<PolyComponent sandbox="" as="iframe" />;`,
+            },
+          ],
         },
       ],
       settings: {
@@ -39,6 +60,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noMissingIframeSandbox",
+          suggestions: [
+            {
+              messageId: "addIframeSandbox",
+              data: { value: "" },
+              output: tsx`<PolyComponent as="iframe" sandbox="" />;`,
+            },
+          ],
         },
       ],
       settings: {

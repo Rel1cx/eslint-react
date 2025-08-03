@@ -1,3 +1,11 @@
+/* eslint-disable jsdoc/require-param */
+import type { TSESTree } from "@typescript-eslint/types";
+import type { TSESTreeFunction } from "./ast-node-types";
+import { unit } from "@eslint-react/eff";
+
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-node-is";
+
 // Ported from https://github.com/eps1lon/react/blob/8b8d265bd9a4cab7bbd04a9a13950fdc946ea51c/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js#L642
 /**
  * Gets the static name of a function AST node. For function declarations it is
@@ -6,15 +14,7 @@
  * where JS gives anonymous function expressions names. We roughly detect the
  * same AST nodes with some exceptions to better fit our use case.
  */
-
-import type { TSESTree } from "@typescript-eslint/types";
-import type { TSESTreeFunction } from "./ast-node";
-import { unit } from "@eslint-react/eff";
-
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isMethodOrProperty, isTypeAssertionExpression } from "./ast-is";
-
-export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): unit | TSESTree.Identifier {
+export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | unit {
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node

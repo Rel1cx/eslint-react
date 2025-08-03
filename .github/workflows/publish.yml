@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - "2.0.0-next"
+      - "2.0.0-beta"
     tags-ignore:
       - "**"
     paths-ignore:
@@ -22,10 +23,10 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Setup node@23
+      - name: Setup node@24
         uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
       - name: Enable Corepack
         run: corepack enable

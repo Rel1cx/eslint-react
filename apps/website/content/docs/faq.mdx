@@ -39,7 +39,6 @@ Currently, it includes the following:
   - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core React rules.
   - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - React DOM rules.
   - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
-  - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
   - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
   - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
   - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin) - A unified plugin that combines all individual plugins into one.
@@ -64,6 +63,8 @@ For more information, see the [JSX Transform](/docs/configuration/configure-proj
 <Accordion title="Is there anything to note about migrating from 'eslint-plugin-react'?">
 
 Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
+
+For a comprehensive migration guide with a complete rule comparison table, see our [Migration Guide](/docs/migration). This guide covers all rules from `eslint-plugin-react`, their ESLint React equivalents, missing functionality, and migration tips.
 
 To smoothly transition, we suggest reviewing the rules in ESLint React and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
 

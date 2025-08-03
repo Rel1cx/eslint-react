@@ -4,24 +4,18 @@
 
 # @eslint-react/core
 
-## Namespaces
+## Other
 
 - [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md)
 - [isReactAPICall](@eslint-react/namespaces/isReactAPICall/README.md)
 - [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md)
 - [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md)
 - [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md)
-
-## Interfaces
-
 - [ClassComponent](interfaces/ClassComponent.md)
 - [FunctionComponent](interfaces/FunctionComponent.md)
 - [Hook](interfaces/Hook.md)
 - [SemanticEntry](interfaces/SemanticEntry.md)
 - [SemanticNode](interfaces/SemanticNode.md)
-
-## Type Aliases
-
 - [Component](type-aliases/Component.md)
 - [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md)
 - [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md)
@@ -31,11 +25,8 @@
 - [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md)
 - [ComponentStateKind](type-aliases/ComponentStateKind.md)
 - [EffectKind](type-aliases/EffectKind.md)
-- [HookKind](type-aliases/HookKind.md)
 - [JSXDetectionHint](type-aliases/JSXDetectionHint.md)
-
-## Variables
-
+- [TypeVariant](type-aliases/TypeVariant.md)
 - [ComponentDetectionHint](variables/ComponentDetectionHint.md)
 - [ComponentFlag](variables/ComponentFlag.md)
 - [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md)
@@ -88,9 +79,7 @@
 - [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md)
 - [isUseTransitionCall](variables/isUseTransitionCall.md)
 - [JSXDetectionHint](variables/JSXDetectionHint.md)
-
-## Functions
-
+- [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md)
 - [findParentAttribute](functions/findParentAttribute.md)
 - [getAttribute](functions/getAttribute.md)
 - [getAttributeName](functions/getAttributeName.md)
@@ -99,11 +88,15 @@
 - [getComponentNameFromId](functions/getComponentNameFromId.md)
 - [getElementType](functions/getElementType.md)
 - [getFunctionComponentId](functions/getFunctionComponentId.md)
+- [getTypeVariants](functions/getTypeVariants.md)
 - [hasAnyAttribute](functions/hasAnyAttribute.md)
 - [hasAttribute](functions/hasAttribute.md)
 - [hasEveryAttribute](functions/hasEveryAttribute.md)
 - [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md)
+- [isAnyType](functions/isAnyType.md)
 - [isAssignmentToThisState](functions/isAssignmentToThisState.md)
+- [isBigIntType](functions/isBigIntType.md)
+- [isBooleanType](functions/isBooleanType.md)
 - [isChildrenOfCreateElement](functions/isChildrenOfCreateElement.md)
 - [isClassComponent](functions/isClassComponent.md)
 - [isComponentDidCatch](functions/isComponentDidCatch.md)
@@ -118,13 +111,13 @@
 - [isComponentWrapperCall](functions/isComponentWrapperCall.md)
 - [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md)
 - [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
+- [isEnumType](functions/isEnumType.md)
+- [isFalsyBigIntType](functions/isFalsyBigIntType.md)
+- [isFalsyNumberType](functions/isFalsyNumberType.md)
+- [isFalsyStringType](functions/isFalsyStringType.md)
 - [isFragmentElement](functions/isFragmentElement.md)
-- [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md)
-- [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md)
 - [isFunctionOfRender](functions/isFunctionOfRender.md)
 - [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md)
-- [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md)
-- [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md)
 - [isGetChildContext](functions/isGetChildContext.md)
 - [isGetDefaultProps](functions/isGetDefaultProps.md)
 - [isGetDerivedStateFromError](functions/isGetDerivedStateFromError.md)
@@ -133,10 +126,13 @@
 - [isGetSnapshotBeforeUpdate](functions/isGetSnapshotBeforeUpdate.md)
 - [isHostElement](functions/isHostElement.md)
 - [isInitializedFromReact](functions/isInitializedFromReact.md)
-- [isInsideRenderMethod](functions/isInsideRenderMethod.md)
 - [isJsxLike](functions/isJsxLike.md)
 - [isJsxText](functions/isJsxText.md)
 - [isKeyedElement](functions/isKeyedElement.md)
+- [isNeverType](functions/isNeverType.md)
+- [isNullishType](functions/isNullishType.md)
+- [isNumberType](functions/isNumberType.md)
+- [isObjectType](functions/isObjectType.md)
 - [isPureComponent](functions/isPureComponent.md)
 - [isReactAPI](functions/isReactAPI.md)
 - [isReactAPICall](functions/isReactAPICall.md)
@@ -145,13 +141,19 @@
 - [isReactHookCallWithName](functions/isReactHookCallWithName.md)
 - [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
 - [isReactHookCallWithNameLoose](functions/isReactHookCallWithNameLoose.md)
+- [isReactHookId](functions/isReactHookId.md)
 - [isReactHookName](functions/isReactHookName.md)
 - [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
 - [isRenderLike](functions/isRenderLike.md)
 - [isRenderMethodLike](functions/isRenderMethodLike.md)
 - [isRenderPropLoose](functions/isRenderPropLoose.md)
 - [isShouldComponentUpdate](functions/isShouldComponentUpdate.md)
+- [isStringType](functions/isStringType.md)
 - [isThisSetState](functions/isThisSetState.md)
+- [isTruthyBigIntType](functions/isTruthyBigIntType.md)
+- [isTruthyNumberType](functions/isTruthyNumberType.md)
+- [isTruthyStringType](functions/isTruthyStringType.md)
+- [isUnknownType](functions/isUnknownType.md)
 - [isUnsafeComponentWillMount](functions/isUnsafeComponentWillMount.md)
 - [isUnsafeComponentWillReceiveProps](functions/isUnsafeComponentWillReceiveProps.md)
 - [isUnsafeComponentWillUpdate](functions/isUnsafeComponentWillUpdate.md)
@@ -161,3 +163,8 @@
 - [useComponentCollector](functions/useComponentCollector.md)
 - [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md)
 - [useHookCollector](functions/useHookCollector.md)
+
+## Types - Type Guards
+
+- [isFalseLiteralType](functions/isFalseLiteralType.md)
+- [isTrueLiteralType](functions/isTrueLiteralType.md)

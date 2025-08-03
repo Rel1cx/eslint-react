@@ -1,16 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
 export const redirects = [
-  // Redirects for old documentation links
-  {
-    source: "/docs/getting-started/javascript-with-alternative-parser",
-    destination: "/docs/using-an-alternative-parser/babel-eslint-parser",
-    permanent: true,
-  },
-  {
-    source: "/docs/getting-started/typescript-with-alternative-parser",
-    destination: "/docs/using-an-alternative-parser/ts-blank-eslint-parser",
-    permanent: true,
-  },
   // Redirects for old preset links
   {
     source: "/docs/rules/overview#core-rules",
@@ -22,60 +11,44 @@ export const redirects = [
     destination: "/docs/rules/overview#x-rules",
     permanent: true,
   },
-  // Redirects for old rule names
   {
-    source: "/docs/rules/use-jsx-vars",
-    destination: "/docs/rules/jsx-uses-vars",
+    source: "/docs/rules/avoid-shorthand-:rest",
+    destination: "/docs/rules/jsx-shorthand-:rest",
     permanent: true,
   },
   {
-    source: "/docs/rules/no-duplicate-jsx-props",
-    destination: "/docs/rules/jsx-no-duplicate-props",
+    source: "/docs/rules/prefer-shorthand-:rest",
+    destination: "/docs/rules/jsx-shorthand-:rest",
     permanent: true,
   },
   {
-    source: "/docs/rules/no-complicated-conditional-rendering",
-    destination: "/docs/rules/no-complex-conditional-rendering",
+    source: "/docs/rules/no-comment-textnodes",
+    destination: "/docs/rules/jsx-no-comment-textnodes",
     permanent: true,
   },
   {
-    source: "/docs/rules/ensure-forward-ref-using-ref",
-    destination: "/docs/rules/no-useless-forward-ref",
+    source: "/docs/rules/prefer-react-namespace-import",
+    destination: "/docs/rules/prefer-namespace-import",
     permanent: true,
   },
   {
-    source: "/docs/rules/no-nested-components",
-    destination: "/docs/rules/no-nested-component-definitions",
+    source: "/docs/rules/hooks-extra-no-unnecessary-use-callback",
+    destination: "/docs/rules/no-unnecessary-use-callback",
     permanent: true,
   },
   {
-    source: "/docs/rules/dom-no-children-in-void-dom-elements",
-    destination: "/docs/rules/dom-no-void-elements-with-children",
+    source: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
+    destination: "/docs/rules/no-unnecessary-use-memo",
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-ensure-use-memo-has-non-empty-deps",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
+    source: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+    destination: "/docs/rules/no-unnecessary-use-prefix",
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-ensure-use-callback-has-non-empty-deps",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-callback",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/hooks-extra-ensure-custom-hooks-using-other-hooks",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/hooks-extra-no-redundant-custom-hook",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/hooks-extra-no-useless-custom-hooks",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+    source: "/docs/rules/hooks-extra-prefer-use-state-lazy-initialization",
+    destination: "/docs/rules/prefer-use-state-lazy-initialization",
     permanent: true,
   },
 ] as const;

@@ -1,9 +1,12 @@
+import url from "node:url";
 import react from "@eslint-react/eslint-plugin";
 import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
 import gitignore from "eslint-config-flat-gitignore";
+import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
+import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -15,8 +18,17 @@ const GLOB_MDX = ["**/*.mdx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_COMPONENT = ["components/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
+const GLOB_IGNORES = [
+  "test",
+  "**/*.d.ts",
+  "eslint.config.ts",
+];
+
+const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export default tseslint.config(
+  gitignore(),
+  globalIgnores(GLOB_IGNORES),
   {
     extends: [
       markdown.configs.recommended,
@@ -37,10 +49,13 @@ export default tseslint.config(
   {
     extends: [
       configs.typescript,
+      fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
     rules: {
       "no-restricted-syntax": "off",
+      "fast-import/no-unused-exports": "off",
+      "fast-import/no-unresolved-imports": "off",
     },
   },
   {
@@ -90,5 +105,4 @@ export default tseslint.config(
       "no-undef": "off",
     },
   },
-  gitignore(),
 );

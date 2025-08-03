@@ -38,9 +38,5 @@ export const plugin = {
     "no-unsafe-target-blank": noUnsafeTargetBlank,
     "no-use-form-state": noUseFormState,
     "no-void-elements-with-children": noVoidElementsWithChildren,
-
-    // Part: deprecated rules
-    /** @deprecated Use `no-void-elements-with-children` instead */
-    "no-children-in-void-dom-elements": noVoidElementsWithChildren,
   },
 } as const;

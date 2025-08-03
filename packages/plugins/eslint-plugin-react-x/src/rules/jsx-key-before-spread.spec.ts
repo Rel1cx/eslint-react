@@ -38,6 +38,33 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "jsxKeyBeforeSpread" },
       ],
     },
+    {
+      code: tsx`
+
+        const App = (props) => {
+        return [
+                <div key="1" {...props} key="2" {...props}>1</div>,
+              ]
+          };
+      `,
+      errors: [
+        { messageId: "jsxKeyBeforeSpread" },
+      ],
+    },
+    {
+      code: tsx`
+
+        const App = (props) => {
+        return [
+                <div {...props} key="1" key="2" {...props}>1</div>,
+              ]
+          };
+      `,
+      errors: [
+        { messageId: "jsxKeyBeforeSpread" },
+        { messageId: "jsxKeyBeforeSpread" },
+      ],
+    },
   ],
   valid: [
     ...allValid,

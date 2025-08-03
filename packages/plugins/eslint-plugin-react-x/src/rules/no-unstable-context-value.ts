@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             messageId: "unstableContextValue",
             node: constructionNode,
             data: {
-              type: AST.toDelimiterCaseType(constructionNode),
+              type: AST.toDelimiterFormat(constructionNode),
               suggestion,
             },
           });
