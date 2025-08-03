@@ -84,10 +84,6 @@ ruleTester.run(RULE_NAME, rule, {
       const { a, b, ...props } = otherProps
       const div = <div {...props} />
     `,
-    tsx`
-      <App dangerouslySetInnerHTML={{ __html: "HTML" }}>
-      </App>
-    `,
     "<App>Children</App>",
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
