@@ -140,8 +140,8 @@ importers:
         specifier: ^4.8.0
         version: 4.8.0(typedoc@0.28.9(typescript@5.9.2))
       typedoc-plugin-mdn-links:
-        specifier: ^5.0.6
-        version: 5.0.6(typedoc@0.28.9(typescript@5.9.2))
+        specifier: ^5.0.7
+        version: 5.0.7(typedoc@0.28.9(typescript@5.9.2))
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -844,6 +844,9 @@ importers:
       birecord:
         specifier: ^0.1.1
         version: 0.1.1
+      ts-api-utils:
+        specifier: ^2.1.0
+        version: 2.1.0(typescript@5.9.2)
       ts-pattern:
         specifier: ^5.8.0
         version: 5.8.0
@@ -8797,8 +8800,8 @@ packages:
     peerDependencies:
       typedoc: 0.28.x
 
-  typedoc-plugin-mdn-links@5.0.6:
-    resolution: {integrity: sha512-HMT80FBtXmsxM26RXjoEARWf6g5cRJwcWJ6GiaMNxXu9VlZHxoin15MpxSZVlw3BrG0YILeAieRTJbrnrJXyvw==}
+  typedoc-plugin-mdn-links@5.0.7:
+    resolution: {integrity: sha512-F4hSmW4wGn562EuF8UQWmutQfWlvSoP+14QJ6UQcNViGrBCQ9NLqze5LuhYc0DLxuQnWIzUnCShpuy2Zo5LtfQ==}
     peerDependencies:
       typedoc: 0.27.x || 0.28.x
 
@@ -17574,7 +17577,7 @@ snapshots:
     dependencies:
       typedoc: 0.28.9(typescript@5.9.2)
 
-  typedoc-plugin-mdn-links@5.0.6(typedoc@0.28.9(typescript@5.9.2)):
+  typedoc-plugin-mdn-links@5.0.7(typedoc@0.28.9(typescript@5.9.2)):
     dependencies:
       typedoc: 0.28.9(typescript@5.9.2)
 
