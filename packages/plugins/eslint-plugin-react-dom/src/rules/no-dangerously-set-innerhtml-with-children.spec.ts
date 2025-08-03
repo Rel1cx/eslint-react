@@ -39,6 +39,30 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
       errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
     },
+    {
+      // https://github.com/Rel1cx/eslint-react/issues/1163
+      code: tsx`
+        function Abc() {
+          return (
+            <>
+              {/* Error on div 1: A DOM component cannot use both 'children' and 'dangerouslySetInnerHTML'. eslint @eslint-react/dom/no-dangerously-set-innerhtml-with-children */}
+              <div dangerouslySetInnerHTML={{ __html: 'Hello World' }}>
+                Goodbye World
+              </div>
+
+              {/* No error on div 2 */}
+              <div dangerouslySetInnerHTML={{ __html: 'Hello World' }}>
+                <p>Goodbye World</p>
+              </div>
+            </>
+          );
+        }
+      `,
+      errors: [
+        { messageId: "noDangerouslySetInnerhtmlWithChildren" },
+        { messageId: "noDangerouslySetInnerhtmlWithChildren" },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -59,6 +83,10 @@ ruleTester.run(RULE_NAME, rule, {
       const otherProps = { children: "Children" }
       const { a, b, ...props } = otherProps
       const div = <div {...props} />
+    `,
+    tsx`
+      <App dangerouslySetInnerHTML={{ __html: "HTML" }}>
+      </App>
     `,
     "<App>Children</App>",
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',

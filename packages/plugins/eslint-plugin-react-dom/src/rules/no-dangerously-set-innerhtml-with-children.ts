@@ -1,10 +1,9 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 
+import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
@@ -40,7 +39,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const attributes = node.openingElement.attributes;
       const initialScope = context.sourceCode.getScope(node);
-      const hasChildren = hasChildrenWithin(node) || ER.hasAttribute(context, "children", attributes, initialScope);
+      const hasChildren = node.children.some(isSignificantChildren)
+        || ER.hasAttribute(context, "children", attributes, initialScope);
       if (hasChildren && ER.hasAttribute(context, dangerouslySetInnerHTML, attributes, initialScope)) {
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",
@@ -51,8 +51,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-function hasChildrenWithin(node: TSESTree.JSXElement): boolean {
-  return node.children.length > 0
-    && node.children[0] != null
-    && !AST.isLineBreak(node.children[0]);
+/**
+ * Check if a Literal or JSXText node is whitespace
+ * @param node The AST node to check
+ * @returns boolean `true` if the node is whitespace
+ */
+function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
+  return typeof node.value === "string" && node.raw.trim() === "";
+}
+
+/**
+ * Check if a Literal or JSXText node is padding spaces
+ * @param node The AST node to check
+ * @returns boolean
+ */
+function isPaddingSpaces(node: TSESTree.Node) {
+  return ER.isJsxText(node)
+    && isWhiteSpace(node)
+    && node.raw.includes("\n");
+}
+
+function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
+  return node.type !== AST_NODE_TYPES.JSXText || !isPaddingSpaces(node);
 }

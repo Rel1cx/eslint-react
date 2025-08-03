@@ -25,7 +25,7 @@
     "eslint-plugin-function": "^0.0.22",
     "eslint-plugin-jsdoc": "^52.0.2",
     "eslint-plugin-perfectionist": "^4.15.0",
-    "eslint-plugin-regexp": "^2.9.0",
+    "eslint-plugin-regexp": "^2.9.1",
     "eslint-plugin-unicorn": "^60.0.0",
     "typescript-eslint": "^8.38.0"
   }
