@@ -6,46 +6,18 @@
 
 # Function: isFragmentElement()
 
-## Call Signature
+> **isFragmentElement**(`context`, `node`): `node is JSXElement`
 
-> **isFragmentElement**(`context`, `node`, `allowJSXFragment?`): `node is JSXElement`
+## Parameters
 
-### Parameters
-
-#### context
+### context
 
 `RuleContext`
 
-#### node
+### node
 
-`undefined` | `null` | `Node`
+`Node`
 
-#### allowJSXFragment?
-
-`false`
-
-### Returns
+## Returns
 
 `node is JSXElement`
-
-## Call Signature
-
-> **isFragmentElement**(`context`, `node`, `allowJSXFragment?`): node is JSXElement \| JSXFragment
-
-### Parameters
-
-#### context
-
-`RuleContext`
-
-#### node
-
-`undefined` | `null` | `Node`
-
-#### allowJSXFragment?
-
-`true`
-
-### Returns
-
-node is JSXElement \| JSXFragment
