@@ -46,6 +46,7 @@ export type TypeVariant =
  * Get the variants of an array of types.
  * @param types The types to get the variants of
  * @returns The variants of the types
+ * @internal
  */
 export function getTypeVariants(types: ts.Type[]) {
   const variants = new Set<TypeVariant>();
