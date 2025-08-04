@@ -105,7 +105,7 @@ function checkNode(
 ) {
   const initialScope = context.sourceCode.getScope(node);
   // return if the fragment is keyed (e.g. <Fragment key={key}>)
-  if (ER.isKeyedElement(context, node, initialScope)) {
+  if (node.type === T.JSXElement && ER.hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
     return;
   }
   // report if the fragment is placed inside a host component (e.g. <div><></></div>)

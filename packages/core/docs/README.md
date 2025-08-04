@@ -128,7 +128,6 @@
 - [isInitializedFromReact](functions/isInitializedFromReact.md)
 - [isJsxLike](functions/isJsxLike.md)
 - [isJsxText](functions/isJsxText.md)
-- [isKeyedElement](functions/isKeyedElement.md)
 - [isNeverType](functions/isNeverType.md)
 - [isNullishType](functions/isNullishType.md)
 - [isNumberType](functions/isNumberType.md)
