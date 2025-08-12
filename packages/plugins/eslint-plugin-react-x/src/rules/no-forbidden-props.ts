@@ -1,7 +1,7 @@
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { type RuleContext, type RuleFeature, RegExp } from "@eslint-react/kit";
 
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { camelCase, type CamelCase } from "string-ts";
 import { createRule } from "../utils";
 
@@ -113,21 +113,15 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
           }
           const forbiddenProp = typeof forbiddenPropItem === "string" ? forbiddenPropItem : forbiddenPropItem.prop;
 
-          if (forbiddenProp.startsWith("/") && forbiddenProp.endsWith("/")) {
-            // Handle regex patterns like '/_/'
-            const regexPattern = forbiddenProp.slice(1, -1);
-            const regex = new RegExp(regexPattern);
-            if (!regex.test(name)) {
-              continue;
-            }
-          } else if (forbiddenProp !== name) {
-            continue;
+          const forbiddenPropRegExp = RegExp.toRegExp(forbiddenProp);
+          if (forbiddenPropRegExp.test(name)) {
+            context.report({
+              messageId,
+              node: attr,
+              data: { name },
+            });
           }
-          context.report({
-            messageId,
-            node: attr,
-            data: { name },
-          });
+
         }
       }
     },
