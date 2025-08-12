@@ -108,5 +108,5 @@ export function toRegExp(string: string): { test(s: string): boolean } {
  * @returns boolean
  */
 export function isRegExp(string: string): boolean {
-  return Boolean(REGEXP_STR.test(string));
+  return REGEXP_STR.test(string);
 }
