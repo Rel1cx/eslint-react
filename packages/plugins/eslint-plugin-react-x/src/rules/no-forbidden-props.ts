@@ -1,5 +1,5 @@
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { type RuleContext, type RuleFeature, RegExp } from "@eslint-react/kit";
+import { RegExp as RE, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { camelCase, type CamelCase } from "string-ts";
@@ -8,7 +8,9 @@ import { createRule } from "../utils";
 export const RULE_NAME = "no-forbidden-props";
 
 export const RULE_FEATURES = ["CFG"] as const satisfies RuleFeature[];
+
 export type MessageID = CamelCase<typeof RULE_NAME>;
+
 const messageId = camelCase(RULE_NAME);
 
 type Options = readonly [
@@ -113,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
           }
           const forbiddenProp = typeof forbiddenPropItem === "string" ? forbiddenPropItem : forbiddenPropItem.prop;
 
-          const forbiddenPropRegExp = RegExp.toRegExp(forbiddenProp);
+          const forbiddenPropRegExp = RE.toRegExp(forbiddenProp);
           if (forbiddenPropRegExp.test(name)) {
             context.report({
               messageId,
@@ -121,7 +123,6 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
               data: { name },
             });
           }
-
         }
       }
     },
