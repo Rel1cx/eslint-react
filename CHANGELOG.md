@@ -1,3 +1,11 @@
+## v1.52.4 (2025-08-13)
+
+### 🐞 Fixes
+
+- fix: improve logic for detecting significant children in JSX elements, closes #1163 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1165
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.3...v1.52.4
+
 ## v1.52.3 (2025-07-13)
 
 ### 🐞 Fixes

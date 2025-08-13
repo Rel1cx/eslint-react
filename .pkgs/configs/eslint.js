@@ -95,6 +95,7 @@ export const typescript = tseslint.config({
 }, {
     extends: [
         pluginDeMorgan.configs.recommended,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         pluginJsdoc.configs["flat/recommended-typescript-error"],
         pluginRegexp.configs["flat/recommended"],
         pluginPerfectionist.configs["recommended-natural"],
