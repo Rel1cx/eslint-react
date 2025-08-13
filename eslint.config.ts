@@ -49,7 +49,7 @@ export default tseslint.config(
     ],
     language: "markdown/gfm",
     rules: {
-      "markdown/no-html": "warn",
+      "markdown/no-html": "off",
       "markdown/no-missing-label-refs": "off",
     },
   },

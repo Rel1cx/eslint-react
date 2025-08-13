@@ -50,7 +50,7 @@ const fullName = firstName + " " + lastName;
 
 The rule **does not flag** indirect calls, such as:
 
-- Inside event handlers.
+- Inside `event` handlers.
 - Inside `async` functions.
 - Inside `setTimeout`, `setInterval`, `Promise.then`, etc.
 
@@ -142,6 +142,12 @@ export default function RemoteContent() {
   return <h1>{count}</h1>;
 }
 ```
+
+<Callout title="TIP">
+
+If you need to fetch remote data within the component, consider using libraries like [TanStack Query](https://tanstack.com/query/v3/) or [SWR](https://swr.vercel.app/). They handle caching, re-fetching, and state management for you, making your code cleaner and more efficient.
+
+</Callout>
 
 The following examples are derived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
 
