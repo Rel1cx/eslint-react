@@ -14,9 +14,9 @@ react-x/no-forbidden-props
 @eslint-react/no-forbidden-props
 ```
 
-**Presets**
+**Features**
 
-None
+`🔧`
 
 ## Description
 
