@@ -31,6 +31,7 @@
     "no-direct-set-state-in-use-effect",
     "no-direct-set-state-in-use-layout-effect",
     "no-duplicate-key",
+    "no-forbidden-props",
     "no-forward-ref",
     "no-implicit-key",
     "no-leaked-conditional-rendering",

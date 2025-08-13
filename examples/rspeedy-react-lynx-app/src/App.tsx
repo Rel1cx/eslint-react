@@ -7,26 +7,25 @@ export function App() {
 
   return (
     <page>
-      <view className="flex flex-col justify-center items-center min-h-screen text-center">
-        <text className="text-6xl font-bold leading-normal underline">
+      <view>
+        <text>
           ReactLynx + TailwindCSS
         </text>
-        <text className="text-lg font-normal text-gray-500 leading-normal">
+        <text>
           Start building amazing things with ReactLynx.
         </text>
         <view
-          className="flex flex-row p-20 rounded-full"
           style={{
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             padding: "40px",
             margin: "10px",
           }}
         >
-          <text className="text-4xl font-bold text-gray-800">
+          <text>
             Count: {count}
           </text>
         </view>
-        <view className="grid grid-cols-3 gap-4">
+        <view>
           <text>01</text>
           <text>02</text>
           <text>03</text>
