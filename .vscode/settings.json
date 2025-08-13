@@ -8,12 +8,19 @@
   "[typescript]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
+  "dprint.path": "node_modules/.bin/dprint",
   "editor.codeActionsOnSave": {
-    "source.formatting": "explicit",
     "source.fixAll": "never",
-    "source.fixAll.eslint": "never",
+    "source.fixAll.eslint": "explicit",
+    "source.formatting": "explicit",
     "source.organizeImports": "never"
   },
+  "eslint.rules.customizations": [
+    {
+      "rule": "@eslint-react/debug/*",
+      "severity": "info"
+    }
+  ],
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -30,15 +37,9 @@
       "mode": "auto"
     }
   ],
-  "eslint.rules.customizations": [
-    {
-      "rule": "@eslint-react/debug/*",
-      "severity": "info"
-    }
-  ],
   "files.exclude": {
-    "**/.zed": true,
-    "*.bundled_*.mjs": true
+    "*.bundled_*.mjs": true,
+    "**/.zed": true
   },
   "mdx.server.enable": true,
   "npm.packageManager": "pnpm",
