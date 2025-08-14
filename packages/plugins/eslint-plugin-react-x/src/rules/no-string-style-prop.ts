@@ -19,7 +19,6 @@ export default createRule<[], MessageID>({
       description: "Disallows the use of string style prop.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
-    fixable: "code",
     messages: {
       noStringStyleProp: "Do not use string style prop. Use an object instead.",
     },
