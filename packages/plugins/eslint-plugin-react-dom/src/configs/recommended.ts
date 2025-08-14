@@ -15,6 +15,7 @@ export const rules = {
   "react-dom/no-render": "error",
   "react-dom/no-render-return-value": "error",
   "react-dom/no-script-url": "warn",
+  "react-dom/no-string-style-prop": "error",
   "react-dom/no-unsafe-iframe-sandbox": "warn",
   "react-dom/no-unsafe-target-blank": "warn",
   "react-dom/no-use-form-state": "error",

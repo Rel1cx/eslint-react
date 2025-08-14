@@ -76,6 +76,7 @@
     "dom-no-render",
     "dom-no-render-return-value",
     "dom-no-script-url",
+    "dom-no-string-style-prop",
     "dom-no-unknown-property",
     "dom-no-unsafe-iframe-sandbox",
     "dom-no-unsafe-target-blank",
