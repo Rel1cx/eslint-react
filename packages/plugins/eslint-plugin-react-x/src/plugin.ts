@@ -43,6 +43,7 @@ import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
 import noStringRefs from "./rules/no-string-refs";
+import noStringStyleProp from "./rules/no-string-style-prop";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
@@ -121,6 +122,7 @@ export const plugin = {
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
     "no-string-refs": noStringRefs,
+    "no-string-style-prop": noStringStyleProp,
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,

@@ -47,6 +47,7 @@ export const rules = {
   "react-x/no-set-state-in-component-did-update": "warn",
   "react-x/no-set-state-in-component-will-update": "warn",
   "react-x/no-string-refs": "error",
+  "react-x/no-string-style-prop": "error",
   // "react-x/no-unnecessary-use-callback": "warn",
   // "react-x/no-unnecessary-use-memo": "warn",
   "react-x/no-unnecessary-use-prefix": "warn",
