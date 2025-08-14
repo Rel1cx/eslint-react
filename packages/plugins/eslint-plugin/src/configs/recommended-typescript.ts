@@ -6,11 +6,11 @@ export const name = "@eslint-react/recommended-typescript";
 
 export const rules = {
   ...recommended.rules,
+  "@eslint-react/dom/no-string-style-prop": "off",
   "@eslint-react/dom/no-unknown-property": "off",
   "@eslint-react/jsx-no-duplicate-props": "off",
   "@eslint-react/jsx-uses-react": "off",
   "@eslint-react/jsx-uses-vars": "off",
-  "@eslint-react/no-string-style-prop": "off",
 } as const satisfies RulePreset;
 
 export const plugins = {
