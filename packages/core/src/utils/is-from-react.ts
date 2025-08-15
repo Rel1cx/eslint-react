@@ -21,11 +21,12 @@ function getRequireExpressionArguments(node: TSESTree.Node) {
 }
 
 /**
- * Check if an identifier is initialized from react
+ * Check if an identifier name is initialized from react
  * @param name The top-level identifier's name
  * @param importSource The import source to check against
  * @param initialScope Initial scope to search for the identifier
- * @returns Whether the identifier is initialized from react
+ * @returns Whether the identifier name is initialized from react
+ * @internal
  */
 export function isInitializedFromReact(
   name: string,

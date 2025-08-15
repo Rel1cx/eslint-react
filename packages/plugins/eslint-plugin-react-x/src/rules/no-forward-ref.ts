@@ -51,13 +51,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const id = AST.getFunctionId(node);
+      const fix = canFix(context, node) ? getFix(context, node) : null;
       context.report({
         messageId: "noForwardRef",
         node: id ?? node,
-        fix: getFix(context, node),
+        fix,
       });
     },
   };
+}
+
+function canFix(context: RuleContext, node: TSESTree.CallExpression) {
+  const { importSource } = getSettingsFromContext(context);
+  const initialScope = context.sourceCode.getScope(node);
+  switch (node.callee.type) {
+    case T.Identifier:
+      return ER.isInitializedFromReact(node.callee.name, importSource, initialScope);
+    case T.MemberExpression:
+      return node.callee.object.type === T.Identifier
+        && ER.isInitializedFromReact(node.callee.object.name, importSource, initialScope);
+    default:
+      return false;
+  }
 }
 
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {

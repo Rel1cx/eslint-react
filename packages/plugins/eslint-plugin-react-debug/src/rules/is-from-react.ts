@@ -37,22 +37,6 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { importSource = "react" } = getSettingsFromContext(context);
 
-  function isFromReact(node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope) {
-    const name = node.name;
-    switch (true) {
-      case node.parent.type === T.MemberExpression
-        && node.parent.property === node
-        && node.parent.object.type === T.Identifier:
-        return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
-      case node.parent.type === T.JSXMemberExpression
-        && node.parent.property === node
-        && node.parent.object.type === T.JSXIdentifier:
-        return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
-      default:
-        return ER.isInitializedFromReact(name, importSource, initialScope);
-    }
-  }
-
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier
       && node.parent.imported === node
@@ -60,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (shouldSkipDuplicate) return;
     const name = node.name;
     const initialScope = context.sourceCode.getScope(node);
-    if (!isFromReact(node, initialScope)) return;
+    if (!isFromReact(node, importSource, initialScope)) return;
     context.report({
       messageId: "isFromReact",
       node,
@@ -76,4 +60,31 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     Identifier: visitorFunction,
     JSXIdentifier: visitorFunction,
   };
+}
+
+/**
+ * Check if an identifier node is initialized from React
+ * @param node The identifier node to check
+ * @param importSource The import source to check against
+ * @param initialScope Initial scope to search for the identifier
+ * @returns Whether the identifier node is initialized from React
+ */
+function isFromReact(
+  node: TSESTree.Identifier | TSESTree.JSXIdentifier,
+  importSource: string,
+  initialScope: Scope,
+) {
+  const name = node.name;
+  switch (true) {
+    case node.parent.type === T.MemberExpression
+      && node.parent.property === node
+      && node.parent.object.type === T.Identifier:
+      return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+    case node.parent.type === T.JSXMemberExpression
+      && node.parent.property === node
+      && node.parent.object.type === T.JSXIdentifier:
+      return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+    default:
+      return ER.isInitializedFromReact(name, importSource, initialScope);
+  }
 }
