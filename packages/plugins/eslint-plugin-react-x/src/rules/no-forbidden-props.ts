@@ -7,7 +7,7 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-forbidden-props";
 
-export const RULE_FEATURES = ["CFG"] as const satisfies RuleFeature[];
+export const RULE_FEATURES = ["CFG", "EXP"] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 

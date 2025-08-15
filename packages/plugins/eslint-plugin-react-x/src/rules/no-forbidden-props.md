@@ -16,7 +16,7 @@ react-x/no-forbidden-props
 
 **Features**
 
-`🔧`
+`🔧` `🧪`
 
 ## Description
 
