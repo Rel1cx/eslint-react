@@ -52,7 +52,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@eslint/config-inspector": "^1.1.0",
+    "@eslint/config-inspector": "^1.2.0",
     "@eslint/markdown": "^7.1.0",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
