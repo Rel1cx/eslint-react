@@ -26,6 +26,7 @@ export const projects = [
   { owner: "TanStack", repo: "query" },
   { owner: "TanStack", repo: "router" },
   { owner: "TanStack", repo: "store" },
+  { owner: "tisoap", repo: "react-flow-smart-edge" },
   { owner: "toss", repo: "suspensive" },
   { owner: "XYOracleNetwork", repo: "sdk-xyo-react-js" },
 ];
