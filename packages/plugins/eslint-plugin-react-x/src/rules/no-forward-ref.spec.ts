@@ -6,6 +6,20 @@ import rule, { RULE_NAME } from "./no-forward-ref";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      // Not safe to fix because the import source is "not-react"
+      code: tsx`
+        import { forwardRef } from "not-react"
+
+        forwardRef(() => null)
+      `,
+      errors: [{ messageId: "noForwardRef" }],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
       code: tsx`
         import { forwardRef } from 'react'
         const Component = forwardRef((props) => {

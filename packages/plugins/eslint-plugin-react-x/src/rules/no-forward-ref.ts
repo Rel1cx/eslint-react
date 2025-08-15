@@ -51,13 +51,36 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const id = AST.getFunctionId(node);
+      const fix = canFix(context, node) ? getFix(context, node) : null;
       context.report({
         messageId: "noForwardRef",
         node: id ?? node,
-        fix: getFix(context, node),
+        fix,
       });
     },
   };
+}
+
+/**
+ * Determines whether the given CallExpression can be safely auto-fixed by replacing
+ * the usage of `forwardRef` with passing `ref` as a prop.
+ *
+ * @param context - The rule context object.
+ * @param node - The CallExpression node to check.
+ * @returns True if the call can be auto-fixed, false otherwise.
+ */
+function canFix(context: RuleContext, node: TSESTree.CallExpression) {
+  const { importSource } = getSettingsFromContext(context);
+  const initialScope = context.sourceCode.getScope(node);
+  switch (node.callee.type) {
+    case T.Identifier:
+      return ER.isInitializedFromReact(node.callee.name, importSource, initialScope);
+    case T.MemberExpression:
+      return node.callee.object.type === T.Identifier
+        && ER.isInitializedFromReact(node.callee.object.name, importSource, initialScope);
+    default:
+      return false;
+  }
 }
 
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
