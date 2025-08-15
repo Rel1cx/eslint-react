@@ -61,6 +61,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
+/**
+ * Determines whether the given CallExpression can be safely auto-fixed by replacing
+ * the usage of `forwardRef` with passing `ref` as a prop.
+ *
+ * @param context - The rule context object.
+ * @param node - The CallExpression node to check.
+ * @returns True if the call can be auto-fixed, false otherwise.
+ */
 function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
   const initialScope = context.sourceCode.getScope(node);
