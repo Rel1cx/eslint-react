@@ -6,7 +6,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- fix: refactor `is-from-react` utility and improve `no-forward-ref` rule autofix handling, closes #1172 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1173
+- fix: refactor `is-from-react` utility in `react-debug/is-from-react` rule and improve `react-x/no-forward-ref` rule autofix handling, closes #1172 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1173
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.4...v1.52.5
 
