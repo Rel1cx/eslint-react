@@ -2721,8 +2721,8 @@ packages:
     peerDependencies:
       tslib: ^2.8.1
 
-  '@jsonjoy.com/json-pack@1.10.1':
-    resolution: {integrity: sha512-XgVydQHFY0mZXJhG8yKVFoXO1295IdKQf/YE2jDlbp+1TUVB9p/Bul34E5HcqB/bH+0Rx1HIgqmmZm57MK0dhQ==}
+  '@jsonjoy.com/json-pack@1.11.0':
+    resolution: {integrity: sha512-nLqSTAYwpk+5ZQIoVp7pfd/oSKNWlEdvTq2LzVA4r2wtWZg6v+5u0VgBOaDJuUfNOuw/4Ysq6glN5QKSrOCgrA==}
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: ^2.8.1
@@ -10606,7 +10606,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@jsonjoy.com/json-pack@1.10.1(tslib@2.8.1)':
+  '@jsonjoy.com/json-pack@1.11.0(tslib@2.8.1)':
     dependencies:
       '@jsonjoy.com/base64': 1.1.2(tslib@2.8.1)
       '@jsonjoy.com/buffers': 1.0.0(tslib@2.8.1)
@@ -15448,7 +15448,7 @@ snapshots:
 
   memfs@4.36.0:
     dependencies:
-      '@jsonjoy.com/json-pack': 1.10.1(tslib@2.8.1)
+      '@jsonjoy.com/json-pack': 1.11.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
       tree-dump: 1.0.3(tslib@2.8.1)
       tslib: 2.8.1
