@@ -15,14 +15,14 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.112.2"
+    "@lynx-js/react": "^0.112.3"
   },
   "devDependencies": {
     "@eslint/config-inspector": "^1.2.0",
     "@eslint/js": "^9.33.0",
     "@lynx-js/qrcode-rsbuild-plugin": "^0.4.0",
-    "@lynx-js/react-rsbuild-plugin": "^0.10.11",
-    "@lynx-js/rspeedy": "^0.10.6",
+    "@lynx-js/react-rsbuild-plugin": "^0.10.12",
+    "@lynx-js/rspeedy": "^0.10.7",
     "@lynx-js/types": "^3.3.0",
     "@rsbuild/plugin-sass": "^1.3.5",
     "@rsbuild/plugin-type-check": "^1.2.4",
