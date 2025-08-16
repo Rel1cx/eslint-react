@@ -129,7 +129,6 @@
 - [isGetInitialState](functions/isGetInitialState.md)
 - [isGetSnapshotBeforeUpdate](functions/isGetSnapshotBeforeUpdate.md)
 - [isHostElement](functions/isHostElement.md)
-- [isInitializedFromReact](functions/isInitializedFromReact.md)
 - [isJsxLike](functions/isJsxLike.md)
 - [isJsxText](functions/isJsxText.md)
 - [isPureComponent](functions/isPureComponent.md)
