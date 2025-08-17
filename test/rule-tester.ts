@@ -1,7 +1,7 @@
 import { RuleTester, type RuleTesterConfig } from "@typescript-eslint/rule-tester";
+import ts from "typescript";
 import * as vitest from "vitest";
 import { getFixturesRootDir } from "./helpers";
-import ts from "typescript";
 
 RuleTester.it = vitest.it;
 RuleTester.itOnly = vitest.it.only;

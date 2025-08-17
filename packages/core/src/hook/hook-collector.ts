@@ -1,6 +1,6 @@
+import * as AST from "@eslint-react/ast";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Hook } from "./hook-semantic-node";
-import * as AST from "@eslint-react/ast";
 
 import { getId } from "@eslint-react/shared";
 import { isReactHookCall } from "./hook-is";

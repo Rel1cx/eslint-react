@@ -84,7 +84,7 @@ The first three cases are common valid use cases because they are not called the
 ### Passing
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
@@ -102,7 +102,7 @@ export default function Counter() {
 ### Passing
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
@@ -121,7 +121,7 @@ export default function Counter() {
 ### Passing
 
 ```tsx
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function RemoteContent() {
   const [content, setContent] = useState("");

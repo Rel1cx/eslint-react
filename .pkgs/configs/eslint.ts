@@ -107,7 +107,7 @@ export const typescript: ConfigArray = tseslint.config(
   {
     extends: [
       pluginDeMorgan.configs.recommended,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
       pluginJsdoc.configs["flat/recommended-typescript-error"],
       pluginRegexp.configs["flat/recommended"],
       pluginPerfectionist.configs["recommended-natural"],
@@ -126,32 +126,8 @@ export const typescript: ConfigArray = tseslint.config(
       "@stylistic/operator-linebreak": "off",
       "@stylistic/quote-props": ["error", "as-needed"],
 
-      "perfectionist/sort-exports": ["warn", { type: "natural", order: "asc" }],
-      "perfectionist/sort-imports": ["warn", {
-        type: "natural",
-        groups: [
-          "type",
-          [
-            "parent-type",
-            "sibling-type",
-            "index-type",
-            "internal-type",
-          ],
-          "builtin",
-          "external",
-          "internal",
-          [
-            "parent",
-            "sibling",
-            "index",
-          ],
-          "side-effect",
-          "object",
-          "unknown",
-        ],
-        newlinesBetween: "ignore",
-        order: "asc",
-      }],
+      "perfectionist/sort-exports": "off",
+      "perfectionist/sort-imports": "off",
       "perfectionist/sort-interfaces": [
         "warn",
         { ...p11tOptions, ...p11tGroups },

@@ -31,8 +31,8 @@ React Hooks `useMemo` has empty dependencies array like what's in the examples, 
 ### Failing
 
 ```tsx
-import React, { useMemo } from "react";
 import { Button, MantineTheme } from "@mantine/core";
+import React, { useMemo } from "react";
 
 function MyComponent() {
   const style = useMemo(
@@ -50,8 +50,8 @@ function MyComponent() {
 ### Passing
 
 ```tsx
-import React from "react";
 import { Button, MantineTheme } from "@mantine/core";
+import React from "react";
 
 const style = (theme: MantineTheme) => ({
   input: {

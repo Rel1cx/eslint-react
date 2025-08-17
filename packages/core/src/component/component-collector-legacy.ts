@@ -1,7 +1,7 @@
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ClassComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import type { ClassComponent } from "./component-semantic-node";
 
 import { getId } from "@eslint-react/shared";
 import { ComponentFlag } from "./component-flag";

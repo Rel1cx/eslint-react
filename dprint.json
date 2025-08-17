@@ -4,10 +4,10 @@
     "indentWidth": 2,
     "quoteStyle": "preferDouble",
     "quoteProps": "asNeeded",
-    "importDeclaration.sortNamedImports": "maintain",
-    "exportDeclaration.sortNamedExports": "maintain",
-    "module.sortImportDeclarations": "maintain",
-    "module.sortExportDeclarations": "maintain"
+    "importDeclaration.sortNamedImports": "caseInsensitive",
+    "exportDeclaration.sortNamedExports": "caseInsensitive",
+    "module.sortImportDeclarations": "caseInsensitive",
+    "module.sortExportDeclarations": "caseInsensitive"
   },
   "json": {
     "indentWidth": 2

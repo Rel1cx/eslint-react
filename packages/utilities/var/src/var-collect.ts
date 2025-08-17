@@ -1,7 +1,7 @@
-import type { Scope, Variable } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
 import { dual, unit } from "@eslint-react/eff";
+import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import { ScopeType } from "@typescript-eslint/scope-manager";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import * as ASTUtils from "@typescript-eslint/utils/ast-utils";
 import { getVariableInitNode } from "./var-init-node";

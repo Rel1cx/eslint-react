@@ -1,9 +1,9 @@
-import type { RuleContext } from "@eslint-react/kit";
-import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
 import * as ER from "@eslint-react/core";
 import { constTrue } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/kit";
+import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 export const REACT_BUILD_IN_HOOKS = [

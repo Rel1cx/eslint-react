@@ -1,7 +1,7 @@
 /* eslint-disable function/function-return-boolean */
-import type { RuleContext } from "@eslint-react/kit";
 import * as AST from "@eslint-react/ast";
 import { dual, type unit } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isReactAPI {

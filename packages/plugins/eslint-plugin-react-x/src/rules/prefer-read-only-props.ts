@@ -1,11 +1,11 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
-import type ts from "typescript";
 import * as ER from "@eslint-react/core";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
+import type { CamelCase } from "string-ts";
+import type ts from "typescript";
 
 import { createRule } from "../utils";
 
