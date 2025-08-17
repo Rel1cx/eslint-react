@@ -79,6 +79,7 @@ export default tseslint.config(
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
       "@eslint-react/naming-convention/filename": ["error", { rule: "kebab-case" }],
+      "@eslint-react/no-unused-props": "warn",
       "react-refresh/only-export-components": "warn",
     },
   },
@@ -98,6 +99,7 @@ export default tseslint.config(
   {
     extends: [
       configs.disableTypeChecked,
+      react.configs["disable-type-checked"],
     ],
     files: [...GLOB_JS, ...GLOB_CONFIG],
     rules: {
