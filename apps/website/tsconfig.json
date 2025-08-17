@@ -14,29 +14,18 @@
     ],
     "erasableSyntaxOnly": true,
     "paths": {
-      "#": [
-        "."
-      ],
-      "#/*": [
-        "./*"
-      ]
+      "#": ["."],
+      "#/*": ["./*"]
     },
     "plugins": [
       {
-        "name": "@effect/language-service"
+        "name": "next"
       },
       {
-        "name": "next"
+        "name": "@effect/language-service"
       }
     ]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
