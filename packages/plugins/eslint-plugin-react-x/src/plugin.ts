@@ -62,7 +62,6 @@ import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
-/* eslint-disable perfectionist/sort-imports */
 import avoidShorthandBoolean from "./rules-removed/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules-removed/avoid-shorthand-fragment";
 import noCommentTextnodes from "./rules-removed/no-comment-textnodes";
@@ -70,7 +69,6 @@ import noComplexConditionalRendering from "./rules-removed/no-complex-conditiona
 import preferReactNamespaceImport from "./rules-removed/prefer-react-namespace-import";
 import preferShorthandBoolean from "./rules-removed/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules-removed/prefer-shorthand-fragment";
-/* eslint-enable perfectionist/sort-imports */
 
 export const plugin = {
   meta: {
