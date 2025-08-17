@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-
+import { Toaster } from "#/components/ui/Toaster";
+import { baseUrl } from "#/lib/metadata";
 import { RootProvider } from "fumadocs-ui/provider";
+
 import { ViewTransitions } from "next-view-transitions";
-
 import { IBM_Plex_Mono } from "next/font/google";
-import { baseUrl } from "../lib/metadata";
 
-import "./app.css";
-import "./app.override.css";
+import "#/app/app.css";
+import "#/app/app.override.css";
 
 const ibm_plex_mono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -56,6 +56,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <RootProvider theme={themeOptions}>
             {children}
           </RootProvider>
+          <Toaster />
         </body>
       </html>
     </ViewTransitions>
