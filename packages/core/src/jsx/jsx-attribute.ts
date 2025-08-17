@@ -1,8 +1,8 @@
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
+import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import * as VAR from "@eslint-react/var";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getAttributeName } from "./jsx-attribute-name";

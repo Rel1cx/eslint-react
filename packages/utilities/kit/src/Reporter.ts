@@ -1,6 +1,6 @@
+import { dual, type unit } from "@eslint-react/eff";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import type { RuleContext } from "./types";
-import { dual, type unit } from "@eslint-react/eff";
 
 export interface Reporter<TMessageID extends string> {
   send: (descriptor: unit | null | ReportDescriptor<TMessageID>) => void;

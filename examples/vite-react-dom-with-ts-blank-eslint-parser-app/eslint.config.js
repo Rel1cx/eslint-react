@@ -1,11 +1,11 @@
 // @ts-check
-import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import globals from "globals";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
 import tseslint from "typescript-eslint";
-import globals from "globals";
 
 import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };

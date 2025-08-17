@@ -1,9 +1,9 @@
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
 import { JsxConfig, Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 import { createRule, stringify } from "../utils";
 

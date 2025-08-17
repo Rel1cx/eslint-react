@@ -1,7 +1,7 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
 import * as VAR from "@eslint-react/var";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isFromUseStateCall } from "./is-from-use-state-call";

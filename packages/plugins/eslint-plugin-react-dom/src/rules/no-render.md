@@ -34,8 +34,8 @@ Replaces usages of `ReactDom.render()` with `createRoot(node).render()`.
 ### Before
 
 ```tsx
-import ReactDom from "react-dom";
 import Component from "Component";
+import ReactDom from "react-dom";
 
 ReactDom.render(<Component />, document.getElementById("app"));
 ```
@@ -43,8 +43,8 @@ ReactDom.render(<Component />, document.getElementById("app"));
 ### After
 
 ```tsx
-import { createRoot } from "react-dom/client";
 import Component from "Component";
+import { createRoot } from "react-dom/client";
 
 createRoot(document.getElementById("app")).render(<Component />);
 ```

@@ -1,6 +1,6 @@
+import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { TSESTreeFunction } from "./ast-node";
-import { unit } from "@eslint-react/eff";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 

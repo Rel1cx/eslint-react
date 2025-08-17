@@ -1,12 +1,12 @@
-import type { TSESTree } from "@typescript-eslint/types";
-import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ComponentDetectionHint } from "./component-detection-hint";
-import type { FunctionComponent } from "./component-semantic-node";
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, Selector as SEL } from "@eslint-react/kit";
 import { getId } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
+import type { ComponentDetectionHint } from "./component-detection-hint";
+import type { FunctionComponent } from "./component-semantic-node";
 
 import { isReactHookCall } from "../hook";
 import { isJsxLike } from "../jsx";

@@ -1,15 +1,15 @@
+import babelEslintParser from "@babel/eslint-parser";
 import eslintJs from "@eslint/js";
-import eslintPluginReactX from "eslint-plugin-react-x";
+import eslintPluginReactDebug from "eslint-plugin-react-debug";
 import eslintPluginReactDom from "eslint-plugin-react-dom";
-import eslintPluginReactWebApi from "eslint-plugin-react-web-api";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactHooksExtra from "eslint-plugin-react-hooks-extra";
 import eslintPluginReactNamingConvention from "eslint-plugin-react-naming-convention";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import eslintPluginReactDebug from "eslint-plugin-react-debug";
-import babelEslintParser from "@babel/eslint-parser";
-import globals from "globals";
+import eslintPluginReactWebApi from "eslint-plugin-react-web-api";
+import eslintPluginReactX from "eslint-plugin-react-x";
 import { defineConfig } from "eslint/config";
+import globals from "globals";
 
 import JSCONFIG_APP from "./jsconfig.app.json" with { type: "json" };
 import JSCONFIG_NODE from "./jsconfig.node.json" with { type: "json" };

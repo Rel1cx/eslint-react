@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { RuleContext } from "../types";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import * as RE from "../RegExp";
+import type { RuleContext } from "../types";
 
 export const JsxEmit = {
   None: 0,

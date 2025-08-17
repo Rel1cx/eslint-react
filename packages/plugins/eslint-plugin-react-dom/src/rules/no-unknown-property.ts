@@ -2,12 +2,12 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 // TODO: Port to TypeScript
 // @ts-nocheck
-import { getSettingsFromContext } from "@eslint-react/shared";
-import { createRule } from "../utils";
-import { compare } from "compare-versions";
 import { Reporter as RPT } from "@eslint-react/kit";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { compare } from "compare-versions";
+import { createRule } from "../utils";
 
 // ------------------------------------------------------------------------------
 // Constants

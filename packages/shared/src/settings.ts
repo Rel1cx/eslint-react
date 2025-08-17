@@ -1,9 +1,9 @@
 /* eslint-disable perfectionist/sort-objects */
 import type { unit } from "@eslint-react/eff";
-import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import type { PartialDeep } from "type-fest";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
 import { RegExp as RE, type RuleContext } from "@eslint-react/kit";
+import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import type { PartialDeep } from "type-fest";
 
 import { match, P } from "ts-pattern";
 import { z } from "zod/v4";
