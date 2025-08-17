@@ -51,6 +51,7 @@ export default tseslint.config(
     rules: {
       "markdown/no-html": "off",
       "markdown/no-missing-label-refs": "off",
+      "markdown/no-multiple-h1": "off",
     },
   },
   {
