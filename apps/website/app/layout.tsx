@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import { Toaster } from "#/components/ui/Toaster";
 import { baseUrl } from "#/lib/metadata";
 import { RootProvider } from "fumadocs-ui/provider";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 import { ViewTransitions } from "next-view-transitions";
 import { IBM_Plex_Mono } from "next/font/google";

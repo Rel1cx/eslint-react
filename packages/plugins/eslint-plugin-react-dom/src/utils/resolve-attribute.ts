@@ -1,8 +1,8 @@
+import * as ER from "@eslint-react/core";
+import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
 import type { CustomComponentPropNormalized } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import * as ER from "@eslint-react/core";
-import { unit } from "@eslint-react/eff";
 import { findCustomComponentProp } from "./find-custom-component";
 
 export function resolveAttribute(

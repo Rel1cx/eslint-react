@@ -1,7 +1,7 @@
 import type { RuleContext } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/utils";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { match, P } from "ts-pattern";
 
 /**

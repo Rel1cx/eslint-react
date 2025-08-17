@@ -1,12 +1,12 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { Selector as SEL } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";

@@ -1,13 +1,13 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { EventListenerEntry } from "../types";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
+import type { Scope } from "@typescript-eslint/scope-manager";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { EventListenerEntry } from "../types";
 
 import { isMatching, match, P } from "ts-pattern";
 import { createRule, getPhaseKindOfFunction } from "../utils";

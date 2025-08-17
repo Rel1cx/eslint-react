@@ -34,8 +34,8 @@ Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()`.
 ### Before
 
 ```tsx
-import ReactDom from "react-dom";
 import Component from "Component";
+import ReactDom from "react-dom";
 
 ReactDom.hydrate(<Component />, document.getElementById("app"));
 ```
@@ -43,9 +43,9 @@ ReactDom.hydrate(<Component />, document.getElementById("app"));
 ### After
 
 ```tsx
-import { hydrateRoot } from "react-dom/client";
-import ReactDom from "react-dom";
 import Component from "Component";
+import ReactDom from "react-dom";
+import { hydrateRoot } from "react-dom/client";
 
 hydrateRoot(document.getElementById("app"), <Component />);
 ```

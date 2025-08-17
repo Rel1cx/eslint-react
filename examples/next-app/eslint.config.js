@@ -1,10 +1,10 @@
-import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
 import eslintPluginNext from "@next/eslint-plugin-next";
+import gitignore from "eslint-config-flat-gitignore";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
-import gitignore from "eslint-config-flat-gitignore";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 

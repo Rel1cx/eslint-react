@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import type { unit } from "@eslint-react/eff";
-import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/utils";
 import * as AST from "@eslint-react/ast";
+import type { unit } from "@eslint-react/eff";
 import * as VAR from "@eslint-react/var";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { DEFAULT_JSX_DETECTION_HINT, JSXDetectionHint } from "./jsx-detection-hint";
 
 /**

@@ -1,8 +1,8 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";

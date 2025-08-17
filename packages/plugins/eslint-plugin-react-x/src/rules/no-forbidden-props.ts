@@ -1,8 +1,8 @@
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { RegExp as RE, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { camelCase, type CamelCase } from "string-ts";
+import { type CamelCase, camelCase } from "string-ts";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-forbidden-props";

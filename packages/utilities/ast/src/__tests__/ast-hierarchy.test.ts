@@ -1,10 +1,10 @@
 import type { TSESTreeFunction } from "../ast-node-types";
 
-import path from "node:path";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import tsx from "dedent";
+import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";

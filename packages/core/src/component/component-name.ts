@@ -1,8 +1,8 @@
 import type * as AST from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/types";
 import { unit } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/kit";
 import { RegExp as RE } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
 
 import { getFunctionComponentId } from "./component-id";
 

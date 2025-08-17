@@ -1,7 +1,7 @@
+import * as AST from "@eslint-react/ast";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import * as AST from "@eslint-react/ast";
 
 import * as ER from "@eslint-react/core";
 

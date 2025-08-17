@@ -70,8 +70,8 @@ npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 // eslint.config.js
 
 // @ts-check
-import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config({

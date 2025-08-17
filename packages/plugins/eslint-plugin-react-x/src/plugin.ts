@@ -65,11 +65,11 @@ import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-init
 /* eslint-disable perfectionist/sort-imports */
 import avoidShorthandBoolean from "./rules-removed/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules-removed/avoid-shorthand-fragment";
-import preferShorthandBoolean from "./rules-removed/prefer-shorthand-boolean";
-import preferShorthandFragment from "./rules-removed/prefer-shorthand-fragment";
-import preferReactNamespaceImport from "./rules-removed/prefer-react-namespace-import";
 import noCommentTextnodes from "./rules-removed/no-comment-textnodes";
 import noComplexConditionalRendering from "./rules-removed/no-complex-conditional-rendering";
+import preferReactNamespaceImport from "./rules-removed/prefer-react-namespace-import";
+import preferShorthandBoolean from "./rules-removed/prefer-shorthand-boolean";
+import preferShorthandFragment from "./rules-removed/prefer-shorthand-fragment";
 /* eslint-enable perfectionist/sort-imports */
 
 export const plugin = {

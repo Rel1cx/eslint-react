@@ -5,9 +5,9 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import type { CamelCase } from "string-ts";
 import * as ER from "@eslint-react/core";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { CamelCase } from "string-ts";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-shorthand-boolean";

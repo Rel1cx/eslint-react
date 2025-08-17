@@ -1,7 +1,7 @@
+import * as ER from "@eslint-react/core";
 import type { RuleFeature } from "@eslint-react/kit";
 import type { RuleContext, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import * as ER from "@eslint-react/core";
 
 import { createRule } from "../utils";
 

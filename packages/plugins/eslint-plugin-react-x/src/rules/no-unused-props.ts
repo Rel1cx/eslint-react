@@ -1,12 +1,12 @@
+import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import type ts from "typescript";
-import * as ER from "@eslint-react/core";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils";
 

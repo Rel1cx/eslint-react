@@ -1,7 +1,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { useNoDirectSetStateInUseEffect } from "../rules-hooks/use-no-direct-set-state-in-use-effect";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-effect";
@@ -33,17 +32,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
-
-  const noDirectSetStateInUseEffectListeners = useNoDirectSetStateInUseEffect(context, {
-    onViolation(ctx, node, data) {
-      ctx.report({ messageId: "noUnnecessaryUseEffect", node, data });
-    },
-    useEffectKind: "useEffect",
-  });
-
   // TODO: Implement the logic to check and report other scenarios described in react.dev/learn/you-might-not-need-an-effect.
 
-  return {
-    ...noDirectSetStateInUseEffectListeners,
-  };
+  return {};
 }

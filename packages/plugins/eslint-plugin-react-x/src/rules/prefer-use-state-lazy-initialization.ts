@@ -1,10 +1,10 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
+import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 

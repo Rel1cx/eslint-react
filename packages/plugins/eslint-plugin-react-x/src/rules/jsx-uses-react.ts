@@ -1,8 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import type { CamelCase } from "string-ts";
 import { JsxConfig, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import type { CamelCase } from "string-ts";
 import { createRule } from "../utils";
 
 const { JsxEmit } = JsxConfig;

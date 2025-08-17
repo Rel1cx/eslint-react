@@ -3,12 +3,10 @@ import { name, version } from "../package.json";
 import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
 import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
 
-/* eslint-disable perfectionist/sort-imports */
 import noUnnecessaryUseCallback from "./rules-removed/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules-removed/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules-removed/no-unnecessary-use-prefix";
 import preferUseStateLazyInitialization from "./rules-removed/prefer-use-state-lazy-initialization";
-/* eslint-enable perfectionist/sort-imports */
 
 export const plugin = {
   meta: {

@@ -1,12 +1,12 @@
-import type { TSESTree } from "@typescript-eslint/utils";
-import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/utils";
+import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";

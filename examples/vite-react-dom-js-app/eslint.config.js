@@ -1,9 +1,9 @@
-import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import globals from "globals";
 import { defineConfig } from "eslint/config";
+import globals from "globals";
 
 import JSCONFIG_APP from "./jsconfig.app.json" with { type: "json" };
 import JSCONFIG_NODE from "./jsconfig.node.json" with { type: "json" };

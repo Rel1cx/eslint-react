@@ -1,4 +1,3 @@
-import url from "node:url";
 import react from "@eslint-react/eslint-plugin";
 import markdown from "@eslint/markdown";
 import * as configs from "@local/configs/eslint";
@@ -7,6 +6,7 @@ import { recommended as fastImportRecommended } from "eslint-plugin-fast-import"
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
 import { globalIgnores } from "eslint/config";
+import url from "node:url";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };

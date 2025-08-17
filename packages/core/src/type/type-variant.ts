@@ -1,5 +1,5 @@
-import type ts from "typescript";
 import { match } from "ts-pattern";
+import type ts from "typescript";
 import {
   isAnyType,
   isBigIntType,
