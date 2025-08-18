@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.52.6 (2025-08-18)
+
+### 🐞 Fixes
+
+- fix: correct logic in `naming-convention/component-name` validation to continue on valid names, closes #1176 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1177>
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.5...v1.52.6
+
 ## v1.52.5 (2025-08-15)
 
 ### 🐞 Fixes
