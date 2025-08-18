@@ -14,6 +14,14 @@ react-x/no-unused-props
 @eslint-react/no-unused-props
 ```
 
+**Features**
+
+`💭` `🧪`
+
+**Presets**
+
+- `recommended-type-checked`
+
 ## Description
 
 Warns about unused component prop declarations.
