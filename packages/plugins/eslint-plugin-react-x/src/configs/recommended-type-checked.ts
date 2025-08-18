@@ -7,6 +7,7 @@ export const name = "react-x/recommended-type-checked";
 export const rules = {
   ...recommendedTypeScript.rules,
   "react-x/no-leaked-conditional-rendering": "warn",
+  "react-x/no-unused-props": "warn",
   // "react-x/prefer-read-only-props": "warn",
 } as const satisfies RulePreset;
 
