@@ -38,43 +38,75 @@ This is the TypeScript-only version of [`eslint-plugin-react/no-unused-prop-type
 ### Failing
 
 ```tsx
-interface Props {
-  abc: string; // used
-  hello: string; // NOT used
+// 'onClick' is defined in 'ButtonProps' but never used in the 'Button' component.
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
+function Button({ children }: ButtonProps) {
+  return <button type="button">{children}</button>;
+}
+```
+
+```tsx
+// 'avatarUrl' is defined in 'UserProfileProps' but never used in the 'UserProfile' component.
+interface UserProfileProps {
+  username: string;
+  avatarUrl: string;
 }
 
-function Component(props: Props) {
-  const { abc } = props; // `hello` isn't accessed from `props`
-  return null;
+function UserProfile({ username }: UserProfileProps) {
+  return <div>{username}</div>;
 }
 ```
 
 ### Passing
 
 ```tsx
-interface Props {
-  abc: string; // used
-  hello: string; // used
-}
+// All props are used.
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
 
-function Component(props: Props) {
-  const { abc, hello } = props;
-  return null;
+function Button({ children, onClick }: ButtonProps) {
+  return (
+    <button type="button" onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 ```
 
 ```tsx
-interface Props {
-  abc: string; // used by Component1
-  hello: string; // used by Component2
+// 'className' is passed to the underlying <p> element with the rest of the props.
+// '...rest' is considered a use of all props that are not destructured.
+interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  children: React.ReactNode;
+  className?: string;
 }
 
-function Component1({ abc }: Props) {
-  return null;
+function Text({ children, ...rest }: TextProps) {
+  return <p {...rest}>{children}</p>;
+}
+```
+
+```tsx
+// Both components use props from the same type definition.
+interface ProfileProps {
+  userId: string; // Used by ProfilePage
+  theme: "light" | "dark"; // Used by ProfileAvatar
 }
 
-function Component2({ hello }: Props) {
-  return null;
+function ProfilePage({ userId }: ProfileProps) {
+  // ...
+  return <div>User ID: {userId}</div>;
+}
+
+function ProfileAvatar({ theme }: ProfileProps) {
+  // ...
+  return <div className={theme}>...</div>;
 }
 ```
 
