@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "1.52.6-beta.1",
+  "version": "1.52.6-next.1",
   "description": "4-7x faster composable ESLint rules for for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
