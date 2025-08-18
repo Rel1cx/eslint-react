@@ -51,7 +51,7 @@ export default defineConfig([
   {
     files: JSCONFIG_APP.include,
     extends: [
-      eslintReact.configs["recommended-type-checked"],
+      eslintReact.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,
     ],
     plugins: {
