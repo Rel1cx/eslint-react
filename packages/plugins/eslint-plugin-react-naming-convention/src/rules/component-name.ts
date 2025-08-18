@@ -115,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         const id = AST.getFunctionId(component);
         if (id?.name == null) continue;
         const name = id.name;
-        if (isValidName(name, options)) return;
+        if (isValidName(name, options)) continue;
         context.report({
           messageId: "invalid",
           node: id,
