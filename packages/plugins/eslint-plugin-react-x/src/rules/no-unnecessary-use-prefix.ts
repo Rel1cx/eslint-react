@@ -64,6 +64,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (containsUseComments(context, node)) {
           continue;
         }
+        // Skip hooks that are in a vi mock callback
+        if (ER.isInViMockCallback(context, node)) {
+          continue;
+        }
         context.report({
           messageId: "noUnnecessaryUsePrefix",
           node: id ?? node,
