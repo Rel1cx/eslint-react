@@ -119,10 +119,4 @@ export default tseslint.config(
       "local/avoid-multiline-template-expression": "off",
     },
   },
-  {
-    files: ["**/*.test.{ts,tsx}"],
-    rules: {
-      "@eslint-react/no-unnecessary-use-prefix": "off",
-    },
-  },
 );
