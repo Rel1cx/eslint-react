@@ -195,5 +195,13 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1181
+    tsx`
+      const mockUseSession = vi.fn().mockReturnValue(sessionUser);
+
+      vi.mock("src/components/session/session", () => ({
+        useSession: () => mockUseSession(),
+      }));
+    `,
   ],
 });
