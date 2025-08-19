@@ -119,7 +119,7 @@
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.9",
       "lucide-react": "^0.540.0",
-      "next": "^15.4.6",
+      "next": "^15.4.7",
       "react": "^19.1.1",
       "react-dom": "^19.1.1",
       "ts-api-utils": "^2.1.0",
