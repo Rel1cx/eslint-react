@@ -110,6 +110,21 @@ ruleTester.run(RULE_NAME, rule, {
       filename: "snake_case.tsx",
       options: [{ rule: "camelCase" }],
     },
+    {
+      code,
+      errors: [
+        {
+          messageId: "filenameInvalid",
+          data: {
+            name: "snake_case.test.tsx",
+            rule: "camelCase",
+            suggestion: "snakeCase.test.tsx",
+          },
+        },
+      ],
+      filename: "snake_case.test.tsx",
+      options: [{ rule: "camelCase" }],
+    },
   ],
   valid: [
     {
@@ -149,6 +164,11 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code,
       filename: "snake_case.tsx",
+      options: [{ rule: "snake_case" }],
+    },
+    {
+      code,
+      filename: "snake_case.test.tsx",
       options: [{ rule: "snake_case" }],
     },
     {
