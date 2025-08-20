@@ -163,6 +163,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code,
+      filename: "$id.tsx",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code,
       filename: "_app.tsx",
       options: [{ rule: "PascalCase" }],
     },

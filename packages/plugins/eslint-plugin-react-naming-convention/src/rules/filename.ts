@@ -33,9 +33,9 @@ type Options = readonly [
 const defaultOptions = [
   {
     excepts: [
-      "$",
       "index",
       "/^_/",
+      "/^\\$/",
       "/^[0-9]+$/",
       "/^\\[[^\\]]+\\]$/",
     ],
