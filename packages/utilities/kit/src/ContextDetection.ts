@@ -1,7 +1,6 @@
+import * as AST from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isLiteral } from "./ast-literal-is";
+import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Check if the given node is a member expression that accesses `process.env.NODE_ENV`
@@ -35,11 +34,29 @@ export function isProcessEnvNodeEnvCompare(
   if (node == null) return false;
   if (node.type !== T.BinaryExpression) return false;
   if (node.operator !== operator) return false;
-  if (isProcessEnvNodeEnv(node.left) && isLiteral(node.right, "string")) {
+  if (isProcessEnvNodeEnv(node.left) && AST.isLiteral(node.right, "string")) {
     return node.right.value === value;
   }
-  if (isLiteral(node.left, "string") && isProcessEnvNodeEnv(node.right)) {
+  if (AST.isLiteral(node.left, "string") && isProcessEnvNodeEnv(node.right)) {
     return node.left.value === value;
   }
   return false;
+}
+
+/**
+ * Checks if the given node is a `vi.mock` callback.
+ * @param node The node to check
+ * @returns `true` if the node is a `vi.mock` callback, otherwise `false`.
+ * @internal
+ */
+export function isViMockCallback(node: TSESTree.Node | null | unit): node is TSESTree.FunctionExpression {
+  return node != null
+    && node.type === T.FunctionExpression
+    && node.parent.type === T.CallExpression
+    && node.parent.callee.type === T.MemberExpression
+    && node.parent.callee.object.type === T.Identifier
+    && node.parent.callee.object.name === "vi"
+    && node.parent.callee.property.type === T.Identifier
+    && node.parent.callee.property.name === "mock"
+    && node.parent.arguments[1] === node;
 }

@@ -6,6 +6,7 @@
 
 ## Namespaces
 
+- [ContextDetection](@eslint-react/namespaces/ContextDetection/README.md)
 - [JsxConfig](@eslint-react/namespaces/JsxConfig/README.md)
 - [LanguagePreference](@eslint-react/namespaces/LanguagePreference/README.md)
 - [RegExp](@eslint-react/namespaces/RegExp/README.md)

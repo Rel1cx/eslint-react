@@ -1,3 +1,4 @@
+export * as ContextDetection from "./ContextDetection";
 export * as JsxConfig from "./JsxConfig";
 export * as LanguagePreference from "./LanguagePreference";
 export * as RegExp from "./RegExp";

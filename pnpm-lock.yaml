@@ -1355,6 +1355,9 @@ importers:
 
   packages/utilities/kit:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../eff

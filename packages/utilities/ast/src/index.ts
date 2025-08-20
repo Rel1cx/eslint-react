@@ -12,6 +12,5 @@ export * from "./ast-node-equal";
 export * from "./ast-node-format";
 export * from "./ast-node-is";
 export type * from "./ast-node-types";
-export * from "./ast-process-env";
 export * from "./ast-property-name";
 export * from "./ast-then";
