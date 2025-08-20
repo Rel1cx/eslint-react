@@ -69,7 +69,7 @@ src/components/example-component.tsx
   2. `camelCase`: camelCase
   3. `kebab-case`: kebab-case
   4. `snake_case`: snake_case
-- `excepts`: An array of regular expressions to ignore specific file names. Default is:
+- `excepts`: An array of string or regex string to ignore specific file names. Default is:
   - `"$"`: Ignore `$` files (e.g., `$.tsx`).
   - `"index"`: Ignore `index` files (e.g., `index.tsx`).
   - `"/^_/"`: Ignore files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
