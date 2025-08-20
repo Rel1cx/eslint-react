@@ -54,7 +54,7 @@ function MyComponent() {
 - `excepts`: (optional) An array of component names that are allowed to not follow the rule.
 - `allowAllCaps`: (optional) If `true`, allows all caps component names. Default is `false`.
 
-## Rule Options Examples
+## Configuration Examples
 
 ```json
 {
@@ -70,8 +70,8 @@ function MyComponent() {
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name.spec.ts)
 
 ---
 

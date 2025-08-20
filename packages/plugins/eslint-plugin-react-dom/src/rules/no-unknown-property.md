@@ -81,7 +81,7 @@ If you are using a library that passes something as a prop to JSX elements, it i
 For example, if you use [emotion](https://emotion.sh/docs/introduction) and its [`css` prop](https://emotion.sh/docs/css-prop),
 add the following to your `.eslintrc` config file:
 
-## Rule Options Examples
+## Configuration Examples
 
 ```js title="eslint.config.js"
 // ...
@@ -103,5 +103,5 @@ const StyledDiv = <div css={{ color: "pink" }}></div>;
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property.spec.ts)
