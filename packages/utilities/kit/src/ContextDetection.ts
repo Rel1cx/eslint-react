@@ -44,19 +44,30 @@ export function isProcessEnvNodeEnvCompare(
 }
 
 /**
+ * Checks if the given node is a `vi.mock`.
+ * @param node The node to check
+ * @returns `true` if the node is a `vi.mock`, otherwise `false`.
+ * @internal
+ */
+export function isViMock(node: TSESTree.Node | null | unit): node is TSESTree.MemberExpression {
+  return node != null
+    && node.type === T.MemberExpression
+    && node.object.type === T.Identifier
+    && node.object.name === "vi"
+    && node.property.type === T.Identifier
+    && node.property.name === "mock";
+}
+
+/**
  * Checks if the given node is a `vi.mock` callback.
  * @param node The node to check
  * @returns `true` if the node is a `vi.mock` callback, otherwise `false`.
  * @internal
  */
-export function isViMockCallback(node: TSESTree.Node | null | unit): node is TSESTree.FunctionExpression {
+export function isViMockCallback(node: TSESTree.Node | null | unit) {
   return node != null
-    && node.type === T.FunctionExpression
+    && AST.isFunction(node)
     && node.parent.type === T.CallExpression
-    && node.parent.callee.type === T.MemberExpression
-    && node.parent.callee.object.type === T.Identifier
-    && node.parent.callee.object.name === "vi"
-    && node.parent.callee.property.type === T.Identifier
-    && node.parent.callee.property.name === "mock"
+    && isViMock(node.parent.callee)
     && node.parent.arguments[1] === node;
 }

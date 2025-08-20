@@ -49,16 +49,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"(program) {
       const allHooks = ctx.getAllHooks(program);
       for (const { id, name, node, hookCalls } of allHooks.values()) {
-        // Skip well-known hooks
-        if (WELL_KNOWN_HOOKS.includes(name)) {
+        if (hookCalls.length > 0) {
           continue;
         }
         // Skip empty functions
         if (AST.isEmptyFunction(node)) {
           continue;
         }
-        // Skip useful hooks
-        if (hookCalls.length > 0) {
+        // Skip well-known hooks
+        if (WELL_KNOWN_HOOKS.includes(name)) {
           continue;
         }
         // Skip hooks with comments that contain calls to other hooks
