@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
+    "@eslint-react/ast": "workspace:*",
     "@typescript-eslint/utils": "^8.40.0",
     "ts-pattern": "^5.8.0",
     "zod": "^4.0.17"
