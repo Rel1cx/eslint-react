@@ -34,7 +34,7 @@ This rule enforces consistent file extensions for JSX files.
 - `extensions`: List of file extensions that should be treated as JSX files. Default is `[".jsx", ".tsx"]`.
 - `ignoreFilesWithoutCode`: When set to `true`, this rule will ignore files that do not contain JSX syntax. Default is `true`.
 
-## Rule Options Examples
+## Configuration Examples
 
 ```js title="eslint.config.js"
 // ...
@@ -90,8 +90,8 @@ export default [
 
 ## Implementation
 
-- [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.ts)
-- [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename-extension.spec.ts)
 
 ---
 
