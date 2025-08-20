@@ -151,5 +151,25 @@ ruleTester.run(RULE_NAME, rule, {
       filename: "snake_case.tsx",
       options: [{ rule: "snake_case" }],
     },
+    {
+      code,
+      filename: "404.tsx",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code,
+      filename: "$.tsx",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code,
+      filename: "_app.tsx",
+      options: [{ rule: "PascalCase" }],
+    },
+    {
+      code,
+      filename: "[slug].tsx",
+      options: [{ rule: "PascalCase" }],
+    },
   ],
 });

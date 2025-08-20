@@ -69,6 +69,12 @@ src/components/example-component.tsx
   2. `camelCase`: camelCase
   3. `kebab-case`: kebab-case
   4. `snake_case`: snake_case
+- `excepts`: An array of regular expressions to ignore specific file names. Default is:
+  - `"$"`: Ignore `$` files (e.g., `$.tsx`).
+  - `"index"`: Ignore `index` files (e.g., `index.tsx`).
+  - `"/^_/"`: Ignore files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
+  - `"/^[0-9]+$/"`: Ignore files with only numbers (e.g., `404.tsx`).
+  - `"/^\[[^\]]+\]$/"`: Ignore files with square brackets (e.g., `[slug].tsx`).
 
 ## Rule Options Examples
 
@@ -103,23 +109,36 @@ export default [
 export default [
   // ...
   {
-    files: ["src/**/*.{ts,tsx}"],
-    ignore: ["**/index.{ts,tsx}"],
+    files: ["src/components/**/*.{ts,tsx}"],
     rules: {
       "@eslint-react/naming-convention/filename": ["warn", "PascalCase"],
-    },
-  },
-  {
-    files: ["src/pages/**/*.{ts,tsx}"],
-    ignore: ["**/index.{ts,tsx}"],
-    rules: {
-      "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
     },
   },
   {
     files: ["src/hooks/**/use*.{ts,tsx}"],
     rules: {
       "@eslint-react/naming-convention/filename": ["warn", "camelCase"],
+    },
+  },
+];
+```
+
+### Opting out of the rule for framework-specific files
+
+```js title="eslint.config.js"
+// ...
+export default [
+  // ...
+  {
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
+    },
+  },
+  {
+    files: ["app/**/*.{ts,tsx}"], // Opting out of the rule for framework-specific files
+    rules: {
+      "@eslint-react/naming-convention/filename": "off",
     },
   },
 ];
