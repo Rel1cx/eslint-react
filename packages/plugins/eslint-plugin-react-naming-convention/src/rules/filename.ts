@@ -32,7 +32,13 @@ type Options = readonly [
 
 const defaultOptions = [
   {
-    excepts: ["^index$"],
+    excepts: [
+      "index",
+      "/^_/",
+      "/^\\$/",
+      "/^[0-9]+$/",
+      "/^\\[[^\\]]+\\]$/",
+    ],
     rule: "PascalCase",
   },
 ] as const satisfies Options;
@@ -95,15 +101,14 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     : (options.excepts ?? []).map((s) => RE.toRegExp(s));
 
   function validate(name: string, casing: Case = rule, ignores = excepts) {
-    const shouldIgnore = ignores
-      .some((pattern) => pattern.test(name));
-    if (shouldIgnore) return true;
-
+    if (ignores.some((pattern) => pattern.test(name))) return true;
+    const filteredName = name.match(/[\w-]/gu)?.join("") ?? "";
+    if (filteredName.length === 0) return true;
     return match(casing)
-      .with("PascalCase", () => RE.PASCAL_CASE.test(name))
-      .with("camelCase", () => RE.CAMEL_CASE.test(name))
-      .with("kebab-case", () => RE.KEBAB_CASE.test(name))
-      .with("snake_case", () => RE.SNAKE_CASE.test(name))
+      .with("PascalCase", () => RE.PASCAL_CASE.test(filteredName))
+      .with("camelCase", () => RE.CAMEL_CASE.test(filteredName))
+      .with("kebab-case", () => RE.KEBAB_CASE.test(filteredName))
+      .with("snake_case", () => RE.SNAKE_CASE.test(filteredName))
       .exhaustive();
   }
 
