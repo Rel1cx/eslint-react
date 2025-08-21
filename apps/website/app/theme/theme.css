@@ -92,6 +92,13 @@ body {
   font-family: var(--font-family-body);
 }
 
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-family-mono);
+}
+
 button {
   cursor: pointer;
 }
