@@ -7,5 +7,5 @@ export const version = Fn.pipe(
   FileSystem.FileSystem,
   Effect.flatMap((fs) => fs.readFileString("VERSION", "utf8")),
   Effect.map(Str.trim),
-  Effect.map(Str.replace("v", "")),
+  Effect.map(Str.replace(/^v/, "")),
 );
