@@ -1,11 +1,13 @@
-import fs from "node:fs";
-
+import * as NodeFileSystem from "@effect/platform-node/NodeFileSystem";
+import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
+import * as FileSystem from "@effect/platform/FileSystem";
 import ansis from "ansis";
+import * as Effect from "effect/Effect";
 import { isMatching, match, P } from "ts-pattern";
 
-import { glob } from "./lib/glob";
-import { ignores } from "./lib/ignores";
-import { version } from "./lib/version";
+import { ignores } from "./effects/ignores";
+import { version } from "./effects/version";
+import { glob } from "./utils/glob";
 
 const GLOB_PACKAGE_JSON = [
   "package.json",
@@ -13,30 +15,38 @@ const GLOB_PACKAGE_JSON = [
   "packages/*/*/package.json",
 ];
 
-async function update(path: string) {
-  const packageJson = JSON.parse(fs.readFileSync(path, "utf8"));
-  if (!isMatching({ version: P.string }, packageJson)) {
-    throw new Error(`Invalid package.json at ${path}`);
-  }
-  const newVersion = version;
-  const oldVersion = match(packageJson)
-    .with({ version: P.select(P.string) }, (v) => v)
-    .otherwise(() => "0.0.0");
-  if (oldVersion === newVersion) {
-    console.info(ansis.greenBright(`Skipping ${path} as it's already on version ${newVersion}`));
-    return;
-  }
-  const packageJsonUpdated = {
-    ...packageJson,
-    version: newVersion,
-  };
-  fs.writeFileSync(path, `${JSON.stringify(packageJsonUpdated, null, 2)}\n`);
-  console.info(ansis.green(`Updated ${path} to version ${packageJsonUpdated.version}`));
+function update(path: string) {
+  return Effect.gen(function*() {
+    const fs = yield* FileSystem.FileSystem;
+    const packageJsonText = yield* fs.readFileString(path, "utf8");
+    const packageJson = JSON.parse(packageJsonText);
+    if (!isMatching({ version: P.string }, packageJson)) {
+      yield* Effect.fail(new Error(`Invalid package.json at ${path}: invalid or missing version field`));
+    }
+    const newVersion = yield* version;
+    const oldVersion = match(packageJson)
+      .with({ version: P.select(P.string) }, (v) => v)
+      .otherwise(() => "0.0.0");
+    if (oldVersion === newVersion) {
+      yield* Effect.log(ansis.greenBright(`Skipping ${path} as it's already on version ${newVersion}`));
+      return false;
+    }
+    const packageJsonUpdated = {
+      ...packageJson,
+      version: newVersion,
+    };
+    yield* fs.writeFileString(path, `${JSON.stringify(packageJsonUpdated, null, 2)}\n`);
+    yield* Effect.log(`Updated ${path} to version ${packageJsonUpdated.version}`);
+    return true;
+  });
 }
 
-async function main() {
-  const tasks = glob(GLOB_PACKAGE_JSON, ignores);
-  await Promise.all(tasks.map((path) => update(path)));
-}
+const program = Effect.gen(function*() {
+  const ignorePatterns = yield* ignores;
+  return yield* Effect.all(glob(GLOB_PACKAGE_JSON, ignorePatterns).map(update), { concurrency: 8 });
+});
 
-await main();
+program.pipe(
+  Effect.provide(NodeFileSystem.layer),
+  NodeRuntime.runMain,
+);
