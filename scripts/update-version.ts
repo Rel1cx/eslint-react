@@ -21,7 +21,7 @@ function update(path: string) {
     const packageJsonText = yield* fs.readFileString(path, "utf8");
     const packageJson = JSON.parse(packageJsonText);
     if (!isMatching({ version: P.string }, packageJson)) {
-      yield* Effect.fail(new Error(`Invalid package.json at ${path}: missing version field`));
+      yield* Effect.fail(new Error(`Invalid package.json at ${path}: invalid or missing version field`));
     }
     const newVersion = yield* version;
     const oldVersion = match(packageJson)
