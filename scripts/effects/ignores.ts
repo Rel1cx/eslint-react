@@ -7,7 +7,7 @@ import * as Str from "effect/String";
 
 export const ignores = Fn.pipe(
   FileSystem.FileSystem,
-  Effect.flatMap((fs) => fs.readFileString(".gitignore")),
+  Effect.flatMap((fs) => fs.readFileString(".gitignore", "utf8")),
   Effect.map(Str.split("\n")),
   Effect.map(Arr.map(Str.trim)),
   Effect.map(Arr.filter(not(or(Str.startsWith("#"), Str.startsWith("!"))))),
