@@ -42,7 +42,8 @@ function update(path: string) {
 }
 
 const program = Effect.gen(function*() {
-  return yield* Effect.all(glob(GLOB_PACKAGE_JSON, yield* ignores).map(update), { concurrency: 8 });
+  const ignorePatterns = yield* ignores;
+  return yield* Effect.all(glob(GLOB_PACKAGE_JSON, ignorePatterns).map(update), { concurrency: 8 });
 });
 
 program.pipe(
