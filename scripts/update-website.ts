@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { glob } from "./lib/glob";
+import { glob } from "./utils/glob";
 
 /**
  * Build script for processing and copying documentation to the website

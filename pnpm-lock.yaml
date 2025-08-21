@@ -22,6 +22,12 @@ importers:
 
   .:
     devDependencies:
+      '@effect/platform':
+        specifier: ^0.90.6
+        version: 0.90.6(effect@3.17.8)
+      '@effect/platform-node':
+        specifier: ^0.96.0
+        version: 0.96.0(@effect/cluster@0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
       '@eslint/config-inspector':
         specifier: ^1.2.0
         version: 1.2.0(eslint@9.33.0(jiti@2.5.1))
@@ -76,6 +82,9 @@ importers:
       dprint:
         specifier: ^0.50.1
         version: 0.50.1
+      effect:
+        specifier: ^3.17.8
+        version: 3.17.8
       esbuild:
         specifier: ^0.25.9
         version: 0.25.9
@@ -271,7 +280,7 @@ importers:
         version: 11.0.3
       '@effect-atom/atom-react':
         specifier: ^0.1.15
-        version: 0.1.15(@effect/experimental@0.54.6(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.3(effect@3.17.8))(@effect/rpc@0.69.0(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)(react@19.1.1)(scheduler@0.26.0)
+        version: 0.1.15(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)(react@19.1.1)(scheduler@0.26.0)
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../packages/utilities/eff
@@ -511,10 +520,10 @@ importers:
         version: 0.4.0
       '@lynx-js/react-rsbuild-plugin':
         specifier: ^0.10.12
-        version: 0.10.12(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+        version: 0.10.12(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       '@lynx-js/rspeedy':
         specifier: ^0.10.7
-        version: 0.10.7(@rspack/core@1.4.11(@swc/helpers@0.5.17))(esbuild@0.25.9)(lightningcss@1.30.1)(typescript@5.9.2)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+        version: 0.10.7(@rspack/core@1.4.11(@swc/helpers@0.5.17))(esbuild@0.25.9)(lightningcss@1.30.1)(typescript@5.9.2)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       '@lynx-js/types':
         specifier: ^3.3.0
         version: 3.3.0
@@ -1988,8 +1997,8 @@ packages:
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
 
-  '@bufbuild/protobuf@2.6.3':
-    resolution: {integrity: sha512-w/gJKME9mYN7ZoUAmSMAWXk4hkVpxRKvEJCb3dV5g9wwWdxTJJ0ayOJAVcNxtdqaxDyFuC0uz4RSGVacJ030PQ==}
+  '@bufbuild/protobuf@2.7.0':
+    resolution: {integrity: sha512-qn6tAIZEw5i/wiESBF4nQxZkl86aY4KoO0IkUa2Lh+rya64oTOdJQFlZuMwI1Qz9VBJQrQC4QlSA2DNek5gCOA==}
 
   '@chevrotain/cst-dts-gen@11.0.3':
     resolution: {integrity: sha512-BvIKpRLeS/8UbfxXxgC33xOumsacaeCKAjAeLyOn7Pcp95HiRbrpl14S+9vaZLolnbssPIUuiUd8IvgkRyt6NQ==}
@@ -2277,13 +2286,22 @@ packages:
       react: ^19.1.1
       scheduler: '*'
 
-  '@effect-atom/atom@0.1.18':
-    resolution: {integrity: sha512-n7l32LpBy+KD6B5oBIuGvwIjhp7A3MQFTYVYNnF5XXknvbOn8aQ6ln+LYfqQDu/O8TRpSE6ni9j6e2KjusTLIA==}
+  '@effect-atom/atom@0.1.19':
+    resolution: {integrity: sha512-rwDGxsu/1uoE2mmIXafeWVC6LQvZakhH7HDsesuauMU9IQSVugwo/6XOkTzjHJglMX8RE3aQ5Vkg9kCuu9Yl5A==}
     peerDependencies:
       '@effect/experimental': ^0.54.5
       '@effect/platform': ^0.90.1
       '@effect/rpc': ^0.69.0
       effect: ^3.17.7
+
+  '@effect/cluster@0.48.2':
+    resolution: {integrity: sha512-ixyr152czBMakiEsXi6zf4F6DSka42LbtoHf7WcFsfLTDwYZieUEVbw4gvIFfAGedfQ0oLY4+uArdJlkJ4gOGA==}
+    peerDependencies:
+      '@effect/platform': ^0.90.5
+      '@effect/rpc': ^0.69.1
+      '@effect/sql': ^0.44.2
+      '@effect/workflow': ^0.9.2
+      effect: ^3.17.8
 
   '@effect/experimental@0.54.6':
     resolution: {integrity: sha512-UqHMvCQmrZT6kUVoUC0lqyno4Yad+j9hBGCdUjW84zkLwAq08tPqySiZUKRwY+Ae5B2Ab8rISYJH7nQvct9DMQ==}
@@ -2302,16 +2320,48 @@ packages:
     resolution: {integrity: sha512-J7GbtthuYeruD4kYUHn3QEZtbl9v7OX9+ElD20mDBGBMA+Q6W4KnVMxZc+yDvKQBBYvfXImVUSzBbXzbrZJpyg==}
     hasBin: true
 
-  '@effect/platform@0.90.3':
-    resolution: {integrity: sha512-XvQ37yzWQKih4Du2CYladd1i/MzqtgkTPNCaN6Ku6No4CK83hDtXIV/rP03nEoBg2R3Pqgz6gGWmE2id2G81HA==}
+  '@effect/platform-node-shared@0.49.0':
+    resolution: {integrity: sha512-6ufPQUtofYW+jsADRI4Pa4sMY+kc0dcoXWpH1ozH/bD6I5c2au1n/wDffnLoXMeHGYSpt/54Dd7WOqqNcOdXlg==}
     peerDependencies:
+      '@effect/cluster': ^0.48.0
+      '@effect/platform': ^0.90.2
+      '@effect/rpc': ^0.69.0
+      '@effect/sql': ^0.44.1
       effect: ^3.17.7
 
-  '@effect/rpc@0.69.0':
-    resolution: {integrity: sha512-iHVf7OxIblLVRlKlZLe40UTsSwBzpQAGXLOHKqSzTRnVgetbNx/UjhIJmQJxua2p9WWsLAJUpNOlTBhtuXcUAw==}
+  '@effect/platform-node@0.96.0':
+    resolution: {integrity: sha512-9v6UJnSiQGq90gYPdakcLjkyX951ZODLwtkZgXjdKwjvcpx5C1Feq+LDsSifF3aOg1NgamwAGYDKi00JQxK6Cg==}
     peerDependencies:
+      '@effect/cluster': ^0.48.0
       '@effect/platform': ^0.90.2
+      '@effect/rpc': ^0.69.0
+      '@effect/sql': ^0.44.1
       effect: ^3.17.7
+
+  '@effect/platform@0.90.6':
+    resolution: {integrity: sha512-aT7aLJR1+rYrSLdw5af2UZzwnWoAy8WmkTxTUD3pFY6vjFmh+8137RhbwKiWjIJBTm2DVyPXl1dx1kGg28xt6Q==}
+    peerDependencies:
+      effect: ^3.17.8
+
+  '@effect/rpc@0.69.1':
+    resolution: {integrity: sha512-zCwUBhrRFaKGEbHAWV/DIXS8XEmRVCVo+bhUiVcmh0huTIOdOdyrztksVCMqgs/B2Qy2BUErEOIXD9ML+hqP/g==}
+    peerDependencies:
+      '@effect/platform': ^0.90.5
+      effect: ^3.17.8
+
+  '@effect/sql@0.44.2':
+    resolution: {integrity: sha512-DEcvriHvj88zu7keruH9NcHQzam7yQzLNLJO6ucDXMCAwWzYZSJOsmkxBznRFv8ylFtccSclKH2fuj+wRKPjCQ==}
+    peerDependencies:
+      '@effect/experimental': ^0.54.6
+      '@effect/platform': ^0.90.4
+      effect: ^3.17.7
+
+  '@effect/workflow@0.9.2':
+    resolution: {integrity: sha512-BQw2wVCCdhC0FgSQXL62sefa8TV3sVP0ECRZS9CGnUtiCZiVkRDEeQlXErZkKVuVhtAqJLfngqtp8UkArLPYiw==}
+    peerDependencies:
+      '@effect/platform': ^0.90.5
+      '@effect/rpc': ^0.69.1
+      effect: ^3.17.8
 
   '@emnapi/core@1.4.5':
     resolution: {integrity: sha512-XsLw1dEOpkSX/WucdqUhPWP7hDxSvZiY+fsUC14h+FtQ2Ifni4znbBt8punRX+Uj2JG/uDb8nEHVKvrVlvdZ5Q==}
@@ -3109,10 +3159,6 @@ packages:
     resolution: {integrity: sha512-LaPLZjFy59+oIgZm0zSlhcMI8ZICAxEvm0A9VUexxeIj/Od6jmW9BV1tmIpQ0x1G8tN6sFGBt8hBxHNeLFfh1w==}
     cpu: [x64]
     os: [win32]
-
-  '@opentelemetry/semantic-conventions@1.36.0':
-    resolution: {integrity: sha512-TtxJSRD8Ohxp6bKkhrm27JRHAxPczQA7idtcTOMYI+wQRRrfgqxHv1cFbCApcSnNjtXkmzFozn6jQtFrOmbjPQ==}
-    engines: {node: '>=14'}
 
   '@orama/orama@3.1.11':
     resolution: {integrity: sha512-Szki0cgFiXE5F9RLx2lUyEtJllnuCSQ4B8RLDwIjXkVit6qZjoDAxH+xhJs29MjKLDz0tbPLdKFa6QrQ/qoGGA==}
@@ -5328,8 +5374,8 @@ packages:
   core-js-compat@3.44.0:
     resolution: {integrity: sha512-JepmAj2zfl6ogy34qfWtcE7nHKAJnKsQFRn++scjVS2bZFllwptzw61BZcZFYBPpUznLfAvh0LGhxKppk04ClA==}
 
-  core-js@3.45.0:
-    resolution: {integrity: sha512-c2KZL9lP4DjkN3hk/an4pWn5b5ZefhRJnAc42n6LJ19kSnbeRbdQZE5dSeE2LBol1OwJD3X1BQvFTAsa8ReeDA==}
+  core-js@3.45.1:
+    resolution: {integrity: sha512-L4NPsJlCfZsPeXukyzHFlg/i7IIVwHSItR0wg0FLNqYClJ4MQYTYLbC7EkjKYRLZF2iof2MUgN0EGy7MdQFChg==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -7257,8 +7303,8 @@ packages:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
 
-  memfs@4.36.0:
-    resolution: {integrity: sha512-mfBfzGUdoEw5AZwG8E965ej3BbvW2F9LxEWj4uLxF6BEh1dO2N9eS3AGu9S6vfenuQYrVjsbUOOZK7y3vz4vyQ==}
+  memfs@4.36.3:
+    resolution: {integrity: sha512-rZIVsNPGdZDPls/ckWhIsod2zRNsI2f2kEru0gMldkrEve+fPn7CVBTvfKLNyHQ9rZDWwzVBF8tPsZivzDPiZQ==}
     engines: {node: '>= 4.0.0'}
 
   merge-stream@2.0.0:
@@ -7408,6 +7454,11 @@ packages:
   mime-types@2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
+
+  mime@3.0.0:
+    resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
 
   mimic-fn@2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
@@ -9011,6 +9062,10 @@ packages:
   undici-types@7.10.0:
     resolution: {integrity: sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==}
 
+  undici@7.14.0:
+    resolution: {integrity: sha512-Vqs8HTzjpQXZeXdpsfChQTlafcMQaaIwnGwLam1wudSSjlJeQ3bw1j+TLPePgrCnCpUXx7Ba5Pdpf5OBih62NQ==}
+    engines: {node: '>=20.18.1'}
+
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
     engines: {node: '>=4'}
@@ -9231,8 +9286,8 @@ packages:
     resolution: {integrity: sha512-yd1RBzSGanHkitROoPFd6qsrxt+oFhg/129YzheDGqeustzX0vTZJZsSsQjVQC4yzBQ56K55XU8gaNCtIzOnTg==}
     engines: {node: '>=10.13.0'}
 
-  webpack@5.101.2:
-    resolution: {integrity: sha512-4JLXU0tD6OZNVqlwzm3HGEhAHufSiyv+skb7q0d2367VDMzrU1Q/ZeepvkcHH0rZie6uqEtTQQe0OEOOluH3Mg==}
+  webpack@5.101.3:
+    resolution: {integrity: sha512-7b0dTKR3Ed//AD/6kkx/o7duS8H3f1a4w3BYpIriX4BzIhjkn4teo05cptsxvLesHFKK5KObnadmCHBwGc+51A==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -10117,7 +10172,7 @@ snapshots:
 
   '@braintree/sanitize-url@7.1.1': {}
 
-  '@bufbuild/protobuf@2.6.3': {}
+  '@bufbuild/protobuf@2.7.0': {}
 
   '@chevrotain/cst-dts-gen@11.0.3':
     dependencies:
@@ -10374,9 +10429,9 @@ snapshots:
   '@dprint/win32-x64@0.50.1':
     optional: true
 
-  '@effect-atom/atom-react@0.1.15(@effect/experimental@0.54.6(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.3(effect@3.17.8))(@effect/rpc@0.69.0(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)(react@19.1.1)(scheduler@0.26.0)':
+  '@effect-atom/atom-react@0.1.15(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)(react@19.1.1)(scheduler@0.26.0)':
     dependencies:
-      '@effect-atom/atom': 0.1.18(@effect/experimental@0.54.6(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.3(effect@3.17.8))(@effect/rpc@0.69.0(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
+      '@effect-atom/atom': 0.1.19(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
       effect: 3.17.8
       react: 19.1.1
       scheduler: 0.26.0
@@ -10385,32 +10440,81 @@ snapshots:
       - '@effect/platform'
       - '@effect/rpc'
 
-  '@effect-atom/atom@0.1.18(@effect/experimental@0.54.6(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.3(effect@3.17.8))(@effect/rpc@0.69.0(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)':
+  '@effect-atom/atom@0.1.19(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)':
     dependencies:
-      '@effect/experimental': 0.54.6(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8)
-      '@effect/platform': 0.90.3(effect@3.17.8)
-      '@effect/rpc': 0.69.0(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8)
+      '@effect/experimental': 0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      '@effect/rpc': 0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
       effect: 3.17.8
 
-  '@effect/experimental@0.54.6(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8)':
+  '@effect/cluster@0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)':
     dependencies:
-      '@effect/platform': 0.90.3(effect@3.17.8)
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      '@effect/rpc': 0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@effect/workflow': 0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
+      effect: 3.17.8
+
+  '@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)':
+    dependencies:
+      '@effect/platform': 0.90.6(effect@3.17.8)
       effect: 3.17.8
       uuid: 11.1.0
 
   '@effect/language-service@0.35.2': {}
 
-  '@effect/platform@0.90.3(effect@3.17.8)':
+  '@effect/platform-node-shared@0.49.0(@effect/cluster@0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)':
     dependencies:
-      '@opentelemetry/semantic-conventions': 1.36.0
+      '@effect/cluster': 0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      '@effect/rpc': 0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@parcel/watcher': 2.5.1
+      effect: 3.17.8
+      multipasta: 0.2.7
+      ws: 8.18.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@effect/platform-node@0.96.0(@effect/cluster@0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)':
+    dependencies:
+      '@effect/cluster': 0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      '@effect/platform-node-shared': 0.49.0(@effect/cluster@0.48.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)
+      '@effect/rpc': 0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      effect: 3.17.8
+      mime: 3.0.0
+      undici: 7.14.0
+      ws: 8.18.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@effect/platform@0.90.6(effect@3.17.8)':
+    dependencies:
       effect: 3.17.8
       find-my-way-ts: 0.1.6
       msgpackr: 1.11.5
       multipasta: 0.2.7
 
-  '@effect/rpc@0.69.0(@effect/platform@0.90.3(effect@3.17.8))(effect@3.17.8)':
+  '@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)':
     dependencies:
-      '@effect/platform': 0.90.3(effect@3.17.8)
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      effect: 3.17.8
+
+  '@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)':
+    dependencies:
+      '@effect/experimental': 0.54.6(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      effect: 3.17.8
+      uuid: 11.1.0
+
+  '@effect/workflow@0.9.2(@effect/platform@0.90.6(effect@3.17.8))(@effect/rpc@0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8))(effect@3.17.8)':
+    dependencies:
+      '@effect/platform': 0.90.6(effect@3.17.8)
+      '@effect/rpc': 0.69.1(@effect/platform@0.90.6(effect@3.17.8))(effect@3.17.8)
       effect: 3.17.8
 
   '@emnapi/core@1.4.5':
@@ -10909,10 +11013,10 @@ snapshots:
       '@lynx-js/webpack-runtime-globals': 0.0.5
       '@rspack/core': 1.4.11(@swc/helpers@0.5.17)
 
-  '@lynx-js/css-extract-webpack-plugin@0.6.2(@lynx-js/template-webpack-plugin@0.8.4)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@lynx-js/css-extract-webpack-plugin@0.6.2(@lynx-js/template-webpack-plugin@0.8.4)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
       '@lynx-js/template-webpack-plugin': 0.8.4
-      mini-css-extract-plugin: 2.9.4(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      mini-css-extract-plugin: 2.9.4(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
     transitivePeerDependencies:
       - webpack
 
@@ -10930,9 +11034,9 @@ snapshots:
     dependencies:
       '@lynx-js/react-webpack-plugin': 0.6.19(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(@lynx-js/template-webpack-plugin@0.8.4)
 
-  '@lynx-js/react-rsbuild-plugin@0.10.12(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@lynx-js/react-rsbuild-plugin@0.10.12(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
-      '@lynx-js/css-extract-webpack-plugin': 0.6.2(@lynx-js/template-webpack-plugin@0.8.4)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@lynx-js/css-extract-webpack-plugin': 0.6.2(@lynx-js/template-webpack-plugin@0.8.4)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       '@lynx-js/react-alias-rsbuild-plugin': 0.10.12
       '@lynx-js/react-refresh-webpack-plugin': 0.3.4(@lynx-js/react-webpack-plugin@0.6.19(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(@lynx-js/template-webpack-plugin@0.8.4))
       '@lynx-js/react-webpack-plugin': 0.6.19(@lynx-js/react@0.112.3(@lynx-js/types@3.3.0)(@types/react@19.1.10))(@lynx-js/template-webpack-plugin@0.8.4)
@@ -10960,14 +11064,14 @@ snapshots:
     optionalDependencies:
       '@lynx-js/types': 3.3.0
 
-  '@lynx-js/rspeedy@0.10.7(@rspack/core@1.4.11(@swc/helpers@0.5.17))(esbuild@0.25.9)(lightningcss@1.30.1)(typescript@5.9.2)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@lynx-js/rspeedy@0.10.7(@rspack/core@1.4.11(@swc/helpers@0.5.17))(esbuild@0.25.9)(lightningcss@1.30.1)(typescript@5.9.2)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
       '@lynx-js/chunk-loading-webpack-plugin': 0.3.0(@rspack/core@1.4.11(@swc/helpers@0.5.17))
       '@lynx-js/webpack-dev-transport': 0.2.0
       '@lynx-js/websocket': 0.0.4
       '@rsbuild/core': 1.4.15
-      '@rsbuild/plugin-css-minimizer': 1.0.3(@rsbuild/core@1.4.15)(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/rspack-plugin': 1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsbuild/plugin-css-minimizer': 1.0.3(@rsbuild/core@1.4.15)(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/rspack-plugin': 1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
     optionalDependencies:
       typescript: 5.9.2
     transitivePeerDependencies:
@@ -11199,8 +11303,6 @@ snapshots:
 
   '@nx/nx-win32-x64-msvc@21.4.0':
     optional: true
-
-  '@opentelemetry/semantic-conventions@1.36.0': {}
 
   '@orama/orama@3.1.11': {}
 
@@ -11809,7 +11911,7 @@ snapshots:
       '@rspack/core': 1.4.11(@swc/helpers@0.5.17)
       '@rspack/lite-tapable': 1.0.1
       '@swc/helpers': 0.5.17
-      core-js: 3.45.0
+      core-js: 3.45.1
       jiti: 2.5.1
 
   '@rsbuild/plugin-check-syntax@1.3.0(@rsbuild/core@1.4.15)':
@@ -11822,9 +11924,9 @@ snapshots:
     optionalDependencies:
       '@rsbuild/core': 1.4.15
 
-  '@rsbuild/plugin-css-minimizer@1.0.3(@rsbuild/core@1.4.15)(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsbuild/plugin-css-minimizer@1.0.3(@rsbuild/core@1.4.15)(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
-      css-minimizer-webpack-plugin: 5.0.1(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      css-minimizer-webpack-plugin: 5.0.1(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       reduce-configs: 1.1.1
     optionalDependencies:
       '@rsbuild/core': 1.4.15
@@ -11860,13 +11962,13 @@ snapshots:
 
   '@rsdoctor/client@1.2.2': {}
 
-  '@rsdoctor/core@1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsdoctor/core@1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
       '@rsbuild/plugin-check-syntax': 1.3.0(@rsbuild/core@1.4.15)
-      '@rsdoctor/graph': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/sdk': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/graph': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/sdk': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       axios: 1.11.0
       browserslist-load-config: 1.0.1
       enhanced-resolve: 5.12.0
@@ -11886,10 +11988,10 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/graph@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsdoctor/graph@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
-      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       lodash.unionby: 4.8.0
       socket.io: 4.8.1
       source-map: 0.7.4
@@ -11900,13 +12002,13 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/rspack-plugin@1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsdoctor/rspack-plugin@1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
-      '@rsdoctor/core': 1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/graph': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/sdk': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/core': 1.2.2(@rsbuild/core@1.4.15)(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/graph': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/sdk': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       lodash: 4.17.21
     optionalDependencies:
       '@rspack/core': 1.4.11(@swc/helpers@0.5.17)
@@ -11918,12 +12020,12 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/sdk@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsdoctor/sdk@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
       '@rsdoctor/client': 1.2.2
-      '@rsdoctor/graph': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
-      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/graph': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/utils': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       '@types/fs-extra': 11.0.4
       body-parser: 1.20.3
       cors: 2.8.5
@@ -11943,7 +12045,7 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@rsdoctor/types@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsdoctor/types@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
       '@types/connect': 3.4.38
       '@types/estree': 1.0.5
@@ -11951,12 +12053,12 @@ snapshots:
       source-map: 0.7.4
     optionalDependencies:
       '@rspack/core': 1.4.11(@swc/helpers@0.5.17)
-      webpack: 5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
+      webpack: 5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
 
-  '@rsdoctor/utils@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
+  '@rsdoctor/utils@1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      '@rsdoctor/types': 1.2.2(@rspack/core@1.4.11(@swc/helpers@0.5.17))(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       '@types/estree': 1.0.5
       acorn: 8.15.0
       acorn-import-attributes: 1.9.5(acorn@8.15.0)
@@ -13477,7 +13579,7 @@ snapshots:
     dependencies:
       browserslist: 4.25.1
 
-  core-js@3.45.0: {}
+  core-js@3.45.1: {}
 
   core-util-is@1.0.3: {}
 
@@ -13607,7 +13709,7 @@ snapshots:
     dependencies:
       postcss: 8.5.6
 
-  css-minimizer-webpack-plugin@5.0.1(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)):
+  css-minimizer-webpack-plugin@5.0.1(esbuild@0.25.9)(lightningcss@1.30.1)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.29
       cssnano: 6.1.2(postcss@8.5.6)
@@ -13615,7 +13717,7 @@ snapshots:
       postcss: 8.5.6
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
-      webpack: 5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
+      webpack: 5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
     optionalDependencies:
       esbuild: 0.25.9
       lightningcss: 1.30.1
@@ -15799,10 +15901,11 @@ snapshots:
 
   media-typer@0.3.0: {}
 
-  memfs@4.36.0:
+  memfs@4.36.3:
     dependencies:
       '@jsonjoy.com/json-pack': 1.11.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
+      thingies: 2.5.0(tslib@2.8.1)
       tree-dump: 1.0.3(tslib@2.8.1)
       tslib: 2.8.1
 
@@ -16143,15 +16246,17 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
+  mime@3.0.0: {}
+
   mimic-fn@2.1.0: {}
 
   min-indent@1.0.1: {}
 
-  mini-css-extract-plugin@2.9.4(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)):
+  mini-css-extract-plugin@2.9.4(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)):
     dependencies:
       schema-utils: 4.3.2
       tapable: 2.2.2
-      webpack: 5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
+      webpack: 5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
 
   minimatch@10.0.1:
     dependencies:
@@ -17228,7 +17333,7 @@ snapshots:
 
   sass-embedded@1.90.0:
     dependencies:
-      '@bufbuild/protobuf': 2.6.3
+      '@bufbuild/protobuf': 2.7.0
       buffer-builder: 0.2.0
       colorjs.io: 0.5.2
       immutable: 5.1.3
@@ -17701,14 +17806,14 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  terser-webpack-plugin@5.3.14(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)):
+  terser-webpack-plugin@5.3.14(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.29
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.43.1
-      webpack: 5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
+      webpack: 5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)
     optionalDependencies:
       '@swc/core': 1.13.4(@swc/helpers@0.5.17)
       esbuild: 0.25.9
@@ -17799,7 +17904,7 @@ snapshots:
       '@rspack/lite-tapable': 1.0.1
       chokidar: 3.6.0
       is-glob: 4.0.3
-      memfs: 4.36.0
+      memfs: 4.36.3
       minimatch: 9.0.5
       picocolors: 1.1.1
       typescript: 5.9.2
@@ -17966,6 +18071,8 @@ snapshots:
   uncrypto@0.1.3: {}
 
   undici-types@7.10.0: {}
+
+  undici@7.14.0: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
@@ -18208,7 +18315,7 @@ snapshots:
 
   webpack-sources@3.3.3: {}
 
-  webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9):
+  webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -18232,7 +18339,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.2
-      terser-webpack-plugin: 5.3.14(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)(webpack@5.101.2(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
+      terser-webpack-plugin: 5.3.14(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9)(webpack@5.101.3(@swc/core@1.13.4(@swc/helpers@0.5.17))(esbuild@0.25.9))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
