@@ -1,6 +1,3 @@
-import fs from "fs/promises";
+import fs from "fs";
 
-await fs.copyFile(
-  "README.md",
-  "packages/plugins/eslint-plugin/README.md",
-);
+fs.copyFileSync("README.md", "packages/plugins/eslint-plugin/README.md");

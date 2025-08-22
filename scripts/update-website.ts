@@ -1,4 +1,4 @@
-import fs from "node:fs/promises";
+import fs from "node:fs";
 import path from "node:path";
 
 import { glob } from "./utils/glob";
@@ -52,21 +52,19 @@ const [
 );
 
 // Copy all documentation files to their respective destinations in parallel
-await Promise.all(files.map(([src, dest]) => fs.copyFile(src, dest)));
+files.map(([src, dest]) => fs.copyFileSync(src, dest));
 
 // Write rule metadata to a JSON file for the website
 // fs.writeFileSync(path.join("apps", "website", "content", "docs", "rules", "data.json"), JSON.stringify(rules, null, 2));
 
 // Process the changelog file by adding frontmatter for the documentation system
-const changelog = await fs.readFile("CHANGELOG.md", "utf-8");
-
-const changelogWithFrontmatter = [
+const changelog = [
   "---",
   "title: Changelog",
   "---",
   "",
-  changelog,
+  fs.readFileSync("CHANGELOG.md", "utf-8"),
 ].join("\n");
 
 // Write the processed changelog to the website content directory
-await fs.writeFile(path.join("apps", "website", "content", "docs", "changelog.md"), changelogWithFrontmatter);
+fs.writeFileSync(path.join("apps", "website", "content", "docs", "changelog.md"), changelog);

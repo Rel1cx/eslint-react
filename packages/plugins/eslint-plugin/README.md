@@ -165,7 +165,7 @@ export default tseslint.config({
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](./.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/main/.github/CONTRIBUTING.md).
 
 ## License
 
