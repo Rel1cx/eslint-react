@@ -28,7 +28,8 @@ interface RuleMeta {
 
 const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
-  return glob(DOCS_GLOB).map<RuleMeta>((doc) => {
+  const docs = yield* Effect.sync(() => glob(DOCS_GLOB));
+  return docs.map<RuleMeta>((doc) => {
     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
 
