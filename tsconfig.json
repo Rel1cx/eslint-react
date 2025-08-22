@@ -19,6 +19,11 @@
     "noEmit": true,
     "types": [
       "@types/node"
+    ],
+    "plugins": [
+      {
+        "name": "@effect/language-service"
+      }
     ]
   },
   "include": [
