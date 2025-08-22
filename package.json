@@ -100,7 +100,7 @@
     "typescript-eslint": "^8.40.0",
     "vitest": "^3.2.4"
   },
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.15.0",
   "engines": {
     "node": ">=18.18.0"
   },
@@ -118,8 +118,8 @@
       "@types/react-dom": "^19.1.7",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.9",
-      "lucide-react": "^0.540.0",
-      "next": "^15.4.6",
+      "lucide-react": "^0.541.0",
+      "next": "^15.5.0",
       "react": "^19.1.1",
       "react-dom": "^19.1.1",
       "ts-api-utils": "^2.1.0",
