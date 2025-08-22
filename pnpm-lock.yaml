@@ -21,6 +21,9 @@ importers:
 
   .:
     devDependencies:
+      '@effect/language-service':
+        specifier: ^0.35.2
+        version: 0.35.2
       '@effect/platform':
         specifier: ^0.90.6
         version: 0.90.6(effect@3.17.8)

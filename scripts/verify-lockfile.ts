@@ -1,6 +1,8 @@
 import { Command, CommandExecutor } from "@effect/platform";
 import { NodeCommandExecutor, NodeFileSystem, NodeRuntime } from "@effect/platform-node";
 import { Effect } from "effect";
+import * as Fn from "effect/Function";
+import * as Layer from "effect/Layer";
 
 const command = Command.make("git", "diff", "HEAD@{1}", "--stat", "--", "./pnpm-lock.yaml");
 const program = Effect.gen(function*() {
@@ -13,8 +15,9 @@ const program = Effect.gen(function*() {
   yield* Effect.logWarning("Please run `pnpm install --fix-lockfile && pnpm dedupe` to update local dependencies.");
 });
 
-program.pipe(
-  Effect.provide(NodeCommandExecutor.layer),
-  Effect.provide(NodeFileSystem.layer),
-  NodeRuntime.runMain,
+const MainLive = Fn.pipe(
+  NodeCommandExecutor.layer,
+  Layer.provideMerge(NodeFileSystem.layer),
 );
+
+program.pipe(Effect.provide(MainLive), NodeRuntime.runMain);
