@@ -1,4 +1,4 @@
-import * as NodeFileSystem from "@effect/platform-node/NodeFileSystem";
+import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as FileSystem from "@effect/platform/FileSystem";
 import ansis from "ansis";
@@ -47,4 +47,4 @@ const program = Effect.gen(function*() {
   return yield* Effect.all(packageJsonFiles.map(update), { concurrency: 8 });
 });
 
-program.pipe(Effect.provide(NodeFileSystem.layer), NodeRuntime.runMain);
+program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
