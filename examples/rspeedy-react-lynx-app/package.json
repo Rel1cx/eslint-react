@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@eslint/config-inspector": "^1.2.0",
-    "@eslint/js": "^9.33.0",
+    "@eslint/js": "^9.34.0",
     "@lynx-js/qrcode-rsbuild-plugin": "^0.4.0",
     "@lynx-js/react-rsbuild-plugin": "^0.10.12",
     "@lynx-js/rspeedy": "^0.10.7",
