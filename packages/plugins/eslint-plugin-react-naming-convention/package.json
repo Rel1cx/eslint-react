@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.1.10",
+    "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "tsup": "^8.5.0"
   },

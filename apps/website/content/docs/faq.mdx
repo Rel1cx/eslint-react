@@ -5,68 +5,59 @@ title: FAQ
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 
 <Accordions>
+  <Accordion title="Why?">
+    **ESLint React addresses critical gaps of the existing `eslint-plugin-react` in modern React ecosystems**. While named "react", the current plugin implementation specifically targets React DOM and maintains DOM-centric assumptions, creating friction when used with alternative renderers like React Native, React Three Fiber, or custom renderers.
 
-<Accordion title="Why?">
+    Our solution treating DOM as one of many supported targets rather than the default assumption. This paradigm shift enables:
 
-**ESLint React addresses critical gaps of the existing `eslint-plugin-react` in modern React ecosystems**. While named "react", the current plugin implementation specifically targets React DOM and maintains DOM-centric assumptions, creating friction when used with alternative renderers like React Native, React Three Fiber, or custom renderers.
+    - **Context-aware linting**: Adapting to different runtime environments
+    - **Future-proof architecture**: Compatibility with emerging React platforms
+    - **Unified code quality standards**: Consistent linting across diverse projects
+  </Accordion>
 
-Our solution treating DOM as one of many supported targets rather than the default assumption. This paradigm shift enables:
+  <Accordion title="What's included?">
+    Currently, it includes the following:
 
-- **Context-aware linting**: Adapting to different runtime environments
-- **Future-proof architecture**: Compatibility with emerging React platforms
-- **Unified code quality standards**: Consistent linting across diverse projects
+    **Internal Packages**
 
-</Accordion>
+    - **Utility Modules**
+      - `@eslint-react/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library).
+      - `@eslint-react/ast`: TSESTree AST utility module.
+      - `@eslint-react/var`: TSESTree AST utility module for static analysis of variables.
+      - `@eslint-react/kit`: ESLint React's plugin kit for building plugins and rules.
+    - **Core & Shared Modules**
+      - `@eslint-react/core`: Utility module for static analysis of React core APIs and patterns.
+      - `@eslint-react/shared`: Shared constants, types and functions.
 
-<Accordion title="What's included?">
+    **Public Packages**
 
-Currently, it includes the following:
+    - **ESLint Plugins**
+      - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core React rules.
+      - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - React DOM rules.
+      - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
+      - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
+      - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
+      - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin) - A unified plugin that combines all individual plugins into one.
 
-**Internal Packages**
+    **Website & Playground**
 
-- **Utility Modules**
-  - `@eslint-react/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library).
-  - `@eslint-react/ast`: TSESTree AST utility module.
-  - `@eslint-react/var`: TSESTree AST utility module for static analysis of variables.
-  - `@eslint-react/kit`: ESLint React's plugin kit for building plugins and rules.
-- **Core & Shared Modules**
-  - `@eslint-react/core`: Utility module for static analysis of React core APIs and patterns.
-  - `@eslint-react/shared`: Shared constants, types and functions.
+    - `website`: This documentation website.
+    - `playground`: The playground for ESLint React (WIP).
 
-**Public Packages**
+    You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecological-niche-explanation).
+  </Accordion>
 
-- **ESLint Plugins**
-  - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core React rules.
-  - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - React DOM rules.
-  - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
-  - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
-  - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
-  - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
-  - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin) - A unified plugin that combines all individual plugins into one.
+  <Accordion title="Why isn't there a 'jsx-runtime' preset?">
+    ESLint React automatically detects your JSX runtime type from the compiler options in your `tsconfig.json` or `jsconfig.json` file, as well as from JSX pragma comments (e.g., `/** @jsxRuntime automatic */`) in each file. This means you don't need to set a preset for the JSX runtime.
 
-**Website & Playground**
+    For more information, see the [JSX Transform](/docs/configuration/configure-project-config#jsx-transform) section on the [Configure Project Config](/docs/configuration/configure-project-config) page.
+  </Accordion>
 
-- `website`: This documentation website.
-- `playground`: The playground for ESLint React (WIP).
+  <Accordion title="Is there anything to note about migrating from 'eslint-plugin-react'?">
+    Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
 
-You can view our long-term plans on the [roadmap](/roadmap#plugins-with-ecological-niche-explanation).
+    For a comprehensive migration guide with a complete rule comparison table, see our [Migration Guide](/docs/migration). This guide covers all rules from `eslint-plugin-react`, their ESLint React equivalents, missing functionality, and migration tips.
 
-</Accordion>
-
-<Accordion title="Why isn't there a 'jsx-runtime' preset?">
-
-ESLint React automatically detects your JSX runtime type from the compiler options in your `tsconfig.json` or `jsconfig.json` file, as well as from JSX pragma comments (e.g., `/** @jsxRuntime automatic */`) in each file. This means you don't need to set a preset for the JSX runtime.
-
-For more information, see the [JSX Transform](/docs/configuration/configure-project-config#jsx-transform) section on the [Configure Project Config](/docs/configuration/configure-project-config) page.
-
-</Accordion>
-
-<Accordion title="Is there anything to note about migrating from 'eslint-plugin-react'?">
-
-Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
-
-To smoothly transition, we suggest reviewing the rules in ESLint React and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
-
-</Accordion>
-
+    To smoothly transition, we suggest reviewing the rules in ESLint React and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
+  </Accordion>
 </Accordions>
