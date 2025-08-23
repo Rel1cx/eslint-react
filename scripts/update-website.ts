@@ -1,72 +1,118 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+import * as NodeContext from "@effect/platform-node/NodeContext";
+import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
+import * as FileSystem from "@effect/platform/FileSystem";
+import * as Path from "@effect/platform/Path";
+import ansis from "ansis";
+import * as Effect from "effect/Effect";
 
 import { glob } from "./utils/glob";
 
 /**
  * Build script for processing and copying documentation to the website
  *
- * This script:
+ * This script (Effect version):
  * 1. Collects rule documentation from ESLint Plugins
  * 2. Copies them to the website with proper naming
  * 3. Processes the changelog
- * 4. Sets up dependencies for the website build
+ * 4. (TODO) Generates meta.json / rules data
  */
 
-// Find all rule documentation markdown files from the various plugins
-const docs = glob(["packages/plugins/eslint-plugin-react-*/src/rules/*.md"]);
+const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
 
-// TODO: Generate the meta.json file as well
-// Process each documentation file:
-// - Extract plugin name and rule name
-// - Format destination path and rule title
-// - Build arrays of file paths and rule metadata
-const [
-  files,
-  // rules, // Currently commented out but would contain rule metadata
-] = Array.from(docs).reduce<readonly [[string, string][], [string, string][]]>(
-  ([files, rules], doc) => {
+interface RuleMeta {
+  name: string;
+  title: string;
+  destination: string;
+  source: string;
+}
+
+const collectDocs = Effect.gen(function*() {
+  const path = yield* Path.Path;
+  const docs = yield* Effect.sync(() => glob(DOCS_GLOB));
+  return docs.map<RuleMeta>((doc) => {
     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
 
-    // Special handling for "react-x" plugin (the core plugin)
     const isPluginX = catename === "x";
 
-    // Format the rule name differently based on which plugin it belongs to
-    const name = isPluginX
-      ? basename // For react-x plugin: just use the rule name
-      : `${catename}-${basename}`; // For other plugins: prefix with category
+    const name = isPluginX ? basename : `${catename}-${basename}`;
+    const title = isPluginX ? basename : `${catename}/${basename}`;
 
-    // Format the rule title for display purposes
-    const title = isPluginX
-      ? basename // For react-x plugin: just use the rule name
-      : `${catename}/${basename}`; // For other plugins: use category/rule format
+    const destination = path.join("apps", "website", "content", "docs", "rules", `${name}.mdx`);
 
-    // Define destination path in the website content directory
-    const dest = path.join("apps", "website", "content", "docs", "rules", `${name}.mdx`);
+    return {
+      name,
+      title,
+      destination,
+      source: doc,
+    };
+  });
+});
 
-    // Add to our accumulator arrays
-    return [[...files, [doc, dest]], [...rules, [name, title]]] as const;
-  },
-  [[], []],
-);
+function copyRuleDoc(meta: RuleMeta) {
+  return Effect.gen(function*() {
+    const fs = yield* FileSystem.FileSystem;
+    const path = yield* Path.Path;
+    const dir = path.dirname(meta.destination);
+    // Ensure destination directory exists
+    yield* fs.makeDirectory(dir, { recursive: true });
+    const content = yield* fs.readFileString(meta.source, "utf8");
+    yield* fs.writeFileString(meta.destination, content);
+    yield* Effect.log(ansis.green(`Copied ${meta.source} -> ${meta.destination}`));
+    return meta;
+  });
+}
 
-// Copy all documentation files to their respective destinations in parallel
-await Promise.all(files.map(([src, dest]) => fs.copyFile(src, dest)));
+const processChangelog = Effect.gen(function*() {
+  const fs = yield* FileSystem.FileSystem;
+  const path = yield* Path.Path;
+  const changelogPath = "CHANGELOG.md";
+  const targetPath = path.join("apps", "website", "content", "docs", "changelog.md");
 
-// Write rule metadata to a JSON file for the website
-// fs.writeFileSync(path.join("apps", "website", "content", "docs", "rules", "data.json"), JSON.stringify(rules, null, 2));
+  const source = yield* fs.readFileString(changelogPath, "utf8");
+  const wrapped = [
+    "---",
+    "title: Changelog",
+    "---",
+    "",
+    source,
+  ].join("\n");
 
-// Process the changelog file by adding frontmatter for the documentation system
-const changelog = await fs.readFile("CHANGELOG.md", "utf-8");
+  const dir = path.dirname(targetPath);
+  yield* fs.makeDirectory(dir, { recursive: true });
+  yield* fs.writeFileString(targetPath, wrapped);
+  yield* Effect.log(ansis.cyan(`Processed changelog -> ${targetPath}`));
+});
 
-const changelogWithFrontmatter = [
-  "---",
-  "title: Changelog",
-  "---",
-  "",
-  changelog,
-].join("\n");
+const program = Effect.gen(function*() {
+  yield* Effect.log(ansis.bold("Processing rule documentation..."));
 
-// Write the processed changelog to the website content directory
-await fs.writeFile(path.join("apps", "website", "content", "docs", "changelog.md"), changelogWithFrontmatter);
+  const metas = yield* collectDocs;
+
+  yield* Effect.log(
+    metas.length === 0
+      ? ansis.yellow("No documentation files found.")
+      : `Found ${ansis.bold(metas.length.toString())} rule documentation file(s).`,
+  );
+
+  // Copy in parallel with limited concurrency (adjust if needed)
+  yield* Effect.forEach(metas, copyRuleDoc, { concurrency: 8 });
+
+  // (Optional) Generate rules metadata JSON (still TODO)
+  // const rulesData = metas.map(({ name, title }) => ({ name, title }));
+  // const rulesDataPath = path.join("apps", "website", "content", "docs", "rules", "data.json");
+  // yield* FileSystem.FileSystem.flatMap(fs =>
+  //   fs.makeDirectory(path.dirname(rulesDataPath), { recursive: true }).pipe(
+  //     Effect.zipRight(
+  //       fs.writeFileString(rulesDataPath, JSON.stringify(rulesData, null, 2) + "\n")
+  //     ),
+  //     Effect.tap(() => Effect.log(ansis.magenta(`Generated ${rulesDataPath}`)))
+  //   )
+  // );
+
+  yield* processChangelog;
+
+  yield* Effect.log(ansis.bold.green("Documentation processing completed."));
+});
+
+program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
