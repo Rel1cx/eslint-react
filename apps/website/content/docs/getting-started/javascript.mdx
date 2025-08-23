@@ -6,106 +6,94 @@ description: Getting started using ESLint React in your JavaScript React project
 import { Step, Steps } from "fumadocs-ui/components/steps";
 
 <Callout type="info" title="This instruction requires the following minimum versions:">
-
-- Node.js: 20.19.0
-- ESLint: 9.24.0
-- TypeScript: 4.9.5
-
+  - Node.js: 20.19.0
+  - ESLint: 9.24.0
+  - TypeScript: 4.9.5
 </Callout>
 
 <Steps>
+  <Step>
+    ## Installation
 
-<Step>
+    ```package-install copy
+    npm install --save-dev globals eslint @eslint/js @eslint-react/eslint-plugin
+    ```
+  </Step>
 
-## Installation
+  <Step>
+    ## Configure ESLint
 
-```package-install copy
-npm install --save-dev globals eslint @eslint/js @eslint-react/eslint-plugin
-```
+    ```js title="eslint.config.js"
+    import globals from "globals";
+    import eslintJs from "@eslint/js";
+    import eslintReact from "@eslint-react/eslint-plugin";
+    import { defineConfig } from "eslint/config";
 
-</Step>
+    export default defineConfig([
+      {
+        files: ["**/*.js", "**/*.jsx"],
 
-<Step>
+        // Extend recommended rule sets from:
+        // 1. ESLint JS's recommended rules
+        // 2. ESLint React's recommended rules
+        extends: [eslintJs.configs.recommended, eslintReact.configs.recommended],
 
-## Configure ESLint
+        // Configure language/parsing options
+        languageOptions: {
+          // Include browser global variables (window, document, etc.)
+          globals: {
+            ...globals.browser,
+          },
+          parserOptions: {
+            ecmaFeatures: {
+              jsx: true, // Enable JSX syntax support
+            },
+          },
+        },
 
-```js title="eslint.config.js"
-import globals from "globals";
-import eslintJs from "@eslint/js";
-import eslintReact from "@eslint-react/eslint-plugin";
-import { defineConfig } from "eslint/config";
-
-export default defineConfig([
-  {
-    files: ["**/*.js", "**/*.jsx"],
-
-    // Extend recommended rule sets from:
-    // 1. ESLint JS's recommended rules
-    // 2. ESLint React's recommended rules
-    extends: [eslintJs.configs.recommended, eslintReact.configs.recommended],
-
-    // Configure language/parsing options
-    languageOptions: {
-      // Include browser global variables (window, document, etc.)
-      globals: {
-        ...globals.browser,
-      },
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true, // Enable JSX syntax support
+        // Custom rule overrides (modify rule levels or disable rules)
+        rules: {
+          "@eslint-react/no-missing-key": "warn",
         },
       },
-    },
+    ]);
+    ```
+  </Step>
 
-    // Custom rule overrides (modify rule levels or disable rules)
-    rules: {
-      "@eslint-react/no-missing-key": "warn",
-    },
-  },
-]);
-```
+  <Step>
+    ## Configure [Project Config](/docs/glossary#project-config) (Optional)
 
-</Step>
+    ```ts title="eslint.config.js"
+    // @ts-check
+    import tseslint from "typescript-eslint";
 
-<Step>
-
-## Configure [Project Config](/docs/glossary#project-config) (Optional)
-
-```ts title="eslint.config.js"
-// @ts-check
-import tseslint from "typescript-eslint";
-
-export default [
-  {
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+    export default [
+      {
+        languageOptions: {
+          parser: tseslint.parser,
+          parserOptions: {
+            projectService: true,
+            tsconfigRootDir: import.meta.dirname,
+          },
+        },
       },
-    },
-  },
-];
-```
+    ];
+    ```
 
-```jsonc title="jsconfig.json"
-{
-  "compilerOptions": {
-    // ...other options
-    "jsx": "react-jsx"
-  },
-  "include": ["**/*.js", "**/*.jsx"]
-}
-```
+    ```jsonc title="jsconfig.json"
+    {
+      "compilerOptions": {
+        // ...other options
+        "jsx": "react-jsx"
+      },
+      "include": ["**/*.js", "**/*.jsx"]
+    }
+    ```
 
-<Callout title="TIP">
+    <Callout title="TIP">
+      Once you've correctly configured the project for the files to be linted, ESLint React utilizes the information from the TypeScript compiler to provide better linting results.
 
-Once you've correctly configured the project for the files to be linted, ESLint React utilizes the information from the TypeScript compiler to provide better linting results.
-
-For more information, see the [Configure Project Config](/docs/configuration/configure-project-config) section.
-
-</Callout>
-
-</Step>
-
+      For more information, see the [Configure Project Config](/docs/configuration/configure-project-config) section.
+    </Callout>
+  </Step>
 </Steps>
