@@ -17,7 +17,7 @@ import { glob } from "./utils/glob";
  * 4. (TODO) Generates meta.json / rules data
  */
 
-const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.md"];
+const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
 
 interface RuleMeta {
   name: string;
