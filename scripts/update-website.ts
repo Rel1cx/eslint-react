@@ -7,16 +7,6 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./utils/glob";
 
-/**
- * Build script for processing and copying documentation to the website
- *
- * This script (Effect version):
- * 1. Collects rule documentation from ESLint Plugins
- * 2. Copies them to the website with proper naming
- * 3. Processes the changelog
- * 4. (TODO) Generates meta.json / rules data
- */
-
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
 
 interface RuleMeta {
@@ -54,12 +44,63 @@ function copyRuleDoc(meta: RuleMeta) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
     const dir = path.dirname(meta.destination);
-    // Ensure destination directory exists
     yield* fs.makeDirectory(dir, { recursive: true });
     const content = yield* fs.readFileString(meta.source, "utf8");
     yield* fs.writeFileString(meta.destination, content);
     yield* Effect.log(ansis.green(`Copied ${meta.source} -> ${meta.destination}`));
     return meta;
+  });
+}
+
+function generateRuleMetaJson(metas: RuleMeta[]) {
+  return Effect.gen(function*() {
+    const fs = yield* FileSystem.FileSystem;
+    const path = yield* Path.Path;
+    const targetPath = path.join("apps", "website", "content", "docs", "rules", "meta.json");
+    interface Grouped {
+      readonly [k: string]: readonly string[];
+    }
+
+    const grouped = metas.reduce<Grouped>((acc, meta) => {
+      const catename = meta.title.includes("/") ? meta.title.split("/", 1)[0] : "x";
+      if (catename == null) return acc;
+      const list = acc[catename] ?? [];
+      return {
+        ...acc,
+        [catename]: [...list, meta.name],
+      };
+    }, {});
+
+    const sortAsc = (arr: readonly string[]): string[] => [...arr].sort((a, b) => a.localeCompare(b, "en"));
+
+    const orderedCategories: Array<{
+      key: string;
+      heading: string;
+    }> = [
+      { key: "x", heading: "---X Rules---" },
+      { key: "dom", heading: "---DOM Rules---" },
+      { key: "web-api", heading: "---Web API Rules---" },
+      { key: "naming-convention", heading: "---Naming Convention Rules---" },
+      { key: "debug", heading: "---Debug Rules---" },
+    ];
+
+    const pages = orderedCategories.reduce<string[]>((acc, cat) => {
+      const rules = grouped[cat.key];
+      if (rules && rules.length > 0) {
+        acc.push(cat.heading);
+        acc.push(...sortAsc(rules));
+      }
+      return acc;
+    }, ["overview"]);
+
+    const jsonContent = JSON.stringify({ pages }, null, 2) + "\n";
+
+    const dir = path.dirname(targetPath);
+    yield* fs.makeDirectory(dir, { recursive: true });
+    yield* fs.writeFileString(targetPath, jsonContent);
+    yield* Effect.log(ansis.magenta(`Generated rules meta -> ${targetPath}`));
+
+    return { pages, path: targetPath };
   });
 }
 
@@ -95,20 +136,9 @@ const program = Effect.gen(function*() {
       : `Found ${ansis.bold(metas.length.toString())} rule documentation file(s).`,
   );
 
-  // Copy in parallel with limited concurrency (adjust if needed)
   yield* Effect.forEach(metas, copyRuleDoc, { concurrency: 8 });
 
-  // (Optional) Generate rules metadata JSON (still TODO)
-  // const rulesData = metas.map(({ name, title }) => ({ name, title }));
-  // const rulesDataPath = path.join("apps", "website", "content", "docs", "rules", "data.json");
-  // yield* FileSystem.FileSystem.flatMap(fs =>
-  //   fs.makeDirectory(path.dirname(rulesDataPath), { recursive: true }).pipe(
-  //     Effect.zipRight(
-  //       fs.writeFileString(rulesDataPath, JSON.stringify(rulesData, null, 2) + "\n")
-  //     ),
-  //     Effect.tap(() => Effect.log(ansis.magenta(`Generated ${rulesDataPath}`)))
-  //   )
-  // );
+  yield* generateRuleMetaJson(metas);
 
   yield* processChangelog;
 
