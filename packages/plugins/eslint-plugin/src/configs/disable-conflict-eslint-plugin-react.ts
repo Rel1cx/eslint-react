@@ -55,5 +55,5 @@ const conflictingRules = [
 export const name = "@eslint-react/disable-conflict-eslint-plugin-react";
 
 export const rules: RulePreset = Object.fromEntries(
-  Object.entries(conflictingRules).map(([key]) => [key, "off"] as const),
+  conflictingRules.map((key) => [key, "off"] as const),
 );
