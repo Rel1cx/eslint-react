@@ -16,7 +16,7 @@ const GLOB_PACKAGE_JSON = [
   "packages/*/*/package.json",
 ];
 
-function update(filename: string) {
+function processPackageJson(filename: string) {
   return Effect.gen(function*() {
     const fs = yield* FileSystem.FileSystem;
     const packageJsonText = yield* fs.readFileString(filename, "utf8");
@@ -30,6 +30,7 @@ function update(filename: string) {
       .otherwise(() => "0.0.0");
     if (oldVersion === newVersion) {
       yield* Effect.log(ansis.greenBright(`Skipping ${filename} as it's already on version ${newVersion}`));
+      return false;
     }
     const packageJsonUpdated = {
       ...packageJson,
@@ -37,13 +38,14 @@ function update(filename: string) {
     };
     yield* fs.writeFileString(filename, `${JSON.stringify(packageJsonUpdated, null, 2)}\n`);
     yield* Effect.log(`Updated ${filename} to version ${packageJsonUpdated.version}`);
+    return true;
   });
 }
 
 const program = Effect.gen(function*() {
   const ignorePatterns = yield* ignores;
   const packageJsonFiles = glob(GLOB_PACKAGE_JSON, ignorePatterns);
-  return yield* Effect.all(packageJsonFiles.map(update), { concurrency: 8 });
+  return yield* Effect.all(packageJsonFiles.map(processPackageJson), { concurrency: 8 });
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
