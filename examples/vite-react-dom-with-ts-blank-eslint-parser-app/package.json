@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "inspect:eslint-config": "eslint-config-inspector",
-    "lint": "eslint .",
+    "lint": "eslint . --concurrency=auto",
     "preview": "vite preview"
   },
   "dependencies": {
