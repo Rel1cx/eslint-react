@@ -27,7 +27,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup --dts-resolve",
+    "build": "tsdown --dts-resolve",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
@@ -44,7 +44,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node22": "^22.0.2",
     "@types/picomatch": "^4.0.2",
-    "tsup": "^8.5.0",
+    "tsdown": "^0.14.2",
     "type-fest": "^4.41.0"
   },
   "engines": {

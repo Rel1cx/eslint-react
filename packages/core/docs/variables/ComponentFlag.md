@@ -8,7 +8,7 @@
 
 > **ComponentFlag**: `object`
 
-## Type declaration
+## Type Declaration
 
 ### Async
 
