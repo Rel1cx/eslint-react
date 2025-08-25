@@ -4,13 +4,13 @@ import * as Command from "@effect/platform/Command";
 import * as CommandExecutor from "@effect/platform/CommandExecutor";
 import { Effect } from "effect";
 
-const command = Command.make("git", "diff", "HEAD@{1}", "--stat", "--", "./pnpm-lock.yaml");
 const program = Effect.gen(function*() {
-  const executor = yield* CommandExecutor.CommandExecutor;
-  const output = yield* executor.lines(command);
-  if (output.length === 0) {
+  const ce = yield* CommandExecutor.CommandExecutor;
+  const diffOutput = yield* ce.lines(Command.make("git", "diff", "HEAD@{1}", "--stat", "--", "./pnpm-lock.yaml"));
+  if (diffOutput.length === 0) {
     return;
   }
+  yield* Effect.log(yield* ce.string(Command.make("pnpm", "nx", "reset")));
   yield* Effect.logWarning("Detected changes in pnpm-lock.yaml!");
   yield* Effect.logWarning("Please run `pnpm install --fix-lockfile && pnpm dedupe` to update local dependencies.");
 });
