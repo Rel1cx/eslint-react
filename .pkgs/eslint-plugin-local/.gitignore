@@ -44,4 +44,3 @@ stats.html
 *.bundled_*.mjs
 *.tgz
 eslint-results.sarif
-.tsup

@@ -8,7 +8,7 @@
 
 > **ImplicitReturnArrowFunctionExpression** = `TSESTree.ArrowFunctionExpression` & `object`
 
-## Type declaration
+## Type Declaration
 
 ### body
 

@@ -8,19 +8,19 @@
 
 > **DisplayNameAssignmentExpression** = `TSESTree.AssignmentExpression` & `object`
 
-## Type declaration
+## Type Declaration
 
 ### left
 
 > **left**: `TSESTree.MemberExpression` & `object`
 
-#### Type declaration
+#### Type Declaration
 
 ##### property
 
 > **property**: `TSESTree.Identifier` & `object`
 
-###### Type declaration
+###### Type Declaration
 
 ###### name
 

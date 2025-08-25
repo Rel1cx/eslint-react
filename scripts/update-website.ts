@@ -16,6 +16,16 @@ interface RuleMeta {
   source: string;
 }
 
+const orderedCategories = [
+  { key: "x", heading: "---X Rules---" },
+  { key: "dom", heading: "---DOM Rules---" },
+  { key: "web-api", heading: "---Web API Rules---" },
+  { key: "naming-convention", heading: "---Naming Convention Rules---" },
+  { key: "debug", heading: "---Debug Rules---" },
+] as const;
+
+const sortAsc = (arr: readonly string[]): string[] => [...arr].sort((a, b) => a.localeCompare(b, "en"));
+
 const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
   const docs = yield* Effect.sync(() => glob(DOCS_GLOB));
@@ -71,26 +81,15 @@ function generateRuleMetaJson(metas: RuleMeta[]) {
       };
     }, {});
 
-    const sortAsc = (arr: readonly string[]): string[] => [...arr].sort((a, b) => a.localeCompare(b, "en"));
-
-    const orderedCategories: Array<{
-      key: string;
-      heading: string;
-    }> = [
-      { key: "x", heading: "---X Rules---" },
-      { key: "dom", heading: "---DOM Rules---" },
-      { key: "web-api", heading: "---Web API Rules---" },
-      { key: "naming-convention", heading: "---Naming Convention Rules---" },
-      { key: "debug", heading: "---Debug Rules---" },
-    ];
-
-    const pages = orderedCategories.reduce<string[]>((acc, cat) => {
+    const pages = orderedCategories.reduce((acc, cat) => {
       const rules = grouped[cat.key];
-      if (rules && rules.length > 0) {
-        acc.push(cat.heading);
-        acc.push(...sortAsc(rules));
-      }
-      return acc;
+      return rules && rules.length > 0
+        ? [
+          ...acc,
+          cat.heading,
+          ...sortAsc(rules),
+        ]
+        : acc;
     }, ["overview"]);
 
     const jsonContent = JSON.stringify({ pages }, null, 2) + "\n";
