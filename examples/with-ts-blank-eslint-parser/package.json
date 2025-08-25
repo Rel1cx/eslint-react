@@ -1,5 +1,5 @@
 {
-  "name": "@examples/vite-react-dom-with-ts-blank-eslint-parser-app",
+  "name": "@examples/with-ts-blank-eslint-parser",
   "version": "0.0.0",
   "private": true,
   "type": "module",
