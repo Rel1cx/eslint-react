@@ -1,0 +1,105 @@
+---
+title: no-unnecessary-key
+---
+
+**Full Name in `eslint-plugin-react-x`**
+
+```sh copy
+react-x/no-unnecessary-key
+```
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```sh copy
+@eslint-react/no-unnecessary-key
+```
+
+**Features**
+
+`🧪`
+
+## Description
+
+This rule prevents the use of unnecessary `key` props on JSX elements when rendering lists.
+
+When rendering a list of elements in React, the `key` prop should only be placed on the outermost element for each item in the list. Adding keys to nested child elements is redundant, can cause confusion, and may lead to subtle bugs during refactoring.
+
+For example, if an element with a `key` is wrapped with a `React.Fragment` or another component, the `key` must be moved to the new wrapping element. Forgetting to remove the original `key` from the child element can lead to runtime warnings from React if it's duplicated, or simply leave unnecessary code. This rule helps identify and remove these redundant `key` props.
+
+## Examples
+
+### Failing
+
+```jsx
+// A key on a child element inside a map is unnecessary
+things.map(thing => (
+  <div key={thing.id}>
+    <p key="child-key">Hello</p> {/* 🚨 This key is unnecessary */}
+  </div>
+))
+
+// The key should be on the Fragment, not the div
+things.map(thing => (
+  <React.Fragment key={thing.id}>
+    <div key={thing.id}> {/* 🚨 This key is redundant */}
+      {thing.name}
+    </div>
+    <div>{thing.description}</div>
+  </React.Fragment>
+))
+
+// This also applies to array literals
+const elements = [
+  <div key="1">
+    <span key="child-span">Item 1</span> {/* 🚨 This key is unnecessary */}
+  </div>
+];
+```
+
+### Passing
+
+```jsx
+// Key is correctly placed on the top-level element of the map
+things.map(thing => <div key={thing.id}>{thing.name}</div>)
+
+// When using Fragments, the key is correctly placed on the Fragment
+things.map(thing => (
+  <React.Fragment key={thing.id}>
+    <div>{thing.name}</div>
+    <div>{thing.description}</div>
+  </React.Fragment>
+))
+
+// Keys on top-level elements in an array literal are correct
+const elements = [<div key="1" />, <div key="2" />];
+
+// Static keys used to re-mount components are not affected by this rule,
+// as they are not inside a list rendering context.
+function ComponentWithStaticKey() {
+  return (
+    <div>
+      <MyComponent key={someValue} />
+    </div>
+  );
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-key.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-key.spec.ts)
+
+## Further Reading
+
+- [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+
+---
+
+## See Also
+
+- [`no-missing-key`](./no-missing-key)\
+  Prevents missing `key` on items in list rendering.
+- [`no-implicit-key`](./no-implicit-key)\
+  Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).
+- [`no-array-index-key`](./no-array-index-key)\
+  Warns when an array `index` is used as a `key` prop.
