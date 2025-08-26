@@ -20,7 +20,7 @@ react-x/no-unnecessary-key
 
 ## Description
 
-This rule prevents the use of unnecessary `key` props on JSX elements when rendering lists.
+This rule prevents `key` from being placed on non-top-level elements in a list rendering.
 
 When rendering a list of elements in React, the `key` prop should only be placed on the outermost element for each item in the list. Adding keys to nested child elements is redundant, can cause confusion, and may lead to subtle bugs during refactoring.
 
@@ -47,13 +47,6 @@ things.map(thing => (
     <div>{thing.description}</div>
   </React.Fragment>
 ))
-
-// This also applies to array literals
-const elements = [
-  <div key="1">
-    <span key="child-span">Item 1</span> {/* 🚨 This key is unnecessary */}
-  </div>
-];
 ```
 
 ### Passing
@@ -69,9 +62,6 @@ things.map(thing => (
     <div>{thing.description}</div>
   </React.Fragment>
 ))
-
-// Keys on top-level elements in an array literal are correct
-const elements = [<div key="1" />, <div key="2" />];
 
 // Static keys used to re-mount components are not affected by this rule,
 // as they are not inside a list rendering context.
@@ -103,3 +93,5 @@ function ComponentWithStaticKey() {
   Prevents `key` from not being explicitly specified (e.g. spreading `key` from objects).
 - [`no-array-index-key`](./no-array-index-key)\
   Warns when an array `index` is used as a `key` prop.
+- [`no-duplicate-key`](./no-duplicate-key)\
+  Prevents duplicate `key` props within the same list.
