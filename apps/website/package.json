@@ -51,7 +51,7 @@
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.11",
-    "@types/react-dom": "^19.1.7",
+    "@types/react-dom": "^19.1.8",
     "autoprefixer": "^10.4.21",
     "dedent": "^1.6.0",
     "eslint": "^9.34.0",
@@ -66,6 +66,6 @@
     "tailwindcss": "^4.1.12",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript-eslint": "^8.41.0"
   }
 }
