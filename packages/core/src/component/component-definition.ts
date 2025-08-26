@@ -103,5 +103,5 @@ export function isComponentDefinition(context: RuleContext, node: AST.TSESTreeFu
     ]),
   );
 
-  return significantParent?.type !== T.JSXExpressionContainer;
+  return significantParent == null || significantParent.type !== T.JSXExpressionContainer;
 }
