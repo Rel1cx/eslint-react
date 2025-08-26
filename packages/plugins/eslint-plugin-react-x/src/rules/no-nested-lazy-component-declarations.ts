@@ -8,7 +8,7 @@ import type { CamelCase } from "string-ts";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-nested-component-definitions";
+export const RULE_NAME = "no-nested-lazy-component-declarations";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noNestedComponentDefinitions:
+      noNestedLazyComponentDeclarations:
         "Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.",
     },
     schema: [],
@@ -79,7 +79,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         });
         if (significantParent != null) {
           context.report({
-            messageId: "noNestedComponentDefinitions",
+            messageId: "noNestedLazyComponentDeclarations",
             node: lazy,
           });
         }

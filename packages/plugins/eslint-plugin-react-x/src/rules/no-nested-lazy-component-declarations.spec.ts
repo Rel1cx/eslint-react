@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noNestedComponentDefinitions",
+          messageId: "noNestedLazyComponentDeclarations",
         },
       ],
     },
