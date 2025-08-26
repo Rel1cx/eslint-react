@@ -43,6 +43,7 @@ import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
 import noStringRefs from "./rules/no-string-refs";
+import noUnnecessaryKey from "./rules/no-unnecessary-key";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
@@ -62,6 +63,7 @@ import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
+// Removed rules
 import avoidShorthandBoolean from "./rules-removed/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules-removed/avoid-shorthand-fragment";
 import noCommentTextnodes from "./rules-removed/no-comment-textnodes";
@@ -119,6 +121,7 @@ export const plugin = {
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
     "no-string-refs": noStringRefs,
+    "no-unnecessary-key": noUnnecessaryKey,
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
