@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isGetDefaultProps
 
-# Function: isGetDefaultProps()
+# Variable: isGetDefaultProps()
 
-> **isGetDefaultProps**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isGetDefaultProps**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

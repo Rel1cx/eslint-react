@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isUnsafeComponentWillReceiveProps
 
-# Function: isUnsafeComponentWillReceiveProps()
+# Variable: isUnsafeComponentWillReceiveProps()
 
-> **isUnsafeComponentWillReceiveProps**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isUnsafeComponentWillReceiveProps**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

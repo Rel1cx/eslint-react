@@ -9,6 +9,11 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isInitializedFromReact } from "../utils";
 import { isReactHookName } from "./hook-name";
 
+/**
+ * Determines if a function node is a React Hook based on its name.
+ * @param node The function node to check
+ * @returns True if the function is a React Hook, false otherwise
+ */
 export function isReactHook(node: AST.TSESTreeFunction | unit) {
   if (node == null) return false;
   const id = AST.getFunctionId(node);
@@ -34,6 +39,13 @@ export function isReactHookCall(node: TSESTree.Node | unit) {
   return false;
 }
 
+/**
+ * Checks if a node is a call to a specific React hook, with React import validation.
+ * Returns a function that accepts a hook name to check against.
+ * @param context The rule context
+ * @param node The AST node to check
+ * @returns A function that takes a hook name and returns boolean
+ */
 /* eslint-disable function/function-return-boolean */
 export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Node | unit) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
@@ -58,6 +70,11 @@ export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Nod
   };
 }
 
+/**
+ * Lightweight version of isReactHookCallWithName that doesn't check imports.
+ * @param node The AST node to check
+ * @returns A function that takes a hook name and returns boolean
+ */
 export function isReactHookCallWithNameLoose(node: TSESTree.Node | unit) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
   return (name: string) => {
@@ -72,6 +89,13 @@ export function isReactHookCallWithNameLoose(node: TSESTree.Node | unit) {
   };
 }
 
+/**
+ * Checks if a node is a call to a specific React hook or one of its aliases.
+ * @param context The rule context
+ * @param name The primary hook name to check
+ * @param alias Optional array of alias names to also accept
+ * @returns Function that checks if a node matches the hook name or aliases
+ */
 export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: unit | string[] = []) {
   const {
     importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
@@ -95,6 +119,11 @@ export function isReactHookCallWithNameAlias(context: RuleContext, name: string,
 }
 /* eslint-enable function/function-return-boolean */
 
+/**
+ * Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
+ * @param node The AST node to check
+ * @returns True if the node is a useEffect-like call
+ */
 export function isUseEffectCallLoose(node: TSESTree.Node | unit) {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
@@ -111,6 +140,7 @@ export function isUseEffectCallLoose(node: TSESTree.Node | unit) {
   }
 }
 
+// Utility functions for specific React hooks - each returns a function that checks if a node calls that specific hook
 export const isUseCall = flip(isReactHookCallWithName)("use");
 export const isUseActionStateCall = flip(isReactHookCallWithName)("useActionState");
 export const isUseCallbackCall = flip(isReactHookCallWithName)("useCallback");

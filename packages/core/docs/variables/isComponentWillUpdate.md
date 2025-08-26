@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isComponentWillUpdate
 
-# Function: isComponentWillUpdate()
+# Variable: isComponentWillUpdate()
 
-> **isComponentWillUpdate**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isComponentWillUpdate**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

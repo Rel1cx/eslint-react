@@ -8,12 +8,18 @@
 
 > **isUseEffectCallLoose**(`node`): `boolean`
 
+Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
+
 ## Parameters
 
 ### node
+
+The AST node to check
 
 `undefined` | `Node`
 
 ## Returns
 
 `boolean`
+
+True if the node is a useEffect-like call

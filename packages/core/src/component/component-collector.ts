@@ -10,7 +10,7 @@ import type { FunctionComponent } from "./component-semantic-node";
 
 import { isReactHookCall } from "../hook";
 import { isJsxLike } from "../jsx";
-import { isValidComponentDefinition } from "./component-definition";
+import { isComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
@@ -102,7 +102,7 @@ export function useComponentCollector(
       const { body } = entry.node;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && isJsxLike(context.sourceCode, body, hint)
-        && isValidComponentDefinition(context, entry.node, hint);
+        && isComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
@@ -151,7 +151,7 @@ export function useComponentCollector(
       if (entry == null) return;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
         && isJsxLike(context.sourceCode, node.argument, hint)
-        && isValidComponentDefinition(context, entry.node, hint);
+        && isComponentDefinition(context, entry.node, hint);
       if (!isComponent) return;
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);

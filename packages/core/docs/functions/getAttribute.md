@@ -8,7 +8,8 @@
 
 > **getAttribute**(`context`, `name`, `attributes`, `initialScope?`): `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
 
-Get the JSX attribute node with the given name
+Searches for a specific JSX attribute by name in a list of attributes
+Returns the last matching attribute (rightmost in JSX)
 
 ## Parameters
 
@@ -16,28 +17,28 @@ Get the JSX attribute node with the given name
 
 `RuleContext`
 
-The ESLint rule context
+ESLint rule context
 
 ### name
 
 `string`
 
-The name of the attribute
+The name of the attribute to find
 
 ### attributes
 
 (`JSXAttribute` \| `JSXSpreadAttribute`)[]
 
-The attributes to search
+Array of JSX attributes to search through
 
 ### initialScope?
 
 `Scope`
 
-The initial scope to use for variable resolution
+Optional scope for resolving variables
 
 ## Returns
 
 `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
 
-The JSX attribute node or undefined
+The found attribute or undefined

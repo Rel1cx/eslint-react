@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isUnsafeComponentWillMount
 
-# Function: isUnsafeComponentWillMount()
+# Variable: isUnsafeComponentWillMount()
 
-> **isUnsafeComponentWillMount**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isUnsafeComponentWillMount**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

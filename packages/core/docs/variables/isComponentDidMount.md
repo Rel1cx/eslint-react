@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isComponentDidMount
 
-# Function: isComponentDidMount()
+# Variable: isComponentDidMount()
 
-> **isComponentDidMount**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isComponentDidMount**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 
