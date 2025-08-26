@@ -7,3 +7,6 @@
 # Variable: DEFAULT\_JSX\_DETECTION\_HINT
 
 > `const` **DEFAULT\_JSX\_DETECTION\_HINT**: `bigint`
+
+Default JSX detection configuration
+Skips undefined and boolean literals (common in React)

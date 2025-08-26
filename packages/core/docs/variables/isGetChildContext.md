@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isGetChildContext
 
-# Function: isGetChildContext()
+# Variable: isGetChildContext()
 
-> **isGetChildContext**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isGetChildContext**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

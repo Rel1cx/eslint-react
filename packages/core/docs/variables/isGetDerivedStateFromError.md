@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isGetDerivedStateFromError
 
-# Function: isGetDerivedStateFromError()
+# Variable: isGetDerivedStateFromError()
 
-> **isGetDerivedStateFromError**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isGetDerivedStateFromError**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

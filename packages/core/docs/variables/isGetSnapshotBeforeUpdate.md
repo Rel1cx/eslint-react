@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isGetSnapshotBeforeUpdate
 
-# Function: isGetSnapshotBeforeUpdate()
+# Variable: isGetSnapshotBeforeUpdate()
 
-> **isGetSnapshotBeforeUpdate**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isGetSnapshotBeforeUpdate**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

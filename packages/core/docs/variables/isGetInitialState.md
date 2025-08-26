@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isGetInitialState
 
-# Function: isGetInitialState()
+# Variable: isGetInitialState()
 
-> **isGetInitialState**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isGetInitialState**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

@@ -2,121 +2,40 @@ import * as AST from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-export function isComponentDidCatch(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentDidCatch";
+/**
+ * Create a lifecycle method checker function
+ * @param methodName The lifecycle method name
+ * @param isStatic Whether the method is static
+ */
+function createLifecycleChecker(methodName: string, isStatic: boolean) {
+  return function(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
+    return (
+      AST.isMethodOrProperty(node)
+      && node.static === isStatic
+      && node.key.type === T.Identifier
+      && node.key.name === methodName
+    );
+  };
 }
 
-export function isComponentDidMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentDidMount";
-}
+// Non-static lifecycle method checkers
+export const isRender = createLifecycleChecker("render", false);
+export const isComponentDidCatch = createLifecycleChecker("componentDidCatch", false);
+export const isComponentDidMount = createLifecycleChecker("componentDidMount", false);
+export const isComponentDidUpdate = createLifecycleChecker("componentDidUpdate", false);
+export const isComponentWillMount = createLifecycleChecker("componentWillMount", false);
+export const isComponentWillReceiveProps = createLifecycleChecker("componentWillReceiveProps", false);
+export const isComponentWillUnmount = createLifecycleChecker("componentWillUnmount", false);
+export const isComponentWillUpdate = createLifecycleChecker("componentWillUpdate", false);
+export const isGetChildContext = createLifecycleChecker("getChildContext", false);
+export const isGetInitialState = createLifecycleChecker("getInitialState", false);
+export const isGetSnapshotBeforeUpdate = createLifecycleChecker("getSnapshotBeforeUpdate", false);
+export const isShouldComponentUpdate = createLifecycleChecker("shouldComponentUpdate", false);
+export const isUnsafeComponentWillMount = createLifecycleChecker("UNSAFE_componentWillMount", false);
+export const isUnsafeComponentWillReceiveProps = createLifecycleChecker("UNSAFE_componentWillReceiveProps", false);
+export const isUnsafeComponentWillUpdate = createLifecycleChecker("UNSAFE_componentWillUpdate", false);
 
-export function isComponentDidUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentDidUpdate";
-}
-
-export function isComponentWillMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillMount";
-}
-
-export function isComponentWillReceiveProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillReceiveProps";
-}
-
-export function isComponentWillUnmount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillUnmount";
-}
-
-export function isComponentWillUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "componentWillUpdate";
-}
-
-export function isGetChildContext(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getChildContext";
-}
-
-export function isGetDefaultProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getDefaultProps";
-}
-
-export function isGetInitialState(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getInitialState";
-}
-
-export function isGetSnapshotBeforeUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getSnapshotBeforeUpdate";
-}
-
-export function isShouldComponentUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "shouldComponentUpdate";
-}
-
-export function isUnsafeComponentWillMount(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "UNSAFE_componentWillMount";
-}
-
-export function isUnsafeComponentWillReceiveProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "UNSAFE_componentWillReceiveProps";
-}
-
-export function isUnsafeComponentWillUpdate(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && !node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "UNSAFE_componentWillUpdate";
-}
-
-export function isGetDerivedStateFromProps(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getDerivedStateFromProps";
-}
-
-export function isGetDerivedStateFromError(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-  return AST.isMethodOrProperty(node)
-    && node.static
-    && node.key.type === T.Identifier
-    && node.key.name === "getDerivedStateFromError";
-}
+// Static lifecycle method checkers
+export const isGetDefaultProps = createLifecycleChecker("getDefaultProps", true);
+export const isGetDerivedStateFromProps = createLifecycleChecker("getDerivedStateFromProps", true);
+export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStateFromError", true);

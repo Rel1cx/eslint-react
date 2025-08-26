@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isComponentDidCatch
 
-# Function: isComponentDidCatch()
+# Variable: isComponentDidCatch()
 
-> **isComponentDidCatch**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isComponentDidCatch**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

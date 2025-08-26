@@ -4,10 +4,13 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { stringifyJsx } from "./jsx-stringify";
 
 /**
- * Get the stringified type of a JSX element
- * @param context The ESLint rule context
- * @param node The JSX element node
- * @returns The type of the element
+ * Extracts the element type name from a JSX element or fragment
+ * For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment")
+ * For JSX fragments, returns an empty string
+ *
+ * @param context - ESLint rule context
+ * @param node - JSX element or fragment node
+ * @returns String representation of the element type
  */
 export function getElementType(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (node.type === T.JSXFragment) {

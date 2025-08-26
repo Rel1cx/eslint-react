@@ -8,13 +8,14 @@
 
 > **stringifyJsx**(`node`): `string`
 
-Get the stringified representation of a JSX node
+Converts a JSX AST node to its string representation
+Handles different JSX node types and returns their textual form
 
 ## Parameters
 
 ### node
 
-The JSX node
+JSX node from TypeScript ESTree
 
 `JSXClosingElement` | `JSXClosingFragment` | `JSXIdentifier` | `JSXMemberExpression` | `JSXNamespacedName` | `JSXOpeningElement` | `JSXOpeningFragment` | `JSXText`
 
@@ -22,4 +23,4 @@ The JSX node
 
 `string`
 
-The stringified representation
+String representation of the JSX node

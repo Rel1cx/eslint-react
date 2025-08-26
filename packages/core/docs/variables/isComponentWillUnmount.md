@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isComponentWillUnmount
 
-# Function: isComponentWillUnmount()
+# Variable: isComponentWillUnmount()
 
-> **isComponentWillUnmount**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isComponentWillUnmount**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 

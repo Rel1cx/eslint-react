@@ -11,7 +11,6 @@ export type * from "./component-kind";
 export * from "./component-method";
 export * from "./component-name";
 export * from "./component-phase";
-export * from "./component-render";
 export * from "./component-render-method";
 export * from "./component-render-prop";
 export type * from "./component-semantic-node";

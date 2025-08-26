@@ -8,12 +8,14 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getAttributeName } from "./jsx-attribute-name";
 
 /**
- * Get the JSX attribute node with the given name
- * @param context The ESLint rule context
- * @param name The name of the attribute
- * @param attributes The attributes to search
- * @param initialScope The initial scope to use for variable resolution
- * @returns The JSX attribute node or undefined
+ * Searches for a specific JSX attribute by name in a list of attributes
+ * Returns the last matching attribute (rightmost in JSX)
+ *
+ * @param context - ESLint rule context
+ * @param name - The name of the attribute to find
+ * @param attributes - Array of JSX attributes to search through
+ * @param initialScope - Optional scope for resolving variables
+ * @returns The found attribute or undefined
  */
 export function getAttribute(
   context: RuleContext,
@@ -22,11 +24,16 @@ export function getAttribute(
   initialScope?: Scope,
 ): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | unit {
   return attributes.findLast((attr) => {
+    // Case 1: Direct JSX attribute (e.g., className="value")
     if (attr.type === T.JSXAttribute) {
       return getAttributeName(context, attr) === name;
     }
+
+    // For spread attributes, we need a scope to resolve variables
     if (initialScope == null) return false;
+
     switch (attr.argument.type) {
+      // Case 2: Spread from variable (e.g., {...props})
       case T.Identifier: {
         const variable = VAR.findVariable(attr.argument.name, initialScope);
         const variableNode = VAR.getVariableInitNode(variable, 0);
@@ -35,6 +42,7 @@ export function getAttribute(
         }
         return false;
       }
+      // Case 3: Spread from object literal (e.g., {{...{prop: value}}})
       case T.ObjectExpression:
         return VAR.findPropertyInProperties(name, attr.argument.properties, initialScope) != null;
     }

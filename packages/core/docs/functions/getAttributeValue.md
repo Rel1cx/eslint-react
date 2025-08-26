@@ -8,7 +8,7 @@
 
 > **getAttributeValue**(`context`, `node`, `name`): \{ `initialScope`: `undefined` \| `Scope`; `kind`: `"none"`; `node`: `Node`; \} \| \{ `initialScope`: `undefined` \| `Scope`; `kind`: `"some"`; `node`: `Node`; `value`: `unknown`; \}
 
-Get a StaticValue of the attribute value
+Extracts the value of a JSX attribute by name
 
 ## Parameters
 
@@ -16,11 +16,11 @@ Get a StaticValue of the attribute value
 
 `RuleContext`
 
-The rule context
+ESLint rule context
 
 ### node
 
-The JSX attribute node
+JSX attribute or spread attribute node
 
 `JSXAttribute` | `JSXSpreadAttribute`
 
@@ -28,10 +28,10 @@ The JSX attribute node
 
 `string`
 
-The name of the attribute
+Name of the attribute to extract
 
 ## Returns
 
 \{ `initialScope`: `undefined` \| `Scope`; `kind`: `"none"`; `node`: `Node`; \} \| \{ `initialScope`: `undefined` \| `Scope`; `kind`: `"some"`; `node`: `Node`; `value`: `unknown`; \}
 
-The StaticValue of the attribute value
+The extracted attribute value in a structured format

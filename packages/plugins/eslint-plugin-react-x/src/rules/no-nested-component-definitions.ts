@@ -171,7 +171,7 @@ function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
  * @returns `true` if node is inside class component's render block, `false` if not
  */
 function isInsideRenderMethod(node: TSESTree.Node) {
-  return AST.findParentNode(node, (n) => ER.isRenderLike(n) && ER.isClassComponent(n.parent.parent)) != null;
+  return AST.findParentNode(node, (n) => ER.isRenderMethodLike(n) && ER.isClassComponent(n.parent.parent)) != null;
 }
 
 /**

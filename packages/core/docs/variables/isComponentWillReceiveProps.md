@@ -4,9 +4,9 @@
 
 [@eslint-react/core](../README.md) / isComponentWillReceiveProps
 
-# Function: isComponentWillReceiveProps()
+# Variable: isComponentWillReceiveProps()
 
-> **isComponentWillReceiveProps**(`node`): `node is TSESTreeMethodOrProperty`
+> `const` **isComponentWillReceiveProps**: (`node`) => `node is TSESTreeMethodOrProperty`
 
 ## Parameters
 
