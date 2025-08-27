@@ -45,6 +45,3 @@ stats.html
 *.bundled_*.mjs
 *.tgz
 eslint-results.sarif
-
-.nx/cache
-.nx/workspace-data
