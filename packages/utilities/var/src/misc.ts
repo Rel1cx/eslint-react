@@ -5,10 +5,10 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { findVariable } from "./variable-extractor";
 import { getVariableDefinitionNode } from "./variable-resolver";
 
-export function getChidScopes(scope: Scope): readonly Scope[] {
+export function getChildScopes(scope: Scope): readonly Scope[] {
   const scopes = [scope];
   for (const childScope of scope.childScopes) {
-    scopes.push(...getChidScopes(childScope));
+    scopes.push(...getChildScopes(childScope));
   }
   return scopes;
 }
