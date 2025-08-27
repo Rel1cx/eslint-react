@@ -49,7 +49,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
-      const variableNode = VAR.getVariableInitNode(variable, 0);
+      const variableNode = VAR.getVariableDefinitionNode(variable, 0);
       if (variableNode == null) return;
       if (!AST.isFunction(variableNode)) return;
       context.report({ messageId: "noDefaultProps", node: property });

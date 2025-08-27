@@ -73,7 +73,10 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
   if (node == null) return unit;
   switch (node.type) {
     case T.Identifier: {
-      return getSignalValueExpression(VAR.getVariableInitNode(VAR.findVariable(node, initialScope), 0), initialScope);
+      return getSignalValueExpression(
+        VAR.getVariableDefinitionNode(VAR.findVariable(node, initialScope), 0),
+        initialScope,
+      );
     }
     case T.MemberExpression:
       return node;
@@ -84,7 +87,7 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
   function findProp(properties: TSESTree.ObjectExpression["properties"], propName: string) {
-    return VAR.findPropertyInProperties(propName, properties, initialScope);
+    return VAR.findProperty(propName, properties, initialScope);
   }
   function getPropValue<A>(
     prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | unit,
@@ -109,7 +112,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     switch (node.type) {
       case T.Identifier: {
         const variable = VAR.findVariable(node, initialScope);
-        const variableNode = VAR.getVariableInitNode(variable, 0);
+        const variableNode = VAR.getVariableDefinitionNode(variable, 0);
         if (variableNode?.type === T.ObjectExpression) {
           return getOpts(variableNode);
         }

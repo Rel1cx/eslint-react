@@ -49,7 +49,7 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
   switch (true) {
     case node.type === T.Identifier: {
       const initialScope = context.sourceCode.getScope(node);
-      const object = VAR.getVariableInitNode(VAR.findVariable(node, initialScope), 0);
+      const object = VAR.getVariableDefinitionNode(VAR.findVariable(node, initialScope), 0);
       return isNewResizeObserver(object);
     }
     case node.type === T.MemberExpression:

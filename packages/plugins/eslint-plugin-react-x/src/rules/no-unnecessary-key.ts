@@ -70,5 +70,5 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function isMapCallback(node: TSESTree.Node) {
   if (node.parent == null) return false;
   if (!AST.isArrayMapCall(node.parent)) return false;
-  return AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(AST.getJSExpression(node));
+  return AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(AST.getUnderlyingExpression(node));
 }

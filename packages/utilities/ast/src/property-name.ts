@@ -1,12 +1,12 @@
 import { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 
-import { getJSExpression } from "./ast-expression";
-import { isTypeExpression } from "./ast-node-is";
+import { getUnderlyingExpression } from "./expression";
+import { isTypeExpression } from "./node";
 
 export function getPropertyName(node: TSESTree.Node): string | unit {
   if (isTypeExpression(node)) {
-    return getPropertyName(getJSExpression(node));
+    return getPropertyName(getUnderlyingExpression(node));
   }
   if (node.type === T.Identifier || node.type === T.PrivateIdentifier) {
     return node.name;

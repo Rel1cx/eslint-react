@@ -108,7 +108,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
 
   function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
     const variable = VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
-    const variableNode = VAR.getVariableInitNode(variable, 0);
+    const variableNode = VAR.getVariableDefinitionNode(variable, 0);
     if (variableNode == null) return false;
     if (variableNode.type !== T.CallExpression) return false;
     if (!ER.isReactHookCallWithNameAlias(context, "useState", hooks.useState)(variableNode)) return false;
@@ -278,7 +278,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         id: string | TSESTree.Identifier,
         initialScope: Scope.Scope,
       ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-        const node = VAR.getVariableInitNode(VAR.findVariable(id, initialScope), 0);
+        const node = VAR.getVariableDefinitionNode(VAR.findVariable(id, initialScope), 0);
         switch (node?.type) {
           case T.ArrowFunctionExpression:
           case T.FunctionDeclaration:

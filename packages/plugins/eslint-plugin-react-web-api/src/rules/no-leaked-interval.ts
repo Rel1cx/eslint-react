@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!ER.ComponentPhaseRelevance.has(fEntry.kind)) {
             break;
           }
-          const intervalIdNode = VAR.getVariableDeclaratorId(node);
+          const intervalIdNode = VAR.findAssignmentTarget(node);
           if (intervalIdNode == null) {
             context.report({
               messageId: "expectedIntervalId",

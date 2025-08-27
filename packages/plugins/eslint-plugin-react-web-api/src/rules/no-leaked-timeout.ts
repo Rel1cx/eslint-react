@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       switch (getCallKind(node)) {
         case "setTimeout": {
-          const timeoutIdNode = VAR.getVariableDeclaratorId(node);
+          const timeoutIdNode = VAR.findAssignmentTarget(node);
           if (timeoutIdNode == null) {
             context.report({
               messageId: "expectedTimeoutId",

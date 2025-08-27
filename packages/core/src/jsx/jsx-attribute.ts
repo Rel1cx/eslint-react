@@ -36,15 +36,15 @@ export function getAttribute(
       // Case 2: Spread from variable (e.g., {...props})
       case T.Identifier: {
         const variable = VAR.findVariable(attr.argument.name, initialScope);
-        const variableNode = VAR.getVariableInitNode(variable, 0);
+        const variableNode = VAR.getVariableDefinitionNode(variable, 0);
         if (variableNode?.type === T.ObjectExpression) {
-          return VAR.findPropertyInProperties(name, variableNode.properties, initialScope) != null;
+          return VAR.findProperty(name, variableNode.properties, initialScope) != null;
         }
         return false;
       }
       // Case 3: Spread from object literal (e.g., {{...{prop: value}}})
       case T.ObjectExpression:
-        return VAR.findPropertyInProperties(name, attr.argument.properties, initialScope) != null;
+        return VAR.findProperty(name, attr.argument.properties, initialScope) != null;
     }
     return false;
   });
