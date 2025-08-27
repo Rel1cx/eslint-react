@@ -100,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (arg0Node == null) return;
 
       const arg0NodeScope = context.sourceCode.getScope(arg0Node);
-      const arg0NodeReferences = VAR.getChidScopes(arg0NodeScope).flatMap((x) => x.references);
+      const arg0NodeReferences = VAR.getChildScopes(arg0NodeScope).flatMap((x) => x.references);
       const isReferencedToComponentScope = arg0NodeReferences.some((x) => x.resolved?.scope.block === component);
 
       if (!isReferencedToComponentScope) {
