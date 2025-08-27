@@ -138,7 +138,7 @@ export function isJsxLike(
       // Resolve variables to their values and check if they're JSX-like
       const variable = VAR.findVariable(name, code.getScope(node));
       const variableNode = variable
-        && VAR.getVariableInitNode(variable, 0);
+        && VAR.getVariableDefinitionNode(variable, 0);
       return !!variableNode
         && isJsxLike(code, variableNode, hint);
     }

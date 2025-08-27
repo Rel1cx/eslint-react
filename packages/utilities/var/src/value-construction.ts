@@ -3,7 +3,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { getVariableInitNode } from "./var-init-node";
+import { getVariableDefinitionNode } from "./variable-resolver";
 
 export const ConstructionDetectionHint = {
   None: 0n,
@@ -79,7 +79,7 @@ export function getConstruction(
         return unit;
       }
       const variable = initialScope.set.get(node.name);
-      const variableNode = getVariableInitNode(variable, -1);
+      const variableNode = getVariableDefinitionNode(variable, -1);
       return getConstruction(variableNode, initialScope, hint);
     }
     case T.Literal: {

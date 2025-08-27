@@ -3,9 +3,9 @@ import { unit } from "@eslint-react/eff";
 import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { findVariable } from "./var-collect";
-import { getVariableInitNode } from "./var-init-node";
-import { toStaticValue } from "./var-value";
+import { toStaticValue } from "./value-helper";
+import { findVariable } from "./variable-extractor";
+import { getVariableDefinitionNode } from "./variable-resolver";
 
 const thisBlockTypes = [
   T.FunctionDeclaration,
@@ -46,8 +46,8 @@ export function isNodeValueEqual(
       && b.type === T.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
-      const aVarNode = getVariableInitNodeLoose(aVar, 0);
-      const bVarNode = getVariableInitNodeLoose(bVar, 0);
+      const aVarNode = getVariableDefinitionNodeLoose(aVar, 0);
+      const bVarNode = getVariableDefinitionNodeLoose(bVar, 0);
       const aVarNodeParent = aVarNode?.parent;
       const bVarNodeParent = bVarNode?.parent;
       const aDef = aVar?.defs.at(0);
@@ -106,9 +106,12 @@ export function isNodeValueEqual(
   }
 }
 
-function getVariableInitNodeLoose(variable: Variable | unit, at: number): ReturnType<typeof getVariableInitNode> {
+function getVariableDefinitionNodeLoose(
+  variable: Variable | unit,
+  at: number,
+): ReturnType<typeof getVariableDefinitionNode> {
   if (variable == null) return unit;
-  const node = getVariableInitNode(variable, at);
+  const node = getVariableDefinitionNode(variable, at);
   if (node != null) return node;
   const def = variable.defs.at(at);
   if (def?.type === DefinitionType.Parameter && AST.isFunction(def.node)) return def.node;

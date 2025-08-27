@@ -2,7 +2,7 @@ import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-export function getVariableDeclaratorId(
+export function findAssignmentTarget(
   node: TSESTree.Node | unit,
   prev?: TSESTree.Node,
 ): TSESTree.BindingName | TSESTree.Expression | unit {
@@ -19,6 +19,6 @@ export function getVariableDeclaratorId(
       || node.parent === node:
       return unit;
     default:
-      return getVariableDeclaratorId(node.parent, node);
+      return findAssignmentTarget(node.parent, node);
   }
 }

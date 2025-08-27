@@ -1,14 +1,13 @@
-import type { TSESTreeFunction } from "../ast-node-types";
-
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
-
 import { describe, expect, it } from "vitest";
+
 import { getFixturesRootDir } from "../../../../../test";
-import { getFunctionId } from "../ast-function-id";
-import { isFunction } from "../ast-node-is";
+
+import { getFunctionId } from "../function-id";
+import { isFunction, type TSESTreeFunction } from "../node";
 
 function parse(code: string) {
   return parseForESLint(code, {

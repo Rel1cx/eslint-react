@@ -1,36 +1,30 @@
 import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { TSESTreeFunction } from "./ast-node-types";
-
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import type { TSESTreeFunction } from "./node";
+
+/**
+ * Represents various AST paths for React component function declarations.
+ * Each tuple type represents a specific component definition pattern.
+ */
 export type FunctionInitPath =
-  /**
-   * function Comp() { return <div />; }
-   */
+  // Standard function declaration: function Comp() { return <div />; }
   | readonly [TSESTree.FunctionDeclaration]
-  /**
-   * const Comp = () => <div />;
-   * const Comp = function () { return <div />; };
-   */
+  // Variable declarations: const Comp = () => <div />; or const Comp = function() { return <div />; }
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
     TSESTreeFunction,
   ]
-  /**
-   * const Comp = React.memo(() => <div />);
-   * const Comp = React.forwardRef(() => <div />);
-   */
+  // Higher-order component patterns: const Comp = React.memo(() => <div />);
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
     TSESTree.CallExpression,
     TSESTreeFunction,
   ]
-  /**
-   * const Comp = React.memo(React.forwardRef(() => <div />));
-   */
+  // Nested higher-order components: const Comp = React.memo(React.forwardRef(() => <div />));
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
@@ -38,12 +32,7 @@ export type FunctionInitPath =
     TSESTree.CallExpression,
     TSESTreeFunction,
   ]
-  /**
-   * const Comps = {
-   *  TopNav() { return <div />; },
-   *  SidPanel: () => <div />,
-   * }
-   */
+  // Object property components: const Comps = { TopNav() {}, SidePanel: () => <div /> }
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
@@ -51,12 +40,7 @@ export type FunctionInitPath =
     TSESTree.Property,
     TSESTreeFunction,
   ]
-  /**
-   * const Comps = {
-   *  TopNav: React.memo(() => <div />),
-   *  SidPanel: React.forwardRef(() => <div />),
-   * }
-   */
+  // HOC inside object property: const Comps = { TopNav: React.memo(() => <div />) }
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
@@ -65,12 +49,7 @@ export type FunctionInitPath =
     TSESTree.CallExpression,
     TSESTreeFunction,
   ]
-  /**
-   * const Comps = {
-   * TopNav: React.memo(React.forwardRef(() => <div />)),
-   * SidPanel: React.forwardRef(React.memo(() => <div />)),
-   * }
-   */
+  // Nested HOCs in object: const Comps = { TopNav: React.memo(React.forwardRef(() => <div />)) }
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
@@ -80,22 +59,14 @@ export type FunctionInitPath =
     TSESTree.CallExpression,
     TSESTreeFunction,
   ]
-  /**
-   * class Comp {
-   *   TopNav() { return <div />; }
-   * }
-   */
+  // Class method components: class Comp { TopNav() { return <div />; } }
   | readonly [
     TSESTree.ClassDeclaration,
     TSESTree.ClassBody,
     TSESTree.MethodDefinition,
     TSESTreeFunction,
   ]
-  /**
-   * class Comp {
-   *   TopNav = () => <div />;
-   * }
-   */
+  // Class property arrow functions: class Comp { TopNav = () => <div />; }
   | readonly [
     TSESTree.ClassDeclaration,
     TSESTree.ClassBody,
@@ -103,48 +74,85 @@ export type FunctionInitPath =
     TSESTreeFunction,
   ];
 
+/**
+ * Identifies the initialization path of a function node in the AST.
+ * Determines what kind of component declaration pattern the function belongs to.
+ *
+ * @param node - The function node to analyze
+ * @returns The function initialization path or unit if not identifiable
+ */
 export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInitPath {
+  // Function declaration is the simplest case
   if (node.type === T.FunctionDeclaration) {
     return [node] as const;
   }
+
   const { parent } = node;
+
+  // Match against various component patterns
   switch (true) {
+    // Basic variable declaration: const Comp = () => {}
     case parent.type === T.VariableDeclarator:
       return [parent.parent, parent, node] as const;
+
+    // HOC pattern: const Comp = React.memo(() => {})
     case parent.type === T.CallExpression
       && parent.parent.type === T.VariableDeclarator:
       return [parent.parent.parent, parent.parent, parent, node] as const;
+
+    // Nested HOC pattern: const Comp = React.memo(React.forwardRef(() => {}))
     case parent.type === T.CallExpression
       && parent.parent.type === T.CallExpression
       && parent.parent.parent.type === T.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
+
+    // Object property component: const Comps = { Nav: () => {} }
     case parent.type === T.Property
       && parent.parent.type === T.ObjectExpression
       && parent.parent.parent.type === T.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
+
+    // Class method component: class Comp { render() {} }
     case parent.type === T.MethodDefinition
       && parent.parent.parent.type === T.ClassDeclaration:
       return [parent.parent.parent, parent.parent, parent, node] as const;
+
+    // Class property arrow function: class Comp { render = () => {} }
     case parent.type === T.PropertyDefinition
       && parent.parent.parent.type === T.ClassDeclaration:
       return [parent.parent.parent, parent.parent, parent, node] as const;
   }
+
+  // Not a recognized function component initialization pattern
   return unit;
 }
 
-export function hasCallInFunctionInitPath(callName: string, initPath: FunctionInitPath) {
-  return initPath
-    .some((n) => {
-      if (n.type !== T.CallExpression) {
-        return false;
-      }
-      switch (n.callee.type) {
-        case T.Identifier:
-          return n.callee.name === callName;
-        case T.MemberExpression:
-          return "name" in n.callee.property && n.callee.property.name === callName;
-        default:
-          return false;
-      }
-    });
+/**
+ * Checks if a specific function call exists in the function initialization path.
+ * Useful for detecting HOCs like React.memo, React.forwardRef, etc.
+ *
+ * @param callName - The name of the call to check for (e.g., "memo", "forwardRef")
+ * @param initPath - The function initialization path to search in
+ * @returns True if the call exists in the path, false otherwise
+ */
+export function hasCallInFunctionInitPath(callName: string, initPath: FunctionInitPath): boolean {
+  return initPath.some((node) => {
+    if (node.type !== T.CallExpression) {
+      return false;
+    }
+
+    const { callee } = node;
+
+    // Check direct function calls: memo(...)
+    if (callee.type === T.Identifier) {
+      return callee.name === callName;
+    }
+
+    // Check member expressions: React.memo(...)
+    if (callee.type === T.MemberExpression && "name" in callee.property) {
+      return callee.property.name === callName;
+    }
+
+    return false;
+  });
 }

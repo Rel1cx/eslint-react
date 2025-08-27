@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         // Skip empty functions
-        if (AST.isEmptyFunction(node)) {
+        if (AST.isFunctionEmpty(node)) {
           continue;
         }
         // Skip useful hooks
