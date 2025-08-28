@@ -41,28 +41,30 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   const settings = getSettingsFromContext(context);
   const hooks = settings.additionalHooks;
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+
   const isUseEffectLikeCall = ER.isReactHookCallWithNameAlias(context, useEffectKind, hooks[useEffectKind]);
   const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", hooks.useState);
   const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", hooks.useMemo);
   const isUseCallbackCall = ER.isReactHookCallWithNameAlias(context, "useCallback", hooks.useCallback);
 
   const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
-  const setupFunctionRef: { current: AST.TSESTreeFunction | null } = { current: null };
-  const setupFunctionIdentifiers: TSESTree.Identifier[] = [];
 
-  const indFunctionCalls: TSESTree.CallExpression[] = [];
-  const indSetStateCalls = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
-  const indSetStateCallsInUseEffectArg0 = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
-  const indSetStateCallsInUseEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
-  const indSetStateCallsInUseMemoOrCallback = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
+  const setupFnRef: { current: AST.TSESTreeFunction | null } = { current: null };
+  const setupFnIds: TSESTree.Identifier[] = [];
+
+  const trackedFnCalls: TSESTree.CallExpression[] = [];
+  const setStateCallsByFn = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
+  const setStateInEffectArg = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
+  const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
+  const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
 
   const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
-    setupFunctionRef.current = node;
+    setupFnRef.current = node;
   };
 
   const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
-    if (setupFunctionRef.current === node) {
-      setupFunctionRef.current = null;
+    if (setupFnRef.current === node) {
+      setupFnRef.current = null;
     }
   };
 
@@ -189,7 +191,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
       functionEntries.pop();
     },
     CallExpression(node) {
-      const setupFunction = setupFunctionRef.current;
+      const setupFunction = setupFnRef.current;
       const pEntry = functionEntries.at(-1);
       if (pEntry == null || pEntry.node.async) {
         return;
@@ -211,18 +213,18 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
             }
             default: {
               const vd = AST.findParentNode(node, isVariableDeclaratorFromHookCall);
-              if (vd == null) getOrElseUpdate(indSetStateCalls, pEntry.node, () => []).push(node);
-              else getOrElseUpdate(indSetStateCallsInUseMemoOrCallback, vd.init, () => []).push(node);
+              if (vd == null) getOrElseUpdate(setStateCallsByFn, pEntry.node, () => []).push(node);
+              else getOrElseUpdate(setStateInHookCallbacks, vd.init, () => []).push(node);
             }
           }
         })
         .with(useEffectKind, () => {
           if (AST.isFunction(node.arguments.at(0))) return;
-          setupFunctionIdentifiers.push(...AST.getNestedIdentifiers(node));
+          setupFnIds.push(...AST.getNestedIdentifiers(node));
         })
         .with("other", () => {
           if (pEntry.node !== setupFunction) return;
-          indFunctionCalls.push(node);
+          trackedFnCalls.push(node);
         })
         .otherwise(constVoid);
     },
@@ -247,7 +249,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           }
           const vd = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
           if (vd != null) {
-            getOrElseUpdate(indSetStateCallsInUseEffectArg0, vd.init, () => []).push(node);
+            getOrElseUpdate(setStateInEffectArg, vd.init, () => []).push(node);
           }
           break;
         }
@@ -261,14 +263,14 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           if (isUseCallbackCall(node.parent)) {
             const vd = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
             if (vd != null) {
-              getOrElseUpdate(indSetStateCallsInUseEffectArg0, vd.init, () => []).push(node);
+              getOrElseUpdate(setStateInEffectArg, vd.init, () => []).push(node);
             }
             break;
           }
           // const [state, setState] = useState();
           // useEffect(setState);
           if (isUseEffectLikeCall(node.parent)) {
-            getOrElseUpdate(indSetStateCallsInUseEffectSetup, node.parent, () => []).push(node);
+            getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
           }
         }
       }
@@ -283,18 +285,18 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           case T.ArrowFunctionExpression:
           case T.FunctionDeclaration:
           case T.FunctionExpression:
-            return indSetStateCalls.get(node) ?? [];
+            return setStateCallsByFn.get(node) ?? [];
           case T.CallExpression:
-            return indSetStateCallsInUseMemoOrCallback.get(node) ?? indSetStateCallsInUseEffectArg0.get(node) ?? [];
+            return setStateInHookCallbacks.get(node) ?? setStateInEffectArg.get(node) ?? [];
         }
         return [];
       };
-      for (const [, calls] of indSetStateCallsInUseEffectSetup) {
+      for (const [, calls] of setStateInEffectSetup) {
         for (const call of calls) {
           onViolation(context, call, { name: call.name });
         }
       }
-      for (const { callee } of indFunctionCalls) {
+      for (const { callee } of trackedFnCalls) {
         if (!("name" in callee)) {
           continue;
         }
@@ -306,7 +308,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           });
         }
       }
-      for (const id of setupFunctionIdentifiers) {
+      for (const id of setupFnIds) {
         const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
         for (const setStateCall of setStateCalls) {
           onViolation(context, setStateCall, {
