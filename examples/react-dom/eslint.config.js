@@ -2,6 +2,7 @@ import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
@@ -9,7 +10,7 @@ import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
-export default tseslint.config(
+export default defineConfig([
   {
     files: GLOB_TS,
     extends: [
@@ -60,4 +61,4 @@ export default tseslint.config(
       ...eslintPluginReactHooks.configs.recommended.rules,
     },
   },
-);
+]);

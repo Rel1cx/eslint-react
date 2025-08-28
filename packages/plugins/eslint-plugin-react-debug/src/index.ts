@@ -1,9 +1,10 @@
 import type { RulePreset } from "@eslint-react/kit";
+import type { CompatibleConfig } from "@eslint-react/shared";
 
 import * as allConfig from "./configs/all";
 import { plugin } from "./plugin";
 
-function makeConfig(config: { name: string; rules: RulePreset }) {
+function toFlatConfig(config: CompatibleConfig) {
   return {
     ...config,
     plugins: {
@@ -12,7 +13,7 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   };
 }
 
-function makeLegacyConfig({ rules }: { rules: RulePreset }) {
+function toLegacyConfig({ rules }: { rules: RulePreset }) {
   return {
     plugins: ["react-debug"],
     rules,
@@ -22,7 +23,7 @@ function makeLegacyConfig({ rules }: { rules: RulePreset }) {
 export default {
   ...plugin,
   configs: {
-    ["all"]: makeConfig(allConfig),
-    ["all-legacy"]: makeLegacyConfig(allConfig),
+    ["all"]: toFlatConfig(allConfig),
+    ["all-legacy"]: toLegacyConfig(allConfig),
   },
 };

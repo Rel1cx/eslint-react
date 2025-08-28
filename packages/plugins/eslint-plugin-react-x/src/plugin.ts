@@ -1,3 +1,5 @@
+import type { CompatiblePlugin } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";
 import avoidShorthandFragment from "./rules/avoid-shorthand-fragment";
@@ -58,7 +60,7 @@ import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferShorthandBoolean from "./rules/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules/prefer-shorthand-fragment";
 
-export const plugin = {
+export const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
@@ -137,4 +139,4 @@ export const plugin = {
     /** @deprecated Use `jsx-uses-vars` instead */
     "use-jsx-vars": jsxUsesVars,
   },
-} as const;
+};
