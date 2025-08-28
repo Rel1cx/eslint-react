@@ -6,6 +6,8 @@
 
 ## Interfaces
 
+- [CompatibleConfig](interfaces/CompatibleConfig.md)
+- [CompatiblePlugin](interfaces/CompatiblePlugin.md)
 - [CustomComponentNormalized](interfaces/CustomComponentNormalized.md)
 - [CustomComponentPropNormalized](interfaces/CustomComponentPropNormalized.md)
 - [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md)

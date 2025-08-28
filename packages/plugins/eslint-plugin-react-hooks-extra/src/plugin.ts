@@ -1,3 +1,5 @@
+import type { CompatiblePlugin } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
 import noDirectSetStateInUseEffect from "./rules/no-direct-set-state-in-use-effect";
 import noDirectSetStateInUseLayoutEffect from "./rules/no-direct-set-state-in-use-layout-effect";
@@ -6,7 +8,7 @@ import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
-export const plugin = {
+export const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
@@ -31,4 +33,4 @@ export const plugin = {
     /** @deprecated Use `no-unnecessary-use-prefix` instead */
     "no-useless-custom-hooks": noUnnecessaryUsePrefix,
   },
-} as const;
+};

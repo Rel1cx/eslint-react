@@ -42,7 +42,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup --dts-resolve",
+    "build": "tsup",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"

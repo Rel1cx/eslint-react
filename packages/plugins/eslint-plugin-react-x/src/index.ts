@@ -1,11 +1,12 @@
 import type { RulePreset } from "@eslint-react/kit";
+import type { CompatibleConfig } from "@eslint-react/shared";
 
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import { plugin } from "./plugin";
 
-function makeConfig(config: { name: string; rules: RulePreset }) {
+function toFlatConfig(config: CompatibleConfig) {
   return {
     ...config,
     plugins: {
@@ -14,7 +15,7 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   };
 }
 
-function makeLegacyConfig({ rules }: { rules: RulePreset }) {
+function toLegacyConfig({ rules }: { rules: RulePreset }) {
   return {
     plugins: ["react-x"],
     rules,
@@ -24,11 +25,11 @@ function makeLegacyConfig({ rules }: { rules: RulePreset }) {
 export default {
   ...plugin,
   configs: {
-    ["recommended"]: makeConfig(recommendedConfig),
-    ["recommended-legacy"]: makeLegacyConfig(recommendedConfig),
-    ["recommended-type-checked"]: makeConfig(recommendedTypeCheckedConfig),
-    ["recommended-type-checked-legacy"]: makeLegacyConfig(recommendedTypeCheckedConfig),
-    ["recommended-typescript"]: makeConfig(recommendedTypeScriptConfig),
-    ["recommended-typescript-legacy"]: makeLegacyConfig(recommendedTypeScriptConfig),
+    ["recommended"]: toFlatConfig(recommendedConfig),
+    ["recommended-legacy"]: toLegacyConfig(recommendedConfig),
+    ["recommended-type-checked"]: toFlatConfig(recommendedTypeCheckedConfig),
+    ["recommended-type-checked-legacy"]: toLegacyConfig(recommendedTypeCheckedConfig),
+    ["recommended-typescript"]: toFlatConfig(recommendedTypeScriptConfig),
+    ["recommended-typescript-legacy"]: toLegacyConfig(recommendedTypeScriptConfig),
   },
 };
