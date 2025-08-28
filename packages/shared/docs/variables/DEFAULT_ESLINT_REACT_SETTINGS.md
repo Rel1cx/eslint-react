@@ -10,7 +10,7 @@
 
 The default ESLint settings for "react-x".
 
-## Type declaration
+## Type Declaration
 
 ### additionalComponents
 

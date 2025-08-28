@@ -10,7 +10,7 @@
 
 A default LanguagePreference object.
 
-## Type declaration
+## Type Declaration
 
 ### indentStyle?
 

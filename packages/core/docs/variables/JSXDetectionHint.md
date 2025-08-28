@@ -8,7 +8,7 @@
 
 > **JSXDetectionHint**: `object`
 
-## Type declaration
+## Type Declaration
 
 ### None
 

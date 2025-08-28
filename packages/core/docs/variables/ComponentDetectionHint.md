@@ -10,7 +10,7 @@
 
 Hints for component collector
 
-## Type declaration
+## Type Declaration
 
 ### None
 

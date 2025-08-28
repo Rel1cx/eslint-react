@@ -8,7 +8,7 @@
 
 > **ObjectDestructuringVariableDeclarator** = `TSESTree.VariableDeclarator` & `object`
 
-## Type declaration
+## Type Declaration
 
 ### id
 
