@@ -5,12 +5,14 @@
 import { Reporter as RPT } from "@eslint-react/kit";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { JSXAttribute } from "@typescript-eslint/types/dist/ast-spec";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
+
 import { createRule } from "../utils";
 
 // ------------------------------------------------------------------------------
-// Constants
+// Rule Definition
 // ------------------------------------------------------------------------------
 
 export const RULE_NAME = "no-unknown-property";
@@ -19,12 +21,44 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-const DEFAULTS = {
+// ------------------------------------------------------------------------------
+// Types
+// ------------------------------------------------------------------------------
+
+type MessageID =
+  | "dataLowercaseRequired"
+  | "invalidPropOnTag"
+  | "unknownProp"
+  | "unknownPropWithStandardName";
+
+interface RuleOptions {
+  ignore?: string[];
+  requireDataLowercase?: boolean;
+}
+
+type StringMap = Record<string, string>;
+type TagsMap = Record<string, string[]>;
+
+// ------------------------------------------------------------------------------
+// Default Options
+// ------------------------------------------------------------------------------
+
+const DEFAULTS: {
+  ignore: string[];
+  requireDataLowercase: boolean;
+} = {
   ignore: [],
   requireDataLowercase: false,
 };
 
-const DOM_ATTRIBUTE_NAMES = {
+// ------------------------------------------------------------------------------
+// DOM Property and Attribute Maps
+// ------------------------------------------------------------------------------
+
+/**
+ * Map of standard HTML attributes to their React counterparts
+ */
+const DOM_ATTRIBUTE_NAMES: StringMap = {
   "accept-charset": "acceptCharset",
   class: "className",
   crossorigin: "crossOrigin",
@@ -33,7 +67,98 @@ const DOM_ATTRIBUTE_NAMES = {
   nomodule: "noModule",
 };
 
-const ATTRIBUTE_TAGS_MAP = {
+/**
+ * Map of SVG attributes to their React camelCase equivalents
+ */
+const SVGDOM_ATTRIBUTE_NAMES: StringMap = {
+  "accent-height": "accentHeight",
+  "alignment-baseline": "alignmentBaseline",
+  "arabic-form": "arabicForm",
+  "baseline-shift": "baselineShift",
+  "cap-height": "capHeight",
+  "clip-path": "clipPath",
+  "clip-rule": "clipRule",
+  "color-interpolation": "colorInterpolation",
+  "color-interpolation-filters": "colorInterpolationFilters",
+  "color-profile": "colorProfile",
+  "color-rendering": "colorRendering",
+  "dominant-baseline": "dominantBaseline",
+  "enable-background": "enableBackground",
+  "fill-opacity": "fillOpacity",
+  "fill-rule": "fillRule",
+  "flood-color": "floodColor",
+  "flood-opacity": "floodOpacity",
+  "font-family": "fontFamily",
+  "font-size": "fontSize",
+  "font-size-adjust": "fontSizeAdjust",
+  "font-stretch": "fontStretch",
+  "font-style": "fontStyle",
+  "font-variant": "fontVariant",
+  "font-weight": "fontWeight",
+  "glyph-name": "glyphName",
+  "glyph-orientation-horizontal": "glyphOrientationHorizontal",
+  "glyph-orientation-vertical": "glyphOrientationVertical",
+  "horiz-adv-x": "horizAdvX",
+  "horiz-origin-x": "horizOriginX",
+  "image-rendering": "imageRendering",
+  "letter-spacing": "letterSpacing",
+  "lighting-color": "lightingColor",
+  "marker-end": "markerEnd",
+  "marker-mid": "markerMid",
+  "marker-start": "markerStart",
+  "overline-position": "overlinePosition",
+  "overline-thickness": "overlineThickness",
+  "paint-order": "paintOrder",
+  "panose-1": "panose1",
+  "pointer-events": "pointerEvents",
+  "rendering-intent": "renderingIntent",
+  "shape-rendering": "shapeRendering",
+  "stop-color": "stopColor",
+  "stop-opacity": "stopOpacity",
+  "strikethrough-position": "strikethroughPosition",
+  "strikethrough-thickness": "strikethroughThickness",
+  "stroke-dasharray": "strokeDasharray",
+  "stroke-dashoffset": "strokeDashoffset",
+  "stroke-linecap": "strokeLinecap",
+  "stroke-linejoin": "strokeLinejoin",
+  "stroke-miterlimit": "strokeMiterlimit",
+  "stroke-opacity": "strokeOpacity",
+  "stroke-width": "strokeWidth",
+  "text-anchor": "textAnchor",
+  "text-decoration": "textDecoration",
+  "text-rendering": "textRendering",
+  "underline-position": "underlinePosition",
+  "underline-thickness": "underlineThickness",
+  "unicode-bidi": "unicodeBidi",
+  "unicode-range": "unicodeRange",
+  "units-per-em": "unitsPerEm",
+  "v-alphabetic": "vAlphabetic",
+  "v-hanging": "vHanging",
+  "v-ideographic": "vIdeographic",
+  "v-mathematical": "vMathematical",
+  "vector-effect": "vectorEffect",
+  "vert-adv-y": "vertAdvY",
+  "vert-origin-x": "vertOriginX",
+  "vert-origin-y": "vertOriginY",
+  "word-spacing": "wordSpacing",
+  "writing-mode": "writingMode",
+  "x-height": "xHeight",
+  "xlink:actuate": "xlinkActuate",
+  "xlink:arcrole": "xlinkArcrole",
+  "xlink:href": "xlinkHref",
+  "xlink:role": "xlinkRole",
+  "xlink:show": "xlinkShow",
+  "xlink:title": "xlinkTitle",
+  "xlink:type": "xlinkType",
+  "xml:base": "xmlBase",
+  "xml:lang": "xmlLang",
+  "xml:space": "xmlSpace",
+};
+
+/**
+ * Map of attributes that are only valid on specific HTML tags
+ */
+const ATTRIBUTE_TAGS_MAP: TagsMap = {
   as: ["link"],
   abbr: ["th", "td"],
   align: [
@@ -139,92 +264,14 @@ const ATTRIBUTE_TAGS_MAP = {
   webkitDirectory: ["input"],
 };
 
-const SVGDOM_ATTRIBUTE_NAMES = {
-  "accent-height": "accentHeight",
-  "alignment-baseline": "alignmentBaseline",
-  "arabic-form": "arabicForm",
-  "baseline-shift": "baselineShift",
-  "cap-height": "capHeight",
-  "clip-path": "clipPath",
-  "clip-rule": "clipRule",
-  "color-interpolation": "colorInterpolation",
-  "color-interpolation-filters": "colorInterpolationFilters",
-  "color-profile": "colorProfile",
-  "color-rendering": "colorRendering",
-  "dominant-baseline": "dominantBaseline",
-  "enable-background": "enableBackground",
-  "fill-opacity": "fillOpacity",
-  "fill-rule": "fillRule",
-  "flood-color": "floodColor",
-  "flood-opacity": "floodOpacity",
-  "font-family": "fontFamily",
-  "font-size": "fontSize",
-  "font-size-adjust": "fontSizeAdjust",
-  "font-stretch": "fontStretch",
-  "font-style": "fontStyle",
-  "font-variant": "fontVariant",
-  "font-weight": "fontWeight",
-  "glyph-name": "glyphName",
-  "glyph-orientation-horizontal": "glyphOrientationHorizontal",
-  "glyph-orientation-vertical": "glyphOrientationVertical",
-  "horiz-adv-x": "horizAdvX",
-  "horiz-origin-x": "horizOriginX",
-  "image-rendering": "imageRendering",
-  "letter-spacing": "letterSpacing",
-  "lighting-color": "lightingColor",
-  "marker-end": "markerEnd",
-  "marker-mid": "markerMid",
-  "marker-start": "markerStart",
-  "overline-position": "overlinePosition",
-  "overline-thickness": "overlineThickness",
-  "paint-order": "paintOrder",
-  "panose-1": "panose1",
-  "pointer-events": "pointerEvents",
-  "rendering-intent": "renderingIntent",
-  "shape-rendering": "shapeRendering",
-  "stop-color": "stopColor",
-  "stop-opacity": "stopOpacity",
-  "strikethrough-position": "strikethroughPosition",
-  "strikethrough-thickness": "strikethroughThickness",
-  "stroke-dasharray": "strokeDasharray",
-  "stroke-dashoffset": "strokeDashoffset",
-  "stroke-linecap": "strokeLinecap",
-  "stroke-linejoin": "strokeLinejoin",
-  "stroke-miterlimit": "strokeMiterlimit",
-  "stroke-opacity": "strokeOpacity",
-  "stroke-width": "strokeWidth",
-  "text-anchor": "textAnchor",
-  "text-decoration": "textDecoration",
-  "text-rendering": "textRendering",
-  "underline-position": "underlinePosition",
-  "underline-thickness": "underlineThickness",
-  "unicode-bidi": "unicodeBidi",
-  "unicode-range": "unicodeRange",
-  "units-per-em": "unitsPerEm",
-  "v-alphabetic": "vAlphabetic",
-  "v-hanging": "vHanging",
-  "v-ideographic": "vIdeographic",
-  "v-mathematical": "vMathematical",
-  "vector-effect": "vectorEffect",
-  "vert-adv-y": "vertAdvY",
-  "vert-origin-x": "vertOriginX",
-  "vert-origin-y": "vertOriginY",
-  "word-spacing": "wordSpacing",
-  "writing-mode": "writingMode",
-  "x-height": "xHeight",
-  "xlink:actuate": "xlinkActuate",
-  "xlink:arcrole": "xlinkArcrole",
-  "xlink:href": "xlinkHref",
-  "xlink:role": "xlinkRole",
-  "xlink:show": "xlinkShow",
-  "xlink:title": "xlinkTitle",
-  "xlink:type": "xlinkType",
-  "xml:base": "xmlBase",
-  "xml:lang": "xmlLang",
-  "xml:space": "xmlSpace",
-};
+// ------------------------------------------------------------------------------
+// DOM Property Names
+// ------------------------------------------------------------------------------
 
-const DOM_PROPERTY_NAMES_ONE_WORD = [
+/**
+ * Single-word HTML/DOM properties
+ */
+const DOM_PROPERTY_NAMES_ONE_WORD: string[] = [
   // Global attributes - can be used on any HTML/DOM element
   // See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
   "dir",
@@ -428,7 +475,10 @@ const DOM_PROPERTY_NAMES_ONE_WORD = [
   "controls",
 ];
 
-const DOM_PROPERTY_NAMES_TWO_WORDS = [
+/**
+ * Multi-word (camelCase) HTML/DOM properties
+ */
+const DOM_PROPERTY_NAMES_TWO_WORDS: string[] = [
   // Global attributes - can be used on any HTML/DOM element
   // See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
   "accessKey",
@@ -801,7 +851,10 @@ const DOM_PROPERTY_NAMES_TWO_WORDS = [
   "disableRemotePlayback",
 ];
 
-const DOM_PROPERTIES_IGNORE_CASE = [
+/**
+ * DOM properties that are exempt from case sensitivity checks
+ */
+const DOM_PROPERTIES_IGNORE_CASE: string[] = [
   "charset",
   "allowFullScreen",
   "webkitAllowFullScreen",
@@ -809,7 +862,10 @@ const DOM_PROPERTIES_IGNORE_CASE = [
   "webkitDirectory",
 ];
 
-const ARIA_PROPERTIES = [
+/**
+ * List of ARIA attributes
+ */
+const ARIA_PROPERTIES: string[] = [
   // See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes
   // Global attributes
   "aria-atomic",
@@ -869,7 +925,10 @@ const ARIA_PROPERTIES = [
   "aria-setsize",
 ];
 
-const REACT_ON_PROPS = [
+/**
+ * React-specific pointer event handlers added in React 16.4
+ */
+const REACT_ON_PROPS: string[] = [
   "onGotPointerCapture",
   "onGotPointerCaptureCapture",
   "onLostPointerCapture",
@@ -893,7 +952,10 @@ const REACT_ON_PROPS = [
   "onPointerUpCapture",
 ];
 
-const POPOVER_API_PROPS = [
+/**
+ * Popover API properties added in React 19
+ */
+const POPOVER_API_PROPS: string[] = [
   "popover",
   "popoverTarget",
   "popoverTargetAction",
@@ -901,121 +963,110 @@ const POPOVER_API_PROPS = [
   "onBeforeToggle",
 ];
 
-function getDOMPropertyNames(context) {
-  const ALL_DOM_PROPERTY_NAMES = DOM_PROPERTY_NAMES_TWO_WORDS.concat(DOM_PROPERTY_NAMES_ONE_WORD);
-  // this was removed in React v16.1+, see https://github.com/facebook/react/pull/10823
-  if (testReactVersion(context, "<=", "16.1.0")) {
-    ALL_DOM_PROPERTY_NAMES.push("allowTransparency");
-    return ALL_DOM_PROPERTY_NAMES;
-  }
-  // these were added in React v16.4.0, see https://reactjs.org/blog/2018/05/23/react-v-16-4.html and https://github.com/facebook/react/pull/12507
-  if (testReactVersion(context, ">=", "16.4.0")) {
-    ALL_DOM_PROPERTY_NAMES.push(...REACT_ON_PROPS);
-  }
-  // these were added in React v19.0.0-rc.0, see https://github.com/facebook/react/pull/27981
-  testReactVersion(context, ">=", "19.0.0-rc.0")
-    ? ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS)
-    : ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS.map((prop) => prop.toLowerCase()));
-  return ALL_DOM_PROPERTY_NAMES;
-}
-
 // ------------------------------------------------------------------------------
-// Helpers
+// Helper Functions
 // ------------------------------------------------------------------------------
 
 /**
- * Checks if a node's parent is a JSX tag that is written with lowercase letters,
- * and is not a custom web component. Custom web components have a hyphen in tag name,
- * or have an `is="some-elem"` attribute.
- *
- * Note: does not check if a tag's parent against a list of standard HTML/DOM tags. For example,
- * a `<fake>`'s child would return `true` because "fake" is written only with lowercase letters
- * without a hyphen and does not have a `is="some-elem"` attribute.
- * @param childNode - JSX element being tested.
- * @returns Whether or not the node name match the JSX tag convention.
+ * Gets all valid DOM property names based on React version
+ * @param context - ESLint rule context
+ * @returns Array of valid DOM property names
  */
-function isValidHTMLTagInJSX(childNode) {
+function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string[] {
+  const ALL_DOM_PROPERTY_NAMES: string[] = DOM_PROPERTY_NAMES_TWO_WORDS.concat(DOM_PROPERTY_NAMES_ONE_WORD);
+
+  // React version-specific property handling
+  if (testReactVersion(context, "<=", "16.1.0")) {
+    // allowTransparency was removed in React v16.1+
+    ALL_DOM_PROPERTY_NAMES.push("allowTransparency");
+    return ALL_DOM_PROPERTY_NAMES;
+  }
+
+  // Pointer events were added in React v16.4.0
+  if (testReactVersion(context, ">=", "16.4.0")) {
+    ALL_DOM_PROPERTY_NAMES.push(...REACT_ON_PROPS);
+  }
+
+  // Popover API props were added in React v19.0.0-rc.0
+  testReactVersion(context, ">=", "19.0.0-rc.0")
+    ? ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS)
+    : ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS.map((prop) => prop.toLowerCase()));
+
+  return ALL_DOM_PROPERTY_NAMES;
+}
+
+/**
+ * Checks if a node's parent is a JSX tag that is written with lowercase letters,
+ * and is not a custom web component.
+ * @param childNode - JSX element being tested
+ * @returns Whether the node is a valid HTML tag in JSX
+ */
+function isValidHTMLTagInJSX(childNode: JSXAttribute): boolean {
   const tagConvention = /^[a-z][^-]*$/;
   if (tagConvention.test(childNode.parent.name.name)) {
     return !childNode.parent.attributes.some((attrNode) =>
       attrNode.type === "JSXAttribute"
       && attrNode.name.type === "JSXIdentifier"
       && attrNode.name.name === "is"
-      // To learn more about custom web components and `is` attribute,
-      // see https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example
     );
   }
   return false;
 }
 
 /**
- * Checks if the attribute name is included in the attributes that are excluded
- * from the camel casing.
- *
- * // returns 'charSet'
- * @example normalizeAttributeCase('charset')
- *
- * Note - these exclusions are not made by React core team, but `eslint-plugin-react` community.
- * @param name - Attribute name to be normalized
- * @returns Result
+ * Normalizes attribute names that should be case-insensitive
+ * @param name - Attribute name to normalize
+ * @returns Normalized attribute name
  */
-function normalizeAttributeCase(name) {
+function normalizeAttributeCase(name: string): string {
   return DOM_PROPERTIES_IGNORE_CASE.find((element) => element.toLowerCase() === name.toLowerCase()) || name;
 }
 
 /**
- * Checks if an attribute name is a valid `data-*` attribute:
- * if the name starts with "data-" and has alphanumeric words (browsers require lowercase, but React and TS lowercase them),
- * not start with any casing of "xml", and separated by hyphens (-) (which is also called "kebab case" or "dash case"),
- * then the attribute is a valid data attribute.
- * @param name - Attribute name to be tested
- * @returns Result
+ * Checks if an attribute name is a valid data-* attribute
+ * @param name - Attribute name to test
+ * @returns Whether the attribute is a valid data attribute
  */
-function isValidDataAttribute(name) {
+function isValidDataAttribute(name: string): boolean {
   return !/^data-xml/i.test(name) && /^data-[^:]*$/.test(name);
 }
 
 /**
- * Checks if an attribute name has at least one uppercase characters
- * @param name
- * @returns Result
+ * Checks if an attribute name has uppercase characters
+ * @param name - Attribute name to test
+ * @returns Whether the name has uppercase characters
  */
-function hasUpperCaseCharacter(name) {
+function hasUpperCaseCharacter(name: string): boolean {
   return name.toLowerCase() !== name;
 }
 
 /**
- * Checks if an attribute name is a standard aria attribute by compering it to a list
- * of standard aria property names
- * @param {string} name - Attribute name to be tested
- * @returns {boolean} Result
+ * Checks if an attribute is a valid ARIA attribute
+ * @param name - Attribute name to test
+ * @returns Whether the attribute is a valid ARIA attribute
  */
-
-function isValidAriaAttribute(name) {
+function isValidAriaAttribute(name: string): boolean {
   return ARIA_PROPERTIES.some((element) => element === name);
 }
 
 /**
- * Extracts the tag name for the JSXAttribute
- * @param node - JSXAttribute being tested.
- * @returns tag name
+ * Gets the tag name for a JSXAttribute
+ * @param node - JSXAttribute to get tag name from
+ * @returns Tag name or null
  */
-function getTagName(node) {
-  if (
-    node?.parent?.name
-  ) {
+function getTagName(node: JSXAttribute): string | null {
+  if (node?.parent?.name) {
     return node.parent.name.name;
   }
   return null;
 }
 
 /**
- * Test wether the tag name for the JSXAttribute is
- * something like <Foo.bar />
- * @param node - JSXAttribute being tested.
- * @returns result
+ * Checks if the tag name has a dot (member expression)
+ * @param node - JSXAttribute to check
+ * @returns Whether the tag name has a dot
  */
-function tagNameHasDot(node) {
+function tagNameHasDot(node: JSXAttribute): boolean {
   return !!(
     node.parent?.name
     && node.parent.name.type === "JSXMemberExpression"
@@ -1023,12 +1074,12 @@ function tagNameHasDot(node) {
 }
 
 /**
- * Get the standard name of the attribute.
- * @param name - Name of the attribute.
- * @param context - eslint context
- * @returns The standard name of the attribute, or undefined if no standard name was found.
+ * Gets the standard name of an attribute
+ * @param name - Attribute name
+ * @param context - ESLint context
+ * @returns Standard name or undefined
  */
-function getStandardName(name, context) {
+function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | undefined {
   if (has(DOM_ATTRIBUTE_NAMES, name)) {
     return DOM_ATTRIBUTE_NAMES[name];
   }
@@ -1036,19 +1087,44 @@ function getStandardName(name, context) {
     return SVGDOM_ATTRIBUTE_NAMES[name];
   }
   const names = getDOMPropertyNames(context);
-  // Let's find a possible attribute match with a case-insensitive search.
   return names.find((element) => element.toLowerCase() === name.toLowerCase());
 }
 
-// ------------------------------------------------------------------------------
-// Rule Definition
-// ------------------------------------------------------------------------------
+/**
+ * Checks if an object has a property
+ * @param obj - Object to check
+ * @param key - Key to check for
+ * @returns Whether the object has the property
+ */
+function has(obj: Record<string, any>, key: string): boolean {
+  return Object.hasOwn(obj, key);
+}
 
-type MessageID =
-  | "dataLowercaseRequired"
-  | "invalidPropOnTag"
-  | "unknownProp"
-  | "unknownPropWithStandardName";
+/**
+ * Gets text of a node
+ * @param context - ESLint context
+ * @param node - Node to get text from
+ * @returns Node's text
+ */
+function getText(context: RuleContext<MessageID, unknown[]>, node: any): string {
+  return context.sourceCode.getText(node);
+}
+
+/**
+ * Tests React version against a comparator
+ * @param context - ESLint context
+ * @param comparator - Comparison operator
+ * @param version - Version to compare against
+ * @returns Comparison result
+ */
+function testReactVersion(context: RuleContext<MessageID, unknown[]>, comparator: string, version: string): boolean {
+  const { version: localVersion } = getSettingsFromContext(context);
+  return compare(localVersion, version, comparator);
+}
+
+// ------------------------------------------------------------------------------
+// Rule Definition & Implementation
+// ------------------------------------------------------------------------------
 
 const messages = {
   dataLowercaseRequired:
@@ -1089,32 +1165,50 @@ export default createRule({
   defaultOptions: [],
 });
 
+/**
+ * Create function for the ESLint rule
+ * @param context - ESLint rule context
+ * @returns Rule listener
+ */
 export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
   const report = RPT.make(context);
-  function getIgnoreConfig() {
+
+  /**
+   * Gets the ignore configuration from rule options
+   * @returns Array of attribute names to ignore
+   */
+  function getIgnoreConfig(): string[] {
     return context.options[0]?.ignore || DEFAULTS.ignore;
   }
 
-  function getRequireDataLowercase() {
+  /**
+   * Gets the requireDataLowercase option from rule options
+   * @returns Whether data attributes must be lowercase
+   */
+  function getRequireDataLowercase(): boolean {
     return context.options[0] && typeof context.options[0].requireDataLowercase !== "undefined"
       ? !!context.options[0].requireDataLowercase
       : DEFAULTS.requireDataLowercase;
   }
 
   return {
-    JSXAttribute(node) {
-      const ignoreNames = getIgnoreConfig();
-      const actualName = getText(context, node.name);
+    JSXAttribute(node: JSXAttribute): void {
+      const ignoreNames: string[] = getIgnoreConfig();
+      const actualName: string = getText(context, node.name);
+
+      // Skip checking if the attribute name is in the ignore list
       if (ignoreNames.indexOf(actualName) >= 0) {
         return;
       }
-      const name = normalizeAttributeCase(actualName);
+
+      const name: string = normalizeAttributeCase(actualName);
 
       // Ignore tags like <Foo.bar />
       if (tagNameHasDot(node)) {
         return;
       }
 
+      // Handle data-* attributes
       if (isValidDataAttribute(name)) {
         if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
           report.send({
@@ -1126,26 +1220,27 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
             },
           });
         }
-
         return;
       }
 
+      // Handle ARIA attributes
       if (isValidAriaAttribute(name)) return;
 
-      const tagName = getTagName(node);
+      const tagName: string | null = getTagName(node);
 
-      if (tagName === "fbt" || tagName === "fbs") return; // fbt/fbs nodes are bonkers, let's not go there
+      // Special case for fbt/fbs nodes
+      if (tagName === "fbt" || tagName === "fbs") return;
 
+      // Only validate HTML/DOM elements, not React components
       if (!isValidHTMLTagInJSX(node)) return;
 
-      // Let's dive deeper into tags that are HTML/DOM elements (`<button>`), and not React components (`<Button />`)
-
-      // Some attributes are allowed on some tags only
-      const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
+      // Check if attribute is allowed only on specific tags
+      const allowedTags: string[] | null = has(ATTRIBUTE_TAGS_MAP, name)
         ? ATTRIBUTE_TAGS_MAP[name]
         : null;
+
       if (tagName && allowedTags) {
-        // Scenario 1A: Allowed attribute found where not supposed to, report it
+        // Report if attribute is used on a tag where it's not allowed
         if (allowedTags.indexOf(tagName) === -1) {
           report.send({
             node,
@@ -1157,23 +1252,22 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
             },
           });
         }
-        // Scenario 1B: There are allowed attributes on allowed tags, no need to report it
         return;
       }
 
-      // Let's see if the attribute is a close version to some standard property name
-      const standardName = getStandardName(name, context);
+      // Check if the attribute name is similar to a standard property name
+      const standardName: string | undefined = getStandardName(name, context);
 
-      const hasStandardNameButIsNotUsed = standardName && standardName !== name;
-      const usesStandardName = standardName && standardName === name;
+      const hasStandardNameButIsNotUsed: boolean = !!standardName && standardName !== name;
+      const usesStandardName: boolean = !!standardName && standardName === name;
 
       if (usesStandardName) {
-        // Scenario 2A: The attribute name is the standard name, no need to report it
+        // Attribute name is correct, nothing to do
         return;
       }
 
       if (hasStandardNameButIsNotUsed) {
-        // Scenario 2B: The name of the attribute is close to a standard one, report it with the standard name
+        // Suggest the correct standard name
         report.send({
           node,
           messageId: "unknownPropWithStandardName",
@@ -1188,7 +1282,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
         return;
       }
 
-      // Scenario 3: We have an attribute that is unknown, report it
+      // Report unknown attribute
       report.send({
         node,
         messageId: "unknownProp",
@@ -1198,17 +1292,4 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       });
     },
   };
-}
-
-function has(obj, key) {
-  return Object.hasOwn(obj, key);
-}
-
-function getText(context, node) {
-  return context.sourceCode.getText(node);
-}
-
-function testReactVersion(context, comparator, version) {
-  const { version: localVersion } = getSettingsFromContext(context);
-  return compare(localVersion, version, comparator);
 }
