@@ -1,3 +1,11 @@
+## v1.52.7 (2025-08-29)
+
+### 🐞 Fixes
+
+- fix: add ESLint compatibility types and update plugins exports, closes #1200 by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/f3083c78f680d486f8894532b7714d1bdf8f9cd7
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.6...v1.52.7
+
 ## v1.52.6 (2025-08-18)
 
 ### 🐞 Fixes
