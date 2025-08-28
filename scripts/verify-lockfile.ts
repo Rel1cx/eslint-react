@@ -10,7 +10,6 @@ const program = Effect.gen(function*() {
   if (diffOutput.length === 0) {
     return;
   }
-  yield* Effect.log(yield* ce.string(Command.make("pnpm", "nx", "reset")));
   yield* Effect.logWarning("Detected changes in pnpm-lock.yaml!");
   yield* Effect.logWarning("Please run `pnpm install --fix-lockfile && pnpm dedupe` to update local dependencies.");
 });
