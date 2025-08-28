@@ -37,7 +37,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsdown --dts-resolve",
+    "build": "tsdown",
     "lint:publish": "pnpm publint",
     "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"

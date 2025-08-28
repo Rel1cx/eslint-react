@@ -2,6 +2,7 @@ import eslintJs from "@eslint/js";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactX from "eslint-plugin-react-x";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -10,7 +11,7 @@ const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 const GLOB_JS = ["**/*.js", "**/*.jsx"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 
-export default tseslint.config(
+export default defineConfig([
   gitignore(),
   {
     files: GLOB_TS,
@@ -52,4 +53,4 @@ export default tseslint.config(
       "no-console": "off",
     },
   },
-);
+]);

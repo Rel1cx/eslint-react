@@ -36,7 +36,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsdown --dts-resolve",
+    "build": "tsdown",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
@@ -58,7 +58,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@types/react": "^19.1.12",
-    "@types/react-dom": "^19.1.8",
+    "@types/react-dom": "^19.1.9",
     "tsdown": "^0.14.2"
   },
   "peerDependencies": {

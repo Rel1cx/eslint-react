@@ -1,4 +1,7 @@
+import type { CompatiblePlugin } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
+
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml";
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children";
 import noFindDomNode from "./rules/no-find-dom-node";
@@ -17,7 +20,7 @@ import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 import noUseFormState from "./rules/no-use-form-state";
 import noVoidElementsWithChildren from "./rules/no-void-elements-with-children";
 
-export const plugin = {
+export const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
@@ -41,4 +44,4 @@ export const plugin = {
     "no-use-form-state": noUseFormState,
     "no-void-elements-with-children": noVoidElementsWithChildren,
   },
-} as const;
+};

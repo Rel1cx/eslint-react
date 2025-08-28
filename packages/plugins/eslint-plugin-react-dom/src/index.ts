@@ -1,9 +1,10 @@
 import type { RulePreset } from "@eslint-react/kit";
+import type { CompatibleConfig } from "@eslint-react/shared";
 
 import * as recommendedConfig from "./configs/recommended";
 import { plugin } from "./plugin";
 
-function makeConfig(config: { name: string; rules: RulePreset }) {
+function toFlatConfig(config: CompatibleConfig) {
   return {
     ...config,
     plugins: {
@@ -12,7 +13,7 @@ function makeConfig(config: { name: string; rules: RulePreset }) {
   };
 }
 
-function makeLegacyConfig({ rules }: { rules: RulePreset }) {
+function toLegacyConfig({ rules }: { rules: RulePreset }) {
   return {
     plugins: ["react-dom"],
     rules,
@@ -22,7 +23,7 @@ function makeLegacyConfig({ rules }: { rules: RulePreset }) {
 export default {
   ...plugin,
   configs: {
-    ["recommended"]: makeConfig(recommendedConfig),
-    ["recommended-legacy"]: makeLegacyConfig(recommendedConfig),
+    ["recommended"]: toFlatConfig(recommendedConfig),
+    ["recommended-legacy"]: toLegacyConfig(recommendedConfig),
   },
 };
