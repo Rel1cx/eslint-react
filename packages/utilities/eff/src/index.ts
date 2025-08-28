@@ -1150,42 +1150,6 @@ export function flow(
 }
 // #endregion
 
-// #region Object & Array
-
-export function chunk<T>(array: T[], size: number): T[][] {
-  const chunks: T[][] = [];
-
-  if (size <= 0) {
-    return chunks;
-  }
-
-  for (let i = 0, j = array.length; i < j; i += size) {
-    chunks.push(array.slice(i, i + size));
-  }
-
-  return chunks;
-}
-
-/**
- * Creates a new array from two supplied arrays by calling the supplied function
- * with the same-positioned element from each array.
- * @param arrayA - The first input array.
- * @param arrayB - The second input array.
- * @param callback - The function applied to each position of the arrays.
- * @returns A new array with the results of the function.
- */
-export function zipWith<T, U, V>(
-  arrayA: readonly T[],
-  arrayB: readonly U[],
-  callback: (a: T, b: U, index: number) => V,
-): V[] {
-  const result: V[] = [];
-  for (let i = 0; i < arrayA.length; i++) {
-    result.push(callback(arrayA[i]!, arrayB[i]!, i));
-  }
-  return result;
-}
-
 // #region Map & Set
 
 /**
