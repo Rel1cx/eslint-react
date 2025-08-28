@@ -1,11 +1,14 @@
+import type { CompatiblePlugin } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
+
 import componentName from "./rules/component-name";
 import contextName from "./rules/context-name";
 import filename from "./rules/filename";
 import filenameExtension from "./rules/filename-extension";
 import useState from "./rules/use-state";
 
-export const plugin = {
+export const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
@@ -17,4 +20,4 @@ export const plugin = {
     ["filename-extension"]: filenameExtension,
     ["use-state"]: useState,
   },
-} as const;
+};

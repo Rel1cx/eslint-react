@@ -23,7 +23,7 @@
     "@lynx-js/qrcode-rsbuild-plugin": "^0.4.1",
     "@lynx-js/react-rsbuild-plugin": "^0.10.13",
     "@lynx-js/rspeedy": "^0.10.8",
-    "@lynx-js/types": "^3.3.0",
+    "@lynx-js/types": "^3.4.11",
     "@rsbuild/plugin-sass": "^1.4.0",
     "@rsbuild/plugin-type-check": "^1.2.4",
     "@types/react": "^19.1.12",

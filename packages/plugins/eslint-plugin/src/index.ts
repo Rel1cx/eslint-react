@@ -1,4 +1,5 @@
 import type { RulePreset } from "@eslint-react/kit";
+import type { CompatiblePlugin } from "@eslint-react/shared";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
@@ -29,11 +30,23 @@ function toLegacyConfig({ rules }: { rules: RulePreset }) {
   };
 }
 
-export default {
+export const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
   },
+  rules: {
+    ...react.rules,
+    ...padKeysLeft(reactDom.rules, "dom/"),
+    ...padKeysLeft(reactWebApi.rules, "web-api/"),
+    ...padKeysLeft(reactHooksExtra, "hooks-extra/"),
+    ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
+    ...padKeysLeft(reactDebug.rules, "debug/"),
+  },
+};
+
+export default {
+  ...plugin,
   configs: {
     ["all"]: allConfig,
     ["all-legacy"]: toLegacyConfig(allConfig),
@@ -62,12 +75,4 @@ export default {
     ["x"]: xConfig,
     ["x-legacy"]: toLegacyConfig(xConfig),
   },
-  rules: {
-    ...react.rules,
-    ...padKeysLeft(reactDom.rules, "dom/"),
-    ...padKeysLeft(reactWebApi.rules, "web-api/"),
-    ...padKeysLeft(reactHooksExtra, "hooks-extra/"),
-    ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
-    ...padKeysLeft(reactDebug.rules, "debug/"),
-  },
-} as const;
+};

@@ -1,3 +1,5 @@
+import type { CompatiblePlugin } from "@eslint-react/shared";
+
 import { name, version } from "../package.json";
 
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
@@ -72,7 +74,7 @@ import preferReactNamespaceImport from "./rules-removed/prefer-react-namespace-i
 import preferShorthandBoolean from "./rules-removed/prefer-shorthand-boolean";
 import preferShorthandFragment from "./rules-removed/prefer-shorthand-fragment";
 
-export const plugin = {
+export const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
@@ -150,4 +152,4 @@ export const plugin = {
     "prefer-shorthand-boolean": preferShorthandBoolean,
     "prefer-shorthand-fragment": preferShorthandFragment,
   },
-} as const;
+};

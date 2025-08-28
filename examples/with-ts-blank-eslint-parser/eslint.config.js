@@ -1,16 +1,15 @@
-// @ts-check
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tsBlankEslintParser from "ts-blank-eslint-parser";
-import tseslint from "typescript-eslint";
 
 import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
-export default tseslint.config(
+export default defineConfig([
   // base configuration for browser environment source files
   {
     files: TSCONFIG_APP.include,
@@ -54,4 +53,4 @@ export default tseslint.config(
       ...eslintPluginReactHooks.configs.recommended.rules,
     },
   },
-);
+]);
