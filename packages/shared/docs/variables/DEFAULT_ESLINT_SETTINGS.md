@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_ESLINT\_SETTINGS**: `object`
 
-## Type declaration
+## Type Declaration
 
 ### react-x
 

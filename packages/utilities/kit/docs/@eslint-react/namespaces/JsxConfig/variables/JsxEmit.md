@@ -8,7 +8,7 @@
 
 > `const` **JsxEmit**: `object`
 
-## Type declaration
+## Type Declaration
 
 ### None
 
