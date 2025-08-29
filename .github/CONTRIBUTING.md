@@ -74,7 +74,7 @@ pnpm run format:check   # Check formatting
 pnpm run update:all        # Update version, README, and website
 pnpm run update:version    # Update version across packages
 pnpm run update:readme     # Update README with generated content
-# pnpm run update:website    # Update website content
+pnpm run update:website    # Update website content
 
 # Package management
 pnpm run sort:package-json # Sort package.json files consistently
@@ -111,4 +111,4 @@ When developing new ESLint rules:
 
 ## References
 
-- [Monorepo Structure](https://eslint-react.xyz/docs/contributing#monorepo-structure)
+- [Monorepo Structure](https://beta.eslint-react.xyz/docs/contributing#monorepo-structure)
