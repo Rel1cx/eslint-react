@@ -29,7 +29,7 @@ function toLegacyConfig({ rules }: { rules: RulePreset }) {
   };
 }
 
-export const plugin: CompatiblePlugin = {
+const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
