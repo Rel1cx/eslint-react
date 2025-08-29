@@ -60,7 +60,6 @@
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
     "@radix-ui/react-toast": "^1.2.15",
-    "@swc/core": "^1.13.5",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^24.3.0",
@@ -107,7 +106,6 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@swc/core",
       "core-js",
       "dprint",
       "esbuild",
