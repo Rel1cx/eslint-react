@@ -1,3 +1,11 @@
+## v1.52.8 (2025-08-29)
+
+### 🐞 Fixes
+
+- fix: restore ESLint legacy config compatibility, closes #1203 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1204
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.7...v1.52.8
+
 ## v1.52.7 (2025-08-29)
 
 ### 🐞 Fixes
