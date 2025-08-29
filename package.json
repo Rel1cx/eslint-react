@@ -110,8 +110,7 @@
       "dprint",
       "esbuild",
       "lefthook",
-      "sharp",
-      "unrs-resolver"
+      "sharp"
     ],
     "overrides": {
       "@eslint/plugin-kit": ">=0.3.5",
