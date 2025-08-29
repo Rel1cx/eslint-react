@@ -8,11 +8,16 @@
 
 > **getSettingsFromContext**(`context`): [`ESLintReactSettingsNormalized`](../interfaces/ESLintReactSettingsNormalized.md)
 
+Retrieves normalized ESLint React settings from the rule context
+Uses caching for performance optimization
+
 ## Parameters
 
 ### context
 
 `RuleContext`
+
+The ESLint rule context
 
 ## Returns
 

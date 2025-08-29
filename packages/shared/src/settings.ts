@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-param */
 /* eslint-disable perfectionist/sort-objects */
 import type { unit } from "@eslint-react/eff";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
@@ -10,68 +11,71 @@ import { z } from "zod/v4";
 
 import { getReactVersion } from "./get-react-version";
 
+// ===== Schema Definitions =====
+
+/**
+ * Schema for component prop mapping between user-defined components and host components
+ */
 export const CustomComponentPropSchema = z.object({
   /**
-   * The name of the prop in the user-defined component.
-   * @example
-   * "to"
+   * The name of the prop in the user-defined component
+   * @example "to"
    */
   name: z.string(),
+
   /**
-   * The name of the prop in the host component.
-   * @example
-   * "href"
+   * The name of the prop in the host component
+   * @example "href"
    */
   as: z.optional(z.string()),
+
   /**
-   * Whether the prop is controlled or not in the user-defined component.
+   * Whether the prop is controlled in the user-defined component
    * @internal
-   * @example
-   * `true`
    */
   controlled: z.optional(z.boolean()),
+
   /**
-   * The default value of the prop in the user-defined component.
-   * @example
-   * `"/"`
+   * The default value of the prop in the user-defined component
+   * @example "/", "noopener noreferrer"
    */
   defaultValue: z.optional(z.string()),
 });
 
 /**
- * @description
- * This will provide some key information to the rule before checking for user-defined components.
- * For example:
- * Which prop is used as the `href` prop for the user-defined `Link` component that represents the built-in `a` element.
+ * Schema for custom components configuration
+ * Provides key information about user-defined components before validation
+ * Example: Which prop is used as the `href` prop in a custom `Link` component
  */
 export const CustomComponentSchema = z.object({
   /**
-   * The name of the user-defined component.
-   * @example
-   * "Link"
+   * The name of the user-defined component
+   * @example "Link"
    */
   name: z.string(),
+
   /**
-   * The name of the host component that the user-defined component represents.
-   * @example
-   * "a"
+   * The name of the host component that the user-defined component represents
+   * @example "a"
    */
   as: z.optional(z.string()),
+
   /**
-   * Attributes mapping between the user-defined component and the host component.
-   * @example
-   * `Link` component has a `to` attribute that represents the `href` attribute in the built-in `a` element with a default value of `"/"`.
+   * Attributes mapping between the user-defined component and the host component
+   * @example Link's "to" attribute maps to anchor "href" attribute
    */
   attributes: z.optional(z.array(CustomComponentPropSchema)),
+
   /**
-   * The ESQuery selector to select the component precisely.
+   * ESQuery selector to precisely select the component
    * @internal
-   * @example
-   * `JSXElement:has(JSXAttribute[name.name='component'][value.value='a'])`
    */
   selector: z.optional(z.string()),
 });
 
+/**
+ * Schema for custom hooks aliases that should be treated as React Hooks
+ */
 export const CustomHooksSchema = z.object({
   use: z.optional(z.array(z.string())),
   useActionState: z.optional(z.array(z.string())),
@@ -95,55 +99,63 @@ export const CustomHooksSchema = z.object({
 });
 
 /**
+ * Schema for ESLint React settings configuration
  * @internal
  */
 export const ESLintReactSettingsSchema = z.object({
   /**
-   * The source where React is imported from.
-   * @description This allows to specify a custom import location for React when not using the official distribution.
-   * @default `"react"`
-   * @example `"@pika/react"`
+   * The source where React is imported from
+   * Allows specifying a custom import location for React
+   * @default "react"
+   * @example "@pika/react"
    */
   importSource: z.optional(z.string()),
+
   /**
-   * The name of the prop that is used for polymorphic components.
-   * @description This is used to determine the type of the component.
-   * @example `"as"`
+   * The prop name used for polymorphic components
+   * Used to determine the component's type
+   * @example "as"
    */
   polymorphicPropName: z.optional(z.string()),
+
   /**
-   * @default `true`
+   * Whether to use strict mode
+   * @default true
    * @internal
    */
   strict: z.optional(z.boolean()),
+
   /**
-   * Check both the shape and the import to determine if an API is from React.
-   * @default `true`
+   * Whether to skip import checks when determining if an API is from React
+   * @default true
    * @internal
    */
   skipImportCheck: z.optional(z.boolean()),
+
   /**
-   * React version to use, "detect" means auto detect React version from the project's dependencies.
-   * If `importSource` is specified, an equivalent version of React should be provided here.
-   * @example `"18.3.1"`
-   * @default `"detect"`
+   * React version to use
+   * "detect" means auto-detect React version from project dependencies
+   * @example "18.3.1"
+   * @default "detect"
    */
   version: z.optional(z.string()),
+
   /**
-   * A object to define additional hooks that are equivalent to the built-in React Hooks.
-   * @description ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
-   * @example `{ useEffect: ["useIsomorphicLayoutEffect"] }`
+   * Custom hooks that should be treated as equivalent to built-in React Hooks
+   * @example { useEffect: ["useIsomorphicLayoutEffect"] }
    */
   additionalHooks: z.optional(CustomHooksSchema),
+
   /**
-   * An array of user-defined components
-   * @description This is used to inform the ESLint React plugins how to treat these components during checks.
-   * @example `[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
+   * User-defined components configuration
+   * Informs ESLint React how to treat these components during validation
+   * @example [{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]
    */
   additionalComponents: z.optional(z.array(CustomComponentSchema)),
 });
 
 /**
+ * Schema for ESLint settings
  * @internal
  */
 export const ESLintSettingsSchema = z.optional(
@@ -152,26 +164,52 @@ export const ESLintSettingsSchema = z.optional(
   }),
 );
 
+// ===== Type Definitions =====
+
 export type CustomComponent = z.infer<typeof CustomComponentSchema>;
-
 export type CustomComponentProp = z.infer<typeof CustomComponentPropSchema>;
-
 export type CustomHooks = z.infer<typeof CustomHooksSchema>;
-
 export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
-
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 
-export function isESLintSettings(settings: unknown): settings is ESLintSettings {
-  return ESLintSettingsSchema.safeParse(settings).success;
-}
-
-export function isESLintReactSettings(settings: unknown): settings is ESLintReactSettings {
-  return ESLintReactSettingsSchema.safeParse(settings).success;
+/**
+ * Normalized representation of a custom component prop
+ */
+export interface CustomComponentPropNormalized {
+  name: string;
+  as: string;
+  // controlled?: boolean | unit;
+  defaultValue?: string | unit;
 }
 
 /**
- * The default ESLint settings for "react-x".
+ * Normalized representation of a custom component with RegExp for matching
+ */
+export interface CustomComponentNormalized {
+  name: string;
+  as: string;
+  attributes: CustomComponentPropNormalized[];
+  re: { test(s: string): boolean };
+  // selector?: string | unit;
+}
+
+/**
+ * Normalized ESLint React settings with processed values
+ */
+export interface ESLintReactSettingsNormalized {
+  additionalHooks: CustomHooks;
+  components: CustomComponentNormalized[];
+  importSource: string;
+  polymorphicPropName: string | unit;
+  skipImportCheck: boolean;
+  strict: boolean;
+  version: string;
+}
+
+// ===== Default Values =====
+
+/**
+ * Default ESLint React settings
  */
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   version: "detect",
@@ -186,39 +224,43 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   },
 } as const satisfies ESLintReactSettings;
 
+/**
+ * Default ESLint settings with React settings included
+ */
 export const DEFAULT_ESLINT_SETTINGS = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
 } as const satisfies ESLintSettings;
 
-export interface CustomComponentPropNormalized {
-  name: string;
-  as: string;
-  // controlled?: boolean | unit;
-  defaultValue?: string | unit;
+// ===== Utility Functions =====
+
+/**
+ * Checks if the provided settings conform to ESLintSettings schema
+ * @param settings The settings object to validate
+ */
+export function isESLintSettings(settings: unknown): settings is ESLintSettings {
+  return ESLintSettingsSchema.safeParse(settings).success;
 }
 
-export interface CustomComponentNormalized {
-  name: string;
-  as: string;
-  attributes: CustomComponentPropNormalized[];
-  re: { test(s: string): boolean };
-  // selector?: string | unit;
+/**
+ * Checks if the provided settings conform to ESLintReactSettings schema
+ * @param settings The settings object to validate
+ */
+export function isESLintReactSettings(settings: unknown): settings is ESLintReactSettings {
+  return ESLintReactSettingsSchema.safeParse(settings).success;
 }
 
-export interface ESLintReactSettingsNormalized {
-  additionalHooks: CustomHooks;
-  components: CustomComponentNormalized[];
-  importSource: string;
-  polymorphicPropName: string | unit;
-  skipImportCheck: boolean;
-  strict: boolean;
-  version: string;
-}
-
+/**
+ * Coerces unknown input to ESLintSettings type
+ * @param settings The settings object to coerce
+ */
 export const coerceESLintSettings = (settings: unknown): PartialDeep<ESLintSettings> => {
   return settings as PartialDeep<ESLintSettings>;
 };
 
+/**
+ * Decodes and validates ESLint settings, using defaults if invalid
+ * @param settings The settings object to decode
+ */
 export const decodeESLintSettings = (settings: unknown): ESLintSettings => {
   if (isESLintSettings(settings)) {
     return settings;
@@ -226,10 +268,18 @@ export const decodeESLintSettings = (settings: unknown): ESLintSettings => {
   return DEFAULT_ESLINT_SETTINGS;
 };
 
+/**
+ * Coerces unknown input to ESLintReactSettings type
+ * @param settings The settings object to coerce
+ */
 export const coerceSettings = (settings: unknown): PartialDeep<ESLintReactSettings> => {
   return settings as PartialDeep<ESLintReactSettings>;
 };
 
+/**
+ * Decodes and validates ESLint React settings, using defaults if invalid
+ * @param settings The settings object to decode
+ */
 export const decodeSettings = (settings: unknown): ESLintReactSettings => {
   if (isESLintReactSettings(settings)) {
     return settings;
@@ -237,6 +287,10 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
   return DEFAULT_ESLINT_REACT_SETTINGS;
 };
 
+/**
+ * Normalizes ESLint React settings to a consistent internal format
+ * Transforms component definitions and resolves version information
+ */
 export const normalizeSettings = ({
   additionalComponents = [],
   additionalHooks = {},
@@ -275,8 +329,14 @@ export const normalizeSettings = ({
   } as const satisfies ESLintReactSettingsNormalized;
 };
 
+// Cache for storing normalized settings to avoid repeated processing
 const cache = new Map<unknown, ESLintReactSettingsNormalized>();
 
+/**
+ * Retrieves normalized ESLint React settings from the rule context
+ * Uses caching for performance optimization
+ * @param context The ESLint rule context
+ */
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
   const settings = context.settings;
   return getOrElseUpdate(
@@ -287,12 +347,12 @@ export function getSettingsFromContext(context: RuleContext): ESLintReactSetting
 }
 
 /**
- * A helper function to define settings for "react-x" with type checking in JavaScript files.
- * @param settings The settings.
- * @returns The settings.
+ * Helper function for defining typed settings for "react-x" in JavaScript files
+ * Provides type checking without runtime transformation
  */
 export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = identity;
 
+// Type declaration augmentation for TypeScript ESLint
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
     ["react-x"]?: Partial<ESLintReactSettings>;

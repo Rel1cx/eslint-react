@@ -8,11 +8,15 @@
 
 > **decodeESLintSettings**(`settings`): `undefined` \| \{ `react-x?`: `unknown`; \}
 
+Decodes and validates ESLint settings, using defaults if invalid
+
 ## Parameters
 
 ### settings
 
 `unknown`
+
+The settings object to decode
 
 ## Returns
 

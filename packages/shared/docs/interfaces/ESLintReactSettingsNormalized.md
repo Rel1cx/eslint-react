@@ -6,6 +6,8 @@
 
 # Interface: ESLintReactSettingsNormalized
 
+Normalized ESLint React settings with processed values
+
 ## Properties
 
 ### additionalHooks

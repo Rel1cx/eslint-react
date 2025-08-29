@@ -7,3 +7,5 @@
 # Variable: CustomComponentPropSchema
 
 > `const` **CustomComponentPropSchema**: `ZodObject`\<\{ `as`: `ZodOptional`\<`ZodString`\>; `defaultValue`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; \}, `$strip`\>
+
+Schema for component prop mapping between user-defined components and host components

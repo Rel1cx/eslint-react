@@ -8,7 +8,8 @@
 
 > `const` **defineSettings**: (`settings`) => [`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md) = `identity`
 
-A helper function to define settings for "react-x" with type checking in JavaScript files.
+Helper function for defining typed settings for "react-x" in JavaScript files
+Provides type checking without runtime transformation
 
 ## Parameters
 
@@ -16,10 +17,6 @@ A helper function to define settings for "react-x" with type checking in JavaScr
 
 [`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)
 
-The settings.
-
 ## Returns
 
 [`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)
-
-The settings.
