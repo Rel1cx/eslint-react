@@ -1,11 +1,10 @@
+/* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
+import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
-import * as ER from "@eslint-react/core";
-
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
@@ -57,30 +56,31 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
   const { allowExpressions = true } = option;
+
   return {
+    // Check JSX elements that might be fragments
     JSXElement(node) {
       if (!ER.isFragmentElement(context, node)) return;
       checkNode(context, node, allowExpressions);
     },
+    // Check JSX fragments
     JSXFragment(node) {
       checkNode(context, node, allowExpressions);
     },
   };
 }
 
+// ----- Helper Functions -----
+
 /**
  * Check if a Literal or JSXText node is whitespace
- * @param node The AST node to check
- * @returns boolean `true` if the node is whitespace
  */
 function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
   return typeof node.value === "string" && node.raw.trim() === "";
 }
 
 /**
- * Check if a Literal or JSXText node is padding spaces
- * @param node The AST node to check
- * @returns boolean
+ * Check if a node is padding spaces (whitespace with line breaks)
  */
 function isPaddingSpaces(node: TSESTree.Node) {
   return ER.isJsxText(node)
@@ -88,6 +88,9 @@ function isPaddingSpaces(node: TSESTree.Node) {
     && node.raw.includes("\n");
 }
 
+/**
+ * Trim whitespace like React would in JSX
+ */
 function trimLikeReact(text: string) {
   const leadingSpaces = /^\s*/.exec(text)?.[0] ?? "";
   const trailingSpaces = /\s*$/.exec(text)?.[0] ?? "";
@@ -98,99 +101,104 @@ function trimLikeReact(text: string) {
   return text.slice(start, end);
 }
 
+/**
+ * Check if a fragment node is useless and should be reported
+ */
 function checkNode(
   context: RuleContext,
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
 ) {
   const initialScope = context.sourceCode.getScope(node);
-  // return if the fragment is keyed (e.g. <Fragment key={key}>)
+
+  // Skip if the fragment has a key prop (indicates it's needed for lists)
   if (node.type === T.JSXElement && ER.hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
     return;
   }
-  // report if the fragment is placed inside a host component (e.g. <div><></></div>)
+
+  // Report fragment placed inside a host component (e.g. <div><></></div>)
   if (ER.isHostElement(context, node.parent)) {
     context.report({
       messageId: "uselessFragment",
       node,
-      data: {
-        reason: "placed inside a host component",
-      },
+      data: { reason: "placed inside a host component" },
       fix: getFix(context, node),
     });
   }
-  // report and return if the fragment has no children (e.g. <></>)
+
+  // Report empty fragments (e.g. <></>)
   if (node.children.length === 0) {
     context.report({
       messageId: "uselessFragment",
       node,
-      data: {
-        reason: "contains less than two children",
-      },
+      data: { reason: "contains less than two children" },
       fix: getFix(context, node),
     });
     return;
   }
+
   const isChildElement = AST.isOneOf([T.JSXElement, T.JSXFragment])(node.parent);
+
+  // Handle various fragment cases
   switch (true) {
-    // <Foo content={<>ee eeee eeee ...</>} />
+    // Allow single text child in attribute value (e.g. content={<>text</>})
     case allowExpressions
       && !isChildElement
       && node.children.length === 1
       && ER.isJsxText(node.children.at(0)): {
       return;
     }
-    // <Foo><>hello, world</></Foo>
+
+    // Report fragment with single child inside JSX element
     case !allowExpressions
       && isChildElement: {
       context.report({
         messageId: "uselessFragment",
         node,
-        data: {
-          reason: "contains less than two children",
-        },
+        data: { reason: "contains less than two children" },
         fix: getFix(context, node),
       });
       return;
     }
+
+    // Report fragment with single child in expressions
     case !allowExpressions
       && !isChildElement
       && node.children.length === 1: {
-      // const foo = <>{children}</>;
-      // return <>{children}</>;
       context.report({
         messageId: "uselessFragment",
         node,
-        data: {
-          reason: "contains less than two children",
-        },
+        data: { reason: "contains less than two children" },
         fix: getFix(context, node),
       });
       return;
     }
   }
+
+  // Filter out padding spaces to check actual content
   const nonPaddingChildren = node.children.filter((child) => !isPaddingSpaces(child));
   const firstNonPaddingChild = nonPaddingChildren.at(0);
-  switch (true) {
-    case nonPaddingChildren.length === 0:
-    case nonPaddingChildren.length === 1
-      && firstNonPaddingChild?.type !== T.JSXExpressionContainer: {
-      context.report({
-        messageId: "uselessFragment",
-        node,
-        data: {
-          reason: "contains less than two children",
-        },
-        fix: getFix(context, node),
-      });
-      return;
-    }
+
+  // Report if empty or only has one non-expression child
+  if (
+    nonPaddingChildren.length === 0
+    || (nonPaddingChildren.length === 1 && firstNonPaddingChild?.type !== T.JSXExpressionContainer)
+  ) {
+    context.report({
+      messageId: "uselessFragment",
+      node,
+      data: { reason: "contains less than two children" },
+      fix: getFix(context, node),
+    });
   }
-  return;
 }
 
+/**
+ * Generate fix for removing useless fragment
+ */
 function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (!canFix(context, node)) return null;
+
   return (fixer: RuleFixer) => {
     const opener = node.type === T.JSXFragment ? node.openingFragment : node.openingElement;
     const closer = node.type === T.JSXFragment ? node.closingFragment : node.closingElement;
@@ -203,20 +211,22 @@ function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFr
   };
 }
 
+/**
+ * Check if it's safe to automatically fix the fragment
+ */
 function canFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+  // Don't fix fragments inside custom components (might require children to be ReactElement)
   if (node.parent.type === T.JSXElement || node.parent.type === T.JSXFragment) {
-    // Not safe to fix `<Eeee><>foo</></Eeee>` because `Eeee` might require its children be a ReactElement.
     return ER.isHostElement(context, node.parent);
   }
-  // Not safe to fix fragments without a jsx parent.
-  // const a = <></>
+
+  // Don't fix empty fragments without a JSX parent
   if (node.children.length === 0) {
     return false;
   }
-  // dprint-ignore
-  // const a = <>{meow}</>
-  if (node.children.some((child) => (ER.isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child))) {
-    return false;
-  }
-  return true;
+
+  // Don't fix fragments with text or expressions outside of JSX context
+  return !node
+    .children
+    .some((child) => (ER.isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child));
 }

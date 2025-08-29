@@ -35,9 +35,8 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { importSource } = getSettingsFromContext(context);
   return {
-    [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](
-      node: TSESTree.ImportDefaultSpecifier,
-    ) {
+    // dprint-ignore
+    [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
       const hasOtherSpecifiers = node.parent.specifiers.length > 1;
       context.report({
         messageId: "preferNamespaceImport",

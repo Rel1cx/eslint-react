@@ -17,10 +17,10 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const reactChildrenMethod = ["forEach", "map"] as const;
+const REACT_CHILDREN_METHOD = ["forEach", "map"] as const;
 
-function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
-  return reactChildrenMethod.some((method) => method === name);
+function isReactChildrenMethod(name: string): name is typeof REACT_CHILDREN_METHOD[number] {
+  return REACT_CHILDREN_METHOD.includes(name as never);
 }
 
 function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpression) {
