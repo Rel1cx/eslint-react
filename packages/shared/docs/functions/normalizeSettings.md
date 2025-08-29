@@ -8,6 +8,9 @@
 
 > **normalizeSettings**(`__namedParameters`): `object`
 
+Normalizes ESLint React settings to a consistent internal format
+Transforms component definitions and resolves version information
+
 ## Parameters
 
 ### \_\_namedParameters
@@ -16,32 +19,25 @@
 
 `object`[] = `[]`
 
-An array of user-defined components
-
-**Description**
-
-This is used to inform the ESLint React plugins how to treat these components during checks.
+User-defined components configuration
+Informs ESLint React how to treat these components during validation
 
 **Example**
 
 ```ts
-`[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }, { name: "rel", defaultValue: "noopener noreferrer" }] }]`
+[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]
 ```
 
 #### additionalHooks?
 
 \{ `use?`: `string`[]; `useActionState?`: `string`[]; `useCallback?`: `string`[]; `useContext?`: `string`[]; `useDebugValue?`: `string`[]; `useDeferredValue?`: `string`[]; `useEffect?`: `string`[]; `useFormStatus?`: `string`[]; `useId?`: `string`[]; `useImperativeHandle?`: `string`[]; `useInsertionEffect?`: `string`[]; `useLayoutEffect?`: `string`[]; `useMemo?`: `string`[]; `useOptimistic?`: `string`[]; `useReducer?`: `string`[]; `useRef?`: `string`[]; `useState?`: `string`[]; `useSyncExternalStore?`: `string`[]; `useTransition?`: `string`[]; \} = `{}`
 
-A object to define additional hooks that are equivalent to the built-in React Hooks.
-
-**Description**
-
-ESLint React will recognize these aliases as equivalent to the built-in hooks in all its rules.
+Custom hooks that should be treated as equivalent to built-in React Hooks
 
 **Example**
 
 ```ts
-`{ useEffect: ["useIsomorphicLayoutEffect"] }`
+{ useEffect: ["useIsomorphicLayoutEffect"] }
 ```
 
 #### additionalHooks.use?
@@ -124,54 +120,52 @@ ESLint React will recognize these aliases as equivalent to the built-in hooks in
 
 `string` = `"react"`
 
-The source where React is imported from.
-
-**Description**
-
-This allows to specify a custom import location for React when not using the official distribution.
+The source where React is imported from
+Allows specifying a custom import location for React
 
 **Default**
 
-`"react"`
+```ts
+"react"
+```
 
 **Example**
 
 ```ts
-`"@pika/react"`
+"@pika/react"
 ```
 
 #### polymorphicPropName?
 
 `string` = `"as"`
 
-The name of the prop that is used for polymorphic components.
-
-**Description**
-
-This is used to determine the type of the component.
+The prop name used for polymorphic components
+Used to determine the component's type
 
 **Example**
 
 ```ts
-`"as"`
+"as"
 ```
 
 #### version?
 
 `string`
 
-React version to use, "detect" means auto detect React version from the project's dependencies.
-If `importSource` is specified, an equivalent version of React should be provided here.
+React version to use
+"detect" means auto-detect React version from project dependencies
 
 **Example**
 
 ```ts
-`"18.3.1"`
+"18.3.1"
 ```
 
 **Default**
 
-`"detect"`
+```ts
+"detect"
+```
 
 ## Returns
 

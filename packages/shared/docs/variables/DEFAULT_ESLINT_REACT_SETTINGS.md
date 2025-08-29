@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_ESLINT\_REACT\_SETTINGS**: `object`
 
-The default ESLint settings for "react-x".
+Default ESLint React settings
 
 ## Type Declaration
 

@@ -6,6 +6,8 @@
 
 # Interface: CustomComponentNormalized
 
+Normalized representation of a custom component with RegExp for matching
+
 ## Properties
 
 ### as

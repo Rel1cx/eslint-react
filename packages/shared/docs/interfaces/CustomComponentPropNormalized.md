@@ -6,6 +6,8 @@
 
 # Interface: CustomComponentPropNormalized
 
+Normalized representation of a custom component prop
+
 ## Properties
 
 ### as
