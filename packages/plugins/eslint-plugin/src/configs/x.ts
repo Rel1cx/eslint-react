@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import react from "eslint-plugin-react-x";
 
@@ -66,7 +66,7 @@ export const rules = {
   // "@eslint-react/prefer-namespace-import": "warn",
   // "@eslint-react/prefer-read-only-props": "error",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
   "@eslint-react": react,

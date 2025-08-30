@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 
 export const name = "react-dom/recommended";
@@ -20,7 +20,7 @@ export const rules = {
   "react-dom/no-unsafe-target-blank": "warn",
   "react-dom/no-use-form-state": "error",
   "react-dom/no-void-elements-with-children": "error",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const settings = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,

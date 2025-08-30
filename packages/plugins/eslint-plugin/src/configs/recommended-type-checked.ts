@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 
 import * as recommendedTypeScript from "./recommended-typescript";
 
@@ -9,7 +9,7 @@ export const rules = {
   "@eslint-react/no-leaked-conditional-rendering": "warn",
   "@eslint-react/no-unused-props": "warn",
   // "@eslint-react/prefer-read-only-props": "warn",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
   ...recommendedTypeScript.plugins,

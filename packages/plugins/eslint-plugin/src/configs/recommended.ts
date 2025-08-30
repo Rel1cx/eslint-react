@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
@@ -16,7 +16,7 @@ export const rules = {
 
   "@eslint-react/naming-convention/context-name": "warn",
   // "@eslint-react/naming-convention/use-state": "warn",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
   ...x.plugins,
