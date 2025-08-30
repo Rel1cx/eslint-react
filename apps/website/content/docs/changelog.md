@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v1.52.9 (2025-08-31)
+
+### 🐞 Fixes
+
+- fix: issue introduced in version [v1.52.7](https://github.com/Rel1cx/eslint-react/releases/tag/v1.52.7) where the `react-hooks-extra` rules were not exported, closes #1207 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1208
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.8...v1.52.9
+
 ## v1.52.8 (2025-08-29)
 
 ### 🐞 Fixes
