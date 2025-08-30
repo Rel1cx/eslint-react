@@ -39,7 +39,7 @@ const plugin: CompatiblePlugin = {
     ...react.rules,
     ...padKeysLeft(reactDom.rules, "dom/"),
     ...padKeysLeft(reactWebApi.rules, "web-api/"),
-    ...padKeysLeft(reactHooksExtra, "hooks-extra/"),
+    ...padKeysLeft(reactHooksExtra.rules, "hooks-extra/"),
     ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
     ...padKeysLeft(reactDebug.rules, "debug/"),
   },
