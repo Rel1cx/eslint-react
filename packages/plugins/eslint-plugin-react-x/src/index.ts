@@ -1,5 +1,5 @@
-import type { RulePreset } from "@eslint-react/kit";
-import type { CompatibleConfig } from "@eslint-react/shared";
+import type { RuleConfig } from "@eslint-react/kit";
+import type { CompatibleConfig } from "@eslint-react/kit";
 
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
@@ -15,7 +15,7 @@ function toFlatConfig(config: CompatibleConfig) {
   };
 }
 
-function toLegacyConfig({ rules }: { rules: RulePreset }) {
+function toLegacyConfig({ rules }: CompatibleConfig) {
   return {
     plugins: ["react-x"],
     rules,

@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 
 export const name = "react-x/recommended";
@@ -47,7 +47,7 @@ export const rules = {
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
   "react-x/prefer-use-state-lazy-initialization": "warn",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const settings = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,

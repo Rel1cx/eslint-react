@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 
 // This rulelist should be kept in sync with `apps/website/content/docs/migration.mdx`
 // Rules provided by `eslint-plugin-react` that exist in this plugin.
@@ -54,6 +54,6 @@ const conflictingRules = [
 
 export const name = "@eslint-react/disable-conflict-eslint-plugin-react";
 
-export const rules: RulePreset = Object.fromEntries(
+export const rules: Record<string, RuleConfig> = Object.fromEntries(
   conflictingRules.map((key) => [key, "off"] as const),
 );

@@ -1,3 +1,5 @@
+// @ts-check
+
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";

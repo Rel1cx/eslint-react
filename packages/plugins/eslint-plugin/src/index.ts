@@ -1,5 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { CompatibleConfig, CompatiblePlugin } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
@@ -23,7 +22,7 @@ import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import * as xConfig from "./configs/x";
 import { padKeysLeft } from "./utils";
 
-function toLegacyConfig({ rules }: { rules: RulePreset }) {
+function toLegacyConfig({ rules }: CompatibleConfig) {
   return {
     plugins: ["@eslint-react"],
     rules,
