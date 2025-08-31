@@ -1,4 +1,3 @@
-import type { RuleConfig } from "@eslint-react/kit";
 import type { CompatibleConfig } from "@eslint-react/kit";
 
 import * as recommendedConfig from "./configs/recommended";
