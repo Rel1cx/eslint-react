@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import react from "eslint-plugin-react-x";
 
@@ -47,7 +47,7 @@ export const rules = {
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
   "@eslint-react": react,

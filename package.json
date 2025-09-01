@@ -70,7 +70,7 @@
     "@typescript-eslint/rule-tester": "^8.41.0",
     "@typescript-eslint/types": "^8.41.0",
     "ansis": "^4.1.0",
-    "cspell": "^9.2.0",
+    "cspell": "^9.2.1",
     "dedent": "^1.6.0",
     "dprint": "^0.50.1",
     "effect": "^3.17.9",
