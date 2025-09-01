@@ -46,7 +46,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "lint:publish": "pnpm publint",
     "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsup": "^8.5.0"
+    "tsdown": "^0.14.2"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
