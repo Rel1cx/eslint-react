@@ -1,23 +1,9 @@
-import type { CompatibleConfig } from "@eslint-react/kit";
+import { getConfigAdapters } from "@eslint-react/shared";
 
 import * as recommendedConfig from "./configs/recommended";
 import { plugin } from "./plugin";
 
-function toFlatConfig(config: CompatibleConfig) {
-  return {
-    ...config,
-    plugins: {
-      "react-dom": plugin,
-    },
-  };
-}
-
-function toLegacyConfig({ rules }: CompatibleConfig) {
-  return {
-    plugins: ["react-dom"],
-    rules,
-  };
-}
+const { toFlatConfig, toLegacyConfig } = getConfigAdapters("react-dom", plugin);
 
 export default {
   ...plugin,
