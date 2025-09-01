@@ -1,4 +1,4 @@
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { CompatiblePlugin } from "@eslint-react/kit";
 
 import { name, version } from "../package.json";
 import avoidShorthandBoolean from "./rules/avoid-shorthand-boolean";

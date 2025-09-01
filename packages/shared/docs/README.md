@@ -6,8 +6,6 @@
 
 ## Interfaces
 
-- [CompatibleConfig](interfaces/CompatibleConfig.md)
-- [CompatiblePlugin](interfaces/CompatiblePlugin.md)
 - [CustomComponentNormalized](interfaces/CustomComponentNormalized.md)
 - [CustomComponentPropNormalized](interfaces/CustomComponentPropNormalized.md)
 - [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md)
@@ -38,6 +36,7 @@
 - [coerceSettings](functions/coerceSettings.md)
 - [decodeESLintSettings](functions/decodeESLintSettings.md)
 - [decodeSettings](functions/decodeSettings.md)
+- [getConfigAdapters](functions/getConfigAdapters.md)
 - [getId](functions/getId.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)

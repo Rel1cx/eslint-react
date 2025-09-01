@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 import reactWebApi from "eslint-plugin-react-web-api";
 
 import * as dom from "./dom";
@@ -10,7 +10,7 @@ export const rules = {
   "@eslint-react/web-api/no-leaked-interval": "warn",
   "@eslint-react/web-api/no-leaked-resize-observer": "warn",
   "@eslint-react/web-api/no-leaked-timeout": "warn",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
   "@eslint-react/web-api": reactWebApi,

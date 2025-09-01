@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 
 import * as recommended from "./recommended";
 
@@ -10,7 +10,7 @@ export const rules = {
   "@eslint-react/jsx-no-duplicate-props": "off",
   "@eslint-react/jsx-uses-react": "off",
   "@eslint-react/jsx-uses-vars": "off",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
   ...recommended.plugins,

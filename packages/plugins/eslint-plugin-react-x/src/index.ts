@@ -1,26 +1,11 @@
-import type { RulePreset } from "@eslint-react/kit";
-import type { CompatibleConfig } from "@eslint-react/shared";
+import { getConfigAdapters } from "@eslint-react/shared";
 
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import { plugin } from "./plugin";
 
-function toFlatConfig(config: CompatibleConfig) {
-  return {
-    ...config,
-    plugins: {
-      "react-x": plugin,
-    },
-  };
-}
-
-function toLegacyConfig({ rules }: { rules: RulePreset }) {
-  return {
-    plugins: ["react-x"],
-    rules,
-  };
-}
+const { toFlatConfig, toLegacyConfig } = getConfigAdapters("react-x", plugin);
 
 export default {
   ...plugin,
