@@ -1,4 +1,4 @@
-import type { RulePreset } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/kit";
 
 import * as recommended from "./recommended";
 
@@ -10,7 +10,7 @@ export const rules = {
   "react-x/jsx-no-undef": "off",
   "react-x/jsx-uses-react": "off",
   "react-x/jsx-uses-vars": "off",
-} as const satisfies RulePreset;
+} as const satisfies Record<string, RuleConfig>;
 
 export const settings = {
   ...recommended.settings,
