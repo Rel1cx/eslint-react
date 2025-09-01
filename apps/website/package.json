@@ -17,7 +17,7 @@
     "bsky-react-post": "^0.1.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "effect": "^3.17.9",
+    "effect": "^3.17.10",
     "fumadocs-core": "15.7.7",
     "fumadocs-docgen": "3.0.0",
     "fumadocs-mdx": "11.8.2",
@@ -29,7 +29,7 @@
     "next-view-transitions": "^0.3.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "shiki": "^3.12.0",
+    "shiki": "^3.12.1",
     "tailwind-merge": "^3.3.1",
     "twoslash": "^0.3.4"
   },
