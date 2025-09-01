@@ -162,8 +162,8 @@ export default tseslint.config({
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/tooling/replace-tsup-with-tsdown/.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/main/.github/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/tooling/replace-tsup-with-tsdown/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/main/LICENSE) file for details.
