@@ -1,16 +1,15 @@
-import type { Options } from "tsup";
+import type { Options } from "tsdown";
 
 export default {
   clean: true,
   dts: true,
   entry: ["src/index.ts"],
   external: ["eslint", "typescript"],
-  format: ["cjs", "esm"],
+  format: ["esm"],
   minify: false,
   outDir: "dist",
   platform: "node",
   sourcemap: false,
-  splitting: false,
   target: "node18",
   treeshake: true,
 } satisfies Options;

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "1.52.10-beta.0",
+  "version": "1.52.10-beta.1",
   "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -35,7 +35,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsup": "^8.5.0"
+    "tsdown": "^0.14.2"
   },
   "engines": {
     "node": ">=18.18.0"
