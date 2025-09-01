@@ -28,6 +28,8 @@ export function toDelimiterFormat(node: TSESTree.Node, delimiter = " ") {
 }
 
 /**
+ * Incomplete but sufficient stringification of AST nodes for common use cases
+ *
  * @internal
  */
 export function toStringFormat(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {

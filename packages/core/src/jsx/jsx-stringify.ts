@@ -2,8 +2,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 /**
- * Converts a JSX AST node to its string representation
- * Handles different JSX node types and returns their textual form
+ * Incomplete but sufficient stringification of JSX nodes for common use cases
  *
  * @param node - JSX node from TypeScript ESTree
  * @returns String representation of the JSX node
@@ -11,8 +10,8 @@ import type { TSESTree } from "@typescript-eslint/utils";
 export function stringifyJsx(
   node:
     | TSESTree.JSXIdentifier
-    | TSESTree.JSXMemberExpression
     | TSESTree.JSXNamespacedName
+    | TSESTree.JSXMemberExpression
     | TSESTree.JSXOpeningElement
     | TSESTree.JSXClosingElement
     | TSESTree.JSXOpeningFragment

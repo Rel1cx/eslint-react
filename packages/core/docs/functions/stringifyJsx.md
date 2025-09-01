@@ -8,8 +8,7 @@
 
 > **stringifyJsx**(`node`): `string`
 
-Converts a JSX AST node to its string representation
-Handles different JSX node types and returns their textual form
+Incomplete but sufficient stringification of JSX nodes for common use cases
 
 ## Parameters
 

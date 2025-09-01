@@ -2,7 +2,6 @@ export * from "./jsx-attribute";
 export * from "./jsx-attribute-name";
 export * from "./jsx-attribute-value";
 export * from "./jsx-detection";
-export * from "./jsx-detection-hint";
 export * from "./jsx-element-is";
 export * from "./jsx-element-type";
 export * from "./jsx-has";
