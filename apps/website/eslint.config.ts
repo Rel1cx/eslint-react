@@ -6,6 +6,7 @@ import { recommended as fastImportRecommended } from "eslint-plugin-fast-import"
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
 import { globalIgnores } from "eslint/config";
+import { defineConfig } from "eslint/config";
 import url from "node:url";
 import tseslint from "typescript-eslint";
 
@@ -26,7 +27,7 @@ const GLOB_IGNORES = [
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-export default tseslint.config(
+export default defineConfig([
   gitignore(),
   globalIgnores(GLOB_IGNORES),
   {
@@ -107,4 +108,4 @@ export default tseslint.config(
       "no-undef": "off",
     },
   },
-);
+] as never);

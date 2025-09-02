@@ -17,29 +17,32 @@ npm install --save-dev eslint-plugin-react-naming-convention
 // @ts-check
 import js from "@eslint/js";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config({
-  files: ["**/*.ts", "**/*.tsx"],
-  extends: [
-    js.configs.recommended,
-    tseslint.configs.recommended,
-  ],
-  plugins: {
-    "react-naming-convention": reactNamingConvention,
-  },
-  languageOptions: {
-    parser: tseslint.parser,
-    parserOptions: {
-      projectService: true,
-      tsconfigRootDir: import.meta.dirname,
+export default defineConfig([
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
+    plugins: {
+      "react-naming-convention": reactNamingConvention,
+    },
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      // Put rules you want to use here
+      "react-naming-convention/component-name": "warn",
     },
   },
-  rules: {
-    // Put rules you want to use here
-    "react-naming-convention/component-name": "warn",
-  },
-});
+]);
 ```
 
 ## Rules
