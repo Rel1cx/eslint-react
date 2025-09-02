@@ -37,6 +37,7 @@ export default defineConfig([
     },
     rules: {
       // Put rules you want to override here
+      "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
     },
   },
 ]);
