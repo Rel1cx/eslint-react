@@ -4,7 +4,7 @@ import markdown from "@eslint/markdown";
 import gitIgnores from "eslint-config-flat-gitignore";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginVitest from "eslint-plugin-vitest";
-import { globalIgnores } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 import * as configs from "@local/configs/eslint";
@@ -36,7 +36,7 @@ const packagesTsConfigs = [
   "packages/*/*/tsconfig.json",
 ];
 
-export default tseslint.config(
+export default defineConfig([
   gitIgnores(),
   globalIgnores(GLOB_IGNORES),
   {
@@ -57,7 +57,7 @@ export default tseslint.config(
   },
   {
     extends: [
-      ...tseslint.configs.strictTypeChecked,
+      tseslint.configs.strictTypeChecked,
       configs.typescript,
       fastImportRecommended({ rootDir: dirname }),
     ],
@@ -120,4 +120,4 @@ export default tseslint.config(
       "local/avoid-multiline-template-expression": "off",
     },
   },
-);
+] as never);
