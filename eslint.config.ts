@@ -1,13 +1,14 @@
 import url from "node:url";
 
 import markdown from "@eslint/markdown";
-import * as configs from "@local/configs/eslint";
-import pluginLocal from "@local/eslint-plugin-local";
 import gitIgnores from "eslint-config-flat-gitignore";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginVitest from "eslint-plugin-vitest";
 import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
+
+import * as configs from "@local/configs/eslint";
+import pluginLocal from "@local/eslint-plugin-local";
 
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
