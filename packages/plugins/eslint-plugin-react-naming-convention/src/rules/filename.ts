@@ -34,10 +34,10 @@ const defaultOptions = [
   {
     excepts: [
       "index",
-      "/^_/",
-      "/^\\$/",
-      "/^[0-9]+$/",
-      "/^\\[[^\\]]+\\]$/",
+      String.raw`/^_/`,
+      String.raw`/^\$/`,
+      String.raw`/^[0-9]+$/`,
+      String.raw`/^\[[^\]]+\]$/`,
     ],
     rule: "PascalCase",
   },
