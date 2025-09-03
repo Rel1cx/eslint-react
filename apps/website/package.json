@@ -17,7 +17,7 @@
     "bsky-react-post": "^0.1.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "effect": "^3.17.11",
+    "effect": "^3.17.13",
     "fumadocs-core": "15.7.8",
     "fumadocs-docgen": "3.0.0",
     "fumadocs-mdx": "11.8.3",
