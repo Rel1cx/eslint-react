@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
   function validate(name: string, casing: Case = rule, ignores = excepts) {
     if (ignores.some((pattern) => pattern.test(name))) return true;
-    const filteredName = name.match(/[\w-]/gu)?.join("") ?? "";
+    const filteredName = name.match(/[\w.-]/gu)?.join("") ?? "";
     if (filteredName.length === 0) return true;
     return match(casing)
       .with("PascalCase", () => RE.PASCAL_CASE.test(filteredName))
