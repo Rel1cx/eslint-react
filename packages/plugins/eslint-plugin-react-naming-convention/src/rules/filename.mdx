@@ -20,106 +20,117 @@ react-naming-convention/filename
 
 ## Description
 
-Enforces consistent file naming conventions.
+This rule enforces consistent file naming conventions for React components, hooks, and other project files.
+
+By default, this rule enforces `PascalCase`, but it can be configured to support `camelCase`, `kebab-case`, or `snake_case` to match your project's standards.
 
 ## Examples
 
 ### Failing
 
-```bash title="Terminal" {3}
-npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
+If the rule is configured for `PascalCase`, the following filename will trigger a warning:
 
-src/components/component.tsx
-    1:1  error  "File name `component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  @eslint-react/naming-convention/filename
-
-✖ 1 problems (0 errors, 1 warnings)
+```js title="eslint.config.js"
+export default [
+  {
+    files: ["**/*.tsx"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", { rule: "PascalCase" }],
+    },
+  },
+];
 ```
 
-```bash {3}
-npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "kebab-case" }]' .
+```bash title="src/components/component.tsx"
+# File name "component.tsx" does not match PascalCase.
+```
 
-src/components/example_component.tsx
-    1:1  error  "File name `example_component.tsx` does not match `kebab-case`. Should rename to `example-component.tsx`  @eslint-react/naming-convention/filename
+```text title="ESLint Output"
+src/components/component.tsx
+  1:1  error  File name `component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  @eslint-react/naming-convention/filename
 
-✖ 1 problems (0 errors, 1 warnings)
+✖ 1 problem (1 error, 0 warnings)
 ```
 
 ### Passing
 
-```bash title="Terminal"
-npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "PascalCase" }]' .
+With the same `PascalCase` configuration, this file name is valid:
 
-src/components/Component.tsx
-
-✨  Done in 0.61s.
+```bash title="src/components/Component.tsx"
+# Correctly named file.
 ```
 
-```bash title="Terminal"
-npx eslint --rule '@eslint-react/naming-convention/filename: ["warn", { "rule": "kebab-case" }]' .
-
-src/components/example-component.tsx
-
-✨  Done in 0.61s.
-```
+This file will pass without any warnings.
 
 ## Rule Options
 
-- `rule`: The rule to apply to the file name. Default is `"PascalCase"`. Possible values:
-  1. `PascalCase`: PascalCase
-  2. `camelCase`: camelCase
-  3. `kebab-case`: kebab-case
-  4. `snake_case`: snake\_case
+The rule accepts an object with the following properties:
 
-## Rule Options Examples
+- `rule`: The naming convention to enforce. Default: `"PascalCase"`.
+  - `"PascalCase"`: `ExampleComponent.tsx`
+  - `"camelCase"`: `exampleComponent.tsx`
+  - `"kebab-case"`: `example-component.tsx`
+  - `"snake_case"`: `example_component.tsx`
+- `excepts`: An array of strings or regex patterns to exclude certain file names from this rule. The default exceptions are designed to accommodate common patterns in modern web frameworks:
+  - `"index"`: Ignores `index` files (e.g., `index.ts`, `index.tsx`).
+  - `"/^_/"`: Ignores files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
+  - `"/^\\$/"`: Ignores files starting with a dollar sign (e.g., `$.tsx`).
+  - `"/^[0-9]+$/"`: Ignores files that are purely numeric (e.g., `404.tsx`).
+  - `"/^\[[^\]]+\]$/"`: Ignores files with dynamic route segments in brackets (e.g., `[slug].tsx`).
+
+## Configuration Examples
+
+### Enforcing `kebab-case`
 
 ```js title="eslint.config.js"
-// ...
 export default [
-  // ...
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", "PascalCase"]
-  }
-];
-```
-
-```js title="eslint.config.js"
-// ...
-export default [
-  // ...
-  {
-    files: ["**/*.tsx"],
-    rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { "rule": "kebab-case" }]
-  }
-];
-```
-
-### Applying different rules to different files
-
-```js title="eslint.config.js"
-// ...
-export default [
-  // ...
-  {
-    files: ["src/**/*.{ts,tsx}"],
-    ignore: ["**/index.{ts,tsx}"],
-    rules: {
-      "@eslint-react/naming-convention/filename": ["warn", "PascalCase"],
+      "@eslint-react/naming-convention/filename": ["warn", { rule: "kebab-case" }],
     },
   },
+];
+```
+
+### Different Rules for Different Files
+
+You can apply different conventions to different parts of your project. For example, use `PascalCase` for components and `camelCase` for hooks.
+
+```js title="eslint.config.js"
+export default [
   {
-    files: ["src/pages/**/*.{ts,tsx}"],
-    ignore: ["**/index.{ts,tsx}"],
+    files: ["src/components/**/*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", "kebab-case"],
+      "@eslint-react/naming-convention/filename": ["warn", { rule: "PascalCase" }],
     },
   },
   {
     files: ["src/hooks/**/use*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", "camelCase"],
+      "@eslint-react/naming-convention/filename": ["warn", { rule: "camelCase" }],
+    },
+  },
+];
+```
+
+### Disabling the Rule for Specific Directories
+
+Framework-specific directories like Next.js's `app` router often have their own naming conventions. You can disable the rule for these directories.
+
+```js title="eslint.config.js"
+export default [
+  {
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "@eslint-react/naming-convention/filename": ["warn", { rule: "kebab-case" }],
+    },
+  },
+  {
+    // Opt-out for files in the 'app' directory
+    files: ["app/**/*.{ts,tsx}"],
+    rules: {
+      "@eslint-react/naming-convention/filename": "off",
     },
   },
 ];
@@ -129,10 +140,3 @@ export default [
 
 - [Rule source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename.ts)
 - [Test source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename.spec.ts)
-
----
-
-## See Also
-
-- [`filename-extension`](./filename-extension):
-  Enforces consistent use of the JSX file extension.
