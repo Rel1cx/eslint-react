@@ -16,8 +16,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "filenameEmpty"
-  | "filenameInvalid";
+  | "empty"
+  | "invalidCase";
 
 type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
@@ -81,8 +81,8 @@ export default createRule<Options, MessageID>({
       description: "Enforces consistent file naming conventions.",
     },
     messages: {
-      filenameEmpty: "A file must have non-empty name.",
-      filenameInvalid: "A file with name '{{name}}' does not match {{rule}}. Rename it to '{{suggestion}}'.",
+      empty: "A file must have non-empty name.",
+      invalidCase: "A file with name '{{name}}' does not match {{rule}}. Rename it to '{{suggestion}}'.",
     },
     schema,
   },
@@ -125,14 +125,14 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     Program(node) {
       const [basename = "", ...rest] = path.basename(context.filename).split(".");
       if (basename.length === 0) {
-        context.report({ messageId: "filenameEmpty", node });
+        context.report({ messageId: "empty", node });
         return;
       }
       if (validate(basename)) {
         return;
       }
       context.report({
-        messageId: "filenameInvalid",
+        messageId: "invalidCase",
         node,
         data: {
           name: context.filename,

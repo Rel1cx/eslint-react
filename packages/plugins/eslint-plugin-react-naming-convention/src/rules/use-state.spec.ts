@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missingDestructuring",
+        messageId: "invalidAssignment",
       }],
     },
     {
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missingDestructuring",
+        messageId: "invalidAssignment",
       }],
     },
     {
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
     {
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
     {
@@ -64,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
     {
@@ -78,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
     {
@@ -92,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
     {
@@ -106,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
     {
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalidSetterNaming",
+        messageId: "invalidSetterName",
       }],
     },
   ],

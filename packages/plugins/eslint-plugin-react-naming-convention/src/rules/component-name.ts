@@ -60,7 +60,7 @@ export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "invalid";
+export type MessageID = "invalidComponentName";
 
 export default createRule<Options, MessageID>({
   meta: {
@@ -70,7 +70,7 @@ export default createRule<Options, MessageID>({
       description: "Enforces naming conventions for components.",
     },
     messages: {
-      invalid: "A component name '{{name}}' does not match {{rule}}.",
+      invalidComponentName: "A component name '{{name}}' does not match {{rule}}.",
     },
     schema,
   },
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         const name = id.name;
         if (isValidName(name, options)) continue;
         context.report({
-          messageId: "invalid",
+          messageId: "invalidComponentName",
           node: id,
           data: { name, rule },
         });
@@ -108,7 +108,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         const name = id.name;
         if (isValidName(name, options)) continue;
         context.report({
-          messageId: "invalid",
+          messageId: "invalidComponentName",
           node: id,
           data: { name, rule },
         });

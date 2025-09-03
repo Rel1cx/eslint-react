@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "invalid", data: { name: "Test_component", rule: "PascalCase" } }],
+      errors: [{ messageId: "invalidComponentName", data: { name: "Test_component", rule: "PascalCase" } }],
     },
     {
       code: tsx`
@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "invalid", data: { name: "TestComponent", rule: "CONSTANT_CASE" } }],
+      errors: [{ messageId: "invalidComponentName", data: { name: "TestComponent", rule: "CONSTANT_CASE" } }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidComponentName",
         data: { name: "TestComponent", rule: "CONSTANT_CASE" },
       }],
       options: ["CONSTANT_CASE"],
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "invalid", data: { name: "FULLUPPERCASE", rule: "PascalCase" } }],
+      errors: [{ messageId: "invalidComponentName", data: { name: "FULLUPPERCASE", rule: "PascalCase" } }],
       options: [{ allowAllCaps: false, rule: "PascalCase" }],
     },
     {
@@ -49,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>foo</div>
         }
       `,
-      errors: [{ messageId: "invalid", data: { name: "AppHome", rule: "CONSTANT_CASE" } }],
+      errors: [{ messageId: "invalidComponentName", data: { name: "AppHome", rule: "CONSTANT_CASE" } }],
       options: [{ rule: "CONSTANT_CASE" }],
     },
     {
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidComponentName",
         data: {
           name: "_Test",
           rule: "PascalCase",
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidComponentName",
         data: {
           name: "_Test",
           rule: "PascalCase",
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "invalid",
+        messageId: "invalidComponentName",
         data: {
           name: "_TEST",
           rule: "CONSTANT_CASE",
