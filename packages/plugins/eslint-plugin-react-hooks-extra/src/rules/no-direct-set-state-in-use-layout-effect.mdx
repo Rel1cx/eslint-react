@@ -18,12 +18,6 @@ react-hooks-extra/no-direct-set-state-in-use-layout-effect
 
 `🧪`
 
-**Presets**
-
-- `recommended`
-- `recommended-typescript`
-- `recommended-type-checked`
-
 ## Description
 
 Disallow **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useLayoutEffect`.
@@ -147,7 +141,11 @@ export default function RemoteContent() {
 }
 ```
 
-The following examples are derived from the [React documentation](https://react.dev/learn/you-might-not-need-an-effect):
+<Callout title="TIP">
+  If you need to fetch remote data within the component, consider using libraries like [TanStack Query](https://tanstack.com/query/v3/) or [SWR](https://swr.vercel.app/). They handle caching, re-fetching, and state management for you, making your code cleaner and more efficient.
+</Callout>
+
+The following examples are derived from the [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect):
 
 ### Failing
 
