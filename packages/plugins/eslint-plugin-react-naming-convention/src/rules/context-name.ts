@@ -11,7 +11,7 @@ export const RULE_NAME = "context-name";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "invalid";
+export type MessageID = "invalidContextName";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Enforces context name to be a valid component name with the suffix `Context`.",
     },
     messages: {
-      invalid: "A context name must be a valid component name with the suffix 'Context'.",
+      invalidContextName: "A context name must be a valid component name with the suffix 'Context'.",
     },
     schema: [],
   },
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
       if (name != null && ER.isComponentName(name) && name.endsWith("Context")) return;
       context.report({
-        messageId: "invalid",
+        messageId: "invalidContextName",
         node: id,
       });
     },
