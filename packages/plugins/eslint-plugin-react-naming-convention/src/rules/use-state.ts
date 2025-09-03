@@ -13,7 +13,7 @@ export const RULE_NAME = "use-state";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "missingDestructuring" | "invalidSetterNaming";
+export type MessageID = "invalidAssignment" | "invalidSetterName";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,9 +23,9 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      invalidSetterNaming:
+      invalidSetterName:
         "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
-      missingDestructuring:
+      invalidAssignment:
         "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
     },
     schema: [],
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       if (node.parent.type !== T.VariableDeclarator) {
         context.report({
-          messageId: "missingDestructuring",
+          messageId: "invalidAssignment",
           node,
         });
         return;
@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const id = ER.getInstanceId(node);
       if (id?.type !== T.ArrayPattern) {
         context.report({
-          messageId: "missingDestructuring",
+          messageId: "invalidAssignment",
           node: id ?? node,
         });
         return;
@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const [value, setter] = id.elements;
       if (value == null || setter == null) {
         context.report({
-          messageId: "missingDestructuring",
+          messageId: "invalidAssignment",
           node: id,
         });
         return;
@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
       if (setterName == null || !setterName.startsWith("set")) {
         context.report({
-          messageId: "invalidSetterNaming",
+          messageId: "invalidSetterName",
           node: setter,
         });
         return;
@@ -90,14 +90,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
       if (valueName == null) {
         context.report({
-          messageId: "invalidSetterNaming",
+          messageId: "invalidSetterName",
           node: value,
         });
         return;
       }
       if (snakeCase(setterName) !== `set_${valueName}`) {
         context.report({
-          messageId: "invalidSetterNaming",
+          messageId: "invalidSetterName",
           node: setter,
         });
         return;
