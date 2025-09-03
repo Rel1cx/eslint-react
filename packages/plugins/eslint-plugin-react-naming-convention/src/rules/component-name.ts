@@ -15,16 +15,6 @@ type Options = readonly [
   | Case
   | {
     allowAllCaps?: boolean;
-    /**
-     * @todo Remove in the next major version
-     * @deprecated Component names now need to start with an uppercase letter instead of a non-lowercase letter. This means `_Button` or `_component` are no longer valid. (@kassens) in https://github.com/facebook/react/pull/25162
-     */
-    allowLeadingUnderscore?: boolean;
-    /**
-     * @todo Remove in the next major version
-     * @deprecated This option has no actual effect on the rule
-     */
-    allowNamespace?: boolean;
     excepts?: readonly string[];
     rule?: Case;
   },
@@ -50,16 +40,6 @@ const schema = [
         additionalProperties: false,
         properties: {
           allowAllCaps: { type: "boolean" },
-          /**
-           * @todo Remove in the next major version
-           * @deprecated
-           */
-          allowLeadingUnderscore: { type: "boolean" },
-          /**
-           * @todo Remove in the next major version
-           * @deprecated
-           */
-          allowNamespace: { type: "boolean" },
           excepts: {
             type: "array",
             items: { type: "string", format: "regex" },

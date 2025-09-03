@@ -78,7 +78,6 @@
     "dom-no-unsafe-target-blank",
     "dom-no-use-form-state",
     "dom-no-void-elements-with-children",
-    "dom-prefer-namespace-import",
     "---Web API Rules---",
     "web-api-no-leaked-event-listener",
     "web-api-no-leaked-interval",

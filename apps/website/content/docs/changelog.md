@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v1.53.0 (2025-09-04)
+
+### ✨ New
+
+- feat: update naming convention rules default excepts to include common patterns by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1216
+
+### 🪄 Improvements
+
+- build: replace `tsup` with `tsdown` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1213
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.8...v1.53.0
+
 ## v1.52.9 (2025-08-31)
 
 ### 🐞 Fixes
