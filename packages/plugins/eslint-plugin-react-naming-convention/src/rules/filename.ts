@@ -25,22 +25,20 @@ type Options = readonly [
   | unit
   | Case
   | {
-    /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
-     */
     excepts?: readonly string[];
-    /**
-     * @deprecated Use ESLint's [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores) feature instead
-     */
-    extensions?: readonly string[];
     rule?: Case;
   },
 ];
 
 const defaultOptions = [
   {
-    excepts: ["^index$"],
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    excepts: [
+      "index",
+      "/^_/",
+      "/^\\$/",
+      "/^[0-9]+$/",
+      "/^\\[[^\\]]+\\]$/",
+    ],
     rule: "PascalCase",
   },
 ] as const satisfies Options;
@@ -100,20 +98,17 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     : options.rule ?? "PascalCase";
   const excepts = typeof options === "string"
     ? []
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    : options.excepts ?? [];
+    : (options.excepts ?? []).map((s) => RE.toRegExp(s));
 
-  function validate(name: string, casing: Case = rule, ignores: readonly string[] = excepts) {
-    const shouldIgnore = ignores
-      .map((s) => RE.toRegExp(s))
-      .some((pattern) => pattern.test(name));
-    if (shouldIgnore) return true;
-
+  function validate(name: string, casing: Case = rule, ignores = excepts) {
+    if (ignores.some((pattern) => pattern.test(name))) return true;
+    const filteredName = name.match(/[\w-]/gu)?.join("") ?? "";
+    if (filteredName.length === 0) return true;
     return match(casing)
-      .with("PascalCase", () => RE.PASCAL_CASE.test(name))
-      .with("camelCase", () => RE.CAMEL_CASE.test(name))
-      .with("kebab-case", () => RE.KEBAB_CASE.test(name))
-      .with("snake_case", () => RE.SNAKE_CASE.test(name))
+      .with("PascalCase", () => RE.PASCAL_CASE.test(filteredName))
+      .with("camelCase", () => RE.CAMEL_CASE.test(filteredName))
+      .with("kebab-case", () => RE.KEBAB_CASE.test(filteredName))
+      .with("snake_case", () => RE.SNAKE_CASE.test(filteredName))
       .exhaustive();
   }
 
