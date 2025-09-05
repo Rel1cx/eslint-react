@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@effect/language-service": "^0.38.1",
-    "@effect/platform": "^0.90.6",
+    "@effect/platform": "^0.90.7",
     "@effect/platform-node": "^0.96.1",
     "@eslint/config-inspector": "^1.2.0",
     "@eslint/markdown": "^7.2.0",
@@ -74,7 +74,7 @@
     "dedent": "^1.7.0",
     "dprint": "^0.50.1",
     "effect": "^3.17.13",
-    "eslint": "^9.34.0",
+    "eslint": "^9.35.0",
     "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-plugin-fast-import": "^1.3.0",
     "eslint-plugin-vitest": "^0.5.4",
