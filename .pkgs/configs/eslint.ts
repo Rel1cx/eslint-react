@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-deprecated */
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
@@ -7,12 +6,64 @@ import pluginJsdoc from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
 import pluginUnicorn from "eslint-plugin-unicorn";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-type ConfigArray = ReturnType<typeof tseslint.config>;
+export const GLOB_JS = ["**/*.{js,jsx,cjs,mjs}"];
+export const GLOB_TS = ["**/*.{ts,tsx,cts,mts}"];
+export const GLOB_MD = ["**/*.md"];
+export const GLOB_TESTS = [
+  "**/*{spec,test}.{ts,tsx,cts,mts}",
+  "**/*(spec|test).{ts,tsx,cts,mts}",
+];
+export const GLOB_CONFIGS = ["**/*.config.{ts,tsx,cts,mts}"];
+export const GLOB_SCRIPTS = ["scripts/**/*.{ts,cts,mts}"];
+export const GLOB_IGNORES = [
+  "**/node_modules",
+  "**/dist",
+  "**/package-lock.json",
+  "**/yarn.lock",
+  "**/pnpm-lock.yaml",
+  "**/bun.lockb",
 
-const GLOB_JS = ["*.{js,jsx,cjs,mjs}", "**/*.{js,jsx,cjs,mjs}"];
-const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
+  "**/output",
+  "**/coverage",
+  "**/temp",
+  "**/.temp",
+  "**/tmp",
+  "**/.tmp",
+  "**/.history",
+  "**/.vitepress/cache",
+  "**/.nuxt",
+  "**/.next",
+  "**/.vercel",
+  "**/.changeset",
+  "**/.idea",
+  "**/.cache",
+  "**/.output",
+  "**/.vite-inspect",
+  "**/.yarn",
+  "**/storybook-static",
+  "**/.eslint-config-inspector",
+  "**/playwright-report",
+  "**/.astro",
+  "**/.vinxi",
+  "**/app.config.timestamp_*.js",
+  "**/.tanstack",
+  "**/.nitro",
+
+  "**/CHANGELOG*.md",
+  "**/*.min.*",
+  "**/LICENSE*",
+  "**/__snapshots__",
+  "**/auto-import?(s).d.ts",
+  "**/components.d.ts",
+  "**/vite.config.ts.*.mjs",
+
+  "**/*.gen.*",
+
+  "!.storybook",
+] as const;
 
 const templateIndentTags = [
   "ts",
@@ -46,7 +97,7 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-export const typescript: ConfigArray = tseslint.config(
+export const strictTypeChecked = defineConfig([
   {
     ignores: GLOB_JS,
   },
@@ -108,11 +159,10 @@ export const typescript: ConfigArray = tseslint.config(
   {
     extends: [
       pluginDeMorgan.configs.recommended,
-
       pluginJsdoc.configs["flat/recommended-typescript-error"],
       pluginRegexp.configs["flat/recommended"],
       pluginPerfectionist.configs["recommended-natural"],
-    ] as never[], // TODO: Fix type error in plugin configs
+    ],
     files: GLOB_TS,
     plugins: {
       ["@stylistic"]: stylistic,
@@ -168,13 +218,15 @@ export const typescript: ConfigArray = tseslint.config(
       ],
     },
   },
-);
+]);
 
-export const disableTypeChecked: ConfigArray = tseslint.config({
-  extends: [
-    tseslint.configs.disableTypeChecked,
-  ],
-  rules: {
-    "function/function-return-boolean": "off",
+export const disableTypeChecked = defineConfig([
+  {
+    extends: [
+      tseslint.configs.disableTypeChecked,
+    ],
+    rules: {
+      "function/function-return-boolean": "off",
+    },
   },
-});
+]);
