@@ -1,35 +1,24 @@
 import url from "node:url";
 
 import markdown from "@eslint/markdown";
+import {
+  disableTypeChecked,
+  GLOB_CONFIGS,
+  GLOB_IGNORES,
+  GLOB_MD,
+  GLOB_SCRIPTS,
+  GLOB_TESTS,
+  GLOB_TS,
+  strictTypeChecked,
+} from "@local/configs/eslint";
+import pluginLocal from "@local/eslint-plugin-local";
 import gitIgnores from "eslint-config-flat-gitignore";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-import * as configs from "@local/configs/eslint";
-import pluginLocal from "@local/eslint-plugin-local";
-
 const dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
-const GLOB_TS = ["*.{ts,tsx,cts,mts}", "**/*.{ts,tsx,cts,mts}"];
-const GLOB_MD = ["*.md", "**/*.md"];
-const GLOB_TEST = [
-  "**/*.spec.{ts,tsx,cts,mts}",
-  "**/*.test.{ts,tsx,cts,mts}",
-  "**/spec.{ts,tsx,cts,mts}",
-  "**/test.{ts,tsx,cts,mts}",
-];
-
-const GLOB_CONFIG = ["*.config.{ts,tsx,cts,mts}", "**/*.config.{ts,tsx,cts,mts}"];
-const GLOB_SCRIPT = ["scripts/**/*.{ts,cts,mts}"];
-const GLOB_IGNORES = [
-  "apps",
-  "docs",
-  "test",
-  "examples",
-  "**/*.d.ts",
-];
 
 const packagesTsConfigs = [
   "packages/*/tsconfig.json",
@@ -38,7 +27,14 @@ const packagesTsConfigs = [
 
 export default defineConfig([
   gitIgnores(),
-  globalIgnores(GLOB_IGNORES),
+  globalIgnores([
+    ...GLOB_IGNORES,
+    "apps",
+    "docs",
+    "test",
+    "examples",
+    "**/*.d.ts",
+  ]),
   {
     extends: [
       markdown.configs.recommended,
@@ -58,7 +54,7 @@ export default defineConfig([
   {
     extends: [
       tseslint.configs.strictTypeChecked,
-      configs.typescript,
+      strictTypeChecked,
       fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
@@ -84,9 +80,9 @@ export default defineConfig([
   },
   {
     extends: [
-      configs.disableTypeChecked,
+      disableTypeChecked,
     ],
-    files: [...GLOB_SCRIPT, ...GLOB_CONFIG],
+    files: [...GLOB_SCRIPTS, ...GLOB_CONFIGS],
     languageOptions: {
       parserOptions: {
         project: false,
@@ -101,7 +97,7 @@ export default defineConfig([
     extends: [
       pluginVitest.configs.recommended,
     ],
-    files: GLOB_TEST,
+    files: GLOB_TESTS,
     languageOptions: {
       globals: {
         ...pluginVitest.environments.env.globals,
