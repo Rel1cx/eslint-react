@@ -23,10 +23,10 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      invalidSetterName:
-        "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
       invalidAssignment:
         "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
+      invalidSetterName:
+        "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
     },
     schema: [],
   },
