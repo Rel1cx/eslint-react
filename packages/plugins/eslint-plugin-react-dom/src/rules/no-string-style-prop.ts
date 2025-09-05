@@ -4,7 +4,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { createRule } from "../utils";
+import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
 
 export const RULE_NAME = "no-string-style-prop";
 
@@ -30,33 +30,23 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const resolver = createJsxElementResolver(context);
   return {
-    JSXAttribute(node) {
-      if (node.name.name !== "style") return;
-      const styleText = getAttributeValueText(context, node.value);
-      if (styleText == null) return;
+    JSXElement(node) {
+      const { attributes } = resolver.resolve(node);
+      const {
+        attribute,
+        attributeName,
+        attributeValue,
+        attributeValueString,
+      } = resolveAttribute(context, attributes, node, "style");
+      if (attributeName !== "style") return;
+      if (attribute == null || attributeValue?.node == null) return;
+      if (attributeValueString == null) return;
       context.report({
         messageId: "noStringStyleProp",
-        node,
+        node: attributeValue.node,
       });
     },
   };
-}
-
-function getAttributeValueText(context: RuleContext, node: TSESTree.JSXAttribute["value"]) {
-  if (node == null) return null;
-  switch (true) {
-    case node.type === T.Literal
-      && typeof node.value === "string":
-      return context.sourceCode.getText(node);
-    case node.type === T.JSXExpressionContainer
-      && node.expression.type === T.Literal
-      && typeof node.expression.value === "string":
-      return context.sourceCode.getText(node.expression);
-    case node.type === T.JSXExpressionContainer
-      && node.expression.type === T.TemplateLiteral:
-      return context.sourceCode.getText(node.expression);
-    default:
-      return null;
-  }
 }
