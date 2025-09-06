@@ -107,29 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // {
-    //   code: '<Link href="https://react.dev" target="_blank"></Link>',
-    //   errors: [
-    //     {
-    //       messageId: "noUnsafeTargetBlank",
-    //       suggestions: [
-    //         {
-    //           messageId: "addRelNoreferrerNoopener",
-    //           output: '<Link rel="noreferrer noopener" href="https://react.dev" target="_blank"></Link>',
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   settings: {
-    //     "react-x": {
-    //       additionalComponents: [
-    //         {
-    //           name: "Link",
-    //           as: "a",
-    //         },
-    //       ],
-    //     },
-    //   },
+    // TODO: Restore Link component test when support for additionalComponents is implemented. See issue #<issue-number>.
     // },
     // {
     //   code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
