@@ -56,38 +56,6 @@ Example with `polymorphicPropName` set to `as`:
 // Evaluated as an h3 element
 ```
 
-### `additionalComponents` (Experimental)
-
-<Callout type="info">
-  Consider using `polymorphicPropName` instead when possible, as it's simpler
-  and more efficient.
-</Callout>
-
-<Callout type="warn">
-  Experimental feature that may lack stability and documentation.
-</Callout>
-
-Maps components and their attributes for comprehensive analysis. Supports default attribute values.
-
-Example configuration:
-
-```json
-[
-  {
-    "name": "EmbedContent",
-    "as": "iframe",
-    "attributes": [
-      {
-        "name": "sandbox",
-        "defaultValue": ""
-      }
-    ]
-  }
-]
-```
-
-This makes `<EmbedContent src="https://eslint-react.xyz" />{:tsx}` evaluate as `<iframe src="https://eslint-react.xyz" sandbox="" />{:tsx}`.
-
 ### `additionalHooks` (Experimental)
 
 <Callout type="warn">
@@ -127,20 +95,6 @@ export default [
           useEffect: ["useIsomorphicLayoutEffect"],
           useLayoutEffect: ["useIsomorphicLayoutEffect"],
         },
-
-        // (Experimental) Configure mapping for custom components and their attributes for more comprehensive analysis
-        additionalComponents: [
-          {
-            name: "Link",
-            as: "a",
-            attributes: [{ name: "to", as: "href" }],
-          },
-          {
-            name: "EmbedContent",
-            as: "iframe",
-            attributes: [{ name: "sandbox", defaultValue: "" }],
-          },
-        ],
       },
     },
   },

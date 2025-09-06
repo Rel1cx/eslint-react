@@ -38,27 +38,6 @@ const properties = {
       />
     ),
   },
-  additionalComponents: {
-    type: "CustomComponent[]",
-    description: <Link href="#additionalcomponents">An array of components and its attributes mapping ⤵</Link>,
-    default: "[]",
-    typeDescription: (
-      <CodeBlock
-        code={dedent`
-          type CustomComponent = {
-            name: string;
-            as?: string;
-            attributes?: {
-              name: string;
-              as?: string;
-              defaultValue?: string;
-            }[]
-          }
-        `}
-        lang="ts"
-      />
-    ),
-  },
   polymorphicPropName: {
     type: "string",
     description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components ⤵</Link>,
