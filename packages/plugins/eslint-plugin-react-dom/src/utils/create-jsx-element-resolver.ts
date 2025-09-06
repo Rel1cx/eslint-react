@@ -29,10 +29,6 @@ export function createJsxElementResolver(context: RuleContext) {
       // Get the element name/type (e.g., 'div', 'Button', etc.)
       const elementName = ER.getElementType(context, node);
 
-      // // Find if there's a matching component defined in settings
-      // const matchingComponent = components
-      //   .findLast((component) => component.name === elementName || component.re.test(elementName));
-
       // Create the base result with element types
       const result = {
         domElementType: elementName,
