@@ -1,11 +1,10 @@
 import * as AST from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
-import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
+import { type Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { findVariable } from "./variable-extractor";
-import { getVariableDefinitionNode } from "./variable-resolver";
+import { getVariableDefinitionNodeLoose } from "./get-variable-definition-node";
+import { findVariable } from "./get-variables-from-scope";
 
 const thisBlockTypes = [
   T.FunctionDeclaration,
@@ -104,16 +103,4 @@ export function isNodeValueEqual(
       return aStatic != null && bStatic != null && aStatic.value === bStatic.value;
     }
   }
-}
-
-function getVariableDefinitionNodeLoose(
-  variable: Variable | unit,
-  at: number,
-): ReturnType<typeof getVariableDefinitionNode> {
-  if (variable == null) return unit;
-  const node = getVariableDefinitionNode(variable, at);
-  if (node != null) return node;
-  const def = variable.defs.at(at);
-  if (def?.type === DefinitionType.Parameter && AST.isFunction(def.node)) return def.node;
-  return unit;
 }
