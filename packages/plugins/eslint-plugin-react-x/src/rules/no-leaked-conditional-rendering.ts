@@ -14,6 +14,7 @@ import type { CamelCase } from "string-ts";
 import { unionConstituents } from "ts-api-utils";
 import { match, P } from "ts-pattern";
 
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
@@ -82,9 +83,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const initialScope = context.sourceCode.getScope(left);
         const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
-          || VAR
-              .toStaticValue({ kind: "lazy", node: left, initialScope })
-              .value === "NaN";
+          || getStaticValue(left, initialScope)?.value === "NaN";
         if (isLeftNan) {
           return {
             messageId: "noLeakedConditionalRendering",
