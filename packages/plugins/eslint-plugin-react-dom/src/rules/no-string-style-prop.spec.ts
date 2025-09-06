@@ -54,5 +54,10 @@ ruleTester.run(RULE_NAME, rule, {
         return <div style={someStyle} />;
       }
     `,
+    tsx`
+      function Component() {
+        return <StatusBar style="auto" />;
+      }
+    `,
   ],
 });
