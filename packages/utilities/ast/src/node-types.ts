@@ -55,6 +55,8 @@ export type TSESTreeJSX =
   | TSESTree.JSXText
   | TSESTree.JSXTextToken;
 
+export type TSESTreeJSXAttributeLike = TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute;
+
 export type TSESTreeDestructuringPattern =
   | TSESTree.ArrayPattern
   | TSESTree.AssignmentPattern

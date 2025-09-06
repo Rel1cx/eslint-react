@@ -1,7 +1,9 @@
+import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/kit";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
+
+import { createJsxElementResolver, createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
@@ -38,26 +40,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const { attributes, domElementType } = resolver.resolve(node);
+      const { domElementType } = resolver.resolve(node);
       if (domElementType !== "button") return;
-      const typeAttribute = resolveAttribute(context, attributes, node, "type");
-      if (typeAttribute.attributeValueString != null) return;
-      if (typeAttribute.attribute == null) {
+      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const typeAttribute = getAttribute("type");
+      if (typeAttribute == null) {
         context.report({
           messageId: "noMissingButtonType",
           node: node.openingElement,
           suggest: getSuggest((type) => (fixer: RuleFixer) => {
-            return fixer.insertTextAfter(node.openingElement.name, ` ${typeAttribute.attributeName}="${type}"`);
+            return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
           }),
         });
         return;
       }
+      if (typeof ER.resolveAttributeValue(context, typeAttribute).toStatic("type") === "string") return;
       context.report({
         messageId: "noMissingButtonType",
-        node: typeAttribute.attributeValue?.node ?? typeAttribute.attribute,
+        node: typeAttribute,
         suggest: getSuggest((type) => (fixer: RuleFixer) => {
-          if (typeAttribute.attribute == null) return null;
-          return fixer.replaceText(typeAttribute.attribute, `${typeAttribute.attributeName}="${type}"`);
+          return fixer.replaceText(typeAttribute, `type="${type}"`);
         }),
       });
     },

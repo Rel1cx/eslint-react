@@ -18,7 +18,7 @@ export function hasAttribute(
   attributes: TSESTree.JSXOpeningElement["attributes"],
   initialScope?: Scope,
 ) {
-  return getAttribute(context, name, attributes, initialScope) != null;
+  return getAttribute(context, attributes, initialScope)(name) != null;
 }
 
 /**

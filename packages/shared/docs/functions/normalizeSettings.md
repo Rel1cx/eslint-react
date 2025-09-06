@@ -15,19 +15,6 @@ Transforms component definitions and resolves version information
 
 ### \_\_namedParameters
 
-#### additionalComponents?
-
-`object`[] = `[]`
-
-User-defined components configuration
-Informs ESLint React how to treat these components during validation
-
-**Example**
-
-```ts
-[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]
-```
-
 #### additionalHooks?
 
 \{ `use?`: `string`[]; `useActionState?`: `string`[]; `useCallback?`: `string`[]; `useContext?`: `string`[]; `useDebugValue?`: `string`[]; `useDeferredValue?`: `string`[]; `useEffect?`: `string`[]; `useFormStatus?`: `string`[]; `useId?`: `string`[]; `useImperativeHandle?`: `string`[]; `useInsertionEffect?`: `string`[]; `useLayoutEffect?`: `string`[]; `useMemo?`: `string`[]; `useOptimistic?`: `string`[]; `useReducer?`: `string`[]; `useRef?`: `string`[]; `useState?`: `string`[]; `useSyncExternalStore?`: `string`[]; `useTransition?`: `string`[]; \} = `{}`
@@ -250,10 +237,6 @@ React version to use
 #### additionalHooks.useTransition?
 
 > `optional` **useTransition**: `string`[]
-
-### components
-
-> `readonly` **components**: `object`[]
 
 ### importSource
 

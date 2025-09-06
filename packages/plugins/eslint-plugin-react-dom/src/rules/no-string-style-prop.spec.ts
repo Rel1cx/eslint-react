@@ -54,24 +54,5 @@ ruleTester.run(RULE_NAME, rule, {
         return <div style={someStyle} />;
       }
     `,
-    {
-      // https://github.com/Rel1cx/eslint-react/issues/1217
-      code: tsx`
-        const a = <StatusBar style="auto" />;
-      `,
-      settings: {
-        "react-x": {
-          additionalComponents: [
-            {
-              name: "StatusBar",
-              attributes: [
-                // inform that the style attribute on StatusBar is not an intrinsic attribute but a custom one
-                { name: "", as: "style" },
-              ],
-            },
-          ],
-        },
-      },
-    },
   ],
 });

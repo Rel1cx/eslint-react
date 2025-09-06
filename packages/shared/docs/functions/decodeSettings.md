@@ -20,19 +20,6 @@ The settings object to decode
 
 ## Returns
 
-### additionalComponents?
-
-> `optional` **additionalComponents**: `object`[]
-
-User-defined components configuration
-Informs ESLint React how to treat these components during validation
-
-#### Example
-
-```ts
-[{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]
-```
-
 ### additionalHooks?
 
 > `optional` **additionalHooks**: `object`

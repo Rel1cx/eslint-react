@@ -4,41 +4,62 @@ import type { TSESTree } from "@typescript-eslint/types";
 import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
 
+/**
+ * Creates a resolver for JSX elements that determines both the JSX element type
+ * and the underlying DOM element type.
+ *
+ * This resolver handles:
+ * 1. Regular HTML elements (div, span, etc.)
+ * 2. Polymorphic components (components that can render as different elements via a prop)
+ *
+ * @param context - The ESLint rule context
+ * @returns An object with a resolve method to determine element types
+ */
 export function createJsxElementResolver(context: RuleContext) {
-  const { components, polymorphicPropName } = getSettingsFromContext(context);
+  const { polymorphicPropName } = getSettingsFromContext(context);
+
   return {
+    /**
+     * Resolves the JSX element to determine its type and the underlying DOM element type
+     *
+     * @param node - The JSX element node to resolve
+     * @returns An object containing the JSX element type and DOM element type
+     */
     resolve(node: TSESTree.JSXElement) {
-      const name = ER.getElementType(context, node);
-      const component = components
-        .findLast((c) => c.name === name || c.re.test(name));
+      // Get the element name/type (e.g., 'div', 'Button', etc.)
+      const elementName = ER.getElementType(context, node);
+
+      // Create the base result with element types
       const result = {
-        attributes: component?.attributes ?? [],
-        domElementType: component?.as ?? name,
-        jsxElementType: name,
+        domElementType: elementName,
+        jsxElementType: elementName,
       };
-      if (name === name.toLowerCase() || component != null || polymorphicPropName == null) {
+
+      // Early return if any of these conditions are met:
+      // 1. It's a native HTML element (lowercase name)
+      // 2. No polymorphic prop name is configured
+      if (elementName === elementName.toLowerCase() || polymorphicPropName == null) {
         return result;
       }
-      const initialScope = context.sourceCode.getScope(node);
-      const polymorphicPropAttr = ER.getAttribute(
-        context,
-        polymorphicPropName,
-        node.openingElement.attributes,
-        initialScope,
-      );
-      if (polymorphicPropAttr != null) {
-        const polymorphicPropValue = ER.getAttributeValue(
-          context,
-          polymorphicPropAttr,
-          polymorphicPropName,
-        );
-        if (polymorphicPropValue.kind === "some" && typeof polymorphicPropValue.value === "string") {
+
+      // Look for the polymorphic prop (e.g., 'as', 'component') in the element's attributes
+      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const polymorphicProp = getAttribute(polymorphicPropName);
+
+      // If the polymorphic prop exists, try to determine its static value
+      if (polymorphicProp != null) {
+        const polymorphicPropValue = ER.resolveAttributeValue(context, polymorphicProp);
+        const staticValue = polymorphicPropValue.toStatic(polymorphicPropName);
+
+        // If we have a string value, use it as the DOM element type
+        if (typeof staticValue === "string") {
           return {
             ...result,
-            domElementType: polymorphicPropValue.value,
+            domElementType: staticValue,
           };
         }
       }
+
       return result;
     },
   } as const;

@@ -1,67 +1,97 @@
+import type * as AST from "@eslint-react/ast";
+import { unit } from "@eslint-react/eff";
+import { identity } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match, P } from "ts-pattern";
 
 /**
- * Extracts the value of a JSX attribute by name
- * @param context - ESLint rule context
- * @param node - JSX attribute or spread attribute node
- * @param name - Name of the attribute to extract
- * @returns The extracted attribute value in a structured format
+ * Represents possible JSX attribute value types that can be resolved
  */
-export function getAttributeValue(
-  context: RuleContext,
-  node: TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute,
-  name: string,
-): Exclude<VAR.LazyValue, { kind: "lazy" }> {
-  // Get the initial scope from the node's context
-  const initialScope = context.sourceCode.getScope(node);
-  switch (node.type) {
-    case T.JSXAttribute:
-      // Case 1: Literal value (e.g., className="container")
-      if (node.value?.type === T.Literal) {
-        return {
-          kind: "some",
-          node: node.value,
-          initialScope,
-          value: node.value.value,
-        } as const;
-      }
-      // Case 2: Expression container (e.g., className={variable})
-      if (node.value?.type === T.JSXExpressionContainer) {
-        return VAR.toStaticValue({
-          kind: "lazy",
-          node: node.value.expression,
-          initialScope,
-        });
-      }
-      // Case 3: Boolean attribute with no value (e.g., disabled)
-      return { kind: "none", node, initialScope } as const;
-    case T.JSXSpreadAttribute: {
-      // For spread attributes (e.g., {...props}), try to extract static value
-      const staticValue = VAR.toStaticValue({
-        kind: "lazy",
-        node: node.argument,
-        initialScope,
-      });
-      // If can't extract static value, return none
-      if (staticValue.kind === "none") {
-        return staticValue;
-      }
-      // If spread object contains the named property, extract its value
-      return match(staticValue.value)
-        .with({ [name]: P.select(P.any) }, (value) => ({
-          kind: "some",
-          node: node.argument,
-          initialScope,
-          value,
-        } as const))
-        .otherwise(() => ({ kind: "none", node, initialScope } as const));
+export type AttributeValue =
+  | { kind: "boolean"; toStatic(): true } // Boolean attributes (e.g., disabled)
+  | { kind: "element"; node: TSESTree.JSXElement; toStatic(): unknown } // JSX element as value (e.g., <Component element=<JSXElement /> />)
+  | { kind: "literal"; node: TSESTree.Literal; toStatic(): TSESTree.Literal["value"] } // Literal values
+  | { kind: "expression"; node: TSESTree.JSXExpressionContainer["expression"]; toStatic(): unknown } // Expression attributes (e.g., {value}, {...props})
+  | { kind: "spreadProps"; node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(name?: string): unknown } // Spread props (e.g., {...props})
+  | { kind: "spreadChild"; node: TSESTree.JSXSpreadChild["expression"]; toStatic(): unknown }; // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
+
+export function resolveAttributeValue(context: RuleContext, attribute: AST.TSESTreeJSXAttributeLike) {
+  const initialScope = context.sourceCode.getScope(attribute);
+  function handleJsxAttribute(node: TSESTree.JSXAttribute) {
+    // Case 1: Boolean attribute with no value (e.g., disabled)
+    if (node.value == null) {
+      return {
+        kind: "boolean",
+        toStatic() {
+          return true;
+        },
+      } as const satisfies AttributeValue;
     }
-    default:
-      // Fallback case for unknown node types
-      return { kind: "none", node, initialScope } as const;
+    switch (node.value.type) {
+      // Case 2: Literal value (e.g., className="container")
+      case T.Literal: {
+        const staticValue = node.value.value;
+        return {
+          kind: "literal",
+          node: node.value,
+          toStatic() {
+            return staticValue;
+          },
+        } as const satisfies AttributeValue;
+      }
+      // Case 3: Expression container (e.g., className={variable})
+      case T.JSXExpressionContainer: {
+        const expr = node.value.expression;
+        return {
+          kind: "expression",
+          node: expr,
+          toStatic() {
+            return getStaticValue(expr, initialScope)?.value;
+          },
+        } as const satisfies AttributeValue;
+      }
+      // Case 4: JSX Element as value (e.g., element=<JSXElement />)
+      case T.JSXElement:
+        return {
+          kind: "element",
+          node: node.value,
+          toStatic() {
+            return unit;
+          },
+        } as const satisfies AttributeValue;
+      // Case 5: JSX spread children (e.g., <div>{...["Hello", " ", "spread", " ", "children"]}</div>)
+      case T.JSXSpreadChild:
+        return {
+          kind: "spreadChild",
+          node: node.value.expression,
+          toStatic() {
+            return unit;
+          },
+        } as const satisfies AttributeValue;
+    }
+  }
+
+  function handleJsxSpreadAttribute(node: TSESTree.JSXSpreadAttribute) {
+    // For spread attributes (e.g., {...props}), try to extract static value
+    return {
+      kind: "spreadProps",
+      node: node.argument,
+      toStatic(name?: string) {
+        if (name == null) return unit;
+        // If spread object contains the named property, extract its value
+        return match(getStaticValue(node.argument, initialScope)?.value)
+          .with({ [name]: P.select(P.any) }, identity)
+          .otherwise(() => unit);
+      },
+    } as const satisfies AttributeValue;
+  }
+  switch (attribute.type) {
+    case T.JSXAttribute:
+      return handleJsxAttribute(attribute);
+    case T.JSXSpreadAttribute:
+      return handleJsxSpreadAttribute(attribute);
   }
 }

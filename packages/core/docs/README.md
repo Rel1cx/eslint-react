@@ -22,6 +22,7 @@
 
 ## Type Aliases
 
+- [AttributeValue](type-aliases/AttributeValue.md)
 - [Component](type-aliases/Component.md)
 - [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md)
 - [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md)
@@ -113,7 +114,6 @@
 - [findParentAttribute](functions/findParentAttribute.md)
 - [getAttribute](functions/getAttribute.md)
 - [getAttributeName](functions/getAttributeName.md)
-- [getAttributeValue](functions/getAttributeValue.md)
 - [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md)
 - [getComponentNameFromId](functions/getComponentNameFromId.md)
 - [getElementType](functions/getElementType.md)
@@ -151,6 +151,7 @@
 - [isRenderPropLoose](functions/isRenderPropLoose.md)
 - [isThisSetState](functions/isThisSetState.md)
 - [isUseEffectCallLoose](functions/isUseEffectCallLoose.md)
+- [resolveAttributeValue](functions/resolveAttributeValue.md)
 - [stringifyJsx](functions/stringifyJsx.md)
 - [useComponentCollector](functions/useComponentCollector.md)
 - [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md)

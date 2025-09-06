@@ -6,10 +6,7 @@
 
 # Function: getAttribute()
 
-> **getAttribute**(`context`, `name`, `attributes`, `initialScope?`): `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
-
-Searches for a specific JSX attribute by name in a list of attributes
-Returns the last matching attribute (rightmost in JSX)
+> **getAttribute**(`context`, `attributes`, `initialScope?`): (`name`) => `undefined` \| `TSESTreeJSXAttributeLike`
 
 ## Parameters
 
@@ -17,28 +14,24 @@ Returns the last matching attribute (rightmost in JSX)
 
 `RuleContext`
 
-ESLint rule context
-
-### name
-
-`string`
-
-The name of the attribute to find
-
 ### attributes
 
-(`JSXAttribute` \| `JSXSpreadAttribute`)[]
-
-Array of JSX attributes to search through
+`TSESTreeJSXAttributeLike`[]
 
 ### initialScope?
 
 `Scope`
 
-Optional scope for resolving variables
-
 ## Returns
 
-`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
+> (`name`): `undefined` \| `TSESTreeJSXAttributeLike`
 
-The found attribute or undefined
+### Parameters
+
+#### name
+
+`string`
+
+### Returns
+
+`undefined` \| `TSESTreeJSXAttributeLike`

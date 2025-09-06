@@ -13,10 +13,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-/**
- * This rule is adapted from eslint-plugin-solid's jsx-no-script-url rule under the MIT license.
- * Thank you for your work!
- */
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -37,12 +33,9 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
-      if (node.name.type !== T.JSXIdentifier || node.value == null) {
-        return;
-      }
-      const attributeValue = ER.getAttributeValue(context, node, ER.getAttributeName(context, node));
-      if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
-      if (RE.JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
+      if (node.name.type !== T.JSXIdentifier || node.value == null) return;
+      const value = ER.resolveAttributeValue(context, node).toStatic();
+      if (typeof value === "string" && RE.JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({
           messageId: "noScriptUrl",
           node: node.value,

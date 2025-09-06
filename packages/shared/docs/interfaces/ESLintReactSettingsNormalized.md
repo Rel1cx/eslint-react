@@ -92,12 +92,6 @@ Normalized ESLint React settings with processed values
 
 ***
 
-### components
-
-> **components**: [`CustomComponentNormalized`](CustomComponentNormalized.md)[]
-
-***
-
 ### importSource
 
 > **importSource**: `string`

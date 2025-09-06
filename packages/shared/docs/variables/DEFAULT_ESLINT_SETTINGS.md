@@ -16,10 +16,6 @@ Default ESLint settings with React settings included
 
 > `readonly` **react-x**: `object` = `DEFAULT_ESLINT_REACT_SETTINGS`
 
-#### react-x.additionalComponents
-
-> `readonly` **additionalComponents**: \[\] = `[]`
-
 #### react-x.additionalHooks
 
 > `readonly` **additionalHooks**: `object`

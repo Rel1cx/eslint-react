@@ -2,7 +2,7 @@
 /* eslint-disable perfectionist/sort-objects */
 import type { unit } from "@eslint-react/eff";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
-import { RegExp as RE, type RuleContext } from "@eslint-react/kit";
+import { type RuleContext } from "@eslint-react/kit";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";
 
@@ -12,66 +12,6 @@ import { z } from "zod/v4";
 import { getReactVersion } from "./get-react-version";
 
 // ===== Schema Definitions =====
-
-/**
- * Schema for component prop mapping between user-defined components and host components
- */
-export const CustomComponentPropSchema = z.object({
-  /**
-   * The name of the prop in the user-defined component
-   * @example "to"
-   */
-  name: z.string(),
-
-  /**
-   * The name of the prop in the host component
-   * @example "href"
-   */
-  as: z.optional(z.string()),
-
-  /**
-   * Whether the prop is controlled in the user-defined component
-   * @internal
-   */
-  controlled: z.optional(z.boolean()),
-
-  /**
-   * The default value of the prop in the user-defined component
-   * @example "/", "noopener noreferrer"
-   */
-  defaultValue: z.optional(z.string()),
-});
-
-/**
- * Schema for custom components configuration
- * Provides key information about user-defined components before validation
- * Example: Which prop is used as the `href` prop in a custom `Link` component
- */
-export const CustomComponentSchema = z.object({
-  /**
-   * The name of the user-defined component
-   * @example "Link"
-   */
-  name: z.string(),
-
-  /**
-   * The name of the host component that the user-defined component represents
-   * @example "a"
-   */
-  as: z.optional(z.string()),
-
-  /**
-   * Attributes mapping between the user-defined component and the host component
-   * @example Link's "to" attribute maps to anchor "href" attribute
-   */
-  attributes: z.optional(z.array(CustomComponentPropSchema)),
-
-  /**
-   * ESQuery selector to precisely select the component
-   * @internal
-   */
-  selector: z.optional(z.string()),
-});
 
 /**
  * Schema for custom hooks aliases that should be treated as React Hooks
@@ -145,13 +85,6 @@ export const ESLintReactSettingsSchema = z.object({
    * @example { useEffect: ["useIsomorphicLayoutEffect"] }
    */
   additionalHooks: z.optional(CustomHooksSchema),
-
-  /**
-   * User-defined components configuration
-   * Informs ESLint React how to treat these components during validation
-   * @example [{ name: "Link", as: "a", attributes: [{ name: "to", as: "href" }] }]
-   */
-  additionalComponents: z.optional(z.array(CustomComponentSchema)),
 });
 
 /**
@@ -165,40 +98,15 @@ export const ESLintSettingsSchema = z.optional(
 );
 
 // ===== Type Definitions =====
-
-export type CustomComponent = z.infer<typeof CustomComponentSchema>;
-export type CustomComponentProp = z.infer<typeof CustomComponentPropSchema>;
 export type CustomHooks = z.infer<typeof CustomHooksSchema>;
 export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
-
-/**
- * Normalized representation of a custom component prop
- */
-export interface CustomComponentPropNormalized {
-  name: string;
-  as: string;
-  // controlled?: boolean | unit;
-  defaultValue?: string | unit;
-}
-
-/**
- * Normalized representation of a custom component with RegExp for matching
- */
-export interface CustomComponentNormalized {
-  name: string;
-  as: string;
-  attributes: CustomComponentPropNormalized[];
-  re: { test(s: string): boolean };
-  // selector?: string | unit;
-}
 
 /**
  * Normalized ESLint React settings with processed values
  */
 export interface ESLintReactSettingsNormalized {
   additionalHooks: CustomHooks;
-  components: CustomComponentNormalized[];
   importSource: string;
   polymorphicPropName: string | unit;
   skipImportCheck: boolean;
@@ -217,7 +125,6 @@ export const DEFAULT_ESLINT_REACT_SETTINGS = {
   strict: true,
   skipImportCheck: true,
   polymorphicPropName: "as",
-  additionalComponents: [],
   additionalHooks: {
     useEffect: ["useIsomorphicLayoutEffect"],
     useLayoutEffect: ["useIsomorphicLayoutEffect"],
@@ -292,7 +199,6 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
  * Transforms component definitions and resolves version information
  */
 export const normalizeSettings = ({
-  additionalComponents = [],
   additionalHooks = {},
   importSource = "react",
   polymorphicPropName = "as",
@@ -303,21 +209,6 @@ export const normalizeSettings = ({
 }: ESLintReactSettings) => {
   return {
     ...rest,
-    components: additionalComponents.map((component) => {
-      const { name, as = name, attributes = [], ...rest } = component;
-      const re = RE.toRegExp(name);
-      return {
-        ...rest,
-        name,
-        re,
-        as,
-        attributes: attributes.map(({ name, as = name, ...rest }) => ({
-          ...rest,
-          name,
-          as,
-        })),
-      };
-    }),
     additionalHooks,
     importSource,
     polymorphicPropName,

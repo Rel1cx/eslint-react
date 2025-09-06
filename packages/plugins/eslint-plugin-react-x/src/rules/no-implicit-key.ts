@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
       const initialScope = context.sourceCode.getScope(node);
-      const keyProp = ER.getAttribute(context, "key", node.attributes, initialScope);
+      const keyProp = ER.getAttribute(context, node.attributes, initialScope)("key");
       const isKeyPropOnElement = node.attributes
         .some((n) =>
           n.type === T.JSXAttribute
