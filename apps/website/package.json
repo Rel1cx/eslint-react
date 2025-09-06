@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@chevrotain/regexp-to-ast": "^11.0.3",
-    "@effect-atom/atom-react": "^0.1.16",
+    "@effect-atom/atom-react": "^0.1.17",
     "@eslint-react/eff": "workspace:*",
     "@radix-ui/react-icons": "^1.3.2",
     "bsky-react-post": "^0.1.7",

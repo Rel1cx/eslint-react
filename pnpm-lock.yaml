@@ -282,8 +282,8 @@ importers:
         specifier: ^11.0.3
         version: 11.0.3
       '@effect-atom/atom-react':
-        specifier: ^0.1.16
-        version: 0.1.16(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)(react@19.1.1)(scheduler@0.26.0)
+        specifier: ^0.1.17
+        version: 0.1.17(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)(react@19.1.1)(scheduler@0.26.0)
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../packages/utilities/eff
@@ -2231,15 +2231,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect-atom/atom-react@0.1.16':
-    resolution: {integrity: sha512-g6PZOHuJafNPiDvEyfWocP+nLIdbIGpbEACeHFjJ231hWhLrbLDjLznpcwm5NPDg4W4SrzS+GRzJdt5h/h7uBw==}
+  '@effect-atom/atom-react@0.1.17':
+    resolution: {integrity: sha512-LICSYbBb436QVbklotlobB3rkDhzOBZPbno2A/yq4hysP+xSLd5XyzGmfskZOIdBOYnSG1GPpJ/iTB4Md0Qy2A==}
     peerDependencies:
       effect: ^3.17
       react: ^19.1.1
       scheduler: '*'
 
-  '@effect-atom/atom@0.1.21':
-    resolution: {integrity: sha512-T+5I2ctz+jAt3HhRaILH7v/Pa4P14qne4Nb/w+dVK2tHrYeee57flsvQ1UXB1jt+VY3t6afgvg4YWYhbI6YNDg==}
+  '@effect-atom/atom@0.1.22':
+    resolution: {integrity: sha512-RcSq0KhTbo7aorGX8IRf9XTgPMUEI/Eo/MxyaubPxWgeoMa/3hjV7DgjegYA9xSJ7QX+66Xl3AuMKEciN216tg==}
     peerDependencies:
       '@effect/experimental': ^0.54.5
       '@effect/platform': ^0.90.1
@@ -8563,9 +8563,9 @@ snapshots:
   '@dprint/win32-x64@0.50.1':
     optional: true
 
-  '@effect-atom/atom-react@0.1.16(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)(react@19.1.1)(scheduler@0.26.0)':
+  '@effect-atom/atom-react@0.1.17(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)(react@19.1.1)(scheduler@0.26.0)':
     dependencies:
-      '@effect-atom/atom': 0.1.21(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)
+      '@effect-atom/atom': 0.1.22(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)
       effect: 3.17.13
       react: 19.1.1
       scheduler: 0.26.0
@@ -8574,7 +8574,7 @@ snapshots:
       - '@effect/platform'
       - '@effect/rpc'
 
-  '@effect-atom/atom@0.1.21(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)':
+  '@effect-atom/atom@0.1.22(@effect/experimental@0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(@effect/platform@0.90.7(effect@3.17.13))(@effect/rpc@0.69.2(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13))(effect@3.17.13)':
     dependencies:
       '@effect/experimental': 0.54.6(@effect/platform@0.90.7(effect@3.17.13))(effect@3.17.13)
       '@effect/platform': 0.90.7(effect@3.17.13)
