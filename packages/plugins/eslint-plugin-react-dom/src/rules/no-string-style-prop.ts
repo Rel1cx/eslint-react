@@ -1,8 +1,9 @@
+import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
+import { createRule } from "../utils";
 
 export const RULE_NAME = "no-string-style-prop";
 
@@ -28,23 +29,18 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const { attributes } = resolver.resolve(node);
-      const {
-        attribute,
-        attributeName,
-        attributeValue,
-        attributeValueString,
-      } = resolveAttribute(context, attributes, node, "style");
-      if (attributeName !== "style") return;
-      if (attribute == null || attributeValue?.node == null) return;
-      if (attributeValueString == null) return;
-      context.report({
-        messageId: "noStringStyleProp",
-        node: attributeValue.node,
-      });
+      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const attribute = getAttribute("style");
+      if (attribute == null) return;
+      const attributeValue = ER.resolveAttributeValue(context, attribute);
+      if (typeof attributeValue.toStatic() === "string") {
+        context.report({
+          messageId: "noStringStyleProp",
+          node: attributeValue.node ?? attribute,
+        });
+      }
     },
   };
 }
