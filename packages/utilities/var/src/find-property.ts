@@ -2,16 +2,8 @@ import type { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { findVariable } from "./variable-extractor";
-import { getVariableDefinitionNode } from "./variable-resolver";
-
-export function getChildScopes(scope: Scope): readonly Scope[] {
-  const scopes = [scope];
-  for (const childScope of scope.childScopes) {
-    scopes.push(...getChildScopes(childScope));
-  }
-  return scopes;
-}
+import { getVariableDefinitionNode } from "./get-variable-definition-node";
+import { findVariable } from "./get-variables-from-scope";
 
 export function findProperty(
   name: string,

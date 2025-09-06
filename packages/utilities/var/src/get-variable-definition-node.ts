@@ -1,3 +1,4 @@
+import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
@@ -31,4 +32,22 @@ export function getVariableDefinitionNode(variable: Variable | unit, at: number)
     default:
       return unit;
   }
+}
+
+export function getVariableDefinitionNodeLoose(variable: Variable | unit, at: number):
+  | unit
+  | TSESTree.ClassDeclaration
+  | TSESTree.ClassDeclarationWithName
+  | TSESTree.ClassDeclarationWithOptionalName
+  | TSESTree.Expression
+  | TSESTree.FunctionDeclaration
+  | TSESTree.FunctionDeclarationWithName
+  | TSESTree.FunctionDeclarationWithOptionalName
+{
+  if (variable == null) return unit;
+  const node = getVariableDefinitionNode(variable, at);
+  if (node != null) return node;
+  const def = variable.defs.at(at);
+  if (def?.type === DefinitionType.Parameter && AST.isFunction(def.node)) return def.node;
+  return unit;
 }
