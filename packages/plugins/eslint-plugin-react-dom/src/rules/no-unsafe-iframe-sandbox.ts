@@ -1,9 +1,9 @@
-import type { unit } from "@eslint-react/eff";
+import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { createJsxElementResolver, createRule, resolveAttribute } from "../utils";
+
+import { createJsxElementResolver, createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
@@ -15,7 +15,7 @@ const unsafeSandboxValues = [
   ["allow-scripts", "allow-same-origin"],
 ] as const;
 
-function isSafeSandbox(value: string | unit): value is string {
+function isSafeSandbox(value: unknown): value is string {
   if (typeof value !== "string") return false;
   return !unsafeSandboxValues.some((values) => {
     return values.every((v) => value.includes(v));
@@ -43,13 +43,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const { attributes, domElementType } = resolver.resolve(node);
+      const { domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
-      const sandboxAttribute = resolveAttribute(context, attributes, node, "sandbox");
-      if (!isSafeSandbox(sandboxAttribute.attributeValueString)) {
+      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const sandboxAttribute = getAttribute("sandbox");
+      if (sandboxAttribute == null) return;
+      const sandboxValue = ER.resolveAttributeValue(context, sandboxAttribute);
+      const sandboxValueStatic = sandboxValue.toStatic("sandbox");
+      if (!isSafeSandbox(sandboxValueStatic)) {
         context.report({
           messageId: "noUnsafeIframeSandbox",
-          node: sandboxAttribute.attributeValue?.node ?? sandboxAttribute.attribute ?? node,
+          node: sandboxValue.node ?? sandboxAttribute,
         });
       }
     },

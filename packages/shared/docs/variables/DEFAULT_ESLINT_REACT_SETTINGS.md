@@ -12,10 +12,6 @@ Default ESLint React settings
 
 ## Type Declaration
 
-### additionalComponents
-
-> `readonly` **additionalComponents**: \[\] = `[]`
-
 ### additionalHooks
 
 > `readonly` **additionalHooks**: `object`
