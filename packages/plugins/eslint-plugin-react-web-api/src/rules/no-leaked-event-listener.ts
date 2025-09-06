@@ -9,6 +9,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { EventListenerEntry } from "../types";
 
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { isMatching, match, P } from "ts-pattern";
 import { createRule, getPhaseKindOfFunction } from "../utils";
 
@@ -102,7 +103,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         break;
       }
       default: {
-        v = VAR.toStaticValue({ kind: "lazy", node: value, initialScope }).value;
+        v = getStaticValue(value, initialScope)?.value;
         break;
       }
     }

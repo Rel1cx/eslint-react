@@ -6,6 +6,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 
 import { match } from "ts-pattern";
@@ -142,11 +143,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           return false;
         }
         const indexScope = context.sourceCode.getScope(node);
-        const indexValue = VAR.toStaticValue({
-          kind: "lazy",
-          node: index,
-          initialScope: indexScope,
-        }).value;
+        const indexValue = getStaticValue(index, indexScope)?.value;
         return indexValue === 1 && isIdFromUseStateCall(callee.object);
       }
       // const [data, setData] = useState();
@@ -162,11 +159,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
         }
         const property = node.callee.property;
         const propertyScope = context.sourceCode.getScope(node);
-        const propertyValue = VAR.toStaticValue({
-          kind: "lazy",
-          node: property,
-          initialScope: propertyScope,
-        }).value;
+        const propertyValue = getStaticValue(property, propertyScope)?.value;
         return propertyValue === 1 && isIdFromUseStateCall(node.callee.object, 1);
       }
       default: {

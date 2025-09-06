@@ -3,7 +3,7 @@ import { unit } from "@eslint-react/eff";
 import { DefinitionType, type Scope, type Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { toStaticValue } from "./value-helper";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { findVariable } from "./variable-extractor";
 import { getVariableDefinitionNode } from "./variable-resolver";
 
@@ -99,9 +99,9 @@ export function isNodeValueEqual(
       return aFunction === bFunction;
     }
     default: {
-      const aStatic = toStaticValue({ kind: "lazy", node: a, initialScope: aScope });
-      const bStatic = toStaticValue({ kind: "lazy", node: b, initialScope: bScope });
-      return aStatic.kind !== "none" && bStatic.kind !== "none" && aStatic.value === bStatic.value;
+      const aStatic = getStaticValue(a, aScope);
+      const bStatic = getStaticValue(b, bScope);
+      return aStatic != null && bStatic != null && aStatic.value === bStatic.value;
     }
   }
 }
