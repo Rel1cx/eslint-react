@@ -12,7 +12,6 @@ import { match, P } from "ts-pattern";
  */
 export type AttributeValue =
   | { kind: "boolean"; toStatic(): true } // Boolean attributes (e.g., disabled)
-  // | { kind: "default"; toStatic(): unit | string } // Default attribute values
   | { kind: "element"; node: TSESTree.JSXElement; toStatic(): unknown } // JSX element as value (e.g., <Component element=<JSXElement /> />)
   | { kind: "literal"; node: TSESTree.Literal; toStatic(): TSESTree.Literal["value"] } // Literal values
   | { kind: "expression"; node: TSESTree.JSXExpressionContainer["expression"]; toStatic(): unknown } // Expression attributes (e.g., {value}, {...props})
