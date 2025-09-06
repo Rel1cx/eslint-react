@@ -31,6 +31,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
+      if (!ER.isHostElement(context, node)) return;
       const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
       const attribute = getAttribute("style");
       if (attribute == null) return;
