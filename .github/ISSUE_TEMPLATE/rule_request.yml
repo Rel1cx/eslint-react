@@ -37,7 +37,10 @@ body:
     id: rule-name-and-message
     attributes:
       label: Rule Name and Error Message
-      description: Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
+      description: |
+        Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
+
+        > A lint rule is an automated communication tool which sends messages to developers who have written patterns your rule wishes to prevent. As all communication, the message is important.
       placeholder: |
         > A lint rule is an automated communication tool which sends messages to developers who have written patterns your rule wishes to prevent. As all communication, the message is important.
 
