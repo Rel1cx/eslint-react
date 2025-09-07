@@ -1,0 +1,83 @@
+name: 💡 Rule Request
+title: "[rule] "
+description: Suggest a rule
+labels: ["rule request"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Rule Request
+
+        # Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule writing standards.
+
+        ## References on Rule Design
+        - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
+        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/#when-to-write-or-enable-a-rule)
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: Please describe what problem this rule will solve. Provide specific code examples to illustrate the issue.
+      placeholder: "This rule will solve..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative-solutions
+    attributes:
+      label: Alternative Solutions
+      description: Have you tried to solve the problem by changing the API or introducing a new API? Why aren't these methods sufficient to solve the problem?
+      placeholder: "I've tried..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: rule-name-and-message
+    attributes:
+      label: Rule Name and Error Message
+      description: Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
+      placeholder: |
+        Rule name: [PluginName]/[YourRuleName]
+
+        Error message: Briefly and clearly describe the problem
+
+        Details: Provide more background information and suggested solutions
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples
+      description: Provide code examples that should be flagged and code examples that should not be flagged.
+      placeholder: |
+        Code that should be flagged:
+        ```tsx
+        // Problematic code
+        ```
+
+        Code that should not be flagged:
+        ```tsx
+        // Correct code
+        ```
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Evaluation Checklist
+      description: Please check the following items to ensure the rule suggestion is reasonable
+      options:
+        - label: I have had problems with the pattern I want to forbid
+          required: true
+        - label: I could not find a way to solve the problem by changing the API of the problematic code or introducing a new API
+          required: true
+        - label: I have thought very hard about what the corner cases could be and what kind of patterns this would forbid that are actually okay, and they are acceptable
+          required: true
+        - label: I think the rule explains well enough how to solve the issue, to make sure beginners are not blocked by it
+          required: true
+        - label: I have discussed this rule with team members, and they all find it valuable
+          required: false

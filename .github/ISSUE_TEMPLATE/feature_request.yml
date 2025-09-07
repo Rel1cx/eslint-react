@@ -4,32 +4,66 @@ description: Suggest an idea
 labels: ["feature request"]
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+
+        # Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
   - type: textarea
     id: problem
     attributes:
-      label: Describe the problem
-      description: A clear description of the problem this feature would solve
-      placeholder: "I'm always frustrated when..."
+      label: Problem Description
+      description: Please describe the problem this feature will solve. Provide specific examples to illustrate the issue.
+      placeholder: "This feature will solve..."
     validations:
       required: true
 
   - type: textarea
-    id: solution
+    id: alternative-solutions
     attributes:
-      label: "Describe the solution you'd like"
-      description: A clear description of what change you would like
-      placeholder: "I would like to..."
+      label: Alternative Solutions
+      description: Have you tried to solve the problem by other means? Why aren't these methods sufficient to solve the problem?
+      placeholder: "I've tried..."
     validations:
-      required: false
+      required: true
 
   - type: textarea
-    id: alternatives
+    id: feature-details
     attributes:
-      label: Alternatives considered
-      description: "Any alternative solutions you've considered"
+      label: Feature Details
+      description: Suggest a name for the feature, as well as details about how it should work and any relevant use cases.
+      placeholder: |
+        Feature name: [FeatureName]
+
+        Details: Provide more background information and suggested implementation details
+    validations:
+      required: true
 
   - type: textarea
-    id: context
+    id: examples
     attributes:
-      label: Additional context
-      description: Add any other context about the problem here.
+      label: Examples
+      description: Provide examples of how this feature would be used in practice.
+      placeholder: |
+        Example usage:
+        ```tsx
+        // Example code demonstrating the feature
+        ```
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Evaluation Checklist
+      description: Please check the following items to ensure the feature suggestion is reasonable
+      options:
+        - label: I have had problems that this feature would solve
+          required: true
+        - label: I could not find a way to solve the problem with existing features or workarounds
+          required: true
+        - label: I have thought very hard about potential edge cases and downsides, and they are acceptable
+          required: true
+        - label: I think the feature is well-defined and would provide clear value to users
+          required: true
