@@ -1,4 +1,4 @@
-name: 🎋 Rule Request
+name: 💬 Rule Request
 title: "[rule] "
 description: Suggest a rule
 labels: ["rule request"]
@@ -39,6 +39,8 @@ body:
       label: Rule Name and Error Message
       description: Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
       placeholder: |
+        > A lint rule is an automated communication tool which sends messages to developers who have written patterns your rule wishes to prevent. As all communication, the message is important.
+
         Rule name: [PluginName]/[YourRuleName]
 
         Error message: Briefly and clearly describe the problem
