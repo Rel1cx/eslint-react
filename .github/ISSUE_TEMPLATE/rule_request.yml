@@ -1,4 +1,4 @@
-name: 💡 Rule Request
+name: 🎋 Rule Request
 title: "[rule] "
 description: Suggest a rule
 labels: ["rule request"]
@@ -13,7 +13,7 @@ body:
 
         ## References on Rule Design
         - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
-        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/#when-to-write-or-enable-a-rule)
+        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest#when-to-write-or-enable-a-rule)
 
   - type: textarea
     id: problem
