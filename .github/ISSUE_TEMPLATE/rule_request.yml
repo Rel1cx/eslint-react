@@ -1,4 +1,4 @@
-name: 💡 Rule Request
+name: 💬 Rule Request
 title: "[rule] "
 description: Suggest a rule
 labels: ["rule request"]
@@ -13,7 +13,7 @@ body:
 
         ## References on Rule Design
         - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
-        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/#when-to-write-or-enable-a-rule)
+        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest#when-to-write-or-enable-a-rule)
 
   - type: textarea
     id: problem
@@ -37,7 +37,10 @@ body:
     id: rule-name-and-message
     attributes:
       label: Rule Name and Error Message
-      description: Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
+      description: |
+        Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
+
+        > A lint rule is an automated communication tool which sends messages to developers who have written patterns your rule wishes to prevent. As all communication, the message is important.
       placeholder: |
         Rule name: [PluginName]/[YourRuleName]
 
