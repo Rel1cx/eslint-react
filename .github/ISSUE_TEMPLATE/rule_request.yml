@@ -9,7 +9,7 @@ body:
       value: |
         ## Rule Request
 
-        # Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule writing standards.
+        Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule writing standards.
 
         ## References on Rule Design
         - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
