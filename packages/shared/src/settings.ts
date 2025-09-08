@@ -14,31 +14,6 @@ import { getReactVersion } from "./get-react-version";
 // ===== Schema Definitions =====
 
 /**
- * Schema for custom hooks aliases that should be treated as React Hooks
- */
-export const CustomHooksSchema = z.object({
-  use: z.optional(z.array(z.string())),
-  useActionState: z.optional(z.array(z.string())),
-  useCallback: z.optional(z.array(z.string())),
-  useContext: z.optional(z.array(z.string())),
-  useDebugValue: z.optional(z.array(z.string())),
-  useDeferredValue: z.optional(z.array(z.string())),
-  useEffect: z.optional(z.array(z.string())),
-  useFormStatus: z.optional(z.array(z.string())),
-  useId: z.optional(z.array(z.string())),
-  useImperativeHandle: z.optional(z.array(z.string())),
-  useInsertionEffect: z.optional(z.array(z.string())),
-  useLayoutEffect: z.optional(z.array(z.string())),
-  useMemo: z.optional(z.array(z.string())),
-  useOptimistic: z.optional(z.array(z.string())),
-  useReducer: z.optional(z.array(z.string())),
-  useRef: z.optional(z.array(z.string())),
-  useState: z.optional(z.array(z.string())),
-  useSyncExternalStore: z.optional(z.array(z.string())),
-  useTransition: z.optional(z.array(z.string())),
-});
-
-/**
  * Schema for ESLint React settings configuration
  * @internal
  */
@@ -59,32 +34,12 @@ export const ESLintReactSettingsSchema = z.object({
   polymorphicPropName: z.optional(z.string()),
 
   /**
-   * Whether to use strict mode
-   * @default true
-   * @internal
-   */
-  strict: z.optional(z.boolean()),
-
-  /**
-   * Whether to skip import checks when determining if an API is from React
-   * @default true
-   * @internal
-   */
-  skipImportCheck: z.optional(z.boolean()),
-
-  /**
    * React version to use
    * "detect" means auto-detect React version from project dependencies
    * @example "18.3.1"
    * @default "detect"
    */
   version: z.optional(z.string()),
-
-  /**
-   * Custom hooks that should be treated as equivalent to built-in React Hooks
-   * @example { useEffect: ["useIsomorphicLayoutEffect"] }
-   */
-  additionalHooks: z.optional(CustomHooksSchema),
 });
 
 /**
@@ -98,7 +53,6 @@ export const ESLintSettingsSchema = z.optional(
 );
 
 // ===== Type Definitions =====
-export type CustomHooks = z.infer<typeof CustomHooksSchema>;
 export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 
@@ -106,11 +60,8 @@ export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
  * Normalized ESLint React settings with processed values
  */
 export interface ESLintReactSettingsNormalized {
-  additionalHooks: CustomHooks;
   importSource: string;
   polymorphicPropName: string | unit;
-  skipImportCheck: boolean;
-  strict: boolean;
   version: string;
 }
 
@@ -122,13 +73,7 @@ export interface ESLintReactSettingsNormalized {
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   version: "detect",
   importSource: "react",
-  strict: true,
-  skipImportCheck: true,
   polymorphicPropName: "as",
-  additionalHooks: {
-    useEffect: ["useIsomorphicLayoutEffect"],
-    useLayoutEffect: ["useIsomorphicLayoutEffect"],
-  },
 } as const satisfies ESLintReactSettings;
 
 /**
@@ -199,21 +144,15 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
  * Transforms component definitions and resolves version information
  */
 export const normalizeSettings = ({
-  additionalHooks = {},
   importSource = "react",
   polymorphicPropName = "as",
-  skipImportCheck = true,
-  strict = true,
   version,
   ...rest
 }: ESLintReactSettings) => {
   return {
     ...rest,
-    additionalHooks,
     importSource,
     polymorphicPropName,
-    skipImportCheck,
-    strict,
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
       .otherwise(identity),

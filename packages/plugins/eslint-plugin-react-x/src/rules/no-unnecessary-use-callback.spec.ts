@@ -405,32 +405,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: tsx`
-        import React from "react";
-
-        const Comp = () => {
-          const style = useCustomCallback((theme) => ({
-            input: {
-              fontFamily: theme.fontFamilyMonospace
-            }
-          }), []);
-          return <Button sx={style} />
-        }
-      `,
-      errors: [
-        {
-          messageId: "noUnnecessaryUseCallback",
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useCallback: ["useCustomCallback"],
-          },
-        },
-      },
-    },
   ],
   valid: [
     ...allValid,

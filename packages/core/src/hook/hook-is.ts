@@ -1,12 +1,9 @@
 import * as AST from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { constFalse, flip } from "@eslint-react/eff";
-import type { RuleContext } from "@eslint-react/kit";
-import { coerceSettings, DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import { isInitializedFromReact } from "../utils";
 import { isReactHookName } from "./hook-name";
 
 /**
@@ -25,7 +22,7 @@ export function isReactHook(node: AST.TSESTreeFunction | unit) {
  * @param node The node to check.
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
-export function isReactHookCall(node: TSESTree.Node | unit) {
+export function isReactHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExpression {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;
@@ -40,42 +37,13 @@ export function isReactHookCall(node: TSESTree.Node | unit) {
 }
 
 /**
- * Checks if a node is a call to a specific React hook, with React import validation.
+ * Checks if a node is a call to a specific React hook.
  * Returns a function that accepts a hook name to check against.
- * @param context The rule context
  * @param node The AST node to check
  * @returns A function that takes a hook name and returns boolean
  */
 /* eslint-disable function/function-return-boolean */
-export function isReactHookCallWithName(context: RuleContext, node: TSESTree.Node | unit) {
-  if (node == null || node.type !== T.CallExpression) return constFalse;
-  const {
-    importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
-    skipImportCheck = true,
-  } = coerceSettings(context.settings);
-  const initialScope = context.sourceCode.getScope(node);
-  return (name: string) => {
-    switch (true) {
-      case node.callee.type === T.Identifier
-        && node.callee.name === name:
-        return skipImportCheck || isInitializedFromReact(name, importSource, initialScope);
-      case node.callee.type === T.MemberExpression
-        && node.callee.property.type === T.Identifier
-        && node.callee.property.name === name
-        && "name" in node.callee.object:
-        return skipImportCheck || isInitializedFromReact(node.callee.object.name, importSource, initialScope);
-      default:
-        return false;
-    }
-  };
-}
-
-/**
- * Lightweight version of isReactHookCallWithName that doesn't check imports.
- * @param node The AST node to check
- * @returns A function that takes a hook name and returns boolean
- */
-export function isReactHookCallWithNameLoose(node: TSESTree.Node | unit) {
+export function isReactHookCallWithName(node: TSESTree.Node | unit) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {
@@ -91,29 +59,23 @@ export function isReactHookCallWithNameLoose(node: TSESTree.Node | unit) {
 
 /**
  * Checks if a node is a call to a specific React hook or one of its aliases.
- * @param context The rule context
  * @param name The primary hook name to check
  * @param alias Optional array of alias names to also accept
  * @returns Function that checks if a node matches the hook name or aliases
  */
-export function isReactHookCallWithNameAlias(context: RuleContext, name: string, alias: unit | string[] = []) {
-  const {
-    importSource = DEFAULT_ESLINT_REACT_SETTINGS.importSource,
-    skipImportCheck = true,
-  } = coerceSettings(context.settings);
+export function isReactHookCallWithNameAlias(name: string, alias: unit | string[] = []) {
   return (node: TSESTree.CallExpression) => {
-    const initialScope = context.sourceCode.getScope(node);
     switch (true) {
       case node.callee.type === T.Identifier
         && node.callee.name === name:
-        return skipImportCheck || isInitializedFromReact(name, importSource, initialScope);
+        return true;
       case node.callee.type === T.MemberExpression
         && node.callee.property.type === T.Identifier
         && node.callee.property.name === name
         && "name" in node.callee.object:
-        return skipImportCheck || isInitializedFromReact(node.callee.object.name, importSource, initialScope);
+        return true;
       default:
-        return alias.some(isReactHookCallWithNameLoose(node));
+        return alias.some(isReactHookCallWithName(node));
     }
   };
 }
@@ -124,7 +86,7 @@ export function isReactHookCallWithNameAlias(context: RuleContext, name: string,
  * @param node The AST node to check
  * @returns True if the node is a useEffect-like call
  */
-export function isUseEffectCallLoose(node: TSESTree.Node | unit) {
+export function isUseEffectLikeCall(node: TSESTree.Node | unit) {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;

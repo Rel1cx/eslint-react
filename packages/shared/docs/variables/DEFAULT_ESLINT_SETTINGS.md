@@ -16,18 +16,6 @@ Default ESLint settings with React settings included
 
 > `readonly` **react-x**: `object` = `DEFAULT_ESLINT_REACT_SETTINGS`
 
-#### react-x.additionalHooks
-
-> `readonly` **additionalHooks**: `object`
-
-#### react-x.additionalHooks.useEffect
-
-> `readonly` **useEffect**: \[`"useIsomorphicLayoutEffect"`\]
-
-#### react-x.additionalHooks.useLayoutEffect
-
-> `readonly` **useLayoutEffect**: \[`"useIsomorphicLayoutEffect"`\]
-
 #### react-x.importSource
 
 > `readonly` **importSource**: `"react"` = `"react"`
@@ -35,14 +23,6 @@ Default ESLint settings with React settings included
 #### react-x.polymorphicPropName
 
 > `readonly` **polymorphicPropName**: `"as"` = `"as"`
-
-#### react-x.skipImportCheck
-
-> `readonly` **skipImportCheck**: `true` = `true`
-
-#### react-x.strict
-
-> `readonly` **strict**: `true` = `true`
 
 #### react-x.version
 

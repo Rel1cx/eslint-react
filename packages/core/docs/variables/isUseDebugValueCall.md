@@ -12,7 +12,7 @@
 
 ### a
 
-...\[`RuleContext`, `Node`\]
+...\[`Node`\]
 
 ## Returns
 

@@ -20,7 +20,7 @@ export function isFunctionOfUseEffectSetup(node: TSESTree.Node | unit) {
     && node.parent.callee !== node
     && node.parent.callee.type === T.Identifier
     && node.parent.arguments.at(0) === node
-    && ER.isUseEffectCallLoose(node.parent);
+    && ER.isUseEffectLikeCall(node.parent);
 }
 
 export function isFunctionOfUseEffectCleanup(node: TSESTree.Node | unit) {

@@ -1,43 +1,9 @@
 /* eslint-disable perfectionist/sort-objects */
-import { CodeBlock } from "#/components/ui/CodeBlock";
-import dedent from "dedent";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 
 import { Link } from "next-view-transitions";
 
 const properties = {
-  additionalHooks: {
-    type: "Record<ReactBuiltInHookName, string[]>",
-    description: <Link href="#additionalhooks">An object of aliases for React built-in Hooks ⤵</Link>,
-    default: "{}",
-    typeDescription: (
-      <CodeBlock
-        code={dedent`
-          type ReactBuiltInHookName =
-            | "use"
-            | "useActionState"
-            | "useCallback"
-            | "useContext"
-            | "useDebugValue"
-            | "useDeferredValue"
-            | "useEffect"
-            | "useFormStatus"
-            | "useId"
-            | "useImperativeHandle"
-            | "useInsertionEffect"
-            | "useLayoutEffect"
-            | "useMemo"
-            | "useOptimistic"
-            | "useReducer"
-            | "useRef"
-            | "useState"
-            | "useSyncExternalStore"
-            | "useTransition";
-        `}
-        lang="ts"
-      />
-    ),
-  },
   polymorphicPropName: {
     type: "string",
     description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components ⤵</Link>,
