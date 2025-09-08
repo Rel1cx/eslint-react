@@ -53,13 +53,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // if (!context.sourceCode.text.includes("useEffect")) return {};
-  // return useNoDirectSetStateInUseEffect(context, {
-  //   onViolation(ctx, node, data) {
-  //     ctx.report({ messageId: "noDirectSetStateInUseEffect", node, data });
-  //   },
-  //   useEffectKind: "useEffect",
-  // });
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
