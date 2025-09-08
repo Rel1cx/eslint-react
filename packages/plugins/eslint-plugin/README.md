@@ -167,8 +167,8 @@ export default defineConfig([
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/feat/use-no-direct-set-state-in-use-layout-effect/.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/rework/hooks-rules/.github/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/feat/use-no-direct-set-state-in-use-layout-effect/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/rework/hooks-rules/LICENSE) file for details.

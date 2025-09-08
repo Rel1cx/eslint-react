@@ -30,7 +30,6 @@ export const rules = {
   "@eslint-react/no-children-to-array": "warn",
   "@eslint-react/no-class-component": "warn",
   "@eslint-react/no-clone-element": "warn",
-  "@eslint-react/no-comment-textnodes": "warn",
   "@eslint-react/no-component-will-mount": "error",
   "@eslint-react/no-component-will-receive-props": "error",
   "@eslint-react/no-component-will-update": "error",

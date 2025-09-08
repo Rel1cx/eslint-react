@@ -16,7 +16,6 @@ export const rules = {
   "react-x/no-children-only": "warn",
   "react-x/no-children-to-array": "warn",
   "react-x/no-clone-element": "warn",
-  "react-x/no-comment-textnodes": "warn",
   "react-x/no-component-will-mount": "error",
   "react-x/no-component-will-receive-props": "error",
   "react-x/no-component-will-update": "error",

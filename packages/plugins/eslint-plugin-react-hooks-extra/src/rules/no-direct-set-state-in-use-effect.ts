@@ -53,8 +53,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
   const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
 
@@ -66,6 +65,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const setStateInEffectArg = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
+
+  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
   const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
     setupFnRef.current = node;
