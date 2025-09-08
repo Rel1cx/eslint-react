@@ -12,18 +12,6 @@ Default ESLint React settings
 
 ## Type Declaration
 
-### additionalHooks
-
-> `readonly` **additionalHooks**: `object`
-
-#### additionalHooks.useEffect
-
-> `readonly` **useEffect**: \[`"useIsomorphicLayoutEffect"`\]
-
-#### additionalHooks.useLayoutEffect
-
-> `readonly` **useLayoutEffect**: \[`"useIsomorphicLayoutEffect"`\]
-
 ### importSource
 
 > `readonly` **importSource**: `"react"` = `"react"`
@@ -31,14 +19,6 @@ Default ESLint React settings
 ### polymorphicPropName
 
 > `readonly` **polymorphicPropName**: `"as"` = `"as"`
-
-### skipImportCheck
-
-> `readonly` **skipImportCheck**: `true` = `true`
-
-### strict
-
-> `readonly` **strict**: `true` = `true`
 
 ### version
 

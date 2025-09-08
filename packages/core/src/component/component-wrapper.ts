@@ -24,5 +24,5 @@ export function isComponentWrapperCall(context: RuleContext, node: TSESTree.Node
  */
 export function isComponentWrapperCallLoose(context: RuleContext, node: TSESTree.Node) {
   if (node.type !== T.CallExpression) return false;
-  return isComponentWrapperCall(context, node) || isUseCallbackCall(context, node);
+  return isComponentWrapperCall(context, node) || isUseCallbackCall(node);
 }

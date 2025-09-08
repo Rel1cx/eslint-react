@@ -6,17 +6,11 @@
 
 # Function: isReactHookCallWithNameAlias()
 
-> **isReactHookCallWithNameAlias**(`context`, `name`, `alias`): (`node`) => `boolean`
+> **isReactHookCallWithNameAlias**(`name`, `alias`): (`node`) => `boolean`
 
 Checks if a node is a call to a specific React hook or one of its aliases.
 
 ## Parameters
-
-### context
-
-`RuleContext`
-
-The rule context
 
 ### name
 

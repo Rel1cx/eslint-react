@@ -6,7 +6,7 @@
 
 # Function: isReactHookCall()
 
-> **isReactHookCall**(`node`): `boolean`
+> **isReactHookCall**(`node`): `node is CallExpression`
 
 Check if the given node is a React Hook call by its name.
 
@@ -20,6 +20,6 @@ The node to check.
 
 ## Returns
 
-`boolean`
+`node is CallExpression`
 
 `true` if the node is a React Hook call, `false` otherwise.

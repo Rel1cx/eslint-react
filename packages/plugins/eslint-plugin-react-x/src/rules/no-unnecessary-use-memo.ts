@@ -2,7 +2,6 @@ import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -37,16 +36,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("use")) return {};
-  const alias = getSettingsFromContext(context).additionalHooks.useMemo ?? [];
-  const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", alias);
+  if (!context.sourceCode.text.includes("useMemo")) return {};
   return {
     CallExpression(node) {
-      if (!ER.isReactHookCall(node)) {
-        return;
-      }
       const initialScope = context.sourceCode.getScope(node);
-      if (!isUseMemoCall(node)) {
+      if (!ER.isUseMemoCall(node)) {
         return;
       }
       const scope = context.sourceCode.getScope(node);

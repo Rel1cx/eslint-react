@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isUseEffectCallLoose } from "./hook-is";
+import { isUseEffectLikeCall } from "./hook-is";
 
 /**
  * Determines if the node is the setup function of a useEffect hook
@@ -15,7 +15,7 @@ export function isFunctionOfUseEffectSetup(node: TSESTree.Node | unit) {
     && node.parent.callee !== node
     && node.parent.callee.type === T.Identifier
     && node.parent.arguments.at(0) === node
-    && isUseEffectCallLoose(node.parent);
+    && isUseEffectLikeCall(node.parent);
 }
 
 /**

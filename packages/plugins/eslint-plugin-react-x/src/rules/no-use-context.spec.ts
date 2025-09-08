@@ -166,33 +166,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: tsx`
-        import { use, useContext as useCtx } from 'react'
-
-        export const Component = () => {
-          const value = useCtx(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      errors: [
-        { messageId: "noUseContext" },
-        { messageId: "noUseContext" },
-      ],
-      output: tsx`
-        import { use } from 'react'
-
-        export const Component = () => {
-          const value = use(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
   ],
   valid: [
     {
