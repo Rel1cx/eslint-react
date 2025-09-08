@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const initialScope = context.sourceCode.getScope(node);
-      const component = initialScope.block;
+      const component = context.sourceCode.getScope(node).block;
       if (!AST.isFunction(component)) {
         return;
       }
