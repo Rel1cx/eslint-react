@@ -21,6 +21,7 @@ Minimum supported versions:
 - [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
+- [x] `eslint-plugin-react-hooks` - Extra Hooks rules for React
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
 - ... (Free to combine with other plugins from the community)
 
@@ -73,3 +74,4 @@ Minimum supported versions:
 - [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
 - [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
 - [x] `prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
+- [x] `hooks-extra/no-direct-set-state-in-use-layout-effect` - Merged into `hooks-extra/no-direct-set-state-in-use-effect`
