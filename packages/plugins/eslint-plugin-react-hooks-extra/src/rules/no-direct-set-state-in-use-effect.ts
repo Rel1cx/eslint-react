@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isFunctionOfUseEffectSetup(node: TSESTree.Node) {
     return node.parent?.type === T.CallExpression
       && node.parent.callee !== node
-      && ER.isUseEffectCall(node.parent);
+      && ER.isUseEffectLikeCall(node.parent);
   }
 
   function getCallName(node: TSESTree.Node) {
@@ -275,7 +275,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           // const [state, setState] = useState();
           // useEffect(setState);
-          if (ER.isUseEffectCall(node.parent)) {
+          if (ER.isUseEffectLikeCall(node.parent)) {
             getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
           }
         }
