@@ -35,16 +35,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.getText().includes("key=")) {
-    return {};
-  }
-
+  if (!context.sourceCode.text.includes("key=")) return {};
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
       if (node.name.name !== "key") return;
       const jsxElement = node.parent.parent;
+      const initialScope = context.sourceCode.getScope(jsxElement);
       const pMapCallback = AST.findParentNode(jsxElement, isMapCallback);
-      if (pMapCallback == null) return;
+      if (pMapCallback == null || context.sourceCode.getScope(pMapCallback) !== initialScope) return;
       const pKeyedElementOrElse = AST.findParentNode(
         jsxElement,
         (n) => {
