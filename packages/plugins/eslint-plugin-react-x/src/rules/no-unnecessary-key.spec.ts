@@ -79,5 +79,13 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       <div><p key='static-child-key' /></div>
     `,
+    // Valid: not a list rendering context
+    tsx`
+      things.map(thing => {
+        function NestedComponent() {
+          return <span key='foo'><span key='bar' /></span>;
+        }
+      })
+    `,
   ],
 });
