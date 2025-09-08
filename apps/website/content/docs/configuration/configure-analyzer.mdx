@@ -56,26 +56,6 @@ Example with `polymorphicPropName` set to `as`:
 // Evaluated as an h3 element
 ```
 
-### `additionalHooks` (Experimental)
-
-<Callout type="warn">
-  Intended for edge cases. We suggest to use this option **very sparingly, if at
-  all**. Generally saying, we recommend most custom Hooks do not vary the
-  built-in React Hooks, and instead provide a higher-level API that is more
-  focused around a specific use case.
-</Callout>
-
-Alias variants to built-in React Hooks for rule compatibility:
-
-```js
-additionalHooks: {
-  useEffect: ["useIsomorphicLayoutEffect"],
-  useLayoutEffect: ["useIsomorphicLayoutEffect"]
-}
-```
-
-Treats `useIsomorphicLayoutEffect` as both `useEffect` and `useLayoutEffect` in rule checks.
-
 ## Complete Configuration Example
 
 ```ts title="eslint.config.js"
@@ -89,12 +69,6 @@ export default [
         version: "19.1.0", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
         importSource: "react", // Customize the import source for the React module (defaults to "react")
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
-
-        // (Experimental) Alias custom Hooks to built-in React Hooks for rule compatibility
-        additionalHooks: {
-          useEffect: ["useIsomorphicLayoutEffect"],
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        },
       },
     },
   },

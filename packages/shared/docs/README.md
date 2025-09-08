@@ -10,13 +10,11 @@
 
 ## Type Aliases
 
-- [CustomHooks](type-aliases/CustomHooks.md)
 - [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
 - [ESLintSettings](type-aliases/ESLintSettings.md)
 
 ## Variables
 
-- [CustomHooksSchema](variables/CustomHooksSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [DEFAULT\_ESLINT\_SETTINGS](variables/DEFAULT_ESLINT_SETTINGS.md)
 - [defineSettings](variables/defineSettings.md)

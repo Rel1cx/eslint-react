@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / isUseEffectCallLoose
+[@eslint-react/core](../README.md) / isUseEffectLikeCall
 
-# Function: isUseEffectCallLoose()
+# Function: isUseEffectLikeCall()
 
-> **isUseEffectCallLoose**(`node`): `boolean`
+> **isUseEffectLikeCall**(`node`): `boolean`
 
 Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
 

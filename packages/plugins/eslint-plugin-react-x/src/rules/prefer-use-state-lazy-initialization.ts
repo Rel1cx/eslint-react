@@ -2,7 +2,6 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -43,14 +42,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
-  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", alias);
   return {
     CallExpression(node) {
-      if (!ER.isReactHookCall(node)) {
-        return;
-      }
-      if (!isUseStateCall(node)) {
+      if (!ER.isUseStateCall(node)) {
         return;
       }
       const [useStateInput] = node.arguments;
@@ -60,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const expr of AST.getNestedNewExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
-        if (AST.findParentNode(expr, (n) => ER.isUseCall(context, n)) != null) continue;
+        if (AST.findParentNode(expr, ER.isUseCall) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,
@@ -70,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!("name" in expr.callee)) continue;
         if (ER.isReactHookName(expr.callee.name)) continue;
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
-        if (AST.findParentNode(expr, (n) => ER.isUseCall(context, n)) != null) continue;
+        if (AST.findParentNode(expr, ER.isUseCall) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,

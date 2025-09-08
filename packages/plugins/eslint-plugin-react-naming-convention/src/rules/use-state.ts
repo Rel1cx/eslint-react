@@ -1,6 +1,5 @@
 import * as ER from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -36,11 +35,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const alias = getSettingsFromContext(context).additionalHooks.useState ?? [];
-  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", alias);
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!isUseStateCall(node)) {
+      if (!ER.isUseStateCall(node)) {
         return;
       }
       if (node.parent.type !== T.VariableDeclarator) {

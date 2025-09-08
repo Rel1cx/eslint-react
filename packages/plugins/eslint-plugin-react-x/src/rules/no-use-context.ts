@@ -42,7 +42,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compare(settings.version, "19.0.0", "<")) {
     return {};
   }
-  const useContextNames = new Set<string>();
   const hookCalls = new Set<TSESTree.CallExpression>();
   return {
     CallExpression(node) {
@@ -61,11 +60,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (specifier.type !== T.ImportSpecifier) continue;
         if (specifier.imported.type !== T.Identifier) continue;
         if (specifier.imported.name === "useContext") {
-          // import { useContext as useCtx } from 'react'
-          if (specifier.local.name !== "useContext") {
-            // add alias to useContextAlias to keep track of it in future call expressions
-            useContextNames.add(specifier.local.name);
-          }
           context.report({
             messageId: "noUseContext",
             node: specifier,
@@ -90,9 +84,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     "Program:exit"() {
-      const isUseContextCall = ER.isReactHookCallWithNameAlias(context, "useContext", [...useContextNames]);
       for (const node of hookCalls) {
-        if (!isUseContextCall(node)) {
+        if (!ER.isUseContextCall(node)) {
           continue;
         }
         context.report({

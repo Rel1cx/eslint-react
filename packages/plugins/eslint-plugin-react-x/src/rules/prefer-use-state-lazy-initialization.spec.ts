@@ -139,22 +139,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: tsx`useLocalStorageState(1 || getValue())`,
-      errors: [
-        {
-          type: T.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useState: ["useLocalStorageState"],
-          },
-        },
-      },
-    },
   ],
   valid: [
     ...allValid,
@@ -245,16 +229,6 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: "useLocalStorage(() => JSON.parse('{}'))",
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useState: ["useLocalStorage"],
-          },
         },
       },
     },

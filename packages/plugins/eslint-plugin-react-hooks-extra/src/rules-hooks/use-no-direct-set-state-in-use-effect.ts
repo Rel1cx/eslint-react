@@ -2,7 +2,6 @@ import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/kit";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -39,14 +38,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   options: useNoDirectSetStateInUseEffect.Options<Ctx>,
 ): useNoDirectSetStateInUseEffect.ReturnType {
   const { onViolation, useEffectKind } = options;
-  const settings = getSettingsFromContext(context);
-  const hooks = settings.additionalHooks;
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-
-  const isUseEffectLikeCall = ER.isReactHookCallWithNameAlias(context, useEffectKind, hooks[useEffectKind]);
-  const isUseStateCall = ER.isReactHookCallWithNameAlias(context, "useState", hooks.useState);
-  const isUseMemoCall = ER.isReactHookCallWithNameAlias(context, "useMemo", hooks.useMemo);
-  const isUseCallbackCall = ER.isReactHookCallWithNameAlias(context, "useCallback", hooks.useCallback);
 
   const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
 
@@ -72,7 +64,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
   function isFunctionOfUseEffectSetup(node: TSESTree.Node) {
     return node.parent?.type === T.CallExpression
       && node.parent.callee !== node
-      && isUseEffectLikeCall(node.parent);
+      && ER.isUseEffectCall(node.parent);
   }
 
   function getCallName(node: TSESTree.Node) {
@@ -84,8 +76,8 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
 
   function getCallKind(node: TSESTree.CallExpression) {
     return match<TSESTree.CallExpression, CallKind>(node)
-      .when(isUseStateCall, () => "useState")
-      .when(isUseEffectLikeCall, () => useEffectKind)
+      .when(ER.isUseStateCall, () => "useState")
+      .when(ER.isUseEffectCall, () => useEffectKind)
       .when(isSetStateCall, () => "setState")
       .when(AST.isThenCall, () => "then")
       .otherwise(() => "other");
@@ -114,7 +106,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
     const variableNode = VAR.getVariableDefinitionNode(variable, 0);
     if (variableNode == null) return false;
     if (variableNode.type !== T.CallExpression) return false;
-    if (!ER.isReactHookCallWithNameAlias(context, "useState", hooks.useState)(variableNode)) return false;
+    if (!ER.isUseStateCall(variableNode)) return false;
     const variableNodeParent = variableNode.parent;
     if (!("id" in variableNodeParent) || variableNodeParent.id?.type !== T.ArrayPattern) {
       return true;
@@ -237,7 +229,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           // const [state, setState] = useState();
           // const set = useMemo(() => setState, []);
           // useEffect(set, []);
-          if (!isUseMemoCall(parent)) {
+          if (!ER.isUseMemoCall(parent)) {
             break;
           }
           const vd = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
@@ -253,7 +245,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           // const [state, setState] = useState();
           // const set = useCallback(setState, []);
           // useEffect(set, []);
-          if (isUseCallbackCall(node.parent)) {
+          if (ER.isUseCallbackCall(node.parent)) {
             const vd = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
             if (vd != null) {
               getOrElseUpdate(setStateInEffectArg, vd.init, () => []).push(node);
@@ -262,7 +254,7 @@ export function useNoDirectSetStateInUseEffect<Ctx extends RuleContext>(
           }
           // const [state, setState] = useState();
           // useEffect(setState);
-          if (isUseEffectLikeCall(node.parent)) {
+          if (ER.isUseEffectCall(node.parent)) {
             getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
           }
         }
