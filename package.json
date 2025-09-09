@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.0-beta.175",
+  "version": "2.0.0-next.176",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -53,7 +53,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.38.1",
+    "@effect/language-service": "^0.38.2",
     "@effect/platform": "^0.90.7",
     "@effect/platform-node": "^0.96.1",
     "@eslint/config-inspector": "^1.2.0",
@@ -66,9 +66,9 @@
     "@types/node": "^24.3.1",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
-    "@typescript-eslint/parser": "^8.42.0",
-    "@typescript-eslint/rule-tester": "^8.42.0",
-    "@typescript-eslint/types": "^8.42.0",
+    "@typescript-eslint/parser": "^8.43.0",
+    "@typescript-eslint/rule-tester": "^8.43.0",
+    "@typescript-eslint/types": "^8.43.0",
     "ansis": "^4.1.0",
     "cspell": "^9.2.1",
     "dedent": "^1.7.0",
@@ -76,7 +76,7 @@
     "effect": "^3.17.13",
     "eslint": "^9.35.0",
     "eslint-config-flat-gitignore": "^2.1.0",
-    "eslint-plugin-fast-import": "^1.3.0",
+    "eslint-plugin-fast-import": "^1.4.1",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.5.1",
     "lefthook": "^1.12.4",
@@ -98,7 +98,7 @@
     "typedoc-plugin-markdown": "^4.8.1",
     "typedoc-plugin-mdn-links": "^5.0.9",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.42.0",
+    "typescript-eslint": "^8.43.0",
     "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@10.15.0",

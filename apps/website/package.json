@@ -34,7 +34,7 @@
     "twoslash": "^0.3.4"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.38.1",
+    "@effect/language-service": "^0.38.2",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
@@ -56,16 +56,16 @@
     "dedent": "^1.7.0",
     "eslint": "^9.35.0",
     "eslint-plugin-de-morgan": "^1.3.1",
-    "eslint-plugin-fast-import": "^1.3.0",
+    "eslint-plugin-fast-import": "^1.4.1",
     "eslint-plugin-perfectionist": "^4.15.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "eslint-plugin-unicorn": "^61.0.1",
+    "eslint-plugin-unicorn": "^61.0.2",
     "importx": "^0.5.2",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.42.0"
+    "typescript-eslint": "^8.43.0"
   }
 }
