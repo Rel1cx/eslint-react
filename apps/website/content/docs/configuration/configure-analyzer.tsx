@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-objects */
 import { CodeBlock } from "#/components/ui/CodeBlock";
 import dedent from "dedent";
 import { TypeTable } from "fumadocs-ui/components/type-table";
@@ -6,6 +5,42 @@ import { TypeTable } from "fumadocs-ui/components/type-table";
 import { Link } from "next-view-transitions";
 
 const properties = {
+  version: {
+    type: "string",
+    description: <Link href="#version">React version to perform the analysis ⤵</Link>,
+    default: '"detect"',
+  },
+  importSource: {
+    type: "string",
+    description: <Link href="#importsource">The source where React is imported from ⤵</Link>,
+    default: '"react"',
+  },
+  polymorphicPropName: {
+    type: "string",
+    description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components ⤵</Link>,
+    default: '"as"',
+  },
+  additionalComponents: {
+    type: "CustomComponent[]",
+    description: <Link href="#additionalcomponents">An array of components and its attributes mapping ⤵</Link>,
+    default: "[]",
+    typeDescription: (
+      <CodeBlock
+        code={dedent`
+          type CustomComponent = {
+            name: string;
+            as?: string;
+            attributes?: {
+              name: string;
+              as?: string;
+              defaultValue?: string;
+            }[]
+          }
+        `}
+        lang="ts"
+      />
+    ),
+  },
   additionalHooks: {
     type: "Record<ReactBuiltInHookName, string[]>",
     description: <Link href="#additionalhooks">An object of aliases for React built-in Hooks ⤵</Link>,
@@ -37,42 +72,6 @@ const properties = {
         lang="ts"
       />
     ),
-  },
-  additionalComponents: {
-    type: "CustomComponent[]",
-    description: <Link href="#additionalcomponents">An array of components and its attributes mapping ⤵</Link>,
-    default: "[]",
-    typeDescription: (
-      <CodeBlock
-        code={dedent`
-          type CustomComponent = {
-            name: string;
-            as?: string;
-            attributes?: {
-              name: string;
-              as?: string;
-              defaultValue?: string;
-            }[]
-          }
-        `}
-        lang="ts"
-      />
-    ),
-  },
-  polymorphicPropName: {
-    type: "string",
-    description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components ⤵</Link>,
-    default: '"as"',
-  },
-  importSource: {
-    type: "string",
-    description: <Link href="#importsource">The source where React is imported from ⤵</Link>,
-    default: '"react"',
-  },
-  version: {
-    type: "string",
-    description: <Link href="#version">React version to perform the analysis ⤵</Link>,
-    default: '"detect"',
   },
 };
 
