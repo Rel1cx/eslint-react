@@ -1,23 +1,22 @@
-/* eslint-disable perfectionist/sort-objects */
 import { TypeTable } from "fumadocs-ui/components/type-table";
 
 import { Link } from "next-view-transitions";
 
 const properties = {
-  polymorphicPropName: {
+  version: {
     type: "string",
-    description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components</Link>,
-    default: '"as"',
+    description: <Link href="#version">React version to perform the analysis</Link>,
+    default: '"detect"',
   },
   importSource: {
     type: "string",
     description: <Link href="#importsource">The source where React is imported from</Link>,
     default: '"react"',
   },
-  version: {
+  polymorphicPropName: {
     type: "string",
-    description: <Link href="#version">React version to perform the analysis</Link>,
-    default: '"detect"',
+    description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components</Link>,
+    default: '"as"',
   },
 };
 
