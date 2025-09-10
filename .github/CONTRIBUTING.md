@@ -60,7 +60,6 @@ pnpm run lint:deps      # Check dependency cycles with skott
 pnpm run lint:ts        # TypeScript check across packages
 pnpm run lint:es        # ESLint check
 pnpm run lint:publish   # Check package.json publishing config
-pnpm run lint:spell     # Spell check with cspell
 
 # Format code
 pnpm run format:write   # Format with dprint
