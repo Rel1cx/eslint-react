@@ -7,8 +7,6 @@ import { isUseEffectCallLoose } from "./hook-is";
 export function isFunctionOfUseEffectSetup(node: TSESTree.Node | unit) {
   if (node == null) return false;
   return node.parent?.type === T.CallExpression
-    && node.parent.callee !== node
-    && node.parent.callee.type === T.Identifier
     && node.parent.arguments.at(0) === node
     && isUseEffectCallLoose(node.parent);
 }
