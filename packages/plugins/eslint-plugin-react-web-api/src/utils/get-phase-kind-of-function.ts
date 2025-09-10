@@ -17,8 +17,6 @@ export function getPhaseKindOfFunction(node: AST.TSESTreeFunction) {
 export function isFunctionOfUseEffectSetup(node: TSESTree.Node | unit) {
   if (node == null) return false;
   return node.parent?.type === T.CallExpression
-    && node.parent.callee !== node
-    && node.parent.callee.type === T.Identifier
     && node.parent.arguments.at(0) === node
     && ER.isUseEffectLikeCall(node.parent);
 }
