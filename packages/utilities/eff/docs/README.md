@@ -20,7 +20,6 @@
 
 - [absurd](functions/absurd.md)
 - [apply](functions/apply.md)
-- [chunk](functions/chunk.md)
 - [constant](functions/constant.md)
 - [constFalse](functions/constFalse.md)
 - [constNull](functions/constNull.md)
@@ -42,4 +41,3 @@
 - [tryAddToSet](functions/tryAddToSet.md)
 - [tupled](functions/tupled.md)
 - [untupled](functions/untupled.md)
-- [zipWith](functions/zipWith.md)

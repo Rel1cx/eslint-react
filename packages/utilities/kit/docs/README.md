@@ -12,9 +12,19 @@
 - [Reporter](@eslint-react/namespaces/Reporter/README.md)
 - [Selector](@eslint-react/namespaces/Selector/README.md)
 
+## Interfaces
+
+- [CompatibleConfig](interfaces/CompatibleConfig.md)
+- [CompatiblePlugin](interfaces/CompatiblePlugin.md)
+- [CompatibleRule](interfaces/CompatibleRule.md)
+- [SettingsConfig](interfaces/SettingsConfig.md)
+
 ## Type Aliases
 
 - [RuleContext](type-aliases/RuleContext.md)
 - [RuleFeature](type-aliases/RuleFeature.md)
-- [RulePreset](type-aliases/RulePreset.md)
-- [RuleSeverity](type-aliases/RuleSeverity.md)
+- [RulePolicy](type-aliases/RulePolicy.md)
+- [RuleSuggest](type-aliases/RuleSuggest.md)
+- [Severity](type-aliases/Severity.md)
+- [SeverityLevel](type-aliases/SeverityLevel.md)
+- [SeverityName](type-aliases/SeverityName.md)
