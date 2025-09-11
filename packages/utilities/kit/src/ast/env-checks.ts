@@ -20,8 +20,9 @@ export function isProcessEnvNodeEnv(node: TSESTree.Node | null | unit): node is 
 }
 
 /**
- * Check if the given node is a binary expression that compares `process.env.NODE_ENV` with a string literal
+ * expression that compares `process.env.NODE_ENV` with a string literal
  * @param node The AST node
+ * Check if the given node is a binary
  * @param operator The operator used in the comparison
  * @param value The string literal value to compare against
  * @returns True if the node is a binary expression that compares `process.env.NODE_ENV` with the specified value, false otherwise

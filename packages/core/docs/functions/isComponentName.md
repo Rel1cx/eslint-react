@@ -6,7 +6,7 @@
 
 # Function: isComponentName()
 
-> **isComponentName**(`name`): `any`
+> **isComponentName**(`name`): `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`any`
+`boolean`

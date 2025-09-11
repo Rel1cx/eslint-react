@@ -1,13 +1,17 @@
-import * as ER from "@eslint-react/core";
+import {
+  getElementType,
+  getJsxConfigFromAnnotation,
+  getJsxConfigFromContext,
+  isFragmentElement,
+  JsxEmit,
+} from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
-import { JsxConfig, Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match, P } from "ts-pattern";
 import { createRule, stringify } from "../utils";
-
-const { JsxEmit } = JsxConfig;
 
 export const RULE_NAME = "jsx";
 
@@ -35,8 +39,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const jsxConfigFromContext = JsxConfig.getFromContext(context);
-  const jsxConfigFromAnnotation = JsxConfig.getFromAnnotation(context);
+  const jsxConfigFromContext = getJsxConfigFromContext(context);
+  const jsxConfigFromAnnotation = getJsxConfigFromAnnotation(context);
   const jsxConfig = {
     ...jsxConfigFromContext,
     ...jsxConfigFromAnnotation,
@@ -49,10 +53,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       data: {
         json: stringify({
           kind: match(node)
-            .with({ type: T.JSXElement }, (n) => ER.isFragmentElement(context, n) ? "fragment" : "element")
+            .with({ type: T.JSXElement }, (n) => isFragmentElement(context, n) ? "fragment" : "element")
             .with({ type: T.JSXFragment }, () => "fragment")
             .exhaustive(),
-          type: ER.getElementType(context, node),
+          type: getElementType(context, node),
           jsx: match(jsxConfig.jsx)
             .with(JsxEmit.None, () => "none")
             .with(JsxEmit.ReactJSX, () => "react-jsx")
@@ -72,6 +76,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     } as const);
   }
   return {
-    "JSXElement, JSXFragment": flow(getReportDescriptor(context), RPT.make(context).send),
+    "JSXElement, JSXFragment": flow(getReportDescriptor(context), report(context)),
   };
 }

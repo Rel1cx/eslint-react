@@ -1,7 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { ContextDetection } from "@eslint-react/kit";
+import { isViMockCallback, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -65,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         // Skip hooks that are in a vi mock callback
-        if (AST.findParentNode(node, ContextDetection.isViMockCallback) != null) {
+        if (AST.findParentNode(node, isViMockCallback) != null) {
           continue;
         }
         context.report({

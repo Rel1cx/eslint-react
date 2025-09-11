@@ -6,7 +6,7 @@
 
 # Function: hasNoneOrLooseComponentName()
 
-> **hasNoneOrLooseComponentName**(`context`, `fn`): `any`
+> **hasNoneOrLooseComponentName**(`context`, `fn`): `boolean`
 
 ## Parameters
 
@@ -20,4 +20,4 @@
 
 ## Returns
 
-`any`
+`boolean`

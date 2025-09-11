@@ -5,7 +5,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import * as ER from "@eslint-react/core";
-import { JsxConfig, type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/kit";
 import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
@@ -53,8 +53,8 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const policy = context.options[0] ?? defaultOptions[0];
   const jsxConfig = {
-    ...JsxConfig.getFromContext(context),
-    ...JsxConfig.getFromAnnotation(context),
+    ...ER.getJsxConfigFromContext(context),
+    ...ER.getJsxConfigFromAnnotation(context),
   };
 
   const { jsxFragmentFactory } = jsxConfig;
