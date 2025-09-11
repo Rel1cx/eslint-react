@@ -1,0 +1,9 @@
+[**@eslint-react/kit**](../README.md)
+
+***
+
+[@eslint-react/kit](../README.md) / SEL\_OBJECT\_DESTRUCTURING\_VARIABLE\_DECLARATOR
+
+# Variable: SEL\_OBJECT\_DESTRUCTURING\_VARIABLE\_DECLARATOR
+
+> `const` **SEL\_OBJECT\_DESTRUCTURING\_VARIABLE\_DECLARATOR**: `string`
