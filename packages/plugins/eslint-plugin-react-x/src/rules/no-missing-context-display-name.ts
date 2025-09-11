@@ -1,5 +1,5 @@
 import * as ER from "@eslint-react/core";
-import { LanguagePreference, type RuleContext, type RuleFeature, Selector as SEL } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, Selector as SEL } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -62,9 +62,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return ER.isInstanceIdEqual(context, id, object);
           });
         if (!hasDisplayNameAssignment) {
-          const semi = LanguagePreference.defaultLanguagePreference.semicolons === "always"
-            ? ";"
-            : "";
           context.report({
             messageId: "noMissingContextDisplayName",
             node: id,
@@ -81,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                   "=",
                   " ",
                   JSON.stringify(id.name),
-                  semi,
+                  ";",
                 ].join(""),
               );
             },
