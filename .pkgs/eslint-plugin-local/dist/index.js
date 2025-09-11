@@ -155,7 +155,7 @@ function create(context) {
 
 //#endregion
 //#region src/index.ts
-var src_default = {
+const plugin = {
 	meta: {
 		name,
 		version
@@ -166,6 +166,7 @@ var src_default = {
 		"prefer-eqeq-nullish-comparison": prefer_eqeq_nullish_comparison_default
 	}
 };
+var src_default = plugin;
 
 //#endregion
 export { src_default as default };
