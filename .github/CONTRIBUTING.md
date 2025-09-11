@@ -1,113 +1,86 @@
 # ESLint React Contributing Guide
 
-Thank you for your interest in contributing to ESLint React! This guide will help you understand how to contribute effectively.
+Welcome to contributing to ESLint React! This guide will help you contribute effectively.
 
 > [!NOTE]
 > ESLint React is not a fork of or derived from `eslint-plugin-react`. Features in `eslint-plugin-react` may not appear in ESLint React.
 
-## Issue Reporting Guidelines
+## Issue Reporting Guide
 
-- **Search First** - Your issue may already be addressed
-- **Verify Version** - Confirm reproducibility with the latest stable release
-- **Clear Reproduction Steps Required** - Detailed steps to reproduce are essential
-- **Minimal Code Example** - Provide only the code necessary to demonstrate the issue
-- **Be Patient** - The team balances many responsibilities
+- **Search first**: Your issue may have already been reported.
+- **Verify version**: Ensure the issue is reproducible in the latest stable version.
+- **Provide clear reproduction steps**.
+- **Provide a minimal reproducible code example**.
 
-## Pull Request Guidelines
+## Pull Request Guide
 
-- **Sign Your Commits** - Ensure your commits are signed
-- **Multiple Small Commits Allowed** - GitHub will squash before merging
-- **New Features** - Provide strong rationale, preferably with prior discussion
-- **Bug Fixes** - Include `(fix: #xxxx)` in your PR title and detailed description
-- **Documentation Changes** - Include `(docs: #xxxx)` in your PR title and detailed description
+- **Sign your commits**.
+- **Small commits are welcome**: We will squash them before merging.
+- **New features**: Please provide a good reason, preferably by discussing it in an Issue first.
+- **Bug fixes**: Include `(fix: #xxxx)` in the PR title.
+- **Documentation changes**: Include `(docs: #xxxx)` in the PR title.
 
 ## Development Commands
 
-### Build Commands
+### Build
 
 ```bash
-# Build packages in packages directory (core, shared, utilities, plugins)
+# Build packages that are needed for development and publishing
 pnpm run build
 
-# Build packages in .pkgs directory (local configs)
+# Build packages that are used in the monorepo (e.g., plugins, configs)
 pnpm run build:pkgs
 
-# Build documentation for all packages
+# Build docs for all packages
 pnpm run build:docs
 
-# Build website
+# Build the website
 pnpm run build:website
 ```
 
 ### Testing
 
 ```bash
-# Run all tests with Vitest
+# Run all tests
 pnpm run test
 
 # Run a single test file
 pnpm vitest packages/plugins/eslint-plugin-react-x/src/rules/[rule-name].spec.ts
 ```
 
-### Linting & Formatting
+### Code Linting and Formatting
 
 ```bash
-# Full lint check (deps, publish, TypeScript, ESLint, examples)
+# Format the code
+pnpm run format:write
+
+# Run all checks
 pnpm run lint
-
-# Individual lint commands
-pnpm run lint:deps      # Check dependency cycles with skott
-pnpm run lint:ts        # TypeScript check across packages
-pnpm run lint:es        # ESLint check
-pnpm run lint:publish   # Check package.json publishing config
-
-# Format code
-pnpm run format:write   # Format with dprint
-pnpm run format:check   # Check formatting
-```
-
-### Development Utilities
-
-```bash
-# Update project metadata
-pnpm run update:all        # Update version, README, and website
-pnpm run update:version    # Update version across packages
-pnpm run update:readme     # Update README with generated content
-pnpm run update:website    # Update website content
-
-# Package management
-pnpm run sort:package-json # Sort package.json files consistently
-
-# Inspection tools
-pnpm run inspect:deps           # Visualize dependency graph
-pnpm run inspect:eslint-config  # Launch ESLint config inspector
 ```
 
 ## Development Workflow
 
 ### Testing
 
-- Test files located alongside source: `src/rules/[rule-name].spec.ts`
-- Uses TypeScript ESLint Rule Tester with custom configurations
-- Separate test setups for type-checked and non-type-checked rules
-- Test fixtures support multiple TypeScript configurations (JSX variants)
-- Helper functions in `test/` directory for common test utilities
+- Test files coexist with source files: `src/rules/[rule-name].spec.ts`.
+- Uses `TypeScript ESLint Rule Tester`.
+- Provides separate test setups for type-aware and non-type-aware rules.
+- Test fixtures support multiple TypeScript configurations (e.g., JSX variants).
+- Test helpers are located in the `test/` directory.
 
-### Working with Rules
+### Developing a New Rule
 
-When developing new ESLint rules:
+1. If there isn't a related Issue, create one first to discuss the new rule.
+2. Implement the rule in the plugin's `src/rules/` directory.
+3. Create the corresponding test file.
+4. Export the rule in the plugin's entry file (`src/plugin.ts`).
+5. Add documentation for the rule.
+6. If the rule should be enabled by default, update the preset configurations.
+7. Update the unified plugin to include the new rule.
+8. Update the website documentation.
+9. Run build and test commands.
+10. Submit a PR with a clear description of the changes.
 
-1. Open an issue to discuss the rule's purpose and design if no existing issue exists
-2. Add rule implementation in appropriate plugin's `src/rules/` directory
-3. Create corresponding test file using rule tester setup
-4. Export rule from plugin's main index file
-5. Add rule documentation with summary and examples
-6. Update presets/configs if rule should be included by default
-7. Update the unified plugin to include the new rule
-8. Update the website documentation with the new rule details
-9. Run the build and test commands to ensure everything works as expected
-10. Submit a pull request with clear description of the changes and any relevant issue links
-
-## References
+## Reference
 
 - [Monorepo Structure](https://beta.eslint-react.xyz/docs/contributing#monorepo-structure)
