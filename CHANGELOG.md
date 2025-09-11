@@ -1,3 +1,11 @@
+## v1.53.1 (2025-09-11)
+
+### 🐞 Fixes
+
+- fix: fix useEffect setup function check in `web-api/no-leaked-event-listener`, closes #1228 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1229
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.53.0...v1.53.1
+
 ## v1.53.0 (2025-09-04)
 
 ### ✨ New
