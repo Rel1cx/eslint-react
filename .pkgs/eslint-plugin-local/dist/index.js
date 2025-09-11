@@ -33,8 +33,7 @@ function isInitializedFromSource(name$1, source, initialScope) {
 		const { init } = node;
 		if (init.type === AST_NODE_TYPES$1.MemberExpression && init.object.type === AST_NODE_TYPES$1.Identifier) return isInitializedFromSource(init.object.name, source, initialScope);
 		if (init.type === AST_NODE_TYPES$1.Identifier) return isInitializedFromSource(init.name, source, initialScope);
-		const args = getRequireExpressionArguments(init);
-		const arg0 = args?.[0];
+		const arg0 = getRequireExpressionArguments(init)?.[0];
 		if (arg0 == null || !AST.isLiteral(arg0, "string")) return false;
 		return arg0.value === source || arg0.value.startsWith(`${source}/`);
 	}
@@ -96,8 +95,7 @@ var no_shadow_underscore_default = createRule({
 function create$1(context) {
 	return { "Identifier[name='_']"(node) {
 		const initialScope = context.sourceCode.getScope(node);
-		const isFromImport = isInitializedFromSource("_", "@eslint-react/eff", initialScope);
-		if (!isFromImport) context.report({
+		if (!isInitializedFromSource("_", "@eslint-react/eff", initialScope)) context.report({
 			messageId: "noShadowUnderscore",
 			node
 		});

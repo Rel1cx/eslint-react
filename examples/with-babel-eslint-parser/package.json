@@ -15,18 +15,18 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.3",
-    "@babel/eslint-parser": "^7.28.0",
+    "@babel/core": "^7.28.4",
+    "@babel/eslint-parser": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
     "@eslint/config-inspector": "^1.2.0",
-    "@eslint/js": "^9.34.0",
+    "@eslint/js": "^9.35.0",
     "@types/babel__core": "~7.20.5",
     "@types/babel__preset-env": "~7.10.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.2",
-    "eslint": "^9.34.0",
+    "eslint": "^9.35.0",
     "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -35,8 +35,8 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*",
-    "globals": "^16.3.0",
-    "vite": "^7.1.4"
+    "globals": "^16.4.0",
+    "vite": "^7.1.5"
   },
   "engines": {
     "node": ">=18.18.0"

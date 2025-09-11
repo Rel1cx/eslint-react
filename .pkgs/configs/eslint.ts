@@ -2,7 +2,7 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
 import pluginFunction from "eslint-plugin-function";
-import pluginJsdoc from "eslint-plugin-jsdoc";
+import { jsdoc } from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
 import pluginUnicorn from "eslint-plugin-unicorn";
@@ -158,11 +158,11 @@ export const strictTypeChecked = defineConfig([
   },
   {
     extends: [
+      jsdoc({ config: "flat/recommended-typescript-error" }),
       pluginDeMorgan.configs.recommended,
-      pluginJsdoc.configs["flat/recommended-typescript-error"],
-      pluginRegexp.configs["flat/recommended"],
       pluginPerfectionist.configs["recommended-natural"],
-    ],
+      pluginRegexp.configs["flat/recommended"],
+    ] as never,
     files: GLOB_TS,
     plugins: {
       ["@stylistic"]: stylistic,
