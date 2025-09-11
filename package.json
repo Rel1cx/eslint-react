@@ -53,8 +53,8 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.38.4",
-    "@effect/platform": "^0.90.8",
+    "@effect/language-service": "^0.39.0",
+    "@effect/platform": "^0.90.9",
     "@effect/platform-node": "^0.96.1",
     "@eslint/config-inspector": "^1.2.0",
     "@eslint/markdown": "^7.2.0",
@@ -119,7 +119,7 @@
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.9",
       "lucide-react": "^0.543.0",
-      "next": "^15.5.2",
+      "next": "^15.5.3",
       "react": "^19.1.1",
       "react-dom": "^19.1.1",
       "ts-api-utils": "^2.1.0",
