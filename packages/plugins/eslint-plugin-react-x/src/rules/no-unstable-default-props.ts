@@ -1,8 +1,12 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { Selector as SEL } from "@eslint-react/kit";
+import {
+  type ObjectDestructuringVariableDeclarator,
+  type RuleContext,
+  type RuleFeature,
+  SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR,
+} from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -37,10 +41,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useComponentCollector(context);
-  const declarators = new WeakMap<
-    AST.TSESTreeFunction,
-    SEL.ObjectDestructuringVariableDeclarator[]
-  >();
+  const declarators = new WeakMap<AST.TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
 
   return {
     ...listeners,
@@ -89,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
     },
-    [SEL.OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: SEL.ObjectDestructuringVariableDeclarator) {
+    [SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ObjectDestructuringVariableDeclarator) {
       const functionEntry = ctx.getCurrentEntry();
       if (functionEntry == null) return;
       getOrElseUpdate(

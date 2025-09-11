@@ -17,6 +17,7 @@
 - [ClassComponent](interfaces/ClassComponent.md)
 - [FunctionComponent](interfaces/FunctionComponent.md)
 - [Hook](interfaces/Hook.md)
+- [JsxConfig](interfaces/JsxConfig.md)
 - [SemanticEntry](interfaces/SemanticEntry.md)
 - [SemanticNode](interfaces/SemanticNode.md)
 
@@ -107,6 +108,7 @@
 - [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md)
 - [isUseTransitionCall](variables/isUseTransitionCall.md)
 - [JSXDetectionHint](variables/JSXDetectionHint.md)
+- [JsxEmit](variables/JsxEmit.md)
 - [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md)
 
 ## Functions
@@ -118,6 +120,8 @@
 - [getComponentNameFromId](functions/getComponentNameFromId.md)
 - [getElementType](functions/getElementType.md)
 - [getFunctionComponentId](functions/getFunctionComponentId.md)
+- [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md)
+- [getJsxConfigFromContext](functions/getJsxConfigFromContext.md)
 - [hasAnyAttribute](functions/hasAnyAttribute.md)
 - [hasAttribute](functions/hasAttribute.md)
 - [hasEveryAttribute](functions/hasEveryAttribute.md)

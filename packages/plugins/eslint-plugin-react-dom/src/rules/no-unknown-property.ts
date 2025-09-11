@@ -2,7 +2,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 // TODO: Port to TypeScript
 // @ts-nocheck
-import { Reporter as RPT } from "@eslint-react/kit";
+import { report } from "@eslint-react/kit";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { JSXAttribute } from "@typescript-eslint/types/dist/ast-spec";
@@ -1171,8 +1171,6 @@ export default createRule({
  * @returns Rule listener
  */
 export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
-  const report = RPT.make(context);
-
   /**
    * Gets the ignore configuration from rule options
    * @returns Array of attribute names to ignore
@@ -1211,7 +1209,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       // Handle data-* attributes
       if (isValidDataAttribute(name)) {
         if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
-          report.send({
+          context.report({
             node,
             messageId: "dataLowercaseRequired",
             data: {
@@ -1242,7 +1240,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       if (tagName && allowedTags) {
         // Report if attribute is used on a tag where it's not allowed
         if (allowedTags.indexOf(tagName) === -1) {
-          report.send({
+          context.report({
             node,
             messageId: "invalidPropOnTag",
             data: {
@@ -1268,7 +1266,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
 
       if (hasStandardNameButIsNotUsed) {
         // Suggest the correct standard name
-        report.send({
+        context.report({
           node,
           messageId: "unknownPropWithStandardName",
           data: {
@@ -1283,7 +1281,7 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       }
 
       // Report unknown attribute
-      report.send({
+      context.report({
         node,
         messageId: "unknownProp",
         data: {

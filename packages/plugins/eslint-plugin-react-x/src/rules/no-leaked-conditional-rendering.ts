@@ -1,20 +1,20 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { flow, unit } from "@eslint-react/eff";
-import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { unionConstituents } from "ts-api-utils";
 import { match, P } from "ts-pattern";
 
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
@@ -118,6 +118,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       .otherwise(() => unit);
   }
   return {
-    JSXExpressionContainer: flow(getReportDescriptor, RPT.make(context).send),
+    JSXExpressionContainer: flow(getReportDescriptor, report(context)),
   };
 }

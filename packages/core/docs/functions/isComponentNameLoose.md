@@ -6,7 +6,7 @@
 
 # Function: isComponentNameLoose()
 
-> **isComponentNameLoose**(`name`): `any`
+> **isComponentNameLoose**(`name`): `boolean`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`any`
+`boolean`

@@ -20,15 +20,15 @@ export type DisplayNameAssignmentExpression = TSESTree.AssignmentExpression & {
   right: TSESTree.Literal;
 };
 
-export const IMPLICIT_RETURN_ARROW_FUNCTION_EXPRESSION = "ArrowFunctionExpression[body.type!='BlockStatement']";
+export const SEL_IMPLICIT_RETURN_ARROW_FUNCTION_EXPRESSION = "ArrowFunctionExpression[body.type!='BlockStatement']";
 
-export const OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR = [
+export const SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR = [
   "VariableDeclarator",
   "[id.type='ObjectPattern']",
   "[init.type='Identifier']",
 ].join("");
 
-export const DISPLAY_NAME_ASSIGNMENT_EXPRESSION = [
+export const SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION = [
   "AssignmentExpression",
   "[operator='=']",
   "[left.type='MemberExpression']",

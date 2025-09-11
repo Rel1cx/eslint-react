@@ -1,4 +1,4 @@
-import { RegExp as RE, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, toRegExp } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -115,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
           }
           const forbiddenProp = typeof forbiddenPropItem === "string" ? forbiddenPropItem : forbiddenPropItem.prop;
 
-          const forbiddenPropRegExp = RE.toRegExp(forbiddenProp);
+          const forbiddenPropRegExp = toRegExp(forbiddenProp);
           if (forbiddenPropRegExp.test(name)) {
             context.report({
               messageId,

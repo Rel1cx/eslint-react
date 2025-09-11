@@ -1,5 +1,10 @@
 import * as ER from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, Selector as SEL } from "@eslint-react/kit";
+import {
+  type DisplayNameAssignmentExpression,
+  type RuleContext,
+  type RuleFeature,
+  SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION,
+} from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -86,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
     },
-    [SEL.DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: SEL.DisplayNameAssignmentExpression) {
+    [SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: DisplayNameAssignmentExpression) {
       displayNameAssignments.push(node);
     },
   };
