@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
 import { flow, unit } from "@eslint-react/eff";
 import { report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -15,7 +14,7 @@ import type { CamelCase } from "string-ts";
 import { unionConstituents } from "ts-api-utils";
 import { match, P } from "ts-pattern";
 
-import { createRule } from "../utils";
+import { createRule, getTypeVariants, type TypeVariant } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
@@ -61,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...compare(version, "18.0.0", "<")
       ? []
       : ["string", "falsy string"] as const,
-  ] as const satisfies ER.TypeVariant[];
+  ] as const satisfies TypeVariant[];
 
   const services = ESLintUtils.getParserServices(context, false);
   function getReportDescriptor(
@@ -92,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           } as const;
         }
         const leftType = getConstrainedTypeAtLocation(services, left);
-        const leftTypeVariants = ER.getTypeVariants(unionConstituents(leftType));
+        const leftTypeVariants = getTypeVariants(unionConstituents(leftType));
         const isLeftValid = Array
           .from(leftTypeVariants.values())
           .every((type) => allowedVariants.some((allowed) => allowed === type));

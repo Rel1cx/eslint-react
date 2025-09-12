@@ -34,7 +34,6 @@
 - [ComponentStateKind](type-aliases/ComponentStateKind.md)
 - [EffectKind](type-aliases/EffectKind.md)
 - [JSXDetectionHint](type-aliases/JSXDetectionHint.md)
-- [TypeVariant](type-aliases/TypeVariant.md)
 
 ## Variables
 
