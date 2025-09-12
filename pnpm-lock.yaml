@@ -134,8 +134,8 @@ importers:
         specifier: ^5.8.0
         version: 5.8.0
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
       tsx:
         specifier: ^4.20.5
         version: 4.20.5
@@ -176,8 +176,8 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1(eslint@9.35.0(jiti@2.5.1))
       eslint-plugin-function:
-        specifier: ^0.0.25
-        version: 0.0.25(eslint@9.35.0(jiti@2.5.1))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2)
+        specifier: ^0.0.26
+        version: 0.0.26(eslint@9.35.0(jiti@2.5.1))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2)
       eslint-plugin-jsdoc:
         specifier: ^56.1.2
         version: 56.1.2(eslint@9.35.0(jiti@2.5.1))
@@ -270,8 +270,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.12)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   apps/website:
     dependencies:
@@ -784,8 +784,8 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -839,8 +839,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -897,8 +897,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.12)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
@@ -955,8 +955,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.12)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -1013,8 +1013,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.12)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -1071,8 +1071,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.12)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-web-api:
     dependencies:
@@ -1126,8 +1126,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.12)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
@@ -1193,8 +1193,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.9.2)
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/shared:
     dependencies:
@@ -1224,8 +1224,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -1255,8 +1255,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/utilities/eff:
     devDependencies:
@@ -1264,8 +1264,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
   packages/utilities/kit:
     dependencies:
@@ -1292,8 +1292,8 @@ importers:
         specifier: ^22.0.2
         version: 22.0.2
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -1326,8 +1326,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.0
-        version: 0.15.0(publint@0.3.12)(typescript@5.9.2)
+        specifier: ^0.15.1
+        version: 0.15.1(publint@0.3.12)(typescript@5.9.2)
 
 packages:
 
@@ -4747,11 +4747,11 @@ packages:
     peerDependencies:
       eslint: '>=9.0.0'
 
-  eslint-plugin-function@0.0.25:
-    resolution: {integrity: sha512-tioBSatlGjaxuyCagcckA7DT+VaYkm8aHt4MiyulDbuObH3d79xBJwsJpddJ838OLNQRzpdAcwwgqRzRXMov4A==}
+  eslint-plugin-function@0.0.26:
+    resolution: {integrity: sha512-FYdCRLjMFCvb3hTX5Phx8tmpEvJw1NBc0xRk1g3y3MzIQK4qEBd8ImsSuSMX5NemoO7D+Z64934T7iGWrIGS+Q==}
     engines: {node: '>=20.10.0'}
     peerDependencies:
-      eslint: ^9.34.0
+      eslint: ^9.35.0
       ts-api-utils: ^2.1.0
       typescript: ^5.9.2
 
@@ -5656,8 +5656,8 @@ packages:
   lunr@2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
 
-  magic-string@0.30.18:
-    resolution: {integrity: sha512-yi8swmWbO17qHhwIBNeeZxTceJMeBvWJaId6dyvTSOwTipqeHhMhOrz6513r1sOKnpvQ7zkhlG8tPrpilwTxHQ==}
+  magic-string@0.30.19:
+    resolution: {integrity: sha512-2N21sPY9Ws53PZvsEpVtNuSW+ScYbQdp4b9qUaL+9QkHUrGFKo56Lg9Emg5s9V/qrtNBmiR01sYhUOwu3H+VOw==}
 
   markdown-extensions@2.0.0:
     resolution: {integrity: sha512-o5vL7aDWatOTX8LzaS1WMoaoxIiLRQJuIKKe2wAw6IeULDHaqbiqiggmx+pKvZDb1Sj+pE46Sn1T7lCqfFtg1Q==}
@@ -6461,15 +6461,18 @@ packages:
   robust-predicates@3.0.2:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
 
-  rolldown-plugin-dts@0.16.1:
-    resolution: {integrity: sha512-bEfJpvhHm+h2cldNUbj8dT5tF9BJrJawPquScFdodob/55DqYkBis7iar8nkn8wSNIFKxwd2jP9ly/Z7lRME2w==}
+  rolldown-plugin-dts@0.16.5:
+    resolution: {integrity: sha512-bOAfJ7Tc11xK/Uou7KWYha25/Sy80G0DZkhX8WMYx6l8PUalR+bvVzQNuEqXafpKEisZfUHQrkhS2gZG76Xntw==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
+      '@ts-macro/tsc': ^0.3.6
       '@typescript/native-preview': '>=7.0.0-dev.20250601.1'
       rolldown: ^1.0.0-beta.9
       typescript: ^5.9.2
       vue-tsc: ~3.0.3
     peerDependenciesMeta:
+      '@ts-macro/tsc':
+        optional: true
       '@typescript/native-preview':
         optional: true
       typescript:
@@ -6799,8 +6802,8 @@ packages:
   ts-pattern@5.8.0:
     resolution: {integrity: sha512-kIjN2qmWiHnhgr5DAkAafF9fwb0T5OhMVSWrm8XEdTFnX6+wfXwYOFjeF86UZ54vduqiR7BfqScFmXSzSaH8oA==}
 
-  tsdown@0.15.0:
-    resolution: {integrity: sha512-xbz8tvdlB2wspocZWcJQhZNDLJC+sKV+sTIpiRgfUiQCUxLFGnUZUPc9KoKp3nfMeXQqTyMi6FM9/SasSj+csQ==}
+  tsdown@0.15.1:
+    resolution: {integrity: sha512-USTr2wS5OIyohR8Sp09rp5mXVwOX4YvVRqarS9I9jIhF+PqgtVSMXG4vBrHGY1OficNcLT5Z75pSoxd2uU+BYg==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -9435,7 +9438,7 @@ snapshots:
       enhanced-resolve: 5.18.3
       jiti: 2.5.1
       lightningcss: 1.30.1
-      magic-string: 0.30.18
+      magic-string: 0.30.19
       source-map-js: 1.2.1
       tailwindcss: 4.1.13
 
@@ -9941,7 +9944,7 @@ snapshots:
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
-      magic-string: 0.30.18
+      magic-string: 0.30.19
     optionalDependencies:
       vite: 7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.5)(yaml@2.8.1)
 
@@ -9958,7 +9961,7 @@ snapshots:
   '@vitest/snapshot@3.2.4':
     dependencies:
       '@vitest/pretty-format': 3.2.4
-      magic-string: 0.30.18
+      magic-string: 0.30.19
       pathe: 2.0.3
 
   '@vitest/spy@3.2.4':
@@ -9992,7 +9995,7 @@ snapshots:
       '@vue/compiler-ssr': 3.5.21
       '@vue/shared': 3.5.21
       estree-walker: 2.0.2
-      magic-string: 0.30.18
+      magic-string: 0.30.19
       postcss: 8.5.6
       source-map-js: 1.2.1
 
@@ -10773,7 +10776,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-function@0.0.25(eslint@9.35.0(jiti@2.5.1))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2):
+  eslint-plugin-function@0.0.26(eslint@9.35.0(jiti@2.5.1))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2):
     dependencies:
       '@eslint-react/ast': 2.0.0-next.166(eslint@9.35.0(jiti@2.5.1))(typescript@5.9.2)
       '@eslint-react/core': 2.0.0-next.166(eslint@9.35.0(jiti@2.5.1))(typescript@5.9.2)
@@ -11746,7 +11749,7 @@ snapshots:
 
   lunr@2.3.9: {}
 
-  magic-string@0.30.18:
+  magic-string@0.30.19:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
@@ -12944,7 +12947,7 @@ snapshots:
 
   robust-predicates@3.0.2: {}
 
-  rolldown-plugin-dts@0.16.1(rolldown@1.0.0-beta.37)(typescript@5.9.2):
+  rolldown-plugin-dts@0.16.5(rolldown@1.0.0-beta.37)(typescript@5.9.2):
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/parser': 7.28.4
@@ -12954,6 +12957,7 @@ snapshots:
       debug: 4.4.1
       dts-resolver: 2.1.2
       get-tsconfig: 4.10.1
+      magic-string: 0.30.19
       rolldown: 1.0.0-beta.37
     optionalDependencies:
       typescript: 5.9.2
@@ -13355,7 +13359,7 @@ snapshots:
 
   ts-pattern@5.8.0: {}
 
-  tsdown@0.15.0(publint@0.3.12)(typescript@5.9.2):
+  tsdown@0.15.1(publint@0.3.12)(typescript@5.9.2):
     dependencies:
       ansis: 4.1.0
       cac: 6.7.14
@@ -13365,7 +13369,7 @@ snapshots:
       empathic: 2.0.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.37
-      rolldown-plugin-dts: 0.16.1(rolldown@1.0.0-beta.37)(typescript@5.9.2)
+      rolldown-plugin-dts: 0.16.5(rolldown@1.0.0-beta.37)(typescript@5.9.2)
       semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.15
@@ -13375,6 +13379,7 @@ snapshots:
       publint: 0.3.12
       typescript: 5.9.2
     transitivePeerDependencies:
+      - '@ts-macro/tsc'
       - '@typescript/native-preview'
       - oxc-resolver
       - supports-color
@@ -13679,7 +13684,7 @@ snapshots:
       chai: 5.3.3
       debug: 4.4.1
       expect-type: 1.2.2
-      magic-string: 0.30.18
+      magic-string: 0.30.19
       pathe: 2.0.3
       picomatch: 4.0.3
       std-env: 3.9.0

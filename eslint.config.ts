@@ -55,7 +55,7 @@ export default defineConfig([
     extends: [
       tseslint.configs.strictTypeChecked,
       strictTypeChecked,
-      // @ts-expect-error - types are outdated
+      // @ts-expect-error - types issue
       fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
