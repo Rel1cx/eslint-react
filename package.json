@@ -27,9 +27,9 @@
   "type": "module",
   "scripts": {
     "build": "pnpm run update:all && pnpm run build:pkgs && pnpm run build:packages && pnpm run build:docs",
-    "build:docs": "pnpm -r --filter \"./packages/**\" run build:docs",
-    "build:packages": "pnpm -r --filter \"./packages/**\" run build",
-    "build:pkgs": "pnpm -r --filter \"./.pkgs/*\" run build",
+    "build:docs": "pnpm -r --stream --filter \"./packages/**\" run build:docs",
+    "build:packages": "pnpm -r --stream --filter \"./packages/**\" run build",
+    "build:pkgs": "pnpm -r --stream --filter \"./.pkgs/*\" run build",
     "build:website": "pnpm run update:website && pnpm -F \"./apps/website\" run build",
     "format:check": "dprint check",
     "format:write": "dprint fmt",
@@ -53,7 +53,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.39.0",
+    "@effect/language-service": "^0.40.0",
     "@effect/platform": "^0.90.9",
     "@effect/platform-node": "^0.96.1",
     "@eslint/config-inspector": "^1.2.0",
@@ -76,10 +76,10 @@
     "effect": "^3.17.13",
     "eslint": "^9.35.0",
     "eslint-config-flat-gitignore": "^2.1.0",
-    "eslint-plugin-fast-import": "^1.4.1",
+    "eslint-plugin-fast-import": "^1.4.3",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.5.1",
-    "lefthook": "^1.12.4",
+    "lefthook": "^1.13.0",
     "markdownlint": "^0.38.0",
     "mdxlint": "^1.0.0",
     "publint": "^0.3.12",
@@ -91,7 +91,7 @@
     "tinyexec": "^1.0.1",
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.8.0",
-    "tsdown": "^0.15.0",
+    "tsdown": "^0.15.1",
     "tsx": "^4.20.5",
     "type-fest": "^4.41.0",
     "typedoc": "^0.28.12",
@@ -101,7 +101,7 @@
     "typescript-eslint": "^8.43.0",
     "vitest": "^3.2.4"
   },
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.16.0",
   "engines": {
     "node": ">=18.18.0"
   },
@@ -118,7 +118,7 @@
       "@types/react-dom": "^19.1.9",
       "cross-spawn": "^7.0.6",
       "esbuild": "^0.25.9",
-      "lucide-react": "^0.543.0",
+      "lucide-react": "^0.544.0",
       "next": "^15.5.3",
       "react": "^19.1.1",
       "react-dom": "^19.1.1",

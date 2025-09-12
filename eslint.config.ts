@@ -55,6 +55,7 @@ export default defineConfig([
     extends: [
       tseslint.configs.strictTypeChecked,
       strictTypeChecked,
+      // @ts-expect-error - types issue
       fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
@@ -116,4 +117,4 @@ export default defineConfig([
       "local/avoid-multiline-template-expression": "off",
     },
   },
-] as never);
+]);
