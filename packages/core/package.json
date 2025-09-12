@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.15.0"
+    "tsdown": "^0.15.1"
   },
   "engines": {
     "node": ">=20.19.0"

@@ -1,6 +1,6 @@
 import react from "@eslint-react/eslint-plugin";
 import markdown from "@eslint/markdown";
-import * as configs from "@local/configs/eslint";
+import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
 import gitignore from "eslint-config-flat-gitignore";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
@@ -49,7 +49,7 @@ export default defineConfig([
   },
   {
     extends: [
-      configs.typescript,
+      strictTypeChecked, // @ts-expect-error - types issue
       fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
@@ -99,7 +99,7 @@ export default defineConfig([
   },
   {
     extends: [
-      configs.disableTypeChecked,
+      disableTypeChecked,
       react.configs["disable-type-checked"],
     ],
     files: [...GLOB_JS, ...GLOB_CONFIG],
@@ -108,4 +108,4 @@ export default defineConfig([
       "no-undef": "off",
     },
   },
-] as never);
+]);
