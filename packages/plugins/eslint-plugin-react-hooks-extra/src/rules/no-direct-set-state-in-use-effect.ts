@@ -218,9 +218,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               return;
             }
             default: {
-              const vd = AST.findParentNode(node, isVariableDeclaratorFromHookCall);
-              if (vd == null) getOrElseUpdate(setStateCallsByFn, pEntry.node, () => []).push(node);
-              else getOrElseUpdate(setStateInHookCallbacks, vd.init, () => []).push(node);
+              const init = AST.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
+              if (init == null) getOrElseUpdate(setStateCallsByFn, pEntry.node, () => []).push(node);
+              else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
             }
           }
         })
@@ -253,9 +253,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!ER.isUseMemoCall(parent)) {
             break;
           }
-          const vd = AST.findParentNode(parent, isVariableDeclaratorFromHookCall);
-          if (vd != null) {
-            getOrElseUpdate(setStateInEffectArg, vd.init, () => []).push(node);
+          const init = AST.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
+          if (init != null) {
+            getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
           }
           break;
         }
@@ -267,9 +267,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // const set = useCallback(setState, []);
           // useEffect(set, []);
           if (ER.isUseCallbackCall(node.parent)) {
-            const vd = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall);
-            if (vd != null) {
-              getOrElseUpdate(setStateInEffectArg, vd.init, () => []).push(node);
+            const init = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
+            if (init != null) {
+              getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
             }
             break;
           }
