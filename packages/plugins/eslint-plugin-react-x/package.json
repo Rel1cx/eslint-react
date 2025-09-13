@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.1.12",
+    "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "ts-api-utils": "^2.1.0",
     "tsdown": "^0.15.1"
