@@ -185,8 +185,8 @@ export const strictTypeChecked = defineConfig([
       ],
       "perfectionist/sort-intersection-types": "off",
       "perfectionist/sort-modules": "off",
-      "perfectionist/sort-named-exports": ["warn", { type: "natural", order: "asc" }],
-      "perfectionist/sort-named-imports": ["warn", { type: "natural", order: "asc" }],
+      "perfectionist/sort-named-exports": "off",
+      "perfectionist/sort-named-imports": "off",
       "perfectionist/sort-object-types": [
         "warn",
         { ...p11tOptions, ...p11tGroups },
