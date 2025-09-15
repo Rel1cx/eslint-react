@@ -1,5 +1,5 @@
 import { identity } from "@eslint-react/eff";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 import { _require } from "./_require";
 
 export function getReactVersion(fallback: string): string {

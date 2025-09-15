@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { flow, unit } from "@eslint-react/eff";
-import { report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import * as VAR from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -12,9 +12,9 @@ import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
 import { unionConstituents } from "ts-api-utils";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 
-import { createRule, getTypeVariants, type TypeVariant } from "../utils";
+import { type TypeVariant, createRule, getTypeVariants } from "../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 

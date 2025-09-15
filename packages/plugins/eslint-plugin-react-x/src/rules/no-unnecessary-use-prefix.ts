@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { isViMockCallback, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, isViMockCallback } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";

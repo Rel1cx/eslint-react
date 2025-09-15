@@ -6,7 +6,7 @@ import { type RuleContext } from "@eslint-react/kit";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import type { PartialDeep } from "type-fest";
 
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
 
 import { getReactVersion } from "./get-react-version";

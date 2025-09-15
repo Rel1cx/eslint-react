@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
-import { report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";

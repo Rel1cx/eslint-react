@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { isTypeFlagSet } from "ts-api-utils";
-import { isMatching, P } from "ts-pattern";
+import { P, isMatching } from "ts-pattern";
 import ts from "typescript";
 
 /** @internal */

@@ -1,16 +1,16 @@
 import {
+  JsxEmit,
   getElementType,
   getJsxConfigFromAnnotation,
   getJsxConfigFromContext,
   isFragmentElement,
-  JsxEmit,
 } from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
-import { report, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 import { createRule, stringify } from "../utils";
 
 export const RULE_NAME = "jsx";

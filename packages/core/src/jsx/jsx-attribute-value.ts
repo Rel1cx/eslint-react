@@ -5,7 +5,7 @@ import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 
 /**
  * Represents possible JSX attribute value types that can be resolved

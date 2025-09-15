@@ -2,7 +2,7 @@
 
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
-import { nullThrows, NullThrowsReasons, type RuleListener } from "@typescript-eslint/utils/eslint-utils";
+import { NullThrowsReasons, type RuleListener, nullThrows } from "@typescript-eslint/utils/eslint-utils";
 
 import { createRule } from "../utils";
 

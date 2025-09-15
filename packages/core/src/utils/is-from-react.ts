@@ -4,7 +4,7 @@ import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 
 /**
  * Get the arguments of a require expression

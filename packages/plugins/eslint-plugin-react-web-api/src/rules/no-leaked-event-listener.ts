@@ -10,7 +10,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { EventListenerEntry } from "../types";
 
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { isMatching, match, P } from "ts-pattern";
+import { P, isMatching, match } from "ts-pattern";
 import { createRule, getPhaseKindOfFunction } from "../utils";
 
 // #region Rule Metadata

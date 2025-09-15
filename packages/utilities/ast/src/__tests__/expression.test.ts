@@ -8,7 +8,7 @@ import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../../../test";
 import { getNestedReturnStatements } from "../expression";
-import { isFunction, type TSESTreeFunction } from "../node";
+import { type TSESTreeFunction, isFunction } from "../node";
 
 function parse(code: string) {
   return parseForESLint(code, {
