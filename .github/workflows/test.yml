@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - "2.0.0-next"
+      - "2.0.0"
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:

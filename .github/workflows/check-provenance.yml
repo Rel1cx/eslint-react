@@ -1,0 +1,30 @@
+name: Check Provenance
+on:
+  push:
+    branches:
+      - main
+      - "2.0.0"
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+    branches:
+      - main
+      - "2.0.0"
+permissions:
+  contents: read
+jobs:
+  check-provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check provenance downgrades
+        uses: danielroe/provenance-action@main
+        id: check
+        with:
+          fail-on-provenance-change: true # optional, default: false
+          lockfile: pnpm-lock.yaml # optional
+          #   base-ref: origin/main         # optional, default: origin/main
+          fail-on-downgrade: true # optional, default: true
+      - name: Print result
+        run: "echo 'Downgraded: ${{ steps.check.outputs.downgraded }}'"
