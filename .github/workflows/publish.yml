@@ -4,8 +4,6 @@ on:
     branches:
       - main
       - "2.0.0"
-      - "2.0.0-beta"
-      - "2.0.0-next"
     tags-ignore:
       - "**"
     paths-ignore:
