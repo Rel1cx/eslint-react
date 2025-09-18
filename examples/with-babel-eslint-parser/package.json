@@ -35,7 +35,7 @@
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*",
     "globals": "^16.4.0",
-    "vite": "^7.1.5"
+    "vite": "^7.1.6"
   },
   "engines": {
     "node": ">=20.19.0"
