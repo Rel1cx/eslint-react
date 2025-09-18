@@ -5,7 +5,7 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
-import { glob } from "./utils/glob";
+import { glob } from "./lib/glob";
 
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
 
