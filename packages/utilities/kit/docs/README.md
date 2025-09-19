@@ -13,9 +13,6 @@
 
 ## Type Aliases
 
-- [DisplayNameAssignmentExpression](type-aliases/DisplayNameAssignmentExpression.md)
-- [ImplicitReturnArrowFunctionExpression](type-aliases/ImplicitReturnArrowFunctionExpression.md)
-- [ObjectDestructuringVariableDeclarator](type-aliases/ObjectDestructuringVariableDeclarator.md)
 - [RuleContext](type-aliases/RuleContext.md)
 - [RuleFeature](type-aliases/RuleFeature.md)
 - [RulePolicy](type-aliases/RulePolicy.md)
@@ -44,14 +41,9 @@
 - [RE\_REGEXP\_STR](variables/RE_REGEXP_STR.md)
 - [RE\_SNAKE\_CASE](variables/RE_SNAKE_CASE.md)
 - [RE\_TS\_EXT](variables/RE_TS_EXT.md)
-- [SEL\_DISPLAY\_NAME\_ASSIGNMENT\_EXPRESSION](variables/SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION.md)
-- [SEL\_IMPLICIT\_RETURN\_ARROW\_FUNCTION\_EXPRESSION](variables/SEL_IMPLICIT_RETURN_ARROW_FUNCTION_EXPRESSION.md)
-- [SEL\_OBJECT\_DESTRUCTURING\_VARIABLE\_DECLARATOR](variables/SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR.md)
 
 ## Functions
 
-- [isProcessEnvNodeEnv](functions/isProcessEnvNodeEnv.md)
-- [isProcessEnvNodeEnvCompare](functions/isProcessEnvNodeEnvCompare.md)
 - [isRegExp](functions/isRegExp.md)
 - [report](functions/report.md)
 - [toRegExp](functions/toRegExp.md)

@@ -5,7 +5,6 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import { isProcessEnvNodeEnvCompare } from "@eslint-react/kit";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-misused-capture-owner-stack";
@@ -72,6 +71,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 function isDevelopmentOnlyCheck(node: TSESTree.Node) {
   if (node.type !== T.IfStatement) return false;
-  if (isProcessEnvNodeEnvCompare(node.test, "!==", "production")) return true;
+  if (AST.isProcessEnvNodeEnvCompare(node.test, "!==", "production")) return true;
   return false;
 }

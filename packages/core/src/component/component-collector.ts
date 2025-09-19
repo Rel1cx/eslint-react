@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
-import { type RuleContext, SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION } from "@eslint-react/kit";
+import { type RuleContext } from "@eslint-react/kit";
 import { getId } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -123,7 +123,7 @@ export function useComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: TSESTree.AssignmentExpression) {
+        [AST.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
           if (left.type !== T.MemberExpression) return;
           const componentName = left.object.type === T.Identifier

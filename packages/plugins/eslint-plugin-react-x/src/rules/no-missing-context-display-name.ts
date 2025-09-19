@@ -1,10 +1,6 @@
+import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import {
-  type DisplayNameAssignmentExpression,
-  type RuleContext,
-  type RuleFeature,
-  SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION,
-} from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -45,6 +41,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // `context.displayName = ...` assignment expressions
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
   return {
+    [AST.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: AST.DisplayNameAssignmentExpression) {
+      displayNameAssignments.push(node);
+    },
     CallExpression(node) {
       if (!ER.isCreateContextCall(context, node)) return;
       createCalls.push(node);
@@ -90,9 +89,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
         }
       }
-    },
-    [SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: DisplayNameAssignmentExpression) {
-      displayNameAssignments.push(node);
     },
   };
 }

@@ -134,8 +134,8 @@ importers:
         specifier: ^4.20.5
         version: 4.20.5
       type-fest:
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^5.0.1
+        version: 5.0.1
       typedoc:
         specifier: ^0.28.13
         version: 0.28.13(typescript@5.9.2)
@@ -173,8 +173,8 @@ importers:
         specifier: ^0.0.29
         version: 0.0.29(eslint@9.35.0(jiti@2.5.1))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2)
       eslint-plugin-jsdoc:
-        specifier: ^59.0.1
-        version: 59.0.1(eslint@9.35.0(jiti@2.5.1))
+        specifier: ^59.0.2
+        version: 59.0.2(eslint@9.35.0(jiti@2.5.1))
       eslint-plugin-perfectionist:
         specifier: ^4.15.0
         version: 4.15.0(eslint@9.35.0(jiti@2.5.1))(typescript@5.9.2)
@@ -233,8 +233,8 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1(eslint@9.35.0(jiti@2.5.1))
       eslint-plugin-jsdoc:
-        specifier: ^59.0.1
-        version: 59.0.1(eslint@9.35.0(jiti@2.5.1))
+        specifier: ^59.0.2
+        version: 59.0.2(eslint@9.35.0(jiti@2.5.1))
       eslint-plugin-perfectionist:
         specifier: ^4.15.0
         version: 4.15.0(eslint@9.35.0(jiti@2.5.1))(typescript@5.9.2)
@@ -1221,8 +1221,8 @@ importers:
         specifier: ^0.15.2
         version: 0.15.2(publint@0.3.13)(typescript@5.9.2)
       type-fest:
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^5.0.1
+        version: 5.0.1
 
   packages/utilities/ast:
     dependencies:
@@ -1263,9 +1263,6 @@ importers:
 
   packages/utilities/kit:
     dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../ast
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../eff
@@ -1289,8 +1286,8 @@ importers:
         specifier: ^0.15.2
         version: 0.15.2(publint@0.3.13)(typescript@5.9.2)
       type-fest:
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^5.0.1
+        version: 5.0.1
 
   packages/utilities/var:
     dependencies:
@@ -4707,8 +4704,8 @@ packages:
       ts-api-utils: ^2.1.0
       typescript: ^5.9.2
 
-  eslint-plugin-jsdoc@59.0.1:
-    resolution: {integrity: sha512-hyIdUFpjJwFJtyZ5FliUsQuqjsVwVj/3uBexww8TXN4T7f8R3xvG2fFCpe7dQV0kGwoVo9uTtYeK9XvF458qbg==}
+  eslint-plugin-jsdoc@59.0.2:
+    resolution: {integrity: sha512-VZuXTN0RCt70SMa0vVoyX0kq9c6j/A9c3u66U3jsSC5juabbXSILK6pfmJMSItIPnOMYQbVFSpo22Mzpsm36bw==}
     engines: {node: '>=20.11.0'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -6699,8 +6696,8 @@ packages:
     resolution: {integrity: sha512-5zknd7Dss75pMSED270A1RQS3KloqRJA9XbXLe0eCxyw7xXFb3rd+9B0UQ/0E+LQT6lnrLviEolYORlRWamn4w==}
     engines: {node: '>=16'}
 
-  type-fest@5.0.0:
-    resolution: {integrity: sha512-GeJop7+u7BYlQ6yQCAY1nBQiRSHR+6OdCEtd8Bwp9a3NK3+fWAVjOaPKJDteB9f6cIJ0wt4IfnScjLG450EpXA==}
+  type-fest@5.0.1:
+    resolution: {integrity: sha512-9MpwAI52m8H6ssA542UxSLnSiSD2dsC3/L85g6hVubLSXd82wdI80eZwTWhdOfN67NlA+D+oipAs1MlcTcu3KA==}
     engines: {node: '>=20'}
 
   typedarray@0.0.6:
@@ -10557,7 +10554,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsdoc@59.0.1(eslint@9.35.0(jiti@2.5.1)):
+  eslint-plugin-jsdoc@59.0.2(eslint@9.35.0(jiti@2.5.1)):
     dependencies:
       '@es-joy/jsdoccomment': 0.58.0
       are-docs-informative: 0.0.2
@@ -13052,7 +13049,7 @@ snapshots:
 
   type-fest@4.2.0: {}
 
-  type-fest@5.0.0:
+  type-fest@5.0.1:
     dependencies:
       tagged-tag: 1.0.0
 
