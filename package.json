@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.0-beta.187",
+  "version": "2.0.0-next.188",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -89,7 +89,7 @@
     "ts-pattern": "^5.8.0",
     "tsdown": "^0.15.2",
     "tsx": "^4.20.5",
-    "type-fest": "^5.0.0",
+    "type-fest": "^5.0.1",
     "typedoc": "^0.28.13",
     "typedoc-plugin-markdown": "^4.8.1",
     "typedoc-plugin-mdn-links": "^5.0.9",
