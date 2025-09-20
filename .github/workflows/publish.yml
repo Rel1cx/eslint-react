@@ -21,14 +21,15 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v5
       - name: Setup node@24
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Install dependencies
         run: pnpm install
       - name: Build front-end assets
