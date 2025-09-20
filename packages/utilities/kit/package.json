@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "1.53.2-beta.0",
+  "version": "1.53.2-beta.1",
   "description": "ESLint React's plugin kit for building plugins and rules.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -50,8 +50,8 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node22": "^22.0.2",
-    "tsdown": "^0.15.2",
-    "type-fest": "^5.0.0"
+    "tsdown": "^0.15.3",
+    "type-fest": "^5.0.1"
   },
   "engines": {
     "node": ">=18.18.0"

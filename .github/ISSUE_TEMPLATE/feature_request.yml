@@ -9,7 +9,7 @@ body:
       value: |
         ## Feature Request
 
-        # Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
+        Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
   - type: textarea
     id: problem
     attributes:

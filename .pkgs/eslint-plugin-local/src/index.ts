@@ -1,9 +1,12 @@
 import { name, version } from "../package.json";
+
+import type { CompatiblePlugin } from "@eslint-react/kit";
+
 import avoidMultilineTemplateExpression from "./rules/avoid-multiline-template-expression";
 import noShadowingUnderscore from "./rules/no-shadow-underscore";
 import preferEqeqNullishComparison from "./rules/prefer-eqeq-nullish-comparison";
 
-export default {
+const plugin: CompatiblePlugin = {
   meta: {
     name,
     version,
@@ -13,4 +16,6 @@ export default {
     "no-shadow-underscore": noShadowingUnderscore,
     "prefer-eqeq-nullish-comparison": preferEqeqNullishComparison,
   },
-} as const;
+};
+
+export default plugin;

@@ -1,16 +1,6 @@
-import * as _typescript_eslint_utils_ts_eslint0 from "@typescript-eslint/utils/ts-eslint";
+import { CompatiblePlugin } from "@eslint-react/kit";
 
 //#region src/index.d.ts
-declare const _default: {
-  readonly meta: {
-    readonly name: string;
-    readonly version: string;
-  };
-  readonly rules: {
-    readonly "avoid-multiline-template-expression": _typescript_eslint_utils_ts_eslint0.RuleModule<"avoidMultilineTemplateExpression", [], unknown, _typescript_eslint_utils_ts_eslint0.RuleListener>;
-    readonly "no-shadow-underscore": _typescript_eslint_utils_ts_eslint0.RuleModule<"noShadowUnderscore", [], unknown, _typescript_eslint_utils_ts_eslint0.RuleListener>;
-    readonly "prefer-eqeq-nullish-comparison": _typescript_eslint_utils_ts_eslint0.RuleModule<"unexpectedComparison" | "useLooseComparisonSuggestion", [], unknown, _typescript_eslint_utils_ts_eslint0.RuleListener>;
-  };
-};
+declare const plugin: CompatiblePlugin;
 //#endregion
-export { _default as default };
+export { plugin as default };
