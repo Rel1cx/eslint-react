@@ -2,6 +2,12 @@
 
 ### 💥 Breaking Changes
 
+#### System Requirements
+
+- Drop support for Node.js 16 and 18, minimum required version is now Node.js 20
+- Drop support for ESLint 8, minimum required version is now ESLint 9.3.6
+- Drop support for TypeScript 4, minimum required version is now TypeScript 5.9.2
+
 #### Plugins and Rules
 
 The following rules have been renamed:
