@@ -2,6 +2,53 @@
 title: Changelog
 ---
 
+## v2.0.0 (TBD)
+
+### 💥 Breaking Changes
+
+#### Plugins and Rules
+
+The following rules have been renamed:
+
+- `react-x/no-comment-textnodes` to `react-x/jsx-no-comment-textnodes`
+- `react-x/no-nested-components` to `react-x/no-nested-component-definitions`
+- `react-x/prefer-react-namespace-import` to `react-x/prefer-namespace-import`
+
+The following rules have been integrated into new rules:
+
+- `react-x/jsx-shorthand-boolean` replaces `avoid-shorthand-boolean` and `prefer-shorthand-boolean`
+- `react-x/jsx-shorthand-fragment` replaces `avoid-shorthand-fragment` and `prefer-shorthand-fragment`
+- `react-hooks-extra/no-direct-set-state-in-use-effect` replaces `no-direct-set-state-in-use-layout-effect`
+
+The following rules have been relocated to new plugins:
+
+- `react-hooks-extra/no-unnecessary-use-callback` to `react-x/no-unnecessary-use-callback`
+- `react-hooks-extra/no-unnecessary-use-memo` to `react-x/no-unnecessary-use-memo`
+- `react-hooks-extra/no-unnecessary-use-prefix` to `react-x/no-unnecessary-use-prefix`
+- `react-hooks-extra/prefer-use-state-lazy-initialization` to `react-x/prefer-use-state-lazy-initialization`
+
+#### Settings
+
+The following settings have been removed from `settings["react-x"]`:
+
+- `additionalComponents`
+- `additionalHooks`
+- `skipImportCheck`
+
+### ✨ New
+
+- feat: add `react-x/jsx-shorthand-boolean` rule to replace `avoid-shorthand-boolean` and `prefer-shorthand-boolean` rules
+- feat: add `react-x/jsx-shorthand-fragment` rule to replace `avoid-shorthand-fragment` and `prefer-shorthand-fragment` rules
+- feat: add `react-x/no-forbidden-props` rule to disallow specific props on components
+- feat: add `react-x/no-unnecessary-key` rule to report unnecessary `key` props on elements
+- feat: add `react-x/no-unused-props` rule to report unused props in components
+- feat: add `react-dom/no-string-style-prop` rule to disallow string values in `style` prop
+- feat: add `react-dom/prefer-namespace-import` rule to enforce using namespace import for `react-dom`
+
+### 🪄 Improvements
+
+- build: migrate to `tsdown` for building the packages
+
 ## v1.53.1 (2025-09-11)
 
 ### 🐞 Fixes
