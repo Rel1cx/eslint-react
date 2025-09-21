@@ -6,34 +6,43 @@ title: Changelog
 
 ### 💥 Breaking Changes
 
-#### System Requirements
+#### **1. Module Format & Config System**
+
+- **ESM Only**: Drop support for CommonJS (CJS) module format, packages are now distributed only as ECMAScript Modules (ESM)
+- **ESLint Flat Config Only**: Drop support for ESLint legacy config system, packages now support only ESLint Flat Config (`eslint.config.js`)
+
+#### **2. Minimum Supported Versions**
 
 - Drop support for Node.js 16 and 18, minimum required version is now Node.js 20
 - Drop support for ESLint 8, minimum required version is now ESLint 9.3.6
 - Drop support for TypeScript 4, minimum required version is now TypeScript 5.9.2
 
-#### Plugins and Rules
+#### **3. Rule Renames**
 
 The following rules have been renamed:
 
-- `react-x/no-comment-textnodes` to `react-x/jsx-no-comment-textnodes`
-- `react-x/no-nested-components` to `react-x/no-nested-component-definitions`
-- `react-x/prefer-react-namespace-import` to `react-x/prefer-namespace-import`
+- `react-x/no-comment-textnodes` -> `react-x/jsx-no-comment-textnodes`
+- `react-x/no-nested-components` -> `react-x/no-nested-component-definitions`
+- `react-x/prefer-react-namespace-import` -> `react-x/prefer-namespace-import`
 
-The following rules have been integrated into new rules:
+#### **4. Rule Consolidations**
+
+The following rules have been consolidated into new rules:
 
 - `react-x/jsx-shorthand-boolean` replaces `avoid-shorthand-boolean` and `prefer-shorthand-boolean`
 - `react-x/jsx-shorthand-fragment` replaces `avoid-shorthand-fragment` and `prefer-shorthand-fragment`
 - `react-hooks-extra/no-direct-set-state-in-use-effect` replaces `no-direct-set-state-in-use-layout-effect`
 
-The following rules have been relocated to new plugins:
+#### **5. Rule Relocations**
 
-- `react-hooks-extra/no-unnecessary-use-callback` to `react-x/no-unnecessary-use-callback`
-- `react-hooks-extra/no-unnecessary-use-memo` to `react-x/no-unnecessary-use-memo`
-- `react-hooks-extra/no-unnecessary-use-prefix` to `react-x/no-unnecessary-use-prefix`
-- `react-hooks-extra/prefer-use-state-lazy-initialization` to `react-x/prefer-use-state-lazy-initialization`
+The following rules have been moved to new plugins:
 
-#### Settings
+- `react-hooks-extra/no-unnecessary-use-callback` -> `react-x/no-unnecessary-use-callback`
+- `react-hooks-extra/no-unnecessary-use-memo` -> `react-x/no-unnecessary-use-memo`
+- `react-hooks-extra/no-unnecessary-use-prefix` -> `react-x/no-unnecessary-use-prefix`
+- `react-hooks-extra/prefer-use-state-lazy-initialization` -> `react-x/prefer-use-state-lazy-initialization`
+
+#### **6. Removed Settings**
 
 The following settings have been removed from `settings["react-x"]`:
 
@@ -41,19 +50,17 @@ The following settings have been removed from `settings["react-x"]`:
 - `additionalHooks`
 - `skipImportCheck`
 
-### ✨ New
+### ✨ New Features
 
-- feat: add `react-x/jsx-shorthand-boolean` rule to replace `avoid-shorthand-boolean` and `prefer-shorthand-boolean` rules
-- feat: add `react-x/jsx-shorthand-fragment` rule to replace `avoid-shorthand-fragment` and `prefer-shorthand-fragment` rules
-- feat: add `react-x/no-forbidden-props` rule to disallow specific props on components
-- feat: add `react-x/no-unnecessary-key` rule to report unnecessary `key` props on elements
-- feat: add `react-x/no-unused-props` rule to report unused props in components
-- feat: add `react-dom/no-string-style-prop` rule to disallow string values in `style` prop
-- feat: add `react-dom/prefer-namespace-import` rule to enforce using namespace import for `react-dom`
+We've added the following new rules to help you write higher-quality React code:
 
-### 🪄 Improvements
-
-- build: migrate to `tsdown` for building the packages
+- **`react-x/jsx-shorthand-boolean`**: Enforces a consistent style for boolean attributes
+- **`react-x/jsx-shorthand-fragment`**: Enforces a consistent style for React Fragments
+- **`react-x/no-forbidden-props`**: Disallows specific props on components
+- **`react-x/no-unnecessary-key`**: Reports unnecessary `key` props on elements
+- **`react-x/no-unused-props`**: Reports unused props in components
+- **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop
+- **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom`
 
 ## v1.53.1 (2025-09-11)
 
