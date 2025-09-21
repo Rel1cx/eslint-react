@@ -5,8 +5,8 @@ import type { ReactNode } from "react";
 
 import { ViewTransitions } from "next-view-transitions";
 
-import "#/app/app.css";
-import "#/app/app.override.css";
+import "./base.css";
+import "./overrides.css";
 
 const themeOptions = {
   enabled: true,
