@@ -5,16 +5,9 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { ViewTransitions } from "next-view-transitions";
-import { IBM_Plex_Mono } from "next/font/google";
 
 import "#/app/app.css";
 import "#/app/app.override.css";
-
-const ibm_plex_mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-ibm_plex_mono",
-  weight: ["400", "500", "700"],
-});
 
 const themeOptions = {
   enabled: true,
@@ -23,19 +16,19 @@ const themeOptions = {
   // forcedTheme: "dark",
 };
 
-export const metadata = {
+export const metadata: Metadata = {
   description: "4-7x faster composable ESLint rules for React and friends.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",
   },
   metadataBase: baseUrl,
-} as const satisfies Metadata;
+};
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <ViewTransitions>
-      <html className={ibm_plex_mono.variable} lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <meta content="#fff" name="msapplication-TileColor" />
         <meta content="en" httpEquiv="Content-Language" />
         <meta content="ESLint React" name="apple-mobile-web-app-title" />
