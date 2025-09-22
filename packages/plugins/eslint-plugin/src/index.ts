@@ -1,4 +1,4 @@
-import type { CompatibleConfig, CompatiblePlugin } from "@eslint-react/kit";
+import type { CompatiblePlugin } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
@@ -22,13 +22,6 @@ import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import * as xConfig from "./configs/x";
 import { padKeysLeft } from "./utils";
 
-function toLegacyConfig({ rules }: CompatibleConfig) {
-  return {
-    plugins: ["@eslint-react"],
-    rules,
-  };
-}
-
 const plugin: CompatiblePlugin = {
   meta: {
     name,
@@ -48,30 +41,17 @@ export default {
   ...plugin,
   configs: {
     ["all"]: allConfig,
-    ["all-legacy"]: toLegacyConfig(allConfig),
     ["debug"]: debugConfig,
-    ["debug-legacy"]: toLegacyConfig(debugConfig),
     ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
-    ["disable-conflict-eslint-plugin-react-legacy"]: toLegacyConfig(disableConflictEslintPluginReact),
     ["disable-debug"]: disableDebugConfig,
-    ["disable-debug-legacy"]: toLegacyConfig(disableDebugConfig),
     ["disable-dom"]: disableDomConfig,
-    ["disable-dom-legacy"]: toLegacyConfig(disableDomConfig),
     ["disable-type-checked"]: disableTypeCheckedConfig,
-    ["disable-type-checked-legacy"]: toLegacyConfig(disableTypeCheckedConfig),
     ["disable-web-api"]: disableWebApiConfig,
-    ["disable-web-api-legacy"]: toLegacyConfig(disableWebApiConfig),
     ["dom"]: domConfig,
-    ["dom-legacy"]: toLegacyConfig(domConfig),
     ["off"]: offConfig,
-    ["off-legacy"]: toLegacyConfig(offConfig),
     ["recommended"]: recommendedConfig,
-    ["recommended-legacy"]: toLegacyConfig(recommendedConfig),
     ["recommended-type-checked"]: recommendedTypeCheckedConfig,
-    ["recommended-type-checked-legacy"]: toLegacyConfig(recommendedTypeCheckedConfig),
     ["recommended-typescript"]: recommendedTypeScriptConfig,
-    ["recommended-typescript-legacy"]: toLegacyConfig(recommendedTypeScriptConfig),
     ["x"]: xConfig,
-    ["x-legacy"]: toLegacyConfig(xConfig),
   },
 };
