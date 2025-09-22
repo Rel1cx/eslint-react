@@ -142,6 +142,8 @@ export default defineConfig([
   Disable rules in the `web-api` preset.
 - `disable-type-checked`\
   Disable rules that require type information.
+- `disable-conflict-eslint-plugin-react`\
+  Disable rules in `eslint-plugin-react` that conflict with rules in this plugin.
 - `off`\
   Disable all rules in this plugin except for debug rules.
 
