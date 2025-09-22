@@ -31,7 +31,7 @@
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-naming-convention": "workspace:*",
-    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-react-refresh": "^0.4.21",
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*",
     "globals": "^16.4.0",

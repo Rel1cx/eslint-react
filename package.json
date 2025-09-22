@@ -56,7 +56,7 @@
     "@effect/platform": "^0.90.10",
     "@effect/platform-node": "^0.96.1",
     "@eslint/config-inspector": "^1.3.0",
-    "@eslint/markdown": "^7.2.0",
+    "@eslint/markdown": "^7.3.0",
     "@local/configs": "workspace:*",
     "@local/eslint-plugin-local": "workspace:*",
     "@radix-ui/react-toast": "^1.2.15",
