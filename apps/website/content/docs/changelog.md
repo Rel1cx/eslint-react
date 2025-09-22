@@ -6,53 +6,42 @@ title: Changelog
 
 ### 💥 Breaking Changes
 
-#### **1. Module Format & Config System**
+**The target environment for all packages has changed to ESM and ESLint Flat Config only:**
 
 - **ESM Only**: Drop support for CommonJS (CJS) module format, packages are now distributed only as ECMAScript Modules (ESM)
 - **ESLint Flat Config Only**: Drop support for ESLint legacy config system, packages now support only ESLint Flat Config (`eslint.config.js`)
-
-#### **2. Minimum Supported Versions**
-
 - Drop support for Node.js 16 and 18, minimum required version is now Node.js 20
 - Drop support for ESLint 8, minimum required version is now ESLint 9.3.6
 - Drop support for TypeScript 4, minimum required version is now TypeScript 5.9.2
 
-#### **3. Rule Renames**
-
-The following rules have been renamed:
+**The following rules have been renamed:**
 
 - `react-x/no-comment-textnodes` -> `react-x/jsx-no-comment-textnodes`
 - `react-x/no-nested-components` -> `react-x/no-nested-component-definitions`
 - `react-x/prefer-react-namespace-import` -> `react-x/prefer-namespace-import`
 
-#### **4. Rule Consolidations**
-
-The following rules have been consolidated into new rules:
+**The following rules have been consolidated into new rules:**
 
 - `react-x/jsx-shorthand-boolean` replaces `avoid-shorthand-boolean` and `prefer-shorthand-boolean`
 - `react-x/jsx-shorthand-fragment` replaces `avoid-shorthand-fragment` and `prefer-shorthand-fragment`
 - `react-hooks-extra/no-direct-set-state-in-use-effect` replaces `no-direct-set-state-in-use-layout-effect`
 
-#### **5. Rule Relocations**
-
-The following rules have been moved to new plugins:
+**The following rules have been moved to new plugins:**
 
 - `react-hooks-extra/no-unnecessary-use-callback` -> `react-x/no-unnecessary-use-callback`
 - `react-hooks-extra/no-unnecessary-use-memo` -> `react-x/no-unnecessary-use-memo`
 - `react-hooks-extra/no-unnecessary-use-prefix` -> `react-x/no-unnecessary-use-prefix`
 - `react-hooks-extra/prefer-use-state-lazy-initialization` -> `react-x/prefer-use-state-lazy-initialization`
 
-#### **6. Removed Settings**
-
-The following settings have been removed from `settings["react-x"]`:
+**The following settings have been removed from `settings["react-x"]`:**
 
 - `additionalComponents`
 - `additionalHooks`
 - `skipImportCheck`
 
-### ✨ New Features
+### ✨ New
 
-We've added the following new rules to help you write higher-quality React code:
+We've added the following new rules:
 
 - **`react-x/jsx-shorthand-boolean`**: Enforces a consistent style for boolean attributes
 - **`react-x/jsx-shorthand-fragment`**: Enforces a consistent style for React Fragments
@@ -61,6 +50,18 @@ We've added the following new rules to help you write higher-quality React code:
 - **`react-x/no-unused-props`**: Reports unused props in components
 - **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop
 - **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom`
+
+### 🐞 Fixes
+
+TODO: List fixes here
+
+### 🪄 Improvements
+
+TODO: List improvements here
+
+**Full Changelog**:
+
+TODO: Add link to full changelog
 
 ## v1.53.1 (2025-09-11)
 
