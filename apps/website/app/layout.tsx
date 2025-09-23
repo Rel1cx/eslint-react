@@ -1,4 +1,3 @@
-import { Toaster } from "#/components/ui/Toaster";
 import { baseUrl } from "#/lib/metadata";
 import { RootProvider } from "fumadocs-ui/provider";
 import type { Metadata } from "next";
@@ -49,7 +48,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           <RootProvider theme={themeOptions}>
             {children}
           </RootProvider>
-          <Toaster />
         </body>
       </html>
     </ViewTransitions>
