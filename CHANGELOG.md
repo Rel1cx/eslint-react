@@ -47,6 +47,10 @@ We've added the following new rules:
 - **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop
 - **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom`
 
+We've also added new configuration presets:
+
+- **`disable-conflict-eslint-plugin-react`**: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
+
 ### 🐞 Fixes
 
 TODO: List fixes here
