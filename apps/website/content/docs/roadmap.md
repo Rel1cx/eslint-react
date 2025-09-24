@@ -62,10 +62,6 @@ Minimum supported versions:
 - [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
 - [ ] `no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
 
-### Removed Plugins
-
-- [x] `eslint-plugin-react-hooks-extra` - Extra rules for `eslint-plugin-react-hooks` - Merged into `eslint-plugin-react-x`
-
 ### Removed Rules
 
 - [x] `avoid-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
