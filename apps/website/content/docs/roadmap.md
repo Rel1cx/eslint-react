@@ -1,73 +1,65 @@
----
-title: Roadmap
----
+# Milestone 2.0
 
-## Milestone 2.0
-
-### System Requirements
+## System Requirements
 
 Minimum supported versions:
 
 - [x] Node.js: 20.19.0
-- [x] ESLint: 9.24.0
-- [x] TypeScript: 4.9.5
+- [x] ESLint: 9.36.0
+- [x] TypeScript: 5.9.2
 
-### Package Distribution
+## Package Distribution
 
 - [x] Publish ESM-Only packages
 
-### Plugins (with ecological niche explanation)
+## Plugins (with ecological niche explanation)
 
 - [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
-- [x] `eslint-plugin-react-hooks` - Extra Hooks rules for React
+- [x] `eslint-plugin-react-hooks-extra` - Extra Hooks rules for React
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
 - ... (Free to combine with other plugins from the community)
 
-### Add codemod feature to rules that can be transformed (using auto-fix) safely
+## Add codemod feature to rules that can be transformed (using auto-fix) safely
 
-- [x] `no-component-did-update`
-- [x] `no-component-will-receive-props`
-- [x] `no-component-will-update`
-- [x] `no-context-provider`
-- [x] `no-forward-ref`
-- [x] `no-string-refs`
+- [x] `react-x/no-component-did-update`
+- [x] `react-x/no-component-will-receive-props`
+- [x] `react-x/no-component-will-update`
+- [x] `react-x/no-context-provider`
+- [x] `react-x/no-forward-ref`
+- [x] `react-x/no-string-refs`
 
-### Add auto-fix feature to rules that can be auto-fixed safely
+## Add auto-fix feature to rules that can be auto-fixed safely
 
-- [ ] `function-component-definition`
-- [x] `prefer-namespace-import`
+- [x] `react-x/prefer-namespace-import`
+- [x] `react-dom/prefer-namespace-import`
 
-### Add suggestion-fix feature to rules that can be fixed interactively
+## Add suggestion-fix feature to rules that can be fixed interactively
 
-- [x] `dom/no-missing-button-type`
-- [x] `dom/no-missing-iframe-sandbox`
-- [ ] `dom/no-unsafe-iframe-sandbox`
-- [x] `dom/no-unsafe-target-blank`
+- [x] `react-dom/no-missing-button-type`
+- [x] `react-dom/no-missing-iframe-sandbox`
+- [x] `react-dom/no-unsafe-target-blank`
 
-### New Rules
+## New Rules
 
-- [x] `jsx-no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
-- [x] `no-context-provider` - Replaces usages of `<Context.Provider>` with `<Context>` (React 19)
-- [x] `no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19)
-- [x] `no-use-context` - Replaces usages of `useContext` with `use` (React 19)
-- [x] `prefer-namespace-import` - Enforces the use of namespace imports for React (Replaces `prefer-react-namespace-import`)
-- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
+- [x] `react-x/jsx-no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
+- [x] `react-x/no-context-provider` - Replaces usages of `<Context.Provider>` with `<Context>` (React 19)
+- [x] `react-x/no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19)
+- [x] `react-x/no-use-context` - Replaces usages of `useContext` with `use` (React 19)
+- [x] `react-x/prefer-namespace-import` - Enforces the use of namespace imports for React (Replaces `prefer-react-namespace-import`)
 - [x] `react-dom/no-hydrate` - Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
 - [x] `react-dom/no-render` - Replaces usages of `ReactDom.render()` with `createRoot(node).render()` (React 19)
 - [x] `react-dom/no-use-form-state` - Replaces the usages of `useFormState()` to use `useActionState()` (React 19)
 - [x] `react-dom/prefer-namespace-import` - Enforces the use of namespace imports for ReactDOM
 - [x] `naming-convention/context-name` - Enforces context name to be a valid component name with the suffix `Context` (React 19)
-- [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
-- [ ] `no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
 
-### Removed Rules
+## Removed Rules
 
-- [x] `avoid-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
-- [x] `avoid-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
-- [x] `no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
-- [x] `prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
-- [x] `prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
-- [x] `prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
-- [x] `hooks-extra/no-direct-set-state-in-use-layout-effect` - Merged into `hooks-extra/no-direct-set-state-in-use-effect`
+- [x] `react-x/avoid-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
+- [x] `react-x/avoid-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
+- [x] `react-x/no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
+- [x] `react-x/prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
+- [x] `react-x/prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
+- [x] `react-x/prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
+- [x] `react-hooks-extra/no-direct-set-state-in-use-layout-effect` - Merged into `hooks-extra/no-direct-set-state-in-use-effect`

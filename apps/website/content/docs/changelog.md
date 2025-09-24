@@ -43,21 +43,41 @@ title: Changelog
 
 We've added the following new rules:
 
-- **`react-x/jsx-shorthand-boolean`**: Enforces a consistent style for boolean attributes
-- **`react-x/jsx-shorthand-fragment`**: Enforces a consistent style for React Fragments
-- **`react-x/no-forbidden-props`**: Disallows specific props on components
-- **`react-x/no-unnecessary-key`**: Reports unnecessary `key` props on elements
-- **`react-x/no-unused-props`**: Reports unused props in components
-- **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop
-- **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom`
+- `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes
+- `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments
+- `react-x/no-forbidden-props`: Disallows specific props on components
+- `react-x/no-unnecessary-key`: Reports unnecessary `key` props on elements
+- `react-x/no-unused-props`: Reports unused props in components
+- `react-dom/no-string-style-prop`: Disallows string values for the `style` prop
+- `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom`
 
 We've added the following new rules to `recommended-type-checked` presets:
 
-- **`react-x/no-unused-props`**: Reports unused props in components
+- `react-x/no-unused-props`: Reports unused props in components
+
+We've added codemod features to the following rules:
+
+- `react-x/no-component-did-update`
+- `react-x/no-component-will-receive-props`
+- `react-x/no-component-will-update`
+- `react-x/no-context-provider`
+- `react-x/no-forward-ref`
+- `react-x/no-string-refs`
+
+We've added auto-fix features to the following rules:
+
+- `react-x/prefer-namespace-import`
+- `react-dom/prefer-namespace-import`
+
+We've added suggestion-fix features to the following rules:
+
+- `react-dom/no-missing-button-type`
+- `react-dom/no-missing-iframe-sandbox`
+- `react-dom/no-unsafe-target-blank`
 
 We've also added new configuration presets:
 
-- **`disable-conflict-eslint-plugin-react`**: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
+- `disable-conflict-eslint-plugin-react`: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
 
 ### 🐞 Fixes
 
