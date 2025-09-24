@@ -143,7 +143,7 @@ export default defineConfig([
 - `disable-type-checked`\
   Disable rules that require type information.
 - `disable-conflict-eslint-plugin-react`\
-  Disable rules in `eslint-plugin-react` that conflict with rules in this plugin.
+  Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
 - `off`\
   Disable all rules in this plugin except for debug rules.
 
