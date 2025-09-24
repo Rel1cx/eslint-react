@@ -2,7 +2,7 @@
 
 ### 💥 Breaking Changes
 
-**The target environment for all packages has changed to ESM and ESLint Flat Config only:**
+**Target Environment Updates: Now ESM and ESLint Flat Config Only**
 
 - Drop support for CommonJS (CJS) module format, packages are now distributed only as ECMAScript Modules (ESM)
 - Drop support for ESLint legacy config system, packages now support only ESLint Flat Config (`eslint.config.js`)
@@ -37,7 +37,7 @@
 
 ### ✨ New
 
-We've added the following new rules:
+Added the following new rules:
 
 - `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes
 - `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments
@@ -47,11 +47,11 @@ We've added the following new rules:
 - `react-dom/no-string-style-prop`: Disallows string values for the `style` prop
 - `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom`
 
-We've added the following new rules to `recommended-type-checked` presets:
+Added the following new rule to the `recommended-type-checked` preset:
 
 - `react-x/no-unused-props`: Reports unused props in components
 
-We've added codemod features to the following rules:
+The following rules now support Codemod features:
 
 - `react-x/no-component-did-update`
 - `react-x/no-component-will-receive-props`
@@ -60,26 +60,26 @@ We've added codemod features to the following rules:
 - `react-x/no-forward-ref`
 - `react-x/no-string-refs`
 
-We've added auto-fix features to the following rules:
+The following rules now support auto-fix:
 
 - `react-x/prefer-namespace-import`
 - `react-dom/prefer-namespace-import`
 
-We've added suggestion-fix features to the following rules:
+The following rules now support suggestion fixes:
 
 - `react-dom/no-missing-button-type`
 - `react-dom/no-missing-iframe-sandbox`
 - `react-dom/no-unsafe-target-blank`
 
-We've also added new configuration presets:
+New configuration preset added:
 
 - `disable-conflict-eslint-plugin-react`: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
 
 ### 🐞 Fixes
 
-- fix(x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files
-- fix(web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly
-- fix(naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx`
+- fix(react-x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files
+- fix(react-web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly
+- fix(react-naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx`
 
 ### 🪄 Improvements
 
@@ -89,9 +89,7 @@ We've also added new configuration presets:
 - docs: replace `tseslint.config` with `defineConfig` in all examples
 - build: migrate build system from `tsup` to `tsdown` for better performance
 
-**Full Changelog**:
-
-TODO: Add link to full changelog
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.53.1...v2.0.0
 
 ## v1.53.1 (2025-09-11)
 
