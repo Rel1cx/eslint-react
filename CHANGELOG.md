@@ -47,17 +47,27 @@ We've added the following new rules:
 - **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop
 - **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom`
 
+We've added the following new rules to `recommended-type-checked` presets:
+
+- **`react-x/no-unused-props`**: Reports unused props in components
+
 We've also added new configuration presets:
 
 - **`disable-conflict-eslint-plugin-react`**: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
 
 ### 🐞 Fixes
 
-TODO: List fixes here
+- fix(x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files
+- fix(web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly
+- fix(naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx`
 
 ### 🪄 Improvements
 
-TODO: List improvements here
+- refactor: cleanup utilities and simplify rule implementations
+- refactor: rework React API detection logic to better align with `eslint-plugin-react-hooks`
+- docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules
+- docs: replace `tseslint.config` with `defineConfig` in all examples
+- build: migrate build system from `tsup` to `tsdown` for better performance
 
 **Full Changelog**:
 
