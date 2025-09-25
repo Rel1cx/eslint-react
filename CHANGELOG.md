@@ -61,13 +61,13 @@ The rule implementations have been refactored to improve performance and maintai
 
 **Added the following new rules:**
 
-- `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes
-- `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments
-- `react-x/no-forbidden-props`: Disallows specific props on components
-- `react-x/no-unnecessary-key`: Reports unnecessary `key` props on elements
-- `react-x/no-unused-props`: Reports unused props in components
-- `react-dom/no-string-style-prop`: Disallows string values for the `style` prop
-- `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom`
+- `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes by @Rel1cx
+- `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments by @Rel1cx
+- `react-x/no-forbidden-props`: Disallows specific props on components by @reteps
+- `react-x/no-unnecessary-key`: Reports unnecessary `key` props on elements by @Rel1cx @kachkaev
+- `react-x/no-unused-props`: Reports unused props in components by @ulrichstark
+- `react-dom/no-string-style-prop`: Disallows string values for the `style` prop by @Rel1cx @karlhorky
+- `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom` by @Rel1cx
 
 **Added the following new rule to the `recommended-type-checked` preset:**
 
@@ -75,40 +75,40 @@ The rule implementations have been refactored to improve performance and maintai
 
 **The following rules now support Codemod features:**
 
-- `react-x/no-component-did-update`
-- `react-x/no-component-will-receive-props`
-- `react-x/no-component-will-update`
-- `react-x/no-context-provider`
-- `react-x/no-forward-ref`
-- `react-x/no-string-refs`
+- `react-x/no-component-did-update` by @Rel1cx
+- `react-x/no-component-will-receive-props` by @Rel1cx
+- `react-x/no-component-will-update` by @Rel1cx
+- `react-x/no-context-provider` by @Rel1cx
+- `react-x/no-forward-ref` by @Rel1cx
+- `react-x/no-string-refs` by @Rel1cx
 
 **The following rules now support auto-fix:**
 
-- `react-x/no-missing-context-display-name`
+- `react-x/no-missing-context-display-name` by @k-yle
 
 **The following rules now support suggestion fixes:**
 
-- `react-dom/no-missing-button-type`
-- `react-dom/no-missing-iframe-sandbox`
-- `react-dom/no-unsafe-target-blank`
+- `react-dom/no-missing-button-type` by @Rel1cx
+- `react-dom/no-missing-iframe-sandbox` by @Rel1cx
+- `react-dom/no-unsafe-target-blank` by @Rel1cx
 
 **New configuration preset added:**
 
-- `disable-conflict-eslint-plugin-react`: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
+- `disable-conflict-eslint-plugin-react`: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins by @reteps
 
 ### 🐞 Fixes
 
-- fix(react-x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files
-- fix(react-web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly
-- fix(react-naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx`
+- fix(react-x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files by @Rel1cx
+- fix(react-web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly by @Rel1cx
+- fix(react-naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx` by @Rel1cx
 
 ### 🪄 Improvements
 
-- refactor: simplify React APIs detection logic
-- refactor: cleanup utilities and simplify rule implementations
-- docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules
-- docs: replace `tseslint.config` with `defineConfig` in all examples
-- build: migrate build system from `tsup` to `tsdown` for better performance
+- refactor: simplify React APIs detection logic by @Rel1cx
+- refactor: cleanup utilities and simplify rule implementations by @Rel1cx
+- docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules by @reteps
+- docs: replace `tseslint.config` with `defineConfig` in all examples by @Rel1cx
+- build: migrate build system from `tsup` to `tsdown` for better performance by @Rel1cx
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.53.1...v2.0.0
 
