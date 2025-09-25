@@ -2,7 +2,7 @@
 title: Changelog
 ---
 
-## v2.0.0 (TBD)
+## v2.0.0 (2025-09-26)
 
 ### 💥 Breaking Changes
 
