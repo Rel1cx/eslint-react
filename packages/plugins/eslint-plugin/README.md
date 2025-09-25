@@ -22,6 +22,7 @@
   - [TypeScript Specialized](#typescript-specialized)
   - [Other](#other)
 - [Rules](#rules)
+- [Benchmark](#benchmark)
 - [FAQ](#faq)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
@@ -29,10 +30,10 @@
 
 ## Features
 
-- **Modern**: First-class support for TypeScript, React 19, and more.
-- **Flexible**: Fully customizable rule severity levels, allowing you to enforce or relax rules as needed.
-- **Performant**: Built with performance in mind, optimized for large codebases, **4-7x faster** than other ESLint plugins.
-- **Context-aware Linting**: Rules that understand the context of your code and project configuration to provide more accurate linting.
+- **Modern**: First-class support for **TypeScript**, **React 19**, and more.
+- **Flexible**: Fully customizable rule severity levels, allowing you to **enforce** or **relax** rules as needed.
+- **Performant**: Built with performance in mind, optimized for large codebases, [**4-7x faster**](https://github.com/Rel1cx/eslint-react-benchmark) than other ESLint plugins.
+- **Context-aware Linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
 
 ## Public Packages
 
@@ -53,8 +54,8 @@
 > [!NOTE]\
 > ESLint React requires the following minimum versions:
 >
-> - Node.js: 18.18.0
-> - ESLint: 8.57.0
+> - Node.js: 20.19.0
+> - ESLint: 9.24.0
 > - TypeScript: 4.9.5
 
 ### Install
@@ -68,45 +69,45 @@ npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```js
 // eslint.config.js
 
-// @ts-check
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config({
-  files: ["**/*.ts", "**/*.tsx"],
+export default defineConfig([
+  {
+    files: ["**/*.ts", "**/*.tsx"],
 
-  // Extend recommended rule sets from:
-  // 1. ESLint JS's recommended rules
-  // 2. TypeScript ESLint recommended rules
-  // 3. ESLint React's recommended-typescript rules
-  extends: [
-    eslintJs.configs.recommended,
-    tseslint.configs.recommended,
-    eslintReact.configs["recommended-typescript"],
-  ],
+    // Extend recommended rule sets from:
+    // 1. ESLint JS's recommended rules
+    // 2. TypeScript ESLint recommended rules
+    // 3. ESLint React's recommended-typescript rules
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReact.configs["recommended-typescript"],
+    ],
 
-  // Configure language/parsing options
-  languageOptions: {
-    // Use TypeScript ESLint parser for TypeScript files
-    parser: tseslint.parser,
-    parserOptions: {
-      // Enable project service for better TypeScript integration
-      projectService: true,
-      tsconfigRootDir: import.meta.dirname,
+    // Configure language/parsing options
+    languageOptions: {
+      // Use TypeScript ESLint parser for TypeScript files
+      parser: tseslint.parser,
+      parserOptions: {
+        // Enable project service for better TypeScript integration
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+
+    // Custom rule overrides (modify rule levels or disable rules)
+    rules: {
+      "@eslint-react/no-missing-key": "warn",
     },
   },
-
-  // Custom rule overrides (modify rule levels or disable rules)
-  rules: {
-    "@eslint-react/no-missing-key": "warn",
-  },
-});
+]);
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/getting-started/typescript)
-
-</details>
 
 ## Presets
 
@@ -141,6 +142,8 @@ export default tseslint.config({
   Disable rules in the `web-api` preset.
 - `disable-type-checked`\
   Disable rules that require type information.
+- `disable-conflict-eslint-plugin-react`\
+  Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
 - `off`\
   Disable all rules in this plugin except for debug rules.
 
@@ -149,6 +152,10 @@ export default tseslint.config({
 ## Rules
 
 [Rules Overview ↗](https://eslint-react.xyz/docs/rules/overview)
+
+## Benchmark
+
+[Benchmark Results ↗](https://github.com/Rel1cx/eslint-react-benchmark)
 
 ## FAQ
 
@@ -162,8 +169,8 @@ export default tseslint.config({
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/main/.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/2.0.0/.github/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/2.0.0/LICENSE) file for details.

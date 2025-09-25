@@ -8,18 +8,18 @@
 
 > **stringifyJsx**(`node`): `string`
 
-Get the stringified representation of a JSX node
+Incomplete but sufficient stringification of JSX nodes for common use cases
 
 ## Parameters
 
 ### node
 
-The JSX node
+JSX node from TypeScript ESTree
 
-`JSXIdentifier` | `JSXMemberExpression` | `JSXNamespacedName` | `JSXOpeningElement` | `JSXClosingElement` | `JSXOpeningFragment` | `JSXClosingFragment` | `JSXText`
+`JSXClosingElement` | `JSXClosingFragment` | `JSXIdentifier` | `JSXMemberExpression` | `JSXNamespacedName` | `JSXOpeningElement` | `JSXOpeningFragment` | `JSXText`
 
 ## Returns
 
 `string`
 
-The stringified representation
+String representation of the JSX node

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
-import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -17,10 +17,10 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const reactChildrenMethod = ["forEach", "map"] as const;
+const REACT_CHILDREN_METHOD = ["forEach", "map"] as const;
 
-function isReactChildrenMethod(name: string): name is typeof reactChildrenMethod[number] {
-  return reactChildrenMethod.some((method) => method === name);
+function isReactChildrenMethod(name: string): name is typeof REACT_CHILDREN_METHOD[number] {
+  return REACT_CHILDREN_METHOD.includes(name as never);
 }
 
 function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpression) {
@@ -109,7 +109,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const report = RPT.make(context);
   const indexParamNames: Array<string | unit> = [];
 
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
@@ -200,7 +199,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         for (const descriptor of getReportDescriptors(prop.value)) {
-          report.send(descriptor);
+          report(context)(descriptor);
         }
       }
     },
@@ -218,7 +217,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       for (const descriptor of getReportDescriptors(node.value.expression)) {
-        report.send(descriptor);
+        report(context)(descriptor);
       }
     },
   };

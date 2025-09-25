@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { RegExp as RE } from "@eslint-react/kit";
+import { RE_CONSTANT_CASE, RE_PASCAL_CASE, toRegExp } from "@eslint-react/kit";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -127,7 +127,7 @@ function normalizeOptions(options: Options) {
       ? { rule: opts }
       : {
         ...opts,
-        excepts: opts.excepts?.map((s) => RE.toRegExp(s)) ?? [],
+        excepts: opts.excepts?.map((s) => toRegExp(s)) ?? [],
       },
   } as const;
 }
@@ -138,11 +138,11 @@ function isValidName(name: string | unit, options: ReturnType<typeof normalizeOp
   const normalized = name.split(".").at(-1) ?? name;
   switch (options.rule) {
     case "CONSTANT_CASE":
-      return RE.CONSTANT_CASE.test(normalized);
+      return RE_CONSTANT_CASE.test(normalized);
     case "PascalCase":
       if (normalized.length > 3 && /^[A-Z]+$/u.test(normalized)) {
         return options.allowAllCaps;
       }
-      return RE.PASCAL_CASE.test(normalized);
+      return RE_PASCAL_CASE.test(normalized);
   }
 }

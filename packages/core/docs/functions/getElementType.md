@@ -8,7 +8,9 @@
 
 > **getElementType**(`context`, `node`): `string`
 
-Get the stringified type of a JSX element
+Extracts the element type name from a JSX element or fragment
+For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment")
+For JSX fragments, returns an empty string
 
 ## Parameters
 
@@ -16,11 +18,11 @@ Get the stringified type of a JSX element
 
 `RuleContext`
 
-The ESLint rule context
+ESLint rule context
 
 ### node
 
-The JSX element node
+JSX element or fragment node
 
 `JSXElement` | `JSXFragment`
 
@@ -28,4 +30,4 @@ The JSX element node
 
 `string`
 
-The type of the element
+String representation of the element type

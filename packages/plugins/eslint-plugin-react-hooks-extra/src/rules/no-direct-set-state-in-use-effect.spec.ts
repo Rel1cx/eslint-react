@@ -114,120 +114,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useEffect } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useCustomState(0);
-          useEffect(() => {
-            data[index]();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noDirectSetStateInUseEffect",
-          data: {
-            name: "data[index]",
-          },
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useState: ["useCustomState"],
-          },
-        },
-      },
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useCustomEffect(() => {
-            data[index]();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noDirectSetStateInUseEffect",
-          data: {
-            name: "data[index]",
-          },
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useEffect: ["useCustomEffect"],
-          },
-        },
-      },
-    },
-    {
-      code: tsx`
-        const index = 1;
-        function Component() {
-          const data = useCustomState(0);
-          useCustomEffect(() => {
-            data[index]();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noDirectSetStateInUseEffect",
-          data: {
-            name: "data[index]",
-          },
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useEffect: ["useCustomEffect"],
-            useState: ["useCustomState"],
-          },
-        },
-      },
-    },
-    {
-      code: tsx`
-        const index = 1;
-        function Component() {
-          const data = useCustomState(0);
-          useCustomEffect(() => {
-            data.at(index)();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noDirectSetStateInUseEffect",
-          data: {
-            name: "data.at(index)",
-          },
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalHooks: {
-            useEffect: ["useCustomEffect"],
-            useState: ["useCustomState"],
-          },
-        },
-      },
-    },
-    {
-      code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
@@ -782,6 +668,56 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // React docs recommend to first update state in render instead of an effect.
+      // But then continue on to say that usually you can avoid the sync entirely by
+      // more wisely choosing your state. So we'll just always warn about chained state.
+      name: "Syncing prop changes to internal state",
+      code: tsx`
+        function List({ items }) {
+          const [selection, setSelection] = useState();
+
+          useEffect(() => {
+            setSelection(null);
+          }, [items]);
+
+          return (
+            <div>
+              {items.map((item) => (
+                <div key={item.id} onClick={() => setSelection(item)}>
+                  {item.name}
+                </div>
+              ))}
+            </div>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "noDirectSetStateInUseEffect",
+        },
+      ],
+    },
+    {
+      name: "Conditionally setting state from internal state",
+      code: tsx`
+        function Form() {
+          const [error, setError] = useState();
+          const [result, setResult] = useState();
+
+          useEffect(() => {
+            if (result.data) {
+              setError(null);
+            }
+          }, [result]);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noDirectSetStateInUseEffect",
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
@@ -965,21 +901,6 @@ ruleTester.run(RULE_NAME, rule, {
         }, [handlerWatcher])
       }
     `,
-    tsx`
-      import { useLayoutEffect, useState, useRef } from "react";
-
-      function Tooltip() {
-        const ref = useRef(null);
-        const [tooltipHeight, setTooltipHeight] = useState(0); // You don't know real height yet
-
-        useLayoutEffect(() => {
-          const { height } = ref.current.getBoundingClientRect();
-          setTooltipHeight(height); // Re-render now that you know the real height
-        }, []);
-
-        // ...use tooltipHeight in the rendering logic below...
-      }
-    `,
     // https://github.com/Rel1cx/eslint-react/issues/967
     tsx`
       import { useEffect, useState, useCallback } from "react";
@@ -994,6 +915,35 @@ ruleTester.run(RULE_NAME, rule, {
             setSomething('') // trigger the rules
           })()
         }, [])
+      }
+    `,
+    tsx`
+      import { useEffect, useState, useCallback } from "react";
+
+      function useCustomHook() {
+          useLayoutEffect(() => {
+          navigation.setOptions({
+            headerLeft: () => <CloseButtonHeader disabled={submitting} onPress={onBack} />,
+            headerRight: () => (
+              <NewPostSaveButton
+                disabled={submitting || loading}
+                isEdit={!!post}
+                onPress={onPressSave}
+                title={
+                  post
+                    ? t({
+                        message: 'Save',
+                        context: 'action'
+                      })
+                    : t({
+                        message: 'Post',
+                        context: 'action'
+                      })
+                }
+              />
+            )
+          });
+        }, [loading, navigation, onBack, onPressSave, post, submitting, t]);
       }
     `,
   ],

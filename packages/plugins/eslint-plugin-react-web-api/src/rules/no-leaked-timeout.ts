@@ -5,10 +5,10 @@ import * as VAR from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { TimerEntry } from "../types";
+import { P, isMatching } from "ts-pattern";
 
-import { isMatching, P } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction } from "../utils";
+import type { TimerEntry } from "../types";
+import { createRule } from "../utils";
 
 // #region Rule Metadata
 
@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     [":function"](node: AST.TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
+      const kind = ER.getPhaseKindOfFunction(node) ?? "other";
       fEntries.push({ kind, node });
     },
     [":function:exit"]() {
@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       switch (getCallKind(node)) {
         case "setTimeout": {
-          const timeoutIdNode = VAR.getVariableDeclaratorId(node);
+          const timeoutIdNode = VAR.findAssignmentTarget(node);
           if (timeoutIdNode == null) {
             context.report({
               messageId: "expectedTimeoutId",

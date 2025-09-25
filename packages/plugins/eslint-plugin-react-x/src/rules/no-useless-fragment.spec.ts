@@ -365,12 +365,6 @@ ruleTester.run(RULE_NAME, rule, {
           {<Foo />}
         </SomeReact.SomeFragment>
       `,
-      settings: {
-        "react-x": {
-          jsxPragma: "SomeReact",
-          jsxPragmaFrag: "SomeFragment",
-        },
-      },
     },
     {
       code: tsx`{foo}`,

@@ -19,9 +19,5 @@ export const plugin: CompatiblePlugin = {
     ["hook"]: hook,
     ["is-from-react"]: isFromReact,
     ["jsx"]: jsx,
-
-    // Part: deprecated rules
-    /** @deprecated Use `hook` instead */
-    "react-hooks": hook,
   },
 };

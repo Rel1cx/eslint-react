@@ -1,3 +1,25 @@
+export const REACT_BUILTIN_HOOK_NAMES = [
+  "use",
+  "useActionState",
+  "useCallback",
+  "useContext",
+  "useDebugValue",
+  "useDeferredValue",
+  "useEffect",
+  "useFormStatus",
+  "useId",
+  "useImperativeHandle",
+  "useInsertionEffect",
+  "useLayoutEffect",
+  "useMemo",
+  "useOptimistic",
+  "useReducer",
+  "useRef",
+  "useState",
+  "useSyncExternalStore",
+  "useTransition",
+] as const;
+
 /**
  * Catch all identifiers that begin with "use" followed by an uppercase Latin
  * character to exclude identifiers like "user".

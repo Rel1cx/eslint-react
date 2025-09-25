@@ -52,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
-      const variableNode = VAR.getVariableInitNode(variable, 0);
+      const variableNode = VAR.getVariableDefinitionNode(variable, 0);
       if (variableNode != null && (AST.isFunction(variableNode) || ER.isClassComponent(variableNode))) {
         context.report({ messageId: "noPropTypes", node: property });
       }

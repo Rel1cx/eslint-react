@@ -1,6 +1,5 @@
 import * as ER from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { RegExp as RE } from "@eslint-react/kit";
+import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -13,10 +12,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-/**
- * This rule is adapted from eslint-plugin-solid's jsx-no-script-url rule under the MIT license.
- * Thank you for your work!
- */
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -37,12 +32,9 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
-      if (node.name.type !== T.JSXIdentifier || node.value == null) {
-        return;
-      }
-      const attributeValue = ER.getAttributeValue(context, node, ER.getAttributeName(context, node));
-      if (attributeValue.kind === "none" || typeof attributeValue.value !== "string") return;
-      if (RE.JAVASCRIPT_PROTOCOL.test(attributeValue.value)) {
+      if (node.name.type !== T.JSXIdentifier || node.value == null) return;
+      const value = ER.resolveAttributeValue(context, node).toStatic();
+      if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({
           messageId: "noScriptUrl",
           node: node.value,

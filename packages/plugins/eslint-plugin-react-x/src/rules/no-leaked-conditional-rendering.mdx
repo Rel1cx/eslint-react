@@ -251,10 +251,3 @@ function MyComponent({ items }: MyComponentProps) {
 ## Further Reading
 
 - [React Docs: Conditional Rendering](https://react.dev/learn/conditional-rendering)
-
----
-
-## See Also
-
-- [`no-complex-conditional-rendering`](./no-complex-conditional-rendering)\
-  Warns when conditional rendering is too complex.

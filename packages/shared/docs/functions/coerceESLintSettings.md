@@ -8,11 +8,15 @@
 
 > **coerceESLintSettings**(`settings`): `PartialDeep`\<`undefined` \| \{ `react-x?`: `unknown`; \}\>
 
+Coerces unknown input to ESLintSettings type
+
 ## Parameters
 
 ### settings
 
 `unknown`
+
+The settings object to coerce
 
 ## Returns
 

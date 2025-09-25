@@ -1,41 +1,13 @@
 /* eslint-disable perfectionist/sort-objects */
 export const redirects = [
-  // Redirects for old documentation links
   {
-    source: "/docs/getting-started/javascript-with-alternative-parser",
-    destination: "/docs/using-an-alternative-parser/babel-eslint-parser",
+    source: "/docs/rules/avoid-shorthand-boolean",
+    destination: "/docs/rules/jsx-shorthand-boolean",
     permanent: true,
   },
   {
-    source: "/docs/getting-started/typescript-with-alternative-parser",
-    destination: "/docs/using-an-alternative-parser/ts-blank-eslint-parser",
-    permanent: true,
-  },
-  // Redirects for old preset links
-  {
-    source: "/docs/rules/overview#core-rules",
-    destination: "/docs/rules/overview#x-rules",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/overview#react-rules",
-    destination: "/docs/rules/overview#x-rules",
-    permanent: true,
-  },
-  // Redirects for old rule names
-  {
-    source: "/docs/rules/use-jsx-vars",
-    destination: "/docs/rules/jsx-uses-vars",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/no-duplicate-jsx-props",
-    destination: "/docs/rules/jsx-no-duplicate-props",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/no-complicated-conditional-rendering",
-    destination: "/docs/rules/no-complex-conditional-rendering",
+    source: "/docs/rules/avoid-shorthand-fragment",
+    destination: "/docs/rules/jsx-shorthand-fragment",
     permanent: true,
   },
   {
@@ -44,8 +16,23 @@ export const redirects = [
     permanent: true,
   },
   {
-    source: "/docs/rules/no-nested-components",
-    destination: "/docs/rules/no-nested-component-definitions",
+    source: "/docs/rules/prefer-react-namespace-import",
+    destination: "/docs/rules/prefer-namespace-import",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/prefer-shorthand-boolean",
+    destination: "/docs/rules/jsx-shorthand-boolean",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/prefer-shorthand-fragment",
+    destination: "/docs/rules/jsx-shorthand-fragment",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/use-jsx-vars",
+    destination: "/docs/rules/jsx-uses-vars",
     permanent: true,
   },
   {
@@ -54,28 +41,28 @@ export const redirects = [
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-ensure-use-memo-has-non-empty-deps",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
+    source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-layout-effect",
+    destination: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-ensure-use-callback-has-non-empty-deps",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-callback",
+    source: "/docs/rules/hooks-extra-no-unnecessary-use-callback",
+    destination: "/docs/rules/no-unnecessary-use-callback",
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-ensure-custom-hooks-using-other-hooks",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+    source: "/docs/rules/hooks-extra-no-unnecessary-use-memo",
+    destination: "/docs/rules/no-unnecessary-use-memo",
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-no-redundant-custom-hook",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+    source: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+    destination: "/docs/rules/no-unnecessary-use-prefix",
     permanent: true,
   },
   {
-    source: "/docs/rules/hooks-extra-no-useless-custom-hooks",
-    destination: "/docs/rules/hooks-extra-no-unnecessary-use-prefix",
+    source: "/docs/rules/hooks-extra-prefer-use-state-lazy-initialization",
+    destination: "/docs/rules/prefer-use-state-lazy-initialization",
     permanent: true,
   },
 ] as const;

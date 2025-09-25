@@ -1,8 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { Selector as SEL } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -37,13 +36,19 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = ER.useComponentCollector(context);
-  const declarators = new WeakMap<
-    AST.TSESTreeFunction,
-    SEL.ObjectDestructuringVariableDeclarator[]
-  >();
+  const declarators = new WeakMap<AST.TSESTreeFunction, AST.ObjectDestructuringVariableDeclarator[]>();
 
   return {
     ...listeners,
+    [AST.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: AST.ObjectDestructuringVariableDeclarator) {
+      const functionEntry = ctx.getCurrentEntry();
+      if (functionEntry == null) return;
+      getOrElseUpdate(
+        declarators,
+        functionEntry.node,
+        () => [],
+      ).push(node);
+    },
     "Program:exit"(program) {
       const components = ctx.getAllComponents(program);
       for (const { node: component } of components.values()) {
@@ -78,7 +83,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (ER.isReactHookCall(construction.node)) {
             continue;
           }
-          const forbiddenType = AST.toDelimiterCaseType(right);
+          const forbiddenType = AST.toDelimiterFormat(right);
           context.report({
             messageId: "noUnstableDefaultProps",
             node: right,
@@ -88,15 +93,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
         }
       }
-    },
-    [SEL.OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: SEL.ObjectDestructuringVariableDeclarator) {
-      const functionEntry = ctx.getCurrentEntry();
-      if (functionEntry == null) return;
-      getOrElseUpdate(
-        declarators,
-        functionEntry.node,
-        () => [],
-      ).push(node);
     },
   };
 }

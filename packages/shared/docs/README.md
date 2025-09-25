@@ -6,23 +6,15 @@
 
 ## Interfaces
 
-- [CustomComponentNormalized](interfaces/CustomComponentNormalized.md)
-- [CustomComponentPropNormalized](interfaces/CustomComponentPropNormalized.md)
 - [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md)
 
 ## Type Aliases
 
-- [CustomComponent](type-aliases/CustomComponent.md)
-- [CustomComponentProp](type-aliases/CustomComponentProp.md)
-- [CustomHooks](type-aliases/CustomHooks.md)
 - [ESLintReactSettings](type-aliases/ESLintReactSettings.md)
 - [ESLintSettings](type-aliases/ESLintSettings.md)
 
 ## Variables
 
-- [CustomComponentPropSchema](variables/CustomComponentPropSchema.md)
-- [CustomComponentSchema](variables/CustomComponentSchema.md)
-- [CustomHooksSchema](variables/CustomHooksSchema.md)
 - [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md)
 - [DEFAULT\_ESLINT\_SETTINGS](variables/DEFAULT_ESLINT_SETTINGS.md)
 - [defineSettings](variables/defineSettings.md)
@@ -37,7 +29,6 @@
 - [decodeESLintSettings](functions/decodeESLintSettings.md)
 - [decodeSettings](functions/decodeSettings.md)
 - [getConfigAdapters](functions/getConfigAdapters.md)
-- [getId](functions/getId.md)
 - [getReactVersion](functions/getReactVersion.md)
 - [getSettingsFromContext](functions/getSettingsFromContext.md)
 - [isESLintReactSettings](functions/isESLintReactSettings.md)

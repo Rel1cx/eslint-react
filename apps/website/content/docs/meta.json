@@ -2,6 +2,7 @@
   "title": "Documentation",
   "pages": [
     "getting-started",
+    "migration",
     "---Core Reference---",
     "rules",
     "presets",

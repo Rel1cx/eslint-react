@@ -1,0 +1,205 @@
+---
+title: no-forbidden-props
+---
+
+**Full Name in `eslint-plugin-react-x`**
+
+```sh copy
+react-x/no-forbidden-props
+```
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```sh copy
+@eslint-react/no-forbidden-props
+```
+
+**Features**
+
+`🔧` `🧪`
+
+## Description
+
+Disallow certain props on components. This rule helps enforce consistent prop naming conventions and prevents the use of specific props that may be problematic or against your team's coding standards.
+
+By default, this rule forbids snake\_case props (props containing underscores) to encourage camelCase naming conventions.
+
+## Options
+
+The rule accepts an object with the following properties:
+
+- `forbid` (array): An array of forbidden prop configurations. Each item can be:
+  - A string: The exact prop name to forbid
+  - An object with `prop` and optional `excludedNodes` or `includedNodes`:
+    - `prop` (string): The prop name or regex pattern to forbid
+    - `excludedNodes` (array): Component names where this prop is allowed
+    - `includedNodes` (array): Component names where this prop is forbidden (others are allowed)
+
+### Default Configuration
+
+```json
+{
+  "forbid": [{ "prop": "/_/" }]
+}
+```
+
+This default configuration forbids any prop containing an underscore (snake\_case).
+
+## Examples
+
+### Default Behavior (Forbids snake\_case props)
+
+#### Failing
+
+```tsx
+<div snake_case="value" />
+<Component user_name="test" />
+<ns:Element data_value="test" />
+```
+
+#### Passing
+
+```tsx
+<div camelCase="value" />
+<Component userName="test" />
+<ns:Element dataValue="test" />
+```
+
+### Custom Forbidden Props
+
+Configuration:
+
+```json
+{
+  "forbid": ["className", "style"]
+}
+```
+
+#### Failing
+
+```tsx
+<div className="test" />
+<Component style={{}} />
+```
+
+#### Passing
+
+```tsx
+<div id="test" />
+<Component id="test" />
+```
+
+### Regex Patterns
+
+Configuration:
+
+```json
+{
+  "forbid": [
+    { "prop": "/^data-/" },
+    { "prop": "/^aria-/" }
+  ]
+}
+```
+
+#### Failing
+
+```tsx
+<div data-testid="test" />
+<div aria-label="test" />
+<div data-cy="test" />
+```
+
+#### Passing
+
+```tsx
+<div id="test" />
+<div className="test" />
+```
+
+### Node-Specific Exclusions
+
+Configuration:
+
+```json
+{
+  "forbid": [
+    {
+      "prop": "/_/",
+      "excludedNodes": ["Button"]
+    }
+  ]
+}
+```
+
+#### Failing
+
+```tsx
+<div snake_case="value" />
+<Span snake_case="value" />
+```
+
+#### Passing
+
+```tsx
+<Button snake_case="value" />;
+```
+
+### Node-Specific Inclusions
+
+Configuration:
+
+```json
+{
+  "forbid": [
+    {
+      "prop": "/_/",
+      "includedNodes": ["Button", "Input"]
+    }
+  ]
+}
+```
+
+#### Failing
+
+```tsx
+<Button snake_case="value" />
+<Input snake_case="value" />
+```
+
+#### Passing
+
+```tsx
+<div snake_case="value" />
+<span snake_case="value" />
+```
+
+### Mixed Configuration
+
+```json
+{
+  "forbid": [
+    "className",
+    { "prop": "/^data-/", "excludedNodes": ["Button"] },
+    { "prop": "/^aria-/", "includedNodes": ["Input"] }
+  ]
+}
+```
+
+This configuration:
+
+- Forbids `className` on all components
+- Forbids `data-*` props on all components except `Button`
+- Forbids `aria-*` props only on `Input` components
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-forbidden-props.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-forbidden-props.spec.ts)
+
+## Notes
+
+- Spread attributes (`{...props}`) are ignored by this rule
+- JSXMemberExpression components (like `React.Component`) are supported for prop checking, but node-specific filtering may not work as expected
+- Regex patterns should be wrapped in forward slashes (e.g., `/pattern/`)
+- The rule processes each forbidden prop configuration independently

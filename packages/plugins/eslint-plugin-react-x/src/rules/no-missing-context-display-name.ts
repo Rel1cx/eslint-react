@@ -1,5 +1,6 @@
+import * as AST from "@eslint-react/ast";
 import * as ER from "@eslint-react/core";
-import { LanguagePreference, type RuleContext, type RuleFeature, Selector as SEL } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -40,6 +41,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // `context.displayName = ...` assignment expressions
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
   return {
+    [AST.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: AST.DisplayNameAssignmentExpression) {
+      displayNameAssignments.push(node);
+    },
     CallExpression(node) {
       if (!ER.isCreateContextCall(context, node)) return;
       createCalls.push(node);
@@ -62,9 +66,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return ER.isInstanceIdEqual(context, id, object);
           });
         if (!hasDisplayNameAssignment) {
-          const semi = LanguagePreference.defaultLanguagePreference.semicolons === "always"
-            ? ";"
-            : "";
           context.report({
             messageId: "noMissingContextDisplayName",
             node: id,
@@ -81,16 +82,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                   "=",
                   " ",
                   JSON.stringify(id.name),
-                  semi,
+                  ";",
                 ].join(""),
               );
             },
           });
         }
       }
-    },
-    [SEL.DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: SEL.DisplayNameAssignmentExpression) {
-      displayNameAssignments.push(node);
     },
   };
 }

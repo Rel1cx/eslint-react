@@ -6,9 +6,7 @@
 
 # Function: getAttribute()
 
-> **getAttribute**(`context`, `name`, `attributes`, `initialScope?`): `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
-
-Get the JSX attribute node with the given name
+> **getAttribute**(`context`, `attributes`, `initialScope?`): (`name`) => `undefined` \| `TSESTreeJSXAttributeLike`
 
 ## Parameters
 
@@ -16,28 +14,24 @@ Get the JSX attribute node with the given name
 
 `RuleContext`
 
-The ESLint rule context
-
-### name
-
-`string`
-
-The name of the attribute
-
 ### attributes
 
-(`JSXAttribute` \| `JSXSpreadAttribute`)[]
-
-The attributes to search
+`TSESTreeJSXAttributeLike`[]
 
 ### initialScope?
 
 `Scope`
 
-The initial scope to use for variable resolution
-
 ## Returns
 
-`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
+> (`name`): `undefined` \| `TSESTreeJSXAttributeLike`
 
-The JSX attribute node or undefined
+### Parameters
+
+#### name
+
+`string`
+
+### Returns
+
+`undefined` \| `TSESTreeJSXAttributeLike`

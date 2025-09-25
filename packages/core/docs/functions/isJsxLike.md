@@ -8,13 +8,14 @@
 
 > **isJsxLike**(`code`, `node`, `hint`): `boolean`
 
-Heuristic decision to determine if a node is a JSX-like node.
+Determines if a node represents JSX-like content based on heuristics
+Supports configuration through hint flags to customize detection behavior
 
 ## Parameters
 
 ### code
 
-The sourceCode object
+The source code with scope lookup capability
 
 #### getScope
 
@@ -24,7 +25,7 @@ The function to get the scope of a node
 
 ### node
 
-The AST node to check
+The AST node to analyze
 
 `undefined` | `null` | `Node`
 
@@ -32,10 +33,10 @@ The AST node to check
 
 `bigint` = `DEFAULT_JSX_DETECTION_HINT`
 
-The `JSXDetectionHint` to use
+The configuration flags to adjust detection behavior
 
 ## Returns
 
 `boolean`
 
-boolean
+boolean Whether the node is considered JSX-like

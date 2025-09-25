@@ -5,7 +5,6 @@
     "!configure-language-preference",
     "configure-project-config",
     "!---Advanced Configuration---",
-    "!enhanced-additional-components",
     "!using-custom-parsers"
   ]
 }

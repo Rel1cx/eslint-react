@@ -7,7 +7,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 
 import { createRule } from "../utils";
 

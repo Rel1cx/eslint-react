@@ -7,8 +7,8 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { TimerEntry } from "../types";
 
-import { isMatching, P } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction } from "../utils";
+import { P, isMatching } from "ts-pattern";
+import { createRule } from "../utils";
 
 // #region Rule Metadata
 
@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     [":function"](node: AST.TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
+      const kind = ER.getPhaseKindOfFunction(node) ?? "other";
       fEntries.push({ kind, node });
     },
     [":function:exit"]() {
@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!ER.ComponentPhaseRelevance.has(fEntry.kind)) {
             break;
           }
-          const intervalIdNode = VAR.getVariableDeclaratorId(node);
+          const intervalIdNode = VAR.findAssignmentTarget(node);
           if (intervalIdNode == null) {
             context.report({
               messageId: "expectedIntervalId",

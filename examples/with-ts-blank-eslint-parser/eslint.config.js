@@ -43,7 +43,7 @@ export default defineConfig([
   {
     files: TSCONFIG_APP.include,
     extends: [
-      eslintReact.configs["recommended-typescript"],
+      eslintReact.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,
     ],
     plugins: {

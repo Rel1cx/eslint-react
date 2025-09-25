@@ -5,7 +5,7 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
-import { glob } from "./utils/glob";
+import { glob } from "./lib/glob";
 
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
 
@@ -15,6 +15,17 @@ interface RuleMeta {
   destination: string;
   source: string;
 }
+
+const orderedCategories = [
+  { key: "x", heading: "---X Rules---" },
+  { key: "dom", heading: "---DOM Rules---" },
+  { key: "web-api", heading: "---Web API Rules---" },
+  { key: "hooks-extra", heading: "---Hooks Extra Rules---" },
+  { key: "naming-convention", heading: "---Naming Convention Rules---" },
+  { key: "debug", heading: "---Debug Rules---" },
+] as const satisfies { key: string; heading: string }[];
+
+const sortAsc = (arr: readonly string[]): string[] => [...arr].sort((a, b) => a.localeCompare(b, "en"));
 
 const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
@@ -71,27 +82,15 @@ function generateRuleMetaJson(metas: RuleMeta[]) {
       };
     }, {});
 
-    const sortAsc = (arr: readonly string[]): string[] => [...arr].sort((a, b) => a.localeCompare(b, "en"));
-
-    const orderedCategories: Array<{
-      key: string;
-      heading: string;
-    }> = [
-      { key: "x", heading: "---X Rules---" },
-      { key: "dom", heading: "---DOM Rules---" },
-      { key: "web-api", heading: "---Web API Rules---" },
-      { key: "hooks-extra", heading: "---Hooks Extra Rules---" },
-      { key: "naming-convention", heading: "---Naming Convention Rules---" },
-      { key: "debug", heading: "---Debug Rules---" },
-    ];
-
-    const pages = orderedCategories.reduce<string[]>((acc, cat) => {
+    const pages = orderedCategories.reduce((acc, cat) => {
       const rules = grouped[cat.key];
-      if (rules && rules.length > 0) {
-        acc.push(cat.heading);
-        acc.push(...sortAsc(rules));
-      }
-      return acc;
+      return rules && rules.length > 0
+        ? [
+          ...acc,
+          cat.heading,
+          ...sortAsc(rules),
+        ]
+        : acc;
     }, ["overview"]);
 
     const jsonContent = JSON.stringify({ pages }, null, 2) + "\n";

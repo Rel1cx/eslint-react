@@ -1,4 +1,4 @@
-import type { CompatibleConfig, CompatiblePlugin } from "@eslint-react/kit";
+import type { CompatiblePlugin } from "@eslint-react/kit";
 import reactDebug from "eslint-plugin-react-debug";
 import reactDom from "eslint-plugin-react-dom";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
@@ -9,6 +9,7 @@ import react from "eslint-plugin-react-x";
 import { name, version } from "../package.json";
 import * as allConfig from "./configs/all";
 import * as debugConfig from "./configs/debug";
+import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
 import * as disableDebugConfig from "./configs/disable-debug";
 import * as disableDomConfig from "./configs/disable-dom";
 import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
@@ -20,13 +21,6 @@ import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checke
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import * as xConfig from "./configs/x";
 import { padKeysLeft } from "./utils";
-
-function toLegacyConfig({ rules }: CompatibleConfig) {
-  return {
-    plugins: ["@eslint-react"],
-    rules,
-  };
-}
 
 const plugin: CompatiblePlugin = {
   meta: {
@@ -47,38 +41,17 @@ export default {
   ...plugin,
   configs: {
     ["all"]: allConfig,
-    ["all-legacy"]: toLegacyConfig(allConfig),
     ["debug"]: debugConfig,
-    ["debug-legacy"]: toLegacyConfig(debugConfig),
+    ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
     ["disable-debug"]: disableDebugConfig,
-    ["disable-debug-legacy"]: toLegacyConfig(disableDebugConfig),
     ["disable-dom"]: disableDomConfig,
-    ["disable-dom-legacy"]: toLegacyConfig(disableDomConfig),
     ["disable-type-checked"]: disableTypeCheckedConfig,
-    ["disable-type-checked-legacy"]: toLegacyConfig(disableTypeCheckedConfig),
     ["disable-web-api"]: disableWebApiConfig,
-    ["disable-web-api-legacy"]: toLegacyConfig(disableWebApiConfig),
     ["dom"]: domConfig,
-    ["dom-legacy"]: toLegacyConfig(domConfig),
     ["off"]: offConfig,
-    ["off-legacy"]: toLegacyConfig(offConfig),
     ["recommended"]: recommendedConfig,
-    ["recommended-legacy"]: toLegacyConfig(recommendedConfig),
     ["recommended-type-checked"]: recommendedTypeCheckedConfig,
-    ["recommended-type-checked-legacy"]: toLegacyConfig(recommendedTypeCheckedConfig),
     ["recommended-typescript"]: recommendedTypeScriptConfig,
-    ["recommended-typescript-legacy"]: toLegacyConfig(recommendedTypeScriptConfig),
     ["x"]: xConfig,
-    ["x-legacy"]: toLegacyConfig(xConfig),
-
-    // Part: deprecated presets
-    /** @deprecated Use `x` instead */
-    ["core"]: xConfig,
-    /** @deprecated Use `x-legacy` instead */
-    ["core-legacy"]: toLegacyConfig(xConfig),
-    /** @deprecated Use `disable-dom` instead */
-    ["off-dom"]: disableDomConfig,
-    /** @deprecated Use `disable-dom-legacy` instead */
-    ["off-dom-legacy"]: toLegacyConfig(disableDomConfig),
   },
 };

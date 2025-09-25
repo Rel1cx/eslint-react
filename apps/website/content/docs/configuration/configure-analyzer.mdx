@@ -56,58 +56,6 @@ Example with `polymorphicPropName` set to `as`:
 // Evaluated as an h3 element
 ```
 
-### `additionalComponents` (Experimental)
-
-<Callout type="info">
-  Consider using `polymorphicPropName` instead when possible, as it's simpler
-  and more efficient.
-</Callout>
-
-<Callout type="warn">
-  Experimental feature that may lack stability and documentation.
-</Callout>
-
-Maps components and their attributes for comprehensive analysis. Supports default attribute values.
-
-Example configuration:
-
-```json
-[
-  {
-    "name": "EmbedContent",
-    "as": "iframe",
-    "attributes": [
-      {
-        "name": "sandbox",
-        "defaultValue": ""
-      }
-    ]
-  }
-]
-```
-
-This makes `<EmbedContent src="https://eslint-react.xyz" />{:tsx}` evaluate as `<iframe src="https://eslint-react.xyz" sandbox="" />{:tsx}`.
-
-### `additionalHooks` (Experimental)
-
-<Callout type="warn">
-  Intended for edge cases. We suggest to use this option **very sparingly, if at
-  all**. Generally saying, we recommend most custom Hooks do not vary the
-  built-in React Hooks, and instead provide a higher-level API that is more
-  focused around a specific use case.
-</Callout>
-
-Alias variants to built-in React Hooks for rule compatibility:
-
-```js
-additionalHooks: {
-  useEffect: ["useIsomorphicLayoutEffect"],
-  useLayoutEffect: ["useIsomorphicLayoutEffect"]
-}
-```
-
-Treats `useIsomorphicLayoutEffect` as both `useEffect` and `useLayoutEffect` in rule checks.
-
 ## Complete Configuration Example
 
 ```ts title="eslint.config.js"
@@ -121,26 +69,6 @@ export default [
         version: "19.1.0", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
         importSource: "react", // Customize the import source for the React module (defaults to "react")
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
-
-        // (Experimental) Alias custom Hooks to built-in React Hooks for rule compatibility
-        additionalHooks: {
-          useEffect: ["useIsomorphicLayoutEffect"],
-          useLayoutEffect: ["useIsomorphicLayoutEffect"],
-        },
-
-        // (Experimental) Configure mapping for custom components and their attributes for more comprehensive analysis
-        additionalComponents: [
-          {
-            name: "Link",
-            as: "a",
-            attributes: [{ name: "to", as: "href" }],
-          },
-          {
-            name: "EmbedContent",
-            as: "iframe",
-            attributes: [{ name: "sandbox", defaultValue: "" }],
-          },
-        ],
       },
     },
   },

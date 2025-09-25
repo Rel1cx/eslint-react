@@ -13,6 +13,7 @@ import noNamespace from "./rules/no-namespace";
 import noRender from "./rules/no-render";
 import noRenderReturnValue from "./rules/no-render-return-value";
 import noScriptUrl from "./rules/no-script-url";
+import noStringStyleProp from "./rules/no-string-style-prop";
 import noUnknownProperty from "./rules/no-unknown-property";
 import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
@@ -36,14 +37,11 @@ export const plugin: CompatiblePlugin = {
     "no-render": noRender,
     "no-render-return-value": noRenderReturnValue,
     "no-script-url": noScriptUrl,
+    "no-string-style-prop": noStringStyleProp,
     "no-unknown-property": noUnknownProperty,
     "no-unsafe-iframe-sandbox": noUnsafeIframeSandbox,
     "no-unsafe-target-blank": noUnsafeTargetBlank,
     "no-use-form-state": noUseFormState,
     "no-void-elements-with-children": noVoidElementsWithChildren,
-
-    // Part: deprecated rules
-    /** @deprecated Use `no-void-elements-with-children` instead */
-    "no-children-in-void-dom-elements": noVoidElementsWithChildren,
   },
 };

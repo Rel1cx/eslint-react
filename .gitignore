@@ -18,6 +18,7 @@ coverage/
 .eslintcache
 
 # misc
+/log
 .DS_Store
 *.pem
 
@@ -38,11 +39,9 @@ yarn-error.log*
 
 # vercel
 .vercel
-
 stats.html
 *.config-*.mjs
 /eslint-config.json
 *.bundled_*.mjs
 *.tgz
 eslint-results.sarif
-.tsup

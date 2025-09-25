@@ -4,26 +4,40 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { unit } from "@eslint-react/eff";
-
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+import { createJsxElementResolver, createRule } from "../utils";
 
 export const RULE_NAME = "no-unsafe-target-blank";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
 
-function isExternalLinkLike(value: string | unit) {
-  if (value == null) return false;
-  return value.startsWith("https://")
-    || /^(?:\w+:|\/\/)/u.test(value);
+export type RuleSuggestMessageID = "addRelNoreferrerNoopener";
+
+/**
+ * Checks if a value appears to be an external link.
+ * External links typically start with http(s):// or have protocol-relative format.
+ * @param value - The value to check
+ * @returns Whether the value represents an external link
+ */
+function isExternalLinkLike(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+
+  return value.startsWith("https://") || /^(?:\w+:|\/\/)/u.test(value);
 }
 
-function isSafeRel(value: string | unit) {
-  if (value == null) return false;
-  return value === "noreferrer"
-    || /\bnoreferrer\b/u.test(value);
+/**
+ * Checks if a rel attribute value contains the necessary security attributes.
+ * At minimum, it should contain "noreferrer".
+ * @param value - The rel attribute value to check
+ * @returns Whether the rel value is considered secure
+ */
+function isSafeRel(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+
+  return value === "noreferrer" || /\bnoreferrer\b/u.test(value);
 }
 
 export default createRule<[], MessageID>({
@@ -33,7 +47,10 @@ export default createRule<[], MessageID>({
       description: 'Disallow `target="_blank"` without `rel="noreferrer noopener"`.',
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
+    hasSuggestions: true,
     messages: {
+      addRelNoreferrerNoopener: `Add 'rel="noreferrer noopener"' to the link to prevent security risks.`,
       noUnsafeTargetBlank:
         `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
@@ -46,41 +63,69 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
+
   return {
     JSXElement(node: TSESTree.JSXElement) {
-      const { attributes, domElementType } = resolver.resolve(node);
+      // Only process anchor tags (<a>)
+      const { domElementType } = resolver.resolve(node);
       if (domElementType !== "a") return;
-      const elementScope = context.sourceCode.getScope(node);
 
-      const getAttributeStringValue = (name: string) => {
-        const customComponentProp = findCustomComponentProp(name, attributes);
-        const propNameOnJsx = customComponentProp?.name ?? name;
-        const attributeNode = ER.getAttribute(
-          context,
-          propNameOnJsx,
-          node.openingElement.attributes,
-          elementScope,
-        );
-        if (attributeNode == null) return customComponentProp?.defaultValue;
-        const attributeValue = ER.getAttributeValue(context, attributeNode, propNameOnJsx);
-        if (attributeValue.kind === "some" && typeof attributeValue.value === "string") {
-          return attributeValue.value;
-        }
-        return unit;
-      };
+      // Get access to the component attributes
+      const getAttributes = ER.getAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
 
-      if (getAttributeStringValue("target") !== "_blank") {
+      // Check if target="_blank" is present
+      const targetAttribute = getAttributes("target");
+      if (targetAttribute == null) return;
+
+      const targetAttributeValue = ER.resolveAttributeValue(context, targetAttribute).toStatic("target");
+      if (targetAttributeValue !== "_blank") return;
+
+      // Check if href points to an external resource
+      const hrefAttribute = getAttributes("href");
+      if (hrefAttribute == null) return;
+
+      const hrefAttributeValue = ER.resolveAttributeValue(context, hrefAttribute).toStatic("href");
+      if (!isExternalLinkLike(hrefAttributeValue)) return;
+
+      // Check if rel attribute exists and is secure
+      const relAttribute = getAttributes("rel");
+
+      // No rel attribute case - suggest adding one
+      if (relAttribute == null) {
+        context.report({
+          messageId: "noUnsafeTargetBlank",
+          node: node.openingElement,
+          suggest: [{
+            messageId: "addRelNoreferrerNoopener",
+            fix(fixer) {
+              return fixer.insertTextAfter(
+                node.openingElement.name,
+                ` rel="noreferrer noopener"`,
+              );
+            },
+          }],
+        });
         return;
       }
-      if (!isExternalLinkLike(getAttributeStringValue("href"))) {
-        return;
-      }
-      if (isSafeRel(getAttributeStringValue("rel"))) {
-        return;
-      }
+
+      // Check if existing rel attribute is secure
+      const relAttributeValue = ER.resolveAttributeValue(context, relAttribute).toStatic("rel");
+      if (isSafeRel(relAttributeValue)) return;
+
+      // Existing rel attribute is not secure - suggest replacing it
       context.report({
         messageId: "noUnsafeTargetBlank",
-        node,
+        node: relAttribute,
+        suggest: [{
+          messageId: "addRelNoreferrerNoopener",
+          fix(fixer) {
+            return fixer.replaceText(relAttribute, `rel="noreferrer noopener"`);
+          },
+        }],
       });
     },
   };

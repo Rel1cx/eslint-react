@@ -1,17 +1,16 @@
 import type * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
-import type { RuleContext } from "@eslint-react/kit";
-import { RegExp as RE } from "@eslint-react/kit";
+import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE, type RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { getFunctionComponentId } from "./component-id";
 
 export function isComponentName(name: string) {
-  return RE.COMPONENT_NAME.test(name);
+  return RE_COMPONENT_NAME.test(name);
 }
 
 export function isComponentNameLoose(name: string) {
-  return RE.COMPONENT_NAME_LOOSE.test(name);
+  return RE_COMPONENT_NAME_LOOSE.test(name);
 }
 
 export function getComponentNameFromId(id: TSESTree.Identifier | TSESTree.Identifier[] | unit) {

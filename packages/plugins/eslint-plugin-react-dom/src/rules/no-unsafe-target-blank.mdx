@@ -14,6 +14,10 @@ react-dom/no-unsafe-target-blank
 @eslint-react/dom/no-unsafe-target-blank
 ```
 
+**Features**
+
+`🔧`
+
 **Presets**
 
 - `dom`

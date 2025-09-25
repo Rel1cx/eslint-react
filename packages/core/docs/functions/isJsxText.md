@@ -8,7 +8,7 @@
 
 > **isJsxText**(`node`): node is JSXText \| Literal
 
-Check if a node is a `JSXText` or a `Literal` node
+Checks if a node is a `JSXText` or a `Literal` node
 
 ## Parameters
 

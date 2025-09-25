@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "1.53.2-beta.1",
+  "version": "2.0.0-beta.194",
   "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -14,28 +14,20 @@
   "license": "MIT",
   "author": "Rel1cx<rel1cx@proton.me>",
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "./package.json"
   ],
   "scripts": {
-    "build": "tsdown",
+    "build": "tsdown --dts-resolve",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
@@ -43,9 +35,9 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.15.3"
+    "tsdown": "^0.15.4"
   },
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=20.19.0"
   }
 }

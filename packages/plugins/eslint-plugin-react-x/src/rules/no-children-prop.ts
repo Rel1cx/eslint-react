@@ -31,8 +31,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      const attributes = node.openingElement.attributes;
-      const childrenProp = ER.getAttribute(context, "children", attributes, context.sourceCode.getScope(node));
+      const getAttribute = ER.getAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+      const childrenProp = getAttribute("children");
       if (childrenProp != null) {
         context.report({
           messageId: "noChildrenProp",

@@ -8,25 +8,9 @@
 
 > `const` **DEFAULT\_ESLINT\_REACT\_SETTINGS**: `object`
 
-The default ESLint settings for "react-x".
+Default ESLint React settings
 
 ## Type Declaration
-
-### additionalComponents
-
-> `readonly` **additionalComponents**: \[\] = `[]`
-
-### additionalHooks
-
-> `readonly` **additionalHooks**: `object`
-
-#### additionalHooks.useEffect
-
-> `readonly` **useEffect**: \[`"useIsomorphicLayoutEffect"`\]
-
-#### additionalHooks.useLayoutEffect
-
-> `readonly` **useLayoutEffect**: \[`"useIsomorphicLayoutEffect"`\]
 
 ### importSource
 
@@ -35,14 +19,6 @@ The default ESLint settings for "react-x".
 ### polymorphicPropName
 
 > `readonly` **polymorphicPropName**: `"as"` = `"as"`
-
-### skipImportCheck
-
-> `readonly` **skipImportCheck**: `true` = `true`
-
-### strict
-
-> `readonly` **strict**: `true` = `true`
 
 ### version
 

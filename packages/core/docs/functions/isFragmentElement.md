@@ -6,46 +6,27 @@
 
 # Function: isFragmentElement()
 
-## Call Signature
+> **isFragmentElement**(`context`, `node`): `node is JSXElement`
 
-> **isFragmentElement**(`context`, `node`, `allowJSXFragment?`): `node is JSXElement`
+Determines if a JSX element is a React Fragment
+Fragments can be imported from React and used like <Fragment> or <React.Fragment>
 
-### Parameters
+## Parameters
 
-#### context
+### context
 
 `RuleContext`
 
-#### node
+ESLint rule context
 
-`undefined` | `null` | `Node`
+### node
 
-#### allowJSXFragment?
+`Node`
 
-`false`
+AST node to check
 
-### Returns
+## Returns
 
 `node is JSXElement`
 
-## Call Signature
-
-> **isFragmentElement**(`context`, `node`, `allowJSXFragment?`): node is JSXElement \| JSXFragment
-
-### Parameters
-
-#### context
-
-`RuleContext`
-
-#### node
-
-`undefined` | `null` | `Node`
-
-#### allowJSXFragment?
-
-`true`
-
-### Returns
-
-node is JSXElement \| JSXFragment
+boolean indicating if the element is a Fragment with type narrowing

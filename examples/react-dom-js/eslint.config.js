@@ -18,10 +18,15 @@ export default defineConfig([
         ...globals.browser,
       },
       parserOptions: {
+        project: "./jsconfig.app.json",
+        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },
       },
+    },
+    rules: {
+      "no-unused-vars": "off",
     },
   },
   // base configuration for node environment source files (*.config.js, etc.)
@@ -32,6 +37,10 @@ export default defineConfig([
     languageOptions: {
       globals: {
         ...globals.node,
+      },
+      parserOptions: {
+        project: "./jsconfig.node.json",
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {

@@ -1,14 +1,21 @@
 import * as ER from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/kit";
+import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+
+import { createJsxElementResolver, createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-button-type";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
+
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
+
+export type RuleSuggestMessageID = "addButtonType";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -17,7 +24,9 @@ export default createRule<[], MessageID>({
       description: "Enforces explicit `type` attribute for `button` elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    hasSuggestions: true,
     messages: {
+      addButtonType: "Add 'type' attribute with value '{{type}}'.",
       noMissingButtonType: "Add missing 'type' attribute on 'button' component.",
     },
     schema: [],
@@ -31,36 +40,36 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const { attributes, domElementType } = resolver.resolve(node);
+      const { domElementType } = resolver.resolve(node);
       if (domElementType !== "button") return;
-      const customComponentProp = findCustomComponentProp("type", attributes);
-      const propNameOnJsx = customComponentProp?.name ?? "type";
-      const attributeNode = ER.getAttribute(
-        context,
-        propNameOnJsx,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      if (attributeNode != null) {
-        const attributeValue = ER.getAttributeValue(
-          context,
-          attributeNode,
-          propNameOnJsx,
-        );
-        if (attributeValue.kind === "some" && typeof attributeValue.value !== "string") {
-          context.report({
-            messageId: "noMissingButtonType",
-            node: attributeNode,
-          });
-        }
-        return;
-      }
-      if (typeof customComponentProp?.defaultValue !== "string") {
+      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const typeAttribute = getAttribute("type");
+      if (typeAttribute == null) {
         context.report({
           messageId: "noMissingButtonType",
-          node,
+          node: node.openingElement,
+          suggest: getSuggest((type) => (fixer: RuleFixer) => {
+            return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
+          }),
         });
+        return;
       }
+      if (typeof ER.resolveAttributeValue(context, typeAttribute).toStatic("type") === "string") return;
+      context.report({
+        messageId: "noMissingButtonType",
+        node: typeAttribute,
+        suggest: getSuggest((type) => (fixer: RuleFixer) => {
+          return fixer.replaceText(typeAttribute, `type="${type}"`);
+        }),
+      });
     },
   };
+}
+
+function getSuggest(getFix: (type: string) => RuleSuggest["fix"]): RuleSuggest<MessageID>[] {
+  return BUTTON_TYPES.map((type) => ({
+    messageId: "addButtonType",
+    data: { type },
+    fix: getFix(type),
+  }));
 }

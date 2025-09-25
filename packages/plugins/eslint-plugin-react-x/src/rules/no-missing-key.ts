@@ -3,7 +3,7 @@ import * as ER from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import { Reporter as RPT, type RuleContext, type RuleFeature } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
@@ -36,7 +36,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const report = RPT.make<MessageID>(context);
   const state = { isWithinChildrenToArray: false };
 
   function checkIteratorElement(node: TSESTree.Node): null | ReportDescriptor<MessageID> {
@@ -104,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
         if (!ER.hasAttribute(context, "key", element.openingElement.attributes, initialScope)) {
-          report.send({
+          context.report({
             messageId: "missingKey",
             node: element,
           });
@@ -121,10 +120,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!AST.isFunction(callback)) return;
       const body = callback.body;
       if (body.type === T.BlockStatement) {
-        checkBlockStatement(body).forEach(report.send);
+        checkBlockStatement(body)
+          .forEach(report(context));
         return;
       }
-      report.send(checkExpression(body));
+      report(context)(checkExpression(body));
     },
     "CallExpression:exit"(node) {
       if (!ER.isChildrenToArrayCall(context, node)) {
@@ -137,7 +137,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       if (node.parent.type === T.ArrayExpression) {
-        report.send({
+        context.report({
           messageId: "unexpectedFragmentSyntax",
           node,
         });

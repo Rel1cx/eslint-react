@@ -17,28 +17,30 @@ npm install --save-dev eslint-plugin-react-hooks-extra
 // @ts-check
 import js from "@eslint/js";
 import reactHooksExtra from "eslint-plugin-react-hooks-extra";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config({
-  files: ["**/*.ts", "**/*.tsx"],
-  extends: [
-    js.configs.recommended,
-    tseslint.configs.recommended,
-    reactHooksExtra.configs.recommended,
-  ],
-  languageOptions: {
-    parser: tseslint.parser,
-    parserOptions: {
-      projectService: true,
-      tsconfigRootDir: import.meta.dirname,
+export default defineConfig([
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooksExtra.configs.recommended,
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      // Put rules you want to override here
+      "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
     },
   },
-  rules: {
-    // Put rules you want to override here
-    "react-hooks-extra/no-unnecessary-use-prefix": "warn",
-    "react-hooks-extra/prefer-use-state-lazy-initialization": "warn",
-  },
-});
+]);
 ```
 
 ## Rules

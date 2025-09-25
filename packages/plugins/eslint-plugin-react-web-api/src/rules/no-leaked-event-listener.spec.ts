@@ -644,27 +644,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        import * as React from 'react';
-
-        function useCustomHook() {
-          React.useEffect(() => {
-            const handleClick = () => {
-              console.log("clicked");
-            };
-            document.addEventListener("click", handleClick);
-            //                                 ^^^^^^^^^^^^
-            //                                 - No error is reported here
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
   ],
   valid: [
     ...allValid,

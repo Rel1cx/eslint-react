@@ -4,11 +4,11 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as Fn from "effect/Function";
-import { isMatching, match, P } from "ts-pattern";
+import { P, isMatching, match } from "ts-pattern";
 
-import { ignores } from "./effects/ignores";
-import { version } from "./effects/version";
-import { glob } from "./utils/glob";
+import { glob } from "./lib/glob";
+import { ignores } from "./lib/ignores";
+import { version } from "./lib/version";
 
 const GLOB_PACKAGE_JSON = [
   "package.json",

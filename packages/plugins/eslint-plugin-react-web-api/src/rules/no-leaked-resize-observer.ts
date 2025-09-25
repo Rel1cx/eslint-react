@@ -9,8 +9,8 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { ObserverEntry, ObserverMethod } from "../types";
 
-import { isMatching, match, P } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction, isConditional } from "../utils";
+import { P, isMatching, match } from "ts-pattern";
+import { createRule, isConditional } from "../utils";
 
 // #region Rule Metadata
 
@@ -49,7 +49,7 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
   switch (true) {
     case node.type === T.Identifier: {
       const initialScope = context.sourceCode.getScope(node);
-      const object = VAR.getVariableInitNode(VAR.findVariable(node, initialScope), 0);
+      const object = VAR.getVariableDefinitionNode(VAR.findVariable(node, initialScope), 0);
       return isNewResizeObserver(object);
     }
     case node.type === T.MemberExpression:
@@ -76,7 +76,7 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
 }
 
 function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
-  return getPhaseKindOfFunction(node) ?? "other";
+  return ER.getPhaseKindOfFunction(node) ?? "other";
 }
 
 // #endregion

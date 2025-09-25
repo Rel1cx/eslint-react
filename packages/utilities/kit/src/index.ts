@@ -1,6 +1,3 @@
-export * as JsxConfig from "./JsxConfig";
-export * as LanguagePreference from "./LanguagePreference";
-export * as RegExp from "./RegExp";
-export * as Reporter from "./Reporter";
-export * as Selector from "./Selector";
+export * from "./constants";
 export type * from "./types";
+export * from "./utils";

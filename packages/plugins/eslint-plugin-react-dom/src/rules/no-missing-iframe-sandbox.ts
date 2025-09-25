@@ -3,39 +3,17 @@ import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { createJsxElementResolver, createRule, findCustomComponentProp } from "../utils";
+import { createJsxElementResolver, createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
 
-const validTypes = [
-  "",
-  "allow-downloads",
-  "allow-downloads-without-user-activation",
-  "allow-forms",
-  "allow-modals",
-  "allow-orientation-lock",
-  "allow-pointer-lock",
-  "allow-popups",
-  "allow-popups-to-escape-sandbox",
-  "allow-presentation",
-  "allow-same-origin",
-  "allow-scripts",
-  "allow-storage-access-by-user-activation",
-  "allow-top-navigation",
-  "allow-top-navigation-by-user-activation",
-  "allow-top-navigation-to-custom-protocols",
-] as const;
-
-function hasValidSandBox(value: unknown) {
-  return typeof value === "string"
-    && value
-      .split(" ")
-      .every((value) => validTypes.some((valid) => valid === value));
-}
+export type RuleSuggestMessageID = "addIframeSandbox";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -44,7 +22,10 @@ export default createRule<[], MessageID>({
       description: "Enforces explicit `sandbox` attribute for `iframe` elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
+    fixable: "code",
+    hasSuggestions: true,
     messages: {
+      addIframeSandbox: "Add 'sandbox' attribute with value '{{value}}'.",
       noMissingIframeSandbox: "Add missing 'sandbox' attribute on 'iframe' component.",
     },
     schema: [],
@@ -58,35 +39,40 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
   return {
     JSXElement(node) {
-      const { attributes, domElementType } = resolver.resolve(node);
+      const { domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
-      const customComponentProp = findCustomComponentProp("sandbox", attributes);
-      const propNameOnJsx = customComponentProp?.name ?? "sandbox";
-      const attributeNode = ER.getAttribute(
-        context,
-        propNameOnJsx,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      if (attributeNode != null) {
-        const attributeValue = ER.getAttributeValue(
-          context,
-          attributeNode,
-          propNameOnJsx,
-        );
-        if (attributeValue.kind === "some" && hasValidSandBox(attributeValue.value)) return;
+      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const sandboxAttribute = getAttribute("sandbox");
+      if (sandboxAttribute == null) {
         context.report({
           messageId: "noMissingIframeSandbox",
-          node: attributeNode,
+          node: node.openingElement,
+          suggest: [{
+            messageId: "addIframeSandbox",
+            data: { value: "" },
+            fix(fixer) {
+              return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
+            },
+          }],
         });
         return;
       }
-      if (!hasValidSandBox(customComponentProp?.defaultValue)) {
-        context.report({
-          messageId: "noMissingIframeSandbox",
-          node,
-        });
-      }
+      const sandboxAttributeValue = ER.resolveAttributeValue(context, sandboxAttribute);
+      if (typeof sandboxAttributeValue.toStatic("sandbox") === "string") return;
+      context.report({
+        messageId: "noMissingIframeSandbox",
+        node: sandboxAttributeValue.node ?? sandboxAttribute,
+        suggest: [
+          {
+            messageId: "addIframeSandbox",
+            data: { value: "" },
+            fix(fixer) {
+              if (sandboxAttributeValue.kind.startsWith("spread")) return null;
+              return fixer.replaceText(sandboxAttribute, `sandbox=""`);
+            },
+          },
+        ],
+      });
     },
   };
 }

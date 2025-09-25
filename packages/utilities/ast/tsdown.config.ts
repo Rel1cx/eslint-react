@@ -5,11 +5,11 @@ export default {
   dts: true,
   entry: ["src/index.ts"],
   external: ["eslint", "typescript"],
-  format: ["cjs", "esm"],
+  format: ["esm"],
   minify: false,
   outDir: "dist",
   platform: "node",
   sourcemap: false,
-  target: "node18",
+  target: "node20",
   treeshake: true,
 } satisfies Options;

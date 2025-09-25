@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isJsxLike, JSXDetectionHint } from "../jsx";
+import { JSXDetectionHint, isJsxLike } from "../jsx";
 
 /**
  * Unsafe check whether given node is a render function

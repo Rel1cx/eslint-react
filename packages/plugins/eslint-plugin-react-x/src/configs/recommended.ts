@@ -4,7 +4,7 @@ import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 export const name = "react-x/recommended";
 
 export const rules = {
-  "react-x/jsx-key-before-spread": "warn",
+  "react-x/jsx-no-comment-textnodes": "warn",
   "react-x/jsx-no-duplicate-props": "warn",
   "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
@@ -16,7 +16,6 @@ export const rules = {
   "react-x/no-children-only": "warn",
   "react-x/no-children-to-array": "warn",
   "react-x/no-clone-element": "warn",
-  "react-x/no-comment-textnodes": "warn",
   "react-x/no-component-will-mount": "error",
   "react-x/no-component-will-receive-props": "error",
   "react-x/no-component-will-update": "error",
@@ -24,19 +23,19 @@ export const rules = {
   "react-x/no-create-ref": "error",
   "react-x/no-default-props": "error",
   "react-x/no-direct-mutation-state": "error",
-  "react-x/no-duplicate-key": "warn",
+  "react-x/no-duplicate-key": "error",
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
   "react-x/no-missing-key": "error",
-  "react-x/no-misused-capture-owner-stack": "error",
   "react-x/no-nested-component-definitions": "error",
-  "react-x/no-nested-lazy-component-declarations": "warn",
+  "react-x/no-nested-lazy-component-declarations": "error",
   "react-x/no-prop-types": "error",
   "react-x/no-redundant-should-component-update": "error",
   "react-x/no-set-state-in-component-did-mount": "warn",
   "react-x/no-set-state-in-component-did-update": "warn",
   "react-x/no-set-state-in-component-will-update": "warn",
   "react-x/no-string-refs": "error",
+  "react-x/no-unnecessary-use-prefix": "warn",
   "react-x/no-unsafe-component-will-mount": "warn",
   "react-x/no-unsafe-component-will-receive-props": "warn",
   "react-x/no-unsafe-component-will-update": "warn",
@@ -46,6 +45,7 @@ export const rules = {
   "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
+  "react-x/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
 export const settings = {

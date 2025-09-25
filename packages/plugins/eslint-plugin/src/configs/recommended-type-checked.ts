@@ -7,6 +7,7 @@ export const name = "@eslint-react/recommended-type-checked";
 export const rules = {
   ...recommendedTypeScript.rules,
   "@eslint-react/no-leaked-conditional-rendering": "warn",
+  "@eslint-react/no-unused-props": "warn",
   // "@eslint-react/prefer-read-only-props": "warn",
 } as const satisfies Record<string, RuleConfig>;
 

@@ -39,7 +39,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           firstSpreadAttributeIndex ??= index;
           continue;
         }
-        if (attr.name.name === "key" && firstSpreadAttributeIndex != null && index > firstSpreadAttributeIndex) {
+        if (firstSpreadAttributeIndex == null) {
+          continue;
+        }
+        if (attr.name.name === "key" && index > firstSpreadAttributeIndex) {
           context.report({
             messageId: "jsxKeyBeforeSpread",
             node: attr,

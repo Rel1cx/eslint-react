@@ -154,18 +154,19 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 
 You can migrate gradually by using both plugins together, using the `disableConflictEslintPluginReact` ruleset:
 
-```js
-import reactPlugin from "eslint-plugin-react";
-import eslintReact from "@eslint-react/eslint-plugin";
+```ts title="eslint.config.js"
+import pluginReact from 'eslint-plugin-react';
+import eslintReact from '@eslint-react/eslint-plugin';
+
 export default [
   // Start with the eslint-plugin-react
   {
     files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
     // Whatever config you had enabled with eslint-plugin-react
-    ...reactPlugin.configs.flat.recommended,
+    ...pluginReact.configs.flat.recommended,
 
     // Now disable all conflicting rules
-    ...eslintReact.configs['disable-conflict-eslint-plugin-react],
+    ...eslintReact.configs['disable-conflict-eslint-plugin-react'],
 
     // Now enable the desired rules
     ...eslintReact.configs.recommended,

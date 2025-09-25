@@ -1,43 +1,35 @@
-import type { unit } from "@eslint-react/eff";
+import type * as AST from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/kit";
 import * as VAR from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/utils";
 
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getAttributeName } from "./jsx-attribute-name";
 
-/**
- * Get the JSX attribute node with the given name
- * @param context The ESLint rule context
- * @param name The name of the attribute
- * @param attributes The attributes to search
- * @param initialScope The initial scope to use for variable resolution
- * @returns The JSX attribute node or undefined
- */
-export function getAttribute(
-  context: RuleContext,
-  name: string,
-  attributes: (TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute)[],
-  initialScope?: Scope,
-): TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute | unit {
-  return attributes.findLast((attr) => {
-    if (attr.type === T.JSXAttribute) {
-      return getAttributeName(context, attr) === name;
-    }
-    if (initialScope == null) return false;
-    switch (attr.argument.type) {
-      case T.Identifier: {
-        const variable = VAR.findVariable(attr.argument.name, initialScope);
-        const variableNode = VAR.getVariableInitNode(variable, 0);
-        if (variableNode?.type === T.ObjectExpression) {
-          return VAR.findPropertyInProperties(name, variableNode.properties, initialScope) != null;
-        }
-        return false;
+export function getAttribute(context: RuleContext, attributes: AST.TSESTreeJSXAttributeLike[], initialScope?: Scope) {
+  return (name: string) => {
+    return attributes.findLast((attr) => {
+      // Case 1: Direct JSX attribute (e.g., className="value")
+      if (attr.type === T.JSXAttribute) {
+        return getAttributeName(context, attr) === name;
       }
-      case T.ObjectExpression:
-        return VAR.findPropertyInProperties(name, attr.argument.properties, initialScope) != null;
-    }
-    return false;
-  });
+      // For spread attributes, we need a scope to resolve variables
+      if (initialScope == null) return false;
+      switch (attr.argument.type) {
+        // Case 2: Spread from variable (e.g., {...props})
+        case T.Identifier: {
+          const variable = VAR.findVariable(attr.argument.name, initialScope);
+          const variableNode = VAR.getVariableDefinitionNode(variable, 0);
+          if (variableNode?.type === T.ObjectExpression) {
+            return VAR.findProperty(name, variableNode.properties, initialScope) != null;
+          }
+          return false;
+        }
+        // Case 3: Spread from object literal (e.g., {{...{prop: value}}})
+        case T.ObjectExpression:
+          return VAR.findProperty(name, attr.argument.properties, initialScope) != null;
+      }
+      return false;
+    });
+  };
 }

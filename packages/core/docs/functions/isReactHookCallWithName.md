@@ -6,19 +6,22 @@
 
 # Function: isReactHookCallWithName()
 
-> **isReactHookCallWithName**(`context`, `node`): (`name`) => `boolean`
+> **isReactHookCallWithName**(`node`): (`name`) => `boolean`
+
+Checks if a node is a call to a specific React hook.
+Returns a function that accepts a hook name to check against.
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
 ### node
+
+The AST node to check
 
 `undefined` | `Node`
 
 ## Returns
+
+A function that takes a hook name and returns boolean
 
 > (`name`): `boolean`
 

@@ -4,11 +4,6 @@ title: Presets
 
 The following presets are available in `@eslint-react/eslint-plugin`:
 
-<Callout type="info">
-  For ESLint Legacy Config (`.eslintrc.*`), add a `-legacy` suffix to the preset
-  name (e.g. `recommended-legacy`).
-</Callout>
-
 ## Bare Bones
 
 - `x`\
@@ -40,9 +35,11 @@ The following presets are available in `@eslint-react/eslint-plugin`:
   Disable rules in the `web-api` preset.
 - `disable-type-checked`\
   Disable rules that require type information.
+- `disable-conflict-eslint-plugin-react`\
+  Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
 - `off`\
   Disable all rules in this plugin except for debug rules.
 
 ## References
 
-- [Deprecated Presets](/docs/deprecated#presets)
+- [Removed Presets](/docs/removed#presets)
