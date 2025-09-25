@@ -1,34 +1,48 @@
 /* eslint-disable perfectionist/sort-objects */
 export const redirects = [
-  // Redirects for old preset links
   {
-    source: "/docs/rules/overview#core-rules",
-    destination: "/docs/rules/overview#x-rules",
+    source: "/docs/rules/avoid-shorthand-boolean",
+    destination: "/docs/rules/jsx-shorthand-boolean",
     permanent: true,
   },
   {
-    source: "/docs/rules/overview#react-rules",
-    destination: "/docs/rules/overview#x-rules",
+    source: "/docs/rules/avoid-shorthand-fragment",
+    destination: "/docs/rules/jsx-shorthand-fragment",
     permanent: true,
   },
   {
-    source: "/docs/rules/avoid-shorthand-:rest",
-    destination: "/docs/rules/jsx-shorthand-:rest",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/prefer-shorthand-:rest",
-    destination: "/docs/rules/jsx-shorthand-:rest",
-    permanent: true,
-  },
-  {
-    source: "/docs/rules/no-comment-textnodes",
-    destination: "/docs/rules/jsx-no-comment-textnodes",
+    source: "/docs/rules/ensure-forward-ref-using-ref",
+    destination: "/docs/rules/no-useless-forward-ref",
     permanent: true,
   },
   {
     source: "/docs/rules/prefer-react-namespace-import",
     destination: "/docs/rules/prefer-namespace-import",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/prefer-shorthand-boolean",
+    destination: "/docs/rules/jsx-shorthand-boolean",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/prefer-shorthand-fragment",
+    destination: "/docs/rules/jsx-shorthand-fragment",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/use-jsx-vars",
+    destination: "/docs/rules/jsx-uses-vars",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/dom-no-children-in-void-dom-elements",
+    destination: "/docs/rules/dom-no-void-elements-with-children",
+    permanent: true,
+  },
+  {
+    source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-layout-effect",
+    destination: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
     permanent: true,
   },
   {

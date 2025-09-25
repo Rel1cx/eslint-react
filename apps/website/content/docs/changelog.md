@@ -14,34 +14,56 @@ title: Changelog
 - Drop support for ESLint 8, minimum required version is now ESLint 9.3.6
 - Drop support for TypeScript 4, minimum required version is now TypeScript 5.9.2
 
-**The following rules have been renamed:**
+**Removed Rules**
 
-- `react-x/no-comment-textnodes` -> `react-x/jsx-no-comment-textnodes`
-- `react-x/no-nested-components` -> `react-x/no-nested-component-definitions`
-- `react-x/prefer-react-namespace-import` -> `react-x/prefer-namespace-import`
+| Rule                                                       | Replaced by                                                                                                        | Reason       |
+| :--------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- | :----------- |
+| react-x/avoid-shorthand-boolean                            | [`react-x/jsx-shorthand-boolean`](/docs/rules/jsx-shorthand-boolean)                                               | consolidated |
+| react-x/avoid-shorthand-fragment                           | [`react-x/jsx-shorthand-fragment`](/docs/rules/jsx-shorthand-fragment)                                             | consolidated |
+| react-x/ensure-forward-ref-using-ref                       | [`react-x/no-useless-forward-ref`](/docs/rules/no-useless-forward-ref)                                             | renamed      |
+| react-x/jsx-no-duplicate-props                             | [`react-x/jsx-no-duplicate-props`](/docs/rules/jsx-no-duplicate-props)                                             | renamed      |
+| react-x/no-comment-textnodes                               | [`react-x/jsx-no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                                         | renamed      |
+| react-x/no-complicated-conditional-rendering               |                                                                                                                    | discontinued |
+| react-x/no-nested-components                               | [`react-x/no-nested-component-definitions`](/docs/rules/no-nested-component-definitions)                           | renamed      |
+| react-x/prefer-react-namespace-import                      | [`react-x/prefer-namespace-import`](/docs/rules/prefer-namespace-import)                                           | renamed      |
+| react-x/prefer-shorthand-boolean                           | [`react-x/jsx-shorthand-boolean`](/docs/rules/jsx-shorthand-boolean)                                               | consolidated |
+| react-x/prefer-shorthand-fragment                          | [`react-x/jsx-shorthand-fragment`](/docs/rules/jsx-shorthand-fragment)                                             | consolidated |
+| react-x/use-jsx-vars                                       | [`react-x/jsx-uses-vars`](/docs/rules/jsx-uses-vars)                                                               | renamed      |
+| react-dom/no-children-in-void-dom-elements                 | [`react-dom/no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children)                       | renamed      |
+| react-hooks-extra/no-direct-set-state-in-use-layout-effect | [`react-hooks-extra/no-direct-set-state-in-use-effect`](/docs/rules/hooks-extra-no-direct-set-state-in-use-effect) | consolidated |
+| react-hooks-extra/no-unnecessary-use-callback              | [`react-x/no-unnecessary-use-callback`](/docs/rules/no-unnecessary-use-callback)                                   | relocated    |
+| react-hooks-extra/no-unnecessary-use-memo                  | [`react-x/no-unnecessary-use-memo`](/docs/rules/no-unnecessary-use-memo)                                           | relocated    |
+| react-hooks-extra/no-unnecessary-use-prefix                | [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix)                                       | relocated    |
+| react-hooks-extra/prefer-use-state-lazy-initialization     | [`react-x/prefer-use-state-lazy-initialization`](/docs/rules/prefer-use-state-lazy-initialization)                 | relocated    |
 
-**The following rules have been consolidated into new rules:**
+**Removed Presets**
 
-- `react-x/jsx-shorthand-boolean` replaces `avoid-shorthand-boolean` and `prefer-shorthand-boolean`
-- `react-x/jsx-shorthand-fragment` replaces `avoid-shorthand-fragment` and `prefer-shorthand-fragment`
-- `react-hooks-extra/no-direct-set-state-in-use-effect` replaces `no-direct-set-state-in-use-layout-effect`
+| Preset                            | Replaced by   | Reason       |
+| :-------------------------------- | :------------ | :----------- |
+| `core`                            | `x`           | renamed      |
+| `core-legacy`                     |               | discontinued |
+| `off-dom`                         | `disable-dom` | renamed      |
+| `off-dom-legacy`                  |               | discontinued |
+| `x-legacy`                        |               | discontinued |
+| `dom-legacy`                      |               | discontinued |
+| `web-api-legacy`                  |               | discontinued |
+| `recommended-legacy`              |               | discontinued |
+| `recommended-typescript-legacy`   |               | discontinued |
+| `recommended-type-checked-legacy` |               | discontinued |
 
-**The following rules have been moved to new plugins:**
+**Removed Settings**
 
-- `react-hooks-extra/no-unnecessary-use-callback` -> `react-x/no-unnecessary-use-callback`
-- `react-hooks-extra/no-unnecessary-use-memo` -> `react-x/no-unnecessary-use-memo`
-- `react-hooks-extra/no-unnecessary-use-prefix` -> `react-x/no-unnecessary-use-prefix`
-- `react-hooks-extra/prefer-use-state-lazy-initialization` -> `react-x/prefer-use-state-lazy-initialization`
+| Setting                | Replaced by | Reason       |
+| :--------------------- | :---------- | :----------- |
+| `additionalComponents` |             | discontinued |
+| `additionalHooks`      |             | discontinued |
+| `skipImportCheck`      |             | discontinued |
 
-**The following settings have been removed from `settings["react-x"]`:**
-
-- `additionalComponents`
-- `additionalHooks`
-- `skipImportCheck`
+The rule implementations have been refactored to improve performance and maintainability.
 
 ### ✨ New
 
-Added the following new rules:
+**Added the following new rules:**
 
 - `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes
 - `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments
@@ -51,11 +73,11 @@ Added the following new rules:
 - `react-dom/no-string-style-prop`: Disallows string values for the `style` prop
 - `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom`
 
-Added the following new rule to the `recommended-type-checked` preset:
+**Added the following new rule to the `recommended-type-checked` preset:**
 
 - `react-x/no-unused-props`: Reports unused props in components
 
-The following rules now support Codemod features:
+**The following rules now support Codemod features:**
 
 - `react-x/no-component-did-update`
 - `react-x/no-component-will-receive-props`
@@ -64,18 +86,18 @@ The following rules now support Codemod features:
 - `react-x/no-forward-ref`
 - `react-x/no-string-refs`
 
-The following rules now support auto-fix:
+**The following rules now support auto-fix:**
 
 - `react-x/prefer-namespace-import`
 - `react-dom/prefer-namespace-import`
 
-The following rules now support suggestion fixes:
+**The following rules now support suggestion fixes:**
 
 - `react-dom/no-missing-button-type`
 - `react-dom/no-missing-iframe-sandbox`
 - `react-dom/no-unsafe-target-blank`
 
-New configuration preset added:
+**New configuration preset added:**
 
 - `disable-conflict-eslint-plugin-react`: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins
 
@@ -87,8 +109,8 @@ New configuration preset added:
 
 ### 🪄 Improvements
 
+- refactor: simplify React APIs detection logic
 - refactor: cleanup utilities and simplify rule implementations
-- refactor: rework React API detection logic to better align with `eslint-plugin-react-hooks`
 - docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules
 - docs: replace `tseslint.config` with `defineConfig` in all examples
 - build: migrate build system from `tsup` to `tsdown` for better performance
