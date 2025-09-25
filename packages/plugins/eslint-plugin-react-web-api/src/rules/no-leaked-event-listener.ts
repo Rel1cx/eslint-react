@@ -11,7 +11,7 @@ import type { EventListenerEntry } from "../types";
 
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction } from "../utils";
+import { createRule } from "../utils";
 
 // #region Rule Metadata
 
@@ -67,7 +67,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
 }
 
 function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
-  return getPhaseKindOfFunction(node) ?? "other";
+  return ER.getPhaseKindOfFunction(node) ?? "other";
 }
 
 function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scope): TSESTree.Node | unit {

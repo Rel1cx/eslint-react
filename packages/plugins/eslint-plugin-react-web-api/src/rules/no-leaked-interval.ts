@@ -8,7 +8,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { TimerEntry } from "../types";
 
 import { P, isMatching } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction } from "../utils";
+import { createRule } from "../utils";
 
 // #region Rule Metadata
 
@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     [":function"](node: AST.TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
+      const kind = ER.getPhaseKindOfFunction(node) ?? "other";
       fEntries.push({ kind, node });
     },
     [":function:exit"]() {

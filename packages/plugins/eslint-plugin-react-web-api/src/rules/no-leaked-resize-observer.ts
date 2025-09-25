@@ -10,7 +10,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { ObserverEntry, ObserverMethod } from "../types";
 
 import { P, isMatching, match } from "ts-pattern";
-import { createRule, getPhaseKindOfFunction, isConditional } from "../utils";
+import { createRule, isConditional } from "../utils";
 
 // #region Rule Metadata
 
@@ -76,7 +76,7 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
 }
 
 function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
-  return getPhaseKindOfFunction(node) ?? "other";
+  return ER.getPhaseKindOfFunction(node) ?? "other";
 }
 
 // #endregion
