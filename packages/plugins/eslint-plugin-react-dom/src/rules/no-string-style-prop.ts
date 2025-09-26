@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -31,11 +31,11 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      if (!ER.isHostElement(context, node)) return;
-      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const attribute = getAttribute("style");
+      if (!isHostElement(context, node)) return;
+      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const attribute = getAttributeEx("style");
       if (attribute == null) return;
-      const attributeValue = ER.resolveAttributeValue(context, attribute);
+      const attributeValue = resolveAttributeValue(context, attribute);
       if (typeof attributeValue.toStatic() === "string") {
         context.report({
           messageId: "noStringStyleProp",

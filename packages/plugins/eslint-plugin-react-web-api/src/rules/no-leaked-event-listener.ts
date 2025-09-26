@@ -1,16 +1,21 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import {
+  type ComponentPhaseKind,
+  ComponentPhaseRelevance,
+  getPhaseKindOfFunction,
+  isInversePhase,
+} from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { EventListenerEntry } from "../types";
-
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
+
+import type { EventListenerEntry } from "../types";
 import { createRule } from "../utils";
 
 // #region Rule Metadata
@@ -28,7 +33,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ER.ComponentPhaseKind | "other";
+type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
@@ -67,7 +72,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
 }
 
 function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
-  return ER.getPhaseKindOfFunction(node) ?? "other";
+  return getPhaseKindOfFunction(node) ?? "other";
 }
 
 function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scope): TSESTree.Node | unit {
@@ -75,7 +80,7 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
   switch (node.type) {
     case T.Identifier: {
       return getSignalValueExpression(
-        VAR.getVariableDefinitionNode(VAR.findVariable(node, initialScope), 0),
+        getVariableDefinitionNode(findVariable(node, initialScope), 0),
         initialScope,
       );
     }
@@ -88,7 +93,7 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
   function findProp(properties: TSESTree.ObjectExpression["properties"], propName: string) {
-    return VAR.findProperty(propName, properties, initialScope);
+    return findProperty(propName, properties, initialScope);
   }
   function getPropValue<A>(
     prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | unit,
@@ -112,8 +117,8 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case T.Identifier: {
-        const variable = VAR.findVariable(node, initialScope);
-        const variableNode = VAR.getVariableDefinitionNode(variable, 0);
+        const variable = findVariable(node, initialScope);
+        const variableNode = getVariableDefinitionNode(variable, 0);
         if (variableNode?.type === T.ObjectExpression) {
           return getOpts(variableNode);
         }
@@ -192,12 +197,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
     const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
     const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-    if (!ER.isInversePhase(aPhase, rPhase)) {
+    if (!isInversePhase(aPhase, rPhase)) {
       return false;
     }
     return isSameObject(aCallee, rCallee)
       && AST.isNodeEqual(aListener, rListener)
-      && VAR.isNodeValueEqual(aType, rType, [
+      && isNodeValueEqual(aType, rType, [
         context.sourceCode.getScope(aType),
         context.sourceCode.getScope(rType),
       ])
@@ -234,7 +239,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (fKind == null) {
         return;
       }
-      if (!ER.ComponentPhaseRelevance.has(fKind)) {
+      if (!ComponentPhaseRelevance.has(fKind)) {
         return;
       }
       match(getCallKind(node))

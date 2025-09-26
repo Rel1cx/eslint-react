@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { isComponentWillUpdate, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("componentWillUpdate")) return {};
-  const { ctx, listeners } = ER.useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy();
 
   return {
     ...listeners,
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const { node: component } of components.values()) {
         const { body } = component.body;
         for (const member of body) {
-          if (ER.isComponentWillUpdate(member)) {
+          if (isComponentWillUpdate(member)) {
             context.report({
               messageId: "noComponentWillUpdate",
               node: member,

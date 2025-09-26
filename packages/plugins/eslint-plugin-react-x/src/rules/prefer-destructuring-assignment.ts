@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isComponentNameLoose, useComponentCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = ER.useComponentCollector(context);
+  const { ctx, listeners } = useComponentCollector(context);
   const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
 
   return {
@@ -64,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const id = AST.getFunctionId(block);
         return id != null
-          && ER.isComponentNameLoose(id.name)
+          && isComponentNameLoose(id.name)
           && components.some((component) => component.node === block);
       }
 

@@ -1,15 +1,21 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import {
+  type ComponentPhaseKind,
+  ComponentPhaseRelevance,
+  getInstanceId,
+  getPhaseKindOfFunction,
+  isInstanceIdEqual,
+} from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { ObserverEntry, ObserverMethod } from "../types";
-
 import { P, isMatching, match } from "ts-pattern";
+
+import type { ObserverEntry, ObserverMethod } from "../types";
 import { createRule, isConditional } from "../utils";
 
 // #region Rule Metadata
@@ -27,7 +33,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ER.ComponentPhaseKind | "other";
+type FunctionKind = ComponentPhaseKind | "other";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type CallKind = ObserverMethod | EffectMethodKind | "other";
 
@@ -49,7 +55,7 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
   switch (true) {
     case node.type === T.Identifier: {
       const initialScope = context.sourceCode.getScope(node);
-      const object = VAR.getVariableDefinitionNode(VAR.findVariable(node, initialScope), 0);
+      const object = getVariableDefinitionNode(findVariable(node, initialScope), 0);
       return isNewResizeObserver(object);
     }
     case node.type === T.MemberExpression:
@@ -76,7 +82,7 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
 }
 
 function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
-  return ER.getPhaseKindOfFunction(node) ?? "other";
+  return getPhaseKindOfFunction(node) ?? "other";
 }
 
 // #endregion
@@ -113,7 +119,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
-    phase: ER.ComponentPhaseKind;
+    phase: ComponentPhaseKind;
     phaseNode: AST.TSESTreeFunction;
   }[] = [];
   const oEntries: OEntry[] = [];
@@ -132,7 +138,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-      if (fKind == null || !ER.ComponentPhaseRelevance.has(fKind)) {
+      if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
         return;
       }
       const { object } = node.callee;
@@ -182,13 +188,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ["NewExpression"](node) {
       const fEntry = fEntries.findLast((x) => x.kind !== "other");
       if (fEntry == null) return;
-      if (!ER.ComponentPhaseRelevance.has(fEntry.kind)) {
+      if (!ComponentPhaseRelevance.has(fEntry.kind)) {
         return;
       }
       if (!isNewResizeObserver(node)) {
         return;
       }
-      const id = ER.getInstanceId(node);
+      const id = getInstanceId(node);
       if (id == null) {
         context.report({
           messageId: "unexpectedFloatingInstance",
@@ -205,11 +211,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
-        if (dEntries.some((e) => ER.isInstanceIdEqual(context, e.observer, id))) {
+        if (dEntries.some((e) => isInstanceIdEqual(context, e.observer, id))) {
           continue;
         }
-        const oentries = oEntries.filter((e) => ER.isInstanceIdEqual(context, e.observer, id));
-        const uentries = uEntries.filter((e) => ER.isInstanceIdEqual(context, e.observer, id));
+        const oentries = oEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
+        const uentries = uEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
         const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
         const hasDynamicallyAdded = oentries
@@ -219,7 +225,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         for (const oEntry of oentries) {
-          if (uentries.some((uEntry) => ER.isInstanceIdEqual(context, uEntry.element, oEntry.element))) {
+          if (uentries.some((uEntry) => isInstanceIdEqual(context, uEntry.element, oEntry.element))) {
             continue;
           }
           context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });

@@ -1,11 +1,19 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import {
+  ComponentDetectionHint,
+  isCreateContextCall,
+  isCreateElementCall,
+  isLazyCall,
+  isReactHookCall,
+  useComponentCollector,
+  useComponentCollectorLegacy,
+} from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-nested-lazy-component-declarations";
@@ -33,9 +41,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hint = ER.ComponentDetectionHint.None;
-  const collector = ER.useComponentCollector(context, { hint });
-  const collectorLegacy = ER.useComponentCollectorLegacy();
+  const hint = ComponentDetectionHint.None;
+  const collector = useComponentCollector(context, { hint });
+  const collectorLegacy = useComponentCollectorLegacy();
 
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();
 
@@ -43,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...collector.listeners,
     ...collectorLegacy.listeners,
     ImportExpression(node) {
-      const lazyCall = AST.findParentNode(node, (n) => ER.isLazyCall(context, n));
+      const lazyCall = AST.findParentNode(node, (n) => isLazyCall(context, n));
       if (lazyCall != null) {
         lazyComponentDeclarations.add(lazyCall);
       }
@@ -67,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const significantParent = AST.findParentNode(lazy, (n) => {
           if (AST.isJSX(n)) return true;
           if (n.type === T.CallExpression) {
-            return ER.isReactHookCall(n) || ER.isCreateElementCall(context, n) || ER.isCreateContextCall(context, n);
+            return isReactHookCall(n) || isCreateElementCall(context, n) || isCreateContextCall(context, n);
           }
           if (AST.isFunction(n)) {
             return functionComponents.some((c) => c.node === n);

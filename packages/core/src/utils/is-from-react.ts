@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { identity } from "@eslint-react/eff";
-import * as VAR from "@eslint-react/var";
+import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -34,7 +34,7 @@ export function isInitializedFromReact(
   initialScope: Scope,
 ): boolean {
   if (name.toLowerCase() === "react") return true;
-  const latestDef = VAR.findVariable(name, initialScope)?.defs.at(-1);
+  const latestDef = findVariable(name, initialScope)?.defs.at(-1);
   if (latestDef == null) return false;
   const { node, parent } = latestDef;
   if (node.type === T.VariableDeclarator && node.init != null) {

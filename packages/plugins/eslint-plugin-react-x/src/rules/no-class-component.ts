@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { isComponentDidCatch, isGetDerivedStateFromError, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,13 +30,13 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("Component")) return {};
-  const { ctx, listeners } = ER.useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy();
   return {
     ...listeners,
     "Program:exit"(program) {
       const components = ctx.getAllComponents(program);
       for (const { name = "anonymous", node: component } of components.values()) {
-        if (component.body.body.some((m) => ER.isComponentDidCatch(m) || ER.isGetDerivedStateFromError(m))) {
+        if (component.body.body.some((m) => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) {
           continue;
         }
         context.report({

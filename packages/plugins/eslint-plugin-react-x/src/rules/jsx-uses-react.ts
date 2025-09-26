@@ -1,11 +1,10 @@
-import * as ER from "@eslint-react/core";
+import { JsxEmit, getJsxConfigFromAnnotation, getJsxConfigFromContext } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-import { createRule } from "../utils";
 
-const JsxEmit = ER.JsxEmit;
+import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-uses-react";
 
@@ -32,8 +31,8 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const jsxConfig = {
-    ...ER.getJsxConfigFromContext(context),
-    ...ER.getJsxConfigFromAnnotation(context),
+    ...getJsxConfigFromContext(context),
+    ...getJsxConfigFromAnnotation(context),
   };
 
   const { jsx, jsxFactory, jsxFragmentFactory } = jsxConfig;

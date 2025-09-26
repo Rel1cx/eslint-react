@@ -1,12 +1,11 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { getElementType, isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
 import { getSettingsFromContext } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
+import { type Construction, getConstruction } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 
 import { createRule } from "../utils";
@@ -39,13 +38,13 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, listeners } = ER.useComponentCollector(context);
-  const constructions = new WeakMap<AST.TSESTreeFunction, VAR.Construction[]>();
+  const { ctx, listeners } = useComponentCollector(context);
+  const constructions = new WeakMap<AST.TSESTreeFunction, Construction[]>();
 
   return {
     ...listeners,
     JSXOpeningElement(node) {
-      const fullName = ER.getElementType(context, node.parent);
+      const fullName = getElementType(context, node.parent);
       const selfName = fullName.split(".").at(-1);
       if (selfName == null) return;
       if (!isContextName(selfName, isReact18OrBelow)) return;
@@ -62,9 +61,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (value?.type !== T.JSXExpressionContainer) return;
       const valueExpression = value.expression;
       const initialScope = context.sourceCode.getScope(valueExpression);
-      const construction = VAR.getConstruction(valueExpression, initialScope);
+      const construction = getConstruction(valueExpression, initialScope);
       if (construction == null) return;
-      if (ER.isReactHookCall(construction.node)) {
+      if (isReactHookCall(construction.node)) {
         return;
       }
       getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);

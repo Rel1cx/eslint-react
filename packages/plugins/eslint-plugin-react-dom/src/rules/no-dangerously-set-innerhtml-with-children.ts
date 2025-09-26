@@ -1,9 +1,9 @@
-import * as ER from "@eslint-react/core";
+import { hasAttribute, isJsxText } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
@@ -40,8 +40,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const attributes = node.openingElement.attributes;
       const initialScope = context.sourceCode.getScope(node);
       const hasChildren = node.children.some(isSignificantChildren)
-        || ER.hasAttribute(context, "children", attributes, initialScope);
-      if (hasChildren && ER.hasAttribute(context, dangerouslySetInnerHTML, attributes, initialScope)) {
+        || hasAttribute(context, "children", attributes, initialScope);
+      if (hasChildren && hasAttribute(context, dangerouslySetInnerHTML, attributes, initialScope)) {
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",
           node,
@@ -66,7 +66,7 @@ function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * @returns boolean
  */
 function isPaddingSpaces(node: TSESTree.Node) {
-  return ER.isJsxText(node)
+  return isJsxText(node)
     && isWhiteSpace(node)
     && node.raw.includes("\n");
 }

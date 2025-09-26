@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isClassComponent, isComponentWillUpdate, isThisSetState } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -36,11 +36,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("componentWillUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!ER.isThisSetState(node)) {
+      if (!isThisSetState(node)) {
         return;
       }
-      const clazz = AST.findParentNode(node, ER.isClassComponent);
-      const method = AST.findParentNode(node, (n) => n === clazz || ER.isComponentWillUpdate(n));
+      const clazz = AST.findParentNode(node, isClassComponent);
+      const method = AST.findParentNode(node, (n) => n === clazz || isComponentWillUpdate(n));
       if (clazz == null || method == null || method === clazz) return;
       const methodScope = context.sourceCode.getScope(method);
       const upperScope = context.sourceCode.getScope(node).upper;

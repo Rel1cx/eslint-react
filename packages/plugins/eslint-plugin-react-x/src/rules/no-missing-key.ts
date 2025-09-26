@@ -1,12 +1,11 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
-import type { TSESTree } from "@typescript-eslint/types";
-import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
+import { hasAttribute, isChildrenToArrayCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
-
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-missing-key";
@@ -42,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     switch (node.type) {
       case T.JSXElement: {
         const initialScope = context.sourceCode.getScope(node);
-        if (!ER.hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
+        if (!hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
           return {
             messageId: "missingKey",
             node,
@@ -102,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
-        if (!ER.hasAttribute(context, "key", element.openingElement.attributes, initialScope)) {
+        if (!hasAttribute(context, "key", element.openingElement.attributes, initialScope)) {
           context.report({
             messageId: "missingKey",
             node: element,
@@ -111,7 +110,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     CallExpression(node) {
-      state.isWithinChildrenToArray ||= ER.isChildrenToArrayCall(context, node);
+      state.isWithinChildrenToArray ||= isChildrenToArrayCall(context, node);
       if (state.isWithinChildrenToArray) return;
       const callback = match(node)
         .when(AST.isArrayMapCall, (n) => n.arguments[0])
@@ -127,7 +126,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       report(context)(checkExpression(body));
     },
     "CallExpression:exit"(node) {
-      if (!ER.isChildrenToArrayCall(context, node)) {
+      if (!isChildrenToArrayCall(context, node)) {
         return;
       }
       state.isWithinChildrenToArray = false;

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isClassComponent, isComponentNameLoose } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -48,17 +48,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (property.type !== T.Identifier || property.name !== "propTypes") {
         return;
       }
-      if (!ER.isComponentNameLoose(object.name)) {
+      if (!isComponentNameLoose(object.name)) {
         return;
       }
-      const variable = VAR.findVariable(object.name, context.sourceCode.getScope(node));
-      const variableNode = VAR.getVariableDefinitionNode(variable, 0);
-      if (variableNode != null && (AST.isFunction(variableNode) || ER.isClassComponent(variableNode))) {
+      const variable = findVariable(object.name, context.sourceCode.getScope(node));
+      const variableNode = getVariableDefinitionNode(variable, 0);
+      if (variableNode != null && (AST.isFunction(variableNode) || isClassComponent(variableNode))) {
         context.report({ messageId: "noPropTypes", node: property });
       }
     },
     PropertyDefinition(node) {
-      if (!ER.isClassComponent(node.parent.parent)) {
+      if (!isClassComponent(node.parent.parent)) {
         return;
       }
       if (!node.static || node.key.type !== T.Identifier || node.key.name !== "propTypes") {

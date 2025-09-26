@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { flow, unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import * as VAR from "@eslint-react/var";
+import { findVariable } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -108,7 +108,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return getReportDescriptor(consequent) ?? getReportDescriptor(alternate);
       })
       .with({ type: T.Identifier }, (n) => {
-        const variable = VAR.findVariable(n.name, context.sourceCode.getScope(n));
+        const variable = findVariable(n.name, context.sourceCode.getScope(n));
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
           .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, getReportDescriptor)

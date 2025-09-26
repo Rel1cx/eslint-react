@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isUseCallbackCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("useCallback")) return {};
   return {
     CallExpression(node) {
-      if (!ER.isUseCallbackCall(node)) {
+      if (!isUseCallbackCall(node)) {
         return;
       }
       const initialScope = context.sourceCode.getScope(node);
@@ -56,8 +56,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const hasEmptyDeps = match(arg1)
         .with({ type: T.ArrayExpression }, (n) => n.elements.length === 0)
         .with({ type: T.Identifier }, (n) => {
-          const variable = VAR.findVariable(n.name, initialScope);
-          const variableNode = VAR.getVariableDefinitionNode(variable, 0);
+          const variable = findVariable(n.name, initialScope);
+          const variableNode = getVariableDefinitionNode(variable, 0);
           if (variableNode?.type !== T.ArrayExpression) {
             return false;
           }
@@ -77,8 +77,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         })
         .with({ type: T.FunctionExpression }, identity)
         .with({ type: T.Identifier }, (n) => {
-          const variable = VAR.findVariable(n.name, initialScope);
-          const variableNode = VAR.getVariableDefinitionNode(variable, 0);
+          const variable = findVariable(n.name, initialScope);
+          const variableNode = getVariableDefinitionNode(variable, 0);
           if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
             return null;
           }
@@ -88,7 +88,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (arg0Node == null) return;
 
       const arg0NodeScope = context.sourceCode.getScope(arg0Node);
-      const arg0NodeReferences = VAR.getChildScopes(arg0NodeScope).flatMap((x) => x.references);
+      const arg0NodeReferences = getChildScopes(arg0NodeScope).flatMap((x) => x.references);
       const isReferencedToComponentScope = arg0NodeReferences.some((x) => x.resolved?.scope.block === component);
 
       if (!isReferencedToComponentScope) {

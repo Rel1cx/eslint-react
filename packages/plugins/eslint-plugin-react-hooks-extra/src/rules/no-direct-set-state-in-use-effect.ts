@@ -1,8 +1,8 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isUseCallbackCall, isUseEffectLikeCall, isUseMemoCall, isUseStateCall } from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isFunctionOfUseEffectSetup(node: TSESTree.Node) {
     return node.parent?.type === T.CallExpression
       && node.parent.callee !== node
-      && ER.isUseEffectLikeCall(node.parent);
+      && isUseEffectLikeCall(node.parent);
   }
 
   function getCallName(node: TSESTree.Node) {
@@ -93,8 +93,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   function getCallKind(node: TSESTree.CallExpression) {
     return match<TSESTree.CallExpression, CallKind>(node)
-      .when(ER.isUseStateCall, () => "useState")
-      .when(ER.isUseEffectLikeCall, () => "useEffect")
+      .when(isUseStateCall, () => "useState")
+      .when(isUseEffectLikeCall, () => "useEffect")
       .when(isSetStateCall, () => "setState")
       .when(AST.isThenCall, () => "then")
       .otherwise(() => "other");
@@ -119,11 +119,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
-    const variable = VAR.findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
-    const variableNode = VAR.getVariableDefinitionNode(variable, 0);
+    const variable = findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
+    const variableNode = getVariableDefinitionNode(variable, 0);
     if (variableNode == null) return false;
     if (variableNode.type !== T.CallExpression) return false;
-    if (!ER.isUseStateCall(variableNode)) return false;
+    if (!isUseStateCall(variableNode)) return false;
     const variableNodeParent = variableNode.parent;
     if (!("id" in variableNodeParent) || variableNodeParent.id?.type !== T.ArrayPattern) {
       return true;
@@ -250,7 +250,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // const [state, setState] = useState();
           // const set = useMemo(() => setState, []);
           // useEffect(set, []);
-          if (!ER.isUseMemoCall(parent)) {
+          if (!isUseMemoCall(parent)) {
             break;
           }
           const init = AST.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
@@ -266,7 +266,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // const [state, setState] = useState();
           // const set = useCallback(setState, []);
           // useEffect(set, []);
-          if (ER.isUseCallbackCall(node.parent)) {
+          if (isUseCallbackCall(node.parent)) {
             const init = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
             if (init != null) {
               getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
@@ -275,7 +275,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           // const [state, setState] = useState();
           // useEffect(setState);
-          if (ER.isUseEffectLikeCall(node.parent)) {
+          if (isUseEffectLikeCall(node.parent)) {
             getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
           }
         }
@@ -286,7 +286,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         id: string | TSESTree.Identifier,
         initialScope: Scope.Scope,
       ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-        const node = VAR.getVariableDefinitionNode(VAR.findVariable(id, initialScope), 0);
+        const node = getVariableDefinitionNode(findVariable(id, initialScope), 0);
         switch (node?.type) {
           case T.ArrowFunctionExpression:
           case T.FunctionDeclaration:

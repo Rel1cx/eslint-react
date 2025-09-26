@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -45,10 +45,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "iframe") return;
-      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const sandboxAttribute = getAttribute("sandbox");
+      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const sandboxAttribute = getAttributeEx("sandbox");
       if (sandboxAttribute == null) return;
-      const sandboxValue = ER.resolveAttributeValue(context, sandboxAttribute);
+      const sandboxValue = resolveAttributeValue(context, sandboxAttribute);
       const sandboxValueStatic = sandboxValue.toStatic("sandbox");
       if (!isSafeSandbox(sandboxValueStatic)) {
         context.report({

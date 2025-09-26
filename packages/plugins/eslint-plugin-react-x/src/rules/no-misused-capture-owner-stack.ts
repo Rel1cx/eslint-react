@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isCaptureOwnerStackCall } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
-      if (!ER.isCaptureOwnerStackCall(context, node)) return;
+      if (!isCaptureOwnerStackCall(context, node)) return;
       if (AST.findParentNode(node, isDevelopmentOnlyCheck) == null) {
         context.report({
           messageId: "missingDevelopmentOnlyCheck",

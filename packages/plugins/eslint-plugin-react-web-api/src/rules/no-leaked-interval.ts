@@ -1,13 +1,18 @@
 import type * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import {
+  type ComponentPhaseKind,
+  ComponentPhaseRelevance,
+  getPhaseKindOfFunction,
+  isInstanceIdEqual,
+} from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { TimerEntry } from "../types";
-
 import { P, isMatching } from "ts-pattern";
+
+import type { TimerEntry } from "../types";
 import { createRule } from "../utils";
 
 // #region Rule Metadata
@@ -25,7 +30,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ER.ComponentPhaseKind | "other";
+type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "setInterval" | "clearInterval";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
@@ -82,11 +87,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const sEntries: TimerEntry[] = [];
   const cEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-    return ER.isInstanceIdEqual(context, a.timerId, b.timerId);
+    return isInstanceIdEqual(context, a.timerId, b.timerId);
   }
   return {
     [":function"](node: AST.TSESTreeFunction) {
-      const kind = ER.getPhaseKindOfFunction(node) ?? "other";
+      const kind = getPhaseKindOfFunction(node) ?? "other";
       fEntries.push({ kind, node });
     },
     [":function:exit"]() {
@@ -99,10 +104,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (fEntry == null) {
             break;
           }
-          if (!ER.ComponentPhaseRelevance.has(fEntry.kind)) {
+          if (!ComponentPhaseRelevance.has(fEntry.kind)) {
             break;
           }
-          const intervalIdNode = VAR.findAssignmentTarget(node);
+          const intervalIdNode = findAssignmentTarget(node);
           if (intervalIdNode == null) {
             context.report({
               messageId: "expectedIntervalId",
@@ -124,7 +129,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (fEntry == null) {
             break;
           }
-          if (!ER.ComponentPhaseRelevance.has(fEntry.kind)) {
+          if (!ComponentPhaseRelevance.has(fEntry.kind)) {
             break;
           }
           const [intervalIdNode] = node.arguments;
