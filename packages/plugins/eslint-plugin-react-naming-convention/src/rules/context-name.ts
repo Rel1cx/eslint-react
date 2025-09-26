@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getInstanceId, isComponentName, isCreateContextCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -33,14 +33,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("createContext")) return {};
   return {
     CallExpression(node) {
-      if (!ER.isCreateContextCall(context, node)) return;
-      const id = ER.getInstanceId(node);
+      if (!isCreateContextCall(context, node)) return;
+      const id = getInstanceId(node);
       if (id == null) return;
       const name = match(id)
         .with({ type: T.Identifier, name: P.select() }, identity)
         .with({ type: T.MemberExpression, property: { name: P.select(P.string) } }, identity)
         .otherwise(() => null);
-      if (name != null && ER.isComponentName(name) && name.endsWith("Context")) return;
+      if (name != null && isComponentName(name) && name.endsWith("Context")) return;
       context.report({
         messageId: "invalidContextName",
         node: id,

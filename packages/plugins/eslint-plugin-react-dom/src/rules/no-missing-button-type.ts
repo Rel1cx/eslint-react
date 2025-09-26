@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/kit";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -42,8 +42,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "button") return;
-      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const typeAttribute = getAttribute("type");
+      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const typeAttribute = getAttributeEx("type");
       if (typeAttribute == null) {
         context.report({
           messageId: "noMissingButtonType",
@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         });
         return;
       }
-      if (typeof ER.resolveAttributeValue(context, typeAttribute).toStatic("type") === "string") return;
+      if (typeof resolveAttributeValue(context, typeAttribute).toStatic("type") === "string") return;
       context.report({
         messageId: "noMissingButtonType",
         node: typeAttribute,

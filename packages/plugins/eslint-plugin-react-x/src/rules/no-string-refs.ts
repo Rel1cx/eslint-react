@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { isClassComponent } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 
   function onClassBodyEnter(node: TSESTree.ClassBody) {
-    if (ER.isClassComponent(node.parent)) {
+    if (isClassComponent(node.parent)) {
       state.isWithinClassComponent = true;
     }
   }

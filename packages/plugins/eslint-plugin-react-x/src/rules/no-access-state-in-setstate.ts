@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isClassComponent, isThisSetState } from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -66,25 +66,25 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ][] = [];
   return {
     CallExpression(node) {
-      if (!ER.isThisSetState(node)) {
+      if (!isThisSetState(node)) {
         return;
       }
       setStateEntries.push([node, false]);
     },
     "CallExpression:exit"(node) {
-      if (!ER.isThisSetState(node)) {
+      if (!isThisSetState(node)) {
         return;
       }
       setStateEntries.pop();
     },
     ClassDeclaration(node) {
-      classEntries.push([node, ER.isClassComponent(node)]);
+      classEntries.push([node, isClassComponent(node)]);
     },
     "ClassDeclaration:exit"() {
       classEntries.pop();
     },
     ClassExpression(node) {
-      classEntries.push([node, ER.isClassComponent(node)]);
+      classEntries.push([node, isClassComponent(node)]);
     },
     "ClassExpression:exit"() {
       classEntries.pop();

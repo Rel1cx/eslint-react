@@ -1,11 +1,11 @@
-import * as ER from "@eslint-react/core";
+import { getInstanceId, isUseStateCall } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { snakeCase } from "string-ts";
-
 import { match } from "ts-pattern";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "use-state";
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!ER.isUseStateCall(node)) {
+      if (!isUseStateCall(node)) {
         return;
       }
       if (node.parent.type !== T.VariableDeclarator) {
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         });
         return;
       }
-      const id = ER.getInstanceId(node);
+      const id = getInstanceId(node);
       if (id?.type !== T.ArrayPattern) {
         context.report({
           messageId: "invalidAssignment",

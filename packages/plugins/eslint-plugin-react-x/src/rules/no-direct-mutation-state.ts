@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isAssignmentToThisState, isClassComponent } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      if (!ER.isAssignmentToThisState(node)) return;
+      if (!isAssignmentToThisState(node)) return;
       const parentClass = AST.findParentNode(
         node,
         AST.isOneOf([
@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       );
       if (parentClass == null) return;
       if (
-        ER.isClassComponent(parentClass)
+        isClassComponent(parentClass)
         && context.sourceCode.getScope(node).block !== AST.findParentNode(node, isConstructorFunction)
       ) {
         context.report({

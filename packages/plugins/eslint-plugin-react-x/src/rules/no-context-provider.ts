@@ -1,10 +1,9 @@
-import * as ER from "@eslint-react/core";
+import { getElementType, isComponentNameLoose } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
-
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
+import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -40,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compare(version, "19.0.0", "<")) return {};
   return {
     JSXElement(node) {
-      const fullName = ER.getElementType(context, node);
+      const fullName = getElementType(context, node);
       const parts = fullName.split(".");
       const selfName = parts.pop();
       const contextFullName = parts.join(".");
@@ -51,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         messageId: "noContextProvider",
         node,
         fix(fixer) {
-          if (!ER.isComponentNameLoose(contextSelfName)) return null;
+          if (!isComponentNameLoose(contextSelfName)) return null;
           const openingElement = node.openingElement;
           const closingElement = node.closingElement;
           if (closingElement == null) {

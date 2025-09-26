@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { isUnsafeComponentWillUpdate, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("UNSAFE_componentWillUpdate")) return {};
-  const { ctx, listeners } = ER.useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy();
 
   return {
     ...listeners,
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const { body } = component.body;
 
         for (const member of body) {
-          if (ER.isUnsafeComponentWillUpdate(member)) {
+          if (isUnsafeComponentWillUpdate(member)) {
             context.report({
               messageId: "noUnsafeComponentWillUpdate",
               node: member,

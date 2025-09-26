@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -35,8 +35,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes(dangerouslySetInnerHTML)) return {};
   return {
     JSXElement(node) {
-      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const attribute = getAttribute(dangerouslySetInnerHTML);
+      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const attribute = getAttributeEx(dangerouslySetInnerHTML);
       if (attribute == null) return;
       context.report({
         messageId: "noDangerouslySetInnerhtml",

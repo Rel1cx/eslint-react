@@ -1,10 +1,10 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import { findVariable } from "@eslint-react/var";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-
-import * as VAR from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-no-undef";
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (name === "this") return;
       // Skip JsxIntrinsicElements
       if (/^[a-z]/u.test(name)) return;
-      if (VAR.findVariable(name, context.sourceCode.getScope(node)) == null) {
+      if (findVariable(name, context.sourceCode.getScope(node)) == null) {
         context.report({
           messageId: "jsxNoUndef",
           node,

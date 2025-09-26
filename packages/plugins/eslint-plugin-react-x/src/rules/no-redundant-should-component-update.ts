@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { ComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
-  const { ctx, listeners } = ER.useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy();
 
   return {
     ...listeners,
@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const components = ctx.getAllComponents(program);
 
       for (const { name = "PureComponent", node: component, flag } of components.values()) {
-        if ((flag & ER.ComponentFlag.PureComponent) === 0n) {
+        if ((flag & ComponentFlag.PureComponent) === 0n) {
           continue;
         }
         const { body } = component.body;

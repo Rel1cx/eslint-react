@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -71,28 +71,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "a") return;
 
       // Get access to the component attributes
-      const getAttributes = ER.getAttribute(
+      const getAttributeEx = getAttribute(
         context,
         node.openingElement.attributes,
         context.sourceCode.getScope(node),
       );
 
       // Check if target="_blank" is present
-      const targetAttribute = getAttributes("target");
+      const targetAttribute = getAttributeEx("target");
       if (targetAttribute == null) return;
 
-      const targetAttributeValue = ER.resolveAttributeValue(context, targetAttribute).toStatic("target");
+      const targetAttributeValue = resolveAttributeValue(context, targetAttribute).toStatic("target");
       if (targetAttributeValue !== "_blank") return;
 
       // Check if href points to an external resource
-      const hrefAttribute = getAttributes("href");
+      const hrefAttribute = getAttributeEx("href");
       if (hrefAttribute == null) return;
 
-      const hrefAttributeValue = ER.resolveAttributeValue(context, hrefAttribute).toStatic("href");
+      const hrefAttributeValue = resolveAttributeValue(context, hrefAttribute).toStatic("href");
       if (!isExternalLinkLike(hrefAttributeValue)) return;
 
       // Check if rel attribute exists and is secure
-      const relAttribute = getAttributes("rel");
+      const relAttribute = getAttributeEx("rel");
 
       // No rel attribute case - suggest adding one
       if (relAttribute == null) {
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Check if existing rel attribute is secure
-      const relAttributeValue = ER.resolveAttributeValue(context, relAttribute).toStatic("rel");
+      const relAttributeValue = resolveAttributeValue(context, relAttribute).toStatic("rel");
       if (isSafeRel(relAttributeValue)) return;
 
       // Existing rel attribute is not secure - suggest replacing it

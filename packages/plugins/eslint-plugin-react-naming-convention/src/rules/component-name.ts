@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE, toRegExp } from "@eslint-react/kit";
@@ -82,8 +82,8 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = normalizeOptions(context.options);
   const { rule } = options;
-  const collector = ER.useComponentCollector(context);
-  const collectorLegacy = ER.useComponentCollectorLegacy();
+  const collector = useComponentCollector(context);
+  const collectorLegacy = useComponentCollectorLegacy();
 
   return {
     ...collector.listeners,

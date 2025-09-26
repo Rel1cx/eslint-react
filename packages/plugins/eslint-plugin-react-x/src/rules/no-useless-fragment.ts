@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { hasAttribute, isFragmentElement, isHostElement, isJsxText } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -60,7 +60,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   return {
     // Check JSX elements that might be fragments
     JSXElement(node) {
-      if (!ER.isFragmentElement(context, node)) return;
+      if (!isFragmentElement(context, node)) return;
       checkNode(context, node, allowExpressions);
     },
     // Check JSX fragments
@@ -83,7 +83,7 @@ function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * Check if a node is padding spaces (whitespace with line breaks)
  */
 function isPaddingSpaces(node: TSESTree.Node) {
-  return ER.isJsxText(node)
+  return isJsxText(node)
     && isWhiteSpace(node)
     && node.raw.includes("\n");
 }
@@ -112,12 +112,12 @@ function checkNode(
   const initialScope = context.sourceCode.getScope(node);
 
   // Skip if the fragment has a key prop (indicates it's needed for lists)
-  if (node.type === T.JSXElement && ER.hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
+  if (node.type === T.JSXElement && hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
     return;
   }
 
   // Report fragment placed inside a host component (e.g. <div><></></div>)
-  if (ER.isHostElement(context, node.parent)) {
+  if (isHostElement(context, node.parent)) {
     context.report({
       messageId: "uselessFragment",
       node,
@@ -145,7 +145,7 @@ function checkNode(
     case allowExpressions
       && !isChildElement
       && node.children.length === 1
-      && ER.isJsxText(node.children.at(0)): {
+      && isJsxText(node.children.at(0)): {
       return;
     }
 
@@ -217,7 +217,7 @@ function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFr
 function canFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   // Don't fix fragments inside custom components (might require children to be ReactElement)
   if (node.parent.type === T.JSXElement || node.parent.type === T.JSXFragment) {
-    return ER.isHostElement(context, node.parent);
+    return isHostElement(context, node.parent);
   }
 
   // Don't fix empty fragments without a JSX parent
@@ -228,5 +228,5 @@ function canFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFr
   // Don't fix fragments with text or expressions outside of JSX context
   return !node
     .children
-    .some((child) => (ER.isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child));
+    .some((child) => (isJsxText(child) && !isWhiteSpace(child)) || AST.is(T.JSXExpressionContainer)(child));
 }

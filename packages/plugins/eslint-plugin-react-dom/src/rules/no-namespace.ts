@@ -1,7 +1,8 @@
-import * as ER from "@eslint-react/core";
+import { getElementType } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-namespace";
@@ -30,7 +31,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      const name = ER.getElementType(context, node);
+      const name = getElementType(context, node);
       if (typeof name !== "string" || !name.includes(":")) {
         return;
       }

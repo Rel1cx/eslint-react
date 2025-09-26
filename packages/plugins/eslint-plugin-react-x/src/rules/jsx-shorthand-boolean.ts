@@ -1,13 +1,12 @@
+import { getAttributeName } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
-import * as ER from "@eslint-react/core";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-shorthand-boolean";
@@ -56,7 +55,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
       const { value } = node;
-      const propName = ER.getAttributeName(context, node);
+      const propName = getAttributeName(context, node);
 
       switch (true) {
         case policy === 1

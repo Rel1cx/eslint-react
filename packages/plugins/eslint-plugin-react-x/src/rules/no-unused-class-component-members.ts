@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isClassComponent } from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -77,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
   function classEnter(node: AST.TSESTreeClass) {
     classEntries.push(node);
-    if (!ER.isClassComponent(node)) {
+    if (!isClassComponent(node)) {
       return;
     }
     propertyDefs.set(node, new Set());
@@ -85,7 +85,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   function classExit() {
     const currentClass = classEntries.pop();
-    if (currentClass == null || !ER.isClassComponent(currentClass)) {
+    if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     const className = AST.getClassId(currentClass)?.name;
@@ -116,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
     methodEntries.push(node);
     const currentClass = classEntries.at(-1);
-    if (currentClass == null || !ER.isClassComponent(currentClass)) {
+    if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     if (node.static) {
@@ -141,7 +141,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || currentMethod == null) {
         return;
       }
-      if (!ER.isClassComponent(currentClass) || currentMethod.static) {
+      if (!isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
       if (!AST.isThisExpression(node.object) || !isKeyLiteral(node, node.property)) {
@@ -168,7 +168,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || currentMethod == null) {
         return;
       }
-      if (!ER.isClassComponent(currentClass) || currentMethod.static) {
+      if (!isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
       // detect `{ foo, bar: baz } = this`

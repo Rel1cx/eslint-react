@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import { coerceSettings } from "@eslint-react/shared";
@@ -37,7 +37,7 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
     return true;
   }
   if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
-    return ER.isInitializedFromReact(callee.object.object.name, importSource, initialScope);
+    return isInitializedFromReact(callee.object.object.name, importSource, initialScope);
   }
   return false;
 }
@@ -117,7 +117,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
-    return ER.isCreateElementCall(context, node) || ER.isCloneElementCall(context, node);
+    return isCreateElementCall(context, node) || isCloneElementCall(context, node);
   }
 
   function getReportDescriptors(node: TSESTree.Node): ReportDescriptor<MessageID>[] {

@@ -1,12 +1,12 @@
+import { getJsxConfigFromAnnotation, getJsxConfigFromContext, isFragmentElement } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
+import { type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-
-import * as ER from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/kit";
 import { match } from "ts-pattern";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-shorthand-fragment";
@@ -53,8 +53,8 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const policy = context.options[0] ?? defaultOptions[0];
   const jsxConfig = {
-    ...ER.getJsxConfigFromContext(context),
-    ...ER.getJsxConfigFromAnnotation(context),
+    ...getJsxConfigFromContext(context),
+    ...getJsxConfigFromAnnotation(context),
   };
 
   const { jsxFragmentFactory } = jsxConfig;
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return match<number, RuleListener>(policy)
     .with(1, () => ({
       JSXElement(node: TSESTree.JSXElement) {
-        if (!ER.isFragmentElement(context, node)) return;
+        if (!isFragmentElement(context, node)) return;
         const hasAttributes = node.openingElement.attributes.length > 0;
         if (hasAttributes) return;
         context.report({
@@ -92,12 +92,18 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             const { closingFragment, openingFragment } = node;
             return [
               fixer.replaceTextRange(
-                [openingFragment.range[0], openingFragment.range[1]],
-                "<" + jsxFragmentFactory + ">",
+                [
+                  openingFragment.range[0],
+                  openingFragment.range[1],
+                ],
+                `<${jsxFragmentFactory}>`,
               ),
               fixer.replaceTextRange(
-                [closingFragment.range[0], closingFragment.range[1]],
-                "</" + jsxFragmentFactory + ">",
+                [
+                  closingFragment.range[0],
+                  closingFragment.range[1],
+                ],
+                `</${jsxFragmentFactory}>`,
               ),
             ];
           },

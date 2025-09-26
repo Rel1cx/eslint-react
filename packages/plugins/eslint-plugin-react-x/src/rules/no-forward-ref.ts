@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { isForwardRefCall, isInitializedFromReact } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     CallExpression(node) {
-      if (!ER.isForwardRefCall(context, node)) {
+      if (!isForwardRefCall(context, node)) {
         return;
       }
       const id = AST.getFunctionId(node);
@@ -74,10 +74,10 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   const initialScope = context.sourceCode.getScope(node);
   switch (node.callee.type) {
     case T.Identifier:
-      return ER.isInitializedFromReact(node.callee.name, importSource, initialScope);
+      return isInitializedFromReact(node.callee.name, importSource, initialScope);
     case T.MemberExpression:
       return node.callee.object.type === T.Identifier
-        && ER.isInitializedFromReact(node.callee.object.name, importSource, initialScope);
+        && isInitializedFromReact(node.callee.object.name, importSource, initialScope);
     default:
       return false;
   }

@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import { getInstanceId, isCreateContextCall, isInstanceIdEqual } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -45,12 +45,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       displayNameAssignments.push(node);
     },
     CallExpression(node) {
-      if (!ER.isCreateContextCall(context, node)) return;
+      if (!isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
     "Program:exit"() {
       for (const call of createCalls) {
-        const id = ER.getInstanceId(call);
+        const id = getInstanceId(call);
         if (id == null) {
           context.report({
             messageId: "noMissingContextDisplayName",
@@ -63,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             const left = node.left;
             if (left.type !== T.MemberExpression) return false;
             const object = left.object;
-            return ER.isInstanceIdEqual(context, id, object);
+            return isInstanceIdEqual(context, id, object);
           });
         if (!hasDisplayNameAssignment) {
           context.report({

@@ -1,7 +1,12 @@
 import type * as AST from "@eslint-react/ast";
-import * as ER from "@eslint-react/core";
+import {
+  type ComponentPhaseKind,
+  ComponentPhaseRelevance,
+  getPhaseKindOfFunction,
+  isInstanceIdEqual,
+} from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import * as VAR from "@eslint-react/var";
+import { findAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -25,7 +30,7 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ER.ComponentPhaseKind | "other";
+type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "setTimeout" | "clearTimeout";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
@@ -82,11 +87,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const sEntries: TimerEntry[] = [];
   const rEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-    return ER.isInstanceIdEqual(context, a.timerId, b.timerId);
+    return isInstanceIdEqual(context, a.timerId, b.timerId);
   }
   return {
     [":function"](node: AST.TSESTreeFunction) {
-      const kind = ER.getPhaseKindOfFunction(node) ?? "other";
+      const kind = getPhaseKindOfFunction(node) ?? "other";
       fEntries.push({ kind, node });
     },
     [":function:exit"]() {
@@ -94,12 +99,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["CallExpression"](node) {
       const fEntry = fEntries.findLast((f) => f.kind !== "other");
-      if (!ER.ComponentPhaseRelevance.has(fEntry?.kind)) {
+      if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
         return;
       }
       switch (getCallKind(node)) {
         case "setTimeout": {
-          const timeoutIdNode = VAR.findAssignmentTarget(node);
+          const timeoutIdNode = findAssignmentTarget(node);
           if (timeoutIdNode == null) {
             context.report({
               messageId: "expectedTimeoutId",

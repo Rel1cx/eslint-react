@@ -1,8 +1,7 @@
+import { getAttribute, getElementType, resolveAttributeValue } from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/types";
-
-import * as ER from "@eslint-react/core";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /**
  * Creates a resolver for JSX elements that determines both the JSX element type
@@ -27,7 +26,7 @@ export function createJsxElementResolver(context: RuleContext) {
      */
     resolve(node: TSESTree.JSXElement) {
       // Get the element name/type (e.g., 'div', 'Button', etc.)
-      const elementName = ER.getElementType(context, node);
+      const elementName = getElementType(context, node);
 
       // Create the base result with element types
       const result = {
@@ -43,12 +42,12 @@ export function createJsxElementResolver(context: RuleContext) {
       }
 
       // Look for the polymorphic prop (e.g., 'as', 'component') in the element's attributes
-      const getAttribute = ER.getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const polymorphicProp = getAttribute(polymorphicPropName);
+      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
+      const polymorphicProp = getAttributeEx(polymorphicPropName);
 
       // If the polymorphic prop exists, try to determine its static value
       if (polymorphicProp != null) {
-        const polymorphicPropValue = ER.resolveAttributeValue(context, polymorphicProp);
+        const polymorphicPropValue = resolveAttributeValue(context, polymorphicProp);
         const staticValue = polymorphicPropValue.toStatic(polymorphicPropName);
 
         // If we have a string value, use it as the DOM element type

@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { isInitializedFromReact } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -79,12 +79,12 @@ function isFromReact(
     case node.parent.type === T.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === T.Identifier:
-      return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+      return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
     case node.parent.type === T.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === T.JSXIdentifier:
-      return ER.isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+      return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
     default:
-      return ER.isInitializedFromReact(name, importSource, initialScope);
+      return isInitializedFromReact(name, importSource, initialScope);
   }
 }

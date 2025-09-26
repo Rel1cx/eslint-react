@@ -1,4 +1,4 @@
-import * as ER from "@eslint-react/core";
+import { getAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -31,12 +31,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      const getAttribute = ER.getAttribute(
+      const getAttributeEx = getAttribute(
         context,
         node.openingElement.attributes,
         context.sourceCode.getScope(node),
       );
-      const childrenProp = getAttribute("children");
+      const childrenProp = getAttributeEx("children");
       if (childrenProp != null) {
         context.report({
           messageId: "noChildrenProp",
