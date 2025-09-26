@@ -14,100 +14,105 @@ title: Changelog
 - Drop support for ESLint 8, minimum required version is now ESLint 9.3.6
 - Drop support for TypeScript 4, minimum required version is now TypeScript 5.9.2
 
-**The following rules have been removed:**
+**Removed Rules**
 
-- `react-x/no-complicated-conditional-rendering` (discontinued)
+| Rule                                                         | Replaced by                                                                                                                | Reason       |
+| :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- | :----------- |
+| `react-x/avoid-shorthand-boolean`                            | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                               | consolidated |
+| `react-x/avoid-shorthand-fragment`                           | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                             | consolidated |
+| `react-x/ensure-forward-ref-using-ref`                       | [`react-x/no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                             | renamed      |
+| `react-x/no-duplicate-props`                                 | [`react-x/jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                             | renamed      |
+| `react-x/no-comment-textnodes`                               | [`react-x/jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                         | renamed      |
+| `react-x/no-complicated-conditional-rendering`               |                                                                                                                            | discontinued |
+| `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)           | renamed      |
+| `react-x/prefer-react-namespace-import`                      | [`react-x/prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                           | renamed      |
+| `react-x/prefer-shorthand-boolean`                           | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                               | consolidated |
+| `react-x/prefer-shorthand-fragment`                          | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                             | consolidated |
+| `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                               | renamed      |
+| `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children)       | renamed      |
+| `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-hooks-extra/no-direct-set-state-in-use-effect`](/docs/rules/hooks-extra-no-direct-set-state-in-use-effect)         | consolidated |
+| `react-hooks-extra/no-unnecessary-use-callback`              | [`react-x/no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                   | relocated    |
+| `react-hooks-extra/no-unnecessary-use-memo`                  | [`react-x/no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                           | relocated    |
+| `react-hooks-extra/no-unnecessary-use-prefix`                | [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                       | relocated    |
+| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`react-x/prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization) | relocated    |
 
-**The following rules have been renamed:**
+**Removed Presets**
 
-- `react-x/ensure-forward-ref-using-ref` to `react-x/no-useless-forward-ref`
-- `react-x/no-comment-textnodes` to `react-x/jsx-no-comment-textnodes`
-- `react-x/no-duplicate-props` to `react-x/jsx-no-duplicate-props`
-- `react-x/no-nested-components` to `react-x/no-nested-component-definitions`
-- `react-x/prefer-react-namespace-import` to `react-x/prefer-namespace-import`
-- `react-x/use-jsx-vars` to `react-x/jsx-uses-vars`
-- `react-dom/no-children-in-void-dom-elements` to `react-dom/no-void-elements-with-children`
+| Preset                            | Replaced by   | Reason       |
+| :-------------------------------- | :------------ | :----------- |
+| `core`                            | `x`           | renamed      |
+| `core-legacy`                     |               | discontinued |
+| `off-dom`                         | `disable-dom` | renamed      |
+| `off-dom-legacy`                  |               | discontinued |
+| `x-legacy`                        |               | discontinued |
+| `dom-legacy`                      |               | discontinued |
+| `web-api-legacy`                  |               | discontinued |
+| `recommended-legacy`              |               | discontinued |
+| `recommended-typescript-legacy`   |               | discontinued |
+| `recommended-type-checked-legacy` |               | discontinued |
 
-**The following rules have been consolidated into new rules:**
+**Removed Settings**
 
-- `react-x/jsx-shorthand-boolean` replaces `avoid-shorthand-boolean` and `prefer-shorthand-boolean`
-- `react-x/jsx-shorthand-fragment` replaces `avoid-shorthand-fragment` and `prefer-shorthand-fragment`
-- `react-hooks-extra/no-direct-set-state-in-use-effect` replaces `no-direct-set-state-in-use-layout-effect`
-
-**The following rules have been moved from `react-hooks-extra` to `react-x`:**
-
-- `react-hooks-extra/no-unnecessary-use-callback` to `react-x/no-unnecessary-use-callback`
-- `react-hooks-extra/no-unnecessary-use-memo` to `react-x/no-unnecessary-use-memo`
-- `react-hooks-extra/no-unnecessary-use-prefix` to `react-x/no-unnecessary-use-prefix`
-- `react-hooks-extra/prefer-use-state-lazy-initialization` to `react-x/prefer-use-state-lazy-initialization`
-
-**The following presets have been removed:**
-
-- `core` (replaced by `x`)
-- `off-dom` (replaced by `disable-dom`)
-
-**The following settings have been removed from `settings["react-x"]`:**
-
-- `additionalComponents` (discontinued)
-- `additionalHooks` (discontinued)
-- `skipImportCheck` (discontinued)
+| Setting                | Replaced by | Reason       |
+| :--------------------- | :---------- | :----------- |
+| `additionalComponents` |             | discontinued |
+| `additionalHooks`      |             | discontinued |
+| `skipImportCheck`      |             | discontinued |
 
 Rules previously using these settings have been refactored to use improved heuristics and no longer require manual configuration.
 
-**Reference for Removed**: [https://eslint-react.xyz/docs/removed](https://eslint-react.xyz/docs/removed)
-
-### ✨ New Features
+### ✨ New
 
 **Added the following new rules:**
 
-- `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes (@Rel1cx)
-- `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments (@Rel1cx)
-- `react-x/no-forbidden-props`: Disallows specific props on components (@reteps)
-- `react-x/no-unnecessary-key`: Reports unnecessary `key` props on elements (@Rel1cx, @kachkaev)
-- `react-x/no-unused-props`: Reports unused props in components (@ulrichstark)
-- `react-dom/no-string-style-prop`: Disallows string values for the `style` prop (@Rel1cx, @karlhorky)
-- `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom` (@Rel1cx)
+- `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes by @Rel1cx
+- `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments by @Rel1cx
+- `react-x/no-forbidden-props`: Disallows specific props on components by @reteps
+- `react-x/no-unnecessary-key`: Reports unnecessary `key` props on elements by @Rel1cx, @kachkaev
+- `react-x/no-unused-props`: Reports unused props in components by @ulrichstark
+- `react-dom/no-string-style-prop`: Disallows string values for the `style` prop by @Rel1cx, @karlhorky
+- `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom` by @Rel1cx
 
-**The following new rule has been added to the `recommended-type-checked` preset:**
+**Added the following new rule to the `recommended-type-checked` preset:**
 
 - `react-x/no-unused-props`: Reports unused props in components
 
 **The following rules now support Codemod features:**
 
-- `react-x/no-component-did-update` (@Rel1cx)
-- `react-x/no-component-will-receive-props` (@Rel1cx)
-- `react-x/no-component-will-update` (@Rel1cx)
-- `react-x/no-context-provider` (@Rel1cx)
-- `react-x/no-forward-ref` (@Rel1cx)
-- `react-x/no-string-refs` (@Rel1cx)
+- `react-x/no-component-did-update` by @Rel1cx
+- `react-x/no-component-will-receive-props` by @Rel1cx
+- `react-x/no-component-will-update` by @Rel1cx
+- `react-x/no-context-provider` by @Rel1cx
+- `react-x/no-forward-ref` by @Rel1cx
+- `react-x/no-string-refs` by @Rel1cx
 
 **The following rules now support auto-fix:**
 
-- `react-x/no-missing-context-display-name` (@k-yle)
+- `react-x/no-missing-context-display-name` by @k-yle
 
 **The following rules now support suggestion fixes:**
 
-- `react-dom/no-missing-button-type` (@Rel1cx)
-- `react-dom/no-missing-iframe-sandbox` (@Rel1cx)
-- `react-dom/no-unsafe-target-blank` (@Rel1cx)
+- `react-dom/no-missing-button-type` by @Rel1cx
+- `react-dom/no-missing-iframe-sandbox` by @Rel1cx
+- `react-dom/no-unsafe-target-blank` by @Rel1cx
 
 **New configuration preset added:**
 
-- `disable-conflict-eslint-plugin-react`: Disables rules in `eslint-plugin-react` that conflict with rules in our plugins (@reteps)
+- `disable-conflict-eslint-plugin-react`: Disable rules in `eslint-plugin-react` that conflict with rules in our plugins by @reteps
 
-### 🐞 Bug Fixes
+### 🐞 Fixes
 
-- `fix(react-x/no-unnecessary-use-prefix)`: Fixed a false positive for React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files (@Rel1cx)
-- `fix(react-web-api/no-leaked-event-listener)`: Fixed the `useEffect` setup function check to correctly handle `React.useEffect()` calls (@Rel1cx)
-- `fix(react-naming-convention/filename)`: Fixed a false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx` (@Rel1cx)
+- fix(react-x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files by @Rel1cx
+- fix(react-web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly by @Rel1cx
+- fix(react-naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx` by @Rel1cx
 
 ### 🪄 Improvements
 
-- refactor: Simplified the React API detection logic (@Rel1cx)
-- refactor: Cleaned up utilities and simplified rule implementations (@Rel1cx)
-- docs: Added a comparison table between `eslint-plugin-react` and `eslint-react` rules (@reteps)
-- docs: Replaced `tseslint.config` with `defineConfig` in all examples (@Rel1cx)
-- build: Migrated the build system from `tsup` to `tsdown` for better performance (@Rel1cx)
+- refactor: simplify React APIs detection logic by @Rel1cx
+- refactor: cleanup utilities and simplify rule implementations by @Rel1cx
+- docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules by @reteps
+- docs: replace `tseslint.config` with `defineConfig` in all examples by @Rel1cx
+- build: migrate build system from `tsup` to `tsdown` for better performance by @Rel1cx
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.53.1...v2.0.0
 
