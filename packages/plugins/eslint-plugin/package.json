@@ -55,7 +55,8 @@
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",
-    "eslint-plugin-react-x": "workspace:*"
+    "eslint-plugin-react-x": "workspace:*",
+    "ts-api-utils": "^2.1.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
