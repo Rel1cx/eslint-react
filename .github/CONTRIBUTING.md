@@ -83,4 +83,4 @@ pnpm run lint
 
 ## Reference
 
-- [Monorepo Structure](https://beta.eslint-react.xyz/docs/contributing#monorepo-structure)
+- [Monorepo Structure](https://eslint-react.xyz/docs/contributing#monorepo-structure)
