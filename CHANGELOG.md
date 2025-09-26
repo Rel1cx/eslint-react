@@ -6,7 +6,7 @@
 
 - Drop support for CommonJS (CJS) module format, packages are now distributed only as ECMAScript Modules (ESM)
 - Drop support for ESLint legacy config system, packages now support only ESLint Flat Config (`eslint.config.js`)
-- Drop support for Node.js 16 and 18, minimum required version is now Node.js 20
+- Drop support for Node.js 18, minimum required version is now Node.js 20
 - Drop support for ESLint 8, minimum required version is now ESLint 9.3.6
 - Drop support for TypeScript 4, minimum required version is now TypeScript 5.9.2
 
