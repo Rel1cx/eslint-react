@@ -38,18 +38,10 @@ title: Changelog
 
 **Removed Presets**
 
-| Preset                            | Replaced by   | Reason       |
-| :-------------------------------- | :------------ | :----------- |
-| `core`                            | `x`           | renamed      |
-| `core-legacy`                     |               | discontinued |
-| `off-dom`                         | `disable-dom` | renamed      |
-| `off-dom-legacy`                  |               | discontinued |
-| `x-legacy`                        |               | discontinued |
-| `dom-legacy`                      |               | discontinued |
-| `web-api-legacy`                  |               | discontinued |
-| `recommended-legacy`              |               | discontinued |
-| `recommended-typescript-legacy`   |               | discontinued |
-| `recommended-type-checked-legacy` |               | discontinued |
+| Preset    | Replaced by   | Reason  |
+| :-------- | :------------ | :------ |
+| `core`    | `x`           | renamed |
+| `off-dom` | `disable-dom` | renamed |
 
 **Removed Settings**
 
