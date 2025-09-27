@@ -18,7 +18,7 @@ Minimum supported versions:
 
 ### Removed Plugins
 
-- [ ] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by new introduced rules from `eslint-plugin-react-hooks` (TBD)
+- [ ] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by [new introduced rules from `eslint-plugin-react-hooks`](https://react.dev/reference/eslint-plugin-react-hooks) (TBD)
 
 ## Milestone 3.0 (TBD)
 
