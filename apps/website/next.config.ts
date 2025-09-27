@@ -70,6 +70,11 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/release-notes",
+        destination: "/docs/release-notes/v2.0.0",
+        permanent: true,
+      },
+      {
         source: "/presets/:wildcard",
         destination: "/docs/presets/:wildcard",
         permanent: true,

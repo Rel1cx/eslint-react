@@ -22,18 +22,13 @@ const links = [
   },
   {
     active: "nested-url",
-    text: "Roadmap",
-    url: "/docs/roadmap",
-  },
-  {
-    active: "nested-url",
     text: "Changelog",
     url: "/docs/changelog",
   },
   {
     active: "nested-url",
-    text: "Community",
-    url: "/docs/community",
+    text: "Release Notes",
+    url: "/docs/release-notes",
   },
 ] as const satisfies LinkItemType[];
 
