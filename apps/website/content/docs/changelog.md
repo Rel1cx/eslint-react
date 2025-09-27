@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.0.1 (2025-09-27)
+
+### 🐞 Fixes
+
+- Add `ts-api-utils` to unified plugin deps, closes #1239 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1240
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.0...v2.0.1
+
 ## v2.0.0 (2025-09-26)
 
 ### 💥 Breaking Changes
