@@ -126,8 +126,8 @@ importers:
         specifier: ^5.8.0
         version: 5.8.0
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
       tsx:
         specifier: ^4.20.6
         version: 4.20.6
@@ -171,8 +171,8 @@ importers:
         specifier: ^0.0.30
         version: 0.0.30(eslint@9.36.0(jiti@2.6.0))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2)
       eslint-plugin-jsdoc:
-        specifier: ^60.4.0
-        version: 60.4.0(eslint@9.36.0(jiti@2.6.0))
+        specifier: ^60.4.1
+        version: 60.4.1(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-perfectionist:
         specifier: ^4.15.0
         version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
@@ -231,8 +231,8 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-jsdoc:
-        specifier: ^60.4.0
-        version: 60.4.0(eslint@9.36.0(jiti@2.6.0))
+        specifier: ^60.4.1
+        version: 60.4.1(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-perfectionist:
         specifier: ^4.15.0
         version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
@@ -262,8 +262,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   apps/website:
     dependencies:
@@ -292,23 +292,23 @@ importers:
         specifier: ^3.17.14
         version: 3.17.14
       fumadocs-core:
-        specifier: 15.8.0
-        version: 15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: 15.8.1
+        version: 15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       fumadocs-docgen:
         specifier: 3.0.1
-        version: 3.0.1(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+        version: 3.0.1(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       fumadocs-mdx:
         specifier: 12.0.1
-        version: 12.0.1(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 12.0.1(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       fumadocs-twoslash:
         specifier: 3.1.7
-        version: 3.1.7(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(fumadocs-ui@15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+        version: 3.1.7(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       fumadocs-typescript:
         specifier: 4.0.9
-        version: 4.0.9(@types/react@19.1.14)(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(typescript@5.9.2)
+        version: 4.0.9(@types/react@19.1.14)(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(typescript@5.9.2)
       fumadocs-ui:
-        specifier: 15.8.0
-        version: 15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
+        specifier: 15.8.1
+        version: 15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
       lucide-react:
         specifier: ^0.544.0
         version: 0.544.0(react@19.1.1)
@@ -529,8 +529,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       '@vitejs/plugin-react':
-        specifier: ^5.0.3
-        version: 5.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        specifier: ^5.0.4
+        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -575,8 +575,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       '@vitejs/plugin-react':
-        specifier: ^5.0.3
-        version: 5.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        specifier: ^5.0.4
+        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -633,8 +633,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       '@vitejs/plugin-react':
-        specifier: ^5.0.3
-        version: 5.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        specifier: ^5.0.4
+        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -706,8 +706,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       '@vitejs/plugin-react':
-        specifier: ^5.0.3
-        version: 5.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        specifier: ^5.0.4
+        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -776,8 +776,8 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -834,8 +834,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -892,8 +892,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
@@ -950,8 +950,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -1008,8 +1008,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -1066,8 +1066,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-web-api:
     dependencies:
@@ -1121,8 +1121,8 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.14)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
@@ -1188,8 +1188,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.9.2)
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/shared:
     dependencies:
@@ -1219,8 +1219,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
       type-fest:
         specifier: ^5.0.1
         version: 5.0.1
@@ -1250,8 +1250,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/utilities/eff:
     devDependencies:
@@ -1259,8 +1259,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
   packages/utilities/kit:
     dependencies:
@@ -1284,8 +1284,8 @@ importers:
         specifier: ^22.0.2
         version: 22.0.2
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
       type-fest:
         specifier: ^5.0.1
         version: 5.0.1
@@ -1318,8 +1318,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(publint@0.3.13)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(publint@0.3.13)(typescript@5.9.2)
 
 packages:
 
@@ -2039,8 +2039,8 @@ packages:
   '@emnapi/wasi-threads@1.1.0':
     resolution: {integrity: sha512-WI0DdZ8xFSbgMjR1sFsKABJ/C5OnRrjT06JXbZKexJGrDuPTzZdDYfFlsgcCXCyf+suG5QU2e/y1Wo2V/OapLQ==}
 
-  '@es-joy/jsdoccomment@0.61.0':
-    resolution: {integrity: sha512-8DBk2LXau86fQBj7f9zx3MKqoAYgomxeoLgvHFa+OMhGYz6L9n/jbqa52wLHnbU6JzcSXu2OGuuTFOOMD4NpRg==}
+  '@es-joy/jsdoccomment@0.62.0':
+    resolution: {integrity: sha512-yWi6sm7INEwnfS7IJvE0dU+RTrwzLPFcY7e7eGpu/l5Q9lWfQ2ROwZ0qVnc242jw2TUPsfHX3XMIISkGBv57RQ==}
     engines: {node: '>=20.11.0'}
 
   '@esbuild/aix-ppc64@0.25.10':
@@ -3360,8 +3360,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rolldown/pluginutils@1.0.0-beta.35':
-    resolution: {integrity: sha512-slYrCpoxJUqzFDDNlvrOYRazQUNRvWPjXA17dAOISY3rDMxX6k8K4cj2H+hEYMHF81HO3uNd5rHVigAWRM5dSg==}
+  '@rolldown/pluginutils@1.0.0-beta.38':
+    resolution: {integrity: sha512-N/ICGKleNhA5nc9XXQG/kkKHJ7S55u0x0XUJbbkmdCnFuoRkM1Il12q9q0eX19+M7KKUEPw/daUPIRnxhcxAIw==}
 
   '@rolldown/pluginutils@1.0.0-beta.40':
     resolution: {integrity: sha512-s3GeJKSQOwBlzdUrj4ISjJj5SfSh+aqn0wjOar4Bx95iV1ETI7F6S/5hLcfAxZ9kXDcyrAkxPlqmd1ZITttf+w==}
@@ -3934,8 +3934,8 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@vitejs/plugin-react@5.0.3':
-    resolution: {integrity: sha512-PFVHhosKkofGH0Yzrw1BipSedTH68BFF8ZWy1kfUpCtJcouXXY0+racG8sExw7hw0HoX36813ga5o3LTWZ4FUg==}
+  '@vitejs/plugin-react@5.0.4':
+    resolution: {integrity: sha512-La0KD0vGkVkSk6K+piWDKRUyg8Rl5iAIKRMH0vMJI0Eg47bq1eOxmoObAaQG37WMW9MSyk7Cs8EIWwJC1PtzKA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -4711,8 +4711,8 @@ packages:
       ts-api-utils: ^2.1.0
       typescript: ^5.9.2
 
-  eslint-plugin-jsdoc@60.4.0:
-    resolution: {integrity: sha512-W1YQm6kBjl1Hg2jccx2hmUh85N/Oqix/WGei2sLxQuYCBgFsOoftHCTt1cY6M6Oq2es3Nb6+StPm0b6e7Ez/VQ==}
+  eslint-plugin-jsdoc@60.4.1:
+    resolution: {integrity: sha512-ThiCaCUu0UQlKcQszs7Zv/6ghBowDh5B33rNXwQK1MMPh/defS3hcuDxONUhoBGfFe/v4hpe1xbxXCFs6XvSnQ==}
     engines: {node: '>=20.11.0'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -4951,8 +4951,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  fumadocs-core@15.8.0:
-    resolution: {integrity: sha512-59N456t3OlWskWQS1GUXmi7C74WSaXzc+Ym4NsrCMKinPCz9zzTPh4eidcFD1O92xSJdqQV+pdfTyK+w8ppv7A==}
+  fumadocs-core@15.8.1:
+    resolution: {integrity: sha512-3NBM2U3QlnDr4AwfDCLFaNjRGOj52g3geHSnwC9hU2en34xROe7/I8FI1eLkX68ppGnhSQYm/rIuMAPzvepnsg==}
     peerDependencies:
       '@mixedbread/sdk': ^0.19.0
       '@oramacloud/client': 1.x.x || 2.x.x
@@ -5033,8 +5033,8 @@ packages:
       fumadocs-ui:
         optional: true
 
-  fumadocs-ui@15.8.0:
-    resolution: {integrity: sha512-DoHttrOd6gJdyeOg3HGt47hEnH0clVSTFoskF5PJEimXsgMRbX52yyNysXisavHIjsbECy4zjngX0/jxR6QjnQ==}
+  fumadocs-ui@15.8.1:
+    resolution: {integrity: sha512-GFJoKiDPTPefXtfwr4cheeprtAF+rHILeyovta3cODPsurSRvSfxqbGVN8YRDUh1ja9GpExSQFgUFwp1+7qVtQ==}
     peerDependencies:
       '@types/react': ^19.1.14
       next: ^15.5.4
@@ -5341,8 +5341,8 @@ packages:
     resolution: {integrity: sha512-iZ8Bdb84lWRuGHamRXFyML07r21pcwBrLkHEuHgEY5UbCouBwv7ECknDRKzsQIXMiqpPymqtIf8TC/shYKB5rw==}
     engines: {node: '>=12.0.0'}
 
-  jsdoc-type-pratt-parser@5.8.0:
-    resolution: {integrity: sha512-YLmlPdkn1G34K/8NgSFL3D1D/HqQ9WgQOW816Q+6uMLvAO5QohdmG4qkuiseqnRXVAAN9RYtbCKyMSfwcU8wRw==}
+  jsdoc-type-pratt-parser@5.9.1:
+    resolution: {integrity: sha512-j0HZC9VHVp5bohVV3ZBwUC56cZZ86oj8SmesgBH1H+VEEChNlw5tgEm2b8ecsp3WnKtTWCXGYWSWwyqkRT3PxQ==}
     engines: {node: '>=12.0.0'}
 
   jsesc@3.0.2:
@@ -6321,8 +6321,8 @@ packages:
   robust-predicates@3.0.2:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
 
-  rolldown-plugin-dts@0.16.7:
-    resolution: {integrity: sha512-9iDzS4MHXMyieisFbWxuz96i/idGJNpvWILqCH06mrEZvn8Q2el3Q63xxjOt7HJjTOUNFhB1isvZFy4dA87lPQ==}
+  rolldown-plugin-dts@0.16.8:
+    resolution: {integrity: sha512-lsx7yrYA0ZXfARLEcPKgHIw8DX4fLQOhmMChgZbn5eFhqibY2Bav1+/Yn5WNm+ATtw+cefXYgEYO/7njeHsgAA==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
       '@ts-macro/tsc': ^0.3.6
@@ -6656,8 +6656,8 @@ packages:
   ts-pattern@5.8.0:
     resolution: {integrity: sha512-kIjN2qmWiHnhgr5DAkAafF9fwb0T5OhMVSWrm8XEdTFnX6+wfXwYOFjeF86UZ54vduqiR7BfqScFmXSzSaH8oA==}
 
-  tsdown@0.15.4:
-    resolution: {integrity: sha512-aoFE8disBg8BgYcOgradr/5Yd+QDBRQ+6z8mXo/Ib7+GIaJwJsI5l/ppve05CZGcSDqwdhF4gdrA0HPHBtbBqA==}
+  tsdown@0.15.5:
+    resolution: {integrity: sha512-2UP5hDBVYGHnnQSIYtDxMDjePmut7EDpvW5E2kVnjpZ17JgiPvRJPHwk5Dm045bC75+q8yxAlw/CMIELymTWaw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -7954,13 +7954,13 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@es-joy/jsdoccomment@0.61.0':
+  '@es-joy/jsdoccomment@0.62.0':
     dependencies:
       '@types/estree': 1.0.8
       '@typescript-eslint/types': 8.44.1
       comment-parser: 1.4.1
       esquery: 1.6.0
-      jsdoc-type-pratt-parser: 5.8.0
+      jsdoc-type-pratt-parser: 5.9.1
 
   '@esbuild/aix-ppc64@0.25.10':
     optional: true
@@ -9100,7 +9100,7 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.0.0-beta.40':
     optional: true
 
-  '@rolldown/pluginutils@1.0.0-beta.35': {}
+  '@rolldown/pluginutils@1.0.0-beta.38': {}
 
   '@rolldown/pluginutils@1.0.0-beta.40': {}
 
@@ -9737,12 +9737,12 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vitejs/plugin-react@5.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
       '@babel/plugin-transform-react-jsx-source': 7.27.1(@babel/core@7.28.4)
-      '@rolldown/pluginutils': 1.0.0-beta.35
+      '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
       vite: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
@@ -10576,9 +10576,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsdoc@60.4.0(eslint@9.36.0(jiti@2.6.0)):
+  eslint-plugin-jsdoc@60.4.1(eslint@9.36.0(jiti@2.6.0)):
     dependencies:
-      '@es-joy/jsdoccomment': 0.61.0
+      '@es-joy/jsdoccomment': 0.62.0
       are-docs-informative: 0.0.2
       comment-parser: 1.4.1
       debug: 4.4.3
@@ -10877,7 +10877,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       '@formatjs/intl-localematcher': 0.6.1
       '@orama/orama': 3.1.14
@@ -10904,24 +10904,24 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-docgen@3.0.1(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
+  fumadocs-docgen@3.0.1(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
     dependencies:
       estree-util-to-js: 2.0.0
       estree-util-value-to-estree: 3.4.0
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       npm-to-yarn: 3.0.1
       oxc-transform: 0.92.0
       unist-util-visit: 5.0.0
       zod: 4.1.11
 
-  fumadocs-mdx@12.0.1(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)):
+  fumadocs-mdx@12.0.1(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.0.0
       chokidar: 4.0.3
       esbuild: 0.25.10
       estree-util-value-to-estree: 3.4.0
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       js-yaml: 4.1.0
       lru-cache: 11.2.2
       mdast-util-to-markdown: 2.1.2
@@ -10940,11 +10940,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-twoslash@3.1.7(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(fumadocs-ui@15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2):
+  fumadocs-twoslash@3.1.7(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2):
     dependencies:
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@shikijs/twoslash': 3.12.2(typescript@5.9.2)
-      fumadocs-ui: 15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
+      fumadocs-ui: 15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
       mdast-util-from-markdown: 2.0.2
       mdast-util-gfm: 3.1.0
       mdast-util-to-hast: 13.2.0
@@ -10960,10 +10960,10 @@ snapshots:
       - supports-color
       - typescript
 
-  fumadocs-typescript@4.0.9(@types/react@19.1.14)(fumadocs-core@15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(typescript@5.9.2):
+  fumadocs-typescript@4.0.9(@types/react@19.1.14)(fumadocs-core@15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(typescript@5.9.2):
     dependencies:
       estree-util-value-to-estree: 3.4.0
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       hast-util-to-estree: 3.1.3
       hast-util-to-jsx-runtime: 2.3.6
       remark: 15.0.1
@@ -10974,11 +10974,11 @@ snapshots:
       unist-util-visit: 5.0.0
     optionalDependencies:
       '@types/react': 19.1.14
-      fumadocs-ui: 15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
+      fumadocs-ui: 15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-ui@15.8.0(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13):
+  fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13):
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-collapsible': 1.1.12(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -10991,7 +10991,7 @@ snapshots:
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.14)(react@19.1.1)
       '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.9(@types/react@19.1.14))(@types/react@19.1.14)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       class-variance-authority: 0.7.1
-      fumadocs-core: 15.8.0(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-core: 15.8.1(@types/react@19.1.14)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       lodash.merge: 4.6.2
       next-themes: 0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       postcss-selector-parser: 7.1.0
@@ -11323,7 +11323,7 @@ snapshots:
 
   jsdoc-type-pratt-parser@4.8.0: {}
 
-  jsdoc-type-pratt-parser@5.8.0: {}
+  jsdoc-type-pratt-parser@5.9.1: {}
 
   jsesc@3.0.2: {}
 
@@ -12622,7 +12622,7 @@ snapshots:
 
   robust-predicates@3.0.2: {}
 
-  rolldown-plugin-dts@0.16.7(rolldown@1.0.0-beta.40)(typescript@5.9.2):
+  rolldown-plugin-dts@0.16.8(rolldown@1.0.0-beta.40)(typescript@5.9.2):
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/parser': 7.28.4
@@ -13022,7 +13022,7 @@ snapshots:
 
   ts-pattern@5.8.0: {}
 
-  tsdown@0.15.4(publint@0.3.13)(typescript@5.9.2):
+  tsdown@0.15.5(publint@0.3.13)(typescript@5.9.2):
     dependencies:
       ansis: 4.1.0
       cac: 6.7.14
@@ -13032,7 +13032,7 @@ snapshots:
       empathic: 2.0.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.40
-      rolldown-plugin-dts: 0.16.7(rolldown@1.0.0-beta.40)(typescript@5.9.2)
+      rolldown-plugin-dts: 0.16.8(rolldown@1.0.0-beta.40)(typescript@5.9.2)
       semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.15
