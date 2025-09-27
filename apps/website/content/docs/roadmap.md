@@ -2,6 +2,20 @@
 title: Roadmap
 ---
 
+## Milestone 4.0 (TBD)
+
+### System Requirements
+
+Minimum supported versions:
+
+- [ ] Node.js: 28.x.x
+- [x] ESLint: 9.36.0
+- [x] TypeScript: 5.9.2
+
+### Removed Rules
+
+- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
+
 ## Milestone 3.0 (TBD)
 
 ### System Requirements
@@ -18,12 +32,16 @@ Minimum supported versions:
 
 ### New Rules
 
-- [ ] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance\
+- [ ] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance (TBD)\
       (lightweight, performant version of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration)
-- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
+- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops (TBD)\
       (lightweight, performant version of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration)
 - [ ] `react-x/function-component-definition` - Enforces the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
 - [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
+
+### Deprecated Rules
+
+- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
 
 ## Milestone 2.0 (2025-09-26)
 
