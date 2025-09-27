@@ -4,7 +4,7 @@ description: "A major release embracing modern JavaScript standards with powerfu
 ---
 
 <Callout type="info">
-  Some of the new features in this release were already previewed in the `1.5.x` versions.
+  Some features in this release were previously introduced in the `1.5.x` versions.
 </Callout>
 
 ## **Embracing Modern JavaScript Standards**
@@ -12,7 +12,7 @@ description: "A major release embracing modern JavaScript standards with powerfu
 To align with the direction of the JavaScript ecosystem, v2.0.0 introduces the following significant changes:
 
 1. **ESM-Only**: `eslint-react.xyz` is now distributed exclusively as ECMAScript Modules (ESM).
-2. **Flat Config Exclusive**: We have dropped support for the legacy `.eslintrc` format and now exclusively support ESLint's Flat Config for more powerful and flexible configurations.
+2. **Flat Config Exclusive**: We have dropped support for the legacy `.eslintrc` format and now exclusively support ESLint's Flat Config, enabling more powerful and flexible configurations.
 3. **Updated Environment Requirements**:
    - **Node.js**: `18.x` ↦ `20.x`
    - **ESLint**: `8.x` ↦ `9.x`
@@ -20,68 +20,66 @@ To align with the direction of the JavaScript ecosystem, v2.0.0 introduces the f
 
 ## **Rule Refactoring: More Consistent and Intuitive**
 
-We have refactored our rules to make them easier to understand and use.
+We have refactored our rules to make them more consistent and intuitive.
 
 - **Rule Renaming**: Some rules have been renamed. For example, `ensure-forward-ref-using-ref` is now the more concise `no-useless-forward-ref`.
 
-- **Rule Consolidation**: Scenarios that previously required configuring opposing rules are now handled by a single rule, simplifying your setup.
+- **Rule Consolidation**: Scenarios that previously required multiple rules are now handled by a single, consolidated rule, simplifying your setup.
 
   ```javascript
-  // Old way: Two opposing rules
+  // Old way: Two separate rules
   // "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
   // "react-hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
 
-  // New way: Single consolidated rule handling all useEffect variants
+  // New way: A single rule handling all useEffect variants
   "react-x/no-direct-set-state-in-use-effect": "warn",
   ```
 
-- **Rule Migration**: Several generic Hooks rules from the `react-hooks-extra` package have been moved to the core `react-x` plugin, such as `no-unnecessary-use-prefix`.
+- **Rule Migration**: Several generic Hooks rules from the `react-hooks-extra` package, such as `no-unnecessary-use-prefix`, have been moved to the core `react-x` plugin.
 
 ## **Introducing Powerful New Rules**
 
 This release adds several new rules to help you write cleaner and more robust React code.
 
-- **`react-x/no-unused-props`**: TSC-backed rule that flags component props that are defined but never used (credits to [@ulrichstark](https://github.com/ulrichstark) for the implementation).
-- **`react-x/no-unnecessary-key`**: Flags unnecessary `key` props on elements that are not an iterator when rendering lists (credits to [@kachkaev](https://github.com/kachkaev) for the idea).
-- **`react-dom/no-string-style-prop`**: Disallows using string values for the `style` prop, useful in non-TypeScript environments like MDX files (proposed by [@karlhorky](https://github.com/karlhorky)).
-- **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom` (The React DOM version of `react-x/prefer-namespace-import`).
+- **`react-x/no-unused-props`**: A TSC-backed rule to flag component props that are defined but never used (credit to [@ulrichstark](https://github.com/ulrichstark) for the implementation).
+- **`react-x/no-unnecessary-key`**: Flags unnecessary `key` props on elements that are not part of a list rendering (credit to [@kachkaev](https://github.com/kachkaev) for the idea).
+- **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop, which is useful in non-TypeScript environments like MDX (proposed by [@karlhorky](https://github.com/karlhorky)).
+- **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom` (the React DOM equivalent of `react-x/prefer-namespace-import`).
 
 ## **Developer Experience (DX) Improvements**
 
 We believe a great tool should not only find problems but also help you fix them.
 
-- **Enhanced Codemods & Auto-Fixes**: More rules, like `no-forward-ref`, now include codemods to automatically migrate legacy APIs to the new syntax in React 19 and support auto-fixing.
+- **Enhanced Codemods & Auto-Fixes**: More rules now include codemods and auto-fixing capabilities. For instance, `no-forward-ref` can automatically migrate legacy APIs to the new syntax available in React 19.
 
-  For example, migrating `forwardRef`:
+  For example, migrating `forwardRef` to the new [`ref` as a prop](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) pattern in React 19:
 
   ```tsx
+  // Before
   const MotionButton = React.forwardRef<HTMLButtonElement, HTMLMotionProps<"button">>(({ children, ...rest }, ref) => {
     // ...
   });
-  ```
 
-  can be automatically transformed to:
-
-  ```tsx
+  // After
   const MotionButton = ({ ref, children, ...rest }: HTMLMotionProps<"button"> & { ref?: React.RefObject<HTMLButtonElement | null> }) => {
     // ...
   };
   ```
 
-  Other rules with React 19 codemods include `no-context-provider` and `no-use-context`.
+  Other rules with React 19 codemods include:
 
-  - `react-x/no-context-provider`: Replaces usages of `useContext(Context)` with `use(Context)`.
-  - `react-x/no-use-context`: Replaces usages of `<Context.Provider>` with `<Context>`.
+  - `react-x/no-use-context`: Replaces `useContext(Context)` with `use(Context)`.
+  - `react-x/no-context-provider`: Replaces `<Context.Provider>` with `<Context>`.
 
-- **New `disable-conflict-eslint-plugin-react` Preset**: If you also use `eslint-plugin-react`, this new preset automatically disables rules that overlap with our plugin, enabling seamless integration.
+- **New `disable-conflict-eslint-plugin-react` Preset**: If you also use `eslint-plugin-react`, this new preset automatically disables rules that conflict with our plugin, ensuring seamless integration.
 
 ## **Migration Guide**
 
 To upgrade to v2.0.0, follow these steps:
 
 1. **Update Node.js**: Ensure your environment is running Node.js 20.x or higher.
-2. **Update Dependencies**: Update your `eslint-react.xyz` and related dependencies to the required versions.
-3. **Review Rule Changes**: Check the [Changelog](/docs/changelog#v200-2025-09-26) for a complete list of rule changes and updates.
-4. **Adjust ESLint Configurations**: Update your ESLint configuration to accommodate renamed or consolidated rules (convert to Flat Config if you haven't already).
+2. **Update Dependencies**: Update ESLint plugins from `eslint-react.xyz` and its related dependencies to their required versions.
+3. **Review Rule Changes**: Check the [Changelog](/docs/changelog#v200-2025-09-26) for a complete list of rule changes.
+4. **Adjust ESLint Configuration**: Update your ESLint configuration to accommodate renamed or consolidated rules. If you haven't already, convert your configuration to Flat Config.
 5. **Update ESLint Directives**: Use the provided codemods to update any ESLint directives in your codebase.
-6. **Test Your Setup**: Run ESLint on your codebase to identify and fix any issues.
+6. **Test Your Setup**: Run ESLint on your project to identify and fix any remaining issues.
