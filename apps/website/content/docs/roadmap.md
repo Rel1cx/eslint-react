@@ -16,6 +16,10 @@ Minimum supported versions:
 
 - [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
 
+### Removed Plugins
+
+- [ ] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by new introduced rules from `eslint-plugin-react-hooks` (TBD)
+
 ## Milestone 3.0 (TBD)
 
 ### System Requirements
@@ -25,10 +29,6 @@ Minimum supported versions:
 - [ ] Node.js: 24.8.0
 - [x] ESLint: 9.36.0
 - [x] TypeScript: 5.9.2
-
-### Add auto-fix feature to rules that can be auto-fixed safely
-
-- [ ] `react-x/function-component-definition`
 
 ### New Rules
 
