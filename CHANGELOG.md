@@ -106,7 +106,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 - refactor: simplify React APIs detection logic by @Rel1cx
 - refactor: cleanup utilities and simplify rule implementations by @Rel1cx
-- docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules by @reteps
+- docs: add comparison table between `eslint-plugin-react` and `eslint-react` rules by @reteps, @outslept
 - docs: replace `tseslint.config` with `defineConfig` in all examples by @Rel1cx
 - build: migrate build system from `tsup` to `tsdown` for better performance by @Rel1cx
 
