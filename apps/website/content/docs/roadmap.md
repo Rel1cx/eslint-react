@@ -2,6 +2,24 @@
 title: Roadmap
 ---
 
+## Milestone 4.0 (TBD)
+
+### System Requirements
+
+Minimum supported versions:
+
+- [ ] Node.js: 28.x.x
+- [x] ESLint: 9.36.0
+- [x] TypeScript: 5.9.2
+
+### Removed Rules
+
+- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
+
+### Removed Plugins
+
+- [ ] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by new introduced rules from `eslint-plugin-react-hooks` (TBD)
+
 ## Milestone 3.0 (TBD)
 
 ### System Requirements
@@ -12,15 +30,18 @@ Minimum supported versions:
 - [x] ESLint: 9.36.0
 - [x] TypeScript: 5.9.2
 
-### Add auto-fix feature to rules that can be auto-fixed safely
-
-- [ ] `function-component-definition`
-
 ### New Rules
 
-- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with
-- [ ] `function-component-definition` - Enforce the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
-- [ ] `no-circular-effect` - Detect circular `set` (and `dispatch`) functions and deps patterns in `useEffect` like Hooks ([Rel1cx/eslint-react#755](https://github.com/Rel1cx/eslint-react/issues/755))
+- [ ] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance (TBD)\
+      (lightweight, performant version of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration)
+- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops (TBD)\
+      (lightweight, performant version of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration)
+- [ ] `react-x/function-component-definition` - Enforces the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
+- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
+
+### Deprecated Rules
+
+- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
 
 ## Milestone 2.0 (2025-09-26)
 
