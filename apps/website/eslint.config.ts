@@ -1,13 +1,13 @@
 import react from "@eslint-react/eslint-plugin";
+import { includeIgnoreFile } from "@eslint/compat";
 import markdown from "@eslint/markdown";
 import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
-import gitignore from "eslint-config-flat-gitignore";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
 import { globalIgnores } from "eslint/config";
 import { defineConfig } from "eslint/config";
-import url from "node:url";
+import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -25,10 +25,11 @@ const GLOB_IGNORES = [
   "eslint.config.ts",
 ];
 
-const dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const dirname = fileURLToPath(new URL(".", import.meta.url));
+const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
 export default defineConfig([
-  gitignore(),
+  includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
   globalIgnores(GLOB_IGNORES),
   {
     extends: [
@@ -49,7 +50,8 @@ export default defineConfig([
   },
   {
     extends: [
-      strictTypeChecked, // @ts-expect-error - types issue
+      strictTypeChecked,
+      // @ts-expect-error - types issue
       fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,

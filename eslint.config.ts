@@ -1,5 +1,6 @@
-import url from "node:url";
+import { fileURLToPath } from "node:url";
 
+import { includeIgnoreFile } from "@eslint/compat";
 import markdown from "@eslint/markdown";
 import {
   GLOB_CONFIGS,
@@ -12,13 +13,13 @@ import {
   strictTypeChecked,
 } from "@local/configs/eslint";
 import pluginLocal from "@local/eslint-plugin-local";
-import gitIgnores from "eslint-config-flat-gitignore";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-const dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const dirname = fileURLToPath(new URL(".", import.meta.url));
+const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
 const packagesTsConfigs = [
   "packages/*/tsconfig.json",
@@ -26,7 +27,7 @@ const packagesTsConfigs = [
 ];
 
 export default defineConfig([
-  gitIgnores(),
+  includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
   globalIgnores([
     ...GLOB_IGNORES,
     "apps",
