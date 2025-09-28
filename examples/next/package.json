@@ -24,7 +24,7 @@
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.6",
     "@types/node": "^24.5.2",
-    "@types/react": "^19.1.14",
+    "@types/react": "^19.1.15",
     "@types/react-dom": "^19.1.9",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
