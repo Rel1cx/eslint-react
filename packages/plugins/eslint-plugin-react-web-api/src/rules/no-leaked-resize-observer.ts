@@ -16,7 +16,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
 import type { ObserverEntry, ObserverMethod } from "../types";
-import { createRule, isConditional } from "../utils";
+import { createRule } from "../utils";
 
 // #region Rule Metadata
 
@@ -216,7 +216,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const oentries = oEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
         const uentries = uEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || isConditional(node);
+        const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || AST.isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
         const hasDynamicallyAdded = oentries
           .some((e) => !isPhaseNode(AST.findParentNode(e.node, or(isDynamic, isPhaseNode))));

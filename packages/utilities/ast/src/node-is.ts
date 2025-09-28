@@ -1,3 +1,4 @@
+import { or } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
@@ -73,6 +74,22 @@ export const isLoop = isOneOf([
   T.ForStatement,
   T.WhileStatement,
 ]);
+
+export const isControlFlow = or(
+  isLoop,
+  isOneOf([
+    T.IfStatement,
+    T.SwitchStatement,
+  ]),
+);
+
+export const isConditional = or(
+  isControlFlow,
+  isOneOf([
+    T.LogicalExpression,
+    T.ConditionalExpression,
+  ]),
+);
 
 export const isTypeExpression = isOneOf([
   T.TSAsExpression,
