@@ -24,25 +24,25 @@ title: Changelog
 
 **Removed Rules**
 
-| Rule                                                         | Replaced by                                                                                                                | Reason       |
-| :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- | :----------- |
-| `react-x/avoid-shorthand-boolean`                            | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                               | consolidated |
-| `react-x/avoid-shorthand-fragment`                           | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                             | consolidated |
-| `react-x/ensure-forward-ref-using-ref`                       | [`react-x/no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                             | renamed      |
-| `react-x/no-duplicate-props`                                 | [`react-x/jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                             | renamed      |
-| `react-x/no-comment-textnodes`                               | [`react-x/jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                         | renamed      |
-| `react-x/no-complicated-conditional-rendering`               |                                                                                                                            | discontinued |
-| `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)           | renamed      |
-| `react-x/prefer-react-namespace-import`                      | [`react-x/prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                           | renamed      |
-| `react-x/prefer-shorthand-boolean`                           | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                               | consolidated |
-| `react-x/prefer-shorthand-fragment`                          | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                             | consolidated |
-| `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                               | renamed      |
-| `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children)       | renamed      |
-| `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-hooks-extra/no-direct-set-state-in-use-effect`](/docs/rules/hooks-extra-no-direct-set-state-in-use-effect)         | consolidated |
-| `react-hooks-extra/no-unnecessary-use-callback`              | [`react-x/no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                   | relocated    |
-| `react-hooks-extra/no-unnecessary-use-memo`                  | [`react-x/no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                           | relocated    |
-| `react-hooks-extra/no-unnecessary-use-prefix`                | [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                       | relocated    |
-| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`react-x/prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization) | relocated    |
+| Rule                                                         | Replaced by                                                                                                                                | Reason       |
+| :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :----------- |
+| `react-x/avoid-shorthand-boolean`                            | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                               | consolidated |
+| `react-x/avoid-shorthand-fragment`                           | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                             | consolidated |
+| `react-x/ensure-forward-ref-using-ref`                       | [`react-x/no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                                             | renamed      |
+| `react-x/no-duplicate-props`                                 | [`react-x/jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                                             | renamed      |
+| `react-x/no-comment-textnodes`                               | [`react-x/jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                                         | renamed      |
+| `react-x/no-complicated-conditional-rendering`               |                                                                                                                                            | discontinued |
+| `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)                           | renamed      |
+| `react-x/prefer-react-namespace-import`                      | [`react-x/prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                                           | renamed      |
+| `react-x/prefer-shorthand-boolean`                           | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                               | consolidated |
+| `react-x/prefer-shorthand-fragment`                          | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                             | consolidated |
+| `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                                               | renamed      |
+| `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children)                       | renamed      |
+| `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-hooks-extra/no-direct-set-state-in-use-effect`](https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect) | consolidated |
+| `react-hooks-extra/no-unnecessary-use-callback`              | [`react-x/no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                                   | relocated    |
+| `react-hooks-extra/no-unnecessary-use-memo`                  | [`react-x/no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                                           | relocated    |
+| `react-hooks-extra/no-unnecessary-use-prefix`                | [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                                       | relocated    |
+| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`react-x/prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization)                 | relocated    |
 
 **Removed Presets**
 
