@@ -1,10 +1,11 @@
 import eslintReact from "@eslint-react/eslint-plugin";
+import { includeIgnoreFile } from "@eslint/compat";
 import eslintJs from "@eslint/js";
 import eslintPluginNext from "@next/eslint-plugin-next";
-import gitignore from "eslint-config-flat-gitignore";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
+import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -14,8 +15,10 @@ const GLOB_JS = ["**/*.js", "**/*.jsx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 
+const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
+
 export default defineConfig([
-  gitignore(),
+  includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
   {
     files: GLOB_TS,
     extends: [
