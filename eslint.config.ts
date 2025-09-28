@@ -74,7 +74,6 @@ export default defineConfig([
     rules: {
       // Part: local rules
       "local/avoid-multiline-template-expression": "warn",
-      "local/no-shadow-underscore": "error",
       "local/prefer-eqeq-nullish-comparison": "warn",
 
       "fast-import/no-unused-exports": "off",

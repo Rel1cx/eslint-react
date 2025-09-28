@@ -1,8 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { unit } from "@eslint-react/eff";
-import { findVariable } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST_NODE_TYPES$1 } from "@typescript-eslint/types";
 import { NullThrowsReasons, nullThrows } from "@typescript-eslint/utils/eslint-utils";
 
 //#region package.json
@@ -17,75 +14,17 @@ function getDocsUrl() {
 const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 
 //#endregion
-//#region src/utils/is-initialized-from-source.ts
-/**
-* Check if an identifier is initialized from the given source
-* @param name The top-level identifier's name
-* @param source The import source to check against
-* @param initialScope Initial scope to search for the identifier
-* @returns Whether the identifier is initialized from the given source
-*/
-function isInitializedFromSource(name$1, source, initialScope) {
-	const latestDef = findVariable(name$1, initialScope)?.defs.at(-1);
-	if (latestDef == null) return false;
-	const { node, parent } = latestDef;
-	if (node.type === AST_NODE_TYPES$1.VariableDeclarator && node.init != null) {
-		const { init } = node;
-		if (init.type === AST_NODE_TYPES$1.MemberExpression && init.object.type === AST_NODE_TYPES$1.Identifier) return isInitializedFromSource(init.object.name, source, initialScope);
-		if (init.type === AST_NODE_TYPES$1.Identifier) return isInitializedFromSource(init.name, source, initialScope);
-		const arg0 = getRequireExpressionArguments(init)?.[0];
-		if (arg0 == null || !AST.isLiteral(arg0, "string")) return false;
-		return arg0.value === source || arg0.value.startsWith(`${source}/`);
-	}
-	return parent?.type === AST_NODE_TYPES$1.ImportDeclaration && parent.source.value === source;
-}
-function getRequireExpressionArguments(node) {
-	switch (true) {
-		case node.type === AST_NODE_TYPES$1.CallExpression && node.callee.type === AST_NODE_TYPES$1.Identifier && node.callee.name === "require": return node.arguments;
-		case node.type === AST_NODE_TYPES$1.MemberExpression: return getRequireExpressionArguments(node.object);
-	}
-	return unit;
-}
-
-//#endregion
 //#region src/rules/avoid-multiline-template-expression.ts
-const RULE_NAME$2 = "avoid-multiline-template-expression";
-const RULE_FEATURES$1 = [];
+const RULE_NAME$1 = "avoid-multiline-template-expression";
+const RULE_FEATURES = [];
 var avoid_multiline_template_expression_default = createRule({
 	meta: {
 		type: "problem",
 		docs: {
 			description: "disallow multiline template expressions",
-			[Symbol.for("rule_features")]: RULE_FEATURES$1
-		},
-		messages: { avoidMultilineTemplateExpression: "Avoid multiline template expressions." },
-		schema: []
-	},
-	name: RULE_NAME$2,
-	create: create$2,
-	defaultOptions: []
-});
-function create$2(context) {
-	return { TemplateLiteral: (node) => {
-		if (AST.isMultiLine(node)) context.report({
-			messageId: "avoidMultilineTemplateExpression",
-			node
-		});
-	} };
-}
-
-//#endregion
-//#region src/rules/no-shadow-underscore.ts
-const RULE_NAME$1 = "no-shadow-underscore";
-const RULE_FEATURES = [];
-var no_shadow_underscore_default = createRule({
-	meta: {
-		type: "problem",
-		docs: {
-			description: "disallow shadowing of the underscore identifier",
 			[Symbol.for("rule_features")]: RULE_FEATURES
 		},
-		messages: { noShadowUnderscore: "In this codebase, '_' is used to represent the undefined. Avoid shadowing it." },
+		messages: { avoidMultilineTemplateExpression: "Avoid multiline template expressions." },
 		schema: []
 	},
 	name: RULE_NAME$1,
@@ -93,10 +32,9 @@ var no_shadow_underscore_default = createRule({
 	defaultOptions: []
 });
 function create$1(context) {
-	return { "Identifier[name='_']"(node) {
-		const initialScope = context.sourceCode.getScope(node);
-		if (!isInitializedFromSource("_", "@eslint-react/eff", initialScope)) context.report({
-			messageId: "noShadowUnderscore",
+	return { TemplateLiteral: (node) => {
+		if (AST.isMultiLine(node)) context.report({
+			messageId: "avoidMultilineTemplateExpression",
 			node
 		});
 	} };
@@ -162,7 +100,6 @@ const plugin = {
 	},
 	rules: {
 		"avoid-multiline-template-expression": avoid_multiline_template_expression_default,
-		"no-shadow-underscore": no_shadow_underscore_default,
 		"prefer-eqeq-nullish-comparison": prefer_eqeq_nullish_comparison_default
 	}
 };

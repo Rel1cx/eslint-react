@@ -60,7 +60,6 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
 /* eslint-disable jsdoc/check-param-names */
 /* eslint-disable jsdoc/require-param-description */
-/* eslint-disable local/no-shadow-underscore */
 /* eslint-disable local/prefer-eqeq-nullish-comparison */
 /* eslint-disable prefer-rest-params */
 
