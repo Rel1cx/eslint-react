@@ -42,7 +42,7 @@ We have refactored our rules to make them more consistent and intuitive.
 This release adds several new rules to help you write cleaner and more robust React code.
 
 - **`react-x/no-unused-props`**: A TSC-backed rule to flag component props that are defined but never used (credit to [@ulrichstark](https://github.com/ulrichstark) for the implementation).
-- **`react-x/no-unnecessary-key`**: Flags unnecessary `key` props on elements that are not part of a list rendering (credit to [@kachkaev](https://github.com/kachkaev) for the idea).
+- **`react-x/no-unnecessary-key`**: Prevents `key` from being placed on non-top-level elements in a list rendering (credit to [@kachkaev](https://github.com/kachkaev) for the idea).
 - **`react-dom/no-string-style-prop`**: Disallows string values for the `style` prop, which is useful in non-TypeScript environments like MDX (proposed by [@karlhorky](https://github.com/karlhorky)).
 - **`react-dom/prefer-namespace-import`**: Enforces using a namespace import for `react-dom` (the React DOM equivalent of `react-x/prefer-namespace-import`).
 
@@ -50,7 +50,7 @@ This release adds several new rules to help you write cleaner and more robust Re
 
 We believe a great tool should not only find problems but also help you fix them.
 
-- **Enhanced Codemods & Auto-Fixes**: More rules now include codemods and auto-fixing capabilities. For instance, `no-forward-ref` can automatically migrate legacy APIs to the new syntax available in React 19.
+- **Enhanced Codemods & Auto-Fixes**: More rules now include codemods and auto-fixing capabilities.
 
   For example, migrating `forwardRef` to the new [`ref` as a prop](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) pattern in React 19:
 

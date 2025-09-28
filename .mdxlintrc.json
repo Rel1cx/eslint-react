@@ -3,7 +3,7 @@
     "rule": "-",
     "bullet": "-",
     "emphasis": "_",
-    "printWidth": 1024
+    "printWidth": 120
   },
   "plugins": ["remark-gfm", ["remark-frontmatter", ["toml", "yaml"]]]
 }
