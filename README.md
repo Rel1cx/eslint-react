@@ -163,7 +163,7 @@ export default defineConfig([
 
 ## Roadmap
 
-- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
+- [Milestone 3.0 ↗](https://eslint-react.xyz/docs/roadmap#milestone-30-tbd)
 
 ## Contributing
 
