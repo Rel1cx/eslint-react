@@ -1,3 +1,18 @@
+## v2.0.2 (2025-09-29)
+
+### 🪄 Improvements
+
+- Refine migration table from `eslint-plugin-react`, closes #1154 by @outslept in https://github.com/Rel1cx/eslint-react/pull/1242
+- Fix dead link for `hooks-extra/no-direct-set-state-in-use-layout-effect` by @tnir in https://github.com/Rel1cx/eslint-react/pull/1245
+- Cleanup unused deps, closes #1244 by @Rel1cx, @outslept in https://github.com/Rel1cx/eslint-react/pull/1246
+
+## New Contributors
+
+- @outslept made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1242
+- @tnir made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1245
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.1...v2.0.2
+
 ## v2.0.1 (2025-09-27)
 
 ### 🐞 Fixes
