@@ -6,7 +6,7 @@ title: Changelog
 
 ### ✨ New
 
-- Enables `naming-convention/use-state` rule in recommended presets
+- Enables `naming-convention/use-state` rule in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1252
 
 ### 🐞 Fixes
 
