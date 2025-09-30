@@ -47,9 +47,9 @@
     "@eslint-react/kit": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.44.1",
-    "@typescript-eslint/types": "^8.44.1",
-    "@typescript-eslint/utils": "^8.44.1",
+    "@typescript-eslint/scope-manager": "^8.45.0",
+    "@typescript-eslint/types": "^8.45.0",
+    "@typescript-eslint/utils": "^8.45.0",
     "string-ts": "^2.2.1",
     "ts-pattern": "^5.8.0"
   },
