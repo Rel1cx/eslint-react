@@ -9,7 +9,7 @@ title: Roadmap
 Minimum supported versions:
 
 - [ ] Node.js: 28.x.x
-- [x] ESLint: 9.36.0
+- [ ] ESLint: 10.x.x
 - [x] TypeScript: 5.9.2
 
 ### Removed Rules
