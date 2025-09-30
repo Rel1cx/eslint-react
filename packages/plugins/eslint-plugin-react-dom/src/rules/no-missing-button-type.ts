@@ -1,6 +1,6 @@
-import { getAttribute } from "@eslint-react/core";
+import { getJsxAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/kit";
-import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
 import { createJsxElementResolver, createRule } from "../utils";
@@ -38,27 +38,32 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
+
   return {
     JSXElement(node) {
-      const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "button") return;
-      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      if (getAttributeEx("type") != null) return;
+      if (resolver.resolve(node).domElementType !== "button") {
+        return;
+      }
+
+      const findJsxAttribute = getJsxAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+
+      if (findJsxAttribute("type") != null) {
+        return;
+      }
+
       context.report({
         messageId: "noMissingButtonType",
         node: node.openingElement,
-        suggest: getSuggest((type) => (fixer: RuleFixer) => {
-          return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
-        }),
+        suggest: BUTTON_TYPES.map((type): RuleSuggest<MessageID> => ({
+          messageId: "addButtonType",
+          data: { type },
+          fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
+        })),
       });
     },
   };
-}
-
-function getSuggest(getFix: (type: string) => RuleSuggest["fix"]): RuleSuggest<MessageID>[] {
-  return BUTTON_TYPES.map((type) => ({
-    messageId: "addButtonType",
-    data: { type },
-    fix: getFix(type),
-  }));
 }

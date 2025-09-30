@@ -30,6 +30,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `createContext` is not present in the file
   if (!context.sourceCode.text.includes("createContext")) return {};
   return {
     CallExpression(node) {

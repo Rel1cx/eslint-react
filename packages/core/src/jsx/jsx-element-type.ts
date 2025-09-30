@@ -12,7 +12,7 @@ import { stringifyJsx } from "./jsx-stringify";
  * @param node - JSX element or fragment node
  * @returns String representation of the element type
  */
-export function getElementType(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
+export function getJsxElementType(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (node.type === T.JSXFragment) {
     return "";
   }

@@ -24,7 +24,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
  * BitFlags for configuring JSX detection behavior
  * Uses BigInt for bit operations to support many flags
  */
-export type JSXDetectionHint = bigint;
+export type JsxDetectionHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
 /**
@@ -32,7 +32,7 @@ export type JSXDetectionHint = bigint;
  * - Skip* flags: Ignore specific node types when detecting JSX
  * - Strict* flags: Enforce stricter rules for container types
  */
-export const JSXDetectionHint = {
+export const JsxDetectionHint = {
   None: 0n,
   SkipUndefined: 1n << 0n, // Ignore undefined values
   SkipNullLiteral: 1n << 1n, // Ignore null literals
@@ -53,8 +53,8 @@ export const JSXDetectionHint = {
  * Skips undefined and boolean literals (common in React)
  */
 export const DEFAULT_JSX_DETECTION_HINT = 0n
-  | JSXDetectionHint.SkipUndefined
-  | JSXDetectionHint.SkipBooleanLiteral;
+  | JsxDetectionHint.SkipUndefined
+  | JsxDetectionHint.SkipBooleanLiteral;
 
 /**
  * Checks if a node is a `JSXText` or a `Literal` node
@@ -79,7 +79,7 @@ export function isJsxText(node: TSESTree.Node | null | unit): node is TSESTree.J
 export function isJsxLike(
   code: { getScope: (node: TSESTree.Node) => Scope },
   node: TSESTree.Node | unit | null,
-  hint: JSXDetectionHint = DEFAULT_JSX_DETECTION_HINT,
+  hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
   if (node == null) return false;
 
@@ -91,30 +91,30 @@ export function isJsxLike(
       // Handle different literal types according to hint flags
       switch (typeof node.value) {
         case "boolean":
-          return !(hint & JSXDetectionHint.SkipBooleanLiteral);
+          return !(hint & JsxDetectionHint.SkipBooleanLiteral);
         case "string":
-          return !(hint & JSXDetectionHint.SkipStringLiteral);
+          return !(hint & JsxDetectionHint.SkipStringLiteral);
         case "number":
-          return !(hint & JSXDetectionHint.SkipNumberLiteral);
+          return !(hint & JsxDetectionHint.SkipNumberLiteral);
         case "bigint":
-          return !(hint & JSXDetectionHint.SkipBigIntLiteral);
+          return !(hint & JsxDetectionHint.SkipBigIntLiteral);
       }
       if (node.value == null) {
-        return !(hint & JSXDetectionHint.SkipNullLiteral);
+        return !(hint & JsxDetectionHint.SkipNullLiteral);
       }
       return false;
     }
     case T.TemplateLiteral: {
       // Template literals are treated like string literals
-      return !(hint & JSXDetectionHint.SkipStringLiteral);
+      return !(hint & JsxDetectionHint.SkipStringLiteral);
     }
     case T.ArrayExpression: {
       // Empty arrays can be filtered with SkipEmptyArray
       if (node.elements.length === 0) {
-        return !(hint & JSXDetectionHint.SkipEmptyArray);
+        return !(hint & JsxDetectionHint.SkipEmptyArray);
       }
       // StrictArray requires all elements to be JSX
-      if (hint & JSXDetectionHint.StrictArray) {
+      if (hint & JsxDetectionHint.StrictArray) {
         return node.elements.every((n) => isJsxLike(code, n, hint));
       }
       // Default: array is JSX-like if any element is JSX-like
@@ -122,7 +122,7 @@ export function isJsxLike(
     }
     case T.LogicalExpression: {
       // StrictLogical requires both sides to be JSX
-      if (hint & JSXDetectionHint.StrictLogical) {
+      if (hint & JsxDetectionHint.StrictLogical) {
         return isJsxLike(code, node.left, hint) && isJsxLike(code, node.right, hint);
       }
       // Default: logical expression is JSX-like if either side is JSX-like
@@ -133,9 +133,9 @@ export function isJsxLike(
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
           if (node.consequent.length === 0) {
-            return !(hint & JSXDetectionHint.SkipEmptyArray);
+            return !(hint & JsxDetectionHint.SkipEmptyArray);
           }
-          if (hint & JSXDetectionHint.StrictArray) {
+          if (hint & JsxDetectionHint.StrictArray) {
             return node.consequent.every((n: TSESTree.Expression) => isJsxLike(code, n, hint));
           }
           return node.consequent.some((n: TSESTree.Expression) => isJsxLike(code, n, hint));
@@ -149,7 +149,7 @@ export function isJsxLike(
       }
 
       // StrictConditional requires both branches to contain JSX
-      if (hint & JSXDetectionHint.StrictConditional) {
+      if (hint & JsxDetectionHint.StrictConditional) {
         return leftHasJSX(node) && rightHasJSX(node);
       }
       // Default: conditional is JSX-like if either branch has JSX
@@ -162,7 +162,7 @@ export function isJsxLike(
     }
     case T.CallExpression: {
       // Skip createElement calls if configured to do so
-      if (hint & JSXDetectionHint.SkipCreateElement) {
+      if (hint & JsxDetectionHint.SkipCreateElement) {
         return false;
       }
       // Check for React.createElement or createElement calls
@@ -178,7 +178,7 @@ export function isJsxLike(
       const { name } = node;
       // Handle 'undefined' identifier according to hint
       if (name === "undefined") {
-        return !(hint & JSXDetectionHint.SkipUndefined);
+        return !(hint & JsxDetectionHint.SkipUndefined);
       }
       // Check if this is a JSX tag name
       if (AST.isJSXTagNameExpression(node)) {

@@ -10,7 +10,7 @@ import { P, match } from "ts-pattern";
 /**
  * Represents possible JSX attribute value types that can be resolved
  */
-export type AttributeValue =
+export type JsxAttributeValue =
   | { kind: "boolean"; toStatic(): true } // Boolean attributes (e.g., disabled)
   | { kind: "element"; node: TSESTree.JSXElement; toStatic(): unknown } // JSX element as value (e.g., <Component element=<JSXElement /> />)
   | { kind: "literal"; node: TSESTree.Literal; toStatic(): TSESTree.Literal["value"] } // Literal values
@@ -18,7 +18,7 @@ export type AttributeValue =
   | { kind: "spreadProps"; node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(name?: string): unknown } // Spread props (e.g., {...props})
   | { kind: "spreadChild"; node: TSESTree.JSXSpreadChild["expression"]; toStatic(): unknown }; // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
 
-export function resolveAttributeValue(context: RuleContext, attribute: AST.TSESTreeJSXAttributeLike) {
+export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TSESTreeJSXAttributeLike) {
   const initialScope = context.sourceCode.getScope(attribute);
   function handleJsxAttribute(node: TSESTree.JSXAttribute) {
     // Case 1: Boolean attribute with no value (e.g., disabled)
@@ -28,7 +28,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: AST.TSEST
         toStatic() {
           return true;
         },
-      } as const satisfies AttributeValue;
+      } as const satisfies JsxAttributeValue;
     }
     switch (node.value.type) {
       // Case 2: Literal value (e.g., className="container")
@@ -40,7 +40,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: AST.TSEST
           toStatic() {
             return staticValue;
           },
-        } as const satisfies AttributeValue;
+        } as const satisfies JsxAttributeValue;
       }
       // Case 3: Expression container (e.g., className={variable})
       case T.JSXExpressionContainer: {
@@ -51,7 +51,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: AST.TSEST
           toStatic() {
             return getStaticValue(expr, initialScope)?.value;
           },
-        } as const satisfies AttributeValue;
+        } as const satisfies JsxAttributeValue;
       }
       // Case 4: JSX Element as value (e.g., element=<JSXElement />)
       case T.JSXElement:
@@ -61,7 +61,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: AST.TSEST
           toStatic() {
             return unit;
           },
-        } as const satisfies AttributeValue;
+        } as const satisfies JsxAttributeValue;
       // Case 5: JSX spread children (e.g., <div>{...["Hello", " ", "spread", " ", "children"]}</div>)
       case T.JSXSpreadChild:
         return {
@@ -70,7 +70,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: AST.TSEST
           toStatic() {
             return unit;
           },
-        } as const satisfies AttributeValue;
+        } as const satisfies JsxAttributeValue;
     }
   }
 
@@ -86,7 +86,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: AST.TSEST
           .with({ [name]: P.select(P.any) }, identity)
           .otherwise(() => unit);
       },
-    } as const satisfies AttributeValue;
+    } as const satisfies JsxAttributeValue;
   }
   switch (attribute.type) {
     case T.JSXAttribute:

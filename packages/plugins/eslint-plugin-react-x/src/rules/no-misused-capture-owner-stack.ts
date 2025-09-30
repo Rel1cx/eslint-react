@@ -40,6 +40,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `captureOwnerStack` is not present in the file
   if (!context.sourceCode.text.includes("captureOwnerStack")) return {};
   const { importSource } = getSettingsFromContext(context);
 

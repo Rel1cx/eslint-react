@@ -1,7 +1,7 @@
 import type { RuleContext } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { getElementType } from "./jsx-element-type";
+import { getJsxElementType } from "./jsx-element-type";
 
 /**
  * Determines if a JSX element is a host element
@@ -11,7 +11,7 @@ import { getElementType } from "./jsx-element-type";
  * @param node - AST node to check
  * @returns boolean indicating if the element is a host element
  */
-export function isHostElement(context: RuleContext, node: TSESTree.Node) {
+export function isJsxHostElement(context: RuleContext, node: TSESTree.Node) {
   return node.type === T.JSXElement
     && node.openingElement.name.type === T.JSXIdentifier
     && /^[a-z]/u.test(node.openingElement.name.name);
@@ -25,9 +25,9 @@ export function isHostElement(context: RuleContext, node: TSESTree.Node) {
  * @param node - AST node to check
  * @returns boolean indicating if the element is a Fragment with type narrowing
  */
-export function isFragmentElement(context: RuleContext, node: TSESTree.Node): node is TSESTree.JSXElement {
+export function isJsxFragmentElement(context: RuleContext, node: TSESTree.Node): node is TSESTree.JSXElement {
   if (node.type !== T.JSXElement) return false;
-  return getElementType(context, node)
+  return getJsxElementType(context, node)
     .split(".")
     .at(-1) === "Fragment";
 }

@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / JSXDetectionHint
+[@eslint-react/core](../README.md) / JsxDetectionHint
 
-# Variable: JSXDetectionHint
+# Variable: JsxDetectionHint
 
-> **JSXDetectionHint**: `object`
+> **JsxDetectionHint**: `object`
 
 Flags to control JSX detection behavior:
 - Skip* flags: Ignore specific node types when detecting JSX

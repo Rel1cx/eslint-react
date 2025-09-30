@@ -1,4 +1,4 @@
-import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
+import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -71,28 +71,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "a") return;
 
       // Get access to the component attributes
-      const getAttributeEx = getAttribute(
+      const findAttribute = getJsxAttribute(
         context,
         node.openingElement.attributes,
         context.sourceCode.getScope(node),
       );
 
       // Check if target="_blank" is present
-      const targetAttribute = getAttributeEx("target");
+      const targetAttribute = findAttribute("target");
       if (targetAttribute == null) return;
 
-      const targetAttributeValue = resolveAttributeValue(context, targetAttribute).toStatic("target");
+      const targetAttributeValue = resolveJsxAttributeValue(context, targetAttribute).toStatic("target");
       if (targetAttributeValue !== "_blank") return;
 
       // Check if href points to an external resource
-      const hrefAttribute = getAttributeEx("href");
+      const hrefAttribute = findAttribute("href");
       if (hrefAttribute == null) return;
 
-      const hrefAttributeValue = resolveAttributeValue(context, hrefAttribute).toStatic("href");
+      const hrefAttributeValue = resolveJsxAttributeValue(context, hrefAttribute).toStatic("href");
       if (!isExternalLinkLike(hrefAttributeValue)) return;
 
       // Check if rel attribute exists and is secure
-      const relAttribute = getAttributeEx("rel");
+      const relAttribute = findAttribute("rel");
 
       // No rel attribute case - suggest adding one
       if (relAttribute == null) {
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Check if existing rel attribute is secure
-      const relAttributeValue = resolveAttributeValue(context, relAttribute).toStatic("rel");
+      const relAttributeValue = resolveJsxAttributeValue(context, relAttribute).toStatic("rel");
       if (isSafeRel(relAttributeValue)) return;
 
       // Existing rel attribute is not secure - suggest replacing it

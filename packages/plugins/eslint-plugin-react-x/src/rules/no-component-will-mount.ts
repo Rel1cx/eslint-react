@@ -32,6 +32,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `componentWillMount` is not present in the file
   if (!context.sourceCode.text.includes("componentWillMount")) return {};
   const { ctx, listeners } = useComponentCollectorLegacy();
 

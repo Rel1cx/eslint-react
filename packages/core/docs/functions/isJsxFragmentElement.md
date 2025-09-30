@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / isFragmentElement
+[@eslint-react/core](../README.md) / isJsxFragmentElement
 
-# Function: isFragmentElement()
+# Function: isJsxFragmentElement()
 
-> **isFragmentElement**(`context`, `node`): `node is JSXElement`
+> **isJsxFragmentElement**(`context`, `node`): `node is JSXElement`
 
 Determines if a JSX element is a React Fragment
 Fragments can be imported from React and used like <Fragment> or <React.Fragment>

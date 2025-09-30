@@ -37,6 +37,7 @@ export default createRule<[], MessageID>({
 const hydrate = "hydrate";
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `hydrate` is not present in the file
   if (!context.sourceCode.text.includes(hydrate)) return {};
   const settings = getSettingsFromContext(context);
   if (compare(settings.version, "18.0.0", "<")) return {};

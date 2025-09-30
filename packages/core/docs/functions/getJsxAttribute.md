@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / getAttribute
+[@eslint-react/core](../README.md) / getJsxAttribute
 
-# Function: getAttribute()
+# Function: getJsxAttribute()
 
-> **getAttribute**(`context`, `attributes`, `initialScope?`): (`name`) => `undefined` \| `TSESTreeJSXAttributeLike`
+> **getJsxAttribute**(`context`, `attributes`, `initialScope?`): (`name`) => `undefined` \| `TSESTreeJSXAttributeLike`
 
 ## Parameters
 

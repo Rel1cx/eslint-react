@@ -80,6 +80,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `setInterval` is not present in the file
   if (!context.sourceCode.text.includes("setInterval")) {
     return {};
   }

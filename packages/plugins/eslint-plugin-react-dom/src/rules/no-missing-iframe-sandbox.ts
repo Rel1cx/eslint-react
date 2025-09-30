@@ -1,4 +1,4 @@
-import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
+import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -37,13 +37,24 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
+
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
+      // If the element is not an iframe, we don't need to do anything.
       if (domElementType !== "iframe") return;
-      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const sandboxAttribute = getAttributeEx("sandbox");
-      if (sandboxAttribute == null) {
+
+      const findJsxAttribute = getJsxAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+
+      // Find the 'sandbox' attribute on the iframe element.
+      const sandboxAttr = findJsxAttribute("sandbox");
+
+      // If the 'sandbox' attribute is missing, report an error.
+      if (sandboxAttr == null) {
         context.report({
           messageId: "noMissingIframeSandbox",
           node: node.openingElement,
@@ -51,24 +62,32 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             messageId: "addIframeSandbox",
             data: { value: "" },
             fix(fixer) {
+              // Suggest adding a 'sandbox' attribute.
               return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
             },
           }],
         });
         return;
       }
-      const sandboxAttributeValue = resolveAttributeValue(context, sandboxAttribute);
-      if (typeof sandboxAttributeValue.toStatic("sandbox") === "string") return;
+
+      // Resolve the value of the 'sandbox' attribute.
+      const sandboxValue = resolveJsxAttributeValue(context, sandboxAttr);
+      // If the value is a static string, the attribute is correctly used.
+      if (typeof sandboxValue.toStatic("sandbox") === "string") return;
+
+      // If the value is not a static string (e.g., a variable), report an error.
       context.report({
         messageId: "noMissingIframeSandbox",
-        node: sandboxAttributeValue.node ?? sandboxAttribute,
+        node: sandboxValue.node ?? sandboxAttr,
         suggest: [
           {
             messageId: "addIframeSandbox",
             data: { value: "" },
             fix(fixer) {
-              if (sandboxAttributeValue.kind.startsWith("spread")) return null;
-              return fixer.replaceText(sandboxAttribute, `sandbox=""`);
+              // Do not try to fix spread attributes.
+              if (sandboxValue.kind.startsWith("spread")) return null;
+              // Suggest replacing the attribute with a valid one.
+              return fixer.replaceText(sandboxAttr, `sandbox=""`);
             },
           },
         ],

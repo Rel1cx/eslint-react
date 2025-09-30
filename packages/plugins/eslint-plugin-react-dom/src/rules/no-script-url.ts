@@ -1,4 +1,4 @@
-import { resolveAttributeValue } from "@eslint-react/core";
+import { resolveJsxAttributeValue } from "@eslint-react/core";
 import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -33,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
       if (node.name.type !== T.JSXIdentifier || node.value == null) return;
-      const value = resolveAttributeValue(context, node).toStatic();
+      const value = resolveJsxAttributeValue(context, node).toStatic();
       if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({
           messageId: "noScriptUrl",

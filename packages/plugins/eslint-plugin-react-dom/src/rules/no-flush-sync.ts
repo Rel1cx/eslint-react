@@ -31,6 +31,7 @@ export default createRule<[], MessageID>({
 const flushSync = "flushSync";
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `flushSync` is not present in the file
   if (!context.sourceCode.text.includes(flushSync)) return {};
   return {
     CallExpression(node) {

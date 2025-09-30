@@ -5,6 +5,5 @@ export * from "./jsx-config";
 export * from "./jsx-detection";
 export * from "./jsx-element-is";
 export * from "./jsx-element-type";
-export * from "./jsx-has";
 export * from "./jsx-hierarchy";
 export * from "./jsx-stringify";

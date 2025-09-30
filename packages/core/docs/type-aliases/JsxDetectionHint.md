@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / JSXDetectionHint
+[@eslint-react/core](../README.md) / JsxDetectionHint
 
-# Type Alias: JSXDetectionHint
+# Type Alias: JsxDetectionHint
 
-> **JSXDetectionHint** = `bigint`
+> **JsxDetectionHint** = `bigint`
 
 BitFlags for configuring JSX detection behavior
 Uses BigInt for bit operations to support many flags

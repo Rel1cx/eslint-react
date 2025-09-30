@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / findParentAttribute
+[@eslint-react/core](../README.md) / findParentJsxAttribute
 
-# Function: findParentAttribute()
+# Function: findParentJsxAttribute()
 
-> **findParentAttribute**(`node`, `test`): `undefined` \| `JSXAttribute`
+> **findParentJsxAttribute**(`node`, `test`): `undefined` \| `JSXAttribute`
 
 Traverses up the AST to find a parent JSX attribute node that matches a given test
 

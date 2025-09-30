@@ -8,6 +8,6 @@ import { stringifyJsx } from "./jsx-stringify";
  * @param node The JSX attribute node
  * @returns The name of the attribute
  */
-export function getAttributeName(context: RuleContext, node: TSESTree.JSXAttribute) {
+export function getJsxAttributeName(context: RuleContext, node: TSESTree.JSXAttribute) {
   return stringifyJsx(node.name);
 }

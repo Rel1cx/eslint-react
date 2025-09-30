@@ -1,6 +1,6 @@
-import { hasAttribute, isJsxText } from "@eslint-react/core";
+import { getJsxAttribute, isJsxText } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
-import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -12,7 +12,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use different properties to receive HTML and set them internally.
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -31,46 +30,69 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-const dangerouslySetInnerHTML = "dangerouslySetInnerHTML";
+const DSIH = "dangerouslySetInnerHTML";
+
+/**
+ * Checks if a JSX child node is considered significant (i.e., not just whitespace for formatting).
+ * @param node The JSX child node to check.
+ * @returns `true` if the node is significant, `false` otherwise.
+ */
+function isSignificantChildren(node: TSESTree.JSXElement["children"][number]): boolean {
+  if (!isJsxText(node)) {
+    return true;
+  }
+  // A JSXText node is insignificant if it's purely whitespace and contains a newline,
+  // which is a common pattern for formatting.
+  const isFormattingWhitespace = node.raw.trim() === "" && node.raw.includes("\n");
+
+  return !isFormattingWhitespace;
+}
+
+/**
+ * Checks if a JSX element has children, either through the `children` prop or as JSX children.
+ * @param context The rule context.
+ * @param node The JSX element to check.
+ * @returns `true` if the element has children, `false` otherwise.
+ */
+function hasChildren(context: RuleContext, node: TSESTree.JSXElement): boolean {
+  const findJsxAttribute = getJsxAttribute(
+    context,
+    node.openingElement.attributes,
+    context.sourceCode.getScope(node),
+  );
+
+  if (findJsxAttribute("children") != null) {
+    return true;
+  }
+
+  return node.children.some(isSignificantChildren);
+}
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes(dangerouslySetInnerHTML)) return {};
+  // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
+  if (!context.sourceCode.text.includes(DSIH)) {
+    return {};
+  }
+
   return {
     JSXElement(node) {
-      const attributes = node.openingElement.attributes;
-      const initialScope = context.sourceCode.getScope(node);
-      const hasChildren = node.children.some(isSignificantChildren)
-        || hasAttribute(context, "children", attributes, initialScope);
-      if (hasChildren && hasAttribute(context, dangerouslySetInnerHTML, attributes, initialScope)) {
+      const findJsxAttribute = getJsxAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+
+      const DSIHAttr = findJsxAttribute(DSIH);
+      if (DSIHAttr == null) {
+        return;
+      }
+
+      if (hasChildren(context, node)) {
         context.report({
           messageId: "noDangerouslySetInnerhtmlWithChildren",
-          node,
+          node: DSIHAttr,
         });
       }
     },
   };
-}
-
-/**
- * Check if a Literal or JSXText node is whitespace
- * @param node The AST node to check
- * @returns boolean `true` if the node is whitespace
- */
-function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
-  return typeof node.value === "string" && node.raw.trim() === "";
-}
-
-/**
- * Check if a Literal or JSXText node is padding spaces
- * @param node The AST node to check
- * @returns boolean
- */
-function isPaddingSpaces(node: TSESTree.Node) {
-  return isJsxText(node)
-    && isWhiteSpace(node)
-    && node.raw.includes("\n");
-}
-
-function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
-  return node.type !== AST_NODE_TYPES.JSXText || !isPaddingSpaces(node);
 }
