@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v2.0.4 (2025-10-01)
+
+### ✨ New
+
+- Enables `naming-convention/use-state` rule in recommended presets
+
+### 🐞 Fixes
+
+- Adds `hooks-extra/no-direct-set-state-in-use-effect` rule to recommended presets, closes #1251 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1252
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.3...v2.0.4
+
 ## v2.0.3 (2025-09-30)
 
 ### 🐞 Fixes
