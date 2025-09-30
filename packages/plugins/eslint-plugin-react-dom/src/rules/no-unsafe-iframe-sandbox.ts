@@ -1,4 +1,4 @@
-import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
+import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -11,15 +11,18 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-const unsafeSandboxValues = [
-  ["allow-scripts", "allow-same-origin"],
-] as const;
+const UNSAFE_SANDBOX_VALUES = ["allow-scripts", "allow-same-origin"] as const;
 
-function isSafeSandbox(value: unknown): value is string {
-  if (typeof value !== "string") return false;
-  return !unsafeSandboxValues.some((values) => {
-    return values.every((v) => value.includes(v));
-  });
+/**
+ * Checks if the sandbox attribute value contains an unsafe combination.
+ * @param value The value of the sandbox attribute.
+ * @returns `true` if the value is a string and contains an unsafe combination, `false` otherwise.
+ */
+function isUnsafeSandboxCombination(value: unknown): value is string {
+  if (typeof value !== "string") {
+    return false;
+  }
+  return UNSAFE_SANDBOX_VALUES.every((v) => value.includes(v));
 }
 
 export default createRule<[], MessageID>({
@@ -41,19 +44,29 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
+
   return {
     JSXElement(node) {
-      const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "iframe") return;
-      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const sandboxAttribute = getAttributeEx("sandbox");
-      if (sandboxAttribute == null) return;
-      const sandboxValue = resolveAttributeValue(context, sandboxAttribute);
+      if (resolver.resolve(node).domElementType !== "iframe") {
+        return;
+      }
+      const findJsxAttribute = getJsxAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+      const sandboxAttr = findJsxAttribute("sandbox");
+      if (sandboxAttr == null) {
+        return;
+      }
+
+      const sandboxValue = resolveJsxAttributeValue(context, sandboxAttr);
       const sandboxValueStatic = sandboxValue.toStatic("sandbox");
-      if (!isSafeSandbox(sandboxValueStatic)) {
+
+      if (isUnsafeSandboxCombination(sandboxValueStatic)) {
         context.report({
           messageId: "noUnsafeIframeSandbox",
-          node: sandboxValue.node ?? sandboxAttribute,
+          node: sandboxValue.node ?? sandboxAttr,
         });
       }
     },

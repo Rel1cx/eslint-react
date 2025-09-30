@@ -1,4 +1,4 @@
-import { getElementType, isComponentNameLoose } from "@eslint-react/core";
+import { getJsxElementType, isComponentNameLoose } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -34,12 +34,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `Provider` is not present in the file
   if (!context.sourceCode.text.includes("Provider")) return {};
   const { version } = getSettingsFromContext(context);
   if (compare(version, "19.0.0", "<")) return {};
   return {
     JSXElement(node) {
-      const fullName = getElementType(context, node);
+      const fullName = getJsxElementType(context, node);
       const parts = fullName.split(".");
       const selfName = parts.pop();
       const contextFullName = parts.join(".");

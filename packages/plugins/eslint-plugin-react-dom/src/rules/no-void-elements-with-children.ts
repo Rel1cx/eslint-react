@@ -1,4 +1,4 @@
-import { hasAttribute } from "@eslint-react/core";
+import { hasJsxAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,7 +30,6 @@ const voidElements = new Set([
   "wbr",
 ]);
 
-// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use the void element internally
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -50,26 +49,21 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
+
   return {
     JSXElement(node) {
       const { domElementType: elementName } = resolver.resolve(node);
-      if (elementName.length === 0 || !voidElements.has(elementName)) {
+      if (!voidElements.has(elementName)) {
         return;
       }
-      if (node.children.length > 0) {
-        context.report({
-          messageId: "noVoidElementsWithChildren",
-          node,
-          data: {
-            element: elementName,
-          },
-        });
-      }
+
       const { attributes } = node.openingElement;
       const initialScope = context.sourceCode.getScope(node);
-      const hasAttributeEx = (name: string) => hasAttribute(context, name, attributes, initialScope);
-      if (hasAttributeEx("children") || hasAttributeEx("dangerouslySetInnerHTML")) {
-        // e.g. <br children="Foo" />
+
+      const hasChildrenProp = hasJsxAttribute(context, "children", attributes, initialScope);
+      const hasDangerouslySetInnerHTML = hasJsxAttribute(context, "dangerouslySetInnerHTML", attributes, initialScope);
+
+      if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
         context.report({
           messageId: "noVoidElementsWithChildren",
           node,

@@ -12,7 +12,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  *               Defaults to always returning true (matches any attribute)
  * @returns The first matching JSX attribute node found when traversing upwards, or undefined
  */
-export function findParentAttribute(
+export function findParentJsxAttribute(
   node: TSESTree.Node,
   test: (node: TSESTree.JSXAttribute) => boolean = constTrue,
 ): TSESTree.JSXAttribute | unit {

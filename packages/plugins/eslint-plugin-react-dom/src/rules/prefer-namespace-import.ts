@@ -60,9 +60,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
             );
           }
-          // dprint-ignore
           // remove the default specifier and prepend the namespace import specifier
-          const specifiers = importDeclarationText.slice(importDeclarationText.indexOf("{"), importDeclarationText.indexOf("}") + 1);
+          const specifiers = importDeclarationText
+            .slice(importDeclarationText.indexOf("{"), importDeclarationText.indexOf("}") + 1);
           return fixer.replaceText(
             node.parent,
             [

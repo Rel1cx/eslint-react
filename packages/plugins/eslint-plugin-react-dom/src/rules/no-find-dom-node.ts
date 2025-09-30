@@ -31,6 +31,7 @@ export default createRule<[], MessageID>({
 const findDOMNode = "findDOMNode";
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `findDOMNode` is not present in the file
   if (!context.sourceCode.text.includes(findDOMNode)) return {};
   return {
     CallExpression(node) {

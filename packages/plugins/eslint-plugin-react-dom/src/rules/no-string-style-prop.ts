@@ -1,4 +1,4 @@
-import { getAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/core";
+import { getJsxAttribute, isJsxHostElement, resolveJsxAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -31,15 +31,33 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      if (!isHostElement(context, node)) return;
-      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const attribute = getAttributeEx("style");
-      if (attribute == null) return;
-      const attributeValue = resolveAttributeValue(context, attribute);
-      if (typeof attributeValue.toStatic() === "string") {
+      // This rule only applies to host elements (e.g., <div />, <span />), not custom components.
+      if (!isJsxHostElement(context, node)) {
+        return;
+      }
+
+      const findJsxAttribute = getJsxAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+
+      // Find the 'style' attribute on the element.
+      const styleAttr = findJsxAttribute("style");
+      if (styleAttr == null) {
+        return;
+      }
+
+      // Resolve the static value of the 'style' attribute.
+      const styleValue = resolveJsxAttributeValue(context, styleAttr);
+      const staticValue = styleValue.toStatic();
+
+      // If the resolved value is a string, report an error.
+      // e.g., <div style="color: red;" />
+      if (typeof staticValue === "string") {
         context.report({
           messageId: "noStringStyleProp",
-          node: attributeValue.node ?? attribute,
+          node: styleValue.node ?? styleAttr,
         });
       }
     },

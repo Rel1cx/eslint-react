@@ -35,6 +35,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `useFormState` is not present in the file
   if (!context.sourceCode.text.includes("useFormState")) return {};
   const settings = getSettingsFromContext(context);
   if (compare(settings.version, "19.0.0", "<")) return {};

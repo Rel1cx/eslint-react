@@ -32,6 +32,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `componentDidMount` is not present in the file
   if (!context.sourceCode.text.includes("componentDidMount")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {

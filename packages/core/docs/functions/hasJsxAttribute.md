@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / hasAttribute
+[@eslint-react/core](../README.md) / hasJsxAttribute
 
-# Function: hasAttribute()
+# Function: hasJsxAttribute()
 
-> **hasAttribute**(`context`, `name`, `attributes`, `initialScope?`): `boolean`
+> **hasJsxAttribute**(`context`, `name`, `attributes`, `initialScope?`): `boolean`
 
 Checks if a JSX element has a specific attribute
 

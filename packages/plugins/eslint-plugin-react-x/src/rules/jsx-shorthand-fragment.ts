@@ -1,4 +1,4 @@
-import { getJsxConfigFromAnnotation, getJsxConfigFromContext, isFragmentElement } from "@eslint-react/core";
+import { getJsxConfigFromAnnotation, getJsxConfigFromContext, isJsxFragmentElement } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return match<number, RuleListener>(policy)
     .with(1, () => ({
       JSXElement(node: TSESTree.JSXElement) {
-        if (!isFragmentElement(context, node)) return;
+        if (!isJsxFragmentElement(context, node)) return;
         const hasAttributes = node.openingElement.attributes.length > 0;
         if (hasAttributes) return;
         context.report({

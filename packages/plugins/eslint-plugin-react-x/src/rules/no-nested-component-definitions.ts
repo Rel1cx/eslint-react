@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import {
   ComponentDetectionHint,
-  findParentAttribute,
+  findParentJsxAttribute,
   isClassComponent,
   isCreateElementCall,
   isDeclaredInRenderPropLoose,
@@ -162,7 +162,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  */
 function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
   return node.parent.type === T.JSXAttribute
-    || findParentAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
+    || findParentJsxAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
 }
 
 /**

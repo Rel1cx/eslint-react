@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { hasAttribute, isChildrenToArrayCall } from "@eslint-react/core";
+import { hasJsxAttribute, isChildrenToArrayCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     switch (node.type) {
       case T.JSXElement: {
         const initialScope = context.sourceCode.getScope(node);
-        if (!hasAttribute(context, "key", node.openingElement.attributes, initialScope)) {
+        if (!hasJsxAttribute(context, "key", node.openingElement.attributes, initialScope)) {
           return {
             messageId: "missingKey",
             node,
@@ -101,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const initialScope = context.sourceCode.getScope(node);
       for (const element of elements) {
-        if (!hasAttribute(context, "key", element.openingElement.attributes, initialScope)) {
+        if (!hasJsxAttribute(context, "key", element.openingElement.attributes, initialScope)) {
           context.report({
             messageId: "missingKey",
             node: element,

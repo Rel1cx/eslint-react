@@ -53,6 +53,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `useEffect` like symbols are not present in the file
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
   const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];

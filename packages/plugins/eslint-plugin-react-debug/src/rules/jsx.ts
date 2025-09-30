@@ -1,9 +1,9 @@
 import {
   JsxEmit,
-  getElementType,
   getJsxConfigFromAnnotation,
   getJsxConfigFromContext,
-  isFragmentElement,
+  getJsxElementType,
+  isJsxFragmentElement,
 } from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
@@ -53,10 +53,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       data: {
         json: stringify({
           kind: match(node)
-            .with({ type: T.JSXElement }, (n) => isFragmentElement(context, n) ? "fragment" : "element")
+            .with({ type: T.JSXElement }, (n) => isJsxFragmentElement(context, n) ? "fragment" : "element")
             .with({ type: T.JSXFragment }, () => "fragment")
             .exhaustive(),
-          type: getElementType(context, node),
+          type: getJsxElementType(context, node),
           jsx: match(jsxConfig.jsx)
             .with(JsxEmit.None, () => "none")
             .with(JsxEmit.ReactJSX, () => "react-jsx")

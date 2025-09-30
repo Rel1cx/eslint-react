@@ -1,4 +1,4 @@
-import { getAttribute } from "@eslint-react/core";
+import { getJsxAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
       const initialScope = context.sourceCode.getScope(node);
-      const keyProp = getAttribute(context, node.attributes, initialScope)("key");
+      const keyProp = getJsxAttribute(context, node.attributes, initialScope)("key");
       const isKeyPropOnElement = node.attributes
         .some((n) =>
           n.type === T.JSXAttribute

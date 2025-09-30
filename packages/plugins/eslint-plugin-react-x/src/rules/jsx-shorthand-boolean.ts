@@ -1,4 +1,4 @@
-import { getAttributeName } from "@eslint-react/core";
+import { getJsxAttributeName } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -55,7 +55,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
       const { value } = node;
-      const propName = getAttributeName(context, node);
+      const propName = getJsxAttributeName(context, node);
 
       switch (true) {
         case policy === 1

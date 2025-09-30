@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { getElementType, isReactHookCall, useComponentCollector } from "@eslint-react/core";
+import { getJsxElementType, isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     ...listeners,
     JSXOpeningElement(node) {
-      const fullName = getElementType(context, node.parent);
+      const fullName = getJsxElementType(context, node.parent);
       const selfName = fullName.split(".").at(-1);
       if (selfName == null) return;
       if (!isContextName(selfName, isReact18OrBelow)) return;

@@ -2,11 +2,11 @@
 
 ***
 
-[@eslint-react/core](../README.md) / getElementType
+[@eslint-react/core](../README.md) / getJsxElementType
 
-# Function: getElementType()
+# Function: getJsxElementType()
 
-> **getElementType**(`context`, `node`): `string`
+> **getJsxElementType**(`context`, `node`): `string`
 
 Extracts the element type name from a JSX element or fragment
 For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment")

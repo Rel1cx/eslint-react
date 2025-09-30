@@ -1,4 +1,4 @@
-import { getAttribute } from "@eslint-react/core";
+import { getJsxAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -11,7 +11,8 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// TODO: Use the information in `settings["react-x"].additionalComponents` to add support for user-defined components that use different properties to receive HTML and set them internally.
+const DSIH = "dangerouslySetInnerHTML";
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -29,18 +30,21 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-const dangerouslySetInnerHTML = "dangerouslySetInnerHTML";
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes(dangerouslySetInnerHTML)) return {};
+  // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
+  if (!context.sourceCode.text.includes(DSIH)) return {};
   return {
     JSXElement(node) {
-      const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const attribute = getAttributeEx(dangerouslySetInnerHTML);
-      if (attribute == null) return;
+      const findJsxAttribute = getJsxAttribute(
+        context,
+        node.openingElement.attributes,
+        context.sourceCode.getScope(node),
+      );
+      const attr = findJsxAttribute(DSIH);
+      if (attr == null) return;
       context.report({
         messageId: "noDangerouslySetInnerhtml",
-        node: attribute,
+        node: attr,
       });
     },
   };
