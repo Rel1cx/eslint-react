@@ -19,6 +19,7 @@ import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox";
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank";
 import noUseFormState from "./rules/no-use-form-state";
 import noVoidElementsWithChildren from "./rules/no-void-elements-with-children";
+import preferNamespaceImport from "./rules/prefer-namespace-import";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -43,5 +44,6 @@ export const plugin: CompatiblePlugin = {
     "no-unsafe-target-blank": noUnsafeTargetBlank,
     "no-use-form-state": noUseFormState,
     "no-void-elements-with-children": noVoidElementsWithChildren,
+    "prefer-namespace-import": preferNamespaceImport,
   },
 };
