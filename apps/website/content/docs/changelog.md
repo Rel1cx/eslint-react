@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v2.0.3 (2025-09-30)
+
+### 🐞 Fixes
+
+- Fix `dom/prefer-namespace-import` missing in `react-dom` plugin by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1249
+- Fix false positive for `dom/no-missing-button-type` when specifying non-trivial expression as value of `type` attribute, closes #1247 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1250
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.2...v2.0.3
+
 ## v2.0.2 (2025-09-29)
 
 ### 🪄 Improvements
