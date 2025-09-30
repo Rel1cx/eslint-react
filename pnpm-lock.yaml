@@ -21,14 +21,14 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.41.0
-        version: 0.41.0
+        specifier: ^0.41.1
+        version: 0.41.1
       '@effect/platform':
-        specifier: ^0.91.1
-        version: 0.91.1(effect@3.17.14)
+        specifier: ^0.92.0
+        version: 0.92.0(effect@3.18.0)
       '@effect/platform-node':
-        specifier: ^0.97.1
-        version: 0.97.1(@effect/cluster@0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)
+        specifier: ^0.98.0
+        version: 0.98.0(@effect/cluster@0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)
       '@eslint/compat':
         specifier: ^1.4.0
         version: 1.4.0(eslint@9.36.0(jiti@2.6.0))
@@ -54,8 +54,8 @@ importers:
         specifier: ^2.0.6
         version: 2.0.6
       '@types/node':
-        specifier: ^24.5.2
-        version: 24.5.2
+        specifier: ^24.6.0
+        version: 24.6.0
       '@types/react':
         specifier: ^19.1.15
         version: 19.1.15
@@ -63,14 +63,14 @@ importers:
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.15)
       '@typescript-eslint/parser':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/rule-tester':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       ansis:
         specifier: ^4.2.0
         version: 4.2.0
@@ -81,8 +81,8 @@ importers:
         specifier: ^0.50.2
         version: 0.50.2
       effect:
-        specifier: ^3.17.14
-        version: 3.17.14
+        specifier: ^3.18.0
+        version: 3.18.0
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -91,7 +91,7 @@ importers:
         version: 1.4.4(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint-plugin-vitest:
         specifier: ^0.5.4
-        version: 0.5.4(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 0.5.4(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       jiti:
         specifier: ^2.6.0
         version: 2.6.0
@@ -147,11 +147,11 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       vitest:
         specifier: ^3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
   .pkgs/configs:
     dependencies:
@@ -165,8 +165,8 @@ importers:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
       eslint-plugin-de-morgan:
-        specifier: ^1.3.1
-        version: 1.3.1(eslint@9.36.0(jiti@2.6.0))
+        specifier: ^2.0.0
+        version: 2.0.0(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-function:
         specifier: ^0.0.31
         version: 0.0.31(eslint@9.36.0(jiti@2.6.0))(ts-api-utils@2.1.0(typescript@5.9.2))(typescript@5.9.2)
@@ -186,8 +186,8 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
 
   .pkgs/eslint-plugin-local:
     dependencies:
@@ -213,23 +213,23 @@ importers:
         specifier: ^5.4.0
         version: 5.4.0(eslint@9.36.0(jiti@2.6.0))
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/type-utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
       eslint-plugin-de-morgan:
-        specifier: ^1.3.1
-        version: 1.3.1(eslint@9.36.0(jiti@2.6.0))
+        specifier: ^2.0.0
+        version: 2.0.0(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-jsdoc:
         specifier: ^60.5.0
         version: 60.5.0(eslint@9.36.0(jiti@2.6.0))
@@ -268,8 +268,8 @@ importers:
   apps/website:
     dependencies:
       '@effect-atom/atom-react':
-        specifier: ^0.2.0
-        version: 0.2.0(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)(react@19.1.1)(scheduler@0.26.0)
+        specifier: ^0.3.0
+        version: 0.3.0(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)(react@19.1.1)(scheduler@0.26.0)
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../packages/utilities/eff
@@ -280,8 +280,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       effect:
-        specifier: ^3.17.14
-        version: 3.17.14
+        specifier: ^3.18.0
+        version: 3.18.0
       fumadocs-core:
         specifier: 15.8.1
         version: 15.8.1(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -290,7 +290,7 @@ importers:
         version: 3.0.1(fumadocs-core@15.8.1(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       fumadocs-mdx:
         specifier: 12.0.1
-        version: 12.0.1(fumadocs-core@15.8.1(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 12.0.1(fumadocs-core@15.8.1(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       fumadocs-twoslash:
         specifier: 3.1.7
         version: 3.1.7(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(fumadocs-ui@15.8.1(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
@@ -323,8 +323,8 @@ importers:
         version: 0.3.4(typescript@5.9.2)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.41.0
-        version: 0.41.0
+        specifier: ^0.41.1
+        version: 0.41.1
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -368,8 +368,8 @@ importers:
         specifier: ^2.0.13
         version: 2.0.13
       '@types/node':
-        specifier: ^24.5.2
-        version: 24.5.2
+        specifier: ^24.6.0
+        version: 24.6.0
       '@types/react':
         specifier: ^19.1.15
         version: 19.1.15
@@ -407,8 +407,8 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
 
   examples/next:
     dependencies:
@@ -447,8 +447,8 @@ importers:
         specifier: ^2.0.6
         version: 2.0.6
       '@types/node':
-        specifier: ^24.5.2
-        version: 24.5.2
+        specifier: ^24.6.0
+        version: 24.6.0
       '@types/react':
         specifier: ^19.1.15
         version: 19.1.15
@@ -468,8 +468,8 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
 
   examples/react-dom:
     dependencies:
@@ -506,7 +506,7 @@ importers:
         version: 19.1.9(@types/react@19.1.15)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 5.0.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -520,11 +520,11 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       vite:
         specifier: ^7.1.7
-        version: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+        version: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
   examples/react-dom-js:
     dependencies:
@@ -552,7 +552,7 @@ importers:
         version: 19.1.9(@types/react@19.1.15)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 5.0.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -567,7 +567,7 @@ importers:
         version: 16.4.0
       vite:
         specifier: ^7.1.7
-        version: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+        version: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
   examples/with-babel-eslint-parser:
     dependencies:
@@ -610,7 +610,7 @@ importers:
         version: 19.1.9(@types/react@19.1.15)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 5.0.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -640,7 +640,7 @@ importers:
         version: 16.4.0
       vite:
         specifier: ^7.1.7
-        version: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+        version: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
   examples/with-ts-blank-eslint-parser:
     dependencies:
@@ -683,7 +683,7 @@ importers:
         version: 19.1.9(@types/react@19.1.15)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 5.0.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -703,11 +703,11 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       vite:
         specifier: ^7.1.7
-        version: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+        version: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
   packages/core:
     dependencies:
@@ -727,14 +727,14 @@ importers:
         specifier: workspace:*
         version: link:../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       birecord:
         specifier: ^0.1.1
         version: 0.1.1
@@ -761,17 +761,17 @@ importers:
         specifier: workspace:*
         version: link:../../shared
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/type-utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -828,17 +828,17 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/type-utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -886,14 +886,14 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       compare-versions:
         specifier: ^6.1.1
         version: 6.1.1
@@ -944,17 +944,17 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/type-utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -1002,17 +1002,17 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/type-utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -1060,14 +1060,14 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -1115,17 +1115,17 @@ importers:
         specifier: workspace:*
         version: link:../../utilities/var
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/type-utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       compare-versions:
         specifier: ^6.1.1
         version: 6.1.1
@@ -1170,8 +1170,8 @@ importers:
         specifier: workspace:*
         version: link:../utilities/kit
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       ts-pattern:
         specifier: ^5.8.0
         version: 5.8.0
@@ -1201,14 +1201,14 @@ importers:
         specifier: workspace:*
         version: link:../eff
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/typescript-estree':
-        specifier: ^8.44.1
-        version: 8.44.1(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(typescript@5.9.2)
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       string-ts:
         specifier: ^2.2.1
         version: 2.2.1
@@ -1235,8 +1235,8 @@ importers:
         specifier: workspace:*
         version: link:../eff
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
     devDependencies:
       '@local/configs':
         specifier: workspace:*
@@ -1257,14 +1257,14 @@ importers:
         specifier: workspace:*
         version: link:../eff
       '@typescript-eslint/scope-manager':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/types':
-        specifier: ^8.44.1
-        version: 8.44.1
+        specifier: ^8.45.0
+        version: 8.45.0
       '@typescript-eslint/utils':
-        specifier: ^8.44.1
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+        specifier: ^8.45.0
+        version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       ts-pattern:
         specifier: ^5.8.0
         version: 5.8.0
@@ -1901,20 +1901,20 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect-atom/atom-react@0.2.0':
-    resolution: {integrity: sha512-1KF5RRuGHZqKGCp5cTRhpYbufX9bASSJgA3wPDGYcjtKNSIFvkXu1jNoAcgdd7ivI/zUYwGW3AJEuqfdYAWl5w==}
+  '@effect-atom/atom-react@0.3.0':
+    resolution: {integrity: sha512-pmn7PJUhX/5oKcYiDOnU9aTs8FcAFuK+1gJYItdjSWWI8Dg68ph9UtCv2kq9xWlgkzGfuqzmFiRNcjtlmVpGwA==}
     peerDependencies:
-      effect: ^3.17
+      effect: ^3.18
       react: ^19.1.1
       scheduler: '*'
 
-  '@effect-atom/atom@0.2.0':
-    resolution: {integrity: sha512-LzIXfhI15FuqjTsejjnzrqs10aMmrjVuKg4PVBLw94RWxaMXAzHoVgWcKI1Qazq8gl63Agr+nbI9NW/DnRRR9w==}
+  '@effect-atom/atom@0.3.0':
+    resolution: {integrity: sha512-KEY8VrGX3iCi0kTzRx7jpeZKzqMX7D7Dzqjhnh6OCiCSiKlh3exZS1BMrBCc6tD+VVCUG3CL/b/K94QOzODLHQ==}
     peerDependencies:
-      '@effect/experimental': ^0.55
-      '@effect/platform': ^0.91
-      '@effect/rpc': ^0.70
-      effect: ^3.17
+      '@effect/experimental': ^0.56.0
+      '@effect/platform': ^0.92.0
+      '@effect/rpc': ^0.71.0
+      effect: ^3.18.0
 
   '@effect/cluster@0.48.11':
     resolution: {integrity: sha512-ND2mUupX2EZePAVt5FheQdJnPlOai0YImOAFy2MPVwuK8p4jeW3G7uHB0WlUgp2UlUQfU8kZGf1GCGyytZbGJQ==}
@@ -1938,32 +1938,32 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.41.0':
-    resolution: {integrity: sha512-t2JZvcsKQ0NKBBVFAx8exitZkZQB0Dedd48/frgUc7j7Jn513QfTOg6IOBwBFS8fO2sVrJZDlcZDMaNnbh3liw==}
+  '@effect/language-service@0.41.1':
+    resolution: {integrity: sha512-BZaFkF1JdoTIJuzT7mNfUnfQG2MLxkQtn5b9y1z0BZUIcNfs5p7yR0ekYfTkPkt+TVD+9HE12VC1SsG5DReKww==}
     hasBin: true
 
-  '@effect/platform-node-shared@0.50.1':
-    resolution: {integrity: sha512-P7Z7kcWVHbdMjXlsNjH7LaFYtuDfQu/lSbWXKDWqkQYc+ZQVtzN7UuWTUZHeMaZ2f7GoBB/bN2waSOE1m75/nQ==}
+  '@effect/platform-node-shared@0.51.0':
+    resolution: {integrity: sha512-6J/49MV6Y6OvL7we/+PsgYh+JO4bRG35t3JVPmTz/wXF/P8D+GaWZ/KqXEXbU+UWI3asFcAexH/SgBsMzm90og==}
     peerDependencies:
-      '@effect/cluster': ^0.49.1
-      '@effect/platform': ^0.91.1
-      '@effect/rpc': ^0.70.0
-      '@effect/sql': ^0.45.0
-      effect: ^3.17.14
+      '@effect/cluster': ^0.50.0
+      '@effect/platform': ^0.92.0
+      '@effect/rpc': ^0.71.0
+      '@effect/sql': ^0.46.0
+      effect: ^3.18.0
 
-  '@effect/platform-node@0.97.1':
-    resolution: {integrity: sha512-QLoFBxTKgAtQtm5YDEIjMaKm2cmCMy+kcrvPABe8XawHcypnFH/JvyE/5yH2Vpky71r6uMubes8LeDoRamAekw==}
+  '@effect/platform-node@0.98.0':
+    resolution: {integrity: sha512-Ffvs8d1OMsl3U12GH5+UcWgx3IjvLPgADM+32qkojmkkQfEpdB1tWpWVHAbLq/ssOQtUjL3I9mlIAq/gbRGCSA==}
     peerDependencies:
-      '@effect/cluster': ^0.49.1
-      '@effect/platform': ^0.91.1
-      '@effect/rpc': ^0.70.0
-      '@effect/sql': ^0.45.0
-      effect: ^3.17.14
+      '@effect/cluster': ^0.50.0
+      '@effect/platform': ^0.92.0
+      '@effect/rpc': ^0.71.0
+      '@effect/sql': ^0.46.0
+      effect: ^3.18.0
 
-  '@effect/platform@0.91.1':
-    resolution: {integrity: sha512-zfagdv9JRFRGksgTgcBKPK+291V1KLgQsBE0E/jkNKlXRx4PupI/rqTOv2REdiXGGNcLRsh3+hwmOGgRmGIRCQ==}
+  '@effect/platform@0.92.0':
+    resolution: {integrity: sha512-WfkDWEGSEVVU+eb9I9onqK22FcdbPdydTNCi8UV/2+++rPrk1mIG33QUVO9sNDsO9nXR1bHwHS1o0d3QRx54Fw==}
     peerDependencies:
-      effect: ^3.17.14
+      effect: ^3.18.0
 
   '@effect/rpc@0.69.3':
     resolution: {integrity: sha512-XoAiez2OElw5VnazbfvBlegEHx58mPnZeBw4MvJQwOcs/AQ/aomG0i+yL7yqsF/9JDx5vrDmQDPxbiqnEKUkXg==}
@@ -2690,8 +2690,8 @@ packages:
   '@oxc-project/types@0.73.2':
     resolution: {integrity: sha512-kU2FjfCb9VTNg/KbOTKVi2sYrKTkNQYq1Fi1v1jCKjbUGA9wqkNDqijNBLeDwagFtDuK2EIWvTzNDYU4k/918g==}
 
-  '@oxc-project/types@0.92.0':
-    resolution: {integrity: sha512-PDLfCbwgXjGdTBxzcuDOUxJYNBl6P8dOp3eDKWw54dYvqONan9rwGDRQU0zrkdEMiItfXQQUOI17uOcMX5Zm7A==}
+  '@oxc-project/types@0.93.0':
+    resolution: {integrity: sha512-yNtwmWZIBtJsMr5TEfoZFDxIWV6OdScOpza/f5YxbqUMJk+j6QX3Cf3jgZShGEFYWQJ5j9mJ6jM0tZHu2J9Yrg==}
 
   '@oxc-transform/binding-android-arm64@0.92.0':
     resolution: {integrity: sha512-BeIZ3tE+L7wrvqep868+pnOaShTMvEOYopvWmEHB0LtHT/wkeabHwMwOdKCnSfFGxybPVShftNLBBPu3jkILpQ==}
@@ -3250,85 +3250,85 @@ packages:
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
 
-  '@rolldown/binding-android-arm64@1.0.0-beta.40':
-    resolution: {integrity: sha512-9Ii9phC7QU6Lb+ncMfG1Xlosq0NBB1N/4sw+EGZ3y0BBWGy02TOb5ghWZalphAKv9rn1goqo5WkBjyd2YvsLmA==}
+  '@rolldown/binding-android-arm64@1.0.0-beta.41':
+    resolution: {integrity: sha512-Edflndd9lU7JVhVIvJlZhdCj5DkhYDJPIRn4Dx0RUdfc8asP9xHOI5gMd8MesDDx+BJpdIT/uAmVTearteU/mQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [android]
 
-  '@rolldown/binding-darwin-arm64@1.0.0-beta.40':
-    resolution: {integrity: sha512-5O6d0y2tBQTL+ecQY3qXIwSnF1/Zik8q7LZMKeyF+VJ9l194d0IdMhl2zUF0cqWbYHuF4Pnxplk4OhurPQ/Z9Q==}
+  '@rolldown/binding-darwin-arm64@1.0.0-beta.41':
+    resolution: {integrity: sha512-XGCzqfjdk7550PlyZRTBKbypXrB7ATtXhw/+bjtxnklLQs0mKP/XkQVOKyn9qGKSlvH8I56JLYryVxl0PCvSNw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [darwin]
 
-  '@rolldown/binding-darwin-x64@1.0.0-beta.40':
-    resolution: {integrity: sha512-izB9jygt3miPQbOTZfSu5K51isUplqa8ysByOKQqcJHgrBWmbTU8TM9eouv6tRmBR0kjcEcID9xhmA1CeZ1VIg==}
+  '@rolldown/binding-darwin-x64@1.0.0-beta.41':
+    resolution: {integrity: sha512-Ho6lIwGJed98zub7n0xcRKuEtnZgbxevAmO4x3zn3C3N4GVXZD5xvCvTVxSMoeBJwTcIYzkVDRTIhylQNsTgLQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [darwin]
 
-  '@rolldown/binding-freebsd-x64@1.0.0-beta.40':
-    resolution: {integrity: sha512-2fdpEpKT+wwP0vig9dqxu+toTeWmVSjo3psJQVDeLJ51rO+GXcCJ1IkCXjhMKVEevNtZS7B8T8Z2vvmRV9MAdA==}
+  '@rolldown/binding-freebsd-x64@1.0.0-beta.41':
+    resolution: {integrity: sha512-ijAZETywvL+gACjbT4zBnCp5ez1JhTRs6OxRN4J+D6AzDRbU2zb01Esl51RP5/8ZOlvB37xxsRQ3X4YRVyYb3g==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [freebsd]
 
-  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.40':
-    resolution: {integrity: sha512-HP2lo78OWULN+8TewpLbS9PS00jh0CaF04tA2u8z2I+6QgVgrYOYKvX+T0hlO5smgso4+qb3YchzumWJl3yCPQ==}
+  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.41':
+    resolution: {integrity: sha512-EgIOZt7UildXKFEFvaiLNBXm+4ggQyGe3E5Z1QP9uRcJJs9omihOnm897FwOBQdCuMvI49iBgjFrkhH+wMJ2MA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm]
     os: [linux]
 
-  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.40':
-    resolution: {integrity: sha512-ng00gfr9BhA2NPAOU5RWAlTiL+JcwAD+L+4yUD1sbBy6tgHdLiNBOvKtHISIF9RM9/eQeS0tAiWOYZGIH9JMew==}
+  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.41':
+    resolution: {integrity: sha512-F8bUwJq8v/JAU8HSwgF4dztoqJ+FjdyjuvX4//3+Fbe2we9UktFeZ27U4lRMXF1vxWtdV4ey6oCSqI7yUrSEeg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [linux]
 
-  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.40':
-    resolution: {integrity: sha512-mF0R1l9kLcaag/9cLEiYYdNZ4v1uuX4jklSDZ1s6vJE4RB3LirUney0FavdVRwCJ5sDvfvsPgXgtBXWYr2M2tQ==}
+  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.41':
+    resolution: {integrity: sha512-MioXcCIX/wB1pBnBoJx8q4OGucUAfC1+/X1ilKFsjDK05VwbLZGRgOVD5OJJpUQPK86DhQciNBrfOKDiatxNmg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [linux]
 
-  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.40':
-    resolution: {integrity: sha512-+wi08S7wT5iLPHRZb0USrS6n+T6m+yY++dePYedE5uvKIpWCJJioFTaRtWjpm0V6dVNLcq2OukrvfdlGtH9Wgg==}
+  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.41':
+    resolution: {integrity: sha512-m66M61fizvRCwt5pOEiZQMiwBL9/y0bwU/+Kc4Ce/Pef6YfoEkR28y+DzN9rMdjo8Z28NXjsDPq9nH4mXnAP0g==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
 
-  '@rolldown/binding-linux-x64-musl@1.0.0-beta.40':
-    resolution: {integrity: sha512-W5qBGAemUocIBKCcOsDjlV9GUt28qhl/+M6etWBeLS5gQK0J6XDg0YVzfOQdvq57ZGjYNP0NvhYzqhOOnEx+4g==}
+  '@rolldown/binding-linux-x64-musl@1.0.0-beta.41':
+    resolution: {integrity: sha512-yRxlSfBvWnnfrdtJfvi9lg8xfG5mPuyoSHm0X01oiE8ArmLRvoJGHUTJydCYz+wbK2esbq5J4B4Tq9WAsOlP1Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
 
-  '@rolldown/binding-openharmony-arm64@1.0.0-beta.40':
-    resolution: {integrity: sha512-vJwoDehtt+yqj2zacq1AqNc2uE/oh7mnRGqAUbuldV6pgvU01OSQUJ7Zu+35hTopnjFoDNN6mIezkYlGAv5RFA==}
+  '@rolldown/binding-openharmony-arm64@1.0.0-beta.41':
+    resolution: {integrity: sha512-PHVxYhBpi8UViS3/hcvQQb9RFqCtvFmFU1PvUoTRiUdBtgHA6fONNHU4x796lgzNlVSD3DO/MZNk1s5/ozSMQg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [openharmony]
 
-  '@rolldown/binding-wasm32-wasi@1.0.0-beta.40':
-    resolution: {integrity: sha512-Oj3YyqVUPurr1FlMpEE/bJmMC+VWAWPM/SGUfklO5KUX97bk5Q/733nPg4RykK8q8/TluJoQYvRc05vL/B74dw==}
+  '@rolldown/binding-wasm32-wasi@1.0.0-beta.41':
+    resolution: {integrity: sha512-OAfcO37ME6GGWmj9qTaDT7jY4rM0T2z0/8ujdQIJQ2x2nl+ztO32EIwURfmXOK0U1tzkyuaKYvE34Pug/ucXlQ==}
     engines: {node: '>=14.0.0'}
     cpu: [wasm32]
 
-  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.40':
-    resolution: {integrity: sha512-0ZtO6yN8XjVoFfN4HDWQj4nDu3ndMybr7jIM00DJqOmc+yFhly7rdOy7fNR9Sky3leCpBtsXfepVqRmVpYKPVA==}
+  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.41':
+    resolution: {integrity: sha512-NIYGuCcuXaq5BC4Q3upbiMBvmZsTsEPG9k/8QKQdmrch+ocSy5Jv9tdpdmXJyighKqm182nh/zBt+tSJkYoNlg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [win32]
 
-  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.40':
-    resolution: {integrity: sha512-BPl1inoJXPpIe38Ja46E4y11vXlJyuleo+9Rmu//pYL5fIDYJkXUj/oAXqjSuwLcssrcwnuPgzvzvlz9++cr3w==}
+  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.41':
+    resolution: {integrity: sha512-kANdsDbE5FkEOb5NrCGBJBCaZ2Sabp3D7d4PRqMYJqyLljwh9mDyYyYSv5+QNvdAmifj+f3lviNEUUuUZPEFPw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [ia32]
     os: [win32]
 
-  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.40':
-    resolution: {integrity: sha512-UguA4ltbAk+nbwHRxqaUP/etpTbR0HjyNlsu4Zjbh/ytNbFsbw8CA4tEBkwDyjgI5NIPea6xY11zpl7R2/ddVA==}
+  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.41':
+    resolution: {integrity: sha512-UlpxKmFdik0Y2VjZrgUCgoYArZJiZllXgIipdBRV1hw6uK45UbQabSTW6Kp6enuOu7vouYWftwhuxfpE8J2JAg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [win32]
@@ -3336,8 +3336,8 @@ packages:
   '@rolldown/pluginutils@1.0.0-beta.38':
     resolution: {integrity: sha512-N/ICGKleNhA5nc9XXQG/kkKHJ7S55u0x0XUJbbkmdCnFuoRkM1Il12q9q0eX19+M7KKUEPw/daUPIRnxhcxAIw==}
 
-  '@rolldown/pluginutils@1.0.0-beta.40':
-    resolution: {integrity: sha512-s3GeJKSQOwBlzdUrj4ISjJj5SfSh+aqn0wjOar4Bx95iV1ETI7F6S/5hLcfAxZ9kXDcyrAkxPlqmd1ZITttf+w==}
+  '@rolldown/pluginutils@1.0.0-beta.41':
+    resolution: {integrity: sha512-ycMEPrS3StOIeb87BT3/+bu+blEtyvwQ4zmo2IcJQy0Rd1DAAhKksA0iUZ3MYSpJtjlPhg0Eo6mvVS6ggPhRbw==}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     resolution: {integrity: sha512-uLN8NAiFVIRKX9ZQha8wy6UUs06UNSZ32xj6giK/rmMXAgKahwExvK6SsmgU5/brh4w/nSgj8e0k3c1HBQpa0A==}
@@ -3758,8 +3758,8 @@ packages:
   '@types/node@22.18.6':
     resolution: {integrity: sha512-r8uszLPpeIWbNKtvWRt/DbVi5zbqZyj1PTmhRMqBMvDnaz1QpmSKujUtJLrqGZeoM8v72MfYggDceY4K1itzWQ==}
 
-  '@types/node@24.5.2':
-    resolution: {integrity: sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==}
+  '@types/node@24.6.0':
+    resolution: {integrity: sha512-F1CBxgqwOMc4GKJ7eY22hWhBVQuMYTtqI8L0FcszYcpYX0fzfDGpez22Xau8Mgm7O9fI+zA/TYIdq3tGWfweBA==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -3790,29 +3790,29 @@ packages:
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
-  '@typescript-eslint/eslint-plugin@8.44.1':
-    resolution: {integrity: sha512-molgphGqOBT7t4YKCSkbasmu1tb1MgrZ2szGzHbclF7PNmOkSTQVHy+2jXOSnxvR3+Xe1yySHFZoqMpz3TfQsw==}
+  '@typescript-eslint/eslint-plugin@8.45.0':
+    resolution: {integrity: sha512-HC3y9CVuevvWCl/oyZuI47dOeDF9ztdMEfMH8/DW/Mhwa9cCLnK1oD7JoTVGW/u7kFzNZUKUoyJEqkaJh5y3Wg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
-      '@typescript-eslint/parser': ^8.44.1
+      '@typescript-eslint/parser': ^8.45.0
       eslint: ^8.57.0 || ^9.0.0
       typescript: ^5.9.2
 
-  '@typescript-eslint/parser@8.44.1':
-    resolution: {integrity: sha512-EHrrEsyhOhxYt8MTg4zTF+DJMuNBzWwgvvOYNj/zm1vnaD/IC5zCXFehZv94Piqa2cRFfXrTFxIvO95L7Qc/cw==}
+  '@typescript-eslint/parser@8.45.0':
+    resolution: {integrity: sha512-TGf22kon8KW+DeKaUmOibKWktRY8b2NSAZNdtWh798COm1NWx8+xJ6iFBtk3IvLdv6+LGLJLRlyhrhEDZWargQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
       typescript: ^5.9.2
 
-  '@typescript-eslint/project-service@8.44.1':
-    resolution: {integrity: sha512-ycSa60eGg8GWAkVsKV4E6Nz33h+HjTXbsDT4FILyL8Obk5/mx4tbvCNsLf9zret3ipSumAOG89UcCs/KRaKYrA==}
+  '@typescript-eslint/project-service@8.45.0':
+    resolution: {integrity: sha512-3pcVHwMG/iA8afdGLMuTibGR7pDsn9RjDev6CCB+naRsSYs2pns5QbinF4Xqw6YC/Sj3lMrm/Im0eMfaa61WUg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: ^5.9.2
 
-  '@typescript-eslint/rule-tester@8.44.1':
-    resolution: {integrity: sha512-yzqJhTLrbXCdEZhO9cuasGLZixWWx11/uFn6Leuu0p1PeW97wDy9JhiaAOl45TFrv5f67qwWdrzM5PMIuIu4vw==}
+  '@typescript-eslint/rule-tester@8.45.0':
+    resolution: {integrity: sha512-o0Tn3Vw6hliTsnVITONI+TK/VA22agA+Zyk4pKg98sWy6RXIl7srW3zDOjdtdHUuk8FpzCUBtbQCtXH/2VeLtQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -3821,18 +3821,18 @@ packages:
     resolution: {integrity: sha512-jjhdIE/FPF2B7Z1uzc6i3oWKbGcHb87Qw7AWj6jmEqNOfDFbJWtjt/XfwCpvNkpGWlcJaog5vTR+VV8+w9JflA==}
     engines: {node: ^18.18.0 || >=20.0.0}
 
-  '@typescript-eslint/scope-manager@8.44.1':
-    resolution: {integrity: sha512-NdhWHgmynpSvyhchGLXh+w12OMT308Gm25JoRIyTZqEbApiBiQHD/8xgb6LqCWCFcxFtWwaVdFsLPQI3jvhywg==}
+  '@typescript-eslint/scope-manager@8.45.0':
+    resolution: {integrity: sha512-clmm8XSNj/1dGvJeO6VGH7EUSeA0FMs+5au/u3lrA3KfG8iJ4u8ym9/j2tTEoacAffdW1TVUzXO30W1JTJS7dA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript-eslint/tsconfig-utils@8.44.1':
-    resolution: {integrity: sha512-B5OyACouEjuIvof3o86lRMvyDsFwZm+4fBOqFHccIctYgBjqR3qT39FBYGN87khcgf0ExpdCBeGKpKRhSFTjKQ==}
+  '@typescript-eslint/tsconfig-utils@8.45.0':
+    resolution: {integrity: sha512-aFdr+c37sc+jqNMGhH+ajxPXwjv9UtFZk79k8pLoJ6p4y0snmYpPA52GuWHgt2ZF4gRRW6odsEj41uZLojDt5w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: ^5.9.2
 
-  '@typescript-eslint/type-utils@8.44.1':
-    resolution: {integrity: sha512-KdEerZqHWXsRNKjF9NYswNISnFzXfXNDfPxoTh7tqohU/PRIbwTmsjGK6V9/RTYWau7NZvfo52lgVk+sJh0K3g==}
+  '@typescript-eslint/type-utils@8.45.0':
+    resolution: {integrity: sha512-bpjepLlHceKgyMEPglAeULX1vixJDgaKocp0RVJ5u4wLJIMNuKtUXIczpJCPcn2waII0yuvks/5m5/h3ZQKs0A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -3846,8 +3846,8 @@ packages:
     resolution: {integrity: sha512-iZqi+Ds1y4EDYUtlOOC+aUmxnE9xS/yCigkjA7XpTKV6nCBd3Hp/PRGGmdwnfkV2ThMyYldP1wRpm/id99spTQ==}
     engines: {node: ^18.18.0 || >=20.0.0}
 
-  '@typescript-eslint/types@8.44.1':
-    resolution: {integrity: sha512-Lk7uj7y9uQUOEguiDIDLYLJOrYHQa7oBiURYVFqIpGxclAFQ78f6VUOM8lI2XEuNOKNB7XuvM2+2cMXAoq4ALQ==}
+  '@typescript-eslint/types@8.45.0':
+    resolution: {integrity: sha512-WugXLuOIq67BMgQInIxxnsSyRLFxdkJEJu8r4ngLR56q/4Q5LrbfkFRH27vMTjxEK8Pyz7QfzuZe/G15qQnVRA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/typescript-estree@7.13.1':
@@ -3868,8 +3868,8 @@ packages:
       typescript:
         optional: true
 
-  '@typescript-eslint/typescript-estree@8.44.1':
-    resolution: {integrity: sha512-qnQJ+mVa7szevdEyvfItbO5Vo+GfZ4/GZWWDRRLjrxYPkhM+6zYB2vRYwCsoJLzqFCdZT4mEqyJoyzkunsZ96A==}
+  '@typescript-eslint/typescript-estree@8.45.0':
+    resolution: {integrity: sha512-GfE1NfVbLam6XQ0LcERKwdTTPlLvHvXXhOeUGC1OXi4eQBoyy1iVsW+uzJ/J9jtCz6/7GCQ9MtrQ0fml/jWCnA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: ^5.9.2
@@ -3880,8 +3880,8 @@ packages:
     peerDependencies:
       eslint: ^8.56.0
 
-  '@typescript-eslint/utils@8.44.1':
-    resolution: {integrity: sha512-DpX5Fp6edTlocMCwA+mHY8Mra+pPjRZ0TfHkXI8QFelIKcbADQz1LUPNtzOFUriBB2UYqw4Pi9+xV4w9ZczHFg==}
+  '@typescript-eslint/utils@8.45.0':
+    resolution: {integrity: sha512-bxi1ht+tLYg4+XV2knz/F7RVhU0k6VrSMc9sb8DQ6fyCTrGQLHfo7lDtN0QJjZjKkLA2ThrKuCdHEvLReqtIGg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -3895,8 +3895,8 @@ packages:
     resolution: {integrity: sha512-cDF0/Gf81QpY3xYyJKDV14Zwdmid5+uuENhjH2EqFaF0ni+yAyq/LzMaIJdhNJXZI7uLzwIlA+V7oWoyn6Curg==}
     engines: {node: ^18.18.0 || >=20.0.0}
 
-  '@typescript-eslint/visitor-keys@8.44.1':
-    resolution: {integrity: sha512-576+u0QD+Jp3tZzvfRfxon0EA2lzcDt3lhUbsC6Lgzy9x2VR4E+JUiNyGHi5T8vk0TV+fpJ5GLG1JsJuWCaKhw==}
+  '@typescript-eslint/visitor-keys@8.45.0':
+    resolution: {integrity: sha512-qsaFBA3e09MIDAGFUrTk+dzqtfv1XPVz8t8d1f0ybTzrCY7BKiMC5cjrl1O/P7UmHsNyW90EYSkU/ZWpmXelag==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript/vfs@1.6.1':
@@ -4587,8 +4587,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  effect@3.17.14:
-    resolution: {integrity: sha512-VpIZz72+cg3357vLkNHN8CG+Uq2X0QHNv3qkyGInvG3lG5K7Ala1JliGIAdgNvwzaN37J27FuzVD8m0kEiv2Ig==}
+  effect@3.18.0:
+    resolution: {integrity: sha512-Hr0hVrnibYbheOUnbTwaV88NyyMTW7CrLCiOSJxMWns73pEiT29HJcsEx7pgs9E8rUa6z20775byVzXw0omPjw==}
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
@@ -4653,9 +4653,9 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
-  eslint-plugin-de-morgan@1.3.1:
-    resolution: {integrity: sha512-pB0xqHPXCRgCFnFSLvQDSP/egYrlccYMI0txz4gzBF6RuT2X+4LsZl0JoWAQc7dphEjJBQ3dWyMqXfBgdP2UVg==}
-    engines: {node: ^18.0.0 || >=20.0.0}
+  eslint-plugin-de-morgan@2.0.0:
+    resolution: {integrity: sha512-oGkawlmwOp7p3yYG/abEkQRw6IfQ677E5ejQulUZdXdXpSHv/jNNaHPokA7mo1SaxcQWRn5vojaBLrwJ7wy5MQ==}
+    engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
       eslint: '>=8.0.0'
 
@@ -6333,8 +6333,8 @@ packages:
       vue-tsc:
         optional: true
 
-  rolldown@1.0.0-beta.40:
-    resolution: {integrity: sha512-VqEHbKpOgTPmQrZ4fVn4eshDQS/6g/fRpNE7cFSJY+eQLDZn4B9X61J6L+hnlt1u2uRI+pF7r1USs6S5fuWCvw==}
+  rolldown@1.0.0-beta.41:
+    resolution: {integrity: sha512-U+NPR0Bkg3wm61dteD2L4nAM1U9dtaqVrpDXwC36IKRHpEO/Ubpid4Nijpa2imPchcVNHfxVFwSSMJdwdGFUbg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -6724,8 +6724,8 @@ packages:
     peerDependencies:
       typescript: ^5.9.2
 
-  typescript-eslint@8.44.1:
-    resolution: {integrity: sha512-0ws8uWGrUVTjEeN2OM4K1pLKHK/4NiNP/vz6ns+LjT/6sqpaYzIVFajZb1fj/IDwpsrrHb3Jy0Qm5u9CPcKaeg==}
+  typescript-eslint@8.45.0:
+    resolution: {integrity: sha512-qzDmZw/Z5beNLUrXfd0HIW6MzIaAV5WNDxmMs9/3ojGOpYavofgNAAD/nC6tGV2PczIi0iw8vot2eAe/sBn7zg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -6751,8 +6751,8 @@ packages:
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
-  undici-types@7.12.0:
-    resolution: {integrity: sha512-goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ==}
+  undici-types@7.13.0:
+    resolution: {integrity: sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==}
 
   undici@7.16.0:
     resolution: {integrity: sha512-QEg3HPMll0o3t2ourKwOeUAZ159Kn9mx5pnzHRQO8+Wixmh88YdZRiIwat0iNzNNXn0yoEtXJqFpyW7eM8BV7g==}
@@ -7843,10 +7843,10 @@ snapshots:
   '@dprint/win32-x64@0.50.2':
     optional: true
 
-  '@effect-atom/atom-react@0.2.0(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)(react@19.1.1)(scheduler@0.26.0)':
+  '@effect-atom/atom-react@0.3.0(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)(react@19.1.1)(scheduler@0.26.0)':
     dependencies:
-      '@effect-atom/atom': 0.2.0(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)
-      effect: 3.17.14
+      '@effect-atom/atom': 0.3.0(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)
+      effect: 3.18.0
       react: 19.1.1
       scheduler: 0.26.0
     transitivePeerDependencies:
@@ -7854,51 +7854,51 @@ snapshots:
       - '@effect/platform'
       - '@effect/rpc'
 
-  '@effect-atom/atom@0.2.0(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)':
+  '@effect-atom/atom@0.3.0(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/experimental': 0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      '@effect/rpc': 0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/experimental': 0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      '@effect/rpc': 0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      effect: 3.18.0
 
-  '@effect/cluster@0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)':
+  '@effect/cluster@0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      '@effect/rpc': 0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      '@effect/workflow': 0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      '@effect/rpc': 0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      '@effect/workflow': 0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)
+      effect: 3.18.0
 
-  '@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)':
+  '@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      effect: 3.18.0
       uuid: 11.1.0
 
-  '@effect/language-service@0.41.0': {}
+  '@effect/language-service@0.41.1': {}
 
-  '@effect/platform-node-shared@0.50.1(@effect/cluster@0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)':
+  '@effect/platform-node-shared@0.51.0(@effect/cluster@0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/cluster': 0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      '@effect/rpc': 0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
+      '@effect/cluster': 0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      '@effect/rpc': 0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
       '@parcel/watcher': 2.5.1
-      effect: 3.17.14
+      effect: 3.18.0
       multipasta: 0.2.7
       ws: 8.18.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform-node@0.97.1(@effect/cluster@0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)':
+  '@effect/platform-node@0.98.0(@effect/cluster@0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/cluster': 0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      '@effect/platform-node-shared': 0.50.1(@effect/cluster@0.48.11(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)
-      '@effect/rpc': 0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/cluster': 0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      '@effect/platform-node-shared': 0.51.0(@effect/cluster@0.48.11(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)
+      '@effect/rpc': 0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      '@effect/sql': 0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      effect: 3.18.0
       mime: 3.0.0
       undici: 7.16.0
       ws: 8.18.3
@@ -7906,30 +7906,30 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.91.1(effect@3.17.14)':
+  '@effect/platform@0.92.0(effect@3.18.0)':
     dependencies:
-      effect: 3.17.14
+      effect: 3.18.0
       find-my-way-ts: 0.1.6
       msgpackr: 1.11.5
       multipasta: 0.2.7
 
-  '@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)':
+  '@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      effect: 3.18.0
 
-  '@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)':
+  '@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/experimental': 0.54.6(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/experimental': 0.54.6(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      effect: 3.18.0
       uuid: 11.1.0
 
-  '@effect/workflow@0.9.5(@effect/platform@0.91.1(effect@3.17.14))(@effect/rpc@0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14))(effect@3.17.14)':
+  '@effect/workflow@0.9.5(@effect/platform@0.92.0(effect@3.18.0))(@effect/rpc@0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0))(effect@3.18.0)':
     dependencies:
-      '@effect/platform': 0.91.1(effect@3.17.14)
-      '@effect/rpc': 0.69.3(@effect/platform@0.91.1(effect@3.17.14))(effect@3.17.14)
-      effect: 3.17.14
+      '@effect/platform': 0.92.0(effect@3.18.0)
+      '@effect/rpc': 0.69.3(@effect/platform@0.92.0(effect@3.18.0))(effect@3.18.0)
+      effect: 3.18.0
 
   '@emnapi/core@1.5.0':
     dependencies:
@@ -7950,7 +7950,7 @@ snapshots:
   '@es-joy/jsdoccomment@0.62.0':
     dependencies:
       '@types/estree': 1.0.8
-      '@typescript-eslint/types': 8.44.1
+      '@typescript-eslint/types': 8.45.0
       comment-parser: 1.4.1
       esquery: 1.6.0
       jsdoc-type-pratt-parser: 5.9.1
@@ -8043,9 +8043,9 @@ snapshots:
   '@eslint-react/ast@2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
       '@eslint-react/eff': 2.0.2-next.3
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       string-ts: 2.2.1
     transitivePeerDependencies:
       - eslint
@@ -8059,9 +8059,9 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       birecord: 0.1.1
       ts-pattern: 5.8.0
     transitivePeerDependencies:
@@ -8076,10 +8076,10 @@ snapshots:
       '@eslint-react/eff': 2.0.2-next.3
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       eslint-plugin-react-debug: 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint-plugin-react-dom: 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
@@ -8095,7 +8095,7 @@ snapshots:
   '@eslint-react/kit@2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
       '@eslint-react/eff': 2.0.2-next.3
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -8105,7 +8105,7 @@ snapshots:
     dependencies:
       '@eslint-react/eff': 2.0.2-next.3
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       ts-pattern: 5.8.0
       zod: 4.1.11
     transitivePeerDependencies:
@@ -8117,9 +8117,9 @@ snapshots:
     dependencies:
       '@eslint-react/ast': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/eff': 2.0.2-next.3
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       ts-pattern: 5.8.0
     transitivePeerDependencies:
       - eslint
@@ -8619,7 +8619,7 @@ snapshots:
 
   '@oxc-project/types@0.73.2': {}
 
-  '@oxc-project/types@0.92.0': {}
+  '@oxc-project/types@0.93.0': {}
 
   '@oxc-transform/binding-android-arm64@0.92.0':
     optional: true
@@ -9110,53 +9110,53 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@rolldown/binding-android-arm64@1.0.0-beta.40':
+  '@rolldown/binding-android-arm64@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-darwin-arm64@1.0.0-beta.40':
+  '@rolldown/binding-darwin-arm64@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-darwin-x64@1.0.0-beta.40':
+  '@rolldown/binding-darwin-x64@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-freebsd-x64@1.0.0-beta.40':
+  '@rolldown/binding-freebsd-x64@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.40':
+  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.40':
+  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.40':
+  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.40':
+  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-linux-x64-musl@1.0.0-beta.40':
+  '@rolldown/binding-linux-x64-musl@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-openharmony-arm64@1.0.0-beta.40':
+  '@rolldown/binding-openharmony-arm64@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-wasm32-wasi@1.0.0-beta.40':
+  '@rolldown/binding-wasm32-wasi@1.0.0-beta.41':
     dependencies:
       '@napi-rs/wasm-runtime': 1.0.5
     optional: true
 
-  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.40':
+  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.40':
+  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.41':
     optional: true
 
-  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.40':
+  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.41':
     optional: true
 
   '@rolldown/pluginutils@1.0.0-beta.38': {}
 
-  '@rolldown/pluginutils@1.0.0-beta.40': {}
+  '@rolldown/pluginutils@1.0.0-beta.41': {}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     optional: true
@@ -9294,7 +9294,7 @@ snapshots:
   '@stylistic/eslint-plugin@5.4.0(eslint@9.36.0(jiti@2.6.0))':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.36.0(jiti@2.6.0))
-      '@typescript-eslint/types': 8.44.1
+      '@typescript-eslint/types': 8.45.0
       eslint: 9.36.0(jiti@2.6.0)
       eslint-visitor-keys: 4.2.1
       espree: 10.4.0
@@ -9433,7 +9433,7 @@ snapshots:
 
   '@types/concat-stream@2.0.3':
     dependencies:
-      '@types/node': 24.5.2
+      '@types/node': 24.6.0
 
   '@types/d3-array@3.2.2': {}
 
@@ -9588,9 +9588,9 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/node@24.5.2':
+  '@types/node@24.6.0':
     dependencies:
-      undici-types: 7.12.0
+      undici-types: 7.13.0
 
   '@types/parse-json@4.0.2': {}
 
@@ -9615,14 +9615,14 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@typescript-eslint/eslint-plugin@8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
+  '@typescript-eslint/eslint-plugin@8.45.0(@typescript-eslint/parser@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/visitor-keys': 8.44.1
+      '@typescript-eslint/parser': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/visitor-keys': 8.45.0
       eslint: 9.36.0(jiti@2.6.0)
       graphemer: 1.4.0
       ignore: 7.0.5
@@ -9632,32 +9632,32 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
+  '@typescript-eslint/parser@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/visitor-keys': 8.44.1
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/visitor-keys': 8.45.0
       debug: 4.4.3
       eslint: 9.36.0(jiti@2.6.0)
       typescript: 5.9.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/project-service@8.44.1(typescript@5.9.2)':
+  '@typescript-eslint/project-service@8.45.0(typescript@5.9.2)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
+      '@typescript-eslint/tsconfig-utils': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
       debug: 4.4.3
       typescript: 5.9.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/rule-tester@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
+  '@typescript-eslint/rule-tester@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
-      '@typescript-eslint/parser': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       ajv: 6.12.6
       eslint: 9.36.0(jiti@2.6.0)
       json-stable-stringify-without-jsonify: 1.0.1
@@ -9672,20 +9672,20 @@ snapshots:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
 
-  '@typescript-eslint/scope-manager@8.44.1':
+  '@typescript-eslint/scope-manager@8.45.0':
     dependencies:
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/visitor-keys': 8.44.1
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/visitor-keys': 8.45.0
 
-  '@typescript-eslint/tsconfig-utils@8.44.1(typescript@5.9.2)':
+  '@typescript-eslint/tsconfig-utils@8.45.0(typescript@5.9.2)':
     dependencies:
       typescript: 5.9.2
 
-  '@typescript-eslint/type-utils@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
+  '@typescript-eslint/type-utils@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       debug: 4.4.3
       eslint: 9.36.0(jiti@2.6.0)
       ts-api-utils: 2.1.0(typescript@5.9.2)
@@ -9697,7 +9697,7 @@ snapshots:
 
   '@typescript-eslint/types@7.18.0': {}
 
-  '@typescript-eslint/types@8.44.1': {}
+  '@typescript-eslint/types@8.45.0': {}
 
   '@typescript-eslint/typescript-estree@7.13.1(typescript@5.9.2)':
     dependencies:
@@ -9729,12 +9729,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@8.44.1(typescript@5.9.2)':
+  '@typescript-eslint/typescript-estree@8.45.0(typescript@5.9.2)':
     dependencies:
-      '@typescript-eslint/project-service': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/tsconfig-utils': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/visitor-keys': 8.44.1
+      '@typescript-eslint/project-service': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/tsconfig-utils': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/visitor-keys': 8.45.0
       debug: 4.4.3
       fast-glob: 3.3.3
       is-glob: 4.0.3
@@ -9756,12 +9756,12 @@ snapshots:
       - supports-color
       - typescript
 
-  '@typescript-eslint/utils@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
+  '@typescript-eslint/utils@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.36.0(jiti@2.6.0))
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       typescript: 5.9.2
     transitivePeerDependencies:
@@ -9777,9 +9777,9 @@ snapshots:
       '@typescript-eslint/types': 7.18.0
       eslint-visitor-keys: 3.4.3
 
-  '@typescript-eslint/visitor-keys@8.44.1':
+  '@typescript-eslint/visitor-keys@8.45.0':
     dependencies:
-      '@typescript-eslint/types': 8.44.1
+      '@typescript-eslint/types': 8.45.0
       eslint-visitor-keys: 4.2.1
 
   '@typescript/vfs@1.6.1(typescript@5.9.2)':
@@ -9791,7 +9791,7 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vitejs/plugin-react@5.0.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.0.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -9799,7 +9799,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9811,13 +9811,13 @@ snapshots:
       chai: 5.3.3
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
+  '@vitest/mocker@3.2.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.19
     optionalDependencies:
-      vite: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
   '@vitest/pretty-format@3.2.4':
     dependencies:
@@ -10497,7 +10497,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  effect@3.17.14:
+  effect@3.18.0:
     dependencies:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2
@@ -10580,14 +10580,14 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-plugin-de-morgan@1.3.1(eslint@9.36.0(jiti@2.6.0)):
+  eslint-plugin-de-morgan@2.0.0(eslint@9.36.0(jiti@2.6.0)):
     dependencies:
       eslint: 9.36.0(jiti@2.6.0)
 
   eslint-plugin-fast-import@1.4.4(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2):
     dependencies:
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       cross-dirname: 0.1.0
       eslint: 9.36.0(jiti@2.6.0)
       ignore: 7.0.5
@@ -10603,10 +10603,10 @@ snapshots:
       '@eslint-react/ast': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/eff': 2.0.2-next.3
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       string-ts: 2.2.1
       ts-api-utils: 2.1.0(typescript@5.9.2)
@@ -10635,8 +10635,8 @@ snapshots:
 
   eslint-plugin-perfectionist@4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2):
     dependencies:
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       natural-orderby: 5.0.0
     transitivePeerDependencies:
@@ -10651,10 +10651,10 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       string-ts: 2.2.1
       ts-pattern: 5.8.0
@@ -10670,9 +10670,9 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       compare-versions: 6.1.1
       eslint: 9.36.0(jiti@2.6.0)
       string-ts: 2.2.1
@@ -10689,10 +10689,10 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       string-ts: 2.2.1
       ts-pattern: 5.8.0
@@ -10712,10 +10712,10 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       string-ts: 2.2.1
       ts-pattern: 5.8.0
@@ -10735,9 +10735,9 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       string-ts: 2.2.1
       ts-pattern: 5.8.0
@@ -10753,10 +10753,10 @@ snapshots:
       '@eslint-react/kit': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/shared': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@eslint-react/var': 2.0.2-next.3(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/scope-manager': 8.44.1
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/types': 8.44.1
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/scope-manager': 8.45.0
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/types': 8.45.0
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       compare-versions: 6.1.1
       eslint: 9.36.0(jiti@2.6.0)
       is-immutable-type: 5.0.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
@@ -10800,12 +10800,12 @@ snapshots:
       semver: 7.7.2
       strip-indent: 4.1.0
 
-  eslint-plugin-vitest@0.5.4(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)):
+  eslint-plugin-vitest@0.5.4(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)):
     dependencies:
       '@typescript-eslint/utils': 7.18.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
     optionalDependencies:
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -11067,7 +11067,7 @@ snapshots:
       unist-util-visit: 5.0.0
       zod: 4.1.11
 
-  fumadocs-mdx@12.0.1(fumadocs-core@15.8.1(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)):
+  fumadocs-mdx@12.0.1(fumadocs-core@15.8.1(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.0.0
@@ -11089,7 +11089,7 @@ snapshots:
     optionalDependencies:
       next: 15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react: 19.1.1
-      vite: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -11427,7 +11427,7 @@ snapshots:
 
   is-immutable-type@5.0.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2):
     dependencies:
-      '@typescript-eslint/type-utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/type-utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       ts-api-utils: 2.1.0(typescript@5.9.2)
       ts-declaration-location: 1.0.7(typescript@5.9.2)
@@ -12771,7 +12771,7 @@ snapshots:
 
   robust-predicates@3.0.2: {}
 
-  rolldown-plugin-dts@0.16.8(rolldown@1.0.0-beta.40)(typescript@5.9.2):
+  rolldown-plugin-dts@0.16.8(rolldown@1.0.0-beta.41)(typescript@5.9.2):
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/parser': 7.28.4
@@ -12782,33 +12782,33 @@ snapshots:
       dts-resolver: 2.1.2
       get-tsconfig: 4.10.1
       magic-string: 0.30.19
-      rolldown: 1.0.0-beta.40
+      rolldown: 1.0.0-beta.41
     optionalDependencies:
       typescript: 5.9.2
     transitivePeerDependencies:
       - oxc-resolver
       - supports-color
 
-  rolldown@1.0.0-beta.40:
+  rolldown@1.0.0-beta.41:
     dependencies:
-      '@oxc-project/types': 0.92.0
-      '@rolldown/pluginutils': 1.0.0-beta.40
+      '@oxc-project/types': 0.93.0
+      '@rolldown/pluginutils': 1.0.0-beta.41
       ansis: 4.2.0
     optionalDependencies:
-      '@rolldown/binding-android-arm64': 1.0.0-beta.40
-      '@rolldown/binding-darwin-arm64': 1.0.0-beta.40
-      '@rolldown/binding-darwin-x64': 1.0.0-beta.40
-      '@rolldown/binding-freebsd-x64': 1.0.0-beta.40
-      '@rolldown/binding-linux-arm-gnueabihf': 1.0.0-beta.40
-      '@rolldown/binding-linux-arm64-gnu': 1.0.0-beta.40
-      '@rolldown/binding-linux-arm64-musl': 1.0.0-beta.40
-      '@rolldown/binding-linux-x64-gnu': 1.0.0-beta.40
-      '@rolldown/binding-linux-x64-musl': 1.0.0-beta.40
-      '@rolldown/binding-openharmony-arm64': 1.0.0-beta.40
-      '@rolldown/binding-wasm32-wasi': 1.0.0-beta.40
-      '@rolldown/binding-win32-arm64-msvc': 1.0.0-beta.40
-      '@rolldown/binding-win32-ia32-msvc': 1.0.0-beta.40
-      '@rolldown/binding-win32-x64-msvc': 1.0.0-beta.40
+      '@rolldown/binding-android-arm64': 1.0.0-beta.41
+      '@rolldown/binding-darwin-arm64': 1.0.0-beta.41
+      '@rolldown/binding-darwin-x64': 1.0.0-beta.41
+      '@rolldown/binding-freebsd-x64': 1.0.0-beta.41
+      '@rolldown/binding-linux-arm-gnueabihf': 1.0.0-beta.41
+      '@rolldown/binding-linux-arm64-gnu': 1.0.0-beta.41
+      '@rolldown/binding-linux-arm64-musl': 1.0.0-beta.41
+      '@rolldown/binding-linux-x64-gnu': 1.0.0-beta.41
+      '@rolldown/binding-linux-x64-musl': 1.0.0-beta.41
+      '@rolldown/binding-openharmony-arm64': 1.0.0-beta.41
+      '@rolldown/binding-wasm32-wasi': 1.0.0-beta.41
+      '@rolldown/binding-win32-arm64-msvc': 1.0.0-beta.41
+      '@rolldown/binding-win32-ia32-msvc': 1.0.0-beta.41
+      '@rolldown/binding-win32-x64-msvc': 1.0.0-beta.41
 
   rollup@4.50.2:
     dependencies:
@@ -13180,8 +13180,8 @@ snapshots:
       diff: 8.0.2
       empathic: 2.0.0
       hookable: 5.5.3
-      rolldown: 1.0.0-beta.40
-      rolldown-plugin-dts: 0.16.8(rolldown@1.0.0-beta.40)(typescript@5.9.2)
+      rolldown: 1.0.0-beta.41
+      rolldown-plugin-dts: 0.16.8(rolldown@1.0.0-beta.41)(typescript@5.9.2)
       semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.15
@@ -13247,12 +13247,12 @@ snapshots:
       typescript: 5.9.2
       yaml: 2.8.1
 
-  typescript-eslint@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2):
+  typescript-eslint@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/parser': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/typescript-estree': 8.44.1(typescript@5.9.2)
-      '@typescript-eslint/utils': 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/eslint-plugin': 8.45.0(@typescript-eslint/parser@8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/typescript-estree': 8.45.0(typescript@5.9.2)
+      '@typescript-eslint/utils': 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint: 9.36.0(jiti@2.6.0)
       typescript: 5.9.2
     transitivePeerDependencies:
@@ -13275,7 +13275,7 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  undici-types@7.12.0: {}
+  undici-types@7.13.0: {}
 
   undici@7.16.0: {}
 
@@ -13448,13 +13448,13 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-node@3.2.4(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1):
+  vite-node@3.2.4(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -13469,7 +13469,7 @@ snapshots:
       - tsx
       - yaml
 
-  vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1):
+  vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -13478,18 +13478,18 @@ snapshots:
       rollup: 4.50.2
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 24.5.2
+      '@types/node': 24.6.0
       fsevents: 2.3.3
       jiti: 2.6.0
       lightningcss: 1.30.1
       tsx: 4.20.6
       yaml: 2.8.1
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+      '@vitest/mocker': 3.2.4(vite@7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -13507,12 +13507,12 @@ snapshots:
       tinyglobby: 0.2.15
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
-      vite-node: 3.2.4(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite: 7.1.7(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite-node: 3.2.4(@types/node@24.6.0)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/debug': 4.1.12
-      '@types/node': 24.5.2
+      '@types/node': 24.6.0
     transitivePeerDependencies:
       - jiti
       - less

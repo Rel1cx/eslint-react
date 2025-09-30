@@ -1,4 +1,4 @@
-import { getAttribute, resolveAttributeValue } from "@eslint-react/core";
+import { getAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/kit";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -43,23 +43,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "button") return;
       const getAttributeEx = getAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const typeAttribute = getAttributeEx("type");
-      if (typeAttribute == null) {
-        context.report({
-          messageId: "noMissingButtonType",
-          node: node.openingElement,
-          suggest: getSuggest((type) => (fixer: RuleFixer) => {
-            return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
-          }),
-        });
-        return;
-      }
-      if (typeof resolveAttributeValue(context, typeAttribute).toStatic("type") === "string") return;
+      if (getAttributeEx("type") != null) return;
       context.report({
         messageId: "noMissingButtonType",
-        node: typeAttribute,
+        node: node.openingElement,
         suggest: getSuggest((type) => (fixer: RuleFixer) => {
-          return fixer.replaceText(typeAttribute, `type="${type}"`);
+          return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
         }),
       });
     },

@@ -31,31 +31,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: tsx`<button type />;`,
-      errors: [
-        {
-          messageId: "noMissingButtonType",
-          suggestions: [
-            {
-              messageId: "addButtonType",
-              data: { type: "button" },
-              output: tsx`<button type="button" />;`,
-            },
-            {
-              messageId: "addButtonType",
-              data: { type: "submit" },
-              output: tsx`<button type="submit" />;`,
-            },
-            {
-              messageId: "addButtonType",
-              data: { type: "reset" },
-              output: tsx`<button type="reset" />;`,
-            },
-          ],
-        },
-      ],
-    },
-    {
       code: tsx`<button>Click me</button>;`,
       errors: [
         {
@@ -134,6 +109,30 @@ ruleTester.run(RULE_NAME, rule, {
 
       function App() {
           return <button {...props}>Click me</button>;
+      }
+    `,
+    tsx`
+      const type = "button";
+
+      function App() {
+          return <button type={type}>Click me</button>;
+      }
+    `,
+    tsx`
+      function App({ type }: { type: string }) {
+          return <button type={type}>Click me</button>;
+      }
+    `,
+    tsx`
+      const defaultProps = { type: "button" };
+      function App(props = defaultProps) {
+          return <button type={props.type}>Click me</button>;
+      }
+    `,
+    tsx`
+      const buttonAttrs = { type: "button" };
+      function App() {
+          return <button {...buttonAttrs}>Click me</button>;
       }
     `,
   ],
