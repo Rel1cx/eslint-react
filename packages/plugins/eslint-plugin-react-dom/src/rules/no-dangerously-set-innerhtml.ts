@@ -34,7 +34,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
   if (!context.sourceCode.text.includes(DSIH)) return {};
   return {
-    // This function runs for each JSX element
     JSXElement(node) {
       // Check if the element has the 'dangerouslySetInnerHTML' prop
       const dsihProp = getJsxAttribute(context, node)(DSIH);

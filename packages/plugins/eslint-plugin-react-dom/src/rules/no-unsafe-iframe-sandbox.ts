@@ -50,7 +50,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
-    // This function runs for each JSX element in the code
     JSXElement(node) {
       // 1. Resolve the JSX element to see if it's a DOM 'iframe'. If not, we don't need to check it
       if (resolver.resolve(node).domElementType !== "iframe") {
