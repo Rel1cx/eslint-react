@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.5-next.5",
+  "version": "2.0.5-next.6",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -112,10 +112,16 @@
       "@types/react": "^19.2.0",
       "@types/react-dom": "^19.2.0",
       "esbuild": "^0.25.10",
+      "fumadocs-core": "15.8.1",
+      "fumadocs-docgen": "3.0.1",
+      "fumadocs-mdx": "12.0.1",
+      "fumadocs-twoslash": "3.1.7",
+      "fumadocs-typescript": "4.0.9",
+      "fumadocs-ui": "15.8.1",
       "lucide-react": "^0.544.0",
       "next": "^15.5.4",
-      "react": "^19.2.0",
       "react-dom": "^19.2.0",
+      "react": "^19.2.0",
       "ts-api-utils": "^2.1.0",
       "tslib": "^2.8.1",
       "typescript": "^5.9.3"
