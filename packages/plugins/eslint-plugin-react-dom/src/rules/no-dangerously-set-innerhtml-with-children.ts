@@ -37,7 +37,7 @@ const DSIH = "dangerouslySetInnerHTML";
  * @param node The JSX child node to check.
  * @returns `true` if the node is significant, `false` otherwise.
  */
-function isSignificantChildren(node: TSESTree.JSXElement["children"][number]): boolean {
+function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
   if (!isJsxText(node)) {
     return true;
   }
@@ -46,26 +46,6 @@ function isSignificantChildren(node: TSESTree.JSXElement["children"][number]): b
   const isFormattingWhitespace = node.raw.trim() === "" && node.raw.includes("\n");
 
   return !isFormattingWhitespace;
-}
-
-/**
- * Checks if a JSX element has children, either through the `children` prop or as JSX children.
- * @param context The rule context.
- * @param node The JSX element to check.
- * @returns `true` if the element has children, `false` otherwise.
- */
-function hasChildren(context: RuleContext, node: TSESTree.JSXElement): boolean {
-  const findJsxAttribute = getJsxAttribute(
-    context,
-    node.openingElement.attributes,
-    context.sourceCode.getScope(node),
-  );
-
-  if (findJsxAttribute("children") != null) {
-    return true;
-  }
-
-  return node.children.some(isSignificantChildren);
 }
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
@@ -81,18 +61,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         node.openingElement.attributes,
         context.sourceCode.getScope(node),
       );
-
-      const DSIHAttr = findJsxAttribute(DSIH);
-      if (DSIHAttr == null) {
-        return;
-      }
-
-      if (hasChildren(context, node)) {
-        context.report({
-          messageId: "noDangerouslySetInnerhtmlWithChildren",
-          node: DSIHAttr,
-        });
-      }
+      if (findJsxAttribute(DSIH) == null) return;
+      const children = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
+      if (children == null) return;
+      context.report({
+        messageId: "noDangerouslySetInnerhtmlWithChildren",
+        node: children,
+      });
     },
   };
 }
