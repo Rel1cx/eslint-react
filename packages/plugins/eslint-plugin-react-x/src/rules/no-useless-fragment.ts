@@ -191,9 +191,6 @@ function checkNode(
   }
 }
 
-/**
- * Generate fix for removing useless fragment
- */
 function getFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
   if (!canFix(context, node)) return null;
 

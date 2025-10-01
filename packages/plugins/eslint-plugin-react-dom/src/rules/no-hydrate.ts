@@ -40,14 +40,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `hydrate` is not present in the file
   if (!context.sourceCode.text.includes(hydrate)) return {};
   const settings = getSettingsFromContext(context);
+  // This rule only applies to React 18.0.0 and later.
   if (compare(settings.version, "18.0.0", "<")) return {};
 
-  const reactDomNames = new Set<string>();
-  const hydrateNames = new Set<string>();
+  // Keep track of imports from 'react-dom'.
+  const reactDomNames = new Set<string>(); // For `import ReactDOM from 'react-dom'`
+  const hydrateNames = new Set<string>(); // For `import { hydrate } from 'react-dom'`
 
   return {
     CallExpression(node) {
       switch (true) {
+        // Case 1: Direct call to `hydrate()`.
         case node.callee.type === T.Identifier
           && hydrateNames.has(node.callee.name):
           context.report({
@@ -56,6 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix: getFix(context, node),
           });
           return;
+        // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
         case node.callee.type === T.MemberExpression
           && node.callee.object.type === T.Identifier
           && node.callee.property.type === T.Identifier
@@ -71,15 +75,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ImportDeclaration(node) {
       const [baseSource] = node.source.value.split("/");
+      // We only care about imports from 'react-dom'
       if (baseSource !== "react-dom") return;
       for (const specifier of node.specifiers) {
         switch (specifier.type) {
+          // `import { hydrate } from 'react-dom'`
           case T.ImportSpecifier:
             if (specifier.imported.type !== T.Identifier) continue;
             if (specifier.imported.name === hydrate) {
               hydrateNames.add(specifier.local.name);
             }
             continue;
+          // `import ReactDOM from 'react-dom'` or `import * as ReactDOM from 'react-dom'`
           case T.ImportDefaultSpecifier:
           case T.ImportNamespaceSpecifier:
             reactDomNames.add(specifier.local.name);
@@ -95,8 +102,12 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression) {
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;
     if (arg0 == null || arg1 == null) return null;
+    // The fix consists of two parts:
     return [
+      // 1. Add the new import for `hydrateRoot`
       fixer.insertTextBefore(context.sourceCode.ast, 'import { hydrateRoot } from "react-dom/client";\n'),
+      // 2. Replace `hydrate(element, container)` with `hydrateRoot(container, element)`
+      // Note that the arguments are swapped
       fixer.replaceText(node, `hydrateRoot(${getText(arg1)}, ${getText(arg0)})`),
     ];
   };

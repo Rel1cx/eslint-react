@@ -37,11 +37,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node) {
       const { callee } = node;
       switch (callee.type) {
+        // Handle direct calls like `flushSync()`
         case T.Identifier:
           if (callee.name === flushSync) {
             context.report({ messageId: "noFlushSync", node });
           }
           return;
+        // Handle member access calls like `ReactDOM.flushSync()`
         case T.MemberExpression:
           if (callee.property.type === T.Identifier && callee.property.name === flushSync) {
             context.report({ messageId: "noFlushSync", node });

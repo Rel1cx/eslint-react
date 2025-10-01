@@ -11,6 +11,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
+// A set of HTML void elements that cannot have children
 const voidElements = new Set([
   "area",
   "base",
@@ -38,7 +39,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noVoidElementsWithChildren: "'{{element}}' is a void element tag and must not have children.",
+      noVoidElementsWithChildren: "'{{elementType}}' is a void element tag and must not have children.",
     },
     schema: [],
   },
@@ -52,22 +53,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
-      const { domElementType: elementName } = resolver.resolve(node);
-      if (!voidElements.has(elementName)) {
+      const { domElementType } = resolver.resolve(node);
+      // If the element is not a void element, do nothing
+      if (!voidElements.has(domElementType)) {
         return;
       }
 
       const findJsxAttribute = getJsxAttribute(context, node);
 
+      // Check if the element has a 'children' prop
       const hasChildrenProp = findJsxAttribute("children") != null;
+      // Check if the element has a 'dangerouslySetInnerHTML' prop
       const hasDangerouslySetInnerHTML = findJsxAttribute("dangerouslySetInnerHTML") != null;
 
+      // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
       if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
         context.report({
           messageId: "noVoidElementsWithChildren",
           node,
           data: {
-            element: elementName,
+            elementType: domElementType,
           },
         });
       }

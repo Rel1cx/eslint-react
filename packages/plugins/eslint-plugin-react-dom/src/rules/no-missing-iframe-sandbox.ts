@@ -41,13 +41,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      // If the element is not an iframe, we don't need to do anything.
+      // If the element is not an iframe, we don't need to do anything
       if (domElementType !== "iframe") return;
 
       // Find the 'sandbox' prop on the iframe element.
       const sandboxProp = getJsxAttribute(context, node)("sandbox");
 
-      // If the 'sandbox' prop is missing, report an error.
+      // If the 'sandbox' prop is missing, report an error
       if (sandboxProp == null) {
         context.report({
           messageId: "noMissingIframeSandbox",
@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             messageId: "addIframeSandbox",
             data: { value: "" },
             fix(fixer) {
-              // Suggest adding a 'sandbox' attribute.
+              // Suggest adding a 'sandbox' attribute
               return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
             },
           }],
@@ -64,12 +64,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // Resolve the value of the 'sandbox' attribute.
+      // Resolve the value of the 'sandbox' attribute
       const sandboxValue = resolveJsxAttributeValue(context, sandboxProp);
-      // If the value is a static string, the prop is correctly used.
+      // If the value is a static string, the prop is correctly used
       if (typeof sandboxValue.toStatic("sandbox") === "string") return;
 
-      // If the value is not a static string (e.g., a variable), report an error.
+      // If the value is not a static string (e.g., a variable), report an error
       context.report({
         messageId: "noMissingIframeSandbox",
         node: sandboxValue.node ?? sandboxProp,
@@ -78,9 +78,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             messageId: "addIframeSandbox",
             data: { value: "" },
             fix(fixer) {
-              // Do not try to fix spread attributes.
+              // Do not try to fix spread attributes
               if (sandboxValue.kind.startsWith("spread")) return null;
-              // Suggest replacing the prop with a valid one.
+              // Suggest replacing the prop with a valid one
               return fixer.replaceText(sandboxProp, `sandbox=""`);
             },
           },

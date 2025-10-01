@@ -42,11 +42,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("forwardRef")) {
     return {};
   }
+  // Skip if React version is less than 19.0.0
   const { version } = getSettingsFromContext(context);
   if (compare(version, "19.0.0", "<")) {
     return {};
   }
   return {
+    // Visitor for `forwardRef()` calls
     CallExpression(node) {
       if (!isForwardRefCall(context, node)) {
         return;
@@ -64,15 +66,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 /**
  * Determines whether the given CallExpression can be safely auto-fixed by replacing
- * the usage of `forwardRef` with passing `ref` as a prop.
+ * the usage of `forwardRef` with passing `ref` as a prop
  *
- * @param context - The rule context object.
- * @param node - The CallExpression node to check.
- * @returns True if the call can be auto-fixed, false otherwise.
+ * @param context - The rule context object
+ * @param node - The CallExpression node to check
+ * @returns True if the call can be auto-fixed, false otherwise
  */
 function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
   const initialScope = context.sourceCode.getScope(node);
+  // Check if the callee is `forwardRef` or `React.forwardRef`
   switch (node.callee.type) {
     case T.Identifier:
       return isInitializedFromReact(node.callee.name, importSource, initialScope);
@@ -84,6 +87,12 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   }
 }
 
+/**
+ * Generates the fix for the `forwardRef` call
+ * @param context - The rule context
+ * @param node - The `forwardRef` call expression
+ * @returns A fixer function that applies the changes
+ */
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
@@ -91,10 +100,10 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
       return [];
     }
     return [
-      // unwrap component from forwardRef call
+      // Unwrap component from forwardRef call
       fixer.removeRange([node.range[0], componentNode.range[0]]),
       fixer.removeRange([componentNode.range[1], node.range[1]]),
-      // update component props and ref arguments to match the new signature
+      // Update component props and ref arguments to match the new signature
       ...getComponentPropsFixes(
         context,
         fixer,
@@ -105,6 +114,14 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
   };
 }
 
+/**
+ * Generates fixes for the component's props and ref arguments
+ * @param context - The rule context
+ * @param fixer - The rule fixer
+ * @param node - The function component node
+ * @param typeArguments - The type arguments from the `forwardRef` call
+ * @returns An array of fixes for the component's signature
+ */
 function getComponentPropsFixes(
   context: RuleContext,
   fixer: RuleFixer,
@@ -114,13 +131,16 @@ function getComponentPropsFixes(
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
+  // No props, do nothing
   if (arg0 == null) {
     return [];
   }
+  // Determines how to spread or list props from the first argument
   const fixedArg0Text = match(arg0)
     .with({ type: T.Identifier }, (n) => `...${n.name}`)
     .with({ type: T.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
     .otherwise(() => null);
+  // Determines the new `ref` prop text
   const fixedArg1Text = match(arg1)
     .with(P.nullish, () => "ref")
     .with({ type: T.Identifier, name: "ref" }, () => "ref")
@@ -129,6 +149,7 @@ function getComponentPropsFixes(
   if (fixedArg0Text == null || fixedArg1Text == null) {
     return [];
   }
+  // If no type arguments, just update the props
   if (typeArg0 == null || typeArg1 == null) {
     return [
       fixer.replaceText(
@@ -145,6 +166,7 @@ function getComponentPropsFixes(
         : [fixer.remove(arg1), fixer.removeRange([arg0.range[1], arg1.range[0]])],
     ] as const;
   }
+  // If type arguments exist, update props and add types
   const typeArg0Text = getText(typeArg0);
   const typeArg1Text = getText(typeArg1);
   return [

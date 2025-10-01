@@ -5,6 +5,7 @@ import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
+    // Test case for an empty string, which would render in the DOM
     {
       code: tsx`
         /// <reference types="react" />
@@ -17,10 +18,11 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       ],
       settings: {
         "react-x": {
-          version: "17.0.0",
+          version: "17.0.0", // React 17 and below will render the empty string
         },
       },
     },
+    // Test case for a variable that is an empty string
     {
       code: tsx`
         /// <reference types="react" />
@@ -38,6 +40,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       },
     },
+    // Test case for a variable that could be an empty string
     {
       code: tsx`
         /// <reference types="react" />
@@ -55,6 +58,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       },
     },
+    // Test cases for 0 and NaN, which would render
     {
       code: tsx`
         /// <reference types="react" />
@@ -68,6 +72,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         { messageId: "noLeakedConditionalRendering" },
       ],
     },
+    // Test cases for parenthesized 0 and NaN
     {
       code: tsx`
         /// <reference types="react" />
@@ -81,6 +86,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         { messageId: "noLeakedConditionalRendering" },
       ],
     },
+    // Test cases for numeric values; -0 and 0 are problematic
     {
       code: tsx`
         /// <reference types="react" />
@@ -96,10 +102,11 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const d = <>{w && <Foo />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "noLeakedConditionalRendering" }, // For y = -0
+        { messageId: "noLeakedConditionalRendering" }, // For z = 0
       ],
     },
+    // Test cases for BigInt values; -0n and 0n are problematic
     {
       code: tsx`
         /// <reference types="react" />
@@ -115,10 +122,11 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const d = <>{w && <Foo />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "noLeakedConditionalRendering" }, // For y = -0n
+        { messageId: "noLeakedConditionalRendering" }, // For z = 0n
       ],
     },
+    // Test case for 'unknown' type, which could be a falsy value that renders
     {
       code: tsx`
         /// <reference types="react" />
@@ -130,6 +138,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
+    // Test case for a variable initialized to 0
     {
       code: tsx`
         /// <reference types="react" />
@@ -141,6 +150,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
+    // Test case for a variable initialized to -0
     {
       code: tsx`
         /// <reference types="react" />
@@ -152,6 +162,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
+    // Test case where a falsy value (0) could be rendered in a ternary's else branch
     {
       code: tsx`
         /// <reference types="react" />
@@ -163,6 +174,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
+    // Test case where a prop of type `number | undefined` could be 0
     {
       code: tsx`
         /// <reference types="react" />
@@ -182,6 +194,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
+    // Test case for an optional prop of type `number | undefined` which could be 0
     {
       code: tsx`
         /// <reference types="react" />
@@ -712,6 +725,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       };
     `,
+    // In React 18+, empty strings are not rendered, so this is valid
     {
       code: tsx`
         /// <reference types="react" />
@@ -726,6 +740,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       },
     },
+    // Same as above, valid in React 18+
     {
       code: tsx`
         /// <reference types="react" />

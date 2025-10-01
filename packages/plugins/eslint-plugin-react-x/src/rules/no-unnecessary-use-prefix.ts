@@ -19,6 +19,7 @@ const WELL_KNOWN_HOOKS = [
   "useMDXComponents",
 ];
 
+// Checks if a node contains comments that suggest a Hook usage like `use(Context)` or `useMyHook()`
 function containsUseComments(context: RuleContext, node: TSESTree.Node) {
   return context.sourceCode
     .getCommentsInside(node)
@@ -50,25 +51,27 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"(program) {
       const allHooks = ctx.getAllHooks(program);
       for (const { id, name, node, hookCalls } of allHooks.values()) {
+        // If the function calls at least one real hook, it's a valid custom hook, so we skip it
         if (hookCalls.length > 0) {
           continue;
         }
-        // Skip empty functions
+        // If the function has an empty body, no need to flag it
         if (AST.isFunctionEmpty(node)) {
           continue;
         }
-        // Skip well-known hooks
+        // If the function is in a list of known hooks, skip it
         if (WELL_KNOWN_HOOKS.includes(name)) {
           continue;
         }
-        // Skip hooks with comments that contain calls to other hooks
+        // If comments suggest hook usage, skip to avoid false positives
         if (containsUseComments(context, node)) {
           continue;
         }
-        // Skip hooks that are in a vi mock callback
+        // If the hook is defined inside a `vi.mock` callback for testing, skip it
         if (AST.findParentNode(node, AST.isViMockCallback) != null) {
           continue;
         }
+        // If none of the above, it's a regular function with 'use' prefix. Report it
         context.report({
           messageId: "noUnnecessaryUsePrefix",
           node: id ?? node,

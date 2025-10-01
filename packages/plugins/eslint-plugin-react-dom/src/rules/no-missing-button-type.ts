@@ -41,20 +41,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
+      // Resolve the JSX element to its corresponding DOM element type
+      // If it's not a '<button>', skip it
       if (resolver.resolve(node).domElementType !== "button") {
         return;
       }
 
+      // Check if the 'type' attribute already exists on the button element
       if (getJsxAttribute(context, node)("type") != null) {
         return;
       }
 
+      // If the 'type' attribute is missing, report an error
       context.report({
         messageId: "noMissingButtonType",
         node: node.openingElement,
+        // Provide suggestions to automatically fix the issue
         suggest: BUTTON_TYPES.map((type): RuleSuggest<MessageID> => ({
           messageId: "addButtonType",
           data: { type },
+          // The fix function inserts the 'type' attribute with a suggested value
           fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
         })),
       });

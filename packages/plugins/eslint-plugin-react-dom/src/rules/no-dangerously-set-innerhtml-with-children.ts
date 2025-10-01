@@ -32,11 +32,12 @@ export default createRule<[], MessageID>({
 const DSIH = "dangerouslySetInnerHTML";
 
 /**
- * Checks if a JSX child node is considered significant (i.e., not just whitespace for formatting).
- * @param node The JSX child node to check.
- * @returns `true` if the node is significant, `false` otherwise.
+ * Checks if a JSX child node is considered significant (i.e., not just whitespace for formatting)
+ * @param node The JSX child node to check
+ * @returns `true` if the node is significant, `false` otherwise
  */
 function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
+  // Any node that is not plain text is considered significant
   if (!isJsxText(node)) {
     return true;
   }
@@ -44,11 +45,12 @@ function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
   // which is a common pattern for formatting.
   const isFormattingWhitespace = node.raw.trim() === "" && node.raw.includes("\n");
 
+  // The node is significant if it's not just formatting whitespace
   return !isFormattingWhitespace;
 }
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
+  // Fast path: if the file doesn't contain `dangerouslySetInnerHTML`, we don't need to do anything
   if (!context.sourceCode.text.includes(DSIH)) {
     return {};
   }
@@ -56,9 +58,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const findJsxAttribute = getJsxAttribute(context, node);
+      // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
       if (findJsxAttribute(DSIH) == null) return;
+      // Check for a 'children' prop or actual child nodes that are not just whitespace
       const childrenPropOrNode = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
+      // If no children are found, the rule passes
       if (childrenPropOrNode == null) return;
+      // If both 'dangerouslySetInnerHTML' and children are present, report an error
       context.report({
         messageId: "noDangerouslySetInnerhtmlWithChildren",
         node: childrenPropOrNode,

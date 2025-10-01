@@ -53,77 +53,99 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("setState")) {
     return {};
   }
+  // Stack to track class declarations and whether they are React components
   const classEntries: [
     node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
     isComponent: boolean,
   ][] = [];
+  // Stack to track method definitions and whether they are static
   const methodEntries: [
     node: AST.TSESTreeMethodOrProperty,
     isStatic: boolean,
   ][] = [];
+  // Stack to track `setState` call expressions
   const setStateEntries: [
     node: TSESTree.CallExpression,
     hasThisState: boolean,
   ][] = [];
   return {
+    // Push `setState` calls to the stack upon entry
     CallExpression(node) {
       if (!isThisSetState(node)) {
         return;
       }
       setStateEntries.push([node, false]);
     },
+    // Pop `setState` calls from the stack upon exit
     "CallExpression:exit"(node) {
       if (!isThisSetState(node)) {
         return;
       }
       setStateEntries.pop();
     },
+    // Push class declarations to the stack upon entry
     ClassDeclaration(node) {
       classEntries.push([node, isClassComponent(node)]);
     },
+    // Pop class declarations from the stack upon exit
     "ClassDeclaration:exit"() {
       classEntries.pop();
     },
+    // Push class expressions to the stack upon entry
     ClassExpression(node) {
       classEntries.push([node, isClassComponent(node)]);
     },
+    // Pop class expressions from the stack upon exit
     "ClassExpression:exit"() {
       classEntries.pop();
     },
+    // Main logic for detecting `this.state` access
     MemberExpression(node) {
+      // Check for `this` expressions
       if (!AST.isThisExpression(node.object)) {
         return;
       }
+      // Ensure we are inside a React class component
       const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
       if (currClass == null || !isComponent) {
         return;
       }
+      // Ensure we are inside a non-static method
       const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
       if (currMethod == null || isStatic) {
         return;
       }
+      // Ensure we are inside a `setState` call
       const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
       if (setState == null || hasThisState) {
         return;
       }
+      // Check if the property being accessed is `state`
       if (AST.getPropertyName(node.property) !== "state") {
         return;
       }
+      // Report an issue if `this.state` is accessed
       context.report({ messageId: "noAccessStateInSetstate", node });
     },
+    // Push method definitions to the stack upon entry
     MethodDefinition(node) {
       methodEntries.push([node, node.static]);
     },
+    // Pop method definitions from the stack upon exit
     "MethodDefinition:exit"() {
       methodEntries.pop();
     },
+    // Push property definitions to the stack upon entry
     PropertyDefinition(node) {
       methodEntries.push([node, node.static]);
     },
+    // Pop property definitions from the stack upon exit
     "PropertyDefinition:exit"() {
       methodEntries.pop();
     },
+    // Logic for detecting destructuring of `this.state`
     VariableDeclarator(node) {
+      // Get current class and method context
       const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
       if (currClass == null || !isComponent) {
         return;
@@ -132,14 +154,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currMethod == null || isStatic) {
         return;
       }
+      // Ensure we are inside a `setState` call
       const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
       if (setState == null || hasThisState) {
         return;
       }
-      // detect `{ foo, state: baz } = this`
+      // Check for destructuring from `this`
       if (node.init == null || !AST.isThisExpression(node.init) || node.id.type !== T.ObjectPattern) {
         return;
       }
+      // Check if `state` is one of the destructured properties
       const hasState = node
         .id
         .properties
@@ -151,6 +175,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!hasState) {
         return;
       }
+      // Report an issue if `state` is destructured from `this`
       context.report({ messageId: "noAccessStateInSetstate", node });
     },
   };

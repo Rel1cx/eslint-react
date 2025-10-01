@@ -26,11 +26,10 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      useNamespaceImport:
-        "Don't use named imports of 'captureOwnerStack' in files that are bundled for development and production. Use a namespace import instead.",
-      // eslint-disable-next-line perfectionist/sort-objects
       missingDevelopmentOnlyCheck:
         `Don't call 'captureOwnerStack' directly. Use 'if (process.env.NODE_ENV !== "production") {...}' to conditionally access it.`,
+      useNamespaceImport:
+        "Don't use named imports of 'captureOwnerStack' in files that are bundled for development and production. Use a namespace import instead.",
     },
     schema: [],
   },
@@ -46,7 +45,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
+      // Check if the call is to `captureOwnerStack`
       if (!isCaptureOwnerStackCall(context, node)) return;
+      // Check if the call is wrapped in a development-only conditional block
       if (AST.findParentNode(node, isDevelopmentOnlyCheck) == null) {
         context.report({
           messageId: "missingDevelopmentOnlyCheck",
@@ -55,7 +56,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     ImportDeclaration(node) {
+      // Check if the import is from the configured source
       if (node.source.value !== importSource) return;
+      // Iterate over import specifiers to find named imports of `captureOwnerStack`
       for (const specifier of node.specifiers) {
         if (specifier.type !== T.ImportSpecifier) continue;
         if (specifier.imported.type !== T.Identifier) continue;
@@ -70,8 +73,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
+// Helper function to check if a node is a development-only `if` statement
 function isDevelopmentOnlyCheck(node: TSESTree.Node) {
   if (node.type !== T.IfStatement) return false;
+  // Specifically checks for `if (process.env.NODE_ENV !== "production")`
   if (AST.isProcessEnvNodeEnvCompare(node.test, "!==", "production")) return true;
   return false;
 }

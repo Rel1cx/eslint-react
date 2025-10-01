@@ -50,23 +50,32 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Stacks to keep track of the current AST traversal context
   const classEntries: AST.TSESTreeClass[] = [];
   const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
   const constructorEntries: TSESTree.MethodDefinition[] = [];
+  // WeakMap to store state definition information for each class
   const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | unit; isUsed: boolean }>();
+
   function classEnter(node: AST.TSESTreeClass) {
+    // Keep track of the current class being visited
     classEntries.push(node);
   }
+
   function classExit() {
+    // Pop the class when exiting its node
     const currentClass = classEntries.pop();
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     const className = AST.getClassId(currentClass)?.name;
+    // Get state definition and usage status for the current class
     const { node: defNode, isUsed = false } = stateDefs.get(currentClass) ?? {};
+    // If state is not defined or is used, do nothing
     if (defNode == null || isUsed) {
       return;
     }
+    // Report an error if state is defined but not used
     context.report({
       messageId: "noUnusedState",
       node: defNode,
@@ -75,35 +84,46 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
     });
   }
+
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
+    // Keep track of the current method being visited
     methodEntries.push(node);
     const currentClass = classEntries.at(-1);
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     if (node.static) {
+      // `getDerivedStateFromProps` can update state, so we mark state as used
       if (isGetDerivedStateFromProps(node) && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)) {
         const defNode = stateDefs.get(currentClass)?.node;
         stateDefs.set(currentClass, { node: defNode, isUsed: true });
       }
       return;
     }
+    // Detect state definition as a class property (`state = ...`)
     if (AST.getPropertyName(node.key) === "state") {
       stateDefs.set(currentClass, { node: node.key, isUsed: false });
     }
   }
+
   function methodExit() {
+    // Pop the method when exiting its node
     methodEntries.pop();
   }
+
   function constructorEnter(node: TSESTree.MethodDefinition) {
+    // Keep track of the current constructor being visited
     constructorEntries.push(node);
   }
+
   function constructorExit() {
+    // Pop the constructor when exiting its node
     constructorEntries.pop();
   }
 
   return {
     AssignmentExpression(node) {
+      // Detect state definition in constructor (`this.state = ...`)
       if (!isAssignmentToThisState(node)) {
         return;
       }
@@ -111,10 +131,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
+      // Ensure the assignment is within the constructor of the current class
       const currentConstructor = constructorEntries.at(-1);
       if (currentConstructor == null || !currentClass.body.body.includes(currentConstructor)) {
         return;
       }
+      // Record the state definition node
       const isUsed = stateDefs.get(currentClass)?.isUsed ?? false;
       stateDefs.set(currentClass, { node: node.left, isUsed });
     },
@@ -123,10 +145,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ClassExpression: classEnter,
     "ClassExpression:exit": classExit,
     MemberExpression(node) {
+      // Detect state usage (`this.state`)
       if (!AST.isThisExpression(node.object)) {
         return;
       }
-      // detect `this.state`
       if (AST.getPropertyName(node.property) !== "state") {
         return;
       }
@@ -134,16 +156,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
+      // Ensure the usage is within a method of the current class
       const currentMethod = methodEntries.at(-1);
       if (currentMethod == null || currentMethod.static) {
         return;
       }
+      // Ignore usage in constructor, as it's a definition
       if (currentMethod === constructorEntries.at(-1)) {
         return;
       }
       if (!currentClass.body.body.includes(currentMethod)) {
         return;
       }
+      // Mark state as used
       const defNode = stateDefs.get(currentClass)?.node;
       stateDefs.set(currentClass, { node: defNode, isUsed: true });
     },
@@ -162,13 +187,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentMethod == null || currentMethod.static) {
         return;
       }
+      // Ignore usage in constructor
       if (currentMethod === constructorEntries.at(-1)) {
         return;
       }
       if (!currentClass.body.body.includes(currentMethod)) {
         return;
       }
-      // detect `{ foo, state: baz } = this`
+      // Detect state usage via destructuring (`const { state } = this`)
       if (node.init == null || !AST.isThisExpression(node.init) || node.id.type !== T.ObjectPattern) {
         return;
       }
@@ -181,6 +207,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!hasState) {
         return;
       }
+      // Mark state as used
       const defNode = stateDefs.get(currentClass)?.node;
       stateDefs.set(currentClass, { node: defNode, isUsed: true });
     },

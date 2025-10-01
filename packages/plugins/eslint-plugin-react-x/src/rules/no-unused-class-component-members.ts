@@ -20,6 +20,7 @@ type Property =
   | AST.TSESTreeMethodOrProperty["key"]
   | TSESTree.MemberExpression["property"];
 
+// A set of React lifecycle methods that are implicitly used and should not be flagged as unused
 const LIFECYCLE_METHODS = new Set([
   "componentDidCatch",
   "componentDidMount",
@@ -38,6 +39,7 @@ const LIFECYCLE_METHODS = new Set([
   "UNSAFE_componentWillUpdate",
 ]);
 
+// Checks if a property key is a literal or a non-computed identifier
 function isKeyLiteral(
   node:
     | TSESTree.MemberExpression
@@ -71,18 +73,27 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // A stack to keep track of class nodes, to handle nested classes
   const classEntries: AST.TSESTreeClass[] = [];
+  // A stack to keep track of method/property nodes
   const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
+  // Stores all defined properties and methods for each class component
   const propertyDefs = new WeakMap<AST.TSESTreeClass, Set<Property>>();
+  // Stores all used properties and methods for each class component
   const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
+
+  // Called when the AST traversal enters a class declaration or expression
   function classEnter(node: AST.TSESTreeClass) {
     classEntries.push(node);
     if (!isClassComponent(node)) {
       return;
     }
+    // Initialize sets for definitions and usages for the current class component
     propertyDefs.set(node, new Set());
     propertyUsages.set(node, new Set());
   }
+
+  // Called when the AST traversal exits a class declaration or expression
   function classExit() {
     const currentClass = classEntries.pop();
     if (currentClass == null || !isClassComponent(currentClass)) {
@@ -94,15 +105,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (defs == null) {
       return;
     }
+    // Compare definitions and usages to find unused members
     for (const def of defs) {
       const methodName = AST.getPropertyName(def);
       if (methodName == null) {
         continue;
       }
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (usages?.has(methodName) || LIFECYCLE_METHODS.has(methodName)) {
+      // If a member is used or is a lifecycle method, skip it
+      if (((usages?.has(methodName)) ?? false) || LIFECYCLE_METHODS.has(methodName)) {
         continue;
       }
+      // Report members that are defined but not used
       context.report({
         messageId: "noUnusedClassComponentMembers",
         node: def,
@@ -113,19 +126,25 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     }
   }
+
+  // Called when the AST traversal enters a method or property definition
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
     methodEntries.push(node);
     const currentClass = classEntries.at(-1);
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
+    // Ignore static members
     if (node.static) {
       return;
     }
+    // Add the member to the definitions set for the current class
     if (isKeyLiteral(node, node.key)) {
       propertyDefs.get(currentClass)?.add(node.key);
     }
   }
+
+  // Called when the AST traversal exits a method or property definition
   function methodExit() {
     methodEntries.pop();
   }
@@ -135,6 +154,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "ClassDeclaration:exit": classExit,
     ClassExpression: classEnter,
     "ClassExpression:exit": classExit,
+    // Visitor for MemberExpression to track property usages and definitions
     MemberExpression(node) {
       const currentClass = classEntries.at(-1);
       const currentMethod = methodEntries.at(-1);
@@ -144,15 +164,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
+      // Check for expressions like `this.property`
       if (!AST.isThisExpression(node.object) || !isKeyLiteral(node, node.property)) {
         return;
       }
+      // Detect assignments like `this.property = xxx` as definitions
       if (node.parent.type === T.AssignmentExpression && node.parent.left === node) {
-        // detect `this.property = xxx`
         propertyDefs.get(currentClass)?.add(node.property);
         return;
       }
-      // detect `this.property()`, `x = this.property`, etc.
+      // Detect usages like `this.property()` or `x = this.property`
       const propertyName = AST.getPropertyName(node.property);
       if (propertyName != null) {
         propertyUsages.get(currentClass)?.add(propertyName);
@@ -162,6 +183,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "MethodDefinition:exit": methodExit,
     PropertyDefinition: methodEnter,
     "PropertyDefinition:exit": methodExit,
+    // Visitor for VariableDeclarator to track property usages via destructuring
     VariableDeclarator(node) {
       const currentClass = classEntries.at(-1);
       const currentMethod = methodEntries.at(-1);
@@ -171,12 +193,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
-      // detect `{ foo, bar: baz } = this`
+      // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
       if (node.init != null && AST.isThisExpression(node.init) && node.id.type === T.ObjectPattern) {
         for (const prop of node.id.properties) {
           if (prop.type === T.Property && isKeyLiteral(prop, prop.key)) {
             const keyName = AST.getPropertyName(prop.key);
             if (keyName != null) {
+              // Add destructured properties to the usages set
               propertyUsages.get(currentClass)?.add(keyName);
             }
           }

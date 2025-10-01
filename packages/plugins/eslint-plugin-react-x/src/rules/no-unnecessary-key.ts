@@ -39,15 +39,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("key=")) return {};
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
+      // Check if the attribute is a `key` prop
       if (node.name.name !== "key") return;
       const jsxElement = node.parent.parent;
       const initialScope = context.sourceCode.getScope(jsxElement);
+      // Find the parent `.map()` callback function, if it exists
       const pMapCallback = AST.findParentNode(jsxElement, isMapCallback);
+      // If not inside a `.map()` callback in the same scope, exit
       if (pMapCallback == null || context.sourceCode.getScope(pMapCallback) !== initialScope) return;
+      // Find the nearest parent that is either the map callback or a JSX element with a `key` prop
       const pKeyedElementOrElse = AST.findParentNode(
         jsxElement,
         (n) => {
+          // Stop searching if we reach the map callback
           if (n === pMapCallback) return true;
+          // Check if the node is a JSX element with a `key` prop
           return AST.isJSXElement(n)
             && n
               .openingElement
@@ -59,13 +65,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               );
         },
       );
-      // No parent JSX element with a key prop found between the map callback and this element
+      // If the search stopped at the map callback, it means no parent element had a key
+      // In this case, the current key is necessary, so we exit
       if (pKeyedElementOrElse == null || pKeyedElementOrElse === pMapCallback) return;
+      // Otherwise, a parent element with a `key` was found, so the current `key` is unnecessary
       context.report({ messageId: "noUnnecessaryKey", node });
     },
   };
 }
 
+/**
+ * Checks if a node is a callback function passed to an array's `.map()` method
+ * @param node The node to check
+ * @returns `true` if the node is a map callback, `false` otherwise
+ */
 function isMapCallback(node: TSESTree.Node) {
   if (node.parent == null) return false;
   if (!AST.isArrayMapCall(node.parent)) return false;

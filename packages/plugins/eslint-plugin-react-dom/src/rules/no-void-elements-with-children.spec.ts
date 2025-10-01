@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
-          data: { element: "br" },
+          data: { elementType: "br" },
         },
       ],
     },
@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
-          data: { element: "br" },
+          data: { elementType: "br" },
         },
       ],
     },
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
-          data: { element: "img" },
+          data: { elementType: "img" },
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
-          data: { element: "img" },
+          data: { elementType: "img" },
         },
       ],
       settings: {
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "noVoidElementsWithChildren",
-          data: { element: "br" },
+          data: { elementType: "br" },
         },
       ],
     },

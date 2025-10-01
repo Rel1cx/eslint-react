@@ -35,43 +35,54 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `createContext` is not present in the file
+  // Fast path: if 'createContext' is not in the file, this rule doesn't apply
   if (!context.sourceCode.text.includes("createContext")) return {};
-  // `React.createContext` calls
+  // Stores all `React.createContext` call expressions
   const createCalls: TSESTree.CallExpression[] = [];
-  // `context.displayName = ...` assignment expressions
+  // Stores all `displayName` assignment expressions
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
+
   return {
+    // Collect all `*.displayName = '...'` assignments
     [AST.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: AST.DisplayNameAssignmentExpression) {
       displayNameAssignments.push(node);
     },
+    // Collect all `createContext()` calls
     CallExpression(node) {
       if (!isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
+    // After traversing the whole program, check for missing displayNames
     "Program:exit"() {
       for (const call of createCalls) {
+        // Get the variable identifier for the context
         const id = getInstanceId(call);
         if (id == null) {
+          // Report an error if the context is not assigned to a variable
           context.report({
             messageId: "noMissingContextDisplayName",
             node: call,
           });
           continue;
         }
+        // Check if a `displayName` is assigned to this context variable
         const hasDisplayNameAssignment = displayNameAssignments
           .some((node) => {
             const left = node.left;
             if (left.type !== T.MemberExpression) return false;
             const object = left.object;
+            // Check if the object in the assignment matches the context's identifier
             return isInstanceIdEqual(context, id, object);
           });
+        // If no `displayName` is found, report an error and provide a fix
         if (!hasDisplayNameAssignment) {
           context.report({
             messageId: "noMissingContextDisplayName",
             node: id,
             fix(fixer) {
+              // Ensure the fix is applied correctly
               if (id.type !== T.Identifier || id.parent !== call.parent) return [];
+              // Insert `ContextName.displayName = "ContextName";` after the creation
               return fixer.insertTextAfter(
                 context.sourceCode.getTokenAfter(call) ?? call,
                 [

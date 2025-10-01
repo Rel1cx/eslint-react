@@ -38,14 +38,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `useFormState` is not present in the file
   if (!context.sourceCode.text.includes("useFormState")) return {};
   const settings = getSettingsFromContext(context);
+  // This rule only applies to React 19.0.0 and above
   if (compare(settings.version, "19.0.0", "<")) return {};
 
+  // Keep track of 'react-dom' import names (e.g., 'ReactDOM')
   const reactDomNames = new Set<string>();
+  // Keep track of local names for 'useFormState' import
   const useFormStateNames = new Set<string>();
 
   return {
+    // This visitor function is called for every function call in the code
     CallExpression(node) {
       switch (true) {
+        // Case 1: Direct call like `useFormState(...)`
         case node.callee.type === T.Identifier
           && useFormStateNames.has(node.callee.name):
           context.report({
@@ -54,6 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix: getFix(context, node),
           });
           return;
+        // Case 2: Member call like `ReactDOM.useFormState(...)`
         case node.callee.type === T.MemberExpression
           && node.callee.object.type === T.Identifier
           && node.callee.property.type === T.Identifier
@@ -67,17 +73,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return;
       }
     },
+    // This visitor function is called for every import declaration
     ImportDeclaration(node) {
       const [baseSource] = node.source.value.split("/");
+      // We are only interested in imports from 'react-dom'
       if (baseSource !== "react-dom") return;
       for (const specifier of node.specifiers) {
         switch (specifier.type) {
+          // Handles: import { useFormState } from 'react-dom';
           case T.ImportSpecifier:
             if (specifier.imported.type !== T.Identifier) continue;
             if (specifier.imported.name === "useFormState") {
               useFormStateNames.add(specifier.local.name);
             }
             continue;
+          // Handles: import ReactDOM from 'react-dom'; or import * as ReactDOM from 'react-dom';
           case T.ImportDefaultSpecifier:
           case T.ImportNamespaceSpecifier:
             reactDomNames.add(specifier.local.name);
@@ -91,8 +101,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function getFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
   return (fixer: RuleFixer) => {
+    // The fix consists of two parts:
     return [
+      // 1. Add `import { useActionState } from "react";` at the top of the file
       fixer.insertTextBefore(context.sourceCode.ast, `import { useActionState } from "${importSource}";\n`),
+      // 2. Replace `useFormState` with `useActionState` in the function call
       fixer.replaceText(node.callee, "useActionState"),
     ];
   };

@@ -58,6 +58,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       const propName = getJsxAttributeName(context, node);
 
       switch (true) {
+        // Enforce shorthand syntax for boolean attributes (e.g., `prop` instead of `prop={true}`)
         case policy === 1
           && value?.type === T.JSXExpressionContainer
           && value.expression.type === T.Literal
@@ -72,6 +73,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           });
           break;
         }
+        // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
         case policy === -1
           && value === null: { // eslint-disable-line local/prefer-eqeq-nullish-comparison
           context.report({

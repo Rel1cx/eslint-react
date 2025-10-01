@@ -32,22 +32,30 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `componentWillUpdate` is not present in the file
+  // Fast path: skip if `componentDidUpdate` is not present in the file
   if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!isThisSetState(node)) {
         return;
       }
-      const clazz = AST.findParentNode(node, isClassComponent);
-      const method = AST.findParentNode(node, (n) => n === clazz || isComponentDidUpdate(n));
-      if (clazz == null || method == null || method === clazz) return;
-      const methodScope = context.sourceCode.getScope(method);
-      const upperScope = context.sourceCode.getScope(node).upper;
-      if (
-        method.parent === clazz.body
-        && upperScope === methodScope
-      ) {
+      // Find the enclosing class component
+      const enclosingClassNode = AST.findParentNode(node, isClassComponent);
+      // Find the enclosing 'componentDidUpdate' method
+      const enclosingMethodNode = AST.findParentNode(node, (n) => n === enclosingClassNode || isComponentDidUpdate(n));
+
+      // Ensure 'this.setState' is inside a 'componentDidUpdate' method within a class component
+      if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
+        return;
+      }
+
+      // Get the scope of the 'componentDidUpdate' method
+      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
+      // Get the scope where 'this.setState' is called
+      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
+
+      // Report an error if 'this.setState' is called directly inside 'componentDidUpdate'
+      if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
         context.report({
           messageId: "noSetStateInComponentDidUpdate",
           node,
