@@ -19,14 +19,14 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces explicit `sandbox` attribute for `iframe` elements.",
+      description: "Enforces explicit `sandbox` prop for `iframe` elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      addIframeSandbox: "Add 'sandbox' attribute with value '{{value}}'.",
-      noMissingIframeSandbox: "Add missing 'sandbox' attribute on 'iframe' component.",
+      addIframeSandbox: "Add 'sandbox' prop with value '{{value}}'.",
+      noMissingIframeSandbox: "Add missing 'sandbox' prop on 'iframe' component.",
     },
     schema: [],
   },
@@ -44,17 +44,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If the element is not an iframe, we don't need to do anything.
       if (domElementType !== "iframe") return;
 
-      const findJsxAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
+      // Find the 'sandbox' prop on the iframe element.
+      const sandboxProp = getJsxAttribute(context, node)("sandbox");
 
-      // Find the 'sandbox' attribute on the iframe element.
-      const sandboxAttr = findJsxAttribute("sandbox");
-
-      // If the 'sandbox' attribute is missing, report an error.
-      if (sandboxAttr == null) {
+      // If the 'sandbox' prop is missing, report an error.
+      if (sandboxProp == null) {
         context.report({
           messageId: "noMissingIframeSandbox",
           node: node.openingElement,
@@ -71,14 +65,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Resolve the value of the 'sandbox' attribute.
-      const sandboxValue = resolveJsxAttributeValue(context, sandboxAttr);
-      // If the value is a static string, the attribute is correctly used.
+      const sandboxValue = resolveJsxAttributeValue(context, sandboxProp);
+      // If the value is a static string, the prop is correctly used.
       if (typeof sandboxValue.toStatic("sandbox") === "string") return;
 
       // If the value is not a static string (e.g., a variable), report an error.
       context.report({
         messageId: "noMissingIframeSandbox",
-        node: sandboxValue.node ?? sandboxAttr,
+        node: sandboxValue.node ?? sandboxProp,
         suggest: [
           {
             messageId: "addIframeSandbox",
@@ -86,8 +80,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix(fixer) {
               // Do not try to fix spread attributes.
               if (sandboxValue.kind.startsWith("spread")) return null;
-              // Suggest replacing the attribute with a valid one.
-              return fixer.replaceText(sandboxAttr, `sandbox=""`);
+              // Suggest replacing the prop with a valid one.
+              return fixer.replaceText(sandboxProp, `sandbox=""`);
             },
           },
         ],

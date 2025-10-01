@@ -6,7 +6,9 @@
 
 # Function: getJsxAttribute()
 
-> **getJsxAttribute**(`context`, `attributes`, `initialScope?`): (`name`) => `undefined` \| `TSESTreeJSXAttributeLike`
+> **getJsxAttribute**(`context`, `node`, `initialScope?`): (`name`) => `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
+
+Get a function to find JSX attributes by name, considering direct attributes and spread attributes.
 
 ## Parameters
 
@@ -14,17 +16,25 @@
 
 `RuleContext`
 
-### attributes
+The ESLint rule context
 
-`TSESTreeJSXAttributeLike`[]
+### node
+
+`JSXElement`
+
+The JSX element node
 
 ### initialScope?
 
 `Scope`
 
+Optional initial scope for variable resolution
+
 ## Returns
 
-> (`name`): `undefined` \| `TSESTreeJSXAttributeLike`
+A function that takes an attribute name and returns the corresponding JSX attribute node or undefined
+
+> (`name`): `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
 
 ### Parameters
 
@@ -34,4 +44,4 @@
 
 ### Returns
 
-`undefined` \| `TSESTreeJSXAttributeLike`
+`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`

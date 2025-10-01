@@ -122,7 +122,6 @@
 - [getJsxConfigFromContext](functions/getJsxConfigFromContext.md)
 - [getJsxElementType](functions/getJsxElementType.md)
 - [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md)
-- [hasJsxAttribute](functions/hasJsxAttribute.md)
 - [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md)
 - [isAssignmentToThisState](functions/isAssignmentToThisState.md)
 - [isChildrenOfCreateElement](functions/isChildrenOfCreateElement.md)

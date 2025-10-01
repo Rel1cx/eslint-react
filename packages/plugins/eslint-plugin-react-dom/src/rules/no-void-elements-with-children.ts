@@ -1,4 +1,4 @@
-import { hasJsxAttribute } from "@eslint-react/core";
+import { getJsxAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -57,11 +57,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      const { attributes } = node.openingElement;
-      const initialScope = context.sourceCode.getScope(node);
+      const findJsxAttribute = getJsxAttribute(context, node);
 
-      const hasChildrenProp = hasJsxAttribute(context, "children", attributes, initialScope);
-      const hasDangerouslySetInnerHTML = hasJsxAttribute(context, "dangerouslySetInnerHTML", attributes, initialScope);
+      const hasChildrenProp = findJsxAttribute("children") != null;
+      const hasDangerouslySetInnerHTML = findJsxAttribute("dangerouslySetInnerHTML") != null;
 
       if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
         context.report({

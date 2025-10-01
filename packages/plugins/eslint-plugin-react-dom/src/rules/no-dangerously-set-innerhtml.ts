@@ -35,16 +35,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes(DSIH)) return {};
   return {
     JSXElement(node) {
-      const findJsxAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      const attr = findJsxAttribute(DSIH);
-      if (attr == null) return;
+      const dsihProp = getJsxAttribute(context, node)(DSIH);
+      if (dsihProp == null) return;
       context.report({
         messageId: "noDangerouslySetInnerhtml",
-        node: attr,
+        node: dsihProp,
       });
     },
   };

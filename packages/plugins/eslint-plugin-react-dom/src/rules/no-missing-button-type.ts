@@ -45,13 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      const findJsxAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-
-      if (findJsxAttribute("type") != null) {
+      if (getJsxAttribute(context, node)("type") != null) {
         return;
       }
 

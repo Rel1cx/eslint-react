@@ -42,8 +42,7 @@ export function createJsxElementResolver(context: RuleContext) {
       }
 
       // Look for the polymorphic prop (e.g., 'as', 'component') in the element's attributes
-      const findAttribute = getJsxAttribute(context, node.openingElement.attributes, context.sourceCode.getScope(node));
-      const polymorphicProp = findAttribute(polymorphicPropName);
+      const polymorphicProp = getJsxAttribute(context, node)(polymorphicPropName);
 
       // If the polymorphic prop exists, try to determine its static value
       if (polymorphicProp != null) {
