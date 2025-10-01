@@ -33,7 +33,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `memo` or `forwardRef` is not present in the file
   if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
 
-  // Initialize the component collector
   const {
     ctx,
     listeners,
@@ -48,10 +47,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     ...listeners,
-    // After the program is parsed, check all collected components
     "Program:exit"(program) {
       const components = ctx.getAllComponents(program);
-      // Iterate over all found components
       for (const { node, displayName, flag } of components.values()) {
         // Check if the component is wrapped with `forwardRef` or `memo`
         const isMemoOrForwardRef = (flag & (ComponentFlag.ForwardRef | ComponentFlag.Memo)) > 0n;

@@ -33,16 +33,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node) {
-      // Find the index of the first spread prop
       let firstSpreadPropIndex: null | number = null;
       for (const [index, prop] of node.attributes.entries()) {
-        // Check if the prop is a spread prop
         if (prop.type === T.JSXSpreadAttribute) {
-          // Store the index of the first spread prop found
           firstSpreadPropIndex ??= index;
           continue;
         }
-        // If no spread prop has been found yet, continue to the next prop
         if (firstSpreadPropIndex == null) {
           continue;
         }

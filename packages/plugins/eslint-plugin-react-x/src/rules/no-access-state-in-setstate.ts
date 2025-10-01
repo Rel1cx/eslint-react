@@ -54,50 +54,42 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return {};
   }
   // Stack to track class declarations and whether they are React components
-  const classEntries: [
-    node: TSESTree.ClassDeclaration | TSESTree.ClassExpression,
-    isComponent: boolean,
-  ][] = [];
+  const classStack: [node: TSESTree.ClassDeclaration | TSESTree.ClassExpression, isComponent: boolean][] = [];
   // Stack to track method definitions and whether they are static
-  const methodEntries: [
-    node: AST.TSESTreeMethodOrProperty,
-    isStatic: boolean,
-  ][] = [];
+  const methodStack: [node: AST.TSESTreeMethodOrProperty, isStatic: boolean][] = [];
   // Stack to track `setState` call expressions
-  const setStateEntries: [
-    node: TSESTree.CallExpression,
-    hasThisState: boolean,
-  ][] = [];
+  const setStateStack: [node: TSESTree.CallExpression, hasThisState: boolean][] = [];
+
   return {
     // Push `setState` calls to the stack upon entry
     CallExpression(node) {
       if (!isThisSetState(node)) {
         return;
       }
-      setStateEntries.push([node, false]);
+      setStateStack.push([node, false]);
     },
     // Pop `setState` calls from the stack upon exit
     "CallExpression:exit"(node) {
       if (!isThisSetState(node)) {
         return;
       }
-      setStateEntries.pop();
+      setStateStack.pop();
     },
     // Push class declarations to the stack upon entry
     ClassDeclaration(node) {
-      classEntries.push([node, isClassComponent(node)]);
+      classStack.push([node, isClassComponent(node)]);
     },
     // Pop class declarations from the stack upon exit
     "ClassDeclaration:exit"() {
-      classEntries.pop();
+      classStack.pop();
     },
     // Push class expressions to the stack upon entry
     ClassExpression(node) {
-      classEntries.push([node, isClassComponent(node)]);
+      classStack.push([node, isClassComponent(node)]);
     },
     // Pop class expressions from the stack upon exit
     "ClassExpression:exit"() {
-      classEntries.pop();
+      classStack.pop();
     },
     // Main logic for detecting `this.state` access
     MemberExpression(node) {
@@ -106,17 +98,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Ensure we are inside a React class component
-      const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
+      const [currClass, isComponent = false] = classStack.at(-1) ?? [];
       if (currClass == null || !isComponent) {
         return;
       }
       // Ensure we are inside a non-static method
-      const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
+      const [currMethod, isStatic = false] = methodStack.at(-1) ?? [];
       if (currMethod == null || isStatic) {
         return;
       }
       // Ensure we are inside a `setState` call
-      const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
+      const [setState, hasThisState = false] = setStateStack.at(-1) ?? [];
       if (setState == null || hasThisState) {
         return;
       }
@@ -129,33 +121,33 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     // Push method definitions to the stack upon entry
     MethodDefinition(node) {
-      methodEntries.push([node, node.static]);
+      methodStack.push([node, node.static]);
     },
     // Pop method definitions from the stack upon exit
     "MethodDefinition:exit"() {
-      methodEntries.pop();
+      methodStack.pop();
     },
     // Push property definitions to the stack upon entry
     PropertyDefinition(node) {
-      methodEntries.push([node, node.static]);
+      methodStack.push([node, node.static]);
     },
     // Pop property definitions from the stack upon exit
     "PropertyDefinition:exit"() {
-      methodEntries.pop();
+      methodStack.pop();
     },
     // Logic for detecting destructuring of `this.state`
     VariableDeclarator(node) {
       // Get current class and method context
-      const [currClass, isComponent = false] = classEntries.at(-1) ?? [];
+      const [currClass, isComponent = false] = classStack.at(-1) ?? [];
       if (currClass == null || !isComponent) {
         return;
       }
-      const [currMethod, isStatic = false] = methodEntries.at(-1) ?? [];
+      const [currMethod, isStatic = false] = methodStack.at(-1) ?? [];
       if (currMethod == null || isStatic) {
         return;
       }
       // Ensure we are inside a `setState` call
-      const [setState, hasThisState = false] = setStateEntries.at(-1) ?? [];
+      const [setState, hasThisState = false] = setStateStack.at(-1) ?? [];
       if (setState == null || hasThisState) {
         return;
       }

@@ -51,20 +51,20 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Stacks to keep track of the current AST traversal context
-  const classEntries: AST.TSESTreeClass[] = [];
-  const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
-  const constructorEntries: TSESTree.MethodDefinition[] = [];
+  const classStack: AST.TSESTreeClass[] = [];
+  const methodStack: AST.TSESTreeMethodOrProperty[] = [];
+  const constructorStack: TSESTree.MethodDefinition[] = [];
   // WeakMap to store state definition information for each class
   const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | unit; isUsed: boolean }>();
 
   function classEnter(node: AST.TSESTreeClass) {
     // Keep track of the current class being visited
-    classEntries.push(node);
+    classStack.push(node);
   }
 
   function classExit() {
     // Pop the class when exiting its node
-    const currentClass = classEntries.pop();
+    const currentClass = classStack.pop();
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
@@ -87,8 +87,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
     // Keep track of the current method being visited
-    methodEntries.push(node);
-    const currentClass = classEntries.at(-1);
+    methodStack.push(node);
+    const currentClass = classStack.at(-1);
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
@@ -108,17 +108,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   function methodExit() {
     // Pop the method when exiting its node
-    methodEntries.pop();
+    methodStack.pop();
   }
 
   function constructorEnter(node: TSESTree.MethodDefinition) {
     // Keep track of the current constructor being visited
-    constructorEntries.push(node);
+    constructorStack.push(node);
   }
 
   function constructorExit() {
     // Pop the constructor when exiting its node
-    constructorEntries.pop();
+    constructorStack.pop();
   }
 
   return {
@@ -127,12 +127,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isAssignmentToThisState(node)) {
         return;
       }
-      const currentClass = classEntries.at(-1);
+      const currentClass = classStack.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       // Ensure the assignment is within the constructor of the current class
-      const currentConstructor = constructorEntries.at(-1);
+      const currentConstructor = constructorStack.at(-1);
       if (currentConstructor == null || !currentClass.body.body.includes(currentConstructor)) {
         return;
       }
@@ -152,17 +152,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (AST.getPropertyName(node.property) !== "state") {
         return;
       }
-      const currentClass = classEntries.at(-1);
+      const currentClass = classStack.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
       // Ensure the usage is within a method of the current class
-      const currentMethod = methodEntries.at(-1);
+      const currentMethod = methodStack.at(-1);
       if (currentMethod == null || currentMethod.static) {
         return;
       }
       // Ignore usage in constructor, as it's a definition
-      if (currentMethod === constructorEntries.at(-1)) {
+      if (currentMethod === constructorStack.at(-1)) {
         return;
       }
       if (!currentClass.body.body.includes(currentMethod)) {
@@ -179,16 +179,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     PropertyDefinition: methodEnter,
     "PropertyDefinition:exit": methodExit,
     VariableDeclarator(node) {
-      const currentClass = classEntries.at(-1);
+      const currentClass = classStack.at(-1);
       if (currentClass == null || !isClassComponent(currentClass)) {
         return;
       }
-      const currentMethod = methodEntries.at(-1);
+      const currentMethod = methodStack.at(-1);
       if (currentMethod == null || currentMethod.static) {
         return;
       }
       // Ignore usage in constructor
-      if (currentMethod === constructorEntries.at(-1)) {
+      if (currentMethod === constructorStack.at(-1)) {
         return;
       }
       if (!currentClass.body.body.includes(currentMethod)) {

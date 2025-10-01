@@ -30,7 +30,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Get JSX configuration from context and annotations
   const jsxConfig = {
     ...getJsxConfigFromContext(context),
     ...getJsxConfigFromAnnotation(context),

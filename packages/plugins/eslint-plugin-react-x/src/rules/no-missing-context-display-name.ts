@@ -52,7 +52,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
-    // After traversing the whole program, check for missing displayNames
     "Program:exit"() {
       for (const call of createCalls) {
         // Get the variable identifier for the context

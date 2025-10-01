@@ -34,9 +34,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `propTypes` is not present in the file for performance
-  if (!context.sourceCode.text.includes("propTypes")) {
-    return {};
-  }
+  if (!context.sourceCode.text.includes("propTypes")) return {};
   return {
     // Handles cases like: `MyComponent.propTypes = ...`
     AssignmentExpression(node) {

@@ -74,9 +74,9 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // A stack to keep track of class nodes, to handle nested classes
-  const classEntries: AST.TSESTreeClass[] = [];
+  const classStack: AST.TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes
-  const methodEntries: AST.TSESTreeMethodOrProperty[] = [];
+  const methodStack: AST.TSESTreeMethodOrProperty[] = [];
   // Stores all defined properties and methods for each class component
   const propertyDefs = new WeakMap<AST.TSESTreeClass, Set<Property>>();
   // Stores all used properties and methods for each class component
@@ -84,7 +84,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Called when the AST traversal enters a class declaration or expression
   function classEnter(node: AST.TSESTreeClass) {
-    classEntries.push(node);
+    classStack.push(node);
     if (!isClassComponent(node)) {
       return;
     }
@@ -95,7 +95,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Called when the AST traversal exits a class declaration or expression
   function classExit() {
-    const currentClass = classEntries.pop();
+    const currentClass = classStack.pop();
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
@@ -129,8 +129,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Called when the AST traversal enters a method or property definition
   function methodEnter(node: AST.TSESTreeMethodOrProperty) {
-    methodEntries.push(node);
-    const currentClass = classEntries.at(-1);
+    methodStack.push(node);
+    const currentClass = classStack.at(-1);
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
@@ -146,7 +146,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Called when the AST traversal exits a method or property definition
   function methodExit() {
-    methodEntries.pop();
+    methodStack.pop();
   }
 
   return {
@@ -156,8 +156,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "ClassExpression:exit": classExit,
     // Visitor for MemberExpression to track property usages and definitions
     MemberExpression(node) {
-      const currentClass = classEntries.at(-1);
-      const currentMethod = methodEntries.at(-1);
+      const currentClass = classStack.at(-1);
+      const currentMethod = methodStack.at(-1);
       if (currentClass == null || currentMethod == null) {
         return;
       }
@@ -185,8 +185,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "PropertyDefinition:exit": methodExit,
     // Visitor for VariableDeclarator to track property usages via destructuring
     VariableDeclarator(node) {
-      const currentClass = classEntries.at(-1);
-      const currentMethod = methodEntries.at(-1);
+      const currentClass = classStack.at(-1);
+      const currentMethod = methodStack.at(-1);
       if (currentClass == null || currentMethod == null) {
         return;
       }

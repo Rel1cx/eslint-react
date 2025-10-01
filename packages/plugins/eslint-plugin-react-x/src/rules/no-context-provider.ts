@@ -44,11 +44,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Get the full name of the JSX element: "Foo.MyContext.Provider"
       const fullName = getJsxElementType(context, node);
       const parts = fullName.split(".");
-      // Get the last part of the name: "Provider"
       const selfName = parts.pop();
-      // Reconstruct the context name: "Foo.MyContext"
       const contextFullName = parts.join(".");
-      // Get the context name itself: "MyContext"
       const contextSelfName = parts.pop();
       // Exit if the element is not a "Provider"
       if (selfName !== "Provider") return;
@@ -57,7 +54,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       context.report({
         messageId: "noContextProvider",
         node,
-        // Provide an auto-fix
         fix(fixer) {
           // Ensure the context name is a valid component name before applying the fix
           if (!isComponentNameLoose(contextSelfName)) return null;

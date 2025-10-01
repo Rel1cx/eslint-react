@@ -53,7 +53,6 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   // Get the rule policy from options, default to 1 (enforce shorthand)
   const policy = context.options[0] ?? defaultOptions[0];
-  // Get JSX configuration from context and comments
   const jsxConfig = {
     ...getJsxConfigFromContext(context),
     ...getJsxConfigFromAnnotation(context),
