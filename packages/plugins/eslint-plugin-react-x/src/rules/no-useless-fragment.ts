@@ -109,8 +109,6 @@ function checkNode(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
 ) {
-  // const initialScope = context.sourceCode.getScope(node);
-
   // Skip if the fragment has a key prop (indicates it's needed for lists)
   if (node.type === T.JSXElement && getJsxAttribute(context, node)("key") != null) {
     return;
