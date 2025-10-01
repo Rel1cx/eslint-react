@@ -35,24 +35,34 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `defaultProps` is not present in the file
   if (!context.sourceCode.text.includes("defaultProps")) return {};
   return {
+    // Visitor for assignment expressions, e.g., `Component.defaultProps = ...`
     AssignmentExpression(node) {
+      // Check if it's a simple assignment (`=`) to a member expression
       if (node.operator !== "=" || node.left.type !== T.MemberExpression) {
         return;
       }
       const { object, property } = node.left;
+      // Ensure the object being assigned to is an identifier (e.g., `Component`)
       if (object.type !== T.Identifier) {
         return;
       }
+      // Ensure the property being assigned is `defaultProps`
       if (property.type !== T.Identifier || property.name !== "defaultProps") {
         return;
       }
+      // Check if the identifier's name follows component naming conventions
       if (!isComponentNameLoose(object.name)) {
         return;
       }
+      // Find the variable declaration corresponding to the component identifier
       const variable = findVariable(object.name, context.sourceCode.getScope(node));
+      // Get the definition node of that variable
       const variableNode = getVariableDefinitionNode(variable, 0);
+      // Ensure the variable is defined
       if (variableNode == null) return;
+      // Ensure the variable is defined as a function, which components are
       if (!AST.isFunction(variableNode)) return;
+      // If all checks pass, report the use of `defaultProps`
       context.report({ messageId: "noDefaultProps", node: property });
     },
   };

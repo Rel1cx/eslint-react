@@ -41,6 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     [`ImportDeclaration ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
       const importSource = node.parent.source.value;
+      // Check if the import source is one of the targeted 'react-dom' packages
       if (!importSources.includes(importSource)) return;
       const hasOtherSpecifiers = node.parent.specifiers.length > 1;
       context.report({
@@ -54,13 +55,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const isTypeImport = node.parent.importKind === "type";
           const importStringPrefix = `import${isTypeImport ? " type" : ""}`;
           const importSourceQuoted = `${quote}${importSource}${quote}`;
+          // If there are no other specifiers, replace the entire declaration
+          // with a namespace import.
           if (!hasOtherSpecifiers) {
             return fixer.replaceText(
               node.parent,
               `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
             );
           }
-          // remove the default specifier and prepend the namespace import specifier
+          // If there are other specifiers (e.g., named imports),
+          // remove the default specifier and add a new namespace import declaration
           const specifiers = importDeclarationText
             .slice(importDeclarationText.indexOf("{"), importDeclarationText.indexOf("}") + 1);
           return fixer.replaceText(

@@ -31,22 +31,22 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
-      // This rule only applies to host elements (e.g., <div />, <span />), not custom components.
+      // This rule only applies to host elements (e.g., <div />, <span />), not custom components
       if (!isJsxHostElement(context, node)) {
         return;
       }
 
-      // Find the 'style' prop on the element.
+      // Find the 'style' prop on the element
       const styleProp = getJsxAttribute(context, node)("style");
       if (styleProp == null) {
         return;
       }
 
-      // Resolve the static value of the 'style' prop.
+      // Resolve the static value of the 'style' prop
       const styleValue = resolveJsxAttributeValue(context, styleProp);
       const staticValue = styleValue.toStatic();
 
-      // If the resolved value is a string, report an error.
+      // If the resolved value is a string, report an error
       // e.g., <div style="color: red;" />
       if (typeof staticValue === "string") {
         context.report({

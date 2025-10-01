@@ -32,23 +32,27 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Checks if a JSX text node or a literal appears to be a comment
   function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
+    // If the node is within a JSX attribute or expression container, it's not a text node comment
     if (AST.isOneOf([T.JSXAttribute, T.JSXExpressionContainer])(node.parent)) {
       return false;
     }
+    // Examines the node's raw text to see if it starts with '//' or '/*'
     const rawValue = context.sourceCode.getText(node);
     return /^\s*\/(?:\/|\*)/mu.test(rawValue);
   }
+  // This function serves as the visitor for both JSXText and Literal nodes
   const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal): void => {
+    // Ensures the node is a direct child of a JSX element or fragment
     if (!AST.isOneOf([T.JSXElement, T.JSXFragment])(node.parent)) {
       return;
     }
+    // Skips nodes that do not appear to be comments
     if (!hasCommentLike(node)) {
       return;
     }
-    if (!node.parent.type.includes("JSX")) {
-      return;
-    }
+    // Reports an issue if a comment-like text node is found
     context.report({
       messageId: "jsxNoCommentTextnodes",
       node,

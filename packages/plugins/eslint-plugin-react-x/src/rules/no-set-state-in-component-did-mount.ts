@@ -39,15 +39,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isThisSetState(node)) {
         return;
       }
-      const clazz = AST.findParentNode(node, isClassComponent);
-      const method = AST.findParentNode(node, (n) => n === clazz || isComponentDidMount(n));
-      if (clazz == null || method == null || method === clazz) return;
-      const methodScope = context.sourceCode.getScope(method);
-      const upperScope = context.sourceCode.getScope(node).upper;
-      if (
-        method.parent === clazz.body
-        && upperScope === methodScope
-      ) {
+      // Find the enclosing class component
+      const enclosingClassNode = AST.findParentNode(node, isClassComponent);
+      // Find the enclosing 'componentDidMount' method
+      const enclosingMethodNode = AST.findParentNode(node, (n) => n === enclosingClassNode || isComponentDidMount(n));
+
+      // Ensure 'this.setState' is inside a 'componentDidMount' method within a class component
+      if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
+        return;
+      }
+
+      // Get the scope of the 'componentDidMount' method
+      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
+      // Get the scope where 'this.setState' is called
+      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
+
+      // Report an error if 'this.setState' is called directly inside 'componentDidMount'
+      if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
         context.report({
           messageId: "noSetStateInComponentDidMount",
           node,

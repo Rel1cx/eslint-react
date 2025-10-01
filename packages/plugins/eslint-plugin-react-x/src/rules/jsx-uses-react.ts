@@ -30,6 +30,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Get JSX configuration from context and annotations
   const jsxConfig = {
     ...getJsxConfigFromContext(context),
     ...getJsxConfigFromAnnotation(context),
@@ -37,13 +38,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const { jsx, jsxFactory, jsxFragmentFactory } = jsxConfig;
 
+  // If using the new JSX transform (React 17+), this rule is not needed
   if (jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev) return {};
 
+  // Marks the JSX factory (e.g., 'React') as used when a JSX element is found
   function handleJsxElement(node: TSESTree.Node) {
     context.sourceCode.markVariableAsUsed(jsxFactory, node);
     debugReport(context, node, jsxFactory);
   }
 
+  // Marks the JSX fragment factory (e.g., 'React.Fragment') as used when a JSX fragment is found
   function handleJsxFragment(node: TSESTree.Node) {
     context.sourceCode.markVariableAsUsed(jsxFragmentFactory, node);
     debugReport(context, node, jsxFragmentFactory);

@@ -113,12 +113,12 @@ function getCorrelativeTokens(context: RuleContext, node: TSESTree.Node) {
   const tokens = [];
 
   // If this is not the only entry, then the line above this one
-  // will become the last line, and should not have a trailing comma.
+  // will become the last line, and should not have a trailing comma
   if (tokenAfter?.value !== "," && tokenBefore?.value === ",") {
     tokens.push(tokenBefore);
   }
 
-  // If this is not the last entry, then we need to remove the comma from this line.
+  // If this is not the last entry, then we need to remove the comma from this line
   if (tokenAfter?.value === ",") {
     tokens.push(tokenAfter);
   }

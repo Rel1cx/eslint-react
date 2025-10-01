@@ -17,8 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.",
+      description: "Disallow calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
@@ -40,15 +39,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isThisSetState(node)) {
         return;
       }
-      const clazz = AST.findParentNode(node, isClassComponent);
-      const method = AST.findParentNode(node, (n) => n === clazz || isComponentWillUpdate(n));
-      if (clazz == null || method == null || method === clazz) return;
-      const methodScope = context.sourceCode.getScope(method);
-      const upperScope = context.sourceCode.getScope(node).upper;
-      if (
-        method.parent === clazz.body
-        && upperScope === methodScope
-      ) {
+      // Find the enclosing class component
+      const enclosingClassNode = AST.findParentNode(node, isClassComponent);
+      // Find the enclosing 'componentWillUpdate' method
+      const enclosingMethodNode = AST.findParentNode(node, (n) => n === enclosingClassNode || isComponentWillUpdate(n));
+
+      // Ensure 'this.setState' is inside a 'componentWillUpdate' method within a class component
+      if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
+        return;
+      }
+
+      // Get the scope of the 'componentWillUpdate' method
+      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
+      // Get the scope where 'this.setState' is called
+      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
+
+      // Report an error if 'this.setState' is called directly inside 'componentWillUpdate'
+      if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
         context.report({
           messageId: "noSetStateInComponentWillUpdate",
           node,

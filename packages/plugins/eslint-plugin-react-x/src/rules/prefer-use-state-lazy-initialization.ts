@@ -15,14 +15,14 @@ export const RULE_FEATURES = [
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-// identifier names for allowed function names
+// Allow primitive wrapper types, as they are not expensive
 const ALLOW_LIST = [
   "Boolean",
   "String",
   "Number",
 ];
 
-// rule takes inspiration from https://github.com/facebook/react/issues/26520
+// This rule takes inspiration from https://github.com/facebook/react/issues/26520
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -44,26 +44,35 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
+      // Check if the function call is `useState`
       if (!isUseStateCall(node)) {
         return;
       }
+      // Get the first argument of `useState`
       const [useStateInput] = node.arguments;
       if (useStateInput == null) {
         return;
       }
+      // Check for `new` expressions, e.g., `new MyClass()`
       for (const expr of AST.getNestedNewExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
+        // Ignore primitive wrappers like `new String('foo')`
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
+        // Ignore if it's inside a `use()` call
         if (AST.findParentNode(expr, isUseCall) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,
         });
       }
+      // Check for function call expressions, e.g., `myFunction()`
       for (const expr of AST.getNestedCallExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
+        // Ignore other React hooks
         if (isReactHookName(expr.callee.name)) continue;
+        // Ignore primitive wrappers like `String('foo')`
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
+        // Ignore if it's inside a `use()` call
         if (AST.findParentNode(expr, isUseCall) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",

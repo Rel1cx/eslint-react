@@ -51,7 +51,9 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  // Get the rule policy from options, default to 1 (enforce shorthand)
   const policy = context.options[0] ?? defaultOptions[0];
+  // Get JSX configuration from context and comments
   const jsxConfig = {
     ...getJsxConfigFromContext(context),
     ...getJsxConfigFromAnnotation(context),
@@ -59,12 +61,17 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
   const { jsxFragmentFactory } = jsxConfig;
 
+  // Apply logic based on the policy
   return match<number, RuleListener>(policy)
+    // Policy 1: Enforce shorthand fragment syntax (<>...</>)
     .with(1, () => ({
       JSXElement(node: TSESTree.JSXElement) {
+        // Check if the element is a Fragment component
         if (!isJsxFragmentElement(context, node)) return;
+        // Ignore if the Fragment has attributes (e.g., key)
         const hasAttributes = node.openingElement.attributes.length > 0;
         if (hasAttributes) return;
+        // Report an error and suggest using shorthand syntax
         context.report({
           messageId: "jsxShorthandFragment",
           node,
@@ -74,6 +81,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             if (closingElement == null) {
               return [];
             }
+            // Replace <Fragment> with <> and </Fragment> with </>
             return [
               fixer.replaceTextRange([openingElement.range[0], openingElement.range[1]], "<>"),
               fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
@@ -82,14 +90,17 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         });
       },
     }))
+    // Policy -1: Enforce longhand fragment syntax (<Fragment>...</Fragment>)
     .with(-1, () => ({
       JSXFragment(node: TSESTree.JSXFragment) {
+        // Report an error for shorthand syntax and suggest using the longhand component
         context.report({
           messageId: "jsxShorthandFragment",
           node,
           data: { message: "Use 'Fragment' component instead of fragment shorthand syntax." },
           fix: (fixer) => {
             const { closingFragment, openingFragment } = node;
+            // Replace <> with <Fragment> and </> with </Fragment>
             return [
               fixer.replaceTextRange(
                 [
@@ -110,5 +121,6 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         });
       },
     }))
+    // Do nothing for other policies
     .otherwise(() => ({}));
 }

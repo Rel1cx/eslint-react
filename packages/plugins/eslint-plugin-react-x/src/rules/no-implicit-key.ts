@@ -36,14 +36,18 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
+      // Find the 'key' prop, including those from spread attributes
       const keyProp = getJsxAttribute(context, node.parent)("key");
+      // Check if the 'key' prop is explicitly defined on the element
       const isKeyPropOnElement = node.attributes
         .some((n) =>
           n.type === T.JSXAttribute
           && n.name.type === T.JSXIdentifier
           && n.name.name === "key"
         );
+      // If a 'key' prop exists but is not explicitly on the element, it's implicit
       if (keyProp != null && !isKeyPropOnElement) {
+        // Report an error for the implicit 'key'
         context.report({ messageId: "noImplicitKey", node: keyProp });
       }
     },

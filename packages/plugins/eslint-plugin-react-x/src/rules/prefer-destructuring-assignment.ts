@@ -40,10 +40,12 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = useComponentCollector(context);
+  // Store all member expressions with their scope
   const memberExpressionWithNames: [Scope, MemberExpressionWithObjectName][] = [];
 
   return {
     ...listeners,
+    // Collect all member expressions (e.g., `props.name`) to check later
     MemberExpression(node) {
       if (isMemberExpressionWithObjectName(node)) {
         const scope = context.sourceCode.getScope(node);
@@ -52,12 +54,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
 
+    // After traversing the whole AST, check the collected member expressions
     "Program:exit"(program) {
       const components = [
         ...ctx
           .getAllComponents(program)
           .values(),
       ];
+      // Check if a node is a function component collected by `useComponentCollector`
       function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
         if (!AST.isFunction(block)) {
           return false;
@@ -68,9 +72,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           && components.some((component) => component.node === block);
       }
 
+      // For each member expression, find its parent component
       for (const [initialScope, memberExpression] of memberExpressionWithNames) {
         let scope = initialScope;
         let isComponent = isFunctionComponent(scope.block);
+        // Traverse up the scope chain to find the component scope
         while (
           !isComponent
           && scope.upper != null
@@ -79,6 +85,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           scope = scope.upper;
           isComponent = isFunctionComponent(scope.block);
         }
+        // If no component scope is found, skip
         if (!isComponent) {
           continue;
         }
@@ -87,10 +94,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         const [props, ctx] = component.params;
+        // Check if a node is an identifier with the same name as the member expression's object
         const isMatch = (node: null | TSESTree.Node | undefined) =>
           node != null
           && node.type === T.Identifier
           && node.name === memberExpression.object.name;
+        // If the member expression's object is `props`, report an error
         if (isMatch(props)) {
           context.report({
             messageId: "preferDestructuringAssignment",
@@ -100,6 +109,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             },
           });
         }
+        // If the member expression's object is `context`, report an error
         if (isMatch(ctx)) {
           context.report({
             messageId: "preferDestructuringAssignment",

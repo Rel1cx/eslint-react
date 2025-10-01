@@ -37,11 +37,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node) {
       const { callee } = node;
       switch (callee.type) {
+        // Handles cases like `findDOMNode()`.
         case T.Identifier:
           if (callee.name === findDOMNode) {
             context.report({ messageId: "noFindDomNode", node });
           }
           return;
+        // Handles cases like `ReactDOM.findDOMNode()`.
         case T.MemberExpression:
           if (callee.property.type === T.Identifier && callee.property.name === findDOMNode) {
             context.report({ messageId: "noFindDomNode", node });

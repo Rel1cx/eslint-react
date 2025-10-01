@@ -33,16 +33,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXOpeningElement(node) {
       switch (node.name.type) {
         case T.JSXIdentifier: {
-          // Skip JsxIntrinsicElements
+          // Skip JsxIntrinsicElements (e.g., `<div>`)
           if (/^[a-z]/u.test(node.name.name)) {
             return;
           }
+          // Mark custom components (e.g., `<Component />`) as used
           context.sourceCode.markVariableAsUsed(node.name.name, node);
           break;
         }
         case T.JSXMemberExpression: {
           const { object } = node.name;
           if (object.type === T.JSXIdentifier) {
+            // Mark the base of member expressions (e.g., `React` in `<React.Fragment />`) as used
             context.sourceCode.markVariableAsUsed(object.name, node);
           }
           break;

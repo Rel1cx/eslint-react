@@ -44,6 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
       if (!isAssignmentToThisState(node)) return;
+      // Find the parent class of the assignment
       const parentClass = AST.findParentNode(
         node,
         AST.isOneOf([
@@ -51,7 +52,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           T.ClassExpression,
         ]),
       );
+      // If the assignment is not inside a class, do nothing
       if (parentClass == null) return;
+      // Report an error if 'this.state' is directly mutated in a class component
+      // and the mutation is not inside the constructor
       if (
         isClassComponent(parentClass)
         && context.sourceCode.getScope(node).block !== AST.findParentNode(node, isConstructorFunction)

@@ -19,10 +19,12 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const REACT_CHILDREN_METHOD = ["forEach", "map"] as const;
 
+// Checks if a method name is 'forEach' or 'map'
 function isReactChildrenMethod(name: string): name is typeof REACT_CHILDREN_METHOD[number] {
   return REACT_CHILDREN_METHOD.includes(name as never);
 }
 
+// Checks if a CallExpression is `React.Children.map` or `React.Children.forEach`
 function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource = "react" } = coerceSettings(context.settings);
   const { callee } = node;
@@ -42,6 +44,8 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
   return false;
 }
 
+// Gets the name of the index parameter from a map-like function's callback
+// e.g., in `data.map((item, index) => ...)` it returns 'index'
 function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | unit {
   const { callee } = node;
   if (callee.type !== T.MemberExpression) {
@@ -51,10 +55,12 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return unit;
   }
   const { name } = callee.property;
+  // Determines the position of the index parameter for array methods like 'map', 'forEach', etc
   const indexPosition = AST.getArrayMethodCallbackIndexParamPosition(name);
   if (indexPosition === -1) {
     return unit;
   }
+  // The callback function is the first argument, or the second for `React.Children` methods
   const callbackArg = node.arguments[isUsingReactChildren(context, node) ? 1 : 0];
   if (callbackArg == null) {
     return unit;
@@ -73,6 +79,8 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     : unit;
 }
 
+// Recursively collects all identifiers from a binary expression
+// e.g., for `a + b + c`, it returns identifiers for a, b, and c
 function getIdentifiersFromBinaryExpression(
   side:
     | TSESTree.BinaryExpression
@@ -109,20 +117,24 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // A stack to keep track of index parameter names from nested map calls
   const indexParamNames: Array<string | unit> = [];
 
+  // Checks if a given node is an identifier that matches a known array index parameter name
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
     return node.type === T.Identifier
       && indexParamNames.some((name) => name != null && name === node.name);
   }
 
+  // Checks if a call expression is `React.createElement` or `React.cloneElement`
   function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
     return isCreateElementCall(context, node) || isCloneElementCall(context, node);
   }
 
+  // Generates report descriptors for various ways an array index can be used as a key
   function getReportDescriptors(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
     switch (node.type) {
-      // key={bar}
+      // Case: key={index}
       case T.Identifier: {
         if (indexParamNames.some((name) => name != null && name === node.name)) {
           return [{
@@ -132,7 +144,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         return [];
       }
-      // key={`foo-${bar}`} or key={'foo' + bar}
+      // Case: key={`foo-${index}`} or key={'foo' + index}
       case T.TemplateLiteral:
       case T.BinaryExpression: {
         const descriptors: ReportDescriptor<MessageID>[] = [];
@@ -149,10 +161,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         return descriptors;
       }
-      // key={bar.toString()} or key={String(bar)}
+      // Case: key={index.toString()} or key={String(index)}
       case T.CallExpression: {
         switch (true) {
-          // key={bar.toString()}
+          // Case: key={index.toString()}
           case node.callee.type === T.MemberExpression
             && node.callee.property.type === T.Identifier
             && node.callee.property.name === "toString"
@@ -162,7 +174,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               node: node.callee.object,
             }];
           }
-          // key={String(bar)}
+          // Case: key={String(index)}
           case node.callee.type === T.Identifier
             && node.callee.name === "String"
             && node.arguments[0] != null
@@ -180,10 +192,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     CallExpression(node) {
+      // Push the index parameter name (if any) to the stack
       indexParamNames.push(getMapIndexParamName(context, node));
       if (node.arguments.length === 0) {
         return;
       }
+      // Check for array index usage in `createElement` and `cloneElement` calls
       if (!isCreateOrCloneElementCall(node)) {
         return;
       }
@@ -192,30 +206,38 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       for (const prop of props.properties) {
+        // Find the 'key' prop
         if (!isMatching({ key: { name: "key" } })(prop)) {
           continue;
         }
         if (!("value" in prop)) {
           continue;
         }
+        // Check its value and report if it uses an array index
         for (const descriptor of getReportDescriptors(prop.value)) {
           report(context)(descriptor);
         }
       }
     },
+    // When exiting a CallExpression, pop the index name from the stack to manage scope
     "CallExpression:exit"() {
       indexParamNames.pop();
     },
+    // Handles JSX attributes
     JSXAttribute(node) {
+      // Check only for the 'key' attribute
       if (node.name.name !== "key") {
         return;
       }
+      // Ignore if we are not inside a map-like call
       if (indexParamNames.length === 0) {
         return;
       }
+      // The key's value must be an expression container (e.g., key={...})
       if (node.value?.type !== T.JSXExpressionContainer) {
         return;
       }
+      // Check the expression and report if it uses an array index
       for (const descriptor of getReportDescriptors(node.value.expression)) {
         report(context)(descriptor);
       }

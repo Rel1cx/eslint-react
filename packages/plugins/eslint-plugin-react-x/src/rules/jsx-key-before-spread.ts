@@ -17,11 +17,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces that the 'key' attribute is placed before the spread attribute in JSX elements.",
+      description: "Enforces that the 'key' prop is placed before the spread prop in JSX elements.",
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      jsxKeyBeforeSpread: "The 'key' attribute must be placed before the spread attribute.",
+      jsxKeyBeforeSpread: "The 'key' prop must be placed before any spread props.",
     },
     schema: [],
   },
@@ -33,19 +33,24 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node) {
-      let firstSpreadAttributeIndex: null | number = null;
-      for (const [index, attr] of node.attributes.entries()) {
-        if (attr.type === T.JSXSpreadAttribute) {
-          firstSpreadAttributeIndex ??= index;
+      // Find the index of the first spread prop
+      let firstSpreadPropIndex: null | number = null;
+      for (const [index, prop] of node.attributes.entries()) {
+        // Check if the prop is a spread prop
+        if (prop.type === T.JSXSpreadAttribute) {
+          // Store the index of the first spread prop found
+          firstSpreadPropIndex ??= index;
           continue;
         }
-        if (firstSpreadAttributeIndex == null) {
+        // If no spread prop has been found yet, continue to the next prop
+        if (firstSpreadPropIndex == null) {
           continue;
         }
-        if (attr.name.name === "key" && index > firstSpreadAttributeIndex) {
+        // If a 'key' prop is found after a spread prop, report an error
+        if (prop.name.name === "key" && index > firstSpreadPropIndex) {
           context.report({
             messageId: "jsxKeyBeforeSpread",
-            node: attr,
+            node: prop,
           });
         }
       }
