@@ -1,3 +1,12 @@
+## v2.0.5 (2025-10-02)
+
+### 🪄 Improvements
+
+- Move error marker from `dangerouslySetInnerHTML` to children in `dom/no-dangerously-set-innerhtml-with-children` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1256
+- Update default React version in settings from `19.1.0` to `19.2.0` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1259
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.4...v2.0.5
+
 ## v2.0.4 (2025-10-01)
 
 ### ✨ New
