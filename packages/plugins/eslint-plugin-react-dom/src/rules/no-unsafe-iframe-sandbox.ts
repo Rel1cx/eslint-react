@@ -50,23 +50,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (resolver.resolve(node).domElementType !== "iframe") {
         return;
       }
-      const findJsxAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-      const sandboxAttr = findJsxAttribute("sandbox");
-      if (sandboxAttr == null) {
+      const sandboxProp = getJsxAttribute(context, node)("sandbox");
+      if (sandboxProp == null) {
         return;
       }
 
-      const sandboxValue = resolveJsxAttributeValue(context, sandboxAttr);
+      const sandboxValue = resolveJsxAttributeValue(context, sandboxProp);
       const sandboxValueStatic = sandboxValue.toStatic("sandbox");
 
       if (isUnsafeSandboxCombination(sandboxValueStatic)) {
         context.report({
           messageId: "noUnsafeIframeSandbox",
-          node: sandboxValue.node ?? sandboxAttr,
+          node: sandboxValue.node ?? sandboxProp,
         });
       }
     },

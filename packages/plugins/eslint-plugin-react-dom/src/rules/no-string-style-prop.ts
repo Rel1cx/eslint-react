@@ -36,20 +36,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      const findJsxAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
-
-      // Find the 'style' attribute on the element.
-      const styleAttr = findJsxAttribute("style");
-      if (styleAttr == null) {
+      // Find the 'style' prop on the element.
+      const styleProp = getJsxAttribute(context, node)("style");
+      if (styleProp == null) {
         return;
       }
 
-      // Resolve the static value of the 'style' attribute.
-      const styleValue = resolveJsxAttributeValue(context, styleAttr);
+      // Resolve the static value of the 'style' prop.
+      const styleValue = resolveJsxAttributeValue(context, styleProp);
       const staticValue = styleValue.toStatic();
 
       // If the resolved value is a string, report an error.
@@ -57,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (typeof staticValue === "string") {
         context.report({
           messageId: "noStringStyleProp",
-          node: styleValue.node ?? styleAttr,
+          node: styleValue.node ?? styleProp,
         });
       }
     },

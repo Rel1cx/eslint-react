@@ -55,17 +55,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
-      const findJsxAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
+      const findJsxAttribute = getJsxAttribute(context, node);
       if (findJsxAttribute(DSIH) == null) return;
-      const children = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
-      if (children == null) return;
+      const childrenPropOrNode = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
+      if (childrenPropOrNode == null) return;
       context.report({
         messageId: "noDangerouslySetInnerhtmlWithChildren",
-        node: children,
+        node: childrenPropOrNode,
       });
     },
   };

@@ -29,9 +29,9 @@ function isExternalLinkLike(value: unknown): boolean {
 }
 
 /**
- * Checks if a rel attribute value contains the necessary security attributes.
+ * Checks if a rel prop value contains the necessary security attributes.
  * At minimum, it should contain "noreferrer".
- * @param value - The rel attribute value to check
+ * @param value - The rel prop value to check
  * @returns Whether the rel value is considered secure
  */
 function isSafeRel(value: unknown): boolean {
@@ -71,31 +71,27 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "a") return;
 
       // Get access to the component attributes
-      const findAttribute = getJsxAttribute(
-        context,
-        node.openingElement.attributes,
-        context.sourceCode.getScope(node),
-      );
+      const findAttribute = getJsxAttribute(context, node);
 
       // Check if target="_blank" is present
-      const targetAttribute = findAttribute("target");
-      if (targetAttribute == null) return;
+      const targetProp = findAttribute("target");
+      if (targetProp == null) return;
 
-      const targetAttributeValue = resolveJsxAttributeValue(context, targetAttribute).toStatic("target");
-      if (targetAttributeValue !== "_blank") return;
+      const targetValue = resolveJsxAttributeValue(context, targetProp).toStatic("target");
+      if (targetValue !== "_blank") return;
 
       // Check if href points to an external resource
-      const hrefAttribute = findAttribute("href");
-      if (hrefAttribute == null) return;
+      const hrefProp = findAttribute("href");
+      if (hrefProp == null) return;
 
-      const hrefAttributeValue = resolveJsxAttributeValue(context, hrefAttribute).toStatic("href");
-      if (!isExternalLinkLike(hrefAttributeValue)) return;
+      const hrefValue = resolveJsxAttributeValue(context, hrefProp).toStatic("href");
+      if (!isExternalLinkLike(hrefValue)) return;
 
-      // Check if rel attribute exists and is secure
-      const relAttribute = findAttribute("rel");
+      // Check if rel prop exists and is secure
+      const relProp = findAttribute("rel");
 
-      // No rel attribute case - suggest adding one
-      if (relAttribute == null) {
+      // No rel prop case - suggest adding one
+      if (relProp == null) {
         context.report({
           messageId: "noUnsafeTargetBlank",
           node: node.openingElement,
@@ -112,18 +108,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // Check if existing rel attribute is secure
-      const relAttributeValue = resolveJsxAttributeValue(context, relAttribute).toStatic("rel");
-      if (isSafeRel(relAttributeValue)) return;
+      // Check if existing rel prop is secure
+      const relValue = resolveJsxAttributeValue(context, relProp).toStatic("rel");
+      if (isSafeRel(relValue)) return;
 
-      // Existing rel attribute is not secure - suggest replacing it
+      // Existing rel prop is not secure - suggest replacing it
       context.report({
         messageId: "noUnsafeTargetBlank",
-        node: relAttribute,
+        node: relProp,
         suggest: [{
           messageId: "addRelNoreferrerNoopener",
           fix(fixer) {
-            return fixer.replaceText(relAttribute, `rel="noreferrer noopener"`);
+            return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
           },
         }],
       });

@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
-import { hasJsxAttribute, isJsxFragmentElement, isJsxHostElement, isJsxText } from "@eslint-react/core";
+import { getJsxAttribute, isJsxFragmentElement, isJsxHostElement, isJsxText } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/kit";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -109,10 +109,8 @@ function checkNode(
   node: TSESTree.JSXElement | TSESTree.JSXFragment,
   allowExpressions: boolean,
 ) {
-  const initialScope = context.sourceCode.getScope(node);
-
   // Skip if the fragment has a key prop (indicates it's needed for lists)
-  if (node.type === T.JSXElement && hasJsxAttribute(context, "key", node.openingElement.attributes, initialScope)) {
+  if (node.type === T.JSXElement && getJsxAttribute(context, node)("key") != null) {
     return;
   }
 
