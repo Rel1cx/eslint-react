@@ -154,7 +154,7 @@ export const normalizeSettings = ({
     importSource,
     polymorphicPropName,
     version: match(version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.1.0"))
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.0"))
       .otherwise(identity),
   } as const satisfies ESLintReactSettingsNormalized;
 };
