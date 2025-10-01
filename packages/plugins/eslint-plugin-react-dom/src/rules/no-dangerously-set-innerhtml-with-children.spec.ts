@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         function Abc() {
           return (
             <>
-              {/* Error on div 1: A DOM component cannot use both 'children' and 'dangerouslySetInnerHTML'. eslint @eslint-react/dom/no-dangerously-set-innerhtml-with-children */}
+              {/* Error on div 1: A DOM component cannot use both children and 'dangerouslySetInnerHTML'. eslint @eslint-react/dom/no-dangerously-set-innerhtml-with-children */}
               <div dangerouslySetInnerHTML={{ __html: 'Hello World' }}>
                 Goodbye World
               </div>

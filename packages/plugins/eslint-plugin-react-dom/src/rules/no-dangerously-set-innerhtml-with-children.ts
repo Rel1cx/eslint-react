@@ -20,8 +20,7 @@ export default createRule<[], MessageID>({
       [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
-      noDangerouslySetInnerhtmlWithChildren:
-        "A DOM component cannot use both 'children' and 'dangerouslySetInnerHTML'.",
+      noDangerouslySetInnerhtmlWithChildren: "A DOM component cannot use both children and 'dangerouslySetInnerHTML'.",
     },
     schema: [],
   },
