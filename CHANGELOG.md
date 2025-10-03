@@ -1,3 +1,11 @@
+## v2.0.6 (2025-10-03)
+
+### 🐞 Fixes
+
+- Fix 'all' preset, closes #1260 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1261
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.5...v2.0.6
+
 ## v2.0.5 (2025-10-02)
 
 ### 🪄 Improvements
