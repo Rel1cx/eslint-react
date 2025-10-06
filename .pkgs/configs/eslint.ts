@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
+import type { Linter } from "eslint";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
 import pluginFunction from "eslint-plugin-function";
 import { jsdoc } from "eslint-plugin-jsdoc";
@@ -97,7 +98,7 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-export const strictTypeChecked = defineConfig([
+export const strictTypeChecked: Linter.Config[] = defineConfig([
   {
     ignores: GLOB_JS,
   },
@@ -220,7 +221,7 @@ export const strictTypeChecked = defineConfig([
   },
 ]);
 
-export const disableTypeChecked = defineConfig([
+export const disableTypeChecked: Linter.Config[] = defineConfig([
   {
     extends: [
       tseslint.configs.disableTypeChecked,

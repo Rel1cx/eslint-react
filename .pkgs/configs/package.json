@@ -19,18 +19,18 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.37.0",
     "@stylistic/eslint-plugin": "^5.4.0",
     "eslint-plugin-de-morgan": "^2.0.0",
     "eslint-plugin-function": "^0.0.31",
-    "eslint-plugin-jsdoc": "^60.7.1",
-    "eslint-plugin-perfectionist": "^4.15.0",
+    "eslint-plugin-jsdoc": "^60.8.2",
+    "eslint-plugin-perfectionist": "^4.15.1",
     "eslint-plugin-regexp": "^2.10.0",
     "eslint-plugin-unicorn": "^61.0.2",
     "typescript-eslint": "^8.45.0"
   },
   "peerDependencies": {
-    "eslint": "^9.36.0",
+    "eslint": "^9.37.0",
     "typescript": "^5.9.3"
   }
 }
