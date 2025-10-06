@@ -41,6 +41,7 @@ export default createRule<Options, MessageID>({
     },
     schema: [{
       type: "object",
+      additionalProperties: false,
       properties: {
         forbid: {
           type: "array",
