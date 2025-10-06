@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/utils": "^8.45.0"
+    "@typescript-eslint/utils": "^8.46.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
