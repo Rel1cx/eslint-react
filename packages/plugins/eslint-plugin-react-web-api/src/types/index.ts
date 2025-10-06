@@ -1,3 +1,3 @@
-export type * from "./EventListener";
-export type * from "./Observer";
-export type * from "./Timer";
+export type * from "./event-listener";
+export type * from "./observer";
+export type * from "./timer";

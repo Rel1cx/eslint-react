@@ -39,9 +39,9 @@ type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
 type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
 type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
 
-export type AEntry = EventListenerEntry & { kind: "addEventListener" };
+export type AEntry = EventListenerEntry & { method: "addEventListener" };
 
-export type REntry = EventListenerEntry & { kind: "removeEventListener" };
+export type REntry = EventListenerEntry & { method: "removeEventListener" };
 
 // #endregion
 
@@ -256,11 +256,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           checkInlineFunction(node, callKind, opts);
           aEntries.push({
             ...opts,
-            kind: "addEventListener",
             type,
             node,
             callee,
             listener,
+            method: "addEventListener",
             phase: fKind,
           });
         })
@@ -276,11 +276,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           checkInlineFunction(node, callKind, opts);
           rEntries.push({
             ...opts,
-            kind: "removeEventListener",
             type,
             node,
             callee,
             listener,
+            method: "removeEventListener",
             phase: fKind,
           });
         })

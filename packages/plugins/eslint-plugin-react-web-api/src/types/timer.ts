@@ -1,7 +1,12 @@
 import type { SemanticEntry } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { TimerKind } from "./TimerKind";
+export type TimerKind =
+  | "timeout"
+  | "interval"
+  | "immediate"
+  | "animationFrame"
+  | "idleCallback";
 
 export interface TimerEntry extends SemanticEntry {
   kind: TimerKind;

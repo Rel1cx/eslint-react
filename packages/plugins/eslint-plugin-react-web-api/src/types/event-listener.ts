@@ -4,19 +4,19 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 export type EventListenerEntry =
   | {
-    kind: "addEventListener";
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
     callee: TSESTree.Node;
     capture: boolean | unit;
     listener: TSESTree.Node;
+    method: "addEventListener";
     signal: TSESTree.Node | unit;
   } & SemanticEntry
   | {
-    kind: "removeEventListener";
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
     callee: TSESTree.Node;
     capture: boolean | unit;
     listener: TSESTree.Node;
+    method: "removeEventListener";
   } & SemanticEntry;

@@ -2,29 +2,25 @@
 import type { SemanticEntry } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import type { ObserverKind } from "./ObserverKind";
+export type ObserverKind =
+  | "IntersectionObserver"
+  | "ResizeObserver"
+  | "MutationObserver"
+  | "PerformanceObserver";
 
 export type ObserverEntry =
   | {
-    kind: "disconnect";
+    kind: ObserverKind;
     node: TSESTree.CallExpression;
     callee: TSESTree.Node;
     observer: TSESTree.Node;
-    observerKind: ObserverKind;
+    method: "disconnect";
   } & SemanticEntry
   | {
-    kind: "observe";
+    kind: ObserverKind;
     node: TSESTree.CallExpression;
     element: TSESTree.Node;
     callee: TSESTree.Node;
     observer: TSESTree.Node;
-    observerKind: ObserverKind;
-  } & SemanticEntry
-  | {
-    kind: "unobserve";
-    node: TSESTree.CallExpression;
-    element: TSESTree.Node;
-    callee: TSESTree.Node;
-    observer: TSESTree.Node;
-    observerKind: ObserverKind;
+    method: "observe" | "unobserve";
   } & SemanticEntry;

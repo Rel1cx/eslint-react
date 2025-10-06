@@ -15,7 +15,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
-import type { ObserverEntry, ObserverMethod } from "../types";
+import type { ObserverEntry } from "../types";
 import { createRule } from "../utils";
 
 // #region Rule Metadata
@@ -34,12 +34,11 @@ export type MessageID =
 // #region Types
 
 type FunctionKind = ComponentPhaseKind | "other";
-type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
-type CallKind = ObserverMethod | EffectMethodKind | "other";
+type CallKind = ObserverEntry["method"] | "useEffect" | "useInsertionEffect" | "useLayoutEffect" | "other";
 
-export type OEntry = ObserverEntry & { kind: "observe" };
-export type UEntry = ObserverEntry & { kind: "unobserve" };
-export type DEntry = ObserverEntry & { kind: "disconnect" };
+export type OEntry = ObserverEntry & { method: "observe" };
+export type UEntry = ObserverEntry & { method: "unobserve" };
+export type DEntry = ObserverEntry & { method: "disconnect" };
 
 // #endregion
 
@@ -146,11 +145,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       match(getCallKind(context, node))
         .with("disconnect", () => {
           dEntries.push({
-            kind: "disconnect",
+            kind: "ResizeObserver",
             node,
             callee: node.callee,
+            method: "disconnect",
             observer: object,
-            observerKind: "ResizeObserver",
             phase: fKind,
           });
         })
@@ -160,12 +159,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           oEntries.push({
-            kind: "observe",
+            kind: "ResizeObserver",
             node,
             callee: node.callee,
             element,
+            method: "observe",
             observer: object,
-            observerKind: "ResizeObserver",
             phase: fKind,
           });
         })
@@ -175,12 +174,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           uEntries.push({
-            kind: "unobserve",
+            kind: "ResizeObserver",
             node,
             callee: node.callee,
             element,
+            method: "unobserve",
             observer: object,
-            observerKind: "ResizeObserver",
             phase: fKind,
           });
         })
