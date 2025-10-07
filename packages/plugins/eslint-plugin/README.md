@@ -25,6 +25,7 @@
 - [Benchmark](#benchmark)
 - [FAQ](#faq)
 - [Roadmap](#roadmap)
+- [Disclaimer](#disclaimer)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -164,6 +165,10 @@ export default defineConfig([
 ## Roadmap
 
 - [Milestone 3.0 ↗](https://eslint-react.xyz/docs/roadmap#milestone-30-tbd)
+
+## Disclaimer
+
+ESLint React is not affiliated with Meta Corporation or [facebook/react](https://github.com/facebook/react) project or React team, nor is it endorsed or sponsored by them.
 
 ## Contributing
 
