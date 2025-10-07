@@ -75,7 +75,7 @@ export default {
      */
     ["dom"]: domConfig,
     /**
-     * Enable all non-deprecated rules from the `x`, `dom`, and `web-api` presets
+     * Enable all non-deprecated rules from the `x` and `dom` presets
      * This preset sets the severity of these rules to `"error"`
      */
     ["no-deprecated"]: noDeprecatedConfig,
