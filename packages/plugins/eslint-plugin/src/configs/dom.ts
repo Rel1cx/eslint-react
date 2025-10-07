@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/kit";
-import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 import reactDom from "eslint-plugin-react-dom";
 
 export const name = "@eslint-react/dom";
@@ -24,8 +23,4 @@ export const rules = {
 
 export const plugins = {
   "@eslint-react/dom": reactDom,
-};
-
-export const settings = {
-  "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
 };
