@@ -52,7 +52,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.43.1",
+    "@effect/language-service": "^0.43.2",
     "@effect/platform": "^0.92.1",
     "@effect/platform-node": "^0.98.3",
     "@eslint/compat": "^1.4.0",

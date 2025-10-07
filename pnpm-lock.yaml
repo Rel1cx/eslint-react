@@ -27,8 +27,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.43.1
-        version: 0.43.1
+        specifier: ^0.43.2
+        version: 0.43.2
       '@effect/platform':
         specifier: ^0.92.1
         version: 0.92.1(effect@3.18.4)
@@ -329,8 +329,8 @@ importers:
         version: 0.3.4(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.43.1
-        version: 0.43.1
+        specifier: ^0.43.2
+        version: 0.43.2
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -1944,8 +1944,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.43.1':
-    resolution: {integrity: sha512-5i1wcxXiM9UH+uaXvhAGONfJmea1UvXbBXtywoqepibnFvq1+zvI753YCoYseS9TzMkmsnCQNUZonlmEgaS3/g==}
+  '@effect/language-service@0.43.2':
+    resolution: {integrity: sha512-87V/AmnbJQDZmR6tbUpKDlejV2IWK2ldzHi8ZT5pauvw+Hh8Ksn+1eep5RWn3qwI39L9AUPCPS5kYcqXqI1ANA==}
     hasBin: true
 
   '@effect/platform-node-shared@0.51.3':
@@ -7886,7 +7886,7 @@ snapshots:
       effect: 3.18.4
       uuid: 11.1.0
 
-  '@effect/language-service@0.43.1': {}
+  '@effect/language-service@0.43.2': {}
 
   '@effect/platform-node-shared@0.51.3(@effect/cluster@0.48.11(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.69.3(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/workflow@0.9.5(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.69.3(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.69.3(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.44.2(@effect/experimental@0.54.6(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)':
     dependencies:
