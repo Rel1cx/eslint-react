@@ -20,7 +20,7 @@ const features = [
 
 export default function HomePage() {
   return (
-    <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-12 md:px-12 mx-auto">
+    <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-0 md:px-12 mx-auto">
       <ESLintReact />
       <article className="prose max-w-none">
         <h2>Features</h2>
@@ -46,6 +46,9 @@ export default function HomePage() {
           </Link>.
         </p>
       </article>
+      <footer className="text-center text-sm text-gray-500 mt-8">
+        <small>ESLint React is not affiliated with Meta Corporation or facebook/react project or React team, nor is it endorsed or sponsored by them.</small>
+      </footer>
     </main>
   );
 }
