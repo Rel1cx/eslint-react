@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.0.7-beta.2",
+  "version": "2.0.7-next.3",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -52,7 +52,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.42.0",
+    "@effect/language-service": "^0.43.1",
     "@effect/platform": "^0.92.1",
     "@effect/platform-node": "^0.98.3",
     "@eslint/compat": "^1.4.0",
@@ -64,15 +64,15 @@
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.6",
     "@types/node": "^24.7.0",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
     "@typescript-eslint/parser": "^8.46.0",
     "@typescript-eslint/rule-tester": "^8.46.0",
     "@typescript-eslint/types": "^8.46.0",
     "ansis": "^4.2.0",
     "dedent": "^1.7.0",
     "dprint": "^0.50.2",
-    "effect": "^3.18.3",
+    "effect": "^3.18.4",
     "eslint": "^9.37.0",
     "eslint-plugin-fast-import": "^1.5.1",
     "eslint-plugin-vitest": "^0.5.4",
@@ -109,8 +109,8 @@
       "sharp"
     ],
     "overrides": {
-      "@types/react": "^19.2.0",
-      "@types/react-dom": "^19.2.0",
+      "@types/react": "^19.2.2",
+      "@types/react-dom": "^19.2.1",
       "esbuild": "^0.25.10",
       "fumadocs-core": "15.8.1",
       "fumadocs-docgen": "3.0.1",
