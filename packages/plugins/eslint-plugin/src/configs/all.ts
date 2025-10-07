@@ -116,5 +116,5 @@ export const plugins = {
 };
 
 export const settings = {
-  ...dom.settings,
+  ...x.settings,
 };

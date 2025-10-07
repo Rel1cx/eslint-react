@@ -1,7 +1,7 @@
 import type { RuleConfig } from "@eslint-react/kit";
 import reactWebApi from "eslint-plugin-react-web-api";
 
-import * as dom from "./dom";
+import * as x from "./x";
 
 export const name = "@eslint-react/web-api";
 
@@ -17,5 +17,5 @@ export const plugins = {
 };
 
 export const settings = {
-  ...dom.settings,
+  ...x.settings,
 };
