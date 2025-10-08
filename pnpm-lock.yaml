@@ -225,7 +225,7 @@ importers:
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       eslint-plugin-de-morgan:
         specifier: ^2.0.0
@@ -773,7 +773,7 @@ importers:
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       eslint-plugin-react-debug:
         specifier: workspace:*
@@ -840,7 +840,7 @@ importers:
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       string-ts:
         specifier: ^2.2.1
@@ -898,7 +898,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       string-ts:
         specifier: ^2.2.1
@@ -956,7 +956,7 @@ importers:
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       string-ts:
         specifier: ^2.2.1
@@ -1014,7 +1014,7 @@ importers:
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       string-ts:
         specifier: ^2.2.1
@@ -1069,7 +1069,7 @@ importers:
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       string-ts:
         specifier: ^2.2.1
@@ -1130,7 +1130,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       eslint:
-        specifier: ^9.37.0
+        specifier: ^9.36.0
         version: 9.37.0(jiti@2.6.1)
       is-immutable-type:
         specifier: ^5.0.1
