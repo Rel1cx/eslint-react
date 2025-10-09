@@ -15,20 +15,14 @@ The following presets are available in `@eslint-react/eslint-plugin`:
 
 ## General Purpose
 
+- `strict` (beta)\
+  Same as the `recommended` preset but enables additional strict rules.
+
 - `recommended`\
   Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
   _This preset includes the `x`, `dom`, and `web-api` presets._
 
-- `strict` (beta)\
-  Same as the `recommended` preset but enables additional strict rules.
-
 ## TypeScript Specialized
-
-- `recommended-typescript`\
-  Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
-
-- `recommended-type-checked`\
-  Same as the `recommended-typescript` preset but enables additional rules that require type information.
 
 - `strict-typescript` (beta)\
   Same as the `strict` preset but disables rules that can be enforced by TypeScript.
@@ -36,14 +30,16 @@ The following presets are available in `@eslint-react/eslint-plugin`:
 - `strict-type-checked` (beta)\
   Same as the `strict-typescript` preset but enables additional rules that require type information.
 
-### Combined (beta)
+- `recommended-typescript`\
+  Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
 
-- `no-deprecated`\
-  Enable all non-deprecated rules from the `x` and `dom` presets.\
-  _This preset sets the severity of these rules to `"error"`._
+- `recommended-type-checked`\
+  Same as the `recommended-typescript` preset but enables additional rules that require type information.
 
 ## Other
 
+- `no-deprecated`\
+  Enable all non-deprecated rules from the `x` and `dom` presets.
 - `disable-dom`\
   Disable rules in the `dom` preset.
 - `disable-web-api`\
