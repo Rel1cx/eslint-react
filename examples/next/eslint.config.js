@@ -42,7 +42,7 @@ export default defineConfig([
   {
     files: TSCONFIG.include,
     extends: [
-      eslintReact.configs["recommended-type-checked"],
+      eslintReact.configs["strict-type-checked"],
       eslintPluginReactRefresh.configs.recommended,
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],

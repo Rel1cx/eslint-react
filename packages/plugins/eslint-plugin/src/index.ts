@@ -21,7 +21,10 @@ import * as offConfig from "./configs/off";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
+import * as strictTypeCheckedConfig from "./configs/strict-type-checked";
+import * as strictTypescriptConfig from "./configs/strict-typescript";
 import * as xConfig from "./configs/x";
+
 import { padKeysLeft } from "./utils";
 
 const plugin: CompatiblePlugin = {
@@ -96,6 +99,14 @@ export default {
      * Same as the `recommended` preset but disables rules that can be enforced by TypeScript
      */
     ["recommended-typescript"]: recommendedTypeScriptConfig,
+    /**
+     * More strict version of the `recommended-type-checked` preset
+     */
+    ["strict-type-checked"]: strictTypeCheckedConfig,
+    /**
+     * More strict version of the `recommended-typescript` preset
+     */
+    ["strict-typescript"]: strictTypescriptConfig,
     /**
      * Enable rules for `"react"`
      */

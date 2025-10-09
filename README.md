@@ -127,6 +127,9 @@ export default defineConfig([
   Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
   _This preset includes the `x`, `dom`, and `web-api` presets._
 
+- `strict`\
+  Same as the `recommended` preset but enables additional strict rules.
+
 ### TypeScript Specialized
 
 - `recommended-typescript`\
@@ -134,6 +137,12 @@ export default defineConfig([
 
 - `recommended-type-checked`\
   Same as the `recommended-typescript` preset but enables additional rules that require type information.
+
+- `strict-typescript`\
+  Same as the `strict` preset but disables rules that can be enforced by TypeScript.
+
+- `strict-type-checked`\
+  Same as the `strict-typescript` preset but enables additional rules that require type information.
 
 ### Other
 
