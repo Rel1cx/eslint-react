@@ -1,6 +1,11 @@
 import type { RuleConfig } from "@eslint-react/kit";
 
+import * as recommended from "./recommended";
+
+export const name = "@eslint-react/strict";
+
 export const rules = {
+  ...recommended.rules,
   "@eslint-react/jsx-no-iife": "error",
   "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/no-children-prop": "warn",
@@ -20,3 +25,11 @@ export const rules = {
   "@eslint-react/dom/no-missing-iframe-sandbox": "warn",
   "@eslint-react/dom/no-unsafe-target-blank": "warn",
 } as const satisfies Record<string, RuleConfig>;
+
+export const plugins = {
+  ...recommended.plugins,
+};
+
+export const settings = {
+  ...recommended.settings,
+};
