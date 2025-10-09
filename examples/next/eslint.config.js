@@ -44,13 +44,12 @@ export default defineConfig([
     extends: [
       eslintReact.configs["recommended-type-checked"],
       eslintPluginReactRefresh.configs.recommended,
+      eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],
     plugins: {
-      "react-hooks": eslintPluginReactHooks,
       "@next/next": eslintPluginNext,
     },
     rules: {
-      ...eslintPluginReactHooks.configs.recommended.rules,
       ...eslintPluginNext.configs.recommended.rules,
       ...eslintPluginNext.configs["core-web-vitals"].rules,
     },

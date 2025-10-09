@@ -1,11 +1,9 @@
 import { fileURLToPath } from "node:url";
 
 import { includeIgnoreFile } from "@eslint/compat";
-import markdown from "@eslint/markdown";
 import {
   GLOB_CONFIGS,
   GLOB_IGNORES,
-  GLOB_MD,
   GLOB_SCRIPTS,
   GLOB_TESTS,
   GLOB_TS,
@@ -36,22 +34,6 @@ export default defineConfig([
     "examples",
     "**/*.d.ts",
   ]),
-  {
-    extends: [
-      markdown.configs.recommended,
-    ],
-    files: GLOB_MD,
-    ignores: [
-      "**/README.md",
-      "packages/**/docs/**/*.md",
-    ],
-    language: "markdown/gfm",
-    rules: {
-      "markdown/no-html": "off",
-      "markdown/no-missing-label-refs": "off",
-      "markdown/no-multiple-h1": "off",
-    },
-  },
   {
     extends: [
       tseslint.configs.strictTypeChecked,
