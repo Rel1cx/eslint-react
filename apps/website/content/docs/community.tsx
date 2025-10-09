@@ -29,6 +29,7 @@ export const projects = [
   { owner: "tisoap", repo: "react-flow-smart-edge" },
   { owner: "toss", repo: "suspensive" },
   { owner: "XYOracleNetwork", repo: "sdk-xyo-react-js" },
+  { owner: "yjs", repo: "yjs-inspector" },
 ];
 
 export const presets = [
