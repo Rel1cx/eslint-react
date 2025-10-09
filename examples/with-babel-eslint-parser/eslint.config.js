@@ -68,12 +68,7 @@ export default defineConfig([
       eslintPluginReactNamingConvention.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,
       eslintPluginReactDebug.configs.all,
+      eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],
-    plugins: {
-      "react-hooks": eslintPluginReactHooks,
-    },
-    rules: {
-      ...eslintPluginReactHooks.configs.recommended.rules,
-    },
   },
 ]);

@@ -1,6 +1,5 @@
 import react from "@eslint-react/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
-import markdown from "@eslint/markdown";
 import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
@@ -14,8 +13,6 @@ import TSCONFIG from "./tsconfig.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 const GLOB_JS = ["**/*.js", "**/*.jsx"];
-const GLOB_MD = ["**/*.md"];
-const GLOB_MDX = ["**/*.mdx"];
 const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_COMPONENT = ["components/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
@@ -33,23 +30,6 @@ export default defineConfig([
   globalIgnores(GLOB_IGNORES),
   {
     extends: [
-      markdown.configs.recommended,
-    ],
-    files: [...GLOB_MD, ...GLOB_MDX],
-    language: "markdown/gfm",
-    rules: {
-      "markdown/no-html": "warn",
-      "markdown/no-missing-label-refs": "off",
-    },
-  },
-  {
-    files: GLOB_MDX,
-    rules: {
-      "markdown/no-html": "off",
-    },
-  },
-  {
-    extends: [
       strictTypeChecked,
       // @ts-expect-error - types issue
       fastImportRecommended({ rootDir: dirname }),
@@ -65,6 +45,7 @@ export default defineConfig([
     extends: [
       tseslint.configs.recommendedTypeChecked,
       react.configs["recommended-type-checked"],
+      pluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],
     files: TSCONFIG.include,
     languageOptions: {
@@ -76,11 +57,9 @@ export default defineConfig([
       },
     },
     plugins: {
-      "react-hooks": pluginReactHooks,
       "react-refresh": pluginReactRefresh,
     },
     rules: {
-      ...pluginReactHooks.configs.recommended.rules,
       "@eslint-react/naming-convention/filename": ["error", { rule: "kebab-case" }],
       "@eslint-react/no-unused-props": "warn",
       "react-refresh/only-export-components": "warn",
