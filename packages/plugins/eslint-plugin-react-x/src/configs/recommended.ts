@@ -1,15 +1,13 @@
 import type { RuleConfig } from "@eslint-react/kit";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 
+import { plugin } from "../plugin";
+
 export const name = "react-x/recommended";
 
 export const rules = {
   "react-x/jsx-no-comment-textnodes": "warn",
   "react-x/jsx-no-duplicate-props": "warn",
-  "react-x/jsx-no-iife": "off",
-  "react-x/jsx-no-undef": "off",
-  "react-x/jsx-shorthand-boolean": "off",
-  "react-x/jsx-shorthand-fragment": "off",
   "react-x/jsx-uses-react": "warn",
   "react-x/jsx-uses-vars": "warn",
   "react-x/no-access-state-in-setstate": "error",
@@ -18,9 +16,7 @@ export const rules = {
   "react-x/no-children-for-each": "warn",
   "react-x/no-children-map": "warn",
   "react-x/no-children-only": "warn",
-  "react-x/no-children-prop": "off",
   "react-x/no-children-to-array": "warn",
-  "react-x/no-class-component": "off",
   "react-x/no-clone-element": "warn",
   "react-x/no-component-will-mount": "error",
   "react-x/no-component-will-receive-props": "error",
@@ -30,14 +26,9 @@ export const rules = {
   "react-x/no-default-props": "error",
   "react-x/no-direct-mutation-state": "error",
   "react-x/no-duplicate-key": "error",
-  "react-x/no-forbidden-props": "off",
   "react-x/no-forward-ref": "warn",
   "react-x/no-implicit-key": "warn",
-  "react-x/no-leaked-conditional-rendering": "off",
-  "react-x/no-missing-component-display-name": "off",
-  "react-x/no-missing-context-display-name": "off",
   "react-x/no-missing-key": "error",
-  "react-x/no-misused-capture-owner-stack": "off",
   "react-x/no-nested-component-definitions": "error",
   "react-x/no-nested-lazy-component-declarations": "error",
   "react-x/no-prop-types": "error",
@@ -46,26 +37,19 @@ export const rules = {
   "react-x/no-set-state-in-component-did-update": "warn",
   "react-x/no-set-state-in-component-will-update": "warn",
   "react-x/no-string-refs": "error",
-  "react-x/no-unnecessary-key": "off",
-  "react-x/no-unnecessary-use-callback": "off",
-  "react-x/no-unnecessary-use-memo": "off",
   "react-x/no-unnecessary-use-prefix": "warn",
   "react-x/no-unsafe-component-will-mount": "warn",
   "react-x/no-unsafe-component-will-receive-props": "warn",
   "react-x/no-unsafe-component-will-update": "warn",
-  "react-x/no-unstable-context-value": "warn",
-  "react-x/no-unstable-default-props": "warn",
   "react-x/no-unused-class-component-members": "warn",
-  "react-x/no-unused-props": "off",
-  "react-x/no-unused-state": "warn",
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
-  "react-x/no-useless-fragment": "off",
-  "react-x/prefer-destructuring-assignment": "off",
-  "react-x/prefer-namespace-import": "off",
-  "react-x/prefer-read-only-props": "off",
   "react-x/prefer-use-state-lazy-initialization": "warn",
 } as const satisfies Record<string, RuleConfig>;
+
+export const plugins = {
+  "react-x": plugin,
+};
 
 export const settings = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
