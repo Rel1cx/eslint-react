@@ -1,19 +1,19 @@
 import type { RuleConfig } from "@eslint-react/kit";
 
 import * as ts from "./_ts";
-import * as recommended from "./recommended";
+import * as strict from "./strict";
 
-export const name = "react-x/recommended-typescript";
+export const name = "react-x/strict-typescript";
 
 export const rules = {
-  ...recommended.rules,
+  ...strict.rules,
   ...ts.rules,
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
-  ...recommended.plugins,
+  ...strict.plugins,
 };
 
 export const settings = {
-  ...recommended.settings,
+  ...strict.settings,
 };
