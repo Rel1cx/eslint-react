@@ -23,7 +23,7 @@
     "@tsconfig/next": "^2.0.3",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.6",
-    "@types/node": "^24.7.0",
+    "@types/node": "^24.7.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "eslint": "^9.37.0",
