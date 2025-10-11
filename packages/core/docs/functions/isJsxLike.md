@@ -27,7 +27,7 @@ The function to get the scope of a node
 
 The AST node to analyze
 
-`undefined` | `null` | `Node`
+`Node` | `null` | `undefined`
 
 ### hint
 

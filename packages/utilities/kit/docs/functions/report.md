@@ -22,7 +22,7 @@
 
 #### descriptor
 
-`undefined` | `null` | `ReportDescriptor`\<`string`\>
+`ReportDescriptor`\<`string`\> | `null` | `undefined`
 
 ### Returns
 

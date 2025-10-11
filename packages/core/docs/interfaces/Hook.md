@@ -40,7 +40,7 @@
 
 ### id
 
-> **id**: `undefined` \| `Identifier`
+> **id**: `Identifier` \| `undefined`
 
 #### Overrides
 

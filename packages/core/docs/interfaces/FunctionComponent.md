@@ -14,7 +14,7 @@
 
 ### displayName
 
-> **displayName**: `undefined` \| `Expression`
+> **displayName**: `Expression` \| `undefined`
 
 ***
 
@@ -46,7 +46,7 @@
 
 ### id
 
-> **id**: `undefined` \| `Identifier` \| `Identifier`[]
+> **id**: `Identifier` \| `Identifier`[] \| `undefined`
 
 #### Overrides
 
@@ -56,7 +56,7 @@
 
 ### initPath
 
-> **initPath**: `undefined` \| `FunctionInitPath`
+> **initPath**: `FunctionInitPath` \| `undefined`
 
 ***
 
@@ -82,7 +82,7 @@
 
 ### name
 
-> **name**: `undefined` \| `string`
+> **name**: `string` \| `undefined`
 
 #### Inherited from
 

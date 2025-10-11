@@ -16,7 +16,7 @@ Checks if a node is a `JSXText` or a `Literal` node
 
 The AST node to check
 
-`undefined` | `null` | `Node`
+`Node` | `null` | `undefined`
 
 ## Returns
 

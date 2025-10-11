@@ -6,7 +6,7 @@
 
 # Function: getJsxAttribute()
 
-> **getJsxAttribute**(`context`, `node`, `initialScope?`): (`name`) => `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
+> **getJsxAttribute**(`context`, `node`, `initialScope?`): (`name`) => `JSXAttribute` \| `JSXSpreadAttribute` \| `undefined`
 
 Get a function to find JSX attributes by name, considering direct attributes and spread attributes.
 
@@ -34,7 +34,7 @@ Optional initial scope for variable resolution
 
 A function that takes an attribute name and returns the corresponding JSX attribute node or undefined
 
-> (`name`): `undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
+> (`name`): `JSXAttribute` \| `JSXSpreadAttribute` \| `undefined`
 
 ### Parameters
 
@@ -44,4 +44,4 @@ A function that takes an attribute name and returns the corresponding JSX attrib
 
 ### Returns
 
-`undefined` \| `JSXAttribute` \| `JSXSpreadAttribute`
+`JSXAttribute` \| `JSXSpreadAttribute` \| `undefined`

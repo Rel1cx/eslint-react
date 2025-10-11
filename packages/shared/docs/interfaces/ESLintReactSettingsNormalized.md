@@ -18,7 +18,7 @@ Normalized ESLint React settings with processed values
 
 ### polymorphicPropName
 
-> **polymorphicPropName**: `undefined` \| `string`
+> **polymorphicPropName**: `string` \| `undefined`
 
 ***
 

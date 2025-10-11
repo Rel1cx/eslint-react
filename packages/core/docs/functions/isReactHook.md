@@ -16,7 +16,7 @@ Determines if a function node is a React Hook based on its name.
 
 The function node to check
 
-`undefined` | `TSESTreeFunction`
+`TSESTreeFunction` | `undefined`
 
 ## Returns
 

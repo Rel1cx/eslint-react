@@ -6,7 +6,7 @@
 
 # Function: getPhaseKindOfFunction()
 
-> **getPhaseKindOfFunction**(`node`): `null` \| [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+> **getPhaseKindOfFunction**(`node`): [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) \| `null`
 
 ## Parameters
 
@@ -16,4 +16,4 @@
 
 ## Returns
 
-`null` \| [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) \| `null`

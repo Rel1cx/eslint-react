@@ -14,7 +14,7 @@
 
 ### displayName
 
-> **displayName**: `undefined` \| `Expression`
+> **displayName**: `Expression` \| `undefined`
 
 ***
 
@@ -40,7 +40,7 @@
 
 ### id
 
-> **id**: `undefined` \| `Identifier`
+> **id**: `Identifier` \| `undefined`
 
 #### Overrides
 
@@ -76,7 +76,7 @@
 
 ### name
 
-> **name**: `undefined` \| `string`
+> **name**: `string` \| `undefined`
 
 #### Inherited from
 

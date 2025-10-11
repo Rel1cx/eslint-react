@@ -6,7 +6,7 @@
 
 # Function: isTruthy()
 
-> **isTruthy**\<`T`\>(`data`): data is Exclude\<T, undefined \| null \| false \| "" \| 0\>
+> **isTruthy**\<`T`\>(`data`): data is Exclude\<T, false \| "" \| 0 \| null \| undefined\>
 
 A function that checks if the passed parameter is truthy and narrows its type accordingly.
 
@@ -26,6 +26,6 @@ The variable to check.
 
 ## Returns
 
-data is Exclude\<T, undefined \| null \| false \| "" \| 0\>
+data is Exclude\<T, false \| "" \| 0 \| null \| undefined\>
 
 True if the passed input is truthy, false otherwise.

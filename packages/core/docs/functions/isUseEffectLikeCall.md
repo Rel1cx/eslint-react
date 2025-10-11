@@ -16,7 +16,7 @@ Detects useEffect calls and variations (useLayoutEffect, etc.) using regex patte
 
 The AST node to check
 
-`undefined` | `Node`
+`Node` | `undefined`
 
 ## Returns
 

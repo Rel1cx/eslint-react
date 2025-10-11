@@ -17,7 +17,7 @@ Returns a function that accepts a hook name to check against.
 
 The AST node to check
 
-`undefined` | `Node`
+`Node` | `undefined`
 
 ## Returns
 

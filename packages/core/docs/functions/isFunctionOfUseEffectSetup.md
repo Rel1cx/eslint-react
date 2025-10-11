@@ -12,7 +12,7 @@
 
 ### node
 
-`undefined` | `Node`
+`Node` | `undefined`
 
 ## Returns
 

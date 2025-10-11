@@ -20,7 +20,7 @@
 
 #### node
 
-`undefined` | `null` | `Node`
+`Node` | `null` | `undefined`
 
 ### Returns
 
@@ -44,7 +44,7 @@ node is Identifier \| MemberExpression
 
 ##### node
 
-`undefined` | `null` | `Node`
+`Node` | `null` | `undefined`
 
 #### Returns
 

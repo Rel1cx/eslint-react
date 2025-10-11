@@ -28,7 +28,7 @@
 
 ### id
 
-> **id**: `undefined` \| `Identifier` \| `Identifier`[]
+> **id**: `Identifier` \| `Identifier`[] \| `undefined`
 
 ***
 
@@ -46,7 +46,7 @@
 
 ### name
 
-> **name**: `undefined` \| `string`
+> **name**: `string` \| `undefined`
 
 ***
 

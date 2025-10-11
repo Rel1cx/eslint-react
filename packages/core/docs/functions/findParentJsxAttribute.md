@@ -6,7 +6,7 @@
 
 # Function: findParentJsxAttribute()
 
-> **findParentJsxAttribute**(`node`, `test`): `undefined` \| `JSXAttribute`
+> **findParentJsxAttribute**(`node`, `test`): `JSXAttribute` \| `undefined`
 
 Traverses up the AST to find a parent JSX attribute node that matches a given test
 
@@ -27,6 +27,6 @@ Optional predicate function to test if the attribute meets criteria
 
 ## Returns
 
-`undefined` \| `JSXAttribute`
+`JSXAttribute` \| `undefined`
 
 The first matching JSX attribute node found when traversing upwards, or undefined

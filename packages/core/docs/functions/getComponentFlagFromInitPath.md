@@ -12,7 +12,7 @@
 
 ### initPath
 
-`undefined` | `FunctionInitPath`
+`FunctionInitPath` | `undefined`
 
 ## Returns
 

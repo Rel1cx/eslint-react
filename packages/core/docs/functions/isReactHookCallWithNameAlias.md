@@ -22,7 +22,7 @@ The primary hook name to check
 
 Optional array of alias names to also accept
 
-`undefined` | `string`[]
+`string`[] | `undefined`
 
 ## Returns
 

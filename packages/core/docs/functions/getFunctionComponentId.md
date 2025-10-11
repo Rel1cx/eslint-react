@@ -6,7 +6,7 @@
 
 # Function: getFunctionComponentId()
 
-> **getFunctionComponentId**(`context`, `node`): `undefined` \| `Identifier` \| `Identifier`[]
+> **getFunctionComponentId**(`context`, `node`): `Identifier` \| `Identifier`[] \| `undefined`
 
 ## Parameters
 
@@ -20,4 +20,4 @@
 
 ## Returns
 
-`undefined` \| `Identifier` \| `Identifier`[]
+`Identifier` \| `Identifier`[] \| `undefined`

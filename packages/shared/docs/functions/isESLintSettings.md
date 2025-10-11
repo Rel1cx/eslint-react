@@ -6,7 +6,7 @@
 
 # Function: isESLintSettings()
 
-> **isESLintSettings**(`settings`): settings is undefined \| \{ react-x?: unknown \}
+> **isESLintSettings**(`settings`): settings is \{ react-x?: unknown \} \| undefined
 
 Checks if the provided settings conform to ESLintSettings schema
 
@@ -20,4 +20,4 @@ The settings object to validate
 
 ## Returns
 
-settings is undefined \| \{ react-x?: unknown \}
+settings is \{ react-x?: unknown \} \| undefined
