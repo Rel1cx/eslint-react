@@ -1,5 +1,8 @@
 import type { RuleConfig } from "@eslint-react/kit";
 
+/**
+ * Disables rules that are already handled by TypeScript
+ */
 export const rules = {
   "react-x/jsx-no-duplicate-props": "off",
   "react-x/jsx-no-undef": "off",

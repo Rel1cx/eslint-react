@@ -1,13 +1,12 @@
 import type { RuleConfig } from "@eslint-react/kit";
 
-import * as tc from "./_tc";
 import * as recommendedTypescript from "./recommended-typescript";
 
 export const name = "react-x/recommended-type-checked";
 
 export const rules = {
   ...recommendedTypescript.rules,
-  ...tc.rules,
+  "react-x/no-leaked-conditional-rendering": "error",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

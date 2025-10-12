@@ -123,7 +123,7 @@ export default defineConfig([
 
 ## General Purpose
 
-- `strict` (beta)\
+- `strict`\
   Same as the `recommended` preset but enables additional strict rules.
 
 - `recommended`\
@@ -132,10 +132,10 @@ export default defineConfig([
 
 ## TypeScript Specialized
 
-- `strict-typescript` (beta)\
+- `strict-typescript`\
   Same as the `strict` preset but disables rules that can be enforced by TypeScript.
 
-- `strict-type-checked` (beta)\
+- `strict-type-checked`\
   Same as the `strict-typescript` preset but enables additional rules that require type information.
 
 - `recommended-typescript`\

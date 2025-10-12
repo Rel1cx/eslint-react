@@ -14,6 +14,7 @@ export const rules = {
   "react-x/no-unnecessary-use-memo": "warn",
   "react-x/no-unstable-context-value": "warn",
   "react-x/no-unstable-default-props": "warn",
+  "react-x/no-unused-class-component-members": "warn",
   "react-x/no-unused-props": "warn",
   "react-x/no-unused-state": "warn",
   "react-x/no-useless-fragment": "warn",

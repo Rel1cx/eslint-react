@@ -168,8 +168,8 @@ importers:
         specifier: ^0.0.32
         version: 0.0.32(eslint@9.37.0(jiti@2.6.1))(ts-api-utils@2.1.0(typescript@5.9.3))(typescript@5.9.3)
       eslint-plugin-jsdoc:
-        specifier: ^61.1.0
-        version: 61.1.0(eslint@9.37.0(jiti@2.6.1))
+        specifier: ^61.1.1
+        version: 61.1.1(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-perfectionist:
         specifier: ^4.15.1
         version: 4.15.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
@@ -228,8 +228,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-jsdoc:
-        specifier: ^61.1.0
-        version: 61.1.0(eslint@9.37.0(jiti@2.6.1))
+        specifier: ^61.1.1
+        version: 61.1.1(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-perfectionist:
         specifier: ^4.15.1
         version: 4.15.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
@@ -4641,8 +4641,8 @@ packages:
       ts-api-utils: ^2.1.0
       typescript: ^5.9.3
 
-  eslint-plugin-jsdoc@61.1.0:
-    resolution: {integrity: sha512-X6cGyMgwPh15CJ6Vv+yjEUam1ilRwalmPNfTNvd0/0JO8+ZbE1ST1xkKQtCUqF2sofTC3P/u1g0VHgygbTUjrw==}
+  eslint-plugin-jsdoc@61.1.1:
+    resolution: {integrity: sha512-3kp6+C0KVPY7crmB/ymV28bPvam1x7+yXgCzEi91WGRWxdEdDhTa5yR79tpgbMFi5ns5TEOS27aTluS/2jMz+g==}
     engines: {node: '>=20.11.0'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -10473,7 +10473,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsdoc@61.1.0(eslint@9.37.0(jiti@2.6.1)):
+  eslint-plugin-jsdoc@61.1.1(eslint@9.37.0(jiti@2.6.1)):
     dependencies:
       '@es-joy/jsdoccomment': 0.76.0
       are-docs-informative: 0.0.2
