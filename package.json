@@ -62,7 +62,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.6",
-    "@types/node": "^24.7.1",
+    "@types/node": "^24.7.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "@typescript-eslint/parser": "^8.46.0",
@@ -91,7 +91,7 @@
     "type-fest": "^5.0.1",
     "typedoc": "^0.28.14",
     "typedoc-plugin-markdown": "^4.9.0",
-    "typedoc-plugin-mdn-links": "^5.0.9",
+    "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0",
     "vitest": "^3.2.4"
