@@ -1,9 +1,13 @@
-## v2.0.7 (2025-10-13)
+## v2.1.0 (2025-10-13)
 
 ### ✨ New
 
 - Add `strict`, `strict-typescript`, and `strict-type-checked` presets by @Rel1cx
 - Add `no-deprecated` preset to enable all rules that report deprecated React APIs by @Rel1cx
+
+### 🐞 Fixes
+
+- Disallow extra properties in rule options by @andreww2012 in https://github.com/Rel1cx/eslint-react/pull/1263
 
 ### 🪄 Improvements
 
@@ -18,7 +22,11 @@
   - `react-dom/no-unsafe-target-blank`
 - Change `typescript` peer dependency version range from `^5.9.2` to `^5` by @Rel1cx
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.6...v2.0.7
+## New Contributors
+
+- @andreww2012 made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1263
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.6...v2.1.0
 
 ## v2.0.6 (2025-10-03)
 
