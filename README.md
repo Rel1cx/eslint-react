@@ -57,7 +57,7 @@
 >
 > - Node.js: 20.19.0
 > - ESLint: 9.36.0
-> - TypeScript: 5.9.2
+> - TypeScript: 5
 
 ### Install
 

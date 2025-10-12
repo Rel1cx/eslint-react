@@ -10,7 +10,7 @@ Minimum supported versions:
 
 - [ ] Node.js: 28.x.x
 - [ ] ESLint: 10.x.x
-- [x] TypeScript: 5.9.2
+- [x] TypeScript: 5
 
 ### Removed Rules
 
@@ -28,7 +28,7 @@ Minimum supported versions:
 
 - [ ] Node.js: 24.8.0
 - [x] ESLint: 9.36.0
-- [x] TypeScript: 5.9.2
+- [x] TypeScript: 5
 
 ### New Rules
 
@@ -54,7 +54,7 @@ Minimum supported versions:
 
 - [x] Node.js: 20.19.0
 - [x] ESLint: 9.36.0
-- [x] TypeScript: 5.9.2
+- [x] TypeScript: 5
 
 ### Package Distribution
 
