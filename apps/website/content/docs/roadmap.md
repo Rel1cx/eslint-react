@@ -32,12 +32,15 @@ Minimum supported versions:
 
 ### New Rules
 
-- [ ] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance (TBD)\
+- [ ] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance\
       _A fast implementation of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration_
-- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops (TBD)\
+- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
       _A fast implementation of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration_
+- [ ] `react-x/static-components` - Validates that components are static, not recreated every render\
+      _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
+- [ ] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
+      _A fast implementation of [component-hook-factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories) that doesn't require React Compiler integration_
 - [ ] `react-x/function-component-definition` - Enforces the definition of function components ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
-- [ ] `react-dom/no-unmount-component-at-node` - Replaces usages of `ReactDom.unmountComponentAtNode()` with `root.unmount()` (React 19)
 
 ### Deprecated Rules
 
