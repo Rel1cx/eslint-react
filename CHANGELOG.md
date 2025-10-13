@@ -1,4 +1,4 @@
-## v2.1.0 (2025-10-13)
+## v2.1.1 (2025-10-13)
 
 ### ✨ New
 
@@ -26,7 +26,7 @@
 
 - @andreww2012 made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1263
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.6...v2.1.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.0.6...v2.1.1
 
 ## v2.0.6 (2025-10-03)
 
