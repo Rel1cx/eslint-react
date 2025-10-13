@@ -177,7 +177,7 @@ export default defineConfig([
 
 ## Disclaimer
 
-ESLint React is not affiliated with Meta Corporation or [facebook/react](https://github.com/facebook/react) project or React team, nor is it endorsed or sponsored by them.
+ESLint React is not affiliated with Meta Corporation or [facebook/react](https://github.com/facebook/react) project or team, nor is it endorsed or sponsored by them.
 
 ## Contributing
 
