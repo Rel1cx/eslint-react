@@ -4,4 +4,7 @@ export * from "./constants";
 export * from "./get-config-adapters";
 export * from "./get-doc-url";
 export * from "./get-react-version";
+export * from "./regexp";
+export * from "./report";
 export * from "./settings";
+export type * from "./types";

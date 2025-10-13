@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/kit";
+import type { RuleContext } from "@eslint-react/shared";
 import { isNodeValueEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 

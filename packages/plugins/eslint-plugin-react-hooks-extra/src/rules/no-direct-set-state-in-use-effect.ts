@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isUseCallbackCall, isUseEffectLikeCall, isUseMemoCall, isUseStateCall } from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";

@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { getJsxElementType, isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { type Construction, getConstruction } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";

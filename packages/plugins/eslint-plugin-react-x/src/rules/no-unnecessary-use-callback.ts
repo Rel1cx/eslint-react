@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isUseCallbackCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";

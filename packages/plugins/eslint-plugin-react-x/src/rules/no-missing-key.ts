@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { getJsxAttribute, isChildrenToArrayCall } from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";

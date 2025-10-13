@@ -1,6 +1,6 @@
 import { getJsxConfigFromAnnotation, getJsxConfigFromContext, isJsxFragmentElement } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, type RulePolicy } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";

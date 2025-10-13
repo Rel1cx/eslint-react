@@ -1,7 +1,7 @@
 import type * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
-import type { RuleContext } from "@eslint-react/kit";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";

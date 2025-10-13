@@ -1,4 +1,4 @@
-import { type RuleContext, type RuleFeature, toRegExp } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, toRegExp } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { type CamelCase, camelCase } from "string-ts";

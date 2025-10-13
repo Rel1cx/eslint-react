@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/kit";
+import { type RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
 import { isChildrenOfCreateElement } from "./component-children";

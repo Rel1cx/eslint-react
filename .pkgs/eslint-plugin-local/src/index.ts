@@ -1,6 +1,6 @@
 import { name, version } from "../package.json";
 
-import type { CompatiblePlugin } from "@eslint-react/kit";
+import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import avoidMultilineTemplateExpression from "./rules/avoid-multiline-template-expression";
 import preferEqeqNullishComparison from "./rules/prefer-eqeq-nullish-comparison";

@@ -8,7 +8,7 @@ import {
 } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { or } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
