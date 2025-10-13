@@ -6,7 +6,7 @@ import {
   isInversePhase,
 } from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";

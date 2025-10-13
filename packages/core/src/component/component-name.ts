@@ -1,6 +1,6 @@
 import type * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
-import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE, type RuleContext } from "@eslint-react/kit";
+import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE, type RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { getFunctionComponentId } from "./component-id";

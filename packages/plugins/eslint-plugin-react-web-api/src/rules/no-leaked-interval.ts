@@ -5,7 +5,7 @@ import {
   getPhaseKindOfFunction,
   isInstanceIdEqual,
 } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";

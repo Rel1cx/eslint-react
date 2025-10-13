@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/shared";
 
 // This rulelist should be kept in sync with `apps/website/content/docs/migration.mdx`
 // Rules provided by `eslint-plugin-react` that exist in this plugin.

@@ -1,4 +1,4 @@
-import { CompatiblePlugin } from "@eslint-react/kit";
+import { CompatiblePlugin } from "@eslint-react/shared";
 
 //#region src/index.d.ts
 declare const plugin: CompatiblePlugin;

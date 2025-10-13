@@ -1,4 +1,4 @@
-import type { CompatiblePlugin } from "@eslint-react/kit";
+import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 

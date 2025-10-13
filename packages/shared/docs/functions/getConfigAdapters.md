@@ -16,7 +16,7 @@
 
 ### plugin
 
-`CompatiblePlugin`
+[`CompatiblePlugin`](../interfaces/CompatiblePlugin.md)
 
 ## Returns
 
@@ -30,7 +30,7 @@
 
 ##### config
 
-`CompatibleConfig`
+[`CompatibleConfig`](../interfaces/CompatibleConfig.md)
 
 #### Returns
 
@@ -46,7 +46,7 @@
 
 ###### Index Signature
 
-\[`key`: `string`\]: `CompatiblePlugin`
+\[`key`: `string`\]: [`CompatiblePlugin`](../interfaces/CompatiblePlugin.md)
 
 ##### rules?
 
@@ -54,7 +54,7 @@
 
 ##### settings?
 
-> `optional` **settings**: `SettingsConfig`
+> `optional` **settings**: [`SettingsConfig`](../interfaces/SettingsConfig.md)
 
 ### toLegacyConfig()
 
@@ -64,7 +64,7 @@
 
 ##### \_\_namedParameters
 
-`CompatibleConfig`
+[`CompatibleConfig`](../interfaces/CompatibleConfig.md)
 
 #### Returns
 

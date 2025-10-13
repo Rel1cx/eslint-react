@@ -1,4 +1,4 @@
-import type { CompatibleConfig, CompatiblePlugin } from "@eslint-react/kit";
+import type { CompatibleConfig, CompatiblePlugin } from "./types";
 
 export function getConfigAdapters(pluginName: string, plugin: CompatiblePlugin) {
   function toFlatConfig(config: CompatibleConfig) {

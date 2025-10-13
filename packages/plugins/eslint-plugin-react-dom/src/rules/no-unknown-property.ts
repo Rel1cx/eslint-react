@@ -2,8 +2,8 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 // TODO: Port to TypeScript
 // @ts-nocheck
-import { report } from "@eslint-react/kit";
-import type { RuleContext, RuleFeature } from "@eslint-react/kit";
+import { report } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { JSXAttribute } from "@typescript-eslint/types/dist/ast-spec";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";

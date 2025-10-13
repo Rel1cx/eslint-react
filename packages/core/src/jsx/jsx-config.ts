@@ -6,7 +6,7 @@ import {
   RE_ANNOTATION_JSX_IMPORT_SOURCE,
   RE_ANNOTATION_JSX_RUNTIME,
   type RuleContext,
-} from "@eslint-react/kit";
+} from "@eslint-react/shared";
 
 // Constants for JSX emit settings.
 export const JsxEmit = {

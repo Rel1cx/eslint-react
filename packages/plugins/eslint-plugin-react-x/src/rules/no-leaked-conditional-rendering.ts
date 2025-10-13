@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { flow, unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/kit";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";

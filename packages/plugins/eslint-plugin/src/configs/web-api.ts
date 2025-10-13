@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/shared";
 import reactWebApi from "eslint-plugin-react-web-api";
 
 import * as x from "./x";

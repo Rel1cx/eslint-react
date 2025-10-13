@@ -1,6 +1,6 @@
 import { getJsxAttributeName } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/kit";
+import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";

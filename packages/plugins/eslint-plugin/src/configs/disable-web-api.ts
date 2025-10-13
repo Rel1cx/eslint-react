@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/shared";
 
 import { rules as webApiRules } from "./web-api";
 

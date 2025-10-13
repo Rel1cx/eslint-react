@@ -15,7 +15,7 @@ Uses caching for performance optimization
 
 ### context
 
-`RuleContext`
+[`RuleContext`](../type-aliases/RuleContext.md)
 
 The ESLint rule context
 

@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/kit";
+import type { RuleConfig } from "@eslint-react/shared";
 
 import * as strictTypeScript from "./strict-typescript";
 

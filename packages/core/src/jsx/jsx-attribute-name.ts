@@ -1,4 +1,4 @@
-import type { RuleContext } from "@eslint-react/kit";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { stringifyJsx } from "./jsx-stringify";
 
