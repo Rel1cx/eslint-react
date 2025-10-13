@@ -21,6 +21,7 @@ import * as offConfig from "./configs/off";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
+import * as strictConfig from "./configs/strict";
 import * as strictTypeCheckedConfig from "./configs/strict-type-checked";
 import * as strictTypescriptConfig from "./configs/strict-typescript";
 import * as xConfig from "./configs/x";
@@ -99,6 +100,10 @@ export default {
      * Same as the `recommended` preset but disables rules that can be enforced by TypeScript
      */
     ["recommended-typescript"]: recommendedTypeScriptConfig,
+    /**
+     * More strict version of the `recommended` preset
+     */
+    ["strict"]: strictConfig,
     /**
      * More strict version of the `recommended-type-checked` preset
      */
