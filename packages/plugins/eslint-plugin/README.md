@@ -183,8 +183,8 @@ ESLint React is not affiliated with Meta Corporation or [facebook/react](https:/
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/main/.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/remove-eslint-plugin-react-debug-from-unified-plugin/.github/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/remove-eslint-plugin-react-debug-from-unified-plugin/LICENSE) file for details.
