@@ -159,10 +159,6 @@ button {
     font-size: 14px;
   }
 
-  code {
-    white-space: nowrap;
-  }
-
   table {
     font-size: 1em;
 
@@ -171,6 +167,10 @@ button {
       white-space: nowrap;
     }
   }
+}
+
+.prose > p > code {
+    white-space: nowrap;
 }
 
 .dark .prose {
