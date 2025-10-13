@@ -49,7 +49,6 @@
     "@typescript-eslint/type-utils": "^8.46.0",
     "@typescript-eslint/types": "^8.46.0",
     "@typescript-eslint/utils": "^8.46.0",
-    "eslint-plugin-react-debug": "workspace:*",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
