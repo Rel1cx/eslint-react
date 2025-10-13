@@ -159,6 +159,10 @@ button {
     font-size: 14px;
   }
 
+  code {
+    white-space: nowrap;
+  }
+
   table {
     font-size: 1em;
 
