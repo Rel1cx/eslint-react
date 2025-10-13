@@ -2,13 +2,14 @@
 title: Changelog
 ---
 
-## v2.2.0 (2025-10-13)
+## v2.2.1 (2025-10-13)
 
 ### 🪄 Improvements
 
+- Unified plugin no longer includes the `eslint-plugin-react-debug` plugin by default to reduce its dependencies by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1276
 - Merge `@eslint-react/kit` package into `@eslint-react/shared` package to consolidate shared utilities and reduce package fragmentation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1275
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.1.1...v2.2.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.1.1...v2.2.1
 
 ## v2.1.1 (2025-10-13)
 
