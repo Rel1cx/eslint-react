@@ -51,7 +51,7 @@ export default defineConfig([
   {
     files: JSCONFIG_APP.include,
     extends: [
-      eslintReact.configs.recommended,
+      eslintReact.configs.strict,
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
       eslintPluginReactRefresh.configs.recommended,
     ],
