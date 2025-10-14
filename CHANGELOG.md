@@ -2,7 +2,7 @@
 
 ### 🐞 Fixes
 
-- Remove remaining items in the unified plugin used for legacy config compatibility by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1277
+- Remove remaining code in the unified plugin used for legacy config compatibility by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1277
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.2.1...v2.2.2
 
