@@ -45,10 +45,10 @@
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.46.0",
-    "@typescript-eslint/type-utils": "^8.46.0",
-    "@typescript-eslint/types": "^8.46.0",
-    "@typescript-eslint/utils": "^8.46.0",
+    "@typescript-eslint/scope-manager": "^8.46.1",
+    "@typescript-eslint/type-utils": "^8.46.1",
+    "@typescript-eslint/types": "^8.46.1",
+    "@typescript-eslint/utils": "^8.46.1",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.15.6"
+    "tsdown": "^0.15.7"
   },
   "peerDependencies": {
     "eslint": "^9.37.0",

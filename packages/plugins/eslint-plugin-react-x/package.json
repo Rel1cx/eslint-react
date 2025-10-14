@@ -45,10 +45,10 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.46.0",
-    "@typescript-eslint/type-utils": "^8.46.0",
-    "@typescript-eslint/types": "^8.46.0",
-    "@typescript-eslint/utils": "^8.46.0",
+    "@typescript-eslint/scope-manager": "^8.46.1",
+    "@typescript-eslint/type-utils": "^8.46.1",
+    "@typescript-eslint/types": "^8.46.1",
+    "@typescript-eslint/utils": "^8.46.1",
     "compare-versions": "^6.1.1",
     "is-immutable-type": "^5.0.1",
     "string-ts": "^2.2.1",
@@ -58,8 +58,8 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
-    "tsdown": "^0.15.6"
+    "@types/react-dom": "^19.2.2",
+    "tsdown": "^0.15.7"
   },
   "peerDependencies": {
     "eslint": "^9.37.0",
