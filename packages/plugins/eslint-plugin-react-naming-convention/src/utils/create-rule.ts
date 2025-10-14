@@ -1,4 +1,8 @@
-import { getDocsUrl } from "@eslint-react/shared";
+import { WEBSITE_URL } from "@eslint-react/shared";
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-export const createRule = ESLintUtils.RuleCreator(getDocsUrl("naming-convention"));
+function getDocsUrl(ruleName: string) {
+  return `${WEBSITE_URL}/docs/rules/naming-convention-${ruleName}`;
+}
+
+export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
