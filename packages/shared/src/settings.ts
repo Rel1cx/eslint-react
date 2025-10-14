@@ -8,7 +8,7 @@ import type { PartialDeep } from "type-fest";
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
 
-import { getReactVersion } from "./get-react-version";
+import { getReactVersion } from "./react-version";
 import type { RuleContext } from "./types";
 
 // ===== Schema Definitions =====
