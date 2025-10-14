@@ -1,10 +1,6 @@
 import { name, version } from "../package.json";
 
-import type { CompatiblePlugin } from "@eslint-react/shared";
-import reactDom from "eslint-plugin-react-dom";
-import reactHooksExtra from "eslint-plugin-react-hooks-extra";
-import reactNamingConvention from "eslint-plugin-react-naming-convention";
-import reactWebApi from "eslint-plugin-react-web-api";
+import type { CompatibleConfig, CompatiblePlugin } from "@eslint-react/shared";
 import react from "eslint-plugin-react-x";
 
 import * as allConfig from "./configs/all";
@@ -24,24 +20,29 @@ import * as strictTypescriptConfig from "./configs/strict-typescript";
 import * as webApiConfig from "./configs/web-api";
 import * as xConfig from "./configs/x";
 
-import { padKeysLeft } from "./utils";
+type ConfigName =
+  | "all"
+  | "disable-conflict-eslint-plugin-react"
+  | "disable-dom"
+  | "disable-type-checked"
+  | "disable-web-api"
+  | "dom"
+  | "no-deprecated"
+  | "off"
+  | "recommended"
+  | "recommended-type-checked"
+  | "recommended-typescript"
+  | "strict"
+  | "strict-type-checked"
+  | "strict-typescript"
+  | "web-api"
+  | "x";
 
-const plugin: CompatiblePlugin = {
+const plugin: CompatiblePlugin & { configs: Record<ConfigName, CompatibleConfig> } = {
   meta: {
     name,
     version,
   },
-  rules: {
-    ...react.rules,
-    ...padKeysLeft(reactDom.rules, "dom/"),
-    ...padKeysLeft(reactWebApi.rules, "web-api/"),
-    ...padKeysLeft(reactHooksExtra.rules, "hooks-extra/"),
-    ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
-  },
-};
-
-export default {
-  ...plugin,
   configs: {
     /**
      * Enable all applicable rules from this plugin
@@ -110,4 +111,9 @@ export default {
      */
     ["x"]: xConfig,
   },
+  rules: {
+    ...react.rules,
+  },
 };
+
+export default plugin;
