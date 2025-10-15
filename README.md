@@ -50,6 +50,9 @@
 
 - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin) - A unified plugin that combines all individual plugins into one.
 
+> [!NOTE]\
+> Dont know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
+
 ## Installation
 
 > [!NOTE]\
