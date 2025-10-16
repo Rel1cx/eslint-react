@@ -11,6 +11,7 @@ export const projects = [
   { owner: "kriasoft", repo: "graphql-starter-kit" },
   { owner: "kriasoft", repo: "react-starter-kit" },
   { owner: "letstri", repo: "permix" },
+  { owner: "mcp-use", repo: "mcp-use" },
   { owner: "mgilangjanuar", repo: "buntal" },
   { owner: "npmgraph", repo: "npmgraph" },
   { owner: "offlegacy", repo: "event-tracker" },
