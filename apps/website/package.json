@@ -10,7 +10,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@effect-atom/atom-react": "^0.3.3",
     "@eslint-react/eff": "workspace:*",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
@@ -30,7 +29,7 @@
     "twoslash": "^0.3.4"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.45.1",
+    "@effect/language-service": "^0.46.0",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^9.38.0",

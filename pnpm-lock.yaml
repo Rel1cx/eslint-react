@@ -21,8 +21,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.45.1
-        version: 0.45.1
+        specifier: ^0.46.0
+        version: 0.46.0
       '@effect/platform':
         specifier: ^0.92.1
         version: 0.92.1(effect@3.18.4)
@@ -261,9 +261,6 @@ importers:
 
   apps/website:
     dependencies:
-      '@effect-atom/atom-react':
-        specifier: ^0.3.3
-        version: 0.3.3(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)(react@19.2.0)(scheduler@0.27.0)
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../../packages/utilities/eff
@@ -317,8 +314,8 @@ importers:
         version: 0.3.4(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.45.1
-        version: 0.45.1
+        specifier: ^0.46.0
+        version: 0.46.0
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -1837,21 +1834,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect-atom/atom-react@0.3.3':
-    resolution: {integrity: sha512-3m3TSO0k6HtBobklntt0h7eBRDxb5ots/Ej2P3hIFJonxNmt3KZ21S3ZYvzRY/i/HzFn3i2e+QRQSJI+Am8uVA==}
-    peerDependencies:
-      effect: ^3.18
-      react: ^19.2.0
-      scheduler: '*'
-
-  '@effect-atom/atom@0.3.3':
-    resolution: {integrity: sha512-hzsOARN/EGDO7Q7zG1wY1jv1MR8m7uWUNTXhV42NGw3z9CPaXt4yuhrqUQyaXvOYbthasSIHWAgnlPvDHrdrwg==}
-    peerDependencies:
-      '@effect/experimental': ^0.56.0
-      '@effect/platform': ^0.92.1
-      '@effect/rpc': ^0.71.0
-      effect: ^3.18.4
-
   '@effect/cluster@0.50.6':
     resolution: {integrity: sha512-JZTctj1SjMWZuG8RnkJCd1myAXmpDYEbLPURookJ6jXhpg8ZU29us49YtQa+MCUNmIr80qjeok/I1KVaQmJfrQ==}
     peerDependencies:
@@ -1874,8 +1856,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.45.1':
-    resolution: {integrity: sha512-SEZ9TaVCpRKYumTQJPApg3os9O94bN2lCYQLgZbyK/xD+NSfYPPJZQ+6T5LkpcNgW8BRk1ACI7S1W2/noxm7Qg==}
+  '@effect/language-service@0.46.0':
+    resolution: {integrity: sha512-eWMuy/RNvDMdhi8NJ/pfHS1UHd5R7adXlO4ClRYMgF6cUqN6FdXw1HgJHF7gJILVPD0Mdo/XQYNJ5gZbsdaImg==}
     hasBin: true
 
   '@effect/platform-node-shared@0.51.6':
@@ -7728,24 +7710,6 @@ snapshots:
   '@dprint/win32-x64@0.50.2':
     optional: true
 
-  '@effect-atom/atom-react@0.3.3(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)(react@19.2.0)(scheduler@0.27.0)':
-    dependencies:
-      '@effect-atom/atom': 0.3.3(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)
-      effect: 3.18.4
-      react: 19.2.0
-      scheduler: 0.27.0
-    transitivePeerDependencies:
-      - '@effect/experimental'
-      - '@effect/platform'
-      - '@effect/rpc'
-
-  '@effect-atom/atom@0.3.3(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)':
-    dependencies:
-      '@effect/experimental': 0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4)
-      '@effect/platform': 0.92.1(effect@3.18.4)
-      '@effect/rpc': 0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4)
-      effect: 3.18.4
-
   '@effect/cluster@0.50.6(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/workflow@0.11.5(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)':
     dependencies:
       '@effect/platform': 0.92.1(effect@3.18.4)
@@ -7760,7 +7724,7 @@ snapshots:
       effect: 3.18.4
       uuid: 11.1.0
 
-  '@effect/language-service@0.45.1': {}
+  '@effect/language-service@0.46.0': {}
 
   '@effect/platform-node-shared@0.51.6(@effect/cluster@0.50.6(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/workflow@0.11.5(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)':
     dependencies:
