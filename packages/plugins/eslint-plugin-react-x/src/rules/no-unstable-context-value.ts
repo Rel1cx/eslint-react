@@ -3,7 +3,7 @@ import { getJsxElementType, isReactHookCall, useComponentCollector } from "@esli
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { type Construction, getConstruction } from "@eslint-react/var";
+import { type ObjectType, getObjectType } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { ctx, listeners } = useComponentCollector(context);
-  const constructions = new WeakMap<AST.TSESTreeFunction, Construction[]>();
+  const constructions = new WeakMap<AST.TSESTreeFunction, ObjectType[]>();
 
   return {
     ...listeners,
@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (value?.type !== T.JSXExpressionContainer) return;
       const valueExpression = value.expression;
       const initialScope = context.sourceCode.getScope(valueExpression);
-      const construction = getConstruction(valueExpression, initialScope);
+      const construction = getObjectType(valueExpression, initialScope);
       if (construction == null) return;
       if (isReactHookCall(construction.node)) {
         return;
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const { node: component } of components) {
         for (const construction of constructions.get(component) ?? []) {
           const { kind, node: constructionNode } = construction;
-          const suggestion = kind.startsWith("Function")
+          const suggestion = kind === "function"
             ? "Consider wrapping it in a useCallback hook."
             : "Consider wrapping it in a useMemo hook.";
           context.report({

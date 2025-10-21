@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
-import { ConstructionDetectionHint, getConstruction } from "@eslint-react/var";
+import { getObjectType } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -72,10 +72,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const { value } = prop;
           const { right } = value;
           const initialScope = context.sourceCode.getScope(value);
-          const construction = getConstruction(
+          const construction = getObjectType(
             value,
             initialScope,
-            ConstructionDetectionHint.StrictCallExpression,
           );
           if (construction == null) {
             continue;
