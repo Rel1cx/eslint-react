@@ -44,7 +44,7 @@ export type ObjectType =
   | {
     kind: "unknown";
     node: TSESTree.Node;
-    // Rreason for why the type is unknown
+    // Reason for why the type is unknown
     reason: "call-expression" | "unsupported-node";
   };
 
