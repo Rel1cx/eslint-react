@@ -1,3 +1,22 @@
+## v2.2.3 (2025-10-22)
+
+### 🐞 Fixes
+
+- Re-add missing rule `react-x/jsx-key-before-spread` to presets, closes #1290 by @jkbdk in https://github.com/Rel1cx/eslint-react/pull/1291
+
+### 🪄 Improvements
+
+- Add FAQ entry for plugin selection guidance, closes #1280 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1281
+- Simplify "Which one should I use? Unified plugin or individual plugins?" by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1286
+- Add `strict` preset severity to rules overview, closes #1284 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1285
+- Modify `display-name` rule entry in migration docs by @danielrentz in https://github.com/Rel1cx/eslint-react/pull/1287
+
+## New Contributors
+
+- @jkbdk made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1291
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.2.2...v2.2.3
+
 ## v2.2.2 (2025-10-14)
 
 ### 🐞 Fixes
