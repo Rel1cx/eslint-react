@@ -73,7 +73,7 @@
     "dprint": "^0.50.2",
     "effect": "^3.18.4",
     "eslint": "^9.38.0",
-    "eslint-plugin-fast-import": "^1.5.1",
+    "eslint-plugin-fast-import": "^1.5.2",
     "eslint-plugin-vitest": "^0.5.4",
     "jiti": "^2.6.1",
     "mdxlint": "^1.0.0",

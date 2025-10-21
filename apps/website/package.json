@@ -47,7 +47,7 @@
     "@types/react-dom": "^19.2.2",
     "dedent": "^1.7.0",
     "eslint": "^9.38.0",
-    "eslint-plugin-fast-import": "^1.5.1",
+    "eslint-plugin-fast-import": "^1.5.2",
     "eslint-plugin-react-hooks": "^7.0.0",
     "eslint-plugin-react-refresh": "^0.4.24",
     "importx": "^0.5.2",
