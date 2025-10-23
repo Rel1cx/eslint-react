@@ -7,7 +7,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @param methodName The lifecycle method name
  * @param isStatic Whether the method is static
  */
-function createLifecycleChecker(methodName: string, isStatic: boolean) {
+function createLifecycleChecker(methodName: string, isStatic = false) {
   return function(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
     return (
       AST.isMethodOrProperty(node)
@@ -19,21 +19,21 @@ function createLifecycleChecker(methodName: string, isStatic: boolean) {
 }
 
 // Non-static lifecycle method checkers
-export const isRender = createLifecycleChecker("render", false);
-export const isComponentDidCatch = createLifecycleChecker("componentDidCatch", false);
-export const isComponentDidMount = createLifecycleChecker("componentDidMount", false);
-export const isComponentDidUpdate = createLifecycleChecker("componentDidUpdate", false);
-export const isComponentWillMount = createLifecycleChecker("componentWillMount", false);
-export const isComponentWillReceiveProps = createLifecycleChecker("componentWillReceiveProps", false);
-export const isComponentWillUnmount = createLifecycleChecker("componentWillUnmount", false);
-export const isComponentWillUpdate = createLifecycleChecker("componentWillUpdate", false);
-export const isGetChildContext = createLifecycleChecker("getChildContext", false);
-export const isGetInitialState = createLifecycleChecker("getInitialState", false);
-export const isGetSnapshotBeforeUpdate = createLifecycleChecker("getSnapshotBeforeUpdate", false);
-export const isShouldComponentUpdate = createLifecycleChecker("shouldComponentUpdate", false);
-export const isUnsafeComponentWillMount = createLifecycleChecker("UNSAFE_componentWillMount", false);
-export const isUnsafeComponentWillReceiveProps = createLifecycleChecker("UNSAFE_componentWillReceiveProps", false);
-export const isUnsafeComponentWillUpdate = createLifecycleChecker("UNSAFE_componentWillUpdate", false);
+export const isRender = createLifecycleChecker("render");
+export const isComponentDidCatch = createLifecycleChecker("componentDidCatch");
+export const isComponentDidMount = createLifecycleChecker("componentDidMount");
+export const isComponentDidUpdate = createLifecycleChecker("componentDidUpdate");
+export const isComponentWillMount = createLifecycleChecker("componentWillMount");
+export const isComponentWillReceiveProps = createLifecycleChecker("componentWillReceiveProps");
+export const isComponentWillUnmount = createLifecycleChecker("componentWillUnmount");
+export const isComponentWillUpdate = createLifecycleChecker("componentWillUpdate");
+export const isGetChildContext = createLifecycleChecker("getChildContext");
+export const isGetInitialState = createLifecycleChecker("getInitialState");
+export const isGetSnapshotBeforeUpdate = createLifecycleChecker("getSnapshotBeforeUpdate");
+export const isShouldComponentUpdate = createLifecycleChecker("shouldComponentUpdate");
+export const isUnsafeComponentWillMount = createLifecycleChecker("UNSAFE_componentWillMount");
+export const isUnsafeComponentWillReceiveProps = createLifecycleChecker("UNSAFE_componentWillReceiveProps");
+export const isUnsafeComponentWillUpdate = createLifecycleChecker("UNSAFE_componentWillUpdate");
 
 // Static lifecycle method checkers
 export const isGetDefaultProps = createLifecycleChecker("getDefaultProps", true);
