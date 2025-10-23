@@ -11,8 +11,8 @@
 
 - [Features](#features)
 - [Public Packages](#public-packages)
-  - [Modular](#modular)
-  - [Unified](#unified)
+  - [Unified ESLint Plugin](#unified-eslint-plugin)
+  - [Modular ESLint Plugins](#modular-eslint-plugins)
 - [Installation](#installation)
   - [Install](#install)
   - [Setup](#setup)
