@@ -9,6 +9,8 @@ on:
       - "**"
 env:
   NODE_OPTIONS: --max_old_space_size=10240
+permissions:
+  contents: read
 jobs:
   check:
     runs-on: ubuntu-24.04-arm
