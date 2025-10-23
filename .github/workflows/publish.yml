@@ -18,7 +18,7 @@ jobs:
     name: Publish
     runs-on: ubuntu-24.04-arm
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
       - name: Setup node@24
@@ -26,6 +26,8 @@ jobs:
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
+      - name: Install latest npm
+        run: npm install -g npm@latest
       - name: Install pnpm
         run: npm install -g pnpm
       - name: Checkout repository
@@ -50,6 +52,3 @@ jobs:
           else
             echo "Not a release, skipping publish"
           fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
