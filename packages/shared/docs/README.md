@@ -49,6 +49,7 @@
 - [RE\_REGEXP\_STR](variables/RE_REGEXP_STR.md)
 - [RE\_SNAKE\_CASE](variables/RE_SNAKE_CASE.md)
 - [RE\_TS\_EXT](variables/RE_TS_EXT.md)
+- [SIDE\_EFFECT\_FUNCTION\_NAMES](variables/SIDE_EFFECT_FUNCTION_NAMES.md)
 - [WEBSITE\_URL](variables/WEBSITE_URL.md)
 
 ## Functions

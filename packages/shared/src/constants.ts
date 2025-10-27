@@ -110,3 +110,77 @@ export const RE_COMPONENT_NAME_LOOSE = /^_?[A-Z]/u;
 export const RE_HOOK_NAME = /^use/u;
 
 // #endregion
+
+// #region Static Data
+
+export const SIDE_EFFECT_FUNCTION_NAMES: string[] = [
+  // Data Operations (CRUD & similar)
+  "set",
+  "add",
+  "create",
+  "update",
+  "save",
+  "delete",
+  "remove",
+  "clear",
+  "reset",
+  "fetch",
+  "patch",
+  "put",
+  "insert",
+  "upsert",
+  "write",
+  "modify",
+  "change",
+  "erase",
+  "destroy",
+  "load",
+  "get",
+  "retrieve",
+
+  // State & Visibility
+  "open",
+  "close",
+  "show",
+  "hide",
+  "start",
+  "stop",
+  "toggle",
+  "enable",
+  "disable",
+  "activate",
+  "deactivate",
+  "begin",
+  "end",
+  "pause",
+  "resume",
+
+  // Events & Communication
+  "dispatch",
+  "send",
+  "trigger",
+  "post",
+  "log",
+  "report",
+  "track",
+  "emit",
+  "broadcast",
+  "notify",
+  "publish",
+  "subscribe",
+  "unsubscribe",
+
+  // Navigation & Routing
+  "navigate",
+  "redirect",
+  "push",
+  "replace",
+
+  // Browser/System Actions
+  "alert",
+  "confirm",
+  "prompt",
+  "print",
+];
+
+// #endregion

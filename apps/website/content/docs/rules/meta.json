@@ -37,6 +37,7 @@
     "no-missing-context-display-name",
     "no-missing-key",
     "no-misused-capture-owner-stack",
+    "no-misused-use-memo",
     "no-nested-component-definitions",
     "no-nested-lazy-component-declarations",
     "no-prop-types",
