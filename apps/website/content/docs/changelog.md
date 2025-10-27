@@ -2,6 +2,23 @@
 title: Changelog
 ---
 
+## v2.2.4 (2025-10-27)
+
+### 🐞 Fixes
+
+- Add `main`, `module`, and `types` fields to `package.json` for multiple packages, closes #1288, closes #1283 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1294
+- Require "Context" suffix for context providers in `react-x/no-context-provider` rule, closes #1295 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1296
+
+### 🪄 Improvements
+
+- Add info on `dom/no-string-style-prop` to migration docs by @silverwind in https://github.com/Rel1cx/eslint-react/pull/1293
+
+## New Contributors
+
+- @silverwind made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1293
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.2.3...v2.2.4
+
 ## v2.2.3 (2025-10-22)
 
 ### 🐞 Fixes
