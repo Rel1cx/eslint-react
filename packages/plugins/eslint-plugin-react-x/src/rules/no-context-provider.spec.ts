@@ -6,19 +6,6 @@ import rule, { RULE_NAME } from "./no-context-provider";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: tsx`<context.Provider />`,
-      errors: [
-        {
-          messageId: "noContextProvider",
-        },
-      ],
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
       code: tsx`<Context.Provider />`,
       errors: [
         {
@@ -54,47 +41,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: tsx`<Context>{children}</Context>`,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`<Foo.Bar.Provider>{children}</Foo.Bar.Provider>`,
-      errors: [
-        {
-          messageId: "noContextProvider",
-        },
-      ],
-      output: tsx`<Foo.Bar>{children}</Foo.Bar>`,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`<foo.Bar.Provider>{children}</foo.Bar.Provider>`,
-      errors: [
-        {
-          messageId: "noContextProvider",
-        },
-      ],
-      output: tsx`<foo.Bar>{children}</foo.Bar>`,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`<foo.bar.Provider>{children}</foo.bar.Provider>`,
-      errors: [
-        {
-          messageId: "noContextProvider",
-        },
-      ],
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -157,6 +103,20 @@ ruleTester.run(RULE_NAME, rule, {
 
         function Component() {
           return <Provider>hello world</Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import { Tooltip } from '@base-ui-components/react/tooltip'
+
+        function Component() {
+          return <Tooltip.Provider>hello world</Tooltip.Provider>;
         }
       `,
       settings: {
