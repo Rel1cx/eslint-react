@@ -54,13 +54,13 @@
     "@typescript-eslint/utils": "^8.46.2",
     "compare-versions": "^6.1.1",
     "string-ts": "^2.2.1",
-    "ts-pattern": "^5.8.0"
+    "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "tsdown": "^0.15.9"
+    "tsdown": "^0.15.10"
   },
   "peerDependencies": {
     "eslint": "^9.38.0",
