@@ -49,8 +49,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const contextSelfName = parts.pop();
       // Exit if the element is not a "Provider"
       if (selfName !== "Provider") return;
-      // Exit if there is no context name
-      if (contextSelfName == null) return;
+      // Exit if there is no context name or it doesn't end with "Context"
+      if (contextSelfName == null || !contextSelfName.endsWith("Context")) return;
       context.report({
         messageId: "noContextProvider",
         node,

@@ -34,7 +34,9 @@ Replaces usages of `<Context.Provider>` with `<Context>`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 
-In addition, it is recommended to enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
+<Callout type="warning">
+  This rule depends on the [`naming-convention/context-name`](./naming-convention-context-name) rule to identify context components. Make sure to enable that rule to ensure this rule works correctly.
+</Callout>
 
 ## Examples
 
@@ -81,7 +83,7 @@ function App({ children }) {
 
 ## See Also
 
-- [`no-forward-ref`](./no-forward-ref)\
-  Replaces usages of `forwardRef` with passing `ref` as a prop.
 - [`no-use-context`](./no-use-context)\
   Replaces usages of `useContext` with `use`.
+- [`naming-convention/context-name`](./naming-convention-context-name)\
+  Enforces consistent naming conventions for contexts.
