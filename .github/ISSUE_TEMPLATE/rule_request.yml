@@ -68,6 +68,15 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: docs-references
+    attributes:
+      label: Documentation References
+      description: Provide links to relevant documentation or resources that can help understand the context of the rule (e.g., ["Pitfalls" sections in https://react.dev](https://www.google.com/search?q=Pitfall+site:react.dev)).
+      placeholder: "The pattern is mentioned in the official docs: https://react.dev/..."
+    validations:
+      required: false
+
   - type: checkboxes
     id: checklist
     attributes:
