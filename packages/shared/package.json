@@ -46,7 +46,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node22": "^22.0.2",
     "@types/picomatch": "^4.0.2",
-    "tsdown": "^0.15.10",
+    "tsdown": "^0.15.12",
     "type-fest": "^5.1.0"
   },
   "engines": {

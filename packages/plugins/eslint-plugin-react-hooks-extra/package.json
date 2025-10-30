@@ -61,7 +61,7 @@
     "@local/configs": "workspace:*",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "tsdown": "^0.15.10"
+    "tsdown": "^0.15.12"
   },
   "peerDependencies": {
     "eslint": "^9.38.0",
