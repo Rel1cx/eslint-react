@@ -28,6 +28,19 @@ The following rules require type information:
 - [`react-x/no-unused-props`](/docs/rules/no-unused-props)
 - [`react-x/prefer-read-only-props`](/docs/rules/prefer-read-only-props)
 
+<Callout type="warning">
+  Some rules, such as `react-x/no-leaked-conditional-rendering`, work better when certain TypeScript compiler options are enabled. We recommend enabling `strictNullChecks` in your `tsconfig.json` or `jsconfig.json`:
+
+  ```json
+  {
+    "compilerOptions": {
+      "strictNullChecks": true,
+      // ...
+    }
+  }
+  ```
+</Callout>
+
 **The `project` or `projectService` options in `parserOptions` must be set correctly for the rules to work**.
 
 Enabling these rules **will have performance impact**, but they are more powerful than traditional lint rules.
