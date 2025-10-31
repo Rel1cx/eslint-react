@@ -25,7 +25,7 @@ const packagesTsConfigs = [
 ];
 
 export default defineConfig([
-  includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
+  includeIgnoreFile(gitignore, "Imported .gitignore patterns") as never,
   globalIgnores([
     ...GLOB_IGNORES,
     "apps",
