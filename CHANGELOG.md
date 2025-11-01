@@ -1,3 +1,15 @@
+## v2.3.0 (2025-11-02)
+
+### ✨ New
+
+- Add `react-x/jsx-dollar` rule, closes #1300 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1302
+
+### 🪄 Improvements
+
+- Enable `strictNullChecks` in tsconfig samples, closes #1299 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1301
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.2.4...v2.3.0
+
 ## v2.2.4 (2025-10-27)
 
 ### 🐞 Fixes
