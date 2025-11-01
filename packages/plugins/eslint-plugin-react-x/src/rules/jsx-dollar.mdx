@@ -53,7 +53,17 @@ import React from "react";
 
 function MyComponent({ user }) {
   return <div>Hello ${user.name}</div>;
-  //          ^^^^^^^^^^^^^^
+  //          ^^^^^^^
+  //          - Possible unnecessary '$' character before expression.
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent({ user }) {
+  return <div>${user.name} is your name</div>;
+  //          ^
   //          - Possible unnecessary '$' character before expression.
 }
 ```
@@ -80,24 +90,7 @@ function MyComponent({ user }) {
 import React from "react";
 
 function MyComponent({ price }) {
-  return <div>${price}</div>;
-}
-```
-
-### Legitimate uses
-
-If you legitimately need to output a dollar sign before an expression (for example, to display a price), you can wrap it in a template literal or use a string literal.
-
-```tsx
-import React from "react";
-
-function MyComponent({ price }) {
-  // 🟢 Good: This is a legitimate use of the '$' character.
-  return <div>{`$${price}`}</div>;
-}
-
-function AnotherComponent({ price }) {
-  // 🟢 Good: Another legitimate way to display a price.
+  // 🟢 Good: If there are only two children (the dollar sign and the expression) it doesn't seem to be split from a template literal
   return <div>${price}</div>;
 }
 ```

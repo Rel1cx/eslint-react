@@ -45,6 +45,50 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        const App = (props) => {
+            return <div>\${props.name} is your name</div>;
+        };
+      `,
+      errors: [
+        {
+          messageId: "jsxDollar",
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`
+                const App = (props) => {
+                    return <div>{props.name} is your name</div>;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const App = (props) => {
+            return <div>Hello \${props.name} is your name</div>;
+        };
+      `,
+      errors: [
+        {
+          messageId: "jsxDollar",
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`
+                const App = (props) => {
+                    return <div>Hello {props.name} is your name</div>;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,

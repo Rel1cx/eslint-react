@@ -41,9 +41,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    */
   const visitorFunction = (node: TSESTree.JSXElement | TSESTree.JSXFragment) => {
     for (const [index, child] of node.children.entries()) {
-      if (child.type !== T.JSXText || child.raw === "$" || !child.raw.endsWith("$")) continue;
+      if (child.type !== T.JSXText || !child.value.endsWith("$")) continue;
       // Ensure the next sibling is a JSXExpressionContainer
       if (node.children[index + 1]?.type !== T.JSXExpressionContainer) continue;
+      // Skip if there are only two children (the dollar sign and the expression) it doesn't seem to be split from a template literal
+      if (child.value === "$" && node.children.length === 2) continue;
       context.report({
         messageId: "jsxDollar",
         node: child,
