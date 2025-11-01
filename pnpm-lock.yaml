@@ -26,8 +26,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.51.1
-        version: 0.51.1
+        specifier: ^0.53.2
+        version: 0.53.2
       '@effect/platform':
         specifier: ^0.92.1
         version: 0.92.1(effect@3.18.4)
@@ -94,9 +94,6 @@ importers:
       eslint-plugin-vitest:
         specifier: ^0.5.4
         version: 0.5.4(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.5(@types/debug@4.1.12)(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
-      jiti:
-        specifier: ^2.6.1
-        version: 2.6.1
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
@@ -319,8 +316,8 @@ importers:
         version: 0.3.4(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.51.1
-        version: 0.51.1
+        specifier: ^0.53.2
+        version: 0.53.2
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -1861,8 +1858,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.51.1':
-    resolution: {integrity: sha512-JdKKw7EP5Na9ZdvQgs3rHBsrWAvvMh99yAaB0jgX7kKEkx0L8mdIndxtOqc3DrZ/H6qJxCLSjxa873Z5TEecVg==}
+  '@effect/language-service@0.53.2':
+    resolution: {integrity: sha512-c2mEfVZQ2FojIqtDp9WgUvzlDJiYSjFWneMhT8R/EtUF/z+6wHg+h5ddZO7mihTf/ItNvq7ytVHPYX+lyN6lGw==}
     hasBin: true
 
   '@effect/platform-node-shared@0.51.6':
@@ -7712,7 +7709,7 @@ snapshots:
       effect: 3.18.4
       uuid: 11.1.0
 
-  '@effect/language-service@0.51.1': {}
+  '@effect/language-service@0.53.2': {}
 
   '@effect/platform-node-shared@0.51.6(@effect/cluster@0.50.6(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/workflow@0.11.5(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(@effect/rpc@0.71.1(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(@effect/platform@0.92.1(effect@3.18.4))(effect@3.18.4))(effect@3.18.4)':
     dependencies:
