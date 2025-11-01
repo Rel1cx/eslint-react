@@ -1,4 +1,3 @@
-import * as AST from "@eslint-react/ast";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -11,7 +10,9 @@ export const RULE_NAME = "jsx-dollar";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME> | "removeDollarSign";
+export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
+
+export type RuleSuggestMessageID = "removeDollarSign";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,8 +24,7 @@ export default createRule<[], MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      jsxDollar:
-        "Possible misused dollar sign in text node. If you want to explicitly display '$' character i.e. show price, you can use template literals.",
+      jsxDollar: "Possible unnecessary '$' character before expression.",
       removeDollarSign: "Remove the dollar sign '$' before the expression.",
     },
     schema: [],
@@ -35,10 +35,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  /**
+   * Visitor function for JSXElement and JSXFragment nodes
+   * @param node The JSXElement or JSXFragment node to be checked
+   */
   const visitorFunction = (node: TSESTree.JSXElement | TSESTree.JSXFragment) => {
     for (const [index, child] of node.children.entries()) {
-      if (child.type !== T.JSXText) continue;
-      if (!child.raw.endsWith("$")) continue;
+      if (child.type !== T.JSXText || child.raw === "$" || !child.raw.endsWith("$")) continue;
+      // Ensure the next sibling is a JSXExpressionContainer
       if (node.children[index + 1]?.type !== T.JSXExpressionContainer) continue;
       context.report({
         messageId: "jsxDollar",

@@ -1,0 +1,108 @@
+---
+title: jsx-dollar
+---
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```plain copy
+@eslint-react/jsx-dollar
+```
+
+**Full Name in `eslint-plugin-react-x`**
+
+```plain copy
+react-x/jsx-dollar
+```
+
+**Features**
+
+`🔧`
+
+## Description
+
+Prevents unnecessary dollar signs (`$`) from being inserted before an expression in JSX.
+
+This can happen when refactoring from a template literal to JSX and forgetting to remove the dollar sign. This results in an unintentional `$` being rendered in the output.
+
+```tsx
+import React from "react";
+
+function MyComponent({ user }) {
+  return `Hello ${user.name}`;
+}
+```
+
+When refactored to JSX, it might look like this:
+
+```tsx
+import React from "react";
+
+function MyComponent({ user }) {
+  return <>Hello ${user.name}</>;
+}
+```
+
+In this example, the `$` before `{user.name}` is unnecessary and will be rendered as part of the output.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+function MyComponent({ user }) {
+  return <div>Hello ${user.name}</div>;
+  //          ^^^^^^^^^^^^^^
+  //          - Possible unnecessary '$' character before expression.
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+function MyComponent({ user }) {
+  return `Hello ${user.name}`;
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent({ user }) {
+  return <div>Hello {user.name}</div>;
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent({ price }) {
+  return <div>${price}</div>;
+}
+```
+
+### Legitimate uses
+
+If you legitimately need to output a dollar sign before an expression (for example, to display a price), you can wrap it in a template literal or use a string literal.
+
+```tsx
+import React from "react";
+
+function MyComponent({ price }) {
+  // 🟢 Good: This is a legitimate use of the '$' character.
+  return <div>{`$${price}`}</div>;
+}
+
+function AnotherComponent({ price }) {
+  // 🟢 Good: Another legitimate way to display a price.
+  return <div>${price}</div>;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-dollar.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-dollar.spec.ts)
