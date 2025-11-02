@@ -6,21 +6,23 @@ import rule, { RULE_NAME } from "./jsx-dollar";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      // Template literal syntax mistakenly used in JSX text
       code: tsx`
-        const MyComponent = () => <>Hello \${user.name}</>
+        const App = () => <>Hello \${user.name}</>
       `,
       errors: [
         {
           messageId: "jsxDollar",
-          column: 35,
-          endColumn: 36,
+          column: 27,
+          endColumn: 28,
           endLine: 1,
           line: 1,
           suggestions: [
             {
               messageId: "removeDollarSign",
+              // Should use JSX expression syntax instead
               output: tsx`
-                const MyComponent = () => <>Hello {user.name}</>
+                const App = () => <>Hello {user.name}</>
               `,
             },
           ],
@@ -28,6 +30,30 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      // Two dollar signs before expression (report the last one)
+      code: tsx`
+        const App = () => <>Hello $\${user.name}</>
+      `,
+      errors: [
+        {
+          messageId: "jsxDollar",
+          column: 28,
+          endColumn: 29,
+          endLine: 1,
+          line: 1,
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`
+                const App = () => <>Hello \${user.name}</>
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      // Template literal syntax in div element
       code: tsx`
         const App = (props) => {
             return <div>Hello \${props.name}</div>;
@@ -54,6 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      // Template literal syntax at start of text
       code: tsx`
         const App = (props) => {
             return <div>\${props.name} is your name</div>;
@@ -80,6 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      // Template literal syntax in middle of text
       code: tsx`
         const App = (props) => {
             return <div>Hello \${props.name} is your name</div>;
@@ -105,39 +133,80 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // Multiple template literal syntax errors in single JSX element
+      code: tsx`
+        function App({ count, total }) {
+          return <div>Progress: \${count} / \${total}</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "jsxDollar",
+          column: 25,
+          endColumn: 26,
+          endLine: 2,
+          line: 2,
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              // Fix first occurrence only
+              output: tsx`
+                function App({ count, total }) {
+                  return <div>Progress: {count} / \${total}</div>;
+                }
+              `,
+            },
+          ],
+        },
+        {
+          messageId: "jsxDollar",
+          column: 36,
+          endColumn: 37,
+          endLine: 2,
+          line: 2,
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              // Fix second occurrence only
+              output: tsx`
+                function App({ count, total }) {
+                  return <div>Progress: \${count} / {total}</div>;
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     ...allValid,
+    // Template literal in JavaScript expression - valid usage
     tsx`
-      const MyComponent = () => \`Hello \${user.name}\`
+      const App = () => \`Hello \${user.name}\`
     `,
-    tsx`
-      const App = (props) => {
-          return [<div key="1">1</div>]
-      };
-    `,
+    // Plain dollar sign without template literal syntax
     tsx`
       const App = (props) => {
           return <div>Hello $</div>;
       };
     `,
+    // Correct JSX expression syntax
     tsx`
       const App = (props) => {
           return <div>Hello {props.name}</div>;
       };
     `,
+    // Dollar sign in template literal inside JSX expression - valid
     tsx`
-      import React from "react";
-
-      function MyComponent({ price }) {
+      function App({ price }) {
         // 🟢 Good: This is a legitimate use of the '$' character.
         return <div>{\`$\${price}\`}</div>;
       }
     `,
     tsx`
-      import React from "react";
-      function AnotherComponent({ price }) {
-        // 🟢 Good: Another legitimate way to display a price.
+      function App({ price }) {
         return <div>\${price}</div>;
       }
     `,
