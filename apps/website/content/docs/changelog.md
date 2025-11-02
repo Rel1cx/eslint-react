@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.3.1 (2025-11-02)
+
+### 🐞 Fixes
+
+- Improve location reporting for `react-x/jsx-dollar` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1303
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.0...v2.3.1
+
 ## v2.3.0 (2025-11-02)
 
 ### ✨ New
