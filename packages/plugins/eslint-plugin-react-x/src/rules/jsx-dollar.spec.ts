@@ -12,6 +12,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "jsxDollar",
+          column: 35,
+          endColumn: 36,
+          endLine: 1,
+          line: 1,
           suggestions: [
             {
               messageId: "removeDollarSign",
@@ -32,6 +36,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "jsxDollar",
+          column: 23,
+          endColumn: 24,
+          endLine: 2,
+          line: 2,
           suggestions: [
             {
               messageId: "removeDollarSign",
@@ -54,6 +62,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "jsxDollar",
+          column: 17,
+          endColumn: 18,
+          endLine: 2,
+          line: 2,
           suggestions: [
             {
               messageId: "removeDollarSign",
@@ -76,6 +88,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "jsxDollar",
+          column: 23,
+          endColumn: 24,
+          endLine: 2,
+          line: 2,
           suggestions: [
             {
               messageId: "removeDollarSign",
