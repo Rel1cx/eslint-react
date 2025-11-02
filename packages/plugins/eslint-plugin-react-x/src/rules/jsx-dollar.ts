@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             line: pos.line,
           },
           start: {
-            column: child.loc.start.column + child.value.length - 1,
+            column: pos.column - 1,
             line: pos.line,
           },
         },
