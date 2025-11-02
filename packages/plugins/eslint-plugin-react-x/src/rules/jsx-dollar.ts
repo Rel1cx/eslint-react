@@ -46,9 +46,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.children[index + 1]?.type !== T.JSXExpressionContainer) continue;
       // Skip if there are only two children (the dollar sign and the expression) it doesn't seem to be split from a template literal
       if (child.value === "$" && node.children.length === 2) continue;
+      const pos = child.loc.end;
       context.report({
         messageId: "jsxDollar",
         node: child,
+        loc: {
+          end: {
+            column: pos.column,
+            line: pos.line,
+          },
+          start: {
+            column: pos.column - 1,
+            line: pos.line,
+          },
+        },
         suggest: [
           {
             messageId: "removeDollarSign",
