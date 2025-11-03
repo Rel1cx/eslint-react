@@ -26,6 +26,7 @@ const dirname = fileURLToPath(new URL(".", import.meta.url));
 const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
 export default defineConfig([
+  // @ts-expect-error - types issue
   includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
   globalIgnores(GLOB_IGNORES),
   {

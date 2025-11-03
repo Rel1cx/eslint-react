@@ -30,7 +30,6 @@
     "no-default-props",
     "no-direct-mutation-state",
     "no-duplicate-key",
-    "no-forbidden-props",
     "no-forward-ref",
     "no-implicit-key",
     "no-leaked-conditional-rendering",

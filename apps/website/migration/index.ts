@@ -70,4 +70,9 @@ export const redirects = [
     destination: "/docs/rules/prefer-use-state-lazy-initialization",
     permanent: true,
   },
+  {
+    source: "/docs/rules/no-forbidden-props",
+    destination: "/docs/rules-removed/no-forbidden-props",
+    permanent: true,
+  },
 ] as const;

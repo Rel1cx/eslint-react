@@ -30,7 +30,6 @@ import noCreateRef from "./rules/no-create-ref";
 import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
 import noDuplicateKey from "./rules/no-duplicate-key";
-import noForbiddenProps from "./rules/no-forbidden-props";
 import noForwardRef from "./rules/no-forward-ref";
 import noImplicitKey from "./rules/no-implicit-key";
 import noLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering";
@@ -65,6 +64,8 @@ import preferDestructuringAssignment from "./rules/prefer-destructuring-assignme
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
+
+import noForbiddenProps from "./rules-removed/no-forbidden-props";
 
 export const plugin: CompatiblePlugin = {
   meta: {
