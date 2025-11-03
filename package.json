@@ -52,7 +52,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.53.2",
+    "@effect/language-service": "^0.53.3",
     "@effect/platform": "^0.92.1",
     "@effect/platform-node": "^0.98.4",
     "@eslint/compat": "^1.4.1",
@@ -62,7 +62,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@tsconfig/node22": "^22.0.2",
     "@tsconfig/strictest": "^2.0.7",
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@typescript-eslint/parser": "^8.46.2",
