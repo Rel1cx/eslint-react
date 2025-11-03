@@ -18,6 +18,10 @@ react-x/no-forbidden-props
 
 `🔧` `🧪`
 
+<Callout type="warning" title="Deprecated">
+  This rule is deprecated. AST-based component props restrictions can be easily bypassed and this rule is not significantly more effective than using `no-restricted-syntax` to achieve the same result. For similar prop restriction requirements, we recommend using static type checking instead.
+</Callout>
+
 ## Description
 
 Disallow certain props on components. This rule helps enforce consistent prop naming conventions and prevents the use of specific props that may be problematic or against your team's coding standards.

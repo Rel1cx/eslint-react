@@ -33,6 +33,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     defaultOptions: [...defaultOptions],
+    deprecated: true,
     docs: {
       description: "Disallow certain props on components.",
     },
