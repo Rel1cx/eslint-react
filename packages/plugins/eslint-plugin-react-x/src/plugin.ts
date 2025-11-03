@@ -100,7 +100,6 @@ export const plugin: CompatiblePlugin = {
     "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
     "no-duplicate-key": noDuplicateKey,
-    "no-forbidden-props": noForbiddenProps,
     "no-forward-ref": noForwardRef,
     "no-implicit-key": noImplicitKey,
     "no-leaked-conditional-rendering": noLeakedConditionalRendering,
@@ -135,5 +134,10 @@ export const plugin: CompatiblePlugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
+
+    /**
+     * @deprecated Use no-restricted-syntax or type checking instead.
+     */
+    "no-forbidden-props": noForbiddenProps,
   },
 };
