@@ -33,7 +33,16 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     defaultOptions: [...defaultOptions],
-    deprecated: true,
+    deprecated: {
+      deprecatedSince: "2.3.1",
+      message: "This rule is deprecated and will be removed in future versions.",
+      replacedBy: [{
+        rule: {
+          name: "no-restricted-syntax",
+          url: "https://eslint.org/docs/latest/rules/no-restricted-syntax",
+        },
+      }],
+    },
     docs: {
       description: "Disallow certain props on components.",
     },
