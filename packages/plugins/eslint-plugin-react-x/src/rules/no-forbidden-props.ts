@@ -34,7 +34,7 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     deprecated: {
-      deprecatedSince: "2.3.1",
+      deprecatedSince: "2.3.2",
       message: "This rule is deprecated and will be removed in future versions.",
       replacedBy: [{
         rule: {
