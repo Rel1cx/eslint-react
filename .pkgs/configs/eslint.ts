@@ -114,8 +114,6 @@ export const strictTypeChecked: Linter.Config[] = defineConfig([
       "no-else-return": "error",
       "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
       "no-implicit-coercion": ["error", { allow: ["!!"] }],
-      "no-mixed-operators": "warn",
-      "no-undef": "off",
       "prefer-object-has-own": "error",
 
       "no-restricted-syntax": [
@@ -231,3 +229,13 @@ export const disableTypeChecked: Linter.Config[] = defineConfig([
     },
   },
 ]);
+
+/**
+ * Common ESLint JS rules to disable that are problematic when using TypeScript.
+ */
+export const disableProblemticEslintJsRules: Linter.Config = {
+  rules: {
+    "no-dupe-args": "off",
+    "no-unused-vars": "off",
+  },
+};

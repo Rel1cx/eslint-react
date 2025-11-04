@@ -7,6 +7,7 @@ import {
   GLOB_SCRIPTS,
   GLOB_TESTS,
   GLOB_TS,
+  disableProblemticEslintJsRules,
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
@@ -99,4 +100,5 @@ export default defineConfig([
       "local/avoid-multiline-template-expression": "off",
     },
   },
+  disableProblemticEslintJsRules,
 ]);

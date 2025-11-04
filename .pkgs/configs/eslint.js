@@ -104,8 +104,6 @@ export const strictTypeChecked = defineConfig([
             "no-else-return": "error",
             "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
             "no-implicit-coercion": ["error", { allow: ["!!"] }],
-            "no-mixed-operators": "warn",
-            "no-undef": "off",
             "prefer-object-has-own": "error",
             "no-restricted-syntax": [
                 "error",
@@ -214,3 +212,13 @@ export const disableTypeChecked = defineConfig([
         },
     },
 ]);
+/**
+ * Common ESLint JS rules to disable that are problematic when using TypeScript.
+ */
+export const disableProblemticEslintJsRules = {
+    rules: {
+        // handled by TypeScript
+        "no-dupe-args": "off",
+        "no-unused-vars": "off",
+    },
+};

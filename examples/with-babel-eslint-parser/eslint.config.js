@@ -13,6 +13,14 @@ import globals from "globals";
 import JSCONFIG_APP from "./jsconfig.app.json" with { type: "json" };
 import JSCONFIG_NODE from "./jsconfig.node.json" with { type: "json" };
 
+const disableProblemticEslintJsRules = {
+  rules: {
+    // handled by TypeScript
+    "no-dupe-args": "off",
+    "no-unused-vars": "off",
+  },
+};
+
 export default defineConfig([
   // base configuration for browser environment source files
   {
@@ -71,4 +79,5 @@ export default defineConfig([
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
     ],
   },
+  disableProblemticEslintJsRules,
 ]);

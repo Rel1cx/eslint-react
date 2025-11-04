@@ -9,6 +9,14 @@ import tsBlankEslintParser from "ts-blank-eslint-parser";
 import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
+const disableProblemticEslintJsRules = {
+  rules: {
+    // handled by TypeScript
+    "no-dupe-args": "off",
+    "no-unused-vars": "off",
+  },
+};
+
 export default defineConfig([
   // base configuration for browser environment source files
   {
@@ -19,9 +27,6 @@ export default defineConfig([
         ...globals.browser,
       },
       parser: tsBlankEslintParser,
-    },
-    rules: {
-      "no-unused-vars": "off",
     },
   },
   // base configuration for node environment source files (*.config.js, etc.)
@@ -48,4 +53,5 @@ export default defineConfig([
       eslintPluginReactRefresh.configs.recommended,
     ],
   },
+  disableProblemticEslintJsRules,
 ]);
