@@ -38,9 +38,9 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.46.2",
-    "@typescript-eslint/types": "^8.46.2",
-    "@typescript-eslint/utils": "^8.46.2",
+    "@typescript-eslint/scope-manager": "^8.46.3",
+    "@typescript-eslint/types": "^8.46.3",
+    "@typescript-eslint/utils": "^8.46.3",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {

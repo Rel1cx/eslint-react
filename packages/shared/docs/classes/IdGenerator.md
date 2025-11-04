@@ -32,7 +32,7 @@ Optional. A prefix of generated ids.
 
 > **next**(): `string`
 
-Generates id.
+Generates an id.
 
 #### Returns
 
