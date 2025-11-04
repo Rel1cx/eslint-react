@@ -4,6 +4,10 @@
 
 # @eslint-react/shared
 
+## Classes
+
+- [IdGenerator](classes/IdGenerator.md)
+
 ## Interfaces
 
 - [CompatibleConfig](interfaces/CompatibleConfig.md)

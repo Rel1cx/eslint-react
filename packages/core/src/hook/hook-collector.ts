@@ -2,9 +2,11 @@ import * as AST from "@eslint-react/ast";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { Hook } from "./hook-semantic-node";
 
-import { getId } from "@eslint-react/shared";
+import { IdGenerator } from "@eslint-react/shared";
 import { isReactHookCall } from "./hook-is";
 import { isReactHookName } from "./hook-name";
+
+const idGen = new IdGenerator("hook_");
 
 type FunctionEntry = {
   key: string;
@@ -26,7 +28,7 @@ export function useHookCollector(): useHookCollector.ReturnType {
   const functionEntries: FunctionEntry[] = [];
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionId(node);
-    const key = getId();
+    const key = idGen.next();
     const name = id?.name;
     if (name != null && isReactHookName(name)) {
       functionEntries.push({ key, node, isHook: true });
