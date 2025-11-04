@@ -3,9 +3,11 @@ import { unit } from "@eslint-react/eff";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { ClassComponent } from "./component-semantic-node";
 
-import { getId } from "@eslint-react/shared";
+import { IdGenerator } from "@eslint-react/shared";
 import { ComponentFlag } from "./component-flag";
 import { isClassComponent, isPureComponent } from "./component-is";
+
+const idGen = new IdGenerator("class_component_");
 
 export declare namespace useComponentCollectorLegacy {
   type ReturnType = {
@@ -35,7 +37,7 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
       return;
     }
     const id = AST.getClassId(node);
-    const key = getId();
+    const key = idGen.next();
     const flag = isPureComponent(node)
       ? ComponentFlag.PureComponent
       : ComponentFlag.None;

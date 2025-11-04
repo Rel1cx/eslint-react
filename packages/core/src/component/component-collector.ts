@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext } from "@eslint-react/shared";
-import { getId } from "@eslint-react/shared";
+import { IdGenerator } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -15,6 +15,8 @@ import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
 import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
+
+const idGen = new IdGenerator("function_component_");
 
 type FunctionEntry = {
   key: string;
@@ -60,7 +62,7 @@ export function useComponentCollector(
 
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
-    const key = getId();
+    const key = idGen.next();
     functionEntries.push({ key, node, hookCalls: [], isComponent: false });
   };
   const onFunctionExit = () => {
@@ -106,8 +108,8 @@ export function useComponentCollector(
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
+      const key = entry.key;
       const name = getComponentNameFromId(id);
-      const key = getId();
       components.set(key, {
         id,
         key,
