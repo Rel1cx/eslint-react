@@ -16,7 +16,7 @@ class IdGenerator {
     this.n = 0n;
   }
   /**
-   * Generates id.
+   * Generates an id.
    * @returns A generated id.
    */
   next() {
