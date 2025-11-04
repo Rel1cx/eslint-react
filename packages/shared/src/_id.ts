@@ -20,7 +20,7 @@ class IdGenerator {
    * @returns A generated id.
    */
   next() {
-    this.n = (1n + this.n) | 0n;
+    this.n = 1n + this.n;
     return this.prefix + this.n.toString(16);
   }
 }
