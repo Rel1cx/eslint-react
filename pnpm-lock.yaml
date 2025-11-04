@@ -26,8 +26,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.55.0
-        version: 0.55.0
+        specifier: ^0.55.1
+        version: 0.55.1
       '@effect/platform':
         specifier: ^0.93.0
         version: 0.93.0(effect@3.19.0)
@@ -86,7 +86,7 @@ importers:
         specifier: ^3.19.0
         version: 3.19.0
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-fast-import:
         specifier: ^1.5.3
@@ -316,8 +316,8 @@ importers:
         version: 0.3.4(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.55.0
-        version: 0.55.0
+        specifier: ^0.55.1
+        version: 0.55.1
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -367,7 +367,7 @@ importers:
         specifier: ^1.7.0
         version: 1.7.0
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-fast-import:
         specifier: ^1.5.3
@@ -443,7 +443,7 @@ importers:
         specifier: ^19.2.2
         version: 19.2.2(@types/react@19.2.2)
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
@@ -495,7 +495,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
@@ -541,7 +541,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
@@ -599,7 +599,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-react-debug:
         specifier: workspace:*
@@ -669,7 +669,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(vite@7.1.12(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
       eslint:
-        specifier: ^9.39.1
+        specifier: ^9.38.0
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
@@ -1858,8 +1858,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.55.0':
-    resolution: {integrity: sha512-aWdrYHI4x77s2SlYH2hw9WStxpPV7XXBZVJ1F4V+2LiFGBXlCujBcmgsprHAI8LnBv+0SA98/s3ovQehiIptjg==}
+  '@effect/language-service@0.55.1':
+    resolution: {integrity: sha512-vMKYEzX9yC31a0NYGBQR4BI009NbSn6h9g9QCVnbatkb1VPZAuKble6OVXoyBq+VuYnyCePqwsc81TyiNsqRrw==}
     hasBin: true
 
   '@effect/platform-node-shared@0.52.0':
@@ -7705,7 +7705,7 @@ snapshots:
       effect: 3.19.0
       uuid: 11.1.0
 
-  '@effect/language-service@0.55.0': {}
+  '@effect/language-service@0.55.1': {}
 
   '@effect/platform-node-shared@0.52.0(@effect/cluster@0.50.6(@effect/platform@0.93.0(effect@3.19.0))(@effect/rpc@0.71.1(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(@effect/workflow@0.11.5(@effect/platform@0.93.0(effect@3.19.0))(@effect/rpc@0.71.1(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(effect@3.19.0))(effect@3.19.0))(@effect/platform@0.93.0(effect@3.19.0))(@effect/rpc@0.71.1(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(@effect/sql@0.46.0(@effect/experimental@0.56.0(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(@effect/platform@0.93.0(effect@3.19.0))(effect@3.19.0))(effect@3.19.0)':
     dependencies:
