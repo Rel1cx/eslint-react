@@ -5,7 +5,7 @@
 /**
  * A generator for unique ids.
  */
-class IdGenerator {
+export class IdGenerator {
   private n: bigint;
   private prefix: string;
   /**
@@ -24,5 +24,3 @@ class IdGenerator {
     return this.prefix + this.n.toString(16);
   }
 }
-
-export { IdGenerator };
