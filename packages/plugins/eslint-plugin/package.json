@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.15.12"
+    "tsdown": "^0.16.0"
   },
   "peerDependencies": {
     "eslint": "^9.38.0",

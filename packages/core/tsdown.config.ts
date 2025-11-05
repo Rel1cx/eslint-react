@@ -1,4 +1,4 @@
-import type { Options } from "tsdown";
+import type { InlineConfig } from "tsdown";
 
 export default {
   clean: true,
@@ -12,4 +12,5 @@ export default {
   sourcemap: false,
   target: "node20",
   treeshake: true,
-} satisfies Options;
+  fixedExtension: false,
+} satisfies InlineConfig;
