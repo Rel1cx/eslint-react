@@ -2,8 +2,10 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-[![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
-[![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.16.0-000000?style=flat)](https://tsdown.dev)
 
 4-7x faster composable ESLint rules for React and friends.
 
