@@ -1,10 +1,11 @@
-import type { InlineConfig } from "tsdown";
+import type { UserConfig } from "tsdown";
 
 export default {
   clean: true,
   dts: true,
   entry: ["src/index.ts"],
   external: ["eslint", "typescript"],
+  fixedExtension: false,
   format: ["esm"],
   minify: false,
   outDir: "dist",
@@ -12,5 +13,4 @@ export default {
   sourcemap: false,
   target: "node20",
   treeshake: true,
-  fixedExtension: false,
-} satisfies InlineConfig;
+} satisfies UserConfig;
