@@ -6,7 +6,7 @@
 
 # Function: coerceSettings()
 
-> **coerceSettings**(`settings`): `PartialDeep`\<[`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)\>
+> **coerceSettings**(`settings`): [`Partial`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)\<[`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)\>
 
 Coerces unknown input to ESLintReactSettings type
 
@@ -20,4 +20,4 @@ The settings object to coerce
 
 ## Returns
 
-`PartialDeep`\<[`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)\>
+[`Partial`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)\<[`ESLintReactSettings`](../type-aliases/ESLintReactSettings.md)\>

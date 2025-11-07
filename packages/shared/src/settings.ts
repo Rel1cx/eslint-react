@@ -3,7 +3,6 @@
 import type { unit } from "@eslint-react/eff";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import type { PartialDeep } from "type-fest";
 
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
@@ -105,8 +104,8 @@ export function isESLintReactSettings(settings: unknown): settings is ESLintReac
  * Coerces unknown input to ESLintSettings type
  * @param settings The settings object to coerce
  */
-export const coerceESLintSettings = (settings: unknown): PartialDeep<ESLintSettings> => {
-  return settings as PartialDeep<ESLintSettings>;
+export const coerceESLintSettings = (settings: unknown): Partial<ESLintSettings> => {
+  return settings as Partial<ESLintSettings>;
 };
 
 /**
@@ -124,8 +123,8 @@ export const decodeESLintSettings = (settings: unknown): ESLintSettings => {
  * Coerces unknown input to ESLintReactSettings type
  * @param settings The settings object to coerce
  */
-export const coerceSettings = (settings: unknown): PartialDeep<ESLintReactSettings> => {
-  return settings as PartialDeep<ESLintReactSettings>;
+export const coerceSettings = (settings: unknown): Partial<ESLintReactSettings> => {
+  return settings as Partial<ESLintReactSettings>;
 };
 
 /**

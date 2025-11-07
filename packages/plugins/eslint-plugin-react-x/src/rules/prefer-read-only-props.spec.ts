@@ -464,7 +464,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       /// <reference types="react-dom" />
 
       import * as React from "react";
-      import { ReadonlyDeep } from "type-fest";
+      import type { ReadonlyDeep } from "type-fest";
 
       export const App: React.FC<ReadonlyDeep<{ id: string; className: string }>> = (props) => {
         return <div className={props.className} id={props.id} />
