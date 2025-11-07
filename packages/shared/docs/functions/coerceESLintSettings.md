@@ -6,7 +6,7 @@
 
 # Function: coerceESLintSettings()
 
-> **coerceESLintSettings**(`settings`): `PartialDeep`\<\{ `react-x?`: `unknown`; \} \| `undefined`\>
+> **coerceESLintSettings**(`settings`): [`Partial`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)\<\{ `react-x?`: `unknown`; \} \| `undefined`\>
 
 Coerces unknown input to ESLintSettings type
 
@@ -20,4 +20,4 @@ The settings object to coerce
 
 ## Returns
 
-`PartialDeep`\<\{ `react-x?`: `unknown`; \} \| `undefined`\>
+[`Partial`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)\<\{ `react-x?`: `unknown`; \} \| `undefined`\>
