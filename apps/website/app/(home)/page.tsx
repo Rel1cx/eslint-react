@@ -51,6 +51,8 @@ export default function HomePage() {
           ESLint React is not affiliated with Meta Corporation or{" "}
           <Link className="underline" href="https://github.com/facebook/react">facebook/react</Link>{" "}
           project or team, nor is it endorsed or sponsored by them.
+
+          This project is and will continue to maintain that 90% of the code is written by humans.
         </small>
       </footer>
     </main>
