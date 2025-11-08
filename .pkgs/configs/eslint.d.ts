@@ -11,4 +11,4 @@ export declare const disableTypeChecked: Linter.Config[];
 /**
  * Common ESLint JS rules to disable that are problematic when using TypeScript.
  */
-export declare const disableProblemticEslintJsRules: Linter.Config;
+export declare const disableProblematicEslintJsRules: Linter.Config;

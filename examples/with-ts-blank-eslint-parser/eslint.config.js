@@ -9,7 +9,7 @@ import tsBlankEslintParser from "ts-blank-eslint-parser";
 import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
-const disableProblemticEslintJsRules = {
+const disableProblematicEslintJsRules = {
   rules: {
     // handled by TypeScript
     "no-dupe-args": "off",
@@ -53,5 +53,5 @@ export default defineConfig([
       eslintPluginReactRefresh.configs.recommended,
     ],
   },
-  disableProblemticEslintJsRules,
+  disableProblematicEslintJsRules,
 ]);

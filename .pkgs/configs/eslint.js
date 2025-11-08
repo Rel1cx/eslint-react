@@ -215,7 +215,7 @@ export const disableTypeChecked = defineConfig([
 /**
  * Common ESLint JS rules to disable that are problematic when using TypeScript.
  */
-export const disableProblemticEslintJsRules = {
+export const disableProblematicEslintJsRules = {
     rules: {
         "no-dupe-args": "off",
         "no-unused-vars": "off",
