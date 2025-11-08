@@ -233,7 +233,7 @@ export const disableTypeChecked: Linter.Config[] = defineConfig([
 /**
  * Common ESLint JS rules to disable that are problematic when using TypeScript.
  */
-export const disableProblemticEslintJsRules: Linter.Config = {
+export const disableProblematicEslintJsRules: Linter.Config = {
   rules: {
     "no-dupe-args": "off",
     "no-unused-vars": "off",
