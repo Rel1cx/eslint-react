@@ -1,5 +1,4 @@
 export * from "./_id";
-export * from "./_require";
 export * from "./config-adapters";
 export * from "./constants";
 export * from "./react-version";
