@@ -124,9 +124,11 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           if (isReactHookCall(construction.node)) {
             continue;
           }
-          const identifier = extractIdentifier(right);
-          if (identifier != null && safePatterns.some((pattern) => pattern.test(identifier))) {
-            continue;
+          if (safePatterns.length > 0) {
+            const identifier = extractIdentifier(right);
+            if (identifier != null && safePatterns.some((pattern) => pattern.test(identifier))) {
+              continue;
+            }
           }
           const forbiddenType = AST.toDelimiterFormat(right);
           context.report({
