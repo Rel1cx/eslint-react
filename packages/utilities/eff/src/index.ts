@@ -144,7 +144,7 @@ export function isArray<T>(data: ArrayLike<unknown> | T): data is NarrowedTo<T, 
  * @returns The input type, narrowed to only objects.
  */
 export function isObject<T>(data: T | object): data is NarrowedTo<T, object> {
-  // eslint-disable-next-line function-rule/function-rule
+  // eslint-disable-next-line nullish-comparison/v1
   return typeof data === "object" && data !== null;
 }
 

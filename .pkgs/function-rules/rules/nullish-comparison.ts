@@ -9,8 +9,8 @@ export interface nullishComparisonOptions {
 
 // TODO: Implement different enforce options
 export function nullishComparison(options?: nullishComparisonOptions) {
-  return (context: Rule.RuleContext): Rule.RuleListener => {
-    return defineRuleListener({
+  return (context: Rule.RuleContext) =>
+    defineRuleListener({
       BinaryExpression(node): void {
         if (node.operator === "===" || node.operator === "!==") {
           const offendingChild = [node.left, node.right].find(
@@ -65,5 +65,4 @@ export function nullishComparison(options?: nullishComparisonOptions) {
         }
       },
     });
-  };
 }

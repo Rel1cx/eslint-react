@@ -20,6 +20,9 @@
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit"
   },
+  "dependencies": {
+    "eslint-plugin-function-rule": "^0.0.9"
+  },
   "devDependencies": {
     "eslint": "^9.39.1",
     "tsdown": "^0.16.1"

@@ -11,9 +11,9 @@ import {
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
-import { nullishComparison } from "@local/function-rules";
+import { nullishComparison, templateExpression } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
-import functionRule from "eslint-plugin-function-rule";
+import { functionRule } from "eslint-plugin-function-rule";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -25,8 +25,6 @@ const packagesTsConfigs = [
   "packages/*/tsconfig.json",
   "packages/*/*/tsconfig.json",
 ];
-
-const nullishComparisonRule = nullishComparison();
 
 export default defineConfig([
   includeIgnoreFile(gitignore, "Imported .gitignore patterns") as never,
@@ -55,21 +53,23 @@ export default defineConfig([
       },
     },
     plugins: {
-      "function-rule": functionRule((context) => ({
-        ...nullishComparisonRule(context),
-        TemplateLiteral(node) {
-          if (node.loc?.start.line !== node.loc?.end.line) {
-            context.report({
-              node,
-              message: "Avoid multiline template expressions.",
-            });
-          }
-        },
-      })),
+      "nullish-comparison": functionRule("v1", nullishComparison()),
+      "template-expression": functionRule("v1", templateExpression()),
+      // "template-expression": functionRule("v1", (context) => ({
+      //   TemplateLiteral(node) {
+      //     if (node.loc?.start.line !== node.loc?.end.line) {
+      //       context.report({
+      //         node,
+      //         message: "Avoid multiline template expressions.",
+      //       });
+      //     }
+      //   },
+      // })),
     },
     rules: {
       "fast-import/no-unused-exports": "off",
-      "function-rule/function-rule": "error",
+      "nullish-comparison/v1": "error",
+      "template-expression/v1": "warn",
     },
   },
   {
@@ -107,7 +107,8 @@ export default defineConfig([
     },
     rules: {
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
-      "function-rule/function-rule": "off",
+      "nullish-comparison/v1": "off",
+      "template-expression/v1": "off",
     },
   },
   disableProblematicEslintJsRules,

@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         }
         // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
         case policy === -1
-          // eslint-disable-next-line function-rule/function-rule
+          // eslint-disable-next-line nullish-comparison/v1
           && value === null: {
           context.report({
             messageId: "jsxShorthandBoolean",
