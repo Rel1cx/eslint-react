@@ -20,6 +20,10 @@ react-x/no-unstable-default-props
 `strict-typescript`
 `strict-type-checked`
 
+**Features**
+
+`⚙️`
+
 ## Description
 
 Prevents using referential-type values as default props in object destructuring.
@@ -29,6 +33,12 @@ When using object destructuring syntax you can set the default value for a given
 This harms performance as it means that React will have to re-evaluate hooks and re-render memoized components more often than necessary.
 
 To fix the violations, the easiest way is to use a referencing variable in module scope instead of using the literal values.
+
+## Rule Options
+
+This rule has a single options object with the following property:
+
+- `safeDefaultProps` (default: `[]`): An array of identifier names or regex patterns that are safe to use as default props.
 
 ## Examples
 
@@ -163,6 +173,134 @@ interface MyComponentProps {
 function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
   //                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   //                   - Primitives are all compared by value, so are safe to be inlined as default props.
+  return null;
+}
+```
+
+## Examples with `safeDefaultProps`
+
+This option allows you to allowlist specific constructor or factory method identifiers that create value-type objects safe to use as default props.
+
+### Configuration
+
+```tsx
+{
+  "@eslint-react/no-unstable-default-props": ["error", {
+    "safeDefaultProps": ["Vector3", "Color3", "vector", "/^Immutable.*/"]
+  }]
+}
+```
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  position: Vector3;
+}
+
+// Without configuration, this would fail
+function MyComponent({ position = new Vector3(0, 0, 0) }: MyComponentProps) {
+  //                              ^^^^^^^^^^^^^^^^^^^^^^
+  //                              - A/an 'new expression' as default prop.
+  return null;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  cache: Cache;
+}
+
+// CustomCache is not in the allowlist, so this still fails
+function MyComponent({ cache = new CustomCache() }: MyComponentProps) {
+  //                           ^^^^^^^^^^^^^^^^^
+  //                           - A/an 'new expression' as default prop.
+  return null;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: string[];
+}
+
+// Object and array literals always fail regardless of configuration
+function MyComponent({ items = [] }: MyComponentProps) {
+  //                           ^^
+  //                           - A/an 'array expression' as default prop.
+  return null;
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  position: Vector3;
+}
+
+// Vector3 is in the allowlist, so constructor calls are allowed
+function MyComponent({ position = new Vector3(0, 0, 0) }: MyComponentProps) {
+  return null;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  color: Color3;
+}
+
+// Color3 is in the allowlist, so factory methods are allowed
+function MyComponent({ color = Color3.Red() }: MyComponentProps) {
+  return null;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  position: Vector3;
+}
+
+// 'vector' is in the allowlist, so member expression calls are allowed
+function MyComponent({ position = vector.create(0, 0, 0) }: MyComponentProps) {
+  return null;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  data: ImmutableMap<string, number>;
+}
+
+// Matches the regex pattern /^Immutable.*/
+function MyComponent({ data = ImmutableMap.of() }: MyComponentProps) {
+  return null;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  list: ImmutableList<string>;
+}
+
+// Also matches the regex pattern /^Immutable.*/
+function MyComponent({ list = ImmutableList.of("a", "b") }: MyComponentProps) {
   return null;
 }
 ```
