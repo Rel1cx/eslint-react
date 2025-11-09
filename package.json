@@ -74,7 +74,7 @@
     "effect": "^3.19.3",
     "eslint": "^9.39.1",
     "eslint-plugin-fast-import": "^1.5.3",
-    "eslint-plugin-function-rule": "^0.0.10",
+    "eslint-plugin-function-rule": "^0.0.11",
     "eslint-plugin-vitest": "^0.5.4",
     "mdxlint": "^1.0.0",
     "publint": "^0.3.15",
