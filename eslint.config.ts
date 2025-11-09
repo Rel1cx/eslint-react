@@ -53,24 +53,23 @@ export default defineConfig([
       },
     },
     plugins: {
-      "nullish-comparison": defineRule("v1", nullishComparison()),
-      "template-expression": defineRule("v1", templateExpression()),
-
-      custom: defineRule("v1", (context) => ({
-        TemplateLiteral(node) {
-          if (node.loc?.start.line !== node.loc?.end.line) {
-            context.report({
-              node,
-              message: "Avoid multiline template expressions.",
-            });
-          }
-        },
-      })),
+      "function-rule-1": defineRule(templateExpression()),
+      "function-rule-2": defineRule(nullishComparison()),
+      // custom: defineRule((context) => ({
+      //   TemplateLiteral(node) {
+      //     if (node.loc?.start.line !== node.loc?.end.line) {
+      //       context.report({
+      //         node,
+      //         message: "Avoid multiline template expressions.",
+      //       });
+      //     }
+      //   },
+      // })),
     },
     rules: {
       "fast-import/no-unused-exports": "off",
-      "nullish-comparison/v1": "error",
-      "template-expression/v1": "warn",
+      "function-rule-1/function-rule": "warn",
+      "function-rule-2/function-rule": "error",
     },
   },
   {
@@ -108,8 +107,8 @@ export default defineConfig([
     },
     rules: {
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
-      "nullish-comparison/v1": "off",
-      "template-expression/v1": "off",
+      "function-rule-1/function-rule": "off",
+      "function-rule-2/function-rule": "off",
     },
   },
   disableProblematicEslintJsRules,
