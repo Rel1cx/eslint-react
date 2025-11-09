@@ -94,8 +94,8 @@ importers:
         specifier: ^1.5.3
         version: 1.5.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-function-rule:
-        specifier: ^0.0.9
-        version: 0.0.9(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^0.0.10
+        version: 0.0.10(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-vitest:
         specifier: ^0.5.4
         version: 0.5.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.8(@types/debug@4.1.12)(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
@@ -175,8 +175,8 @@ importers:
         specifier: ^0.0.33
         version: 0.0.33(eslint@9.39.1(jiti@2.6.1))(ts-api-utils@2.1.0(typescript@5.9.3))(typescript@5.9.3)
       eslint-plugin-function-rule:
-        specifier: ^0.0.9
-        version: 0.0.9(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^0.0.10
+        version: 0.0.10(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-jsdoc:
         specifier: ^61.1.12
         version: 61.1.12(eslint@9.39.1(jiti@2.6.1))
@@ -199,8 +199,8 @@ importers:
   .pkgs/function-rules:
     dependencies:
       eslint-plugin-function-rule:
-        specifier: ^0.0.9
-        version: 0.0.9(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^0.0.10
+        version: 0.0.10(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -4509,8 +4509,8 @@ packages:
     peerDependencies:
       eslint: 9.39.1
 
-  eslint-plugin-function-rule@0.0.9:
-    resolution: {integrity: sha512-qpT09zvCfq08apHddvxblgxhnl/SXSr3sPhAhnR81TmVGC2JUYAIWpYTUCAwYZKxhWXbJ2oLS6ywLTMQctiAbw==}
+  eslint-plugin-function-rule@0.0.10:
+    resolution: {integrity: sha512-4ipNizuoMx/0i5sJB9FxXVXmouw8Qb4s3jgTnfWrmEtBiUaNOcfCOtew3x8Q+MiJkh38/nc5Fk8s/83gGVusug==}
     peerDependencies:
       eslint: 9.39.1
       typescript: ^5.9.3
@@ -10296,7 +10296,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-function-rule@0.0.9(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3):
+  eslint-plugin-function-rule@0.0.10(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
       '@eslint/core': 0.17.0
       eslint: 9.39.1(jiti@2.6.1)

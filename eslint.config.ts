@@ -13,7 +13,7 @@ import {
 } from "@local/configs/eslint";
 import { nullishComparison, templateExpression } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
-import { functionRule } from "eslint-plugin-function-rule";
+import { defineRule } from "eslint-plugin-function-rule";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -53,18 +53,19 @@ export default defineConfig([
       },
     },
     plugins: {
-      "nullish-comparison": functionRule("v1", nullishComparison()),
-      "template-expression": functionRule("v1", templateExpression()),
-      // "template-expression": functionRule("v1", (context) => ({
-      //   TemplateLiteral(node) {
-      //     if (node.loc?.start.line !== node.loc?.end.line) {
-      //       context.report({
-      //         node,
-      //         message: "Avoid multiline template expressions.",
-      //       });
-      //     }
-      //   },
-      // })),
+      "nullish-comparison": defineRule("v1", nullishComparison()),
+      "template-expression": defineRule("v1", templateExpression()),
+
+      custom: defineRule("v1", (context) => ({
+        TemplateLiteral(node) {
+          if (node.loc?.start.line !== node.loc?.end.line) {
+            context.report({
+              node,
+              message: "Avoid multiline template expressions.",
+            });
+          }
+        },
+      })),
     },
     rules: {
       "fast-import/no-unused-exports": "off",
