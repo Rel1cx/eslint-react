@@ -6,7 +6,7 @@ import { delimiterCase, replace, toLowerCase } from "string-ts";
 import { isJSX } from "./node-is";
 
 function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
-  // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
+  // eslint-disable-next-line nullish-comparison/v1
   if (input === null) return "null";
   return typeof input;
 }

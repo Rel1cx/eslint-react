@@ -11,8 +11,9 @@ import {
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
-import pluginLocal from "@local/eslint-plugin-local";
+import { nullishComparison, templateExpression } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
+import { defineRule } from "eslint-plugin-function-rule";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -52,14 +53,24 @@ export default defineConfig([
       },
     },
     plugins: {
-      local: pluginLocal,
+      "nullish-comparison": defineRule("v1", nullishComparison()),
+      "template-expression": defineRule("v1", templateExpression()),
+
+      custom: defineRule("v1", (context) => ({
+        TemplateLiteral(node) {
+          if (node.loc?.start.line !== node.loc?.end.line) {
+            context.report({
+              node,
+              message: "Avoid multiline template expressions.",
+            });
+          }
+        },
+      })),
     },
     rules: {
-      // Part: local rules
-      "local/avoid-multiline-template-expression": "warn",
-      "local/prefer-eqeq-nullish-comparison": "warn",
-
       "fast-import/no-unused-exports": "off",
+      "nullish-comparison/v1": "error",
+      "template-expression/v1": "warn",
     },
   },
   {
@@ -97,7 +108,8 @@ export default defineConfig([
     },
     rules: {
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
-      "local/avoid-multiline-template-expression": "off",
+      "nullish-comparison/v1": "off",
+      "template-expression/v1": "off",
     },
   },
   disableProblematicEslintJsRules,
