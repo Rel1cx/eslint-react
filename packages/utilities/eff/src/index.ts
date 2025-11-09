@@ -60,7 +60,6 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
 /* eslint-disable jsdoc/check-param-names */
 /* eslint-disable jsdoc/require-param-description */
-/* eslint-disable local/prefer-eqeq-nullish-comparison */
 /* eslint-disable prefer-rest-params */
 
 // #endregion
@@ -145,6 +144,7 @@ export function isArray<T>(data: ArrayLike<unknown> | T): data is NarrowedTo<T, 
  * @returns The input type, narrowed to only objects.
  */
 export function isObject<T>(data: T | object): data is NarrowedTo<T, object> {
+  // eslint-disable-next-line function-rule/function-rule
   return typeof data === "object" && data !== null;
 }
 

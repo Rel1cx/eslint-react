@@ -45,9 +45,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:.pkgs/configs
-      '@local/eslint-plugin-local':
+      '@local/function-rules':
         specifier: workspace:*
-        version: link:.pkgs/eslint-plugin-local
+        version: link:.pkgs/function-rules
       '@radix-ui/react-toast':
         specifier: ^1.2.15
         version: 1.2.15(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -93,6 +93,9 @@ importers:
       eslint-plugin-fast-import:
         specifier: ^1.5.3
         version: 1.5.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+      eslint-plugin-function-rule:
+        specifier: ^0.0.7
+        version: 0.0.7(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-vitest:
         specifier: ^0.5.4
         version: 0.5.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.8(@types/debug@4.1.12)(@types/node@24.10.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
@@ -171,6 +174,9 @@ importers:
       eslint-plugin-function:
         specifier: ^0.0.33
         version: 0.0.33(eslint@9.39.1(jiti@2.6.1))(ts-api-utils@2.1.0(typescript@5.9.3))(typescript@5.9.3)
+      eslint-plugin-function-rule:
+        specifier: ^0.0.7
+        version: 0.0.7(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-jsdoc:
         specifier: ^61.1.12
         version: 61.1.12(eslint@9.39.1(jiti@2.6.1))
@@ -190,75 +196,15 @@ importers:
         specifier: ^8.46.3
         version: 8.46.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
 
-  .pkgs/eslint-plugin-local:
+  .pkgs/function-rules:
     dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../../packages/utilities/ast
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../packages/utilities/eff
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../../packages/utilities/var
-      '@eslint/js':
-        specifier: 9.39.1
-        version: 9.39.1
-      '@stylistic/eslint-plugin':
-        specifier: ^5.5.0
-        version: 5.5.0(eslint@9.39.1(jiti@2.6.1))
-      '@typescript-eslint/scope-manager':
-        specifier: ^8.46.3
-        version: 8.46.3
-      '@typescript-eslint/type-utils':
-        specifier: ^8.46.3
-        version: 8.46.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
-      '@typescript-eslint/types':
-        specifier: ^8.46.3
-        version: 8.46.3
-      '@typescript-eslint/utils':
-        specifier: ^8.46.3
-        version: 8.46.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
-      eslint:
-        specifier: 9.39.1
-        version: 9.39.1(jiti@2.6.1)
-      eslint-plugin-de-morgan:
-        specifier: ^2.0.0
-        version: 2.0.0(eslint@9.39.1(jiti@2.6.1))
-      eslint-plugin-jsdoc:
-        specifier: ^61.1.12
-        version: 61.1.12(eslint@9.39.1(jiti@2.6.1))
-      eslint-plugin-perfectionist:
-        specifier: ^4.15.1
-        version: 4.15.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
-      eslint-plugin-regexp:
-        specifier: ^2.10.0
-        version: 2.10.0(eslint@9.39.1(jiti@2.6.1))
-      eslint-plugin-unicorn:
-        specifier: ^62.0.0
-        version: 62.0.0(eslint@9.39.1(jiti@2.6.1))
-      string-ts:
-        specifier: ^2.2.1
-        version: 2.2.1
-      ts-pattern:
-        specifier: ^5.9.0
-        version: 5.9.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
     devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../configs
-      '@types/react':
-        specifier: ^19.2.2
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: ^19.2.2
-        version: 19.2.2(@types/react@19.2.2)
+      eslint:
+        specifier: 9.39.1
+        version: 9.39.1(jiti@2.6.1)
       tsdown:
         specifier: ^0.16.1
         version: 0.16.1(publint@0.3.15)(typescript@5.9.3)
@@ -311,8 +257,8 @@ importers:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
       tailwind-merge:
-        specifier: ^3.3.1
-        version: 3.3.1
+        specifier: ^3.4.0
+        version: 3.4.0
       twoslash:
         specifier: ^0.3.4
         version: 0.3.4(typescript@5.9.3)
@@ -4560,6 +4506,12 @@ packages:
     peerDependencies:
       eslint: 9.39.1
 
+  eslint-plugin-function-rule@0.0.7:
+    resolution: {integrity: sha512-wL+5krOLAwCOZa0sRMgLeD0vneBB6R4t+qEnsbvhSgbY32gnSf5lsHbhPLdDivhFIaywQmzesdx4axsPnhiutQ==}
+    peerDependencies:
+      eslint: 9.39.1
+      typescript: ^5.9.3
+
   eslint-plugin-function@0.0.33:
     resolution: {integrity: sha512-Y82nfIPBiMV/RAQqpKPuX+QpOh0leJTG6BKPkX6jN/VayzHWOdtRIBE5QOe/0z9OV+Z3Xj7WOpupNQOd7MDRRQ==}
     engines: {node: '>=20.10.0'}
@@ -5369,6 +5321,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -6399,8 +6352,8 @@ packages:
     resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
     engines: {node: '>=20'}
 
-  tailwind-merge@3.3.1:
-    resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
+  tailwind-merge@3.4.0:
+    resolution: {integrity: sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g==}
 
   tailwindcss-animated@2.0.0:
     resolution: {integrity: sha512-anNNGpxNgjydD8p1lcJjxxH+XbjW6KR8Xs29owTrbcf3tOJ6IRblpyFob43HBkfxFJJTAfFQqugoEG2b1EsR0A==}
@@ -10340,6 +10293,12 @@ snapshots:
       - supports-color
       - typescript
 
+  eslint-plugin-function-rule@0.0.7(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3):
+    dependencies:
+      '@eslint/core': 0.17.0
+      eslint: 9.39.1(jiti@2.6.1)
+      typescript: 5.9.3
+
   eslint-plugin-function@0.0.33(eslint@9.39.1(jiti@2.6.1))(ts-api-utils@2.1.0(typescript@5.9.3))(typescript@5.9.3):
     dependencies:
       '@eslint-react/ast': 2.3.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
@@ -10739,7 +10698,7 @@ snapshots:
       mdast-util-to-hast: 13.2.0
       react: 19.2.0
       shiki: 3.14.0
-      tailwind-merge: 3.3.1
+      tailwind-merge: 3.4.0
       twoslash: 0.3.4(typescript@5.9.3)
     optionalDependencies:
       '@types/react': 19.2.2
@@ -10788,7 +10747,7 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
       react-medium-image-zoom: 5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       scroll-into-view-if-needed: 3.1.0
-      tailwind-merge: 3.3.1
+      tailwind-merge: 3.4.0
     optionalDependencies:
       '@types/react': 19.2.2
       next: 16.0.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -12720,7 +12679,7 @@ snapshots:
 
   tagged-tag@1.0.0: {}
 
-  tailwind-merge@3.3.1: {}
+  tailwind-merge@3.4.0: {}
 
   tailwindcss-animated@2.0.0(tailwindcss@4.1.17):
     dependencies:

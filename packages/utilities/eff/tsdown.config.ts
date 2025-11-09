@@ -5,6 +5,7 @@ export default {
   dts: true,
   entry: ["src/index.ts"],
   external: ["eslint", "typescript"],
+  fixedExtension: false,
   format: ["esm"],
   minify: false,
   outDir: "dist",
@@ -12,5 +13,4 @@ export default {
   sourcemap: false,
   target: "node20",
   treeshake: true,
-  fixedExtension: false,
 } satisfies UserConfig;

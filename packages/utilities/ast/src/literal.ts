@@ -21,7 +21,7 @@ export function isLiteral(node: TSESTree.Node, type?: LiteralType) {
     case "boolean":
       return typeof node.value === "boolean";
     case "null":
-      // eslint-disable-next-line local/prefer-eqeq-nullish-comparison
+      // eslint-disable-next-line function-rule/function-rule
       return node.value === null;
     case "number":
       return typeof node.value === "number";
