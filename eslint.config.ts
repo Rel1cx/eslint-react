@@ -55,16 +55,17 @@ export default defineConfig([
     plugins: {
       "function-rule-1": defineRule(templateExpression()),
       "function-rule-2": defineRule(nullishComparison()),
-      // custom: defineRule((context) => ({
-      //   TemplateLiteral(node) {
-      //     if (node.loc?.start.line !== node.loc?.end.line) {
-      //       context.report({
-      //         node,
-      //         message: "Avoid multiline template expressions.",
-      //       });
-      //     }
-      //   },
-      // })),
+
+      custom: defineRule((context) => ({
+        CallExpression(node) {
+          if (context.sourceCode.getText(node.callee) === "Date.now") {
+            context.report({
+              node,
+              message: "Don't use 'Date.now()'.",
+            });
+          }
+        },
+      })),
     },
     rules: {
       "fast-import/no-unused-exports": "off",
