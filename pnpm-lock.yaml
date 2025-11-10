@@ -267,7 +267,7 @@ importers:
         version: 0.3.4(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.55.2
+        specifier: ^0.55.3
         version: 0.55.3
       '@eslint-react/eslint-plugin':
         specifier: workspace:*

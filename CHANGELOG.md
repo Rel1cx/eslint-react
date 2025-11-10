@@ -1,3 +1,17 @@
+## v2.3.4 (2025-11-10)
+
+### ✨ New
+
+- feat(no-unstable-default-props): add `safeDefaultProps` option, closes #1312 by @christopher-buss in https://github.com/Rel1cx/eslint-react/pull/1313
+- feat(no-forbidden-props): Mark this rule as deprecated by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1304
+
+### 🐞 Fixes
+
+- Remove `type-fest` from shared package, closes #1306 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1307
+- Remove 'NodeJS.Require' type from shared package, closes #1308 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1309
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.1...v2.3.4
+
 ## v2.3.1 (2025-11-02)
 
 ### 🐞 Fixes
