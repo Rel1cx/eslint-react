@@ -96,6 +96,20 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function MyComponent({ position = new Vector3(0, 0, 0) }) {
+          return null
+        }
+      `,
+      errors: [{
+        messageId: MESSAGE_ID,
+        data: {
+          forbiddenType: "new expression",
+          propName: "position",
+        },
+      }],
+    },
+    {
+      code: tsx`
         function App({ foo = {}, ...rest }) {
             return null
         }
@@ -163,9 +177,68 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: expectedViolations,
     },
+    {
+      code: tsx`
+        function MyComponent({ position = new CustomClass() }) {
+          return null
+        }
+      `,
+      errors: [{
+        messageId: MESSAGE_ID,
+        data: {
+          forbiddenType: "new expression",
+          propName: "position",
+        },
+      }],
+      options: [{ safeDefaultProps: ["Vector3"] }],
+    },
+    {
+      code: tsx`
+        function MyComponent({
+          obj = {},
+          items = [],
+        }) {
+          return null
+        }
+      `,
+      errors: [{
+        messageId: MESSAGE_ID,
+        data: {
+          forbiddenType: "object expression",
+          propName: "obj",
+        },
+      }, {
+        messageId: MESSAGE_ID,
+        data: {
+          forbiddenType: "array expression",
+          propName: "items",
+        },
+      }],
+      options: [{ safeDefaultProps: ["Vector3"] }],
+    },
   ],
   valid: [
     ...allValid,
+    {
+      code: tsx`
+        function MyComponent({ position = new Vector3(0, 0, 0) }) {
+          return null
+        }
+      `,
+      options: [{ safeDefaultProps: ["Vector3"] }],
+    },
+    {
+      code: tsx`
+        function MyComponent({
+          position = vector.create(0, 0, 0),
+          data = ImmutableMap.of(),
+          standard = 5,
+        }) {
+          return null
+        }
+      `,
+      options: [{ safeDefaultProps: ["vector", "/^Immutable.*/"] }],
+    },
     tsx`
       const emptyFunction = () => {}
 

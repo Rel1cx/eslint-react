@@ -1,9 +1,11 @@
 import * as AST from "@eslint-react/ast";
 import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, toRegExp } from "@eslint-react/shared";
 import { getObjectType } from "@eslint-react/var";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -16,7 +18,32 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
-export default createRule<[], MessageID>({
+type Options = readonly [
+  {
+    safeDefaultProps?: readonly string[];
+  },
+];
+
+const defaultOptions = [
+  {
+    safeDefaultProps: [],
+  },
+] as const satisfies Options;
+
+const schema = [
+  {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      safeDefaultProps: {
+        type: "array",
+        items: { type: "string" },
+      },
+    },
+  },
+] satisfies [JSONSchema4];
+
+export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
@@ -27,16 +54,31 @@ export default createRule<[], MessageID>({
       noUnstableDefaultProps:
         "A/an '{{forbiddenType}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{forbiddenType}}'.",
     },
-    schema: [],
+    schema,
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
+  defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+function extractIdentifier(node: TSESTree.Node): string | null {
+  if (node.type === T.NewExpression && node.callee.type === T.Identifier) {
+    return node.callee.name;
+  }
+  if (node.type === T.CallExpression && node.callee.type === T.MemberExpression) {
+    const { object } = node.callee;
+    if (object.type === T.Identifier) {
+      return object.name;
+    }
+  }
+  return null;
+}
+
+export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
   const { ctx, listeners } = useComponentCollector(context);
   const declarators = new WeakMap<AST.TSESTreeFunction, AST.ObjectDestructuringVariableDeclarator[]>();
+  const { safeDefaultProps = [] } = options;
+  const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return {
     ...listeners,
@@ -81,6 +123,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           if (isReactHookCall(construction.node)) {
             continue;
+          }
+          if (safePatterns.length > 0) {
+            const identifier = extractIdentifier(right);
+            if (identifier != null && safePatterns.some((pattern) => pattern.test(identifier))) {
+              continue;
+            }
           }
           const forbiddenType = AST.toDelimiterFormat(right);
           context.report({
