@@ -13,7 +13,7 @@ import {
 } from "@local/configs/eslint";
 import { nullishComparison, templateExpression } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
-import { defineRule } from "eslint-plugin-function-rule";
+import { functionRule } from "eslint-plugin-function-rule";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -53,10 +53,10 @@ export default defineConfig([
       },
     },
     plugins: {
-      "function-rule-1": defineRule(templateExpression()),
-      "function-rule-2": defineRule(nullishComparison()),
+      "function-rule-1": functionRule(templateExpression()),
+      "function-rule-2": functionRule(nullishComparison()),
 
-      custom: defineRule((context) => ({
+      custom: functionRule((context) => ({
         CallExpression(node) {
           if (context.sourceCode.getText(node.callee) === "Date.now") {
             context.report({
