@@ -21,11 +21,6 @@ import tseslint from "typescript-eslint";
 const dirname = fileURLToPath(new URL(".", import.meta.url));
 const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
-const packagesTsConfigs = [
-  "packages/*/tsconfig.json",
-  "packages/*/*/tsconfig.json",
-];
-
 export default defineConfig([
   includeIgnoreFile(gitignore, "Imported .gitignore patterns") as never,
   globalIgnores([
@@ -47,7 +42,6 @@ export default defineConfig([
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: packagesTsConfigs,
         projectService: true,
         tsconfigRootDir: dirname,
       },
@@ -98,7 +92,6 @@ export default defineConfig([
         ...pluginVitest.environments.env.globals,
       },
       parserOptions: {
-        project: "tsconfig.json",
         projectService: true,
         tsconfigRootDir: dirname,
       },
