@@ -24,7 +24,6 @@ export const defaultLanguageOptionsWithTypes = {
   ecmaVersion: "latest",
   parserOptions: {
     ecmaFeatures: { jsx: true },
-    project: "tsconfig.json",
     projectService: true,
     tsconfigRootDir: getFixturesRootDir(),
     warnOnUnsupportedTypeScriptVersion: false,
