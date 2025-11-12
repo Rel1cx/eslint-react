@@ -2,7 +2,7 @@
 
 ### 🐞 Fixes
 
-- fix: rule names conflicting with `eslint-plugin-react`, closes #1315 by @jkbdk in https://github.com/Rel1cx/eslint-react/pull/1316
+- fix: rule names in `disable-conflict-eslint-plugin-react`, closes #1315 by @jkbdk in https://github.com/Rel1cx/eslint-react/pull/1316
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.4...v2.3.5
 
