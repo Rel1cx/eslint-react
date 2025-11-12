@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.3.5 (2025-11-13)
+
+### 🐞 Fixes
+
+- fix: rule names conflicting with `eslint-plugin-react`, closes #1315 by @jkbdk in https://github.com/Rel1cx/eslint-react/pull/1316
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.4...v2.3.5
+
 ## v2.3.4 (2025-11-10)
 
 ### ✨ New
