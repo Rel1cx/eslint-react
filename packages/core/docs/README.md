@@ -31,7 +31,6 @@
 - [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md)
 - [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md)
 - [ComponentStateKind](type-aliases/ComponentStateKind.md)
-- [EffectKind](type-aliases/EffectKind.md)
 - [JsxAttributeValue](type-aliases/JsxAttributeValue.md)
 - [JsxDetectionHint](type-aliases/JsxDetectionHint.md)
 

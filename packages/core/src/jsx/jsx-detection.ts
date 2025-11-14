@@ -22,16 +22,10 @@ import type { TSESTree } from "@typescript-eslint/utils";
 
 /**
  * BitFlags for configuring JSX detection behavior
- * Uses BigInt for bit operations to support many flags
  */
 export type JsxDetectionHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
-/**
- * Flags to control JSX detection behavior:
- * - Skip* flags: Ignore specific node types when detecting JSX
- * - Strict* flags: Enforce stricter rules for container types
- */
 export const JsxDetectionHint = {
   None: 0n,
   SkipUndefined: 1n << 0n, // Ignore undefined values
