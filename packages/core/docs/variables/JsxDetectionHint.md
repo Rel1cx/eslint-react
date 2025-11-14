@@ -8,10 +8,6 @@
 
 > **JsxDetectionHint**: `object`
 
-Flags to control JSX detection behavior:
-- Skip* flags: Ignore specific node types when detecting JSX
-- Strict* flags: Enforce stricter rules for container types
-
 ## Type Declaration
 
 ### None
