@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "2.3.6-beta.1",
+  "version": "2.3.6-next.2",
   "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
   "keywords": [
     "react",
