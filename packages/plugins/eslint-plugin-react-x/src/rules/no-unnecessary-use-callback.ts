@@ -3,6 +3,7 @@ import { isUseCallbackCall, isUseEffectLikeCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 import { type RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -118,14 +119,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
       const usages = references.filter((ref) => !(ref.init ?? false));
+      const effectSet = new Set<TSESTree.Node>();
 
-      const filteredUsageAmount = usages.reduce((set, usage) => {
+      const isUsedOutSideOfEffect = usages.some((usage) => {
         const effect = AST.findParentNode(usage.identifier, (node) => isUseEffectLikeCall(node));
-        // TODO Better check for outside of useEffect usage 
-        return set.add(effect ?? 'outside');
-      }, new Set());
+        if (effect == null) {
+          return true;
+        }
+        effectSet.add(effect);
+        return false;
+      });
 
-      if (filteredUsageAmount.size !== 1 || filteredUsageAmount.has('outside')) {
+      if (isUsedOutSideOfEffect || effectSet.size !== 1) {
         return;
       }
 
