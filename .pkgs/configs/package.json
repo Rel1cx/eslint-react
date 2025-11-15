@@ -23,7 +23,7 @@
     "@stylistic/eslint-plugin": "^5.5.0",
     "eslint-plugin-de-morgan": "^2.0.0",
     "eslint-plugin-function": "^0.0.34",
-    "eslint-plugin-function-rule": "^0.0.15",
+    "eslint-plugin-function-rule": "^0.0.16",
     "eslint-plugin-jsdoc": "^61.2.1",
     "eslint-plugin-perfectionist": "^4.15.1",
     "eslint-plugin-regexp": "^2.10.0",
