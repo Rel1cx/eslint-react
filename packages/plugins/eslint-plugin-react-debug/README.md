@@ -22,7 +22,7 @@ import reactDebug from "eslint-plugin-react-debug";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.ts", "**/*.tsx"],
     extends: [
@@ -42,7 +42,7 @@ export default defineConfig([
       "react-debug/function-component": "warn",
     },
   },
-]);
+);
 ```
 
 ## Rules

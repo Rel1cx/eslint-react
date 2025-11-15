@@ -21,7 +21,7 @@ const disableProblematicEslintJsRules = {
   },
 };
 
-export default defineConfig([
+export default defineConfig(
   // base configuration for browser environment source files
   {
     files: JSCONFIG_APP.include,
@@ -80,4 +80,4 @@ export default defineConfig([
     ],
   },
   disableProblematicEslintJsRules,
-]);
+);

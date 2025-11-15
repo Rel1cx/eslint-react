@@ -20,7 +20,7 @@ import reactWebApi from "eslint-plugin-react-web-api";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.ts", "**/*.tsx"],
     extends: [
@@ -40,7 +40,7 @@ export default defineConfig([
       "react-web-api/no-leaked-event-listener": "warn",
     },
   },
-]);
+);
 ```
 
 ## Rules

@@ -17,7 +17,7 @@ const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 
 const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
-export default defineConfig([
+export default defineConfig(
   includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
   {
     files: GLOB_TS,
@@ -68,4 +68,4 @@ export default defineConfig([
       "no-console": "off",
     },
   },
-]);
+);
