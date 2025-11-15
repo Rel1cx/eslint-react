@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
     messages: {
       noUnnecessaryUseCallback:
         "An 'useCallback' with empty deps and no references to the component scope may be unnecessary.",
-      noUnnecessaryUseCallbackInsideUseEffect: "{{name}} is only used inside 1 useEffect may be unnecessary.",
+      noUnnecessaryUseCallbackInsideUseEffect: "{{name}} is only used inside 1 useEffect which may be unnecessary.",
     },
     schema: [],
   },
