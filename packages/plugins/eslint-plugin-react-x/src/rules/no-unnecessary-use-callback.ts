@@ -121,19 +121,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const usages = references.filter((ref) => !(ref.init ?? false));
       const effectSet = new Set<TSESTree.Node>();
 
-      const isUsedOutSideOfEffect = usages.some((usage) => {
+      for (const usage of usages) {
         const effect = AST.findParentNode(usage.identifier, (node) => isUseEffectLikeCall(node));
+
         if (effect == null) {
-          return true;
+          return;
         }
+
         effectSet.add(effect);
-        return false;
-      });
-
-      if (isUsedOutSideOfEffect || effectSet.size !== 1) {
-        return;
+        if (effectSet.size > 1) {
+          return;
+        }
       }
-
       context.report({
         messageId: "noUnnecessaryUseCallbackInsideUseEffect",
         node,

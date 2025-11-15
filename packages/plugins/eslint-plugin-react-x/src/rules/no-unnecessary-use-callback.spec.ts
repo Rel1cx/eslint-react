@@ -600,7 +600,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
 
     tsx`
-          import { useCallback, useState, useEffect } from 'react';
+      import { useCallback, useState, useEffect } from 'react';
 
       function App({ items }) {
         const [test, setTest] = useState(items.length);
@@ -621,30 +621,30 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-              import { useCallback, useState, useEffect } from 'react';
+      import { useCallback, useState, useEffect } from 'react';
 
-          const Component = () => {
-        const [test, setTest] = useState(items.length);
+        const Component = () => {
+          const [test, setTest] = useState(items.length);
 
-        const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
+          const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
 
-        useEffect(() => {
-          // some condition
-          updateTest();
-        }, [updateTest]);
+          useEffect(() => {
+            // some condition
+            updateTest();
+          }, [updateTest]);
 
-        useEffect(() => {
-          // some condition
-          updateTest();
-        }, [updateTest]);
+          useEffect(() => {
+            // some condition
+            updateTest();
+          }, [updateTest]);
 
-        return <div />;
+          return <div />;
       };
     `,
     tsx`
-              import { useCallback, useState, useEffect } from 'react';
+      import { useCallback, useState, useEffect } from 'react';
 
-          const Component = () => {
+        const Component = () => {
         const [test, setTest] = useState(items.length);
 
         const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
@@ -653,9 +653,9 @@ ruleTester.run(RULE_NAME, rule, {
       };
     `,
     tsx`
-              import { useCallback, useState, useEffect } from 'react';
+      import { useCallback, useState, useEffect } from 'react';
 
-          const Component = () => {
+        const Component = () => {
         const [test, setTest] = useState(items.length);
 
         const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
