@@ -1,13 +1,13 @@
 import * as AST from "@eslint-react/ast";
-import { isUseCallbackCall } from "@eslint-react/core";
+import { isUseCallbackCall, isUseEffectLikeCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
+import { type RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
-
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-callback";
@@ -16,7 +16,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME> | "noUnnecessaryUseCallbackInsideUseEffect";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -28,6 +28,7 @@ export default createRule<[], MessageID>({
     messages: {
       noUnnecessaryUseCallback:
         "An 'useCallback' with empty deps and no references to the component scope may be unnecessary.",
+      noUnnecessaryUseCallbackInsideUseEffect: "{{name}} is only used inside 1 useEffect may be unnecessary.",
     },
     schema: [],
   },
@@ -39,13 +40,16 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `useCallback` is not present in the file
   if (!context.sourceCode.text.includes("useCallback")) return {};
+
   return {
     CallExpression(node) {
       if (!isUseCallbackCall(node)) {
         return;
       }
+
       const initialScope = context.sourceCode.getScope(node);
       const component = context.sourceCode.getScope(node).block;
+
       if (!AST.isFunction(component)) {
         return;
       }
@@ -96,6 +100,34 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         context.report({
           messageId: "noUnnecessaryUseCallback",
           node,
+        });
+      }
+    },
+    VariableDeclarator(node) {
+      if (!context.sourceCode.text.includes("useEffect")) {
+        return;
+      }
+
+      if (isIdentifier(node.id)) {
+        const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
+        const usages = references.filter((ref) => !(ref.init ?? false));
+
+        const size = usages.reduce((set, usage) => {
+          const effect = AST.findParentNode(usage.identifier, (node) => {
+            return isUseEffectLikeCall(node);
+          });
+          set.add(effect ?? node.parent);
+          return set;
+        }, new Set()).size;
+
+        if (size !== 1) {
+          return;
+        }
+
+        context.report({
+          messageId: "noUnnecessaryUseCallbackInsideUseEffect",
+          node,
+          data: { name: node.id.name },
         });
       }
     },
