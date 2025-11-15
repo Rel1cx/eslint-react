@@ -88,130 +88,124 @@ const p11tGroups = {
     },
     groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
-export const strictTypeChecked = defineConfig([
-    {
-        ignores: GLOB_JS,
-    },
-    {
-        extends: [
-            js.configs.recommended,
-            ...tseslint.configs.strict,
+export const strictTypeChecked = defineConfig({
+    ignores: GLOB_JS,
+}, {
+    extends: [
+        js.configs.recommended,
+        ...tseslint.configs.strict,
+    ],
+    files: GLOB_TS,
+    rules: {
+        eqeqeq: ["error", "smart"],
+        "no-console": "error",
+        "no-else-return": "error",
+        "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
+        "no-implicit-coercion": ["error", { allow: ["!!"] }],
+        "prefer-object-has-own": "error",
+        "no-restricted-syntax": [
+            "error",
+            {
+                message: "no typescript named import",
+                selector: "ImportDeclaration[source.value='typescript'] ImportSpecifier",
+            },
         ],
-        files: GLOB_TS,
-        rules: {
-            eqeqeq: ["error", "smart"],
-            "no-console": "error",
-            "no-else-return": "error",
-            "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
-            "no-implicit-coercion": ["error", { allow: ["!!"] }],
-            "prefer-object-has-own": "error",
-            "no-restricted-syntax": [
-                "error",
-                {
-                    message: "no typescript named import",
-                    selector: "ImportDeclaration[source.value='typescript'] ImportSpecifier",
-                },
-            ],
-            "@typescript-eslint/ban-ts-comment": [
-                "error",
-                {
-                    "ts-check": false,
-                    "ts-expect-error": "allow-with-description",
-                    "ts-ignore": true,
-                    "ts-nocheck": true,
-                },
-            ],
-            "@typescript-eslint/ban-types": "off",
-            "@typescript-eslint/consistent-type-exports": "error",
-            "@typescript-eslint/consistent-type-imports": "error",
-            "@typescript-eslint/explicit-function-return-type": "off",
-            "@typescript-eslint/no-confusing-void-expression": "off",
-            "@typescript-eslint/no-empty-object-type": "off",
-            "@typescript-eslint/no-misused-promises": "warn",
-            "@typescript-eslint/no-namespace": "off",
-            "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-            "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
-            "@typescript-eslint/strict-boolean-expressions": ["error", {
-                    allowAny: false,
-                    allowNullableBoolean: false,
-                    allowNullableEnum: false,
-                    allowNullableNumber: false,
-                    allowNullableObject: false,
-                    allowNullableString: false,
-                    allowNumber: true,
-                    allowString: false,
-                }],
-        },
-    },
-    {
-        extends: [
-            jsdoc({ config: "flat/recommended-typescript-error" }),
-            pluginDeMorgan.configs.recommended,
-            pluginPerfectionist.configs["recommended-natural"],
-            pluginRegexp.configs["flat/recommended"],
+        "@typescript-eslint/ban-ts-comment": [
+            "error",
+            {
+                "ts-check": false,
+                "ts-expect-error": "allow-with-description",
+                "ts-ignore": true,
+                "ts-nocheck": true,
+            },
         ],
-        files: GLOB_TS,
-        plugins: {
-            ["@stylistic"]: stylistic,
-            ["function"]: pluginFunction,
-            ["unicorn"]: pluginUnicorn,
-        },
-        rules: {
-            "function/function-return-boolean": ["error", { pattern: "/^(is|has|can|should)/" }],
-            "@stylistic/arrow-parens": ["warn", "always"],
-            "@stylistic/no-multi-spaces": ["warn"],
-            "@stylistic/operator-linebreak": "off",
-            "@stylistic/quote-props": ["error", "as-needed"],
-            "perfectionist/sort-exports": "off",
-            "perfectionist/sort-imports": "off",
-            "perfectionist/sort-interfaces": [
-                "warn",
-                { ...p11tOptions, ...p11tGroups },
-            ],
-            "perfectionist/sort-intersection-types": "off",
-            "perfectionist/sort-modules": "off",
-            "perfectionist/sort-named-exports": "off",
-            "perfectionist/sort-named-imports": "off",
-            "perfectionist/sort-object-types": [
-                "warn",
-                { ...p11tOptions, ...p11tGroups },
-            ],
-            "perfectionist/sort-objects": [
-                "warn",
-                { ...p11tOptions, ...p11tGroups },
-            ],
-            "perfectionist/sort-switch-case": "off",
-            "perfectionist/sort-union-types": "off",
-            "jsdoc/check-param-names": "warn",
-            "jsdoc/check-tag-names": "warn",
-            "jsdoc/informative-docs": "off",
-            "jsdoc/lines-before-block": "off",
-            "jsdoc/require-jsdoc": "off",
-            "jsdoc/require-param": "warn",
-            "jsdoc/require-param-description": "warn",
-            "jsdoc/require-returns": "off",
-            "jsdoc/require-yields": "warn",
-            "jsdoc/tag-lines": "off",
-            "unicorn/template-indent": [
-                "warn",
-                {
-                    comments: templateIndentTags,
-                    tags: templateIndentTags,
-                },
-            ],
-        },
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/consistent-type-exports": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-confusing-void-expression": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "@typescript-eslint/no-misused-promises": "warn",
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
+        "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
+        "@typescript-eslint/strict-boolean-expressions": ["error", {
+                allowAny: false,
+                allowNullableBoolean: false,
+                allowNullableEnum: false,
+                allowNullableNumber: false,
+                allowNullableObject: false,
+                allowNullableString: false,
+                allowNumber: true,
+                allowString: false,
+            }],
     },
-]);
-export const disableTypeChecked = defineConfig([
-    {
-        extends: [
-            tseslint.configs.disableTypeChecked,
+}, {
+    extends: [
+        jsdoc({ config: "flat/recommended-typescript-error" }),
+        pluginDeMorgan.configs.recommended,
+        pluginPerfectionist.configs["recommended-natural"],
+        pluginRegexp.configs["flat/recommended"],
+    ],
+    files: GLOB_TS,
+    plugins: {
+        ["@stylistic"]: stylistic,
+        ["function"]: pluginFunction,
+        ["unicorn"]: pluginUnicorn,
+    },
+    rules: {
+        "function/function-return-boolean": ["error", { pattern: "/^(is|has|can|should)/" }],
+        "@stylistic/arrow-parens": ["warn", "always"],
+        "@stylistic/no-multi-spaces": ["warn"],
+        "@stylistic/operator-linebreak": "off",
+        "@stylistic/quote-props": ["error", "as-needed"],
+        "perfectionist/sort-exports": "off",
+        "perfectionist/sort-imports": "off",
+        "perfectionist/sort-interfaces": [
+            "warn",
+            { ...p11tOptions, ...p11tGroups },
         ],
-        rules: {
-            "function/function-return-boolean": "off",
-        },
+        "perfectionist/sort-intersection-types": "off",
+        "perfectionist/sort-modules": "off",
+        "perfectionist/sort-named-exports": "off",
+        "perfectionist/sort-named-imports": "off",
+        "perfectionist/sort-object-types": [
+            "warn",
+            { ...p11tOptions, ...p11tGroups },
+        ],
+        "perfectionist/sort-objects": [
+            "warn",
+            { ...p11tOptions, ...p11tGroups },
+        ],
+        "perfectionist/sort-switch-case": "off",
+        "perfectionist/sort-union-types": "off",
+        "jsdoc/check-param-names": "warn",
+        "jsdoc/check-tag-names": "warn",
+        "jsdoc/informative-docs": "off",
+        "jsdoc/lines-before-block": "off",
+        "jsdoc/require-jsdoc": "off",
+        "jsdoc/require-param": "warn",
+        "jsdoc/require-param-description": "warn",
+        "jsdoc/require-returns": "off",
+        "jsdoc/require-yields": "warn",
+        "jsdoc/tag-lines": "off",
+        "unicorn/template-indent": [
+            "warn",
+            {
+                comments: templateIndentTags,
+                tags: templateIndentTags,
+            },
+        ],
     },
-]);
+});
+export const disableTypeChecked = defineConfig({
+    extends: [
+        tseslint.configs.disableTypeChecked,
+    ],
+    rules: {
+        "function/function-return-boolean": "off",
+    },
+});
 /**
  * Common ESLint JS rules to disable that are problematic when using TypeScript.
  */

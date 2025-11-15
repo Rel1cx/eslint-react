@@ -25,8 +25,7 @@ const GLOB_IGNORES = [
 const dirname = fileURLToPath(new URL(".", import.meta.url));
 const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
-export default defineConfig([
-  // @ts-expect-error - types issue
+export default defineConfig(
   includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
   globalIgnores(GLOB_IGNORES),
   {
@@ -89,4 +88,4 @@ export default defineConfig([
       "no-undef": "off",
     },
   },
-]);
+);

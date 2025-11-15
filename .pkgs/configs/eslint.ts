@@ -98,7 +98,7 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-export const strictTypeChecked: Linter.Config[] = defineConfig([
+export const strictTypeChecked: Linter.Config[] = defineConfig(
   {
     ignores: GLOB_JS,
   },
@@ -217,9 +217,9 @@ export const strictTypeChecked: Linter.Config[] = defineConfig([
       ],
     },
   },
-]);
+);
 
-export const disableTypeChecked: Linter.Config[] = defineConfig([
+export const disableTypeChecked: Linter.Config[] = defineConfig(
   {
     extends: [
       tseslint.configs.disableTypeChecked,
@@ -228,7 +228,7 @@ export const disableTypeChecked: Linter.Config[] = defineConfig([
       "function/function-return-boolean": "off",
     },
   },
-]);
+);
 
 /**
  * Common ESLint JS rules to disable that are problematic when using TypeScript.

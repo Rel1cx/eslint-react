@@ -29,7 +29,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
     import { defineConfig } from "eslint/config";
     import tseslint from "typescript-eslint";
 
-    export default defineConfig([
+    export default defineConfig(
       {
         files: ["**/*.ts", "**/*.tsx"],
 
@@ -59,7 +59,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
           "@eslint-react/no-missing-key": "warn",
         },
       },
-    ]);
+    );
     ```
   </Step>
 

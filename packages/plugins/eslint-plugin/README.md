@@ -81,7 +81,7 @@ import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.ts", "**/*.tsx"],
 
@@ -111,7 +111,7 @@ export default defineConfig([
       "@eslint-react/no-missing-key": "warn",
     },
   },
-]);
+);
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/getting-started/typescript)
