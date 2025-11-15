@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-hooks-extra",
-  "version": "2.3.5-beta.4",
+  "version": "2.3.6-beta.7",
   "description": "ESLint React's ESLint plugin for React Hooks related rules.",
   "keywords": [
     "react",
@@ -59,12 +59,12 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "tsdown": "^0.16.1"
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "tsdown": "^0.16.4"
   },
   "peerDependencies": {
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "typescript": "^5.9.3"
   },
   "engines": {

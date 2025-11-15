@@ -21,7 +21,7 @@ import tseslint from "typescript-eslint";
 const dirname = fileURLToPath(new URL(".", import.meta.url));
 const gitignore = fileURLToPath(new URL(".gitignore", import.meta.url));
 
-export default defineConfig([
+export default defineConfig(
   includeIgnoreFile(gitignore, "Imported .gitignore patterns") as never,
   globalIgnores([
     ...GLOB_IGNORES,
@@ -106,4 +106,4 @@ export default defineConfig([
     },
   },
   disableProblematicEslintJsRules,
-]);
+);

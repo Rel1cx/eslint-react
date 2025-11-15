@@ -5,12 +5,13 @@
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 [![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
-[![Build with](https://img.shields.io/badge/built_with-tsdown@0.16.1-000000?style=flat)](https://tsdown.dev)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.16.4-000000?style=flat)](https://tsdown.dev)
 
 4-7x faster composable ESLint rules for React and friends.
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Public Packages](#public-packages)
   - [Unified ESLint Plugin](#unified-eslint-plugin)
@@ -20,8 +21,8 @@
   - [Setup](#setup)
 - [Presets](#presets)
   - [Bare Bones](#bare-bones)
-  - [General Purpose](#general-purpose)
-  - [TypeScript Specialized](#typescript-specialized)
+- [General Purpose](#general-purpose)
+- [TypeScript Specialized](#typescript-specialized)
   - [Other](#other)
 - [Rules](#rules)
 - [Benchmark](#benchmark)
@@ -80,7 +81,7 @@ import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.ts", "**/*.tsx"],
 
@@ -110,7 +111,7 @@ export default defineConfig([
       "@eslint-react/no-missing-key": "warn",
     },
   },
-]);
+);
 ```
 
 [Full Installation Guide ↗](https://eslint-react.xyz/docs/getting-started/typescript)

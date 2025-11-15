@@ -12,7 +12,7 @@ import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
-export default defineConfig([
+export default defineConfig(
   {
     files: GLOB_TS,
     extends: [
@@ -58,4 +58,4 @@ export default defineConfig([
       eslintPluginReactRefresh.configs.recommended,
     ],
   },
-]);
+);

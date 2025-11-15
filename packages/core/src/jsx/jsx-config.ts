@@ -8,25 +8,19 @@ import {
   type RuleContext,
 } from "@eslint-react/shared";
 
-// Constants for JSX emit settings.
 export const JsxEmit = {
-  None: 0, // Do not emit JSX code.
-  Preserve: 1, // Emit .jsx files with JSX preserved.
-  React: 2, // Emit .js files with React.createElement calls.
-  ReactNative: 3, // Emit .js files with React Native specific output.
-  ReactJSX: 4, // Emit .js files with the new JSX transform.
-  ReactJSXDev: 5, // Emit .js files with the new JSX transform for development.
+  None: 0,
+  Preserve: 1,
+  React: 2,
+  ReactNative: 3,
+  ReactJSX: 4,
+  ReactJSXDev: 5,
 } as const;
 
-// Interface for JSX configuration.
 export interface JsxConfig {
-  // Specifies what JSX code is generated.
   jsx?: number;
-  // Specifies the JSX factory function to use when targeting React JSX emit, e.g. `React.createElement` or `h`.
   jsxFactory?: string;
-  // Specifies the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'.
   jsxFragmentFactory?: string;
-  // Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.
   jsxImportSource?: string;
 }
 

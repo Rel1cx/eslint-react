@@ -20,7 +20,7 @@ import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.ts", "**/*.tsx"],
     extends: [
@@ -40,7 +40,7 @@ export default defineConfig([
       "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
     },
   },
-]);
+);
 ```
 
 ## Rules

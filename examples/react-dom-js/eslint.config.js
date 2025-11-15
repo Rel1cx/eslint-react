@@ -8,7 +8,7 @@ import globals from "globals";
 import JSCONFIG_APP from "./jsconfig.app.json" with { type: "json" };
 import JSCONFIG_NODE from "./jsconfig.node.json" with { type: "json" };
 
-export default defineConfig([
+export default defineConfig(
   // base configuration for browser environment source files
   {
     files: JSCONFIG_APP.include,
@@ -56,4 +56,4 @@ export default defineConfig([
       eslintPluginReactRefresh.configs.recommended,
     ],
   },
-]);
+);

@@ -20,7 +20,7 @@ import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default defineConfig(
   {
     files: ["**/*.ts", "**/*.tsx"],
     extends: [
@@ -42,7 +42,7 @@ export default defineConfig([
       "react-naming-convention/component-name": "warn",
     },
   },
-]);
+);
 ```
 
 ## Rules
