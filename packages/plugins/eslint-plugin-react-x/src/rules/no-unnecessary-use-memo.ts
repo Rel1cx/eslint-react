@@ -1,13 +1,14 @@
 import * as AST from "@eslint-react/ast";
-import { isUseMemoCall } from "@eslint-react/core";
+import { isUseEffectLikeCall, isUseMemoCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
+import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-memo";
@@ -16,7 +17,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = CamelCase<typeof RULE_NAME> | "noUnnecessaryUseMemoInsideUseEffect";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -27,6 +28,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       noUnnecessaryUseMemo: "An 'useMemo' with empty deps and no references to the component scope may be unnecessary.",
+      noUnnecessaryUseMemoInsideUseEffect: "{{name}} is only used inside 1 useEffect which may be unnecessary.",
     },
     schema: [],
   },
@@ -104,6 +106,41 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           node,
         });
       }
+    },
+    VariableDeclarator(node) {
+      if (!context.sourceCode.text.includes("useEffect")) {
+        return;
+      }
+
+      if (!isUseMemoCall(node.init ?? undefined)) {
+        return;
+      }
+
+      if (!isIdentifier(node.id)) {
+        return;
+      }
+
+      const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
+      const usages = references.filter((ref) => !(ref.init ?? false));
+      const effectSet = new Set<TSESTree.Node>();
+
+      for (const usage of usages) {
+        const effect = AST.findParentNode(usage.identifier, (node) => isUseEffectLikeCall(node));
+
+        if (effect == null) {
+          return;
+        }
+
+        effectSet.add(effect);
+        if (effectSet.size > 1) {
+          return;
+        }
+      }
+      context.report({
+        messageId: "noUnnecessaryUseMemoInsideUseEffect",
+        node,
+        data: { name: node.id.name },
+      });
     },
   };
 }
