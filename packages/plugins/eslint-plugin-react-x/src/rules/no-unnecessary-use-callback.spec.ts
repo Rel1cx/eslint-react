@@ -475,7 +475,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-        {
+    {
       code: tsx`
         const { useCallback, useEffect } = require("@pika/react");
 
@@ -598,6 +598,7 @@ ruleTester.run(RULE_NAME, rule, {
               const refItem = useCallback(cb, deps)
       };
     `,
+
     tsx`
           import { useCallback, useState, useEffect } from 'react';
 
@@ -629,13 +630,13 @@ ruleTester.run(RULE_NAME, rule, {
 
         useEffect(() => {
           // some condition
-          doSomeTask();
-        }, [doSomeTask]);
+          updateTest();
+        }, [updateTest]);
 
         useEffect(() => {
           // some condition
-          doSomeTask();
-        }, [doSomeTask]);
+          updateTest();
+        }, [updateTest]);
 
         return <div />;
       };
@@ -648,7 +649,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
 
-        return <div ref={() => doSomeTask()} />;
+        return <div ref={() => updateTest()} />;
       };
     `,
     tsx`
@@ -659,7 +660,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
 
-        return <div onClick={doSomeTask} />;
+        return <div onClick={updateTest} />;
       };
     `,
   ],

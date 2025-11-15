@@ -108,28 +108,32 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      if (isIdentifier(node.id)) {
-        const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
-        const usages = references.filter((ref) => !(ref.init ?? false));
-
-        const size = usages.reduce((set, usage) => {
-          const effect = AST.findParentNode(usage.identifier, (node) => {
-            return isUseEffectLikeCall(node);
-          });
-          set.add(effect ?? node.parent);
-          return set;
-        }, new Set()).size;
-
-        if (size !== 1) {
-          return;
-        }
-
-        context.report({
-          messageId: "noUnnecessaryUseCallbackInsideUseEffect",
-          node,
-          data: { name: node.id.name },
-        });
+      if (!isUseCallbackCall(node.init ?? undefined)) {
+        return;
       }
+
+      if (!isIdentifier(node.id)) {
+        return;
+      }
+
+      const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
+      const usages = references.filter((ref) => !(ref.init ?? false));
+
+      const filteredUsageAmount = usages.reduce((set, usage) => {
+        const effect = AST.findParentNode(usage.identifier, (node) => isUseEffectLikeCall(node));
+        // TODO Better check for outside of useEffect usage 
+        return set.add(effect ?? 'outside');
+      }, new Set());
+
+      if (filteredUsageAmount.size !== 1 || filteredUsageAmount.has('outside')) {
+        return;
+      }
+
+      context.report({
+        messageId: "noUnnecessaryUseCallbackInsideUseEffect",
+        node,
+        data: { name: node.id.name },
+      });
     },
   };
 }
