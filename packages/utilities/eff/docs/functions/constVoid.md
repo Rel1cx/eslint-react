@@ -6,7 +6,7 @@
 function constVoid(): void;
 ```
 
-Do nothing and return void
+Do nothing and return `void`.
 
 ## Returns
 

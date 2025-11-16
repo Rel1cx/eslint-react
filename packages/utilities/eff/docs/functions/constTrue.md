@@ -6,7 +6,7 @@
 function constTrue(): true;
 ```
 
-Do nothing and return true
+Do nothing and return `true`.
 
 ## Returns
 

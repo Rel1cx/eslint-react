@@ -6,7 +6,7 @@
 function untupled<A, B>(f: (a: A) => B): (...a: A) => B;
 ```
 
-Inverse function of `tupled`
+Inverse function of `tupled`.
 
 ## Type Parameters
 

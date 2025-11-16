@@ -6,7 +6,7 @@
 function constFalse(): false;
 ```
 
-Do nothing and return false
+Do nothing and return `false`.
 
 ## Returns
 

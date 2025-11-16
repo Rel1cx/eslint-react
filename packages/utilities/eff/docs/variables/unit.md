@@ -6,4 +6,4 @@
 unit: undefined;
 ```
 
-alias for `undefined`
+alias for `undefined`.

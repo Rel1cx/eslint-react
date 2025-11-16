@@ -6,7 +6,7 @@
 function constNull(): null;
 ```
 
-Do nothing and return null
+Do nothing and return `null`.
 
 ## Returns
 
