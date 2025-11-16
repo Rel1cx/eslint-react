@@ -1,11 +1,9 @@
-[**@eslint-react/core**](../../../README.md)
-
-***
-
 [@eslint-react/core](../../../README.md) / isReactAPI
 
 # isReactAPI
 
 ## Type Aliases
 
-- [ReturnType](type-aliases/ReturnType.md)
+| Type Alias | Description |
+| ------ | ------ |
+| [ReturnType](type-aliases/ReturnType.md) | - |

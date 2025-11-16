@@ -1,7 +1,3 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / IdGenerator
 
 # Class: IdGenerator
@@ -12,15 +8,15 @@ A generator for unique ids.
 
 ### Constructor
 
-> **new IdGenerator**(`prefix`): `IdGenerator`
+```ts
+new IdGenerator(prefix: string): IdGenerator;
+```
 
 #### Parameters
 
-##### prefix
-
-`string` = `"id_"`
-
-Optional. A prefix of generated ids.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `prefix` | `string` | `"id_"` | Optional. A prefix of generated ids. |
 
 #### Returns
 
@@ -30,7 +26,9 @@ Optional. A prefix of generated ids.
 
 ### next()
 
-> **next**(): `string`
+```ts
+next(): string;
+```
 
 Generates an id.
 

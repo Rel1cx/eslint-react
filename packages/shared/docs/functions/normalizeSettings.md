@@ -1,83 +1,43 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / normalizeSettings
 
 # Function: normalizeSettings()
 
-> **normalizeSettings**(`__namedParameters`): `object`
+```ts
+function normalizeSettings(__namedParameters: {
+  importSource?: string;
+  polymorphicPropName?: string;
+  version?: string;
+}): {
+  importSource: string;
+  polymorphicPropName: string;
+  version: string;
+};
+```
 
 Normalizes ESLint React settings to a consistent internal format
 Transforms component definitions and resolves version information
 
 ## Parameters
 
-### \_\_namedParameters
-
-#### importSource?
-
-`string` = `"react"`
-
-The source where React is imported from
-Allows specifying a custom import location for React
-
-**Default**
-
-```ts
-"react"
-```
-
-**Example**
-
-```ts
-"@pika/react"
-```
-
-#### polymorphicPropName?
-
-`string` = `"as"`
-
-The prop name used for polymorphic components
-Used to determine the component's type
-
-**Example**
-
-```ts
-"as"
-```
-
-#### version?
-
-`string`
-
-React version to use
-"detect" means auto-detect React version from project dependencies
-
-**Example**
-
-```ts
-"18.3.1"
-```
-
-**Default**
-
-```ts
-"detect"
-```
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `__namedParameters` | \{ `importSource?`: `string`; `polymorphicPropName?`: `string`; `version?`: `string`; \} | - |
+| `__namedParameters.importSource?` | `string` | The source where React is imported from Allows specifying a custom import location for React **Default** `"react"` **Example** `"@pika/react"` |
+| `__namedParameters.polymorphicPropName?` | `string` | The prop name used for polymorphic components Used to determine the component's type **Example** `"as"` |
+| `__namedParameters.version?` | `string` | React version to use "detect" means auto-detect React version from project dependencies **Example** `"18.3.1"` **Default** `"detect"` |
 
 ## Returns
 
-`object`
+```ts
+{
+  importSource: string;
+  polymorphicPropName: string;
+  version: string;
+}
+```
 
-### importSource
-
-> **importSource**: `string`
-
-### polymorphicPropName
-
-> **polymorphicPropName**: `string`
-
-### version
-
-> `readonly` **version**: `string`
+| Name | Type |
+| ------ | ------ |
+| `importSource` | `string` |
+| `polymorphicPropName` | `string` |
+| `version` | `string` |

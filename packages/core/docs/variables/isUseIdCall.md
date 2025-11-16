@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseIdCall
 
 # Variable: isUseIdCall()
 
-> `const` **isUseIdCall**: (...`a`) => `boolean`
+```ts
+const isUseIdCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

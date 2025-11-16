@@ -1,40 +1,33 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactHookCallWithNameAlias
 
 # Function: isReactHookCallWithNameAlias()
 
-> **isReactHookCallWithNameAlias**(`name`, `alias`): (`node`) => `boolean`
+```ts
+function isReactHookCallWithNameAlias(name: string, alias: string[] | undefined): (node: CallExpression) => boolean;
+```
 
 Checks if a node is a call to a specific React hook or one of its aliases.
 
 ## Parameters
 
-### name
-
-`string`
-
-The primary hook name to check
-
-### alias
-
-Optional array of alias names to also accept
-
-`string`[] | `undefined`
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `name` | `string` | `undefined` | The primary hook name to check |
+| `alias` | `string`[] \| `undefined` | `[]` | Optional array of alias names to also accept |
 
 ## Returns
 
 Function that checks if a node matches the hook name or aliases
 
-> (`node`): `boolean`
+```ts
+(node: CallExpression): boolean;
+```
 
 ### Parameters
 
-#### node
-
-`CallExpression`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `CallExpression` |
 
 ### Returns
 

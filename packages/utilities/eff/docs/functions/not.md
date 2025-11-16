@@ -1,46 +1,41 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / not
 
 # Function: not()
 
 ## Call Signature
 
-> **not**\<`T`, `S`\>(`predicate`): (`data`) => `data is Exclude<T, S>`
+```ts
+function not<T, S>(predicate: (data: T) => data is S): (data: T) => data is Exclude<T, S>;
+```
 
 A function that takes a guard function as predicate and returns a guard that negates it.
 
 ### Type Parameters
 
-#### T
-
-`T`
-
-#### S
-
-`S`
+| Type Parameter |
+| ------ |
+| `T` |
+| `S` |
 
 ### Parameters
 
-#### predicate
-
-(`data`) => `data is S`
-
-The guard function to negate.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `predicate` | (`data`: `T`) => `data is S` | The guard function to negate. |
 
 ### Returns
 
 Function A guard function.
 
-> (`data`): `data is Exclude<T, S>`
+```ts
+(data: T): data is Exclude<T, S>;
+```
 
 #### Parameters
 
-##### data
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `T` |
 
 #### Returns
 
@@ -48,35 +43,37 @@ Function A guard function.
 
 ## Call Signature
 
-> **not**\<`T`\>(`predicate`): (`data`) => `boolean`
+```ts
+function not<T>(predicate: (data: T) => boolean): (data: T) => boolean;
+```
 
 A function that takes a guard function as predicate and returns a guard that negates it.
 
 ### Type Parameters
 
-#### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |
 
 ### Parameters
 
-#### predicate
-
-(`data`) => `boolean`
-
-The guard function to negate.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `predicate` | (`data`: `T`) => `boolean` | The guard function to negate. |
 
 ### Returns
 
 Function A guard function.
 
-> (`data`): `boolean`
+```ts
+(data: T): boolean;
+```
 
 #### Parameters
 
-##### data
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `T` |
 
 #### Returns
 

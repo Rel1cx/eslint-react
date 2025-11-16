@@ -1,12 +1,10 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / constNull
 
 # Function: constNull()
 
-> **constNull**(): `null`
+```ts
+function constNull(): null;
+```
 
 Do nothing and return null
 

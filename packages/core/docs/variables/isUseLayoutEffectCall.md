@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseLayoutEffectCall
 
 # Variable: isUseLayoutEffectCall()
 
-> `const` **isUseLayoutEffectCall**: (...`a`) => `boolean`
+```ts
+const isUseLayoutEffectCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

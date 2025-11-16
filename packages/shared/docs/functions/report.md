@@ -1,28 +1,28 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / report
 
 # Function: report()
 
-> **report**(`context`): (`descriptor?`) => `void`
+```ts
+function report(context: RuleContext): (descriptor?: ReportDescriptor<string> | null) => void;
+```
 
 ## Parameters
 
-### context
-
-[`RuleContext`](../type-aliases/RuleContext.md)
+| Parameter | Type |
+| ------ | ------ |
+| `context` | [`RuleContext`](../type-aliases/RuleContext.md) |
 
 ## Returns
 
-> (`descriptor?`): `void`
+```ts
+(descriptor?: ReportDescriptor<string> | null): void;
+```
 
 ### Parameters
 
-#### descriptor?
-
-`ReportDescriptor`\<`string`\> | `null`
+| Parameter | Type |
+| ------ | ------ |
+| `descriptor?` | `ReportDescriptor`\<`string`\> \| `null` |
 
 ### Returns
 

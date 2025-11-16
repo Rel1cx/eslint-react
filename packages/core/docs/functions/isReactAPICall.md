@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactAPICall
 
 # Function: isReactAPICall()
 
-> **isReactAPICall**(`api`): [`ReturnType`](../@eslint-react/namespaces/isReactAPICall/type-aliases/ReturnType.md)
+```ts
+function isReactAPICall(api: string): ReturnType;
+```
 
 ## Parameters
 
-### api
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `api` | `string` |
 
 ## Returns
 

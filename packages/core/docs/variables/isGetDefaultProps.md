@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isGetDefaultProps
 
 # Variable: isGetDefaultProps()
 
-> `const` **isGetDefaultProps**: (`node`) => `node is TSESTreeMethodOrProperty`
+```ts
+const isGetDefaultProps: (node: Node) => node is TSESTreeMethodOrProperty;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

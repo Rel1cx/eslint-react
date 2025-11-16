@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isGetDerivedStateFromProps
 
 # Variable: isGetDerivedStateFromProps()
 
-> `const` **isGetDerivedStateFromProps**: (`node`) => `node is TSESTreeMethodOrProperty`
+```ts
+const isGetDerivedStateFromProps: (node: Node) => node is TSESTreeMethodOrProperty;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

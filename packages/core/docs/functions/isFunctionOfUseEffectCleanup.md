@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isFunctionOfUseEffectCleanup
 
 # Function: isFunctionOfUseEffectCleanup()
 
-> **isFunctionOfUseEffectCleanup**(`node`): `boolean`
+```ts
+function isFunctionOfUseEffectCleanup(node: Node | undefined): boolean;
+```
 
 ## Parameters
 
-### node
-
-`Node` | `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` \| `undefined` |
 
 ## Returns
 

@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isComponentNameLoose
 
 # Function: isComponentNameLoose()
 
-> **isComponentNameLoose**(`name`): `boolean`
+```ts
+function isComponentNameLoose(name: string): boolean;
+```
 
 ## Parameters
 
-### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 ## Returns
 

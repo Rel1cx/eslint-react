@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactHookCall
 
 # Function: isReactHookCall()
 
-> **isReactHookCall**(`node`): `node is CallExpression`
+```ts
+function isReactHookCall(node: Node | undefined): node is CallExpression;
+```
 
 Check if the given node is a React Hook call by its name.
 
 ## Parameters
 
-### node
-
-The node to check.
-
-`Node` | `undefined`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `undefined` | The node to check. |
 
 ## Returns
 

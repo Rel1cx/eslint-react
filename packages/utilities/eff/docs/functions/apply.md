@@ -1,44 +1,42 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / apply
 
 # Function: apply()
 
-> **apply**\<`A`\>(`a`): \<`B`\>(`self`) => `B`
+```ts
+function apply<A>(a: A): <B>(self: (a: A) => B) => B;
+```
 
 Apply a function to a given value.
 
 ## Type Parameters
 
-### A
-
-`A`
+| Type Parameter |
+| ------ |
+| `A` |
 
 ## Parameters
 
-### a
-
-`A`
-
-The value to apply.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to apply. |
 
 ## Returns
 
-> \<`B`\>(`self`): `B`
+```ts
+<B>(self: (a: A) => B): B;
+```
 
 ### Type Parameters
 
-#### B
-
-`B`
+| Type Parameter |
+| ------ |
+| `B` |
 
 ### Parameters
 
-#### self
-
-(`a`) => `B`
+| Parameter | Type |
+| ------ | ------ |
+| `self` | (`a`: `A`) => `B` |
 
 ### Returns
 

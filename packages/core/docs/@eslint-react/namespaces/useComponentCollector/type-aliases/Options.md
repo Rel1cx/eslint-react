@@ -1,27 +1,19 @@
-[**@eslint-react/core**](../../../../README.md)
-
-***
-
 [@eslint-react/core](../../../../README.md) / [useComponentCollector](../README.md) / Options
 
 # Type Alias: Options
 
-> **Options** = `object`
+```ts
+type Options = {
+  collectDisplayName?: boolean;
+  collectHookCalls?: boolean;
+  hint?: ComponentDetectionHint;
+};
+```
 
 ## Properties
 
-### collectDisplayName?
-
-> `optional` **collectDisplayName**: `boolean`
-
-***
-
-### collectHookCalls?
-
-> `optional` **collectHookCalls**: `boolean`
-
-***
-
-### hint?
-
-> `optional` **hint**: [`ComponentDetectionHint`](../../../../type-aliases/ComponentDetectionHint.md)
+| Property | Type |
+| ------ | ------ |
+| <a id="collectdisplayname"></a> `collectDisplayName?` | `boolean` |
+| <a id="collecthookcalls"></a> `collectHookCalls?` | `boolean` |
+| <a id="hint"></a> `hint?` | [`ComponentDetectionHint`](../../../../type-aliases/ComponentDetectionHint.md) |

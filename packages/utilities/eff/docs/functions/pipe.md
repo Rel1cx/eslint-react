@@ -1,14 +1,12 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / pipe
 
 # Function: pipe()
 
 ## Call Signature
 
-> **pipe**\<`A`\>(`a`): `A`
+```ts
+function pipe<A>(a: A): A;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -77,17 +75,15 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
+| Type Parameter |
+| ------ |
+| `A` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
 
 ### Returns
 
@@ -99,7 +95,9 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`\>(`a`, `ab`): `B`
+```ts
+function pipe<A, B>(a: A, ab: (a: A) => B): B;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -168,25 +166,17 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
 
 ### Returns
 
@@ -198,7 +188,12 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`\>(`a`, `ab`, `bc`): `C`
+```ts
+function pipe<A, B, C>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C): C;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -267,33 +262,19 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
 
 ### Returns
 
@@ -305,7 +286,13 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`\>(`a`, `ab`, `bc`, `cd`): `D`
+```ts
+function pipe<A, B, C, D>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D): D;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -374,41 +361,21 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
 
 ### Returns
 
@@ -420,7 +387,14 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`\>(`a`, `ab`, `bc`, `cd`, `de`): `E`
+```ts
+function pipe<A, B, C, D, E>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E): E;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -489,49 +463,23 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
 
 ### Returns
 
@@ -543,7 +491,15 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`): `F`
+```ts
+function pipe<A, B, C, D, E, F>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F): F;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -612,57 +568,25 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
 
 ### Returns
 
@@ -674,7 +598,16 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`): `G`
+```ts
+function pipe<A, B, C, D, E, F, G>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G): G;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -743,65 +676,27 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
 
 ### Returns
 
@@ -813,7 +708,17 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): `H`
+```ts
+function pipe<A, B, C, D, E, F, G, H>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H): H;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -882,73 +787,29 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
 
 ### Returns
 
@@ -960,7 +821,18 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): `I`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I): I;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1029,81 +901,31 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
 
 ### Returns
 
@@ -1115,7 +937,19 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): `J`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J): J;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1184,89 +1018,33 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
 
 ### Returns
 
@@ -1278,7 +1056,20 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`): `K`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K): K;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1347,97 +1138,35 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
 
 ### Returns
 
@@ -1449,7 +1178,21 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`): `L`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L): L;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1518,105 +1261,37 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
 
 ### Returns
 
@@ -1628,7 +1303,22 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`): `M`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M): M;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1697,113 +1387,39 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
 
 ### Returns
 
@@ -1815,7 +1431,23 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`): `N`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N): N;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -1884,121 +1516,41 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
 
 ### Returns
 
@@ -2010,7 +1562,24 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`): `O`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O): O;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -2079,129 +1648,43 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
-
-#### O
-
-`O` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
-
-#### no
-
-(`n`) => `O`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
+| `no` | (`n`: `N`) => `O` | - |
 
 ### Returns
 
@@ -2213,7 +1696,25 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`): `P`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P): P;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -2282,137 +1783,45 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
-
-#### O
-
-`O` = `never`
-
-#### P
-
-`P` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
-
-#### no
-
-(`n`) => `O`
-
-#### op
-
-(`o`) => `P`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
+| `no` | (`n`: `N`) => `O` | - |
+| `op` | (`o`: `O`) => `P` | - |
 
 ### Returns
 
@@ -2424,7 +1833,26 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`): `Q`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q): Q;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -2493,145 +1921,47 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
-
-#### O
-
-`O` = `never`
-
-#### P
-
-`P` = `never`
-
-#### Q
-
-`Q` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
-
-#### no
-
-(`n`) => `O`
-
-#### op
-
-(`o`) => `P`
-
-#### pq
-
-(`p`) => `Q`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
+| `no` | (`n`: `N`) => `O` | - |
+| `op` | (`o`: `O`) => `P` | - |
+| `pq` | (`p`: `P`) => `Q` | - |
 
 ### Returns
 
@@ -2643,7 +1973,27 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`): `R`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q, 
+   qr: (q: Q) => R): R;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -2712,153 +2062,49 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
-
-#### O
-
-`O` = `never`
-
-#### P
-
-`P` = `never`
-
-#### Q
-
-`Q` = `never`
-
-#### R
-
-`R` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
+| `R` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
-
-#### no
-
-(`n`) => `O`
-
-#### op
-
-(`o`) => `P`
-
-#### pq
-
-(`p`) => `Q`
-
-#### qr
-
-(`q`) => `R`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
+| `no` | (`n`: `N`) => `O` | - |
+| `op` | (`o`: `O`) => `P` | - |
+| `pq` | (`p`: `P`) => `Q` | - |
+| `qr` | (`q`: `Q`) => `R` | - |
 
 ### Returns
 
@@ -2870,7 +2116,28 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`): `S`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q, 
+   qr: (q: Q) => R, 
+   rs: (r: R) => S): S;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -2939,161 +2206,51 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
-
-#### O
-
-`O` = `never`
-
-#### P
-
-`P` = `never`
-
-#### Q
-
-`Q` = `never`
-
-#### R
-
-`R` = `never`
-
-#### S
-
-`S` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
+| `R` | `never` |
+| `S` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
-
-#### no
-
-(`n`) => `O`
-
-#### op
-
-(`o`) => `P`
-
-#### pq
-
-(`p`) => `Q`
-
-#### qr
-
-(`q`) => `R`
-
-#### rs
-
-(`r`) => `S`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
+| `no` | (`n`: `N`) => `O` | - |
+| `op` | (`o`: `O`) => `P` | - |
+| `pq` | (`p`: `P`) => `Q` | - |
+| `qr` | (`q`: `Q`) => `R` | - |
+| `rs` | (`r`: `R`) => `S` | - |
 
 ### Returns
 
@@ -3105,7 +2262,29 @@ The value to pipe.
 
 ## Call Signature
 
-> **pipe**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`, `K`, `L`, `M`, `N`, `O`, `P`, `Q`, `R`, `S`, `T`\>(`a`, `ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`, `jk`, `kl`, `lm`, `mn`, `no`, `op`, `pq`, `qr`, `rs`, `st`): `T`
+```ts
+function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+   a: A, 
+   ab: (a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J, 
+   jk: (j: J) => K, 
+   kl: (k: K) => L, 
+   lm: (l: L) => M, 
+   mn: (m: M) => N, 
+   no: (n: N) => O, 
+   op: (o: O) => P, 
+   pq: (p: P) => Q, 
+   qr: (q: Q) => R, 
+   rs: (r: R) => S, 
+   st: (s: S) => T): T;
+```
 
 Pipes the value of an expression into a pipeline of functions.
 
@@ -3174,169 +2353,53 @@ console.log(result)
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
-
-#### K
-
-`K` = `never`
-
-#### L
-
-`L` = `never`
-
-#### M
-
-`M` = `never`
-
-#### N
-
-`N` = `never`
-
-#### O
-
-`O` = `never`
-
-#### P
-
-`P` = `never`
-
-#### Q
-
-`Q` = `never`
-
-#### R
-
-`R` = `never`
-
-#### S
-
-`S` = `never`
-
-#### T
-
-`T` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
+| `K` | `never` |
+| `L` | `never` |
+| `M` | `never` |
+| `N` | `never` |
+| `O` | `never` |
+| `P` | `never` |
+| `Q` | `never` |
+| `R` | `never` |
+| `S` | `never` |
+| `T` | `never` |
 
 ### Parameters
 
-#### a
-
-`A`
-
-The value to pipe.
-
-#### ab
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
-
-#### jk
-
-(`j`) => `K`
-
-#### kl
-
-(`k`) => `L`
-
-#### lm
-
-(`l`) => `M`
-
-#### mn
-
-(`m`) => `N`
-
-#### no
-
-(`n`) => `O`
-
-#### op
-
-(`o`) => `P`
-
-#### pq
-
-(`p`) => `Q`
-
-#### qr
-
-(`q`) => `R`
-
-#### rs
-
-(`r`) => `S`
-
-#### st
-
-(`s`) => `T`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | `A` | The value to pipe. |
+| `ab` | (`a`: `A`) => `B` | - |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
+| `jk` | (`j`: `J`) => `K` | - |
+| `kl` | (`k`: `K`) => `L` | - |
+| `lm` | (`l`: `L`) => `M` | - |
+| `mn` | (`m`: `M`) => `N` | - |
+| `no` | (`n`: `N`) => `O` | - |
+| `op` | (`o`: `O`) => `P` | - |
+| `pq` | (`p`: `P`) => `Q` | - |
+| `qr` | (`q`: `Q`) => `R` | - |
+| `rs` | (`r`: `R`) => `S` | - |
+| `st` | (`s`: `S`) => `T` | - |
 
 ### Returns
 

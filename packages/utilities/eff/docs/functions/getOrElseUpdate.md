@@ -1,46 +1,32 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / getOrElseUpdate
 
 # Function: getOrElseUpdate()
 
 ## Call Signature
 
-> **getOrElseUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
+```ts
+function getOrElseUpdate<K, V>(
+   map: WeakMap<K, V>, 
+   key: K, 
+   callback: () => V): V;
+```
 
 Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
 
 ### Type Parameters
 
-#### K
-
-`K` *extends* `WeakKey`
-
-#### V
-
-`V`
+| Type Parameter |
+| ------ |
+| `K` *extends* `WeakKey` |
+| `V` |
 
 ### Parameters
 
-#### map
-
-[`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)\<`K`, `V`\>
-
-The Map or WeakMap to get from or update
-
-#### key
-
-`K`
-
-The key to look up in the Map or WeakMap
-
-#### callback
-
-() => `V`
-
-The function to call to generate a new value if the key doesn't exist
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `map` | [`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)\<`K`, `V`\> | The Map or WeakMap to get from or update |
+| `key` | `K` | The key to look up in the Map or WeakMap |
+| `callback` | () => `V` | The function to call to generate a new value if the key doesn't exist |
 
 ### Returns
 
@@ -50,39 +36,29 @@ The existing value for the key, or the newly computed value
 
 ## Call Signature
 
-> **getOrElseUpdate**\<`K`, `V`\>(`map`, `key`, `callback`): `V`
+```ts
+function getOrElseUpdate<K, V>(
+   map: Map<K, V>, 
+   key: K, 
+   callback: () => V): V;
+```
 
 Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
 
 ### Type Parameters
 
-#### K
-
-`K`
-
-#### V
-
-`V`
+| Type Parameter |
+| ------ |
+| `K` |
+| `V` |
 
 ### Parameters
 
-#### map
-
-[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`K`, `V`\>
-
-The Map or WeakMap to get from or update
-
-#### key
-
-`K`
-
-The key to look up in the Map or WeakMap
-
-#### callback
-
-() => `V`
-
-The function to call to generate a new value if the key doesn't exist
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `map` | [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`K`, `V`\> | The Map or WeakMap to get from or update |
+| `key` | `K` | The key to look up in the Map or WeakMap |
+| `callback` | () => `V` | The function to call to generate a new value if the key doesn't exist |
 
 ### Returns
 

@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isRenderMethodLike
 
 # Function: isRenderMethodLike()
 
-> **isRenderMethodLike**(`node`): `node is TSESTreeMethodOrProperty`
+```ts
+function isRenderMethodLike(node: Node): node is TSESTreeMethodOrProperty;
+```
 
 Check whether given node is a render method of a class component
 
 ## Parameters
 
-### node
-
-`Node`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The AST node to check |
 
 ## Returns
 

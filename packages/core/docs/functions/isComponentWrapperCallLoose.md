@@ -1,28 +1,19 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isComponentWrapperCallLoose
 
 # Function: isComponentWrapperCallLoose()
 
-> **isComponentWrapperCallLoose**(`context`, `node`): `boolean`
+```ts
+function isComponentWrapperCallLoose(context: RuleContext, node: Node): boolean;
+```
 
 Check if the node is a call expression for a component wrapper loosely
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The ESLint rule context
-
-### node
-
-`Node`
-
-The node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context |
+| `node` | `Node` | The node to check |
 
 ## Returns
 

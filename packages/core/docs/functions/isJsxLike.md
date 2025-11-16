@@ -1,39 +1,27 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isJsxLike
 
 # Function: isJsxLike()
 
-> **isJsxLike**(`code`, `node`, `hint`): `boolean`
+```ts
+function isJsxLike(
+   code: {
+  getScope: (node: Node) => Scope;
+}, 
+   node: Node | null | undefined, 
+   hint: bigint): boolean;
+```
 
 Determines if a node represents JSX-like content based on heuristics
 Supports configuration through hint flags to customize detection behavior
 
 ## Parameters
 
-### code
-
-The source code with scope lookup capability
-
-#### getScope
-
-(`node`) => `Scope`
-
-The function to get the scope of a node
-
-### node
-
-The AST node to analyze
-
-`Node` | `null` | `undefined`
-
-### hint
-
-`bigint` = `DEFAULT_JSX_DETECTION_HINT`
-
-The configuration flags to adjust detection behavior
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `code` | \{ `getScope`: (`node`: `Node`) => `Scope`; \} | `undefined` | The source code with scope lookup capability |
+| `code.getScope` | (`node`: `Node`) => `Scope` | `undefined` | The function to get the scope of a node |
+| `node` | `Node` \| `null` \| `undefined` | `undefined` | The AST node to analyze |
+| `hint` | `bigint` | `DEFAULT_JSX_DETECTION_HINT` | The configuration flags to adjust detection behavior |
 
 ## Returns
 
