@@ -1,12 +1,10 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / RuleFeature
 
 # Type Alias: RuleFeature
 
-> **RuleFeature** = `"CFG"` \| `"DBG"` \| `"FIX"` \| `"MOD"` \| `"TSC"` \| `"EXP"`
+```ts
+type RuleFeature = "CFG" | "DBG" | "FIX" | "MOD" | "TSC" | "EXP";
+```
 
 Rule feature.
 

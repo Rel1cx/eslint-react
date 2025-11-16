@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isRender
 
 # Variable: isRender()
 
-> `const` **isRender**: (`node`) => `node is TSESTreeMethodOrProperty`
+```ts
+const isRender: (node: Node) => node is TSESTreeMethodOrProperty;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

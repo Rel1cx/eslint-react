@@ -1,12 +1,10 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / absurd
 
 # Function: absurd()
 
-> **absurd**\<`A`\>(`_`): `A`
+```ts
+function absurd<A>(_: never): A;
+```
 
 The `absurd` function is a stub for cases where a value of type `never` is encountered in your code,
 meaning that it should be impossible for this code to be executed.
@@ -15,17 +13,15 @@ This function is particularly useful when it's necessary to specify that certain
 
 ## Type Parameters
 
-### A
-
-`A`
+| Type Parameter |
+| ------ |
+| `A` |
 
 ## Parameters
 
-### \_
-
-`never`
-
-The value of type `never` that is passed to the function.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `_` | `never` | The value of type `never` that is passed to the function. |
 
 ## Returns
 

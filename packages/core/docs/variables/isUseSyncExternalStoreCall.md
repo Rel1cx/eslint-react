@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseSyncExternalStoreCall
 
 # Variable: isUseSyncExternalStoreCall()
 
-> `const` **isUseSyncExternalStoreCall**: (...`a`) => `boolean`
+```ts
+const isUseSyncExternalStoreCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

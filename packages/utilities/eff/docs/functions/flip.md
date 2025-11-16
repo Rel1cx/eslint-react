@@ -1,56 +1,50 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / flip
 
 # Function: flip()
 
-> **flip**\<`A`, `B`, `C`\>(`f`): (...`b`) => (...`a`) => `C`
+```ts
+function flip<A, B, C>(f: (...a: A) => (...b: B) => C): (...b: B) => (...a: A) => C;
+```
 
 Reverses the order of arguments for a curried function.
 
 ## Type Parameters
 
-### A
-
-`A` *extends* `unknown`[]
-
-### B
-
-`B` *extends* `unknown`[]
-
-### C
-
-`C`
+| Type Parameter |
+| ------ |
+| `A` *extends* `unknown`[] |
+| `B` *extends* `unknown`[] |
+| `C` |
 
 ## Parameters
 
-### f
-
-(...`a`) => (...`b`) => `C`
-
-The function to flip.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `f` | (...`a`: `A`) => (...`b`: `B`) => `C` | The function to flip. |
 
 ## Returns
 
-> (...`b`): (...`a`) => `C`
+```ts
+(...b: B): (...a: A) => C;
+```
 
 ### Parameters
 
-#### b
-
-...`B`
+| Parameter | Type |
+| ------ | ------ |
+| ...`b` | `B` |
 
 ### Returns
 
-> (...`a`): `C`
+```ts
+(...a: A): C;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 

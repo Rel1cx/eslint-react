@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseCallbackCall
 
 # Variable: isUseCallbackCall()
 
-> `const` **isUseCallbackCall**: (...`a`) => `boolean`
+```ts
+const isUseCallbackCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

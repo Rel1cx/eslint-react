@@ -1,161 +1,167 @@
-**@eslint-react/core**
-
-***
-
 # @eslint-react/core
 
 ## Namespaces
 
-- [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md)
-- [isReactAPICall](@eslint-react/namespaces/isReactAPICall/README.md)
-- [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md)
-- [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md)
-- [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md)
+| Namespace | Description |
+| ------ | ------ |
+| [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md) | - |
+| [isReactAPICall](@eslint-react/namespaces/isReactAPICall/README.md) | - |
+| [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md) | - |
+| [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md) | - |
+| [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md) | - |
 
 ## Interfaces
 
-- [ClassComponent](interfaces/ClassComponent.md)
-- [FunctionComponent](interfaces/FunctionComponent.md)
-- [Hook](interfaces/Hook.md)
-- [JsxConfig](interfaces/JsxConfig.md)
-- [SemanticEntry](interfaces/SemanticEntry.md)
-- [SemanticNode](interfaces/SemanticNode.md)
+| Interface | Description |
+| ------ | ------ |
+| [ClassComponent](interfaces/ClassComponent.md) | - |
+| [FunctionComponent](interfaces/FunctionComponent.md) | - |
+| [Hook](interfaces/Hook.md) | - |
+| [JsxConfig](interfaces/JsxConfig.md) | - |
+| [SemanticEntry](interfaces/SemanticEntry.md) | - |
+| [SemanticNode](interfaces/SemanticNode.md) | - |
 
 ## Type Aliases
 
-- [Component](type-aliases/Component.md)
-- [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md)
-- [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md)
-- [ComponentFlag](type-aliases/ComponentFlag.md)
-- [ComponentKind](type-aliases/ComponentKind.md)
-- [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md)
-- [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md)
-- [ComponentStateKind](type-aliases/ComponentStateKind.md)
-- [JsxAttributeValue](type-aliases/JsxAttributeValue.md)
-- [JsxDetectionHint](type-aliases/JsxDetectionHint.md)
+| Type Alias | Description |
+| ------ | ------ |
+| [Component](type-aliases/Component.md) | - |
+| [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
+| [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
+| [ComponentFlag](type-aliases/ComponentFlag.md) | - |
+| [ComponentKind](type-aliases/ComponentKind.md) | - |
+| [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md) | - |
+| [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md) | - |
+| [ComponentStateKind](type-aliases/ComponentStateKind.md) | - |
+| [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
+| [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
 
 ## Variables
 
-- [ComponentDetectionHint](variables/ComponentDetectionHint.md)
-- [ComponentFlag](variables/ComponentFlag.md)
-- [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md)
-- [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md)
-- [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md)
-- [isCaptureOwnerStack](variables/isCaptureOwnerStack.md)
-- [isCaptureOwnerStackCall](variables/isCaptureOwnerStackCall.md)
-- [isChildrenCount](variables/isChildrenCount.md)
-- [isChildrenCountCall](variables/isChildrenCountCall.md)
-- [isChildrenForEach](variables/isChildrenForEach.md)
-- [isChildrenForEachCall](variables/isChildrenForEachCall.md)
-- [isChildrenMap](variables/isChildrenMap.md)
-- [isChildrenMapCall](variables/isChildrenMapCall.md)
-- [isChildrenOnly](variables/isChildrenOnly.md)
-- [isChildrenOnlyCall](variables/isChildrenOnlyCall.md)
-- [isChildrenToArray](variables/isChildrenToArray.md)
-- [isChildrenToArrayCall](variables/isChildrenToArrayCall.md)
-- [isCloneElement](variables/isCloneElement.md)
-- [isCloneElementCall](variables/isCloneElementCall.md)
-- [isComponentDidCatch](variables/isComponentDidCatch.md)
-- [isComponentDidMount](variables/isComponentDidMount.md)
-- [isComponentDidUpdate](variables/isComponentDidUpdate.md)
-- [isComponentWillMount](variables/isComponentWillMount.md)
-- [isComponentWillReceiveProps](variables/isComponentWillReceiveProps.md)
-- [isComponentWillUnmount](variables/isComponentWillUnmount.md)
-- [isComponentWillUpdate](variables/isComponentWillUpdate.md)
-- [isCreateContext](variables/isCreateContext.md)
-- [isCreateContextCall](variables/isCreateContextCall.md)
-- [isCreateElement](variables/isCreateElement.md)
-- [isCreateElementCall](variables/isCreateElementCall.md)
-- [isCreateRef](variables/isCreateRef.md)
-- [isCreateRefCall](variables/isCreateRefCall.md)
-- [isForwardRef](variables/isForwardRef.md)
-- [isForwardRefCall](variables/isForwardRefCall.md)
-- [isGetChildContext](variables/isGetChildContext.md)
-- [isGetDefaultProps](variables/isGetDefaultProps.md)
-- [isGetDerivedStateFromError](variables/isGetDerivedStateFromError.md)
-- [isGetDerivedStateFromProps](variables/isGetDerivedStateFromProps.md)
-- [isGetInitialState](variables/isGetInitialState.md)
-- [isGetSnapshotBeforeUpdate](variables/isGetSnapshotBeforeUpdate.md)
-- [isInversePhase](variables/isInversePhase.md)
-- [isLazy](variables/isLazy.md)
-- [isLazyCall](variables/isLazyCall.md)
-- [isMemo](variables/isMemo.md)
-- [isMemoCall](variables/isMemoCall.md)
-- [isRender](variables/isRender.md)
-- [isShouldComponentUpdate](variables/isShouldComponentUpdate.md)
-- [isUnsafeComponentWillMount](variables/isUnsafeComponentWillMount.md)
-- [isUnsafeComponentWillReceiveProps](variables/isUnsafeComponentWillReceiveProps.md)
-- [isUnsafeComponentWillUpdate](variables/isUnsafeComponentWillUpdate.md)
-- [isUseActionStateCall](variables/isUseActionStateCall.md)
-- [isUseCall](variables/isUseCall.md)
-- [isUseCallbackCall](variables/isUseCallbackCall.md)
-- [isUseContextCall](variables/isUseContextCall.md)
-- [isUseDebugValueCall](variables/isUseDebugValueCall.md)
-- [isUseDeferredValueCall](variables/isUseDeferredValueCall.md)
-- [isUseEffectCall](variables/isUseEffectCall.md)
-- [isUseFormStatusCall](variables/isUseFormStatusCall.md)
-- [isUseIdCall](variables/isUseIdCall.md)
-- [isUseImperativeHandleCall](variables/isUseImperativeHandleCall.md)
-- [isUseInsertionEffectCall](variables/isUseInsertionEffectCall.md)
-- [isUseLayoutEffectCall](variables/isUseLayoutEffectCall.md)
-- [isUseMemoCall](variables/isUseMemoCall.md)
-- [isUseOptimisticCall](variables/isUseOptimisticCall.md)
-- [isUseReducerCall](variables/isUseReducerCall.md)
-- [isUseRefCall](variables/isUseRefCall.md)
-- [isUseStateCall](variables/isUseStateCall.md)
-- [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md)
-- [isUseTransitionCall](variables/isUseTransitionCall.md)
-- [JsxDetectionHint](variables/JsxDetectionHint.md)
-- [JsxEmit](variables/JsxEmit.md)
-- [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md)
+| Variable | Description |
+| ------ | ------ |
+| [ComponentDetectionHint](variables/ComponentDetectionHint.md) | Hints for component collector |
+| [ComponentFlag](variables/ComponentFlag.md) | - |
+| [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md) | - |
+| [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
+| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration Skips undefined and boolean literals (common in React) |
+| [isCaptureOwnerStack](variables/isCaptureOwnerStack.md) | - |
+| [isCaptureOwnerStackCall](variables/isCaptureOwnerStackCall.md) | - |
+| [isChildrenCount](variables/isChildrenCount.md) | - |
+| [isChildrenCountCall](variables/isChildrenCountCall.md) | - |
+| [isChildrenForEach](variables/isChildrenForEach.md) | - |
+| [isChildrenForEachCall](variables/isChildrenForEachCall.md) | - |
+| [isChildrenMap](variables/isChildrenMap.md) | - |
+| [isChildrenMapCall](variables/isChildrenMapCall.md) | - |
+| [isChildrenOnly](variables/isChildrenOnly.md) | - |
+| [isChildrenOnlyCall](variables/isChildrenOnlyCall.md) | - |
+| [isChildrenToArray](variables/isChildrenToArray.md) | - |
+| [isChildrenToArrayCall](variables/isChildrenToArrayCall.md) | - |
+| [isCloneElement](variables/isCloneElement.md) | - |
+| [isCloneElementCall](variables/isCloneElementCall.md) | - |
+| [isComponentDidCatch](variables/isComponentDidCatch.md) | - |
+| [isComponentDidMount](variables/isComponentDidMount.md) | - |
+| [isComponentDidUpdate](variables/isComponentDidUpdate.md) | - |
+| [isComponentWillMount](variables/isComponentWillMount.md) | - |
+| [isComponentWillReceiveProps](variables/isComponentWillReceiveProps.md) | - |
+| [isComponentWillUnmount](variables/isComponentWillUnmount.md) | - |
+| [isComponentWillUpdate](variables/isComponentWillUpdate.md) | - |
+| [isCreateContext](variables/isCreateContext.md) | - |
+| [isCreateContextCall](variables/isCreateContextCall.md) | - |
+| [isCreateElement](variables/isCreateElement.md) | - |
+| [isCreateElementCall](variables/isCreateElementCall.md) | - |
+| [isCreateRef](variables/isCreateRef.md) | - |
+| [isCreateRefCall](variables/isCreateRefCall.md) | - |
+| [isForwardRef](variables/isForwardRef.md) | - |
+| [isForwardRefCall](variables/isForwardRefCall.md) | - |
+| [isGetChildContext](variables/isGetChildContext.md) | - |
+| [isGetDefaultProps](variables/isGetDefaultProps.md) | - |
+| [isGetDerivedStateFromError](variables/isGetDerivedStateFromError.md) | - |
+| [isGetDerivedStateFromProps](variables/isGetDerivedStateFromProps.md) | - |
+| [isGetInitialState](variables/isGetInitialState.md) | - |
+| [isGetSnapshotBeforeUpdate](variables/isGetSnapshotBeforeUpdate.md) | - |
+| [isInversePhase](variables/isInversePhase.md) | - |
+| [isLazy](variables/isLazy.md) | - |
+| [isLazyCall](variables/isLazyCall.md) | - |
+| [isMemo](variables/isMemo.md) | - |
+| [isMemoCall](variables/isMemoCall.md) | - |
+| [isRender](variables/isRender.md) | - |
+| [isShouldComponentUpdate](variables/isShouldComponentUpdate.md) | - |
+| [isUnsafeComponentWillMount](variables/isUnsafeComponentWillMount.md) | - |
+| [isUnsafeComponentWillReceiveProps](variables/isUnsafeComponentWillReceiveProps.md) | - |
+| [isUnsafeComponentWillUpdate](variables/isUnsafeComponentWillUpdate.md) | - |
+| [isUseActionStateCall](variables/isUseActionStateCall.md) | - |
+| [isUseCall](variables/isUseCall.md) | - |
+| [isUseCallbackCall](variables/isUseCallbackCall.md) | - |
+| [isUseContextCall](variables/isUseContextCall.md) | - |
+| [isUseDebugValueCall](variables/isUseDebugValueCall.md) | - |
+| [isUseDeferredValueCall](variables/isUseDeferredValueCall.md) | - |
+| [isUseEffectCall](variables/isUseEffectCall.md) | - |
+| [isUseFormStatusCall](variables/isUseFormStatusCall.md) | - |
+| [isUseIdCall](variables/isUseIdCall.md) | - |
+| [isUseImperativeHandleCall](variables/isUseImperativeHandleCall.md) | - |
+| [isUseInsertionEffectCall](variables/isUseInsertionEffectCall.md) | - |
+| [isUseLayoutEffectCall](variables/isUseLayoutEffectCall.md) | - |
+| [isUseMemoCall](variables/isUseMemoCall.md) | - |
+| [isUseOptimisticCall](variables/isUseOptimisticCall.md) | - |
+| [isUseReducerCall](variables/isUseReducerCall.md) | - |
+| [isUseRefCall](variables/isUseRefCall.md) | - |
+| [isUseStateCall](variables/isUseStateCall.md) | - |
+| [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md) | - |
+| [isUseTransitionCall](variables/isUseTransitionCall.md) | - |
+| [JsxDetectionHint](variables/JsxDetectionHint.md) | - |
+| [JsxEmit](variables/JsxEmit.md) | - |
+| [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md) | - |
 
 ## Functions
 
-- [findParentJsxAttribute](functions/findParentJsxAttribute.md)
-- [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md)
-- [getComponentNameFromId](functions/getComponentNameFromId.md)
-- [getFunctionComponentId](functions/getFunctionComponentId.md)
-- [getJsxAttribute](functions/getJsxAttribute.md)
-- [getJsxAttributeName](functions/getJsxAttributeName.md)
-- [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md)
-- [getJsxConfigFromContext](functions/getJsxConfigFromContext.md)
-- [getJsxElementType](functions/getJsxElementType.md)
-- [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md)
-- [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md)
-- [isAssignmentToThisState](functions/isAssignmentToThisState.md)
-- [isChildrenOfCreateElement](functions/isChildrenOfCreateElement.md)
-- [isClassComponent](functions/isClassComponent.md)
-- [isComponentDefinition](functions/isComponentDefinition.md)
-- [isComponentName](functions/isComponentName.md)
-- [isComponentNameLoose](functions/isComponentNameLoose.md)
-- [isComponentWrapperCall](functions/isComponentWrapperCall.md)
-- [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md)
-- [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md)
-- [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md)
-- [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md)
-- [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md)
-- [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md)
-- [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md)
-- [isJsxFragmentElement](functions/isJsxFragmentElement.md)
-- [isJsxHostElement](functions/isJsxHostElement.md)
-- [isJsxLike](functions/isJsxLike.md)
-- [isJsxText](functions/isJsxText.md)
-- [isPureComponent](functions/isPureComponent.md)
-- [isReactAPI](functions/isReactAPI.md)
-- [isReactAPICall](functions/isReactAPICall.md)
-- [isReactHook](functions/isReactHook.md)
-- [isReactHookCall](functions/isReactHookCall.md)
-- [isReactHookCallWithName](functions/isReactHookCallWithName.md)
-- [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md)
-- [isReactHookId](functions/isReactHookId.md)
-- [isReactHookName](functions/isReactHookName.md)
-- [isRenderFunctionLoose](functions/isRenderFunctionLoose.md)
-- [isRenderMethodLike](functions/isRenderMethodLike.md)
-- [isRenderPropLoose](functions/isRenderPropLoose.md)
-- [isThisSetState](functions/isThisSetState.md)
-- [isUseEffectLikeCall](functions/isUseEffectLikeCall.md)
-- [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md)
-- [stringifyJsx](functions/stringifyJsx.md)
-- [useComponentCollector](functions/useComponentCollector.md)
-- [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md)
-- [useHookCollector](functions/useHookCollector.md)
+| Function | Description |
+| ------ | ------ |
+| [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
+| [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | - |
+| [getComponentNameFromId](functions/getComponentNameFromId.md) | - |
+| [getFunctionComponentId](functions/getFunctionComponentId.md) | - |
+| [getJsxAttribute](functions/getJsxAttribute.md) | Get a function to find JSX attributes by name, considering direct attributes and spread attributes. |
+| [getJsxAttributeName](functions/getJsxAttributeName.md) | Get the stringified name of a JSX attribute |
+| [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code. |
+| [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options. |
+| [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
+| [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md) | - |
+| [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md) | - |
+| [isAssignmentToThisState](functions/isAssignmentToThisState.md) | - |
+| [isChildrenOfCreateElement](functions/isChildrenOfCreateElement.md) | Determines whether inside `createElement`'s children. |
+| [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
+| [isComponentDefinition](functions/isComponentDefinition.md) | Determines if a function node represents a valid React component definition |
+| [isComponentName](functions/isComponentName.md) | - |
+| [isComponentNameLoose](functions/isComponentNameLoose.md) | - |
+| [isComponentWrapperCall](functions/isComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
+| [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
+| [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
+| [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md) | - |
+| [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md) | - |
+| [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md) | Check whether given node is a function of a render method of a class component |
+| [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md) | - |
+| [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | - |
+| [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
+| [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
+| [isJsxLike](functions/isJsxLike.md) | Determines if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
+| [isJsxText](functions/isJsxText.md) | Checks if a node is a `JSXText` or a `Literal` node |
+| [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
+| [isReactAPI](functions/isReactAPI.md) | - |
+| [isReactAPICall](functions/isReactAPICall.md) | - |
+| [isReactHook](functions/isReactHook.md) | Determines if a function node is a React Hook based on its name. |
+| [isReactHookCall](functions/isReactHookCall.md) | Check if the given node is a React Hook call by its name. |
+| [isReactHookCallWithName](functions/isReactHookCallWithName.md) | Checks if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
+| [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md) | Checks if a node is a call to a specific React hook or one of its aliases. |
+| [isReactHookId](functions/isReactHookId.md) | - |
+| [isReactHookName](functions/isReactHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
+| [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
+| [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
+| [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
+| [isThisSetState](functions/isThisSetState.md) | - |
+| [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern. |
+| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | - |
+| [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
+| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and listeners for the rule to collect function components |
+| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and listeners object for the rule to collect class components |
+| [useHookCollector](functions/useHookCollector.md) | - |

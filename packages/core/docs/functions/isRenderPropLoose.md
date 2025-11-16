@@ -1,12 +1,10 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isRenderPropLoose
 
 # Function: isRenderPropLoose()
 
-> **isRenderPropLoose**(`context`, `node`): `boolean`
+```ts
+function isRenderPropLoose(context: RuleContext, node: JSXAttribute): boolean;
+```
 
 Unsafe check whether given JSXAttribute is a render prop
 ```tsx
@@ -16,17 +14,10 @@ _ = <Component renderRow={() => <div />} />
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The rule context
-
-### node
-
-`JSXAttribute`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The rule context |
+| `node` | `JSXAttribute` | The AST node to check |
 
 ## Returns
 

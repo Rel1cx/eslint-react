@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isFunctionOfRenderMethod
 
 # Function: isFunctionOfRenderMethod()
 
-> **isFunctionOfRenderMethod**(`node`): `boolean`
+```ts
+function isFunctionOfRenderMethod(node: TSESTreeFunction): boolean;
+```
 
 Check whether given node is a function of a render method of a class component
 
 ## Parameters
 
-### node
-
-`TSESTreeFunction`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TSESTreeFunction` | The AST node to check |
 
 ## Returns
 

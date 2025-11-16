@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isPureComponent
 
 # Function: isPureComponent()
 
-> **isPureComponent**(`node`): `boolean`
+```ts
+function isPureComponent(node: Node): boolean;
+```
 
 Check if a node is a React PureComponent
 
 ## Parameters
 
-### node
-
-`Node`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The AST node to check |
 
 ## Returns
 

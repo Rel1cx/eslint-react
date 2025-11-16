@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isComponentName
 
 # Function: isComponentName()
 
-> **isComponentName**(`name`): `boolean`
+```ts
+function isComponentName(name: string): boolean;
+```
 
 ## Parameters
 
-### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 ## Returns
 

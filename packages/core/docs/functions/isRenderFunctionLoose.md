@@ -1,12 +1,10 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isRenderFunctionLoose
 
 # Function: isRenderFunctionLoose()
 
-> **isRenderFunctionLoose**(`context`, `node`): `boolean`
+```ts
+function isRenderFunctionLoose(context: RuleContext, node: TSESTreeFunction): boolean;
+```
 
 Unsafe check whether given node is a render function
 ```tsx
@@ -18,17 +16,10 @@ _ = <Component renderRow={() => <div />} />
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The rule context
-
-### node
-
-`TSESTreeFunction`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The rule context |
+| `node` | `TSESTreeFunction` | The AST node to check |
 
 ## Returns
 

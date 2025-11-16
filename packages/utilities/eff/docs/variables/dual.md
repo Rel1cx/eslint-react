@@ -1,12 +1,13 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / dual
 
 # Variable: dual()
 
-> `const` **dual**: \{\<`DataLast`, `DataFirst`\>(`arity`, `body`): `DataLast` & `DataFirst`; \<`DataLast`, `DataFirst`\>(`isDataFirst`, `body`): `DataLast` & `DataFirst`; \}
+```ts
+const dual: {
+<DataLast, DataFirst>  (arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
+<DataLast, DataFirst>  (isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
+};
+```
 
 Creates a function that can be used in a data-last (aka `pipe`able) or
 data-first style.
@@ -71,27 +72,23 @@ console.log(pipe(2, sum(3))) // 5
 
 ## Call Signature
 
-> \<`DataLast`, `DataFirst`\>(`arity`, `body`): `DataLast` & `DataFirst`
+```ts
+<DataLast, DataFirst>(arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
+```
 
 ### Type Parameters
 
-#### DataLast
-
-`DataLast` *extends* (...`args`) => `any`
-
-#### DataFirst
-
-`DataFirst` *extends* (...`args`) => `any`
+| Type Parameter |
+| ------ |
+| `DataLast` *extends* (...`args`: `any`[]) => `any` |
+| `DataFirst` *extends* (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
-#### arity
-
-[`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`DataFirst`\>\[`"length"`\]
-
-#### body
-
-`DataFirst`
+| Parameter | Type |
+| ------ | ------ |
+| `arity` | [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`DataFirst`\>\[`"length"`\] |
+| `body` | `DataFirst` |
 
 ### Returns
 
@@ -99,27 +96,23 @@ console.log(pipe(2, sum(3))) // 5
 
 ## Call Signature
 
-> \<`DataLast`, `DataFirst`\>(`isDataFirst`, `body`): `DataLast` & `DataFirst`
+```ts
+<DataLast, DataFirst>(isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
+```
 
 ### Type Parameters
 
-#### DataLast
-
-`DataLast` *extends* (...`args`) => `any`
-
-#### DataFirst
-
-`DataFirst` *extends* (...`args`) => `any`
+| Type Parameter |
+| ------ |
+| `DataLast` *extends* (...`args`: `any`[]) => `any` |
+| `DataFirst` *extends* (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
-#### isDataFirst
-
-(`args`) => `boolean`
-
-#### body
-
-`DataFirst`
+| Parameter | Type |
+| ------ | ------ |
+| `isDataFirst` | (`args`: `IArguments`) => `boolean` |
+| `body` | `DataFirst` |
 
 ### Returns
 

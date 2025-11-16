@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseOptimisticCall
 
 # Variable: isUseOptimisticCall()
 
-> `const` **isUseOptimisticCall**: (...`a`) => `boolean`
+```ts
+const isUseOptimisticCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

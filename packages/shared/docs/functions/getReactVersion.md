@@ -1,18 +1,16 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / getReactVersion
 
 # Function: getReactVersion()
 
-> **getReactVersion**(`fallback`): `string`
+```ts
+function getReactVersion(fallback: string): string;
+```
 
 ## Parameters
 
-### fallback
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `fallback` | `string` |
 
 ## Returns
 

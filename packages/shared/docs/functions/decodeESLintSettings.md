@@ -1,23 +1,26 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / decodeESLintSettings
 
 # Function: decodeESLintSettings()
 
-> **decodeESLintSettings**(`settings`): \{ `react-x?`: `unknown`; \} \| `undefined`
+```ts
+function decodeESLintSettings(settings: unknown): 
+  | {
+  react-x?: unknown;
+}
+  | undefined;
+```
 
 Decodes and validates ESLint settings, using defaults if invalid
 
 ## Parameters
 
-### settings
-
-`unknown`
-
-The settings object to decode
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings` | `unknown` | The settings object to decode |
 
 ## Returns
 
-\{ `react-x?`: `unknown`; \} \| `undefined`
+  \| \{
+  `react-x?`: `unknown`;
+\}
+  \| `undefined`

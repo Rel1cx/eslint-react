@@ -1,19 +1,10 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / SemanticEntry
 
 # Interface: SemanticEntry
 
 ## Properties
 
-### node
-
-> **node**: `Node`
-
-***
-
-### phase
-
-> **phase**: [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+| Property | Type |
+| ------ | ------ |
+| <a id="node"></a> `node` | `Node` |
+| <a id="phase"></a> `phase` | [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) |

@@ -1,51 +1,24 @@
-[**@eslint-react/core**](../../../../README.md)
-
-***
-
 [@eslint-react/core](../../../../README.md) / [useComponentCollector](../README.md) / ReturnType
 
 # Type Alias: ReturnType
 
-> **ReturnType** = `object`
+```ts
+type ReturnType = {
+  ctx: {
+     getAllComponents: (node: TSESTree.Program) => Map<string, FunctionComponent>;
+     getCurrentEntries: () => FunctionEntry[];
+     getCurrentEntry: () => FunctionEntry | unit;
+  };
+  listeners: ESLintUtils.RuleListener;
+};
+```
 
 ## Properties
 
-### ctx
-
-> **ctx**: `object`
-
-#### getAllComponents()
-
-> **getAllComponents**: (`node`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)\>
-
-##### Parameters
-
-###### node
-
-`TSESTree.Program`
-
-##### Returns
-
-[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)\>
-
-#### getCurrentEntries()
-
-> **getCurrentEntries**: () => `FunctionEntry`[]
-
-##### Returns
-
-`FunctionEntry`[]
-
-#### getCurrentEntry()
-
-> **getCurrentEntry**: () => `FunctionEntry` \| `unit`
-
-##### Returns
-
-`FunctionEntry` \| `unit`
-
-***
-
-### listeners
-
-> **listeners**: `ESLintUtils.RuleListener`
+| Property | Type |
+| ------ | ------ |
+| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)\>; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `unit`; \} |
+| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)\> |
+| `ctx.getCurrentEntries` | () => `FunctionEntry`[] |
+| `ctx.getCurrentEntry` | () => `FunctionEntry` \| `unit` |
+| <a id="listeners"></a> `listeners` | `ESLintUtils.RuleListener` |

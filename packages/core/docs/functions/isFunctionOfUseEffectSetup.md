@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isFunctionOfUseEffectSetup
 
 # Function: isFunctionOfUseEffectSetup()
 
-> **isFunctionOfUseEffectSetup**(`node`): `boolean`
+```ts
+function isFunctionOfUseEffectSetup(node: Node | undefined): boolean;
+```
 
 ## Parameters
 
-### node
-
-`Node` | `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` \| `undefined` |
 
 ## Returns
 

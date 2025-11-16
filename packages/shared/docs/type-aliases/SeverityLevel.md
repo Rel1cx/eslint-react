@@ -1,12 +1,10 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / SeverityLevel
 
 # Type Alias: SeverityLevel
 
-> **SeverityLevel** = `0` \| `1` \| `2`
+```ts
+type SeverityLevel = 0 | 1 | 2;
+```
 
 The numeric severity level for a rule.
 

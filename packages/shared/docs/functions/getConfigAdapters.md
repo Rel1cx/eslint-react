@@ -1,79 +1,53 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / getConfigAdapters
 
 # Function: getConfigAdapters()
 
-> **getConfigAdapters**(`pluginName`, `plugin`): `object`
+```ts
+function getConfigAdapters(pluginName: string, plugin: CompatiblePlugin): {
+  toFlatConfig: (config: CompatibleConfig) => {
+     name?: string;
+     plugins: {
+      [key: string]: CompatiblePlugin;
+     };
+     rules?: Record<string, RuleConfig<unknown[]>>;
+     settings?: SettingsConfig;
+  };
+  toLegacyConfig: (__namedParameters: CompatibleConfig) => {
+     plugins: string[];
+     rules:   | Record<string, RuleConfig<unknown[]>>
+        | undefined;
+  };
+};
+```
 
 ## Parameters
 
-### pluginName
-
-`string`
-
-### plugin
-
-[`CompatiblePlugin`](../interfaces/CompatiblePlugin.md)
+| Parameter | Type |
+| ------ | ------ |
+| `pluginName` | `string` |
+| `plugin` | [`CompatiblePlugin`](../interfaces/CompatiblePlugin.md) |
 
 ## Returns
 
-`object`
+```ts
+{
+  toFlatConfig: (config: CompatibleConfig) => {
+     name?: string;
+     plugins: {
+      [key: string]: CompatiblePlugin;
+     };
+     rules?: Record<string, RuleConfig<unknown[]>>;
+     settings?: SettingsConfig;
+  };
+  toLegacyConfig: (__namedParameters: CompatibleConfig) => {
+     plugins: string[];
+     rules:   | Record<string, RuleConfig<unknown[]>>
+        | undefined;
+  };
+}
+```
 
-### toFlatConfig()
-
-> **toFlatConfig**: (`config`) => `object`
-
-#### Parameters
-
-##### config
-
-[`CompatibleConfig`](../interfaces/CompatibleConfig.md)
-
-#### Returns
-
-`object`
-
-##### name?
-
-> `optional` **name**: `string`
-
-##### plugins
-
-> **plugins**: `object`
-
-###### Index Signature
-
-\[`key`: `string`\]: [`CompatiblePlugin`](../interfaces/CompatiblePlugin.md)
-
-##### rules?
-
-> `optional` **rules**: [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleConfig`\<`unknown`[]\>\>
-
-##### settings?
-
-> `optional` **settings**: [`SettingsConfig`](../interfaces/SettingsConfig.md)
-
-### toLegacyConfig()
-
-> **toLegacyConfig**: (`__namedParameters`) => `object`
-
-#### Parameters
-
-##### \_\_namedParameters
-
-[`CompatibleConfig`](../interfaces/CompatibleConfig.md)
-
-#### Returns
-
-`object`
-
-##### plugins
-
-> **plugins**: `string`[]
-
-##### rules
-
-> **rules**: [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleConfig`\<`unknown`[]\>\> \| `undefined`
+| Name | Type |
+| ------ | ------ |
+| `toFlatConfig()` | (`config`: [`CompatibleConfig`](../interfaces/CompatibleConfig.md)) => \{ `name?`: `string`; `plugins`: \{ \[`key`: `string`\]: [`CompatiblePlugin`](../interfaces/CompatiblePlugin.md); \}; `rules?`: [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleConfig`\<`unknown`[]\>\>; `settings?`: [`SettingsConfig`](../interfaces/SettingsConfig.md); \} |
+| `toLegacyConfig()` | (`__namedParameters`: [`CompatibleConfig`](../interfaces/CompatibleConfig.md)) => \{ `plugins`: `string`[]; `rules`: \| [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleConfig`\<`unknown`[]\>\> \| `undefined`; \} |

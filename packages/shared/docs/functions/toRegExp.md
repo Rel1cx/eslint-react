@@ -1,12 +1,12 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / toRegExp
 
 # Function: toRegExp()
 
-> **toRegExp**(`string`): `object`
+```ts
+function toRegExp(string: string): {
+  test: boolean;
+};
+```
 
 Convert a string to the `RegExp`.
 Normal strings (e.g. `"foo"`) is converted to `/^foo$/` of `RegExp`.
@@ -14,31 +14,23 @@ Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
 
 ## Parameters
 
-### string
-
-`string`
-
-The string to convert.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `string` | `string` | The string to convert. |
 
 ## Returns
 
-`object`
+```ts
+{
+  test: boolean;
+}
+```
 
 Returns the `RegExp`.
 
-### test()
-
-> **test**(`s`): `boolean`
-
-#### Parameters
-
-##### s
-
-`string`
-
-#### Returns
-
-`boolean`
+| Name | Type |
+| ------ | ------ |
+| `test()` | (`s`: `string`) => `boolean` |
 
 ## See
 

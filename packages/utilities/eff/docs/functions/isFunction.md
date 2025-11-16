@@ -1,22 +1,18 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / isFunction
 
 # Function: isFunction()
 
-> **isFunction**(`input`): `input is Function`
+```ts
+function isFunction(input: unknown): input is Function;
+```
 
 Tests if a value is a `function`.
 
 ## Parameters
 
-### input
-
-`unknown`
-
-The value to test.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `input` | `unknown` | The value to test. |
 
 ## Returns
 

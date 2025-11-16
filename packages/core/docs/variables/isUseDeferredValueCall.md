@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseDeferredValueCall
 
 # Variable: isUseDeferredValueCall()
 
-> `const` **isUseDeferredValueCall**: (...`a`) => `boolean`
+```ts
+const isUseDeferredValueCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

@@ -1,12 +1,10 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / useComponentCollectorLegacy
 
 # Function: useComponentCollectorLegacy()
 
-> **useComponentCollectorLegacy**(): [`ReturnType`](../@eslint-react/namespaces/useComponentCollectorLegacy/type-aliases/ReturnType.md)
+```ts
+function useComponentCollectorLegacy(): ReturnType;
+```
 
 Get a ctx and listeners object for the rule to collect class components
 

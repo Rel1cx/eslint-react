@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseTransitionCall
 
 # Variable: isUseTransitionCall()
 
-> `const` **isUseTransitionCall**: (...`a`) => `boolean`
+```ts
+const isUseTransitionCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 
