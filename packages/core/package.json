@@ -41,15 +41,15 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.46.4",
-    "@typescript-eslint/types": "^8.46.4",
-    "@typescript-eslint/utils": "^8.46.4",
+    "@typescript-eslint/scope-manager": "^8.47.0",
+    "@typescript-eslint/types": "^8.47.0",
+    "@typescript-eslint/utils": "^8.47.0",
     "birecord": "^0.1.1",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.16.4"
+    "tsdown": "^0.16.5"
   },
   "engines": {
     "node": ">=20.19.0"
