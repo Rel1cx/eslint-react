@@ -99,21 +99,14 @@ const p11tGroups = {
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 
-export function buildIgnoreConfig(gitignore: string, ...rest: string[]) {
+export function buildIgnoreConfig(gitignore: string, extra: string[]) {
   return [
     includeIgnoreFile(gitignore, "Imported .gitignore patterns") as never,
     globalIgnores([
       ...GLOB_IGNORES,
-      ...rest,
+      ...extra,
     ]),
   ] as const;
-}
-
-export function buildParserOptions(tsconfigRootDir: string = ".") {
-  return {
-    projectService: true,
-    tsconfigRootDir,
-  } as const;
 }
 
 export const strictTypeChecked: Linter.Config[] = defineConfig(

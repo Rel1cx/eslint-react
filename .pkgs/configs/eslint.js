@@ -89,20 +89,14 @@ const p11tGroups = {
     },
     groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
-export function buildIgnoreConfig(gitignore, ...rest) {
+export function buildIgnoreConfig(gitignore, extra) {
     return [
         includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
         globalIgnores([
             ...GLOB_IGNORES,
-            ...rest,
+            ...extra,
         ]),
     ];
-}
-export function buildParserOptions(tsconfigRootDir = ".") {
-    return {
-        projectService: true,
-        tsconfigRootDir,
-    };
 }
 export const strictTypeChecked = defineConfig({
     ignores: GLOB_JS,

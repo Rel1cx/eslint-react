@@ -1,12 +1,9 @@
-import { fileURLToPath } from "node:url";
-
 import {
   GLOB_CONFIGS,
   GLOB_SCRIPTS,
   GLOB_TESTS,
   GLOB_TS,
   buildIgnoreConfig,
-  buildParserOptions,
   disableProblematicEslintJsRules,
   disableTypeChecked,
   strictTypeChecked,
@@ -16,18 +13,18 @@ import { recommended as fastImportRecommended } from "eslint-plugin-fast-import"
 import { functionRule } from "eslint-plugin-function-rule";
 import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig } from "eslint/config";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 
-const ignoreConfig = buildIgnoreConfig(
-  fileURLToPath(new URL(".gitignore", import.meta.url)),
+const dirname = fileURLToPath(new URL(".", import.meta.url));
+const ignoreConfig = buildIgnoreConfig(path.join(dirname, ".gitignore"), [
   "apps",
   "docs",
   "test",
   "examples",
   "**/*.d.ts",
-);
-
-const parserOptions = buildParserOptions(fileURLToPath(new URL(".", import.meta.url)));
+]);
 
 export default defineConfig(
   ...ignoreConfig,
@@ -36,12 +33,15 @@ export default defineConfig(
       tseslint.configs.strictTypeChecked,
       strictTypeChecked,
       // @ts-expect-error - types issue
-      fastImportRecommended({ rootDir: parserOptions.tsconfigRootDir }),
+      fastImportRecommended({ rootDir: dirname }),
     ],
     files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
-      parserOptions,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: dirname,
+      },
     },
     plugins: {
       "function-rule-1": functionRule(templateExpression()),
@@ -77,7 +77,6 @@ export default defineConfig(
       globals: {
         ...pluginVitest.environments.env.globals,
       },
-      parserOptions,
     },
     plugins: {
       vitest: pluginVitest,
