@@ -36,7 +36,7 @@ export default defineConfig(
       tseslint.configs.strictTypeChecked,
       strictTypeChecked,
       // @ts-expect-error - types issue
-      fastImportRecommended({ rootDir: dirname }),
+      fastImportRecommended({ rootDir: parserOptions.tsconfigRootDir }),
     ],
     files: GLOB_TS,
     languageOptions: {
