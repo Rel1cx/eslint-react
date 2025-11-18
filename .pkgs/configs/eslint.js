@@ -1,3 +1,4 @@
+import { includeIgnoreFile } from "@eslint/compat";
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
@@ -6,7 +7,7 @@ import { jsdoc } from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
 import pluginUnicorn from "eslint-plugin-unicorn";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 export const GLOB_JS = ["**/*.{js,jsx,cjs,mjs}"];
 export const GLOB_TS = ["**/*.{ts,tsx,cts,mts}"];
@@ -88,6 +89,21 @@ const p11tGroups = {
     },
     groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
+export function buildIgnoreConfig(gitignore, ...rest) {
+    return [
+        includeIgnoreFile(gitignore, "Imported .gitignore patterns"),
+        globalIgnores([
+            ...GLOB_IGNORES,
+            ...rest,
+        ]),
+    ];
+}
+export function buildParserOptions(tsconfigRootDir = ".") {
+    return {
+        projectService: true,
+        tsconfigRootDir,
+    };
+}
 export const strictTypeChecked = defineConfig({
     ignores: GLOB_JS,
 }, {

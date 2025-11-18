@@ -22,16 +22,19 @@
     "@eslint/js": "^9.39.1",
     "@stylistic/eslint-plugin": "^5.5.0",
     "eslint-plugin-de-morgan": "^2.0.0",
-    "eslint-plugin-function": "^0.0.34",
-    "eslint-plugin-function-rule": "^0.0.16",
+    "eslint-plugin-function": "^0.0.35",
+    "eslint-plugin-function-rule": "^0.0.17",
     "eslint-plugin-jsdoc": "^61.2.1",
     "eslint-plugin-perfectionist": "^4.15.1",
     "eslint-plugin-regexp": "^2.10.0",
     "eslint-plugin-unicorn": "^62.0.0",
-    "typescript-eslint": "^8.46.4"
+    "typescript-eslint": "^8.47.0"
   },
   "peerDependencies": {
     "eslint": "^9.39.1",
+    "typedoc": "0.28.14",
+    "typedoc-plugin-markdown": "^4.9.0",
+    "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.9.3"
   }
 }
