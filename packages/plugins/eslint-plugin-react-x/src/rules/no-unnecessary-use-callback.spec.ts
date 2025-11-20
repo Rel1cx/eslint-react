@@ -413,7 +413,7 @@ ruleTester.run(RULE_NAME, rule, {
         function App({ items }) {
           const [test, setTest] = useState(0);
 
-          const updateTest = useCallback(() => {setTest(items.length)}, []);
+          const updateTest = useCallback(() => {setTest(items.length)}, [items]);
 
           useEffect(() => {
             updateTest();
@@ -440,7 +440,34 @@ ruleTester.run(RULE_NAME, rule, {
         function App({ items }) {
           const [test, setTest] = useState(0);
 
-          const updateTest = useCallback(() => {setTest(items.length)}, []);
+          const updateTest = useCallback(() => {console.log('test')}, []);
+
+          useEffect(() => {
+            updateTest();
+          }, [updateTest]);
+
+          return <div>items</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noUnnecessaryUseCallback",
+        },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "react",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import {useCallback, useState, useEffect} from 'react';
+
+        function App({ items }) {
+          const [test, setTest] = useState(0);
+
+          const updateTest = useCallback(() => {setTest(items.length)}, [items]);
 
           useEffect(() => {
             updateTest();
@@ -449,10 +476,10 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>items</div>;
         }
 
-                function App({ items }) {
+          function App({ items }) {
           const [test, setTest] = useState(0);
 
-          const updateTest = useCallback(() => {setTest(items.length)}, []);
+          const updateTest = useCallback(() => {setTest(items.length)}, [items]);
 
           useEffect(() => {
             updateTest();
@@ -482,7 +509,7 @@ ruleTester.run(RULE_NAME, rule, {
         function App({ items }) {
           const [test, setTest] = useState(0);
 
-          const updateTest = useCallback(() => {setTest(items.length)}, []);
+          const updateTest = useCallback(() => {setTest(items.length)}, [items]);
 
           useEffect(() => {
             updateTest();
@@ -623,7 +650,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useCallback, useState, useEffect } from 'react';
 
-        const Component = () => {
+      const Component = () => {
           const [test, setTest] = useState(items.length);
 
           const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
@@ -644,7 +671,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useCallback, useState, useEffect } from 'react';
 
-        const Component = () => {
+      const Component = () => {
         const [test, setTest] = useState(items.length);
 
         const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
@@ -655,7 +682,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useCallback, useState, useEffect } from 'react';
 
-        const Component = () => {
+      const Component = () => {
         const [test, setTest] = useState(items.length);
 
         const updateTest = useCallback(() => { setTest(items.length + 1) }, [setTest, items]);
