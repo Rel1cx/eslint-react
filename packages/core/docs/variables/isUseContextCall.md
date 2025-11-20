@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseContextCall
 
 # Variable: isUseContextCall()
 
-> `const` **isUseContextCall**: (...`a`) => `boolean`
+```ts
+const isUseContextCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

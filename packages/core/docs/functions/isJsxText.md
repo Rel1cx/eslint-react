@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isJsxText
 
 # Function: isJsxText()
 
-> **isJsxText**(`node`): node is JSXText \| Literal
+```ts
+function isJsxText(node: Node | null | undefined): node is JSXText | Literal;
+```
 
 Checks if a node is a `JSXText` or a `Literal` node
 
 ## Parameters
 
-### node
-
-The AST node to check
-
-`Node` | `null` | `undefined`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `null` \| `undefined` | The AST node to check |
 
 ## Returns
 

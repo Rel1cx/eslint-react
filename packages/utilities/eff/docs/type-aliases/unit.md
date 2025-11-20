@@ -1,11 +1,9 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / unit
 
 # Type Alias: unit
 
-> **unit** = `undefined`
+```ts
+type unit = undefined;
+```
 
-alias for `undefined`
+alias for `undefined`.

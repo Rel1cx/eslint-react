@@ -67,12 +67,12 @@
 // #region Helpers
 
 /**
- * alias for `undefined`
+ * alias for `undefined`.
  */
 export type unit = undefined;
 
 /**
- * alias for `undefined`
+ * alias for `undefined`.
  */
 export const unit = undefined;
 
@@ -332,34 +332,34 @@ export const apply = <A>(a: A) => <B>(self: (a: A) => B): B => self(a);
  * Returns a function that always returns the same value.
  * @param x - The value to return.
  */
-export function constant<T>(x: T) {
+export function constant<T>(x: T): () => T {
   return () => x;
 }
 
 /**
- * Do nothing and return void
+ * Do nothing and return `void`.
  */
-export function constVoid() {}
+export function constVoid(): void {}
 
 /**
- * Do nothing and return null
+ * Do nothing and return `null`.
  */
-export function constNull() {
+export function constNull(): null {
   return null;
 }
 
 /**
- * Do nothing and return true
+ * Do nothing and return `true`.
  */
-export function constTrue() {
-  return true as const;
+export function constTrue(): true {
+  return true;
 }
 
 /**
- * Do nothing and return false
+ * Do nothing and return `false`.
  */
-export function constFalse() {
-  return false as const;
+export function constFalse(): false {
+  return false;
 }
 
 /**
@@ -438,7 +438,7 @@ export const absurd = <A>(_: never): A => {
 export const tupled = <A extends ReadonlyArray<unknown>, B>(f: (...a: A) => B): (a: A) => B => (a) => f(...a);
 
 /**
- * Inverse function of `tupled`
+ * Inverse function of `tupled`.
  *
  * @param f - The function to be converted.
  * @example

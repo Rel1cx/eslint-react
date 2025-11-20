@@ -1,6 +1,5 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
-  { owner: "ant-design", repo: "ant-design" },
   { owner: "clientIO", repo: "joint" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
@@ -11,8 +10,6 @@ export const projects = [
   { owner: "kriasoft", repo: "graphql-starter-kit" },
   { owner: "kriasoft", repo: "react-starter-kit" },
   { owner: "letstri", repo: "permix" },
-  { owner: "mcp-use", repo: "mcp-use" },
-  { owner: "mgilangjanuar", repo: "buntal" },
   { owner: "npmgraph", repo: "npmgraph" },
   { owner: "offlegacy", repo: "event-tracker" },
   { owner: "onejs", repo: "one" },
@@ -21,7 +18,6 @@ export const projects = [
   { owner: "primer", repo: "react" },
   { owner: "react-navigation", repo: "react-navigation" },
   { owner: "refined-github", repo: "refined-github" },
-  { owner: "RSSNext", repo: "Follow" },
   { owner: "TanStack", repo: "form" },
   { owner: "TanStack", repo: "pacer" },
   { owner: "TanStack", repo: "query" },

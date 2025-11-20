@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactHook
 
 # Function: isReactHook()
 
-> **isReactHook**(`node`): `boolean`
+```ts
+function isReactHook(node: TSESTreeFunction | undefined): boolean;
+```
 
 Determines if a function node is a React Hook based on its name.
 
 ## Parameters
 
-### node
-
-The function node to check
-
-`TSESTreeFunction` | `undefined`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TSESTreeFunction` \| `undefined` | The function node to check |
 
 ## Returns
 

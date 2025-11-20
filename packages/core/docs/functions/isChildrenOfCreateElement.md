@@ -1,28 +1,19 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isChildrenOfCreateElement
 
 # Function: isChildrenOfCreateElement()
 
-> **isChildrenOfCreateElement**(`context`, `node`): `boolean`
+```ts
+function isChildrenOfCreateElement(context: RuleContext, node: Node): boolean;
+```
 
 Determines whether inside `createElement`'s children.
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The rule context
-
-### node
-
-`Node`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The rule context |
+| `node` | `Node` | The AST node to check |
 
 ## Returns
 

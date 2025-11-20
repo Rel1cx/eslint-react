@@ -1,7 +1,3 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / ESLintReactSettingsNormalized
 
 # Interface: ESLintReactSettingsNormalized
@@ -10,18 +6,8 @@ Normalized ESLint React settings with processed values
 
 ## Properties
 
-### importSource
-
-> **importSource**: `string`
-
-***
-
-### polymorphicPropName
-
-> **polymorphicPropName**: `string` \| `undefined`
-
-***
-
-### version
-
-> **version**: `string`
+| Property | Type |
+| ------ | ------ |
+| <a id="importsource"></a> `importSource` | `string` |
+| <a id="polymorphicpropname"></a> `polymorphicPropName` | `string` \| `undefined` |
+| <a id="version"></a> `version` | `string` |

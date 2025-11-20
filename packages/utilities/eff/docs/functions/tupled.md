@@ -1,42 +1,37 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / tupled
 
 # Function: tupled()
 
-> **tupled**\<`A`, `B`\>(`f`): (`a`) => `B`
+```ts
+function tupled<A, B>(f: (...a: A) => B): (a: A) => B;
+```
 
 Creates a   version of this function: instead of `n` arguments, it accepts a single tuple argument.
 
 ## Type Parameters
 
-### A
-
-`A` *extends* readonly `unknown`[]
-
-### B
-
-`B`
+| Type Parameter |
+| ------ |
+| `A` *extends* readonly `unknown`[] |
+| `B` |
 
 ## Parameters
 
-### f
-
-(...`a`) => `B`
-
-The function to be converted.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `f` | (...`a`: `A`) => `B` | The function to be converted. |
 
 ## Returns
 
-> (`a`): `B`
+```ts
+(a: A): B;
+```
 
 ### Parameters
 
-#### a
-
-`A`
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
 
 ### Returns
 

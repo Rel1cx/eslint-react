@@ -1,23 +1,19 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactHookName
 
 # Function: isReactHookName()
 
-> **isReactHookName**(`name`): `boolean`
+```ts
+function isReactHookName(name: string): boolean;
+```
 
 Catch all identifiers that begin with "use" followed by an uppercase Latin
 character to exclude identifiers like "user".
 
 ## Parameters
 
-### name
-
-`string`
-
-The name of the identifier to check.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name` | `string` | The name of the identifier to check. |
 
 ## Returns
 

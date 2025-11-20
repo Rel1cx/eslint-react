@@ -1,28 +1,24 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / isArray
 
 # Function: isArray()
 
-> **isArray**\<`T`\>(`data`): `data is NarrowedTo<T, readonly unknown[]>`
+```ts
+function isArray<T>(data: T | ArrayLike<unknown>): data is NarrowedTo<T, readonly unknown[]>;
+```
 
 A function that checks if the passed parameter is an Array and narrows its type accordingly.
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |
 
 ## Parameters
 
-### data
-
-The variable to check.
-
-`T` | `ArrayLike`\<`unknown`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `T` \| `ArrayLike`\<`unknown`\> | The variable to check. |
 
 ## Returns
 

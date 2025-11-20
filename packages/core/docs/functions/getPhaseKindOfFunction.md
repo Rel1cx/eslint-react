@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / getPhaseKindOfFunction
 
 # Function: getPhaseKindOfFunction()
 
-> **getPhaseKindOfFunction**(`node`): [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) \| `null`
+```ts
+function getPhaseKindOfFunction(node: TSESTreeFunction): ComponentPhaseKind | null;
+```
 
 ## Parameters
 
-### node
-
-`TSESTreeFunction`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `TSESTreeFunction` |
 
 ## Returns
 

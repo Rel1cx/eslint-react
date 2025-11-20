@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isAssignmentToThisState
 
 # Function: isAssignmentToThisState()
 
-> **isAssignmentToThisState**(`node`): `boolean`
+```ts
+function isAssignmentToThisState(node: AssignmentExpression): boolean;
+```
 
 ## Parameters
 
-### node
-
-`AssignmentExpression`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `AssignmentExpression` |
 
 ## Returns
 

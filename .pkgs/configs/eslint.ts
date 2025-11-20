@@ -1,3 +1,4 @@
+import { includeIgnoreFile } from "@eslint/compat";
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import type { Linter } from "eslint";
@@ -7,7 +8,7 @@ import { jsdoc } from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
 import pluginUnicorn from "eslint-plugin-unicorn";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 export const GLOB_JS = ["**/*.{js,jsx,cjs,mjs}"];
@@ -97,6 +98,16 @@ const p11tGroups = {
   },
   groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
+
+export function buildIgnoreConfig(gitignore: string, extra: string[]) {
+  return [
+    includeIgnoreFile(gitignore, "Imported .gitignore patterns") as never,
+    globalIgnores([
+      ...GLOB_IGNORES,
+      ...extra,
+    ]),
+  ] as const;
+}
 
 export const strictTypeChecked: Linter.Config[] = defineConfig(
   {

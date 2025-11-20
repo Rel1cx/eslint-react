@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isFunctionOfComponentDidMount
 
 # Function: isFunctionOfComponentDidMount()
 
-> **isFunctionOfComponentDidMount**(`node`): `boolean`
+```ts
+function isFunctionOfComponentDidMount(node: Node): boolean;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

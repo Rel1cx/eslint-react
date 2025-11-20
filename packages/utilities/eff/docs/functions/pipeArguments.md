@@ -1,32 +1,23 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / pipeArguments
 
 # Function: pipeArguments()
 
-> **pipeArguments**\<`A`\>(`self`, `args`): `unknown`
+```ts
+function pipeArguments<A>(self: A, args: IArguments): unknown;
+```
 
 ## Type Parameters
 
-### A
-
-`A`
+| Type Parameter |
+| ------ |
+| `A` |
 
 ## Parameters
 
-### self
-
-`A`
-
-The value to pipe.
-
-### args
-
-`IArguments`
-
-The functions to apply.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `self` | `A` | The value to pipe. |
+| `args` | `IArguments` | The functions to apply. |
 
 ## Returns
 

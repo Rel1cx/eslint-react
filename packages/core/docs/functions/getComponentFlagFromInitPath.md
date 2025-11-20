@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / getComponentFlagFromInitPath
 
 # Function: getComponentFlagFromInitPath()
 
-> **getComponentFlagFromInitPath**(`initPath`): `bigint`
+```ts
+function getComponentFlagFromInitPath(initPath: FunctionInitPath | undefined): bigint;
+```
 
 ## Parameters
 
-### initPath
-
-`FunctionInitPath` | `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `initPath` | `FunctionInitPath` \| `undefined` |
 
 ## Returns
 

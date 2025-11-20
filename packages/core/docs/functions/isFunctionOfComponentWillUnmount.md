@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isFunctionOfComponentWillUnmount
 
 # Function: isFunctionOfComponentWillUnmount()
 
-> **isFunctionOfComponentWillUnmount**(`node`): `boolean`
+```ts
+function isFunctionOfComponentWillUnmount(node: Node): boolean;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

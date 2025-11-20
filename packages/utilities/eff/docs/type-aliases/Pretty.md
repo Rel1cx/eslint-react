@@ -1,15 +1,14 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / Pretty
 
 # Type Alias: Pretty\<T\>
 
-> **Pretty**\<`T`\> = `{ [P in keyof T]: T[P] }` & `object`
+```ts
+type Pretty<T> = { [P in keyof T]: T[P] } & {
+};
+```
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |

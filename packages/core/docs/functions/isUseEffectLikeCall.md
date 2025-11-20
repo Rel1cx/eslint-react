@@ -1,22 +1,18 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseEffectLikeCall
 
 # Function: isUseEffectLikeCall()
 
-> **isUseEffectLikeCall**(`node`): `boolean`
+```ts
+function isUseEffectLikeCall(node: Node | undefined): boolean;
+```
 
 Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
 
 ## Parameters
 
-### node
-
-The AST node to check
-
-`Node` | `undefined`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `undefined` | The AST node to check |
 
 ## Returns
 

@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseEffectCall
 
 # Variable: isUseEffectCall()
 
-> `const` **isUseEffectCall**: (...`a`) => `boolean`
+```ts
+const isUseEffectCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

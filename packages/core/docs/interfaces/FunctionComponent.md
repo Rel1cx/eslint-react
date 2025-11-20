@@ -1,7 +1,3 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / FunctionComponent
 
 # Interface: FunctionComponent
@@ -12,88 +8,15 @@
 
 ## Properties
 
-### displayName
-
-> **displayName**: `Expression` \| `undefined`
-
-***
-
-### flag
-
-> **flag**: `bigint`
-
-#### Overrides
-
-[`SemanticNode`](SemanticNode.md).[`flag`](SemanticNode.md#flag)
-
-***
-
-### hint
-
-> **hint**: `bigint`
-
-#### Overrides
-
-[`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#hint)
-
-***
-
-### hookCalls
-
-> **hookCalls**: `CallExpression`[]
-
-***
-
-### id
-
-> **id**: `Identifier` \| `Identifier`[] \| `undefined`
-
-#### Overrides
-
-[`SemanticNode`](SemanticNode.md).[`id`](SemanticNode.md#id)
-
-***
-
-### initPath
-
-> **initPath**: `FunctionInitPath` \| `undefined`
-
-***
-
-### key
-
-> **key**: `string`
-
-#### Inherited from
-
-[`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#key)
-
-***
-
-### kind
-
-> **kind**: `"function"`
-
-#### Overrides
-
-[`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind)
-
-***
-
-### name
-
-> **name**: `string` \| `undefined`
-
-#### Inherited from
-
-[`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#name)
-
-***
-
-### node
-
-> **node**: `TSESTreeFunction`
-
-#### Overrides
-
-[`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#node)
+| Property | Type | Overrides | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="displayname"></a> `displayName` | `Expression` \| `undefined` | - | - |
+| <a id="flag"></a> `flag` | `bigint` | [`SemanticNode`](SemanticNode.md).[`flag`](SemanticNode.md#flag) | - |
+| <a id="hint"></a> `hint` | `bigint` | [`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#hint) | - |
+| <a id="hookcalls"></a> `hookCalls` | `CallExpression`[] | - | - |
+| <a id="id"></a> `id` | `Identifier` \| `Identifier`[] \| `undefined` | [`SemanticNode`](SemanticNode.md).[`id`](SemanticNode.md#id) | - |
+| <a id="initpath"></a> `initPath` | `FunctionInitPath` \| `undefined` | - | - |
+| <a id="key"></a> `key` | `string` | - | [`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#key) |
+| <a id="kind"></a> `kind` | `"function"` | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind) | - |
+| <a id="name"></a> `name` | `string` \| `undefined` | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#name) |
+| <a id="node"></a> `node` | `TSESTreeFunction` | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#node) | - |

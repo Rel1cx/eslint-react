@@ -1,14 +1,12 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / flow
 
 # Function: flow()
 
 ## Call Signature
 
-> **flow**\<`A`, `B`\>(`ab`): (...`a`) => `B`
+```ts
+function flow<A, B>(ab: (...a: A) => B): (...a: A) => B;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -16,31 +14,28 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
 
 ### Returns
 
-> (...`a`): `B`
+```ts
+(...a: A): B;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -66,7 +61,9 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`\>(`ab`, `bc`): (...`a`) => `C`
+```ts
+function flow<A, B, C>(ab: (...a: A) => B, bc: (b: B) => C): (...a: A) => C;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -74,39 +71,30 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
 
 ### Returns
 
-> (...`a`): `C`
+```ts
+(...a: A): C;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -132,7 +120,12 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`\>(`ab`, `bc`, `cd`): (...`a`) => `D`
+```ts
+function flow<A, B, C, D>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D): (...a: A) => D;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -140,47 +133,32 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
 
 ### Returns
 
-> (...`a`): `D`
+```ts
+(...a: A): D;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -206,7 +184,13 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`, `E`\>(`ab`, `bc`, `cd`, `de`): (...`a`) => `E`
+```ts
+function flow<A, B, C, D, E>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E): (...a: A) => E;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -214,55 +198,34 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
+| `de` | (`d`: `D`) => `E` |  |
 
 ### Returns
 
-> (...`a`): `E`
+```ts
+(...a: A): E;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -288,7 +251,14 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`, `E`, `F`\>(`ab`, `bc`, `cd`, `de`, `ef`): (...`a`) => `F`
+```ts
+function flow<A, B, C, D, E, F>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F): (...a: A) => F;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -296,63 +266,36 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
+| `de` | (`d`: `D`) => `E` |  |
+| `ef` | (`e`: `E`) => `F` |  |
 
 ### Returns
 
-> (...`a`): `F`
+```ts
+(...a: A): F;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -378,7 +321,15 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`): (...`a`) => `G`
+```ts
+function flow<A, B, C, D, E, F, G>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G): (...a: A) => G;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -386,71 +337,38 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
+| `de` | (`d`: `D`) => `E` |  |
+| `ef` | (`e`: `E`) => `F` |  |
+| `fg` | (`f`: `F`) => `G` |  |
 
 ### Returns
 
-> (...`a`): `G`
+```ts
+(...a: A): G;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -476,7 +394,16 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`): (...`a`) => `H`
+```ts
+function flow<A, B, C, D, E, F, G, H>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H): (...a: A) => H;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -484,79 +411,40 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
+| `de` | (`d`: `D`) => `E` |  |
+| `ef` | (`e`: `E`) => `F` |  |
+| `fg` | (`f`: `F`) => `G` |  |
+| `gh` | (`g`: `G`) => `H` |  |
 
 ### Returns
 
-> (...`a`): `H`
+```ts
+(...a: A): H;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -582,7 +470,17 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`): (...`a`) => `I`
+```ts
+function flow<A, B, C, D, E, F, G, H, I>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I): (...a: A) => I;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -590,87 +488,42 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
+| `de` | (`d`: `D`) => `E` |  |
+| `ef` | (`e`: `E`) => `F` |  |
+| `fg` | (`f`: `F`) => `G` |  |
+| `gh` | (`g`: `G`) => `H` |  |
+| `hi` | (`h`: `H`) => `I` |  |
 
 ### Returns
 
-> (...`a`): `I`
+```ts
+(...a: A): I;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 
@@ -696,7 +549,18 @@ assert.strictEqual(f('aaa'), 6)
 
 ## Call Signature
 
-> **flow**\<`A`, `B`, `C`, `D`, `E`, `F`, `G`, `H`, `I`, `J`\>(`ab`, `bc`, `cd`, `de`, `ef`, `fg`, `gh`, `hi`, `ij`): (...`a`) => `J`
+```ts
+function flow<A, B, C, D, E, F, G, H, I, J>(
+   ab: (...a: A) => B, 
+   bc: (b: B) => C, 
+   cd: (c: C) => D, 
+   de: (d: D) => E, 
+   ef: (e: E) => F, 
+   fg: (f: F) => G, 
+   gh: (g: G) => H, 
+   hi: (h: H) => I, 
+   ij: (i: I) => J): (...a: A) => J;
+```
 
 Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
 
@@ -704,95 +568,44 @@ See also [`pipe`](#pipe).
 
 ### Type Parameters
 
-#### A
-
-`A` *extends* readonly `unknown`[]
-
-#### B
-
-`B` = `never`
-
-#### C
-
-`C` = `never`
-
-#### D
-
-`D` = `never`
-
-#### E
-
-`E` = `never`
-
-#### F
-
-`F` = `never`
-
-#### G
-
-`G` = `never`
-
-#### H
-
-`H` = `never`
-
-#### I
-
-`I` = `never`
-
-#### J
-
-`J` = `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `A` *extends* readonly `unknown`[] | - |
+| `B` | `never` |
+| `C` | `never` |
+| `D` | `never` |
+| `E` | `never` |
+| `F` | `never` |
+| `G` | `never` |
+| `H` | `never` |
+| `I` | `never` |
+| `J` | `never` |
 
 ### Parameters
 
-#### ab
-
-(...`a`) => `B`
-
-The first function to apply.
-
-#### bc
-
-(`b`) => `C`
-
-#### cd
-
-(`c`) => `D`
-
-#### de
-
-(`d`) => `E`
-
-#### ef
-
-(`e`) => `F`
-
-#### fg
-
-(`f`) => `G`
-
-#### gh
-
-(`g`) => `H`
-
-#### hi
-
-(`h`) => `I`
-
-#### ij
-
-(`i`) => `J`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ab` | (...`a`: `A`) => `B` | The first function to apply. |
+| `bc` | (`b`: `B`) => `C` |  |
+| `cd` | (`c`: `C`) => `D` |  |
+| `de` | (`d`: `D`) => `E` |  |
+| `ef` | (`e`: `E`) => `F` |  |
+| `fg` | (`f`: `F`) => `G` |  |
+| `gh` | (`g`: `G`) => `H` |  |
+| `hi` | (`h`: `H`) => `I` |  |
+| `ij` | (`i`: `I`) => `J` |  |
 
 ### Returns
 
-> (...`a`): `J`
+```ts
+(...a: A): J;
+```
 
 #### Parameters
 
-##### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 #### Returns
 

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eff",
-  "version": "2.3.6-beta.7",
+  "version": "2.3.6-next.10",
   "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.16.4"
+    "tsdown": "^0.16.5"
   },
   "engines": {
     "node": ">=20.19.0"

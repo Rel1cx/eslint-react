@@ -1,56 +1,43 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / or
 
 # Function: or()
 
 ## Call Signature
 
-> **or**\<`T`, `S`, `U`\>(`a`, `b`): (`data`) => data is S \| U
+```ts
+function or<T, S, U>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
+```
 
 A function that takes two guard functions as predicates and returns a guard that checks if either of them is true.
 
 ### Type Parameters
 
-#### T
-
-`T`
-
-#### S
-
-`S`
-
-#### U
-
-`U`
+| Type Parameter |
+| ------ |
+| `T` |
+| `S` |
+| `U` |
 
 ### Parameters
 
-#### a
-
-(`data`) => `data is S`
-
-The first guard function.
-
-#### b
-
-(`data`) => `data is U`
-
-The second guard function.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | (`data`: `T`) => `data is S` | The first guard function. |
+| `b` | (`data`: `T`) => `data is U` | The second guard function. |
 
 ### Returns
 
 Function A guard function.
 
-> (`data`): data is S \| U
+```ts
+(data: T): data is S | U;
+```
 
 #### Parameters
 
-##### data
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `T` |
 
 #### Returns
 
@@ -58,45 +45,39 @@ data is S \| U
 
 ## Call Signature
 
-> **or**\<`T`, `S`\>(`a`, `b`): (`data`) => `data is S`
+```ts
+function or<T, S>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
+```
 
 A function that takes two guard functions as predicates and returns a guard that checks if either of them is true.
 
 ### Type Parameters
 
-#### T
-
-`T`
-
-#### S
-
-`S`
+| Type Parameter |
+| ------ |
+| `T` |
+| `S` |
 
 ### Parameters
 
-#### a
-
-(`data`) => `data is S`
-
-The first guard function.
-
-#### b
-
-(`data`) => `boolean`
-
-The second guard function.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | (`data`: `T`) => `data is S` | The first guard function. |
+| `b` | (`data`: `T`) => `boolean` | The second guard function. |
 
 ### Returns
 
 Function A guard function.
 
-> (`data`): `data is S`
+```ts
+(data: T): data is S;
+```
 
 #### Parameters
 
-##### data
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `T` |
 
 #### Returns
 
@@ -104,45 +85,39 @@ Function A guard function.
 
 ## Call Signature
 
-> **or**\<`T`, `U`\>(`a`, `b`): (`data`) => `data is U`
+```ts
+function or<T, U>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
+```
 
 A function that takes two guard functions as predicates and returns a guard that checks if either of them is true.
 
 ### Type Parameters
 
-#### T
-
-`T`
-
-#### U
-
-`U`
+| Type Parameter |
+| ------ |
+| `T` |
+| `U` |
 
 ### Parameters
 
-#### a
-
-(`data`) => `boolean`
-
-The first guard function.
-
-#### b
-
-(`data`) => `data is U`
-
-The second guard function.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | (`data`: `T`) => `boolean` | The first guard function. |
+| `b` | (`data`: `T`) => `data is U` | The second guard function. |
 
 ### Returns
 
 Function A guard function.
 
-> (`data`): `data is U`
+```ts
+(data: T): data is U;
+```
 
 #### Parameters
 
-##### data
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `T` |
 
 #### Returns
 
@@ -150,41 +125,38 @@ Function A guard function.
 
 ## Call Signature
 
-> **or**\<`T`\>(`a`, `b`): (`data`) => `boolean`
+```ts
+function or<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+```
 
 A function that takes two guard functions as predicates and returns a guard that checks if either of them is true.
 
 ### Type Parameters
 
-#### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |
 
 ### Parameters
 
-#### a
-
-(`data`) => `boolean`
-
-The first guard function.
-
-#### b
-
-(`data`) => `boolean`
-
-The second guard function.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `a` | (`data`: `T`) => `boolean` | The first guard function. |
+| `b` | (`data`: `T`) => `boolean` | The second guard function. |
 
 ### Returns
 
 Function A guard function.
 
-> (`data`): `boolean`
+```ts
+(data: T): boolean;
+```
 
 #### Parameters
 
-##### data
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `data` | `T` |
 
 #### Returns
 

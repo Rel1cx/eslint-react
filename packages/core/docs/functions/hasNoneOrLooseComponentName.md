@@ -1,22 +1,17 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / hasNoneOrLooseComponentName
 
 # Function: hasNoneOrLooseComponentName()
 
-> **hasNoneOrLooseComponentName**(`context`, `fn`): `boolean`
+```ts
+function hasNoneOrLooseComponentName(context: RuleContext, fn: TSESTreeFunction): boolean;
+```
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-### fn
-
-`TSESTreeFunction`
+| Parameter | Type |
+| ------ | ------ |
+| `context` | `RuleContext` |
+| `fn` | `TSESTreeFunction` |
 
 ## Returns
 

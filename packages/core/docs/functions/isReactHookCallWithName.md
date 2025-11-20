@@ -1,35 +1,33 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactHookCallWithName
 
 # Function: isReactHookCallWithName()
 
-> **isReactHookCallWithName**(`node`): (`name`) => `boolean`
+```ts
+function isReactHookCallWithName(node: Node | undefined): (name: string) => boolean;
+```
 
 Checks if a node is a call to a specific React hook.
 Returns a function that accepts a hook name to check against.
 
 ## Parameters
 
-### node
-
-The AST node to check
-
-`Node` | `undefined`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `undefined` | The AST node to check |
 
 ## Returns
 
 A function that takes a hook name and returns boolean
 
-> (`name`): `boolean`
+```ts
+(name: string): boolean;
+```
 
 ### Parameters
 
-#### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 ### Returns
 

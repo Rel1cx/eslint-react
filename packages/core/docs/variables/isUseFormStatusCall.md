@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseFormStatusCall
 
 # Variable: isUseFormStatusCall()
 
-> `const` **isUseFormStatusCall**: (...`a`) => `boolean`
+```ts
+const isUseFormStatusCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

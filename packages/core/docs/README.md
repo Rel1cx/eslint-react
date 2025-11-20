@@ -1,7 +1,3 @@
-**@eslint-react/core**
-
-***
-
 # @eslint-react/core
 
 ## Namespaces

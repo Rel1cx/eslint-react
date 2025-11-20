@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isComponentDidUpdate
 
 # Variable: isComponentDidUpdate()
 
-> `const` **isComponentDidUpdate**: (`node`) => `node is TSESTreeMethodOrProperty`
+```ts
+const isComponentDidUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

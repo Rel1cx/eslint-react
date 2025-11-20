@@ -1,26 +1,26 @@
-[**@eslint-react/core**](../../../../README.md)
-
-***
-
 [@eslint-react/core](../../../../README.md) / [isReactAPICall](../README.md) / ReturnType
 
 # Type Alias: ReturnType()
 
-> **ReturnType** = \{(`context`, `node`): `node is CallExpression`; (`context`): (`node`) => `node is CallExpression`; \}
+```ts
+type ReturnType = {
+  (context: RuleContext, node: Node | null | undefined): node is CallExpression;
+  (context: RuleContext): (node: Node | null | undefined) => node is CallExpression;
+};
+```
 
 ## Call Signature
 
-> (`context`, `node`): `node is CallExpression`
+```ts
+(context: RuleContext, node: Node | null | undefined): node is CallExpression;
+```
 
 ### Parameters
 
-#### context
-
-`RuleContext`
-
-#### node
-
-`Node` | `null` | `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `context` | `RuleContext` |
+| `node` | `Node` \| `null` \| `undefined` |
 
 ### Returns
 
@@ -28,23 +28,27 @@
 
 ## Call Signature
 
-> (`context`): (`node`) => `node is CallExpression`
+```ts
+(context: RuleContext): (node: Node | null | undefined) => node is CallExpression;
+```
 
 ### Parameters
 
-#### context
-
-`RuleContext`
+| Parameter | Type |
+| ------ | ------ |
+| `context` | `RuleContext` |
 
 ### Returns
 
-> (`node`): `node is CallExpression`
+```ts
+(node: Node | null | undefined): node is CallExpression;
+```
 
 #### Parameters
 
-##### node
-
-`Node` | `null` | `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` \| `null` \| `undefined` |
 
 #### Returns
 

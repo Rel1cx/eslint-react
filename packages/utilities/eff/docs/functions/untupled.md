@@ -1,42 +1,37 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / untupled
 
 # Function: untupled()
 
-> **untupled**\<`A`, `B`\>(`f`): (...`a`) => `B`
+```ts
+function untupled<A, B>(f: (a: A) => B): (...a: A) => B;
+```
 
-Inverse function of `tupled`
+Inverse function of `tupled`.
 
 ## Type Parameters
 
-### A
-
-`A` *extends* readonly `unknown`[]
-
-### B
-
-`B`
+| Type Parameter |
+| ------ |
+| `A` *extends* readonly `unknown`[] |
+| `B` |
 
 ## Parameters
 
-### f
-
-(`a`) => `B`
-
-The function to be converted.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `f` | (`a`: `A`) => `B` | The function to be converted. |
 
 ## Returns
 
-> (...`a`): `B`
+```ts
+(...a: A): B;
+```
 
 ### Parameters
 
-#### a
-
-...`A`
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | `A` |
 
 ### Returns
 

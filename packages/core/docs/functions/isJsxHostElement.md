@@ -1,29 +1,20 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isJsxHostElement
 
 # Function: isJsxHostElement()
 
-> **isJsxHostElement**(`context`, `node`): `boolean`
+```ts
+function isJsxHostElement(context: RuleContext, node: Node): boolean;
+```
 
 Determines if a JSX element is a host element
 Host elements in React start with lowercase letters (e.g., div, span)
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-ESLint rule context
-
-### node
-
-`Node`
-
-AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | ESLint rule context |
+| `node` | `Node` | AST node to check |
 
 ## Returns
 
