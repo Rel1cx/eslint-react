@@ -1,3 +1,11 @@
+## v2.3.7 (2025-11-21)
+
+### 🐞 Fixes
+
+- `web-api/no-leaked-event-listener` does not report event listeners with `signal`, closes #1282 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1325
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.5...v2.3.7
+
 ## v2.3.5 (2025-11-13)
 
 ### 🐞 Fixes
