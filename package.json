@@ -52,7 +52,7 @@
   "devDependencies": {
     "@effect/language-service": "^0.56.0",
     "@effect/platform": "^0.93.3",
-    "@effect/platform-node": "^0.100.0",
+    "@effect/platform-node": "^0.101.1",
     "@eslint/compat": "^2.0.0",
     "@local/configs": "workspace:*",
     "@local/function-rules": "workspace:*",
@@ -68,7 +68,7 @@
     "ansis": "^4.2.0",
     "dedent": "^1.7.0",
     "dprint": "^0.50.2",
-    "effect": "^3.19.4",
+    "effect": "^3.19.6",
     "eslint": "^9.39.1",
     "eslint-plugin-fast-import": "^1.5.3",
     "eslint-plugin-function-rule": "^0.0.17",
@@ -83,7 +83,7 @@
     "sort-package-json": "^3.4.0",
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.16.5",
+    "tsdown": "^0.16.6",
     "tsx": "^4.20.6",
     "type-fest": "^5.2.0",
     "typedoc": "^0.28.14",
@@ -91,9 +91,9 @@
     "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.47.0",
-    "vitest": "^4.0.10"
+    "vitest": "^4.0.13"
   },
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@10.23.0",
   "engines": {
     "node": ">=24.0.0"
   },
