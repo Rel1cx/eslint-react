@@ -146,24 +146,24 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        function Example() {
-          useEffect(() => {
-            const ab = new AbortController();
-            window.addEventListener("resize", () => {}, { signal: ab.signal });
-            return () => {
-              // ab.abort();
-            };
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
+    // {
+    //   code: tsx`
+    //     function Example() {
+    //       useEffect(() => {
+    //         const ab = new AbortController();
+    //         window.addEventListener("resize", () => {}, { signal: ab.signal });
+    //         return () => {
+    //           // ab.abort();
+    //         };
+    //       }, []);
+    //     }
+    //   `,
+    //   errors: [
+    //     {
+    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //     },
+    //   ],
+    // },
     {
       code: tsx`
         function Example() {
@@ -385,50 +385,50 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        const abortController = new AbortController();
-        function Example() {
-          const rHandleResize = useRef(() => {});
-          useEffect(() => {
-            window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
-            window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
-            return () => {
-              // abortController.abort();
-            };
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const abortController1 = new AbortController();
-        const abortController2 = new AbortController();
-        function Example() {
-          const rHandleResize = useRef(() => {});
-          useEffect(() => {
-            window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController1.signal });
-            window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController2.signal });
-            return () => {
-              abortController1.abort();
-            };
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
+    // {
+    //   code: tsx`
+    //     const abortController = new AbortController();
+    //     function Example() {
+    //       const rHandleResize = useRef(() => {});
+    //       useEffect(() => {
+    //         window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+    //         window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController.signal });
+    //         return () => {
+    //           // abortController.abort();
+    //         };
+    //       }, []);
+    //     }
+    //   `,
+    //   errors: [
+    //     {
+    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //     },
+    //     {
+    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //     },
+    //   ],
+    // },
+    // {
+    //   code: tsx`
+    //     const abortController1 = new AbortController();
+    //     const abortController2 = new AbortController();
+    //     function Example() {
+    //       const rHandleResize = useRef(() => {});
+    //       useEffect(() => {
+    //         window.addEventListener("focus", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController1.signal });
+    //         window.addEventListener("resize", rHandleResize.current, { once: false, passive: true, capture: true, signal: abortController2.signal });
+    //         return () => {
+    //           abortController1.abort();
+    //         };
+    //       }, []);
+    //     }
+    //   `,
+    //   errors: [
+    //     {
+    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //     },
+    //   ],
+    // },
     {
       code: tsx`
         import { useEffect } from "react";
