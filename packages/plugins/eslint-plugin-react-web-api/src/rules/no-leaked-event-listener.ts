@@ -292,7 +292,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ["Program:exit"]() {
       for (const aEntry of aEntries) {
         const signal = aEntry.signal;
-        if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
+        // https://github.com/Rel1cx/eslint-react/issues/1282#issuecomment-3536511881
+        // if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
+        //   continue;
+        // }
+        if (signal != null) {
           continue;
         }
         if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
