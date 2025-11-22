@@ -28,7 +28,8 @@ export default createRule<[], MessageID>({
     },
     messages: {
       noUnnecessaryUseMemo: "An 'useMemo' with empty deps and no references to the component scope may be unnecessary.",
-      noUnnecessaryUseMemoInsideUseEffect: "{{name}} is only used inside 1 useEffect which may be unnecessary.",
+      noUnnecessaryUseMemoInsideUseEffect:
+        "{{name}} is only used inside 1 useEffect, which may be unnecessary. You can move the computation into useEffect directly and merge the dependency arrays.",
     },
     schema: [],
   },
