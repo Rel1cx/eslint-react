@@ -1,9 +1,7 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / ESLintReactSettings
 
 # Type Alias: ESLintReactSettings
 
-> **ESLintReactSettings** = `z.infer`\<*typeof* `ESLintReactSettingsSchema`\>
+```ts
+type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
+```

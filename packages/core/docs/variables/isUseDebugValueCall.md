@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseDebugValueCall
 
 # Variable: isUseDebugValueCall()
 
-> `const` **isUseDebugValueCall**: (...`a`) => `boolean`
+```ts
+const isUseDebugValueCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

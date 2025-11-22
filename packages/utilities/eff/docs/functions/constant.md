@@ -1,32 +1,30 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / constant
 
 # Function: constant()
 
-> **constant**\<`T`\>(`x`): () => `T`
+```ts
+function constant<T>(x: T): () => T;
+```
 
 Returns a function that always returns the same value.
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |
 
 ## Parameters
 
-### x
-
-`T`
-
-The value to return.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `x` | `T` | The value to return. |
 
 ## Returns
 
-> (): `T`
+```ts
+(): T;
+```
 
 ### Returns
 

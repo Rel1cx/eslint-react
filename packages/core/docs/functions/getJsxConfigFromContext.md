@@ -1,41 +1,40 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / getJsxConfigFromContext
 
 # Function: getJsxConfigFromContext()
 
-> **getJsxConfigFromContext**(`context`): `object`
+```ts
+function getJsxConfigFromContext(context: RuleContext): {
+  jsx: 4 | JsxEmit;
+  jsxFactory: string;
+  jsxFragmentFactory: string;
+  jsxImportSource: string;
+};
+```
 
 Get JsxConfig from the rule context by reading compiler options.
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The RuleContext.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The RuleContext. |
 
 ## Returns
 
-`object`
+```ts
+{
+  jsx: 4 | JsxEmit;
+  jsxFactory: string;
+  jsxFragmentFactory: string;
+  jsxImportSource: string;
+}
+```
 
 JsxConfig derived from compiler options.
 
-### jsx
-
-> **jsx**: `4` \| `JsxEmit`
-
-### jsxFactory
-
-> **jsxFactory**: `string`
-
-### jsxFragmentFactory
-
-> **jsxFragmentFactory**: `string`
-
-### jsxImportSource
-
-> **jsxImportSource**: `string`
+| Name | Type |
+| ------ | ------ |
+| `jsx` | `4` \| `JsxEmit` |
+| `jsxFactory` | `string` |
+| `jsxFragmentFactory` | `string` |
+| `jsxImportSource` | `string` |

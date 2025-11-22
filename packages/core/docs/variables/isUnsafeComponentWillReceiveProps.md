@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUnsafeComponentWillReceiveProps
 
 # Variable: isUnsafeComponentWillReceiveProps()
 
-> `const` **isUnsafeComponentWillReceiveProps**: (`node`) => `node is TSESTreeMethodOrProperty`
+```ts
+const isUnsafeComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodOrProperty;
+```
 
 ## Parameters
 
-### node
-
-`Node`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
 ## Returns
 

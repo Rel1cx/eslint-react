@@ -1,14 +1,12 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / constTrue
 
 # Function: constTrue()
 
-> **constTrue**(): `true`
+```ts
+function constTrue(): true;
+```
 
-Do nothing and return true
+Do nothing and return `true`.
 
 ## Returns
 

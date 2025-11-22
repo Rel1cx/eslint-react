@@ -1,61 +1,65 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / compose
 
 # Variable: compose()
 
-> `const` **compose**: \{\<`B`, `C`\>(`bc`): \<`A`\>(`self`) => (`a`) => `C`; \<`A`, `B`, `C`\>(`self`, `bc`): (`a`) => `C`; \}
+```ts
+const compose: {
+<B, C>  (bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
+<A, B, C>  (self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
+};
+```
 
 Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
 The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
 
 ## Call Signature
 
-> \<`B`, `C`\>(`bc`): \<`A`\>(`self`) => (`a`) => `C`
+```ts
+<B, C>(bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
+```
 
 ### Type Parameters
 
-#### B
-
-`B`
-
-#### C
-
-`C`
+| Type Parameter |
+| ------ |
+| `B` |
+| `C` |
 
 ### Parameters
 
-#### bc
-
-(`b`) => `C`
+| Parameter | Type |
+| ------ | ------ |
+| `bc` | (`b`: `B`) => `C` |
 
 ### Returns
 
-> \<`A`\>(`self`): (`a`) => `C`
+```ts
+<A>(self: (a: A) => B): (a: A) => C;
+```
 
 #### Type Parameters
 
-##### A
-
-`A`
+| Type Parameter |
+| ------ |
+| `A` |
 
 #### Parameters
 
-##### self
-
-(`a`) => `B`
+| Parameter | Type |
+| ------ | ------ |
+| `self` | (`a`: `A`) => `B` |
 
 #### Returns
 
-> (`a`): `C`
+```ts
+(a: A): C;
+```
 
 ##### Parameters
 
-###### a
-
-`A`
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
 
 ##### Returns
 
@@ -63,41 +67,36 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 ## Call Signature
 
-> \<`A`, `B`, `C`\>(`self`, `bc`): (`a`) => `C`
+```ts
+<A, B, C>(self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
+```
 
 ### Type Parameters
 
-#### A
-
-`A`
-
-#### B
-
-`B`
-
-#### C
-
-`C`
+| Type Parameter |
+| ------ |
+| `A` |
+| `B` |
+| `C` |
 
 ### Parameters
 
-#### self
-
-(`a`) => `B`
-
-#### bc
-
-(`b`) => `C`
+| Parameter | Type |
+| ------ | ------ |
+| `self` | (`a`: `A`) => `B` |
+| `bc` | (`b`: `B`) => `C` |
 
 ### Returns
 
-> (`a`): `C`
+```ts
+(a: A): C;
+```
 
 #### Parameters
 
-##### a
-
-`A`
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `A` |
 
 #### Returns
 

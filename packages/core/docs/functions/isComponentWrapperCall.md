@@ -1,28 +1,19 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isComponentWrapperCall
 
 # Function: isComponentWrapperCall()
 
-> **isComponentWrapperCall**(`context`, `node`): `boolean`
+```ts
+function isComponentWrapperCall(context: RuleContext, node: Node): boolean;
+```
 
 Check if the node is a call expression for a component wrapper
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The ESLint rule context
-
-### node
-
-`Node`
-
-The node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context |
+| `node` | `Node` | The node to check |
 
 ## Returns
 

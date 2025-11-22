@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isReactHookId
 
 # Function: isReactHookId()
 
-> **isReactHookId**(`id`): `boolean`
+```ts
+function isReactHookId(id: Identifier | MemberExpression): boolean;
+```
 
 ## Parameters
 
-### id
-
-`Identifier` | `MemberExpression`
+| Parameter | Type |
+| ------ | ------ |
+| `id` | `Identifier` \| `MemberExpression` |
 
 ## Returns
 

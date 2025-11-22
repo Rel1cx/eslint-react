@@ -1,28 +1,19 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / getJsxAttributeName
 
 # Function: getJsxAttributeName()
 
-> **getJsxAttributeName**(`context`, `node`): `string`
+```ts
+function getJsxAttributeName(context: RuleContext, node: JSXAttribute): string;
+```
 
 Get the stringified name of a JSX attribute
 
 ## Parameters
 
-### context
-
-`RuleContext`
-
-The ESLint rule context
-
-### node
-
-`JSXAttribute`
-
-The JSX attribute node
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context |
+| `node` | `JSXAttribute` | The JSX attribute node |
 
 ## Returns
 

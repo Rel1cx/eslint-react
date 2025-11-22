@@ -1,11 +1,9 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / RE\_ANNOTATION\_JSX\_RUNTIME
 
 # Variable: RE\_ANNOTATION\_JSX\_RUNTIME
 
-> `const` **RE\_ANNOTATION\_JSX\_RUNTIME**: [`RegExp`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+```ts
+const RE_ANNOTATION_JSX_RUNTIME: RegExp;
+```
 
 Regular expression for matching a `@jsxRuntime` annotation comment.

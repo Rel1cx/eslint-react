@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / getComponentNameFromId
 
 # Function: getComponentNameFromId()
 
-> **getComponentNameFromId**(`id`): `string` \| `undefined`
+```ts
+function getComponentNameFromId(id: Identifier | Identifier[] | undefined): string | undefined;
+```
 
 ## Parameters
 
-### id
-
-`Identifier` | `Identifier`[] | `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `id` | `Identifier` \| `Identifier`[] \| `undefined` |
 
 ## Returns
 

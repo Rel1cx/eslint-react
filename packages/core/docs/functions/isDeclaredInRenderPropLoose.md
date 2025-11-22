@@ -1,12 +1,10 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isDeclaredInRenderPropLoose
 
 # Function: isDeclaredInRenderPropLoose()
 
-> **isDeclaredInRenderPropLoose**(`node`): `boolean`
+```ts
+function isDeclaredInRenderPropLoose(node: Node): boolean;
+```
 
 Unsafe check whether given node is declared inside a render prop
 ```tsx
@@ -18,11 +16,9 @@ _ = <Component rows={ [{ render: "node" }] } />
 
 ## Parameters
 
-### node
-
-`Node`
-
-The AST node to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The AST node to check |
 
 ## Returns
 

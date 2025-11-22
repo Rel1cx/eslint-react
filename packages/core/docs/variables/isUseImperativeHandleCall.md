@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isUseImperativeHandleCall
 
 # Variable: isUseImperativeHandleCall()
 
-> `const` **isUseImperativeHandleCall**: (...`a`) => `boolean`
+```ts
+const isUseImperativeHandleCall: (...a: [Node]) => boolean;
+```
 
 ## Parameters
 
-### a
-
-...\[`Node`\]
+| Parameter | Type |
+| ------ | ------ |
+| ...`a` | \[`Node`\] |
 
 ## Returns
 

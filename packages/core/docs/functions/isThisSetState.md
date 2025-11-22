@@ -1,18 +1,16 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isThisSetState
 
 # Function: isThisSetState()
 
-> **isThisSetState**(`node`): `boolean`
+```ts
+function isThisSetState(node: CallExpression): boolean;
+```
 
 ## Parameters
 
-### node
-
-`CallExpression`
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `CallExpression` |
 
 ## Returns
 

@@ -1,33 +1,25 @@
-[**@eslint-react/shared**](../README.md)
-
-***
-
 [@eslint-react/shared](../README.md) / RuleSuggest
 
 # Type Alias: RuleSuggest\<MessageIds\>
 
-> **RuleSuggest**\<`MessageIds`\> = `object`
+```ts
+type RuleSuggest<MessageIds> = {
+  data?: Record<string, unknown>;
+  fix: tseslint.ReportFixFunction;
+  messageId: MessageIds;
+};
+```
 
 ## Type Parameters
 
-### MessageIds
-
-`MessageIds` *extends* `string` = `string`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `MessageIds` *extends* `string` | `string` |
 
 ## Properties
 
-### data?
-
-> `optional` **data**: [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `unknown`\>
-
-***
-
-### fix
-
-> **fix**: `tseslint.ReportFixFunction`
-
-***
-
-### messageId
-
-> **messageId**: `MessageIds`
+| Property | Type |
+| ------ | ------ |
+| <a id="data"></a> `data?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `unknown`\> |
+| <a id="fix"></a> `fix` | `tseslint.ReportFixFunction` |
+| <a id="messageid"></a> `messageId` | `MessageIds` |

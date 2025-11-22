@@ -1,14 +1,12 @@
-[**@eslint-react/eff**](../README.md)
-
-***
-
 [@eslint-react/eff](../README.md) / constFalse
 
 # Function: constFalse()
 
-> **constFalse**(): `false`
+```ts
+function constFalse(): false;
+```
 
-Do nothing and return false
+Do nothing and return `false`.
 
 ## Returns
 

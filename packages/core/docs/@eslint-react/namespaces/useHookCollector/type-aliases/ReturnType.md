@@ -1,35 +1,20 @@
-[**@eslint-react/core**](../../../../README.md)
-
-***
-
 [@eslint-react/core](../../../../README.md) / [useHookCollector](../README.md) / ReturnType
 
 # Type Alias: ReturnType
 
-> **ReturnType** = `object`
+```ts
+type ReturnType = {
+  ctx: {
+     getAllHooks: Map<string, Hook>;
+  };
+  listeners: ESLintUtils.RuleListener;
+};
+```
 
 ## Properties
 
-### ctx
-
-> **ctx**: `object`
-
-#### getAllHooks()
-
-> **getAllHooks**(`node`): [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\>
-
-##### Parameters
-
-###### node
-
-`Program`
-
-##### Returns
-
-[`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\>
-
-***
-
-### listeners
-
-> **listeners**: `ESLintUtils.RuleListener`
+| Property | Type |
+| ------ | ------ |
+| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\>; \} |
+| `ctx.getAllHooks` | [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\> |
+| <a id="listeners"></a> `listeners` | `ESLintUtils.RuleListener` |

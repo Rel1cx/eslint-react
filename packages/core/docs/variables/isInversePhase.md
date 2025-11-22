@@ -1,32 +1,37 @@
-[**@eslint-react/core**](../README.md)
-
-***
-
 [@eslint-react/core](../README.md) / isInversePhase
 
 # Variable: isInversePhase()
 
-> `const` **isInversePhase**: \{(`a`): (`b`) => `boolean`; (`a`, `b`): `boolean`; \}
+```ts
+const isInversePhase: {
+  (a: ComponentPhaseKind): (b: ComponentPhaseKind) => boolean;
+  (a: ComponentPhaseKind, b: ComponentPhaseKind): boolean;
+};
+```
 
 ## Call Signature
 
-> (`a`): (`b`) => `boolean`
+```ts
+(a: ComponentPhaseKind): (b: ComponentPhaseKind) => boolean;
+```
 
 ### Parameters
 
-#### a
-
-[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+| Parameter | Type |
+| ------ | ------ |
+| `a` | [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) |
 
 ### Returns
 
-> (`b`): `boolean`
+```ts
+(b: ComponentPhaseKind): boolean;
+```
 
 #### Parameters
 
-##### b
-
-[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+| Parameter | Type |
+| ------ | ------ |
+| `b` | [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) |
 
 #### Returns
 
@@ -34,17 +39,16 @@
 
 ## Call Signature
 
-> (`a`, `b`): `boolean`
+```ts
+(a: ComponentPhaseKind, b: ComponentPhaseKind): boolean;
+```
 
 ### Parameters
 
-#### a
-
-[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
-
-#### b
-
-[`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md)
+| Parameter | Type |
+| ------ | ------ |
+| `a` | [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) |
+| `b` | [`ComponentPhaseKind`](../type-aliases/ComponentPhaseKind.md) |
 
 ### Returns
 
