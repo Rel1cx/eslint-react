@@ -1,12 +1,12 @@
 import * as AST from "@eslint-react/ast";
 import { isUseCallbackCall, isUseEffectLikeCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
-import { type RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
+import { type ReportDescriptor, type RuleListener, type SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 import { createRule } from "../utils";
@@ -49,6 +49,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
+      const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, node);
+
       const initialScope = context.sourceCode.getScope(node);
       const component = context.sourceCode.getScope(node).block;
 
@@ -73,8 +75,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => false);
 
       if (!hasEmptyDeps) {
+        report(context)(checkForUsageInsideUseEffectReport);
         return;
       }
+
       const arg0Node = match(arg0)
         .with({ type: T.ArrowFunctionExpression }, (n) => {
           if (n.body.type === T.ArrowFunctionExpression) {
@@ -103,42 +107,46 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "noUnnecessaryUseCallback",
           node,
         });
+        return;
       }
+      report(context)(checkForUsageInsideUseEffectReport);
     },
-    VariableDeclarator(node) {
-      if (!context.sourceCode.text.includes("useEffect")) {
-        return;
-      }
+  };
+}
 
-      if (!isUseCallbackCall(node.init ?? undefined)) {
-        return;
-      }
+function checkForUsageInsideUseEffect(
+  sourceCode: Readonly<SourceCode>,
+  node: TSESTree.CallExpression,
+): ReportDescriptor<MessageID> | undefined {
+  if (!/use\w*Effect/u.test(sourceCode.text)) return;
 
-      if (!isIdentifier(node.id)) {
-        return;
-      }
+  if (!isVariableDeclarator(node.parent)) {
+    return;
+  }
 
-      const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
-      const usages = references.filter((ref) => !(ref.init ?? false));
-      const effectSet = new Set<TSESTree.Node>();
+  if (!isIdentifier(node.parent.id)) {
+    return;
+  }
 
-      for (const usage of usages) {
-        const effect = AST.findParentNode(usage.identifier, (node) => isUseEffectLikeCall(node));
+  const references = sourceCode.getDeclaredVariables(node.parent)[0]?.references ?? [];
+  const usages = references.filter((ref) => !(ref.init ?? false));
+  const effectSet = new Set<TSESTree.Node>();
 
-        if (effect == null) {
-          return;
-        }
+  for (const usage of usages) {
+    const effect = AST.findParentNode(usage.identifier, isUseEffectLikeCall);
 
-        effectSet.add(effect);
-        if (effectSet.size > 1) {
-          return;
-        }
-      }
-      context.report({
-        messageId: "noUnnecessaryUseCallbackInsideUseEffect",
-        node,
-        data: { name: node.id.name },
-      });
-    },
+    if (effect == null) {
+      return;
+    }
+
+    effectSet.add(effect);
+    if (effectSet.size > 1) {
+      return;
+    }
+  }
+  return {
+    messageId: "noUnnecessaryUseCallbackInsideUseEffect",
+    node,
+    data: { name: node.parent.id.name },
   };
 }

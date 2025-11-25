@@ -1,14 +1,14 @@
 import * as AST from "@eslint-react/ast";
 import { isUseEffectLikeCall, isUseMemoCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor, RuleListener, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
-import { isIdentifier } from "@typescript-eslint/utils/ast-utils";
+import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-memo";
@@ -47,6 +47,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isUseMemoCall(node)) {
         return;
       }
+
+      const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, node);
+
       const scope = context.sourceCode.getScope(node);
       const component = scope.block;
       if (!AST.isFunction(component)) {
@@ -60,6 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         && [...AST.getNestedCallExpressions(arg0.body), ...AST.getNestedNewExpressions(arg0.body)].length > 0;
 
       if (hasCallInArg0) {
+        report(context)(checkForUsageInsideUseEffectReport);
         return;
       }
 
@@ -76,6 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => false);
 
       if (!hasEmptyDeps) {
+        report(context)(checkForUsageInsideUseEffectReport);
         return;
       }
       const arg0Node = match(arg0)
@@ -107,41 +112,45 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           node,
         });
       }
+      report(context)(checkForUsageInsideUseEffectReport);
     },
-    VariableDeclarator(node) {
-      if (!context.sourceCode.text.includes("useEffect")) {
-        return;
-      }
+  };
+}
 
-      if (!isUseMemoCall(node.init ?? undefined)) {
-        return;
-      }
+function checkForUsageInsideUseEffect(
+  sourceCode: Readonly<SourceCode>,
+  node: TSESTree.CallExpression,
+): ReportDescriptor<MessageID> | undefined {
+  if (!/use\w*Effect/u.test(sourceCode.text)) return;
 
-      if (!isIdentifier(node.id)) {
-        return;
-      }
+  if (!isVariableDeclarator(node.parent)) {
+    return;
+  }
 
-      const references = context.sourceCode.getDeclaredVariables(node)[0]?.references ?? [];
-      const usages = references.filter((ref) => !(ref.init ?? false));
-      const effectSet = new Set<TSESTree.Node>();
+  if (!isIdentifier(node.parent.id)) {
+    return;
+  }
 
-      for (const usage of usages) {
-        const effect = AST.findParentNode(usage.identifier, (node) => isUseEffectLikeCall(node));
+  const references = sourceCode.getDeclaredVariables(node.parent)[0]?.references ?? [];
+  const usages = references.filter((ref) => !(ref.init ?? false));
+  const effectSet = new Set<TSESTree.Node>();
 
-        if (effect == null) {
-          return;
-        }
+  for (const usage of usages) {
+    const effect = AST.findParentNode(usage.identifier, isUseEffectLikeCall);
 
-        effectSet.add(effect);
-        if (effectSet.size > 1) {
-          return;
-        }
-      }
-      context.report({
-        messageId: "noUnnecessaryUseMemoInsideUseEffect",
-        node,
-        data: { name: node.id.name },
-      });
-    },
+    if (effect == null) {
+      return;
+    }
+
+    effectSet.add(effect);
+    if (effectSet.size > 1) {
+      return;
+    }
+  }
+
+  return {
+    messageId: "noUnnecessaryUseMemoInsideUseEffect",
+    node,
+    data: { name: node.parent.id.name },
   };
 }
