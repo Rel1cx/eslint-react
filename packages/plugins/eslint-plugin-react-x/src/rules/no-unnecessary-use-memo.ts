@@ -111,6 +111,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           messageId: "noUnnecessaryUseMemo",
           node,
         });
+        return;
       }
       report(context)(checkForUsageInsideUseEffectReport);
     },
