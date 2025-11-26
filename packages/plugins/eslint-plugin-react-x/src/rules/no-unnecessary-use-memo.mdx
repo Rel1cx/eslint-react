@@ -28,7 +28,8 @@ react-x/no-unnecessary-use-memo
 
 Disallow unnecessary usage of `useMemo`.
 
-React Hooks `useMemo` has empty dependencies array like what's in the examples, are unnecessary. The hook can be removed and it's value can be calculated in the component body or hoisted to the outer scope of the component.
+React Hooks `useMemo` has empty dependencies array like what's in the examples, are unnecessary. The hook can be removed and it's value can be calculated in the component body or hoisted to the outer scope of the component. 
+If the calculated variable is only used inside one useEffect the calculation can be moved inside the useEffect Function.
 
 ## Examples
 
@@ -51,6 +52,23 @@ function MyComponent() {
 }
 ```
 
+```tsx
+import { Button, MantineTheme } from "@mantine/core";
+import React, { useMemo, useEffect } from "react";
+
+function MyComponent({someNumbers}: {someNumbers: number[]}) {
+  const calculatedNumber = useMemo(
+    () => someNumbers.reduce((prev, next) => prev+next, 0),
+    [someNumbers],
+  );
+
+  useEffect(() => {
+    console.log(calculatedNumber)
+  }, [calculatedNumber])
+  return <div> Hello World! </div>;
+}
+```
+
 ### Passing
 
 ```tsx
@@ -65,6 +83,19 @@ const style = (theme: MantineTheme) => ({
 
 function MyComponent() {
   return <Button sx={style} />;
+}
+```
+
+```tsx
+import { Button, MantineTheme } from "@mantine/core";
+import React, { useEffect } from "react";
+
+function MyComponent({someNumbers}: {someNumbers: number[]}) {
+  useEffect(() => {
+    const calculatedNumber = someNumbers.reduce((prev, next) => prev+next, 0)
+    console.log(calculatedNumber)
+  }, [someNumbers])
+  return <div> Hello World! </div>;
 }
 ```
 

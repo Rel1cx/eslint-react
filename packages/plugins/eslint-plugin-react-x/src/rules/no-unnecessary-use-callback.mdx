@@ -29,6 +29,7 @@ react-x/no-unnecessary-use-callback
 Disallow unnecessary usage of `useCallback`.
 
 React Hooks `useCallback` has empty dependencies array like what's in the examples, are unnecessary. The hook can be removed and it's value can be created in the component body or hoisted to the outer scope of the component.
+If the calculated function is only used inside one useEffect the calculation can be moved inside the useEffect Function.
 
 ## Examples
 
@@ -46,6 +47,22 @@ function MyComponent() {
 }
 ```
 
+
+```tsx
+import { Button, MantineTheme } from "@mantine/core";
+import React, { useCallback, useEffect } from "react";
+
+function MyComponent({items}: {items: string[]}) {
+  const updateTest = useCallback(() => {console.log(items.length)}, [items]);
+
+  useEffect(() => {
+    updateTest();
+  }, [updateTest]);
+
+  return <div>Hello World</div>;
+}
+```
+
 ### Passing
 
 ```tsx
@@ -57,6 +74,19 @@ function onClick() {
 
 function MyComponent() {
   return <button type="button" onClick={onClick} />;
+}
+```
+
+```tsx
+import { Button, MantineTheme } from "@mantine/core";
+import React, { useEffect } from "react";
+
+function MyComponent({items}: {items: string[]}) {
+  useEffect(() => {
+    console.log(items.length);
+  }, [items]);
+
+  return <div>Hello World</div>;
 }
 ```
 

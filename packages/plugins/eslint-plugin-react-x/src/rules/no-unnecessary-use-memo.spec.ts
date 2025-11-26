@@ -96,6 +96,64 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+
+    {
+      code: tsx`
+        import {useMemo, useState, useEffect} from 'react';
+
+        function veryHeavyCalculation(items) {
+          console.log(items)
+          return items
+        }
+  
+        function App({ items }) {
+          const [test, setTest] = useState(0);
+          const heavyStuff = useMemo(() => veryHeavyCalculation(items), [items]);
+
+          useEffect(() => {
+            setTest(heavyStuff.length)
+          }, [heavyStuff]);
+
+          return <div>items</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noUnnecessaryUseMemoInsideUseEffect",
+        },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "react",
+        },
+      },
+    },
+    {
+      code: tsx`
+        const { useMemo, useState, useEffect } = require("@pika/react");
+
+        function App({ items }) {
+          const [test, setTest] = useState(0);
+          const heavyStuff = useMemo(() => veryHeavyCalculation(items), [items]);
+
+          useEffect(() => {
+            setTest(heavyStuff.length)
+          }, [heavyStuff]);
+
+          return <div>items</div>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noUnnecessaryUseMemoInsideUseEffect",
+        },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "@pika/react",
+        },
+      },
+    },
   ],
   valid: [
     ...allValid,
@@ -238,6 +296,48 @@ ruleTester.run(RULE_NAME, rule, {
         const handleSnapshot = useMemo(() => new Date(), []);
 
         return null;
+      }
+    `,
+
+    tsx`
+      import { useMemo, useState, useEffect } from 'react';
+
+      function App({ items }) {
+        const [test, setTest] = useState(0);
+        const heavyStuff = useMemo(() => veryHeavyCalculation(items), [items]);
+
+        useEffect(() => {
+          setTest(heavyStuff.length)
+        }, [heavyStuff]);
+
+        return <div>{heavyStuff.length}</div>;
+      }
+    `,
+    tsx`
+      import { useMemo, useState, useEffect } from 'react';
+
+      function App({ items }) {
+        const [test, setTest] = useState(0);
+        const heavyStuff = useMemo(() => veryHeavyCalculation(items), [items]);
+
+        useEffect(() => {
+          setTest(heavyStuff.length)
+        }, [heavyStuff]);
+
+        useEffect(() => {
+          console.log(heavyStuff)
+        }, [heavyStuff]);
+
+        return <div>{heavyStuff.length}</div>;
+      }
+    `,
+    tsx`
+      import { useMemo } from 'react';
+
+      function App({ items }) {
+        const heavyStuff = useMemo(() => veryHeavyCalculation(items), [items]);
+
+        return <div>{heavyStuff.length}</div>;
       }
     `,
   ],
