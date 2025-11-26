@@ -38,14 +38,14 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.47.0",
-    "@typescript-eslint/types": "^8.47.0",
-    "@typescript-eslint/utils": "^8.47.0",
+    "@typescript-eslint/scope-manager": "^8.48.0",
+    "@typescript-eslint/types": "^8.48.0",
+    "@typescript-eslint/utils": "^8.48.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.16.6"
+    "tsdown": "^0.16.7"
   },
   "engines": {
     "node": ">=20.19.0"
