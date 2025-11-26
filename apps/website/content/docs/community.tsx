@@ -10,6 +10,7 @@ export const projects = [
   { owner: "kriasoft", repo: "graphql-starter-kit" },
   { owner: "kriasoft", repo: "react-starter-kit" },
   { owner: "letstri", repo: "permix" },
+  { owner: "Nexus-Mods", repo: "Vortex" },
   { owner: "npmgraph", repo: "npmgraph" },
   { owner: "offlegacy", repo: "event-tracker" },
   { owner: "onejs", repo: "one" },
