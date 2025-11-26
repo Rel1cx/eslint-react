@@ -2,6 +2,25 @@
 title: Changelog
 ---
 
+## v2.3.9 (2025-11-26)
+
+### ✨ New
+
+- feat: Disallow a function wrapped in `useCallback` or a variable wrapped in `useMemo` yet only used in `useEffect` and only in one `useEffect`, closes #1278 by @possum-enjoyer in https://github.com/Rel1cx/eslint-react/pull/1321
+
+### 🐞 Fixes
+
+- docs: fix severity for `no-unsafe-iframe-sandbox` in rule docs by @JstnMcBrd in https://github.com/Rel1cx/eslint-react/pull/1327
+- chore: correct peer dependencies by @ha1fstack in https://github.com/Rel1cx/eslint-react/pull/1328
+
+## New Contributors
+
+- @JstnMcBrd made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1327
+- @ha1fstack made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1328
+- @possum-enjoyer made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1321
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.7...v2.3.9
+
 ## v2.3.7 (2025-11-21)
 
 ### 🐞 Fixes
