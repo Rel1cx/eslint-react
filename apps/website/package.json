@@ -21,7 +21,7 @@
     "fumadocs-typescript": "4.0.13",
     "fumadocs-ui": "16.1.0",
     "lucide-react": "^0.555.0",
-    "next": "^16.0.5",
+    "next": "^16.0.6",
     "next-view-transitions": "^0.3.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -29,7 +29,7 @@
     "twoslash": "^0.3.4"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.57.1",
+    "@effect/language-service": "^0.58.0",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^9.39.1",
