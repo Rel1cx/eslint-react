@@ -87,9 +87,7 @@ function isClassOrInterfaceReadonlyLoose(checker: ts.TypeChecker, type: ts.Type)
   for (const property of properties) {
     const propertyName = property.getEscapedName();
     if (isPropertyReadonlyInType(type, propertyName, checker)) continue;
-    else if (baseTypes.length > 0) {
-      return baseTypes.every((heritageType) => isPropertyReadonlyInType(heritageType, propertyName, checker));
-    }
+    else return baseTypes.every((heritageType) => isPropertyReadonlyInType(heritageType, propertyName, checker));
   }
   return true;
 }
