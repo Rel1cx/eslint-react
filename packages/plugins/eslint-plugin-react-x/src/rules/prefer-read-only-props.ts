@@ -5,6 +5,7 @@ import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
 import type { CamelCase } from "string-ts";
+import { isPropertyReadonlyInType } from "ts-api-utils";
 import type ts from "typescript";
 
 import { createRule } from "../utils";
@@ -37,7 +38,9 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
+  const checker = services.program.getTypeChecker();
   const { ctx, listeners } = useComponentCollector(context);
+
   return {
     ...listeners,
     "Program:exit"(program) {
@@ -50,9 +53,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         const propsType = getConstrainedTypeAtLocation(services, props);
-        if (isTypeReadonlyLoose(services, propsType)) {
-          continue;
-        }
+        if (isTypeReadonly(services.program, propsType)) continue;
+        // Handle edge case where isTypeReadonly cant detect some readonly or immutable types
+        if (isTypeReadonlyLoose(services, propsType)) continue;
+        // @see https://github.com/Rel1cx/eslint-react/issues/1326
+        if (propsType.isClassOrInterface() && isClassOrInterfaceReadonlyLoose(checker, propsType)) continue;
         context.report({ messageId: "preferReadOnlyProps", node: props });
       }
     },
@@ -60,11 +65,31 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 
 function isTypeReadonlyLoose(services: ParserServicesWithTypeInformation, type: ts.Type): boolean {
-  if (isTypeReadonly(services.program, type)) return true;
   try {
     const im = getTypeImmutability(services.program, type);
     return isUnknown(im) || isImmutable(im) || isReadonlyShallow(im) || isReadonlyDeep(im);
   } catch {
     return true;
   }
+}
+
+// TODO: A comprehensive test is required to verify that it works as expected
+// @see https://github.com/Rel1cx/eslint-react/issues/1326
+function isClassOrInterfaceReadonlyLoose(checker: ts.TypeChecker, type: ts.Type) {
+  const baseTypes = type.getBaseTypes() ?? [];
+  const properties = type.getProperties();
+  if (properties.length === 0) {
+    return true;
+  }
+  if (baseTypes.length === 0) {
+    return properties.every((property) => isPropertyReadonlyInType(type, property.getEscapedName(), checker));
+  }
+  for (const property of properties) {
+    const propertyName = property.getEscapedName();
+    if (isPropertyReadonlyInType(type, propertyName, checker)) continue;
+    else if (baseTypes.length > 0) {
+      return baseTypes.every((heritageType) => isPropertyReadonlyInType(heritageType, propertyName, checker));
+    }
+  }
+  return true;
 }

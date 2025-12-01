@@ -727,5 +727,32 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             }
           }
     `,
+    tsx`
+      type DeepReadOnly<T> = {
+        readonly [P in keyof T]: T[P] extends (infer U)[]
+          ? ReadonlyArray<DeepReadOnly<U>>
+          : T[P] extends ReadonlyArray<infer U>
+            ? ReadonlyArray<DeepReadOnly<U>>
+            : T[P] extends object
+              ? DeepReadOnly<T[P]>
+              : T[P];
+      };
+
+      interface PressableProps {
+        testID: string;
+      }
+
+      type ReadonlyPressableProps = DeepReadOnly<PressableProps>;
+
+      interface ComponentProps extends ReadonlyPressableProps {
+        readonly name: string;
+      }
+
+      export function Component(props: ComponentProps) {
+        const { name, testID } = props;
+
+        return <div data-testid={testID}>{name}</div>
+      }
+    `,
   ],
 });
