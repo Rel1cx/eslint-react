@@ -272,6 +272,7 @@ ruleTester.run(RULE_NAME, rule, {
       export const App = memo(
           forwardRef<HTMLDivElement, Props>(
               function App({ day }, ref) {
+                  const onClick = () => { console.log(ref.current) };
                   return <div ref={ref}>{day}</div>;
               }
           )
