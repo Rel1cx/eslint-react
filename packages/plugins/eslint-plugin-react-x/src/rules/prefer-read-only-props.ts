@@ -77,15 +77,18 @@ function isTypeReadonlyLoose(services: ParserServicesWithTypeInformation, type: 
 // @see https://github.com/Rel1cx/eslint-react/issues/1326
 function isClassOrInterfaceReadonlyLoose(checker: ts.TypeChecker, type: ts.Type) {
   const props = type.getProperties();
-  const baseTypes = type.getBaseTypes() ?? [];
+  const types = type.getBaseTypes() ?? [];
+  // If there are no properties, consider it readonly
   if (props.length === 0) {
     return true;
   }
-  if (baseTypes.length === 0) {
-    return props.every((prop) => isPropertyReadonlyInType(type, prop.getEscapedName(), checker));
+  // If there are no base types, check only the properties of the current type
+  if (types.length === 0) {
+    return props.every((p) => isPropertyReadonlyInType(type, p.getEscapedName(), checker));
   }
-  return props.every((prop) => {
-    if (isPropertyReadonlyInType(type, prop.getEscapedName(), checker)) return true;
-    return baseTypes.every((type) => isPropertyReadonlyInType(type, prop.getEscapedName(), checker));
+  // Check properties in the current type and all base types
+  return props.every((p) => {
+    if (isPropertyReadonlyInType(type, p.getEscapedName(), checker)) return true;
+    return types.every((t) => isPropertyReadonlyInType(t, p.getEscapedName(), checker));
   });
 }
