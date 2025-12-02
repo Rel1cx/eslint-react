@@ -63,19 +63,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     // After traversing the whole program, check if any lazy component is nested
     "Program:exit"(program) {
       // Get all collected function and class components
-      const functionComponents = [
-        ...collector
-          .ctx
-          .getAllComponents(program)
-          .values(),
-      ];
+      const functionComponents = collector
+        .ctx
+        .getAllComponents(program);
 
-      const classComponents = [
-        ...collectorLegacy
-          .ctx
-          .getAllComponents(program)
-          .values(),
-      ];
+      const classComponents = collectorLegacy
+        .ctx
+        .getAllComponents(program);
 
       // Iterate over each found `React.lazy()` call
       for (const lazy of lazyComponentDeclarations) {

@@ -17,7 +17,7 @@ type FunctionEntry = {
 export declare namespace useHookCollector {
   type ReturnType = {
     ctx: {
-      getAllHooks(node: TSESTree.Program): Map<string, Hook>;
+      getAllHooks(node: TSESTree.Program): Hook[];
     };
     listeners: ESLintUtils.RuleListener;
   };
@@ -51,8 +51,8 @@ export function useHookCollector(): useHookCollector.ReturnType {
   };
   const ctx = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllHooks(node: TSESTree.Program): typeof hooks {
-      return hooks;
+    getAllHooks(node: TSESTree.Program) {
+      return [...hooks.values()];
     },
   } as const;
   const listeners = {

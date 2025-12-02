@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   ctx: {
-     getAllHooks: Map<string, Hook>;
+     getAllHooks: Hook[];
   };
   listeners: ESLintUtils.RuleListener;
 };
@@ -15,6 +15,6 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\>; \} |
-| `ctx.getAllHooks` | [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`Hook`](../../../../interfaces/Hook.md)\> |
+| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`Hook`](../../../../interfaces/Hook.md)[]; \} |
+| `ctx.getAllHooks` | [`Hook`](../../../../interfaces/Hook.md)[] |
 | <a id="listeners"></a> `listeners` | `ESLintUtils.RuleListener` |

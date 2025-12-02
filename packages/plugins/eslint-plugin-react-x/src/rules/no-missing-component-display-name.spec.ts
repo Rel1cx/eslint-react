@@ -6,7 +6,9 @@ import rule, { RULE_NAME } from "./no-missing-component-display-name";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: tsx`const App = React.memo(() => <div>foo</div>)`,
+      code: tsx`
+        const App = React.memo(() => <div>foo</div>)
+      `,
       errors: [{
         messageId: "noMissingComponentDisplayName",
       }],
@@ -22,31 +24,41 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: tsx`const App = React.forwardRef(() => <div>foo</div>)`,
+      code: tsx`
+        const App = React.forwardRef(() => <div>foo</div>)
+      `,
       errors: [{
         messageId: "noMissingComponentDisplayName",
       }],
     },
     {
-      code: tsx`const MemoComponent = React.memo(() => <div></div>)`,
+      code: tsx`
+        const MemoComponent = React.memo(() => <div></div>)
+      `,
       errors: [{
         messageId: "noMissingComponentDisplayName",
       }],
     },
     {
-      code: tsx`const ForwardRefComponent = React.forwardRef(() => <div></div>)`,
+      code: tsx`
+        const ForwardRefComponent = React.forwardRef(() => <div></div>)
+      `,
       errors: [{
         messageId: "noMissingComponentDisplayName",
       }],
     },
     {
-      code: tsx`const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))`,
+      code: tsx`
+        const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))
+      `,
       errors: [{
         messageId: "noMissingComponentDisplayName",
       }],
     },
     {
-      code: tsx`const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))`,
+      code: tsx`
+        const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))
+      `,
       errors: [{
         messageId: "noMissingComponentDisplayName",
       }],

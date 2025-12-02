@@ -92,8 +92,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
       ).push(node);
     },
     "Program:exit"(program) {
-      const components = ctx.getAllComponents(program);
-      for (const { node: component } of components.values()) {
+      for (const { node: component } of ctx.getAllComponents(program)) {
         const { params } = component;
         const [props] = params;
         if (props == null) {

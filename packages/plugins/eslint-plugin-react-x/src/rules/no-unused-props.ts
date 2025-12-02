@@ -41,12 +41,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...listeners,
     "Program:exit"(program) {
       const checker = services.program.getTypeChecker();
-      const components = ctx.getAllComponents(program);
-
       const totalDeclaredProps = new Set<ts.Symbol>();
       const totalUsedProps = new Set<ts.Symbol>();
 
-      for (const [, component] of components) {
+      for (const component of ctx.getAllComponents(program)) {
         const [props] = component.node.params;
         if (props == null) continue;
 

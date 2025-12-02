@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   ctx: {
-     getAllComponents: (node: TSESTree.Program) => Map<string, FunctionComponent>;
+     getAllComponents: (node: TSESTree.Program) => FunctionComponent[];
      getCurrentEntries: () => FunctionEntry[];
      getCurrentEntry: () => FunctionEntry | unit;
   };
@@ -17,8 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)\>; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `unit`; \} |
-| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`string`, [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)\> |
+| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)[]; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `unit`; \} |
+| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)[] |
 | `ctx.getCurrentEntries` | () => `FunctionEntry`[] |
 | `ctx.getCurrentEntry` | () => `FunctionEntry` \| `unit` |
 | <a id="listeners"></a> `listeners` | `ESLintUtils.RuleListener` |

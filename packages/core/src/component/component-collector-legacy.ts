@@ -12,7 +12,7 @@ const idGen = new IdGenerator("class_component_");
 export declare namespace useComponentCollectorLegacy {
   type ReturnType = {
     ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, ClassComponent>;
+      getAllComponents: (node: TSESTree.Program) => ClassComponent[];
     };
     listeners: ESLintUtils.RuleListener;
   };
@@ -27,8 +27,8 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
 
   const ctx = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllComponents(node: TSESTree.Program): typeof components {
-      return components;
+    getAllComponents(node: TSESTree.Program) {
+      return [...components.values()];
     },
   } as const;
 

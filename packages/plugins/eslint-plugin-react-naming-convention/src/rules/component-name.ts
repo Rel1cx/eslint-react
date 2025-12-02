@@ -82,16 +82,14 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = normalizeOptions(context.options);
   const { rule } = options;
-  const collector = useComponentCollector(context);
-  const collectorLegacy = useComponentCollectorLegacy();
+  const fCollector = useComponentCollector(context);
+  const cCollector = useComponentCollectorLegacy();
 
   return {
-    ...collector.listeners,
-    ...collectorLegacy.listeners,
+    ...fCollector.listeners,
+    ...cCollector.listeners,
     "Program:exit"(program) {
-      const functionComponents = collector.ctx.getAllComponents(program);
-      const classComponents = collectorLegacy.ctx.getAllComponents(program);
-      for (const { node: component } of functionComponents.values()) {
+      for (const { node: component } of fCollector.ctx.getAllComponents(program)) {
         const id = AST.getFunctionId(component);
         if (id?.name == null) continue;
         const name = id.name;
@@ -102,7 +100,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           data: { name, rule },
         });
       }
-      for (const { node: component } of classComponents.values()) {
+      for (const { node: component } of cCollector.ctx.getAllComponents(program)) {
         const id = AST.getClassId(component);
         if (id?.name == null) continue;
         const name = id.name;
