@@ -1,3 +1,12 @@
+## v2.3.10 (2025-12-02)
+
+### 🐞 Fixes
+
+- Fix readonly type detection for class and interface extends, closes #1326 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1329
+- Fix and cleanup `react-x/prefer-read-only-props` rule, closes #1326 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1331
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.9...v2.3.10
+
 ## v2.3.9 (2025-11-26)
 
 ### ✨ New
