@@ -46,12 +46,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"(program) {
       const components = ctx.getAllComponents(program);
       for (const [, component] of components) {
-        if (component.id == null) continue;
-        if (component.name == null) continue;
         const [props] = component.node.params;
-        if (props == null) {
-          continue;
-        }
+        // Skip if the component is anonymous to reduce false positives
+        if (component.id == null || component.name == null) continue;
+        // Skip if no props
+        if (props == null) continue;
+
         const propsType = getConstrainedTypeAtLocation(services, props);
         if (isTypeReadonly(services.program, propsType)) continue;
         // Handle edge case where isTypeReadonly cant detect some readonly or immutable types
@@ -76,18 +76,16 @@ function isTypeReadonlyLoose(services: ParserServicesWithTypeInformation, type: 
 // TODO: A comprehensive test is required to verify that it works as expected
 // @see https://github.com/Rel1cx/eslint-react/issues/1326
 function isClassOrInterfaceReadonlyLoose(checker: ts.TypeChecker, type: ts.Type) {
+  const props = type.getProperties();
   const baseTypes = type.getBaseTypes() ?? [];
-  const properties = type.getProperties();
-  if (properties.length === 0) {
+  if (props.length === 0) {
     return true;
   }
   if (baseTypes.length === 0) {
-    return properties.every((property) => isPropertyReadonlyInType(type, property.getEscapedName(), checker));
+    return props.every((prop) => isPropertyReadonlyInType(type, prop.getEscapedName(), checker));
   }
-  for (const property of properties) {
-    const propertyName = property.getEscapedName();
-    if (isPropertyReadonlyInType(type, propertyName, checker)) continue;
-    else return baseTypes.every((heritageType) => isPropertyReadonlyInType(heritageType, propertyName, checker));
-  }
-  return true;
+  return props.every((prop) => {
+    if (isPropertyReadonlyInType(type, prop.getEscapedName(), checker)) return true;
+    return baseTypes.every((type) => isPropertyReadonlyInType(type, prop.getEscapedName(), checker));
+  });
 }
