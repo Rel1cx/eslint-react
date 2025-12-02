@@ -43,7 +43,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...listeners,
     "Program:exit"(program) {
       for (const { node, displayName, flag } of ctx.getAllComponents(program)) {
-        console.log(context.sourceCode.getText(node));
         const id = AST.getFunctionId(node);
         // Check if the component is wrapped with `forwardRef` or `memo`
         const isMemoOrForwardRef = (flag & (ComponentFlag.ForwardRef | ComponentFlag.Memo)) > 0n;
