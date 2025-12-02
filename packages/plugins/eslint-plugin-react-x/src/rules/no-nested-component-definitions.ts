@@ -54,38 +54,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     | ComponentDetectionHint.StrictConditional;
 
   // Collectors to find all component definitions in the code
-  const collector = useComponentCollector(context, { hint });
-  const collectorLegacy = useComponentCollectorLegacy();
+  const fCollector = useComponentCollector(context, { hint });
+  const cCollector = useComponentCollectorLegacy();
 
   return {
-    ...collector.listeners,
-    ...collectorLegacy.listeners,
+    ...fCollector.listeners,
+    ...cCollector.listeners,
     "Program:exit"(program) {
       // Gather all function and class components found by the collectors
-      const functionComponents = [
-        ...collector
-          .ctx
-          .getAllComponents(program)
-          .values(),
-      ];
-      const classComponents = [
-        ...collectorLegacy
-          .ctx
-          .getAllComponents(program)
-          .values(),
-      ];
+      const fComponents = [...fCollector.ctx.getAllComponents(program)];
+      const cComponents = [...cCollector.ctx.getAllComponents(program)];
       // Helper to check if a node is a collected function component
       const isFunctionComponent = (node: TSESTree.Node): node is AST.TSESTreeFunction => {
         return AST.isFunction(node)
-          && functionComponents.some((component) => component.node === node);
+          && fComponents.some((component) => component.node === node);
       };
       // Helper to check if a node is a collected class component
       const isClassComponent = (node: TSESTree.Node): node is AST.TSESTreeClass => {
         return AST.isClass(node)
-          && classComponents.some((component) => component.node === node);
+          && cComponents.some((component) => component.node === node);
       };
       // Iterate over function components to find nested definitions
-      for (const { name, node: component } of functionComponents) {
+      for (const { name, node: component } of fComponents) {
         // Skip anonymous function components to reduce false positives
         if (name == null) continue;
         // Skip components that are directly returned from a render prop
@@ -148,7 +138,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       }
       // Iterate over class components to find nested definitions
-      for (const { name = "unknown", node: component } of classComponents) {
+      for (const { name = "unknown", node: component } of cComponents) {
         // Find if the parent is another component
         if (AST.findParentNode(component, (n) => isClassComponent(n) || isFunctionComponent(n)) == null) {
           continue;

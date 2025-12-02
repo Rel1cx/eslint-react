@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
     // After traversing the whole AST, check the collected member expressions
     "Program:exit"(program) {
-      const components = [...ctx.getAllComponents(program).values()];
+      const componentBlocks = new Set(ctx.getAllComponents(program).map((component) => component.node));
       // Check if a node is a function component collected by `useComponentCollector`
       function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
         if (!AST.isFunction(block)) {
@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const id = AST.getFunctionId(block);
         return id != null
           && isComponentNameLoose(id.name)
-          && components.some((component) => component.node === block);
+          && componentBlocks.has(block);
       }
 
       // For each member expression, find its parent component

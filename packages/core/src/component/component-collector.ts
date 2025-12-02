@@ -33,7 +33,7 @@ export declare namespace useComponentCollector {
   };
   type ReturnType = {
     ctx: {
-      getAllComponents: (node: TSESTree.Program) => Map<string, FunctionComponent>;
+      getAllComponents: (node: TSESTree.Program) => FunctionComponent[];
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | unit;
     };
@@ -57,8 +57,8 @@ export function useComponentCollector(
     hint = DEFAULT_COMPONENT_DETECTION_HINT,
   } = options;
 
-  const components = new Map<string, FunctionComponent>();
   const functionEntries: FunctionEntry[] = [];
+  const components = new Map<string, FunctionComponent>();
 
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
@@ -66,28 +66,13 @@ export function useComponentCollector(
     functionEntries.push({ key, node, hookCalls: [], isComponent: false });
   };
   const onFunctionExit = () => {
-    const entry = functionEntries.at(-1);
-    if (entry == null) return;
-    if (!entry.isComponent) return functionEntries.pop();
-    const rets = AST.getNestedReturnStatements(entry.node.body);
-    for (let i = rets.length - 1; i >= 0; i--) {
-      const ret = rets[i];
-      if (ret == null) continue;
-      const shouldDrop = context.sourceCode.getScope(ret).block === entry.node
-        && ret.argument != null
-        && !isJsxLike(context.sourceCode, ret.argument, hint);
-      if (shouldDrop) {
-        components.delete(entry.key);
-        break;
-      }
-    }
     return functionEntries.pop();
   };
 
   const ctx = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllComponents(node: TSESTree.Program): typeof components {
-      return components;
+    getAllComponents(node: TSESTree.Program) {
+      return [...components.values()];
     },
     getCurrentEntries() {
       return [...functionEntries];
@@ -131,8 +116,7 @@ export function useComponentCollector(
           const componentName = left.object.type === T.Identifier
             ? left.object.name
             : unit;
-          const component = [...components.values()]
-            .findLast(({ name }) => name != null && name === componentName);
+          const component = [...components.values()].findLast(({ name }) => name != null && name === componentName);
           if (component == null) return;
           component.displayName = right;
         },
@@ -158,10 +142,11 @@ export function useComponentCollector(
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
+      const key = entry.key;
       const name = getComponentNameFromId(id);
-      components.set(entry.key, {
+      components.set(key, {
         id,
-        key: entry.key,
+        key,
         kind: "function",
         name,
         node: entry.node,

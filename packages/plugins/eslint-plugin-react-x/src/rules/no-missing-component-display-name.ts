@@ -33,27 +33,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `memo` or `forwardRef` is not present in the file
   if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
 
-  const {
-    ctx,
-    listeners,
-  } = useComponentCollector(
-    context,
-    {
-      collectDisplayName: true, // We need to collect the displayName of components
-      collectHookCalls: false,
-      hint: DEFAULT_COMPONENT_DETECTION_HINT,
-    },
-  );
+  const { ctx, listeners } = useComponentCollector(context, {
+    collectDisplayName: true,
+    collectHookCalls: false,
+    hint: DEFAULT_COMPONENT_DETECTION_HINT,
+  });
 
   return {
     ...listeners,
     "Program:exit"(program) {
-      const components = ctx.getAllComponents(program);
-      for (const { node, displayName, flag } of components.values()) {
+      for (const { node, displayName, flag } of ctx.getAllComponents(program)) {
+        const id = AST.getFunctionId(node);
         // Check if the component is wrapped with `forwardRef` or `memo`
         const isMemoOrForwardRef = (flag & (ComponentFlag.ForwardRef | ComponentFlag.Memo)) > 0n;
         // If the component is a named function, it has an implicit displayName
-        if (AST.getFunctionId(node) != null) {
+        if (id != null) {
           continue;
         }
         // This rule only targets components wrapped with `forwardRef` or `memo`
@@ -62,10 +56,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // If the component has no displayName, report an error
         if (displayName == null) {
-          const id = AST.getFunctionId(node);
           context.report({
             messageId: "noMissingComponentDisplayName",
-            node: id ?? node,
+            node,
           });
         }
       }

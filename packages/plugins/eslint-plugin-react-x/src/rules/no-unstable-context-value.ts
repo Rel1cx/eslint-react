@@ -69,8 +69,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
     },
     "Program:exit"(program) {
-      const components = ctx.getAllComponents(program).values();
-      for (const { node: component } of components) {
+      for (const { node: component } of ctx.getAllComponents(program)) {
         for (const construction of constructions.get(component) ?? []) {
           const { kind, node: constructionNode } = construction;
           const suggestion = kind === "function"

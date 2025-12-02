@@ -35,8 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     ...listeners,
     "Program:exit"(program) {
-      const components = ctx.getAllComponents(program);
-      for (const { name = "anonymous", node: component } of components.values()) {
+      for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {
         if (component.body.body.some((m) => isComponentDidCatch(m) || isGetDerivedStateFromError(m))) {
           continue;
         }
