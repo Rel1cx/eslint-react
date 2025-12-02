@@ -28,7 +28,7 @@
     "eslint-plugin-perfectionist": "^4.15.1",
     "eslint-plugin-regexp": "^2.10.0",
     "eslint-plugin-unicorn": "^62.0.0",
-    "typescript-eslint": "^8.48.0"
+    "typescript-eslint": "^8.48.1"
   },
   "peerDependencies": {
     "eslint": "^9.39.1",
