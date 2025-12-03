@@ -10,7 +10,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- Fix `web-api/no-leaked-event-listener` false positive when using React Native`BackHandler`, closes #1323 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1336
+- Fix `web-api/no-leaked-event-listener` false positive when using React Native `BackHandler`, closes #1323 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1336
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.11...v2.3.12
 
