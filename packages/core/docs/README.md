@@ -132,6 +132,7 @@
 - [isFunctionOfRenderMethod](functions/isFunctionOfRenderMethod.md)
 - [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md)
 - [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md)
+- [isInitializedFromReact](functions/isInitializedFromReact.md)
 - [isJsxFragmentElement](functions/isJsxFragmentElement.md)
 - [isJsxHostElement](functions/isJsxHostElement.md)
 - [isJsxLike](functions/isJsxLike.md)

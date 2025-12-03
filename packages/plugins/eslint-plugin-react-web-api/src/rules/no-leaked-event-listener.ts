@@ -3,6 +3,7 @@ import {
   type ComponentPhaseKind,
   ComponentPhaseRelevance,
   getPhaseKindOfFunction,
+  isInitializedFromSource,
   isInversePhase,
 } from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
@@ -245,6 +246,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
+          // https://github.com/Rel1cx/eslint-react/issues/1323
+          const isFromReactNative = node.callee.type === T.MemberExpression
+            && node.callee.object.type === T.Identifier
+            && isInitializedFromSource(node.callee.object.name, "react-native", context.sourceCode.getScope(node));
+          if (isFromReactNative) {
+            return;
+          }
           const [type, listener, options] = node.arguments;
           if (type == null || listener == null) {
             return;
