@@ -1186,7 +1186,7 @@ ruleTester.run(RULE_NAME, rule, {
       import { BackHandler } from "react-native";
 
       useEffect(() => {
-        const { remove }  = BackHandler.addEventListener("hardwareBackPress", onBackPress);
+        const { remove } = BackHandler.addEventListener("hardwareBackPress", onBackPress);
         return () => {
           remove();
         }
