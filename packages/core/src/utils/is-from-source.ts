@@ -38,23 +38,23 @@ export function isInitializedFromSource(
   const { node, parent } = latestDef;
   if (node.type === T.VariableDeclarator && node.init != null) {
     const { init } = node;
-    // check for: `variable = React.variable`
+    // check for: variable = Source.variable
     if (init.type === T.MemberExpression && init.object.type === T.Identifier) {
       return isInitializedFromSource(init.object.name, source, initialScope);
     }
-    // check for: `{ variable } = React`
+    // check for: { variable } = Source
     if (init.type === T.Identifier) {
       return isInitializedFromSource(init.name, source, initialScope);
     }
-    // check for: `variable = require('react')` or `variable = require('react').variable`
+    // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
     if (arg0 == null || !AST.isLiteral(arg0, "string")) {
       return false;
     }
-    // check for: `require('react')` or `require('react/...')`
+    // check for: require('source') or require('source/...')
     return arg0.value === source || arg0.value.startsWith(`${source}/`);
   }
-  // latest definition is an import declaration: import { variable } from 'react'
+  // latest definition is an import declaration: import { variable } from 'source'
   return parent?.type === T.ImportDeclaration && parent.source.value === source;
 }
