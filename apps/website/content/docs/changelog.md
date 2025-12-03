@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v2.3.12 (2025-12-03)
+
+### ✨ New
+
+- Add `allowEmptyFragment` option to `react-x/no-useless-fragment`, closes #1265 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1335
+
+### 🐞 Fixes
+
+- Fix `web-api/no-leaked-event-listener` false positive when using React Native`BackHandler`, closes #1323 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1336
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.11...v2.3.12
+
 ## v2.3.11 (2025-12-02)
 
 ### 🐞 Fixes
