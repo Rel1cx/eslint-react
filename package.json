@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.3.12-beta.1",
+  "version": "2.3.12",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -50,7 +50,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.58.3",
+    "@effect/language-service": "^0.58.4",
     "@effect/platform": "^0.93.6",
     "@effect/platform-node": "^0.103.0",
     "@eslint/compat": "^2.0.0",
@@ -91,7 +91,7 @@
     "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1",
-    "vitest": "^4.0.14"
+    "vitest": "^4.0.15"
   },
   "packageManager": "pnpm@10.24.0",
   "engines": {
