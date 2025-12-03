@@ -1182,5 +1182,15 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       };
     `,
+    tsx`
+      import { BackHandler } from "react-native";
+
+      useEffect(() => {
+        const { remove }  = BackHandler.addEventListener("hardwareBackPress", onBackPress);
+        return () => {
+          remove();
+        }
+      });
+    `,
   ],
 });
