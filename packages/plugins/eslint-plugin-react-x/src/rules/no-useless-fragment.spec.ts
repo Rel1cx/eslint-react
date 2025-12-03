@@ -11,10 +11,22 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
+      output: null,
+    },
+    {
+      code: "<></>",
+      errors: [
+        {
+          type: T.JSXFragment,
+          messageId: "noUselessFragment",
+          data: { reason: "contains less than two children" },
+        },
+      ],
+      options: [{ allowEmptyFragment: false }],
       output: null,
     },
     {
@@ -22,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -34,12 +46,12 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -50,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -60,14 +72,9 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "<p><>{meow}</></p>",
       errors: [
-        // {
-        //   type: T.JSXFragment,
-        //   messageId: "uselessFragment",
-        //   data: { reason: "contains less than two children" },
-        // },
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -78,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -93,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -106,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXElement,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -120,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXElement,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -128,27 +135,13 @@ ruleTester.run(RULE_NAME, rule, {
         <Foo />
       `,
     },
-    // {
-    //   code: `
-    //     <SomeReact.SomeFragment>
-    //       {foo}
-    //     </SomeReact.SomeFragment>
-    //   `,
-    //   errors: [
-    //     {
-    //       type: T.JSXElement,
-    //       messageId: "uselessFragment",
-    //       data: { reason: "contains less than two children" },
-    //     },
-    //   ],
-    // },
     {
       // Not safe to fix this case because `Eeee` might require child be ReactElement
       code: "<Eeee><>foo</></Eeee>",
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -159,12 +152,12 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -175,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -191,7 +184,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -207,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXElement,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -226,13 +219,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
           line: 3,
         },
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
           line: 7,
         },
@@ -249,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -266,13 +259,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXElement,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
           line: 4,
         },
         {
           type: T.JSXElement,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
           line: 4,
         },
@@ -291,7 +284,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: T.JSXFragment,
-          messageId: "uselessFragment",
+          messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -305,6 +298,10 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
+    {
+      code: "<></>",
+      options: [{ allowEmptyFragment: true }],
+    },
     "<><Foo /><Bar /></>",
     "<>foo<div /></>",
     "<> <div /></>",
