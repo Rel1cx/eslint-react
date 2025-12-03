@@ -33,6 +33,7 @@ export default createRule<Options, MessageID>({
     defaultOptions: [...defaultOptions],
     docs: {
       description: "Disallow useless fragment elements.",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

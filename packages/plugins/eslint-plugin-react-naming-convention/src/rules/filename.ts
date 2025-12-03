@@ -79,6 +79,7 @@ export default createRule<Options, MessageID>({
     defaultOptions: [...defaultOptions],
     docs: {
       description: "Enforces consistent file naming conventions.",
+      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       empty: "A file must have non-empty name.",
