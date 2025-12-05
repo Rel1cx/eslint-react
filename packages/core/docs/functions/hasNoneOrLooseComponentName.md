@@ -6,12 +6,14 @@
 function hasNoneOrLooseComponentName(context: RuleContext, fn: TSESTreeFunction): boolean;
 ```
 
+Check if the function has no name or a loose component name
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
-| `fn` | `TSESTreeFunction` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The rule context |
+| `fn` | `TSESTreeFunction` | The function node |
 
 ## Returns
 

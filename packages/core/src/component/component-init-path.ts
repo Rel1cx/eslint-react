@@ -1,4 +1,5 @@
 import * as AST from "@eslint-react/ast";
+
 import { ComponentFlag } from "./component-flag";
 import type { FunctionComponent } from "./component-semantic-node";
 

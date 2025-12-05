@@ -6,38 +6,103 @@ import type { SemanticNode } from "../semantic";
 import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { ComponentFlag } from "./component-flag";
 
-/* eslint-disable perfectionist/sort-interfaces */
+/**
+ * Represents a React function component
+ */
 export interface FunctionComponent extends SemanticNode {
+  /**
+   * The identifier or identifier sequence of the component
+   */
   id:
     | unit
     | TSESTree.Identifier
     | TSESTree.Identifier[];
+
+  /**
+   * The kind of component
+   */
   kind: "function";
+
+  /**
+   * The AST node of the function
+   */
   node: AST.TSESTreeFunction;
+
+  /**
+   * Flags describing the component's characteristics
+   */
   flag: ComponentFlag;
+
+  /**
+   * Hint for how the component was detected
+   */
   hint: ComponentDetectionHint;
+
+  /**
+   * The initialization path of the function
+   */
   initPath:
     | unit
     | AST.FunctionInitPath;
+
+  /**
+   * List of hook calls within the component
+   */
   hookCalls: TSESTree.CallExpression[];
+
+  /**
+   * The display name of the component
+   */
   displayName:
     | unit
     | TSESTree.Expression;
 }
 
+/**
+ * Represents a React class component
+ */
 export interface ClassComponent extends SemanticNode {
+  /**
+   * The identifier of the component
+   */
   id:
     | unit
     | TSESTree.Identifier;
+
+  /**
+   * The kind of component
+   */
   kind: "class";
+
+  /**
+   * The AST node of the class
+   */
   node: AST.TSESTreeClass;
+
+  /**
+   * Flags describing the component's characteristics
+   */
   flag: ComponentFlag;
+
+  /**
+   * Hint for how the component was detected
+   */
   hint: ComponentDetectionHint;
+
+  /**
+   * List of methods and properties in the class
+   */
   methods: AST.TSESTreeMethodOrProperty[];
+
+  /**
+   * The display name of the component
+   */
   displayName:
     | unit
     | TSESTree.Expression;
 }
-/* eslint-enable perfectionist/sort-interfaces */
 
+/**
+ * Union type representing either a class or function component
+ */
 export type Component = ClassComponent | FunctionComponent;

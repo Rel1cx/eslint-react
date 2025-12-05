@@ -6,11 +6,13 @@
 function isComponentName(name: string): boolean;
 ```
 
+Check if a string matches the strict component name pattern
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `name` | `string` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name` | `string` | The name to check |
 
 ## Returns
 
