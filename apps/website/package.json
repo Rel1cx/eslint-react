@@ -23,13 +23,13 @@
     "lucide-react": "^0.555.0",
     "next": "^16.0.7",
     "next-view-transitions": "^0.3.4",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "tailwind-merge": "^3.4.0",
     "twoslash": "^0.3.4"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.58.4",
+    "@effect/language-service": "^0.59.0",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^9.39.1",
