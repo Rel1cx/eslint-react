@@ -1,11 +1,12 @@
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ClassComponent } from "./component-semantic-node";
-
 import { IdGenerator } from "@eslint-react/shared";
+import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+
 import { ComponentFlag } from "./component-flag";
 import { isClassComponent, isPureComponent } from "./component-is";
+import type { ClassComponent } from "./component-semantic-node";
 
 const idGen = new IdGenerator("class_component_");
 
@@ -65,4 +66,31 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
   } as const satisfies ESLintUtils.RuleListener;
 
   return { ctx, listeners } as const;
+}
+
+/**
+ * Check whether the given node is a this.setState() call
+ * @param node - The node to check
+ * @internal
+ */
+export function isThisSetState(node: TSESTree.CallExpression) {
+  const { callee } = node;
+  return (
+    callee.type === T.MemberExpression
+    && AST.isThisExpression(callee.object)
+    && callee.property.type === T.Identifier
+    && callee.property.name === "setState"
+  );
+}
+
+/**
+ * Check whether the given node is an assignment to this.state
+ * @param node - The node to check
+ * @internal
+ */
+export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
+  const { left } = node;
+  return left.type === T.MemberExpression
+    && AST.isThisExpression(left.object)
+    && AST.getPropertyName(left.property) === "state";
 }
