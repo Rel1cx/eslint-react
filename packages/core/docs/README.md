@@ -120,10 +120,10 @@
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | - |
 | [getComponentNameFromId](functions/getComponentNameFromId.md) | Get component name from an identifier or identifier sequence (e.g., MemberExpression) |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | - |
-| [getJsxAttribute](functions/getJsxAttribute.md) | Get a function to find JSX attributes by name, considering direct attributes and spread attributes. |
+| [getJsxAttribute](functions/getJsxAttribute.md) | Creates a helper function to find a specific JSX attribute by name Handles direct attributes and spread attributes (variables or object literals) |
 | [getJsxAttributeName](functions/getJsxAttributeName.md) | Get the stringified name of a JSX attribute |
-| [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code. |
-| [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options. |
+| [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
+| [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
 | [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
 | [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md) | - |
 | [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md) | Check if the function has no name or a loose component name |
@@ -156,7 +156,7 @@
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern. |
-| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | - |
+| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolves the static value of a JSX attribute or spread attribute |
 | [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
 | [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and listeners for the rule to collect function components |
 | [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and listeners object for the rule to collect class components |

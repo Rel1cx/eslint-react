@@ -9,7 +9,8 @@ function getJsxAttribute(
    initialScope?: Scope): (name: string) => JSXAttribute | JSXSpreadAttribute | undefined;
 ```
 
-Get a function to find JSX attributes by name, considering direct attributes and spread attributes.
+Creates a helper function to find a specific JSX attribute by name
+Handles direct attributes and spread attributes (variables or object literals)
 
 ## Parameters
 
@@ -17,11 +18,9 @@ Get a function to find JSX attributes by name, considering direct attributes and
 | ------ | ------ | ------ |
 | `context` | `RuleContext` | The ESLint rule context |
 | `node` | `JSXElement` | The JSX element node |
-| `initialScope?` | `Scope` | Optional initial scope for variable resolution |
+| `initialScope?` | `Scope` | (Optional) The initial scope to use for variable resolution |
 
 ## Returns
-
-A function that takes an attribute name and returns the corresponding JSX attribute node or undefined
 
 ```ts
 (name: string): JSXAttribute | JSXSpreadAttribute | undefined;

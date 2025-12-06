@@ -46,12 +46,14 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
 };
 ```
 
+Resolves the static value of a JSX attribute or spread attribute
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
-| `attribute` | `TSESTreeJSXAttributeLike` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context |
+| `attribute` | `TSESTreeJSXAttributeLike` | The JSX attribute node to resolve |
 
 ## Returns
 
@@ -95,3 +97,5 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
   `node`: `Expression`;
   `toStatic`: `unknown`;
 \}
+
+An object containing the value kind, the node (if applicable), and a `toStatic` helper

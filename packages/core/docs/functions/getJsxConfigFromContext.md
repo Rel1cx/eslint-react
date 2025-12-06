@@ -11,13 +11,13 @@ function getJsxConfigFromContext(context: RuleContext): {
 };
 ```
 
-Get JsxConfig from the rule context by reading compiler options.
+Get JsxConfig from the rule context by reading compiler options
 
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `context` | `RuleContext` | The RuleContext. |
+| `context` | `RuleContext` | The RuleContext |
 
 ## Returns
 
@@ -30,7 +30,7 @@ Get JsxConfig from the rule context by reading compiler options.
 }
 ```
 
-JsxConfig derived from compiler options.
+JsxConfig derived from compiler options
 
 | Name | Type |
 | ------ | ------ |

@@ -7,37 +7,41 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import { getJsxAttributeName } from "./jsx-attribute-name";
 
 /**
- * Get a function to find JSX attributes by name, considering direct attributes and spread attributes.
+ * Creates a helper function to find a specific JSX attribute by name
+ * Handles direct attributes and spread attributes (variables or object literals)
  * @param context The ESLint rule context
  * @param node The JSX element node
- * @param initialScope Optional initial scope for variable resolution
- * @returns A function that takes an attribute name and returns the corresponding JSX attribute node or undefined
+ * @param initialScope (Optional) The initial scope to use for variable resolution
  */
 export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement, initialScope?: Scope) {
   const scope = initialScope ?? context.sourceCode.getScope(node);
   const attributes = node.openingElement.attributes;
+
   /**
-   * Find a JSX attribute by name, considering both direct attributes and spread attributes.
-   * @param name The name of the attribute to find
-   * @returns The JSX attribute node if found, otherwise undefined
+   * Finds the last occurrence of a specific attribute
+   * @param name The attribute name to search for
    */
   return (name: string) => {
     return attributes.findLast((attr) => {
-      // Case 1: Direct JSX attribute (e.g., className="value")
+      // 1. Direct attribute: className="value"
       if (attr.type === T.JSXAttribute) {
         return getJsxAttributeName(context, attr) === name;
       }
+
       switch (attr.argument.type) {
-        // Case 2: Spread from variable (e.g., {...props})
+        // 2. Spread variable: {...props}
         case T.Identifier: {
           const variable = findVariable(attr.argument.name, scope);
           const variableNode = getVariableDefinitionNode(variable, 0);
+
+          // Check if the variable resolves to an object with the target property
           if (variableNode?.type === T.ObjectExpression) {
             return findProperty(name, variableNode.properties, scope) != null;
           }
           return false;
         }
-        // Case 3: Spread from object literal (e.g., {{...{prop: value}}})
+
+        // 3. Spread literal: {{...{prop: value}}}
         case T.ObjectExpression:
           return findProperty(name, attr.argument.properties, scope) != null;
       }

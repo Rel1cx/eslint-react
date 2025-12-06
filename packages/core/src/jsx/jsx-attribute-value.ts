@@ -18,8 +18,20 @@ export type JsxAttributeValue =
   | { kind: "spreadProps"; node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(name?: string): unknown } // Spread props (e.g., {...props})
   | { kind: "spreadChild"; node: TSESTree.JSXSpreadChild["expression"]; toStatic(): unknown }; // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
 
+/**
+ * Resolves the static value of a JSX attribute or spread attribute
+ *
+ * @param context - The ESLint rule context
+ * @param attribute - The JSX attribute node to resolve
+ * @returns An object containing the value kind, the node (if applicable), and a `toStatic` helper
+ */
 export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TSESTreeJSXAttributeLike) {
   const initialScope = context.sourceCode.getScope(attribute);
+
+  /**
+   * Handles standard JSX attributes (e.g., prop="value", prop={value}, prop)
+   * @param node The JSX attribute node
+   */
   function handleJsxAttribute(node: TSESTree.JSXAttribute) {
     // Case 1: Boolean attribute with no value (e.g., disabled)
     if (node.value == null) {
@@ -74,6 +86,10 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
     }
   }
 
+  /**
+   * Handles JSX spread attributes (e.g., {...props})
+   * @param node The JSX spread attribute node
+   */
   function handleJsxSpreadAttribute(node: TSESTree.JSXSpreadAttribute) {
     // For spread attributes (e.g., {...props}), try to extract static value
     return {
@@ -88,6 +104,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
       },
     } as const satisfies JsxAttributeValue;
   }
+
   switch (attribute.type) {
     case T.JSXAttribute:
       return handleJsxAttribute(attribute);
