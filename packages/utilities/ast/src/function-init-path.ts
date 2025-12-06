@@ -78,7 +78,7 @@ export type FunctionInitPath =
  * Identifies the initialization path of a function node in the AST.
  * Determines what kind of component declaration pattern the function belongs to.
  *
- * @param node - The function node to analyze
+ * @param node The function node to analyze
  * @returns The function initialization path or unit if not identifiable
  */
 export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInitPath {
@@ -131,8 +131,8 @@ export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInit
  * Checks if a specific function call exists in the function initialization path.
  * Useful for detecting HOCs like React.memo, React.forwardRef, etc.
  *
- * @param callName - The name of the call to check for (e.g., "memo", "forwardRef")
- * @param initPath - The function initialization path to search in
+ * @param callName The name of the call to check for (e.g., "memo", "forwardRef")
+ * @param initPath The function initialization path to search in
  * @returns True if the call exists in the path, false otherwise
  */
 export function hasCallInFunctionInitPath(callName: string, initPath: FunctionInitPath): boolean {

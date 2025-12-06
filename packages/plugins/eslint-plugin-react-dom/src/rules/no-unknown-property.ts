@@ -969,7 +969,7 @@ const POPOVER_API_PROPS: string[] = [
 
 /**
  * Gets all valid DOM property names based on React version
- * @param context - ESLint rule context
+ * @param context ESLint rule context
  * @returns Array of valid DOM property names
  */
 function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string[] {
@@ -998,7 +998,7 @@ function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string
 /**
  * Checks if a node's parent is a JSX tag that is written with lowercase letters,
  * and is not a custom web component.
- * @param childNode - JSX element being tested
+ * @param childNode JSX element being tested
  * @returns Whether the node is a valid HTML tag in JSX
  */
 function isValidHTMLTagInJSX(childNode: JSXAttribute): boolean {
@@ -1015,7 +1015,7 @@ function isValidHTMLTagInJSX(childNode: JSXAttribute): boolean {
 
 /**
  * Normalizes attribute names that should be case-insensitive
- * @param name - Attribute name to normalize
+ * @param name Attribute name to normalize
  * @returns Normalized attribute name
  */
 function normalizeAttributeCase(name: string): string {
@@ -1024,7 +1024,7 @@ function normalizeAttributeCase(name: string): string {
 
 /**
  * Checks if an attribute name is a valid data-* attribute
- * @param name - Attribute name to test
+ * @param name Attribute name to test
  * @returns Whether the attribute is a valid data attribute
  */
 function isValidDataAttribute(name: string): boolean {
@@ -1033,7 +1033,7 @@ function isValidDataAttribute(name: string): boolean {
 
 /**
  * Checks if an attribute name has uppercase characters
- * @param name - Attribute name to test
+ * @param name Attribute name to test
  * @returns Whether the name has uppercase characters
  */
 function hasUpperCaseCharacter(name: string): boolean {
@@ -1042,7 +1042,7 @@ function hasUpperCaseCharacter(name: string): boolean {
 
 /**
  * Checks if an attribute is a valid ARIA attribute
- * @param name - Attribute name to test
+ * @param name Attribute name to test
  * @returns Whether the attribute is a valid ARIA attribute
  */
 function isValidAriaAttribute(name: string): boolean {
@@ -1051,7 +1051,7 @@ function isValidAriaAttribute(name: string): boolean {
 
 /**
  * Gets the tag name for a JSXAttribute
- * @param node - JSXAttribute to get tag name from
+ * @param node JSXAttribute to get tag name from
  * @returns Tag name or null
  */
 function getTagName(node: JSXAttribute): string | null {
@@ -1063,7 +1063,7 @@ function getTagName(node: JSXAttribute): string | null {
 
 /**
  * Checks if the tag name has a dot (member expression)
- * @param node - JSXAttribute to check
+ * @param node JSXAttribute to check
  * @returns Whether the tag name has a dot
  */
 function tagNameHasDot(node: JSXAttribute): boolean {
@@ -1075,8 +1075,8 @@ function tagNameHasDot(node: JSXAttribute): boolean {
 
 /**
  * Gets the standard name of an attribute
- * @param name - Attribute name
- * @param context - ESLint context
+ * @param name Attribute name
+ * @param context ESLint context
  * @returns Standard name or undefined
  */
 function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | undefined {
@@ -1092,8 +1092,8 @@ function getStandardName(name: string, context: RuleContext<MessageID, unknown[]
 
 /**
  * Checks if an object has a property
- * @param obj - Object to check
- * @param key - Key to check for
+ * @param obj Object to check
+ * @param key Key to check for
  * @returns Whether the object has the property
  */
 function has(obj: Record<string, any>, key: string): boolean {
@@ -1102,8 +1102,8 @@ function has(obj: Record<string, any>, key: string): boolean {
 
 /**
  * Gets text of a node
- * @param context - ESLint context
- * @param node - Node to get text from
+ * @param context ESLint context
+ * @param node Node to get text from
  * @returns Node's text
  */
 function getText(context: RuleContext<MessageID, unknown[]>, node: any): string {
@@ -1112,9 +1112,9 @@ function getText(context: RuleContext<MessageID, unknown[]>, node: any): string 
 
 /**
  * Tests React version against a comparator
- * @param context - ESLint context
- * @param comparator - Comparison operator
- * @param version - Version to compare against
+ * @param context ESLint context
+ * @param comparator Comparison operator
+ * @param version Version to compare against
  * @returns Comparison result
  */
 function testReactVersion(context: RuleContext<MessageID, unknown[]>, comparator: string, version: string): boolean {
@@ -1167,7 +1167,7 @@ export default createRule({
 
 /**
  * Create function for the ESLint rule
- * @param context - ESLint rule context
+ * @param context ESLint rule context
  * @returns Rule listener
  */
 export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {

@@ -7,7 +7,7 @@ import { getFunctionComponentId } from "./component-id";
 
 /**
  * Check if a string matches the strict component name pattern
- * @param name - The name to check
+ * @param name The name to check
  */
 export function isComponentName(name: string) {
   return RE_COMPONENT_NAME.test(name);
@@ -15,7 +15,7 @@ export function isComponentName(name: string) {
 
 /**
  * Check if a string matches the loose component name pattern
- * @param name - The name to check
+ * @param name The name to check
  */
 export function isComponentNameLoose(name: string) {
   return RE_COMPONENT_NAME_LOOSE.test(name);
@@ -23,7 +23,7 @@ export function isComponentNameLoose(name: string) {
 
 /**
  * Get component name from an identifier or identifier sequence (e.g., MemberExpression)
- * @param id - The identifier or identifier sequence
+ * @param id The identifier or identifier sequence
  */
 export function getComponentNameFromId(id: TSESTree.Identifier | TSESTree.Identifier[] | unit) {
   if (id == null) return unit;
@@ -34,8 +34,8 @@ export function getComponentNameFromId(id: TSESTree.Identifier | TSESTree.Identi
 
 /**
  * Check if the function has no name or a loose component name
- * @param context - The rule context
- * @param fn - The function node
+ * @param context The rule context
+ * @param fn The function node
  */
 export function hasNoneOrLooseComponentName(context: RuleContext, fn: AST.TSESTreeFunction) {
   const id = getFunctionComponentId(context, fn);

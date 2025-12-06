@@ -68,8 +68,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * Determines whether the given CallExpression can be safely auto-fixed by replacing
  * the usage of `forwardRef` with passing `ref` as a prop
  *
- * @param context - The rule context object
- * @param node - The CallExpression node to check
+ * @param context The rule context object
+ * @param node The CallExpression node to check
  * @returns True if the call can be auto-fixed, false otherwise
  */
 function canFix(context: RuleContext, node: TSESTree.CallExpression) {
@@ -89,8 +89,8 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
 
 /**
  * Generates the fix for the `forwardRef` call
- * @param context - The rule context
- * @param node - The `forwardRef` call expression
+ * @param context The rule context
+ * @param node The `forwardRef` call expression
  * @returns A fixer function that applies the changes
  */
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
@@ -116,10 +116,10 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
 
 /**
  * Generates fixes for the component's props and ref arguments
- * @param context - The rule context
- * @param fixer - The rule fixer
- * @param node - The function component node
- * @param typeArguments - The type arguments from the `forwardRef` call
+ * @param context The rule context
+ * @param fixer The rule fixer
+ * @param node The function component node
+ * @param typeArguments The type arguments from the `forwardRef` call
  * @returns An array of fixes for the component's signature
  */
 function getComponentPropsFixes(
