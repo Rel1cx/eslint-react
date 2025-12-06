@@ -134,10 +134,10 @@
 | [isComponentWrapperCall](functions/isComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
-| [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md) | - |
-| [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md) | - |
-| [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md) | - |
-| [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | - |
+| [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md) | Checks if the node is a function of `componentDidMount` |
+| [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md) | Checks if the node is a function of `componentWillUnmount` |
+| [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md) | Determines if a node is the cleanup function returned by a useEffect-like hook's setup function. |
+| [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | Determines if a node is the setup function passed to a useEffect-like hook |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if an identifier name is initialized from react |
 | [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
 | [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |

@@ -6,12 +6,16 @@
 function isFunctionOfComponentDidMount(node: Node): boolean;
 ```
 
+Checks if the node is a function of `componentDidMount`
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The AST node to check |
 
 ## Returns
 
 `boolean`
+
+`true` if the node is a function of `componentDidMount`
