@@ -1,5 +1,6 @@
 import type { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+
 import { isLiteral } from "./literal";
 
 /**
