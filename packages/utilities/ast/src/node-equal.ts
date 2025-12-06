@@ -2,6 +2,9 @@ import { dual } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import { getUnderlyingExpression } from "./expression-base";
+import { isTypeExpression } from "./node-is";
+
 /**
  * Determines whether node equals to another node
  * @param a node to compare
@@ -13,6 +16,8 @@ export const isNodeEqual: {
   (a: TSESTree.Node): (b: TSESTree.Node) => boolean;
   (a: TSESTree.Node, b: TSESTree.Node): boolean;
 } = dual(2, (a: TSESTree.Node, b: TSESTree.Node): boolean => {
+  a = isTypeExpression(a) ? getUnderlyingExpression(a) : a;
+  b = isTypeExpression(b) ? getUnderlyingExpression(b) : b;
   switch (true) {
     case a === b:
       return true;

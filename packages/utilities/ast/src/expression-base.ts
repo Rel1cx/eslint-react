@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { type TSESTreeTypeExpression, isTypeExpression } from "./node";
+
+import { isTypeExpression } from "./node-is";
+import type { TSESTreeTypeExpression } from "./node-types";
 
 /**
  * Unwraps any type expressions to get the underlying JavaScript expression node.

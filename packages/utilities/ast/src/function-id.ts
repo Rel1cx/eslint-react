@@ -3,8 +3,8 @@ import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
-import type { TSESTreeFunction } from "./node";
-import { isMethodOrProperty, isTypeAssertionExpression } from "./node";
+import { isMethodOrProperty, isTypeAssertionExpression } from "./node-is";
+import type { TSESTreeFunction } from "./node-types";
 
 // Ported from https://github.com/eps1lon/react/blob/8b8d265bd9a4cab7bbd04a9a13950fdc946ea51c/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js#L642
 /**

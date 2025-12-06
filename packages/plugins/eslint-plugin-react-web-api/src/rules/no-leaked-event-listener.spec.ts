@@ -693,6 +693,39 @@ ruleTester.run(RULE_NAME, rule, {
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
+          window.addEventListener("resize", handleResize as EventListener);
+          return () => {
+            window.removeEventListener("resize", handleResize as EventListener);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize as EventListener);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize as EventListener);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
           window.addEventListener("resize", handleResize);
           window.addEventListener("resize", handleResize);
           return () => {
