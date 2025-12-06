@@ -4,5 +4,7 @@
 
 ## Type Aliases
 
-- [Options](type-aliases/Options.md)
-- [ReturnType](type-aliases/ReturnType.md)
+| Type Alias | Description |
+| ------ | ------ |
+| [Options](type-aliases/Options.md) | - |
+| [ReturnType](type-aliases/ReturnType.md) | - |
