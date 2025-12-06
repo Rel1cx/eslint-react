@@ -13,6 +13,11 @@ export declare namespace isReactAPI {
   };
 }
 
+/**
+ * Checks if the node is a React API identifier or member expression
+ * @param api The React API name to check against (e.g., "useState", "React.memo")
+ * @returns A predicate function to check if a node matches the API
+ */
 export function isReactAPI(api: string): isReactAPI.ReturnType {
   const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is
     | TSESTree.Identifier
@@ -35,6 +40,11 @@ export declare namespace isReactAPICall {
   };
 }
 
+/**
+ * Checks if the node is a call expression to a specific React API
+ * @param api The React API name to check against
+ * @returns A predicate function to check if a node is a call to the API
+ */
 export function isReactAPICall(api: string): isReactAPICall.ReturnType {
   const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
@@ -44,6 +54,7 @@ export function isReactAPICall(api: string): isReactAPICall.ReturnType {
   return dual(2, func);
 }
 
+// React API checks
 export const isCaptureOwnerStack = isReactAPI("captureOwnerStack");
 export const isChildrenCount = isReactAPI("Children.count");
 export const isChildrenForEach = isReactAPI("Children.forEach");
@@ -58,6 +69,7 @@ export const isForwardRef = isReactAPI("forwardRef");
 export const isMemo = isReactAPI("memo");
 export const isLazy = isReactAPI("lazy");
 
+// React API Call checks
 export const isCaptureOwnerStackCall = isReactAPICall("captureOwnerStack");
 export const isChildrenCountCall = isReactAPICall("Children.count");
 export const isChildrenForEachCall = isReactAPICall("Children.forEach");

@@ -70,7 +70,8 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
 
 /**
  * Check whether the given node is a this.setState() call
- * @param node - The node to check
+ * @param node The node to check
+ * @param node
  * @internal
  */
 export function isThisSetState(node: TSESTree.CallExpression) {
@@ -85,7 +86,8 @@ export function isThisSetState(node: TSESTree.CallExpression) {
 
 /**
  * Check whether the given node is an assignment to this.state
- * @param node - The node to check
+ * @param node The node to check
+ * @param node
  * @internal
  */
 export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {

@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 /**
  * Incomplete but sufficient stringification of JSX nodes for common use cases
  *
- * @param node - JSX node from TypeScript ESTree
+ * @param node JSX node from TypeScript ESTree
  * @returns String representation of the JSX node
  */
 export function stringifyJsx(

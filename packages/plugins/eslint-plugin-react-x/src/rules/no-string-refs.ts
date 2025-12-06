@@ -76,8 +76,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 /**
  * Extracts the text content from a JSX attribute's value
- * @param context - The rule context
- * @param node - The JSX attribute value node
+ * @param context The rule context
+ * @param node The JSX attribute value node
  * @returns The text of the attribute value, or null if not a string-like value
  */
 function getJsxAttributeValueText(context: RuleContext, node: TSESTree.JSXAttribute["value"]) {

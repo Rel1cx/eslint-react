@@ -7,8 +7,8 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 /**
  * Traverses up the AST to find a parent JSX attribute node that matches a given test
  *
- * @param node - The starting AST node
- * @param test - Optional predicate function to test if the attribute meets criteria
+ * @param node The starting AST node
+ * @param test Optional predicate function to test if the attribute meets criteria
  *               Defaults to always returning true (matches any attribute)
  * @returns The first matching JSX attribute node found when traversing upwards, or undefined
  */

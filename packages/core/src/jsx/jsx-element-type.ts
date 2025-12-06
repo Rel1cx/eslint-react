@@ -8,8 +8,8 @@ import { stringifyJsx } from "./jsx-stringify";
  * For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment")
  * For JSX fragments, returns an empty string
  *
- * @param context - ESLint rule context
- * @param node - JSX element or fragment node
+ * @param context ESLint rule context
+ * @param node JSX element or fragment node
  * @returns String representation of the element type
  */
 export function getJsxElementType(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {

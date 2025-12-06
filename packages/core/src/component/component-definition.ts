@@ -35,7 +35,8 @@ const FUNCTION_PATTERNS = {
 /**
  * Checks if the given node is a function within a render method of a class component.
  *
- * @param node - The AST node to check
+ * @param node The AST node to check
+ * @param node
  * @returns `true` if the node is a render function inside a class component
  *
  * @example
@@ -60,8 +61,10 @@ function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
 /**
  * Checks if a function node should be excluded based on provided detection hints
  *
- * @param node - The function node to check
- * @param hint - Component detection hints as bit flags
+ * @param node The function node to check
+ * @param hint Component detection hints as bit flags
+ * @param node
+ * @param hint
  * @returns `true` if the function matches an exclusion hint
  */
 function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boolean {
@@ -87,8 +90,10 @@ function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boo
 /**
  * Determines if the node is an argument within `createElement`'s children list (3rd argument onwards)
  *
- * @param context - The rule context
- * @param node - The AST node to check
+ * @param context The rule context
+ * @param node The AST node to check
+ * @param context
+ * @param node
  * @returns `true` if the node is passed as a child to `createElement`
  */
 function isChildrenOfCreateElement(context: RuleContext, node: TSESTree.Node): boolean {
@@ -111,9 +116,12 @@ function isChildrenOfCreateElement(context: RuleContext, node: TSESTree.Node): b
 /**
  * Determines if a function node represents a valid React component definition
  *
- * @param context - The rule context
- * @param node - The function node to analyze
- * @param hint - Component detection hints (bit flags) to customize detection logic
+ * @param context The rule context
+ * @param node The function node to analyze
+ * @param hint Component detection hints (bit flags) to customize detection logic
+ * @param context
+ * @param node
+ * @param hint
  * @returns `true` if the node is considered a component definition
  */
 export function isComponentDefinition(
