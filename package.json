@@ -50,7 +50,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.59.0",
+    "@effect/language-service": "^0.60.0",
     "@effect/platform": "^0.93.6",
     "@effect/platform-node": "^0.103.0",
     "@eslint/compat": "^2.0.0",
@@ -68,7 +68,7 @@
     "ansis": "^4.2.0",
     "dedent": "^1.7.0",
     "dprint": "^0.50.2",
-    "effect": "^3.19.8",
+    "effect": "^3.19.9",
     "eslint": "^9.39.1",
     "eslint-plugin-fast-import": "^1.5.3",
     "eslint-plugin-function-rule": "^0.1.2",
