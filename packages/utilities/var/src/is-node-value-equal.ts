@@ -28,6 +28,8 @@ export function isNodeValueEqual(
     bScope: Scope,
   ],
 ): boolean {
+  a = AST.isTypeExpression(a) ? AST.getUnderlyingExpression(a) : a;
+  b = AST.isTypeExpression(b) ? AST.getUnderlyingExpression(b) : b;
   const [aScope, bScope] = initialScopes;
   switch (true) {
     case a === b: {

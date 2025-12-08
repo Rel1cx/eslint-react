@@ -80,12 +80,12 @@
     "remark-frontmatter": "5.0.0",
     "remark-gfm": "^4.0.1",
     "skott": "^0.35.6",
-    "sort-package-json": "^3.5.0",
+    "sort-package-json": "^3.5.1",
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.1",
     "tsx": "^4.21.0",
-    "type-fest": "^5.3.0",
+    "type-fest": "^5.3.1",
     "typedoc": "^0.28.15",
     "typedoc-plugin-markdown": "^4.9.0",
     "typedoc-plugin-mdn-links": "^5.0.10",
@@ -93,7 +93,7 @@
     "typescript-eslint": "^8.48.1",
     "vitest": "^4.0.15"
   },
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.25.0",
   "engines": {
     "node": ">=24.0.0"
   },
