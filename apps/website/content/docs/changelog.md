@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v2.3.13 (2025-12-09)
+
+### 🐞 Fixes
+
+- Clean up the code structure of the AST utils and fix an issue where `isNodeEqual` did not handle `as` expressions correctly, closes #1340 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1341
+
+### 🪄 Improvements
+
+- Update next.js and react to latest versions across all packages
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.12...v2.3.13
+
 ## v2.3.12 (2025-12-03)
 
 ### ✨ New
