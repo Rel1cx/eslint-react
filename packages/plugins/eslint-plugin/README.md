@@ -191,8 +191,8 @@ This project is and will continue to maintain that 90% of the code is written by
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/main/.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/naming-convention-use-state-2/.github/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/naming-convention-use-state-2/LICENSE) file for details.

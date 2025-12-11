@@ -1,9 +1,7 @@
 import { getInstanceId, isUseStateCall } from "@eslint-react/core";
-import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -18,28 +16,7 @@ export type MessageID =
   | "invalidAssignment"
   | "invalidSetterName";
 
-type Options = readonly [
-  | unit
-  | {
-    enforceSetterExistence?: boolean;
-  },
-];
-
-const defaultOptions = [
-  {
-    enforceSetterExistence: false,
-  },
-] as const satisfies Options;
-
-const schema = [{
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    enforceSetterExistence: { type: "boolean" },
-  },
-}] satisfies [JSONSchema4];
-
-export default createRule<Options, MessageID>({
+export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
@@ -52,16 +29,15 @@ export default createRule<Options, MessageID>({
       invalidSetterName:
         "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
     },
-    schema,
+    schema: [],
   },
   name: RULE_NAME,
   create,
-  defaultOptions,
+  defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, Options>): RuleListener {
-  const options = context.options[0] ?? defaultOptions[0];
-  const enforceSetterExistence = options.enforceSetterExistence ?? false;
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const enforceSetterExistence = false;
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!isUseStateCall(node)) {
@@ -91,6 +67,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         return;
       }
       if (setter == null) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!enforceSetterExistence) return;
         context.report({
           messageId: "invalidAssignment",
