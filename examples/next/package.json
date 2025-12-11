@@ -19,7 +19,7 @@
     "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.1",
     "@next/eslint-plugin-next": "^16.0.8",
-    "@tsconfig/next": "^2.0.4",
+    "@tsconfig/next": "^2.0.5",
     "@tsconfig/node22": "^22.0.5",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.0.0",

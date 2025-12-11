@@ -297,8 +297,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react@19.2.1)
       '@tsconfig/next':
-        specifier: ^2.0.4
-        version: 2.0.4
+        specifier: ^2.0.5
+        version: 2.0.5
       '@tsconfig/node22':
         specifier: ^22.0.5
         version: 22.0.5
@@ -379,8 +379,8 @@ importers:
         specifier: ^16.0.8
         version: 16.0.8
       '@tsconfig/next':
-        specifier: ^2.0.4
-        version: 2.0.4
+        specifier: ^2.0.5
+        version: 2.0.5
       '@tsconfig/node22':
         specifier: ^22.0.5
         version: 22.0.5
@@ -3453,8 +3453,8 @@ packages:
   '@ts-morph/common@0.28.1':
     resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
 
-  '@tsconfig/next@2.0.4':
-    resolution: {integrity: sha512-2myr9SPuy7iSauxOtnqehvnCyidgW8WlZQZ2MSohMvT39AglIbHtZP32lSMBC1Xs1T7hpBO5crATB+5m5mPs5w==}
+  '@tsconfig/next@2.0.5':
+    resolution: {integrity: sha512-Cnzzme52Hk+YWQX/BKbjxAyBmLJXQaXjhVBBLkCpUQK8j+aGBk4csWAt5XpbU64NHG5XxT2d/Yr9M0e1fxRN5A==}
 
   '@tsconfig/node22@22.0.5':
     resolution: {integrity: sha512-hLf2ld+sYN/BtOJjHUWOk568dvjFQkHnLNa6zce25GIH+vxKfvTgm3qpaH6ToF5tu/NN0IH66s+Bb5wElHrLcw==}
@@ -8969,7 +8969,7 @@ snapshots:
       path-browserify: 1.0.1
       tinyglobby: 0.2.15
 
-  '@tsconfig/next@2.0.4': {}
+  '@tsconfig/next@2.0.5': {}
 
   '@tsconfig/node22@22.0.5': {}
 
