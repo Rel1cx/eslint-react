@@ -28,14 +28,14 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.60.0
-        version: 0.60.0
+        specifier: ^0.62.0
+        version: 0.62.0
       '@effect/platform':
         specifier: ^0.93.6
-        version: 0.93.6(effect@3.19.10)
+        version: 0.93.6(effect@3.19.11)
       '@effect/platform-node':
         specifier: ^0.103.0
-        version: 0.103.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)
+        version: 0.103.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)
       '@eslint/compat':
         specifier: ^2.0.0
         version: 2.0.0(eslint@9.39.1(jiti@2.6.1))
@@ -55,8 +55,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^24.10.2
-        version: 24.10.2
+        specifier: ^25.0.0
+        version: 25.0.0
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
@@ -82,8 +82,8 @@ importers:
         specifier: ^0.50.2
         version: 0.50.2
       effect:
-        specifier: ^3.19.10
-        version: 3.19.10
+        specifier: ^3.19.11
+        version: 3.19.11
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
@@ -95,13 +95,13 @@ importers:
         version: 0.1.2(@eslint/core@1.0.0)(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-vitest:
         specifier: ^0.5.4
-        version: 0.5.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+        version: 0.5.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
       publint:
-        specifier: ^0.3.15
-        version: 0.3.15
+        specifier: ^0.3.16
+        version: 0.3.16
       react:
         specifier: ^19.2.1
         version: 19.2.1
@@ -128,7 +128,7 @@ importers:
         version: 5.9.0
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
       tsx:
         specifier: ^4.21.0
         version: 4.21.0
@@ -152,7 +152,7 @@ importers:
         version: 8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       vitest:
         specifier: ^4.0.15
-        version: 4.0.15(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+        version: 4.0.15(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
 
   .pkgs/configs:
     dependencies:
@@ -216,7 +216,7 @@ importers:
         version: 9.39.1(jiti@2.6.1)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   apps/website:
     dependencies:
@@ -230,29 +230,29 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       effect:
-        specifier: ^3.19.10
-        version: 3.19.10
+        specifier: ^3.19.11
+        version: 3.19.11
       fumadocs-core:
         specifier: 15.8.5
-        version: 15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        version: 15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       fumadocs-docgen:
         specifier: 3.0.2
-        version: 3.0.2(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
+        version: 3.0.2(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
       fumadocs-mdx:
         specifier: 12.0.3
-        version: 12.0.3(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react@19.2.1)(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+        version: 12.0.3(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react@19.2.1)(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       fumadocs-twoslash:
         specifier: 3.1.8
-        version: 3.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
+        version: 3.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
       fumadocs-typescript:
         specifier: 4.0.11
-        version: 4.0.11(@types/react@19.2.7)(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(typescript@5.9.3)
+        version: 4.0.11(@types/react@19.2.7)(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(typescript@5.9.3)
       fumadocs-ui:
         specifier: 15.8.5
-        version: 15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17)
+        version: 15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17)
       lucide-react:
-        specifier: ^0.556.0
-        version: 0.556.0(react@19.2.1)
+        specifier: ^0.559.0
+        version: 0.559.0(react@19.2.1)
       next:
         specifier: ^16.0.8
         version: 16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -273,8 +273,8 @@ importers:
         version: 0.3.4(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.60.0
-        version: 0.60.0
+        specifier: ^0.62.0
+        version: 0.62.0
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -312,8 +312,8 @@ importers:
         specifier: ^2.0.13
         version: 2.0.13
       '@types/node':
-        specifier: ^24.10.2
-        version: 24.10.2
+        specifier: ^25.0.0
+        version: 25.0.0
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
@@ -388,8 +388,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^24.10.2
-        version: 24.10.2
+        specifier: ^25.0.0
+        version: 25.0.0
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
@@ -444,7 +444,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       '@vitejs/plugin-react':
         specifier: ^5.1.2
-        version: 5.1.2(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+        version: 5.1.2(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
@@ -462,7 +462,7 @@ importers:
         version: 8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       vite:
         specifier: ^7.2.7
-        version: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+        version: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
 
   examples/react-dom-js:
     dependencies:
@@ -487,7 +487,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       '@vitejs/plugin-react':
         specifier: ^5.1.2
-        version: 5.1.2(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+        version: 5.1.2(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
@@ -502,7 +502,7 @@ importers:
         version: 16.5.0
       vite:
         specifier: ^7.2.7
-        version: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+        version: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
 
   examples/with-babel-eslint-parser:
     dependencies:
@@ -542,7 +542,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       '@vitejs/plugin-react':
         specifier: ^5.1.2
-        version: 5.1.2(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+        version: 5.1.2(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
@@ -572,7 +572,7 @@ importers:
         version: 16.5.0
       vite:
         specifier: ^7.2.7
-        version: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+        version: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
 
   examples/with-ts-blank-eslint-parser:
     dependencies:
@@ -609,7 +609,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       '@vitejs/plugin-react':
         specifier: ^5.1.2
-        version: 5.1.2(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+        version: 5.1.2(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
@@ -633,7 +633,7 @@ importers:
         version: 8.49.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       vite:
         specifier: ^7.2.7
-        version: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+        version: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
 
   packages/core:
     dependencies:
@@ -676,7 +676,7 @@ importers:
         version: link:../../.pkgs/configs
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -728,7 +728,7 @@ importers:
         version: link:../../../.pkgs/configs
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -783,7 +783,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
@@ -838,7 +838,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -893,7 +893,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -948,7 +948,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-web-api:
     dependencies:
@@ -1000,7 +1000,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
@@ -1064,7 +1064,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/shared:
     dependencies:
@@ -1098,7 +1098,7 @@ importers:
         version: 4.0.2
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/utilities/ast:
     dependencies:
@@ -1129,7 +1129,7 @@ importers:
         version: link:../../../.pkgs/configs
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/utilities/eff:
     devDependencies:
@@ -1138,7 +1138,7 @@ importers:
         version: link:../../../.pkgs/configs
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/utilities/var:
     dependencies:
@@ -1172,7 +1172,7 @@ importers:
         version: link:../../../.pkgs/configs
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
 
 packages:
 
@@ -1818,8 +1818,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.60.0':
-    resolution: {integrity: sha512-elJDWHG5Naq3OkilPt9ZRn56JfSA3MhXUIlDx9RWJeScHm96kZ+HkZ3eFBxqROzXwD6Q2DTtFctFwOM0+QLZEA==}
+  '@effect/language-service@0.62.0':
+    resolution: {integrity: sha512-E1OU/jMiSqgl26D8grU3ClI46fxCfICzC6vwuSrNjW56Vlb/fujIKp97mGfhOE97DC4UTk2I9tlqIGK5fwTTPA==}
     hasBin: true
 
   '@effect/platform-node-shared@0.56.0':
@@ -3621,8 +3621,8 @@ packages:
   '@types/node@22.19.1':
     resolution: {integrity: sha512-LCCV0HdSZZZb34qifBsyWlUmok6W7ouER+oQIGBScS8EsZsQbrtFTUrDX4hOl+CS6p7cnNC4td+qrSVGSCTUfQ==}
 
-  '@types/node@24.10.2':
-    resolution: {integrity: sha512-WOhQTZ4G8xZ1tjJTvKOpyEVSGgOTvJAfDK3FNFgELyaTpzhdgHVHeqW8V+UJvzF5BT+/B54T/1S2K6gd9c7bbA==}
+  '@types/node@25.0.0':
+    resolution: {integrity: sha512-rl78HwuZlaDIUSeUKkmogkhebA+8K1Hy7tddZuJ3D0xV8pZSfsYGTsliGUol1JPzu9EKnTxPC4L1fiWouStRew==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -4403,8 +4403,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  effect@3.19.10:
-    resolution: {integrity: sha512-kT1vSSUIgTPNOOFnnqWwb0xb7K/VYuMFOoMOm71wYv3VJGcFMl3ojCdCCKtiiGqn8fMQPk7Fl9bBShQO6bgyFg==}
+  effect@3.19.11:
+    resolution: {integrity: sha512-UTEj3c1s41Ha3uzSPKKvFBZaDjZ8ez00Q2NYWVm2mKh2LXeX8j6LTg1HcQHnmdUhOjr79KHmhVWYB/zbegLO1A==}
 
   effect@3.3.2:
     resolution: {integrity: sha512-695XQBtp+UUYG50oREG9ujnRoeQU7xhwHDhT6ZAexm3Q+umdml1kjxcPoYRrS65crmaLlhVpjZHePJNzWOODnA==}
@@ -5288,8 +5288,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.556.0:
-    resolution: {integrity: sha512-iOb8dRk7kLaYBZhR2VlV1CeJGxChBgUthpSP8wom9jfj79qovgG6qcSdiy6vkoREKPnbUYzJsCn4o4PtG3Iy+A==}
+  lucide-react@0.559.0:
+    resolution: {integrity: sha512-3ymrkBPXWk3U2bwUDg6TdA6hP5iGDMgPEAMLhchEgTQmA+g0Zk24tOtKtXMx35w1PizTmsBC3RhP88QYm+7mHQ==}
     peerDependencies:
       react: ^19.2.1
 
@@ -5833,8 +5833,8 @@ packages:
   property-information@7.1.0:
     resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
 
-  publint@0.3.15:
-    resolution: {integrity: sha512-xPbRAPW+vqdiaKy5sVVY0uFAu3LaviaPO3pZ9FaRx59l9+U/RKR1OEbLhkug87cwiVKxPXyB4txsv5cad67u+A==}
+  publint@0.3.16:
+    resolution: {integrity: sha512-MFqyfRLAExPVZdTQFwkAQELzA8idyXzROVOytg6nEJ/GEypXBUmMGrVaID8cTuzRS1U5L8yTOdOJtMXgFUJAeA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7553,45 +7553,45 @@ snapshots:
   '@dprint/win32-x64@0.50.2':
     optional: true
 
-  '@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)':
+  '@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      '@effect/sql': 0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      '@effect/workflow': 0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)
-      effect: 3.19.10
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      '@effect/sql': 0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      '@effect/workflow': 0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)
+      effect: 3.19.11
       kubernetes-types: 1.30.0
 
-  '@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)':
+  '@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      effect: 3.19.10
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      effect: 3.19.11
       uuid: 11.1.0
 
-  '@effect/language-service@0.60.0': {}
+  '@effect/language-service@0.62.0': {}
 
-  '@effect/platform-node-shared@0.56.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)':
+  '@effect/platform-node-shared@0.56.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/cluster': 0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      '@effect/sql': 0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
+      '@effect/cluster': 0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      '@effect/sql': 0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
       '@parcel/watcher': 2.5.1
-      effect: 3.19.10
+      effect: 3.19.11
       multipasta: 0.2.7
       ws: 8.18.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform-node@0.103.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)':
+  '@effect/platform-node@0.103.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/cluster': 0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      '@effect/platform-node-shared': 0.56.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)
-      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      '@effect/sql': 0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      effect: 3.19.10
+      '@effect/cluster': 0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      '@effect/platform-node-shared': 0.56.0(@effect/cluster@0.54.0(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)
+      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      '@effect/sql': 0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      effect: 3.19.11
       mime: 3.0.0
       undici: 7.16.0
       ws: 8.18.3
@@ -7599,32 +7599,32 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.93.6(effect@3.19.10)':
+  '@effect/platform@0.93.6(effect@3.19.11)':
     dependencies:
-      effect: 3.19.10
+      effect: 3.19.11
       find-my-way-ts: 0.1.6
       msgpackr: 1.11.5
       multipasta: 0.2.7
 
-  '@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)':
+  '@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      effect: 3.19.10
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      effect: 3.19.11
       msgpackr: 1.11.5
 
-  '@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)':
+  '@effect/sql@0.48.5(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/experimental': 0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      effect: 3.19.10
+      '@effect/experimental': 0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      effect: 3.19.11
       uuid: 11.1.0
 
-  '@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(@effect/platform@0.93.6(effect@3.19.10))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10))(effect@3.19.10)':
+  '@effect/workflow@0.14.0(@effect/experimental@0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(@effect/platform@0.93.6(effect@3.19.11))(@effect/rpc@0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11))(effect@3.19.11)':
     dependencies:
-      '@effect/experimental': 0.57.8(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      '@effect/platform': 0.93.6(effect@3.19.10)
-      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.10))(effect@3.19.10)
-      effect: 3.19.10
+      '@effect/experimental': 0.57.8(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      '@effect/platform': 0.93.6(effect@3.19.11)
+      '@effect/rpc': 0.72.2(@effect/platform@0.93.6(effect@3.19.11))(effect@3.19.11)
+      effect: 3.19.11
 
   '@emnapi/core@1.7.1':
     dependencies:
@@ -9012,7 +9012,7 @@ snapshots:
 
   '@types/concat-stream@2.0.3':
     dependencies:
-      '@types/node': 24.10.2
+      '@types/node': 25.0.0
 
   '@types/d3-array@3.2.2': {}
 
@@ -9167,7 +9167,7 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/node@24.10.2':
+  '@types/node@25.0.0':
     dependencies:
       undici-types: 7.16.0
 
@@ -9368,7 +9368,7 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vitejs/plugin-react@5.1.2(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.1.2(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
@@ -9376,7 +9376,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.53
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9389,13 +9389,13 @@ snapshots:
       chai: 6.2.1
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.15(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))':
+  '@vitest/mocker@4.0.15(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))':
     dependencies:
       '@vitest/spy': 4.0.15
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
 
   '@vitest/pretty-format@4.0.15':
     dependencies:
@@ -10031,7 +10031,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  effect@3.19.10:
+  effect@3.19.11:
     dependencies:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2
@@ -10232,12 +10232,12 @@ snapshots:
       semver: 7.7.3
       strip-indent: 4.1.1
 
-  eslint-plugin-vitest@0.5.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)):
+  eslint-plugin-vitest@0.5.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)):
     dependencies:
       '@typescript-eslint/utils': 7.18.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.6.1)
     optionalDependencies:
-      vitest: 4.0.15(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+      vitest: 4.0.15(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -10453,7 +10453,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
     dependencies:
       '@formatjs/intl-localematcher': 0.6.2
       '@orama/orama': 3.1.16
@@ -10475,31 +10475,31 @@ snapshots:
       unist-util-visit: 5.0.0
     optionalDependencies:
       '@types/react': 19.2.7
-      lucide-react: 0.556.0(react@19.2.1)
+      lucide-react: 0.559.0(react@19.2.1)
       next: 16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-docgen@3.0.2(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)):
+  fumadocs-docgen@3.0.2(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)):
     dependencies:
       estree-util-to-js: 2.0.0
       estree-util-value-to-estree: 3.5.0
-      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       npm-to-yarn: 3.0.1
       oxc-transform: 0.93.0
       unist-util-visit: 5.0.0
       zod: 4.1.13
 
-  fumadocs-mdx@12.0.3(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react@19.2.1)(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)):
+  fumadocs-mdx@12.0.3(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react@19.2.1)(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.0.0
       chokidar: 4.0.3
       esbuild: 0.27.1
       estree-util-value-to-estree: 3.5.0
-      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       js-yaml: 4.1.1
       lru-cache: 11.2.2
       mdast-util-to-markdown: 2.1.2
@@ -10514,15 +10514,15 @@ snapshots:
     optionalDependencies:
       next: 16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
-      vite: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-twoslash@3.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3):
+  fumadocs-twoslash@3.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3):
     dependencies:
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@shikijs/twoslash': 3.17.0(typescript@5.9.3)
-      fumadocs-ui: 15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17)
+      fumadocs-ui: 15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17)
       mdast-util-from-markdown: 2.0.2
       mdast-util-gfm: 3.1.0
       mdast-util-to-hast: 13.2.1
@@ -10538,10 +10538,10 @@ snapshots:
       - supports-color
       - typescript
 
-  fumadocs-typescript@4.0.11(@types/react@19.2.7)(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(typescript@5.9.3):
+  fumadocs-typescript@4.0.11(@types/react@19.2.7)(fumadocs-core@15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17))(typescript@5.9.3):
     dependencies:
       estree-util-value-to-estree: 3.5.0
-      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       hast-util-to-estree: 3.1.3
       hast-util-to-jsx-runtime: 2.3.6
       remark: 15.0.1
@@ -10552,11 +10552,11 @@ snapshots:
       unist-util-visit: 5.0.0
     optionalDependencies:
       '@types/react': 19.2.7
-      fumadocs-ui: 15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17)
+      fumadocs-ui: 15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17):
+  fumadocs-ui@15.8.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@4.1.17):
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@radix-ui/react-collapsible': 1.1.12(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -10569,7 +10569,7 @@ snapshots:
       '@radix-ui/react-slot': 1.2.4(@types/react@19.2.7)(react@19.2.1)
       '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       class-variance-authority: 0.7.1
-      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      fumadocs-core: 15.8.5(@types/react@19.2.7)(lucide-react@0.559.0(react@19.2.1))(next@16.0.8(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       lodash.merge: 4.6.2
       next-themes: 0.4.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       postcss-selector-parser: 7.1.1
@@ -11025,7 +11025,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.556.0(react@19.2.1):
+  lucide-react@0.559.0(react@19.2.1):
     dependencies:
       react: 19.2.1
 
@@ -11896,7 +11896,7 @@ snapshots:
 
   property-information@7.1.0: {}
 
-  publint@0.3.15:
+  publint@0.3.16:
     dependencies:
       '@publint/pack': 0.1.2
       package-manager-detector: 1.6.0
@@ -12522,7 +12522,7 @@ snapshots:
 
   ts-pattern@5.9.0: {}
 
-  tsdown@0.17.2(publint@0.3.15)(typescript@5.9.3):
+  tsdown@0.17.2(publint@0.3.16)(typescript@5.9.3):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
@@ -12539,7 +12539,7 @@ snapshots:
       unconfig-core: 7.4.2
       unrun: 0.2.19
     optionalDependencies:
-      publint: 0.3.15
+      publint: 0.3.16
       typescript: 5.9.3
     transitivePeerDependencies:
       - '@ts-macro/tsc'
@@ -12812,7 +12812,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1):
+  vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1):
     dependencies:
       esbuild: 0.27.1
       fdir: 6.5.0(picomatch@4.0.3)
@@ -12821,17 +12821,17 @@ snapshots:
       rollup: 4.53.3
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 24.10.2
+      '@types/node': 25.0.0
       fsevents: 2.3.3
       jiti: 2.6.1
       lightningcss: 1.30.2
       tsx: 4.21.0
       yaml: 2.8.1
 
-  vitest@4.0.15(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1):
+  vitest@4.0.15(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1):
     dependencies:
       '@vitest/expect': 4.0.15
-      '@vitest/mocker': 4.0.15(vite@7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
+      '@vitest/mocker': 4.0.15(vite@7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1))
       '@vitest/pretty-format': 4.0.15
       '@vitest/runner': 4.0.15
       '@vitest/snapshot': 4.0.15
@@ -12848,10 +12848,10 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.2.7(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 7.2.7(@types/node@25.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 24.10.2
+      '@types/node': 25.0.0
     transitivePeerDependencies:
       - jiti
       - less

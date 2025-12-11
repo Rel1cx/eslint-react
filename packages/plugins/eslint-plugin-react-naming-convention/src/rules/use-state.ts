@@ -1,7 +1,9 @@
 import { getInstanceId, isUseStateCall } from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -12,9 +14,32 @@ export const RULE_NAME = "use-state";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "invalidAssignment" | "invalidSetterName";
+export type MessageID =
+  | "invalidAssignment"
+  | "invalidSetterName";
 
-export default createRule<[], MessageID>({
+type Options = readonly [
+  | unit
+  | {
+    enforceSetterExistence?: boolean;
+  },
+];
+
+const defaultOptions = [
+  {
+    enforceSetterExistence: false,
+  },
+] as const satisfies Options;
+
+const schema = [{
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    enforceSetterExistence: { type: "boolean" },
+  },
+}] satisfies [JSONSchema4];
+
+export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
@@ -27,14 +52,16 @@ export default createRule<[], MessageID>({
       invalidSetterName:
         "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
     },
-    schema: [],
+    schema,
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
+  defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const options = context.options[0] ?? defaultOptions[0];
+  const enforceSetterExistence = options.enforceSetterExistence ?? false;
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!isUseStateCall(node)) {
@@ -56,7 +83,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const [value, setter] = id.elements;
-      if (value == null || setter == null) {
+      if (value == null) {
+        context.report({
+          messageId: "invalidAssignment",
+          node: id,
+        });
+        return;
+      }
+      if (setter == null) {
+        if (!enforceSetterExistence) return;
         context.report({
           messageId: "invalidAssignment",
           node: id,

@@ -16,6 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidAssignment",
       }],
+      options: [{ enforceSetterExistence: false }],
     },
     {
       code: tsx`
@@ -28,6 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidAssignment",
       }],
+      options: [{ enforceSetterExistence: false }],
     },
     {
       code: tsx`
@@ -52,6 +54,19 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidSetterName",
       }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const [state] = useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "invalidAssignment",
+      }],
+      options: [{ enforceSetterExistence: true }],
     },
     {
       code: tsx`
@@ -125,6 +140,11 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
+    tsx`
+      import { useState } from "react";
+
+      const [value] = useState(() => expensiveSetup());
+    `,
     tsx`
       import { useState } from "react";
 

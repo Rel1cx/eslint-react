@@ -40,11 +40,11 @@ This rule ensures two things:
 import React, { useState } from "react";
 
 function MyComponent() {
-  const useStateResult = useState(0);
-  //    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //    - 'useState' call is not destructured into value + setter pair.
+  const [count, updateFoo] = useState(0);
+  //    ^^^^^^^^^^^^^^^^^^
+  //    - The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.
 
-  return <div>{useStateResult[0]}</div>;
+  return <div>{count}</div>;
 }
 ```
 
@@ -73,6 +73,15 @@ function MyComponent() {
   return <div>{foo}</div>;
 }
 ```
+
+## Rule Options
+
+This rule accepts an optional configuration object with the following properties:
+
+- `enforceSetterExistence` (boolean, default: `false`): If set to `true`, the rule will enforce that a setter function is always present when destructuring the result of `useState`.
+  ```tsx
+  const [value] = useState(0); // Error: Setter function is missing.
+  ```
 
 ## Implementation
 
