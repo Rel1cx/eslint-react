@@ -20,7 +20,7 @@
     "fumadocs-twoslash": "3.1.10",
     "fumadocs-typescript": "4.0.13",
     "fumadocs-ui": "16.1.0",
-    "lucide-react": "^0.559.0",
+    "lucide-react": "^0.560.0",
     "next": "^16.0.8",
     "next-view-transitions": "^0.3.5",
     "react": "^19.2.1",
@@ -29,7 +29,7 @@
     "twoslash": "^0.3.4"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.62.0",
+    "@effect/language-service": "^0.62.1",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^9.39.1",
