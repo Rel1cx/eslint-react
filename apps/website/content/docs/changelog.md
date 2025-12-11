@@ -10,7 +10,7 @@ title: Changelog
 
 ### 🪄 Improvements
 
-- Update next.js and react to latest versions across all packages
+- Update next and react to latest versions across all packages
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.12...v2.3.13
 
