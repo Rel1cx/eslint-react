@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "eslint": "^9.39.1",
-    "tsdown": "^0.17.2"
+    "tsdown": "^0.17.3"
   },
   "peerDependencies": {
     "eslint": "^9.39.1",
