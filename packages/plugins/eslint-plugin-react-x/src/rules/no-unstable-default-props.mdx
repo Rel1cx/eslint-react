@@ -36,9 +36,17 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 
 ## Rule Options
 
-This rule has a single options object with the following property:
+```ts
+type Options = {
+  safeDefaultProps?: string[];
+};
+```
 
-- `safeDefaultProps` (default: `[]`): An array of identifier names or regex patterns that are safe to use as default props.
+### `safeDefaultProps`
+
+An array of identifier names or regex patterns that are safe to use as default props. If the default prop value is created by calling one of the allowlisted identifiers, it will be considered safe.
+
+Default: `[]`
 
 ## Examples
 

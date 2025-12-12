@@ -85,10 +85,24 @@ const cat = <>meow</>
 
 ## Rule Options
 
-This rule has a single options object with the following property:
+```ts
+type Options = {
+  allowEmptyFragment?: boolean;
+  allowExpressions?: boolean;
+};
+```
 
-- `allowEmptyFragment` (default: `false`): Allow fragments that contain no children.
-- `allowExpressions` (default: `true`): Allow fragments that contain a single expression child.
+### `allowEmptyFragment`
+
+When set to `true`, allows fragments that contain no children.
+
+Default: `false`
+
+### `allowExpressions`
+
+When set to `true`, allows fragments that contain a single expression child.
+
+Default: `true`
 
 ## Note
 

@@ -64,19 +64,34 @@ This file will pass without any warnings.
 
 ## Rule Options
 
-The rule accepts an object with the following properties:
+```ts
+type Options = {
+  rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+  excepts?: string[];
+};
+```
 
-- `rule`: The naming convention to enforce. Default: `"PascalCase"`.
-  - `"PascalCase"`: `ExampleComponent.tsx`
-  - `"camelCase"`: `exampleComponent.tsx`
-  - `"kebab-case"`: `example-component.tsx`
-  - `"snake_case"`: `example_component.tsx`
-- `excepts`: An array of strings or regex patterns to exclude certain file names from this rule. The default exceptions are designed to accommodate common patterns in modern web frameworks:
-  - `"index"`: Ignores `index` files (e.g., `index.ts`, `index.tsx`).
-  - `"/^_/"`: Ignores files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
-  - `"/^\\$/"`: Ignores files starting with a dollar sign (e.g., `$.tsx`).
-  - `"/^[0-9]+$/"`: Ignores files that are purely numeric (e.g., `404.tsx`).
-  - `"/^\[[^\]]+\]$/"`: Ignores files with dynamic route segments in brackets (e.g., `[slug].tsx`).
+### `rule`
+
+The naming convention to enforce.
+
+Default: `"PascalCase"`
+
+### `excepts`
+
+An array of strings or regex patterns to exclude certain file names from this rule.
+
+Default:
+
+```ts
+[
+  "index", // Ignores `index` files (e.g., `index.ts`, `index.tsx`).
+  "/^_/", // Ignores files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
+  "/^\\$/", // Ignores files starting with a dollar sign (e.g., `$.tsx`).
+  "/^[0-9]+$/", // Ignores files that are purely numeric (e.g., `404.tsx`).
+  "/^\\[[^\\]]+\\]$/", // Ignores files with dynamic route segments in brackets (e.g., `[slug].tsx`).
+]
+```
 
 ## Configuration Examples
 

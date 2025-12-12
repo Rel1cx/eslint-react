@@ -1,7 +1,9 @@
 import { getInstanceId, isUseStateCall } from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { snakeCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -16,7 +18,39 @@ export type MessageID =
   | "invalidAssignment"
   | "invalidSetterName";
 
-export default createRule<[], MessageID>({
+type Options = readonly [
+  | unit
+  | {
+    enforceAssignment?: boolean;
+    enforceSetterName?: boolean;
+  },
+];
+
+export const defaultOptions = [
+  {
+    enforceAssignment: false,
+    enforceSetterName: true,
+  },
+] as const satisfies Options;
+
+const schema = [
+  {
+    type: "object",
+    additionalProperties: false,
+    properties: {
+      enforceAssignment: {
+        type: "boolean",
+        default: false,
+      },
+      enforceSetterName: {
+        type: "boolean",
+        default: true,
+      },
+    },
+  },
+] as const satisfies JSONSchema4[];
+
+export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
@@ -29,21 +63,24 @@ export default createRule<[], MessageID>({
       invalidSetterName:
         "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
     },
-    schema: [],
+    schema,
   },
   name: RULE_NAME,
   create,
-  defaultOptions: [],
+  defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const enforceSetterExistence = false;
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
+  const options = context.options[0] ?? defaultOptions[0];
+  const { enforceAssignment = false, enforceSetterName = true } = options;
+
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!isUseStateCall(node)) {
         return;
       }
       if (node.parent.type !== T.VariableDeclarator) {
+        if (!enforceAssignment) return;
         context.report({
           messageId: "invalidAssignment",
           node,
@@ -52,6 +89,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const id = getInstanceId(node);
       if (id?.type !== T.ArrayPattern) {
+        if (!enforceAssignment) return;
         context.report({
           messageId: "invalidAssignment",
           node: id ?? node,
@@ -60,19 +98,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       const [value, setter] = id.elements;
       if (value == null) {
+        if (!enforceAssignment) return;
         context.report({
           messageId: "invalidAssignment",
           node: id,
         });
         return;
       }
-      if (setter == null) {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (!enforceSetterExistence) return;
-        context.report({
-          messageId: "invalidAssignment",
-          node: id,
-        });
+      if (setter == null || !enforceSetterName) {
         return;
       }
       const setterName = match(setter)

@@ -48,11 +48,31 @@ function MyComponent() {
 
 ## Rule Options
 
-- `rule`: The rule to apply to the component name. Possible values:
-  - `PascalCase` (default)
-  - `CONSTANT_CASE`
-- `excepts`: (optional) An array of component names that are allowed to not follow the rule.
-- `allowAllCaps`: (optional) If `true`, allows all caps component names. Default is `false`.
+```ts
+type Options = {
+  rule?: "PascalCase" | "CONSTANT_CASE";
+  excepts?: string[];
+  allowAllCaps?: boolean;
+};
+```
+
+### `rule`
+
+The naming convention rule to enforce for component names.
+
+Default: `"PascalCase"`
+
+### `excepts`
+
+An array of component names that are exempt from this rule.
+
+Default: `[]`
+
+### `allowAllCaps`
+
+When set to `true`, component names that are entirely uppercase are allowed.
+
+Default: `false`
 
 ## Configuration Examples
 
