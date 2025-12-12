@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import * as AST from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
@@ -179,11 +178,7 @@ export function isJsxLike(
         return true;
       }
       // Resolve variables to their values and check if they're JSX-like
-      const variable = findVariable(name, code.getScope(node));
-      const variableNode = variable
-        && getVariableDefinitionNode(variable, 0);
-      return !!variableNode
-        && isJsxLike(code, variableNode, hint);
+      return isJsxLike(code, getVariableDefinitionNode(findVariable(name, code.getScope(node)), 0), hint);
     }
   }
   return false;
