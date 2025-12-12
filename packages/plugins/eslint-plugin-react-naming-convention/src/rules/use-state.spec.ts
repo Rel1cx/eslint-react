@@ -16,6 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidAssignment",
       }],
+      options: [{ enforceAssignment: true }],
     },
     {
       code: tsx`
@@ -28,6 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidAssignment",
       }],
+      options: [{ enforceAssignment: true }],
     },
     {
       code: tsx`
@@ -40,6 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidSetterName",
       }],
+      options: [{ enforceSetterName: true }],
     },
     {
       code: tsx`
@@ -52,6 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidSetterName",
       }],
+      options: [{ enforceSetterName: true }],
     },
     {
       code: tsx`
@@ -66,6 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: "invalidSetterName",
       }],
+      options: [{ enforceSetterName: true }],
     },
     {
       code: tsx`
