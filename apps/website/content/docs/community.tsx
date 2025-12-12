@@ -18,6 +18,7 @@ export const projects = [
   { owner: "payloadcms", repo: "payload" },
   { owner: "prettier", repo: "prettier" },
   { owner: "primer", repo: "react" },
+  { owner: "prosekit", repo: "prosekit" },
   { owner: "react-navigation", repo: "react-navigation" },
   { owner: "refined-github", repo: "refined-github" },
   { owner: "TanStack", repo: "form" },
