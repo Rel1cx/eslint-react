@@ -4,6 +4,12 @@
 @import "fumadocs-twoslash/twoslash.css";
 @plugin "tailwindcss-animate";
 
+@source "../node_modules/fumadocs-ui/dist";
+@source ".";
+@source "../components";
+@source "../content";
+@source './components/**/*.{js,ts,jsx,tsx,mdx}';
+
 :root {
   --font-family-body:
     "SF Pro Text",
