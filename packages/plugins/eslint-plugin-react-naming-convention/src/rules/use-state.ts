@@ -12,7 +12,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "use-state";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "CFG",
+] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "invalidAssignment"
