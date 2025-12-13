@@ -47,13 +47,13 @@
     "birecord": "^0.1.1",
     "ts-pattern": "^5.9.0"
   },
-  "peerDependencies": {
-    "eslint": "^8.57.0 || ^9.0.0",
-    "typescript": ">=4.8.4 <6.0.0"
-  },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "tsdown": "^0.17.3"
+  },
+  "peerDependencies": {
+    "eslint": "^8.57.0 || ^9.0.0",
+    "typescript": ">=4.8.4 <6.0.0"
   },
   "engines": {
     "node": ">=20.19.0"

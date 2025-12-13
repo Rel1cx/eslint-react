@@ -1,5 +1,5 @@
 import { baseUrl } from "#/lib/metadata";
-import { RootProvider } from "fumadocs-ui/provider";
+import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 

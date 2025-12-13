@@ -19,7 +19,7 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.1",
+    "@eslint/js": "^9.39.2",
     "@stylistic/eslint-plugin": "^5.6.1",
     "eslint-plugin-de-morgan": "^2.0.0",
     "eslint-plugin-function": "^0.1.2",
