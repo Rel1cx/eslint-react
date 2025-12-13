@@ -1,7 +1,8 @@
-import { ESLintReact } from "#/components/ESLintReact";
 import { Card, Cards } from "fumadocs-ui/components/card";
 import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
+
+import { ESLintReact } from "#/components/ESLintReact";
 
 const features = [
   ["Modern", "First-class support for TypeScript, React 19, and more.", Zap],

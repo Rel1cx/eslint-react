@@ -1,12 +1,157 @@
 @import "tailwindcss";
-@import "tailwindcss-animated";
-@import "./theme/theme.css";
+@import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 @import "fumadocs-twoslash/twoslash.css";
+@plugin "tailwindcss-animate";
 
-@source "../node_modules/fumadocs-ui/dist";
+:root {
+  --font-family-body:
+    "SF Pro Text",
+    "SF Pro Icons",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
 
-@source ".";
-@source "../components";
-@source "../content";
-@source './components/**/*.{js,ts,jsx,tsx,mdx}';
+  --font-family-ui:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --font-family-mono:
+    ui-monospace,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+}
+
+body {
+  font-family: var(--font-family-body);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-family-mono);
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: none;
+}
+
+:focus-visible:not([class*="outline-none"]) {
+  outline: 2px solid var(--color-fd-primary);
+  outline-offset: -2px;
+}
+
+[role="tabpanel"]:focus-visible {
+  outline: none;
+}
+
+#nd-sidebar {
+  a[data-active] {
+    font-weight: 400;
+  }
+
+  p[style^="padding-inline-start:calc(2 * var(--spacing))"] {
+    margin-top: 28px;
+    margin-bottom: 16px;
+  }
+
+  div[data-state],
+  a[data-active] {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+  }
+}
+
+.dark #nd-sidebar {
+  --color-fd-muted: hsl(0, 0%, 16%);
+  --color-fd-secondary: hsl(0, 0%, 18%);
+  --color-fd-muted-foreground: hsl(0, 0%, 72%);
+}
+
+.prose {
+  font-family: var(--font-family-body);
+  --tw-prose-links: var(--color-fd-primary);
+
+  .fd-codeblock.shiki {
+    background-color: color-mix(in oklab, var(--color-fd-secondary) 25%, transparent);
+  }
+
+  .fd-codeblock,
+  [data-radix-scroll-area-viewport],
+  [data-radix-scroll-area-viewport]>div {
+    outline: none;
+  }
+
+  :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    border: none;
+    padding: .125rem .25em;
+    font-size: 14px;
+  }
+
+  table {
+    font-size: 1em;
+
+    thead tr th code,
+    tbody tr td code {
+      white-space: nowrap;
+    }
+  }
+}
+
+.prose > p > code {
+    white-space: nowrap;
+}
+
+.dark .prose {
+  --tw-prose-body: color-mix(in oklab, var(--color-fd-foreground) 80%, transparent);
+
+  :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: #ffffff;
+  }
+}
+
+.dark {
+
+  .shadow-2xs,
+  .shadow-xs,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: 0 0 #0000;
+  }
+}

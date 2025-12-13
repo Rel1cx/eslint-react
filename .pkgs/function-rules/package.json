@@ -24,7 +24,7 @@
     "eslint-plugin-function-rule": "^0.1.2"
   },
   "devDependencies": {
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "tsdown": "^0.17.3"
   },
   "peerDependencies": {
