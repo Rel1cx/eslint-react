@@ -4,6 +4,7 @@
 @import "fumadocs-twoslash/twoslash.css";
 @plugin "tailwindcss-animate";
 
+@source inline("{hover:,focus:,focus-within:,focus-visible:,active:,visited:,target:}");
 @source "../node_modules/fumadocs-ui/dist";
 @source ".";
 @source "../components";
