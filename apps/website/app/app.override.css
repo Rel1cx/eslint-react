@@ -2,10 +2,6 @@
   filter: brightness(0.5);
 }
 
-#nd-home-layout {
-  position: relative;
-}
-
-#nd-page .bsky-post [class*="embed-module_external"] {
+.bsky-post [class*="embed-module_external"] {
   display: none;
 }
