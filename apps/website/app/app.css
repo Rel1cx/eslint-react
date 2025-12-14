@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/solar.css";
 @import "fumadocs-ui/css/preset.css";
 @import "fumadocs-twoslash/twoslash.css";
 @plugin "tailwindcss-animate";
@@ -82,6 +82,12 @@ button {
 
 [role="tabpanel"]:focus-visible {
   outline: none;
+}
+
+@variant md {
+  #nd-docs-layout #nd-page:before {
+    display: none;
+  }
 }
 
 #nd-sidebar {
