@@ -83,7 +83,7 @@
     "sort-package-json": "^3.6.0",
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.17.4",
+    "tsdown": "^0.18.0",
     "tsx": "^4.21.0",
     "type-fest": "^5.3.1",
     "typedoc": "^0.28.15",
@@ -93,7 +93,7 @@
     "typescript-eslint": "^8.49.0",
     "vitest": "^4.0.15"
   },
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.26.0",
   "engines": {
     "node": ">=24.0.0"
   },
