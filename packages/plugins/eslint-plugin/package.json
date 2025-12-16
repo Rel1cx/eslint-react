@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "2.4.0-beta.7",
+  "version": "2.4.0-next.8",
   "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
   "keywords": [
     "react",
@@ -48,10 +48,10 @@
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.49.0",
-    "@typescript-eslint/type-utils": "^8.49.0",
-    "@typescript-eslint/types": "^8.49.0",
-    "@typescript-eslint/utils": "^8.49.0",
+    "@typescript-eslint/scope-manager": "^8.50.0",
+    "@typescript-eslint/type-utils": "^8.50.0",
+    "@typescript-eslint/types": "^8.50.0",
+    "@typescript-eslint/utils": "^8.50.0",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
