@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { importSource = "react" } = getSettingsFromContext(context);
+  const { importSource } = getSettingsFromContext(context);
 
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier

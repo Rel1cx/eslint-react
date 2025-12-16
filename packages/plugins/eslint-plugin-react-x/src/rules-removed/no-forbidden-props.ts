@@ -100,7 +100,7 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
-  const { forbid = [{ prop: "/_/" }] } = option;
+  const { forbid } = option;
 
   return {
     JSXOpeningElement(node) {
