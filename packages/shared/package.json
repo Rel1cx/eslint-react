@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "2.4.0-beta.9",
+  "version": "2.4.0-next.10",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -46,7 +46,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node22": "^22.0.5",
     "@types/picomatch": "^4.0.2",
-    "tsdown": "^0.18.0"
+    "tsdown": "^0.18.1"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",

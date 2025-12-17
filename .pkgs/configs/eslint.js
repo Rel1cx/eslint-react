@@ -75,29 +75,29 @@ const p11tOptions = {
     partitionByNewLine: true,
 };
 const p11tGroups = {
-    groups: ["id", "type", "meta", "alias", "rules", "unknown"],
     customGroups: [
         {
-            groupName: "id",
             elementNamePattern: "^(_$|id$|key$|self$)",
+            groupName: "id",
         },
         {
-            groupName: "type",
             elementNamePattern: "^(type$|kind$)",
+            groupName: "type",
         },
         {
-            groupName: "meta",
             elementNamePattern: "^(name$|meta$|title$|description$)",
+            groupName: "meta",
         },
         {
-            groupName: "alias",
             elementNamePattern: "^(alias$|as$)",
+            groupName: "alias",
         },
         {
-            groupName: "rules",
             elementNamePattern: "^(node$|messageId$)",
+            groupName: "rules",
         },
     ],
+    groups: ["id", "type", "meta", "alias", "rules", "unknown"],
 };
 export function buildIgnoreConfig(gitignore, extra) {
     return [
