@@ -7,12 +7,10 @@ import * as Effect from "effect/Effect";
 import * as Str from "effect/String";
 import { P, match } from "ts-pattern";
 
-const getCurrentBranch = Command.make("git", "branch", "--show-current");
-
 const program = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const ce = yield* CommandExecutor.CommandExecutor;
-  const branch = yield* ce.string(getCurrentBranch);
+  const branch = yield* ce.string(Command.make("git", "branch", "--show-current"));
   const source = "README.md";
   const destination = "packages/plugins/eslint-plugin/README.md";
   const buildToolVersion = match(JSON.parse(yield* fs.readFileString("package.json", "utf8")))
