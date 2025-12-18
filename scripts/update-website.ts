@@ -25,8 +25,6 @@ const orderedCategories = [
   { key: "debug", heading: "---Debug Rules---" },
 ] as const satisfies { key: string; heading: string }[];
 
-const sortAsc = (arr: readonly string[]): string[] => [...arr].sort((a, b) => a.localeCompare(b, "en"));
-
 const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
   const docs = yield* Effect.sync(() => glob(DOCS_GLOB));
@@ -88,15 +86,13 @@ function generateRuleMetaJson(metas: RuleMeta[]) {
         ? [
           ...acc,
           cat.heading,
-          ...sortAsc(rules),
+          ...[...rules].sort((a, b) => a.localeCompare(b, "en")),
         ]
         : acc;
     }, ["overview"]);
 
     const jsonContent = JSON.stringify({ pages }, null, 2) + "\n";
-
-    const dir = path.dirname(targetPath);
-    yield* fs.makeDirectory(dir, { recursive: true });
+    yield* fs.makeDirectory(path.dirname(targetPath), { recursive: true });
     yield* fs.writeFileString(targetPath, jsonContent);
     yield* Effect.log(ansis.magenta(`Generated rules meta -> ${targetPath}`));
 
