@@ -110,7 +110,7 @@
       "@types/react-dom": "^19.2.3",
       "esbuild": "^0.27.2",
       "eslint": "^9.39.2",
-      "next": "^16.0.10",
+      "next": "^16.1.0",
       "react": "^19.2.3",
       "react-dom": "^19.2.3",
       "ts-api-utils": "^2.1.0",
