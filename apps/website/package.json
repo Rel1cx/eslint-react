@@ -13,7 +13,7 @@
     "@eslint-react/eff": "workspace:*",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
-    "effect": "^3.19.12",
+    "effect": "^3.19.13",
     "fumadocs-core": "16.2.4",
     "fumadocs-docgen": "3.0.4",
     "fumadocs-mdx": "14.1.0",
