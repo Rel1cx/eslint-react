@@ -17,7 +17,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `javascript:` URLs as attribute values.",
-
     },
     messages: {
       noScriptUrl: "Using a `javascript:` URL is a security risk and should be avoided.",

@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents comments from being inserted as text nodes.",
-
     },
     messages: {
       jsxNoCommentTextnodes:

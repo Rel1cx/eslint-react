@@ -157,7 +157,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents leaked `addEventListener` in a component or custom Hook.",
-
     },
     messages: {
       expectedRemoveEventListenerInCleanup:

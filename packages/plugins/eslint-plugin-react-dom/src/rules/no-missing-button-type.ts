@@ -22,7 +22,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces explicit `type` attribute for `button` elements.",
-
     },
     hasSuggestions: true,
     messages: {

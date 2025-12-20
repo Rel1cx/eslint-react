@@ -21,7 +21,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Replaces usages of `useFormState` with `useActionState`.",
-
     },
     fixable: "code",
     messages: {

@@ -36,7 +36,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `children` in void DOM elements.",
-
     },
     messages: {
       noVoidElementsWithChildren: "'{{elementType}}' is a void element tag and must not have children.",
