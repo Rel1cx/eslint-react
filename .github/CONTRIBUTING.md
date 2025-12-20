@@ -56,6 +56,9 @@ pnpm run format:write
 
 # Run all checks
 pnpm run lint
+
+# Verify rules overview table
+pnpm run verify:rules
 ```
 
 ## Development Workflow
