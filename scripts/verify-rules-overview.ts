@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+const OVERVIEW_PATH = path.join(process.cwd(), "apps/website/content/docs/rules/overview.mdx");
+
 interface RuleInfo {
   name: string;
   hasFixable: boolean;
@@ -20,11 +22,12 @@ function getRuleMetadata(rulePath: string): RuleInfo | null {
   const content = fs.readFileSync(tsPath, "utf8");
   const name = path.basename(tsPath, ".ts");
 
-  // Check if rule is fixable
-  const hasFixable = content.includes("fixable:") && !content.includes("fixable: false");
+  // Check if rule is fixable - look for fixable: "code" or fixable: 'code'
+  const fixableMatch = /fixable:\s*["']code["']/u.exec(content);
+  const hasFixable = fixableMatch !== null;
   const hasSuggestions = content.includes("hasSuggestions: true");
 
-  // Extract description
+  // Extract description - handle both single and double quotes
   const descMatch = /description:\s*["']([^"']+)["']/u.exec(content);
   const description = descMatch?.[1];
 
@@ -66,8 +69,7 @@ function getRuleFromOverview(ruleName: string, section: string): {
   isConfigurable: boolean;
   rawFeatures: string;
 } | null {
-  const overviewPath = path.join(process.cwd(), "apps/website/content/docs/rules/overview.mdx");
-  const content = fs.readFileSync(overviewPath, "utf8");
+  const content = fs.readFileSync(OVERVIEW_PATH, "utf8");
 
   const lines = content.split("\n");
   let inSection = false;
@@ -105,8 +107,7 @@ function getRuleFromOverview(ruleName: string, section: string): {
  * Count rules from overview.mdx table
  */
 function getRulesFromOverview(section: string): string[] {
-  const overviewPath = path.join(process.cwd(), "apps/website/content/docs/rules/overview.mdx");
-  const content = fs.readFileSync(overviewPath, "utf8");
+  const content = fs.readFileSync(OVERVIEW_PATH, "utf8");
 
   const lines = content.split("\n");
   const rules: string[] = [];
@@ -196,6 +197,8 @@ for (const cat of categories) {
 // Second, verify metadata for rules (excluding Debug rules)
 console.log("\nVerifying rule metadata...\n");
 
+let metadataIssueCount = 0;
+
 for (const cat of categories) {
   // Skip Debug rules as they don't have the same metadata structure
   if (cat.name === "Debug Rules") {
@@ -207,6 +210,8 @@ for (const cat of categories) {
 
   console.log(`=== ${cat.name} ===`);
   console.log(`Checking ${rules.length} rules...`);
+
+  let categoryIssues = 0;
 
   for (const rule of rules) {
     checkedCount++;
@@ -223,11 +228,12 @@ for (const cat of categories) {
         `❌ ${rule.name}: Has fixable in code but missing 🔧 or 🔄 in overview (found: "${overviewData.rawFeatures}")`,
       );
       hasErrors = true;
-      issueCount++;
+      categoryIssues++;
+      metadataIssueCount++;
     }
   }
 
-  if (issueCount === 0) {
+  if (categoryIssues === 0) {
     console.log("✅ All rules have correct metadata!");
   }
 
@@ -237,7 +243,7 @@ for (const cat of categories) {
 // Summary
 console.log("=== Summary ===");
 console.log(`Total rules checked for metadata: ${checkedCount}`);
-console.log(`Issues found: ${issueCount}`);
+console.log(`Issues found: ${issueCount + metadataIssueCount}`);
 
 if (hasErrors) {
   console.log(`\n❌ Verification failed! There are discrepancies in the overview.mdx file.`);
