@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Marks variables used in JSX elements as used.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsxUsesVars: "An identifier in JSX is marked as used.",

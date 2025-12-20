@@ -23,7 +23,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Replaces usages of `useContext` with `use`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

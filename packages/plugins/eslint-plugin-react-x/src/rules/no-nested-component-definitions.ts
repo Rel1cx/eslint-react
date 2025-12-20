@@ -29,7 +29,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow nesting component definitions inside other components.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noNestedComponentDefinitions:

@@ -21,7 +21,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Warns component props that are defined but never used.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnusedProps: "Prop `{{name}}` is declared but never used",

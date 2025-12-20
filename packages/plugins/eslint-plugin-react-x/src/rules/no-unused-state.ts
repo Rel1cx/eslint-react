@@ -37,7 +37,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Warns unused class component state.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnusedState: "Unused class component state in '{{className}}'",

@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `flushSync`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       noFlushSync: "Using 'flushSync' is uncommon and can hurt the performance of your app.",

@@ -19,7 +19,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces React is imported via a namespace import.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

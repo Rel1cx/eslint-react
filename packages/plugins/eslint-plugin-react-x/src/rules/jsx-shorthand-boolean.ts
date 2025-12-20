@@ -37,7 +37,6 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "Enforces shorthand syntax for boolean attributes.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

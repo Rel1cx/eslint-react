@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `Children.only`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noChildrenOnly: "Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.",

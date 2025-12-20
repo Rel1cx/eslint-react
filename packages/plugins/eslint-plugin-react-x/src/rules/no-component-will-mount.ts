@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Replace usages of `componentWillMount` with `UNSAFE_componentWillMount`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

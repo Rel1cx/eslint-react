@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces explicit `sandbox` prop for `iframe` elements.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     fixable: "code",
     hasSuggestions: true,

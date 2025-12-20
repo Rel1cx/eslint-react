@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `Children.count`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noChildrenCount: "Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.",

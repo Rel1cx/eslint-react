@@ -20,7 +20,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Replace usages of `<Context.Provider>` with `<Context>`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

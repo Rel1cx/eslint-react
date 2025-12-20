@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Replace usages of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

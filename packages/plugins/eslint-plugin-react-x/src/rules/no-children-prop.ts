@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow passing `children` as a prop.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noChildrenProp: "Do not pass 'children' as props.",

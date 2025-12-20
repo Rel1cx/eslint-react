@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     fixable: "code",
     messages: {

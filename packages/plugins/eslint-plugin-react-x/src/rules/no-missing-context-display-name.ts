@@ -21,7 +21,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces that all contexts have a `displayName` which can be used in devtools.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Reports all function components.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       functionComponent: "{{json}}",

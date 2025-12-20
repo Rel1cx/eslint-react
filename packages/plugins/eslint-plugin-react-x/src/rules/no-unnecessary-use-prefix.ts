@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces that a function with the `use` prefix should use at least one Hook inside of it.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       noUnnecessaryUsePrefix:

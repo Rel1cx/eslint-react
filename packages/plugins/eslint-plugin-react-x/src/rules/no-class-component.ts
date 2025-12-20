@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow class components except for error boundaries.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noClassComponent: "Avoid using class components. Use function components instead.",

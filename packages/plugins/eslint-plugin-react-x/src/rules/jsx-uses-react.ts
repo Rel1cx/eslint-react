@@ -17,7 +17,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Marks React variables as used when JSX is used.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsxUsesReact: "Marked {{name}} as used.",

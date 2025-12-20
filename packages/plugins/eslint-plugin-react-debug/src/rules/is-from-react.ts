@@ -22,7 +22,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Reports all identifiers that are initialized from React.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       isFromReact: "{{json}}",

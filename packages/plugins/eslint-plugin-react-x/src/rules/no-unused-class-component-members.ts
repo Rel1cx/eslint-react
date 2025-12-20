@@ -60,7 +60,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Warns unused class component methods and properties.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnusedClassComponentMembers: "Unused method or property '{{methodName}}'' of class '{{className}}'.",

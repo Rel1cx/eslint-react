@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `findDOMNode`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       noFindDomNode: "[Deprecated] Use alternatives instead.",

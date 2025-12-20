@@ -71,7 +71,7 @@ export default createRule<Options, MessageID>({
     defaultOptions: [...defaultOptions],
     docs: {
       description: "Enforces consistent file naming conventions.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       missingJSXExtension: "Use {{extensions}} file extension for JSX files.",

@@ -19,7 +19,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents dollar signs from being inserted as text nodes before expressions.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     hasSuggestions: true,

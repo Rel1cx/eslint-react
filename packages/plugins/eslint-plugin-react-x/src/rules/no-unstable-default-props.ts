@@ -48,7 +48,6 @@ export default createRule<Options, MessageID>({
     type: "problem",
     docs: {
       description: "Prevents using referential-type values as default props in object destructuring.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnstableDefaultProps:

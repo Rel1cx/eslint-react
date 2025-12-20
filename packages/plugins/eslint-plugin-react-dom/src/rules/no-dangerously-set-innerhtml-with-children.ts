@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `dangerouslySetInnerHTML` and `children` at the same time.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       noDangerouslySetInnerhtmlWithChildren: "A DOM component cannot use both children and 'dangerouslySetInnerHTML'.",

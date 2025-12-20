@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow undefined variables in JSX.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsxNoUndef: "JSX variable '{{name}}' is not defined.",

@@ -19,7 +19,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallows 'IIFE' in JSX elements.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       jsxNoIife: "Avoid using IIFE in JSX elements.",

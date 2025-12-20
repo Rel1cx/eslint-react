@@ -17,7 +17,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `createRef` in function components.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noCreateRef: "[Deprecated] Use 'useRef' instead.",

@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       noUnsafeIframeSandbox: "Unsafe 'sandbox' attribute value on 'iframe' component.",

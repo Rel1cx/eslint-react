@@ -48,7 +48,7 @@ export default createRule<Options, MessageID>({
     },
     docs: {
       description: "Disallow certain props on components.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       [messageId]: 'Prop "{{name}}" is forbidden.',

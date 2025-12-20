@@ -21,7 +21,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents the use of unnecessary `key` props on JSX elements when rendering lists.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noUnnecessaryKey:

@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `Children.toArray`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noChildrenToArray: "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",

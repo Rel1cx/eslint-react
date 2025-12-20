@@ -22,7 +22,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents incorrect usage of `captureOwnerStack`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     fixable: "code",
     messages: {

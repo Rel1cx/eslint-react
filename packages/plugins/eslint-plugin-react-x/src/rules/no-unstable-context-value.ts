@@ -22,7 +22,6 @@ export default createRule<[], MessageID>({
     docs: {
       description:
         "Prevents non-stable values (i.e. object literals) from being used as a value for `Context.Provider`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       unstableContextValue:

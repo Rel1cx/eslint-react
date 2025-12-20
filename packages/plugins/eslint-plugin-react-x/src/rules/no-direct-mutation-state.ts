@@ -28,7 +28,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow direct mutation of `this.state`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
     },
     messages: {
       noDirectMutationState: "Do not mutate state directly. Use 'setState()' instead.",

@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow the return value of `ReactDOM.render`.",
-      [Symbol.for("rule_features")]: RULE_FEATURES,
+
     },
     messages: {
       noRenderReturnValue: "Do not depend on the return value from 'ReactDOM.render'.",
