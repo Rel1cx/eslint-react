@@ -26,7 +26,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Reports all JSX elements and fragments.",
-
     },
     messages: {
       jsx: "{{json}}",

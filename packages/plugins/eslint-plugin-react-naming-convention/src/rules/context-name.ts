@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Enforces context name to be a valid component name with the suffix `Context`.",
-
     },
     messages: {
       invalidContextName: "A context name must be a valid component name with the suffix 'Context'.",

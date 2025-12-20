@@ -16,7 +16,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallows the use of string style prop.",
-
     },
     messages: {
       noStringStyleProp: "Do not use string style prop. Use an object instead.",

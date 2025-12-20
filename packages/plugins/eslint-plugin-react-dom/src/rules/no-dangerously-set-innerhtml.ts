@@ -18,7 +18,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Disallow `dangerouslySetInnerHTML`.",
-
     },
     messages: {
       noDangerouslySetInnerhtml: "Using 'dangerouslySetInnerHTML' may have security implications.",

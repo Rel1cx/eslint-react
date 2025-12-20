@@ -63,7 +63,6 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description: "Prevents leaked `setTimeout` in a component or custom Hook.",
-
     },
     messages: {
       expectedClearTimeoutInCleanup:
