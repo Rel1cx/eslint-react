@@ -100,6 +100,22 @@ function generateRuleMetaJson(metas: RuleMeta[]) {
   });
 }
 
+// Process the rules overview file.
+const processRulesOverview = Effect.gen(function*() {
+  const fs = yield* FileSystem.FileSystem;
+  const path = yield* Path.Path;
+  const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
+  const markdownLines = [];
+  for (const doc of glob(DOCS_GLOB)) {
+    const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
+    const basename = path.parse(path.basename(doc)).name;
+    const filename = path.resolve(doc).replace(/\.mdx$/u, ".ts");
+    const { default: ruleModule, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(filename));
+    const description = ruleModule.meta?.docs?.description ?? "No description available.";
+    // TODO: Not implemented yet.
+  }
+});
+
 const processChangelog = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
@@ -135,6 +151,8 @@ const program = Effect.gen(function*() {
   yield* Effect.forEach(metas, copyRuleDoc, { concurrency: 8 });
 
   yield* generateRuleMetaJson(metas);
+
+  yield* processRulesOverview;
 
   yield* processChangelog;
 
