@@ -5,6 +5,8 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
+import { identity } from "effect";
+import { P, match } from "ts-pattern";
 import { glob } from "./lib/glob";
 
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
@@ -105,13 +107,16 @@ const processRulesOverview = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
-  const markdownLines = [];
+  const markdownTables: Record<string, string[]> = {};
   for (const doc of glob(DOCS_GLOB)) {
     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
     const filename = path.resolve(doc).replace(/\.mdx$/u, ".ts");
     const { default: ruleModule, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(filename));
-    const description = ruleModule.meta?.docs?.description ?? "No description available.";
+    // const description = ruleModule.meta?.docs?.description ?? "No description available.";
+    const description = match(ruleModule)
+      .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
+      .otherwise(() => "No description available.");
     // TODO: Not implemented yet.
   }
 });
