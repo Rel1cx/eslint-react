@@ -39,7 +39,7 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
     return true;
   }
   if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, importSource, initialScope);
+    return isInitializedFromReact(callee.object.object.name, initialScope, importSource);
   }
   return false;
 }

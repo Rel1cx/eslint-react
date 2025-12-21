@@ -75,12 +75,12 @@ function isFromReact(
     case node.parent.type === T.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === T.Identifier:
-      return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+      return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
     case node.parent.type === T.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === T.JSXIdentifier:
-      return isInitializedFromReact(node.parent.object.name, importSource, initialScope);
+      return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
     default:
-      return isInitializedFromReact(name, importSource, initialScope);
+      return isInitializedFromReact(name, initialScope, importSource);
   }
 }

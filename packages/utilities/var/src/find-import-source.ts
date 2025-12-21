@@ -1,10 +1,10 @@
 import * as AST from "@eslint-react/ast";
-import { identity } from "@eslint-react/eff";
-import { findVariable } from "@eslint-react/var";
+import { identity, unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
+import { findVariable } from "./get-variables-from-scope";
 
 /**
  * Get the arguments of a require expression
@@ -21,40 +21,38 @@ function getRequireExpressionArguments(node: TSESTree.Node) {
 }
 
 /**
- * Check if an identifier name is initialized from source
- * @param name The top-level identifier's name
- * @param source The import source to check against
- * @param initialScope Initial scope to search for the identifier
- * @returns Whether the identifier name is initialized from source
- * @internal
+ * Find the import source of a variable
+ * @param name The variable name
+ * @param initialScope The initial scope to search
+ * @returns The import source or undefined if not found
  */
-export function isInitializedFromSource(
+export function findImportSource(
   name: string,
-  source: string,
   initialScope: Scope,
 ) {
   const latestDef = findVariable(name, initialScope)?.defs.at(-1);
-  if (latestDef == null) return false;
+  if (latestDef == null) return unit;
   const { node, parent } = latestDef;
   if (node.type === T.VariableDeclarator && node.init != null) {
     const { init } = node;
     // check for: variable = Source.variable
     if (init.type === T.MemberExpression && init.object.type === T.Identifier) {
-      return isInitializedFromSource(init.object.name, source, initialScope);
+      return findImportSource(init.object.name, initialScope);
     }
     // check for: { variable } = Source
     if (init.type === T.Identifier) {
-      return isInitializedFromSource(init.name, source, initialScope);
+      return findImportSource(init.name, initialScope);
     }
     // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
     if (arg0 == null || !AST.isLiteral(arg0, "string")) {
-      return false;
+      return unit;
     }
     // check for: require('source') or require('source/...')
-    return arg0.value === source || arg0.value.startsWith(`${source}/`);
+    return arg0.value;
   }
   // latest definition is an import declaration: import { variable } from 'source'
-  return parent?.type === T.ImportDeclaration && parent.source.value === source;
+  if (parent?.type === T.ImportDeclaration) return parent.source.value;
+  return unit;
 }

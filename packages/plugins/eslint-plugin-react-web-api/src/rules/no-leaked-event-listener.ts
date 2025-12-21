@@ -3,12 +3,18 @@ import {
   type ComponentPhaseKind,
   ComponentPhaseRelevance,
   getPhaseKindOfFunction,
-  isInitializedFromSource,
+  isInitializedFromReactNative,
   isInversePhase,
 } from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
+import {
+  findImportSource,
+  findProperty,
+  findVariable,
+  getVariableDefinitionNode,
+  isNodeValueEqual,
+} from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
@@ -248,7 +254,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // https://github.com/Rel1cx/eslint-react/issues/1323
           const isFromReactNative = node.callee.type === T.MemberExpression
             && node.callee.object.type === T.Identifier
-            && isInitializedFromSource(node.callee.object.name, "react-native", context.sourceCode.getScope(node));
+            && isInitializedFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
           if (isFromReactNative) {
             return;
           }

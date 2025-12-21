@@ -138,7 +138,8 @@
 | [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md) | Checks if the node is a function of `componentWillUnmount` |
 | [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md) | Determines if a node is the cleanup function returned by a useEffect-like hook's setup function. |
 | [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | Determines if a node is the setup function passed to a useEffect-like hook |
-| [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if an identifier name is initialized from react |
+| [isInitializedFromReact](functions/isInitializedFromReact.md) | - |
+| [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | - |
 | [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
 | [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
 | [isJsxLike](functions/isJsxLike.md) | Determines if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |

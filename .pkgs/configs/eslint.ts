@@ -197,6 +197,7 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
       "@stylistic/operator-linebreak": "off",
       "@stylistic/quote-props": ["error", "as-needed"],
 
+      "perfectionist/sort-array-includes": "off",
       "perfectionist/sort-exports": "off",
       "perfectionist/sort-imports": "off",
       "perfectionist/sort-interfaces": [
