@@ -108,15 +108,45 @@ const processRulesOverview = Effect.gen(function*() {
   const path = yield* Path.Path;
   const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
   const markdownTables: Record<string, string[]> = {};
+  const pluginMod = yield* Effect.tryPromise(() => import("../packages/plugins/eslint-plugin/dist/index.js"));
   for (const doc of glob(DOCS_GLOB)) {
     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
     const filename = path.resolve(doc).replace(/\.mdx$/u, ".ts");
     const { default: ruleModule, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(filename));
-    // const description = ruleModule.meta?.docs?.description ?? "No description available.";
     const description = match(ruleModule)
       .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
       .otherwise(() => "No description available.");
+    const isPluginX = catename === "x";
+    const entryInRecommended = pluginMod
+      .default
+      .configs
+      .recommended
+      .rules
+      ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
+    const entryInStrict = pluginMod
+      .default
+      .configs
+      .strict
+      .rules
+      ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
+    const getSeverity = (entry: unknown): number =>
+      match(entry)
+        .with("off", () => 0)
+        .with("warn", () => 1)
+        .with("error", () => 2)
+        .with(P.number, (n) => n)
+        .with(P.array(), ([s]) => getSeverity(s))
+        .otherwise(() => 0);
+    const getSeverityIcon = (severity: number): string => {
+      return match(severity)
+        .with(0, () => "0️⃣")
+        .with(1, () => "1️⃣")
+        .with(2, () => "2️⃣")
+        .otherwise(() => "0️⃣");
+    };
+    const severityInRecommended = getSeverity(entryInRecommended);
+    const severityInStrict = getSeverity(entryInStrict);
     // TODO: Not implemented yet.
   }
 });
