@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isInitializedFromReact
+[@eslint-react/core](../README.md) / isInitializedFromReactNative
 
-# Function: isInitializedFromReact()
+# Function: isInitializedFromReactNative()
 
 ```ts
-function isInitializedFromReact(
+function isInitializedFromReactNative(
    name: string, 
    initialScope: Scope, 
    importSource: string): boolean;
@@ -15,7 +15,7 @@ function isInitializedFromReact(
 | ------ | ------ | ------ |
 | `name` | `string` | `undefined` |
 | `initialScope` | `Scope` | `undefined` |
-| `importSource` | `string` | `"react"` |
+| `importSource` | `string` | `"react-native"` |
 
 ## Returns
 
