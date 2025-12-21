@@ -55,10 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
     });
   }
-  return {
-    Identifier: visitorFunction,
-    JSXIdentifier: visitorFunction,
-  };
+  return Object.fromEntries(["Identifier", "JSXIdentifier"].map((type) => [type, visitorFunction]));
 }
 
 /**
