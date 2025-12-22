@@ -107,12 +107,15 @@ const processRulesOverview = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
-  const markdownTables: Record<string, string[]> = {};
-  const pluginMod = yield* Effect.tryPromise(() => import("../packages/plugins/eslint-plugin/dist/index.js"));
+  const markdownTables = [[""], [""], [""], [""], [""], [""]];
+  const pluginMod = yield* Effect.tryPromise(() => import("../packages/plugins/eslint-plugin/src/index"));
   for (const doc of glob(DOCS_GLOB)) {
     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
     const filename = path.resolve(doc).replace(/\.mdx$/u, ".ts");
+    const rulename = `${catename}/${basename}`;
+    const tableIndex = orderedCategories.findIndex(c => c.key === catename);
+    const tableLines = markdownTables[tableIndex] ?? [];
     const { default: ruleModule, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(filename));
     const description = match(ruleModule)
       .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
@@ -138,15 +141,33 @@ const processRulesOverview = Effect.gen(function*() {
         .with(P.number, (n) => n)
         .with(P.array(), ([s]) => getSeverity(s))
         .otherwise(() => 0);
-    const getSeverityIcon = (severity: number): string => {
+    const getSeverityIcon = (severity: number) => {
       return match(severity)
         .with(0, () => "0️⃣")
         .with(1, () => "1️⃣")
         .with(2, () => "2️⃣")
         .otherwise(() => "0️⃣");
     };
+    const getFeatureIcon = (feature: unknown) => {
+      return match(feature)
+        .with("CFG", () => "⚙️")
+        .with("DBG", () => "🐞")
+        .with("FIX", () => "🔧")
+        .with("MOD", () => "🔄")
+        .with("TSC", () => "💭")
+        .with("EXP", () => "🧪")
+        .otherwise(() => "");
+    };
     const severityInRecommended = getSeverity(entryInRecommended);
     const severityInStrict = getSeverity(entryInStrict);
+    tableLines.push(
+      [
+        `[${basename}](${catename === "x" ? "" : catename + "-"}${basename})`,
+        `${getSeverity(entryInRecommended)} ${getSeverity(entryInStrict)}`,
+        `${RULE_FEATURES.map((f: string) => getFeatureIcon(f))}`,
+      ].join(" | "),
+    );
+    yield* Effect.log(markdownTables);
     // TODO: Not implemented yet.
   }
 });
