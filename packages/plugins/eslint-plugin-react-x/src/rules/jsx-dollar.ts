@@ -70,5 +70,5 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     }
   };
-  return Object.fromEntries(["JSXElement", "JSXFragment"].map((nodeType) => [nodeType, visitorFunction]));
+  return { JSXElement: visitorFunction, JSXFragment: visitorFunction };
 }
