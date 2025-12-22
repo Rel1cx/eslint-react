@@ -1,7 +1,4 @@
 {
-  "remove_trailing_whitespace_on_save": true,
-  "extend_comment_on_newline": true,
-  "ensure_final_newline_on_save": true,
   "format_on_save": "on",
   "formatter": {
     "external": {
@@ -18,30 +15,12 @@
   "prettier": {
     "allowed": false
   },
-  "diagnostics": {
-    "inline": {
-      "enabled": true,
-      "update_debounce_ms": 150
-    }
-  },
   "file_types": {
     "Markdown": [
       "md",
       "mdx"
     ]
   },
-  "file_scan_exclusions": [
-    "**/.DS_Store",
-    "**/.classpath",
-    "**/.git",
-    "**/.hg",
-    "**/.jj",
-    "**/.settings",
-    "**/.svn",
-    "**/.vscode",
-    "**/CVS",
-    "**/Thumbs.db"
-  ],
   "languages": {
     "Markdown": {
       "format_on_save": "on",
