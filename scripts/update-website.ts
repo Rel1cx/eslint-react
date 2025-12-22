@@ -2,11 +2,12 @@ import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
+import pluginMod from "@eslint-react/eslint-plugin";
 import ansis from "ansis";
-import * as Effect from "effect/Effect";
-
 import { identity } from "effect";
+import * as Effect from "effect/Effect";
 import { P, match } from "ts-pattern";
+
 import { glob } from "./lib/glob";
 
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
@@ -108,7 +109,6 @@ const processRulesOverview = Effect.gen(function*() {
   const path = yield* Path.Path;
   const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
   const markdownTables = [[""], [""], [""], [""], [""], [""]];
-  const pluginMod = yield* Effect.tryPromise(() => import("../packages/plugins/eslint-plugin/src/index"));
   for (const doc of glob(DOCS_GLOB)) {
     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
@@ -122,13 +122,11 @@ const processRulesOverview = Effect.gen(function*() {
       .otherwise(() => "No description available.");
     const isPluginX = catename === "x";
     const entryInRecommended = pluginMod
-      .default
       .configs
       .recommended
       .rules
       ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
     const entryInStrict = pluginMod
-      .default
       .configs
       .strict
       .rules

@@ -26,7 +26,7 @@
   "author": "Rel1cx<rel1cx@proton.me>",
   "type": "module",
   "scripts": {
-    "build": "pnpm run update:all && pnpm run build:pkgs && pnpm run build:packages && pnpm run build:docs",
+    "build": "pnpm run update:version && pnpm run build:pkgs && pnpm run build:packages && pnpm run build:docs",
     "build:docs": "pnpm -r --stream --filter \"./packages/**\" run build:docs",
     "build:packages": "pnpm -r --stream --filter \"./packages/**\" run build",
     "build:pkgs": "pnpm -r --stream --filter \"./.pkgs/*\" run build",
@@ -54,6 +54,7 @@
     "@effect/language-service": "^0.62.4",
     "@effect/platform": "^0.94.0",
     "@effect/platform-node": "^0.104.0",
+    "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/compat": "^2.0.0",
     "@local/configs": "workspace:*",
     "@local/function-rules": "workspace:*",
