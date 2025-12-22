@@ -28,7 +28,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
     "tailwindcss-animate": "^1.0.7",
-    "twoslash": "^0.3.4"
+    "twoslash": "^0.3.6"
   },
   "devDependencies": {
     "@effect/language-service": "^0.62.4",
