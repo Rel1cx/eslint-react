@@ -136,6 +136,9 @@ ruleTester.run(RULE_NAME, rule, {
       const [value] = useState(() => expensiveSetup());
     `,
     tsx`
+      const [memoisedValue] = React.useState(() => calculateValue());
+    `,
+    tsx`
       import { useState } from "react";
 
       function Component() {

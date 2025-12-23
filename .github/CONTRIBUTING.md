@@ -57,10 +57,6 @@ pnpm run format:write
 # Run all checks
 pnpm run lint
 
-# Verify rules overview table
-pnpm run verify:rules
-```
-
 ## Development Workflow
 
 ### Testing
@@ -87,3 +83,4 @@ pnpm run verify:rules
 ## Reference
 
 - [Monorepo Structure](https://eslint-react.xyz/docs/contributing#monorepo-structure)
+```
