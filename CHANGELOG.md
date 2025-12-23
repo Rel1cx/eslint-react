@@ -1,3 +1,20 @@
+## v2.4.0 (2025-12-24)
+
+### ✨ New
+
+- Add `enforceAssignment` and `enforceSetterName` options to `naming-convention/use-state` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1346
+
+### 🐞 Fixes
+
+- Fix False positive in `naming-convention/use-state` for state with no setters, closes #1342, closes #1352 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1346
+- Fix fumadocs theme issues by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1347
+
+### 🪄 Improvements
+
+- Update `typescript-eslint` to `8.50.1` across all packages
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.13...v2.4.0
+
 ## v2.3.13 (2025-12-09)
 
 ### 🐞 Fixes
