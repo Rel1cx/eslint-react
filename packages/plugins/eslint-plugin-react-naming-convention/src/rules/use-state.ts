@@ -106,6 +106,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         });
         return;
       }
+      // https://github.com/Rel1cx/eslint-react/issues/1352
       if (setter == null || !enforceSetterName) {
         return;
       }

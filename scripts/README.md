@@ -31,25 +31,3 @@ pnpm run update:website
 ### `verify-lockfile.ts`
 
 Verifies the integrity of the pnpm lockfile.
-
-### `verify-rules-overview.ts`
-
-Verifies that the rules tables in `apps/website/content/docs/rules/overview.mdx` are accurate and up-to-date.
-
-This script:
-
-1. Checks that all rules from each plugin are present in the overview table
-2. Verifies that rule metadata (fixable, codemod, experimental, etc.) matches between the rule implementation and the overview table
-3. Reports any discrepancies found
-
-```bash
-pnpm run verify:rules
-```
-
-Run this script:
-
-- After adding a new rule to ensure it's included in the overview
-- After modifying rule metadata to ensure the overview is updated
-- As part of the CI/CD pipeline to catch inconsistencies
-
-The script will exit with code 0 if all checks pass, or code 1 if any issues are found.

@@ -26,7 +26,7 @@
   "author": "Rel1cx<rel1cx@proton.me>",
   "type": "module",
   "scripts": {
-    "build": "pnpm run update:version && pnpm run build:pkgs && pnpm run build:packages && pnpm run build:docs",
+    "build": "pnpm run update:all && pnpm run build:pkgs && pnpm run build:packages && pnpm run build:docs",
     "build:docs": "pnpm -r --stream --filter \"./packages/**\" run build:docs",
     "build:packages": "pnpm -r --stream --filter \"./packages/**\" run build",
     "build:pkgs": "pnpm -r --stream --filter \"./.pkgs/*\" run build",
@@ -47,14 +47,12 @@
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
     "update:readme": "tsx ./scripts/update-readme.ts",
     "update:version": "tsx ./scripts/update-version.ts",
-    "update:website": "tsx ./scripts/update-website.ts",
-    "verify:rules": "tsx ./scripts/verify-rules-overview.ts"
+    "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
     "@effect/language-service": "^0.62.5",
     "@effect/platform": "^0.94.0",
     "@effect/platform-node": "^0.104.0",
-    "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/compat": "^2.0.0",
     "@local/configs": "workspace:*",
     "@local/function-rules": "workspace:*",

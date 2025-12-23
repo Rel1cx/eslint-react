@@ -2,7 +2,6 @@ import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
-import pluginMod from "@eslint-react/eslint-plugin";
 import ansis from "ansis";
 import { identity } from "effect";
 import * as Effect from "effect/Effect";
@@ -103,72 +102,73 @@ function generateRuleMetaJson(metas: RuleMeta[]) {
   });
 }
 
+// TODO: Not implemented yet
 // Process the rules overview file
-const processRulesOverview = Effect.gen(function*() {
-  const fs = yield* FileSystem.FileSystem;
-  const path = yield* Path.Path;
-  const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
-  const markdownTables = [[""], [""], [""], [""], [""], [""]];
-  for (const doc of glob(DOCS_GLOB)) {
-    const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
-    const basename = path.parse(path.basename(doc)).name;
-    const filename = path.resolve(doc).replace(/\.mdx$/u, ".ts");
-    const rulename = `${catename}/${basename}`;
-    const tableIndex = orderedCategories.findIndex((c) => c.key === catename);
-    const tableLines = markdownTables[tableIndex] ?? [];
-    const { default: ruleModule, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(filename));
-    const description = match(ruleModule)
-      .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
-      .otherwise(() => "No description available.");
-    const isPluginX = catename === "x";
-    const entryInRecommended = pluginMod
-      .configs
-      .recommended
-      .rules
-      ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
-    const entryInStrict = pluginMod
-      .configs
-      .strict
-      .rules
-      ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
-    const getSeverity = (entry: unknown): number =>
-      match(entry)
-        .with("off", () => 0)
-        .with("warn", () => 1)
-        .with("error", () => 2)
-        .with(P.number, (n) => n)
-        .with(P.array(), ([s]) => getSeverity(s))
-        .otherwise(() => 0);
-    const getSeverityIcon = (severity: number) => {
-      return match(severity)
-        .with(0, () => "0️⃣")
-        .with(1, () => "1️⃣")
-        .with(2, () => "2️⃣")
-        .otherwise(() => "0️⃣");
-    };
-    const getFeatureIcon = (feature: unknown) => {
-      return match(feature)
-        .with("CFG", () => "⚙️")
-        .with("DBG", () => "🐞")
-        .with("FIX", () => "🔧")
-        .with("MOD", () => "🔄")
-        .with("TSC", () => "💭")
-        .with("EXP", () => "🧪")
-        .otherwise(() => "");
-    };
-    const severityInRecommended = getSeverity(entryInRecommended);
-    const severityInStrict = getSeverity(entryInStrict);
-    tableLines.push(
-      [
-        `[${basename}](${catename === "x" ? "" : catename + "-"}${basename})`,
-        `${getSeverity(entryInRecommended)} ${getSeverity(entryInStrict)}`,
-        `${RULE_FEATURES.map((f: string) => "`" + getFeatureIcon(f) + "`").join(" ")}`,
-      ].join(" | "),
-    );
-    // yield* Effect.log(markdownTables);
-    // TODO: Not implemented yet.
-  }
-});
+// const processRulesOverview = Effect.gen(function*() {
+//   const fs = yield* FileSystem.FileSystem;
+//   const path = yield* Path.Path;
+//   const targetPath = path.join("apps", "website", "content", "docs", "rules", "overview.mdx");
+//   const markdownTables = [[""], [""], [""], [""], [""], [""]];
+//   for (const doc of glob(DOCS_GLOB)) {
+//     const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
+//     const basename = path.parse(path.basename(doc)).name;
+//     const filename = path.resolve(doc).replace(/\.mdx$/u, ".ts");
+//     const rulename = `${catename}/${basename}`;
+//     const tableIndex = orderedCategories.findIndex((c) => c.key === catename);
+//     const tableLines = markdownTables[tableIndex] ?? [];
+//     // TODO: Read rule module directly from pluginMod instead of dynamic import
+//     const { default: ruleModule, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(filename));
+//     const description = match(ruleModule)
+//       .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
+//       .otherwise(() => "No description available.");
+//     const isPluginX = catename === "x";
+//     const entryInRecommended = pluginMod
+//       .configs
+//       .recommended
+//       .rules
+//       ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
+//     const entryInStrict = pluginMod
+//       .configs
+//       .strict
+//       .rules
+//       ?.[isPluginX ? `@eslint-react/${RULE_NAME}` : `@eslint-react/${catename}/${RULE_NAME}`];
+//     const getSeverity = (entry: unknown): number =>
+//       match(entry)
+//         .with("off", () => 0)
+//         .with("warn", () => 1)
+//         .with("error", () => 2)
+//         .with(P.number, (n) => n)
+//         .with(P.array(), ([s]) => getSeverity(s))
+//         .otherwise(() => 0);
+//     const getSeverityIcon = (severity: number) => {
+//       return match(severity)
+//         .with(0, () => "0️⃣")
+//         .with(1, () => "1️⃣")
+//         .with(2, () => "2️⃣")
+//         .otherwise(() => "0️⃣");
+//     };
+//     const getFeatureIcon = (feature: unknown) => {
+//       return match(feature)
+//         .with("CFG", () => "⚙️")
+//         .with("DBG", () => "🐞")
+//         .with("FIX", () => "🔧")
+//         .with("MOD", () => "🔄")
+//         .with("TSC", () => "💭")
+//         .with("EXP", () => "🧪")
+//         .otherwise(() => "");
+//     };
+//     const severityInRecommended = getSeverity(entryInRecommended);
+//     const severityInStrict = getSeverity(entryInStrict);
+//     tableLines.push(
+//       [
+//         `[${basename}](${catename === "x" ? "" : catename + "-"}${basename})`,
+//         `${getSeverity(entryInRecommended)} ${getSeverity(entryInStrict)}`,
+//         `${RULE_FEATURES.map((f: string) => "`" + getFeatureIcon(f) + "`").join(" ")}`,
+//       ].join(" | "),
+//     );
+//     // yield* Effect.log(markdownTables);
+//   }
+// });
 
 const processChangelog = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
@@ -205,8 +205,6 @@ const program = Effect.gen(function*() {
   yield* Effect.forEach(metas, copyRuleDoc, { concurrency: 8 });
 
   yield* generateRuleMetaJson(metas);
-
-  yield* processRulesOverview;
 
   yield* processChangelog;
 
