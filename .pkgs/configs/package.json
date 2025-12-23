@@ -25,10 +25,10 @@
     "eslint-plugin-function": "^0.1.2",
     "eslint-plugin-function-rule": "^0.1.2",
     "eslint-plugin-jsdoc": "^61.5.0",
-    "eslint-plugin-perfectionist": "^5.0.0",
+    "eslint-plugin-perfectionist": "^5.1.0",
     "eslint-plugin-regexp": "^2.10.0",
     "eslint-plugin-unicorn": "^62.0.0",
-    "typescript-eslint": "^8.50.0"
+    "typescript-eslint": "^8.50.1"
   },
   "peerDependencies": {
     "eslint": "^9.39.1",
