@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces that all components have a `displayName` which can be used in devtools.",
+      description: "Enforces that all components have a 'displayName' which can be used in devtools.",
     },
     messages: {
       noMissingComponentDisplayName: "Add missing 'displayName' for component.",

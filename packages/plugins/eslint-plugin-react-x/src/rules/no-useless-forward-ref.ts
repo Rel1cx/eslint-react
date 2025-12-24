@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow useless `forwardRef` calls on components that don't use `ref`s.",
+      description: "Disallow useless 'forwardRef' calls on components that don't use 'ref's.",
     },
     messages: {
       noUselessForwardRef: "A 'forwardRef' is used with this component but no 'ref' parameter is set.",

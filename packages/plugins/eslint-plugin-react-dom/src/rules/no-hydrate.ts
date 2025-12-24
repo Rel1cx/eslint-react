@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()`.",
+      description: "Replaces usages of 'ReactDom.hydrate()' with 'hydrateRoot()'.",
     },
     fixable: "code",
     messages: {

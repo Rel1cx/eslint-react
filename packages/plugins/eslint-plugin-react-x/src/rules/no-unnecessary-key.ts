@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents the use of unnecessary `key` props on JSX elements when rendering lists.",
+      description: "Prevents 'key' from being placed on non-top-level elements in a list rendering.",
     },
     messages: {
       noUnnecessaryKey:

@@ -12,8 +12,8 @@ import { createRule } from "../utils";
 export const RULE_NAME = "jsx-shorthand-fragment";
 
 export const RULE_FEATURES = [
-  "CFG",
   "FIX",
+  "CFG",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
@@ -36,7 +36,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces shorthand syntax for fragments.",
+      description: "Enforces the use of shorthand syntax for fragments.",
     },
     fixable: "code",
     messages: {

@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow unnecessary usage of `useCallback`.",
+      description: "Disallow unnecessary usage of 'useCallback'.",
     },
     messages: {
       noUnnecessaryUseCallback:

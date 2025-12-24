@@ -18,10 +18,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows 'IIFE' in JSX elements.",
+      description: "Disallows 'IIFE' in JSX.",
     },
     messages: {
-      jsxNoIife: "Avoid using IIFE in JSX elements.",
+      jsxNoIife: "Avoid using IIFE in JSX.",
     },
     schema: [],
   },

@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow `defaultProps` property in favor of ES6 default parameters.",
+      description: "Disallow 'defaultProps' property in favor of ES6 default parameters.",
     },
     messages: {
       noDefaultProps: "[Deprecated] Use ES6 default parameters instead.",

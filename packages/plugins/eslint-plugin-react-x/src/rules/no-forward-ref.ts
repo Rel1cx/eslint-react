@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Replaces usages of `forwardRef` with passing `ref` as a prop.",
+      description: "Replaces usages of 'forwardRef' with passing 'ref' as a prop.",
     },
     fixable: "code",
     messages: {
