@@ -21,9 +21,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents incorrect usage of `captureOwnerStack`.",
+      description: "Prevents incorrect usage of 'captureOwnerStack'.",
     },
-    fixable: "code",
     messages: {
       missingDevelopmentOnlyCheck:
         `Don't call 'captureOwnerStack' directly. Use 'if (process.env.NODE_ENV !== "production") {...}' to conditionally access it.`,

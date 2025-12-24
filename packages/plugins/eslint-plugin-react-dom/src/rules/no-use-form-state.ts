@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Replaces usages of `useFormState` with `useActionState`.",
+      description: "Replaces usages of 'useFormState' with 'useActionState'.",
     },
     fixable: "code",
     messages: {

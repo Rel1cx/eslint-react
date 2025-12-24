@@ -19,6 +19,7 @@ export const RULE_NAME = "no-unknown-property";
 
 export const RULE_FEATURES = [
   "FIX",
+  "CFG",
 ] as const satisfies RuleFeature[];
 
 // ------------------------------------------------------------------------------
@@ -1139,7 +1140,7 @@ export default createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow unknown `DOM` property.",
+      description: "Disallow unknown 'DOM' property.",
     },
     fixable: "code",
     messages,

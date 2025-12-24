@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow the return value of `ReactDOM.render`.",
+      description: "Disallow the return value of 'ReactDOM.render'.",
     },
     messages: {
       noRenderReturnValue: "Do not depend on the return value from 'ReactDOM.render'.",

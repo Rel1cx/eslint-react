@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces the absence of a `namespace` in React elements.",
+      description: "Enforces the absence of a 'namespace' in React elements.",
     },
     messages: {
       noNamespace: "A React component '{{name}}' must not be in a namespace, as React does not support them.",

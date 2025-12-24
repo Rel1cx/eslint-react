@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow `findDOMNode`.",
+      description: "Disallow 'findDOMNode'.",
     },
     messages: {
       noFindDomNode: "[Deprecated] Use alternatives instead.",

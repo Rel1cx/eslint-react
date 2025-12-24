@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow `Children.toArray`.",
+      description: "Disallow 'Children.toArray'.",
     },
     messages: {
       noChildrenToArray: "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",

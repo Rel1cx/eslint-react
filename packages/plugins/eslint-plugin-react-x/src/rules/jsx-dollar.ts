@@ -8,7 +8,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-dollar";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
 
@@ -18,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents dollar signs from being inserted as text nodes before expressions.",
+      description: "Prevents unnecessary dollar signs ('$') from being inserted before an expression in JSX.",
     },
     fixable: "code",
     hasSuggestions: true,

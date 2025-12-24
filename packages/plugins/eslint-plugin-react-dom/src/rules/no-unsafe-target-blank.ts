@@ -44,7 +44,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: 'Disallow `target="_blank"` without `rel="noreferrer noopener"`.',
+      description: "Disallow 'target=\"_blank\"' without 'rel=\"noreferrer noopener\"'.",
     },
     fixable: "code",
     hasSuggestions: true,

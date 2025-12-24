@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow accessing `this.state` inside `setState` calls.",
+      description: "Disallow accessing 'this.state' inside 'setState' calls.",
     },
     messages: {
       noAccessStateInSetstate: "Do not access 'this.state' within 'setState'. Use the update function instead.",

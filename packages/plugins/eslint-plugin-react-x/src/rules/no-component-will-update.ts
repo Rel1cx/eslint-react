@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Replace usages of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.",
+      description: "Replaces usages of 'componentWillUpdate' with 'UNSAFE_componentWillUpdate'.",
     },
     fixable: "code",
     messages: {
