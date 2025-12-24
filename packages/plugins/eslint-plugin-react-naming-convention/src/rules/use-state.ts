@@ -107,9 +107,15 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         return;
       }
       // https://github.com/Rel1cx/eslint-react/issues/1352
-      if (setter == null || !enforceSetterName) {
+      if (setter == null) {
+        if (!enforceAssignment) return;
+        context.report({
+          messageId: "invalidAssignment",
+          node: id,
+        });
         return;
       }
+      if (!enforceSetterName) return;
       const setterName = match(setter)
         .with({ type: T.Identifier }, (id) => id.name)
         .otherwise(() => null);
