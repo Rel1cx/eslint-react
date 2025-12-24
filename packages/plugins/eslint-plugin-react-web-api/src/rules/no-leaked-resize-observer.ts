@@ -92,7 +92,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents leaked `ResizeObserver` in a component or custom Hook.",
+      description: "Prevents leaked 'ResizeObserver' in a component or custom hook.",
     },
     messages: {
       expectedDisconnectInControlFlow:
@@ -100,7 +100,7 @@ export default createRule<[], MessageID>({
       expectedDisconnectOrUnobserveInCleanup:
         "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
       unexpectedFloatingInstance:
-        "A 'ResizeObserver' instance created in component or custom Hook must be assigned to a variable for proper cleanup.",
+        "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
