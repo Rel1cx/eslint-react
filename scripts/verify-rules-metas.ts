@@ -31,6 +31,7 @@ const getSeverity = (x: unknown): number =>
     .with(P.number, (n) => n)
     .with(P.array(), ([s]) => getSeverity(s))
     .otherwise(() => 0);
+
 const getSeverityIcon = (x: unknown) =>
   match(x)
     .with(0, () => "0️⃣")
@@ -67,13 +68,14 @@ function retrieveRuleMeta(catename: string, rulename: string) {
         ? `@eslint-react/${RULE_NAME}`
         : `@eslint-react/${catename}/${RULE_NAME}`,
     );
-    const rSeverity = getSeverity(rEntry);
-    const sSeverity = getSeverity(sEntry);
     return {
       name: RULE_NAME,
       description,
       features: RULE_FEATURES,
-      severities: [rSeverity, sSeverity],
+      severities: [
+        getSeverity(rEntry),
+        getSeverity(sEntry),
+      ],
     };
   });
 }
