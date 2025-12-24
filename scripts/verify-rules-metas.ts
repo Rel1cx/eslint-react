@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable perfectionist/sort-objects */
 
 import * as NodeContext from "@effect/platform-node/NodeContext";
@@ -106,48 +105,45 @@ const verifyRulesOverview = Effect.gen(function*() {
     const tableLines = contentLines.slice(tableStartIndex + 2, tableEndIndex);
     for (const line of tableLines) {
       const columns = line.split("|").slice(1, -1);
+      const [link, severities, features, description] = columns;
+      if (link == null || severities == null || features == null || description == null) {
+        yield* Effect.logError(ansis.red(`Malformed table line (skipped): ${line}`));
+        continue;
+      }
       const catename = key;
-      const rulename = columns[0]!.match(/\[`([^`]+)`\]/)?.[1];
+      const rulename = link.match(/\[`([^`]+)`\]/)?.[1];
       if (rulename == null) {
-        return yield* Effect.dieMessage(`Could not parse rule name from line: ${line}`);
+        return yield* Effect.dieMessage(`Could not extract rule name from link: ${link}`);
       }
       yield* Effect.log(`Verifying rule ${rulename} in category ${catename}...`);
       const meta = yield* retrieveRuleMeta(catename, rulename);
       const expectedRuleLink = `[\`${rulename}\`](${catename === "x" ? "" : catename + "-"}${rulename})`;
-      const providedRuleLink = columns[0]!.trim();
+      const providedRuleLink = link.trim();
       if (expectedRuleLink !== providedRuleLink) {
-        yield* Effect.logError(
-          ansis.red(
-            `Rule link mismatch for rule ${rulename}: expected "${expectedRuleLink}", found "${providedRuleLink}"`,
-          ),
-        );
+        yield* Effect.logError(ansis.red(`Found 1 mismatched link for rule ${rulename}`));
+        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedRuleLink)}`);
+        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedRuleLink)}`);
       }
       const expectedDescription = meta.description.replace(/\.$/, "");
-      const providedDescription = columns[3]!.trim().replaceAll("`", "'");
+      const providedDescription = description.trim().replaceAll("`", "'");
       if (expectedDescription !== providedDescription) {
-        yield* Effect.logError(
-          ansis.red(
-            `Description mismatch for rule ${rulename}: expected "${expectedDescription}", found "${providedDescription}"`,
-          ),
-        );
+        yield* Effect.logError(ansis.red(`Found 1 mismatched description for rule ${rulename}`));
+        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedDescription)}`);
+        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedDescription)}`);
       }
       const expectedSeverityIcons = `${getSeverityIcon(meta.severities[0])} ${getSeverityIcon(meta.severities[1])}`;
-      const providedSeverityIcons = columns[1]!.trim();
+      const providedSeverityIcons = severities.trim();
       if (expectedSeverityIcons !== providedSeverityIcons) {
-        yield* Effect.logError(
-          ansis.red(
-            `Severity mismatch for rule ${rulename}: expected "${expectedSeverityIcons}", found "${providedSeverityIcons}"`,
-          ),
-        );
+        yield* Effect.logError(ansis.red(`Found 1 mismatched severity icons for rule ${rulename}`));
+        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedSeverityIcons)}`);
+        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedSeverityIcons)}`);
       }
       const expectedFeatureIcons = meta.features.map(getFeatureIcon).map((icon: string) => "`" + icon + "`").join(" ");
-      const providedFeatureIcons = columns[2]!.trim();
+      const providedFeatureIcons = features.trim();
       if (expectedFeatureIcons !== providedFeatureIcons) {
-        yield* Effect.logError(
-          ansis.red(
-            `Feature icons mismatch for rule ${rulename}: expected "${expectedFeatureIcons}", found "${providedFeatureIcons}"`,
-          ),
-        );
+        yield* Effect.logError(ansis.red(`Found 1 mismatched feature icons for rule ${rulename}`));
+        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
+        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
       }
     }
   }
