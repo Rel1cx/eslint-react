@@ -118,7 +118,7 @@ const verifyRulesMarkdowns = Effect.gen(function*() {
       yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
     }
-    // TODO: Verify presets sction as well
+    // TODO: Verify presets section as well
   }
 });
 
