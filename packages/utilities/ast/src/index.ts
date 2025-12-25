@@ -15,7 +15,6 @@ export * from "./node-is";
 export * from "./node-selectors";
 export type * from "./node-types";
 export * from "./process-env-node-env";
-export * from "./promise-then";
 export * from "./property-name";
 export * from "./traverse";
 export * from "./vitest-mock";

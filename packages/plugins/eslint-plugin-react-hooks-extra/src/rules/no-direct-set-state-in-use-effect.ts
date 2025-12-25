@@ -78,6 +78,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   };
 
+  function isThenCall(node: TSESTree.CallExpression) {
+    return node.callee.type === T.MemberExpression
+      && node.callee.property.type === T.Identifier
+      && node.callee.property.name === "then";
+  }
+
   function isFunctionOfUseEffectSetup(node: TSESTree.Node) {
     return node.parent?.type === T.CallExpression
       && node.parent.callee !== node
@@ -96,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       .when(isUseStateCall, () => "useState")
       .when(isUseEffectLikeCall, () => "useEffect")
       .when(isSetStateCall, () => "setState")
-      .when(AST.isThenCall, () => "then")
+      .when(isThenCall, () => "then")
       .otherwise(() => "other");
   }
 
@@ -105,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     switch (true) {
       case node.async:
       case parent.type === T.CallExpression
-        && AST.isThenCall(parent):
+        && isThenCall(parent):
         return "deferred";
       case node.type !== T.FunctionDeclaration
         && parent.type === T.CallExpression
