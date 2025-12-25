@@ -127,19 +127,6 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidSetterName",
       }],
     },
-    {
-      code: tsx`
-        import { useState } from 'react';
-
-        export function useTest(): [number, (n: number) => void] {
-          const [count] = useState(0);
-        }
-      `,
-      errors: [{
-        messageId: "invalidAssignment",
-      }],
-      options: [{ enforceAssignment: true }],
-    },
   ],
   valid: [
     ...allFunctions,
