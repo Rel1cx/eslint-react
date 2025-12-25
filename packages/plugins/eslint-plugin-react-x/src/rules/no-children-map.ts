@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow 'Children.map'.",
+      description: "Disallow the use of 'Children.map' from the 'react' package.",
     },
     messages: {
       noChildrenMap: "Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead.",

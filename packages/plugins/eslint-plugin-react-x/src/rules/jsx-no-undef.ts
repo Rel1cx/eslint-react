@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow undefined variables in JSX.",
+      description: "Prevents using variables in JSX that are not defined in the scope.",
     },
     messages: {
       jsxNoUndef: "JSX variable '{{name}}' is not defined.",

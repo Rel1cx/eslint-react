@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow direct calls to the 'set' function of 'useState' in 'useEffect'.",
+      description: "Disallow **direct** calls to the 'set' function of 'useState' in 'useEffect'.",
     },
     messages: {
       noDirectSetStateInUseEffect: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",

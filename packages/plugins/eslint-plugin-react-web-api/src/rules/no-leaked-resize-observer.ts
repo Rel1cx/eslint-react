@@ -92,7 +92,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents leaked 'ResizeObserver' in a component or custom hook.",
+      description:
+        "Enforces that every 'ResizeObserver' created in a component or custom hook has a corresponding 'ResizeObserver.disconnect()'.",
     },
     messages: {
       expectedDisconnectInControlFlow:

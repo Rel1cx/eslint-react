@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Reports all identifiers that are initialized from React.",
+      description: "Reports all identifiers that are initialized from React in json format.",
     },
     messages: {
       isFromReact: "{{json}}",

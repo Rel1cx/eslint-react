@@ -62,7 +62,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents leaked 'setInterval' in a component or custom hook.",
+      description:
+        "Enforces that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
     },
     messages: {
       expectedClearIntervalInCleanup:

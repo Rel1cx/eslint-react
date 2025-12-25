@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow 'Children.count'.",
+      description: "Disallow the use of 'Children.count' from the 'react' package.",
     },
     messages: {
       noChildrenCount: "Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.",
