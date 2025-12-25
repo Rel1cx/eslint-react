@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Reports all class components.",
+      description: "Reports all class components in json format.",
     },
     messages: {
       classComponent: "{{json}}",

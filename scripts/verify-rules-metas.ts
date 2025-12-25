@@ -1,5 +1,4 @@
 /* eslint-disable perfectionist/sort-objects */
-
 import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as FileSystem from "@effect/platform/FileSystem";
@@ -9,9 +8,12 @@ import { identity } from "effect";
 import * as Effect from "effect/Effect";
 import { P, match } from "ts-pattern";
 
+import { glob } from "./lib/glob";
+
 import * as config0 from "../packages/plugins/eslint-plugin/src/configs/recommended-typescript";
 import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-typescript";
 
+const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.ts"];
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
   { key: "x", heading: "X Rules" },
@@ -79,6 +81,47 @@ function retrieveRuleMeta(catename: string, rulename: string) {
   });
 }
 
+const verifyRulesMarkdowns = Effect.gen(function*() {
+  const fs = yield* FileSystem.FileSystem;
+  const path = yield* Path.Path;
+  const files = glob(RULES_GLOB).filter((file) => !file.endsWith(".spec.ts"));
+  for (const file of files) {
+    const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
+    const basename = path.parse(path.basename(file)).name;
+    const filename = path.resolve(file);
+    const rulename = `${catename}/${basename}`;
+    const meta = yield* retrieveRuleMeta(catename, basename);
+    const docContent = yield* fs.readFileString(filename.replace(/\.ts$/u, ".mdx"), "utf8");
+    const docContentLines = docContent.split("\n");
+    const expectedDescription = meta.description;
+    const descriptionLineIndex = docContentLines.findIndex((line) => line.startsWith("## Description"));
+    if (descriptionLineIndex === -1) {
+      yield* Effect.logError(ansis.red(`  Missing description line in documentation for rule ${rulename}`));
+      continue;
+    }
+    const providedDescription = docContentLines[descriptionLineIndex + 2]?.trim().replaceAll("`", "'");
+    if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, ""))) {
+      yield* Effect.logError(ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`));
+      yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedDescription)}`);
+      yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedDescription)}`);
+    }
+    const featuresLineIndex = docContentLines.findIndex((line) => line.startsWith("**Features**"));
+    if (featuresLineIndex === -1) {
+      if (meta.features.length === 0) continue;
+      yield* Effect.logError(ansis.red(`  Missing features line in documentation for rule ${rulename}`));
+      continue;
+    }
+    const expectedFeatureIcons = meta.features.map(getFeatureIcon).map((icon: string) => "`" + icon + "`").join(" ");
+    const providedFeatureIcons = docContentLines[featuresLineIndex + 2]?.trim() ?? "";
+    if (expectedFeatureIcons !== providedFeatureIcons) {
+      yield* Effect.logError(ansis.red(`  Found 1 mismatched feature icons in documentation for rule ${rulename}`));
+      yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
+      yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
+    }
+    // TODO: Verify presets sction as well
+  }
+});
+
 const verifyRulesOverview = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
@@ -114,7 +157,6 @@ const verifyRulesOverview = Effect.gen(function*() {
       if (rulename == null) {
         return yield* Effect.dieMessage(`Could not extract rule name from link: ${link}`);
       }
-      yield* Effect.log(`Verifying rule ${catename}/${rulename}...`);
       const meta = yield* retrieveRuleMeta(catename, rulename);
       const expectedRuleLink = `[\`${rulename}\`](${catename === "x" ? "" : catename + "-"}${rulename})`;
       const providedRuleLink = link.trim();
@@ -151,6 +193,8 @@ const verifyRulesOverview = Effect.gen(function*() {
 const program = Effect.gen(function*() {
   // Verify the rules overview matches the actual rule definitions
   yield* verifyRulesOverview;
+  // Verify the rules documentations match the actual rule definitions
+  yield* verifyRulesMarkdowns;
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);

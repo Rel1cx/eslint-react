@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Reports all React Hooks.",
+      description: "Reports all React Hooks in json format.",
     },
     messages: {
       hook: "{{json}}",
