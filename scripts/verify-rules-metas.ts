@@ -9,8 +9,8 @@ import { identity } from "effect";
 import * as Effect from "effect/Effect";
 import { P, match } from "ts-pattern";
 
-import { rules as recommendedRules } from "../packages/plugins/eslint-plugin/src/configs/recommended-typescript";
-import { rules as strictRules } from "../packages/plugins/eslint-plugin/src/configs/strict-typescript";
+import * as config0 from "../packages/plugins/eslint-plugin/src/configs/recommended-typescript";
+import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-typescript";
 
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
@@ -56,13 +56,13 @@ function retrieveRuleMeta(catename: string, rulename: string) {
       .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
       .otherwise(() => "No description available.");
     const rEntry = Reflect.get(
-      recommendedRules,
+      config0.rules,
       catename === "x"
         ? `@eslint-react/${RULE_NAME}`
         : `@eslint-react/${catename}/${RULE_NAME}`,
     );
     const sEntry = Reflect.get(
-      strictRules,
+      config1.rules,
       catename === "x"
         ? `@eslint-react/${RULE_NAME}`
         : `@eslint-react/${catename}/${RULE_NAME}`,
@@ -79,7 +79,6 @@ function retrieveRuleMeta(catename: string, rulename: string) {
   });
 }
 
-// TODO: Not implemented yet
 const verifyRulesOverview = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
@@ -115,7 +114,7 @@ const verifyRulesOverview = Effect.gen(function*() {
       if (rulename == null) {
         return yield* Effect.dieMessage(`Could not extract rule name from link: ${link}`);
       }
-      yield* Effect.log(`Verifying rule ${rulename} in category ${catename}...`);
+      yield* Effect.log(`Verifying rule ${catename}/${rulename}...`);
       const meta = yield* retrieveRuleMeta(catename, rulename);
       const expectedRuleLink = `[\`${rulename}\`](${catename === "x" ? "" : catename + "-"}${rulename})`;
       const providedRuleLink = link.trim();
