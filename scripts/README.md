@@ -31,3 +31,11 @@ pnpm run update:website
 ### `verify-lockfile.ts`
 
 Verifies the integrity of the pnpm lockfile.
+
+### `verify-rules-metas.ts`
+
+Verifies that the ESLint rule metadata documented in `.mdx` files and the rules overview matches the actual rule definitions in source code.
+
+```bash
+pnpm run verify:rules-metas
+```

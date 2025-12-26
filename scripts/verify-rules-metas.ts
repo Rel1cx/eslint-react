@@ -235,10 +235,10 @@ const verifyOverview = Effect.gen(function*() {
 });
 
 const program = Effect.gen(function*() {
-  // Verify the rules overview matches the actual rule definitions
-  yield* verifyOverview;
   // Verify the rules documentations match the actual rule definitions
   yield* verifyDocs;
+  // Verify the rules overview matches the actual rule definitions
+  yield* verifyOverview;
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
