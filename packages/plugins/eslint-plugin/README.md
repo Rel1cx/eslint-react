@@ -37,7 +37,7 @@
 - **Modern**: First-class support for **TypeScript**, **React 19**, and more.
 - **Flexible**: Fully customizable rule severity levels, allowing you to **enforce** or **relax** rules as needed.
 - **Performant**: Built with performance in mind, optimized for large codebases, [**4-7x faster**](https://github.com/Rel1cx/eslint-react-benchmark) than other ESLint plugins.
-- **Context-aware Linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
+- **Context-aware linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
 
 ## Public Packages
 
@@ -47,8 +47,8 @@
 
 ### Modular ESLint Plugins
 
-- [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - X Rules (renderer-agnostic, compatible with x-platform).
-- [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM specific rules for React DOM.
+- [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - X rules (renderer-agnostic, compatible with x-platform).
+- [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
 - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
@@ -130,7 +130,7 @@ export default defineConfig(
 ## General Purpose
 
 - `recommended`\
-  Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects.\
+  Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
   _This preset includes the `x`, `dom`, and `web-api` presets._
 
 - `strict`\
