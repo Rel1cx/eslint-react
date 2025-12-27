@@ -73,7 +73,7 @@ function blue(text: string): string {
   return `\x1b[34m${text}\x1b[0m`;
 }
 
-async function main() {
+function main() {
   const expectedVersion = readFileSync("VERSION", "utf8").trim().replace(/^v/, "");
 
   console.log(blue("Verifying monorepo consistency..."));
@@ -98,28 +98,28 @@ async function main() {
     }
 
     // Check version consistency
-    if (pkg.version != null && pkg.version !== expectedVersion) {
+    if (pkg.version !== null && pkg.version !== undefined && pkg.version !== expectedVersion) {
       console.error(red(`❌ Version mismatch in ${relativePath}`));
       console.error(`   Expected: ${green(expectedVersion)}, Found: ${yellow(pkg.version)}`);
       hasErrors = true;
     }
 
     // Check author consistency
-    if (pkg.author != null && pkg.author !== EXPECTED_AUTHOR) {
+    if (pkg.author !== null && pkg.author !== undefined && pkg.author !== EXPECTED_AUTHOR) {
       console.error(red(`❌ Author mismatch in ${relativePath}`));
       console.error(`   Expected: ${green(EXPECTED_AUTHOR)}, Found: ${yellow(pkg.author)}`);
       hasErrors = true;
     }
 
     // Check license consistency
-    if (pkg.license != null && pkg.license !== EXPECTED_LICENSE) {
+    if (pkg.license !== null && pkg.license !== undefined && pkg.license !== EXPECTED_LICENSE) {
       console.error(red(`❌ License mismatch in ${relativePath}`));
       console.error(`   Expected: ${green(EXPECTED_LICENSE)}, Found: ${yellow(pkg.license)}`);
       hasErrors = true;
     }
 
     // Check node engine consistency
-    if (pkg.engines?.node != null && pkg.engines.node !== EXPECTED_NODE_ENGINE) {
+    if (pkg.engines?.node !== null && pkg.engines?.node !== undefined && pkg.engines.node !== EXPECTED_NODE_ENGINE) {
       console.error(red(`❌ Node engine mismatch in ${relativePath}`));
       console.error(`   Expected: ${green(EXPECTED_NODE_ENGINE)}, Found: ${yellow(pkg.engines.node)}`);
       hasErrors = true;
@@ -127,7 +127,8 @@ async function main() {
 
     // Check ESLint peer dependency consistency (if it exists)
     if (
-      pkg.peerDependencies?.eslint != null
+      pkg.peerDependencies?.eslint !== null
+      && pkg.peerDependencies?.eslint !== undefined
       && pkg.peerDependencies.eslint !== EXPECTED_ESLINT_PEER
     ) {
       console.error(red(`❌ ESLint peer dependency mismatch in ${relativePath}`));
@@ -139,7 +140,8 @@ async function main() {
 
     // Check TypeScript peer dependency consistency (if it exists)
     if (
-      pkg.peerDependencies?.typescript != null
+      pkg.peerDependencies?.typescript !== null
+      && pkg.peerDependencies?.typescript !== undefined
       && pkg.peerDependencies.typescript !== EXPECTED_TYPESCRIPT_PEER
     ) {
       console.error(red(`❌ TypeScript peer dependency mismatch in ${relativePath}`));
@@ -150,7 +152,7 @@ async function main() {
     }
 
     // Check repository consistency
-    if (pkg.repository != null) {
+    if (pkg.repository !== null && pkg.repository !== undefined) {
       if (pkg.repository.type !== EXPECTED_REPOSITORY_TYPE) {
         console.error(red(`❌ Repository type mismatch in ${relativePath}`));
         console.error(
@@ -188,10 +190,11 @@ async function main() {
   }
 }
 
-main().catch((error) => {
+try {
+  main();
+} catch (error) {
   console.error(red("Error:"), error);
   process.exit(1);
-});
-
+}
 
 
