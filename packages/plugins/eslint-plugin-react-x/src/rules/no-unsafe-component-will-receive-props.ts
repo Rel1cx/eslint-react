@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Warns the usage of 'UNSAFE_componentWillReceiveProps' in class components.",
+      description: "Warns about the usage of 'UNSAFE_componentWillReceiveProps' in class components.",
     },
     messages: {
       noUnsafeComponentWillReceiveProps: "Do not use 'UNSAFE_componentWillReceiveProps'.",

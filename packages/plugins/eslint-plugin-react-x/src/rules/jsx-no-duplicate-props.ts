@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow duplicate props in JSX elements.",
+      description: "Disallows duplicate props in JSX elements.",
     },
     messages: {
       jsxNoDuplicateProps: "This JSX property is assigned multiple times.",

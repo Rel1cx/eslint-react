@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow nesting lazy component declarations inside other components.",
+      description: "Disallows nesting lazy component declarations inside other components.",
     },
     messages: {
       noNestedLazyComponentDeclarations:

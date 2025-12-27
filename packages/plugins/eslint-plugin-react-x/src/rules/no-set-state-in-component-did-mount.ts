@@ -17,11 +17,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow calling 'this.setState' in 'componentDidMount' outside of functions, such as callbacks.",
+      description: "Disallows calling 'this.setState' in 'componentDidMount' outside of functions such as callbacks.",
     },
     messages: {
       noSetStateInComponentDidMount:
-        "Do not call `this.setState` in `componentDidMount` outside of functions, such as callbacks.",
+        "Do not call `this.setState` in `componentDidMount` outside of functions such as callbacks.",
     },
     schema: [],
   },

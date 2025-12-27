@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces function calls made inside 'useState' to be wrapped in an 'initializer function'.",
+      description: "Enforces wrapping function calls made inside 'useState' in an 'initializer function'.",
     },
     messages: {
       preferUseStateLazyInitialization:
