@@ -171,13 +171,13 @@ const verifyOverview = Effect.gen(function*() {
     if (tableStartIndex === -1) {
       return yield* Effect.dieMessage(`Could not find table for ${heading} in ${target}`);
     }
-    const endIndex = contentLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
-    if (endIndex === -1) {
+    const tableEndIndex = contentLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
+    if (tableEndIndex === -1) {
       return yield* Effect.dieMessage(`Could not find the end of table for ${heading} in ${target}`);
     }
 
     // Verify each table row (skip header and separator rows)
-    const tableLines = contentLines.slice(tableStartIndex + 2, endIndex);
+    const tableLines = contentLines.slice(tableStartIndex + 2, tableEndIndex);
     for (const line of tableLines) {
       const columns = line.split("|").slice(1, -1); // Remove leading/trailing empty splits
       const [link, severities, features, description] = columns;
