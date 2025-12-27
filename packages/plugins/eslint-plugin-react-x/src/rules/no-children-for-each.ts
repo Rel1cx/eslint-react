@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow the use of 'Children.forEach' from the 'react' package.",
+      description: "Disallows the use of 'Children.forEach' from the 'react' package.",
     },
     messages: {
       noChildrenForEach: "Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.",

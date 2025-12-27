@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents 'key' from being placed on non-top-level elements in a list rendering.",
+      description: "Prevents 'key' from being placed on non-top-level elements in list rendering.",
     },
     messages: {
       noUnnecessaryKey:

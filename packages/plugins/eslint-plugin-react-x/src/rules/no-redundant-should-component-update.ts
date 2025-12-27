@@ -24,7 +24,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow 'shouldComponentUpdate' when extending 'React.PureComponent'.",
+      description: "Disallows 'shouldComponentUpdate' when extending 'React.PureComponent'.",
     },
     messages: {
       noRedundantShouldComponentUpdate:

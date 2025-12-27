@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow 'propTypes' in favor of TypeScript or another type-checking solution.",
+      description: "Disallows 'propTypes' in favor of TypeScript or another type-checking solution.",
     },
     messages: {
       noPropTypes: "[Deprecated] Use TypeScript or another type-checking solution instead.",

@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow duplicate 'key' on elements in the same array or a list of 'children'.",
+      description: "Disallows duplicate 'key' on elements in the same array or a list of 'children'.",
     },
     messages: {
       noDuplicateKey: "A key must be unique. '{{value}}' is duplicated.",

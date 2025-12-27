@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Warns component props that are defined but never used.",
+      description: "Warns about component props that are defined but never used.",
     },
     messages: {
       noUnusedProps: "Prop `{{name}}` is declared but never used",
