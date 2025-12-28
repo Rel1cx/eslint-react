@@ -50,7 +50,7 @@
     "update:website": "tsx ./scripts/update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.62.5",
+    "@effect/language-service": "^0.63.0",
     "@effect/platform": "^0.94.0",
     "@effect/platform-node": "^0.104.0",
     "@eslint/compat": "^2.0.0",
@@ -67,7 +67,7 @@
     "@typescript-eslint/types": "^8.50.1",
     "ansis": "^4.2.0",
     "dedent": "^1.7.1",
-    "dprint": "^0.50.2",
+    "dprint": "^0.51.0",
     "effect": "^3.19.13",
     "eslint": "^9.39.2",
     "eslint-plugin-fast-import": "^1.5.3",
@@ -113,7 +113,7 @@
       "next": "^16.1.1",
       "react": "^19.2.3",
       "react-dom": "^19.2.3",
-      "ts-api-utils": "^2.1.0",
+      "ts-api-utils": "^2.2.0",
       "tslib": "^2.8.1",
       "typescript": "^5.9.3"
     }
