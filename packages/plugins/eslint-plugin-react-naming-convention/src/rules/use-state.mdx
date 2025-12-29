@@ -99,6 +99,34 @@ Enforces that the setter is named symmetrically to the value.
 
 Default: `true`
 
+## Examples with `enforceAssignment: true`
+
+### Failing
+
+```tsx
+import React, { useState } from "react";
+
+function MyComponent() {
+  const count = useState(0);
+  //    ^^^^^
+  // the `useState` hook must be destructured into a `[value, setter]` pair.
+
+  return <div>{count}</div>;
+}
+```
+
+### Passing
+
+```tsx
+import React, { useState } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  return <div>{count}</div>;
+}
+```
+
 ## Implementation
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/use-state.ts)
