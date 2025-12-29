@@ -8,13 +8,7 @@ import {
 } from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import {
-  findImportSource,
-  findProperty,
-  findVariable,
-  getVariableDefinitionNode,
-  isNodeValueEqual,
-} from "@eslint-react/var";
+import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
