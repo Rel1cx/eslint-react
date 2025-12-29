@@ -9,7 +9,7 @@ function toRegExp(string: string): {
 ```
 
 Convert a string to the `RegExp`.
-Normal strings (e.g. `"foo"`) is converted to `/^foo$/` of `RegExp`.
+Normal strings (e.g., `"foo"`) is converted to `/^foo$/` of `RegExp`.
 Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
 
 ## Parameters

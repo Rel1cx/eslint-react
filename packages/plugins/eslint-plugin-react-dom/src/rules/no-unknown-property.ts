@@ -1140,7 +1140,7 @@ export default createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow unknown 'DOM' property.",
+      description: "Disallows unknown 'DOM' property.",
     },
     fixable: "code",
     messages,

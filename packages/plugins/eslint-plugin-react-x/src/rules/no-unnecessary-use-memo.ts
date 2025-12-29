@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow unnecessary usage of 'useMemo'.",
+      description: "Disallows unnecessary usage of 'useMemo'.",
     },
     messages: {
       noUnnecessaryUseMemo: "An 'useMemo' with empty deps and no references to the component scope may be unnecessary.",

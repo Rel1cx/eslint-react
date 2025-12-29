@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents 'key' from not being explicitly specified (e.g. spreading 'key' from objects).",
+      description: "Prevents 'key' from not being explicitly specified (e.g., spreading 'key' from objects).",
     },
     messages: {
       noImplicitKey: "Do not use implicit 'key' props.",

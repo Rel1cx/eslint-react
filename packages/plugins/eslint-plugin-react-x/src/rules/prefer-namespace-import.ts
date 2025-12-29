@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces React is imported via a namespace import.",
+      description: "Enforces importing React via a namespace import.",
     },
     fixable: "code",
     messages: {

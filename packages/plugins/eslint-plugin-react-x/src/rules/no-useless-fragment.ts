@@ -51,7 +51,7 @@ export default createRule<Options, MessageID>({
     type: "problem",
     defaultOptions: [...defaultOptions],
     docs: {
-      description: "Disallow useless fragment elements.",
+      description: "Disallows useless fragment elements.",
     },
     fixable: "code",
     messages: {
@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       return;
     }
 
-    // Report fragment placed inside a host component (e.g. <div><></></div>)
+    // Report fragment placed inside a host component (e.g., <div><></></div>)
     if (isJsxHostElement(context, node.parent)) {
       context.report({
         messageId: "noUselessFragment",
@@ -85,7 +85,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       });
     }
 
-    // Report empty fragments (e.g. <></>)
+    // Report empty fragments (e.g., <></>)
     if (node.children.length === 0) {
       // https://github.com/Rel1cx/eslint-react/issues/1265
       if (allowEmptyFragment) return;
@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
     // Handle various fragment cases
     switch (true) {
-      // Allow single text child in attribute value (e.g. content={<>text</>})
+      // Allow single text child in attribute value (e.g., content={<>text</>})
       case allowExpressions
         && !isChildElement
         && node.children.length === 1

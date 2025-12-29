@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow direct mutation of 'this.state'.",
+      description: "Disallows direct mutation of 'this.state'.",
     },
     messages: {
       noDirectMutationState: "Do not mutate state directly. Use 'setState()' instead.",

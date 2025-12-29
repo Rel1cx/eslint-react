@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow the use of 'Children.toArray' from the 'react' package.",
+      description: "Disallows the use of 'Children.toArray' from the 'react' package.",
     },
     messages: {
       noChildrenToArray: "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",

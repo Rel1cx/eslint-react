@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Warns unused class component state.",
+      description: "Warns about unused class component state.",
     },
     messages: {
       noUnusedState: "Unused class component state in '{{className}}'",
