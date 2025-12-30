@@ -46,7 +46,7 @@ Default: `[".jsx", ".tsx"]`
 
 ### `ignoreFilesWithoutCode`
 
-When set to `true`, this rule will ignore files that do not contain JSX syntax.
+When set to `true`, this rule ignores files that do not contain JSX syntax.
 
 Default: `true`
 
@@ -60,6 +60,7 @@ export default [
     files: ["**/*.tsx"],
     rules: {
       "@eslint-react/naming-convention/filename-extension": ["warn", "as-needed"]
+    }
   }
 ];
 ```
@@ -72,6 +73,7 @@ export default [
     files: ["**/*.tsx"],
     rules: {
       "@eslint-react/naming-convention/filename-extension": ["warn", { "allow": "always" }]
+    }
   }
 ];
 ```

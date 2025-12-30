@@ -29,7 +29,7 @@ react-hooks-extra/no-direct-set-state-in-use-effect
 
 ## Description
 
-Disallows **direct** calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
+Disallows direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect`.
 
 Directly setting state in `useEffect` can lead to:
 
@@ -39,7 +39,7 @@ Directly setting state in `useEffect` can lead to:
 
 ### What counts as a violation?
 
-This is **not allowed**:
+This is not allowed:
 
 ```tsx
 useEffect(() => {
@@ -55,7 +55,7 @@ const fullName = firstName + " " + lastName;
 
 ### What is allowed?
 
-The rule **does not flag** indirect calls, such as:
+The rule does not flag indirect calls, such as:
 
 - Inside event handlers.
 - Inside `async` functions.
@@ -73,7 +73,7 @@ The rule **does not flag** indirect calls, such as:
   }, [firstName, lastName]);
   ```
 
-- It doesn’t detect `set` calls in `async` functions are being called before the `await` statement.
+- It doesn’t detect `set` calls in `async` functions that are called before the `await` statement.
 
   ```tsx {2}
   useEffect(() => {
@@ -86,7 +86,7 @@ The rule **does not flag** indirect calls, such as:
 
 ## Examples
 
-The first three cases are common valid use cases because they are not called the `set` function directly in `useEffect`:
+The first three cases are common valid use cases because they do not call the `set` function directly in `useEffect`:
 
 ### Passing
 

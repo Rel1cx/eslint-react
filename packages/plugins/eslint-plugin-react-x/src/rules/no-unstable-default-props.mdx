@@ -28,9 +28,9 @@ react-x/no-unstable-default-props
 
 Prevents using referential-type values as default props in object destructuring.
 
-When using object destructuring syntax you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, then each time the destructuring is evaluated, the JS engine will create a new, distinct value in the destructured variable.
+When using object destructuring syntax, you can set the default value for a given property if it does not exist. If you set the default value to one of the values that is compared by identity, then each time the destructuring is evaluated, the JS engine will create a new, distinct value in the destructured variable.
 
-This harms performance as it means that React will have to re-evaluate hooks and re-render memoized components more often than necessary.
+This harms performance, as it means that React will have to re-evaluate hooks and re-render memoized components more often than necessary.
 
 To fix the violations, the easiest way is to use a referencing variable in module scope instead of using the literal values.
 
@@ -61,7 +61,7 @@ interface MyComponentProps {
 
 function MyComponent({ items = [] }: MyComponentProps) {
   //                           ^^
-  //                           - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
+  //                           - An 'Array literal' as a default prop. This could lead to a potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```
@@ -75,7 +75,7 @@ interface MyComponentProps {
 
 function MyComponent({ items = {} }: MyComponentProps) {
   //                           ^^
-  //                           - A/an 'Object literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Object literal'.
+  //                           - An 'Object literal' as a default prop. This could lead to a potential infinite render loop in React. Use a variable instead of 'Object literal'.
   return null;
 }
 ```
@@ -89,7 +89,7 @@ interface MyComponentProps {
 
 function MyComponent({ onClick = () => {} }: MyComponentProps) {
   //                             ^^^^^^^^
-  //                             - A/an 'arrow function expression' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
+  //                             - An 'arrow function expression' as a default prop. This could lead to a potential infinite render loop in React. Use a variable instead of 'arrow function expression'.
   return null;
 }
 ```
@@ -104,7 +104,7 @@ interface MyComponentProps {
 function MyComponent(props: MyComponentProps) {
   const { items = [] } = props;
   //              ^^
-  //              - A/an 'Array literal' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of 'Array literal'.
+  //              - An 'Array literal' as a default prop. This could lead to a potential infinite render loop in React. Use a variable instead of 'Array literal'.
   return null;
 }
 ```
@@ -180,7 +180,7 @@ interface MyComponentProps {
 
 function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
   //                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //                   - Primitives are all compared by value, so are safe to be inlined as default props.
+  //                   - Primitives are all compared by value, so they are safe to inline as default props.
   return null;
 }
 ```
@@ -208,10 +208,10 @@ interface MyComponentProps {
   position: Vector3;
 }
 
-// Without configuration, this would fail
+// Without configuration, this would fail.
 function MyComponent({ position = new Vector3(0, 0, 0) }: MyComponentProps) {
   //                              ^^^^^^^^^^^^^^^^^^^^^^
-  //                              - A/an 'new expression' as default prop.
+  //                              - A 'new expression' as a default prop.
   return null;
 }
 ```
@@ -223,10 +223,10 @@ interface MyComponentProps {
   cache: Cache;
 }
 
-// CustomCache is not in the allowlist, so this still fails
+// CustomCache is not in the allowlist, so this still fails.
 function MyComponent({ cache = new CustomCache() }: MyComponentProps) {
   //                           ^^^^^^^^^^^^^^^^^
-  //                           - A/an 'new expression' as default prop.
+  //                           - A 'new expression' as a default prop.
   return null;
 }
 ```
@@ -238,10 +238,10 @@ interface MyComponentProps {
   items: string[];
 }
 
-// Object and array literals always fail regardless of configuration
+// Object and array literals always fail regardless of configuration.
 function MyComponent({ items = [] }: MyComponentProps) {
   //                           ^^
-  //                           - A/an 'array expression' as default prop.
+  //                           - An 'array expression' as a default prop.
   return null;
 }
 ```
@@ -255,7 +255,7 @@ interface MyComponentProps {
   position: Vector3;
 }
 
-// Vector3 is in the allowlist, so constructor calls are allowed
+// Vector3 is in the allowlist, so constructor calls are allowed.
 function MyComponent({ position = new Vector3(0, 0, 0) }: MyComponentProps) {
   return null;
 }
@@ -268,7 +268,7 @@ interface MyComponentProps {
   color: Color3;
 }
 
-// Color3 is in the allowlist, so factory methods are allowed
+// Color3 is in the allowlist, so factory methods are allowed.
 function MyComponent({ color = Color3.Red() }: MyComponentProps) {
   return null;
 }
@@ -281,7 +281,7 @@ interface MyComponentProps {
   position: Vector3;
 }
 
-// 'vector' is in the allowlist, so member expression calls are allowed
+// 'vector' is in the allowlist, so member expression calls are allowed.
 function MyComponent({ position = vector.create(0, 0, 0) }: MyComponentProps) {
   return null;
 }

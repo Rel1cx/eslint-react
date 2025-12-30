@@ -33,8 +33,8 @@ Component definitions inside other components cause them to be recreated on ever
 When a component is defined inside another component:
 
 - It gets recreated on every render of the parent component
-- It loses its internal state when the parent rerenders
-- It defeats props memoization and optimization techniques
+- It loses its internal state when the parent re-renders
+- It defeats prop memoization and optimization techniques
 - It creates new function references on every render
 
 Instead, define every component at the top level.
@@ -67,7 +67,7 @@ function Profile() {
 }
 ```
 
-When a child component needs some data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
+When a child component needs data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
 
 ## Implementation
 

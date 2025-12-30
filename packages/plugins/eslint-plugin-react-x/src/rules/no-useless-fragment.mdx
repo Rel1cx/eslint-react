@@ -28,9 +28,9 @@ react-x/no-useless-fragment
 
 Disallows useless fragment elements.
 
-A fragment is redundant if it contains only one child, or if it is the child of a html element, and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
+A fragment is redundant if it contains only one child or if it is the child of an HTML element and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
 
-Moreover, rendering fragments with multiple levels of depth can cause React to not retain the state of components nested within the fragment after [certain re-renders](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b), which may lead to unexpected [state resetting](https://react.dev/learn/preserving-and-resetting-state).
+Moreover, rendering fragments with multiple levels of depth can cause React not to retain the state of components nested within the fragment after [certain re-renders](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b), which may lead to unexpected [state resets](https://react.dev/learn/preserving-and-resetting-state).
 
 ## Examples
 
@@ -107,9 +107,9 @@ Default: `true`
 ## Note
 
 [By default, this rule always allows single expressions in a fragment](https://github.com/Rel1cx/eslint-react/pull/188). This is useful in
-places like Typescript where `string` does not satisfy the expected return type
+places like TypeScript where `string` does not satisfy the expected return type
 of `JSX.Element`. A common workaround is to wrap the variable holding a string
-in a fragment and expression. To change this behaviour, use the `allowExpressions` option.
+in a fragment and expression. To change this behavior, use the `allowExpressions` option.
 
 ### Examples of correct code for single expressions in fragments
 

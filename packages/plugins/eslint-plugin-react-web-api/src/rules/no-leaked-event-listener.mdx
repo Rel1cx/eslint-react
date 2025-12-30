@@ -41,7 +41,7 @@ class MyComponent extends Component {
   componentDidMount() {
     document.addEventListener("click", this.handleClick);
     //                                 ^^^^^^^^^^^^^^^^
-    //                                 - A 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.
+    //                                 - An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in the 'componentWillUnmount' method.
   }
 
   handleClick() {
@@ -65,7 +65,7 @@ function MyComponent() {
 
     document.addEventListener("click", handleClick);
     //                                 ^^^^^^^^^^^
-    //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+    //                                 - An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
 
   return null;
@@ -79,7 +79,7 @@ function MyComponent() {
   useEffect(() => {
     document.addEventListener("click", () => console.log("clicked"));
     //                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //                                 - A 'addEventListener' should not have an inline listener function.
+    //                                 - An 'addEventListener' should not have an inline listener function.
   }, []);
 
   return null;
@@ -97,7 +97,7 @@ function MyComponent() {
 
     document.addEventListener("click", handleClick, { capture: true });
     //                                 ^^^^^^^^^^^
-    //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+    //                                 - An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
 
     return () => {
       document.removeEventListener("click", handleClick, { capture: false });
@@ -117,7 +117,7 @@ function useCustomHook() {
 
     document.addEventListener("click", handleClick);
     //                                 ^^^^^^^^^^^^
-    //                                 - A 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+    //                                 - An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
 }
 ```
@@ -266,17 +266,17 @@ function MyComponent() {
     if (!el) {
       return;
     }
-    // The following cases are intentionally considered as possible leaks:
+    // The following cases are intentionally considered possible leaks:
     for (const [name, handler] of Object.entries(handlers)) {
       //                          ^^^^^^^^^^^^^^^^^^^^^^^^^
-      //                          - The entries are not guaranteed to be the same as the ones in the effect cleanup function.
+      //                          - The entries are not guaranteed to be the same as those in the effect cleanup function.
       el.addEventListener(name, handler);
     }
 
     return () => {
       for (const [name, handler] of Object.entries(handlers)) {
         //                          ^^^^^^^^^^^^^^^^^^^^^^^^^
-        //                          - The entries are not guaranteed to be the same as the ones in the effect setup function.
+        //                          - The entries are not guaranteed to be the same as those in the effect setup function.
         el.removeEventListener(name, handler);
       }
     };
