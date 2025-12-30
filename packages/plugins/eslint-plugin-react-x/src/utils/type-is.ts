@@ -1,10 +1,28 @@
 /* eslint-disable jsdoc/require-param */
-import { isTypeFlagSet } from "ts-api-utils";
 import { P, isMatching } from "ts-pattern";
 import ts from "typescript";
 
+function isFlagSet(allFlags: number, flag: number): boolean {
+  return (allFlags & flag) !== 0;
+}
+
+function isFlagSetOnObject(obj: { flags: number }, flag: number): boolean {
+  return isFlagSet(obj.flags, flag);
+}
+
+const isTypeFlagSet: (type: ts.Type, flag: ts.TypeFlags) => boolean = isFlagSetOnObject;
+
+export function isBooleanLiteralType<TType extends ts.Type>(type: TType): type is TType & {
+  intrinsicName: "false" | "true";
+} {
+  return isTypeFlagSet(type, ts.TypeFlags.BooleanLiteral);
+}
+
 /** @internal */
-export { isFalseLiteralType, isTrueLiteralType } from "ts-api-utils";
+export const isFalseLiteralType = (type: ts.Type) => isBooleanLiteralType(type) && type.intrinsicName === "false";
+
+/** @internal */
+export const isTrueLiteralType = (type: ts.Type) => isBooleanLiteralType(type) && type.intrinsicName === "true";
 
 /** @internal */
 export const isAnyType = (type: ts.Type) => isTypeFlagSet(type, ts.TypeFlags.TypeParameter | ts.TypeFlags.Any);
