@@ -27,7 +27,7 @@ react-x/no-leaked-conditional-rendering
 
 Prevents problematic leaked values from being rendered.
 
-Using the `&&` operator to render some element conditionally in JSX can cause unexpected values being rendered, or even crashing the rendering.
+Using the `&&` operator to render an element conditionally in JSX can cause unexpected values to be rendered or even crash the rendering.
 
 ## Examples
 
@@ -153,7 +153,7 @@ interface MyComponentProps {
 
 const defaultTitle = "Default Title";
 
-// An OR condition it's considered valid since it's assumed as a way to render some fallback if the first value is falsy, not to render something conditionally
+// An OR condition is considered valid since it's assumed to be a way to render some fallback if the first value is falsy, not to render something conditionally.
 function MyComponent({ customTitle }: MyComponentProps) {
   return <div>{customTitle || defaultTitle}</div>;
 }

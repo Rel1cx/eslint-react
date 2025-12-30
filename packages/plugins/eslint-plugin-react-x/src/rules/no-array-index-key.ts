@@ -103,7 +103,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows an item's index in the array as its key.",
+      description: "Disallows using an item's index in the array as its key.",
     },
     messages: {
       noArrayIndexKey: "Do not use item index in the array as its key.",

@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Warns about the usage of 'UNSAFE_componentWillUpdate' in class components.",
+      description: "Warns about the use of 'UNSAFE_componentWillUpdate' in class components.",
     },
     messages: {
       noUnsafeComponentWillUpdate: "Do not use 'UNSAFE_componentWillUpdate'.",

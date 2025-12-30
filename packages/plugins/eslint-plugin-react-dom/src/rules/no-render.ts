@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Replaces usages of 'ReactDom.render()' with 'createRoot(node).render()'.",
+      description: "Replaces usage of 'ReactDom.render()' with 'createRoot(node).render()'.",
     },
     fixable: "code",
     messages: {

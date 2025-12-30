@@ -30,8 +30,8 @@ Disallows useless `forwardRef` calls on components that don't use `ref`s.
 
 This rule enforces that:
 
-1. Components using `forwardRef` must declare a `ref` parameter
-2. Components not using `ref` should not be wrapped with `forwardRef`
+1. Components using `forwardRef` must declare a `ref` parameter.
+2. Components not using `ref` should not be wrapped with `forwardRef`.
 
 ## Examples
 
@@ -71,4 +71,4 @@ const MyComponent = React.forwardRef<HTMLButtonElement>((props, ref) => {
 ## See Also
 
 - [`no-forward-ref`](./no-forward-ref)\
-  Replaces usages of `forwardRef` with passing `ref` as a prop.
+  Replaces usage of `forwardRef` with passing `ref` as a prop.

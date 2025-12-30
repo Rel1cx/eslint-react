@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "Prevents comment strings (e.g., beginning with '//' or '/*') from being accidentally inserted into the JSX element's textnodes.",
+        "Prevents comment strings (e.g., beginning with '//' or '/*') from being accidentally inserted into a JSX element's text nodes.",
     },
     messages: {
       jsxNoCommentTextnodes:

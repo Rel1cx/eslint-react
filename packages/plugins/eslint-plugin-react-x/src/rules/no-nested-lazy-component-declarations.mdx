@@ -33,7 +33,7 @@ Component definitions inside other components cause them to be recreated on ever
 When a component is defined inside another component:
 
 - It gets recreated on every render of the parent component
-- It loses its internal state when the parent rerenders
+- It loses its internal state when the parent re-renders
 - It defeats props memoization and optimization techniques
 - It creates new function references on every render
 

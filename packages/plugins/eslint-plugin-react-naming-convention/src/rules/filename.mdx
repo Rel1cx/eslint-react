@@ -28,7 +28,7 @@ By default, this rule enforces `PascalCase`, but it can be configured to support
 
 ### Failing
 
-If the rule is configured for `PascalCase`, the following filename will trigger a warning:
+If the rule is configured for `PascalCase`, the following file name will trigger a warning:
 
 ```js title="eslint.config.js"
 export default [
@@ -142,7 +142,7 @@ export default [
     },
   },
   {
-    // Opt-out for files in the 'app' directory
+    // Opt out for files in the 'app' directory
     files: ["app/**/*.{ts,tsx}"],
     rules: {
       "@eslint-react/naming-convention/filename": "off",

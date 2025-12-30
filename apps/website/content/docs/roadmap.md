@@ -92,15 +92,15 @@ Minimum supported versions:
 ### New Rules
 
 - [x] `react-x/jsx-no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
-- [x] `react-x/no-context-provider` - Replaces usages of `<Context.Provider>` with `<Context>` (React 19)
-- [x] `react-x/no-forward-ref` - Replaces usages of `forwardRef` with passing `ref` as a prop (React 19)
-- [x] `react-x/no-use-context` - Replaces usages of `useContext` with `use` (React 19)
+- [x] `react-x/no-context-provider` - Replaces usage of `<Context.Provider>` with `<Context>` (React 19)
+- [x] `react-x/no-forward-ref` - Replaces usage of `forwardRef` with passing `ref` as a prop (React 19)
+- [x] `react-x/no-use-context` - Replaces usage of `useContext` with `use` (React 19)
 - [x] `react-x/prefer-namespace-import` - Enforces the use of namespace imports for React (Replaces `prefer-react-namespace-import`)
-- [x] `react-dom/no-hydrate` - Replaces usages of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
-- [x] `react-dom/no-render` - Replaces usages of `ReactDom.render()` with `createRoot(node).render()` (React 19)
+- [x] `react-dom/no-hydrate` - Replaces usage of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
+- [x] `react-dom/no-render` - Replaces usage of `ReactDom.render()` with `createRoot(node).render()` (React 19)
 - [x] `react-dom/no-use-form-state` - Replaces the usages of `useFormState()` to use `useActionState()` (React 19)
 - [x] `react-dom/prefer-namespace-import` - Enforces the use of namespace imports for ReactDOM
-- [x] `naming-convention/context-name` - Enforces context name to be a valid component name with the suffix `Context` (React 19)
+- [x] `naming-convention/context-name` - Enforces the context name to be a valid component name with the suffix `Context` (React 19)
 
 ### Removed Rules
 

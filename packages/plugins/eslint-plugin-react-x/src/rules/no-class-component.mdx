@@ -24,13 +24,13 @@ react-x/no-class-component
 
 Disallows class components except for error boundaries.
 
-Component is the base class for the React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
+Component is the base class for React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
 
-It is recommended to define components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
+We recommend defining components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
 
 ## Examples
 
-This rule aims to prevent usage of class components in React.
+This rule aims to prevent the use of class components in React.
 
 ### Failing
 
@@ -94,4 +94,4 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 
 ## Further Reading
 
-- [Legacy React APIs `Component`](https://react.dev/reference/react/Component)
+- [Legacy React APIs: `Component`](https://react.dev/reference/react/Component)
