@@ -26,7 +26,7 @@ react-x/no-set-state-in-component-did-mount
 
 ## Description
 
-Disallows calling `this.setState` in `componentDidMount` outside of functions such as callbacks.
+Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks.
 
 Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
 
@@ -47,7 +47,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   componentDidMount() {
     this.setState({ name: "John" });
     //   ^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //   - Do not call `this.setState` in `componentDidMount` outside of functions such as callbacks.
+    //   - Do not call `this.setState` in `componentDidMount` outside functions such as callbacks.
   }
 
   render() {
@@ -66,6 +66,6 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 ## See Also
 
 - [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update)\
-  Disallows calling `this.setState` in `componentDidUpdate` outside of functions such as callbacks.
+  Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks.
 - [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update)\
-  Disallows calling `this.setState` in `componentWillUpdate` outside of functions such as callbacks.
+  Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks.

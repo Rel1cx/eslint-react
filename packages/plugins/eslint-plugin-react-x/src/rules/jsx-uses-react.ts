@@ -16,7 +16,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Marks React variables as used when JSX is used.",
+      description: "Marks React variables as used when JSX is present.",
     },
     messages: {
       jsxUsesReact: "Marked {{name}} as used.",

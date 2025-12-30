@@ -56,7 +56,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces destructuring and symmetric naming of 'useState' hook value and setter.",
+      description: "Enforces destructuring and symmetric naming of the 'useState' hook value and setter.",
     },
     messages: {
       invalidAssignment:
