@@ -2,6 +2,24 @@
 title: Changelog
 ---
 
+## v2.5.0 (2025-12-31)
+
+### ✨ New
+
+- feat: add `use-ref-name` rule by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1366
+- Rename `use-ref-name` rule to `ref-name` and add it to recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1367
+
+### 🪄 Improvements
+
+- Add `verify-rules-metas` script & minor docs fixes by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1355
+- docs(use-state): add examples for `enforceAssignment` by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1363
+
+## New Contributors
+
+- @amir-rahmanii made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1363
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.4.0...v2.5.0
+
 ## v2.4.0 (2025-12-24)
 
 ### ✨ New

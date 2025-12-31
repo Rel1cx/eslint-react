@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-debug",
-  "version": "2.4.1-beta.13",
+  "version": "2.5.0",
   "description": "ESLint React's ESLint plugin for debugging related rules.",
   "keywords": [
     "react",
