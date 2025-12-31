@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforces that variables assigned from useRef calls have names ending with 'Ref'.",
+      description: "Enforces that variables assigned from 'useRef' calls have names ending with 'Ref'.",
     },
     messages: {
       invalidRefName: "Ref variables should have names ending with 'Ref', e.g., 'inputRef'.",
