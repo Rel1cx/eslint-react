@@ -9,8 +9,8 @@ import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
 
 import { getNestedReturnStatements } from "../expression-nested";
-import { isFunction } from "../node-is";
-import type { TSESTreeFunction } from "../node-types";
+import { isFunction } from "../is";
+import type { TSESTreeFunction } from "../types";
 
 function parse(code: string) {
   return parseForESLint(code, {

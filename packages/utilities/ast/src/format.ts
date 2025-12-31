@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { isJSX } from "./node-is";
+import { isJSX } from "./is";
 
 function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
   // eslint-disable-next-line function-rule-2/function-rule

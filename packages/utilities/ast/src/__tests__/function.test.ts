@@ -7,8 +7,8 @@ import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
 
 import { getFunctionId } from "../function-id";
-import { isFunction } from "../node-is";
-import type { TSESTreeFunction } from "../node-types";
+import { isFunction } from "../is";
+import type { TSESTreeFunction } from "../types";
 
 function parse(code: string) {
   return parseForESLint(code, {

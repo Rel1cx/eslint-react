@@ -7,7 +7,7 @@ import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../../test";
 
 import { getClassId } from "../class-id";
-import type { TSESTreeClass } from "../node-types";
+import type { TSESTreeClass } from "../types";
 
 function parse(code: string) {
   return parseForESLint(code, {
