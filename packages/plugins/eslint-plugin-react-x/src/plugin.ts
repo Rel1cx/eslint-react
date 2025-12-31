@@ -60,11 +60,11 @@ import noUnusedState from "./rules/no-unused-state";
 import noUseContext from "./rules/no-use-context";
 import noUselessForwardRef from "./rules/no-useless-forward-ref";
 import noUselessFragment from "./rules/no-useless-fragment";
+import noReactMemberAccess from "./rules/no-react-member-access";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
-
 import noForbiddenProps from "./rules-removed/no-forbidden-props";
 
 export const plugin: CompatiblePlugin = {
@@ -111,6 +111,7 @@ export const plugin: CompatiblePlugin = {
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
     "no-prop-types": noPropTypes,
+    "no-react-member-access": noReactMemberAccess,
     "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
