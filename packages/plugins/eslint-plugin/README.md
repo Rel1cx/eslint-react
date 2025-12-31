@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
 [![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
-[![Build with](https://img.shields.io/badge/built_with-tsdown@0.18.3-000000?style=flat)](https://tsdown.dev)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.18.4-000000?style=flat)](https://tsdown.dev)
 
 4-7x faster composable ESLint rules for React and friends.
 
@@ -191,8 +191,8 @@ This project is and will continue to maintain that 90% of the code is written by
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/main/.github/CONTRIBUTING.md).
+Please follow our [contributing guidelines](https://github.com/Rel1cx/eslint-react/tree/ref-name/.github/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Rel1cx/eslint-react/tree/ref-name/LICENSE) file for details.

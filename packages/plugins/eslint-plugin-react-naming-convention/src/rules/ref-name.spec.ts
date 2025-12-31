@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { allFunctions, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./use-ref-name";
+import rule, { RULE_NAME } from "./ref-name";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
