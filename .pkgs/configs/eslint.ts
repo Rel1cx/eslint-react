@@ -180,7 +180,7 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
     extends: [
       jsdoc({ config: "flat/recommended-typescript-error" }),
       pluginDeMorgan.configs.recommended,
-      pluginPerfectionist.configs?.["recommended-natural"] ?? [],
+      pluginPerfectionist.configs["recommended-natural"],
       pluginRegexp.configs["flat/recommended"],
     ] as never,
     files: GLOB_TS,
