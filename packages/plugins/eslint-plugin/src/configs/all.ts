@@ -102,6 +102,7 @@ export const rules = {
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/filename": "off",
   "@eslint-react/naming-convention/filename-extension": "off",
+  "@eslint-react/naming-convention/use-ref-name": "off",
   "@eslint-react/naming-convention/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
