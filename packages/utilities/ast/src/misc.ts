@@ -1,7 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { isOneOf } from "./node-is";
+import { isJSX, isOneOf } from "./is";
 
 /**
  * Check if a node is multiline
@@ -22,4 +23,60 @@ export function isLineBreak(node: TSESTree.Node) {
     && typeof node.value === "string"
     && node.value.trim() === ""
     && isMultiLine(node);
+}
+
+/**
+ * Get the type of a literal value
+ * @param input The literal value
+ * @returns The type of the literal value
+ */
+function getLiteralValueType(input: bigint | boolean | null | number | string | symbol) {
+  // eslint-disable-next-line function-rule-2/function-rule
+  if (input === null) return "null";
+  return typeof input;
+}
+
+/**
+ * Convert a node type to a delimiter format string
+ * @param node The AST node
+ * @param delimiter The delimiter to use
+ * @returns The delimiter format string
+ */
+export function toDelimiterFormat(node: TSESTree.Node, delimiter = " ") {
+  if (node.type === T.Literal) {
+    if ("regex" in node) {
+      return "RegExp literal";
+    }
+    return `${getLiteralValueType(node.value)} literal` as const;
+  }
+  if (isJSX(node)) {
+    return `JSX ${toLowerCase(delimiterCase(replace(node.type, "JSX", ""), delimiter))}` as const;
+  }
+  return toLowerCase(delimiterCase(node.type, delimiter));
+}
+
+/**
+ * Incomplete but sufficient stringification of AST nodes for common use cases
+ * @param node The AST node
+ * @param getText A function to get the text representation of a node
+ * @returns A string representation of the node
+ */
+export function toStringFormat(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
+  switch (node.type) {
+    case T.Identifier:
+    case T.JSXIdentifier:
+    case T.PrivateIdentifier:
+      return node.name;
+    case T.MemberExpression:
+    case T.JSXMemberExpression:
+      return `${toStringFormat(node.object, getText)}.${toStringFormat(node.property, getText)}`;
+    case T.JSXNamespacedName:
+      return `${node.namespace.name}:${node.name.name}`;
+    case T.JSXText:
+      return node.value;
+    case T.Literal:
+      return node.raw;
+    default:
+      return getText(node);
+  }
 }
