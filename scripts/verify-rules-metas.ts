@@ -213,15 +213,6 @@ const verifyOverview = Effect.gen(function*() {
         yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedDescription)}`);
       }
 
-      // Verify severity icons match preset configurations
-      const expectedSeverityIcons = `${getSeverityIcon(meta.severities[0])} ${getSeverityIcon(meta.severities[1])}`;
-      const providedSeverityIcons = severities.trim();
-      if (expectedSeverityIcons !== providedSeverityIcons) {
-        yield* Effect.logError(ansis.red(`Found 1 mismatched severity icons for rule ${rulename}`));
-        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedSeverityIcons)}`);
-        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedSeverityIcons)}`);
-      }
-
       // Verify feature icons match rule features
       const expectedFeatureIcons = meta.features.map(getFeatureIcon).map((icon: string) => "`" + icon + "`").join(" ");
       const providedFeatureIcons = features.trim();
@@ -229,6 +220,15 @@ const verifyOverview = Effect.gen(function*() {
         yield* Effect.logError(ansis.red(`Found 1 mismatched feature icons for rule ${rulename}`));
         yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
         yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
+      }
+
+      // Verify severity icons match preset configurations
+      const expectedSeverityIcons = `${getSeverityIcon(meta.severities[0])} ${getSeverityIcon(meta.severities[1])}`;
+      const providedSeverityIcons = severities.trim();
+      if (expectedSeverityIcons !== providedSeverityIcons) {
+        yield* Effect.logError(ansis.red(`Found 1 mismatched severity icons for rule ${rulename}`));
+        yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedSeverityIcons)}`);
+        yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedSeverityIcons)}`);
       }
     }
   }
