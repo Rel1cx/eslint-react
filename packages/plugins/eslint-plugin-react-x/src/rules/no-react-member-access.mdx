@@ -1,0 +1,90 @@
+## title: no-react-member-access
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```plain copy
+@eslint-react/x/no-react-member-access
+```
+
+**Full Name in `eslint-plugin-react-x`**
+
+```plain copy
+react-x/no-react-member-access
+```
+
+## Description
+
+Disallows accessing React APIs via the React namespace (`React.*`).
+Encourages importing React APIs directly from `'react'`.
+
+## Examples
+
+### Failing
+
+```tsx
+const [state, setState] = React.useState(0);
+```
+
+```tsx
+const ref = React.useRef(null);
+```
+
+```tsx
+class MyComp extends React.Component {}
+```
+
+```tsx
+const ctx = React.createContext({});
+```
+
+```tsx
+React.cloneElement(<div />);
+```
+
+```tsx
+React.memo(MyComponent);
+```
+
+```tsx
+React.forwardRef(() => {});
+```
+
+### Passing
+
+```tsx
+import {
+  useState,
+  useRef,
+  createContext,
+  cloneElement,
+  memo,
+  forwardRef,
+} from "react";
+
+const [state, setState] = useState(0);
+const ref = useRef(null);
+const ctx = createContext({});
+cloneElement(<div />);
+memo(MyComponent);
+forwardRef(() => {});
+```
+
+```tsx
+const someValue = 123;
+console.log(someValue);
+```
+
+```tsx
+const ReactLike = { useState: () => {} };
+ReactLike.useState();
+```
+
+```tsx
+const obj = { foo: () => {} };
+obj.foo();
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-react-member-access.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-react-member-access.spec.ts)
