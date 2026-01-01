@@ -25,40 +25,6 @@ Disallows unknown `DOM` property.
 In JSX most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style. This can be a possible source of error if you are used to writing plain HTML.
 Only `data-*` and `aria-*` attributes are usings hyphens and lowercase letters in JSX.
 
-## Examples
-
-### Failing
-
-```tsx
-const Hello = <div class="hello">Hello World</div>;
-const Alphabet = <div abc="something">Alphabet</div>;
-
-// Invalid aria-* attribute
-const IconButton = <div aria-foo="bar" />;
-```
-
-### Passing
-
-```tsx
-const Hello = <div className="hello">Hello World</div>;
-const Button = <button disabled>Cannot click me</button>;
-const Img = <img src={catImage} alt="A cat sleeping on a keyboard" />;
-
-// aria-* attributes
-const IconButton = <button aria-label="Close" onClick={this.close}>{closeIcon}</button>;
-
-// data-* attributes
-const Data = <div data-index={12}>Some data</div>;
-
-// React components are ignored
-const MyComponent = <App class="foo-bar" />;
-const AnotherComponent = <Foo.bar for="bar" />;
-
-// Custom web components are ignored
-const MyElem = <div class="foo" is="my-elem"></div>;
-const AtomPanel = <atom-panel class="foo"></atom-panel>;
-```
-
 ## Rule Options
 
 ```js
@@ -94,6 +60,40 @@ Now, the following code passes:
 
 ```tsx
 const StyledDiv = <div css={{ color: "pink" }}></div>;
+```
+
+## Examples
+
+### Failing
+
+```tsx
+const Hello = <div class="hello">Hello World</div>;
+const Alphabet = <div abc="something">Alphabet</div>;
+
+// Invalid aria-* attribute
+const IconButton = <div aria-foo="bar" />;
+```
+
+### Passing
+
+```tsx
+const Hello = <div className="hello">Hello World</div>;
+const Button = <button disabled>Cannot click me</button>;
+const Img = <img src={catImage} alt="A cat sleeping on a keyboard" />;
+
+// aria-* attributes
+const IconButton = <button aria-label="Close" onClick={this.close}>{closeIcon}</button>;
+
+// data-* attributes
+const Data = <div data-index={12}>Some data</div>;
+
+// React components are ignored
+const MyComponent = <App class="foo-bar" />;
+const AnotherComponent = <Foo.bar for="bar" />;
+
+// Custom web components are ignored
+const MyElem = <div class="foo" is="my-elem"></div>;
+const AtomPanel = <atom-panel class="foo"></atom-panel>;
 ```
 
 ## Implementation

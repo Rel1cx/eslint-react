@@ -24,6 +24,37 @@ Enforces consistent file naming conventions.
 
 By default, this rule enforces `PascalCase`, but it can be configured to support `camelCase`, `kebab-case`, or `snake_case` to match your project's standards.
 
+## Rule Options
+
+```ts
+type Options = {
+  rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
+  excepts?: string[];
+};
+```
+
+### `rule`
+
+The naming convention to enforce.
+
+Default: `"PascalCase"`
+
+### `excepts`
+
+An array of strings or regex patterns to exclude certain file names from this rule.
+
+Default:
+
+```ts
+[
+  "index", // Ignores `index` files (e.g., `index.ts`, `index.tsx`).
+  "/^_/", // Ignores files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
+  "/^\\$/", // Ignores files starting with a dollar sign (e.g., `$.tsx`).
+  "/^[0-9]+$/", // Ignores files that are purely numeric (e.g., `404.tsx`).
+  "/^\\[[^\\]]+\\]$/", // Ignores files with dynamic route segments in brackets (e.g., `[slug].tsx`).
+]
+```
+
 ## Examples
 
 ### Failing
@@ -61,37 +92,6 @@ With the same `PascalCase` configuration, this file name is valid:
 ```
 
 This file will pass without any warnings.
-
-## Rule Options
-
-```ts
-type Options = {
-  rule?: "PascalCase" | "camelCase" | "kebab-case" | "snake_case";
-  excepts?: string[];
-};
-```
-
-### `rule`
-
-The naming convention to enforce.
-
-Default: `"PascalCase"`
-
-### `excepts`
-
-An array of strings or regex patterns to exclude certain file names from this rule.
-
-Default:
-
-```ts
-[
-  "index", // Ignores `index` files (e.g., `index.ts`, `index.tsx`).
-  "/^_/", // Ignores files starting with an underscore (e.g., `_app.tsx`, `_layout.tsx`).
-  "/^\\$/", // Ignores files starting with a dollar sign (e.g., `$.tsx`).
-  "/^[0-9]+$/", // Ignores files that are purely numeric (e.g., `404.tsx`).
-  "/^\\[[^\\]]+\\]$/", // Ignores files with dynamic route segments in brackets (e.g., `[slug].tsx`).
-]
-```
 
 ## Configuration Examples
 
