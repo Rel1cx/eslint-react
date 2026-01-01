@@ -9,6 +9,9 @@ body:
       value: |
         ## Feature Request
 
+        > [!NOTE]
+        > If you want to request a new rule, please use the [Rule Request](https://github.com/Rel1cx/eslint-react/issues/new?template=rule_request.yml) template instead.
+
         Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
   - type: textarea
     id: problem
