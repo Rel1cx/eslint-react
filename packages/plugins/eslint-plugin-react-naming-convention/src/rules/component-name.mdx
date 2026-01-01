@@ -22,30 +22,6 @@ react-naming-convention/component-name
 
 Enforces naming conventions for components.
 
-## Examples
-
-### Failing
-
-```tsx
-import React from "react";
-
-function My_component() {
-  //     ^^^^^^^^^^^^
-  //     - Expected component name to be in 'PascalCase'.
-  return null;
-}
-```
-
-### Passing
-
-```tsx
-import React from "react";
-
-function MyComponent() {
-  return null;
-}
-```
-
 ## Rule Options
 
 ```ts
@@ -74,17 +50,37 @@ When set to `true`, component names that are entirely uppercase are allowed.
 
 Default: `false`
 
-## Configuration Examples
+## Examples
 
-```json
-{
-  "@eslint-react/naming-convention/component-name": ["warn", "PascalCase"]
+### Failing
+
+```tsx
+import React from "react";
+
+function My_component() {
+  //     ^^^^^^^^^^^^
+  //     - Expected component name to be in 'PascalCase'.
+  return null;
 }
 ```
 
-```json
-{
-  "@eslint-react/naming-convention/component-name": ["warn", { "rule": "PascalCase", "allowAllCaps": true }]
+### Passing
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return null;
+}
+```
+
+## Examples with `allowAllCaps: true`
+
+```tsx
+import React from "react";
+
+function API() {
+  return null;
 }
 ```
 

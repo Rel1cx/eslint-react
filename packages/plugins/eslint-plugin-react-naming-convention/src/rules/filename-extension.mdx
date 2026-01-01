@@ -22,10 +22,6 @@ react-naming-convention/filename-extension
 
 Enforces consistent use of the JSX file extension.
 
-## Examples
-
-This rule enforces consistent file extensions for JSX files.
-
 ## Rule Options
 
 ```ts
@@ -49,6 +45,24 @@ Default: `[".jsx", ".tsx"]`
 When set to `true`, this rule ignores files that do not contain JSX syntax.
 
 Default: `true`
+
+## Examples
+
+### Failing
+
+```tsx title="foo.tsx"
+export const foo = 42;
+```
+
+### Passing
+
+```tsx title="foo.ts"
+export const foo = 42;
+```
+
+```tsx title="foo.tsx"
+export const foo = <div>Hello, world!</div>;
+```
 
 ## Configuration Examples
 

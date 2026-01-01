@@ -36,6 +36,27 @@ This rule ensures two things:
 1. The `useState` hook is destructured into a value and setter pair (optional, disabled by default).
 2. The value and setter are named symmetrically (e.g., `count` and `setCount`).
 
+## Rule Options
+
+```ts
+type Options = {
+  enforceAssignment?: boolean;
+  enforceSetterName?: boolean;
+};
+```
+
+### `enforceAssignment`
+
+Enforces that the `useState` hook is destructured into a value and setter pair.
+
+Default: `false`
+
+### `enforceSetterName`
+
+Enforces that the setter is named symmetrically to the value.
+
+Default: `true`
+
 ## Examples
 
 ### Failing
@@ -77,27 +98,6 @@ function MyComponent() {
   return <div>{foo}</div>;
 }
 ```
-
-## Rule Options
-
-```ts
-type Options = {
-  enforceAssignment?: boolean;
-  enforceSetterName?: boolean;
-};
-```
-
-### `enforceAssignment`
-
-Enforces that the `useState` hook is destructured into a value and setter pair.
-
-Default: `false`
-
-### `enforceSetterName`
-
-Enforces that the setter is named symmetrically to the value.
-
-Default: `true`
 
 ## Examples with `enforceAssignment: true`
 
