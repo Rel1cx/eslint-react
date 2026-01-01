@@ -164,7 +164,7 @@ export const strictTypeChecked = defineConfig({
     extends: [
         jsdoc({ config: "flat/recommended-typescript-error" }),
         pluginDeMorgan.configs.recommended,
-        pluginPerfectionist.configs?.["recommended-natural"] ?? [],
+        pluginPerfectionist.configs["recommended-natural"],
         pluginRegexp.configs["flat/recommended"],
     ],
     files: GLOB_TS,
