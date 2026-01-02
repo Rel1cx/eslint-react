@@ -1,0 +1,59 @@
+---
+title: no-react-hook-member-access
+---
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```plain copy
+@eslint-react/no-react-hook-member-access
+```
+
+**Full Name in `eslint-plugin-react-x`**
+
+```plain copy
+react-x/no-react-hook-member-access
+```
+
+## Description
+
+Disallows accessing React Hooks via the React namespace (e.g., `React.useState`, `React.useEffect`).
+
+Importing hooks directly from the `"react"` package is the recommended approach. It improves code clarity, reduces bundle size when using tree-shaking, and is the standard practice in modern React applications.
+
+## Examples
+
+### Failing
+
+```tsx
+// Using hooks from React namespace
+React.useState(0);
+React.useEffect(() => {}, []);
+React.useContext(MyContext);
+React.useCallback(() => {}, []);
+```
+
+### Passing
+
+```tsx
+import { useState, useEffect, useContext, useCallback } from "react";
+
+// Using directly imported hooks
+useState(0);
+useEffect(() => {}, []);
+useContext(MyContext);
+useCallback(() => {}, []);
+```
+
+```tsx
+// Using other React methods is fine
+React.memo(Component);
+React.forwardRef(() => {});
+React.createContext({});
+React.cloneElement(<div />);
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-react-hook-member-access.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-react-hook-member-access.spec.ts)
+
