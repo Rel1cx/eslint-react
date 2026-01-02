@@ -20,6 +20,8 @@ export const REACT_BUILTIN_HOOK_NAMES = [
   "useTransition",
 ] as const;
 
+export type ReactBuiltinHookName = typeof REACT_BUILTIN_HOOK_NAMES[number];
+
 /**
  * Catch all identifiers that begin with "use" followed by an uppercase Latin
  * character to exclude identifiers like "user".

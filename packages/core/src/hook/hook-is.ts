@@ -3,8 +3,7 @@ import type { unit } from "@eslint-react/eff";
 import { constFalse, flip } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
-
-import { isReactHookName } from "./hook-name";
+import { REACT_BUILTIN_HOOK_NAMES, type ReactBuiltinHookName, isReactHookName } from "./hook-name";
 
 /**
  * Determines if a function node is a React Hook based on its name.
@@ -100,6 +99,14 @@ export function isUseEffectLikeCall(node: TSESTree.Node | unit) {
     default:
       return false;
   }
+}
+
+export function isReactBuiltinHookName(
+  name: string,
+): name is ReactBuiltinHookName {
+  return REACT_BUILTIN_HOOK_NAMES.includes(
+    name as ReactBuiltinHookName,
+  );
 }
 
 // Utility functions for specific React hooks - each returns a function that checks if a node calls that specific hook
