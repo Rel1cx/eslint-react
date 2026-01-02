@@ -57,15 +57,15 @@
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*",
-    "ts-api-utils": "^2.3.0"
+    "ts-api-utils": "^2.4.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.18.4"
+    "tsdown": "^0.19.0-beta.1"
   },
   "peerDependencies": {
     "eslint": "^8.57.0 || ^9.0.0",
-    "typescript": ">=5.9.3 <5.9.3"
+    "typescript": ">=4.8.4 <6.0.0"
   },
   "engines": {
     "node": ">=20.19.0"
