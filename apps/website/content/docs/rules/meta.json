@@ -60,6 +60,7 @@
     "no-use-context",
     "no-useless-forward-ref",
     "no-useless-fragment",
+    "no-react-hook-member-access",
     "prefer-destructuring-assignment",
     "prefer-namespace-import",
     "prefer-read-only-props",
