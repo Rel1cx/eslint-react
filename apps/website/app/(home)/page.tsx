@@ -49,11 +49,11 @@ export default function HomePage() {
       </article>
       <footer className="text-center text-sm text-gray-500 mt-8">
         <small>
-          ESLint React is not affiliated with Meta Corporation or{" "}
+          ESLint React is not affiliated with Meta Corporation or the{" "}
           <Link className="underline" href="https://github.com/facebook/react">facebook/react</Link>{" "}
           project or team, nor is it endorsed or sponsored by them.
 
-          This project is and will continue to maintain that 90% of the code is written by humans.
+          This project is, and will remain, 90% of its code written by humans.
         </small>
       </footer>
     </main>

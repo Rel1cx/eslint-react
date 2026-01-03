@@ -183,9 +183,9 @@ export default defineConfig(
 
 ## Disclaimer
 
-This project is not affiliated with Meta Corporation or [facebook/react](https://github.com/facebook/react) project or team, nor is it endorsed or sponsored by them.
+This project is not affiliated with Meta Corporation or the [facebook/react](https://github.com/facebook/react) project or team, nor is it endorsed or sponsored by them.
 
-This project is and will continue to maintain that 90% of the code is written by humans.
+This project is, and will remain, 90% of its code written by humans.
 
 ## Contributing
 
