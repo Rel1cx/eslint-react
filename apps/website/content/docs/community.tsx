@@ -13,6 +13,7 @@ export const projects = [
   { owner: "letstri", repo: "permix" },
   { owner: "Nexus-Mods", repo: "Vortex" },
   { owner: "npmgraph", repo: "npmgraph" },
+  { owner: "ocavue", repo: "astrobook" },
   { owner: "offlegacy", repo: "event-tracker" },
   { owner: "onejs", repo: "one" },
   { owner: "payloadcms", repo: "payload" },
