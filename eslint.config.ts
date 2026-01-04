@@ -48,6 +48,7 @@ export default defineConfig(
       "function-rule-2": functionRule(nullishComparison()),
     },
     rules: {
+      "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
       "fast-import/no-unused-exports": "off",
       "function-rule-1/function-rule": "warn",
       "function-rule-2/function-rule": "error",
