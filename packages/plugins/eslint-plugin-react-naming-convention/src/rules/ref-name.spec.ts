@@ -53,5 +53,20 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const valueRef = useRef(null);
     `,
+    tsx`
+      const notARef = someOtherFunction();
+    `,
+    tsx`
+      const obj = useRef({}).current;
+    `,
+    tsx`
+      const obj = React.useRef({}).current;
+    `,
+    tsx`
+      const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
+    `,
+    tsx`
+      const useOnce = <T,>(fn: () => T) => (React.useRef<{ value: T }>().current ??= { value: fn() }).value;
+    `,
   ],
 });
