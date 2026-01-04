@@ -1,3 +1,4 @@
+import * as AST from "@eslint-react/ast";
 import { getInstanceId, isUseRefCall } from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
@@ -5,6 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, match } from "ts-pattern";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "ref-name";
@@ -34,7 +36,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!isUseRefCall(node)) return;
-
+      // https://github.com/Rel1cx/eslint-react/issues/1375
+      if (AST.getUnderlyingExpression(node.parent).type === T.MemberExpression) return;
       const id = getInstanceId(node);
       if (id == null) return;
 
