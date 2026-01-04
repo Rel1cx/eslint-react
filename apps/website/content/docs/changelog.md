@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.5.1 (2026-01-05)
+
+### 🐞 Fixes
+
+- Fix `naming-convention/ref-name` false positive with immediate deref, closes #1375 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1376
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.0...v2.5.1
+
 ## v2.5.0 (2025-12-31)
 
 ### ✨ New
