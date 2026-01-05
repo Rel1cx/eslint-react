@@ -10,10 +10,6 @@
     "skipLibCheck": true,
     "strict": true,
     "erasableSyntaxOnly": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
     "exactOptionalPropertyTypes": true,
     "noEmit": true,
     "types": [
