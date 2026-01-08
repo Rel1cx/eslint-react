@@ -45,6 +45,12 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidContextName" }],
     },
+    {
+      code: tsx`
+        ctxs.themecontext = createContext("");
+      `,
+      errors: [{ messageId: "invalidContextName" }],
+    },
   ],
   valid: [
     ...allFunctions,
@@ -58,6 +64,12 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       const ThemeContext = createContext("");
+    `,
+    tsx`
+      const ThemeContext = React.createContext("");
+    `,
+    tsx`
+      ctxs.ThemeContext = createContext("");
     `,
   ],
 });
