@@ -39,6 +39,12 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidRefName" }],
     },
+    {
+      code: tsx`
+        refs.myValue = useRef();
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
   ],
   valid: [
     ...allFunctions,
@@ -67,6 +73,9 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       const useOnce = <T,>(fn: () => T) => (React.useRef<{ value: T }>().current ??= { value: fn() }).value;
+    `,
+    tsx`
+      refs.myRef = useRef();
     `,
   ],
 });
