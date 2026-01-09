@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .with({ type: T.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
         .otherwise(() => [null, null] as const);
       if (id == null) return;
-      if (name.endsWith("Ref") || name === 'ref') return;
+      if (name.endsWith("Ref") || name === "ref") return;
       context.report({
         messageId: "invalidRefName",
         node: id,
