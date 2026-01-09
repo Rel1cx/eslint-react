@@ -1,7 +1,8 @@
 import { getInstanceId, isComponentName, isCreateContextCall } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { compare } from "compare-versions";
 import { P, match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -31,6 +32,9 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `createContext` is not present in the file
   if (!context.sourceCode.text.includes("createContext")) return {};
+  const { version } = getSettingsFromContext(context);
+  // Skip if React version is less than 19.0.0
+  if (compare(version, "19.0.0", "<")) return {};
   return {
     CallExpression(node) {
       if (!isCreateContextCall(context, node)) return;

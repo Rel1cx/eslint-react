@@ -39,6 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `useContext` is not present in the file
   if (!context.sourceCode.text.includes("useContext")) return {};
   const settings = getSettingsFromContext(context);
+  // Skip if React version is less than 19.0.0
   if (compare(settings.version, "19.0.0", "<")) {
     return {};
   }
