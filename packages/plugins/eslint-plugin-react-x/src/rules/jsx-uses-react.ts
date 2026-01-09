@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const { jsx, jsxFactory, jsxFragmentFactory } = jsxConfig;
 
-  // If using the new JSX transform (automatic runtime), this rule is not needed
+  // If using the new JSX transform, this rule is not needed
   if (jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev) return {};
 
   // Marks the JSX factory (e.g., 'React') as used when a JSX element is found

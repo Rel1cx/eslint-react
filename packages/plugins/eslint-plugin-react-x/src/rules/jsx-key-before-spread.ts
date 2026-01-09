@@ -19,11 +19,10 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "Enforces that the 'key' prop is placed before the spread prop in JSX elements when using the new JSX transform (automatic runtime).",
+        "Enforces that the 'key' prop is placed before the spread prop in JSX elements when using the new JSX transform.",
     },
     messages: {
-      jsxKeyBeforeSpread:
-        "The 'key' prop must be placed before any spread props when using the new JSX transform (automatic runtime).",
+      jsxKeyBeforeSpread: "The 'key' prop must be placed before any spread props when using the new JSX transform.",
     },
     schema: [],
   },
@@ -38,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...getJsxConfigFromAnnotation(context),
   };
 
-  // This rule is only applicable for the new JSX transform (automatic runtime)
+  // This rule is only applicable for the new JSX transform
   if (jsx !== JsxEmit.ReactJSX && jsx !== JsxEmit.ReactJSXDev) return {};
 
   return {
