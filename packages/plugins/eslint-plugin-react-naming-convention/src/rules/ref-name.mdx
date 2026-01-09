@@ -25,7 +25,7 @@ react-naming-convention/ref-name
 
 ## Description
 
-Enforces that variables assigned from `useRef` calls have names ending with `Ref`.
+Enforces variable names assigned from `useRef` calls to be either `ref` or end with `Ref`.
 
 ## Examples
 
@@ -44,6 +44,10 @@ const value = useRef(null);
 ```
 
 ### Passing
+
+```tsx
+const ref = useRef(0);
+```
 
 ```tsx
 const countRef = useRef(0);
