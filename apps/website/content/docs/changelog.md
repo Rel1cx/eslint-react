@@ -7,9 +7,9 @@ title: Changelog
 ### 🐞 Fixes
 
 - Enhance context and ref naming rules with additional cases covered by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1378
-- Update `naming-convention/context-name` rule to include React version checks, closes #1382 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1384
+- Update `naming-convention/context-name` rule to include React version checks; closes #1382 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1384
 - Update `naming-convention/ref-name` to allow "ref" as a ref name by @ocavue in https://github.com/Rel1cx/eslint-react/pull/1380
-- Fix `jsx-key-before-spread` should only be enabled in JSX automatic runtime & Update related docs and tests, closes #1381 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1383
+- Fix `jsx-key-before-spread`: should only be enabled in JSX automatic runtime; update related docs and tests; closes #1381 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1383
 
 ## New Contributors
 
