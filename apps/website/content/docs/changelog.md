@@ -898,8 +898,8 @@ No notable changes have been made in this release.
 
 ### ✨ New
 
-- feat(plugins/dom): add `no-render` rule to replace `ReactDom.render()` with `createRoot(node).render()`, closes #972 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/993>
-- feat(plugins/dom): add `no-hydrate` rule to replace `ReactDom.hydrate()` with `hydrateRoot()`, closes #973 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/995>
+- feat(plugins/dom): add `no-render` rule to replace `ReactDOM.render()` with `createRoot(node).render()`, closes #972 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/993>
+- feat(plugins/dom): add `no-hydrate` rule to replace `ReactDOM.hydrate()` with `hydrateRoot()`, closes #973 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/995>
 
 ### 🪄 Improvements
 

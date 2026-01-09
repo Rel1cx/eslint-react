@@ -58,7 +58,7 @@ function retrieveRuleMeta(category: string, name: string) {
     const filename = `packages/plugins/eslint-plugin-react-${category}/src/rules/${name}.ts`;
     const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(`../${filename}`));
 
-    // Extract description from rule's meta. docs
+    // Extract description from the rule's meta.docs
     const description = match(mod)
       .with({ meta: { docs: { description: P.select(P.string) } } }, identity)
       .otherwise(() => "No description available.");
@@ -101,11 +101,11 @@ const verifyDocs = Effect.gen(function*() {
     const rulename = `${category}/${basename}`;
     const rulemeta = yield* retrieveRuleMeta(category, basename);
 
-    // Read corresponding . mdx documentation file
+    // Read corresponding .mdx documentation file
     const content = yield* fs.readFileString(filename.replace(/\.ts$/u, ".mdx"), "utf8");
     const contentLines = content.split("\n");
 
-    // Verify description section matches rule metadata
+    // Verify the description section matches the rule metadata
     const expectedDescription = rulemeta.description;
     const descriptionIndex = contentLines.findIndex((line) => line.startsWith("## Description"));
     if (descriptionIndex === -1) {
@@ -119,7 +119,7 @@ const verifyDocs = Effect.gen(function*() {
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedDescription)}`);
     }
 
-    // Verify features section matches rule metadata
+    // Verify the features section matches the rule metadata
     const featuresIndex = contentLines.findIndex((line) => line.startsWith("**Features**"));
     if (featuresIndex === -1) {
       if (rulemeta.features.length === 0) continue;
@@ -138,7 +138,7 @@ const verifyDocs = Effect.gen(function*() {
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
     }
 
-    // Verify presets section exists if rule has non-zero severities
+    // Verify the presets section exists if the rule has non-zero severities
     const presetsIndex = contentLines.findIndex((line) => line.startsWith("**Presets**"));
     if (presetsIndex === -1) {
       if (rulemeta.severities.every((s) => s === 0)) continue;
@@ -149,7 +149,7 @@ const verifyDocs = Effect.gen(function*() {
   }
 });
 
-// Verify the overview. mdx table entries match actual rule metadata
+// Verify the overview.mdx table entries match the actual rule metadata
 const verifyOverview = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
@@ -161,7 +161,7 @@ const verifyOverview = Effect.gen(function*() {
 
   // Process each rule category section
   for (const { key, heading } of SECTION_HEADERS) {
-    // Locate section heading and table boundaries
+    // Locate the section heading and table boundaries
     const headerStartIndex = contentLines.findIndex((line) => line.startsWith(`## ${heading}`));
     if (headerStartIndex === -1) {
       return yield* Effect.dieMessage(`Could not find section for ${heading} in ${target}`);
@@ -173,7 +173,7 @@ const verifyOverview = Effect.gen(function*() {
     }
     const tableEndIndex = contentLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
     if (tableEndIndex === -1) {
-      return yield* Effect.dieMessage(`Could not find the end of table for ${heading} in ${target}`);
+      return yield* Effect.dieMessage(`Could not find the end of the table for ${heading} in ${target}`);
     }
 
     // Verify each table row (skip header and separator rows)
@@ -204,7 +204,7 @@ const verifyOverview = Effect.gen(function*() {
         yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedLink)}`);
       }
 
-      // Verify description text
+      // Verify the description text
       const expectedDescription = meta.description.replace(/\.$/, "");
       const providedDescription = description.trim().replaceAll("`", "'");
       if (expectedDescription !== providedDescription) {
@@ -213,7 +213,7 @@ const verifyOverview = Effect.gen(function*() {
         yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedDescription)}`);
       }
 
-      // Verify feature icons match rule features
+      // Verify feature icons match the rule features
       const expectedFeatureIcons = meta.features.map(getFeatureIcon).map((icon: string) => "`" + icon + "`").join(" ");
       const providedFeatureIcons = features.trim();
       if (expectedFeatureIcons !== providedFeatureIcons) {
@@ -235,7 +235,7 @@ const verifyOverview = Effect.gen(function*() {
 });
 
 const program = Effect.gen(function*() {
-  // Verify the rules documentations match the actual rule definitions
+  // Verify the rules documentation matches the actual rule definitions
   yield* verifyDocs;
   // Verify the rules overview matches the actual rule definitions
   yield* verifyOverview;

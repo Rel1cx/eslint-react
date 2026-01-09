@@ -76,6 +76,6 @@ ruleTester.run(RULE_NAME, rule, {
       ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
     `,
     "var foo = render(<div />, root)",
-    "var foo = ReactDom.renderder(<div />, root)",
+    "var foo = ReactDOM.renderder(<div />, root)",
   ],
 });

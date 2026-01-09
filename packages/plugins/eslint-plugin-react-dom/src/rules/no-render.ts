@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Replaces usage of 'ReactDom.render()' with 'createRoot(node).render()'.",
+      description: "Replaces usage of 'ReactDOM.render()' with 'createRoot(node).render()'.",
     },
     fixable: "code",
     messages: {
@@ -40,8 +40,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // This rule only applies to React 18.0.0 and later
   if (compare(settings.version, "18.0.0", "<")) return {};
 
-  // Tracks imported names for ReactDOM, e.g., `ReactDOM` or `ReactDom`.
-  const reactDomNames = new Set<string>(["ReactDOM", "ReactDom"]);
+  // Tracks imported names for ReactDOM, e.g., `ReactDOM` or `ReactDOM`.
+  const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
   // Tracks imported names for the `render` function
   const renderNames = new Set<string>();
 

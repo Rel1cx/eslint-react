@@ -26,16 +26,16 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import React from "react";
-        import ReactDom from "react-dom";
+        import ReactDOM from "react-dom";
         import Component from "Component";
 
-        ReactDom.render(<Component />, document.getElementById("app"));
+        ReactDOM.render(<Component />, document.getElementById("app"));
       `,
       errors: [{ messageId: "noRender" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";
-        import ReactDom from "react-dom";
+        import ReactDOM from "react-dom";
         import Component from "Component";
 
         createRoot(document.getElementById("app")).render(<Component />);
@@ -44,16 +44,16 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import React from "react";
-        import ReactDom from "react-dom";
+        import ReactDOM from "react-dom";
         import Component from "Component";
 
-        ReactDom.render(<Component />, document.getElementById("app")!);
+        ReactDOM.render(<Component />, document.getElementById("app")!);
       `,
       errors: [{ messageId: "noRender" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";
-        import ReactDom from "react-dom";
+        import ReactDOM from "react-dom";
         import Component from "Component";
 
         createRoot(document.getElementById("app")!).render(<Component />);
@@ -62,17 +62,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import React from "react";
-        import ReactDom from "react-dom";
+        import ReactDOM from "react-dom";
         import Component from "Component";
 
         const rootEl = document.getElementById("app")!;
-        ReactDom.render(<Component />, rootEl);
+        ReactDOM.render(<Component />, rootEl);
       `,
       errors: [{ messageId: "noRender" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";
-        import ReactDom from "react-dom";
+        import ReactDOM from "react-dom";
         import Component from "Component";
 
         const rootEl = document.getElementById("app")!;
@@ -90,7 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       import React from "react";
-      import ReactDom from "react-dom";
+      import ReactDOM from "react-dom";
       import Component from "Component";
 
       createRoot(document.getElementById("app")).render(<Component />);

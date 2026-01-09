@@ -96,8 +96,8 @@ Minimum supported versions:
 - [x] `react-x/no-forward-ref` - Replaces usage of `forwardRef` with passing `ref` as a prop (React 19)
 - [x] `react-x/no-use-context` - Replaces usage of `useContext` with `use` (React 19)
 - [x] `react-x/prefer-namespace-import` - Enforces the use of namespace imports for React (Replaces `prefer-react-namespace-import`)
-- [x] `react-dom/no-hydrate` - Replaces usage of `ReactDom.hydrate()` with `hydrateRoot()` (React 19)
-- [x] `react-dom/no-render` - Replaces usage of `ReactDom.render()` with `createRoot(node).render()` (React 19)
+- [x] `react-dom/no-hydrate` - Replaces usage of `ReactDOM.hydrate()` with `hydrateRoot()` (React 19)
+- [x] `react-dom/no-render` - Replaces usage of `ReactDOM.render()` with `createRoot(node).render()` (React 19)
 - [x] `react-dom/no-use-form-state` - Replaces the usages of `useFormState()` to use `useActionState()` (React 19)
 - [x] `react-dom/prefer-namespace-import` - Enforces the use of namespace imports for ReactDOM
 - [x] `naming-convention/context-name` - Enforces the context name to be a valid component name with the suffix `Context` (React 19)

@@ -1,7 +1,7 @@
 import babelEslintParser from "@babel/eslint-parser";
 import eslintJs from "@eslint/js";
 import eslintPluginReactDebug from "eslint-plugin-react-debug";
-import eslintPluginReactDom from "eslint-plugin-react-dom";
+import eslintPluginReactDOM from "eslint-plugin-react-dom";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactNamingConvention from "eslint-plugin-react-naming-convention";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
@@ -71,7 +71,7 @@ export default defineConfig(
     files: JSCONFIG_APP.include,
     extends: [
       eslintPluginReactX.configs.recommended,
-      eslintPluginReactDom.configs.recommended,
+      eslintPluginReactDOM.configs.recommended,
       eslintPluginReactWebApi.configs.recommended,
       eslintPluginReactNamingConvention.configs.recommended,
       eslintPluginReactRefresh.configs.recommended,

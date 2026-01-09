@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Sets to track imported names for 'ReactDOM' and 'render'
-  const reactDomNames = new Set<string>(["ReactDOM", "ReactDom"]);
+  const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
   const renderNames = new Set<string>();
 
   return {
