@@ -30,7 +30,7 @@ react-dom/no-hydrate
 
 ## Description
 
-Replaces usage of `ReactDom.hydrate()` with `hydrateRoot()`.
+Replaces usage of `ReactDOM.hydrate()` with `hydrateRoot()`.
 
 ## Examples
 
@@ -38,16 +38,16 @@ Replaces usage of `ReactDom.hydrate()` with `hydrateRoot()`.
 
 ```tsx
 import Component from "Component";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 
-ReactDom.hydrate(<Component />, document.getElementById("app"));
+ReactDOM.hydrate(<Component />, document.getElementById("app"));
 ```
 
 ### After
 
 ```tsx
 import Component from "Component";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 import { hydrateRoot } from "react-dom/client";
 
 hydrateRoot(document.getElementById("app"), <Component />);
@@ -61,11 +61,11 @@ hydrateRoot(document.getElementById("app"), <Component />);
 ## Further Reading
 
 - [React Docs: DOM `hydrate`](https://18.react.dev/reference/react-dom/hydrate)
-- [React DOM `createRoot`](https://react.dev/reference/react-dom/client/hydrateRoot)
+- [React DOM `hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot)
 
 ---
 
 ## See Also
 
 - [no-return](./dom-no-hydrate)\
-  Replaces usage of `ReactDom.hydrate()` with `createRoot(node).hydrate()`.
+  Replaces usage of `ReactDOM.hydrate()` with `createRoot(node).hydrate()`.

@@ -20,10 +20,9 @@ react-dom/no-unknown-property
 
 ## Description
 
-Disallows unknown `DOM` property.
+Disallows unknown `DOM` properties.
 
-In JSX most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style. This can be a possible source of error if you are used to writing plain HTML.
-Only `data-*` and `aria-*` attributes are usings hyphens and lowercase letters in JSX.
+In JSX, most DOM properties and attributes should be camel-cased to be consistent with standard JavaScript style. This can be a source of error if you are used to writing plain HTML. Only `data-*` and `aria-*` attributes use hyphens and lowercase letters in JSX.
 
 ## Rule Options
 
@@ -33,11 +32,11 @@ Only `data-*` and `aria-*` attributes are usings hyphens and lowercase letters i
 ...
 ```
 
-- `enabled`: for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
+- `enabled`: enables the rule. 0=off, 1=warn, 2=error. Defaults to 0.
 - `ignore`: optional array of property and attribute names to ignore during validation.
-- `requireDataLowercase`: optional (default: `false`), require data-\* attributes to contain only lowercase characters. React will issue a warning when data-\* attributes contain uppercase characters. In order to catch such attributes, set the `requireDataLowercase` option to `true`.
+- `requireDataLowercase`: optional (default: `false`), requires data-\* attributes to contain only lowercase characters. React will issue a warning when data-\* attributes contain uppercase characters. To catch such attributes, set the `requireDataLowercase` option to `true`.
 
-If you are using a library that passes something as a prop to JSX elements, it is recommended to add those props to the ignored properties.
+If you are using a library that passes something as a prop to JSX elements, add those props to the ignored properties.
 
 For example, if you use [emotion](https://emotion.sh/docs/introduction) and its [`css` prop](https://emotion.sh/docs/css-prop),
 add the following to your `.eslintrc` config file:
@@ -56,7 +55,7 @@ export default [
 ];
 ```
 
-Now, the following code passes:
+Now the following code passes:
 
 ```tsx
 const StyledDiv = <div css={{ color: "pink" }}></div>;

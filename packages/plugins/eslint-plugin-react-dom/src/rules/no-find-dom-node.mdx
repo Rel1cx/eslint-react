@@ -42,7 +42,7 @@ class AutoSelectingInput extends Component {
   componentDidMount() {
     const input = findDOMNode(this);
     //            ^^^^^^^^^^^^^^^^^
-    //            - The 'findDOMNode' will be removed in a future version of React. Use the the alternatives instead.
+    //            - 'findDOMNode' will be removed in a future version of React. Use the alternatives instead.
     if (input instanceof HTMLInputElement) {
       input.select();
     }
