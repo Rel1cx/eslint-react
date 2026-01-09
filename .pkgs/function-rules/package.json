@@ -21,11 +21,11 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "eslint-plugin-function-rule": "^0.1.9"
+    "eslint-plugin-function-rule": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^9.39.2",
-    "tsdown": "^0.19.0-beta.2"
+    "tsdown": "^0.19.0-beta.5"
   },
   "peerDependencies": {
     "eslint": "^9.39.2",
