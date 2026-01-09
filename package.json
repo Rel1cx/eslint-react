@@ -47,7 +47,8 @@
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
     "update:readme": "tsx ./scripts/update-readme.ts",
     "update:version": "tsx ./scripts/update-version.ts",
-    "update:website": "tsx ./scripts/update-website.ts"
+    "update:website": "tsx ./scripts/update-website.ts && tsx ./scripts/verify-rules-metas.ts",
+    "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
     "@effect/language-service": "^0.64.1",
