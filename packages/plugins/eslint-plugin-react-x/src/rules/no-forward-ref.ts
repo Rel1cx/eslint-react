@@ -41,8 +41,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("forwardRef")) {
     return {};
   }
-  // Skip if React version is less than 19.0.0
   const { version } = getSettingsFromContext(context);
+  // Skip if React version is less than 19.0.0
   if (compare(version, "19.0.0", "<")) {
     return {};
   }
