@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces explicit 'sandbox' attribute for 'iframe' elements.",
+      description: "Enforces an explicit 'sandbox' attribute for 'iframe' elements.",
     },
     fixable: "code",
     hasSuggestions: true,
