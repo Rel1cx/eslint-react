@@ -1,8 +1,9 @@
+import { JsxEmit, getJsxConfigFromAnnotation, getJsxConfigFromContext } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "jsx-key-before-spread";
@@ -17,10 +18,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces that the 'key' prop is placed before the spread prop in JSX elements.",
+      description:
+        "Enforces that the 'key' prop is placed before the spread prop in JSX elements when using the new JSX transform (automatic runtime).",
     },
     messages: {
-      jsxKeyBeforeSpread: "The 'key' prop must be placed before any spread props.",
+      jsxKeyBeforeSpread:
+        "The 'key' prop must be placed before any spread props when using the new JSX transform (automatic runtime).",
     },
     schema: [],
   },
@@ -30,6 +33,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const { jsx } = {
+    ...getJsxConfigFromContext(context),
+    ...getJsxConfigFromAnnotation(context),
+  };
+
+  // This rule is only applicable for the new JSX transform (automatic runtime)
+  if (jsx !== JsxEmit.ReactJSX && jsx !== JsxEmit.ReactJSXDev) return {};
+
   return {
     JSXOpeningElement(node) {
       let firstSpreadPropIndex: null | number = null;
