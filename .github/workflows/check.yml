@@ -29,3 +29,5 @@ jobs:
         run: pnpm run build
       - name: Check
         run: pnpm run lint
+      - name: Verify rules metas
+        run: pnpm run verify:rules-metas

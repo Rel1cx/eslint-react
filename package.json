@@ -47,7 +47,7 @@
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
     "update:readme": "tsx ./scripts/update-readme.ts",
     "update:version": "tsx ./scripts/update-version.ts",
-    "update:website": "tsx ./scripts/update-website.ts && tsx ./scripts/verify-rules-metas.ts",
+    "update:website": "tsx ./scripts/update-website.ts",
     "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
