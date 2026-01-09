@@ -54,7 +54,7 @@
     "@effect/language-service": "^0.64.1",
     "@effect/platform": "^0.94.1",
     "@effect/platform-node": "^0.104.0",
-    "@eslint/compat": "^2.0.0",
+    "@eslint/compat": "^2.0.1",
     "@local/configs": "workspace:*",
     "@local/function-rules": "workspace:*",
     "@radix-ui/react-toast": "^1.2.15",
@@ -72,7 +72,7 @@
     "effect": "^3.19.14",
     "eslint": "^9.39.2",
     "eslint-plugin-fast-import": "^1.7.1",
-    "eslint-plugin-function-rule": "^0.2.0",
+    "eslint-plugin-function-rule": "^0.2.4",
     "eslint-plugin-vitest": "^0.5.4",
     "mdxlint": "^1.0.0",
     "publint": "^0.3.16",
@@ -94,7 +94,7 @@
     "typescript-eslint": "^8.52.0",
     "vitest": "^4.0.16"
   },
-  "packageManager": "pnpm@10.27.0",
+  "packageManager": "pnpm@10.28.0",
   "engines": {
     "node": ">=24.0.0"
   },
