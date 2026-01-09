@@ -50,6 +50,10 @@ ruleTester.run(RULE_NAME, rule, {
     ...allFunctions,
     tsx`
       import { useRef } from "react";
+      const ref = useRef(0);
+    `,
+    tsx`
+      import { useRef } from "react";
       const countRef = useRef(0);
     `,
     tsx`
