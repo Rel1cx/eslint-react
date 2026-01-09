@@ -1,4 +1,4 @@
-import { baseUrl } from "#/lib/metadata";
+import { baseUrl } from "#/lib/metadata.ts.ts.ts.ts.ts.ts.ts.ts.ts.ts";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -16,7 +16,7 @@ const themeOptions = {
 };
 
 export const metadata: Metadata = {
-  description: "4-7x faster composable ESLint rules for React and friends.",
+  description: "4-7x faster, composable ESLint rules for React and friends.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",
