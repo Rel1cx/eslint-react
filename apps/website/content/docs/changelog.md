@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v2.5.3 (2026-01-09)
+
+### 🐞 Fixes
+
+- Enhance context and ref naming rules with additional cases covered by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1378
+- Update `naming-convention/context-name` rule to include React version checks, closes #1382 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1384
+- Update `naming-convention/ref-name` to allow "ref" as a ref name by @ocavue in https://github.com/Rel1cx/eslint-react/pull/1380
+- Fix `jsx-key-before-spread` should only be enabled in JSX automatic runtime & Update related docs and tests, closes #1381 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1383
+
+## New Contributors
+
+- @ocavue made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1380
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.1...v2.5.3
+
 ## v2.5.1 (2026-01-05)
 
 ### 🐞 Fixes
@@ -14,8 +29,8 @@ title: Changelog
 
 ### ✨ New
 
-- feat: add `use-ref-name` rule by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1366
-- Rename `use-ref-name` rule to `ref-name` and add it to recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1367
+- feat: add `naming-convention/use-ref-name` rule by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1366
+- Rename `naming-convention/use-ref-name` rule to `naming-convention/ref-name` and add it to recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1367
 
 ### 🪄 Improvements
 
@@ -61,7 +76,7 @@ title: Changelog
 
 ### ✨ New
 
-- Add `allowEmptyFragment` option to `react-x/no-useless-fragment`, closes #1265 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1335
+- Add `allowEmptyFragment` option to `no-useless-fragment`, closes #1265 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1335
 
 ### 🐞 Fixes
 
@@ -74,7 +89,7 @@ title: Changelog
 ### 🐞 Fixes
 
 - Fix readonly type detection for class and interface extends, closes #1326 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1329
-- Fix and cleanup `react-x/prefer-read-only-props` rule, closes #1326 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1331
+- Fix and cleanup `prefer-read-only-props` rule, closes #1326 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1331
 - Fix `forwardRef`'s `ref` should be excluded from check, closes #1332 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1333
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.9...v2.3.11
@@ -132,7 +147,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- Improve location reporting for `react-x/jsx-dollar` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1303
+- Improve location reporting for `jsx-dollar` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1303
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.3.0...v2.3.1
 
@@ -140,7 +155,7 @@ title: Changelog
 
 ### ✨ New
 
-- Add `react-x/jsx-dollar` rule, closes #1300 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1302
+- Add `jsx-dollar` rule, closes #1300 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1302
 
 ### 🪄 Improvements
 
@@ -153,7 +168,7 @@ title: Changelog
 ### 🐞 Fixes
 
 - Add `main`, `module`, and `types` fields to `package.json` for multiple packages, closes #1288, closes #1283 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1294
-- Require "Context" suffix for context providers in `react-x/no-context-provider` rule, closes #1295 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1296
+- Require "Context" suffix for context providers in `no-context-provider` rule, closes #1295 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1296
 
 ### 🪄 Improvements
 
@@ -169,7 +184,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- Re-add missing rule `react-x/jsx-key-before-spread` to presets, closes #1290 by @jkbdk in https://github.com/Rel1cx/eslint-react/pull/1291
+- Re-add missing rule `jsx-key-before-spread` to presets, closes #1290 by @jkbdk in https://github.com/Rel1cx/eslint-react/pull/1291
 
 ### 🪄 Improvements
 
@@ -215,10 +230,10 @@ title: Changelog
 ### 🪄 Improvements
 
 - Move some rules from `recommended` presets to `strict` presets by @Rel1cx, closes #1262
-  - `react-x/no-unstable-context-value`
-  - `react-x/no-unstable-default-props`
-  - `react-x/no-unused-class-component-members`
-  - `react-x/no-unused-state`
+  - `no-unstable-context-value`
+  - `no-unstable-default-props`
+  - `no-unused-class-component-members`
+  - `no-unused-state`
   - `react-dom/no-missing-button-type`
   - `react-dom/no-missing-iframe-sandbox`
   - `react-dom/no-unsafe-iframe-sandbox`
@@ -308,23 +323,23 @@ title: Changelog
 
 | Rule                                                         | Replaced by                                                                                                                                | Reason       |
 | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :----------- |
-| `react-x/avoid-shorthand-boolean`                            | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                               | consolidated |
-| `react-x/avoid-shorthand-fragment`                           | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                             | consolidated |
-| `react-x/ensure-forward-ref-using-ref`                       | [`react-x/no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                                             | renamed      |
-| `react-x/no-duplicate-props`                                 | [`react-x/jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                                             | renamed      |
-| `react-x/no-comment-textnodes`                               | [`react-x/jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                                         | renamed      |
-| `react-x/no-complicated-conditional-rendering`               |                                                                                                                                            | discontinued |
-| `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)                           | renamed      |
-| `react-x/prefer-react-namespace-import`                      | [`react-x/prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                                           | renamed      |
-| `react-x/prefer-shorthand-boolean`                           | [`react-x/jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                               | consolidated |
-| `react-x/prefer-shorthand-fragment`                          | [`react-x/jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                             | consolidated |
-| `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                                               | renamed      |
+| `avoid-shorthand-boolean`                                    | [`jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                                       | consolidated |
+| `avoid-shorthand-fragment`                                   | [`jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                                     | consolidated |
+| `ensure-forward-ref-using-ref`                               | [`no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                                                     | renamed      |
+| `no-duplicate-props`                                         | [`jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                                                     | renamed      |
+| `no-comment-textnodes`                                       | [`jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                                                 | renamed      |
+| `no-complicated-conditional-rendering`                       |                                                                                                                                            | discontinued |
+| `no-nested-components`                                       | [`no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)                                   | renamed      |
+| `prefer-react-namespace-import`                              | [`prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                                                   | renamed      |
+| `prefer-shorthand-boolean`                                   | [`jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                                       | consolidated |
+| `prefer-shorthand-fragment`                                  | [`jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                                     | consolidated |
+| `use-jsx-vars`                                               | [`jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                                                       | renamed      |
 | `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children)                       | renamed      |
 | `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-hooks-extra/no-direct-set-state-in-use-effect`](https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect) | consolidated |
-| `react-hooks-extra/no-unnecessary-use-callback`              | [`react-x/no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                                   | relocated    |
-| `react-hooks-extra/no-unnecessary-use-memo`                  | [`react-x/no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                                           | relocated    |
-| `react-hooks-extra/no-unnecessary-use-prefix`                | [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                                       | relocated    |
-| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`react-x/prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization)                 | relocated    |
+| `react-hooks-extra/no-unnecessary-use-callback`              | [`no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                                           | relocated    |
+| `react-hooks-extra/no-unnecessary-use-memo`                  | [`no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                                                   | relocated    |
+| `react-hooks-extra/no-unnecessary-use-prefix`                | [`no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                                               | relocated    |
+| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization)                         | relocated    |
 
 **Removed Presets**
 
@@ -347,30 +362,30 @@ Rules previously using these settings have been refactored to use improved heuri
 
 **Added the following new rules:**
 
-- `react-x/jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes by @Rel1cx
-- `react-x/jsx-shorthand-fragment`: Enforces a consistent style for React Fragments by @Rel1cx
-- `react-x/no-forbidden-props`: Disallows specific props on components by @reteps
-- `react-x/no-unnecessary-key`: Reports unnecessary `key` props on elements by @Rel1cx, @kachkaev
-- `react-x/no-unused-props`: Reports unused props in components by @ulrichstark
+- `jsx-shorthand-boolean`: Enforces a consistent style for boolean attributes by @Rel1cx
+- `jsx-shorthand-fragment`: Enforces a consistent style for React Fragments by @Rel1cx
+- `no-forbidden-props`: Disallows specific props on components by @reteps
+- `no-unnecessary-key`: Reports unnecessary `key` props on elements by @Rel1cx, @kachkaev
+- `no-unused-props`: Reports unused props in components by @ulrichstark
 - `react-dom/no-string-style-prop`: Disallows string values for the `style` prop by @Rel1cx, @karlhorky
 - `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom` by @Rel1cx
 
 **Added the following new rule to the `recommended-type-checked` preset:**
 
-- `react-x/no-unused-props`: Reports unused props in components
+- `no-unused-props`: Reports unused props in components
 
 **The following rules now support Codemod features:**
 
-- `react-x/no-component-did-update` by @Rel1cx
-- `react-x/no-component-will-receive-props` by @Rel1cx
-- `react-x/no-component-will-update` by @Rel1cx
-- `react-x/no-context-provider` by @Rel1cx
-- `react-x/no-forward-ref` by @Rel1cx
-- `react-x/no-string-refs` by @Rel1cx
+- `no-component-did-update` by @Rel1cx
+- `no-component-will-receive-props` by @Rel1cx
+- `no-component-will-update` by @Rel1cx
+- `no-context-provider` by @Rel1cx
+- `no-forward-ref` by @Rel1cx
+- `no-string-refs` by @Rel1cx
 
 **The following rules now support auto-fix:**
 
-- `react-x/no-missing-context-display-name` by @k-yle
+- `no-missing-context-display-name` by @k-yle
 
 **The following rules now support suggestion fixes:**
 
@@ -384,7 +399,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### 🐞 Fixes
 
-- fix(react-x/no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files by @Rel1cx
+- fix(no-unnecessary-use-prefix): fix false positive of React Hooks defined within the callback function of `vi.mock(...)` in Vitest test files by @Rel1cx
 - fix(react-web-api/no-leaked-event-listener): fix `useEffect` setup function check to handle `React.useEffect()` calls correctly by @Rel1cx
 - fix(react-naming-convention/filename): fix false positive on well-known filenames like `404.tsx`, `_app.tsx`, `[slug].tsx` by @Rel1cx
 
@@ -454,7 +469,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### 🐞 Fixes
 
-- fix: refactor `is-from-react` utility in `react-debug/is-from-react` rule and improve `react-x/no-forward-ref` rule autofix handling, closes #1172 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1173
+- fix: refactor `is-from-react` utility in `react-debug/is-from-react` rule and improve `no-forward-ref` rule autofix handling, closes #1172 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1173
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.4...v1.52.5
 
@@ -478,7 +493,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### 🐞 Fixes
 
-- fix: `react-x/no-default-props` should report only function components, closes #1131 by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/681b10a7873e4764336a9e7a49dfd33c8bf1fbef
+- fix: `no-default-props` should report only function components, closes #1131 by @Rel1cx in https://github.com/Rel1cx/eslint-react/commit/681b10a7873e4764336a9e7a49dfd33c8bf1fbef
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.1...v1.52.2
 
@@ -498,7 +513,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### 🐞 Fixes
 
-- fix: update messages for `react-x/jsx-no-iife` and `react-x/jsx-uses-vars` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1127
+- fix: update messages for `jsx-no-iife` and `jsx-uses-vars` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1127
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.51.2...v1.51.3
 
@@ -506,7 +521,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### 🐞 Fixes
 
-- fix: skip function components without name in `react-x/prefer-read-only-props` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1125
+- fix: skip function components without name in `prefer-read-only-props` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1125
 
 ### 🪄 Improvements
 
@@ -681,9 +696,9 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### ✨ New
 
-- feat: add `react-x/no-misused-capture-owner-stack` rule, closes #1049 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1047
-- feat: add `react-x/no-nested-lazy-component-declarations` rule, closes #1048 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1052
-- feat: add `react-x/no-nested-lazy-component-declarations` rule to recommended presets by @Rel1cx
+- feat: add `no-misused-capture-owner-stack` rule, closes #1049 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1047
+- feat: add `no-nested-lazy-component-declarations` rule, closes #1048 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1052
+- feat: add `no-nested-lazy-component-declarations` rule to recommended presets by @Rel1cx
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.44.0...v1.45.0
 
@@ -691,7 +706,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### ✨ New
 
-- feat: add JSX fragment factory to error message of `react-x/avoid-shorthand-fragment` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1051
+- feat: add JSX fragment factory to error message of `avoid-shorthand-fragment` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1051
 
 ### 🪄 Improvements
 
@@ -703,7 +718,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### ✨ New
 
-- feat: add codemod feature to `react-x/no-string-refs`, closes #1044 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1045
+- feat: add codemod feature to `no-string-refs`, closes #1044 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1045
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.42.1...v1.43.0
 
@@ -775,8 +790,8 @@ The old preset names will still be available until the next major update to avoi
 
 ### ✨ New
 
-- feat(react-x): add `react-x/jsx-uses-react` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1027
-- feat: enable `react-x/jsx-uses-react` rule in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1027
+- feat(react-x): add `jsx-uses-react` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1027
+- feat: enable `jsx-uses-react` rule in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1027
 - feat: enable `naming-convention/context-name` rule in recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1024
 - feat(kit): add `JsxRuntime` module by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1025
 
@@ -810,13 +825,13 @@ The old preset names will still be available until the next major update to avoi
 
 ### ✨ New
 
-- feat: add `react-x/jsx-no-undef` rule, closes #1016 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1018>
+- feat: add `jsx-no-undef` rule, closes #1016 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1018>
 - feat: add `hooks-extra/prefer-use-state-lazy-initialization` rule to recommended presets by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1019>
 - docs: add experimental status to rules overview by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1012>
 
 ### 🪄 Improvements
 
-- refactor: undeprecate `react-x/jsx-uses-vars` and `react-x/jsx-no-duplicate-props` rules by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1017>
+- refactor: undeprecate `jsx-uses-vars` and `jsx-no-duplicate-props` rules by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/1017>
 
 **Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.37.3...v1.38.0>
 
@@ -905,7 +920,7 @@ The old rule names will still be available until the next major update to avoid 
 
 ### 🐞 Fixes
 
-- fix: false positive in `react-x/no-context-provider` on symbols named `Provider` which are imported from third-party libs, closes #991 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/992>
+- fix: false positive in `no-context-provider` on symbols named `Provider` which are imported from third-party libs, closes #991 by @Rel1cx in <https://github.com/Rel1cx/eslint-react/pull/992>
 
 **Full Changelog**: <https://github.com/Rel1cx/eslint-react/compare/v1.34.0...v1.34.1>
 
@@ -920,7 +935,7 @@ The old rule names will still be available until the next major update to avoid 
 
 The following rules have been renamed:
 
-- `react-x/no-nested-components` to `react-x/no-nested-component-definitions`
+- `no-nested-components` to `no-nested-component-definitions`
 - `@eslint-react/no-nested-components` to `@eslint-react/no-nested-component-definitions`
 
 The old rule names will still be available until the next major update to avoid breaking changes.
@@ -941,7 +956,7 @@ The old rule names will still be available until the next major update to avoid 
 
 The following rules have been renamed:
 
-- `react-x/ensure-forward-ref-using-ref` to `react-x/no-useless-forward-ref`
+- `ensure-forward-ref-using-ref` to `no-useless-forward-ref`
 - `@eslint-react/ensure-forward-ref-using-ref` to `@eslint-react/no-useless-forward-ref`
 
 The old rule names will still be available until the next major update to avoid breaking changes.
@@ -1317,7 +1332,7 @@ function useAuth() {
 
 ### ✨ New
 
-- feat: added code fixer to `react-x/avoid-shorthand-boolean` and `react-x/prefer-shorthand-fragment` by @Rel1cx
+- feat: added code fixer to `avoid-shorthand-boolean` and `prefer-shorthand-fragment` by @Rel1cx
 
 ### 🐞 Fixes
 
