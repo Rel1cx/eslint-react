@@ -10,7 +10,6 @@ export const rules = {
   "@eslint-react/no-children-prop": "error",
   "@eslint-react/no-class-component": "error",
   "@eslint-react/no-misused-capture-owner-stack": "error",
-  "@eslint-react/no-unnecessary-key": "warn",
   "@eslint-react/no-unnecessary-use-callback": "warn",
   "@eslint-react/no-unnecessary-use-memo": "warn",
   "@eslint-react/no-unstable-context-value": "warn",
