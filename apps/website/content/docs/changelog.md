@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v2.5.4 (2026-01-10)
+
+### 🐞 Fixes
+
+- Remove `no-unnecessary-key` rule from strict presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1386
+- Remove `no-duplicate-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1387
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.3...v2.5.4
+
 ## v2.5.3 (2026-01-09)
 
 ### 🐞 Fixes
