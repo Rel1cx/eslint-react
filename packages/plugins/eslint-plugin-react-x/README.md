@@ -20,28 +20,30 @@ import react from "eslint-plugin-react-x";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig(
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ['**/*.{ts,tsx}'],
     extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      react.configs.recommended,
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
     ],
     languageOptions: {
-      parser: tseslint.parser,
       parserOptions: {
-        projectService: true,
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
-    },
-    rules: {
-      // Put rules you want to override here
-      "react-x/no-class-component": "warn",
+      // other options...
     },
   },
-);
-```
+])
 
 ## Rules
 
