@@ -25,7 +25,6 @@ export const rules = {
   "@eslint-react/no-create-ref": "error",
   "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
-  "@eslint-react/no-duplicate-key": "error",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-implicit-key": "warn",
   "@eslint-react/no-missing-key": "error",
