@@ -25,11 +25,6 @@ const links = [
     text: "Changelog",
     url: "/docs/changelog",
   },
-  {
-    active: "nested-url",
-    text: "Release Notes",
-    url: "/docs/release-notes",
-  },
 ] as const satisfies LinkItemType[];
 
 export default function Layout({ children }: { children: ReactNode }) {

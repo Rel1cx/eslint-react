@@ -39,6 +39,7 @@ export default defineConfig(
       "no-restricted-syntax": "off",
       "fast-import/no-unused-exports": "off",
       "fast-import/no-unresolved-imports": "off",
+      "fast-import/consistent-file-extensions": "off",
     },
   },
   {
