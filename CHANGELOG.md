@@ -5,6 +5,15 @@
 - Remove `no-unnecessary-key` rule from strict presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1386
 - Remove `no-duplicate-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1387
 
+### 📝 Changes you should be aware of
+
+The following rules have been removed from the strict and recommended presets:
+
+- `no-unnecessary-key`
+- `no-duplicate-key`
+
+In React projects with the new JSX transform enabled, the `key` prop can be defined and used by users like any other component prop. Above rules can no longer determine from JSX syntax whether a `key` on a JSX element is truly unnecessary or duplicated, so these two rules are now being removed from the presets.
+
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.3...v2.5.4
 
 ## v2.5.3 (2026-01-09)
