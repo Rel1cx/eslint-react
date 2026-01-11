@@ -18,10 +18,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforces variable names assigned from 'useRef' calls to be either 'ref' or end with 'Ref'.",
+      description: "Enforces identifier names assigned from 'useRef' calls to be either 'ref' or end with 'Ref'.",
     },
     messages: {
-      invalidRefName: "Ref variables should have names ending with 'Ref', e.g., 'inputRef'.",
+      invalidRefName: "A ref identifier must be named 'ref' or ending in 'Ref'.",
     },
     schema: [],
   },

@@ -25,7 +25,7 @@ react-naming-convention/ref-name
 
 ## Description
 
-Enforces variable names assigned from `useRef` calls to be either `ref` or end with `Ref`.
+Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref`.
 
 ## Examples
 
@@ -33,14 +33,20 @@ Enforces variable names assigned from `useRef` calls to be either `ref` or end w
 
 ```tsx
 const count = useRef(0);
+//    ^^^^^^^^
+//    - A ref identifier must be named 'ref' or ending in 'Ref'.
 ```
 
 ```tsx
 const input = useRef<HTMLInputElement>(null);
+//    ^^^^^
+//    - A ref identifier must be named 'ref' or ending in 'Ref'.
 ```
 
 ```tsx
 const value = useRef(null);
+//    ^^^^^
+//    - A ref identifier must be named 'ref' or ending in 'Ref'.
 ```
 
 ### Passing
@@ -65,3 +71,8 @@ const valueRef = useRef(null);
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/ref-name.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/ref-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useRef` Hook](https://react.dev/reference/react/useRef)
+- [React Docs: Plain Object `.current`](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs#plain-object-current)
