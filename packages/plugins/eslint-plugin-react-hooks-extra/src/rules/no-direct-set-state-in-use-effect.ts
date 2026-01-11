@@ -15,9 +15,7 @@ import { createRule, isVariableDeclaratorFromHookCall } from "../utils";
 
 export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
-export const RULE_FEATURES = [
-  "EXP",
-] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 type MessageID = CamelCase<typeof RULE_NAME>;
 
