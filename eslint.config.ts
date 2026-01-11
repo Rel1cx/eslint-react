@@ -11,7 +11,6 @@ import {
 import { nullishComparison, templateExpression } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import { functionRule } from "eslint-plugin-function-rule";
-import pluginVitest from "eslint-plugin-vitest";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -70,18 +69,7 @@ export default defineConfig(
     },
   },
   {
-    extends: [
-      pluginVitest.configs.recommended,
-    ],
     files: GLOB_TESTS,
-    languageOptions: {
-      globals: {
-        ...pluginVitest.environments.env.globals,
-      },
-    },
-    plugins: {
-      vitest: pluginVitest,
-    },
     rules: {
       "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
       "function-rule-1/function-rule": "off",
