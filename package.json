@@ -45,10 +45,10 @@
     "sort:package-json": "pnpm m exec sort-package-json -q package.json && dprint fmt",
     "test": "vitest run --logHeapUsage",
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
-    "update:readme": "unrun ./scripts/update-readme.ts",
-    "update:version": "unrun ./scripts/update-version.ts",
-    "update:website": "unrun ./scripts/update-website.ts",
-    "verify:rules-metas": "unrun ./scripts/verify-rules-metas.ts"
+    "update:readme": "tsx ./scripts/update-readme.ts",
+    "update:version": "tsx ./scripts/update-version.ts",
+    "update:website": "tsx ./scripts/update-website.ts",
+    "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
     "@effect/language-service": "^0.64.1",
@@ -84,13 +84,13 @@
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.9.0",
     "tsdown": "^0.19.0",
+    "tsx": "^4.21.0",
     "type-fest": "^5.3.1",
     "typedoc": "^0.28.15",
     "typedoc-plugin-markdown": "^4.9.0",
     "typedoc-plugin-mdn-links": "^5.0.10",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.52.0",
-    "unrun": "^v0.2.24",
     "vitest": "^4.0.16"
   },
   "packageManager": "pnpm@10.28.0",
