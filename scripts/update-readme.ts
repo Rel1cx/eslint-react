@@ -24,7 +24,9 @@ const program = Effect.gen(function*() {
     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("#")) {
       return match; // Leave absolute links unchanged
     }
-    const absoluteUrl = `${`https://github.com/Rel1cx/eslint-react/tree/${branch.trim()}`}/${url.replace(/^\.\//, "")}`;
+    // const branchName = branch.trim();
+    const branchName = "main";
+    const absoluteUrl = "https://github.com/Rel1cx/eslint-react/tree/" + branchName + "/" + url.replace(/^\.\//, "");
     return `[${text}](${absoluteUrl})`;
   });
   // Ensure the destination directory exists
