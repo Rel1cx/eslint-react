@@ -4,7 +4,7 @@
 
 - Remove `no-unnecessary-key` rule from strict presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1386
 - Remove `no-duplicate-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1387
-- Remove `no-implicit-key` rule from strict presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1388
+- Remove `no-implicit-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1388
 
 ### 📝 Changes you should be aware of
 
@@ -14,7 +14,7 @@ The following rules have been removed from the strict and recommended presets:
 - `no-duplicate-key`
 - `no-implicit-key`
 
-In React projects with the new JSX transform enabled, the `key` prop can be defined and used by users like any other component prop. This unlocks new patterns for `key` usage patterns that above rules may not handle correctly. Therefore, these rules have been removed from the presets to avoid potential false positives. You can still enable these rules manually if needed.
+In React projects with the new JSX transform enabled, the `key` prop can be defined and used by users like any other component prop. This unlocks new patterns for `key` usage that above rules may not handle correctly. Therefore, these rules have been removed from the presets to avoid potential false positives. You can still enable these rules manually if needed.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.3...v2.5.5
 
