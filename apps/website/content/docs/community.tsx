@@ -1,6 +1,7 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
   { owner: "apache", repo: "hadoop" },
+  { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
   { owner: "DimensionDev", repo: "Maskbook" },
   { owner: "electric-sql", repo: "electric" },
