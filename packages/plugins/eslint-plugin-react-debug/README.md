@@ -24,7 +24,7 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
