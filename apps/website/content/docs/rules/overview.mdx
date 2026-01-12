@@ -73,7 +73,7 @@ full: true
 | [`no-unnecessary-key`](no-unnecessary-key)                                         | 0️⃣ 0️⃣ |    `🧪`   | Prevents `key` from being placed on non-top-level elements in list rendering                                                  |          |
 | [`no-unnecessary-use-callback`](no-unnecessary-use-callback)                       | 0️⃣ 1️⃣ |    `🧪`   | Disallows unnecessary usage of `useCallback`                                                                                  |          |
 | [`no-unnecessary-use-memo`](no-unnecessary-use-memo)                               | 0️⃣ 1️⃣ |    `🧪`   | Disallows unnecessary usage of `useMemo`                                                                                      |          |
-| [`no-unnecessary-use-prefix`](no-unnecessary-use-prefix)                           | 1️⃣ 1️⃣ |    `🧪`   | Enforces that a function with the `use` prefix uses at least one Hook inside it                                               |          |
+| [`no-unnecessary-use-prefix`](no-unnecessary-use-prefix)                           | 1️⃣ 1️⃣ |           | Enforces that a function with the `use` prefix uses at least one Hook inside it                                               |          |
 | [`no-unsafe-component-will-mount`](no-unsafe-component-will-mount)                 | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillMount` in class components                                                        |          |
 | [`no-unsafe-component-will-receive-props`](no-unsafe-component-will-receive-props) | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillReceiveProps` in class components                                                 |          |
 | [`no-unsafe-component-will-update`](no-unsafe-component-will-update)               | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillUpdate` in class components                                                       |          |
@@ -128,9 +128,9 @@ full: true
   This section contains rules that are not part of the official `eslint-plugin-react-hooks` plugin but are useful for specific use cases or patterns.
 </Callout>
 
-| Rule                                                                                 |    ✅    |  🌟  | Description                                                                                                                      |
-| :----------------------------------------------------------------------------------- | :-----: | :--: | :------------------------------------------------------------------------------------------------------------------------------- |
-| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect) | 1️⃣ 1️⃣ | `🧪` | Disallows direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect` |
+| Rule                                                                                 |    ✅    |  🌟 | Description                                                                                                                      |
+| :----------------------------------------------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------------------------------------------- |
+| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect) | 1️⃣ 1️⃣ |     | Disallows direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect` |
 
 ## Naming Convention Rules
 
