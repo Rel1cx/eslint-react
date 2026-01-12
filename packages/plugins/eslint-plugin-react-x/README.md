@@ -28,13 +28,6 @@ export default defineConfig(
       tseslint.configs.recommended,
       react.configs.recommended,
     ],
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     rules: {
       // Put rules you want to override here
       "react-x/no-class-component": "warn",

@@ -30,13 +30,6 @@ export default defineConfig(
     plugins: {
       "react-naming-convention": reactNamingConvention,
     },
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     rules: {
       // Put rules you want to use here
       "react-naming-convention/component-name": "warn",

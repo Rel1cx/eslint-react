@@ -28,13 +28,6 @@ export default defineConfig(
       tseslint.configs.recommended,
       reactHooksExtra.configs.recommended,
     ],
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     rules: {
       // Put rules you want to override here
       "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
