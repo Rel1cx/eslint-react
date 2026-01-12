@@ -2,13 +2,25 @@
 title: Changelog
 ---
 
+## v2.5.6 (2026-01-13)
+
+### 🐞 Fixes
+
+- Revert 'Remove `no-implicit-key` rule from recommended presets' by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1392
+
+### 📝 Changes you should be aware of
+
+- Re-add `no-implicit-key` rule to recommended presets. This rule was mistakenly removed in version v2.5.5.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.5...v2.5.6
+
 ## v2.5.5 (2026-01-12)
 
 ### 🐞 Fixes
 
 - Remove `no-unnecessary-key` rule from strict presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1386
 - Remove `no-duplicate-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1387
-- Remove `no-implicit-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1388
+- ~~Remove `no-implicit-key` rule from recommended presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1388~~
 
 ### 📝 Changes you should be aware of
 
@@ -16,7 +28,7 @@ The following rules have been removed from the strict and recommended presets:
 
 - `no-unnecessary-key`
 - `no-duplicate-key`
-- `no-implicit-key`
+- ~~`no-implicit-key`~~
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.3...v2.5.5
 
