@@ -28,13 +28,6 @@ export default defineConfig(
       tseslint.configs.recommended,
       reactWebApi.configs.recommended,
     ],
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     rules: {
       // Put rules you want to override here
       "react-web-api/no-leaked-event-listener": "warn",
