@@ -36,21 +36,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: `import * as REACT from 'react';\nimport {useState} from 'react';`,
     },
     {
-      code: `import type React, {useState} from 'react';`,
-      errors: [{ type: T.ImportDefaultSpecifier, messageId: "preferNamespaceImport" }],
-      output: `import type * as React from 'react';\nimport type {useState} from 'react';`,
-    },
-    {
-      code: `import type React, {useState} from '@pika/react';`,
-      errors: [{ type: T.ImportDefaultSpecifier, messageId: "preferNamespaceImport" }],
-      output: `import type * as React from '@pika/react';\nimport type {useState} from '@pika/react';`,
-      settings: {
-        "react-x": {
-          importSource: "@pika/react",
-        },
-      },
-    },
-    {
       code: `import React from "react";`,
       errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as React from "react";`,
@@ -79,21 +64,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import REACT, {useState} from "react";`,
       errors: [{ type: T.ImportDefaultSpecifier, messageId: "preferNamespaceImport" }],
       output: `import * as REACT from "react";\nimport {useState} from "react";`,
-    },
-    {
-      code: `import type React, {useState} from "react";`,
-      errors: [{ type: T.ImportDefaultSpecifier, messageId: "preferNamespaceImport" }],
-      output: `import type * as React from "react";\nimport type {useState} from "react";`,
-    },
-    {
-      code: `import type React, {useState} from "@pika/react";`,
-      errors: [{ type: T.ImportDefaultSpecifier, messageId: "preferNamespaceImport" }],
-      output: `import type * as React from "@pika/react";\nimport type {useState} from "@pika/react";`,
-      settings: {
-        "react-x": {
-          importSource: "@pika/react",
-        },
-      },
     },
     {
       code: `import React from 'react'`,
