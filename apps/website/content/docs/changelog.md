@@ -18,8 +18,6 @@ The following rules have been removed from the strict and recommended presets:
 - `no-duplicate-key`
 - `no-implicit-key`
 
-In React projects with the new JSX transform enabled, the `key` prop can be defined and used by users like any other component prop. This unlocks new patterns for `key` usage that above rules may not handle correctly. Therefore, these rules have been removed from the presets to avoid potential false positives. You can still enable these rules manually if needed.
-
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.3...v2.5.5
 
 ## v2.5.3 (2026-01-09)

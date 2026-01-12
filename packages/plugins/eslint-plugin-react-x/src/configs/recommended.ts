@@ -27,6 +27,7 @@ export const rules = {
   "react-x/no-default-props": "error",
   "react-x/no-direct-mutation-state": "error",
   "react-x/no-forward-ref": "warn",
+  "react-x/no-implicit-key": "warn",
   "react-x/no-missing-key": "error",
   "react-x/no-nested-component-definitions": "error",
   "react-x/no-nested-lazy-component-declarations": "error",
