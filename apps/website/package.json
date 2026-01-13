@@ -31,7 +31,7 @@
     "twoslash": "^0.3.6"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.64.1",
+    "@effect/language-service": "^0.65.0",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^9.39.2",
@@ -44,7 +44,7 @@
     "@tsconfig/strictest": "^2.0.8",
     "@types/hast": "^3.0.4",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^25.0.6",
+    "@types/node": "^25.0.7",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "dedent": "^1.7.1",
