@@ -41,7 +41,6 @@ import React, { useEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<number | null>(null);
-  //    ^^^
   //    - Unnecessary use of `useRef`. Instead, co-locate a mutable variable inside the effect.
 
   useEffect(() => {
@@ -60,7 +59,6 @@ import React, { useLayoutEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<HTMLInputElement | null>(null);
-  //    ^^^
   //    - Unnecessary use of `useRef`. Instead, co-locate a mutable variable inside the effect.
 
   useLayoutEffect(() => {

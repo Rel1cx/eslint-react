@@ -1,10 +1,10 @@
 import * as AST from "@eslint-react/ast";
+import { isUseEffectLikeCall, isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { isUseRefCall } from "@eslint-react/core";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-ref";
@@ -17,10 +17,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow unnecessary use of 'useRef' hook.",
+      description: "Disallows unnecessary usage of 'useRef'.",
     },
     messages: {
-      noUnnecessaryUseRef: "Use of 'useRef' is unnecessary.",
+      noUnnecessaryUseRef: "Unnecessary use of 'useRef'. Instead, co-locate the value inside the effect that uses it.",
     },
     schema: [],
   },
@@ -30,21 +30,24 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const stack: TSESTree.CallExpression[] = [];
-  const urefs: TSESTree.CallExpression[] = [];
-
   return {
-    CallExpression(node) {
-      stack.push(node);
-      if (isUseRefCall(node)) {
-        urefs.push(node);
+    VariableDeclarator(node) {
+      const { id, init } = node;
+      if (id.type !== T.Identifier || init == null || !isUseRefCall(init)) return;
+      const variable = context.sourceCode.getDeclaredVariables(node).at(0);
+      if (variable == null) return;
+      const effects = new Set<unknown>();
+      let globalUsages = 0;
+      for (const { identifier } of variable.references) {
+        const effect = AST.findParentNode(identifier, isUseEffectLikeCall);
+        if (effect == null) globalUsages++;
+        else effects.add(effect);
+        if (globalUsages > 1 || effects.size > 1) return;
       }
-    },
-    "CallExpression:exit"(node) {
-      stack.pop();
-    },
-    MemberExpression(node) {
-      // TODO: Implement logic to collect `ref.current` and `someRef.current`
+      context.report({
+        messageId: "noUnnecessaryUseRef",
+        node: node.parent,
+      });
     },
   };
 }
