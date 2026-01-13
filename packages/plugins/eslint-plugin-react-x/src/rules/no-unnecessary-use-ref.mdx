@@ -30,7 +30,7 @@ react-x/no-unnecessary-use-ref
 
 Disallows unnecessary usage of `useRef`.
 
-If a ref is only used inside a single effect (or a single ref callback), the ref can be replaced by a local variable scoped to that effect/callback. This avoids persisting mutable state across renders when it is only needed within one effect’s lifetime.
+If a ref is only used inside a single effect, the ref can be replaced by a local variable scoped to that effect. This avoids persisting mutable state across renders when it is only needed within one effect’s lifetime.
 
 ## Examples
 
