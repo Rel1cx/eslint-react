@@ -2,7 +2,11 @@
 title: Changelog
 ---
 
-## v2.5.6 (2026-01-13)
+## v2.5.7 (2026-01-13)
+
+### 🪄 Improvements
+
+- Enhance `no-unnecessary-key` to catch constant keys outside of map calls, closes #1377 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1393
 
 ### 🐞 Fixes
 
@@ -10,9 +14,9 @@ title: Changelog
 
 ### 📝 Changes you should be aware of
 
-- Re-add `no-implicit-key` rule to recommended presets. This rule was mistakenly removed in version v2.5.5.
+The `no-implicit-key` rule has been re-added to the recommended presets.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.5...v2.5.6
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.5...v2.5.7
 
 ## v2.5.5 (2026-01-12)
 
