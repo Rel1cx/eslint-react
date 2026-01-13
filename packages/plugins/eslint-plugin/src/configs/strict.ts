@@ -12,6 +12,7 @@ export const rules = {
   "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-unnecessary-use-callback": "warn",
   "@eslint-react/no-unnecessary-use-memo": "warn",
+  "@eslint-react/no-unnecessary-use-ref": "warn",
   "@eslint-react/no-unstable-context-value": "warn",
   "@eslint-react/no-unstable-default-props": "warn",
   "@eslint-react/no-unused-state": "warn",

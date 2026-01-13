@@ -9,7 +9,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-ref";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "EXP",
+] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
