@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows unnecessary `key` props on elements.",
+      description: "Disallows unnecessary 'key' props on elements.",
     },
     messages: {
       noUnnecessaryKey: "Unnecessary `key` prop on this element. {{reason}}",
