@@ -40,12 +40,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (variable == null) return;
       const effects = new Set<unknown>();
       let globalUsages = 0;
-      for (const { identifier } of variable.references) {
-        const effect = AST.findParentNode(identifier, isUseEffectLikeCall);
-        if (effect == null) globalUsages++;
-        else effects.add(effect);
-        if (globalUsages > 1 || effects.size > 1) return;
+      for (const ref of variable.references) {
+        if (ref.init) continue;
+        const effect = AST.findParentNode(ref.identifier, isUseEffectLikeCall);
+        if (effect == null) {
+          globalUsages++;
+        } else {
+          effects.add(effect);
+        }
       }
+      if (globalUsages > 0 || effects.size !== 1) return;
       context.report({
         messageId: "noUnnecessaryUseRef",
         node: node.parent,
