@@ -26,9 +26,14 @@ export function isJsxHostElement(context: RuleContext, node: TSESTree.Node) {
  * @param context ESLint rule context
  * @param node AST node to check
  * @param jsxConfig Optional JSX configuration
+ * @param jsxConfig.jsxFragmentFactory Name of the fragment factory (e.g., React.Fragment)
  * @returns boolean indicating if the element is a Fragment
  */
-export function isJsxFragmentElement(context: RuleContext, node: TSESTree.Node, jsxConfig?: JsxConfig) {
+export function isJsxFragmentElement(
+  context: RuleContext,
+  node: TSESTree.Node,
+  jsxConfig?: Pick<JsxConfig, "jsxFragmentFactory">,
+) {
   if (node.type !== T.JSXElement) return false;
   const fragment = jsxConfig?.jsxFragmentFactory?.split(".").at(-1) ?? "Fragment";
   return getJsxElementType(context, node)
