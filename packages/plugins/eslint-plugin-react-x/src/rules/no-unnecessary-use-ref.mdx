@@ -110,6 +110,17 @@ function MyComponent() {
 }
 ```
 
+```tsx
+import React, { useRef } from "react";
+
+function MyComponent() {
+  // Unused refs are considered valid because other rules like `no-unused-vars` can catch them.
+  const ref = useRef<number | null>(null);
+
+  // ...
+}
+```
+
 ## Implementation
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-ref.ts)
