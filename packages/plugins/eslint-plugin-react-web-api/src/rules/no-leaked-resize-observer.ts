@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import {
   type ComponentPhaseKind,
   ComponentPhaseRelevance,
-  getInstanceId,
+  findEnclosingAssignmentTarget,
   getPhaseKindOfFunction,
   isInstanceIdEqual,
 } from "@eslint-react/core";
@@ -194,7 +194,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isNewResizeObserver(node)) {
         return;
       }
-      const id = getInstanceId(node);
+      const id = findEnclosingAssignmentTarget(node);
       if (id == null) {
         context.report({
           messageId: "unexpectedFloatingInstance",

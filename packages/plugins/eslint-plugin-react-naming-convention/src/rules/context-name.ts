@@ -1,4 +1,4 @@
-import { getInstanceId, isComponentName, isCreateContextCall } from "@eslint-react/core";
+import { findEnclosingAssignmentTarget, isComponentName, isCreateContextCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       if (!isCreateContextCall(context, node)) return;
-      const [id, name] = match(getInstanceId(node))
+      const [id, name] = match(findEnclosingAssignmentTarget(node))
         // for cases like: const ThemeContext = createContext();
         .with({ type: T.Identifier, name: P.string }, (id) => [id, id.name] as const)
         // for cases like: ctxs.ThemeContext = createContext();

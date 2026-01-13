@@ -25,6 +25,7 @@
 
 | Type Alias | Description |
 | ------ | ------ |
+| [AssignmentTarget](type-aliases/AssignmentTarget.md) | Type representing the possible assignment targets returned by `findEnclosingAssignmentTarget` |
 | [Component](type-aliases/Component.md) | Union type representing either a class or function component |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
 | [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
@@ -116,6 +117,7 @@
 
 | Function | Description |
 | ------ | ------ |
+| [findEnclosingAssignmentTarget](functions/findEnclosingAssignmentTarget.md) | Finds the enclosing assignment target (variable, property, etc.) for a given node |
 | [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | - |
 | [getComponentNameFromId](functions/getComponentNameFromId.md) | Get component name from an identifier or identifier sequence (e.g., MemberExpression) |

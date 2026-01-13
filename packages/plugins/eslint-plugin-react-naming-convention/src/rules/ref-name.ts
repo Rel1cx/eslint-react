@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { getInstanceId, isUseRefCall } from "@eslint-react/core";
+import { findEnclosingAssignmentTarget, isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!isUseRefCall(node)) return;
       // https://github.com/Rel1cx/eslint-react/issues/1375
       if (AST.getUnderlyingExpression(node.parent).type === T.MemberExpression) return;
-      const [id, name] = match(getInstanceId(node))
+      const [id, name] = match(findEnclosingAssignmentTarget(node))
         // for cases like: const inputRef = useRef();
         .with({ type: T.Identifier, name: P.string }, (id) => [id, id.name] as const)
         // for cases like: refs.inputRef = useRef();

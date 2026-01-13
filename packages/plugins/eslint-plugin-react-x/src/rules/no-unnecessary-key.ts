@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import {
-  getInstanceId,
+  findEnclosingAssignmentTarget,
   getJsxAttribute,
   getJsxConfigFromAnnotation,
   getJsxConfigFromContext,
@@ -58,9 +58,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const mapCallback = AST.findParentNode(jsxElement, isMapCallback);
       // Check static keys on elements that are not in a map context
       if (mapCallback == null || AST.findParentNode(jsxElement, AST.isFunction) !== mapCallback) {
-        // Check if the keyed element is inside a condition expression, control flow statement, or has an instance ID
+        // Check if the keyed element is inside a condition expression, control flow statement, or has an enclosing assignment target
         const isInDynamicStructure = AST
-          .findParentNode(jsxElement, (n) => AST.isConditional(n) || AST.isControlFlow(n) || getInstanceId(n) != null)
+          .findParentNode(
+            jsxElement,
+            (n) => AST.isConditional(n) || AST.isControlFlow(n) || findEnclosingAssignmentTarget(n) != null,
+          )
           != null;
         if (!isInDynamicStructure) {
           context.report({
