@@ -94,6 +94,20 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     ...allValid,
     tsx`
+      import React, { useRef } from "react";
+
+      // Never used but other rules can catch this
+      const ref = useRef(null);
+    `,
+    tsx`
+      import React, { useEffect, useRef } from "react";
+
+      function MyComponent() {
+          // Never used but other rules can catch this
+          const ref = useRef(null);
+      }
+    `,
+    tsx`
       import React, { useEffect, useRef } from "react";
 
       function MyComponent() {

@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const effects = new Set<unknown>();
       let globalUsages = 0;
       for (const ref of variable.references) {
-        if (ref.init) continue;
+        if (ref.init != null) continue;
         const effect = AST.findParentNode(ref.identifier, isUseEffectLikeCall);
         if (effect == null) {
           globalUsages++;
