@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         return;
       }
-      // If the `.map()` callback not in the same scope, exit
+      // If the `.map()` callback is not in the same scope, exit
       if (context.sourceCode.getScope(mapCallback) !== context.sourceCode.getScope(jsxElement)) return;
       // Find the nearest parent that is either the map callback or a JSX element with a `key` prop
       const keyedElementOrElse = AST.findParentNode(
