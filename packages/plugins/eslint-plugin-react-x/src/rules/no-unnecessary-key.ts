@@ -1,10 +1,16 @@
 import * as AST from "@eslint-react/ast";
+import {
+  getInstanceId,
+  getJsxAttribute,
+  getJsxConfigFromAnnotation,
+  getJsxConfigFromContext,
+  isJsxFragmentElement,
+} from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
-
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
@@ -20,11 +26,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents 'key' from being placed on non-top-level elements in list rendering.",
+      description: "Disallows unnecessary `key` props on elements.",
     },
     messages: {
-      noUnnecessaryKey:
-        "Unnecessary `key` prop on this element. The `key` should be on the top-level element returned from the array.",
+      noUnnecessaryKey: "Unnecessary `key` prop on this element. {{reason}}",
     },
     schema: [],
   },
@@ -36,39 +41,57 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `key=` is not present in the file
   if (!context.sourceCode.text.includes("key=")) return {};
+  const jsxConfig = {
+    ...getJsxConfigFromContext(context),
+    ...getJsxConfigFromAnnotation(context),
+  };
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
       // Check if the attribute is a `key` prop
       if (node.name.name !== "key") return;
       const jsxElement = node.parent.parent;
-      const initialScope = context.sourceCode.getScope(jsxElement);
+      // Always allow `<React.Fragment key={...}>` to avoid false positives
+      if (isJsxFragmentElement(context, jsxElement, jsxConfig)) return;
+      // If there is a spread attribute, it's not safe to report an unnecessary key
+      if (jsxElement.openingElement.attributes.some((attr) => attr.type === T.JSXSpreadAttribute)) return;
       // Find the parent `.map()` callback function, if it exists
-      const pMapCallback = AST.findParentNode(jsxElement, isMapCallback);
-      // If not inside a `.map()` callback in the same scope, exit
-      if (pMapCallback == null || context.sourceCode.getScope(pMapCallback) !== initialScope) return;
+      const mapCallback = AST.findParentNode(jsxElement, isMapCallback);
+      // Check static keys on elements that are not in a map context
+      if (mapCallback == null || AST.findParentNode(jsxElement, AST.isFunction) !== mapCallback) {
+        // Check if the keyed inside a condition expression, control flow statement, or has an instance ID
+        const isInDynamicStructure = AST
+          .findParentNode(jsxElement, (n) => AST.isConditional(n) || AST.isControlFlow(n) || getInstanceId(n) != null)
+          != null;
+        if (!isInDynamicStructure) {
+          context.report({
+            messageId: "noUnnecessaryKey",
+            node,
+            data: { reason: "The `key` prop is not needed outside of dynamic rendering contexts." },
+          });
+        }
+        return;
+      }
+      // If the `.map()` callback not in the same scope, exit
+      if (context.sourceCode.getScope(mapCallback) !== context.sourceCode.getScope(jsxElement)) return;
       // Find the nearest parent that is either the map callback or a JSX element with a `key` prop
-      const pKeyedElementOrElse = AST.findParentNode(
+      const keyedElementOrElse = AST.findParentNode(
         jsxElement,
         (n) => {
           // Stop searching if we reach the map callback
-          if (n === pMapCallback) return true;
+          if (n === mapCallback) return true;
           // Check if the node is a JSX element with a `key` prop
-          return AST.isJSXElement(n)
-            && n
-              .openingElement
-              .attributes
-              .some((n) =>
-                n.type === T.JSXAttribute
-                && n.name.type === T.JSXIdentifier
-                && n.name.name === "key"
-              );
+          return AST.isJSXElement(n) && getJsxAttribute(context, n)("key") != null;
         },
       );
       // If the search stopped at the map callback, it means no parent element had a key
       // In this case, the current key is necessary, so we exit
-      if (pKeyedElementOrElse == null || pKeyedElementOrElse === pMapCallback) return;
+      if (keyedElementOrElse == null || keyedElementOrElse === mapCallback) return;
       // Otherwise, a parent element with a `key` was found, so the current `key` is unnecessary
-      context.report({ messageId: "noUnnecessaryKey", node });
+      context.report({
+        messageId: "noUnnecessaryKey",
+        node,
+        data: { reason: "A parent element already has a `key` prop in the same list rendering context." },
+      });
     },
   };
 }

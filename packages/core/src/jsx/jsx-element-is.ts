@@ -1,6 +1,8 @@
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+
+import { type JsxConfig } from "./jsx-config";
 import { getJsxElementType } from "./jsx-element-type";
 
 /**
@@ -23,11 +25,13 @@ export function isJsxHostElement(context: RuleContext, node: TSESTree.Node) {
  *
  * @param context ESLint rule context
  * @param node AST node to check
- * @returns boolean indicating if the element is a Fragment with type narrowing
+ * @param jsxConfig Optional JSX configuration
+ * @returns boolean indicating if the element is a Fragment
  */
-export function isJsxFragmentElement(context: RuleContext, node: TSESTree.Node): node is TSESTree.JSXElement {
+export function isJsxFragmentElement(context: RuleContext, node: TSESTree.Node, jsxConfig?: JsxConfig) {
   if (node.type !== T.JSXElement) return false;
+  const fragment = jsxConfig?.jsxFragmentFactory?.split(".").at(-1) ?? "Fragment";
   return getJsxElementType(context, node)
     .split(".")
-    .at(-1) === "Fragment";
+    .at(-1) === fragment;
 }

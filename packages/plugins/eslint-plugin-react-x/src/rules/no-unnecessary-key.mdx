@@ -22,28 +22,30 @@ react-x/no-unnecessary-key
 
 ## Description
 
-Prevents `key` from being placed on non-top-level elements in list rendering.
+Disallows unnecessary `key` props on elements.
 
 When rendering a list of elements in React, the `key` prop should only be placed on the outermost element for each item in the list. Adding keys to nested child elements is redundant, can cause confusion, and may lead to subtle bugs during refactoring.
 
 For example, if an element with a `key` is wrapped with a `React.Fragment` or another component, the `key` must be moved to the new wrapping element. Forgetting to remove the original `key` from the child element can lead to runtime warnings from React if it's duplicated or simply leave unnecessary code. This rule helps identify and remove these redundant `key` props.
 
+Also, static `key` props on elements that are not part of a _dynamic structure_ (e.g., inside list rendering, conditional rendering, or control flow statements) are unnecessary and should be removed.
+
 ## Examples
 
 ### Failing
 
-```jsx
+```tsx
 // A key on a child element inside a map is unnecessary
 things.map(thing => (
   <div key={thing.id}>
-    <p key="child-key">Hello</p> {/* 🚨 This key is unnecessary */}
+    <p key="child-key">Hello</p> {/* This key is unnecessary */}
   </div>
 ))
 
 // The key should be on the Fragment, not the div
 things.map(thing => (
   <React.Fragment key={thing.id}>
-    <div key={thing.id}> {/* 🚨 This key is redundant */}
+    <div key={thing.id}> {/* This key is redundant */}
       {thing.name}
     </div>
     <div>{thing.description}</div>
@@ -51,9 +53,20 @@ things.map(thing => (
 ))
 ```
 
+```tsx
+// Static key on an element outside of a dynamic structure is unnecessary
+function ComponentWithStaticKey() {
+  return (
+    <div>
+      <MyComponent key="static-key" /> {/* This key is unnecessary */}
+    </div>
+  );
+}
+```
+
 ### Passing
 
-```jsx
+```tsx
 // Key is correctly placed on the top-level element of the map
 things.map(thing => <div key={thing.id}>{thing.name}</div>)
 
@@ -65,14 +78,32 @@ things.map(thing => (
   </React.Fragment>
 ))
 
-// Static keys used to re-mount components are not affected by this rule,
-// as they are not inside a list rendering context.
-function ComponentWithStaticKey() {
+// Keys used to re-mount components are allowed
+function ComponentWithDynamicKey({ someValue }) {
   return (
     <div>
       <MyComponent key={someValue} />
     </div>
   );
+}
+```
+
+Additionally, keys are allowed in dynamic structures such as conditionals or control flow statements:
+
+```tsx
+function ComponentWithControlFlow({items}) {
+  const elements = [];
+  for (const item of items) {
+    elements.push(<MyComponent key={item.id} />);
+  }
+  return <div>{elements}</div>;
+}
+
+function ComponentWithControlFlow2({cond}) {
+  if (cond) {
+    return <MyComponent key="key" />;
+  }
+  return <MyComponent />;
 }
 ```
 

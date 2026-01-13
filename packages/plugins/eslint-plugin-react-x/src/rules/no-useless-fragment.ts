@@ -1,6 +1,13 @@
 /* eslint-disable jsdoc/require-param */
 import * as AST from "@eslint-react/ast";
-import { getJsxAttribute, isJsxFragmentElement, isJsxHostElement, isJsxText } from "@eslint-react/core";
+import {
+  getJsxAttribute,
+  getJsxConfigFromAnnotation,
+  getJsxConfigFromContext,
+  isJsxFragmentElement,
+  isJsxHostElement,
+  isJsxText,
+} from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -66,6 +73,12 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
   const { allowEmptyFragment = false, allowExpressions = true } = option;
+
+  const jsxConfig = {
+    ...getJsxConfigFromContext(context),
+    ...getJsxConfigFromAnnotation(context),
+  };
+
   /**
    * Check if a fragment node is useless and should be reported
    */
@@ -192,7 +205,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   return {
     // Check JSX elements that might be fragments
     JSXElement(node) {
-      if (!isJsxFragmentElement(context, node)) return;
+      if (!isJsxFragmentElement(context, node, jsxConfig)) return;
       checkNode(context, node);
     },
     // Check JSX fragments
