@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     .with(1, () => ({
       JSXElement(node: TSESTree.JSXElement) {
         // Check if the element is a Fragment component
-        if (!isJsxFragmentElement(context, node)) return;
+        if (!isJsxFragmentElement(context, node, jsxConfig)) return;
         // Ignore if the Fragment has attributes (e.g., key)
         const hasAttributes = node.openingElement.attributes.length > 0;
         if (hasAttributes) return;

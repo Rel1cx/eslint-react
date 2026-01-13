@@ -1,10 +1,35 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../test";
+import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unnecessary-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
+    {
+      code: tsx`
+        <div key="static-key"></div>
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    {
+      code: tsx`
+        <>
+          <span key="child-1"></span>
+          <span key="child-2"></span>
+        </>
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+    },
+    {
+      code: tsx`
+        things.map(thing => {
+          function NestedComponent() {
+            return <span key='foo'><span key='bar' /></span>;
+          }
+        })
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+    },
     // Invalid: unnecessary key on a child element in a map
     {
       code: tsx`
@@ -48,9 +73,21 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
+    // Invalid: unnecessary key with a static value
+    {
+      code: tsx`
+        <span key="static-key"></span>
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
   ],
   valid: [
-    ...allValid,
+    tsx`
+      <React.Fragment key="static-key" />
+    `,
+    tsx`
+      <React.Fragment key="static-key"></React.Fragment>
+    `,
     // Valid: key on the top-level element in a map
     tsx`
       things.map(thing => <div key={thing.id} />)
@@ -63,7 +100,9 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       things.map(function(thing) { return <p key={thing.id} />; })
     `,
-    // Valid: key on top-level elements in an array literal
+    tsx`
+      const element = <div key='1' />;
+    `,
     tsx`
       const elements = [<div key='1' />, <div key='2' />]
     `,
@@ -71,21 +110,28 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       things.map(thing => <div key={thing.id}><p>Hello</p></div>)
     `,
-    // Valid: key prop in a non-map/array context (this rule does not handle this case)
     tsx`
-      <div key='static-key' />
+      things.map(thing => <div key={thing.id}><p {...props} key='child-1' /></div>);
     `,
-    // Valid: key prop on a child in a non-map/array context
     tsx`
-      <div><p key='static-child-key' /></div>
+      things.map(thing => <div key={thing.id}><p key='child-1' {...props} /></div>);
     `,
-    // Valid: not a list rendering context
     tsx`
-      things.map(thing => {
-        function NestedComponent() {
-          return <span key='foo'><span key='bar' /></span>;
-        }
-      })
+      function IResetChildrenOnWritingDirectionChange1({ lang = "en", children }: { lang?: "en" | "fr" | "ar"; children: React.ReactNode }) {
+        return (
+          <div>
+            {lang === "en" && <div key="ltr">{children}</div>}
+            {lang === "fr" && <div key="ltr">{children}</div>}
+            {lang === "ar" && <div key="rtl">{children}</div>}
+          </div>
+        );
+      }
+    `,
+    tsx`
+      function IResetChildrenOnWritingDirectionChange2({ lang = "en", children }: { lang?: "en" | "fr" | "ar"; children: React.ReactNode }) {
+        if (lang === "ar") return <div key="rtl">{children}</div>;
+        return <div>{children}</div>;
+      }
     `,
   ],
 });

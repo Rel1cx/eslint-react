@@ -7,24 +7,20 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * Gets the identifier node of an instance based on AST node relationships.
  * Used for tracking where hooks or components are being assigned in the code.
  * @param node The current AST node to evaluate
- * @param prev The previous AST node in the traversal (used for context)
  * @internal
  */
-export function getInstanceId(node: TSESTree.Node, prev?: TSESTree.Node) {
+export function getInstanceId(node: TSESTree.Node) {
   switch (true) {
     // Case: variable declaration (const x = new ResizeObserver())
-    case node.type === T.VariableDeclarator
-      && node.init === prev:
+    case node.type === T.VariableDeclarator:
       return node.id;
 
     // Case: assignment expression (x = new ResizeObserver())
-    case node.type === T.AssignmentExpression
-      && node.right === prev:
+    case node.type === T.AssignmentExpression:
       return node.left;
 
     // Case: class property definition (class X { y = new ResizeObserver() })
-    case node.type === T.PropertyDefinition
-      && node.value === prev:
+    case node.type === T.PropertyDefinition:
       return node.key;
 
     // Case: reached block scope boundary or program root
@@ -35,6 +31,6 @@ export function getInstanceId(node: TSESTree.Node, prev?: TSESTree.Node) {
 
     // Continue traversing up the AST until we find an identifier
     default:
-      return getInstanceId(node.parent, node);
+      return getInstanceId(node.parent);
   }
 }
