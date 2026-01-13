@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const mapCallback = AST.findParentNode(jsxElement, isMapCallback);
       // Check static keys on elements that are not in a map context
       if (mapCallback == null || AST.findParentNode(jsxElement, AST.isFunction) !== mapCallback) {
-        // Check if the keyed element is inside a condition expression, control flow statement, or has an instance ID
+        // Check if the keyed element is inside a condition expression, control flow statement, or has an enclosing assignment target
         const isInDynamicStructure = AST
           .findParentNode(
             jsxElement,
