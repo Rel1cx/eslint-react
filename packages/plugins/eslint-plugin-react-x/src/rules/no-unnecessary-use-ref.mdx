@@ -1,6 +1,8 @@
 ---
-title: no-unnecessary-use-prefix
+title: no-unnecessary-use-ref
 ---
+
+<Callout type="warning">This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.</Callout>
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
@@ -14,21 +16,112 @@ title: no-unnecessary-use-prefix
 react-x/no-unnecessary-use-ref
 ```
 
+**Features**
+
+`🧪`
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
 ## Description
 
-TODO: Provide a detailed description of the rule.
+Disallows unnecessary usage of `useRef`.
+
+If a ref is only used inside a single effect (or a single ref callback), the ref can be replaced by a local variable scoped to that effect/callback. This avoids persisting mutable state across renders when it is only needed within one effect’s lifetime.
 
 ## Examples
 
 ### Failing
 
-TODO: Provide code examples that would trigger the rule.
+```tsx
+import React, { useEffect, useRef } from "react";
+
+function MyComponent() {
+  const ref = useRef<number | null>(null);
+  //    ^^^
+  //    - Unnecessary use of `useRef`. Instead, co-locate a mutable variable inside the effect.
+
+  useEffect(() => {
+    ref.current = requestAnimationFrame(() => {});
+    return () => {
+      if (ref.current != null) {
+        cancelAnimationFrame(ref.current);
+      }
+    };
+  }, []);
+}
+```
+
+```tsx
+import React, { useLayoutEffect, useRef } from "react";
+
+function MyComponent() {
+  const ref = useRef<HTMLInputElement | null>(null);
+  //    ^^^
+  //    - Unnecessary use of `useRef`. Instead, co-locate a mutable variable inside the effect.
+
+  useLayoutEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+    return () => {
+      if (ref.current) {
+        ref.current.blur();
+      }
+    };
+  }, []);
+}
+```
 
 ### Passing
 
-TODO: Provide code examples that would not trigger the rule.
+```tsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    let ref: number | null = requestAnimationFrame(() => {});
+    return () => {
+      if (ref != null) {
+        cancelAnimationFrame(ref);
+      }
+    };
+  }, []);
+}
+```
+
+```tsx
+import React, { useEffect, useRef } from "react";
+
+// Valid because the ref is used across more than one effect.
+function MyComponent() {
+  const ref = useRef<number | null>(null);
+
+  useEffect(() => {
+    ref.current = setTimeout(() => {}, 100);
+  }, []);
+
+  useEffect(() => {
+    if (ref.current != null) {
+      clearTimeout(ref.current);
+    }
+  }, []);
+}
+```
 
 ## Implementation
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-ref.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-ref.spec.ts)
+
+---
+
+## See Also
+
+- [`no-unnecessary-use-callback`](./no-unnecessary-use-callback)\
+  Disallows unnecessary usage of `useCallback`.
+- [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
+  Disallows unnecessary usage of `useMemo`.
