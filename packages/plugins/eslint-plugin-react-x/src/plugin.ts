@@ -49,6 +49,7 @@ import noUnnecessaryKey from "./rules/no-unnecessary-key";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
+import noUnnecessaryUseRef from "./rules/no-unnecessary-use-ref";
 import noUnsafeComponentWillMount from "./rules/no-unsafe-component-will-mount";
 import noUnsafeComponentWillReceiveProps from "./rules/no-unsafe-component-will-receive-props";
 import noUnsafeComponentWillUpdate from "./rules/no-unsafe-component-will-update";
@@ -120,6 +121,7 @@ export const plugin: CompatiblePlugin = {
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
+    "no-unnecessary-use-ref": noUnnecessaryUseRef,
     "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
     "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,
     "no-unsafe-component-will-update": noUnsafeComponentWillUpdate,

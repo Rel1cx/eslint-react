@@ -6,7 +6,7 @@
 function isJsxFragmentElement(
    context: RuleContext, 
    node: Node, 
-   jsxConfig?: JsxConfig): boolean;
+   jsxConfig?: Pick<JsxConfig, "jsxFragmentFactory">): boolean;
 ```
 
 Determines if a JSX element is a React Fragment
@@ -18,7 +18,7 @@ Fragments can be imported from React and used like <Fragment> or <React.Fragment
 | ------ | ------ | ------ |
 | `context` | `RuleContext` | ESLint rule context |
 | `node` | `Node` | AST node to check |
-| `jsxConfig?` | [`JsxConfig`](../interfaces/JsxConfig.md) | Optional JSX configuration |
+| `jsxConfig?` | [`Pick`](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys)\<[`JsxConfig`](../interfaces/JsxConfig.md), `"jsxFragmentFactory"`\> | Optional JSX configuration |
 
 ## Returns
 

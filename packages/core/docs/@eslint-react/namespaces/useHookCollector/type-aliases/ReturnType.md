@@ -6,6 +6,8 @@
 type ReturnType = {
   ctx: {
      getAllHooks: Hook[];
+     getCurrentEntries: FunctionEntry[];
+     getCurrentEntry: FunctionEntry | undefined;
   };
   listeners: ESLintUtils.RuleListener;
 };
@@ -15,6 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`Hook`](../../../../interfaces/Hook.md)[]; \} |
+| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`Hook`](../../../../interfaces/Hook.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `undefined`; \} |
 | `ctx.getAllHooks` | [`Hook`](../../../../interfaces/Hook.md)[] |
+| `ctx.getCurrentEntries` | `FunctionEntry`[] |
+| `ctx.getCurrentEntry` | `FunctionEntry` \| `undefined` |
 | <a id="listeners"></a> `listeners` | `ESLintUtils.RuleListener` |
