@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { getInstanceId, isCreateContextCall, isInstanceIdEqual } from "@eslint-react/core";
+import { findEnclosingAssignmentTarget, isCreateContextCall, isInstanceIdEqual } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "Program:exit"() {
       for (const call of createCalls) {
         // Get the variable identifier for the context
-        const id = getInstanceId(call);
+        const id = findEnclosingAssignmentTarget(call);
         if (id == null) {
           // Report an error if the context is not assigned to a variable
           context.report({

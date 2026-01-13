@@ -4,12 +4,13 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 /**
- * Gets the identifier node of an instance based on AST node relationships.
- * Used for tracking where hooks or components are being assigned in the code.
- * @param node The current AST node to evaluate
- * @internal
+ * Finds the enclosing assignment target (variable, property, etc.) for a given node
+ *
+ * @todo Verify correctness and completeness of this function
+ * @param node The starting node
+ * @returns The enclosing assignment target node, or undefined if not found
  */
-export function getInstanceId(node: TSESTree.Node) {
+export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
   switch (true) {
     // Case: variable declaration (const x = new ResizeObserver())
     case node.type === T.VariableDeclarator:
@@ -31,6 +32,11 @@ export function getInstanceId(node: TSESTree.Node) {
 
     // Continue traversing up the AST until we find an identifier
     default:
-      return getInstanceId(node.parent);
+      return findEnclosingAssignmentTarget(node.parent);
   }
 }
+
+/**
+ * Type representing the possible assignment targets returned by `findEnclosingAssignmentTarget`
+ */
+export type AssignmentTarget = ReturnType<typeof findEnclosingAssignmentTarget>;

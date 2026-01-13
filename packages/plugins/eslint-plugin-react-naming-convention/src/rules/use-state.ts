@@ -1,4 +1,4 @@
-import { getInstanceId, isUseStateCall } from "@eslint-react/core";
+import { findEnclosingAssignmentTarget, isUseStateCall } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -88,7 +88,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         });
         return;
       }
-      const id = getInstanceId(node);
+      const id = findEnclosingAssignmentTarget(node);
       if (id?.type !== T.ArrayPattern) {
         if (!enforceAssignment) return;
         context.report({
