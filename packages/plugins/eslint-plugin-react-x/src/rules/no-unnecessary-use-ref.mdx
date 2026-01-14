@@ -30,7 +30,7 @@ react-x/no-unnecessary-use-ref
 
 Disallows unnecessary usage of `useRef`.
 
-If a ref holds a value that is only used inside a single effect, it is unnecessary to use `useRef`. Instead, co-locate the value inside the effect that uses it.
+If a ref holds a value that is used only within a single effect, `useRef` is unnecessary. Instead, co-locate the value inside the effect that uses it.
 
 ## Examples
 
@@ -76,7 +76,7 @@ function MyComponent() {
 import React, { useEffect, useRef } from "react";
 
 function MyComponent() {
-  // ✅ It's OK to use `useRef` here because the ref is used outside of the effect as well.
+  // ✅ It is appropriate to use `useRef` here because the ref is used outside the effect as well.
   const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
     if (inputRef.current != null) {
@@ -91,7 +91,7 @@ function MyComponent() {
 import React, { useRef } from "react";
 
 function MyComponent() {
-  // ✅ It's OK to use `useRef` here because the ref can be used for other purposes, and if not, the no-unused-vars rule will catch it.
+  // ✅ This ref can be used for other purposes, and if not, the no-unused-vars rule will catch it.
   const ref = useRef<number | null>(null);
 
   // ...
