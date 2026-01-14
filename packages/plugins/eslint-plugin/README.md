@@ -156,6 +156,8 @@ export default defineConfig(
   Disable rules in the `dom` preset.
 - `disable-web-api`\
   Disable rules in the `web-api` preset.
+- `disable-experimental`\
+  Disable rules that have an "🧪 Experimental" feature flag.
 - `disable-type-checked`\
   Disable rules that require type information.
 - `disable-conflict-eslint-plugin-react`\

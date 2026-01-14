@@ -6,6 +6,7 @@ import react from "eslint-plugin-react-x";
 import * as allConfig from "./configs/all";
 import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
 import * as disableDomConfig from "./configs/disable-dom";
+import * as disableExperimentalConfig from "./configs/disable-experimental";
 import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
 import * as disableWebApiConfig from "./configs/disable-web-api";
 import * as domConfig from "./configs/dom";
@@ -24,6 +25,7 @@ type ConfigName =
   | "all"
   | "disable-conflict-eslint-plugin-react"
   | "disable-dom"
+  | "disable-experimental"
   | "disable-type-checked"
   | "disable-web-api"
   | "dom"
@@ -53,6 +55,7 @@ const plugin: CompatiblePlugin & {
     ["all"]: allConfig,
     ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
     ["disable-dom"]: disableDomConfig,
+    ["disable-experimental"]: disableExperimentalConfig,
     ["disable-type-checked"]: disableTypeCheckedConfig,
     ["disable-web-api"]: disableWebApiConfig,
     ["dom"]: domConfig,
