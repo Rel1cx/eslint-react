@@ -1,3 +1,16 @@
+## v2.6.1 (2026-01-14)
+
+### 🐞 Fixes
+
+- Enhance `no-unnecessary-use-ref` rule tests and improve handling of ref references by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1399
+- Support v3 and v4 zod versions by @DoctorFTB in https://github.com/Rel1cx/eslint-react/pull/1400
+
+## New Contributors
+
+- @DoctorFTB made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1400
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.6.0...v2.6.1
+
 ## v2.6.0 (2026-01-14)
 
 ### ✨ New
