@@ -12,7 +12,7 @@ title: Changelog
 
 The new [`no-unnecessary-use-ref`](https://www.eslint-react.xyz/docs/rules/no-unnecessary-use-ref) rule is included in the strict presets.
 
-This rule reports unnecessary uses of `useRef` when the ref is only used within a single `useEffect` which the value can be co-located within the effect itself, thanks to @sukkaw for purposing it!
+This rule reports unnecessary uses of `useRef` when the ref is only used within a single `useEffect` which the value can be co-located within the effect itself, thanks to @SukkaW for purposing it!
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.7...v2.5.8
 

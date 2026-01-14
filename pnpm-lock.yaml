@@ -119,8 +119,8 @@ importers:
         specifier: ^5.9.0
         version: 5.9.0
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
       tsx:
         specifier: ^4.21.0
         version: 4.21.0
@@ -207,8 +207,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   apps/website:
     dependencies:
@@ -667,8 +667,8 @@ importers:
         specifier: workspace:*
         version: link:../../.pkgs/configs
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin:
     dependencies:
@@ -719,8 +719,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-debug:
     dependencies:
@@ -774,8 +774,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-dom:
     dependencies:
@@ -829,8 +829,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-hooks-extra:
     dependencies:
@@ -884,8 +884,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-naming-convention:
     dependencies:
@@ -942,8 +942,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-web-api:
     dependencies:
@@ -994,8 +994,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/plugins/eslint-plugin-react-x:
     dependencies:
@@ -1058,8 +1058,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.8)
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/shared:
     dependencies:
@@ -1092,8 +1092,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/utilities/ast:
     dependencies:
@@ -1123,8 +1123,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/utilities/eff:
     devDependencies:
@@ -1132,8 +1132,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
   packages/utilities/var:
     dependencies:
@@ -1166,8 +1166,8 @@ importers:
         specifier: workspace:*
         version: link:../../../.pkgs/configs
       tsdown:
-        specifier: ^0.20.0-beta.1
-        version: 0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3)
+        specifier: ^0.20.0-beta.2
+        version: 0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3)
 
 packages:
 
@@ -6420,8 +6420,8 @@ packages:
   ts-pattern@5.9.0:
     resolution: {integrity: sha512-6s5V71mX8qBUmlgbrfL33xDUwO0fq48rxAu2LBE11WBeGdpCPOsXksQbZJHvHwhrd3QjUusd3mAOM5Gg0mFBLg==}
 
-  tsdown@0.20.0-beta.1:
-    resolution: {integrity: sha512-F/A0vGKG8/8XSKMxQtHCeRHpI2jlpKQLQ8sEDKh3XXWZjAXyz5pjHosJvsL5NEv+9ZtcQZEw0xEzPgfJSAWgdg==}
+  tsdown@0.20.0-beta.2:
+    resolution: {integrity: sha512-HoZt4jKulm3pPqh1lke/+D+48Rnv5l7cLkPp5ZxbpDUxh+viESsItQzRXVo0lbQMO7TXoZF4hC6gIpEZoZs0aQ==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -12608,7 +12608,7 @@ snapshots:
 
   ts-pattern@5.9.0: {}
 
-  tsdown@0.20.0-beta.1(publint@0.3.16)(typescript@5.9.3):
+  tsdown@0.20.0-beta.2(publint@0.3.16)(typescript@5.9.3):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
