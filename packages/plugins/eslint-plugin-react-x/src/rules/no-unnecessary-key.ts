@@ -5,6 +5,7 @@ import {
   getJsxConfigFromAnnotation,
   getJsxConfigFromContext,
   isJsxFragmentElement,
+  isRenderFunctionLoose,
 } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -54,6 +55,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (isJsxFragmentElement(context, jsxElement, jsxConfig)) return;
       // If there is a spread attribute, it's not safe to report an unnecessary key
       if (jsxElement.openingElement.attributes.some((attr) => attr.type === T.JSXSpreadAttribute)) return;
+      const isInsideRenderFunction = AST.findParentNode(jsxElement, (n) => isRenderFunctionLoose(context, n)) != null;
+      // If inside a render function, skip checking to avoid false positives
+      if (isInsideRenderFunction) return;
       // Find the parent `.map()` callback function, if it exists
       const mapCallback = AST.findParentNode(jsxElement, isArrayMethodCallback);
       // Check static keys on elements that are not in a map context
@@ -99,13 +103,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-/**
- * Checks if a node is a callback function passed to an array's `.map()` method
- * @param node The node to check
- * @returns `true` if the node is a map callback, `false` otherwise
- */
 function isArrayMethodCallback(node: TSESTree.Node) {
   if (node.parent?.type !== T.CallExpression) return false;
-  if (!AST.isArrayMapCall(node.parent) || !AST.isArrayFromCall(node.parent)) return false;
+  if (!AST.isArrayMapCall(node.parent) && !AST.isArrayFromCall(node.parent)) return false;
   return AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(AST.getUnderlyingExpression(node));
 }
