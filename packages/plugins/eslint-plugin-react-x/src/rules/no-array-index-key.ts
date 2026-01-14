@@ -19,6 +19,25 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 const REACT_CHILDREN_METHOD = ["forEach", "map"] as const;
 
+const arrayIndexParamPosition = new Map<string, number>([
+  ["every", 1],
+  ["filter", 1],
+  ["find", 1],
+  ["findIndex", 1],
+  ["findLast", 1],
+  ["findLastIndex", 1],
+  ["flatMap", 1],
+  ["forEach", 1],
+  ["map", 1],
+  ["reduce", 2],
+  ["reduceRight", 2],
+  ["some", 1],
+]);
+
+export function getArrayIndexParamPosition(methodName: string) {
+  return arrayIndexParamPosition.get(methodName) ?? -1;
+}
+
 // Checks if a method name is 'forEach' or 'map'
 function isReactChildrenMethod(name: string): name is typeof REACT_CHILDREN_METHOD[number] {
   return REACT_CHILDREN_METHOD.includes(name as never);
@@ -56,7 +75,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
   }
   const { name } = callee.property;
   // Determines the position of the index parameter for array methods like 'map', 'forEach', etc
-  const indexPosition = AST.getArrayMethodCallbackIndexParamPosition(name);
+  const indexPosition = getArrayIndexParamPosition(name);
   if (indexPosition === -1) {
     return unit;
   }

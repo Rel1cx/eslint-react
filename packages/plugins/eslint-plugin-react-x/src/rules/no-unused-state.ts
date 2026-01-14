@@ -145,7 +145,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "ClassExpression:exit": classExit,
     MemberExpression(node) {
       // Detect state usage (`this.state`)
-      if (!AST.isThisExpression(node.object)) {
+      if (!AST.isThisExpressionLoose(node.object)) {
         return;
       }
       if (AST.getPropertyName(node.property) !== "state") {
@@ -194,7 +194,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Detect state usage via destructuring (`const { state } = this`)
-      if (node.init == null || !AST.isThisExpression(node.init) || node.id.type !== T.ObjectPattern) {
+      if (node.init == null || !AST.isThisExpressionLoose(node.init) || node.id.type !== T.ObjectPattern) {
         return;
       }
       const hasState = node.id.properties.some((prop) => {

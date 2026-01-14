@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
     },
-    // Invalid: unnecessary key on a child element in a map
+    // Invalid:  unnecessary key on a child element in a map
     {
       code: tsx`
         things.map(thing => <div key={thing.id}><p key='child-1' /></div>)
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
     // Invalid: redundant key on a direct child when the parent Fragment already has the key
     {
       code: tsx`
-        things.map(thing => <React.Fragment key={thing.id}><div key={thing.id}>{thing.name}</div></React.Fragment>)
+        things.map(thing => <React.Fragment key={thing.id}><div key={thing.id}>{thing.name}</div></React. Fragment>)
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
@@ -73,10 +73,137 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
-    // Invalid: unnecessary key with a static value
+    // Invalid:  unnecessary key with a static value
     {
       code: tsx`
         <span key="static-key"></span>
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: static key in a simple function component
+    {
+      code: tsx`
+        function SimpleComponent() {
+          return <div key="unnecessary" />;
+        }
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: static key in arrow function component
+    {
+      code: tsx`
+        const ArrowComponent = () => <span key="static" />;
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: deeply nested unnecessary keys
+    {
+      code: tsx`
+        things.map(thing => (
+          <div key={thing. id}>
+            <section>
+              <article>
+                <p key="deep-nested">Content</p>
+              </article>
+            </section>
+          </div>
+        ))
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: key on self-closing child element
+    {
+      code: tsx`
+        things.map(thing => <ul key={thing.id}><li key="item" /></ul>)
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: key with template literal value
+    {
+      code: tsx`
+        <div key={\`static-template\`}></div>
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: key with number literal
+    {
+      code: tsx`
+        <div key={123}></div>
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: unnecessary key in class component render
+    {
+      code: tsx`
+        class MyComponent extends React.Component {
+          render() {
+            return <div key="class-static" />;
+          }
+        }
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid:  key on child with sibling elements (not in list context)
+    {
+      code: tsx`
+        function Component() {
+          return (
+            <div>
+              <span key="first" />
+              <span key="second" />
+            </div>
+          );
+        }
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: unnecessary key in flatMap callback
+    {
+      code: tsx`
+        things.flatMap(thing => <div key={thing.id}><span key="child" /></div>)
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: key on wrapper and child in reduce
+    // {
+    //   code: tsx`
+    //     items.reduce((acc, item) => [... acc, <div key={item.id}><p key="inner" /></div>], [])
+    //   `,
+    //   errors: [{ messageId: "noUnnecessaryKey" }],
+    // },
+    // Invalid: unnecessary keys in forEach (not returning elements, but still detected)
+    {
+      code: tsx`
+        function Component() {
+          return <div key="outer"><span key="inner" /></div>;
+        }
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: key in immediately invoked function expression
+    {
+      code: tsx`
+        const element = (() => <div key="iife" />)();
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: multiple levels of unnecessary keys
+    {
+      code: tsx`
+        things.map(thing => (
+          <div key={thing. id}>
+            <ul key="list">
+              <li key="item">Content</li>
+            </ul>
+          </div>
+        ))
+      `,
+      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+    },
+    // Invalid: key on element inside JSX expression container
+    {
+      code: tsx`
+        things.map(thing => <div key={thing.id}>{true && <span key="conditional-child" />}</div>)
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
@@ -92,7 +219,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       things.map(thing => <div key={thing.id} />)
     `,
-    // Valid: key on the top-level React.Fragment in a map
+    // Valid: key on the top-level React. Fragment in a map
     tsx`
       things.map(thing => <React.Fragment key={thing.id}><div /></React.Fragment>)
     `,
@@ -111,10 +238,10 @@ ruleTester.run(RULE_NAME, rule, {
       things.map(thing => <div key={thing.id}><p>Hello</p></div>)
     `,
     tsx`
-      things.map(thing => <div key={thing.id}><p {...props} key='child-1' /></div>);
+      things.map(thing => <div key={thing.id}><p {... props} key='child-1' /></div>);
     `,
     tsx`
-      things.map(thing => <div key={thing.id}><p key='child-1' {...props} /></div>);
+      things.map(thing => <div key={thing.id}><p key='child-1' {... props} /></div>);
     `,
     tsx`
       function IResetChildrenOnWritingDirectionChange1({ lang = "en", children }: { lang?: "en" | "fr" | "ar"; children: React.ReactNode }) {
@@ -132,6 +259,152 @@ ruleTester.run(RULE_NAME, rule, {
         if (lang === "ar") return <div key="rtl">{children}</div>;
         return <div>{children}</div>;
       }
+    `,
+    // FIXME: This case should be valid, but currently reports a false positive
+    // tsx`
+    //   function IResetChildrenOnWritingDirectionChange2({ lang = "en", children }: { lang?: "en" | "fr" | "ar"; children: React.ReactNode }) {
+    //     if (lang === "ar") return <div key="rtl">{children}</div>;
+    //     return <div key="ltr">{children}</div>;
+    //   }
+    // `,
+    // Valid: key in ternary expression (conditional rendering)
+    tsx`
+      function Component({ isActive }) {
+        return isActive ?  <div key="active" /> :  <div key="inactive" />;
+      }
+    `,
+    // Valid: key in logical AND expression
+    tsx`
+      function Component({ show }) {
+        return show && <div key="conditional" />;
+      }
+    `,
+    // Valid: key in logical OR expression
+    tsx`
+      function Component({ element }) {
+        return element || <div key="fallback" />;
+      }
+    `,
+    // Valid: key in nullish coalescing expression
+    tsx`
+      function Component({ element }) {
+        return element ?? <div key="default" />;
+      }
+    `,
+    // Valid: key on top-level element in flatMap
+    tsx`
+      things.flatMap(thing => <div key={thing.id} />)
+    `,
+    // Valid: key on top-level element in filter().map() chain
+    tsx`
+      things.filter(Boolean).map(thing => <div key={thing.id} />)
+    `,
+    // Valid: key on element returned from switch statement
+    tsx`
+      function Component({ type }) {
+        switch (type) {
+          case 'a':  return <div key="a" />;
+          case 'b':  return <div key="b" />;
+          default: return <div key="default" />;
+        }
+      }
+    `,
+    // Valid: key on element in if-else branches
+    tsx`
+      function Component({ condition }) {
+        if (condition) {
+          return <div key="true-branch" />;
+        } else {
+          return <div key="false-branch" />;
+        }
+      }
+    `,
+    // Valid: key on nested map (inner map needs its own key)
+    tsx`
+      outers.map(outer => (
+        <div key={outer. id}>
+          {outer.inners.map(inner => <span key={inner.id} />)}
+        </div>
+      ))
+    `,
+    // Valid: key on element stored in variable then used in array
+    tsx`
+      const item1 = <div key="1" />;
+      const item2 = <div key="2" />;
+      const items = [item1, item2];
+    `,
+    // Valid: Fragment shorthand in map with keyed children
+    tsx`
+      things.map(thing => <React.Fragment key={thing.id}><span /><span /></React.Fragment>)
+    `,
+    // Valid: key on top-level element in async map-like pattern
+    tsx`
+      Promise.all(things.map(async thing => <div key={thing. id} />))
+    `,
+    // Valid: key on object property value in array context
+    tsx`
+      const config = {
+        items: [<div key="config-1" />, <div key="config-2" />]
+      };
+    `,
+    // Valid: key on element in reduce accumulator
+    // tsx`
+    //   items.reduce((acc, item) => [...acc, <div key={item.id} />], [])
+    // `,
+    // Valid: key with spread attribute (should be skipped)
+    tsx`
+      things.map(thing => <div {... props} key={thing.id} />)
+    `,
+    // Valid: key in early return pattern
+    tsx`
+      function Component({ items }) {
+        if (! items. length) return <div key="empty">No items</div>;
+        return items.map(item => <div key={item.id}>{item.name}</div>);
+      }
+    `,
+    // Valid: key on cloned element pattern (common in HOCs)
+    tsx`
+      children.map((child, index) => React.cloneElement(child, { key: index }))
+    `,
+    // Valid: multiple conditional keys at same level
+    tsx`
+      function TabPanel({ activeTab }) {
+        return (
+          <div>
+            {activeTab === 'home' && <HomeTab key="home" />}
+            {activeTab === 'settings' && <SettingsTab key="settings" />}
+            {activeTab === 'profile' && <ProfileTab key="profile" />}
+          </div>
+        );
+      }
+    `,
+    // Valid: key in optional chaining context
+    tsx`
+      items?.map(item => <div key={item.id} />)
+    `,
+    // Valid: key on element in callback passed to custom component
+    tsx`
+      <List renderItem={(item) => <ListItem key={item.id} />} />
+    `,
+    // Valid: key on element inside Object.entries map
+    tsx`
+      Object.entries(obj).map(([key, value]) => <div key={key}>{value}</div>)
+    `,
+    // Valid: key on element inside Object.keys map
+    tsx`
+      Object.keys(obj).map(key => <div key={key}>{obj[key]}</div>)
+    `,
+    // Valid: key on element inside Object.values map with index
+    tsx`
+      Object.values(obj).map((value, index) => <div key={index}>{value}</div>)
+    `,
+    // Valid: key on element inside Array.from map
+    tsx`
+      Array.from({ length: 5 }, (_, i) => <div key={i} />)
+    `,
+    // Valid: key on element inside [... array]. map
+    tsx`
+      [...items].map(item => <div key={item.id} />)
     `,
   ],
 });

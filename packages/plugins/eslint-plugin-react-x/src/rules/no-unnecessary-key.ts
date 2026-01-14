@@ -55,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If there is a spread attribute, it's not safe to report an unnecessary key
       if (jsxElement.openingElement.attributes.some((attr) => attr.type === T.JSXSpreadAttribute)) return;
       // Find the parent `.map()` callback function, if it exists
-      const mapCallback = AST.findParentNode(jsxElement, isMapCallback);
+      const mapCallback = AST.findParentNode(jsxElement, isArrayMethodCallback);
       // Check static keys on elements that are not in a map context
       if (mapCallback == null || AST.findParentNode(jsxElement, AST.isFunction) !== mapCallback) {
         // Check if the keyed element is inside a condition expression, control flow statement, or has an enclosing assignment target
@@ -104,8 +104,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param node The node to check
  * @returns `true` if the node is a map callback, `false` otherwise
  */
-function isMapCallback(node: TSESTree.Node) {
-  if (node.parent == null) return false;
-  if (!AST.isArrayMapCall(node.parent)) return false;
+function isArrayMethodCallback(node: TSESTree.Node) {
+  if (node.parent?.type !== T.CallExpression) return false;
+  if (!AST.isArrayMapCall(node.parent) || !AST.isArrayFromCall(node.parent)) return false;
   return AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(AST.getUnderlyingExpression(node));
 }

@@ -10,6 +10,6 @@ import { getUnderlyingExpression } from "./expression-base";
  * @param node The expression node to check
  * @returns true if the expression is a ThisExpression, false otherwise
  */
-export function isThisExpression(node: TSESTree.Expression) {
+export function isThisExpressionLoose(node: TSESTree.Expression) {
   return getUnderlyingExpression(node).type === T.ThisExpression;
 }
