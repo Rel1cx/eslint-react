@@ -111,7 +111,7 @@ const p11tGroups = {
 
 export function buildIgnoreConfig(gitignore: string, extra: string[]) {
   return [
-    includeIgnoreFile(gitignore, "Imported .gitignore patterns") as Config,
+    includeIgnoreFile(gitignore) as Config,
     globalIgnores([
       ...GLOB_IGNORES,
       ...extra,

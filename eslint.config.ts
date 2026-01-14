@@ -13,11 +13,10 @@ import { recommended as fastImportRecommended } from "eslint-plugin-fast-import"
 import { functionRule } from "eslint-plugin-function-rule";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 
-const dirname = fileURLToPath(new URL(".", import.meta.url));
-const ignoreConfig = buildIgnoreConfig(path.join(dirname, ".gitignore"), [
+// Build ignore patterns from . gitignore + additional exclusions
+const ignoreConfig = buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
   "apps",
   "docs",
   "test",
@@ -27,21 +26,23 @@ const ignoreConfig = buildIgnoreConfig(path.join(dirname, ".gitignore"), [
 
 export default defineConfig(
   ...ignoreConfig,
+  // Main TypeScript configuration with strict type checking
   {
     extends: [
       tseslint.configs.strictTypeChecked,
       strictTypeChecked,
       // @ts-expect-error - types issue
-      fastImportRecommended({ rootDir: dirname }),
+      fastImportRecommended({ rootDir: import.meta.dirname }),
     ],
     files: GLOB_TS,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: dirname,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
+    // Custom function-based lint rules
     plugins: {
       "function-rule-1": functionRule(templateExpression()),
       "function-rule-2": functionRule(nullishComparison()),
@@ -53,6 +54,7 @@ export default defineConfig(
       "function-rule-2/function-rule": "error",
     },
   },
+  // Relaxed config for scripts and config files (no type checking)
   {
     extends: [
       disableTypeChecked,
@@ -68,6 +70,7 @@ export default defineConfig(
       "no-console": "off",
     },
   },
+  // Test files:  allow empty arrow functions, disable custom rules
   {
     files: GLOB_TESTS,
     rules: {
@@ -76,5 +79,6 @@ export default defineConfig(
       "function-rule-2/function-rule": "off",
     },
   },
+  // Disable ESLint core rules that conflict with TypeScript
   disableProblematicEslintJsRules,
 );
