@@ -1,4 +1,4 @@
-export * from "./array-method";
+export * from "./array-method-call";
 export * from "./class-id";
 export * from "./equal";
 export * from "./expression-base";

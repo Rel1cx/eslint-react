@@ -103,7 +103,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 
 function isArrayMethodCallback(node: TSESTree.Node) {
-  if (node.parent?.type !== T.CallExpression) return false;
-  if (!AST.isArrayMapCall(node.parent) && !AST.isArrayFromCall(node.parent)) return false;
+  const parent = node.parent;
+  if (parent?.type !== T.CallExpression) return false;
+  if (!AST.isArrayMapCallLoose(parent) && !AST.isArrayFromCallLoose(parent)) return false;
   return AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(AST.getUnderlyingExpression(node));
 }
