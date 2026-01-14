@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
 import { isUseEffectLikeCall, isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -36,13 +37,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     VariableDeclarator(node) {
       const { id, init } = node;
       if (id.type !== T.Identifier || init == null || !isUseRefCall(init)) return;
-      const variable = context.sourceCode.getDeclaredVariables(node).at(0);
-      if (variable == null) return;
-      const effects = new Set<unknown>();
+      const [ref, ...rest] = context.sourceCode.getDeclaredVariables(node);
+      // Skip non-standard `useRef()` usages to prevent false positives
+      if (ref == null || rest.length > 0) return;
+      const effects = new Set<TSESTree.Node>();
       let globalUsages = 0;
-      for (const ref of variable.references) {
-        if (ref.init != null) continue;
-        const effect = AST.findParentNode(ref.identifier, isUseEffectLikeCall);
+      for (const { identifier, init } of ref.references) {
+        if (init != null) continue;
+        const effect = AST.findParentNode(identifier, isUseEffectLikeCall);
         if (effect == null) {
           globalUsages++;
         } else {
