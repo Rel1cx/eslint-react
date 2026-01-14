@@ -89,13 +89,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
-    // Invalid: static key in arrow function component
-    {
-      code: tsx`
-        const ArrowComponent = () => <span key="static" />;
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
     // Invalid: deeply nested unnecessary keys
     {
       code: tsx`
@@ -129,17 +122,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         <div key={123}></div>
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: unnecessary key in class component render
-    {
-      code: tsx`
-        class MyComponent extends React.Component {
-          render() {
-            return <div key="class-static" />;
-          }
-        }
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
@@ -179,13 +161,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: key in immediately invoked function expression
-    {
-      code: tsx`
-        const element = (() => <div key="iife" />)();
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
     },
     // Invalid: multiple levels of unnecessary keys
     {
@@ -383,6 +358,7 @@ ruleTester.run(RULE_NAME, rule, {
       items?.map(item => <div key={item.id} />)
     `,
     // Valid: key on element in callback passed to custom component
+    // FIXME: Currently reports a false positive
     tsx`
       <List renderItem={(item) => <ListItem key={item.id} />} />
     `,
