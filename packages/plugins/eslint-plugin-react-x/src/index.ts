@@ -45,7 +45,7 @@ export default {
      */
     ["strict-type-checked"]: toFlatConfig(strictTypeCheckedConfig),
     /**
-     * Same as the `strict` preset but enables additional rules that require type information
+     * Same as the `strict` preset but disables rules that can be enforced by TypeScript
      */
     ["strict-typescript"]: toFlatConfig(strictTypeScriptConfig),
   },
