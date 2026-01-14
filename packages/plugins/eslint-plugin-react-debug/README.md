@@ -2,7 +2,7 @@
 
 Debugging rules.
 
-These rules are useful for static analysis, code transformation, or when building custom tooling that needs to identify specific React patterns.
+These rules are useful for static analysis, code transformation, or when building custom tooling that needs to identify specific patterns.
 
 ## Install
 
