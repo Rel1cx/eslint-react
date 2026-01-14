@@ -30,7 +30,7 @@ react-x/no-unnecessary-use-ref
 
 Disallows unnecessary usage of `useRef`.
 
-If a ref is only used inside a single effect, the ref can be replaced by a local variable scoped to that effect. This avoids persisting mutable state across renders when it is only needed within one effect’s lifetime.
+If a ref holds a value that is only used inside a single effect, it is unnecessary to use `useRef`. Instead, co-locate the value inside the effect that uses it.
 
 ## Examples
 
@@ -41,7 +41,7 @@ import React, { useEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<number | null>(null);
-  //    - Unnecessary use of `useRef`. Instead, co-locate a mutable variable inside the effect.
+  //    - Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
 
   useEffect(() => {
     ref.current = requestAnimationFrame(() => {});
@@ -59,7 +59,7 @@ import React, { useLayoutEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<HTMLInputElement | null>(null);
-  //    - Unnecessary use of `useRef`. Instead, co-locate a mutable variable inside the effect.
+  //    - Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
 
   useLayoutEffect(() => {
     if (ref.current) {
