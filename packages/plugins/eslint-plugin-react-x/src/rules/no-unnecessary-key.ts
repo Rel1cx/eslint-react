@@ -55,9 +55,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (isJsxFragmentElement(context, jsxElement, jsxConfig)) return;
       // If there is a spread attribute, it's not safe to report an unnecessary key
       if (jsxElement.openingElement.attributes.some((attr) => attr.type === T.JSXSpreadAttribute)) return;
-      const isInsideRenderFunction = AST.findParentNode(jsxElement, (n) => isRenderFunctionLoose(context, n)) != null;
       // If inside a render function, skip checking to avoid false positives
-      if (isInsideRenderFunction) return;
+      if (AST.findParentNode(jsxElement, (n) => isRenderFunctionLoose(context, n)) != null) return;
       // Find the parent `.map()` callback function, if it exists
       const mapCallback = AST.findParentNode(jsxElement, isArrayMethodCallback);
       // Check static keys on elements that are not in a map context
