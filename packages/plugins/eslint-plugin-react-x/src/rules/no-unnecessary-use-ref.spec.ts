@@ -96,8 +96,30 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import React, { useRef } from "react";
 
-      // Never used but other rules can catch this
+      // Called outside of a component or hook but rules-of-hooks can catch this
+      useRef(null);
+    `,
+    tsx`
+      import React, { useRef } from "react";
+
+      // Called outside of a component or hook but rules-of-hooks can catch this
       const ref = useRef(null);
+    `,
+    tsx`
+      import React, { useRef } from "react";
+
+      function MyComponent() {
+          // Never used but other rules can catch this
+          const ref = useRef(null);
+      }
+    `,
+    tsx`
+      import React, { useRef } from "react";
+
+      function MyComponent() {
+          // Never used but other rules can catch this
+          useRef(null);
+      }
     `,
     tsx`
       import React, { useEffect, useRef } from "react";
