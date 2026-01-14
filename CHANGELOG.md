@@ -1,3 +1,11 @@
+## v2.6.4 (2026-01-15)
+
+### ✨ New
+
+- feat: add a `disable-experimental` preset to quickly opt out of experimental rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1403
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.6.2...v2.6.4
+
 ## v2.6.2 (2026-01-14)
 
 ### 🐞 Fixes
