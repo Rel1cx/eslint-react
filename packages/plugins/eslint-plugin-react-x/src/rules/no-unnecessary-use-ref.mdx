@@ -41,7 +41,7 @@ import React, { useEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<number | null>(null);
-  //    - Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
+  //    🟡 Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
 
   useEffect(() => {
     ref.current = requestAnimationFrame(() => {});

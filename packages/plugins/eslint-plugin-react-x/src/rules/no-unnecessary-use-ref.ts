@@ -33,6 +33,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("useRef")) return {};
   return {
     VariableDeclarator(node) {
       const { id, init } = node;
