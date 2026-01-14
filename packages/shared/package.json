@@ -40,7 +40,7 @@
     "@eslint-react/eff": "workspace:*",
     "@typescript-eslint/utils": "^8.53.0",
     "ts-pattern": "^5.9.0",
-    "zod": "^4.3.5"
+    "zod": "^3.25.0 || ^4.0.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
