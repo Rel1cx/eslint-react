@@ -59,7 +59,7 @@ import React, { useLayoutEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<HTMLInputElement | null>(null);
-  //    - Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
+  //    🟡 Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -82,6 +82,7 @@ import React, { useEffect } from "react";
 function MyComponent() {
   useEffect(() => {
     let ref: number | null = requestAnimationFrame(() => {});
+    //  🟢 Using a local variable to co-locate the value inside the effect that uses it.
     return () => {
       if (ref != null) {
         cancelAnimationFrame(ref);
