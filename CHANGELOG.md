@@ -1,4 +1,4 @@
-## v2.5.8 (2026-01-14)
+## v2.6.0 (2026-01-14)
 
 ### ✨ New
 
@@ -10,7 +10,7 @@ The new [`no-unnecessary-use-ref`](https://www.eslint-react.xyz/docs/rules/no-un
 
 This rule reports unnecessary uses of `useRef` when the ref is only used within a single effect which the value can be co-located inside the effect itself. Thanks to @SukkaW for purposing it!
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.7...v2.5.8
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.5.7...v2.6.0
 
 ## v2.5.7 (2026-01-13)
 
