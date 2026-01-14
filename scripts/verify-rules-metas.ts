@@ -53,8 +53,8 @@ const getFeatureIcon = (x: unknown) =>
     .otherwise(() => "");
 
 // Extract metadata from a rule module (name, description, features, severities)
-function retrieveRuleMeta(category: string, name: string) {
-  return Effect.gen(function*() {
+const retrieveRuleMeta = Effect.fnUntraced(
+  function*(category: string, name: string) {
     const filename = `packages/plugins/eslint-plugin-react-${category}/src/rules/${name}.ts`;
     const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(`../${filename}`));
 
@@ -84,8 +84,8 @@ function retrieveRuleMeta(category: string, name: string) {
       features: RULE_FEATURES,
       severities: [getSeverity(rEntry), getSeverity(sEntry)], // [recommended, strict]
     };
-  });
-}
+  },
+);
 
 // Verify each rule's .mdx documentation matches its source metadata
 const verifyDocs = Effect.gen(function*() {
