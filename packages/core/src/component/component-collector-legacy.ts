@@ -77,7 +77,7 @@ export function isThisSetState(node: TSESTree.CallExpression) {
   const { callee } = node;
   return (
     callee.type === T.MemberExpression
-    && AST.isThisExpression(callee.object)
+    && AST.isThisExpressionLoose(callee.object)
     && callee.property.type === T.Identifier
     && callee.property.name === "setState"
   );
@@ -91,6 +91,6 @@ export function isThisSetState(node: TSESTree.CallExpression) {
 export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
   return left.type === T.MemberExpression
-    && AST.isThisExpression(left.object)
+    && AST.isThisExpressionLoose(left.object)
     && AST.getPropertyName(left.property) === "state";
 }

@@ -1,4 +1,3 @@
-export * from "./array-index";
 export * from "./array-method";
 export * from "./class-id";
 export * from "./equal";
