@@ -41,33 +41,13 @@ import React, { useEffect, useRef } from "react";
 
 function MyComponent() {
   const ref = useRef<number | null>(null);
-  //    🟡 Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
+  //    🟡 Avoid: Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
 
   useEffect(() => {
     ref.current = requestAnimationFrame(() => {});
     return () => {
       if (ref.current != null) {
         cancelAnimationFrame(ref.current);
-      }
-    };
-  }, []);
-}
-```
-
-```tsx
-import React, { useLayoutEffect, useRef } from "react";
-
-function MyComponent() {
-  const ref = useRef<HTMLInputElement | null>(null);
-  //    🟡 Unnecessary use of `useRef`. Instead, co-locate the value inside the effect that uses it.
-
-  useLayoutEffect(() => {
-    if (ref.current) {
-      ref.current.focus();
-    }
-    return () => {
-      if (ref.current) {
-        ref.current.blur();
       }
     };
   }, []);
@@ -82,7 +62,7 @@ import React, { useEffect } from "react";
 function MyComponent() {
   useEffect(() => {
     let ref: number | null = requestAnimationFrame(() => {});
-    //  🟢 Using a local variable to co-locate the value inside the effect that uses it.
+    //  ✅ Good: Using a local variable to co-locate the value inside the effect that uses it.
     return () => {
       if (ref != null) {
         cancelAnimationFrame(ref);
@@ -95,19 +75,15 @@ function MyComponent() {
 ```tsx
 import React, { useEffect, useRef } from "react";
 
-// Valid because the ref is used across more than one effect.
 function MyComponent() {
-  const ref = useRef<number | null>(null);
-
+  // ✅ It's OK to use `useRef` here because the ref is used outside of the effect as well.
+  const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
-    ref.current = setTimeout(() => {}, 100);
-  }, []);
-
-  useEffect(() => {
-    if (ref.current != null) {
-      clearTimeout(ref.current);
+    if (inputRef.current != null) {
+      inputRef.current.focus();
     }
   }, []);
+  return <input ref={inputRef} />;
 }
 ```
 
@@ -115,7 +91,7 @@ function MyComponent() {
 import React, { useRef } from "react";
 
 function MyComponent() {
-  // Unused refs are considered valid because other rules like `no-unused-vars` can catch them.
+  // ✅ It's OK to use `useRef` here because the ref can be used for other purposes, and if not, the no-unused-vars rule will catch it.
   const ref = useRef<number | null>(null);
 
   // ...
