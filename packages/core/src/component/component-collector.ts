@@ -14,7 +14,7 @@ import { isComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
-import { getComponentNameFromId, hasNoneOrLooseComponentName } from "./component-name";
+import { hasNoneOrLooseComponentName } from "./component-name";
 
 const idGen = new IdGenerator("function_component_");
 
@@ -60,6 +60,7 @@ export function useComponentCollector(
   const functionEntries: FunctionEntry[] = [];
   const components = new Map<string, FunctionComponent>();
 
+  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const key = idGen.next();
@@ -94,7 +95,7 @@ export function useComponentCollector(
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
       const key = entry.key;
-      const name = getComponentNameFromId(id);
+      const name = id == null ? unit : AST.toStringFormat(id, getText);
       components.set(key, {
         id,
         key,
@@ -143,7 +144,7 @@ export function useComponentCollector(
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
       const key = entry.key;
-      const name = getComponentNameFromId(id);
+      const name = id == null ? unit : AST.toStringFormat(id, getText);
       components.set(key, {
         id,
         key,

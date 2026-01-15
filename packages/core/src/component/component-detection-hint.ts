@@ -13,38 +13,30 @@ export const ComponentDetectionHint = {
    */
   ...JsxDetectionHint,
   /**
-   * Skip function component created by React.memo
-   */
-  SkipMemo: 1n << 64n,
-  /**
-   * Skip function component created by React.forwardRef
-   */
-  SkipForwardRef: 1n << 65n,
-  /**
-   * Skip function component defined as array map argument
-   */
-  SkipArrayMapArgument: 1n << 66n,
-  /**
    * Skip function component defined on object method
    */
-  SkipObjectMethod: 1n << 67n,
+  SkipObjectMethod: 1n << 64n,
   /**
    * Skip function component defined on class method
    */
-  SkipClassMethod: 1n << 68n,
+  SkipClassMethod: 1n << 65n,
   /**
    * Skip function component defined on class property
    */
-  SkipClassProperty: 1n << 69n,
+  SkipClassProperty: 1n << 66n,
+  /**
+   * Skip function component defined as array map callback
+   */
+  SkipArrayMapCallback: 1n << 67n,
 } as const;
 
 /**
  * Default component detection hint
  */
 export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
+  | ComponentDetectionHint.SkipArrayMapCallback
   | ComponentDetectionHint.SkipBooleanLiteral
   | ComponentDetectionHint.SkipEmptyArray
-  | ComponentDetectionHint.SkipArrayMapArgument
   | ComponentDetectionHint.SkipNumberLiteral
   | ComponentDetectionHint.SkipStringLiteral
   | ComponentDetectionHint.SkipUndefined

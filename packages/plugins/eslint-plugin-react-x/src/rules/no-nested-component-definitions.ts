@@ -43,7 +43,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = ComponentDetectionHint.SkipArrayMapArgument
+  const hint = ComponentDetectionHint.SkipArrayMapCallback
     | ComponentDetectionHint.SkipNullLiteral
     | ComponentDetectionHint.SkipUndefined
     | ComponentDetectionHint.SkipBooleanLiteral

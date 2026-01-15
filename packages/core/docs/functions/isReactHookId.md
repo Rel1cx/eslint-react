@@ -3,15 +3,15 @@
 # Function: isReactHookId()
 
 ```ts
-function isReactHookId(id: Identifier | MemberExpression): boolean;
+function isReactHookId(id: Node): id is Identifier | MemberExpression;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `id` | `Identifier` \| `MemberExpression` |
+| `id` | `Node` |
 
 ## Returns
 
-`boolean`
+id is Identifier \| MemberExpression

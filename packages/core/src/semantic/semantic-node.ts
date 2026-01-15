@@ -4,8 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 export interface SemanticNode {
   id:
     | unit
-    | TSESTree.Identifier
-    | TSESTree.Identifier[];
+    | TSESTree.Node;
   key: string;
   kind: string;
   name:

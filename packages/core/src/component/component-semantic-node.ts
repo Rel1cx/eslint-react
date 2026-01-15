@@ -15,8 +15,7 @@ export interface FunctionComponent extends SemanticNode {
    */
   id:
     | unit
-    | TSESTree.Identifier
-    | TSESTree.Identifier[];
+    | AST.FunctionID;
 
   /**
    * The kind of component

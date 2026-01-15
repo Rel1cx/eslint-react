@@ -17,11 +17,19 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  */
 export function isRenderFunctionLoose(context: RuleContext, node: TSESTree.Node): node is AST.TSESTreeFunction {
   if (!AST.isFunction(node)) return false;
-  if ((AST.getFunctionId(node)?.name.startsWith("render")) ?? false) return true;
-  return node.parent.type === T.JSXExpressionContainer
-    && node.parent.parent.type === T.JSXAttribute
-    && node.parent.parent.name.type === T.JSXIdentifier
-    && node.parent.parent.name.name.startsWith("render");
+  const id = AST.getFunctionId(node);
+  switch (true) {
+    case id?.type === T.Identifier:
+      return id.name.startsWith("render");
+    case id?.type === T.MemberExpression
+      && id.property.type === T.Identifier:
+      return id.property.name.startsWith("render");
+    case node.parent.type === T.JSXExpressionContainer
+      && node.parent.parent.type === T.JSXAttribute
+      && node.parent.parent.name.type === T.JSXIdentifier:
+      return node.parent.parent.name.name.startsWith("render");
+  }
+  return false;
 }
 
 /**

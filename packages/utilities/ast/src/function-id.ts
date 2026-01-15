@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isMethodOrProperty, isTypeAssertionExpression } from "./is";
 import type { TSESTreeFunction } from "./types";
 
-// Ported from https://github.com/eps1lon/react/blob/8b8d265bd9a4cab7bbd04a9a13950fdc946ea51c/packages/eslint-plugin-react-hooks/src/RulesOfHooks.js#L642
+// Ported from https://github.com/facebook/react/blob/bb8a76c6cc77ea2976d690ea09f5a1b3d9b1792a/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L860
 /**
  * Gets the static name of a function AST node. For function declarations it is
  * easy. For anonymous function expressions it is much harder. If you search for
@@ -14,7 +14,7 @@ import type { TSESTreeFunction } from "./types";
  * where JS gives anonymous function expressions names. We roughly detect the
  * same AST nodes with some exceptions to better fit our use case.
  */
-export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSESTree.Identifier | unit {
+export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node
@@ -22,35 +22,30 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSE
       // const whatever = function MaybeComponent() {};
       return node.id;
     case node.parent.type === T.VariableDeclarator
-      && node.parent.init === node
-      && node.parent.id.type === T.Identifier:
+      && node.parent.init === node:
       return node.parent.id;
     // MaybeComponent = () => {};
     case node.parent.type === T.AssignmentExpression
       && node.parent.right === node
-      && node.parent.operator === "="
-      && node.parent.left.type === T.Identifier:
+      && node.parent.operator === "=":
       return node.parent.left;
     // {MaybeComponent: () => {}}
     // {MaybeComponent() {}}
     case node.parent.type === T.Property
       && node.parent.value === node
-      && !node.parent.computed
-      && node.parent.key.type === T.Identifier:
+      && !node.parent.computed:
       return node.parent.key;
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
     case isMethodOrProperty(node.parent)
-      && node.parent.value === node
-      && node.parent.key.type === T.Identifier:
+      && node.parent.value === node:
       return node.parent.key;
       // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
       //
       // const {MaybeComponent = () => {}} = {};
       // ({MaybeComponent = () => {}} = {});
     case node.parent.type === T.AssignmentPattern
-      && node.parent.right === node
-      && node.parent.left.type === T.Identifier:
+      && node.parent.right === node:
       return node.parent.left;
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;
@@ -60,3 +55,5 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction): TSE
   }
   return unit;
 }
+
+export type FunctionID = ReturnType<typeof getFunctionId>;

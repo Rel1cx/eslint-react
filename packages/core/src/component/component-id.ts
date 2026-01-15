@@ -1,7 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isComponentWrapperCallLoose } from "./component-wrapper";
@@ -9,7 +8,7 @@ import { isComponentWrapperCallLoose } from "./component-wrapper";
 export function getFunctionComponentId(
   context: RuleContext,
   node: AST.TSESTreeFunction,
-): TSESTree.Identifier | TSESTree.Identifier[] | unit {
+): AST.FunctionID | unit {
   const functionId = AST.getFunctionId(node);
   if (functionId != null) {
     return functionId;
@@ -20,7 +19,6 @@ export function getFunctionComponentId(
     parent.type === T.CallExpression
     && isComponentWrapperCallLoose(context, parent)
     && parent.parent.type === T.VariableDeclarator
-    && parent.parent.id.type === T.Identifier
   ) {
     return parent.parent.id;
   }
@@ -31,7 +29,6 @@ export function getFunctionComponentId(
     && parent.parent.type === T.CallExpression
     && isComponentWrapperCallLoose(context, parent.parent)
     && parent.parent.parent.type === T.VariableDeclarator
-    && parent.parent.parent.id.type === T.Identifier
   ) {
     return parent.parent.parent.id;
   }

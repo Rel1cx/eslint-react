@@ -33,6 +33,7 @@
 | [ComponentKind](type-aliases/ComponentKind.md) | - |
 | [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md) | - |
 | [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md) | - |
+| [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
 
@@ -118,9 +119,9 @@
 | Function | Description |
 | ------ | ------ |
 | [findEnclosingAssignmentTarget](functions/findEnclosingAssignmentTarget.md) | Finds the enclosing assignment target (variable, property, etc.) for a given node |
+| [findEnclosingComponentOrHook](functions/findEnclosingComponentOrHook.md) | Find the enclosing React component or hook for a given AST node. |
 | [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | - |
-| [getComponentNameFromId](functions/getComponentNameFromId.md) | Get component name from an identifier or identifier sequence (e.g., MemberExpression) |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | - |
 | [getJsxAttribute](functions/getJsxAttribute.md) | Creates a helper function to find a specific JSX attribute by name Handles direct attributes and spread attributes (variables or object literals) |
 | [getJsxAttributeName](functions/getJsxAttributeName.md) | Get the stringified name of a JSX attribute |
@@ -134,6 +135,8 @@
 | [isComponentName](functions/isComponentName.md) | Check if a string matches the strict component name pattern |
 | [isComponentNameLoose](functions/isComponentNameLoose.md) | Check if a string matches the loose component name pattern |
 | [isComponentWrapperCall](functions/isComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
+| [isComponentWrapperCallback](functions/isComponentWrapperCallback.md) | Check if the node is a callback function passed to a component wrapper |
+| [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
 | [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md) | Checks if the node is a function of `componentDidMount` |
@@ -142,6 +145,7 @@
 | [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | Determines if a node is the setup function passed to a useEffect-like hook |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
+| [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook. |
 | [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
 | [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
 | [isJsxLike](functions/isJsxLike.md) | Determines if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
