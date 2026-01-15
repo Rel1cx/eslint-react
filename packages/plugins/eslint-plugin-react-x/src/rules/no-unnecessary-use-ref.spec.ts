@@ -177,5 +177,29 @@ ruleTester.run(RULE_NAME, rule, {
         return <input ref={inputRef} />;
       }
     `,
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      export function useBooleanTrigger(
+        value: boolean,
+        { turnedTrue, turnedFalse }: { turnedTrue?: () => void; turnedFalse?: () => void },
+      ) {
+        const previousValueRef = useRef(value);
+
+        useEffect(() => {
+          const { current: previousValue } = previousValueRef;
+
+          if (value !== previousValue) {
+            previousValueRef.current = value;
+
+            if (value) {
+              turnedTrue?.();
+            } else {
+              turnedFalse?.();
+            }
+          }
+        }, [turnedFalse, turnedTrue, value]);
+      }
+    `,
   ],
 });
