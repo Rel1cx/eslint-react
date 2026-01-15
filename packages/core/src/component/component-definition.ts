@@ -77,7 +77,7 @@ function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boo
     return true;
   }
 
-  if ((hint & ComponentDetectionHint.SkipArrayMapCallback) && AST.isArrayMapCallLoose(node.parent)) {
+  if ((hint & ComponentDetectionHint.SkipArrayMapCallback) && AST.isArrayMapCall(node.parent)) {
     return true;
   }
 

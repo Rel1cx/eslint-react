@@ -337,5 +337,12 @@ ruleTester.run(RULE_NAME, rule, {
       Children.toArray([1, 2 ,3].map(x => <App />));
       Children.toArray(Array.from([1, 2 ,3], x => <App />));
     `,
+    tsx`
+      {Match.value(y).pipe(
+       Match.when(true, () => <div>Test</div>),
+       Match.when(false, () => <div>Test</div>),
+       Match.exhaustive
+      )}
+    `,
   ],
 });
