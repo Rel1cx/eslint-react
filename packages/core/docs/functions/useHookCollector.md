@@ -3,8 +3,14 @@
 # Function: useHookCollector()
 
 ```ts
-function useHookCollector(): ReturnType;
+function useHookCollector(context: RuleContext): ReturnType;
 ```
+
+## Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `context` | `RuleContext` |
 
 ## Returns
 

@@ -6,6 +6,7 @@ import {
   getJsxConfigFromContext,
   isJsxFragmentElement,
   isRenderFunctionLoose,
+  useComponentCollector,
 } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -46,7 +47,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...getJsxConfigFromContext(context),
     ...getJsxConfigFromAnnotation(context),
   };
+  const { ctx, listeners } = useComponentCollector(context);
+  const constantKeys = new Set<TSESTree.JSXAttribute>();
   return {
+    ...listeners,
     JSXAttribute(node: TSESTree.JSXAttribute) {
       // Check if the attribute is a `key` prop
       if (node.name.name !== "key") return;
@@ -61,20 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const mapCallback = AST.findParentNode(jsxElement, isArrayMethodCallback);
       // Check static keys on elements that are not in a map context
       if (mapCallback == null || AST.findParentNode(jsxElement, AST.isFunction) !== mapCallback) {
-        // Check if the keyed element is inside a condition expression, control flow statement, or has an enclosing assignment target
-        const isInDynamicStructure = AST
-          .findParentNode(
-            jsxElement,
-            (n) => AST.isConditional(n) || AST.isControlFlow(n) || findEnclosingAssignmentTarget(n) != null,
-          )
-          != null;
-        if (!isInDynamicStructure) {
-          context.report({
-            messageId: "noUnnecessaryKey",
-            node,
-            data: { reason: "The `key` prop is not needed outside of dynamic rendering contexts." },
-          });
-        }
+        constantKeys.add(node);
         return;
       }
       // If the `.map()` callback is not in the same scope, exit
@@ -98,6 +89,24 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         node,
         data: { reason: "A parent element already has a `key` prop in the same list rendering context." },
       });
+    },
+    "Program:exit"(node) {
+      const components = ctx.getAllComponents(node);
+      for (const key of constantKeys) {
+        // Check if the keyed element is inside dynamic structures
+        const isInDynamicStructure = AST.findParentNode(key, (n) =>
+          AST.isConditional(n)
+          || AST.isControlFlow(n)
+          || findEnclosingAssignmentTarget(n) != null
+          || components.some((comp) => comp.node === n && comp.rets.length > 1)) != null;
+        // We cant be sure the key is unnecessary
+        if (isInDynamicStructure) return;
+        context.report({
+          messageId: "noUnnecessaryKey",
+          node,
+          data: { reason: "The `key` prop is not needed outside of dynamic rendering contexts." },
+        });
+      }
     },
   };
 }

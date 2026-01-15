@@ -7,7 +7,7 @@ import type { SemanticNode } from "../semantic";
 /* eslint-disable perfectionist/sort-interfaces */
 export interface Hook extends SemanticNode {
   // The identifier of the hook
-  id: TSESTree.Identifier | unit;
+  id: AST.FunctionID | unit;
   // The AST node of the hook
   node: AST.TSESTreeFunction;
   // The name of the hook

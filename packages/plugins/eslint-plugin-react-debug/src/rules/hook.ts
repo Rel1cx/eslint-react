@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useHookCollector();
+  const { ctx, listeners } = useHookCollector(context);
 
   return {
     ...listeners,

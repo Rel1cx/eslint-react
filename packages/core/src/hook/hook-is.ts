@@ -14,7 +14,14 @@ import { isReactHookName } from "./hook-name";
 export function isReactHook(node: AST.TSESTreeFunction | unit) {
   if (node == null) return false;
   const id = AST.getFunctionId(node);
-  return id?.name != null && isReactHookName(id.name);
+  switch (id?.type) {
+    case T.Identifier:
+      return isReactHookName(id.name);
+    case T.MemberExpression:
+      return "name" in id.property && isReactHookName(id.property.name);
+    default:
+      return false;
+  }
 }
 
 /**

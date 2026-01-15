@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { isComponentNameLoose, useComponentCollector } from "@eslint-react/core";
+import { useComponentCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -55,16 +55,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
     // After traversing the whole AST, check the collected member expressions
     "Program:exit"(program) {
-      const componentBlocks = new Set(ctx.getAllComponents(program).map((component) => component.node));
+      // const componentBlocks = new Set(ctx.getAllComponents(program).map((component) => component.node));
+      const components = ctx.getAllComponents(program);
       // Check if a node is a function component collected by `useComponentCollector`
       function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
-        if (!AST.isFunction(block)) {
-          return false;
-        }
-        const id = AST.getFunctionId(block);
-        return id != null
-          && isComponentNameLoose(id.name)
-          && componentBlocks.has(block);
+        return components.some((comp) => {
+          if (comp.node !== block) return false;
+          // dprint-ignore
+          if (comp.name == null && AST.findParentNode(comp.node, (n) => n.type === T.ExportDefaultDeclaration) != null) {
+            // If the component is a default export anonymous function, skip it
+            return false;
+          }
+          return true;
+        });
       }
 
       // For each member expression, find its parent component

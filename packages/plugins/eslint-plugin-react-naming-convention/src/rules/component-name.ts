@@ -89,14 +89,11 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     ...fCollector.listeners,
     ...cCollector.listeners,
     "Program:exit"(program) {
-      for (const { node: component } of fCollector.ctx.getAllComponents(program)) {
-        const id = AST.getFunctionId(component);
-        if (id?.name == null) continue;
-        const name = id.name;
+      for (const { id, name, node: component } of fCollector.ctx.getAllComponents(program)) {
         if (isValidName(name, options)) continue;
         context.report({
           messageId: "invalidComponentName",
-          node: id,
+          node: id ?? component,
           data: { name, rule },
         });
       }

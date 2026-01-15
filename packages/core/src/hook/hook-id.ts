@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isReactHookName } from "./hook-name";
 
-export function isReactHookId(id: TSESTree.Identifier | TSESTree.MemberExpression) {
+export function isReactHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTree.MemberExpression {
   switch (id.type) {
     case T.Identifier:
       return isReactHookName(id.name);

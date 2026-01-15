@@ -14,7 +14,7 @@
 | ------ | ------ |
 | <a id="flag"></a> `flag` | `bigint` |
 | <a id="hint"></a> `hint` | `bigint` |
-| <a id="id"></a> `id` | `Identifier` \| `Identifier`[] \| `undefined` |
+| <a id="id"></a> `id` | `Node` \| `undefined` |
 | <a id="key"></a> `key` | `string` |
 | <a id="kind"></a> `kind` | `string` |
 | <a id="name"></a> `name` | `string` \| `undefined` |
