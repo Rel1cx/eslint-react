@@ -4,7 +4,6 @@ import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
@@ -126,11 +125,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Mark state if entering a `Children.toArray` call and skip further checks
       state.isWithinChildrenToArray ||= isChildrenToArrayCall(context, node);
       if (state.isWithinChildrenToArray) return;
+      if (node.callee.type !== T.MemberExpression || node.callee.property.type !== T.Identifier) return;
       // Get the callback function from array methods like `map` or `from`
-      const callback = match(node)
-        .when(AST.isArrayMapCall, (n) => n.arguments[0])
-        .when(AST.isArrayFromCall, (n) => n.arguments[1])
-        .otherwise(() => null);
+      let callbackIndex: number;
+      switch (node.callee.property.name) {
+        case "from":
+          callbackIndex = 1;
+          break;
+        case "map":
+          callbackIndex = 0;
+          break;
+        default:
+          return;
+      }
+      const callback = node.arguments[callbackIndex];
       if (!AST.isFunction(callback)) return;
       const body = callback.body;
       // If the callback body is a block statement, check its return statements
