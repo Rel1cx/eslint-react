@@ -48,8 +48,8 @@ const collectDocs = Effect.gen(function*() {
   });
 });
 
-function copyRuleDoc(meta: RuleMeta) {
-  return Effect.gen(function*() {
+const copyRuleDoc = Effect.fnUntraced(
+  function*(meta: RuleMeta) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
     const dir = path.dirname(meta.destination);
@@ -58,11 +58,11 @@ function copyRuleDoc(meta: RuleMeta) {
     yield* fs.writeFileString(meta.destination, content);
     yield* Effect.log(ansis.green(`Copied ${meta.source} -> ${meta.destination}`));
     return meta;
-  });
-}
+  },
+);
 
-function generateRuleMetaJson(metas: RuleMeta[]) {
-  return Effect.gen(function*() {
+const generateRuleMetaJson = Effect.fnUntraced(
+  function*(metas: RuleMeta[]) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
     const targetPath = path.join("apps", "website", "content", "docs", "rules", "meta.json");
@@ -97,8 +97,8 @@ function generateRuleMetaJson(metas: RuleMeta[]) {
     yield* Effect.log(ansis.magenta(`Generated rules meta -> ${targetPath}`));
 
     return { pages, path: targetPath };
-  });
-}
+  },
+);
 
 const processChangelog = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
