@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v2.7.0 (2026-01-16)
+
+### ✨ New
+
+- Add `additionalStateHooks` to shared settings, closes #1405 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1411
+
+### 🐞 Fixes
+
+- Fix `no-unnecessary-memo` and `no-unnecessary-use-callback` false positives when unused, closes #1404 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1407
+- Enhance `no-unnecessary-use-ref` to allow previous refs by convention, closes #1406 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1410
+- Fix `no-missing-key` misdetect non-map calls as map since 2.6.4 version, closes #1412 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1413
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.6.4...v2.7.0
+
 ## v2.6.4 (2026-01-15)
 
 ### ✨ New
