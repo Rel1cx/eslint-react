@@ -73,7 +73,7 @@ export default [
         version: "19.2.0", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
         importSource: "react", // Customize the import source for the React module (defaults to "react")
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
-        additionalStateHooks: "^useCustomState$", // Regex pattern for custom state hooks
+        additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
       },
     },
   },
