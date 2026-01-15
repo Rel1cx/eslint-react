@@ -65,25 +65,23 @@ function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
  * @returns `true` if the function matches an exclusion hint
  */
 function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boolean {
-  if ((hint & ComponentDetectionHint.SkipObjectMethod)) {
-    return isMatching(FUNCTION_PATTERNS.OBJECT_METHOD)(node);
-  }
-
-  if ((hint & ComponentDetectionHint.SkipClassMethod)) {
-    return isMatching(FUNCTION_PATTERNS.CLASS_METHOD)(node);
-  }
-
-  if ((hint & ComponentDetectionHint.SkipClassProperty)) {
-    return isMatching(FUNCTION_PATTERNS.CLASS_PROPERTY)(node);
-  }
-
-  if ((hint & ComponentDetectionHint.SkipArrayMapCallback)) {
-    return node.parent.type === T.CallExpression
+  switch (true) {
+    case (hint & ComponentDetectionHint.SkipObjectMethod)
+      && isMatching(FUNCTION_PATTERNS.OBJECT_METHOD)(node):
+      return true;
+    case (hint & ComponentDetectionHint.SkipClassMethod)
+      && isMatching(FUNCTION_PATTERNS.CLASS_METHOD)(node):
+      return true;
+    case (hint & ComponentDetectionHint.SkipClassProperty)
+      && isMatching(FUNCTION_PATTERNS.CLASS_PROPERTY)(node):
+      return true;
+    case (hint & ComponentDetectionHint.SkipArrayMapCallback)
+      && node.parent.type === T.CallExpression
       && node.parent.callee.type === T.MemberExpression
       && node.parent.callee.property.type === T.Identifier
-      && node.parent.callee.property.name === "map";
+      && node.parent.callee.property.name === "map":
+      return true;
   }
-
   return false;
 }
 
