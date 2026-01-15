@@ -100,10 +100,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           || findEnclosingAssignmentTarget(n) != null
           || components.some((comp) => comp.node === n && comp.rets.length > 1)) != null;
         // We cant be sure the key is unnecessary
-        if (isInDynamicStructure) return;
+        if (isInDynamicStructure) continue;
         context.report({
           messageId: "noUnnecessaryKey",
-          node,
+          node: key,
           data: { reason: "The `key` prop is not needed outside of dynamic rendering contexts." },
         });
       }
