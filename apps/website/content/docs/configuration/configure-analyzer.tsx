@@ -19,6 +19,14 @@ const properties = {
     description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components</Link>,
     default: '"as"',
   },
+  additionalStateHooks: {
+    type: "string",
+    description: (
+      <Link href="#additionalstatehooks">
+        Regex pattern matching custom hooks that should be treated as state hooks
+      </Link>
+    ),
+  },
 };
 
 export function AnalyzerPropertyTypeTable() {

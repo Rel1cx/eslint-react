@@ -3,7 +3,7 @@
 # Function: isESLintReactSettings()
 
 ```ts
-function isESLintReactSettings(settings: unknown): settings is { importSource?: string; polymorphicPropName?: string; version?: string };
+function isESLintReactSettings(settings: unknown): settings is { additionalStateHooks?: string; importSource?: string; polymorphicPropName?: string; version?: string };
 ```
 
 Checks if the provided settings conform to ESLintReactSettings schema
@@ -16,4 +16,4 @@ Checks if the provided settings conform to ESLintReactSettings schema
 
 ## Returns
 
-`settings is { importSource?: string; polymorphicPropName?: string; version?: string }`
+`settings is { additionalStateHooks?: string; importSource?: string; polymorphicPropName?: string; version?: string }`

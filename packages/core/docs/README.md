@@ -156,13 +156,13 @@
 | [isReactHook](functions/isReactHook.md) | Determines if a function node is a React Hook based on its name. |
 | [isReactHookCall](functions/isReactHookCall.md) | Check if the given node is a React Hook call by its name. |
 | [isReactHookCallWithName](functions/isReactHookCallWithName.md) | Checks if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
-| [isReactHookCallWithNameAlias](functions/isReactHookCallWithNameAlias.md) | Checks if a node is a call to a specific React hook or one of its aliases. |
 | [isReactHookId](functions/isReactHookId.md) | - |
 | [isReactHookName](functions/isReactHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern. |
+| [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detects useState calls and variations (useCustomState, etc.) using regex pattern. |
 | [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolves the static value of a JSX attribute or spread attribute |
 | [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
 | [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and listeners for the rule to collect function components |

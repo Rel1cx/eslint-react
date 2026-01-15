@@ -4,6 +4,7 @@ import { constFalse, flip } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import type { RegExpLike } from "@eslint-react/shared";
 import { isReactHookName } from "./hook-name";
 
 /**
@@ -65,48 +66,53 @@ export function isReactHookCallWithName(node: TSESTree.Node | unit) {
 }
 
 /**
- * Checks if a node is a call to a specific React hook or one of its aliases.
- * @param name The primary hook name to check
- * @param alias Optional array of alias names to also accept
- * @returns Function that checks if a node matches the hook name or aliases
- */
-export function isReactHookCallWithNameAlias(name: string, alias: unit | string[] = []) {
-  return (node: TSESTree.CallExpression) => {
-    switch (true) {
-      case node.callee.type === T.Identifier
-        && node.callee.name === name:
-        return true;
-      case node.callee.type === T.MemberExpression
-        && node.callee.property.type === T.Identifier
-        && node.callee.property.name === name
-        && "name" in node.callee.object:
-        return true;
-      default:
-        return alias.some(isReactHookCallWithName(node));
-    }
-  };
-}
-/* eslint-enable function/function-return-boolean */
-
-/**
  * Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
  * @param node The AST node to check
+ * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks
  * @returns True if the node is a useEffect-like call
  */
-export function isUseEffectLikeCall(node: TSESTree.Node | unit) {
+export function isUseEffectLikeCall(
+  node: TSESTree.Node | unit,
+  additionalEffectHooks: RegExpLike = { test: constFalse },
+): node is TSESTree.CallExpression {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;
   }
-  switch (node.callee.type) {
-    case T.Identifier:
-      return /^use\w*Effect$/u.test(node.callee.name);
-    case T.MemberExpression:
-      return node.callee.property.type === T.Identifier
-        && /^use\w*Effect$/u.test(node.callee.property.name);
-    default:
-      return false;
+  return [/^use\w*Effect$/u, additionalEffectHooks].some((regexp) => {
+    if (node.callee.type === T.Identifier) {
+      return regexp.test(node.callee.name);
+    }
+    if (node.callee.type === T.MemberExpression) {
+      return node.callee.property.type === T.Identifier && regexp.test(node.callee.property.name);
+    }
+    return false;
+  });
+}
+
+/**
+ * Detects useState calls and variations (useCustomState, etc.) using regex pattern.
+ * @param node The AST node to check
+ * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks
+ * @returns True if the node is a useState-like call
+ */
+export function isUseStateLikeCall(
+  node: TSESTree.Node | unit,
+  additionalStateHooks: RegExpLike = { test: constFalse },
+): node is TSESTree.CallExpression {
+  if (node == null) return false;
+  if (node.type !== T.CallExpression) {
+    return false;
   }
+  return [/^use\w*State$/u, additionalStateHooks].some((regexp) => {
+    if (node.callee.type === T.Identifier) {
+      return regexp.test(node.callee.name);
+    }
+    if (node.callee.type === T.MemberExpression) {
+      return node.callee.property.type === T.Identifier && regexp.test(node.callee.property.name);
+    }
+    return false;
+  });
 }
 
 // Utility functions for specific React hooks - each returns a function that checks if a node calls that specific hook

@@ -28,6 +28,30 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function Component() {
+          const [data, setData] = useSta(0);
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          messageId: "noDirectSetStateInUseEffect",
+          data: {
+            name: "setData",
+          },
+        },
+      ],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useSta",
+        },
+      },
+    },
+    {
+      code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {

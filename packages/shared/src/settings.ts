@@ -8,6 +8,7 @@ import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
 
 import { getReactVersion } from "./react-version";
+import { type RegExpLike, toRegExp } from "./regexp";
 import type { RuleContext } from "./types";
 
 // ===== Schema Definitions =====
@@ -39,6 +40,11 @@ export const ESLintReactSettingsSchema = z.object({
    * @default "detect"
    */
   version: z.optional(z.string()),
+  /**
+   * Regex pattern matching custom hooks that should be treated as state hooks
+   * @example "useMyState|useCustomState"
+   */
+  additionalStateHooks: z.optional(z.string()),
 });
 
 /**
@@ -59,6 +65,7 @@ export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
  * Normalized ESLint React settings with processed values
  */
 export interface ESLintReactSettingsNormalized {
+  additionalStateHooks: RegExpLike;
   importSource: string;
   polymorphicPropName: string | unit;
   version: string;
@@ -146,6 +153,7 @@ export const normalizeSettings = ({
   importSource = "react",
   polymorphicPropName = "as",
   version,
+  additionalStateHooks,
   ...rest
 }: ESLintReactSettings) => {
   return {
@@ -155,6 +163,7 @@ export const normalizeSettings = ({
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.0"))
       .otherwise(identity),
+    additionalStateHooks: toRegExp(additionalStateHooks),
   } as const satisfies ESLintReactSettingsNormalized;
 };
 
