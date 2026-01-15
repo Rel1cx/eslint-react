@@ -127,7 +127,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (state.isWithinChildrenToArray) return;
       if (node.callee.type !== T.MemberExpression || node.callee.property.type !== T.Identifier) return;
       // Get the callback function from array methods like `map` or `from`
-      const callback = node.arguments[{ from: 1, map: 0 }[node.callee.property.name] ?? -1];
+      let callbackIndex: number;
+      switch (node.callee.property.name) {
+        case "from":
+          callbackIndex = 1;
+          break;
+        case "map":
+          callbackIndex = 0;
+          break;
+        default:
+          return;
+      }
+      const callback = node.arguments[callbackIndex];
       if (!AST.isFunction(callback)) return;
       const body = callback.body;
       // If the callback body is a block statement, check its return statements
