@@ -7,6 +7,18 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        function Component() {
+          const bar = useMemo(() => "foo", []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "noUnnecessaryUseMemo",
+        },
+      ],
+    },
+    {
+      code: tsx`
         import { useMemo } from "react";
 
         const Comp = () => {
@@ -66,46 +78,13 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useState, useMemo } from "react";
-
-        function MyComponent() {
-          const handleSnapshot = useMemo(() => () => console.log(true), []);
-
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noUnnecessaryUseMemo",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import { useState, useMemo } from "react";
-
-        function MyComponent() {
-          const handleSnapshot = useMemo(() => () => () => console.log(true), []);
-
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "noUnnecessaryUseMemo",
-        },
-      ],
-    },
-
-    {
-      code: tsx`
         import {useMemo, useState, useEffect} from 'react';
 
         function veryHeavyCalculation(items) {
           console.log(items)
           return items
         }
-  
+
         function App({ items }) {
           const [test, setTest] = useState(0);
           const heavyStuff = useMemo(() => veryHeavyCalculation(items), [items]);
@@ -157,6 +136,12 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
+    tsx`
+      function Component() {
+        const foo = "foo";
+        const bar = useMemo(() => foo, [foo]);
+      }
+    `,
     tsx`
       import { useState } from "react";
 

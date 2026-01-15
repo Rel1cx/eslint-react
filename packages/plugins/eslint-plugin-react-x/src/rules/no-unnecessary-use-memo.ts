@@ -41,20 +41,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `useMemo` is not present in the file
   if (!context.sourceCode.text.includes("useMemo")) return {};
   return {
-    CallExpression(node) {
-      const initialScope = context.sourceCode.getScope(node);
-      if (!isUseMemoCall(node)) {
-        return;
-      }
+    VariableDeclarator(node) {
+      const { id, init } = node;
+      if (id.type !== T.Identifier || init?.type !== T.CallExpression || !isUseMemoCall(init)) return;
+      const [mem, ...rest] = context.sourceCode.getDeclaredVariables(node);
+      // Skip non-standard `useMemo()` usages to prevent false positives
+      if (mem == null || rest.length > 0) return;
 
-      const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, node);
-
-      const scope = context.sourceCode.getScope(node);
+      const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, init);
+      const scope = context.sourceCode.getScope(init);
       const component = scope.block;
       if (!AST.isFunction(component)) {
         return;
       }
-      const [arg0, arg1] = node.arguments;
+      const [arg0, arg1] = init.arguments;
       if (arg0 == null || arg1 == null) {
         return;
       }
@@ -69,7 +69,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const hasEmptyDeps = match(arg1)
         .with({ type: T.ArrayExpression }, (n) => n.elements.length === 0)
         .with({ type: T.Identifier }, (n) => {
-          const variable = findVariable(n.name, initialScope);
+          const variable = findVariable(n.name, scope);
           const variableNode = getVariableDefinitionNode(variable, 0);
           if (variableNode?.type !== T.ArrayExpression) {
             return false;
@@ -91,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         })
         .with({ type: T.FunctionExpression }, identity)
         .with({ type: T.Identifier }, (n) => {
-          const variable = findVariable(n.name, initialScope);
+          const variable = findVariable(n.name, scope);
           const variableNode = getVariableDefinitionNode(variable, 0);
           if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
             return null;
@@ -132,7 +132,11 @@ function checkForUsageInsideUseEffect(
   }
 
   const references = sourceCode.getDeclaredVariables(node.parent)[0]?.references ?? [];
-  const usages = references.filter((ref) => !(ref.init ?? false));
+  const usages = references.filter((ref) => ref.init !== true);
+  // Skip if there are no usages of the memoized value, the no-unused-vars rule will catch it
+  if (usages.length === 0) {
+    return;
+  }
   const effectSet = new Set<TSESTree.Node>();
 
   for (const usage of usages) {
