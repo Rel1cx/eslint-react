@@ -3,10 +3,16 @@
 # Function: useComponentCollectorLegacy()
 
 ```ts
-function useComponentCollectorLegacy(): ReturnType;
+function useComponentCollectorLegacy(context: RuleContext): ReturnType;
 ```
 
 Get a ctx and listeners object for the rule to collect class components
+
+## Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context |
 
 ## Returns
 

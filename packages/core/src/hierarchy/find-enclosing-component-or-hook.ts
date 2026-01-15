@@ -9,10 +9,10 @@ import { isReactHookName } from "../hook/hook-name";
 export type FindEnclosingComponentOrHookFilter = (n: TSESTree.Node, name: string | null) => boolean;
 
 /**
- * Find the enclosing React component or hook for a given AST node.
- * @param node The AST node to start the search from.
- * @param test Optional test function to customize component or hook identification.
- * @returns The enclosing component or hook node, or `null` if none is found.
+ * Find the enclosing React component or hook for a given AST node
+ * @param node The AST node to start the search from
+ * @param test Optional test function to customize component or hook identification
+ * @returns The enclosing component or hook node, or `null` if none is found
  */
 export function findEnclosingComponentOrHook(
   node: TSESTree.Node | unit,

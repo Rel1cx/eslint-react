@@ -71,7 +71,7 @@ export interface ClassComponent extends SemanticNode {
    */
   id:
     | unit
-    | TSESTree.Identifier;
+    | TSESTree.BindingName;
 
   /**
    * The kind of component

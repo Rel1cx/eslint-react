@@ -32,7 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("UNSAFE_componentWillReceiveProps")) {
     return {};
   }
-  const { ctx, listeners } = useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy(context);
 
   return {
     ...listeners,
