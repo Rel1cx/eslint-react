@@ -1,7 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import { isUseCallbackCall, isUseEffectLikeCall, isUseMemoCall, isUseStateCall } from "@eslint-react/core";
+import { isUseCallbackCall, isUseEffectLikeCall, isUseMemoCall, isUseStateLikeCall } from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -51,11 +51,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if `useEffect` like symbols are not present in the file
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
+  const { additionalStateHooks } = getSettingsFromContext(context);
   const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
-
   const setupFnRef: { current: AST.TSESTreeFunction | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
 
@@ -81,6 +80,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return node.callee.type === T.MemberExpression
       && node.callee.property.type === T.Identifier
       && node.callee.property.name === "then";
+  }
+
+  function isUseStateCall(node: TSESTree.Node) {
+    return isUseStateLikeCall(node, additionalStateHooks);
   }
 
   function isFunctionOfUseEffectSetup(node: TSESTree.Node) {

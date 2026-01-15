@@ -1,4 +1,12 @@
+import type { unit } from "@eslint-react/eff";
+import { constFalse } from "@eslint-react/eff";
+
 import { RE_REGEXP_STR } from "./constants";
+
+/**
+ * A type represents RegExp-like object with `test` method.
+ */
+export type RegExpLike = { test: (s: string) => boolean };
 
 /**
  * Convert a string to the `RegExp`.
@@ -8,10 +16,11 @@ import { RE_REGEXP_STR } from "./constants";
  * @param string The string to convert.
  * @returns Returns the `RegExp`.
  */
-export function toRegExp(string: string): { test(s: string): boolean } {
+export function toRegExp(string: string | unit): RegExpLike {
+  if (string == null) return { test: constFalse } as const;
   const [, pattern, flags = "u"] = RE_REGEXP_STR.exec(string) ?? [];
   if (pattern != null) return new RegExp(pattern, flags);
-  return { test: (s) => s === string };
+  return { test: (s) => s === string } as const;
 }
 
 /**

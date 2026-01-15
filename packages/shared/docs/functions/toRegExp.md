@@ -3,9 +3,7 @@
 # Function: toRegExp()
 
 ```ts
-function toRegExp(string: string): {
-  test: boolean;
-};
+function toRegExp(string: string | undefined): RegExpLike;
 ```
 
 Convert a string to the `RegExp`.
@@ -16,21 +14,13 @@ Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `string` | `string` | The string to convert. |
+| `string` | `string` \| `undefined` | The string to convert. |
 
 ## Returns
 
-```ts
-{
-  test: boolean;
-}
-```
+[`RegExpLike`](../type-aliases/RegExpLike.md)
 
 Returns the `RegExp`.
-
-| Name | Type |
-| ------ | ------ |
-| `test()` | (`s`: `string`) => `boolean` |
 
 ## See
 

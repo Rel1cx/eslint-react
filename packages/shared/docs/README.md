@@ -22,6 +22,7 @@
 | ------ | ------ |
 | [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | - |
 | [ESLintSettings](type-aliases/ESLintSettings.md) | - |
+| [RegExpLike](type-aliases/RegExpLike.md) | A type represents RegExp-like object with `test` method. |
 | [RuleContext](type-aliases/RuleContext.md) | Rule context. |
 | [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
 | [RulePolicy](type-aliases/RulePolicy.md) | - |
