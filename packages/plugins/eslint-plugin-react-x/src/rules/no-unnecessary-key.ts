@@ -114,6 +114,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 function isArrayMethodCallback(node: TSESTree.Node) {
   const parent = node.parent;
   if (parent?.type !== T.CallExpression) return false;
-  if (!AST.isArrayMapCall(parent) && !AST.isArrayFromCall(parent)) return false;
-  return AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(AST.getUnderlyingExpression(node));
+  if (parent.callee.type !== T.MemberExpression || parent.callee.property.type !== T.Identifier) return false;
+  switch (parent.callee.property.name) {
+    case "map":
+    case "flatMap":
+      return parent.arguments[0] === node;
+    case "from":
+      return parent.arguments[1] === node;
+    default:
+      return false;
+  }
 }
