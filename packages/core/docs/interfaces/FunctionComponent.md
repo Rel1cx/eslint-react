@@ -22,3 +22,4 @@ Represents a React function component
 | <a id="kind"></a> `kind` | `"function"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind) | - |
 | <a id="name"></a> `name` | `string` \| `undefined` | - | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#name) |
 | <a id="node"></a> `node` | `TSESTreeFunction` | The AST node of the function | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#node) | - |
+| <a id="rets"></a> `rets` | (`Expression` \| `null`)[] | List of expressions returned by the component | - | - |

@@ -235,13 +235,12 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{children}</div>;
       }
     `,
-    // FIXME: This case should be valid, but currently reports a false positive
-    // tsx`
-    //   function IResetChildrenOnWritingDirectionChange2({ lang = "en", children }: { lang?: "en" | "fr" | "ar"; children: React.ReactNode }) {
-    //     if (lang === "ar") return <div key="rtl">{children}</div>;
-    //     return <div key="ltr">{children}</div>;
-    //   }
-    // `,
+    tsx`
+      function IResetChildrenOnWritingDirectionChange2({ lang = "en", children }: { lang?: "en" | "fr" | "ar"; children: React.ReactNode }) {
+        if (lang === "ar") return <div key="rtl">{children}</div>;
+        return <div key="ltr">{children}</div>;
+      }
+    `,
     // Valid: key in ternary expression (conditional rendering)
     tsx`
       function Component({ isActive }) {
@@ -358,7 +357,6 @@ ruleTester.run(RULE_NAME, rule, {
       items?.map(item => <div key={item.id} />)
     `,
     // Valid: key on element in callback passed to custom component
-    // FIXME: Currently reports a false positive
     tsx`
       <List renderItem={(item) => <ListItem key={item.id} />} />
     `,

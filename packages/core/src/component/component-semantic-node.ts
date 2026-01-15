@@ -38,6 +38,11 @@ export interface FunctionComponent extends SemanticNode {
   hint: ComponentDetectionHint;
 
   /**
+   * List of expressions returned by the component
+   */
+  rets: TSESTree.ReturnStatement["argument"][];
+
+  /**
    * The initialization path of the function
    */
   initPath:
