@@ -6,16 +6,16 @@
 function isInsideComponentOrHook(node: Node | undefined): boolean;
 ```
 
-Checks if a given AST node is inside a React component or hook.
+Checks if a given AST node is inside a React component or hook
 
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` \| `undefined` | The AST node to check. |
+| `node` | `Node` \| `undefined` | The AST node to check |
 
 ## Returns
 
 `boolean`
 
-True if the node is inside a component or hook, false otherwise.
+True if the node is inside a component or hook, false otherwise

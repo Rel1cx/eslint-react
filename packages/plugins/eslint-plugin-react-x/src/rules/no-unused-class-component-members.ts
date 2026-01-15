@@ -98,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
-    const className = AST.getClassId(currentClass)?.name;
+    const id = AST.getClassId(currentClass);
     const defs = propertyDefs.get(currentClass);
     const usages = propertyUsages.get(currentClass);
     if (defs == null) {
@@ -119,7 +119,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         messageId: "noUnusedClassComponentMembers",
         node: def,
         data: {
-          className: className ?? "Component",
+          className: id != null ? context.sourceCode.getText(id) : "Component",
           methodName,
         },
       });

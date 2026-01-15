@@ -1,4 +1,3 @@
-import * as AST from "@eslint-react/ast";
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
@@ -83,7 +82,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = normalizeOptions(context.options);
   const { rule } = options;
   const fCollector = useComponentCollector(context);
-  const cCollector = useComponentCollectorLegacy();
+  const cCollector = useComponentCollectorLegacy(context);
 
   return {
     ...fCollector.listeners,
@@ -97,14 +96,11 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           data: { name, rule },
         });
       }
-      for (const { node: component } of cCollector.ctx.getAllComponents(program)) {
-        const id = AST.getClassId(component);
-        if (id?.name == null) continue;
-        const name = id.name;
+      for (const { id, name, node } of cCollector.ctx.getAllComponents(program)) {
         if (isValidName(name, options)) continue;
         context.report({
           messageId: "invalidComponentName",
-          node: id,
+          node: id ?? node,
           data: { name, rule },
         });
       }

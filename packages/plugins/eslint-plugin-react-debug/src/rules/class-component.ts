@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy(context);
   return {
     ...listeners,
     "Program:exit"(program) {

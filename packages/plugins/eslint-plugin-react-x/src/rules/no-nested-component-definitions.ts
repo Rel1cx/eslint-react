@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Collectors to find all component definitions in the code
   const fCollector = useComponentCollector(context, { hint });
-  const cCollector = useComponentCollectorLegacy();
+  const cCollector = useComponentCollectorLegacy(context);
 
   return {
     ...fCollector.listeners,

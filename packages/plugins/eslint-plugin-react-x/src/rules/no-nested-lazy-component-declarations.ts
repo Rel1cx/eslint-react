@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Collector for function components
   const collector = useComponentCollector(context, { hint });
   // Collector for class components
-  const collectorLegacy = useComponentCollectorLegacy();
+  const collectorLegacy = useComponentCollectorLegacy(context);
 
   // A set to store all `React.lazy()` call expressions
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();

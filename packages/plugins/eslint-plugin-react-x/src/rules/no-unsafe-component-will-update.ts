@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `UNSAFE_componentWillUpdate` is not present in the file
   if (!context.sourceCode.text.includes("UNSAFE_componentWillUpdate")) return {};
-  const { ctx, listeners } = useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy(context);
 
   return {
     ...listeners,

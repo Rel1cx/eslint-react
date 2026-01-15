@@ -119,7 +119,7 @@
 | Function | Description |
 | ------ | ------ |
 | [findEnclosingAssignmentTarget](functions/findEnclosingAssignmentTarget.md) | Finds the enclosing assignment target (variable, property, etc.) for a given node |
-| [findEnclosingComponentOrHook](functions/findEnclosingComponentOrHook.md) | Find the enclosing React component or hook for a given AST node. |
+| [findEnclosingComponentOrHook](functions/findEnclosingComponentOrHook.md) | Find the enclosing React component or hook for a given AST node |
 | [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | - |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | - |
@@ -145,7 +145,7 @@
 | [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | Determines if a node is the setup function passed to a useEffect-like hook |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
-| [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook. |
+| [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook |
 | [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
 | [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
 | [isJsxLike](functions/isJsxLike.md) | Determines if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |

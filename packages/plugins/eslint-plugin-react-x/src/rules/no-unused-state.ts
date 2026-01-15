@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
-    const className = AST.getClassId(currentClass)?.name;
+    const id = AST.getClassId(currentClass);
     // Get state definition and usage status for the current class
     const { node: defNode, isUsed = false } = stateDefs.get(currentClass) ?? {};
     // If state is not defined or is used, do nothing
@@ -79,7 +79,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       messageId: "noUnusedState",
       node: defNode,
       data: {
-        className: className ?? "Component",
+        className: id != null ? context.sourceCode.getText(id) : "Component",
       },
     });
   }

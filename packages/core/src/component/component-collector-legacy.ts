@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
-import { IdGenerator } from "@eslint-react/shared";
+import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
@@ -21,9 +21,10 @@ export declare namespace useComponentCollectorLegacy {
 
 /**
  * Get a ctx and listeners object for the rule to collect class components
+ * @param context The ESLint rule context
  * @returns The context and listeners for the rule
  */
-export function useComponentCollectorLegacy(): useComponentCollectorLegacy.ReturnType {
+export function useComponentCollectorLegacy(context: RuleContext): useComponentCollectorLegacy.ReturnType {
   const components = new Map<string, ClassComponent>();
 
   const ctx = {
@@ -33,12 +34,14 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
     },
   } as const;
 
+  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const collect = (node: AST.TSESTreeClass) => {
     if (!isClassComponent(node)) {
       return;
     }
     const id = AST.getClassId(node);
     const key = idGen.next();
+    const name = id == null ? unit : AST.toStringFormat(id, getText);
     const flag = isPureComponent(node)
       ? ComponentFlag.PureComponent
       : ComponentFlag.None;
@@ -48,7 +51,7 @@ export function useComponentCollectorLegacy(): useComponentCollectorLegacy.Retur
         id,
         key,
         kind: "class",
-        name: id?.name,
+        name,
         node,
         // TODO: Get displayName of class component
         displayName: unit,

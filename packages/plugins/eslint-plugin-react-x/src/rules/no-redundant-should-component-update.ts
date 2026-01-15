@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `shouldComponentUpdate` is not present in the file
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
-  const { ctx, listeners } = useComponentCollectorLegacy();
+  const { ctx, listeners } = useComponentCollectorLegacy(context);
 
   return {
     ...listeners,

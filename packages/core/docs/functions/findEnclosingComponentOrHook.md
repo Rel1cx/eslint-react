@@ -11,14 +11,14 @@ function findEnclosingComponentOrHook(node: Node | undefined, test: FindEnclosin
   | undefined;
 ```
 
-Find the enclosing React component or hook for a given AST node.
+Find the enclosing React component or hook for a given AST node
 
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` \| `undefined` | The AST node to start the search from. |
-| `test` | [`FindEnclosingComponentOrHookFilter`](../type-aliases/FindEnclosingComponentOrHookFilter.md) | Optional test function to customize component or hook identification. |
+| `node` | `Node` \| `undefined` | The AST node to start the search from |
+| `test` | [`FindEnclosingComponentOrHookFilter`](../type-aliases/FindEnclosingComponentOrHookFilter.md) | Optional test function to customize component or hook identification |
 
 ## Returns
 
@@ -28,4 +28,4 @@ Find the enclosing React component or hook for a given AST node.
   \| `FunctionExpression`
   \| `undefined`
 
-The enclosing component or hook node, or `null` if none is found.
+The enclosing component or hook node, or `null` if none is found
