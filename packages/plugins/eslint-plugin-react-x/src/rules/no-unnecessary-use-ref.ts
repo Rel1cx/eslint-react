@@ -41,6 +41,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const [ref, ...rest] = context.sourceCode.getDeclaredVariables(node);
       // Skip non-standard `useRef()` usages to prevent false positives
       if (ref == null || rest.length > 0) return;
+      // Skip `previous*` refs by convention https://github.com/Rel1cx/eslint-react/issues/1406
+      if (ref.name.toLowerCase().startsWith("prev")) return;
       const effects = new Set<TSESTree.Node>();
       let globalUsages = 0;
       for (const { identifier, init } of ref.references) {
