@@ -128,8 +128,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (state.isWithinChildrenToArray) return;
       // Get the callback function from array methods like `map` or `from`
       const callback = match(node)
-        .when(AST.isArrayMapCallLoose, (n) => n.arguments[0])
-        .when(AST.isArrayFromCallLoose, (n) => n.arguments[1])
+        .when(AST.isArrayMapCall, (n) => n.arguments[0])
+        .when(AST.isArrayFromCall, (n) => n.arguments[1])
         .otherwise(() => null);
       if (!AST.isFunction(callback)) return;
       const body = callback.body;
