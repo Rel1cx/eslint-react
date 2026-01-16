@@ -132,17 +132,15 @@
 | [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md) | Check if the function has no name or a loose component name |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determines if a function node represents a valid React component definition |
+| [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Checks if the node is a function of `componentDidMount` |
 | [isComponentName](functions/isComponentName.md) | Check if a string matches the strict component name pattern |
 | [isComponentNameLoose](functions/isComponentNameLoose.md) | Check if a string matches the loose component name pattern |
+| [isComponentWillUnmountCallback](functions/isComponentWillUnmountCallback.md) | Checks if the node is a function of `componentWillUnmount` |
 | [isComponentWrapperCall](functions/isComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
 | [isComponentWrapperCallback](functions/isComponentWrapperCallback.md) | Check if the node is a callback function passed to a component wrapper |
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
-| [isFunctionOfComponentDidMount](functions/isFunctionOfComponentDidMount.md) | Checks if the node is a function of `componentDidMount` |
-| [isFunctionOfComponentWillUnmount](functions/isFunctionOfComponentWillUnmount.md) | Checks if the node is a function of `componentWillUnmount` |
-| [isFunctionOfUseEffectCleanup](functions/isFunctionOfUseEffectCleanup.md) | Determines if a node is the cleanup function returned by a useEffect-like hook's setup function. |
-| [isFunctionOfUseEffectSetup](functions/isFunctionOfUseEffectSetup.md) | Determines if a node is the setup function passed to a useEffect-like hook |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
 | [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook |
@@ -161,7 +159,9 @@
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
+| [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determines if a node is the cleanup function returned by a useEffect-like hook's setup function. |
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern. |
+| [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determines if a node is the setup function passed to a useEffect-like hook |
 | [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detects useState calls and variations (useCustomState, etc.) using regex pattern. |
 | [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolves the static value of a JSX attribute or spread attribute |
 | [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |

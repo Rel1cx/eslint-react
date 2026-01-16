@@ -9,7 +9,7 @@ import { isUseEffectLikeCall } from "./hook-is";
  * Determines if a node is the setup function passed to a useEffect-like hook
  * @param node The AST node to check
  */
-export function isFunctionOfUseEffectSetup(node: TSESTree.Node | unit) {
+export function isUseEffectSetupCallback(node: TSESTree.Node | unit) {
   if (node == null) return false;
   // Check if node is the first argument of a CallExpression that is a useEffect-like hook
   return node.parent?.type === T.CallExpression
@@ -21,7 +21,7 @@ export function isFunctionOfUseEffectSetup(node: TSESTree.Node | unit) {
  * Determines if a node is the cleanup function returned by a useEffect-like hook's setup function.
  * @param node The AST node to check
  */
-export function isFunctionOfUseEffectCleanup(node: TSESTree.Node | unit) {
+export function isUseEffectCleanupCallback(node: TSESTree.Node | unit) {
   if (node == null) return false;
 
   // Find the return statement returning this node
@@ -37,5 +37,5 @@ export function isFunctionOfUseEffectCleanup(node: TSESTree.Node | unit) {
   if (pFunction !== pFunctionOfReturn) return false;
 
   // Check if that parent function is itself a useEffect setup function
-  return isFunctionOfUseEffectSetup(pFunction);
+  return isUseEffectSetupCallback(pFunction);
 }

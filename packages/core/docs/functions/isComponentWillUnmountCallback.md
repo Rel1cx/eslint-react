@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isFunctionOfComponentWillUnmount
+[@eslint-react/core](../README.md) / isComponentWillUnmountCallback
 
-# Function: isFunctionOfComponentWillUnmount()
+# Function: isComponentWillUnmountCallback()
 
 ```ts
-function isFunctionOfComponentWillUnmount(node: Node): boolean;
+function isComponentWillUnmountCallback(node: Node): boolean;
 ```
 
 Checks if the node is a function of `componentWillUnmount`

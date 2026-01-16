@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return isUseStateLikeCall(node, additionalStateHooks);
   }
 
-  function isFunctionOfUseEffectSetup(node: TSESTree.Node) {
+  function isUseEffectSetupCallback(node: TSESTree.Node) {
     return node.parent?.type === T.CallExpression
       && node.parent.callee !== node
       && isUseEffectLikeCall(node.parent);
@@ -119,7 +119,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         && parent.type === T.CallExpression
         && parent.callee === node:
         return "immediate";
-      case isFunctionOfUseEffectSetup(node):
+      case isUseEffectSetupCallback(node):
         return "setup";
       default:
         return "other";

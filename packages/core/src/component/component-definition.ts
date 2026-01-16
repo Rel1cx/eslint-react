@@ -45,7 +45,7 @@ const FUNCTION_PATTERNS = {
  * }
  * ```
  */
-function isFunctionOfRenderMethod(node: AST.TSESTreeFunction) {
+function isRenderMethodCallback(node: AST.TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
@@ -123,7 +123,7 @@ export function isComponentDefinition(
   hint: bigint,
 ) {
   // 1. Check immediate contextual exclusions
-  if (isChildrenOfCreateElement(context, node) || isFunctionOfRenderMethod(node)) {
+  if (isChildrenOfCreateElement(context, node) || isRenderMethodCallback(node)) {
     return false;
   }
 

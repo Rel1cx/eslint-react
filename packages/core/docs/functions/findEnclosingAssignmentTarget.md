@@ -4,7 +4,6 @@
 
 ```ts
 function findEnclosingAssignmentTarget(node: Node): 
-  | JSXElement
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpression
@@ -19,6 +18,7 @@ function findEnclosingAssignmentTarget(node: Node):
   | FunctionExpression
   | Identifier
   | ImportExpression
+  | JSXElement
   | JSXFragment
   | BigIntLiteral
   | BooleanLiteral
@@ -66,7 +66,6 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
 
 ## Returns
 
-  \| `JSXElement`
   \| `ArrayExpression`
   \| `ArrayPattern`
   \| `ArrowFunctionExpression`
@@ -81,6 +80,7 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
   \| `FunctionExpression`
   \| `Identifier`
   \| `ImportExpression`
+  \| `JSXElement`
   \| `JSXFragment`
   \| `BigIntLiteral`
   \| `BooleanLiteral`

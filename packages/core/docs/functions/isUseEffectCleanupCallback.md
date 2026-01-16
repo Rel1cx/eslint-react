@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isFunctionOfUseEffectCleanup
+[@eslint-react/core](../README.md) / isUseEffectCleanupCallback
 
-# Function: isFunctionOfUseEffectCleanup()
+# Function: isUseEffectCleanupCallback()
 
 ```ts
-function isFunctionOfUseEffectCleanup(node: Node | undefined): boolean;
+function isUseEffectCleanupCallback(node: Node | undefined): boolean;
 ```
 
 Determines if a node is the cleanup function returned by a useEffect-like hook's setup function.

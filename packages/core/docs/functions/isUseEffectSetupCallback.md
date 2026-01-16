@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isFunctionOfUseEffectSetup
+[@eslint-react/core](../README.md) / isUseEffectSetupCallback
 
-# Function: isFunctionOfUseEffectSetup()
+# Function: isUseEffectSetupCallback()
 
 ```ts
-function isFunctionOfUseEffectSetup(node: Node | undefined): boolean;
+function isUseEffectSetupCallback(node: Node | undefined): boolean;
 ```
 
 Determines if a node is the setup function passed to a useEffect-like hook
