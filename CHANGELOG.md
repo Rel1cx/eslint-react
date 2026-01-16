@@ -1,3 +1,16 @@
+## v2.7.1 (2026-01-16)
+
+### 🐞 Fixes
+
+- Fix misdetected functions inside array expressions as function components; closes #1416 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1418
+- Remove unnecessary `no-unnecessary-use-ref` rule from strict configurations and update documentation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1419
+
+### 📝 Changes you should be aware of
+
+The `no-unnecessary-use-ref` rule has been removed from the strict presets, as it was causing false positives in [certain scenarios](https://github.com/Rel1cx/eslint-react/issues/1417). You can still enable it manually if needed, but please be cautious of potential false positives.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.7.0...v2.7.1
+
 ## v2.7.0 (2026-01-16)
 
 ### ✨ New
