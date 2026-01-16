@@ -50,9 +50,14 @@ export interface FunctionComponent extends SemanticNode {
     | AST.FunctionInitPath;
 
   /**
-   * Indicates if the component is exported as default
+   * Indicates if the component is inside an export default declaration
    */
   isExportDefault: boolean;
+
+  /**
+   * Indicates if the component is itself an export default declaration
+   */
+  isExportDefaultDeclaration: boolean;
 
   /**
    * List of hook calls within the component

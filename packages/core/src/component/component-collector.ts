@@ -25,6 +25,7 @@ type FunctionEntry = {
   isComponent: boolean;
   isComponentDefinition: boolean;
   isExportDefault: boolean;
+  isExportDefaultDeclaration: boolean;
   rets: TSESTree.ReturnStatement["argument"][];
 };
 
@@ -67,13 +68,17 @@ export function useComponentCollector(
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const key = idGen.next();
+    const exp = AST.findParentNode(node, (n) => n.type === T.ExportDefaultDeclaration);
+    const isExportDefault = exp != null;
+    const isExportDefaultDeclaration = exp != null && AST.getUnderlyingExpression(exp.declaration) === node;
     functionEntries.push({
       key,
       node,
       hookCalls: [],
       isComponent: false,
       isComponentDefinition: isComponentDefinition(context, node, hint),
-      isExportDefault: AST.findParentNode(node, (n) => n.type === T.ExportDefaultDeclaration) != null,
+      isExportDefault,
+      isExportDefaultDeclaration,
       rets: [],
     });
   };
@@ -121,6 +126,7 @@ export function useComponentCollector(
         hookCalls: entry.hookCalls,
         initPath,
         isExportDefault: entry.isExportDefault,
+        isExportDefaultDeclaration: entry.isExportDefaultDeclaration,
         rets: [body],
       });
     },
@@ -175,6 +181,7 @@ export function useComponentCollector(
         hookCalls: entry.hookCalls,
         initPath,
         isExportDefault: entry.isExportDefault,
+        isExportDefaultDeclaration: entry.isExportDefaultDeclaration,
         rets: entry.rets,
       });
     },
