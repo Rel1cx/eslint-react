@@ -1,5 +1,5 @@
 import type * as AST from "@eslint-react/ast";
-import { useComponentCollector } from "@eslint-react/core";
+import { isInsideComponentOrHook, useComponentCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -37,20 +37,19 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+// TODO: Reimplement this rule to check only function component's params instead of all member expressions for better performance and accuracy
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, listeners } = useComponentCollector(context);
   // Store all member expressions with their scope
-  const exprs: [Scope, MemberExpressionWithObjectName][] = [];
+  const exprs: MemberExpressionWithObjectName[] = [];
 
   return {
     ...listeners,
     // Collect all member expressions (e.g., `props.name`) to check later
     MemberExpression(node) {
-      if (isMemberExpressionWithObjectName(node)) {
-        const scope = context.sourceCode.getScope(node);
-
-        exprs.push([scope, node]);
-      }
+      if (!isInsideComponentOrHook(node)) return;
+      if (!isMemberExpressionWithObjectName(node)) return;
+      exprs.push(node);
     },
 
     // After traversing the whole AST, check the collected member expressions
@@ -63,14 +62,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // If the block is not the same as the component's node, skip
           if (comp.node !== block) return false;
           // If the component is a default export anonymous function, skip
-          if (comp.name == null && comp.isExportDefault) return false;
+          if (comp.name == null && comp.isExportDefaultDeclaration) return false;
           return true;
         });
       }
 
       // For each member expression, find its parent component
-      for (const [initialScope, expr] of exprs) {
-        let scope = initialScope;
+      for (const expr of exprs) {
+        let scope: Scope = context.sourceCode.getScope(expr);
         let isComponent = isFunctionComponent(scope.block);
         // Traverse up the scope chain to find the component scope
         while (!isComponent && scope.upper != null && scope.upper !== scope) {

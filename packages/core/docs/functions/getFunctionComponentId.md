@@ -4,6 +4,7 @@
 
 ```ts
 function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction): 
+  | JSXElement
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpression
@@ -18,7 +19,6 @@ function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction):
   | FunctionExpression
   | Identifier
   | ImportExpression
-  | JSXElement
   | JSXFragment
   | BigIntLiteral
   | BooleanLiteral
@@ -65,6 +65,7 @@ function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction):
 
 ## Returns
 
+  \| `JSXElement`
   \| `ArrayExpression`
   \| `ArrayPattern`
   \| `ArrowFunctionExpression`
@@ -79,7 +80,6 @@ function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction):
   \| `FunctionExpression`
   \| `Identifier`
   \| `ImportExpression`
-  \| `JSXElement`
   \| `JSXFragment`
   \| `BigIntLiteral`
   \| `BooleanLiteral`
