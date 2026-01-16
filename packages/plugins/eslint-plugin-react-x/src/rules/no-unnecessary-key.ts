@@ -111,17 +111,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
+export function getArrayMethodCallbackPosition(methodName: string) {
+  switch (methodName) {
+    case "filter":
+    case "flatMap":
+    case "forEach":
+    case "map":
+    case "reduce":
+    case "reduceRight":
+      return 0;
+    case "from":
+    case "fromAsync":
+      return 1;
+    default:
+      return -1;
+  }
+}
+
 function isArrayMethodCallback(node: TSESTree.Node) {
   const parent = node.parent;
   if (parent?.type !== T.CallExpression) return false;
   if (parent.callee.type !== T.MemberExpression || parent.callee.property.type !== T.Identifier) return false;
-  switch (parent.callee.property.name) {
-    case "map":
-    case "flatMap":
-      return parent.arguments[0] === node;
-    case "from":
-      return parent.arguments[1] === node;
-    default:
-      return false;
-  }
+  return parent.arguments[getArrayMethodCallbackPosition(parent.callee.property.name)] === node;
 }
