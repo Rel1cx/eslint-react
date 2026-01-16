@@ -11,7 +11,6 @@ export const rules = {
   "react-x/no-misused-capture-owner-stack": "error",
   "react-x/no-unnecessary-use-callback": "warn",
   "react-x/no-unnecessary-use-memo": "warn",
-  "react-x/no-unnecessary-use-ref": "warn",
   "react-x/no-unstable-context-value": "warn",
   "react-x/no-unstable-default-props": "warn",
   "react-x/no-unused-class-component-members": "warn",
