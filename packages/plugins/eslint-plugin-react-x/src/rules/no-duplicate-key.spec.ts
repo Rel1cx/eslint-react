@@ -8,11 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         const App = () => {
-            return [
-                    <div key="1">1</div>,
-                    <div key="1">2</div>,
-                    <div key="1">3</div>,
-                 ]
+            return [<div key="1">1</div>, <div key="1">2</div>, <div key="1">3</div>]
         };
       `,
       errors: [
@@ -39,11 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         const App = () => {
-            return  (<div>
-                        <div key="1">1</div>
-                        <div key="1">2</div>
-                        <div key="1">3</div>
-                    </div>)
+            return (<div><div key="1">1</div><div key="1">2</div><div key="1">3</div></div>)
         };
       `,
       errors: [

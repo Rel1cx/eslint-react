@@ -25,10 +25,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows duplicate 'key' on elements in the same array or a list of 'children'.",
+      description: "Prevents duplicate 'key' props on sibling elements when rendering lists.",
     },
     messages: {
-      noDuplicateKey: "A key must be unique. '{{value}}' is duplicated.",
+      noDuplicateKey: "The 'key' prop must be unique to its sibling elements.",
     },
     schema: [],
   },

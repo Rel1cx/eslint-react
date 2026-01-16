@@ -22,7 +22,7 @@ react-x/no-duplicate-key
 
 ## Description
 
-Disallows duplicate `key` on elements in the same array or a list of `children`.
+Prevents duplicate `key` props on sibling elements when rendering lists.
 
 React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
 
@@ -38,7 +38,7 @@ function MyComponent () {
     <li key="1">Item 1</li>
     <li key="1">Item 2</li>
     //  ^^^^^^^
-    //  - A key must be unique. 'key="1"' is duplicated.
+    //  - The 'key' prop must be unique to its sibling elements.
   ]
 };
 ```
@@ -52,7 +52,7 @@ function MyComponent() {
       <li key="1">Item 1</li>
       <li key="1">Item 2</li>
       {/* ^^^^^^^ */}
-      {/* - A key must be unique. 'key="1"' is duplicated. */}
+      {/* - The 'key' prop must be unique to its sibling elements. */}
     </ul>
   );
 }
@@ -68,7 +68,7 @@ function MyComponent() {
     </ul>
   );
   //                                     ^^^^^^^
-  //                                     - A key must be unique. 'key="1"' is duplicated.
+  //                                     - The 'key' prop must be unique to its sibling elements.
 }
 ```
 
