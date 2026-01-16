@@ -11,7 +11,7 @@ title: Changelog
 
 ### 📝 Changes you should be aware of
 
-The `no-unnecessary-use-ref` rule has been removed from the strict presets, as it was causing false positives in [certain scenarios](https://github.com/Rel1cx/eslint-react/issues/1417). You can still enable it manually if needed, but please be cautious of potential false positives.
+The `no-unnecessary-use-ref` rule has been removed from the strict presets, as it was causing false positives in [certain scenarios](https://github.com/Rel1cx/eslint-react/issues/1417). You can still enable it manually if needed, but please be aware of its current limitations.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.7.0...v2.7.1
 
