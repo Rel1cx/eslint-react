@@ -23,6 +23,8 @@ type FunctionEntry = {
   node: AST.TSESTreeFunction;
   hookCalls: TSESTree.CallExpression[];
   isComponent: boolean;
+  isComponentDefinition: boolean;
+  isExportDefault: boolean;
   rets: TSESTree.ReturnStatement["argument"][];
 };
 
@@ -65,7 +67,15 @@ export function useComponentCollector(
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const key = idGen.next();
-    functionEntries.push({ key, node, hookCalls: [], isComponent: false, rets: [] });
+    functionEntries.push({
+      key,
+      node,
+      hookCalls: [],
+      isComponent: false,
+      isComponentDefinition: isComponentDefinition(context, node, hint),
+      isExportDefault: AST.findParentNode(node, (n) => n.type === T.ExportDefaultDeclaration) != null,
+      rets: [],
+    });
   };
   const onFunctionExit = () => {
     return functionEntries.pop();
@@ -88,11 +98,12 @@ export function useComponentCollector(
     "ArrowFunctionExpression[body.type!='BlockStatement']"() {
       const entry = getCurrentEntry();
       if (entry == null) return;
+      // If the function is not a component definition, skip the rest of the checks
+      if (!entry.isComponentDefinition) return;
       const { body } = entry.node;
       if (body.type === T.BlockStatement) return;
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && isJsxLike(context.sourceCode, body, hint)
-        && isComponentDefinition(context, entry.node, hint);
+        && isJsxLike(context.sourceCode, body, hint);
       if (!isComponent) return;
       const initPath = AST.getFunctionInitPath(entry.node);
       const id = getFunctionComponentId(context, entry.node);
@@ -109,6 +120,7 @@ export function useComponentCollector(
         hint,
         hookCalls: entry.hookCalls,
         initPath,
+        isExportDefault: entry.isExportDefault,
         rets: [body],
       });
     },
@@ -139,10 +151,12 @@ export function useComponentCollector(
     "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) return;
-      entry.rets.push(node.argument);
+      // If the function is not a component definition, skip the rest of the checks
+      if (!entry.isComponentDefinition) return;
+      const { argument } = node;
+      entry.rets.push(argument);
       const isComponent = hasNoneOrLooseComponentName(context, entry.node)
-        && isJsxLike(context.sourceCode, node.argument, hint)
-        && isComponentDefinition(context, entry.node, hint);
+        && isJsxLike(context.sourceCode, argument, hint);
       if (!isComponent) return;
       entry.isComponent = true;
       const initPath = AST.getFunctionInitPath(entry.node);
@@ -160,6 +174,7 @@ export function useComponentCollector(
         hint,
         hookCalls: entry.hookCalls,
         initPath,
+        isExportDefault: entry.isExportDefault,
         rets: entry.rets,
       });
     },

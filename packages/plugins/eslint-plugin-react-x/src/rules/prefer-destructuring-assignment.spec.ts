@@ -285,5 +285,16 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{foo.test}</div>
       }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1416
+    tsx`
+      type DeliveryNoteCheck = (data: { supplierCompany: string | null }) => string | null;
+
+      const deliveryNoteChecks: DeliveryNoteCheck[] = [
+        (data) => {
+          if (!data.supplierCompany) return null;
+          return "Check for supplier company passed.";
+        },
+      ];
+    `,
   ],
 });

@@ -137,6 +137,8 @@ export function isComponentDefinition(
   const significantParent = AST.findParentNode(
     node,
     AST.isOneOf([
+      T.ArrayPattern,
+      T.ArrayExpression,
       T.JSXExpressionContainer,
       T.ArrowFunctionExpression,
       T.FunctionExpression,
@@ -145,6 +147,10 @@ export function isComponentDefinition(
     ]),
   );
 
+  if (significantParent == null) return true;
   // If the immediate significant parent is a JSX expression, this is likely an event handler or a render prop, not a component definition itself
-  return significantParent == null || significantParent.type !== T.JSXExpressionContainer;
+  if (significantParent.type === T.JSXExpressionContainer) return false;
+  // If the significant parent is an array pattern or expression, this function is likely part of a destructuring assignment or array method callback, not a component definition
+  if (significantParent.type === T.ArrayPattern || significantParent.type === T.ArrayExpression) return false;
+  return true;
 }

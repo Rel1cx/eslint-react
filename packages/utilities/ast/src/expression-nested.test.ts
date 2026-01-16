@@ -3,14 +3,13 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import tsx from "dedent";
 import path from "node:path";
-
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../../../test";
+import { getFixturesRootDir } from "../../../../test";
 
-import { getNestedReturnStatements } from "../expression-nested";
-import { isFunction } from "../is";
-import type { TSESTreeFunction } from "../types";
+import { getNestedReturnStatements } from "./expression-nested";
+import { isFunction } from "./is";
+import type { TSESTreeFunction } from "./types";
 
 function parse(code: string) {
   return parseForESLint(code, {
