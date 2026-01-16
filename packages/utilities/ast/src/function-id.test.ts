@@ -1,14 +1,15 @@
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+import tsx from "dedent";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../../../test";
+import { getFixturesRootDir } from "../../../../test";
 
-import { getFunctionId } from "../function-id";
-import { isFunction } from "../is";
-import type { TSESTreeFunction } from "../types";
+import { getFunctionId } from "./function-id";
+import { isFunction } from "./is";
+import type { TSESTreeFunction } from "./types";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -65,6 +66,38 @@ describe("get function identifier from function expression", () => {
           return;
         }
         expect(getFunctionId(node)).include({ type: T.Identifier, name: expected });
+        n = node;
+      },
+    }, true);
+    expect(n).not.toBeNull();
+  });
+});
+
+describe("function without name", () => {
+  it.each([
+    "(() => {})();",
+    "(function() {})();",
+    "setTimeout(() => {}, 1000);",
+    "setTimeout(function() {}, 1000);",
+    "const functions = [() => {}, function() {}];",
+    tsx`
+      type DeliveryNoteCheck = (data: { supplierCompany: string | null }) => string | null;
+
+      const deliveryNoteChecks: DeliveryNoteCheck[] = [
+        (data) => {
+          if (!data.supplierCompany) return null;
+          return "Check for supplier company passed.";
+        },
+      ];
+    `,
+  ])("should return null from %s", (code) => {
+    let n: null | TSESTreeFunction = null;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (!isFunction(node)) {
+          return;
+        }
+        expect(getFunctionId(node)).toBeNullable();
         n = node;
       },
     }, true);

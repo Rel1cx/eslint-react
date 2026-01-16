@@ -1,4 +1,4 @@
-import * as AST from "@eslint-react/ast";
+import type * as AST from "@eslint-react/ast";
 import { useComponentCollector } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -60,12 +60,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Check if a node is a function component collected by `useComponentCollector`
       function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
         return components.some((comp) => {
+          // If the block is not the same as the component's node, skip
           if (comp.node !== block) return false;
-          // dprint-ignore
-          if (comp.name == null && AST.findParentNode(comp.node, (n) => n.type === T.ExportDefaultDeclaration) != null) {
-            // If the component is a default export anonymous function, skip it
-            return false;
-          }
+          // If the component is a default export anonymous function, skip
+          if (comp.name == null && comp.isExportDefault) return false;
           return true;
         });
       }

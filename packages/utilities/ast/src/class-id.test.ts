@@ -4,10 +4,10 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../../../test";
+import { getFixturesRootDir } from "../../../../test";
 
-import { getClassId } from "../class-id";
-import type { TSESTreeClass } from "../types";
+import { getClassId } from "./class-id";
+import type { TSESTreeClass } from "./types";
 
 function parse(code: string) {
   return parseForESLint(code, {
