@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isFunctionOfComponentDidMount
+[@eslint-react/core](../README.md) / isComponentDidMountCallback
 
-# Function: isFunctionOfComponentDidMount()
+# Function: isComponentDidMountCallback()
 
 ```ts
-function isFunctionOfComponentDidMount(node: Node): boolean;
+function isComponentDidMountCallback(node: Node): boolean;
 ```
 
 Checks if the node is a function of `componentDidMount`
