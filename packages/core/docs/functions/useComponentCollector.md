@@ -6,7 +6,7 @@
 function useComponentCollector(context: RuleContext, options: Options): ReturnType;
 ```
 
-Get a ctx and listeners for the rule to collect function components
+Get a ctx and visitors for the rule to collect function components
 
 ## Parameters
 
@@ -19,4 +19,4 @@ Get a ctx and listeners for the rule to collect function components
 
 [`ReturnType`](../@eslint-react/namespaces/useComponentCollector/type-aliases/ReturnType.md)
 
-The component collector
+The ctx and visitors of the collector

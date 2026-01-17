@@ -1,5 +1,5 @@
 import { useComponentCollectorLegacy } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -30,19 +30,21 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useComponentCollectorLegacy(context);
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {
-        context.report({
-          messageId: "classComponent",
-          node: component,
-          data: {
-            json: stringify({ name }),
-          },
-        });
-      }
+  const { ctx, visitors } = useComponentCollectorLegacy(context);
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {
+          context.report({
+            messageId: "classComponent",
+            node: component,
+            data: {
+              json: stringify({ name }),
+            },
+          });
+        }
+      },
     },
-  };
+  );
 }

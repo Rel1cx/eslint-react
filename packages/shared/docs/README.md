@@ -68,6 +68,7 @@
 | [coerceSettings](functions/coerceSettings.md) | Coerces unknown input to ESLintReactSettings type |
 | [decodeESLintSettings](functions/decodeESLintSettings.md) | Decodes and validates ESLint settings, using defaults if invalid |
 | [decodeSettings](functions/decodeSettings.md) | Decodes and validates ESLint React settings, using defaults if invalid |
+| [defineRuleListener](functions/defineRuleListener.md) | Defines a RuleListener by merging multiple visitor objects |
 | [getConfigAdapters](functions/getConfigAdapters.md) | - |
 | [getReactVersion](functions/getReactVersion.md) | - |
 | [getSettingsFromContext](functions/getSettingsFromContext.md) | Retrieves normalized ESLint React settings from the rule context Uses caching for performance optimization |

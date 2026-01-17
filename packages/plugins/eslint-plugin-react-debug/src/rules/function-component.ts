@@ -1,5 +1,5 @@
 import { ComponentFlag, DEFAULT_COMPONENT_DETECTION_HINT, useComponentCollector } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useComponentCollector(
+  const { ctx, visitors } = useComponentCollector(
     context,
     {
       collectDisplayName: true,
@@ -39,26 +39,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       hint: DEFAULT_COMPONENT_DETECTION_HINT,
     },
   );
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      for (const { name = "anonymous", node, displayName, flag, hookCalls } of ctx.getAllComponents(program)) {
-        context.report({
-          messageId: "functionComponent",
-          node,
-          data: {
-            json: stringify({
-              name,
-              displayName: displayName == null
-                ? "none"
-                : context.sourceCode.getText(displayName),
-              forwardRef: (flag & ComponentFlag.ForwardRef) > 0n,
-              hookCalls: hookCalls.length,
-              memo: (flag & ComponentFlag.Memo) > 0n,
-            }),
-          },
-        });
-      }
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        for (const { name = "anonymous", node, displayName, flag, hookCalls } of ctx.getAllComponents(program)) {
+          context.report({
+            messageId: "functionComponent",
+            node,
+            data: {
+              json: stringify({
+                name,
+                displayName: displayName == null
+                  ? "none"
+                  : context.sourceCode.getText(displayName),
+                forwardRef: (flag & ComponentFlag.ForwardRef) > 0n,
+                hookCalls: hookCalls.length,
+                memo: (flag & ComponentFlag.Memo) > 0n,
+              }),
+            },
+          });
+        }
+      },
     },
-  };
+  );
 }

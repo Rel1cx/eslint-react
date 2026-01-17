@@ -1,7 +1,7 @@
 import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { RE_CONSTANT_CASE, RE_PASCAL_CASE, toRegExp } from "@eslint-react/shared";
+import { RE_CONSTANT_CASE, RE_PASCAL_CASE, defineRuleListener, toRegExp } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -84,28 +84,30 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const fCollector = useComponentCollector(context);
   const cCollector = useComponentCollectorLegacy(context);
 
-  return {
-    ...fCollector.listeners,
-    ...cCollector.listeners,
-    "Program:exit"(program) {
-      for (const { id, name, node: component } of fCollector.ctx.getAllComponents(program)) {
-        if (isValidName(name, options)) continue;
-        context.report({
-          messageId: "invalidComponentName",
-          node: id ?? component,
-          data: { name, rule },
-        });
-      }
-      for (const { id, name, node } of cCollector.ctx.getAllComponents(program)) {
-        if (isValidName(name, options)) continue;
-        context.report({
-          messageId: "invalidComponentName",
-          node: id ?? node,
-          data: { name, rule },
-        });
-      }
+  return defineRuleListener(
+    fCollector.visitors,
+    cCollector.visitors,
+    {
+      "Program:exit"(program) {
+        for (const { id, name, node: component } of fCollector.ctx.getAllComponents(program)) {
+          if (isValidName(name, options)) continue;
+          context.report({
+            messageId: "invalidComponentName",
+            node: id ?? component,
+            data: { name, rule },
+          });
+        }
+        for (const { id, name, node } of cCollector.ctx.getAllComponents(program)) {
+          if (isValidName(name, options)) continue;
+          context.report({
+            messageId: "invalidComponentName",
+            node: id ?? node,
+            data: { name, rule },
+          });
+        }
+      },
     },
-  };
+  );
 }
 
 function normalizeOptions(options: Options) {

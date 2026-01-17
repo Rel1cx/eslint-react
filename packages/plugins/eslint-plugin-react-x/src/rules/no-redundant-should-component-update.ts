@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { ComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -40,28 +40,30 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `shouldComponentUpdate` is not present in the file
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
-  const { ctx, listeners } = useComponentCollectorLegacy(context);
+  const { ctx, visitors } = useComponentCollectorLegacy(context);
 
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      for (const { name = "PureComponent", node: component, flag } of ctx.getAllComponents(program)) {
-        if ((flag & ComponentFlag.PureComponent) === 0n) {
-          continue;
-        }
-        const { body } = component.body;
-        for (const member of body) {
-          if (isShouldComponentUpdate(member)) {
-            context.report({
-              messageId: "noRedundantShouldComponentUpdate",
-              node: member,
-              data: {
-                componentName: name,
-              },
-            });
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        for (const { name = "PureComponent", node: component, flag } of ctx.getAllComponents(program)) {
+          if ((flag & ComponentFlag.PureComponent) === 0n) {
+            continue;
+          }
+          const { body } = component.body;
+          for (const member of body) {
+            if (isShouldComponentUpdate(member)) {
+              context.report({
+                messageId: "noRedundantShouldComponentUpdate",
+                node: member,
+                data: {
+                  componentName: name,
+                },
+              });
+            }
           }
         }
-      }
+      },
     },
-  };
+  );
 }

@@ -1,5 +1,5 @@
 import { useComponentCollector } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -34,46 +34,48 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, visitors } = useComponentCollector(context);
 
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      const checker = services.program.getTypeChecker();
-      const totalDeclaredProps = new Set<ts.Symbol>();
-      const totalUsedProps = new Set<ts.Symbol>();
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        const checker = services.program.getTypeChecker();
+        const totalDeclaredProps = new Set<ts.Symbol>();
+        const totalUsedProps = new Set<ts.Symbol>();
 
-      for (const component of ctx.getAllComponents(program)) {
-        const [props] = component.node.params;
-        if (props == null) continue;
+        for (const component of ctx.getAllComponents(program)) {
+          const [props] = component.node.params;
+          if (props == null) continue;
 
-        const usedPropKeys = new Set<string>();
-        const couldFindAllUsedPropKeys = collectUsedPropKeysOfParameter(context, usedPropKeys, props);
-        if (!couldFindAllUsedPropKeys) {
-          // unable to determine all used prop keys => bail out to avoid false positives
-          continue;
-        }
+          const usedPropKeys = new Set<string>();
+          const couldFindAllUsedPropKeys = collectUsedPropKeysOfParameter(context, usedPropKeys, props);
+          if (!couldFindAllUsedPropKeys) {
+            // unable to determine all used prop keys => bail out to avoid false positives
+            continue;
+          }
 
-        const tsNode = services.esTreeNodeToTSNodeMap.get(props);
-        const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
+          const tsNode = services.esTreeNodeToTSNodeMap.get(props);
+          const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
 
-        for (const declaredProp of declaredProps) {
-          totalDeclaredProps.add(declaredProp);
+          for (const declaredProp of declaredProps) {
+            totalDeclaredProps.add(declaredProp);
 
-          if (usedPropKeys.has(declaredProp.name)) {
-            totalUsedProps.add(declaredProp);
+            if (usedPropKeys.has(declaredProp.name)) {
+              totalUsedProps.add(declaredProp);
+            }
           }
         }
-      }
 
-      // TODO: Node 20 doesn't support Set.difference. Use it when minimum Node version is 22.
-      const unusedProps = [...totalDeclaredProps].filter((x) => !totalUsedProps.has(x));
+        // TODO: Node 20 doesn't support Set.difference. Use it when minimum Node version is 22.
+        const unusedProps = [...totalDeclaredProps].filter((x) => !totalUsedProps.has(x));
 
-      for (const unusedProp of unusedProps) {
-        reportUnusedProp(context, services, unusedProp);
-      }
+        for (const unusedProp of unusedProps) {
+          reportUnusedProp(context, services, unusedProp);
+        }
+      },
     },
-  };
+  );
 }
 
 function collectUsedPropKeysOfParameter(

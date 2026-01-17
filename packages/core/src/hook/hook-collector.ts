@@ -22,7 +22,7 @@ export declare namespace useHookCollector {
       getCurrentEntries(): FunctionEntry[];
       getCurrentEntry(): FunctionEntry | unit;
     };
-    listeners: ESLintUtils.RuleListener;
+    visitors: ESLintUtils.RuleListener;
   };
 }
 
@@ -61,10 +61,10 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
     getCurrentEntries: () => functionEntries,
     getCurrentEntry,
   } as const;
-  const listeners = {
-    ":function[type]": onFunctionEnter,
-    ":function[type]:exit": onFunctionExit,
-    "CallExpression[type]"(node) {
+  const visitors = {
+    ":function": onFunctionEnter,
+    ":function:exit": onFunctionExit,
+    CallExpression(node) {
       if (!isReactHookCall(node)) {
         return;
       }
@@ -79,5 +79,5 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       hook.hookCalls.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, listeners } as const;
+  return { ctx, visitors } as const;
 }
