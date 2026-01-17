@@ -10,13 +10,13 @@ Welcome to contributing to ESLint React! This guide will help you contribute eff
 - **Search first**: Your issue may have already been reported.
 - **Verify version**: Ensure the issue is reproducible in the latest stable version.
 - **Provide clear reproduction steps**.
-- **Provide a minimal reproducible code example**.
+- **Provide a minimal, reproducible code example**.
 
 ## Pull Request Guide
 
 - **Sign your commits**.
 - **Small commits are welcome**: We will squash them before merging.
-- **New features**: Please provide a good reason, preferably by discussing it in an Issue first.
+- **New features**: Please provide a good reason, preferably by discussing it in an issue first.
 - **Bug fixes**: Include `(fix: #xxxx)` in the PR title.
 - **Documentation changes**: Include `(docs: #xxxx)` in the PR title.
 
@@ -56,6 +56,7 @@ pnpm run format:write
 
 # Run all checks
 pnpm run lint
+```
 
 ## Development Workflow
 
@@ -69,7 +70,7 @@ pnpm run lint
 
 ### Developing a New Rule
 
-1. If there isn't a related Issue, create one first to discuss the new rule.
+1. If there isn't a related issue, create one first to discuss the new rule.
 2. Implement the rule in the plugin's `src/rules/` directory.
 3. Create the corresponding test file.
 4. Export the rule in the plugin's entry file (`src/plugin.ts`).
@@ -83,4 +84,3 @@ pnpm run lint
 ## Reference
 
 - [Monorepo Structure](https://eslint-react.xyz/docs/contributing#monorepo-structure)
-```
