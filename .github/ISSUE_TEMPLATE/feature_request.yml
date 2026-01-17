@@ -39,7 +39,7 @@ body:
       placeholder: |
         Feature name: [FeatureName]
 
-        Details: Provide more background information and suggested implementation details
+        Details: Provide more background information and suggested implementation details.
     validations:
       required: true
 
@@ -60,7 +60,7 @@ body:
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the feature suggestion is reasonable
+      description: Please check the following items to ensure the feature suggestion is reasonable.
       options:
         - label: I have had problems that this feature would solve
           required: true

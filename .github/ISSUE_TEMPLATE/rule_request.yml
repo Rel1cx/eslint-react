@@ -9,7 +9,7 @@ body:
       value: |
         ## Rule Request
 
-        Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule writing standards.
+        Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule-writing standards.
 
         ## References on Rule Design
         - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
@@ -40,7 +40,7 @@ body:
       description: |
         Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
 
-        > A lint rule is an automated communication tool which sends messages to developers who have written patterns your rule wishes to prevent. As all communication, the message is important.
+        > A lint rule is an automated communication tool that sends messages to developers who have written patterns your rule wishes to prevent. As with all communication, the message is important.
       placeholder: |
         Rule name: [PluginName]/[YourRuleName]
 
@@ -72,7 +72,7 @@ body:
     id: docs-references
     attributes:
       label: Documentation References
-      description: Provide links to relevant documentation or resources that can help understand the context of the rule (e.g., ["Pitfalls" sections in https://react.dev](https://www.google.com/search?q=Pitfall+site:react.dev)).
+      description: Provide links to relevant documentation or resources that can help readers understand the context of the rule (e.g., ["Pitfalls" sections in https://react.dev](https://www.google.com/search?q=Pitfall+site:react.dev)).
       placeholder: "The pattern is mentioned in the official docs: https://react.dev/..."
     validations:
       required: false
@@ -81,15 +81,15 @@ body:
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the rule suggestion is reasonable
+      description: Please check the following items to ensure the rule suggestion is reasonable.
       options:
         - label: I have had problems with the pattern I want to forbid
           required: true
         - label: I could not find a way to solve the problem by changing the API of the problematic code or introducing a new API
           required: true
-        - label: I have thought very hard about what the corner cases could be and what kind of patterns this would forbid that are actually okay, and they are acceptable
+        - label: I have thought very hard about what the corner cases could be and what kinds of patterns this would forbid that are actually okay, and they are acceptable
           required: true
-        - label: I think the rule explains well enough how to solve the issue, to make sure beginners are not blocked by it
+        - label: I think the rule explains well enough how to solve the issue to make sure beginners are not blocked by it
           required: true
         - label: I have discussed this rule with team members, and they all find it valuable
           required: false
