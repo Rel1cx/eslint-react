@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.7.2-beta.2",
+  "version": "2.7.2-next.3",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -111,7 +111,7 @@
       "esbuild": "^0.27.2",
       "eslint": "^9.39.2",
       "fumadocs-ui": "16.2.4",
-      "next": "^16.1.2",
+      "next": "^16.1.3",
       "react": "^19.2.3",
       "react-dom": "^19.2.3",
       "ts-api-utils": "^2.4.0",
