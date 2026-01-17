@@ -23,6 +23,22 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        const App = (props) => {
+            const { h, i } = props
+            return <div id={props.id} className={props.className} />
+          }
+      `,
+      errors: [
+        {
+          messageId: "preferDestructuringAssignment",
+        },
+        {
+          messageId: "preferDestructuringAssignment",
+        },
+      ],
+    },
+    {
+      code: tsx`
         function App(props) {
             return <div id={props.id} className={props.className} />
         }
@@ -144,6 +160,12 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const App = ({ id, className }) => {
       return <div id={id} className={className} /> }
+    `,
+    tsx`
+      const App = (props) => {
+        const { id, className } = props
+          return <div id={id} className={className} />
+      }
     `,
     "const App = (props) => (<div id={id} props={props} />)",
     "const Component = (props) => (<div id={id} props={props} />)",

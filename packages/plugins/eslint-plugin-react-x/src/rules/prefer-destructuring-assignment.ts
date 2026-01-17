@@ -1,8 +1,5 @@
-import type * as AST from "@eslint-react/ast";
-import { isInsideComponentOrHook, useComponentCollector } from "@eslint-react/core";
+import { useComponentCollector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -14,12 +11,6 @@ export const RULE_NAME = "prefer-destructuring-assignment";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = CamelCase<typeof RULE_NAME>;
-
-type MemberExpressionWithObjectName = { object: TSESTree.Identifier } & TSESTree.MemberExpression;
-
-function isMemberExpressionWithObjectName(node: TSESTree.MemberExpression): node is MemberExpressionWithObjectName {
-  return node.object.type === T.Identifier && "name" in node.object;
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -37,68 +28,28 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-// TODO: Reimplement this rule to check only function component's params instead of all member expressions for better performance and accuracy
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { ctx, visitors } = useComponentCollector(context);
-  // Store all member expressions with their scope
-  const exprs: MemberExpressionWithObjectName[] = [];
 
   return defineRuleListener(
     visitors,
     {
-      // Collect all member expressions (e.g., `props.name`) to check later
-      MemberExpression(node) {
-        if (!isInsideComponentOrHook(node)) return;
-        if (!isMemberExpressionWithObjectName(node)) return;
-        exprs.push(node);
-      },
-
-      // After traversing the whole AST, check the collected member expressions
       "Program:exit"(program) {
-        // const componentBlocks = new Set(ctx.getAllComponents(program).map((component) => component.node));
-        const components = ctx.getAllComponents(program);
-        // Check if a node is a function component collected by `useComponentCollector`
-        function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
-          return components.some((comp) => {
-            // If the block is not the same as the component's node, skip
-            if (comp.node !== block) return false;
-            // If the component is a default export anonymous function, skip
-            if (comp.name == null && comp.isExportDefaultDeclaration) return false;
-            return true;
-          });
-        }
-
-        // For each member expression, find its parent component
-        for (const expr of exprs) {
-          let scope: Scope = context.sourceCode.getScope(expr);
-          let isComponent = isFunctionComponent(scope.block);
-          // Traverse up the scope chain to find the component scope
-          while (!isComponent && scope.upper != null && scope.upper !== scope) {
-            scope = scope.upper;
-            isComponent = isFunctionComponent(scope.block);
-          }
-          // If no component scope is found, skip
-          if (!isComponent) {
-            continue;
-          }
-          const component = scope.block;
-          if (!("params" in component)) {
-            continue;
-          }
-          const props = component.params.at(0);
-          // Check if a node is an identifier with the same name as the member expression's object
-          const isMatch = (node: null | TSESTree.Node | undefined) =>
-            node != null
-            && node.type === T.Identifier
-            && node.name === expr.object.name;
-          // If the member expression's object is `props`, report an error
-          if (isMatch(props)) {
+        for (const component of ctx.getAllComponents(program)) {
+          if (component.name == null && component.isExportDefaultDeclaration) return;
+          const [props] = component.node.params;
+          if (props == null) continue;
+          if (props.type !== T.Identifier) continue;
+          const propName = props.name;
+          const propVariable = context.sourceCode.getScope(component.node).variables.find((v) => v.name === propName);
+          const propReferences = propVariable?.references ?? [];
+          for (const ref of propReferences) {
+            const parent = ref.identifier.parent;
+            if (parent.type !== T.MemberExpression) continue;
             context.report({
               messageId: "preferDestructuringAssignment",
-              node: expr,
-              data: {
-                name: "props",
-              },
+              node: parent,
+              data: { name: "props" },
             });
           }
         }
