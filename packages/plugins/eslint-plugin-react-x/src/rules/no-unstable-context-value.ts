@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import { getJsxElementType, isReactHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, getObjectType } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -37,55 +37,57 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, visitors } = useComponentCollector(context);
   const constructions = new WeakMap<AST.TSESTreeFunction, ObjectType[]>();
 
-  return {
-    ...listeners,
-    JSXOpeningElement(node) {
-      const fullName = getJsxElementType(context, node.parent);
-      const selfName = fullName.split(".").at(-1);
-      if (selfName == null) return;
-      if (!isContextName(selfName, isReact18OrBelow)) return;
-      const functionEntry = ctx.getCurrentEntry();
-      if (functionEntry == null) return;
-      const attribute = node
-        .attributes
-        .find((attribute) =>
-          attribute.type === T.JSXAttribute
-          && attribute.name.name === "value"
-        );
-      if (attribute == null || !("value" in attribute)) return;
-      const value = attribute.value;
-      if (value?.type !== T.JSXExpressionContainer) return;
-      const valueExpression = value.expression;
-      const initialScope = context.sourceCode.getScope(valueExpression);
-      const construction = getObjectType(valueExpression, initialScope);
-      if (construction == null) return;
-      if (isReactHookCall(construction.node)) {
-        return;
-      }
-      getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
-    },
-    "Program:exit"(program) {
-      for (const { node: component } of ctx.getAllComponents(program)) {
-        for (const construction of constructions.get(component) ?? []) {
-          const { kind, node: constructionNode } = construction;
-          const suggestion = kind === "function"
-            ? "Consider wrapping it in a useCallback hook."
-            : "Consider wrapping it in a useMemo hook.";
-          context.report({
-            messageId: "unstableContextValue",
-            node: constructionNode,
-            data: {
-              type: AST.toDelimiterFormat(constructionNode),
-              suggestion,
-            },
-          });
+  return defineRuleListener(
+    visitors,
+    {
+      JSXOpeningElement(node) {
+        const fullName = getJsxElementType(context, node.parent);
+        const selfName = fullName.split(".").at(-1);
+        if (selfName == null) return;
+        if (!isContextName(selfName, isReact18OrBelow)) return;
+        const functionEntry = ctx.getCurrentEntry();
+        if (functionEntry == null) return;
+        const attribute = node
+          .attributes
+          .find((attribute) =>
+            attribute.type === T.JSXAttribute
+            && attribute.name.name === "value"
+          );
+        if (attribute == null || !("value" in attribute)) return;
+        const value = attribute.value;
+        if (value?.type !== T.JSXExpressionContainer) return;
+        const valueExpression = value.expression;
+        const initialScope = context.sourceCode.getScope(valueExpression);
+        const construction = getObjectType(valueExpression, initialScope);
+        if (construction == null) return;
+        if (isReactHookCall(construction.node)) {
+          return;
         }
-      }
+        getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
+      },
+      "Program:exit"(program) {
+        for (const { node: component } of ctx.getAllComponents(program)) {
+          for (const construction of constructions.get(component) ?? []) {
+            const { kind, node: constructionNode } = construction;
+            const suggestion = kind === "function"
+              ? "Consider wrapping it in a useCallback hook."
+              : "Consider wrapping it in a useMemo hook.";
+            context.report({
+              messageId: "unstableContextValue",
+              node: constructionNode,
+              data: {
+                type: AST.toDelimiterFormat(constructionNode),
+                suggestion,
+              },
+            });
+          }
+        }
+      },
     },
-  };
+  );
 }
 
 function isContextName(name: string, isReact18OrBelow: boolean): boolean {

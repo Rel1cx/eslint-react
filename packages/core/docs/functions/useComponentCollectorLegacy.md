@@ -6,7 +6,7 @@
 function useComponentCollectorLegacy(context: RuleContext): ReturnType;
 ```
 
-Get a ctx and listeners object for the rule to collect class components
+Get a ctx and visitors object for the rule to collect class components
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Get a ctx and listeners object for the rule to collect class components
 
 [`ReturnType`](../@eslint-react/namespaces/useComponentCollectorLegacy/type-aliases/ReturnType.md)
 
-The context and listeners for the rule
+The ctx and visitors of the collector

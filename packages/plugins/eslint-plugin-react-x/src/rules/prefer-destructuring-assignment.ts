@@ -1,6 +1,6 @@
 import type * as AST from "@eslint-react/ast";
 import { isInsideComponentOrHook, useComponentCollector } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
@@ -39,68 +39,70 @@ export default createRule<[], MessageID>({
 
 // TODO: Reimplement this rule to check only function component's params instead of all member expressions for better performance and accuracy
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, visitors } = useComponentCollector(context);
   // Store all member expressions with their scope
   const exprs: MemberExpressionWithObjectName[] = [];
 
-  return {
-    ...listeners,
-    // Collect all member expressions (e.g., `props.name`) to check later
-    MemberExpression(node) {
-      if (!isInsideComponentOrHook(node)) return;
-      if (!isMemberExpressionWithObjectName(node)) return;
-      exprs.push(node);
-    },
+  return defineRuleListener(
+    visitors,
+    {
+      // Collect all member expressions (e.g., `props.name`) to check later
+      MemberExpression(node) {
+        if (!isInsideComponentOrHook(node)) return;
+        if (!isMemberExpressionWithObjectName(node)) return;
+        exprs.push(node);
+      },
 
-    // After traversing the whole AST, check the collected member expressions
-    "Program:exit"(program) {
-      // const componentBlocks = new Set(ctx.getAllComponents(program).map((component) => component.node));
-      const components = ctx.getAllComponents(program);
-      // Check if a node is a function component collected by `useComponentCollector`
-      function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
-        return components.some((comp) => {
-          // If the block is not the same as the component's node, skip
-          if (comp.node !== block) return false;
-          // If the component is a default export anonymous function, skip
-          if (comp.name == null && comp.isExportDefaultDeclaration) return false;
-          return true;
-        });
-      }
-
-      // For each member expression, find its parent component
-      for (const expr of exprs) {
-        let scope: Scope = context.sourceCode.getScope(expr);
-        let isComponent = isFunctionComponent(scope.block);
-        // Traverse up the scope chain to find the component scope
-        while (!isComponent && scope.upper != null && scope.upper !== scope) {
-          scope = scope.upper;
-          isComponent = isFunctionComponent(scope.block);
-        }
-        // If no component scope is found, skip
-        if (!isComponent) {
-          continue;
-        }
-        const component = scope.block;
-        if (!("params" in component)) {
-          continue;
-        }
-        const props = component.params.at(0);
-        // Check if a node is an identifier with the same name as the member expression's object
-        const isMatch = (node: null | TSESTree.Node | undefined) =>
-          node != null
-          && node.type === T.Identifier
-          && node.name === expr.object.name;
-        // If the member expression's object is `props`, report an error
-        if (isMatch(props)) {
-          context.report({
-            messageId: "preferDestructuringAssignment",
-            node: expr,
-            data: {
-              name: "props",
-            },
+      // After traversing the whole AST, check the collected member expressions
+      "Program:exit"(program) {
+        // const componentBlocks = new Set(ctx.getAllComponents(program).map((component) => component.node));
+        const components = ctx.getAllComponents(program);
+        // Check if a node is a function component collected by `useComponentCollector`
+        function isFunctionComponent(block: TSESTree.Node): block is AST.TSESTreeFunction {
+          return components.some((comp) => {
+            // If the block is not the same as the component's node, skip
+            if (comp.node !== block) return false;
+            // If the component is a default export anonymous function, skip
+            if (comp.name == null && comp.isExportDefaultDeclaration) return false;
+            return true;
           });
         }
-      }
+
+        // For each member expression, find its parent component
+        for (const expr of exprs) {
+          let scope: Scope = context.sourceCode.getScope(expr);
+          let isComponent = isFunctionComponent(scope.block);
+          // Traverse up the scope chain to find the component scope
+          while (!isComponent && scope.upper != null && scope.upper !== scope) {
+            scope = scope.upper;
+            isComponent = isFunctionComponent(scope.block);
+          }
+          // If no component scope is found, skip
+          if (!isComponent) {
+            continue;
+          }
+          const component = scope.block;
+          if (!("params" in component)) {
+            continue;
+          }
+          const props = component.params.at(0);
+          // Check if a node is an identifier with the same name as the member expression's object
+          const isMatch = (node: null | TSESTree.Node | undefined) =>
+            node != null
+            && node.type === T.Identifier
+            && node.name === expr.object.name;
+          // If the member expression's object is `props`, report an error
+          if (isMatch(props)) {
+            context.report({
+              messageId: "preferDestructuringAssignment",
+              node: expr,
+              data: {
+                name: "props",
+              },
+            });
+          }
+        }
+      },
     },
-  };
+  );
 }

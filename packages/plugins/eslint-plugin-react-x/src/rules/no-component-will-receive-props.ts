@@ -1,5 +1,5 @@
 import { isComponentWillReceiveProps, useComponentCollectorLegacy } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -33,27 +33,30 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `componentWillReceiveProps` is not present in the file
   if (!context.sourceCode.text.includes("componentWillReceiveProps")) return {};
-  const { ctx, listeners } = useComponentCollectorLegacy(context);
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      for (const { node: component } of ctx.getAllComponents(program)) {
-        const { body } = component.body;
-        for (const member of body) {
-          if (isComponentWillReceiveProps(member)) {
-            context.report({
-              messageId: "noComponentWillReceiveProps",
-              node: member,
-              fix(fixer) {
-                if (!("key" in member)) {
-                  return null;
-                }
-                return fixer.replaceText(member.key, "UNSAFE_componentWillReceiveProps");
-              },
-            });
+  const { ctx, visitors } = useComponentCollectorLegacy(context);
+
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        for (const { node: component } of ctx.getAllComponents(program)) {
+          const { body } = component.body;
+          for (const member of body) {
+            if (isComponentWillReceiveProps(member)) {
+              context.report({
+                messageId: "noComponentWillReceiveProps",
+                node: member,
+                fix(fixer) {
+                  if (!("key" in member)) {
+                    return null;
+                  }
+                  return fixer.replaceText(member.key, "UNSAFE_componentWillReceiveProps");
+                },
+              });
+            }
           }
         }
-      }
+      },
     },
-  };
+  );
 }

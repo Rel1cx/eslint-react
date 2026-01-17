@@ -1,5 +1,5 @@
 import { useComponentCollector } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -38,28 +38,30 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  const { ctx, listeners } = useComponentCollector(context);
+  const { ctx, visitors } = useComponentCollector(context);
 
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      for (const component of ctx.getAllComponents(program)) {
-        const [props] = component.node.params;
-        // Skip if the component is anonymous to reduce false positives
-        if (component.id == null || component.name == null) continue;
-        // Skip if no props
-        if (props == null) continue;
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        for (const component of ctx.getAllComponents(program)) {
+          const [props] = component.node.params;
+          // Skip if the component is anonymous to reduce false positives
+          if (component.id == null || component.name == null) continue;
+          // Skip if no props
+          if (props == null) continue;
 
-        const propsType = getConstrainedTypeAtLocation(services, props);
-        if (isTypeReadonly(services.program, propsType)) continue;
-        // Handle edge case where isTypeReadonly cant detect some readonly or immutable types
-        if (isTypeReadonlyLoose(services, propsType)) continue;
-        // @see https://github.com/Rel1cx/eslint-react/issues/1326
-        if (propsType.isClassOrInterface() && isClassOrInterfaceReadonlyLoose(checker, propsType)) continue;
-        context.report({ messageId: "preferReadOnlyProps", node: props });
-      }
+          const propsType = getConstrainedTypeAtLocation(services, props);
+          if (isTypeReadonly(services.program, propsType)) continue;
+          // Handle edge case where isTypeReadonly cant detect some readonly or immutable types
+          if (isTypeReadonlyLoose(services, propsType)) continue;
+          // @see https://github.com/Rel1cx/eslint-react/issues/1326
+          if (propsType.isClassOrInterface() && isClassOrInterfaceReadonlyLoose(checker, propsType)) continue;
+          context.report({ messageId: "preferReadOnlyProps", node: props });
+        }
+      },
     },
-  };
+  );
 }
 
 function isTypeReadonlyLoose(services: ParserServicesWithTypeInformation, type: ts.Type): boolean {

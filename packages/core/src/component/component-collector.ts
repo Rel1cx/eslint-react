@@ -41,15 +41,15 @@ export declare namespace useComponentCollector {
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | unit;
     };
-    listeners: ESLintUtils.RuleListener;
+    visitors: ESLintUtils.RuleListener;
   };
 }
 
 /**
- * Get a ctx and listeners for the rule to collect function components
+ * Get a ctx and visitors for the rule to collect function components
  * @param context The ESLint rule context
  * @param options The options to use
- * @returns The component collector
+ * @returns The ctx and visitors of the collector
  */
 export function useComponentCollector(
   context: RuleContext,
@@ -97,9 +97,9 @@ export function useComponentCollector(
     getCurrentEntry,
   } as const;
 
-  const listeners = {
-    ":function[type]": onFunctionEnter,
-    ":function[type]:exit": onFunctionExit,
+  const visitors = {
+    ":function": onFunctionEnter,
+    ":function:exit": onFunctionExit,
     "ArrowFunctionExpression[body.type!='BlockStatement']"() {
       const entry = getCurrentEntry();
       if (entry == null) return;
@@ -146,7 +146,7 @@ export function useComponentCollector(
       : {},
     ...collectHookCalls
       ? {
-        "CallExpression[type]:exit"(node: TSESTree.CallExpression) {
+        "CallExpression:exit"(node: TSESTree.CallExpression) {
           if (!isReactHookCall(node)) return;
           const entry = getCurrentEntry();
           if (entry == null) return;
@@ -154,7 +154,7 @@ export function useComponentCollector(
         },
       }
       : {},
-    "ReturnStatement[type]"(node: TSESTree.ReturnStatement) {
+    ReturnStatement(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) return;
       // If the function is not a component definition, skip the rest of the checks
@@ -186,5 +186,5 @@ export function useComponentCollector(
       });
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, listeners } as const;
+  return { ctx, visitors } as const;
 }

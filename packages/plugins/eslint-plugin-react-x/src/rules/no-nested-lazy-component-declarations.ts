@@ -8,7 +8,7 @@ import {
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -49,54 +49,56 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // A set to store all `React.lazy()` call expressions
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();
 
-  return {
-    ...collector.listeners,
-    ...collectorLegacy.listeners,
-    // Find all `React.lazy()` calls with dynamic imports and store them
-    ImportExpression(node) {
-      const lazyCall = AST.findParentNode(node, (n) => isLazyCall(context, n));
-      if (lazyCall != null) {
-        lazyComponentDeclarations.add(lazyCall);
-      }
-    },
-    // After traversing the whole program, check if any lazy component is nested
-    "Program:exit"(program) {
-      // Get all collected function and class components
-      const functionComponents = collector
-        .ctx
-        .getAllComponents(program);
-
-      const classComponents = collectorLegacy
-        .ctx
-        .getAllComponents(program);
-
-      // Iterate over each found `React.lazy()` call
-      for (const lazy of lazyComponentDeclarations) {
-        // Check if the lazy declaration is inside a component, hook, or JSX
-        const significantParent = AST.findParentNode(lazy, (n) => {
-          if (AST.isJSX(n)) return true;
-          if (n.type === T.CallExpression) {
-            // Check for React hooks, `createElement`, or `createContext`
-            return isReactHookCall(n) || isCreateElementCall(context, n) || isCreateContextCall(context, n);
-          }
-          if (AST.isFunction(n)) {
-            // Check if it's inside a function component
-            return functionComponents.some((c) => c.node === n);
-          }
-          if (AST.isClass(n)) {
-            // Check if it's inside a class component
-            return classComponents.some((c) => c.node === n);
-          }
-          return false;
-        });
-        // If a significant parent is found, it's a nested lazy declaration, so report an error
-        if (significantParent != null) {
-          context.report({
-            messageId: "noNestedLazyComponentDeclarations",
-            node: lazy,
-          });
+  return defineRuleListener(
+    collector.visitors,
+    collectorLegacy.visitors,
+    {
+      // Find all `React.lazy()` calls with dynamic imports and store them
+      ImportExpression(node) {
+        const lazyCall = AST.findParentNode(node, (n) => isLazyCall(context, n));
+        if (lazyCall != null) {
+          lazyComponentDeclarations.add(lazyCall);
         }
-      }
+      },
+      // After traversing the whole program, check if any lazy component is nested
+      "Program:exit"(program) {
+        // Get all collected function and class components
+        const functionComponents = collector
+          .ctx
+          .getAllComponents(program);
+
+        const classComponents = collectorLegacy
+          .ctx
+          .getAllComponents(program);
+
+        // Iterate over each found `React.lazy()` call
+        for (const lazy of lazyComponentDeclarations) {
+          // Check if the lazy declaration is inside a component, hook, or JSX
+          const significantParent = AST.findParentNode(lazy, (n) => {
+            if (AST.isJSX(n)) return true;
+            if (n.type === T.CallExpression) {
+              // Check for React hooks, `createElement`, or `createContext`
+              return isReactHookCall(n) || isCreateElementCall(context, n) || isCreateContextCall(context, n);
+            }
+            if (AST.isFunction(n)) {
+              // Check if it's inside a function component
+              return functionComponents.some((c) => c.node === n);
+            }
+            if (AST.isClass(n)) {
+              // Check if it's inside a class component
+              return classComponents.some((c) => c.node === n);
+            }
+            return false;
+          });
+          // If a significant parent is found, it's a nested lazy declaration, so report an error
+          if (significantParent != null) {
+            context.report({
+              messageId: "noNestedLazyComponentDeclarations",
+              node: lazy,
+            });
+          }
+        }
+      },
     },
-  };
+  );
 }

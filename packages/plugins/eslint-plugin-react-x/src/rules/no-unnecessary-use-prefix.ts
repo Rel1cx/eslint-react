@@ -1,6 +1,6 @@
 import * as AST from "@eslint-react/ast";
 import { useHookCollector } from "@eslint-react/core";
-import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -42,41 +42,43 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, listeners } = useHookCollector(context);
+  const { ctx, visitors } = useHookCollector(context);
 
-  return {
-    ...listeners,
-    "Program:exit"(program) {
-      for (const { id, name, node, hookCalls } of ctx.getAllHooks(program)) {
-        // If the function calls at least one real hook, it's a valid custom hook, so we skip it
-        if (hookCalls.length > 0) {
-          continue;
+  return defineRuleListener(
+    visitors,
+    {
+      "Program:exit"(program) {
+        for (const { id, name, node, hookCalls } of ctx.getAllHooks(program)) {
+          // If the function calls at least one real hook, it's a valid custom hook, so we skip it
+          if (hookCalls.length > 0) {
+            continue;
+          }
+          // If the function has an empty body, no need to flag it
+          if (AST.isFunctionEmpty(node)) {
+            continue;
+          }
+          // If the function is in a list of known hooks, skip it
+          if (WELL_KNOWN_HOOKS.includes(name)) {
+            continue;
+          }
+          // If comments suggest hook usage, skip to avoid false positives
+          if (containsUseComments(context, node)) {
+            continue;
+          }
+          // If the hook is defined inside a `vi.mock` callback for testing, skip it
+          if (AST.findParentNode(node, AST.isViMockCallback) != null) {
+            continue;
+          }
+          // If none of the above, it's a regular function with 'use' prefix. Report it
+          context.report({
+            messageId: "noUnnecessaryUsePrefix",
+            node: id ?? node,
+            data: {
+              name,
+            },
+          });
         }
-        // If the function has an empty body, no need to flag it
-        if (AST.isFunctionEmpty(node)) {
-          continue;
-        }
-        // If the function is in a list of known hooks, skip it
-        if (WELL_KNOWN_HOOKS.includes(name)) {
-          continue;
-        }
-        // If comments suggest hook usage, skip to avoid false positives
-        if (containsUseComments(context, node)) {
-          continue;
-        }
-        // If the hook is defined inside a `vi.mock` callback for testing, skip it
-        if (AST.findParentNode(node, AST.isViMockCallback) != null) {
-          continue;
-        }
-        // If none of the above, it's a regular function with 'use' prefix. Report it
-        context.report({
-          messageId: "noUnnecessaryUsePrefix",
-          node: id ?? node,
-          data: {
-            name,
-          },
-        });
-      }
+      },
     },
-  };
+  );
 }
