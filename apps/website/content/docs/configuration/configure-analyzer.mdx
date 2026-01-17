@@ -58,7 +58,13 @@ Example with `polymorphicPropName` set to `as`:
 
 ### `additionalStateHooks`
 
-Regex pattern matching custom hooks treated as state hooks. Enhances state tracking in rules.
+Regex pattern matching custom hooks treated as state hooks. The string must be a valid JavaScript RegExp with delimiters and flags.
+
+Example to include `useMyState` and `useCustomState`:
+
+```ts
+additionalStateHooks: "/^(useMyState|useCustomState)$/u",
+```
 
 ## Complete Configuration Example
 
