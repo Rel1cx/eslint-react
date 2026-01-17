@@ -19,7 +19,7 @@ export default createRule<[], MessageID>({
       description: "Enforces destructuring assignment for component props and context.",
     },
     messages: {
-      preferDestructuringAssignment: "Use destructuring assignment for {{name}}.",
+      preferDestructuringAssignment: "Use destructuring assignment for component props.",
     },
     schema: [],
   },
@@ -44,12 +44,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const propVariable = context.sourceCode.getScope(component.node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
           for (const ref of propReferences) {
-            const parent = ref.identifier.parent;
+            const { name, parent } = ref.identifier;
             if (parent.type !== T.MemberExpression) continue;
             context.report({
               messageId: "preferDestructuringAssignment",
               node: parent,
-              data: { name: "props" },
             });
           }
         }

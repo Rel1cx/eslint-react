@@ -38,7 +38,7 @@ interface MyComponentProps {
 function MyComponent(props: MyComponentProps) {
   const items = props.items;
   //            ^^^^^^^^^^^
-  //            - Use destructuring assignment for props.
+  //            - Use destructuring assignment for component props.
 
   return <div>{items}</div>;
 }
@@ -54,7 +54,7 @@ interface MyComponentProps {
 function MyComponent(props: MyComponentProps) {
   return <div>{props.items}</div>;
   //           ^^^^^^^^^^^
-  //           - Use destructuring assignment for props.
+  //           - Use destructuring assignment for component props.
 }
 ```
 
