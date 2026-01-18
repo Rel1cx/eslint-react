@@ -9,10 +9,10 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe />;`,
       errors: [
         {
-          messageId: "noMissingIframeSandbox",
+          messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addIframeSandbox",
+              messageId: "addSandboxAttribute",
               data: { value: "" },
               output: tsx`<iframe sandbox="" />;`,
             },
@@ -24,10 +24,10 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe sandbox />;`,
       errors: [
         {
-          messageId: "noMissingIframeSandbox",
+          messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addIframeSandbox",
+              messageId: "addSandboxAttribute",
               data: { value: "" },
               output: tsx`<iframe sandbox="" />;`,
             },
@@ -39,10 +39,10 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" />;`,
       errors: [
         {
-          messageId: "noMissingIframeSandbox",
+          messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addIframeSandbox",
+              messageId: "addSandboxAttribute",
               data: { value: "" },
               output: tsx`<PolyComponent sandbox="" as="iframe" />;`,
             },
@@ -59,10 +59,10 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" sandbox />;`,
       errors: [
         {
-          messageId: "noMissingIframeSandbox",
+          messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addIframeSandbox",
+              messageId: "addSandboxAttribute",
               data: { value: "" },
               output: tsx`<PolyComponent as="iframe" sandbox="" />;`,
             },

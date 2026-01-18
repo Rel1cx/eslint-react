@@ -1,7 +1,6 @@
 import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -11,9 +10,9 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
-
-export type RuleSuggestMessageID = "addIframeSandbox";
+export type MessageID =
+  | "addSandboxAttribute"
+  | "missingSandboxAttribute";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -24,8 +23,8 @@ export default createRule<[], MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      addIframeSandbox: "Add 'sandbox' prop with value '{{value}}'.",
-      noMissingIframeSandbox: "Add missing 'sandbox' prop on 'iframe' component.",
+      addSandboxAttribute: "Add sandbox attribute with value '{{ value }}'.",
+      missingSandboxAttribute: "Missing an explicit sandbox attribute for iframe.",
     },
     schema: [],
   },
@@ -49,10 +48,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If the 'sandbox' prop is missing, report an error
       if (sandboxProp == null) {
         context.report({
-          messageId: "noMissingIframeSandbox",
+          messageId: "missingSandboxAttribute",
           node: node.openingElement,
           suggest: [{
-            messageId: "addIframeSandbox",
+            messageId: "addSandboxAttribute",
             data: { value: "" },
             fix(fixer) {
               // Suggest adding a 'sandbox' attribute
@@ -70,11 +69,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // If the value is not a static string (e.g., a variable), report an error
       context.report({
-        messageId: "noMissingIframeSandbox",
+        messageId: "missingSandboxAttribute",
         node: sandboxValue.node ?? sandboxProp,
         suggest: [
           {
-            messageId: "addIframeSandbox",
+            messageId: "addSandboxAttribute",
             data: { value: "" },
             fix(fixer) {
               // Do not try to fix spread attributes

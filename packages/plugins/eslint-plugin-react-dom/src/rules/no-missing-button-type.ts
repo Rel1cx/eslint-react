@@ -1,7 +1,6 @@
 import { getJsxAttribute } from "@eslint-react/core";
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -13,9 +12,9 @@ export const RULE_FEATURES = [
 
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 
-export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
-
-export type RuleSuggestMessageID = "addButtonType";
+export type MessageID =
+  | "addTypeAttribute"
+  | "missingTypeAttribute";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,8 +24,8 @@ export default createRule<[], MessageID>({
     },
     hasSuggestions: true,
     messages: {
-      addButtonType: "Add 'type' attribute with value '{{type}}'.",
-      noMissingButtonType: "Add missing 'type' attribute on 'button' component.",
+      addTypeAttribute: "Add type attribute with value '{{ type }}'.",
+      missingTypeAttribute: "Missing an explicit type attribute for button.",
     },
     schema: [],
   },
@@ -53,11 +52,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // If the 'type' attribute is missing, report an error
       context.report({
-        messageId: "noMissingButtonType",
+        messageId: "missingTypeAttribute",
         node: node.openingElement,
         // Provide suggestions to automatically fix the issue
         suggest: BUTTON_TYPES.map((type): RuleSuggest<MessageID> => ({
-          messageId: "addButtonType",
+          messageId: "addTypeAttribute",
           data: { type },
           // The fix function inserts the 'type' attribute with a suggested value
           fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
