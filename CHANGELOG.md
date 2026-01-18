@@ -1,3 +1,11 @@
+## v2.7.2 (2026-01-18)
+
+### 🪄 Improvements
+
+- Reimplement the `prefer-destructuring-assignment` rule for better performance by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1423
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.7.1...v2.7.2
+
 ## v2.7.1 (2026-01-16)
 
 ### 🐞 Fixes
