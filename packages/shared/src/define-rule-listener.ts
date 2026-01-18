@@ -1,24 +1,32 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 /**
- * Defines a RuleListener by merging multiple visitor objects
- * @param visitor The base visitor object
- * @param visitors Additional visitor objects to merge
- * @returns The merged RuleListener
+ * Defines a rule listener by merging multiple visitor objects
+ *
+ * @param base Base visitor object (target of merge)
+ * @param rest Additional visitor objects to merge (one or more)
+ * @returns Merged RuleListener object
+ *
+ * @example
+ * ```typescript
+ * const listener1 = { Identifier: () => console.log(1) };
+ * const listener2 = { Identifier: () => console.log(2) };
+ * const merged = defineRuleListener(listener1, listener2);
+ * // When encountering Identifier nodes, outputs 1 then 2
+ * ```
  */
-export function defineRuleListener(visitor: RuleListener, ...visitors: RuleListener[]): RuleListener {
-  for (const v of visitors) {
-    for (const key in v) {
-      if (visitor[key] != null) {
-        const o = visitor[key];
-        visitor[key] = (...args) => {
-          o(...args);
-          v[key]?.(...args);
-        };
-      } else {
-        visitor[key] = v[key];
-      }
+export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]): RuleListener {
+  for (const r of rest) {
+    for (const key in r) {
+      const existing = base[key];
+      base[key] = existing
+        ? (...args) => {
+          existing(...args);
+          r[key]?.(...args);
+        }
+        : r[key];
     }
   }
-  return visitor;
+  return base;
 }
