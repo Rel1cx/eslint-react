@@ -72,7 +72,7 @@
     "effect": "^3.19.14",
     "eslint": "^9.39.2",
     "eslint-plugin-fast-import": "^1.9.0",
-    "eslint-plugin-function-rule": "^0.2.4",
+    "eslint-plugin-function-rule": "^0.2.8",
     "mdxlint": "^1.0.0",
     "publint": "^0.3.16",
     "react": "^19.2.3",
@@ -88,7 +88,7 @@
     "type-fest": "^5.4.1",
     "typedoc": "^0.28.16",
     "typedoc-plugin-markdown": "^4.9.0",
-    "typedoc-plugin-mdn-links": "^5.0.10",
+    "typedoc-plugin-mdn-links": "^5.1.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.0",
     "vitest": "^4.0.17"
