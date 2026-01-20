@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.7.3-beta.3",
+  "version": "2.7.3-next.4",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -51,7 +51,7 @@
     "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.71.0",
+    "@effect/language-service": "^0.71.2",
     "@effect/platform": "^0.94.1",
     "@effect/platform-node": "^0.104.0",
     "@eslint/compat": "^2.0.1",
@@ -61,7 +61,7 @@
     "@tsconfig/node22": "^22.0.5",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.0.9",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/parser": "^8.53.1",
     "@typescript-eslint/rule-tester": "^8.53.1",

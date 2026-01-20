@@ -11,7 +11,7 @@ onlyBuiltDependencies:
   - sharp
 overrides:
   "@eslint/js": "9.39.1"
-  "@types/react": "^19.2.8"
+  "@types/react": "^19.2.9"
   "@types/react-dom": "^19.2.3"
   "esbuild": "^0.27.2"
   "eslint": "^9.39.2"
