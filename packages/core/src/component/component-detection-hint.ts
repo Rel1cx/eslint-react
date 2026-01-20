@@ -25,16 +25,26 @@ export const ComponentDetectionHint = {
    */
   SkipClassProperty: 1n << 66n,
   /**
+   * Skip function component defined in array pattern
+   */
+  SkipArrayPattern: 1n << 67n,
+  /**
+   * Skip function component defined in array expression
+   */
+  SkipArrayExpression: 1n << 68n,
+  /**
    * Skip function component defined as array map callback
    */
-  SkipArrayMapCallback: 1n << 67n,
+  SkipArrayMapCallback: 1n << 69n,
 } as const;
 
 /**
  * Default component detection hint
  */
 export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
+  | ComponentDetectionHint.SkipArrayExpression
   | ComponentDetectionHint.SkipArrayMapCallback
+  | ComponentDetectionHint.SkipArrayPattern
   | ComponentDetectionHint.SkipBooleanLiteral
   | ComponentDetectionHint.SkipEmptyArray
   | ComponentDetectionHint.SkipNumberLiteral

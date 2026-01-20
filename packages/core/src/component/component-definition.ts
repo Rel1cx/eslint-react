@@ -1,36 +1,11 @@
 import * as AST from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
-import { P, isMatching } from "ts-pattern";
 
 import { isCreateElementCall } from "../utils";
 import { ComponentDetectionHint } from "./component-detection-hint";
 import { isClassComponent } from "./component-is";
 import { isRenderMethodLike } from "./component-render-method";
-
-/**
- * Function patterns for matching specific AST structures
- * Used to identify where a function is defined (e.g., method, property)
- */
-const FUNCTION_PATTERNS = {
-  CLASS_METHOD: {
-    type: P.union(T.ArrowFunctionExpression, T.FunctionExpression),
-    parent: T.MethodDefinition,
-  },
-  CLASS_PROPERTY: {
-    type: P.union(T.ArrowFunctionExpression, T.FunctionExpression),
-    parent: T.Property,
-  },
-  OBJECT_METHOD: {
-    type: P.union(T.ArrowFunctionExpression, T.FunctionExpression),
-    parent: {
-      type: T.Property,
-      parent: {
-        type: T.ObjectExpression,
-      },
-    },
-  },
-} as const;
 
 /**
  * Checks if the given node is a function within a render method of a class component.
@@ -67,13 +42,23 @@ function isRenderMethodCallback(node: AST.TSESTreeFunction) {
 function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boolean {
   switch (true) {
     case (hint & ComponentDetectionHint.SkipObjectMethod)
-      && isMatching(FUNCTION_PATTERNS.OBJECT_METHOD)(node):
+      && AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(node)
+      && node.parent.type === T.Property
+      && node.parent.parent.type === T.ObjectExpression:
       return true;
     case (hint & ComponentDetectionHint.SkipClassMethod)
-      && isMatching(FUNCTION_PATTERNS.CLASS_METHOD)(node):
+      && AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(node)
+      && node.parent.type === T.MethodDefinition:
       return true;
     case (hint & ComponentDetectionHint.SkipClassProperty)
-      && isMatching(FUNCTION_PATTERNS.CLASS_PROPERTY)(node):
+      && AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(node)
+      && node.parent.type === T.Property:
+      return true;
+    case (hint & ComponentDetectionHint.SkipArrayPattern)
+      && node.parent.type === T.ArrayPattern:
+      return true;
+    case (hint & ComponentDetectionHint.SkipArrayExpression)
+      && node.parent.type === T.ArrayExpression:
       return true;
     case (hint & ComponentDetectionHint.SkipArrayMapCallback)
       && node.parent.type === T.CallExpression
@@ -137,8 +122,6 @@ export function isComponentDefinition(
   const significantParent = AST.findParentNode(
     node,
     AST.isOneOf([
-      T.ArrayPattern,
-      T.ArrayExpression,
       T.JSXExpressionContainer,
       T.ArrowFunctionExpression,
       T.FunctionExpression,
@@ -150,7 +133,5 @@ export function isComponentDefinition(
   if (significantParent == null) return true;
   // If the immediate significant parent is a JSX expression, this is likely an event handler or a render prop, not a component definition itself
   if (significantParent.type === T.JSXExpressionContainer) return false;
-  // If the immediate significant parent is an array pattern or expression, this function is likely part of a destructuring assignment or array method callback, not a component definition
-  if (significantParent.type === T.ArrayPattern || significantParent.type === T.ArrayExpression) return false;
   return true;
 }
