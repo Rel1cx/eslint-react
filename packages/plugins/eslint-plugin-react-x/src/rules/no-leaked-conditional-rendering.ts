@@ -53,6 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "boolean",
     "nullish",
     "object",
+    "enum",
     "falsy boolean",
     "truthy bigint",
     "truthy boolean",
