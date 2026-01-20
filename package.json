@@ -51,7 +51,7 @@
     "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.69.2",
+    "@effect/language-service": "^0.71.0",
     "@effect/platform": "^0.94.1",
     "@effect/platform-node": "^0.104.0",
     "@eslint/compat": "^2.0.1",
@@ -63,9 +63,9 @@
     "@types/node": "^25.0.9",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/parser": "^8.53.0",
-    "@typescript-eslint/rule-tester": "^8.53.0",
-    "@typescript-eslint/types": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.1",
+    "@typescript-eslint/rule-tester": "^8.53.1",
+    "@typescript-eslint/types": "^8.53.1",
     "ansis": "^4.2.0",
     "dedent": "^1.7.1",
     "dprint": "^0.51.1",
@@ -79,21 +79,21 @@
     "react-dom": "^19.2.3",
     "remark-frontmatter": "5.0.0",
     "remark-gfm": "^4.0.1",
-    "skott": "^0.35.6",
+    "skott": "^0.35.7",
     "sort-package-json": "^3.6.0",
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.20.0-beta.3",
+    "tsdown": "^0.20.0-beta.4",
     "tsx": "^4.21.0",
     "type-fest": "^5.4.1",
     "typedoc": "^0.28.16",
     "typedoc-plugin-markdown": "^4.9.0",
     "typedoc-plugin-mdn-links": "^5.1.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.0",
+    "typescript-eslint": "^8.53.1",
     "vitest": "^4.0.17"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@10.28.1",
   "engines": {
     "node": ">=24.0.0"
   }
