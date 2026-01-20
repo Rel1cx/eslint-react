@@ -57,8 +57,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const cCollector = useComponentCollectorLegacy(context);
 
   return defineRuleListener(
-    fCollector.visitors,
-    cCollector.visitors,
+    fCollector.visitor,
+    cCollector.visitor,
     {
       "Program:exit"(program) {
         // Gather all function and class components found by the collectors

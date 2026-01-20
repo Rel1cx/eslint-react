@@ -37,11 +37,11 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, visitors } = useComponentCollector(context);
+  const { ctx, visitor } = useComponentCollector(context);
   const constructions = new WeakMap<AST.TSESTreeFunction, ObjectType[]>();
 
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       JSXOpeningElement(node) {
         const fullName = getJsxElementType(context, node.parent);

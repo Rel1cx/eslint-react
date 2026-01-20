@@ -165,6 +165,6 @@
 | [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detects useState calls and variations (useCustomState, etc.) using regex pattern. |
 | [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolves the static value of a JSX attribute or spread attribute |
 | [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
-| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitors for the rule to collect function components |
-| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitors object for the rule to collect class components |
-| [useHookCollector](functions/useHookCollector.md) | - |
+| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitor for the rule to collect function components |
+| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitor object for the rule to collect class components |
+| [useHookCollector](functions/useHookCollector.md) | Get a ctx and visitor for the rule to collect hooks |

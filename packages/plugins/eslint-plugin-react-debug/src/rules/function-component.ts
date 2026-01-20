@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, visitors } = useComponentCollector(
+  const { ctx, visitor } = useComponentCollector(
     context,
     {
       collectDisplayName: true,
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
   );
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       "Program:exit"(program) {
         for (const { name = "anonymous", node, displayName, flag, hookCalls } of ctx.getAllComponents(program)) {

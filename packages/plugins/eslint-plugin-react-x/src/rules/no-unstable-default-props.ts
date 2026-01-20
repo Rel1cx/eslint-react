@@ -76,13 +76,13 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 }
 
 export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
-  const { ctx, visitors } = useComponentCollector(context);
+  const { ctx, visitor } = useComponentCollector(context);
   const declarators = new WeakMap<AST.TSESTreeFunction, AST.ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       [AST.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: AST.ObjectDestructuringVariableDeclarator) {
         const functionEntry = ctx.getCurrentEntry();

@@ -41,15 +41,15 @@ export declare namespace useComponentCollector {
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | unit;
     };
-    visitors: ESLintUtils.RuleListener;
+    visitor: ESLintUtils.RuleListener;
   };
 }
 
 /**
- * Get a ctx and visitors for the rule to collect function components
+ * Get a ctx and visitor for the rule to collect function components
  * @param context The ESLint rule context
  * @param options The options to use
- * @returns The ctx and visitors of the collector
+ * @returns The ctx and visitor of the collector
  */
 export function useComponentCollector(
   context: RuleContext,
@@ -97,7 +97,7 @@ export function useComponentCollector(
     getCurrentEntry,
   } as const;
 
-  const visitors = {
+  const visitor = {
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
     "ArrowFunctionExpression[body.type!='BlockStatement']"() {
@@ -186,5 +186,5 @@ export function useComponentCollector(
       });
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, visitors } as const;
+  return { ctx, visitor } as const;
 }

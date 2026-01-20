@@ -32,14 +32,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `memo` or `forwardRef` is not present in the file
   if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
 
-  const { ctx, visitors } = useComponentCollector(context, {
+  const { ctx, visitor } = useComponentCollector(context, {
     collectDisplayName: true,
     collectHookCalls: false,
     hint: DEFAULT_COMPONENT_DETECTION_HINT,
   });
 
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       "Program:exit"(program) {
         for (const { node, displayName, flag } of ctx.getAllComponents(program)) {

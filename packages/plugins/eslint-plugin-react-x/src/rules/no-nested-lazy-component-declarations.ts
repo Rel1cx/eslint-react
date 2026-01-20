@@ -50,8 +50,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();
 
   return defineRuleListener(
-    collector.visitors,
-    collectorLegacy.visitors,
+    collector.visitor,
+    collectorLegacy.visitor,
     {
       // Find all `React.lazy()` calls with dynamic imports and store them
       ImportExpression(node) {

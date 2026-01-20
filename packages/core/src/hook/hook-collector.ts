@@ -22,10 +22,15 @@ export declare namespace useHookCollector {
       getCurrentEntries(): FunctionEntry[];
       getCurrentEntry(): FunctionEntry | unit;
     };
-    visitors: ESLintUtils.RuleListener;
+    visitor: ESLintUtils.RuleListener;
   };
 }
 
+/**
+ * Get a ctx and visitor for the rule to collect hooks
+ * @param context The ESLint rule context
+ * @returns The ctx and visitor of the collector
+ */
 export function useHookCollector(context: RuleContext): useHookCollector.ReturnType {
   const hooks = new Map<string, Hook>();
   const functionEntries: FunctionEntry[] = [];
@@ -61,7 +66,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
     getCurrentEntries: () => functionEntries,
     getCurrentEntry,
   } as const;
-  const visitors = {
+  const visitor = {
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
     CallExpression(node) {
@@ -79,5 +84,5 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       hook.hookCalls.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, visitors } as const;
+  return { ctx, visitor } as const;
 }

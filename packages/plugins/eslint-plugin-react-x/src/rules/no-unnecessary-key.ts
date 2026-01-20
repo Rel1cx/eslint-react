@@ -47,10 +47,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     ...getJsxConfigFromContext(context),
     ...getJsxConfigFromAnnotation(context),
   };
-  const { ctx, visitors } = useComponentCollector(context);
+  const { ctx, visitor } = useComponentCollector(context);
   const constantKeys = new Set<TSESTree.JSXAttribute>();
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       JSXAttribute(node: TSESTree.JSXAttribute) {
         // Check if the attribute is a `key` prop

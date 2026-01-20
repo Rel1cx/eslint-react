@@ -38,10 +38,10 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  const { ctx, visitors } = useComponentCollector(context);
+  const { ctx, visitor } = useComponentCollector(context);
 
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       "Program:exit"(program) {
         for (const component of ctx.getAllComponents(program)) {

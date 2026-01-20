@@ -9,7 +9,7 @@ type ReturnType = {
      getCurrentEntries: () => FunctionEntry[];
      getCurrentEntry: () => FunctionEntry | unit;
   };
-  visitors: ESLintUtils.RuleListener;
+  visitor: ESLintUtils.RuleListener;
 };
 ```
 
@@ -21,4 +21,4 @@ type ReturnType = {
 | `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)[] |
 | `ctx.getCurrentEntries` | () => `FunctionEntry`[] |
 | `ctx.getCurrentEntry` | () => `FunctionEntry` \| `unit` |
-| <a id="visitors"></a> `visitors` | `ESLintUtils.RuleListener` |
+| <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

@@ -42,10 +42,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, visitors } = useHookCollector(context);
+  const { ctx, visitor } = useHookCollector(context);
 
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       "Program:exit"(program) {
         for (const { id, name, node, hookCalls } of ctx.getAllHooks(program)) {

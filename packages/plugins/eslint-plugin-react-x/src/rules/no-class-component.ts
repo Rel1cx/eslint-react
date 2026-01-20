@@ -30,9 +30,9 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `Component` is not present in the file
   if (!context.sourceCode.text.includes("Component")) return {};
-  const { ctx, visitors } = useComponentCollectorLegacy(context);
+  const { ctx, visitor } = useComponentCollectorLegacy(context);
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       "Program:exit"(program) {
         for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {

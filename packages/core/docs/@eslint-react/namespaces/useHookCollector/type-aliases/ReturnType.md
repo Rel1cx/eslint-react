@@ -9,7 +9,7 @@ type ReturnType = {
      getCurrentEntries: FunctionEntry[];
      getCurrentEntry: FunctionEntry | undefined;
   };
-  visitors: ESLintUtils.RuleListener;
+  visitor: ESLintUtils.RuleListener;
 };
 ```
 
@@ -21,4 +21,4 @@ type ReturnType = {
 | `ctx.getAllHooks` | [`Hook`](../../../../interfaces/Hook.md)[] |
 | `ctx.getCurrentEntries` | `FunctionEntry`[] |
 | `ctx.getCurrentEntry` | `FunctionEntry` \| `undefined` |
-| <a id="visitors"></a> `visitors` | `ESLintUtils.RuleListener` |
+| <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

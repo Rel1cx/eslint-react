@@ -34,10 +34,10 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
-  const { ctx, visitors } = useComponentCollector(context);
+  const { ctx, visitor } = useComponentCollector(context);
 
   return defineRuleListener(
-    visitors,
+    visitor,
     {
       "Program:exit"(program) {
         const checker = services.program.getTypeChecker();

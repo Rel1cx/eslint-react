@@ -7,7 +7,7 @@ type ReturnType = {
   ctx: {
      getAllComponents: (node: TSESTree.Program) => ClassComponent[];
   };
-  visitors: ESLintUtils.RuleListener;
+  visitor: ESLintUtils.RuleListener;
 };
 ```
 
@@ -17,4 +17,4 @@ type ReturnType = {
 | ------ | ------ |
 | <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponent`](../../../../interfaces/ClassComponent.md)[]; \} |
 | `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`ClassComponent`](../../../../interfaces/ClassComponent.md)[] |
-| <a id="visitors"></a> `visitors` | `ESLintUtils.RuleListener` |
+| <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

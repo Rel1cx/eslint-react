@@ -15,14 +15,14 @@ export declare namespace useComponentCollectorLegacy {
     ctx: {
       getAllComponents: (node: TSESTree.Program) => ClassComponent[];
     };
-    visitors: ESLintUtils.RuleListener;
+    visitor: ESLintUtils.RuleListener;
   };
 }
 
 /**
- * Get a ctx and visitors object for the rule to collect class components
+ * Get a ctx and visitor object for the rule to collect class components
  * @param context The ESLint rule context
- * @returns The ctx and visitors of the collector
+ * @returns The ctx and visitor of the collector
  */
 export function useComponentCollectorLegacy(context: RuleContext): useComponentCollectorLegacy.ReturnType {
   const components = new Map<string, ClassComponent>();
@@ -63,12 +63,12 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
     );
   };
 
-  const visitors = {
+  const visitor = {
     ClassDeclaration: collect,
     ClassExpression: collect,
   } as const satisfies ESLintUtils.RuleListener;
 
-  return { ctx, visitors } as const;
+  return { ctx, visitor } as const;
 }
 
 /**
