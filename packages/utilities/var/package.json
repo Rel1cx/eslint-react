@@ -12,7 +12,7 @@
     "directory": "packages/utilities/var"
   },
   "license": "MIT",
-  "author": "Rel1cx<rel1cx@proton.me>",
+  "author": "Rel1cx",
   "sideEffects": false,
   "type": "module",
   "exports": {

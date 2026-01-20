@@ -19,7 +19,7 @@
     "directory": "packages/plugins/eslint-plugin-react-x"
   },
   "license": "MIT",
-  "author": "Rel1cx<rel1cx@proton.me>",
+  "author": "Rel1cx",
   "sideEffects": false,
   "type": "module",
   "exports": {
