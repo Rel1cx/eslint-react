@@ -216,6 +216,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noLeakedConditionalRendering" }],
     },
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        enum A {
+          Foo = 'foo',
+          Bar = 0,
+        }
+
+        const App = ({ value }: { value: A }) => {
+          return <>{value && <div>{value}</div>}</>;
+        };
+      `,
+      errors: [{ messageId: "noLeakedConditionalRendering" }],
+    },
   ],
   valid: [
     ...allValid,
@@ -725,6 +741,21 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         );
       };
     `,
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        enum A {
+          Foo = 'foo',
+          Bar = 1,
+        }
+
+        const App = ({ value }: { value: A }) => {
+          return <>{value && <div>{value}</div>}</>;
+        };
+      `,
+    },
     // In React 18+, empty strings are not rendered, so this is valid
     {
       code: tsx`
