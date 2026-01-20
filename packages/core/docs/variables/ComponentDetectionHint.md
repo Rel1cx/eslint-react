@@ -5,7 +5,9 @@
 ```ts
 ComponentDetectionHint: {
   None: 0n;
+  SkipArrayExpression: bigint;
   SkipArrayMapCallback: bigint;
+  SkipArrayPattern: bigint;
   SkipBigIntLiteral: bigint;
   SkipBooleanLiteral: bigint;
   SkipClassMethod: bigint;
@@ -30,7 +32,9 @@ Hints for component collector
 | Name | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | <a id="none"></a> `None` | `0n` | `0n` | - |
+| <a id="skiparrayexpression"></a> `SkipArrayExpression` | `bigint` | - | Skip function component defined in array expression |
 | <a id="skiparraymapcallback"></a> `SkipArrayMapCallback` | `bigint` | - | Skip function component defined as array map callback |
+| <a id="skiparraypattern"></a> `SkipArrayPattern` | `bigint` | - | Skip function component defined in array pattern |
 | <a id="skipbigintliteral"></a> `SkipBigIntLiteral` | `bigint` | - | - |
 | <a id="skipbooleanliteral"></a> `SkipBooleanLiteral` | `bigint` | - | - |
 | <a id="skipclassmethod"></a> `SkipClassMethod` | `bigint` | - | Skip function component defined on class method |
