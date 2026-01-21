@@ -92,16 +92,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
         // If the left side is a negation, it's always a boolean, which is safe
         // Recursively check the right side
-        const isLeftUnaryNot = left.type === T.UnaryExpression && left.operator === "!";
-        if (isLeftUnaryNot) {
+        if (left.type === T.UnaryExpression && left.operator === "!") {
           return getReportDescriptor(right);
         }
 
         const initialScope = context.sourceCode.getScope(left);
         // Specifically check for 'NaN', which is a falsy value that gets rendered
-        const isLeftNan = (left.type === T.Identifier && left.name === "NaN")
-          || getStaticValue(left, initialScope)?.value === "NaN";
-        if (isLeftNan) {
+        if (AST.isNaN(left) || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
             messageId: "noLeakedConditionalRendering",
             node: left,

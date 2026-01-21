@@ -6,6 +6,8 @@ export * from "./expression-nested";
 export * from "./function-id";
 export * from "./function-init-path";
 export * from "./function-is";
+export * from "./identifier-is";
+export * from "./identifier-name";
 export * from "./is";
 export * from "./literal";
 export * from "./misc";
