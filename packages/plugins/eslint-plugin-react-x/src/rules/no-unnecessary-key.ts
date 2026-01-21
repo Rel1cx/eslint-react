@@ -1,6 +1,5 @@
 import * as AST from "@eslint-react/ast";
 import {
-  findEnclosingAssignmentTarget,
   getJsxAttribute,
   getJsxConfigFromAnnotation,
   getJsxConfigFromContext,
@@ -9,6 +8,7 @@ import {
   useComponentCollector,
 } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";

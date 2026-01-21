@@ -4,13 +4,13 @@
 
 ```ts
 function stringifyJsx(node: 
-  | JSXIdentifier
-  | JSXNamespacedName
-  | JSXMemberExpression
-  | JSXOpeningElement
   | JSXClosingElement
-  | JSXOpeningFragment
   | JSXClosingFragment
+  | JSXIdentifier
+  | JSXMemberExpression
+  | JSXNamespacedName
+  | JSXOpeningElement
+  | JSXOpeningFragment
   | JSXText): string;
 ```
 
@@ -20,7 +20,7 @@ Incomplete but sufficient stringification of JSX nodes for common use cases
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | \| `JSXIdentifier` \| `JSXNamespacedName` \| `JSXMemberExpression` \| `JSXOpeningElement` \| `JSXClosingElement` \| `JSXOpeningFragment` \| `JSXClosingFragment` \| `JSXText` | JSX node from TypeScript ESTree |
+| `node` | \| `JSXClosingElement` \| `JSXClosingFragment` \| `JSXIdentifier` \| `JSXMemberExpression` \| `JSXNamespacedName` \| `JSXOpeningElement` \| `JSXOpeningFragment` \| `JSXText` | JSX node from TypeScript ESTree |
 
 ## Returns
 

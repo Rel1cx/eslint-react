@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import { findEnclosingAssignmentTarget, isUseRefCall } from "@eslint-react/core";
+import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";

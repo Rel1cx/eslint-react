@@ -1144,6 +1144,9 @@ importers:
       '@eslint-react/eff':
         specifier: workspace:*
         version: link:../eff
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
       '@typescript-eslint/scope-manager':
         specifier: ^8.53.1
         version: 8.53.1
