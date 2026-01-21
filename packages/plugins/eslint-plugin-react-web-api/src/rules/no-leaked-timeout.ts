@@ -1,12 +1,7 @@
 import type * as AST from "@eslint-react/ast";
-import {
-  type ComponentPhaseKind,
-  ComponentPhaseRelevance,
-  getPhaseKindOfFunction,
-  isInstanceIdEqual,
-} from "@eslint-react/core";
+import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { findAssignmentTarget } from "@eslint-react/var";
+import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -87,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const sEntries: TimerEntry[] = [];
   const rEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-    return isInstanceIdEqual(context, a.timerId, b.timerId);
+    return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
   return {
     [":function"](node: AST.TSESTreeFunction) {
@@ -104,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       switch (getCallKind(node)) {
         case "setTimeout": {
-          const timeoutIdNode = findAssignmentTarget(node);
+          const timeoutIdNode = findEnclosingAssignmentTarget(node);
           if (timeoutIdNode == null) {
             context.report({
               messageId: "expectedTimeoutId",

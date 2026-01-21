@@ -1,15 +1,14 @@
 import * as AST from "@eslint-react/ast";
-import {
-  type ComponentPhaseKind,
-  ComponentPhaseRelevance,
-  findEnclosingAssignmentTarget,
-  getPhaseKindOfFunction,
-  isInstanceIdEqual,
-} from "@eslint-react/core";
+import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
+import {
+  findEnclosingAssignmentTarget,
+  findVariable,
+  getVariableDefinitionNode,
+  isAssignmentTargetEqual,
+} from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -211,11 +210,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
-        if (dEntries.some((e) => isInstanceIdEqual(context, e.observer, id))) {
+        if (dEntries.some((e) => isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }
-        const oentries = oEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
-        const uentries = uEntries.filter((e) => isInstanceIdEqual(context, e.observer, id));
+        const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+        const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
         const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || AST.isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
         const hasDynamicallyAdded = oentries
@@ -225,7 +224,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         for (const oEntry of oentries) {
-          if (uentries.some((uEntry) => isInstanceIdEqual(context, uEntry.element, oEntry.element))) {
+          if (uentries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
             continue;
           }
           context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });

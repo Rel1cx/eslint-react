@@ -1,6 +1,7 @@
 import * as AST from "@eslint-react/ast";
-import { findEnclosingAssignmentTarget, isCreateContextCall, isInstanceIdEqual } from "@eslint-react/core";
+import { isCreateContextCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -70,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (left.type !== T.MemberExpression) return false;
             const object = left.object;
             // Check if the object in the assignment matches the context's identifier
-            return isInstanceIdEqual(context, id, object);
+            return isAssignmentTargetEqual(context, id, object);
           });
         // If no `displayName` is found, report an error and provide a fix
         if (!hasDisplayNameAssignment) {

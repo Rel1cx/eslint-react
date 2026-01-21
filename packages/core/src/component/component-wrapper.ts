@@ -3,8 +3,8 @@ import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
+import { isForwardRefCall, isMemoCall } from "../api";
 import { isUseCallbackCall } from "../hook";
-import { isForwardRefCall, isMemoCall } from "../utils";
 
 /**
  * Check if the node is a call expression for a component wrapper
