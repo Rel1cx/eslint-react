@@ -141,6 +141,7 @@
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
+| [isFromReact](functions/isFromReact.md) | Check if an identifier node is initialized from React |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
 | [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook |
