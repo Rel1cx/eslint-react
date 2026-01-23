@@ -18,6 +18,7 @@ export const plugin: CompatiblePlugin = {
     ["function-component"]: functionComponent,
     ["hook"]: hook,
     ["is-from-react"]: isFromReact,
+    ["is-from-ref"]: isFromReact,
     ["jsx"]: jsx,
   },
 };

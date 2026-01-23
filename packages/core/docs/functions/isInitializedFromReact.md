@@ -9,7 +9,7 @@ function isInitializedFromReact(
    importSource: string): boolean;
 ```
 
-Checks if a variable is initialized from React import
+Checks if a variable is initialized or derived from React import
 
 ## Parameters
 
@@ -23,4 +23,4 @@ Checks if a variable is initialized from React import
 
 `boolean`
 
-True if the variable is initialized from React import
+True if the variable is initialized or derived from React import

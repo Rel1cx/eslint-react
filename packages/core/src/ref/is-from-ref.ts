@@ -1,12 +1,32 @@
-/* eslint-disable jsdoc/require-returns-check */
+import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+
+import { isUseRefCall } from "../hook";
+import { isRefName } from "./ref-name";
 
 /**
- * Checks whether a given node is derived from a ref.
- * @todo Implement the function logic
- * @param node The AST node to check
- * @param initialScope The initial scope to start the search from
- * @returns True if the node is derived from a ref, false otherwise
+ * Checks if the variable with the given name is initialized or derived from a ref
+ * @param name The variable name
+ * @param initialScope The initial scope
+ * @returns True if the variable is derived from a ref, false otherwise
  */
-export function isFromRef(node: TSESTree.Node, initialScope: Scope) {}
+export function isInitializedFromRef(name: string, initialScope: Scope) {
+  for (const { node } of findVariable(initialScope)(name)?.defs ?? []) {
+    if (node.type !== T.VariableDeclarator) continue;
+    const init = node.init;
+    if (init == null) continue;
+    switch (true) {
+      // const identifier = anotherRef.current;
+      case init.type === T.MemberExpression
+        && init.object.type === T.Identifier
+        && isRefName(init.object.name):
+        return true;
+      // const identifier = useRef();
+      case init.type === T.CallExpression
+        && isUseRefCall(init):
+        return true;
+    }
+  }
+  return false;
+}
