@@ -38,6 +38,15 @@ export default defineConfig(
 );
 ```
 
+> [!WARNING]
+> Debug rules report `React` patterns for code metrics, transformations, or custom tooling. These are not included in the unified plugin by default.
+
+- [`class-component`](./debug-class-component) - Reports all class components
+- [`function-component`](./debug-function-component) - Reports all function components
+- [`hook`](./debug-hook) - Reports all `React` hooks
+- [`is-from-react`](./debug-is-from-react) - Reports identifiers initialized from `React`
+- [`jsx`](./debug-jsx) - Reports all `JSX` elements and fragments
+
 ## Rules
 
 <https://eslint-react.xyz/docs/rules/overview#debug-rules>

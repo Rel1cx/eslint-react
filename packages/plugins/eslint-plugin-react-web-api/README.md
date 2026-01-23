@@ -36,6 +36,18 @@ export default defineConfig(
 );
 ```
 
+## Web API Rules
+
+> [!NOTE]
+> Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
+
+**Implemented Rules:**
+
+- [`no-leaked-event-listener`](./web-api-no-leaked-event-listener) - Prevents leaked `addEventListener` calls
+- [`no-leaked-interval`](./web-api-no-leaked-interval) - Prevents leaked `setInterval` calls
+- [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) - Prevents leaked `ResizeObserver` instances
+- [`no-leaked-timeout`](./web-api-no-leaked-timeout) - Prevents leaked `setTimeout` calls
+
 ## Rules
 
 <https://eslint-react.xyz/docs/rules/overview#web-api-rules>
