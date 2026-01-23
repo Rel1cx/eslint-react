@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Reports all identifiers derived from ref in JSON format.",
+      description: "Reports all identifiers initialized or derived from ref in JSON format.",
     },
     messages: {
       isFromRef: "{{json}}",
