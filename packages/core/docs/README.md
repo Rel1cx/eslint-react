@@ -139,8 +139,9 @@
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
-| [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized from React import |
+| [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized or derived from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
+| [isInitializedFromRef](functions/isInitializedFromRef.md) | Checks if the variable with the given name is initialized or derived from a ref |
 | [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook |
 | [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
 | [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
@@ -154,6 +155,7 @@
 | [isReactHookCallWithName](functions/isReactHookCallWithName.md) | Checks if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
 | [isReactHookId](functions/isReactHookId.md) | - |
 | [isReactHookName](functions/isReactHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
+| [isRefName](functions/isRefName.md) | Checks if a given name corresponds to a ref name |
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |

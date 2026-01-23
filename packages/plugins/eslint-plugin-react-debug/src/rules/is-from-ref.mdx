@@ -1,0 +1,45 @@
+---
+title: is-from-react
+---
+
+**Full Name in `eslint-plugin-react-debug`**
+
+```plain copy
+react-debug/is-from-ref
+```
+
+**Features**
+
+`🐞`
+
+## Description
+
+Reports all identifiers initialized or derived from ref in JSON format. Useful for debugging. This rule should only be used for debugging purposes. Otherwise, leave it off.
+
+## Examples
+
+```tsx
+import { useRef, useEffect } from "react";
+
+function MyComponent() {
+  const myRef = useRef(null);
+  //    ^^^^^
+  //    - This identifier is derived from a ref.
+  const anotherRef = myRef;
+  //    ^^^^^^^^^^
+  //    - This identifier is derived from a ref.
+
+  useEffect(() => {
+    const divElement = anotherRef.current;
+    //    ^^^^^^^^^^
+    //    - This identifier is derived from a ref.
+  }, []);
+
+  return <div ref={anotherRef}>Hello, world!</div>;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/is-from-ref.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/is-from-ref.spec.ts)

@@ -45,6 +45,7 @@ export default defineConfig(
 - [`function-component`](./debug-function-component) - Reports all function components
 - [`hook`](./debug-hook) - Reports all `React` hooks
 - [`is-from-react`](./debug-is-from-react) - Reports identifiers initialized from `React`
+- [`is-from-ref`](./debug-is-from-ref) - Reports identifiers initialized or derived from refs
 - [`jsx`](./debug-jsx) - Reports all `JSX` elements and fragments
 
 ## Rules

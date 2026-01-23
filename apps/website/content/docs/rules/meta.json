@@ -103,6 +103,7 @@
     "debug-function-component",
     "debug-hook",
     "debug-is-from-react",
+    "debug-is-from-ref",
     "debug-jsx"
   ]
 }
