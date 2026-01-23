@@ -7,159 +7,339 @@ full: true
   Linter rules can have false positives, false negatives, and some rules depend on the `react` or `react-dom` [version](https://react.dev/versions) you are using.
 </Callout>
 
-- 🌟 - Feature
-- ⚙️ - Configurable
-- 🧪 - Experimental
-- 🐞 - Debug
-- 💭 - Type Checking
-- 🔧 - Fixable
-- 🔄 - Codemod
-- 0️⃣ - Severity 0
-- 1️⃣ - Severity 1
-- 2️⃣ - Severity 2
-- ✅ - Severity in `recommended-typescript` and `strict-typescript` presets
+- 🌟 - Feature - Enhanced or special functionality
+- ⚙️ - Configurable - Accepts custom options via rule configuration
+- 🧪 - Experimental - Beta feature, subject to change
+- 🐞 - Debug - For analysis, metrics, or custom tooling
+- 💭 - Type Checking - Requires TypeScript type information
+- 🔧 - Fixable - Provides automatic or interactive fixes
+- 🔄 - Codemod - Safe AST transformations for deprecations
+- 0️⃣ - Severity 0 - Disabled by default
+- 1️⃣ - Severity 1 - Warning level
+- 2️⃣ - Severity 2 - Error level
+- ✅ - In Presets - Enabled in `recommended` and/or `strict` presets
 
-## X Rules
+<Tabs items={["View by Category", "View by Domain"]}>
+  <Tab value="View by Category">
+    ## JSX Rules
 
-<Callout type="info">
-  The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
-</Callout>
+    <Callout type="info">
+      The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
+    </Callout>
 
-| Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                   |  `react` |
-| :--------------------------------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------------------------------------------------------------------- | :------: |
-| [`jsx-dollar`](jsx-dollar)                                                         | 0️⃣ 0️⃣ |    `🔧`   | Prevents unnecessary dollar signs (`$`) from being inserted before an expression in JSX                                       |          |
-| [`jsx-key-before-spread`](jsx-key-before-spread)                                   | 1️⃣ 1️⃣ |    `🧪`   | Enforces that the `key` prop is placed before the spread prop in JSX elements when using the new JSX transform                |          |
-| [`jsx-no-comment-textnodes`](jsx-no-comment-textnodes)                             | 1️⃣ 1️⃣ |           | Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes |          |
-| [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                 | 0️⃣ 0️⃣ |           | Disallows duplicate props in JSX elements                                                                                     |          |
-| [`jsx-no-iife`](jsx-no-iife)                                                       | 0️⃣ 2️⃣ |    `🧪`   | Disallows `IIFE` in JSX                                                                                                       |          |
-| [`jsx-no-undef`](jsx-no-undef)                                                     | 0️⃣ 0️⃣ |           | Prevents using variables in JSX that are not defined in the scope                                                             |          |
-| [`jsx-shorthand-boolean`](jsx-shorthand-boolean)                                   | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces the use of shorthand syntax for boolean attributes                                                                   |          |
-| [`jsx-shorthand-fragment`](jsx-shorthand-fragment)                                 | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces the use of shorthand syntax for fragments                                                                            |          |
-| [`jsx-uses-react`](jsx-uses-react)                                                 | 0️⃣ 0️⃣ |           | Marks React variables as used when JSX is present                                                                             |          |
-| [`jsx-uses-vars`](jsx-uses-vars)                                                   | 0️⃣ 0️⃣ |           | Marks variables used in JSX elements as used                                                                                  |          |
-| [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | 2️⃣ 2️⃣ |           | Disallows accessing `this.state` inside `setState` calls                                                                      |          |
-| [`no-array-index-key`](no-array-index-key)                                         | 1️⃣ 1️⃣ |           | Disallows using an item's index in the array as its key                                                                       |          |
-| [`no-children-count`](no-children-count)                                           | 1️⃣ 1️⃣ |           | Disallows the use of `Children.count` from the `react` package                                                                |          |
-| [`no-children-for-each`](no-children-for-each)                                     | 1️⃣ 1️⃣ |           | Disallows the use of `Children.forEach` from the `react` package                                                              |          |
-| [`no-children-map`](no-children-map)                                               | 1️⃣ 1️⃣ |           | Disallows the use of `Children.map` from the `react` package                                                                  |          |
-| [`no-children-only`](no-children-only)                                             | 1️⃣ 1️⃣ |           | Disallows the use of `Children.only` from the `react` package                                                                 |          |
-| [`no-children-prop`](no-children-prop)                                             | 0️⃣ 2️⃣ |           | Disallows passing `children` as a prop                                                                                        |          |
-| [`no-children-to-array`](no-children-to-array)                                     | 1️⃣ 1️⃣ |           | Disallows the use of `Children.toArray` from the `react` package                                                              |          |
-| [`no-class-component`](no-class-component)                                         | 0️⃣ 2️⃣ |           | Disallows class components except for error boundaries                                                                        |          |
-| [`no-clone-element`](no-clone-element)                                             | 1️⃣ 1️⃣ |           | Disallows `cloneElement`                                                                                                      |          |
-| [`no-component-will-mount`](no-component-will-mount)                               | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount`                                                       | >=16.3.0 |
-| [`no-component-will-receive-props`](no-component-will-receive-props)               | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`                                         | >=16.3.0 |
-| [`no-component-will-update`](no-component-will-update)                             | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`                                                     | >=16.3.0 |
-| [`no-context-provider`](no-context-provider)                                       | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `<Context.Provider>` with `<Context>`                                                                       | >=19.0.0 |
-| [`no-create-ref`](no-create-ref)                                                   | 2️⃣ 2️⃣ |           | Disallows `createRef` in function components                                                                                  |          |
-| [`no-default-props`](no-default-props)                                             | 2️⃣ 2️⃣ |           | Disallows the `defaultProps` property in favor of ES6 default parameters                                                      |          |
-| [`no-direct-mutation-state`](no-direct-mutation-state)                             | 2️⃣ 2️⃣ |           | Disallows direct mutation of `this.state`                                                                                     |          |
-| [`no-duplicate-key`](no-duplicate-key)                                             | 0️⃣ 0️⃣ |    `🧪`   | Prevents duplicate `key` props on sibling elements when rendering lists                                                       |          |
-| [`no-forward-ref`](no-forward-ref)                                                 | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `forwardRef` with passing `ref` as a prop                                                                   | >=19.0.0 |
-| [`no-implicit-key`](no-implicit-key)                                               | 1️⃣ 1️⃣ |    `🧪`   | Prevents `key` from not being explicitly specified (e.g., spreading `key` from objects)                                       |          |
-| [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | 0️⃣ 0️⃣ |    `💭`   | Prevents problematic leaked values from being rendered                                                                        |          |
-| [`no-missing-component-display-name`](no-missing-component-display-name)           | 0️⃣ 0️⃣ |           | Enforces that all components have a `displayName` that can be used in devtools                                                |          |
-| [`no-missing-context-display-name`](no-missing-context-display-name)               | 0️⃣ 0️⃣ |    `🔧`   | Enforces that all contexts have a `displayName` that can be used in devtools                                                  |          |
-| [`no-missing-key`](no-missing-key)                                                 | 2️⃣ 2️⃣ |           | Disallows missing `key` on items in list rendering                                                                            |          |
-| [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack)                 | 0️⃣ 2️⃣ |    `🧪`   | Prevents incorrect usage of `captureOwnerStack`                                                                               |          |
-| [`no-nested-component-definitions`](no-nested-component-definitions)               | 2️⃣ 2️⃣ |           | Disallows nesting component definitions inside other components                                                               |          |
-| [`no-nested-lazy-component-declarations`](no-nested-lazy-component-declarations)   | 2️⃣ 2️⃣ |           | Disallows nesting lazy component declarations inside other components                                                         |          |
-| [`no-prop-types`](no-prop-types)                                                   | 2️⃣ 2️⃣ |           | Disallows `propTypes` in favor of TypeScript or another type-checking solution                                                |          |
-| [`no-redundant-should-component-update`](no-redundant-should-component-update)     | 2️⃣ 2️⃣ |           | Disallows `shouldComponentUpdate` when extending `React.PureComponent`                                                        |          |
-| [`no-set-state-in-component-did-mount`](no-set-state-in-component-did-mount)       | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks                                  |          |
-| [`no-set-state-in-component-did-update`](no-set-state-in-component-did-update)     | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks                                 |          |
-| [`no-set-state-in-component-will-update`](no-set-state-in-component-will-update)   | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks                                |          |
-| [`no-string-refs`](no-string-refs)                                                 | 2️⃣ 2️⃣ |    `🔄`   | Replaces string refs with callback refs                                                                                       | >=16.3.0 |
-| [`no-unnecessary-key`](no-unnecessary-key)                                         | 0️⃣ 0️⃣ |    `🧪`   | Disallows unnecessary `key` props on elements                                                                                 |          |
-| [`no-unnecessary-use-callback`](no-unnecessary-use-callback)                       | 0️⃣ 1️⃣ |    `🧪`   | Disallows unnecessary usage of `useCallback`                                                                                  |          |
-| [`no-unnecessary-use-memo`](no-unnecessary-use-memo)                               | 0️⃣ 1️⃣ |    `🧪`   | Disallows unnecessary usage of `useMemo`                                                                                      |          |
-| [`no-unnecessary-use-ref`](no-unnecessary-use-ref)                                 | 0️⃣ 0️⃣ |    `🧪`   | Disallows unnecessary usage of `useRef`                                                                                       |          |
-| [`no-unnecessary-use-prefix`](no-unnecessary-use-prefix)                           | 1️⃣ 1️⃣ |           | Enforces that a function with the `use` prefix uses at least one Hook inside it                                               |          |
-| [`no-unsafe-component-will-mount`](no-unsafe-component-will-mount)                 | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillMount` in class components                                                        |          |
-| [`no-unsafe-component-will-receive-props`](no-unsafe-component-will-receive-props) | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillReceiveProps` in class components                                                 |          |
-| [`no-unsafe-component-will-update`](no-unsafe-component-will-update)               | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillUpdate` in class components                                                       |          |
-| [`no-unstable-context-value`](no-unstable-context-value)                           | 0️⃣ 1️⃣ |           | Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`                          |          |
-| [`no-unstable-default-props`](no-unstable-default-props)                           | 0️⃣ 1️⃣ |    `⚙️`   | Prevents using referential-type values as default props in object destructuring                                               |          |
-| [`no-unused-class-component-members`](no-unused-class-component-members)           | 1️⃣ 1️⃣ |           | Warns about unused class component methods and properties                                                                     |          |
-| [`no-unused-props`](no-unused-props)                                               | 0️⃣ 0️⃣ | `💭` `🧪` | Warns about component props that are defined but never used                                                                   |          |
-| [`no-unused-state`](no-unused-state)                                               | 0️⃣ 1️⃣ |           | Warns about unused class component state                                                                                      |          |
-| [`no-use-context`](no-use-context)                                                 | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `useContext` with `use`                                                                                     | >=19.0.0 |
-| [`no-useless-forward-ref`](no-useless-forward-ref)                                 | 1️⃣ 1️⃣ |           | Disallows useless `forwardRef` calls on components that don't use `ref`s                                                      |          |
-| [`no-useless-fragment`](no-useless-fragment)                                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                           |          |
-| [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | 0️⃣ 1️⃣ |           | Enforces destructuring assignment for component props and context                                                             |          |
-| [`prefer-namespace-import`](prefer-namespace-import)                               | 0️⃣ 0️⃣ |    `🔧`   | Enforces importing React via a namespace import                                                                               |          |
-| [`prefer-read-only-props`](prefer-read-only-props)                                 | 0️⃣ 0️⃣ | `💭` `🧪` | Enforces read-only props in components                                                                                        |          |
-| [`prefer-use-state-lazy-initialization`](prefer-use-state-lazy-initialization)     | 1️⃣ 1️⃣ |           | Enforces wrapping function calls made inside `useState` in an `initializer function`                                          |          |
+    **Key Rules:**
 
-## DOM Rules
+    - [`jsx-dollar`](./jsx-dollar) - Prevents unnecessary `$` symbols before `JSX` expressions
+    - [`jsx-key-before-spread`](./jsx-key-before-spread) - Enforces `key` prop placement before spread operators
+    - [`jsx-no-comment-textnodes`](./jsx-no-comment-textnodes) - Prevents comments from rendering as text
+    - [`jsx-no-duplicate-props`](./jsx-no-duplicate-props) - Disallows duplicate `props` in elements
+    - [`jsx-no-iife`](./jsx-no-iife) - Disallows immediately-invoked function expressions in `JSX`
+    - [`jsx-no-undef`](./jsx-no-undef) - Disallows undefined variables in `JSX` elements
+    - [`jsx-shorthand-boolean`](./jsx-shorthand-boolean) - Enforces shorthand for boolean attributes (🔧 Fixable, ⚙️ Configurable)
+    - [`jsx-shorthand-fragment`](./jsx-shorthand-fragment) - Enforces `<>` over `<React.Fragment>` (🔧 Fixable, ⚙️ Configurable)
+    - [`jsx-uses-react`](./jsx-uses-react) - Marks `React` as used when `JSX` is present
+    - [`jsx-uses-vars`](./jsx-uses-vars) - Marks `JSX` element variables as used
 
-| Rule                                                                                           |    ✅    |     🌟    | Description                                                                                 | `react-dom` |
-| :--------------------------------------------------------------------------------------------- | :-----: | :-------: | :------------------------------------------------------------------------------------------ | :---------: |
-| [`no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | 1️⃣ 1️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML`                                 |             |
-| [`no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | 2️⃣ 2️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML` and `children` at the same time |             |
-| [`no-find-dom-node`](dom-no-find-dom-node)                                                     | 2️⃣ 2️⃣ |           | Disallows `findDOMNode`                                                                     |             |
-| [`no-flush-sync`](dom-no-flush-sync)                                                           | 2️⃣ 2️⃣ |           | Disallows `flushSync`                                                                       |             |
-| [`no-hydrate`](dom-no-hydrate)                                                                 | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `ReactDOM.hydrate()` with `hydrateRoot()`                                 |   >=18.0.0  |
-| [`no-missing-button-type`](dom-no-missing-button-type)                                         | 0️⃣ 1️⃣ |    `🔧`   | Enforces an explicit `type` attribute for `button` elements                                 |             |
-| [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | 0️⃣ 1️⃣ |    `🔧`   | Enforces an explicit `sandbox` attribute for `iframe` elements                              |             |
-| [`no-namespace`](dom-no-namespace)                                                             | 2️⃣ 2️⃣ |           | Enforces the absence of a `namespace` in React elements                                     |             |
-| [`no-render`](dom-no-render)                                                                   | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`                      |   >=18.0.0  |
-| [`no-render-return-value`](dom-no-render-return-value)                                         | 2️⃣ 2️⃣ |           | Disallows the return value of `ReactDOM.render`                                             |             |
-| [`no-script-url`](dom-no-script-url)                                                           | 1️⃣ 1️⃣ |           | Disallows `javascript:` URLs as attribute values                                            |             |
-| [`no-string-style-prop`](dom-no-string-style-prop)                                             | 0️⃣ 0️⃣ |           | Disallows the use of string style prop in JSX. Use an object instead                        |             |
-| [`no-unknown-property`](dom-no-unknown-property)                                               | 0️⃣ 0️⃣ | `🔧` `⚙️` | Disallows unknown `DOM` properties                                                          |             |
-| [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | 1️⃣ 1️⃣ |           | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations        |             |
-| [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | 0️⃣ 1️⃣ |    `🔧`   | Disallows `target="_blank"` without `rel="noreferrer noopener"`                             |             |
-| [`no-use-form-state`](dom-no-use-form-state)                                                   | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `useFormState` with `useActionState`                                      |   >=19.0.0  |
-| [`no-void-elements-with-children`](dom-no-void-elements-with-children)                         | 2️⃣ 2️⃣ |           | Disallows `children` in void DOM elements                                                   |             |
-| [`prefer-namespace-import`](dom-prefer-namespace-import)                                       | 0️⃣ 0️⃣ |    `🔧`   | Enforces importing React DOM via a namespace import                                         |             |
+    ## Component Rules
 
-## Web API Rules
+    <Callout type="info">
+      Component rules enforce best practices and prevent common mistakes in `React` component definitions, covering both class and function components.
+    </Callout>
 
-| Rule                                                             |    ✅    |  🌟 | Description                                                                                                                  |
-| :--------------------------------------------------------------- | :-----: | :-: | :--------------------------------------------------------------------------------------------------------------------------- |
-| [`no-leaked-event-listener`](web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |     | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`               |
-| [`no-leaked-interval`](web-api-no-leaked-interval)               | 1️⃣ 1️⃣ |     | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                          |
-| [`no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |     | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()` |
-| [`no-leaked-timeout`](web-api-no-leaked-timeout)                 | 1️⃣ 1️⃣ |     | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                            |
+    **Key Rule Groups:**
 
-## Hooks Extra Rules
+    **Lifecycle & Deprecated APIs:**
 
-<Callout type="info">
-  This section contains rules that are not part of the official `eslint-plugin-react-hooks` plugin but are useful for specific use cases or patterns.
-</Callout>
+    - [`no-component-will-mount`](./no-component-will-mount) - Replaces `componentWillMount` with `UNSAFE_componentWillMount` (🔄 Codemod, `React` >=16.3.0)
+    - [`no-component-will-receive-props`](./no-component-will-receive-props) - Replaces `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps` (🔄 Codemod)
+    - [`no-component-will-update`](./no-component-will-update) - Replaces `componentWillUpdate` with `UNSAFE_componentWillUpdate` (🔄 Codemod)
+    - [`no-unsafe-component-will-mount`](./no-unsafe-component-will-mount) - Warns about `UNSAFE_componentWillMount` usage
+    - [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props) - Warns about `UNSAFE_componentWillReceiveProps` usage
+    - [`no-unsafe-component-will-update`](./no-unsafe-component-will-update) - Warns about `UNSAFE_componentWillUpdate` usage
 
-| Rule                                                                                 |    ✅    |  🌟 | Description                                                                                                                      |
-| :----------------------------------------------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------------------------------------------- |
-| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect) | 1️⃣ 1️⃣ |     | Disallows direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect` |
+    **React 19 Migrations:**
 
-## Naming Convention Rules
+    - [`no-context-provider`](./no-context-provider) - Replaces `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
+    - [`no-forward-ref`](./no-forward-ref) - Replaces `forwardRef` with `ref` as prop (🔄 Codemod, `React` >=19.0.0)
+    - [`no-use-context`](./no-use-context) - Replaces `useContext` with `use` (🔄 Codemod, `React` >=19.0.0)
 
-| Rule                                                         |    ✅    |  🌟  | Description                                                                                 |  `react` |
-| :----------------------------------------------------------- | :-----: | :--: | :------------------------------------------------------------------------------------------ | :------: |
-| [`component-name`](naming-convention-component-name)         | 0️⃣ 0️⃣ | `⚙️` | Enforces naming conventions for components                                                  |          |
-| [`context-name`](naming-convention-context-name)             | 1️⃣ 1️⃣ |      | Enforces the context name to be a valid component name with the suffix `Context`            | >=19.0.0 |
-| [`filename`](naming-convention-filename)                     | 0️⃣ 0️⃣ | `⚙️` | Enforces consistent file-naming conventions                                                 |          |
-| [`filename-extension`](naming-convention-filename-extension) | 0️⃣ 0️⃣ | `⚙️` | Enforces consistent use of the JSX file extension                                           |          |
-| [`ref-name`](naming-convention-ref-name)                     | 1️⃣ 1️⃣ |      | Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref` |          |
-| [`use-state`](naming-convention-use-state)                   | 1️⃣ 1️⃣ | `⚙️` | Enforces destructuring and symmetric naming of the `useState` hook value and setter         |          |
+    **Component Structure:**
 
-## Debug Rules
+    - [`no-nested-component-definitions`](./no-nested-component-definitions) - Prevents defining components inside other components
+    - [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations) - Prevents lazy component declarations inside components
+    - [`no-class-component`](./no-class-component) - Disallows class components except error boundaries
 
-<Callout type="warning">
-  The `eslint-plugin-react-debug` package is not included in the unified plugin. You need to install and configure it separately.
+    **State Management:**
 
-  These rules are useful for code metrics, code transformation, issue reporting, or when building custom tooling that needs to identify specific patterns.
-</Callout>
+    - [`no-access-state-in-setstate`](./no-access-state-in-setstate) - Prevents `this.state` access inside `setState` calls
+    - [`no-direct-mutation-state`](./no-direct-mutation-state) - Prevents direct `this.state` mutation
+    - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount) - Restricts `setState` in `componentDidMount`
+    - [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update) - Restricts `setState` in `componentDidUpdate`
+    - [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update) - Restricts `setState` in `componentWillUpdate`
 
-| Rule                                             |  🌟  | Description                                                   |
-| :----------------------------------------------- | :--: | :------------------------------------------------------------ |
-| [`class-component`](debug-class-component)       | `🐞` | Reports all class components in JSON format                   |
-| [`function-component`](debug-function-component) | `🐞` | Reports all function components in JSON format                |
-| [`hook`](debug-hook)                             | `🐞` | Reports all react hooks in JSON format                        |
-| [`is-from-react`](debug-is-from-react)           | `🐞` | Reports all identifiers initialized from React in JSON format |
-| [`jsx`](debug-jsx)                               | `🐞` | Reports all JSX elements and fragments in JSON format         |
+    **Props & Keys:**
 
-## References
+    - [`no-missing-key`](./no-missing-key) - Requires `key` prop in list renderings
+    - [`no-duplicate-key`](./no-duplicate-key) - Prevents duplicate `key` values
+    - [`no-implicit-key`](./no-implicit-key) - Prevents implicit `key` spreading (🧪 Experimental)
+    - [`no-unnecessary-key`](./no-unnecessary-key) - Prevents `key` on non-list elements (🧪 Experimental)
+    - [`no-array-index-key`](./no-array-index-key) - Warns against using array indices as `keys`
+    - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as prop
+
+    **Children API:**
+
+    - [`no-children-count`](./no-children-count) - Disallows `Children.count`
+    - [`no-children-for-each`](./no-children-for-each) - Disallows `Children.forEach`
+    - [`no-children-map`](./no-children-map) - Disallows `Children.map`
+    - [`no-children-only`](./no-children-only) - Disallows `Children.only`
+    - [`no-children-to-array`](./no-children-to-array) - Disallows `Children.toArray`
+
+    **Performance & Optimization:**
+
+    - [`no-unstable-context-value`](./no-unstable-context-value) - Prevents unstable values in `Context.Provider`
+    - [`no-unstable-default-props`](./no-unstable-default-props) - Prevents referential values as default `props`
+    - [`no-unnecessary-use-callback`](./no-unnecessary-use-callback) - Warns about unnecessary `useCallback` usage (🧪 Experimental)
+    - [`no-unnecessary-use-memo`](./no-unnecessary-use-memo) - Warns about unnecessary `useMemo` usage (🧪 Experimental)
+    - [`prefer-use-state-lazy-initialization`](./prefer-use-state-lazy-initialization) - Enforces lazy initialization in `useState`
+
+    ## DOM Rules
+
+    <Callout type="info">
+      DOM rules target `React DOM`-specific concerns including security vulnerabilities, deprecated APIs, and DOM property usage.
+    </Callout>
+
+    **Security Rules:**
+
+    - [`no-dangerously-set-innerhtml`](./dom-no-dangerously-set-innerhtml) - Disallows `dangerouslySetInnerHTML`
+    - [`no-dangerously-set-innerhtml-with-children`](./dom-no-dangerously-set-innerhtml-with-children) - Prevents using `dangerouslySetInnerHTML` with `children`
+    - [`no-script-url`](./dom-no-script-url) - Disallows `javascript:` URLs
+    - [`no-unsafe-target-blank`](./dom-no-unsafe-target-blank) - Requires `rel="noreferrer noopener"` with `target="_blank"` (🔧 Fixable)
+    - [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox) - Enforces `sandbox` attribute on `iframes` (🔧 Fixable)
+    - [`no-unsafe-iframe-sandbox`](./dom-no-unsafe-iframe-sandbox) - Prevents unsafe `sandbox` combinations
+
+    **Deprecated API Migrations:**
+
+    - [`no-find-dom-node`](./dom-no-find-dom-node) - Disallows `findDOMNode`
+    - [`no-flush-sync`](./dom-no-flush-sync) - Disallows `flushSync`
+    - [`no-hydrate`](./dom-no-hydrate) - Replaces `ReactDOM.hydrate()` with `hydrateRoot()` (🔄 Codemod, `React DOM` >=18.0.0)
+    - [`no-render`](./dom-no-render) - Replaces `ReactDOM.render()` with `createRoot().render()` (🔄 Codemod, `React DOM` >=18.0.0)
+    - [`no-render-return-value`](./dom-no-render-return-value) - Disallows return value from `ReactDOM.render`
+    - [`no-use-form-state`](./dom-no-use-form-state) - Replaces `useFormState` with `useActionState` (🔄 Codemod, `React DOM` >=19.0.0)
+
+    **DOM Properties:**
+
+    - [`no-missing-button-type`](./dom-no-missing-button-type) - Enforces explicit `type` on `buttons` (🔧 Fixable)
+    - [`no-namespace`](./dom-no-namespace) - Prevents namespace usage in `React` elements
+    - [`no-string-style-prop`](./dom-no-string-style-prop) - Disallows string values for `style` prop
+    - [`no-unknown-property`](./dom-no-unknown-property) - Disallows unknown `DOM` properties (🔧 Fixable, ⚙️ Configurable)
+    - [`no-void-elements-with-children`](./dom-no-void-elements-with-children) - Prevents `children` in void elements
+
+    ## Web API Rules
+
+    <Callout type="info">
+      Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
+    </Callout>
+
+    Implemented Rules:
+
+    - [`no-leaked-event-listener`](./web-api-no-leaked-event-listener) - Prevents leaked `addEventListener` calls
+    - [`no-leaked-interval`](./web-api-no-leaked-interval) - Prevents leaked `setInterval` calls
+    - [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) - Prevents leaked `ResizeObserver` instances
+    - [`no-leaked-timeout`](./web-api-no-leaked-timeout) - Prevents leaked `setTimeout` calls
+
+    ## Hooks Extra Rules
+
+    <Callout type="info">
+      Extended hooks rules that supplement the official `eslint-plugin-react-hooks` with additional patterns.
+    </Callout>
+
+    - [`no-direct-set-state-in-use-effect`](./hooks-extra-no-direct-set-state-in-use-effect) - Disallows direct `setState` calls in `useEffect` (🧪 Experimental)
+
+    ## Naming Convention Rules
+
+    <Callout type="info">
+      Naming convention rules enforce consistent naming patterns for `React` entities.
+    </Callout>
+
+    - [`component-name`](./naming-convention-component-name) - Enforces naming conventions for components (⚙️ Configurable)
+    - [`context-name`](./naming-convention-context-name) - Enforces context names ending with `Context` suffix
+    - [`filename`](./naming-convention-filename) - Enforces consistent file naming (⚙️ Configurable)
+    - [`filename-extension`](./naming-convention-filename-extension) - Enforces `JSX` file extensions (⚙️ Configurable)
+    - [`use-state`](./naming-convention-use-state) - Enforces symmetric naming of `useState` pairs (e.g., `[value, setValue]`)
+
+    ## Debug Rules
+
+    <Callout type="warning">
+      Debug rules report `React` patterns for code metrics, transformations, or custom tooling. These are not included in the unified plugin by default.
+    </Callout>
+
+    - [`class-component`](./debug-class-component) - Reports all class components
+    - [`function-component`](./debug-function-component) - Reports all function components
+    - [`hook`](./debug-hook) - Reports all `React` hooks
+    - [`is-from-react`](./debug-is-from-react) - Reports identifiers initialized from `React`
+    - [`jsx`](./debug-jsx) - Reports all `JSX` elements and fragments
+  </Tab>
+
+  <Tab value="View by Domain">
+    {/* VERIFY_RULES_METAS */}
+
+    ## X Rules
+
+    <Callout type="info">
+      The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
+    </Callout>
+
+    | Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                   |  `react` |
+    | :--------------------------------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------------------------------------------------------------------- | :------: |
+    | [`jsx-dollar`](jsx-dollar)                                                         | 0️⃣ 0️⃣ |    `🔧`   | Prevents unnecessary dollar signs (`$`) from being inserted before an expression in JSX                                       |          |
+    | [`jsx-key-before-spread`](jsx-key-before-spread)                                   | 1️⃣ 1️⃣ |    `🧪`   | Enforces that the `key` prop is placed before the spread prop in JSX elements when using the new JSX transform                |          |
+    | [`jsx-no-comment-textnodes`](jsx-no-comment-textnodes)                             | 1️⃣ 1️⃣ |           | Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes |          |
+    | [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                 | 0️⃣ 0️⃣ |           | Disallows duplicate props in JSX elements                                                                                     |          |
+    | [`jsx-no-iife`](jsx-no-iife)                                                       | 0️⃣ 2️⃣ |    `🧪`   | Disallows `IIFE` in JSX                                                                                                       |          |
+    | [`jsx-no-undef`](jsx-no-undef)                                                     | 0️⃣ 0️⃣ |           | Prevents using variables in JSX that are not defined in the scope                                                             |          |
+    | [`jsx-shorthand-boolean`](jsx-shorthand-boolean)                                   | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces the use of shorthand syntax for boolean attributes                                                                   |          |
+    | [`jsx-shorthand-fragment`](jsx-shorthand-fragment)                                 | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces the use of shorthand syntax for fragments                                                                            |          |
+    | [`jsx-uses-react`](jsx-uses-react)                                                 | 0️⃣ 0️⃣ |           | Marks React variables as used when JSX is present                                                                             |          |
+    | [`jsx-uses-vars`](jsx-uses-vars)                                                   | 0️⃣ 0️⃣ |           | Marks variables used in JSX elements as used                                                                                  |          |
+    | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | 2️⃣ 2️⃣ |           | Disallows accessing `this.state` inside `setState` calls                                                                      |          |
+    | [`no-array-index-key`](no-array-index-key)                                         | 1️⃣ 1️⃣ |           | Disallows using an item's index in the array as its key                                                                       |          |
+    | [`no-children-count`](no-children-count)                                           | 1️⃣ 1️⃣ |           | Disallows the use of `Children.count` from the `react` package                                                                |          |
+    | [`no-children-for-each`](no-children-for-each)                                     | 1️⃣ 1️⃣ |           | Disallows the use of `Children.forEach` from the `react` package                                                              |          |
+    | [`no-children-map`](no-children-map)                                               | 1️⃣ 1️⃣ |           | Disallows the use of `Children.map` from the `react` package                                                                  |          |
+    | [`no-children-only`](no-children-only)                                             | 1️⃣ 1️⃣ |           | Disallows the use of `Children.only` from the `react` package                                                                 |          |
+    | [`no-children-prop`](no-children-prop)                                             | 0️⃣ 2️⃣ |           | Disallows passing `children` as a prop                                                                                        |          |
+    | [`no-children-to-array`](no-children-to-array)                                     | 1️⃣ 1️⃣ |           | Disallows the use of `Children.toArray` from the `react` package                                                              |          |
+    | [`no-class-component`](no-class-component)                                         | 0️⃣ 2️⃣ |           | Disallows class components except for error boundaries                                                                        |          |
+    | [`no-clone-element`](no-clone-element)                                             | 1️⃣ 1️⃣ |           | Disallows `cloneElement`                                                                                                      |          |
+    | [`no-component-will-mount`](no-component-will-mount)                               | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount`                                                       | >=16.3.0 |
+    | [`no-component-will-receive-props`](no-component-will-receive-props)               | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`                                         | >=16.3.0 |
+    | [`no-component-will-update`](no-component-will-update)                             | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`                                                     | >=16.3.0 |
+    | [`no-context-provider`](no-context-provider)                                       | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `<Context.Provider>` with `<Context>`                                                                       | >=19.0.0 |
+    | [`no-create-ref`](no-create-ref)                                                   | 2️⃣ 2️⃣ |           | Disallows `createRef` in function components                                                                                  |          |
+    | [`no-default-props`](no-default-props)                                             | 2️⃣ 2️⃣ |           | Disallows the `defaultProps` property in favor of ES6 default parameters                                                      |          |
+    | [`no-direct-mutation-state`](no-direct-mutation-state)                             | 2️⃣ 2️⃣ |           | Disallows direct mutation of `this.state`                                                                                     |          |
+    | [`no-duplicate-key`](no-duplicate-key)                                             | 0️⃣ 0️⃣ |    `🧪`   | Prevents duplicate `key` props on sibling elements when rendering lists                                                       |          |
+    | [`no-forward-ref`](no-forward-ref)                                                 | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `forwardRef` with passing `ref` as a prop                                                                   | >=19.0.0 |
+    | [`no-implicit-key`](no-implicit-key)                                               | 1️⃣ 1️⃣ |    `🧪`   | Prevents `key` from not being explicitly specified (e.g., spreading `key` from objects)                                       |          |
+    | [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | 0️⃣ 0️⃣ |    `💭`   | Prevents problematic leaked values from being rendered                                                                        |          |
+    | [`no-missing-component-display-name`](no-missing-component-display-name)           | 0️⃣ 0️⃣ |           | Enforces that all components have a `displayName` that can be used in devtools                                                |          |
+    | [`no-missing-context-display-name`](no-missing-context-display-name)               | 0️⃣ 0️⃣ |    `🔧`   | Enforces that all contexts have a `displayName` that can be used in devtools                                                  |          |
+    | [`no-missing-key`](no-missing-key)                                                 | 2️⃣ 2️⃣ |           | Disallows missing `key` on items in list rendering                                                                            |          |
+    | [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack)                 | 0️⃣ 2️⃣ |    `🧪`   | Prevents incorrect usage of `captureOwnerStack`                                                                               |          |
+    | [`no-nested-component-definitions`](no-nested-component-definitions)               | 2️⃣ 2️⃣ |           | Disallows nesting component definitions inside other components                                                               |          |
+    | [`no-nested-lazy-component-declarations`](no-nested-lazy-component-declarations)   | 2️⃣ 2️⃣ |           | Disallows nesting lazy component declarations inside other components                                                         |          |
+    | [`no-prop-types`](no-prop-types)                                                   | 2️⃣ 2️⃣ |           | Disallows `propTypes` in favor of TypeScript or another type-checking solution                                                |          |
+    | [`no-redundant-should-component-update`](no-redundant-should-component-update)     | 2️⃣ 2️⃣ |           | Disallows `shouldComponentUpdate` when extending `React.PureComponent`                                                        |          |
+    | [`no-set-state-in-component-did-mount`](no-set-state-in-component-did-mount)       | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks                                  |          |
+    | [`no-set-state-in-component-did-update`](no-set-state-in-component-did-update)     | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks                                 |          |
+    | [`no-set-state-in-component-will-update`](no-set-state-in-component-will-update)   | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks                                |          |
+    | [`no-string-refs`](no-string-refs)                                                 | 2️⃣ 2️⃣ |    `🔄`   | Replaces string refs with callback refs                                                                                       | >=16.3.0 |
+    | [`no-unnecessary-key`](no-unnecessary-key)                                         | 0️⃣ 0️⃣ |    `🧪`   | Disallows unnecessary `key` props on elements                                                                                 |          |
+    | [`no-unnecessary-use-callback`](no-unnecessary-use-callback)                       | 0️⃣ 1️⃣ |    `🧪`   | Disallows unnecessary usage of `useCallback`                                                                                  |          |
+    | [`no-unnecessary-use-memo`](no-unnecessary-use-memo)                               | 0️⃣ 1️⃣ |    `🧪`   | Disallows unnecessary usage of `useMemo`                                                                                      |          |
+    | [`no-unnecessary-use-ref`](no-unnecessary-use-ref)                                 | 0️⃣ 0️⃣ |    `🧪`   | Disallows unnecessary usage of `useRef`                                                                                       |          |
+    | [`no-unnecessary-use-prefix`](no-unnecessary-use-prefix)                           | 1️⃣ 1️⃣ |           | Enforces that a function with the `use` prefix uses at least one Hook inside it                                               |          |
+    | [`no-unsafe-component-will-mount`](no-unsafe-component-will-mount)                 | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillMount` in class components                                                        |          |
+    | [`no-unsafe-component-will-receive-props`](no-unsafe-component-will-receive-props) | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillReceiveProps` in class components                                                 |          |
+    | [`no-unsafe-component-will-update`](no-unsafe-component-will-update)               | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillUpdate` in class components                                                       |          |
+    | [`no-unstable-context-value`](no-unstable-context-value)                           | 0️⃣ 1️⃣ |           | Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`                          |          |
+    | [`no-unstable-default-props`](no-unstable-default-props)                           | 0️⃣ 1️⃣ |    `⚙️`   | Prevents using referential-type values as default props in object destructuring                                               |          |
+    | [`no-unused-class-component-members`](no-unused-class-component-members)           | 1️⃣ 1️⃣ |           | Warns about unused class component methods and properties                                                                     |          |
+    | [`no-unused-props`](no-unused-props)                                               | 0️⃣ 0️⃣ | `💭` `🧪` | Warns about component props that are defined but never used                                                                   |          |
+    | [`no-unused-state`](no-unused-state)                                               | 0️⃣ 1️⃣ |           | Warns about unused class component state                                                                                      |          |
+    | [`no-use-context`](no-use-context)                                                 | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `useContext` with `use`                                                                                     | >=19.0.0 |
+    | [`no-useless-forward-ref`](no-useless-forward-ref)                                 | 1️⃣ 1️⃣ |           | Disallows useless `forwardRef` calls on components that don't use `ref`s                                                      |          |
+    | [`no-useless-fragment`](no-useless-fragment)                                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                           |          |
+    | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | 0️⃣ 1️⃣ |           | Enforces destructuring assignment for component props and context                                                             |          |
+    | [`prefer-namespace-import`](prefer-namespace-import)                               | 0️⃣ 0️⃣ |    `🔧`   | Enforces importing React via a namespace import                                                                               |          |
+    | [`prefer-read-only-props`](prefer-read-only-props)                                 | 0️⃣ 0️⃣ | `💭` `🧪` | Enforces read-only props in components                                                                                        |          |
+    | [`prefer-use-state-lazy-initialization`](prefer-use-state-lazy-initialization)     | 1️⃣ 1️⃣ |           | Enforces wrapping function calls made inside `useState` in an `initializer function`                                          |          |
+
+    ## DOM Rules
+
+    <Callout type="info">
+      DOM rules target `React DOM`-specific concerns including security vulnerabilities, deprecated APIs, and DOM property usage.
+    </Callout>
+
+    | Rule                                                                                           |    ✅    |     🌟    | Description                                                                                 | `react-dom` |
+    | :--------------------------------------------------------------------------------------------- | :-----: | :-------: | :------------------------------------------------------------------------------------------ | :---------: |
+    | [`no-dangerously-set-innerhtml`](dom-no-dangerously-set-innerhtml)                             | 1️⃣ 1️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML`                                 |             |
+    | [`no-dangerously-set-innerhtml-with-children`](dom-no-dangerously-set-innerhtml-with-children) | 2️⃣ 2️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML` and `children` at the same time |             |
+    | [`no-find-dom-node`](dom-no-find-dom-node)                                                     | 2️⃣ 2️⃣ |           | Disallows `findDOMNode`                                                                     |             |
+    | [`no-flush-sync`](dom-no-flush-sync)                                                           | 2️⃣ 2️⃣ |           | Disallows `flushSync`                                                                       |             |
+    | [`no-hydrate`](dom-no-hydrate)                                                                 | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `ReactDOM.hydrate()` with `hydrateRoot()`                                 |   >=18.0.0  |
+    | [`no-missing-button-type`](dom-no-missing-button-type)                                         | 0️⃣ 1️⃣ |    `🔧`   | Enforces an explicit `type` attribute for `button` elements                                 |             |
+    | [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | 0️⃣ 1️⃣ |    `🔧`   | Enforces an explicit `sandbox` attribute for `iframe` elements                              |             |
+    | [`no-namespace`](dom-no-namespace)                                                             | 2️⃣ 2️⃣ |           | Enforces the absence of a `namespace` in React elements                                     |             |
+    | [`no-render`](dom-no-render)                                                                   | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`                      |   >=18.0.0  |
+    | [`no-render-return-value`](dom-no-render-return-value)                                         | 2️⃣ 2️⃣ |           | Disallows the return value of `ReactDOM.render`                                             |             |
+    | [`no-script-url`](dom-no-script-url)                                                           | 1️⃣ 1️⃣ |           | Disallows `javascript:` URLs as attribute values                                            |             |
+    | [`no-string-style-prop`](dom-no-string-style-prop)                                             | 0️⃣ 0️⃣ |           | Disallows the use of string style prop in JSX. Use an object instead                        |             |
+    | [`no-unknown-property`](dom-no-unknown-property)                                               | 0️⃣ 0️⃣ | `🔧` `⚙️` | Disallows unknown `DOM` properties                                                          |             |
+    | [`no-unsafe-iframe-sandbox`](dom-no-unsafe-iframe-sandbox)                                     | 1️⃣ 1️⃣ |           | Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations        |             |
+    | [`no-unsafe-target-blank`](dom-no-unsafe-target-blank)                                         | 0️⃣ 1️⃣ |    `🔧`   | Disallows `target="_blank"` without `rel="noreferrer noopener"`                             |             |
+    | [`no-use-form-state`](dom-no-use-form-state)                                                   | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `useFormState` with `useActionState`                                      |   >=19.0.0  |
+    | [`no-void-elements-with-children`](dom-no-void-elements-with-children)                         | 2️⃣ 2️⃣ |           | Disallows `children` in void DOM elements                                                   |             |
+    | [`prefer-namespace-import`](dom-prefer-namespace-import)                                       | 0️⃣ 0️⃣ |    `🔧`   | Enforces importing React DOM via a namespace import                                         |             |
+
+    ## Web API Rules
+
+    <Callout type="info">
+      Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
+    </Callout>
+
+    | Rule                                                             |    ✅    |  🌟 | Description                                                                                                                  |
+    | :--------------------------------------------------------------- | :-----: | :-: | :--------------------------------------------------------------------------------------------------------------------------- |
+    | [`no-leaked-event-listener`](web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |     | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`               |
+    | [`no-leaked-interval`](web-api-no-leaked-interval)               | 1️⃣ 1️⃣ |     | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                          |
+    | [`no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |     | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()` |
+    | [`no-leaked-timeout`](web-api-no-leaked-timeout)                 | 1️⃣ 1️⃣ |     | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                            |
+
+    ## Hooks Extra Rules
+
+    <Callout type="info">
+      This section contains rules that are not part of the official `eslint-plugin-react-hooks` plugin but are useful for specific use cases or patterns.
+    </Callout>
+
+    | Rule                                                                                 |    ✅    |  🌟 | Description                                                                                                                      |
+    | :----------------------------------------------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------------------------------------------- |
+    | [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect) | 1️⃣ 1️⃣ |     | Disallows direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect` |
+
+    ## Naming Convention Rules
+
+    <Callout type="info">
+      Naming convention rules enforce consistent naming patterns for `React` entities.
+    </Callout>
+
+    | Rule                                                         |    ✅    |  🌟  | Description                                                                                 |  `react` |
+    | :----------------------------------------------------------- | :-----: | :--: | :------------------------------------------------------------------------------------------ | :------: |
+    | [`component-name`](naming-convention-component-name)         | 0️⃣ 0️⃣ | `⚙️` | Enforces naming conventions for components                                                  |          |
+    | [`context-name`](naming-convention-context-name)             | 1️⃣ 1️⃣ |      | Enforces the context name to be a valid component name with the suffix `Context`            | >=19.0.0 |
+    | [`filename`](naming-convention-filename)                     | 0️⃣ 0️⃣ | `⚙️` | Enforces consistent file-naming conventions                                                 |          |
+    | [`filename-extension`](naming-convention-filename-extension) | 0️⃣ 0️⃣ | `⚙️` | Enforces consistent use of the JSX file extension                                           |          |
+    | [`ref-name`](naming-convention-ref-name)                     | 1️⃣ 1️⃣ |      | Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref` |          |
+    | [`use-state`](naming-convention-use-state)                   | 1️⃣ 1️⃣ | `⚙️` | Enforces destructuring and symmetric naming of the `useState` hook value and setter         |          |
+
+    ## Debug Rules
+
+    <Callout type="warning">
+      The `eslint-plugin-react-debug` package is not included in the unified plugin. You need to install and configure it separately.
+
+      These rules are useful for code metrics, code transformation, issue reporting, or when building custom tooling that needs to identify specific patterns.
+    </Callout>
+
+    | Rule                                             |  🌟  | Description                                                   |
+    | :----------------------------------------------- | :--: | :------------------------------------------------------------ |
+    | [`class-component`](debug-class-component)       | `🐞` | Reports all class components in JSON format                   |
+    | [`function-component`](debug-function-component) | `🐞` | Reports all function components in JSON format                |
+    | [`hook`](debug-hook)                             | `🐞` | Reports all react hooks in JSON format                        |
+    | [`is-from-react`](debug-is-from-react)           | `🐞` | Reports all identifiers initialized from React in JSON format |
+    | [`jsx`](debug-jsx)                               | `🐞` | Reports all JSX elements and fragments in JSON format         |
+
+    {/* VERIFY_RULES_METAS_END */}
+  </Tab>
+</Tabs>
+
+## See Also
 
 - [Removed Rules ↗](/docs/removed#rules)
