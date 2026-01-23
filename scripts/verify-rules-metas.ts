@@ -15,7 +15,7 @@ import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-t
 const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.ts"];
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
-  { key: "x", heading: "X Rules" },
+  { key: "x", heading: "Core Rules" },
   { key: "dom", heading: "DOM Rules" },
   { key: "web-api", heading: "Web API Rules" },
   { key: "hooks-extra", heading: "Hooks Extra Rules" },
@@ -54,8 +54,8 @@ const getFeatureIcon = (x: unknown) =>
 
 // Extract metadata from a rule module (name, description, features, severities)
 const retrieveRuleMeta = Effect.fnUntraced(
-  function*(category: string, name: string) {
-    const filename = `packages/plugins/eslint-plugin-react-${category}/src/rules/${name}.ts`;
+  function*(domain: string, name: string) {
+    const filename = `packages/plugins/eslint-plugin-react-${domain}/src/rules/${name}.ts`;
     const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(`../${filename}`));
 
     // Extract description from the rule's meta.docs
@@ -66,15 +66,15 @@ const retrieveRuleMeta = Effect.fnUntraced(
     // Look up severity in recommended and strict presets
     const rEntry = Reflect.get(
       config0.rules,
-      category === "x"
+      domain === "x"
         ? `@eslint-react/${RULE_NAME}`
-        : `@eslint-react/${category}/${RULE_NAME}`,
+        : `@eslint-react/${domain}/${RULE_NAME}`,
     );
     const sEntry = Reflect.get(
       config1.rules,
-      category === "x"
+      domain === "x"
         ? `@eslint-react/${RULE_NAME}`
-        : `@eslint-react/${category}/${RULE_NAME}`,
+        : `@eslint-react/${domain}/${RULE_NAME}`,
     );
 
     return {
@@ -94,12 +94,12 @@ const verifyDocs = Effect.gen(function*() {
   const files = glob(RULES_GLOB).filter((file) => !file.endsWith(".spec.ts"));
 
   for (const file of files) {
-    // Extract category and rule name from file path
-    const category = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
+    // Extract domain and rule name from file path
+    const domain = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
     const basename = path.parse(path.basename(file)).name;
     const filename = path.resolve(file);
-    const rulename = `${category}/${basename}`;
-    const rulemeta = yield* retrieveRuleMeta(category, basename);
+    const rulename = `${domain}/${basename}`;
+    const rulemeta = yield* retrieveRuleMeta(domain, basename);
 
     // Read corresponding .mdx documentation file
     const content = yield* fs.readFileString(filename.replace(/\.ts$/u, ".mdx"), "utf8");
@@ -162,7 +162,7 @@ const verifyOverview = Effect.gen(function*() {
 
   yield* Effect.log(ansis.green(`Verifying rules overview at ${target}...`));
 
-  // Process each rule category section
+  // Process each rule domain section
   for (const { key, heading } of SECTION_HEADERS) {
     // Locate the section heading and table boundaries
     const headerStartIndex = relevantLines.findIndex((line) => line.startsWith(`## ${heading}`));
@@ -189,17 +189,17 @@ const verifyOverview = Effect.gen(function*() {
         continue;
       }
 
-      const category = key;
+      const domain = key;
       const rulename = link.match(/\[`([^`]+)`\]/)?.[1];
       if (rulename == null) {
         yield* Effect.logError(ansis.red(`Could not extract rule name from link (skipped): ${link}`));
         continue;
       }
 
-      const meta = yield* retrieveRuleMeta(category, rulename);
+      const meta = yield* retrieveRuleMeta(domain, rulename);
 
       // Verify link format
-      const expectedLink = `[\`${rulename}\`](${category === "x" ? "" : category + "-"}${rulename})`;
+      const expectedLink = `[\`${rulename}\`](${domain === "x" ? "" : domain + "-"}${rulename})`;
       const providedLink = link.trim();
       if (expectedLink !== providedLink) {
         yield* Effect.logError(ansis.red(`Found 1 mismatched link for rule ${rulename}`));

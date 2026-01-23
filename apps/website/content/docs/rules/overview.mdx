@@ -173,17 +173,17 @@ full: true
       Debug rules report `React` patterns for code metrics, transformations, or custom tooling. These are not included in the unified plugin by default.
     </Callout>
 
-    - [`class-component`](./debug-class-component) - Reports all class components
-    - [`function-component`](./debug-function-component) - Reports all function components
-    - [`hook`](./debug-hook) - Reports all `React` hooks
-    - [`is-from-react`](./debug-is-from-react) - Reports identifiers initialized from `React`
-    - [`jsx`](./debug-jsx) - Reports all `JSX` elements and fragments
+    - [`class-component`](./debug-class-component) - Reports all class components in JSON format
+    - [`function-component`](./debug-function-component) - Reports all function components in JSON format
+    - [`hook`](./debug-hook) - Reports all React Hooks in JSON format
+    - [`is-from-react`](./debug-is-from-react) - Reports all identifiers initialized from React in JSON format
+    - [`jsx`](./debug-jsx) - Reports all JSX elements and fragments in JSON format
   </Tab>
 
   <Tab id="view-by-domain" value="View by Domain">
     {/* VERIFY_RULES_METAS */}
 
-    ## X Rules
+    ## Core Rules
 
     <Callout type="info">
       The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
@@ -332,7 +332,7 @@ full: true
     | :----------------------------------------------- | :--: | :------------------------------------------------------------ |
     | [`class-component`](debug-class-component)       | `🐞` | Reports all class components in JSON format                   |
     | [`function-component`](debug-function-component) | `🐞` | Reports all function components in JSON format                |
-    | [`hook`](debug-hook)                             | `🐞` | Reports all react hooks in JSON format                        |
+    | [`hook`](debug-hook)                             | `🐞` | Reports all React Hooks in JSON format                        |
     | [`is-from-react`](debug-is-from-react)           | `🐞` | Reports all identifiers initialized from React in JSON format |
     | [`jsx`](debug-jsx)                               | `🐞` | Reports all JSX elements and fragments in JSON format         |
 
