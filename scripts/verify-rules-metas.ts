@@ -156,28 +156,31 @@ const verifyOverview = Effect.gen(function*() {
   const target = path.join(...RULES_OVERVIEW_PATH);
   const content = yield* fs.readFileString(target, "utf8");
   const contentLines = content.split("\n");
+  const verifyIndex = contentLines.findIndex((line) => line.includes(`{/* VERIFY_RULES_METAS */}`));
+  const verifyIndexEnd = contentLines.findIndex((line) => line.includes(`{/* VERIFY_RULES_METAS_END */}`));
+  const relevantLines = contentLines.slice(verifyIndex + 1, verifyIndexEnd).map((line) => line.trim());
 
   yield* Effect.log(ansis.green(`Verifying rules overview at ${target}...`));
 
   // Process each rule category section
   for (const { key, heading } of SECTION_HEADERS) {
     // Locate the section heading and table boundaries
-    const headerStartIndex = contentLines.findIndex((line) => line.startsWith(`## ${heading}`));
+    const headerStartIndex = relevantLines.findIndex((line) => line.startsWith(`## ${heading}`));
     if (headerStartIndex === -1) {
       return yield* Effect.dieMessage(`Could not find section for ${heading} in ${target}`);
     }
-    const tableStartIndex = contentLines
+    const tableStartIndex = relevantLines
       .findIndex((line, index) => index > headerStartIndex && line.startsWith("| Rule"));
     if (tableStartIndex === -1) {
       return yield* Effect.dieMessage(`Could not find table for ${heading} in ${target}`);
     }
-    const tableEndIndex = contentLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
+    const tableEndIndex = relevantLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
     if (tableEndIndex === -1) {
       return yield* Effect.dieMessage(`Could not find the end of the table for ${heading} in ${target}`);
     }
 
     // Verify each table row (skip header and separator rows)
-    const tableLines = contentLines.slice(tableStartIndex + 2, tableEndIndex);
+    const tableLines = relevantLines.slice(tableStartIndex + 2, tableEndIndex);
     for (const line of tableLines) {
       const columns = line.split("|").slice(1, -1); // Remove leading/trailing empty splits
       const [link, severities, features, description] = columns;
