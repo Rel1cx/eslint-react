@@ -45,7 +45,7 @@ export default defineConfig(
 
 - `jsx-dollar` - Prevents unnecessary `$` symbols before `JSX` expressions
 - `jsx-key-before-spread` - Enforces `key` prop placement before spread operators
-- `jsx-no-comment-textnodes` - Prevents comments from rendering as text
+- `jsx-no-comment-textnodes` - Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes
 - `jsx-no-duplicate-props` - Disallows duplicate `props` in elements
 - `jsx-no-iife` - Disallows immediately-invoked function expressions in `JSX`
 - `jsx-no-undef` - Disallows undefined variables in `JSX` elements

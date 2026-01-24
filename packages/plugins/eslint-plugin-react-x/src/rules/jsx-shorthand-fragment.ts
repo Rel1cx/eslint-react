@@ -36,7 +36,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces the use of shorthand syntax for fragments.",
+      description: "Enforces shorthand syntax for fragment elements.",
     },
     fixable: "code",
     messages: {

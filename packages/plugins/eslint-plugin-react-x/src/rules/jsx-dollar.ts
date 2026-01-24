@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents unnecessary dollar signs ('$') from being inserted before an expression in JSX.",
+      description: "Prevents unnecessary '$' symbols before JSX expressions.",
     },
     fixable: "code",
     hasSuggestions: true,

@@ -18,10 +18,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows 'IIFE' in JSX.",
+      description: "Disallows immediately-invoked function expressions in JSX.",
     },
     messages: {
-      jsxNoIife: "Avoid using IIFE in JSX.",
+      jsxNoIife: "Avoid using immediately-invoked function expressions in JSX.",
     },
     schema: [],
   },

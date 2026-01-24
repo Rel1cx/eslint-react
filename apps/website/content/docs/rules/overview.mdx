@@ -29,16 +29,16 @@ full: true
 
     **Key Rules:**
 
-    - [`jsx-dollar`](./jsx-dollar) - Prevents unnecessary `$` symbols before `JSX` expressions
-    - [`jsx-key-before-spread`](./jsx-key-before-spread) - Enforces `key` prop placement before spread operators
+    - [`jsx-dollar`](./jsx-dollar) - Prevents unnecessary `$` symbols before JSX expressions
+    - [`jsx-key-before-spread`](./jsx-key-before-spread) - Enforces `key` prop placement before spread props
     - [`jsx-no-comment-textnodes`](./jsx-no-comment-textnodes) - Prevents comments from rendering as text
-    - [`jsx-no-duplicate-props`](./jsx-no-duplicate-props) - Disallows duplicate `props` in elements
-    - [`jsx-no-iife`](./jsx-no-iife) - Disallows immediately-invoked function expressions in `JSX`
-    - [`jsx-no-undef`](./jsx-no-undef) - Disallows undefined variables in `JSX` elements
-    - [`jsx-shorthand-boolean`](./jsx-shorthand-boolean) - Enforces shorthand for boolean attributes (🔧 Fixable, ⚙️ Configurable)
-    - [`jsx-shorthand-fragment`](./jsx-shorthand-fragment) - Enforces `<>` over `<React.Fragment>` (🔧 Fixable, ⚙️ Configurable)
-    - [`jsx-uses-react`](./jsx-uses-react) - Marks `React` as used when `JSX` is present
-    - [`jsx-uses-vars`](./jsx-uses-vars) - Marks `JSX` element variables as used
+    - [`jsx-no-duplicate-props`](./jsx-no-duplicate-props) - Disallows duplicate props in JSX elements
+    - [`jsx-no-iife`](./jsx-no-iife) - Disallows immediately-invoked function expressions in JSX
+    - [`jsx-no-undef`](./jsx-no-undef) - Prevents using variables in JSX that are not defined in the scope
+    - [`jsx-shorthand-boolean`](./jsx-shorthand-boolean) - Enforces shorthand syntax for boolean props (🔧 Fixable, ⚙️ Configurable)
+    - [`jsx-shorthand-fragment`](./jsx-shorthand-fragment) - Enforces shorthand syntax for fragment elements (🔧 Fixable, ⚙️ Configurable)
+    - [`jsx-uses-react`](./jsx-uses-react) - Marks React variables as used when JSX is present
+    - [`jsx-uses-vars`](./jsx-uses-vars) - Marks JSX element variables as used
 
     ## Component Rules
 
@@ -164,7 +164,7 @@ full: true
     - [`component-name`](./naming-convention-component-name) - Enforces naming conventions for components (⚙️ Configurable)
     - [`context-name`](./naming-convention-context-name) - Enforces context names ending with `Context` suffix
     - [`filename`](./naming-convention-filename) - Enforces consistent file naming (⚙️ Configurable)
-    - [`filename-extension`](./naming-convention-filename-extension) - Enforces `JSX` file extensions (⚙️ Configurable)
+    - [`filename-extension`](./naming-convention-filename-extension) - Enforces JSX file extensions (⚙️ Configurable)
     - [`use-state`](./naming-convention-use-state) - Enforces symmetric naming of `useState` pairs (e.g., `[value, setValue]`)
 
     ## Debug Rules
@@ -192,16 +192,16 @@ full: true
 
     | Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                   |  `react` |
     | :--------------------------------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------------------------------------------------------------------- | :------: |
-    | [`jsx-dollar`](jsx-dollar)                                                         | 0️⃣ 0️⃣ |    `🔧`   | Prevents unnecessary dollar signs (`$`) from being inserted before an expression in JSX                                       |          |
-    | [`jsx-key-before-spread`](jsx-key-before-spread)                                   | 1️⃣ 1️⃣ |    `🧪`   | Enforces that the `key` prop is placed before the spread prop in JSX elements when using the new JSX transform                |          |
+    | [`jsx-dollar`](jsx-dollar)                                                         | 0️⃣ 0️⃣ |    `🔧`   | Prevents unnecessary `$` symbols before JSX expressions                                                                       |          |
+    | [`jsx-key-before-spread`](jsx-key-before-spread)                                   | 1️⃣ 1️⃣ |    `🧪`   | Enforces `key` prop placement before spread props                                                                             |          |
     | [`jsx-no-comment-textnodes`](jsx-no-comment-textnodes)                             | 1️⃣ 1️⃣ |           | Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes |          |
     | [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                 | 0️⃣ 0️⃣ |           | Disallows duplicate props in JSX elements                                                                                     |          |
-    | [`jsx-no-iife`](jsx-no-iife)                                                       | 0️⃣ 2️⃣ |    `🧪`   | Disallows `IIFE` in JSX                                                                                                       |          |
+    | [`jsx-no-iife`](jsx-no-iife)                                                       | 0️⃣ 2️⃣ |    `🧪`   | Disallows immediately-invoked function expressions in JSX                                                                     |          |
     | [`jsx-no-undef`](jsx-no-undef)                                                     | 0️⃣ 0️⃣ |           | Prevents using variables in JSX that are not defined in the scope                                                             |          |
-    | [`jsx-shorthand-boolean`](jsx-shorthand-boolean)                                   | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces the use of shorthand syntax for boolean attributes                                                                   |          |
-    | [`jsx-shorthand-fragment`](jsx-shorthand-fragment)                                 | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces the use of shorthand syntax for fragments                                                                            |          |
+    | [`jsx-shorthand-boolean`](jsx-shorthand-boolean)                                   | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for boolean props                                                                                   |          |
+    | [`jsx-shorthand-fragment`](jsx-shorthand-fragment)                                 | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for fragment elements                                                                               |          |
     | [`jsx-uses-react`](jsx-uses-react)                                                 | 0️⃣ 0️⃣ |           | Marks React variables as used when JSX is present                                                                             |          |
-    | [`jsx-uses-vars`](jsx-uses-vars)                                                   | 0️⃣ 0️⃣ |           | Marks variables used in JSX elements as used                                                                                  |          |
+    | [`jsx-uses-vars`](jsx-uses-vars)                                                   | 0️⃣ 0️⃣ |           | Marks JSX element variables as used                                                                                           |          |
     | [`no-access-state-in-setstate`](no-access-state-in-setstate)                       | 2️⃣ 2️⃣ |           | Disallows accessing `this.state` inside `setState` calls                                                                      |          |
     | [`no-array-index-key`](no-array-index-key)                                         | 1️⃣ 1️⃣ |           | Disallows using an item's index in the array as its key                                                                       |          |
     | [`no-children-count`](no-children-count)                                           | 1️⃣ 1️⃣ |           | Disallows the use of `Children.count` from the `react` package                                                                |          |

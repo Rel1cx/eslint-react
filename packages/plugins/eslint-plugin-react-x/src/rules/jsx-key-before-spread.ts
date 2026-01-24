@@ -18,8 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that the 'key' prop is placed before the spread prop in JSX elements when using the new JSX transform.",
+      description: "Enforces 'key' prop placement before spread props.",
     },
     messages: {
       jsxKeyBeforeSpread: "The 'key' prop must be placed before any spread props when using the new JSX transform.",
