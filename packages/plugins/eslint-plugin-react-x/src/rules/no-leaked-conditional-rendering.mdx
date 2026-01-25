@@ -59,15 +59,15 @@ import React from "react";
 function MyComponent() {
   return <>{"" && <div />}</>;
   //        ^^
-  //        - Possible unexpected value will be rendered (React DOM: renders nothing, React Native, with React below 18: crashes 💥).
+  //        - Possible unexpected value will be rendered (React DOM: renders nothing; React Native, with React below 18: crashes 💥).
 }
 ```
 
 This can be avoided by:
 
-- Coerce the value to a boolean: `{!!someValue && <Component />}`
-- Use a ternary: `{someValue ? <Component /> : null}`
-- Use comparisons: `{someValue > 0 && <Component />}`
+- Coercing the value to a boolean: `{!!someValue && <Component />}`
+- Using a ternary: `{someValue ? <Component /> : null}`
+- Using comparisons: `{someValue > 0 && <Component />}`
 
 ### Failing
 

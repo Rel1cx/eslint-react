@@ -33,7 +33,7 @@ Prevents incorrect usage of `captureOwnerStack`.
 `captureOwnerStack` is only available in development builds of React and must be:
 
 1. Imported via a namespace to avoid direct named imports.
-2. Conditionally accessed within an `if (process.env.NODE_ENV !== 'production') {...}` block to prevent execution in production environments.
+2. Conditionally accessed within an `if (process.env.NODE_ENV !== 'production') { ... }` block to prevent execution in production environments.
 3. Called inside a React-controlled function (**not implemented yet**).
 
 ## Examples

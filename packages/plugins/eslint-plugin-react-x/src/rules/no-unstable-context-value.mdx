@@ -24,7 +24,7 @@ react-x/no-unstable-context-value
 
 Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`.
 
-React will re-render all consumers of a context whenever the context value changes, and if the value is not stable, this can lead to unnecessary re-renders.
+React will re-render all consumers of a context whenever the context value changes, and if the value is not stable this can lead to unnecessary re-renders.
 
 ## Examples
 
@@ -66,9 +66,9 @@ function MyComponentProvider() {
 
 ## Legitimate Uses
 
-React Context and all its child nodes and consumers are re-rendered whenever the value prop changes. Because each JavaScript object carries its own identity, things like object expressions (`{foo: 'bar'}`) or function expressions get a new identity on every run through the component. This makes the context think it has gotten a new object and can cause needless re-renders and unintended consequences.
+React Context and all its child nodes and consumers are re-rendered whenever the value prop changes. Because each JavaScript object carries its own identity, things like object expressions (`{foo: 'bar'}`) or function expressions get a new identity on every run through the component. This makes the context think it has received a new object and can cause needless re-renders and unintended consequences.
 
-This can be a pretty large performance hit because not only will it cause the context providers and consumers to re-render with all the elements in its subtree, the processing for the tree scan React does to render the provider and find consumers is also wasted.
+This can be a large performance hit because not only will it cause the context providers and consumers to re-render with all the elements in their subtree, the processing for the tree scan React does to render the provider and find consumers is also wasted.
 
 ## Implementation
 

@@ -28,11 +28,11 @@ react-dom/no-missing-iframe-sandbox
 
 Enforces an explicit `sandbox` attribute for `iframe` elements.
 
-The sandbox attribute enables an extra set of restrictions for the content in the iframe. Using sandbox attribute is considered a good security practice.
+The sandbox attribute enables an extra set of restrictions for the content in the iframe. Using the sandbox attribute is considered a good security practice.
 
 ## Examples
 
-This rule checks all React iframe elements and verifies that there is sandbox attribute and that it's value is valid.
+This rule checks all React iframe elements and verifies that there is a `sandbox` attribute and that its value is valid.
 
 ### Failing
 
@@ -72,4 +72,4 @@ function MyComponent() {
 - [`no-missing-button-type`](./dom-no-missing-button-type)\
   Enforces an explicit `type` attribute for `button` elements.
 - [`no-unsafe-iframe-sandbox`](./dom-no-unsafe-iframe-sandbox)\
-  Enforces `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
+  Enforces the `sandbox` attribute for `iframe` elements is not set to unsafe combinations.
