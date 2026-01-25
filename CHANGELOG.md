@@ -1,3 +1,20 @@
+## v2.7.4 (2026-01-25)
+
+### ✨ New
+
+- Add `debug/is-from-ref` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1433
+
+### 🐞 Fixes
+
+- fix(no-leaked-conditional-rendering): support enum, closes #1428 by @hyoban in https://github.com/Rel1cx/eslint-react/pull/1429
+
+### 🪄 Improvements
+
+- Enhance component detection hints with array patterns and expressions by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1430
+- Enhance rules overview page by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1432
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.7.2...v2.7.3
+
 ## v2.7.2 (2026-01-18)
 
 ### 🪄 Improvements
