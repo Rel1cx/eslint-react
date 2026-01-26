@@ -85,8 +85,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
       eslint-plugin-fast-import:
-        specifier: ^1.9.0
-        version: 1.9.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^1.9.2
+        version: 1.9.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-function-rule:
         specifier: ^0.3.0
         version: 0.3.0(eslint@9.39.2(jiti@2.6.1))
@@ -112,8 +112,8 @@ importers:
         specifier: ^0.35.7
         version: 0.35.7
       sort-package-json:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^3.6.1
+        version: 3.6.1
       tinyglobby:
         specifier: ^0.2.15
         version: 0.2.15
@@ -327,8 +327,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
       eslint-plugin-fast-import:
-        specifier: ^1.9.0
-        version: 1.9.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^1.9.2
+        version: 1.9.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@9.39.2(jiti@2.6.1))
@@ -4522,8 +4522,8 @@ packages:
     peerDependencies:
       eslint: ^9.39.2
 
-  eslint-plugin-fast-import@1.9.0:
-    resolution: {integrity: sha512-EFExpe+AJsHId5gAbQhI/Y1HGwCIqiLWW1u6RFOHBvRM5TrFSpPzJgmJ2qb/SJmBahmSZ/NrjAzVsH3WrkJ2/A==}
+  eslint-plugin-fast-import@1.9.2:
+    resolution: {integrity: sha512-zW0vhw4tDiHQr6s5363YNihTXxtAkZpfPQ2j3aen6RbBnL9XGlswj6vrhvS2rU4K1DpzLuijlsGrel2L7kT+4A==}
     peerDependencies:
       eslint: ^9.39.2
 
@@ -6225,8 +6225,8 @@ packages:
   sort-object-keys@2.0.1:
     resolution: {integrity: sha512-R89fO+z3x7hiKPXX5P0qim+ge6Y60AjtlW+QQpRozrrNcR1lw9Pkpm5MLB56HoNvdcLHL4wbpq16OcvGpEDJIg==}
 
-  sort-package-json@3.6.0:
-    resolution: {integrity: sha512-fyJsPLhWvY7u2KsKPZn1PixbXp+1m7V8NWqU8CvgFRbMEX41Ffw1kD8n0CfJiGoaSfoAvbrqRRl/DcHO8omQOQ==}
+  sort-package-json@3.6.1:
+    resolution: {integrity: sha512-Chgejw1+10p2D0U2tB7au1lHtz6TkFnxmvZktyBCRyV0GgmF6nl1IxXxAsPtJVsUyg/fo+BfCMAVVFUVRkAHrQ==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -10210,7 +10210,7 @@ snapshots:
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
 
-  eslint-plugin-fast-import@1.9.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
+  eslint-plugin-fast-import@1.9.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
       '@typescript-eslint/typescript-estree': 8.53.1(typescript@5.9.3)
       '@typescript-eslint/utils': 8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
@@ -12443,7 +12443,7 @@ snapshots:
 
   sort-object-keys@2.0.1: {}
 
-  sort-package-json@3.6.0:
+  sort-package-json@3.6.1:
     dependencies:
       detect-indent: 7.0.2
       detect-newline: 4.0.1
