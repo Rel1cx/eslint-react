@@ -12,8 +12,6 @@ export interface SemanticFunction extends SemanticNode {
   node: AST.TSESTreeFunction;
   // The name of the function
   name: string | unit;
-  // The head of the function
-  head: TSESTree.Expression | unit;
   // The return type of the function
   type: TSESTree.TSTypeAnnotation | unit;
   // The body of the function
