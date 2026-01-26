@@ -19,7 +19,7 @@ export interface SemanticFunction extends SemanticNode {
   // The body of the function
   body: TSESTree.BlockStatement | TSESTree.Expression;
   // The directives of the function (e.g., "use strict", "use client", "use server", etc.)
-  directives: TSESTree.Literal[];
+  directives: TSESTree.StringLiteral[];
   // The parameters of the function
   parameters: TSESTree.Parameter[];
   // The type parameters of the function
