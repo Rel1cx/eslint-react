@@ -1,6 +1,6 @@
-[@eslint-react/core](../README.md) / ClassComponent
+[@eslint-react/core](../README.md) / ClassComponentSemanticNode
 
-# Interface: ClassComponent
+# Interface: ClassComponentSemanticNode
 
 Represents a React class component
 

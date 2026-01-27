@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   ctx: {
-     getAllComponents: (node: TSESTree.Program) => ClassComponent[];
+     getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -15,6 +15,6 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponent`](../../../../interfaces/ClassComponent.md)[]; \} |
-| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`ClassComponent`](../../../../interfaces/ClassComponent.md)[] |
+| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[]; \} |
+| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[] |
 | <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

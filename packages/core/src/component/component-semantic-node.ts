@@ -9,7 +9,7 @@ import type { ComponentFlag } from "./component-flag";
 /**
  * Represents a React function component
  */
-export interface FunctionComponent extends SemanticNode {
+export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The identifier or identifier sequence of the component
    */
@@ -75,7 +75,7 @@ export interface FunctionComponent extends SemanticNode {
 /**
  * Represents a React class component
  */
-export interface ClassComponent extends SemanticNode {
+export interface ClassComponentSemanticNode extends SemanticNode {
   /**
    * The identifier of the component
    */
@@ -119,4 +119,4 @@ export interface ClassComponent extends SemanticNode {
 /**
  * Union type representing either a class or function component
  */
-export type Component = ClassComponent | FunctionComponent;
+export type ComponentSemanticNode = ClassComponentSemanticNode | FunctionComponentSemanticNode;

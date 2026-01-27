@@ -1,6 +1,6 @@
-[@eslint-react/core](../README.md) / Hook
+[@eslint-react/core](../README.md) / HookSemanticNode
 
-# Interface: Hook
+# Interface: HookSemanticNode
 
 ## Extends
 

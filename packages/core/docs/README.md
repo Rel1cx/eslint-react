@@ -14,25 +14,28 @@
 
 | Interface | Description |
 | ------ | ------ |
-| [ClassComponent](interfaces/ClassComponent.md) | Represents a React class component |
-| [FunctionComponent](interfaces/FunctionComponent.md) | Represents a React function component |
-| [Hook](interfaces/Hook.md) | - |
+| [ClassComponentSemanticNode](interfaces/ClassComponentSemanticNode.md) | Represents a React class component |
+| [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React function |
+| [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React function component |
+| [HookSemanticNode](interfaces/HookSemanticNode.md) | - |
 | [JsxConfig](interfaces/JsxConfig.md) | - |
 | [SemanticFunc](interfaces/SemanticFunc.md) | - |
 | [SemanticNode](interfaces/SemanticNode.md) | - |
+| [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | - |
 
 ## Type Aliases
 
 | Type Alias | Description |
 | ------ | ------ |
-| [Component](type-aliases/Component.md) | Union type representing either a class or function component |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
 | [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
 | [ComponentFlag](type-aliases/ComponentFlag.md) | - |
 | [ComponentKind](type-aliases/ComponentKind.md) | - |
 | [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md) | - |
 | [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md) | - |
+| [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Union type representing either a class or function component |
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
+| [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | - |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
 

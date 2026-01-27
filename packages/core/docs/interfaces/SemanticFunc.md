@@ -6,6 +6,11 @@
 
 - [`SemanticNode`](SemanticNode.md)
 
+## Extended by
+
+- [`ClientFunctionSemanticNode`](ClientFunctionSemanticNode.md)
+- [`ServerFunctionSemanticNode`](ServerFunctionSemanticNode.md)
+
 ## Properties
 
 | Property | Type | Overrides | Inherited from |

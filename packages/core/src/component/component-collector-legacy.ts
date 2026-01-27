@@ -6,14 +6,14 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 
 import { ComponentFlag } from "./component-flag";
 import { isClassComponent, isPureComponent } from "./component-is";
-import type { ClassComponent } from "./component-semantic-node";
+import type { ClassComponentSemanticNode } from "./component-semantic-node";
 
 const idGen = new IdGenerator("class_component_");
 
 export declare namespace useComponentCollectorLegacy {
   type ReturnType = {
     ctx: {
-      getAllComponents: (node: TSESTree.Program) => ClassComponent[];
+      getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -25,7 +25,7 @@ export declare namespace useComponentCollectorLegacy {
  * @returns The ctx and visitor of the collector
  */
 export function useComponentCollectorLegacy(context: RuleContext): useComponentCollectorLegacy.ReturnType {
-  const components = new Map<string, ClassComponent>();
+  const components = new Map<string, ClassComponentSemanticNode>();
 
   const ctx = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

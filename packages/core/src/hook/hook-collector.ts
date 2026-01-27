@@ -2,7 +2,7 @@ import * as AST from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { Hook } from "./hook-semantic-node";
+import type { HookSemanticNode } from "./hook-semantic-node";
 
 import { isHookId } from "./hook-id";
 import { isHookCall } from "./hook-is";
@@ -18,7 +18,7 @@ type FunctionEntry = {
 export declare namespace useHookCollector {
   type ReturnType = {
     ctx: {
-      getAllHooks(node: TSESTree.Program): Hook[];
+      getAllHooks(node: TSESTree.Program): HookSemanticNode[];
       getCurrentEntries(): FunctionEntry[];
       getCurrentEntry(): FunctionEntry | unit;
     };
@@ -32,7 +32,7 @@ export declare namespace useHookCollector {
  * @returns The ctx and visitor of the collector
  */
 export function useHookCollector(context: RuleContext): useHookCollector.ReturnType {
-  const hooks = new Map<string, Hook>();
+  const hooks = new Map<string, HookSemanticNode>();
   const functionEntries: FunctionEntry[] = [];
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1);

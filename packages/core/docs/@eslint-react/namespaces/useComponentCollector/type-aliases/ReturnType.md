@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   ctx: {
-     getAllComponents: (node: TSESTree.Program) => FunctionComponent[];
+     getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
      getCurrentEntries: () => FunctionEntry[];
      getCurrentEntry: () => FunctionEntry | unit;
   };
@@ -17,8 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)[]; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `unit`; \} |
-| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`FunctionComponent`](../../../../interfaces/FunctionComponent.md)[] |
+| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[]; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `unit`; \} |
+| `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[] |
 | `ctx.getCurrentEntries` | () => `FunctionEntry`[] |
 | `ctx.getCurrentEntry` | () => `FunctionEntry` \| `unit` |
 | <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

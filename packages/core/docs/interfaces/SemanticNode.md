@@ -4,9 +4,9 @@
 
 ## Extended by
 
-- [`FunctionComponent`](FunctionComponent.md)
-- [`ClassComponent`](ClassComponent.md)
-- [`Hook`](Hook.md)
+- [`FunctionComponentSemanticNode`](FunctionComponentSemanticNode.md)
+- [`ClassComponentSemanticNode`](ClassComponentSemanticNode.md)
+- [`HookSemanticNode`](HookSemanticNode.md)
 - [`SemanticFunc`](SemanticFunc.md)
 
 ## Properties

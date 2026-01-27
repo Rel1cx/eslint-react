@@ -1,6 +1,6 @@
-[@eslint-react/core](../README.md) / FunctionComponent
+[@eslint-react/core](../README.md) / FunctionComponentSemanticNode
 
-# Interface: FunctionComponent
+# Interface: FunctionComponentSemanticNode
 
 Represents a React function component
 

@@ -6,7 +6,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ComponentDetectionHint } from "./component-detection-hint";
-import type { FunctionComponent } from "./component-semantic-node";
+import type { FunctionComponentSemanticNode } from "./component-semantic-node";
 
 import { isHookCall } from "../hook";
 import { isJsxLike } from "../jsx";
@@ -37,7 +37,7 @@ export declare namespace useComponentCollector {
   };
   type ReturnType = {
     ctx: {
-      getAllComponents: (node: TSESTree.Program) => FunctionComponent[];
+      getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | unit;
     };
@@ -62,7 +62,7 @@ export function useComponentCollector(
   } = options;
 
   const functionEntries: FunctionEntry[] = [];
-  const components = new Map<string, FunctionComponent>();
+  const components = new Map<string, FunctionComponentSemanticNode>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1);
