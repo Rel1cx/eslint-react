@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.7.5-next.1",
+  "version": "2.7.5-next.2",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
@@ -63,9 +63,9 @@
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/parser": "^8.53.1",
-    "@typescript-eslint/rule-tester": "^8.53.1",
-    "@typescript-eslint/types": "^8.53.1",
+    "@typescript-eslint/parser": "^8.54.0",
+    "@typescript-eslint/rule-tester": "^8.54.0",
+    "@typescript-eslint/types": "^8.54.0",
     "ansis": "^4.2.0",
     "dedent": "^1.7.1",
     "dprint": "^0.51.1",
@@ -75,8 +75,8 @@
     "eslint-plugin-function-rule": "^0.3.0",
     "mdxlint": "^1.0.0",
     "publint": "^0.3.17",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "remark-frontmatter": "5.0.0",
     "remark-gfm": "^4.0.1",
     "skott": "^0.35.7",
@@ -90,10 +90,10 @@
     "typedoc-plugin-markdown": "^4.9.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.1",
+    "typescript-eslint": "^8.54.0",
     "vitest": "^4.0.18"
   },
-  "packageManager": "pnpm@10.28.1",
+  "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": ">=24.0.0"
   }
