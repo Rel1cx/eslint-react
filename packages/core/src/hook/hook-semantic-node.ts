@@ -5,7 +5,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { SemanticNode } from "../semantic";
 
 /* eslint-disable perfectionist/sort-interfaces */
-export interface Hook extends SemanticNode {
+export interface ReactHook extends SemanticNode {
   // The identifier of the hook
   id: AST.FunctionID | unit;
   // The AST node of the hook

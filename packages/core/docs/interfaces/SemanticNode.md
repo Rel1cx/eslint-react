@@ -6,7 +6,8 @@
 
 - [`FunctionComponent`](FunctionComponent.md)
 - [`ClassComponent`](ClassComponent.md)
-- [`Hook`](Hook.md)
+- [`ReactFunction`](ReactFunction.md)
+- [`ReactHook`](ReactHook.md)
 
 ## Properties
 

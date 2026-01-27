@@ -119,4 +119,4 @@ export interface ClassComponent extends SemanticNode {
 /**
  * Union type representing either a class or function component
  */
-export type Component = ClassComponent | FunctionComponent;
+export type ReactComponent = ClassComponent | FunctionComponent;

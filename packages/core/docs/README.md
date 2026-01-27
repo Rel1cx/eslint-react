@@ -16,8 +16,9 @@
 | ------ | ------ |
 | [ClassComponent](interfaces/ClassComponent.md) | Represents a React class component |
 | [FunctionComponent](interfaces/FunctionComponent.md) | Represents a React function component |
-| [Hook](interfaces/Hook.md) | - |
 | [JsxConfig](interfaces/JsxConfig.md) | - |
+| [ReactFunction](interfaces/ReactFunction.md) | - |
+| [ReactHook](interfaces/ReactHook.md) | - |
 | [SemanticEntry](interfaces/SemanticEntry.md) | - |
 | [SemanticNode](interfaces/SemanticNode.md) | - |
 
@@ -25,7 +26,6 @@
 
 | Type Alias | Description |
 | ------ | ------ |
-| [Component](type-aliases/Component.md) | Union type representing either a class or function component |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
 | [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
 | [ComponentFlag](type-aliases/ComponentFlag.md) | - |
@@ -35,6 +35,7 @@
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
+| [ReactComponent](type-aliases/ReactComponent.md) | Union type representing either a class or function component |
 
 ## Variables
 
