@@ -11,5 +11,5 @@ export const ComponentFlag = {
   /** Indicates the component is memoized (e.g., React.memo) */
   Memo: 1n << 2n,
   /** Indicates the component forwards a ref (e.g., React.forwardRef) */
-  ForwardRef: 1n << 3n
+  ForwardRef: 1n << 3n,
 };

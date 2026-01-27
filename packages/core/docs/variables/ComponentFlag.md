@@ -4,7 +4,6 @@
 
 ```ts
 ComponentFlag: {
-  Async: bigint;
   CreateElement: bigint;
   ForwardRef: bigint;
   Memo: bigint;
@@ -17,7 +16,6 @@ ComponentFlag: {
 
 | Name | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| <a id="async"></a> `Async` | `bigint` | - | Indicates the component is asynchronous |
 | <a id="createelement"></a> `CreateElement` | `bigint` | - | Indicates the component creates elements using `createElement` instead of JSX |
 | <a id="forwardref"></a> `ForwardRef` | `bigint` | - | Indicates the component forwards a ref (e.g., React.forwardRef) |
 | <a id="memo"></a> `Memo` | `bigint` | - | Indicates the component is memoized (e.g., React.memo) |
