@@ -1,4 +1,4 @@
-import type { SemanticEntry } from "@eslint-react/core";
+import type { ComponentPhaseKind } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -10,8 +10,9 @@ export type EventListenerEntry =
     capture: boolean | unit;
     listener: TSESTree.Node;
     method: "addEventListener";
+    phase: ComponentPhaseKind;
     signal: TSESTree.Node | unit;
-  } & SemanticEntry
+  }
   | {
     type: TSESTree.Node;
     node: TSESTree.CallExpression | TSESTree.Identifier;
@@ -19,4 +20,5 @@ export type EventListenerEntry =
     capture: boolean | unit;
     listener: TSESTree.Node;
     method: "removeEventListener";
-  } & SemanticEntry;
+    phase: ComponentPhaseKind;
+  };

@@ -1,6 +1,6 @@
-[@eslint-react/core](../README.md) / ReactHook
+[@eslint-react/core](../README.md) / Hook
 
-# Interface: ReactHook
+# Interface: Hook
 
 ## Extends
 

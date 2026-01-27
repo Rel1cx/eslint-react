@@ -3,8 +3,8 @@ import {
   ComponentDetectionHint,
   isCreateContextCall,
   isCreateElementCall,
+  isHookCall,
   isLazyCall,
-  isReactHookCall,
   useComponentCollector,
   useComponentCollectorLegacy,
 } from "@eslint-react/core";
@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (AST.isJSX(n)) return true;
             if (n.type === T.CallExpression) {
               // Check for React hooks, `createElement`, or `createContext`
-              return isReactHookCall(n) || isCreateElementCall(context, n) || isCreateContextCall(context, n);
+              return isHookCall(n) || isCreateElementCall(context, n) || isCreateContextCall(context, n);
             }
             if (AST.isFunction(n)) {
               // Check if it's inside a function component

@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isReactHookCall
+[@eslint-react/core](../README.md) / isHookCall
 
-# Function: isReactHookCall()
+# Function: isHookCall()
 
 ```ts
-function isReactHookCall(node: Node | undefined): node is CallExpression;
+function isHookCall(node: Node | undefined): node is CallExpression;
 ```
 
 Check if the given node is a React Hook call by its name.

@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { isComponentNameLoose } from "../component/component-name";
-import { isReactHookName } from "../hook/hook-name";
+import { isHookName } from "../hook/hook-name";
 
 export type FindEnclosingComponentOrHookFilter = (n: TSESTree.Node, name: string | null) => boolean;
 
@@ -18,7 +18,7 @@ export function findEnclosingComponentOrHook(
   node: TSESTree.Node | unit,
   test: FindEnclosingComponentOrHookFilter = (n, name) => {
     if (name == null) return false;
-    return isComponentNameLoose(name) || isReactHookName(name);
+    return isComponentNameLoose(name) || isHookName(name);
   },
 ) {
   const enclosingNode = AST.findParentNode(node, (n) => {

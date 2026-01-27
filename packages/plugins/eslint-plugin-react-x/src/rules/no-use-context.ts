@@ -1,4 +1,4 @@
-import { isReactHookCall, isUseContextCall } from "@eslint-react/core";
+import { isHookCall, isUseContextCall } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hookCalls = new Set<TSESTree.CallExpression>();
   return {
     CallExpression(node) {
-      if (!isReactHookCall(node)) {
+      if (!isHookCall(node)) {
         return;
       }
       hookCalls.add(node);

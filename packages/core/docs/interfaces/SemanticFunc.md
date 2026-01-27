@@ -1,6 +1,6 @@
-[@eslint-react/core](../README.md) / ReactFunction
+[@eslint-react/core](../README.md) / SemanticFunc
 
-# Interface: ReactFunction
+# Interface: SemanticFunc
 
 ## Extends
 

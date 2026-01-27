@@ -1,4 +1,4 @@
-import { isReactHookName } from "@eslint-react/core";
+import { isHookName } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
@@ -6,10 +6,10 @@ function isInitFromHookCall(init: TSESTree.Expression | null) {
   if (init?.type !== T.CallExpression) return false;
   switch (init.callee.type) {
     case T.Identifier:
-      return isReactHookName(init.callee.name);
+      return isHookName(init.callee.name);
     case T.MemberExpression:
       return init.callee.property.type === T.Identifier
-        && isReactHookName(init.callee.property.name);
+        && isHookName(init.callee.property.name);
     default:
       return false;
   }

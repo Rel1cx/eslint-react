@@ -1,6 +1,5 @@
 export * from "./api";
 export * from "./component";
-export type * from "./function";
 export * from "./hierarchy";
 export * from "./hook";
 export * from "./jsx";

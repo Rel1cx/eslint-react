@@ -8,7 +8,7 @@ import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { FunctionComponent } from "./component-semantic-node";
 
-import { isReactHookCall } from "../hook";
+import { isHookCall } from "../hook";
 import { isJsxLike } from "../jsx";
 import { isComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
@@ -147,7 +147,7 @@ export function useComponentCollector(
     ...collectHookCalls
       ? {
         "CallExpression:exit"(node: TSESTree.CallExpression) {
-          if (!isReactHookCall(node)) return;
+          if (!isHookCall(node)) return;
           const entry = getCurrentEntry();
           if (entry == null) return;
           entry.hookCalls.push(node);

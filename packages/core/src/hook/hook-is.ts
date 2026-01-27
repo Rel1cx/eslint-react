@@ -5,21 +5,21 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import type { RegExpLike } from "@eslint-react/shared";
-import { isReactHookName } from "./hook-name";
+import { isHookName } from "./hook-name";
 
 /**
  * Determines if a function node is a React Hook based on its name.
  * @param node The function node to check
  * @returns True if the function is a React Hook, false otherwise
  */
-export function isReactHook(node: AST.TSESTreeFunction | unit) {
+export function isHook(node: AST.TSESTreeFunction | unit) {
   if (node == null) return false;
   const id = AST.getFunctionId(node);
   switch (id?.type) {
     case T.Identifier:
-      return isReactHookName(id.name);
+      return isHookName(id.name);
     case T.MemberExpression:
-      return "name" in id.property && isReactHookName(id.property.name);
+      return "name" in id.property && isHookName(id.property.name);
     default:
       return false;
   }
@@ -30,16 +30,16 @@ export function isReactHook(node: AST.TSESTreeFunction | unit) {
  * @param node The node to check.
  * @returns `true` if the node is a React Hook call, `false` otherwise.
  */
-export function isReactHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExpression {
+export function isHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExpression {
   if (node == null) return false;
   if (node.type !== T.CallExpression) {
     return false;
   }
   if (node.callee.type === T.Identifier) {
-    return isReactHookName(node.callee.name);
+    return isHookName(node.callee.name);
   }
   if (node.callee.type === T.MemberExpression) {
-    return node.callee.property.type === T.Identifier && isReactHookName(node.callee.property.name);
+    return node.callee.property.type === T.Identifier && isHookName(node.callee.property.name);
   }
   return false;
 }
@@ -51,7 +51,7 @@ export function isReactHookCall(node: TSESTree.Node | unit): node is TSESTree.Ca
  * @returns A function that takes a hook name and returns boolean
  */
 /* eslint-disable function/function-return-boolean */
-export function isReactHookCallWithName(node: TSESTree.Node | unit) {
+export function isHookCallWithName(node: TSESTree.Node | unit) {
   if (node == null || node.type !== T.CallExpression) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {
@@ -116,22 +116,22 @@ export function isUseStateLikeCall(
 }
 
 // Utility functions for specific React hooks - each returns a function that checks if a node calls that specific hook
-export const isUseCall = flip(isReactHookCallWithName)("use");
-export const isUseActionStateCall = flip(isReactHookCallWithName)("useActionState");
-export const isUseCallbackCall = flip(isReactHookCallWithName)("useCallback");
-export const isUseContextCall = flip(isReactHookCallWithName)("useContext");
-export const isUseDebugValueCall = flip(isReactHookCallWithName)("useDebugValue");
-export const isUseDeferredValueCall = flip(isReactHookCallWithName)("useDeferredValue");
-export const isUseEffectCall = flip(isReactHookCallWithName)("useEffect");
-export const isUseFormStatusCall = flip(isReactHookCallWithName)("useFormStatus");
-export const isUseIdCall = flip(isReactHookCallWithName)("useId");
-export const isUseImperativeHandleCall = flip(isReactHookCallWithName)("useImperativeHandle");
-export const isUseInsertionEffectCall = flip(isReactHookCallWithName)("useInsertionEffect");
-export const isUseLayoutEffectCall = flip(isReactHookCallWithName)("useLayoutEffect");
-export const isUseMemoCall = flip(isReactHookCallWithName)("useMemo");
-export const isUseOptimisticCall = flip(isReactHookCallWithName)("useOptimistic");
-export const isUseReducerCall = flip(isReactHookCallWithName)("useReducer");
-export const isUseRefCall = flip(isReactHookCallWithName)("useRef");
-export const isUseStateCall = flip(isReactHookCallWithName)("useState");
-export const isUseSyncExternalStoreCall = flip(isReactHookCallWithName)("useSyncExternalStore");
-export const isUseTransitionCall = flip(isReactHookCallWithName)("useTransition");
+export const isUseCall = flip(isHookCallWithName)("use");
+export const isUseActionStateCall = flip(isHookCallWithName)("useActionState");
+export const isUseCallbackCall = flip(isHookCallWithName)("useCallback");
+export const isUseContextCall = flip(isHookCallWithName)("useContext");
+export const isUseDebugValueCall = flip(isHookCallWithName)("useDebugValue");
+export const isUseDeferredValueCall = flip(isHookCallWithName)("useDeferredValue");
+export const isUseEffectCall = flip(isHookCallWithName)("useEffect");
+export const isUseFormStatusCall = flip(isHookCallWithName)("useFormStatus");
+export const isUseIdCall = flip(isHookCallWithName)("useId");
+export const isUseImperativeHandleCall = flip(isHookCallWithName)("useImperativeHandle");
+export const isUseInsertionEffectCall = flip(isHookCallWithName)("useInsertionEffect");
+export const isUseLayoutEffectCall = flip(isHookCallWithName)("useLayoutEffect");
+export const isUseMemoCall = flip(isHookCallWithName)("useMemo");
+export const isUseOptimisticCall = flip(isHookCallWithName)("useOptimistic");
+export const isUseReducerCall = flip(isHookCallWithName)("useReducer");
+export const isUseRefCall = flip(isHookCallWithName)("useRef");
+export const isUseStateCall = flip(isHookCallWithName)("useState");
+export const isUseSyncExternalStoreCall = flip(isHookCallWithName)("useSyncExternalStore");
+export const isUseTransitionCall = flip(isHookCallWithName)("useTransition");

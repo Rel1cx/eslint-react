@@ -1,4 +1,4 @@
-import type { SemanticEntry } from "@eslint-react/core";
+import type { ComponentPhaseKind } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export type TimerKind =
@@ -8,9 +8,10 @@ export type TimerKind =
   | "animationFrame"
   | "idleCallback";
 
-export interface TimerEntry extends SemanticEntry {
+export interface TimerEntry {
   kind: TimerKind;
   node: TSESTree.CallExpression;
   callee: TSESTree.Node;
+  phase: ComponentPhaseKind;
   timerId: TSESTree.Node;
 }

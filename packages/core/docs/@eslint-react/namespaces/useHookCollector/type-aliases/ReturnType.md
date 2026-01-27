@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   ctx: {
-     getAllHooks: ReactHook[];
+     getAllHooks: Hook[];
      getCurrentEntries: FunctionEntry[];
      getCurrentEntry: FunctionEntry | undefined;
   };
@@ -17,8 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`ReactHook`](../../../../interfaces/ReactHook.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `undefined`; \} |
-| `ctx.getAllHooks` | [`ReactHook`](../../../../interfaces/ReactHook.md)[] |
+| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`Hook`](../../../../interfaces/Hook.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `undefined`; \} |
+| `ctx.getAllHooks` | [`Hook`](../../../../interfaces/Hook.md)[] |
 | `ctx.getCurrentEntries` | `FunctionEntry`[] |
 | `ctx.getCurrentEntry` | `FunctionEntry` \| `undefined` |
 | <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

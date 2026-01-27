@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / ReactComponent
+[@eslint-react/core](../README.md) / Component
 
-# Type Alias: ReactComponent
+# Type Alias: Component
 
 ```ts
-type ReactComponent = 
+type Component = 
   | ClassComponent
   | FunctionComponent;
 ```

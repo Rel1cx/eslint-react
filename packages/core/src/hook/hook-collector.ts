@@ -2,10 +2,10 @@ import * as AST from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import type { ReactHook } from "./hook-semantic-node";
+import type { Hook } from "./hook-semantic-node";
 
-import { isReactHookId } from "./hook-id";
-import { isReactHookCall } from "./hook-is";
+import { isHookId } from "./hook-id";
+import { isHookCall } from "./hook-is";
 
 const idGen = new IdGenerator("hook_");
 
@@ -18,7 +18,7 @@ type FunctionEntry = {
 export declare namespace useHookCollector {
   type ReturnType = {
     ctx: {
-      getAllHooks(node: TSESTree.Program): ReactHook[];
+      getAllHooks(node: TSESTree.Program): Hook[];
       getCurrentEntries(): FunctionEntry[];
       getCurrentEntry(): FunctionEntry | unit;
     };
@@ -32,14 +32,14 @@ export declare namespace useHookCollector {
  * @returns The ctx and visitor of the collector
  */
 export function useHookCollector(context: RuleContext): useHookCollector.ReturnType {
-  const hooks = new Map<string, ReactHook>();
+  const hooks = new Map<string, Hook>();
   const functionEntries: FunctionEntry[] = [];
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1);
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionId(node);
     const key = idGen.next();
-    if (id != null && isReactHookId(id)) {
+    if (id != null && isHookId(id)) {
       functionEntries.push({ key, node, isHook: true });
       hooks.set(key, {
         id,
@@ -70,7 +70,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
     CallExpression(node) {
-      if (!isReactHookCall(node)) {
+      if (!isHookCall(node)) {
         return;
       }
       const fEntry = getCurrentEntry();

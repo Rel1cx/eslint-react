@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { isReactHookCall, useComponentCollector } from "@eslint-react/core";
+import { isHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, toRegExp } from "@eslint-react/shared";
 import { getObjectType } from "@eslint-react/var";
@@ -122,7 +122,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
             if (construction == null) {
               continue;
             }
-            if (isReactHookCall(construction.node)) {
+            if (isHookCall(construction.node)) {
               continue;
             }
             if (safePatterns.length > 0) {

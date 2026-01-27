@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isReactHookCallWithName
+[@eslint-react/core](../README.md) / isHookCallWithName
 
-# Function: isReactHookCallWithName()
+# Function: isHookCallWithName()
 
 ```ts
-function isReactHookCallWithName(node: Node | undefined): (name: string) => boolean;
+function isHookCallWithName(node: Node | undefined): (name: string) => boolean;
 ```
 
 Checks if a node is a call to a specific React hook.

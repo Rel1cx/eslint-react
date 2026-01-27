@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { getJsxElementType, isReactHookCall, useComponentCollector } from "@eslint-react/core";
+import { getJsxElementType, isHookCall, useComponentCollector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
@@ -63,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const initialScope = context.sourceCode.getScope(valueExpression);
         const construction = getObjectType(valueExpression, initialScope);
         if (construction == null) return;
-        if (isReactHookCall(construction.node)) {
+        if (isHookCall(construction.node)) {
           return;
         }
         getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);

@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as AST from "@eslint-react/ast";
-import { isReactHookName, isUseCall, isUseStateCall } from "@eslint-react/core";
+import { isHookName, isUseCall, isUseStateCall } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -66,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const expr of AST.getNestedCallExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
         // Ignore other React hooks
-        if (isReactHookName(expr.callee.name)) continue;
+        if (isHookName(expr.callee.name)) continue;
         // Ignore primitive wrappers like `String('foo')`
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
         // Ignore if it's inside a `use()` call

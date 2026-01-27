@@ -6,8 +6,8 @@
 
 - [`FunctionComponent`](FunctionComponent.md)
 - [`ClassComponent`](ClassComponent.md)
-- [`ReactFunction`](ReactFunction.md)
-- [`ReactHook`](ReactHook.md)
+- [`Hook`](Hook.md)
+- [`SemanticFunc`](SemanticFunc.md)
 
 ## Properties
 

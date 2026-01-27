@@ -16,16 +16,16 @@
 | ------ | ------ |
 | [ClassComponent](interfaces/ClassComponent.md) | Represents a React class component |
 | [FunctionComponent](interfaces/FunctionComponent.md) | Represents a React function component |
+| [Hook](interfaces/Hook.md) | - |
 | [JsxConfig](interfaces/JsxConfig.md) | - |
-| [ReactFunction](interfaces/ReactFunction.md) | - |
-| [ReactHook](interfaces/ReactHook.md) | - |
-| [SemanticEntry](interfaces/SemanticEntry.md) | - |
+| [SemanticFunc](interfaces/SemanticFunc.md) | - |
 | [SemanticNode](interfaces/SemanticNode.md) | - |
 
 ## Type Aliases
 
 | Type Alias | Description |
 | ------ | ------ |
+| [Component](type-aliases/Component.md) | Union type representing either a class or function component |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
 | [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
 | [ComponentFlag](type-aliases/ComponentFlag.md) | - |
@@ -35,7 +35,6 @@
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
-| [ReactComponent](type-aliases/ReactComponent.md) | Union type representing either a class or function component |
 
 ## Variables
 
@@ -140,6 +139,11 @@
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
+| [isHook](functions/isHook.md) | Determines if a function node is a React Hook based on its name. |
+| [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
+| [isHookCallWithName](functions/isHookCallWithName.md) | Checks if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
+| [isHookId](functions/isHookId.md) | - |
+| [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized or derived from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
 | [isInitializedFromRef](functions/isInitializedFromRef.md) | Checks if the variable with the given name is initialized or derived from a ref |
@@ -151,11 +155,6 @@
 | [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
 | [isReactAPI](functions/isReactAPI.md) | Checks if the node is a React API identifier or member expression |
 | [isReactAPICall](functions/isReactAPICall.md) | Checks if the node is a call expression to a specific React API |
-| [isReactHook](functions/isReactHook.md) | Determines if a function node is a React Hook based on its name. |
-| [isReactHookCall](functions/isReactHookCall.md) | Check if the given node is a React Hook call by its name. |
-| [isReactHookCallWithName](functions/isReactHookCallWithName.md) | Checks if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
-| [isReactHookId](functions/isReactHookId.md) | - |
-| [isReactHookName](functions/isReactHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isRefName](functions/isRefName.md) | Checks if a given name corresponds to a ref name |
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |

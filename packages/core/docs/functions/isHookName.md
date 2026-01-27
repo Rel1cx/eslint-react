@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isReactHookName
+[@eslint-react/core](../README.md) / isHookName
 
-# Function: isReactHookName()
+# Function: isHookName()
 
 ```ts
-function isReactHookName(name: string): boolean;
+function isHookName(name: string): boolean;
 ```
 
 Catch all identifiers that begin with "use" followed by an uppercase Latin
