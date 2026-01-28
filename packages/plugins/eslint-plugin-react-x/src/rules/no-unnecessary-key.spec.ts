@@ -5,31 +5,6 @@ import rule, { RULE_NAME } from "./no-unnecessary-key";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
-    {
-      code: tsx`
-        <div key="static-key"></div>
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    {
-      code: tsx`
-        <>
-          <span key="child-1"></span>
-          <span key="child-2"></span>
-        </>
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
-    },
-    {
-      code: tsx`
-        things.map(thing => {
-          function NestedComponent() {
-            return <span key='foo'><span key='bar' /></span>;
-          }
-        })
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
-    },
     // Invalid:  unnecessary key on a child element in a map
     {
       code: tsx`
@@ -51,15 +26,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
     },
-    // TODO: Add support for array literal
-    // Invalid: unnecessary key on a child element in an array literal
-    // {
-    //   code: tsx`
-    //     const elements = [<div key='1'><p key='child' /></div>]
-    //   `,
-    //   errors: [{ messageId: "noUnnecessaryKey" }],
-    // },
-    // Invalid: unnecessary key within an element returned from a function expression
     {
       code: tsx`
         things.map(function(thing) { return <div key={thing.id}><i key='icon' /></div>; })
@@ -73,27 +39,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
     },
-    // Invalid:  unnecessary key with a static value
-    {
-      code: tsx`
-        <span key="static-key"></span>
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: static key in a simple function component
-    {
-      code: tsx`
-        function SimpleComponent() {
-          return <div key="unnecessary" />;
-        }
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
     // Invalid: deeply nested unnecessary keys
     {
       code: tsx`
         things.map(thing => (
-          <div key={thing. id}>
+          <div key={thing.id}>
             <section>
               <article>
                 <p key="deep-nested">Content</p>
@@ -110,57 +60,6 @@ ruleTester.run(RULE_NAME, rule, {
         things.map(thing => <ul key={thing.id}><li key="item" /></ul>)
       `,
       errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: key with template literal value
-    {
-      code: tsx`
-        <div key={\`static-template\`}></div>
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: key with number literal
-    {
-      code: tsx`
-        <div key={123}></div>
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid:  key on child with sibling elements (not in list context)
-    {
-      code: tsx`
-        function Component() {
-          return (
-            <div>
-              <span key="first" />
-              <span key="second" />
-            </div>
-          );
-        }
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: unnecessary key in flatMap callback
-    {
-      code: tsx`
-        things.flatMap(thing => <div key={thing.id}><span key="child" /></div>)
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
-    },
-    // Invalid: key on wrapper and child in reduce
-    // {
-    //   code: tsx`
-    //     items.reduce((acc, item) => [... acc, <div key={item.id}><p key="inner" /></div>], [])
-    //   `,
-    //   errors: [{ messageId: "noUnnecessaryKey" }],
-    // },
-    // Invalid: unnecessary keys in forEach (not returning elements, but still detected)
-    {
-      code: tsx`
-        function Component() {
-          return <div key="outer"><span key="inner" /></div>;
-        }
-      `,
-      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
     },
     // Invalid: multiple levels of unnecessary keys
     {
@@ -322,9 +221,9 @@ ruleTester.run(RULE_NAME, rule, {
       };
     `,
     // Valid: key on element in reduce accumulator
-    // tsx`
-    //   items.reduce((acc, item) => [...acc, <div key={item.id} />], [])
-    // `,
+    tsx`
+      items.reduce((acc, item) => [...acc, <div key={item.id} />], [])
+    `,
     // Valid: key with spread attribute (should be skipped)
     tsx`
       things.map(thing => <div {... props} key={thing.id} />)
@@ -379,6 +278,16 @@ ruleTester.run(RULE_NAME, rule, {
     // Valid: key on element inside [... array]. map
     tsx`
       [...items].map(item => <div key={item.id} />)
+    `,
+    // https://github.com/Rel1cx/eslint-react/issues/1436
+    tsx`
+      export default function App() {
+        return [getChild()];
+      }
+
+      function getChild() {
+        return <div key="key">foo</div>;
+      }
     `,
   ],
 });
