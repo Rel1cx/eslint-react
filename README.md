@@ -21,8 +21,9 @@
   - [Setup](#setup)
 - [Presets](#presets)
   - [Bare Bones](#bare-bones)
-- [General Purpose](#general-purpose)
-- [TypeScript Specialized](#typescript-specialized)
+  - [General Purpose](#general-purpose)
+  - [TypeScript Specialized](#typescript-specialized)
+  - [Category Based](#category-based)
   - [Other](#other)
 - [Rules](#rules)
 - [Benchmark](#benchmark)
@@ -127,7 +128,7 @@ export default defineConfig(
 - `web-api`\
   Enable rules for interacting with Web APIs.
 
-## General Purpose
+### General Purpose
 
 - `recommended`\
   Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
@@ -136,7 +137,7 @@ export default defineConfig(
 - `strict`\
   Same as the `recommended` preset but enables additional strict rules.
 
-## TypeScript Specialized
+### TypeScript Specialized
 
 - `recommended-typescript`\
   Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
