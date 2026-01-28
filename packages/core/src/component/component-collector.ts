@@ -18,9 +18,9 @@ import { hasNoneOrLooseComponentName } from "./component-name";
 
 const idGen = new IdGenerator("function_component_");
 
-type FunctionEntry = FunctionComponentSemanticNode & {
+interface FunctionEntry extends FunctionComponentSemanticNode {
   isComponentDefinition: boolean;
-};
+}
 
 export declare namespace useComponentCollector {
   type Options = {
