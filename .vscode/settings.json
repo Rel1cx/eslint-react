@@ -15,7 +15,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "never",
     "source.fixAll.eslint": "explicit",
-    "source.formatting": "explicit",
+    "source.formatting": "always",
     "source.organizeImports": "never"
   },
   "eslint.rules.customizations": [

@@ -12,7 +12,6 @@ const idGen = new IdGenerator("hook_");
 type FunctionEntry = {
   key: string;
   node: AST.TSESTreeFunction;
-  isHook: boolean;
 };
 
 export declare namespace useHookCollector {
@@ -39,21 +38,18 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
   const onFunctionEnter = (node: AST.TSESTreeFunction) => {
     const id = AST.getFunctionId(node);
     const key = idGen.next();
-    if (id != null && isHookId(id)) {
-      functionEntries.push({ key, node, isHook: true });
-      hooks.set(key, {
-        id,
-        key,
-        kind: "function",
-        name: AST.toStringFormat(id, getText),
-        node,
-        flag: 0n,
-        hint: 0n,
-        hookCalls: [],
-      });
-      return;
-    }
-    functionEntries.push({ key, node, isHook: false });
+    functionEntries.push({ key, node });
+    if (id == null || !isHookId(id)) return;
+    hooks.set(key, {
+      id,
+      key,
+      kind: "function",
+      name: AST.toStringFormat(id, getText),
+      node,
+      flag: 0n,
+      hint: 0n,
+      hookCalls: [],
+    });
   };
   const onFunctionExit = () => {
     functionEntries.pop();
@@ -70,18 +66,10 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
     CallExpression(node) {
-      if (!isHookCall(node)) {
-        return;
-      }
-      const fEntry = getCurrentEntry();
-      if (fEntry?.key == null) {
-        return;
-      }
-      const hook = hooks.get(fEntry.key);
-      if (hook == null) {
-        return;
-      }
-      hook.hookCalls.push(node);
+      if (!isHookCall(node)) return;
+      const entry = getCurrentEntry();
+      if (entry == null) return;
+      hooks.get(entry.key)?.hookCalls.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { ctx, visitor } as const;
