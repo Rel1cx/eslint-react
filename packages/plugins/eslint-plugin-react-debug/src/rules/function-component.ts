@@ -35,7 +35,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     context,
     {
       collectDisplayName: true,
-      collectHookCalls: true,
       hint: DEFAULT_COMPONENT_DETECTION_HINT,
     },
   );

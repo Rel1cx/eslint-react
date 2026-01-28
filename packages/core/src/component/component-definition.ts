@@ -5,6 +5,7 @@ import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../api";
 import { ComponentDetectionHint } from "./component-detection-hint";
 import { isClassComponent } from "./component-is";
+import { hasNoneOrLooseComponentName } from "./component-name";
 import { isRenderMethodLike } from "./component-render-method";
 
 /**
@@ -107,17 +108,22 @@ export function isComponentDefinition(
   node: AST.TSESTreeFunction,
   hint: bigint,
 ) {
-  // 1. Check immediate contextual exclusions
+  // 1. Check for basic naming conventions
+  if (!hasNoneOrLooseComponentName(context, node)) {
+    return false;
+  }
+
+  // 2. Check immediate contextual exclusions
   if (isChildrenOfCreateElement(context, node) || isRenderMethodCallback(node)) {
     return false;
   }
 
-  // 2. Check explicit hints provided by the caller
+  // 3. Check explicit hints provided by the caller
   if (shouldExcludeBasedOnHint(node, hint)) {
     return false;
   }
 
-  // 3. Check if the function is embedded directly inside JSX (e.g., inline callbacks)
+  // 4. Check if the function is embedded directly inside JSX (e.g., inline callbacks)
   // We look for the closest parent that is significant (Function, Class, or JSXContainer)
   const significantParent = AST.findParentNode(
     node,
