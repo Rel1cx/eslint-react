@@ -1,3 +1,21 @@
+## v2.8.0 (2026-01-29)
+
+### ✨ New
+
+- Function component detection now supports identifying components that don't return a `ReactNode` but call React Hooks by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1438
+  The function in below example will be detected as a function component in relevant rules:
+  ```tsx
+  function App() {
+    useEffect(() => {}, []);
+  }
+  ```
+
+### 🐞 Fixes
+
+- Revert `no-unnecessary-key` to remove constant key checking, closes #1436 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1439
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.7.4...v2.8.0
+
 ## v2.7.4 (2026-01-25)
 
 ### ✨ New
