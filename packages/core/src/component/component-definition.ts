@@ -1,5 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "../api";

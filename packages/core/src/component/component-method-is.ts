@@ -8,14 +8,12 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @param isStatic Whether the method is static
  */
 function createLifecycleChecker(methodName: string, isStatic = false) {
-  return function(node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty {
-    return (
-      AST.isMethodOrProperty(node)
-      && node.static === isStatic
-      && node.key.type === T.Identifier
-      && node.key.name === methodName
-    );
-  };
+  return (node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty => (
+    AST.isMethodOrProperty(node)
+    && node.static === isStatic
+    && node.key.type === T.Identifier
+    && node.key.name === methodName
+  );
 }
 
 // Non-static lifecycle method checkers

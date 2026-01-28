@@ -16,19 +16,21 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     identifiers.push(node);
   }
   if ("arguments" in node) {
-    const chunk = node.arguments.map(getNestedIdentifiers).flat(1);
+    const chunk = node.arguments.flatMap(getNestedIdentifiers);
     identifiers.push(...chunk);
   }
   if ("elements" in node) {
-    const chunk = node.elements.filter((x) => x != null).map(getNestedIdentifiers).flat(1);
+    const chunk = node.elements
+      .filter((x) => x != null)
+      .flatMap(getNestedIdentifiers);
     identifiers.push(...chunk);
   }
   if ("properties" in node) {
-    const chunk = node.properties.map(getNestedIdentifiers).flat(1);
+    const chunk = node.properties.flatMap(getNestedIdentifiers);
     identifiers.push(...chunk);
   }
   if ("expressions" in node) {
-    const chunk = node.expressions.map(getNestedIdentifiers).flat(1);
+    const chunk = node.expressions.flatMap(getNestedIdentifiers);
     identifiers.push(...chunk);
   }
   if ("left" in node) {
@@ -108,16 +110,14 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
 // dprint-ignore
 export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
   const isNodeOfType = is(type);
-  return function(node) {
+  return (node) => {
     const boundGetNestedExpressionsOfType = getNestedExpressionsOfType(type);
     const expressions: Extract<TSESTree.Node, { type: TNodeType }>[] = [];
     if (isNodeOfType(node)) {
       expressions.push(node);
     }
     if ("arguments" in node) {
-      const chunk = node.arguments
-        .map(getNestedExpressionsOfType(type))
-        .flat(1);
+      const chunk = node.arguments.flatMap(getNestedExpressionsOfType(type));
       expressions.push(...chunk);
     }
     if (
@@ -142,33 +142,28 @@ export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType)
     }
     if ("consequent" in node) {
       const chunk = Array.isArray(node.consequent)
-        ? node.consequent.map(boundGetNestedExpressionsOfType).flat(1)
+        ? node.consequent.flatMap(boundGetNestedExpressionsOfType)
         : boundGetNestedExpressionsOfType(node.consequent);
       expressions.push(...chunk);
     }
     if ("alternate" in node && node.alternate != null) {
       const chunk = Array.isArray(node.alternate)
-        ? node.alternate.map(boundGetNestedExpressionsOfType).flat(1)
+        ? node.alternate.flatMap(boundGetNestedExpressionsOfType)
         : boundGetNestedExpressionsOfType(node.alternate);
       expressions.push(...chunk);
     }
     if ("elements" in node) {
       const chunk = node.elements
         .filter((x) => x != null)
-        .map(getNestedExpressionsOfType(type))
-        .flat(1);
+        .flatMap(getNestedExpressionsOfType(type));
       expressions.push(...chunk);
     }
     if ("properties" in node) {
-      const chunk = node.properties
-        .map(boundGetNestedExpressionsOfType)
-        .flat(1);
+      const chunk = node.properties.flatMap(boundGetNestedExpressionsOfType);
       expressions.push(...chunk);
     }
     if ("expressions" in node) {
-      const chunk = node.expressions
-        .map(boundGetNestedExpressionsOfType)
-        .flat(1);
+      const chunk = node.expressions.flatMap(boundGetNestedExpressionsOfType);
       expressions.push(...chunk);
     }
     if (node.type === T.Property) {
@@ -212,11 +207,15 @@ export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType)
  * @param node The node to get the nested new expressions from
  * @returns All nested new expressions
  */
-export const getNestedNewExpressions = getNestedExpressionsOfType(T.NewExpression);
+export const getNestedNewExpressions = getNestedExpressionsOfType(
+  T.NewExpression,
+);
 
 /**
  * Get all nested call expressions in a expression like node
  * @param node The node to get the nested call expressions from
  * @returns All nested call expressions
  */
-export const getNestedCallExpressions = getNestedExpressionsOfType(T.CallExpression);
+export const getNestedCallExpressions = getNestedExpressionsOfType(
+  T.CallExpression,
+);
