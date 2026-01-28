@@ -88,8 +88,8 @@ importers:
         specifier: ^1.9.2
         version: 1.9.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-function-rule:
-        specifier: ^0.3.0
-        version: 0.3.0(eslint@9.39.2(jiti@2.6.1))
+        specifier: ^0.3.1
+        version: 0.3.1(eslint@9.39.2(jiti@2.6.1))
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
@@ -163,11 +163,11 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-function:
-        specifier: ^0.3.0
-        version: 0.3.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^0.3.1
+        version: 0.3.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-function-rule:
-        specifier: ^0.3.0
-        version: 0.3.0(eslint@9.39.2(jiti@2.6.1))
+        specifier: ^0.3.1
+        version: 0.3.1(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-jsdoc:
         specifier: ^62.4.1
         version: 62.4.1(eslint@9.39.2(jiti@2.6.1))
@@ -199,8 +199,8 @@ importers:
   .pkgs/function-rules:
     dependencies:
       eslint-plugin-function-rule:
-        specifier: ^0.3.0
-        version: 0.3.0(eslint@9.39.2(jiti@2.6.1))
+        specifier: ^0.3.1
+        version: 0.3.1(eslint@9.39.2(jiti@2.6.1))
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -4698,14 +4698,14 @@ packages:
     peerDependencies:
       eslint: ^9.39.2
 
-  eslint-plugin-function-rule@0.3.0:
-    resolution: {integrity: sha512-h4dg/uRkE5IAPx7sOXjTJevyHSC2+7iZHh4Qz87qY1l4iyiDlAr8vr8DglXzn3pgcm+z/IZjzcGi3wGGw5iaaQ==}
+  eslint-plugin-function-rule@0.3.1:
+    resolution: {integrity: sha512-TTOM1emIfgkAh+Vkg7cgEbz++CBadkwDqouT76fEc4C6Qu+LN1ICn5Mrp0ZTk/bjB3cN5jDuhh9Ycora336G8g==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       eslint: ^9.39.2
 
-  eslint-plugin-function@0.3.0:
-    resolution: {integrity: sha512-zsd0Wm5+iJnphiPWAumBUzSX7ZrZz303Yx5gM33LSrytwT0H+eZ4i80lyJWturm1SmVuxex+huXANLmjjh5VIA==}
+  eslint-plugin-function@0.3.1:
+    resolution: {integrity: sha512-YJYsKpwBJGfpaNooEUPyOXqjunMFnujl/pwdGs9Y//jIUiTbjVq4EgqEKzjklrQX0aonfTJBBWPu8Eub1wyFpA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       eslint: ^9.39.2
@@ -10465,11 +10465,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-function-rule@0.3.0(eslint@9.39.2(jiti@2.6.1)):
+  eslint-plugin-function-rule@0.3.1(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
 
-  eslint-plugin-function@0.3.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
+  eslint-plugin-function@0.3.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
       '@eslint-react/ast': 2.7.4(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@eslint-react/shared': 2.7.4(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)

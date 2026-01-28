@@ -72,7 +72,7 @@
     "effect": "^3.19.15",
     "eslint": "^9.39.2",
     "eslint-plugin-fast-import": "^1.9.2",
-    "eslint-plugin-function-rule": "^0.3.0",
+    "eslint-plugin-function-rule": "^0.3.1",
     "mdxlint": "^1.0.0",
     "publint": "^0.3.17",
     "react": "^19.2.4",
