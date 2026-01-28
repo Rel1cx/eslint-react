@@ -28,11 +28,8 @@
 | Type Alias | Description |
 | ------ | ------ |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
-| [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
 | [ComponentFlag](type-aliases/ComponentFlag.md) | - |
 | [ComponentKind](type-aliases/ComponentKind.md) | Represents the kind of a React component |
-| [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md) | - |
-| [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md) | - |
 | [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
@@ -45,7 +42,6 @@
 | ------ | ------ |
 | [ComponentDetectionHint](variables/ComponentDetectionHint.md) | Hints for component collector |
 | [ComponentFlag](variables/ComponentFlag.md) | Component flag constants |
-| [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md) | - |
 | [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
 | [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration Skips undefined and boolean literals (common in React) |
 | [isCaptureOwnerStack](variables/isCaptureOwnerStack.md) | - |
@@ -83,7 +79,6 @@
 | [isGetDerivedStateFromProps](variables/isGetDerivedStateFromProps.md) | - |
 | [isGetInitialState](variables/isGetInitialState.md) | - |
 | [isGetSnapshotBeforeUpdate](variables/isGetSnapshotBeforeUpdate.md) | - |
-| [isInversePhase](variables/isInversePhase.md) | - |
 | [isLazy](variables/isLazy.md) | - |
 | [isLazyCall](variables/isLazyCall.md) | - |
 | [isMemo](variables/isMemo.md) | - |
@@ -129,7 +124,6 @@
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
 | [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
 | [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
-| [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md) | - |
 | [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md) | Check if the function has no name or a loose component name |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |

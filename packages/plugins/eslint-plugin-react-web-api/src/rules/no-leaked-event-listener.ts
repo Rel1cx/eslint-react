@@ -1,11 +1,5 @@
 import * as AST from "@eslint-react/ast";
-import {
-  type ComponentPhaseKind,
-  ComponentPhaseRelevance,
-  getPhaseKindOfFunction,
-  isInitializedFromReactNative,
-  isInversePhase,
-} from "@eslint-react/core";
+import { isInitializedFromReactNative } from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
@@ -16,7 +10,13 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
-import type { EventListenerEntry } from "../types";
+import {
+  type ComponentPhaseKind,
+  ComponentPhaseRelevance,
+  type EventListenerEntry,
+  getPhaseKindOfFunction,
+  isInversePhase,
+} from "../types";
 import { createRule } from "../utils";
 
 // #region Rule Metadata

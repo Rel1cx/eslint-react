@@ -1,10 +1,22 @@
 import type * as AST from "@eslint-react/ast";
+import {
+  isComponentDidMountCallback,
+  isComponentWillUnmountCallback,
+  isUseEffectCleanupCallback,
+  isUseEffectSetupCallback,
+} from "@eslint-react/core";
 import { dual } from "@eslint-react/eff";
+import birecord from "birecord";
 import { match } from "ts-pattern";
 
-import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "../hook/hook-callback";
-import { isComponentDidMountCallback, isComponentWillUnmountCallback } from "./component-method-callback";
-import { type ComponentPhaseKind, ComponentPhaseRelevance } from "./component-phase";
+export type ComponentEffectPhaseKind = "cleanup" | "setup";
+export type ComponentLifecyclePhaseKind = "mount" | "unmount";
+export type ComponentPhaseKind = ComponentEffectPhaseKind | ComponentLifecyclePhaseKind;
+
+export const ComponentPhaseRelevance = birecord({
+  mount: "unmount",
+  setup: "cleanup",
+});
 
 export const isInversePhase: {
   (a: ComponentPhaseKind): (b: ComponentPhaseKind) => boolean;

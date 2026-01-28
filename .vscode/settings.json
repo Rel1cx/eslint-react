@@ -9,7 +9,7 @@
     "editor.defaultFormatter": "dprint.dprint"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "dprint.dprint"
   },
   "dprint.path": "node_modules/.bin/dprint",
   "editor.codeActionsOnSave": {

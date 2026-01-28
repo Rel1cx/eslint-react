@@ -10,8 +10,6 @@ export type * from "./component-kind";
 export * from "./component-method-callback";
 export * from "./component-method-is";
 export * from "./component-name";
-export * from "./component-phase";
-export * from "./component-phase-helpers";
 export * from "./component-render-method";
 export * from "./component-render-prop";
 export type * from "./component-semantic-node";

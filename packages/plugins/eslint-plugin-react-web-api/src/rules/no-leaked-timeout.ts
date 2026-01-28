@@ -1,5 +1,4 @@
 import type * as AST from "@eslint-react/ast";
-import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -7,7 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching } from "ts-pattern";
 
-import type { TimerEntry } from "../types";
+import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "../types";
 import { createRule } from "../utils";
 
 // #region Rule Metadata

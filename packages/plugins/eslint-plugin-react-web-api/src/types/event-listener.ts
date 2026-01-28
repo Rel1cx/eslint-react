@@ -1,6 +1,7 @@
-import type { ComponentPhaseKind } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
+
+import type { ComponentPhaseKind } from "./component-phase";
 
 export type EventListenerEntry =
   | {

@@ -652,9 +652,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      birecord:
-        specifier: ^0.1.1
-        version: 0.1.1
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
@@ -973,6 +970,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      birecord:
+        specifier: ^0.1.1
+        version: 0.1.1
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)

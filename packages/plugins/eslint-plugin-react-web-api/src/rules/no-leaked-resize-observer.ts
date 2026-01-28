@@ -1,5 +1,4 @@
 import * as AST from "@eslint-react/ast";
-import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
@@ -14,7 +13,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
-import type { ObserverEntry } from "../types";
+import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "../types";
 import { createRule } from "../utils";
 
 // #region Rule Metadata
