@@ -8,6 +8,25 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        function App() {
+            useEffect(() => {});
+        }
+      `,
+      errors: [{
+        messageId: "functionComponent",
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 1,
+            memo: false,
+          }),
+        },
+      }],
+    },
+    {
+      code: tsx`
         function App({ foo }) {
             return <div>foo</div>
         }

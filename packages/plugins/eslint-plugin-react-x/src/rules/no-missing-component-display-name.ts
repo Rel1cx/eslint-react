@@ -34,7 +34,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const { ctx, visitor } = useComponentCollector(context, {
     collectDisplayName: true,
-    collectHookCalls: false,
     hint: DEFAULT_COMPONENT_DETECTION_HINT,
   });
 

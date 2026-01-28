@@ -14,7 +14,6 @@ import { isComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
-import { hasNoneOrLooseComponentName } from "./component-name";
 
 const idGen = new IdGenerator("function_component_");
 
@@ -25,7 +24,6 @@ interface FunctionEntry extends FunctionComponentSemanticNode {
 export declare namespace useComponentCollector {
   type Options = {
     collectDisplayName?: boolean;
-    collectHookCalls?: boolean;
     hint?: ComponentDetectionHint;
   };
   type ReturnType = {
@@ -50,7 +48,6 @@ export function useComponentCollector(
 ): useComponentCollector.ReturnType {
   const {
     collectDisplayName = false,
-    collectHookCalls = false,
     hint = DEFAULT_COMPONENT_DETECTION_HINT,
   } = options;
 
@@ -78,7 +75,7 @@ export function useComponentCollector(
       hint,
       hookCalls: [],
       initPath,
-      isComponentDefinition: hasNoneOrLooseComponentName(context, node) && isComponentDefinition(context, node, hint),
+      isComponentDefinition: isComponentDefinition(context, node, hint),
       isExportDefault,
       isExportDefaultDeclaration,
       rets: [],
@@ -126,16 +123,14 @@ export function useComponentCollector(
         },
       }
       : {},
-    ...collectHookCalls
-      ? {
-        "CallExpression:exit"(node: TSESTree.CallExpression) {
-          if (!isHookCall(node)) return;
-          const entry = getCurrentEntry();
-          if (entry == null) return;
-          entry.hookCalls.push(node);
-        },
-      }
-      : {},
+    CallExpression(node: TSESTree.CallExpression) {
+      if (!isHookCall(node)) return;
+      const entry = getCurrentEntry();
+      if (entry == null) return;
+      entry.hookCalls.push(node);
+      if (!entry.isComponentDefinition) return;
+      components.set(entry.key, entry);
+    },
     ReturnStatement(node: TSESTree.ReturnStatement) {
       const entry = getCurrentEntry();
       if (entry == null) return;
