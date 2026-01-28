@@ -12,6 +12,8 @@ ComponentFlag: {
 };
 ```
 
+Component flag constants
+
 ## Type Declaration
 
 | Name | Type | Default value | Description |

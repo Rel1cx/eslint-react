@@ -7,3 +7,5 @@ type FunctionSemanticNode =
   | ClientFunctionSemanticNode
   | ServerFunctionSemanticNode;
 ```
+
+Represents a React Function

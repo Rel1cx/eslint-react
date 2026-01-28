@@ -1,6 +1,9 @@
 /* eslint-disable perfectionist/sort-objects */
 export type ComponentFlag = bigint;
 
+/**
+ * Component flag constants
+ */
 export const ComponentFlag = {
   /** No flags set */
   None: 0n,

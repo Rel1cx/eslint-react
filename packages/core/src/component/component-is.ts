@@ -24,7 +24,7 @@ export function isClassComponent(node: TSESTree.Node): node is AST.TSESTreeClass
 /**
  * Check if a node is a React PureComponent
  * @param node The AST node to check
- * @returns `true` if the node is a pure component, `false` otherwise
+ * @returns `true` if the node is a PureComponent, `false` otherwise
  */
 export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass != null) {

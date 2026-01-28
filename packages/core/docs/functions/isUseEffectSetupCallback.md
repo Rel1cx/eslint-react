@@ -6,7 +6,7 @@
 function isUseEffectSetupCallback(node: Node | undefined): boolean;
 ```
 
-Determines if a node is the setup function passed to a useEffect-like hook
+Determine if a node is the setup function passed to a useEffect-like hook
 
 ## Parameters
 

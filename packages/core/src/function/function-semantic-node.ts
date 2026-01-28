@@ -1,7 +1,7 @@
 import type { SemanticFunc } from "../semantic";
 
 /**
- * Represents a React function
+ * Represents a React Client Function
  */
 export interface ClientFunctionSemanticNode extends SemanticFunc {
   /**
@@ -10,6 +10,9 @@ export interface ClientFunctionSemanticNode extends SemanticFunc {
   kind: "client-function";
 }
 
+/**
+ * Represents a React Server Function
+ */
 export interface ServerFunctionSemanticNode extends SemanticFunc {
   /**
    * The kind of function
@@ -17,4 +20,7 @@ export interface ServerFunctionSemanticNode extends SemanticFunc {
   kind: "server-function";
 }
 
+/**
+ * Represents a React Function
+ */
 export type FunctionSemanticNode = ClientFunctionSemanticNode | ServerFunctionSemanticNode;

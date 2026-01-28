@@ -8,4 +8,4 @@ type ComponentSemanticNode =
   | FunctionComponentSemanticNode;
 ```
 
-Union type representing either a class or function component
+Represents a React Component

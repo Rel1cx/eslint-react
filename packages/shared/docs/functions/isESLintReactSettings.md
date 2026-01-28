@@ -6,7 +6,7 @@
 function isESLintReactSettings(settings: unknown): settings is { additionalStateHooks?: string; importSource?: string; polymorphicPropName?: string; version?: string };
 ```
 
-Checks if the provided settings conform to ESLintReactSettings schema
+Check if the provided settings conform to ESLintReactSettings schema
 
 ## Parameters
 

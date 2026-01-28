@@ -4,9 +4,9 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { isComponentDidMount, isComponentWillUnmount } from "./component-method-is";
 
 /**
- * Checks if the node is a function of `componentDidMount`
- * @param node The AST node to check
- * @returns `true` if the node is a function of `componentDidMount`
+ * Check if the given node is a componentDidMount callback
+ * @param node The node to check
+ * @returns True if the node is a componentDidMount callback, false otherwise
  */
 export function isComponentDidMountCallback(node: TSESTree.Node) {
   return AST.isFunction(node)
@@ -15,9 +15,9 @@ export function isComponentDidMountCallback(node: TSESTree.Node) {
 }
 
 /**
- * Checks if the node is a function of `componentWillUnmount`
- * @param node The AST node to check
- * @returns `true` if the node is a function of `componentWillUnmount`
+ * Check if the given node is a componentWillUnmount callback
+ * @param node The node to check
+ * @returns True if the node is a componentWillUnmount callback, false otherwise
  */
 export function isComponentWillUnmountCallback(node: TSESTree.Node) {
   return AST.isFunction(node)

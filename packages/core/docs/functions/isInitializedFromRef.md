@@ -6,7 +6,7 @@
 function isInitializedFromRef(name: string, initialScope: Scope): boolean;
 ```
 
-Checks if the variable with the given name is initialized or derived from a ref
+Check if the variable with the given name is initialized or derived from a ref
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 function useHookCollector(context: RuleContext): ReturnType;
 ```
 
-Get a ctx and visitor for the rule to collect hooks
+Get a ctx and visitor object for the rule to collect hooks
 
 ## Parameters
 

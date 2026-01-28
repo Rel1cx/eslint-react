@@ -14,7 +14,7 @@ export declare namespace isReactAPI {
 }
 
 /**
- * Checks if the node is a React API identifier or member expression
+ * Check if the node is a React API identifier or member expression
  * @param api The React API name to check against (e.g., "useState", "React.memo")
  * @returns A predicate function to check if a node matches the API
  */
@@ -41,7 +41,7 @@ export declare namespace isReactAPICall {
 }
 
 /**
- * Checks if the node is a call expression to a specific React API
+ * Check if the node is a call expression to a specific React API
  * @param api The React API name to check against
  * @returns A predicate function to check if a node is a call to the API
  */

@@ -6,7 +6,7 @@ import { isUseRefCall } from "../hook";
 import { isRefName } from "./ref-name";
 
 /**
- * Checks if the variable with the given name is initialized or derived from a ref
+ * Check if the variable with the given name is initialized or derived from a ref
  * @param name The variable name
  * @param initialScope The initial scope
  * @returns True if the variable is derived from a ref, false otherwise

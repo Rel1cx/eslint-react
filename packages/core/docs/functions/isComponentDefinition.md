@@ -9,7 +9,7 @@ function isComponentDefinition(
    hint: bigint): boolean;
 ```
 
-Determines if a function node represents a valid React component definition
+Determine if a function node represents a valid React component definition
 
 ## Parameters
 

@@ -11,7 +11,7 @@ function isJsxLike(
    hint: bigint): boolean;
 ```
 
-Determines if a node represents JSX-like content based on heuristics
+Determine if a node represents JSX-like content based on heuristics
 Supports configuration through hint flags to customize detection behavior
 
 ## Parameters

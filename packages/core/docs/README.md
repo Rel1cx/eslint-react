@@ -14,14 +14,14 @@
 
 | Interface | Description |
 | ------ | ------ |
-| [ClassComponentSemanticNode](interfaces/ClassComponentSemanticNode.md) | Represents a React class component |
-| [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React function |
-| [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React function component |
+| [ClassComponentSemanticNode](interfaces/ClassComponentSemanticNode.md) | Represents a React Class Component |
+| [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React Client Function |
+| [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
 | [HookSemanticNode](interfaces/HookSemanticNode.md) | - |
 | [JsxConfig](interfaces/JsxConfig.md) | - |
 | [SemanticFunc](interfaces/SemanticFunc.md) | - |
 | [SemanticNode](interfaces/SemanticNode.md) | - |
-| [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | - |
+| [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a React Server Function |
 
 ## Type Aliases
 
@@ -30,12 +30,12 @@
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
 | [ComponentEffectPhaseKind](type-aliases/ComponentEffectPhaseKind.md) | - |
 | [ComponentFlag](type-aliases/ComponentFlag.md) | - |
-| [ComponentKind](type-aliases/ComponentKind.md) | - |
+| [ComponentKind](type-aliases/ComponentKind.md) | Represents the kind of a React component |
 | [ComponentLifecyclePhaseKind](type-aliases/ComponentLifecyclePhaseKind.md) | - |
 | [ComponentPhaseKind](type-aliases/ComponentPhaseKind.md) | - |
-| [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Union type representing either a class or function component |
+| [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
-| [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | - |
+| [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
 
@@ -44,7 +44,7 @@
 | Variable | Description |
 | ------ | ------ |
 | [ComponentDetectionHint](variables/ComponentDetectionHint.md) | Hints for component collector |
-| [ComponentFlag](variables/ComponentFlag.md) | - |
+| [ComponentFlag](variables/ComponentFlag.md) | Component flag constants |
 | [ComponentPhaseRelevance](variables/ComponentPhaseRelevance.md) | - |
 | [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
 | [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration Skips undefined and boolean literals (common in React) |
@@ -122,8 +122,8 @@
 | ------ | ------ |
 | [findEnclosingComponentOrHook](functions/findEnclosingComponentOrHook.md) | Find the enclosing React component or hook for a given AST node |
 | [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
-| [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | - |
-| [getFunctionComponentId](functions/getFunctionComponentId.md) | - |
+| [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
+| [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
 | [getJsxAttribute](functions/getJsxAttribute.md) | Creates a helper function to find a specific JSX attribute by name Handles direct attributes and spread attributes (variables or object literals) |
 | [getJsxAttributeName](functions/getJsxAttributeName.md) | Get the stringified name of a JSX attribute |
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
@@ -132,42 +132,42 @@
 | [getPhaseKindOfFunction](functions/getPhaseKindOfFunction.md) | - |
 | [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md) | Check if the function has no name or a loose component name |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
-| [isComponentDefinition](functions/isComponentDefinition.md) | Determines if a function node represents a valid React component definition |
-| [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Checks if the node is a function of `componentDidMount` |
+| [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
+| [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |
 | [isComponentName](functions/isComponentName.md) | Check if a string matches the strict component name pattern |
 | [isComponentNameLoose](functions/isComponentNameLoose.md) | Check if a string matches the loose component name pattern |
-| [isComponentWillUnmountCallback](functions/isComponentWillUnmountCallback.md) | Checks if the node is a function of `componentWillUnmount` |
+| [isComponentWillUnmountCallback](functions/isComponentWillUnmountCallback.md) | Check if the given node is a componentWillUnmount callback |
 | [isComponentWrapperCall](functions/isComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
 | [isComponentWrapperCallback](functions/isComponentWrapperCallback.md) | Check if the node is a callback function passed to a component wrapper |
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
-| [isHook](functions/isHook.md) | Determines if a function node is a React Hook based on its name. |
+| [isHook](functions/isHook.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
-| [isHookCallWithName](functions/isHookCallWithName.md) | Checks if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
+| [isHookCallWithName](functions/isHookCallWithName.md) | Check if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
 | [isHookId](functions/isHookId.md) | - |
 | [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
-| [isInitializedFromReact](functions/isInitializedFromReact.md) | Checks if a variable is initialized or derived from React import |
-| [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | Checks if a variable is initialized from React Native import |
-| [isInitializedFromRef](functions/isInitializedFromRef.md) | Checks if the variable with the given name is initialized or derived from a ref |
-| [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Checks if a given AST node is inside a React component or hook |
-| [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determines if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
-| [isJsxHostElement](functions/isJsxHostElement.md) | Determines if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
-| [isJsxLike](functions/isJsxLike.md) | Determines if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
-| [isJsxText](functions/isJsxText.md) | Checks if a node is a `JSXText` or a `Literal` node |
+| [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
+| [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
+| [isInitializedFromRef](functions/isInitializedFromRef.md) | Check if the variable with the given name is initialized or derived from a ref |
+| [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Check if a given AST node is inside a React component or hook |
+| [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determine if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
+| [isJsxHostElement](functions/isJsxHostElement.md) | Determine if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
+| [isJsxLike](functions/isJsxLike.md) | Determine if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
+| [isJsxText](functions/isJsxText.md) | Check if a node is a `JSXText` or a `Literal` node |
 | [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
-| [isReactAPI](functions/isReactAPI.md) | Checks if the node is a React API identifier or member expression |
-| [isReactAPICall](functions/isReactAPICall.md) | Checks if the node is a call expression to a specific React API |
-| [isRefName](functions/isRefName.md) | Checks if a given name corresponds to a ref name |
+| [isReactAPI](functions/isReactAPI.md) | Check if the node is a React API identifier or member expression |
+| [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |
+| [isRefName](functions/isRefName.md) | Check if a given name corresponds to a ref name |
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
-| [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determines if a node is the cleanup function returned by a useEffect-like hook's setup function. |
-| [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern. |
-| [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determines if a node is the setup function passed to a useEffect-like hook |
-| [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detects useState calls and variations (useCustomState, etc.) using regex pattern. |
-| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolves the static value of a JSX attribute or spread attribute |
+| [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determine if a node is the cleanup function returned by a useEffect-like hook's setup function. |
+| [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern |
+| [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determine if a node is the setup function passed to a useEffect-like hook |
+| [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detect useState calls and variations (useCustomState, etc.) using a regex pattern |
+| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolve the static value of a JSX attribute or spread attribute |
 | [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
-| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitor for the rule to collect function components |
-| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitor object for the rule to collect class components |
-| [useHookCollector](functions/useHookCollector.md) | Get a ctx and visitor for the rule to collect hooks |
+| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitor object for the rule to collect function components |
+| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitor object for the rule to collect class componentss |
+| [useHookCollector](functions/useHookCollector.md) | Get a ctx and visitor object for the rule to collect hooks |

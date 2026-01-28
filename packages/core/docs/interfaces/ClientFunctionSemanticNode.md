@@ -2,7 +2,7 @@
 
 # Interface: ClientFunctionSemanticNode
 
-Represents a React function
+Represents a React Client Function
 
 ## Extends
 

@@ -7,7 +7,7 @@ import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { ComponentFlag } from "./component-flag";
 
 /**
- * Represents a React function component
+ * Represents a React Function Component
  */
 export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
@@ -73,7 +73,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
 }
 
 /**
- * Represents a React class component
+ * Represents a React Class Component
  */
 export interface ClassComponentSemanticNode extends SemanticNode {
   /**
@@ -117,6 +117,6 @@ export interface ClassComponentSemanticNode extends SemanticNode {
 }
 
 /**
- * Union type representing either a class or function component
+ * Represents a React Component
  */
 export type ComponentSemanticNode = ClassComponentSemanticNode | FunctionComponentSemanticNode;

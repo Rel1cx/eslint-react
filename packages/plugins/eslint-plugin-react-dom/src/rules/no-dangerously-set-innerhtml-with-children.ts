@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 const DSIH = "dangerouslySetInnerHTML";
 
 /**
- * Checks if a JSX child node is considered significant (i.e., not just whitespace for formatting)
+ * Check if a JSX child node is considered significant (i.e., not just whitespace for formatting)
  * @param node The JSX child node to check
  * @returns `true` if the node is significant, `false` otherwise
  */

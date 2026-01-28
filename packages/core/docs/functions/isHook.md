@@ -6,7 +6,7 @@
 function isHook(node: TSESTreeFunction | undefined): boolean;
 ```
 
-Determines if a function node is a React Hook based on its name.
+Determine if a function node is a React Hook based on its name.
 
 ## Parameters
 

@@ -6,12 +6,16 @@
 function getComponentFlagFromInitPath(initPath: FunctionInitPath | undefined): bigint;
 ```
 
+Get component flag from init path
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `initPath` | `FunctionInitPath` \| `undefined` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `initPath` | `FunctionInitPath` \| `undefined` | The init path of the function component |
 
 ## Returns
 
 `bigint`
+
+The component flag

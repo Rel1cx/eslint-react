@@ -6,7 +6,7 @@
 function isESLintSettings(settings: unknown): settings is { react-x?: unknown } | undefined;
 ```
 
-Checks if the provided settings conform to ESLintSettings schema
+Check if the provided settings conform to ESLintSettings schema
 
 ## Parameters
 

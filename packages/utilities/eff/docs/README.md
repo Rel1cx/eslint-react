@@ -34,7 +34,7 @@
 | [identity](functions/identity.md) | Returns its argument. |
 | [isArray](functions/isArray.md) | A function that checks if the passed parameter is an Array and narrows its type accordingly. |
 | [isFunction](functions/isFunction.md) | Tests if a value is a `function`. |
-| [isObject](functions/isObject.md) | Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`. |
+| [isObject](functions/isObject.md) | Check if the given parameter is of type `"object"` via `typeof`, excluding `null`. |
 | [isTruthy](functions/isTruthy.md) | A function that checks if the passed parameter is truthy and narrows its type accordingly. |
 | [not](functions/not.md) | A function that takes a guard function as predicate and returns a guard that negates it. |
 | [or](functions/or.md) | A function that takes two guard functions as predicates and returns a guard that checks if either of them is true. |

@@ -72,9 +72,9 @@
 | [getConfigAdapters](functions/getConfigAdapters.md) | - |
 | [getReactVersion](functions/getReactVersion.md) | - |
 | [getSettingsFromContext](functions/getSettingsFromContext.md) | Retrieves normalized ESLint React settings from the rule context Uses caching for performance optimization |
-| [isESLintReactSettings](functions/isESLintReactSettings.md) | Checks if the provided settings conform to ESLintReactSettings schema |
-| [isESLintSettings](functions/isESLintSettings.md) | Checks if the provided settings conform to ESLintSettings schema |
-| [isRegExp](functions/isRegExp.md) | Checks whether given string is regexp string |
+| [isESLintReactSettings](functions/isESLintReactSettings.md) | Check if the provided settings conform to ESLintReactSettings schema |
+| [isESLintSettings](functions/isESLintSettings.md) | Check if the provided settings conform to ESLintSettings schema |
+| [isRegExp](functions/isRegExp.md) | Check whether given string is regexp string |
 | [normalizeSettings](functions/normalizeSettings.md) | Normalizes ESLint React settings to a consistent internal format Transforms component definitions and resolves version information |
 | [report](functions/report.md) | - |
 | [toRegExp](functions/toRegExp.md) | Convert a string to the `RegExp`. Normal strings (e.g., `"foo"`) is converted to `/^foo$/` of `RegExp`. Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`. |

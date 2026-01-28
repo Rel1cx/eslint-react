@@ -6,7 +6,7 @@
 function isHookCallWithName(node: Node | undefined): (name: string) => boolean;
 ```
 
-Checks if a node is a call to a specific React hook.
+Check if a node is a call to a specific React hook.
 Returns a function that accepts a hook name to check against.
 
 ## Parameters

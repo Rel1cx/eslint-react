@@ -24,7 +24,7 @@ export function toRegExp(string: string | unit): RegExpLike {
 }
 
 /**
- * Checks whether given string is regexp string
+ * Check whether given string is regexp string
  * @param string The string to check
  * @returns boolean
  */

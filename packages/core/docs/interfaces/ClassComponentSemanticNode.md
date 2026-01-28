@@ -2,7 +2,7 @@
 
 # Interface: ClassComponentSemanticNode
 
-Represents a React class component
+Represents a React Class Component
 
 ## Extends
 

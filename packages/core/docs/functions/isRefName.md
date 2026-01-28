@@ -6,7 +6,7 @@
 function isRefName(name: string): boolean;
 ```
 
-Checks if a given name corresponds to a ref name
+Check if a given name corresponds to a ref name
 
 ## Parameters
 

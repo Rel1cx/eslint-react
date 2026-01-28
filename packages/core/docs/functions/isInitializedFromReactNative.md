@@ -9,7 +9,7 @@ function isInitializedFromReactNative(
    importSource: string): boolean;
 ```
 
-Checks if a variable is initialized from React Native import
+if a variable is initialized from React Native import
 
 ## Parameters
 

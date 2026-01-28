@@ -5,3 +5,5 @@
 ```ts
 type ComponentKind = "classComponent" | "functionComponent";
 ```
+
+Represents the kind of a React component

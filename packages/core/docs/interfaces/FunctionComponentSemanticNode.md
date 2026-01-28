@@ -2,7 +2,7 @@
 
 # Interface: FunctionComponentSemanticNode
 
-Represents a React function component
+Represents a React Function Component
 
 ## Extends
 

@@ -6,7 +6,7 @@
 function isJsxText(node: Node | null | undefined): node is JSXText | Literal;
 ```
 
-Checks if a node is a `JSXText` or a `Literal` node
+Check if a node is a `JSXText` or a `Literal` node
 
 ## Parameters
 

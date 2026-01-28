@@ -6,7 +6,7 @@
 function isJsxHostElement(context: RuleContext, node: Node): boolean;
 ```
 
-Determines if a JSX element is a host element
+Determine if a JSX element is a host element
 Host elements in React start with lowercase letters (e.g., div, span)
 
 ## Parameters

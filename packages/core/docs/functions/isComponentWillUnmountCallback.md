@@ -6,16 +6,16 @@
 function isComponentWillUnmountCallback(node: Node): boolean;
 ```
 
-Checks if the node is a function of `componentWillUnmount`
+Check if the given node is a componentWillUnmount callback
 
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` | The AST node to check |
+| `node` | `Node` | The node to check |
 
 ## Returns
 
 `boolean`
 
-`true` if the node is a function of `componentWillUnmount`
+True if the node is a componentWillUnmount callback, false otherwise

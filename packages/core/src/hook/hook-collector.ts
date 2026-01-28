@@ -27,7 +27,7 @@ export declare namespace useHookCollector {
 }
 
 /**
- * Get a ctx and visitor for the rule to collect hooks
+ * Get a ctx and visitor object for the rule to collect hooks
  * @param context The ESLint rule context
  * @returns The ctx and visitor of the collector
  */

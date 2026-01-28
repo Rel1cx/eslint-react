@@ -17,7 +17,7 @@ export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
 export type RuleSuggestMessageID = "addRelNoreferrerNoopener";
 
 /**
- * Checks if a value appears to be an external link.
+ * Check if a value appears to be an external link.
  * External links typically start with http(s):// or have protocol-relative format.
  * @param value The value to check
  * @returns Whether the value represents an external link
@@ -29,7 +29,7 @@ function isExternalLinkLike(value: unknown): boolean {
 }
 
 /**
- * Checks if a rel prop value contains the necessary security attributes.
+ * Check if a rel prop value contains the necessary security attributes.
  * At minimum, it should contain "noreferrer".
  * @param value The rel prop value to check
  * @returns Whether the rel value is considered secure

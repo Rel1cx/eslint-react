@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { isUseEffectLikeCall } from "./hook-is";
 
 /**
- * Determines if a node is the setup function passed to a useEffect-like hook
+ * Determine if a node is the setup function passed to a useEffect-like hook
  * @param node The AST node to check
  */
 export function isUseEffectSetupCallback(node: TSESTree.Node | unit) {
@@ -18,7 +18,7 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | unit) {
 }
 
 /**
- * Determines if a node is the cleanup function returned by a useEffect-like hook's setup function.
+ * Determine if a node is the cleanup function returned by a useEffect-like hook's setup function.
  * @param node The AST node to check
  */
 export function isUseEffectCleanupCallback(node: TSESTree.Node | unit) {

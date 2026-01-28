@@ -9,7 +9,7 @@ function isJsxFragmentElement(
    jsxConfig?: Pick<JsxConfig, "jsxFragmentFactory">): boolean;
 ```
 
-Determines if a JSX element is a React Fragment
+Determine if a JSX element is a React Fragment
 Fragments can be imported from React and used like <Fragment> or <React.Fragment>
 
 ## Parameters

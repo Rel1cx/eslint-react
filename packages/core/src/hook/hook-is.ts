@@ -8,7 +8,7 @@ import type { RegExpLike } from "@eslint-react/shared";
 import { isHookName } from "./hook-name";
 
 /**
- * Determines if a function node is a React Hook based on its name.
+ * Determine if a function node is a React Hook based on its name.
  * @param node The function node to check
  * @returns True if the function is a React Hook, false otherwise
  */
@@ -45,7 +45,7 @@ export function isHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExp
 }
 
 /**
- * Checks if a node is a call to a specific React hook.
+ * Check if a node is a call to a specific React hook.
  * Returns a function that accepts a hook name to check against.
  * @param node The AST node to check
  * @returns A function that takes a hook name and returns boolean
@@ -66,7 +66,7 @@ export function isHookCallWithName(node: TSESTree.Node | unit) {
 }
 
 /**
- * Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
+ * Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern
  * @param node The AST node to check
  * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks
  * @returns True if the node is a useEffect-like call
@@ -91,7 +91,7 @@ export function isUseEffectLikeCall(
 }
 
 /**
- * Detects useState calls and variations (useCustomState, etc.) using regex pattern.
+ * Detect useState calls and variations (useCustomState, etc.) using a regex pattern
  * @param node The AST node to check
  * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks
  * @returns True if the node is a useState-like call

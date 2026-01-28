@@ -46,7 +46,7 @@ export declare namespace useComponentCollector {
 }
 
 /**
- * Get a ctx and visitor for the rule to collect function components
+ * Get a ctx and visitor object for the rule to collect function components
  * @param context The ESLint rule context
  * @param options The options to use
  * @returns The ctx and visitor of the collector

@@ -6,7 +6,7 @@
 function isReactAPI(api: string): ReturnType;
 ```
 
-Checks if the node is a React API identifier or member expression
+Check if the node is a React API identifier or member expression
 
 ## Parameters
 

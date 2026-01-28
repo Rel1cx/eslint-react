@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { isFunction } from "./is";
 
 /**
- * Checks if the given node is a `vi.mock`.
+ * Check if the given node is a `vi.mock`.
  * @param node The node to check
  * @returns `true` if the node is a `vi.mock`, otherwise `false`.
  * @internal
@@ -19,7 +19,7 @@ export function isViMock(node: TSESTree.Node | null | unit): node is TSESTree.Me
 }
 
 /**
- * Checks if the given node is a `vi.mock` callback.
+ * Check if the given node is a `vi.mock` callback.
  * @param node The node to check
  * @returns `true` if the node is a `vi.mock` callback, otherwise `false`.
  * @internal

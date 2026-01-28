@@ -6,7 +6,7 @@
 function useComponentCollectorLegacy(context: RuleContext): ReturnType;
 ```
 
-Get a ctx and visitor object for the rule to collect class components
+Get a ctx and visitor object for the rule to collect class componentss
 
 ## Parameters
 

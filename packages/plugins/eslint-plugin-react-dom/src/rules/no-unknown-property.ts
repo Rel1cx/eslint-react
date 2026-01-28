@@ -997,7 +997,7 @@ function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string
 }
 
 /**
- * Checks if a node's parent is a JSX tag that is written with lowercase letters,
+ * Check if a node's parent is a JSX tag that is written with lowercase letters,
  * and is not a custom web component.
  * @param childNode JSX element being tested
  * @returns Whether the node is a valid HTML tag in JSX
@@ -1024,7 +1024,7 @@ function normalizeAttributeCase(name: string): string {
 }
 
 /**
- * Checks if an attribute name is a valid data-* attribute
+ * Check if an attribute name is a valid data-* attribute
  * @param name Attribute name to test
  * @returns Whether the attribute is a valid data attribute
  */
@@ -1033,7 +1033,7 @@ function isValidDataAttribute(name: string): boolean {
 }
 
 /**
- * Checks if an attribute name has uppercase characters
+ * Check if an attribute name has uppercase characters
  * @param name Attribute name to test
  * @returns Whether the name has uppercase characters
  */
@@ -1042,7 +1042,7 @@ function hasUpperCaseCharacter(name: string): boolean {
 }
 
 /**
- * Checks if an attribute is a valid ARIA attribute
+ * Check if an attribute is a valid ARIA attribute
  * @param name Attribute name to test
  * @returns Whether the attribute is a valid ARIA attribute
  */
@@ -1063,7 +1063,7 @@ function getTagName(node: JSXAttribute): string | null {
 }
 
 /**
- * Checks if the tag name has a dot (member expression)
+ * Check if the tag name has a dot (member expression)
  * @param node JSXAttribute to check
  * @returns Whether the tag name has a dot
  */
@@ -1092,7 +1092,7 @@ function getStandardName(name: string, context: RuleContext<MessageID, unknown[]
 }
 
 /**
- * Checks if an object has a property
+ * Check if an object has a property
  * @param obj Object to check
  * @param key Key to check for
  * @returns Whether the object has the property

@@ -18,4 +18,4 @@ Check if a node is a React PureComponent
 
 `boolean`
 
-`true` if the node is a pure component, `false` otherwise
+`true` if the node is a PureComponent, `false` otherwise

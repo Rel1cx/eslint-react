@@ -8,7 +8,7 @@ import { isClassComponent } from "./component-is";
 import { isRenderMethodLike } from "./component-render-method";
 
 /**
- * Checks if the given node is a function within a render method of a class component.
+ * Check if the given node is a function within a render method of a class component.
  *
  * @param node The AST node to check
  * @returns `true` if the node is a render function inside a class component
@@ -33,7 +33,7 @@ function isRenderMethodCallback(node: AST.TSESTreeFunction) {
 }
 
 /**
- * Checks if a function node should be excluded based on provided detection hints
+ * Check if a function node should be excluded based on provided detection hints
  *
  * @param node The function node to check
  * @param hint Component detection hints as bit flags
@@ -71,7 +71,7 @@ function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boo
 }
 
 /**
- * Determines if the node is an argument within `createElement`'s children list (3rd argument onwards)
+ * Determine if the node is an argument within `createElement`'s children list (3rd argument onwards)
  *
  * @param context The rule context
  * @param node The AST node to check
@@ -95,7 +95,7 @@ function isChildrenOfCreateElement(context: RuleContext, node: TSESTree.Node): b
 }
 
 /**
- * Determines if a function node represents a valid React component definition
+ * Determine if a function node represents a valid React component definition
  *
  * @param context The rule context
  * @param node The function node to analyze

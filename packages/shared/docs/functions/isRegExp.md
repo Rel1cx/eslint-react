@@ -6,7 +6,7 @@
 function isRegExp(string: string): boolean;
 ```
 
-Checks whether given string is regexp string
+Check whether given string is regexp string
 
 ## Parameters
 

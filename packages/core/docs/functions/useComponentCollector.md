@@ -6,7 +6,7 @@
 function useComponentCollector(context: RuleContext, options: Options): ReturnType;
 ```
 
-Get a ctx and visitor for the rule to collect function components
+Get a ctx and visitor object for the rule to collect function components
 
 ## Parameters
 

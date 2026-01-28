@@ -46,7 +46,7 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
 };
 ```
 
-Resolves the static value of a JSX attribute or spread attribute
+Resolve the static value of a JSX attribute or spread attribute
 
 ## Parameters
 

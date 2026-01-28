@@ -64,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 
 /**
- * Determines whether the given CallExpression can be safely auto-fixed by replacing
+ * Determine whether the given CallExpression can be safely auto-fixed by replacing
  * the usage of `forwardRef` with passing `ref` as a prop
  *
  * @param context The rule context object

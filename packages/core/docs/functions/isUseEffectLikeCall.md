@@ -6,7 +6,7 @@
 function isUseEffectLikeCall(node: Node | undefined, additionalEffectHooks: RegExpLike): node is CallExpression;
 ```
 
-Detects useEffect calls and variations (useLayoutEffect, etc.) using regex pattern.
+Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern
 
 ## Parameters
 

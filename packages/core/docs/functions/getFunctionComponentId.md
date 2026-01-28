@@ -56,12 +56,14 @@ function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction):
   | undefined;
 ```
 
+Get function component identifier from `const Component = memo(() => {});`
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
-| `node` | `TSESTreeFunction` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The rule context |
+| `node` | `TSESTreeFunction` | The function node to analyze |
 
 ## Returns
 
@@ -115,3 +117,5 @@ function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction):
   \| `UpdateExpression`
   \| `YieldExpression`
   \| `undefined`
+
+The function identifier or `unit` if not found

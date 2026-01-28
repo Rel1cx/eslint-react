@@ -19,7 +19,7 @@ export type JsxAttributeValue =
   | { kind: "spreadChild"; node: TSESTree.JSXSpreadChild["expression"]; toStatic(): unknown }; // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
 
 /**
- * Resolves the static value of a JSX attribute or spread attribute
+ * Resolve the static value of a JSX attribute or spread attribute
  *
  * @param context - The ESLint rule context
  * @param attribute - The JSX attribute node to resolve

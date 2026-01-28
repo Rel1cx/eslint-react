@@ -14,7 +14,7 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 const UNSAFE_SANDBOX_VALUES = ["allow-scripts", "allow-same-origin"] as const;
 
 /**
- * Checks if the sandbox attribute value contains an unsafe combination
+ * Check if the sandbox attribute value contains an unsafe combination
  * An iframe with both "allow-scripts" and "allow-same-origin" can remove its sandbox attribute,
  * making it as insecure as an iframe without any sandboxing
  * @param value The value of the sandbox attribute

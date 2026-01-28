@@ -5,6 +5,12 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 
 import { isComponentWrapperCallLoose } from "./component-wrapper";
 
+/**
+ * Get function component identifier from `const Component = memo(() => {});`
+ * @param context The rule context
+ * @param node The function node to analyze
+ * @returns The function identifier or `unit` if not found
+ */
 export function getFunctionComponentId(
   context: RuleContext,
   node: AST.TSESTreeFunction,

@@ -14,7 +14,7 @@ const thisBlockTypes = [
 ] as const;
 
 /**
- * Determines whether node value equals to another node value
+ * Determine whether node value equals to another node value
  * @param a node to compare
  * @param b node to compare
  * @param initialScopes initial scopes of the two nodes

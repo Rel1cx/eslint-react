@@ -160,7 +160,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 
 /**
- * Determines whether the node is inside JSX attribute value
+ * Determine whether the node is inside JSX attribute value
  * @param node The AST node to check
  * @returns `true` if the node is inside JSX attribute value
  */
@@ -170,7 +170,7 @@ function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
 }
 
 /**
- * Checks whether a given node is declared inside a class component's render block
+ * Check whether a given node is declared inside a class component's render block
  * Ex: class C extends React.Component { render() { const Nested = () => <div />; } }
  * @param node The AST node being checked
  * @returns `true` if the node is inside a class component's render block
@@ -180,7 +180,7 @@ function isInsideRenderMethod(node: TSESTree.Node) {
 }
 
 /**
- * Determines whether the node is inside `createElement`'s props argument
+ * Determine whether the node is inside `createElement`'s props argument
  * @param context The rule context
  * @param node The AST node to check
  * @returns `true` if the node is inside `createElement`'s props

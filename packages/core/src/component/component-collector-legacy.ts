@@ -20,7 +20,7 @@ export declare namespace useComponentCollectorLegacy {
 }
 
 /**
- * Get a ctx and visitor object for the rule to collect class components
+ * Get a ctx and visitor object for the rule to collect class componentss
  * @param context The ESLint rule context
  * @returns The ctx and visitor of the collector
  */

@@ -92,7 +92,7 @@ export const DEFAULT_ESLINT_SETTINGS = {
 // ===== Utility Functions =====
 
 /**
- * Checks if the provided settings conform to ESLintSettings schema
+ * Check if the provided settings conform to ESLintSettings schema
  * @param settings The settings object to validate
  */
 export function isESLintSettings(settings: unknown): settings is ESLintSettings {
@@ -100,7 +100,7 @@ export function isESLintSettings(settings: unknown): settings is ESLintSettings 
 }
 
 /**
- * Checks if the provided settings conform to ESLintReactSettings schema
+ * Check if the provided settings conform to ESLintReactSettings schema
  * @param settings The settings object to validate
  */
 export function isESLintReactSettings(settings: unknown): settings is ESLintReactSettings {

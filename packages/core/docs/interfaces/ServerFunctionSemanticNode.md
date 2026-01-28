@@ -2,6 +2,8 @@
 
 # Interface: ServerFunctionSemanticNode
 
+Represents a React Server Function
+
 ## Extends
 
 - [`SemanticFunc`](SemanticFunc.md)

@@ -138,7 +138,7 @@ export function isArray<T>(data: ArrayLike<unknown> | T): data is NarrowedTo<T, 
 }
 
 /**
- * Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`.
+ * Check if the given parameter is of type `"object"` via `typeof`, excluding `null`.
  *
  * @param data The variable to be checked for being an object type.
  * @returns The input type, narrowed to only objects.

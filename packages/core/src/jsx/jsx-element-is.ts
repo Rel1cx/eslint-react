@@ -6,7 +6,7 @@ import { type JsxConfig } from "./jsx-config";
 import { getJsxElementType } from "./jsx-element-type";
 
 /**
- * Determines if a JSX element is a host element
+ * Determine if a JSX element is a host element
  * Host elements in React start with lowercase letters (e.g., div, span)
  *
  * @param context ESLint rule context
@@ -20,7 +20,7 @@ export function isJsxHostElement(context: RuleContext, node: TSESTree.Node) {
 }
 
 /**
- * Determines if a JSX element is a React Fragment
+ * Determine if a JSX element is a React Fragment
  * Fragments can be imported from React and used like <Fragment> or <React.Fragment>
  *
  * @param context ESLint rule context

@@ -49,7 +49,7 @@ export type ObjectType =
   };
 
 /**
- * Detects the ObjectType of a given node
+ * Detect the ObjectType of a given node
  * @param node The node to check
  * @param initialScope  The initial scope to check for variable declarations
  * @returns The ObjectType of the node, or undefined if not detected
