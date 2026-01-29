@@ -9,6 +9,44 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function App() {
+            "use memo";
+        }
+      `,
+      errors: [{
+        messageId: "functionComponent",
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
+            "use no memo";
+        }
+      `,
+      errors: [{
+        messageId: "functionComponent",
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
             useEffect(() => {});
         }
       `,
