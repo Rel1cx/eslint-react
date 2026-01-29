@@ -16,5 +16,5 @@ export * from "./process-env-node-env";
 export * from "./property-name";
 export * from "./selectors";
 export * from "./traverse";
-export * from "./types";
+export type * from "./types";
 export * from "./vitest-mock";
