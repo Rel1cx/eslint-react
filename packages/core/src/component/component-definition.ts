@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../api";
 import { ComponentDetectionHint } from "./component-detection-hint";
 import { isClassComponent } from "./component-is";
-import { hasNoneOrLooseComponentName } from "./component-name";
+import { isFunctionWithLooseComponentName } from "./component-name";
 import { isRenderMethodLike } from "./component-render-method";
 
 /**
@@ -109,7 +109,7 @@ export function isComponentDefinition(
   hint: bigint,
 ) {
   // 1. Check for basic naming conventions
-  if (!hasNoneOrLooseComponentName(context, node)) {
+  if (!isFunctionWithLooseComponentName(context, node, true)) {
     return false;
   }
 

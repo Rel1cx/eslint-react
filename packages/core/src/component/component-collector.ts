@@ -14,6 +14,7 @@ import { isComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
+import { isFunctionWithLooseComponentName } from "./component-name";
 
 const idGen = new IdGenerator("function_component_");
 
@@ -64,12 +65,14 @@ export function useComponentCollector(
     const id = getFunctionComponentId(context, node);
     const name = id == null ? unit : AST.toStringFormat(id, getText);
     const initPath = AST.getFunctionInitPath(node);
-    functionEntries.push({
+    const directives = AST.getFunctionDirectives(node);
+    const entry = {
       id: getFunctionComponentId(context, node),
       key,
       kind: "function",
       name,
       node,
+      directives,
       displayName: unit,
       flag: getComponentFlagFromInitPath(initPath),
       hint,
@@ -79,7 +82,12 @@ export function useComponentCollector(
       isExportDefault,
       isExportDefaultDeclaration,
       rets: [],
-    });
+    } as const satisfies FunctionEntry;
+    functionEntries.push(entry);
+    if (!entry.isComponentDefinition || !isFunctionWithLooseComponentName(context, node, false)) return;
+    if (directives.some((d) => d.value === "use memo" || d.value === "use no memo")) {
+      components.set(entry.key, entry);
+    }
   };
   const onFunctionExit = () => {
     return functionEntries.pop();

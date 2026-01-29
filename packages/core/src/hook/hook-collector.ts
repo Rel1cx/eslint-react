@@ -46,6 +46,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       kind: "function",
       name: AST.toStringFormat(id, getText),
       node,
+      directives: [],
       flag: 0n,
       hint: 0n,
       hookCalls: [],

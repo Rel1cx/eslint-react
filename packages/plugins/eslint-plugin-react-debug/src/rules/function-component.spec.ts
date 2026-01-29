@@ -9,6 +9,44 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function App() {
+            "use memo";
+        }
+      `,
+      errors: [{
+        messageId: "functionComponent",
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
+            "use no memo";
+        }
+      `,
+      errors: [{
+        messageId: "functionComponent",
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
             useEffect(() => {});
         }
       `,
@@ -1699,6 +1737,26 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
+    tsx`
+      export default function () {
+          "use memo";
+      }
+    `,
+    tsx`
+      function app() {
+          "use memo";
+      }
+    `,
+    tsx`
+      function app() {
+          "use no memo";
+      }
+    `,
+    tsx`
+      function app() {
+          useEffect(() => {});
+      }
+    `,
     "const results = data.flatMap((x) => x?.name || []) || []",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",

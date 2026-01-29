@@ -124,7 +124,6 @@
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
 | [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
 | [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
-| [hasNoneOrLooseComponentName](functions/hasNoneOrLooseComponentName.md) | Check if the function has no name or a loose component name |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
 | [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |
@@ -136,6 +135,7 @@
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
+| [isFunctionWithLooseComponentName](functions/isFunctionWithLooseComponentName.md) | Check if a function has a loose component name |
 | [isHook](functions/isHook.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
 | [isHookCallWithName](functions/isHookCallWithName.md) | Check if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
