@@ -26,7 +26,7 @@ const program = Effect.gen(function*() {
     }
     // const branchName = branch.trim();
     const branchName = "main";
-    const absoluteUrl = "https://github.com/Rel1cx/eslint-react/tree/" + branchName + "/" + url.replace(/^\.\//, "");
+    const absoluteUrl = `https://github.com/Rel1cx/eslint-react/tree/${branchName}/${url.replace(/^\.\//, "")}`;
     return `[${text}](${absoluteUrl})`;
   });
   // Ensure the destination directory exists
