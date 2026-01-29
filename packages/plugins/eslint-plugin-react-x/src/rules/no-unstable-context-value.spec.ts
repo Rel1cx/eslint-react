@@ -187,6 +187,20 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
         function App() {
+          "use memo";
+          const foo = {}
+          return <Context.Provider value={foo}></Context.Provider>;
+      }
+    `,
+    tsx`
+        "use memo";
+        function App() {
+          const foo = {}
+          return <Context.Provider value={foo}></Context.Provider>;
+      }
+    `,
+    tsx`
+        function App() {
           const foo = useMemo(() => [], [])
           return <Context.Provider value={foo}></Context.Provider>
       }
