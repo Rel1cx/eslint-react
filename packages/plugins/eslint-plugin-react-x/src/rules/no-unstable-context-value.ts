@@ -35,6 +35,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // If "use memo" directive is present in the file, skip analysis
+  if (AST.getProgramDirectives(context.sourceCode.ast).some((d) => d.value === "use memo")) return {};
+
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { ctx, visitor } = useComponentCollector(context);
@@ -69,8 +72,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
       },
       "Program:exit"(program) {
-        for (const { node: component } of ctx.getAllComponents(program)) {
+        for (const { node: component, directives } of ctx.getAllComponents(program)) {
           for (const construction of constructions.get(component) ?? []) {
+            if (directives.some((d) => d.value === "use memo")) return;
             const { kind, node: constructionNode } = construction;
             const suggestion = kind === "function"
               ? "Consider wrapping it in a useCallback hook."

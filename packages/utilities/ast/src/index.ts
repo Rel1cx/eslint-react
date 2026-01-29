@@ -13,6 +13,7 @@ export * from "./is";
 export * from "./literal";
 export * from "./misc";
 export * from "./process-env-node-env";
+export * from "./program-directives";
 export * from "./property-name";
 export * from "./selectors";
 export * from "./traverse";

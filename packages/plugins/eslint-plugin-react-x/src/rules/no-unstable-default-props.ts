@@ -76,6 +76,9 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 }
 
 export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
+  // If "use memo" directive is present in the file, skip analysis
+  if (AST.getProgramDirectives(context.sourceCode.ast).some((d) => d.value === "use memo")) return {};
+
   const { ctx, visitor } = useComponentCollector(context);
   const declarators = new WeakMap<AST.TSESTreeFunction, AST.ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
