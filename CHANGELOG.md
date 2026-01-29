@@ -1,3 +1,25 @@
+## v2.8.1 (2026-01-29)
+
+### ✨ New
+
+- Function component detection now supports identifying components that don't return a `ReactNode` but have a `'use memo'` or `'use no memo'` directive.
+  The function in below example will be detected as a function component in relevant rules:
+  ```tsx
+  function App() {
+    "use memo";
+  }
+
+  function App() {
+    "use no memo";
+  }
+  ```
+
+### 🐞 Fixes
+
+- Skip unstable value checks when `'use memo';` is present by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1441
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.8.0...v2.8.1
+
 ## v2.8.0 (2026-01-29)
 
 ### ✨ New
