@@ -64,6 +64,21 @@ function MyComponentProvider() {
 }
 ```
 
+```tsx
+import React from "react";
+
+const MyContext = React.createContext({});
+
+function MyComponentProvider() {
+  "use memo";
+  return (
+    <MyContext.Provider value={{ foo: "bar" }}>
+      <ExampleConsumer />
+    </MyContext.Provider>
+  );
+}
+```
+
 ## Legitimate Uses
 
 React Context and all its child nodes and consumers are re-rendered whenever the value prop changes. Because each JavaScript object carries its own identity, things like object expressions (`{foo: 'bar'}`) or function expressions get a new identity on every run through the component. This makes the context think it has received a new object and can cause needless re-renders and unintended consequences.

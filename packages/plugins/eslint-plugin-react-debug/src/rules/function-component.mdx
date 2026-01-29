@@ -44,6 +44,30 @@ import React from "react";
 const MyComponent = React.forwardRef(() => <button />);
 ```
 
+```tsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {}}, []);
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  "use memo";
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  "use no memo";
+}
+```
+
 ## Implementation
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component.ts)
