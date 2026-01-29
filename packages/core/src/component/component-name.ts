@@ -21,13 +21,15 @@ export function isComponentNameLoose(name: string) {
 }
 
 /**
- * Check if the function has no name or a loose component name
+ * Check if a function has a loose component name
  * @param context The rule context
- * @param fn The function node
+ * @param fn The function to check
+ * @param allowNone Whether to allow no name
+ * @returns Whether the function has a loose component name
  */
-export function hasNoneOrLooseComponentName(context: RuleContext, fn: AST.TSESTreeFunction) {
+export function isFunctionWithLooseComponentName(context: RuleContext, fn: AST.TSESTreeFunction, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
-  if (id == null) return true;
+  if (id == null) return allowNone;
   if (id.type === T.Identifier) {
     return isComponentNameLoose(id.name);
   }

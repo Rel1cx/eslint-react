@@ -14,6 +14,7 @@ import { isComponentDefinition } from "./component-definition";
 import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
 import { getFunctionComponentId } from "./component-id";
 import { getComponentFlagFromInitPath } from "./component-init-path";
+import { isFunctionWithLooseComponentName } from "./component-name";
 
 const idGen = new IdGenerator("function_component_");
 
@@ -83,7 +84,8 @@ export function useComponentCollector(
       rets: [],
     } as const satisfies FunctionEntry;
     functionEntries.push(entry);
-    if (entry.isComponentDefinition && directives.some((d) => d.value === "use memo" || d.value === "use no memo")) {
+    if (!entry.isComponentDefinition || !isFunctionWithLooseComponentName(context, node, false)) return;
+    if (directives.some((d) => d.value === "use memo" || d.value === "use no memo")) {
       components.set(entry.key, entry);
     }
   };

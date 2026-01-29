@@ -1737,6 +1737,26 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allFunctions,
+    tsx`
+      export default function () {
+          "use memo";
+      }
+    `,
+    tsx`
+      function app() {
+          "use memo";
+      }
+    `,
+    tsx`
+      function app() {
+          "use no memo";
+      }
+    `,
+    tsx`
+      function app() {
+          useEffect(() => {});
+      }
+    `,
     "const results = data.flatMap((x) => x?.name || []) || []",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
