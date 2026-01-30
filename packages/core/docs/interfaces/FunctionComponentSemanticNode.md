@@ -22,7 +22,7 @@ Represents a React Function Component
 | <a id="isexportdefault"></a> `isExportDefault` | `boolean` | Indicates if the component is inside an export default declaration | - | - |
 | <a id="isexportdefaultdeclaration"></a> `isExportDefaultDeclaration` | `boolean` | Indicates if the component is itself an export default declaration | - | - |
 | <a id="key"></a> `key` | `string` | - | - | [`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#key) |
-| <a id="kind"></a> `kind` | `"function"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind) | - |
+| <a id="kind"></a> `kind` | `"function-component"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind) | - |
 | <a id="name"></a> `name` | `string` \| `undefined` | - | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#name) |
 | <a id="node"></a> `node` | `TSESTreeFunction` | The AST node of the function | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#node) | - |
 | <a id="rets"></a> `rets` | (`Expression` \| `null`)[] | List of expressions returned by the component | - | - |

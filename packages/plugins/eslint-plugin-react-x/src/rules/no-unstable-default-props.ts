@@ -82,7 +82,7 @@ export function create(
 ): RuleListener {
   // If "use memo" directive is present in the file, skip analysis
   if (
-    ast.getProgramDirectives(context.sourceCode.ast).some(
+    ast.getFileDirectives(context.sourceCode.ast).some(
       (d) => d.value === "use memo",
     )
   ) {

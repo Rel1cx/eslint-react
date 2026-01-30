@@ -6,7 +6,7 @@ import { getUnderlyingExpression } from "./expression-base";
 import { isTypeExpression } from "./is";
 
 /**
- * Determine whether node equals to another node
+ * Check if two nodes are equal
  * @param a node to compare
  * @param b node to compare
  * @returns `true` if node equal

@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
+import { isDirective } from "./directive-is";
 import { getUnderlyingExpression } from "./expression-base";
-import { isLiteral } from "./literal";
 import type { TSESTreeFunction } from "./types";
 
 /**
@@ -15,7 +15,7 @@ export function getFunctionDirectives(node: TSESTreeFunction): TSESTree.StringLi
   for (const stmt of node.body.body) {
     if (stmt.type !== AST.ExpressionStatement) continue;
     const expr = getUnderlyingExpression(stmt.expression);
-    if (!isLiteral(expr, "string")) continue;
+    if (!isDirective(expr)) continue;
     directives.push(expr);
   }
   return directives;

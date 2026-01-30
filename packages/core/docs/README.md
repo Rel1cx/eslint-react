@@ -29,7 +29,7 @@
 | ------ | ------ |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
 | [ComponentFlag](type-aliases/ComponentFlag.md) | - |
-| [ComponentKind](type-aliases/ComponentKind.md) | Represents the kind of a React component |
+| [ComponentKind](type-aliases/ComponentKind.md) | Represents the kind of a React function |
 | [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |

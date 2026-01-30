@@ -5,8 +5,8 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTreeFunction } from "./types";
 
 /**
- * Represents various AST paths for React component function declarations.
- * Each tuple type represents a specific component definition pattern.
+ * Represents various AST paths for React component function declarations
+ * Each tuple type represents a specific component definition pattern
  */
 export type FunctionInitPath =
   // Standard function declaration: function Comp() { return <div />; }

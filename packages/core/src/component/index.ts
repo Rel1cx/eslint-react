@@ -6,7 +6,6 @@ export * from "./component-flag";
 export * from "./component-id";
 export * from "./component-init-path";
 export * from "./component-is";
-export type * from "./component-kind";
 export * from "./component-method-callback";
 export * from "./component-method-is";
 export * from "./component-name";

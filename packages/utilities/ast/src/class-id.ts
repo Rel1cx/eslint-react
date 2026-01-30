@@ -4,6 +4,11 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import type { TSESTreeClass } from "./types";
 
+/**
+ * Get the class identifier of a class node
+ * @param node The class node to get the identifier from
+ * @returns The class identifier or unit if not found
+ */
 export function getClassId(node: TSESTreeClass): TSESTree.BindingName | unit {
   if (node.id != null) return node.id;
   if (node.parent.type === AST.VariableDeclarator) {

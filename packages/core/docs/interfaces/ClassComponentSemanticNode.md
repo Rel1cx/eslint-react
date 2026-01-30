@@ -17,7 +17,7 @@ Represents a React Class Component
 | <a id="hint"></a> `hint` | `bigint` | Hint for how the component was detected | [`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#hint) | - |
 | <a id="id"></a> `id` | `BindingName` \| `undefined` | The identifier of the component | [`SemanticNode`](SemanticNode.md).[`id`](SemanticNode.md#id) | - |
 | <a id="key"></a> `key` | `string` | - | - | [`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#key) |
-| <a id="kind"></a> `kind` | `"class"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind) | - |
+| <a id="kind"></a> `kind` | `"class-component"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#kind) | - |
 | <a id="methods"></a> `methods` | `TSESTreeMethodOrProperty`[] | List of methods and properties in the class | - | - |
 | <a id="name"></a> `name` | `string` \| `undefined` | - | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#name) |
 | <a id="node"></a> `node` | `TSESTreeClass` | The AST node of the class | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#node) | - |

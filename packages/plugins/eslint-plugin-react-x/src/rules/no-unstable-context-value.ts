@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // If "use memo" directive is present in the file, skip analysis
-  if (ast.getProgramDirectives(context.sourceCode.ast).some((d) => d.value === "use memo")) return {};
+  if (ast.getFileDirectives(context.sourceCode.ast).some((d) => d.value === "use memo")) return {};
 
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");

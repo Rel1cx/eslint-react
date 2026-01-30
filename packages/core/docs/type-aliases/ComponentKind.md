@@ -3,7 +3,7 @@
 # Type Alias: ComponentKind
 
 ```ts
-type ComponentKind = "classComponent" | "functionComponent";
+type ComponentKind = "client-function" | "server-function";
 ```
 
-Represents the kind of a React component
+Represents the kind of a React function

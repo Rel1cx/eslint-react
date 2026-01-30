@@ -50,7 +50,7 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
       {
         id,
         key,
-        kind: "class",
+        kind: "class-component",
         name,
         node,
         // TODO: Get displayName of class component

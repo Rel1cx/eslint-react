@@ -20,7 +20,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The kind of component
    */
-  kind: "function";
+  kind: "function-component";
 
   /**
    * The AST node of the function
@@ -91,7 +91,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
   /**
    * The kind of component
    */
-  kind: "class";
+  kind: "class-component";
 
   /**
    * The AST node of the class

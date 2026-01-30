@@ -69,7 +69,7 @@ export function useComponentCollector(
     const entry = {
       id: getFunctionComponentId(context, node),
       key,
-      kind: "function",
+      kind: "function-component",
       name,
       node,
       directives,
