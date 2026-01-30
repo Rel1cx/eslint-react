@@ -26,7 +26,7 @@ export default [
 
 <AnalyzerPropertyTypeTable />
 
-## Property Specifications
+## Basic Configuration
 
 ### `version`
 
@@ -44,6 +44,12 @@ Example for using `@pika/react` instead of `react`:
 ```ts
 import React from "@pika/react";
 ```
+
+## Advanced Configuration
+
+<Callout type="warn">
+  The basic configuration is sufficient for the vast majority of projects. Over-reliance on advanced configuration options will reduce the portability of your code between different tooling ecosystems.
+</Callout>
 
 ### `polymorphicPropName`
 
@@ -76,8 +82,11 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
+        // Basic configuration
         version: "19.2.0", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
         importSource: "react", // Customize the import source for the React module (defaults to "react")
+
+        // Advanced configuration
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
       },
