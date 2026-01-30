@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
-import { isUseEffectLikeCall, isUseMemoCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     VariableDeclarator(node) {
       const { id, init } = node;
-      if (id.type !== T.Identifier || init?.type !== T.CallExpression || !isUseMemoCall(init)) return;
+      if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseMemoCall(init)) return;
       const [mem, ...rest] = context.sourceCode.getDeclaredVariables(node);
       // Skip non-standard `useMemo()` usages to prevent false positives
       if (mem == null || rest.length > 0) return;
@@ -51,15 +51,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, init);
       const scope = context.sourceCode.getScope(init);
       const component = scope.block;
-      if (!AST.isFunction(component)) {
+      if (!ast.isFunction(component)) {
         return;
       }
       const [arg0, arg1] = init.arguments;
       if (arg0 == null || arg1 == null) {
         return;
       }
-      const hasCallInArg0 = AST.isFunction(arg0)
-        && [...AST.getNestedCallExpressions(arg0.body), ...AST.getNestedNewExpressions(arg0.body)].length > 0;
+      const hasCallInArg0 = ast.isFunction(arg0)
+        && [...ast.getNestedCallExpressions(arg0.body), ...ast.getNestedNewExpressions(arg0.body)].length > 0;
 
       if (hasCallInArg0) {
         report(context)(checkForUsageInsideUseEffectReport);
@@ -67,11 +67,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       const hasEmptyDeps = match(arg1)
-        .with({ type: T.ArrayExpression }, (n) => n.elements.length === 0)
-        .with({ type: T.Identifier }, (n) => {
+        .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
+        .with({ type: AST.Identifier }, (n) => {
           const variable = findVariable(n.name, scope);
           const variableNode = getVariableDefinitionNode(variable, 0);
-          if (variableNode?.type !== T.ArrayExpression) {
+          if (variableNode?.type !== AST.ArrayExpression) {
             return false;
           }
           return variableNode.elements.length === 0;
@@ -83,17 +83,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const arg0Node = match(arg0)
-        .with({ type: T.ArrowFunctionExpression }, (n) => {
-          if (n.body.type === T.ArrowFunctionExpression) {
+        .with({ type: AST.ArrowFunctionExpression }, (n) => {
+          if (n.body.type === AST.ArrowFunctionExpression) {
             return n.body;
           }
           return n;
         })
-        .with({ type: T.FunctionExpression }, identity)
-        .with({ type: T.Identifier }, (n) => {
+        .with({ type: AST.FunctionExpression }, identity)
+        .with({ type: AST.Identifier }, (n) => {
           const variable = findVariable(n.name, scope);
           const variableNode = getVariableDefinitionNode(variable, 0);
-          if (variableNode?.type !== T.ArrowFunctionExpression && variableNode?.type !== T.FunctionExpression) {
+          if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
             return null;
           }
           return variableNode;
@@ -140,7 +140,7 @@ function checkForUsageInsideUseEffect(
   const effectSet = new Set<TSESTree.Node>();
 
   for (const usage of usages) {
-    const effect = AST.findParentNode(usage.identifier, isUseEffectLikeCall);
+    const effect = ast.findParentNode(usage.identifier, core.isUseEffectLikeCall);
 
     if (effect == null) {
       return;

@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
 import { ruleTester } from "../../../../../test";
@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { captureOwnerStack } from 'react';`,
       errors: [
         {
-          type: T.ImportSpecifier,
+          type: AST.ImportSpecifier,
           messageId: "useNamespaceImport",
         },
       ],
@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { captureOwnerStack } from "react";`,
       errors: [
         {
-          type: T.ImportSpecifier,
+          type: AST.ImportSpecifier,
           messageId: "useNamespaceImport",
         },
       ],
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.ImportSpecifier,
+          type: AST.ImportSpecifier,
           messageId: "useNamespaceImport",
         },
       ],
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "missingDevelopmentOnlyCheck",
         },
       ],
@@ -68,11 +68,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.ImportSpecifier,
+          type: AST.ImportSpecifier,
           messageId: "useNamespaceImport",
         },
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "missingDevelopmentOnlyCheck",
         },
       ],

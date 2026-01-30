@@ -1,5 +1,5 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -31,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node) {
       switch (node.name.type) {
-        case T.JSXIdentifier: {
+        case AST.JSXIdentifier: {
           // Skip JsxIntrinsicElements (e.g., `<div>`)
           if (/^[a-z]/u.test(node.name.name)) {
             return;
@@ -40,9 +40,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           context.sourceCode.markVariableAsUsed(node.name.name, node);
           break;
         }
-        case T.JSXMemberExpression: {
+        case AST.JSXMemberExpression: {
           const { object } = node.name;
-          if (object.type === T.JSXIdentifier) {
+          if (object.type === AST.JSXIdentifier) {
             // Mark the base of member expressions (e.g., `React` in `<React.Fragment />`) as used
             context.sourceCode.markVariableAsUsed(object.name, node);
           }

@@ -1,8 +1,8 @@
-import { useComponentCollector } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
-  const { ctx, visitor } = useComponentCollector(context);
+  const { ctx, visitor } = core.useComponentCollector(context);
 
   return defineRuleListener(
     visitor,
@@ -84,10 +84,10 @@ function collectUsedPropKeysOfParameter(
   parameter: TSESTree.Parameter,
 ): boolean {
   switch (parameter.type) {
-    case T.Identifier: {
+    case AST.Identifier: {
       return collectUsedPropKeysOfIdentifier(context, usedPropKeys, parameter);
     }
-    case T.ObjectPattern: {
+    case AST.ObjectPattern: {
       return collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parameter);
     }
     default: {
@@ -103,13 +103,13 @@ function collectUsedPropKeysOfObjectPattern(
 ): boolean {
   for (const property of objectPattern.properties) {
     switch (property.type) {
-      case T.Property: {
+      case AST.Property: {
         const key = getKeyOfExpression(property.key);
         if (key == null) return false;
         usedPropKeys.add(key);
         break;
       }
-      case T.RestElement: {
+      case AST.RestElement: {
         if (!collectUsedPropsOfRestElement(context, usedPropKeys, property)) {
           return false;
         }
@@ -127,7 +127,7 @@ function collectUsedPropsOfRestElement(
   restElement: TSESTree.RestElement,
 ): boolean {
   switch (restElement.argument.type) {
-    case T.Identifier: {
+    case AST.Identifier: {
       return collectUsedPropKeysOfIdentifier(context, usedPropKeys, restElement.argument);
     }
     default: {
@@ -167,9 +167,9 @@ function collectUsedPropKeysOfReference(
   const { parent } = ref.identifier;
 
   switch (parent.type) {
-    case T.MemberExpression: {
+    case AST.MemberExpression: {
       if (
-        parent.object.type === T.Identifier
+        parent.object.type === AST.Identifier
         && parent.object.name === identifier.name
       ) {
         const key = getKeyOfExpression(parent.property);
@@ -179,9 +179,9 @@ function collectUsedPropKeysOfReference(
       }
       break;
     }
-    case T.VariableDeclarator: {
+    case AST.VariableDeclarator: {
       if (
-        parent.id.type === T.ObjectPattern
+        parent.id.type === AST.ObjectPattern
         && parent.init === ref.identifier
       ) {
         return collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parent.id);
@@ -197,10 +197,10 @@ function getKeyOfExpression(
   expr: TSESTree.Expression | TSESTree.PrivateIdentifier,
 ): string | null {
   switch (expr.type) {
-    case T.Identifier: {
+    case AST.Identifier: {
       return expr.name;
     }
-    case T.Literal: {
+    case AST.Literal: {
       if (typeof expr.value === "string") {
         return expr.value;
       }
@@ -223,7 +223,7 @@ function reportUnusedProp(
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (declarationNode == null) return; // is undefined if declaration is in a different file
 
-  const nodeToReport = declarationNode.type === T.TSPropertySignature
+  const nodeToReport = declarationNode.type === AST.TSPropertySignature
     ? declarationNode.key
     : declarationNode;
 

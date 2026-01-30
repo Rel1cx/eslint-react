@@ -1,4 +1,4 @@
-import { JsxEmit, getJsxConfigFromAnnotation, getJsxConfigFromContext } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -30,14 +30,14 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const jsxConfig = {
-    ...getJsxConfigFromContext(context),
-    ...getJsxConfigFromAnnotation(context),
+    ...core.getJsxConfigFromContext(context),
+    ...core.getJsxConfigFromAnnotation(context),
   };
 
   const { jsx, jsxFactory, jsxFragmentFactory } = jsxConfig;
 
   // If using the new JSX transform, this rule is not needed
-  if (jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev) return {};
+  if (jsx === core.JsxEmit.ReactJSX || jsx === core.JsxEmit.ReactJSXDev) return {};
 
   // Marks the JSX factory (e.g., 'React') as used when a JSX element is found
   function handleJsxElement(node: TSESTree.Node) {

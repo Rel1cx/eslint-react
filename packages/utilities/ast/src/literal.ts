@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 type LiteralType =
   | "boolean"
@@ -15,7 +15,7 @@ export function isLiteral(node: TSESTree.Node, type: "number"): node is TSESTree
 export function isLiteral(node: TSESTree.Node, type: "regexp"): node is TSESTree.RegExpLiteral;
 export function isLiteral(node: TSESTree.Node, type: "string"): node is TSESTree.StringLiteral;
 export function isLiteral(node: TSESTree.Node, type?: LiteralType) {
-  if (node.type !== T.Literal) return false;
+  if (node.type !== AST.Literal) return false;
   if (type == null) return true;
   switch (type) {
     case "boolean":

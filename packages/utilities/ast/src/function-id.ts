@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-param */
 import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isMethodOrProperty, isTypeAssertionExpression } from "./is";
 import type { TSESTreeFunction } from "./types";
@@ -21,17 +21,17 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       && node.id != null:
       // const whatever = function MaybeComponent() {};
       return node.id;
-    case node.parent.type === T.VariableDeclarator
+    case node.parent.type === AST.VariableDeclarator
       && node.parent.init === node:
       return node.parent.id;
     // MaybeComponent = () => {};
-    case node.parent.type === T.AssignmentExpression
+    case node.parent.type === AST.AssignmentExpression
       && node.parent.right === node
       && node.parent.operator === "=":
       return node.parent.left;
     // {MaybeComponent: () => {}}
     // {MaybeComponent() {}}
-    case node.parent.type === T.Property
+    case node.parent.type === AST.Property
       && node.parent.value === node
       && !node.parent.computed:
       return node.parent.key;
@@ -44,7 +44,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       //
       // const {MaybeComponent = () => {}} = {};
       // ({MaybeComponent = () => {}} = {});
-    case node.parent.type === T.AssignmentPattern
+    case node.parent.type === AST.AssignmentPattern
       && node.parent.right === node:
       return node.parent.left;
     // const MaybeComponent = (() => {})!;

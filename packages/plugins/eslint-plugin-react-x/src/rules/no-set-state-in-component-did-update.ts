@@ -1,5 +1,5 @@
-import * as AST from "@eslint-react/ast";
-import { isClassComponent, isComponentDidUpdate, isThisSetState } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -35,13 +35,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!isThisSetState(node)) {
+      if (!core.isThisSetState(node)) {
         return;
       }
       // Find the enclosing class component
-      const enclosingClassNode = AST.findParentNode(node, isClassComponent);
+      const enclosingClassNode = ast.findParentNode(node, core.isClassComponent);
       // Find the enclosing 'componentDidUpdate' method
-      const enclosingMethodNode = AST.findParentNode(node, (n) => n === enclosingClassNode || isComponentDidUpdate(n));
+      const enclosingMethodNode = ast.findParentNode(
+        node,
+        (n) => n === enclosingClassNode || core.isComponentDidUpdate(n),
+      );
 
       // Ensure 'this.setState' is inside a 'componentDidUpdate' method within a class component
       if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {

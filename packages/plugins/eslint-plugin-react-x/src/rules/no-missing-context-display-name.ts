@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
-import { isCreateContextCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -44,12 +44,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     // Collect all `*.displayName = '...'` assignments
-    [AST.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: AST.DisplayNameAssignmentExpression) {
+    [ast.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: ast.DisplayNameAssignmentExpression) {
       displayNameAssignments.push(node);
     },
     // Collect all `createContext()` calls
     CallExpression(node) {
-      if (!isCreateContextCall(context, node)) return;
+      if (!core.isCreateContextCall(context, node)) return;
       createCalls.push(node);
     },
     "Program:exit"() {
@@ -68,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const hasDisplayNameAssignment = displayNameAssignments
           .some((node) => {
             const left = node.left;
-            if (left.type !== T.MemberExpression) return false;
+            if (left.type !== AST.MemberExpression) return false;
             const object = left.object;
             // Check if the object in the assignment matches the context's identifier
             return isAssignmentTargetEqual(context, id, object);
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             node: id,
             fix(fixer) {
               // Ensure the fix is applied correctly
-              if (id.type !== T.Identifier || id.parent !== call.parent) return [];
+              if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
               // Insert `ContextName.displayName = "ContextName";` after the creation
               return fixer.insertTextAfter(
                 context.sourceCode.getTokenAfter(call) ?? call,

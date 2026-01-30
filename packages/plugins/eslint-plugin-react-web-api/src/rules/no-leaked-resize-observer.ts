@@ -1,4 +1,4 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { or } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
@@ -9,7 +9,7 @@ import {
   isAssignmentTargetEqual,
 } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
@@ -43,19 +43,19 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 // #region Helpers
 
 function isNewResizeObserver(node: TSESTree.Node | unit) {
-  return node?.type === T.NewExpression
-    && node.callee.type === T.Identifier
+  return node?.type === AST.NewExpression
+    && node.callee.type === AST.Identifier
     && node.callee.name === "ResizeObserver";
 }
 
 function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
   switch (true) {
-    case node.type === T.Identifier: {
+    case node.type === AST.Identifier: {
       const initialScope = context.sourceCode.getScope(node);
       const object = getVariableDefinitionNode(findVariable(node, initialScope), 0);
       return isNewResizeObserver(object);
     }
-    case node.type === T.MemberExpression:
+    case node.type === AST.MemberExpression:
       return isFromObserver(context, node.object);
     default:
       return false;
@@ -64,12 +64,12 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
 
 function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   switch (true) {
-    case node.callee.type === T.Identifier
+    case node.callee.type === AST.Identifier
       && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.name)
       && isFromObserver(context, node.callee):
       return node.callee.name;
-    case node.callee.type === T.MemberExpression
-      && node.callee.property.type === T.Identifier
+    case node.callee.type === AST.MemberExpression
+      && node.callee.property.type === AST.Identifier
       && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.property.name)
       && isFromObserver(context, node.callee):
       return node.callee.property.name;
@@ -78,7 +78,7 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
   }
 }
 
-function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
+function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
@@ -113,18 +113,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("ResizeObserver")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
+  const fEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
     phase: ComponentPhaseKind;
-    phaseNode: AST.TSESTreeFunction;
+    phaseNode: ast.TSESTreeFunction;
   }[] = [];
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
   return {
-    [":function"](node: AST.TSESTreeFunction) {
+    [":function"](node: ast.TSESTreeFunction) {
       const kind = getFunctionKind(node);
       fEntries.push({ kind, node });
     },
@@ -132,7 +132,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      if (node.callee.type !== T.MemberExpression) {
+      if (node.callee.type !== AST.MemberExpression) {
         return;
       }
       const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
@@ -214,10 +214,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
         const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | unit) => node?.type === T.CallExpression || AST.isConditional(node);
+        const isDynamic = (node: TSESTree.Node | unit) => node?.type === AST.CallExpression || ast.isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
         const hasDynamicallyAdded = oentries
-          .some((e) => !isPhaseNode(AST.findParentNode(e.node, or(isDynamic, isPhaseNode))));
+          .some((e) => !isPhaseNode(ast.findParentNode(e.node, or(isDynamic, isPhaseNode))));
         if (hasDynamicallyAdded) {
           context.report({ messageId: "expectedDisconnectInControlFlow", node });
           continue;

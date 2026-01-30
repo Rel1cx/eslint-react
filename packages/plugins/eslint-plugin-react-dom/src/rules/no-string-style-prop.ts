@@ -1,4 +1,4 @@
-import { getJsxAttribute, isJsxHostElement, resolveJsxAttributeValue } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -31,18 +31,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       // This rule only applies to host elements (e.g., <div />, <span />), not custom components
-      if (!isJsxHostElement(context, node)) {
+      if (!core.isJsxHostElement(context, node)) {
         return;
       }
 
       // Find the 'style' prop on the element
-      const styleProp = getJsxAttribute(context, node)("style");
+      const styleProp = core.getJsxAttribute(context, node)("style");
       if (styleProp == null) {
         return;
       }
 
       // Resolve the static value of the 'style' prop
-      const styleValue = resolveJsxAttributeValue(context, styleProp);
+      const styleValue = core.resolveJsxAttributeValue(context, styleProp);
       const staticValue = styleValue.toStatic();
 
       // If the resolved value is a string, report an error

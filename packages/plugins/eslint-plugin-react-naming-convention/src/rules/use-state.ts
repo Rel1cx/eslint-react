@@ -1,9 +1,9 @@
-import { isUseStateCall } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { snakeCase } from "string-ts";
@@ -78,10 +78,10 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!isUseStateCall(node)) {
+      if (!core.isUseStateCall(node)) {
         return;
       }
-      if (node.parent.type !== T.VariableDeclarator) {
+      if (node.parent.type !== AST.VariableDeclarator) {
         if (!enforceAssignment) return;
         context.report({
           messageId: "invalidAssignment",
@@ -90,7 +90,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         return;
       }
       const id = findEnclosingAssignmentTarget(node);
-      if (id?.type !== T.ArrayPattern) {
+      if (id?.type !== AST.ArrayPattern) {
         if (!enforceAssignment) return;
         context.report({
           messageId: "invalidAssignment",
@@ -112,7 +112,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         return;
       }
       const setterName = match(setter)
-        .with({ type: T.Identifier }, (id) => id.name)
+        .with({ type: AST.Identifier }, (id) => id.name)
         .otherwise(() => null);
       if (setterName == null || !setterName.startsWith("set")) {
         context.report({
@@ -122,10 +122,10 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         return;
       }
       const valueName = match(value)
-        .with({ type: T.Identifier }, ({ name }) => snakeCase(name))
-        .with({ type: T.ObjectPattern }, ({ properties }) => {
+        .with({ type: AST.Identifier }, ({ name }) => snakeCase(name))
+        .with({ type: AST.ObjectPattern }, ({ properties }) => {
           const values = properties.reduce<string[]>((acc, prop) => {
-            if (prop.type === T.Property && prop.key.type === T.Identifier) {
+            if (prop.type === AST.Property && prop.key.type === AST.Identifier) {
               return [...acc, prop.key.name];
             }
             return acc;

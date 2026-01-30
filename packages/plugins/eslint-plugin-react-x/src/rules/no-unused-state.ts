@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
-import { isAssignmentToThisState, isClassComponent, isGetDerivedStateFromProps } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -26,9 +26,9 @@ function isKeyLiteral(
   key: TSESTree.Node,
 ) {
   return match(key)
-    .with({ type: T.Literal }, constTrue)
-    .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
-    .with({ type: T.Identifier }, () => !node.computed)
+    .with({ type: AST.Literal }, constTrue)
+    .with({ type: AST.TemplateLiteral, expressions: [] }, constTrue)
+    .with({ type: AST.Identifier }, () => !node.computed)
     .otherwise(constFalse);
 }
 
@@ -50,13 +50,16 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Stacks to keep track of the current AST traversal context
-  const classStack: AST.TSESTreeClass[] = [];
-  const methodStack: AST.TSESTreeMethodOrProperty[] = [];
+  const classStack: ast.TSESTreeClass[] = [];
+  const methodStack: ast.TSESTreeMethodOrProperty[] = [];
   const constructorStack: TSESTree.MethodDefinition[] = [];
   // WeakMap to store state definition information for each class
-  const stateDefs = new WeakMap<AST.TSESTreeClass, { node: TSESTree.Node | unit; isUsed: boolean }>();
+  const stateDefs = new WeakMap<
+    ast.TSESTreeClass,
+    { node: TSESTree.Node | unit; isUsed: boolean }
+  >();
 
-  function classEnter(node: AST.TSESTreeClass) {
+  function classEnter(node: ast.TSESTreeClass) {
     // Keep track of the current class being visited
     classStack.push(node);
   }
@@ -64,10 +67,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function classExit() {
     // Pop the class when exiting its node
     const currentClass = classStack.pop();
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !core.isClassComponent(currentClass)) {
       return;
     }
-    const id = AST.getClassId(currentClass);
+    const id = ast.getClassId(currentClass);
     // Get state definition and usage status for the current class
     const { node: defNode, isUsed = false } = stateDefs.get(currentClass) ?? {};
     // If state is not defined or is used, do nothing
@@ -84,23 +87,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     });
   }
 
-  function methodEnter(node: AST.TSESTreeMethodOrProperty) {
+  function methodEnter(node: ast.TSESTreeMethodOrProperty) {
     // Keep track of the current method being visited
     methodStack.push(node);
     const currentClass = classStack.at(-1);
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !core.isClassComponent(currentClass)) {
       return;
     }
     if (node.static) {
       // `getDerivedStateFromProps` can update state, so we mark state as used
-      if (isGetDerivedStateFromProps(node) && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)) {
+      if (
+        core.isGetDerivedStateFromProps(node)
+        && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)
+      ) {
         const defNode = stateDefs.get(currentClass)?.node;
         stateDefs.set(currentClass, { node: defNode, isUsed: true });
       }
       return;
     }
     // Detect state definition as a class property (`state = ...`)
-    if (AST.getPropertyName(node.key) === "state") {
+    if (ast.getPropertyName(node.key) === "state") {
       stateDefs.set(currentClass, { node: node.key, isUsed: false });
     }
   }
@@ -123,16 +129,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     AssignmentExpression(node) {
       // Detect state definition in constructor (`this.state = ...`)
-      if (!isAssignmentToThisState(node)) {
+      if (!core.isAssignmentToThisState(node)) {
         return;
       }
       const currentClass = classStack.at(-1);
-      if (currentClass == null || !isClassComponent(currentClass)) {
+      if (currentClass == null || !core.isClassComponent(currentClass)) {
         return;
       }
       // Ensure the assignment is within the constructor of the current class
       const currentConstructor = constructorStack.at(-1);
-      if (currentConstructor == null || !currentClass.body.body.includes(currentConstructor)) {
+      if (
+        currentConstructor == null
+        || !currentClass.body.body.includes(currentConstructor)
+      ) {
         return;
       }
       // Record the state definition node
@@ -145,14 +154,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "ClassExpression:exit": classExit,
     MemberExpression(node) {
       // Detect state usage (`this.state`)
-      if (!AST.isThisExpressionLoose(node.object)) {
+      if (!ast.isThisExpressionLoose(node.object)) {
         return;
       }
-      if (AST.getPropertyName(node.property) !== "state") {
+      if (ast.getPropertyName(node.property) !== "state") {
         return;
       }
       const currentClass = classStack.at(-1);
-      if (currentClass == null || !isClassComponent(currentClass)) {
+      if (currentClass == null || !core.isClassComponent(currentClass)) {
         return;
       }
       // Ensure the usage is within a method of the current class
@@ -179,7 +188,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "PropertyDefinition:exit": methodExit,
     VariableDeclarator(node) {
       const currentClass = classStack.at(-1);
-      if (currentClass == null || !isClassComponent(currentClass)) {
+      if (currentClass == null || !core.isClassComponent(currentClass)) {
         return;
       }
       const currentMethod = methodStack.at(-1);
@@ -194,12 +203,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Detect state usage via destructuring (`const { state } = this`)
-      if (node.init == null || !AST.isThisExpressionLoose(node.init) || node.id.type !== T.ObjectPattern) {
+      if (
+        node.init == null
+        || !ast.isThisExpressionLoose(node.init)
+        || node.id.type !== AST.ObjectPattern
+      ) {
         return;
       }
       const hasState = node.id.properties.some((prop) => {
-        if (prop.type === T.Property && isKeyLiteral(prop, prop.key)) {
-          return AST.getPropertyName(prop.key) === "state";
+        if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
+          return ast.getPropertyName(prop.key) === "state";
         }
         return false;
       });

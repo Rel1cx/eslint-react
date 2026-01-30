@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { getUnderlyingExpression } from "./expression-base";
 import { isLiteral } from "./literal";
@@ -11,7 +11,7 @@ import { isLiteral } from "./literal";
 export function getProgramDirectives(node: TSESTree.Program): TSESTree.StringLiteral[] {
   const directives: TSESTree.StringLiteral[] = [];
   for (const stmt of node.body) {
-    if (stmt.type !== T.ExpressionStatement) continue;
+    if (stmt.type !== AST.ExpressionStatement) continue;
     const expr = getUnderlyingExpression(stmt.expression);
     if (!isLiteral(expr, "string")) continue;
     directives.push(expr);

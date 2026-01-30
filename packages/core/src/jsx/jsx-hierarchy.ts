@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { constTrue } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 /**
  * Traverses up the AST to find a parent JSX attribute node that matches a given test
@@ -18,9 +18,9 @@ export function findParentJsxAttribute(
 ): TSESTree.JSXAttribute | unit {
   // Type guard function to verify if a node is a JSXAttribute and passes the test
   const guard = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
-    return node.type === T.JSXAttribute && test(node);
+    return node.type === AST.JSXAttribute && test(node);
   };
 
   // Use AST utility to walk up the tree and find the first matching node
-  return AST.findParentNode(node, guard);
+  return ast.findParentNode(node, guard);
 }

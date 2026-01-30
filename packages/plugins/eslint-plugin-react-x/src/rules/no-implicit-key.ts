@@ -1,7 +1,7 @@
-import { getJsxAttribute } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -36,12 +36,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
       // Find the 'key' prop, including those from spread attributes
-      const keyProp = getJsxAttribute(context, node.parent)("key");
+      const keyProp = core.getJsxAttribute(context, node.parent)("key");
       // Check if the 'key' prop is explicitly defined on the element
       const isKeyPropOnElement = node.attributes
         .some((n) =>
-          n.type === T.JSXAttribute
-          && n.name.type === T.JSXIdentifier
+          n.type === AST.JSXAttribute
+          && n.name.type === AST.JSXIdentifier
           && n.name.name === "key"
         );
       // If a 'key' prop exists but is not explicitly on the element, it's implicit

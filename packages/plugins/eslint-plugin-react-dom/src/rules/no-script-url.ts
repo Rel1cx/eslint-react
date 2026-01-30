@@ -1,6 +1,6 @@
-import { resolveJsxAttributeValue } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -31,8 +31,8 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXAttribute(node) {
-      if (node.name.type !== T.JSXIdentifier || node.value == null) return;
-      const value = resolveJsxAttributeValue(context, node).toStatic();
+      if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
+      const value = core.resolveJsxAttributeValue(context, node).toStatic();
       if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({
           messageId: "noScriptUrl",

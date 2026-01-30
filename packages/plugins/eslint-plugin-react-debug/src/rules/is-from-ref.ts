@@ -1,8 +1,8 @@
-import { isInitializedFromRef } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -56,15 +56,15 @@ function isFromRef(
 ) {
   const name = node.name;
   switch (true) {
-    case node.parent.type === T.MemberExpression
+    case node.parent.type === AST.MemberExpression
       && node.parent.property === node
-      && node.parent.object.type === T.Identifier:
-      return isInitializedFromRef(node.parent.object.name, initialScope);
-    case node.parent.type === T.JSXMemberExpression
+      && node.parent.object.type === AST.Identifier:
+      return core.isInitializedFromRef(node.parent.object.name, initialScope);
+    case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
-      && node.parent.object.type === T.JSXIdentifier:
-      return isInitializedFromRef(node.parent.object.name, initialScope);
+      && node.parent.object.type === AST.JSXIdentifier:
+      return core.isInitializedFromRef(node.parent.object.name, initialScope);
     default:
-      return isInitializedFromRef(name, initialScope);
+      return core.isInitializedFromRef(name, initialScope);
   }
 }

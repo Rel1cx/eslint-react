@@ -1,7 +1,7 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isComponentWrapperCallLoose } from "./component-wrapper";
 
@@ -13,28 +13,28 @@ import { isComponentWrapperCallLoose } from "./component-wrapper";
  */
 export function getFunctionComponentId(
   context: RuleContext,
-  node: AST.TSESTreeFunction,
-): AST.FunctionID | unit {
-  const functionId = AST.getFunctionId(node);
+  node: ast.TSESTreeFunction,
+): ast.FunctionID | unit {
+  const functionId = ast.getFunctionId(node);
   if (functionId != null) {
     return functionId;
   }
   const { parent } = node;
   // Get function component identifier from `const Component = memo(() => {});`
   if (
-    parent.type === T.CallExpression
+    parent.type === AST.CallExpression
     && isComponentWrapperCallLoose(context, parent)
-    && parent.parent.type === T.VariableDeclarator
+    && parent.parent.type === AST.VariableDeclarator
   ) {
     return parent.parent.id;
   }
   // Get function component identifier from `const Component = memo(forwardRef(() => {}));`
   if (
-    parent.type === T.CallExpression
+    parent.type === AST.CallExpression
     && isComponentWrapperCallLoose(context, parent)
-    && parent.parent.type === T.CallExpression
+    && parent.parent.type === AST.CallExpression
     && isComponentWrapperCallLoose(context, parent.parent)
-    && parent.parent.parent.type === T.VariableDeclarator
+    && parent.parent.parent.type === AST.VariableDeclarator
   ) {
     return parent.parent.parent.id;
   }

@@ -28,4 +28,4 @@ Find the enclosing React component or hook for a given AST node
   \| `FunctionExpression`
   \| `undefined`
 
-The enclosing component or hook node, or `null` if none is found
+The enclosing component or hook node, or `null` if none is ASAST.

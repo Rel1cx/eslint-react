@@ -1,4 +1,4 @@
-import { getJsxAttribute } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      const findJsxAttribute = getJsxAttribute(context, node);
+      const findJsxAttribute = core.getJsxAttribute(context, node);
 
       // Check if the element has a 'children' prop
       const hasChildrenProp = findJsxAttribute("children") != null;

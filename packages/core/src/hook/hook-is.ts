@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { constFalse, flip } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import type { RegExpLike } from "@eslint-react/shared";
 import { isHookName } from "./hook-name";
@@ -12,13 +12,13 @@ import { isHookName } from "./hook-name";
  * @param node The function node to check
  * @returns True if the function is a React Hook, false otherwise
  */
-export function isHook(node: AST.TSESTreeFunction | unit) {
+export function isHook(node: ast.TSESTreeFunction | unit) {
   if (node == null) return false;
-  const id = AST.getFunctionId(node);
+  const id = ast.getFunctionId(node);
   switch (id?.type) {
-    case T.Identifier:
+    case AST.Identifier:
       return isHookName(id.name);
-    case T.MemberExpression:
+    case AST.MemberExpression:
       return "name" in id.property && isHookName(id.property.name);
     default:
       return false;
@@ -32,14 +32,14 @@ export function isHook(node: AST.TSESTreeFunction | unit) {
  */
 export function isHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExpression {
   if (node == null) return false;
-  if (node.type !== T.CallExpression) {
+  if (node.type !== AST.CallExpression) {
     return false;
   }
-  if (node.callee.type === T.Identifier) {
+  if (node.callee.type === AST.Identifier) {
     return isHookName(node.callee.name);
   }
-  if (node.callee.type === T.MemberExpression) {
-    return node.callee.property.type === T.Identifier && isHookName(node.callee.property.name);
+  if (node.callee.type === AST.MemberExpression) {
+    return node.callee.property.type === AST.Identifier && isHookName(node.callee.property.name);
   }
   return false;
 }
@@ -52,13 +52,13 @@ export function isHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExp
  */
 /* eslint-disable function/function-return-boolean */
 export function isHookCallWithName(node: TSESTree.Node | unit) {
-  if (node == null || node.type !== T.CallExpression) return constFalse;
+  if (node == null || node.type !== AST.CallExpression) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {
-      case T.Identifier:
+      case AST.Identifier:
         return node.callee.name === name;
-      case T.MemberExpression:
-        return node.callee.property.type === T.Identifier && node.callee.property.name === name;
+      case AST.MemberExpression:
+        return node.callee.property.type === AST.Identifier && node.callee.property.name === name;
       default:
         return false;
     }
@@ -76,15 +76,15 @@ export function isUseEffectLikeCall(
   additionalEffectHooks: RegExpLike = { test: constFalse },
 ): node is TSESTree.CallExpression {
   if (node == null) return false;
-  if (node.type !== T.CallExpression) {
+  if (node.type !== AST.CallExpression) {
     return false;
   }
   return [/^use\w*Effect$/u, additionalEffectHooks].some((regexp) => {
-    if (node.callee.type === T.Identifier) {
+    if (node.callee.type === AST.Identifier) {
       return regexp.test(node.callee.name);
     }
-    if (node.callee.type === T.MemberExpression) {
-      return node.callee.property.type === T.Identifier && regexp.test(node.callee.property.name);
+    if (node.callee.type === AST.MemberExpression) {
+      return node.callee.property.type === AST.Identifier && regexp.test(node.callee.property.name);
     }
     return false;
   });
@@ -101,15 +101,15 @@ export function isUseStateLikeCall(
   additionalStateHooks: RegExpLike = { test: constFalse },
 ): node is TSESTree.CallExpression {
   if (node == null) return false;
-  if (node.type !== T.CallExpression) {
+  if (node.type !== AST.CallExpression) {
     return false;
   }
   return [/^use\w*State$/u, additionalStateHooks].some((regexp) => {
-    if (node.callee.type === T.Identifier) {
+    if (node.callee.type === AST.Identifier) {
       return regexp.test(node.callee.name);
     }
-    if (node.callee.type === T.MemberExpression) {
-      return node.callee.property.type === T.Identifier && regexp.test(node.callee.property.name);
+    if (node.callee.type === AST.MemberExpression) {
+      return node.callee.property.type === AST.Identifier && regexp.test(node.callee.property.name);
     }
     return false;
   });

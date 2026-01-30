@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import { isCaptureOwnerStackCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
@@ -44,9 +44,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       // Check if the call is to `captureOwnerStack`
-      if (!isCaptureOwnerStackCall(context, node)) return;
+      if (!core.isCaptureOwnerStackCall(context, node)) return;
       // Check if the call is wrapped in a development-only conditional block
-      if (AST.findParentNode(node, isDevelopmentOnlyCheck) == null) {
+      if (ast.findParentNode(node, isDevelopmentOnlyCheck) == null) {
         context.report({
           messageId: "missingDevelopmentOnlyCheck",
           node,
@@ -58,8 +58,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.source.value !== importSource) return;
       // Iterate over import specifiers to find named imports of `captureOwnerStack`
       for (const specifier of node.specifiers) {
-        if (specifier.type !== T.ImportSpecifier) continue;
-        if (specifier.imported.type !== T.Identifier) continue;
+        if (specifier.type !== AST.ImportSpecifier) continue;
+        if (specifier.imported.type !== AST.Identifier) continue;
         if (specifier.imported.name === "captureOwnerStack") {
           context.report({
             messageId: "useNamespaceImport",
@@ -73,6 +73,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 // Helper function to check if a node is a development-only `if` statement
 function isDevelopmentOnlyCheck(node: TSESTree.Node) {
-  if (node.type !== T.IfStatement) return false;
-  return AST.isProcessEnvNodeEnvCompare(node.test, "!==", "production");
+  if (node.type !== AST.IfStatement) return false;
+  return ast.isProcessEnvNodeEnvCompare(node.test, "!==", "production");
 }

@@ -1,5 +1,5 @@
 import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import tsx from "dedent";
 import path from "node:path";
@@ -30,7 +30,7 @@ describe("get function identifier from function declaration", () => {
         if (!isFunction(node)) {
           return;
         }
-        expect(getFunctionId(node)).include({ type: T.Identifier, name: expected });
+        expect(getFunctionId(node)).include({ type: AST.Identifier, name: expected });
         n = node;
       },
     }, true);
@@ -65,7 +65,7 @@ describe("get function identifier from function expression", () => {
         if (!isFunction(node)) {
           return;
         }
-        expect(getFunctionId(node)).include({ type: T.Identifier, name: expected });
+        expect(getFunctionId(node)).include({ type: AST.Identifier, name: expected });
         n = node;
       },
     }, true);

@@ -1,5 +1,5 @@
-import * as AST from "@eslint-react/ast";
-import { isClassComponent, isCreateRefCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      if (isCreateRefCall(context, node) && AST.findParentNode(node, isClassComponent) == null) {
+      if (core.isCreateRefCall(context, node) && ast.findParentNode(node, core.isClassComponent) == null) {
         context.report({ messageId: "noCreateRef", node });
       }
     },

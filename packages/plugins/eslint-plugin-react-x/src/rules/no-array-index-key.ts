@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
-import { isCloneElementCall, isCreateElementCall, isInitializedFromReact } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { coerceSettings } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -56,11 +56,11 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
     return false;
   }
   const initialScope = context.sourceCode.getScope(node);
-  if (callee.object.type === T.Identifier && callee.object.name === "Children") {
+  if (callee.object.type === AST.Identifier && callee.object.name === "Children") {
     return true;
   }
-  if (callee.object.type === T.MemberExpression && "name" in callee.object.object) {
-    return isInitializedFromReact(callee.object.object.name, initialScope, importSource);
+  if (callee.object.type === AST.MemberExpression && "name" in callee.object.object) {
+    return core.isInitializedFromReact(callee.object.object.name, initialScope, importSource);
   }
   return false;
 }
@@ -69,10 +69,10 @@ function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpressio
 // e.g., in `data.map((item, index) => ...)` it returns 'index'
 function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | unit {
   const { callee } = node;
-  if (callee.type !== T.MemberExpression) {
+  if (callee.type !== AST.MemberExpression) {
     return unit;
   }
-  if (callee.property.type !== T.Identifier) {
+  if (callee.property.type !== AST.Identifier) {
     return unit;
   }
   const { name } = callee.property;
@@ -86,7 +86,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
   if (callbackArg == null) {
     return unit;
   }
-  if (!AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(callbackArg)) {
+  if (!ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callbackArg)) {
     return unit;
   }
   const { params } = callbackArg;
@@ -108,10 +108,10 @@ function getIdentifiersFromBinaryExpression(
     | TSESTree.BinaryExpression["left"]
     | TSESTree.BinaryExpression["right"],
 ): readonly TSESTree.Identifier[] {
-  if (side.type === T.Identifier) {
+  if (side.type === AST.Identifier) {
     return [side];
   }
-  if (side.type === T.BinaryExpression) {
+  if (side.type === AST.BinaryExpression) {
     return [
       ...getIdentifiersFromBinaryExpression(side.left),
       ...getIdentifiersFromBinaryExpression(side.right),
@@ -142,20 +142,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Checks if a given node is an identifier that matches a known array index parameter name
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-    return node.type === T.Identifier
+    return node.type === AST.Identifier
       && indexParamNames.some((name) => name != null && name === node.name);
   }
 
   // Checks if a call expression is `React.createElement` or `React.cloneElement`
   function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
-    return isCreateElementCall(context, node) || isCloneElementCall(context, node);
+    return core.isCreateElementCall(context, node) || core.isCloneElementCall(context, node);
   }
 
   // Generates report descriptors for various ways an array index can be used as a key
   function getReportDescriptors(node: TSESTree.Node): ReportDescriptor<MessageID>[] {
     switch (node.type) {
       // Case: key={index}
-      case T.Identifier: {
+      case AST.Identifier: {
         if (indexParamNames.some((name) => name != null && name === node.name)) {
           return [{
             messageId: "noArrayIndexKey",
@@ -165,10 +165,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return [];
       }
       // Case: key={`foo-${index}`} or key={'foo' + index}
-      case T.TemplateLiteral:
-      case T.BinaryExpression: {
+      case AST.TemplateLiteral:
+      case AST.BinaryExpression: {
         const descriptors: ReportDescriptor<MessageID>[] = [];
-        const expressions = node.type === T.TemplateLiteral
+        const expressions = node.type === AST.TemplateLiteral
           ? node.expressions
           : getIdentifiersFromBinaryExpression(node);
         for (const expression of expressions) {
@@ -182,11 +182,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return descriptors;
       }
       // Case: key={index.toString()} or key={String(index)}
-      case T.CallExpression: {
+      case AST.CallExpression: {
         switch (true) {
           // Case: key={index.toString()}
-          case node.callee.type === T.MemberExpression
-            && node.callee.property.type === T.Identifier
+          case node.callee.type === AST.MemberExpression
+            && node.callee.property.type === AST.Identifier
             && node.callee.property.name === "toString"
             && isArrayIndex(node.callee.object): {
             return [{
@@ -195,7 +195,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             }];
           }
           // Case: key={String(index)}
-          case node.callee.type === T.Identifier
+          case node.callee.type === AST.Identifier
             && node.callee.name === "String"
             && node.arguments[0] != null
             && isArrayIndex(node.arguments[0]): {
@@ -222,7 +222,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const [, props] = node.arguments;
-      if (props?.type !== T.ObjectExpression) {
+      if (props?.type !== AST.ObjectExpression) {
         return;
       }
       for (const prop of props.properties) {
@@ -254,7 +254,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // The key's value must be an expression container (e.g., key={...})
-      if (node.value?.type !== T.JSXExpressionContainer) {
+      if (node.value?.type !== AST.JSXExpressionContainer) {
         return;
       }
       // Check the expression and report if it uses an array index

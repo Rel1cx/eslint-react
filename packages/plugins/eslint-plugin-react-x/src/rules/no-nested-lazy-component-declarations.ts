@@ -1,16 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import {
-  ComponentDetectionHint,
-  isCreateContextCall,
-  isCreateElementCall,
-  isHookCall,
-  isLazyCall,
-  useComponentCollector,
-  useComponentCollectorLegacy,
-} from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -40,11 +32,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hint = ComponentDetectionHint.None;
+  const hint = core.ComponentDetectionHint.None;
   // Collector for function components
-  const collector = useComponentCollector(context, { hint });
+  const collector = core.useComponentCollector(context, { hint });
   // Collector for class components
-  const collectorLegacy = useComponentCollectorLegacy(context);
+  const collectorLegacy = core.useComponentCollectorLegacy(context);
 
   // A set to store all `React.lazy()` call expressions
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();
@@ -55,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       // Find all `React.lazy()` calls with dynamic imports and store them
       ImportExpression(node) {
-        const lazyCall = AST.findParentNode(node, (n) => isLazyCall(context, n));
+        const lazyCall = ast.findParentNode(node, (n) => core.isLazyCall(context, n));
         if (lazyCall != null) {
           lazyComponentDeclarations.add(lazyCall);
         }
@@ -74,17 +66,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Iterate over each found `React.lazy()` call
         for (const lazy of lazyComponentDeclarations) {
           // Check if the lazy declaration is inside a component, hook, or JSX
-          const significantParent = AST.findParentNode(lazy, (n) => {
-            if (AST.isJSX(n)) return true;
-            if (n.type === T.CallExpression) {
+          const significantParent = ast.findParentNode(lazy, (n) => {
+            if (ast.isJSX(n)) return true;
+            if (n.type === AST.CallExpression) {
               // Check for React hooks, `createElement`, or `createContext`
-              return isHookCall(n) || isCreateElementCall(context, n) || isCreateContextCall(context, n);
+              return core.isHookCall(n) || core.isCreateElementCall(context, n) || core.isCreateContextCall(context, n);
             }
-            if (AST.isFunction(n)) {
+            if (ast.isFunction(n)) {
               // Check if it's inside a function component
               return functionComponents.some((c) => c.node === n);
             }
-            if (AST.isClass(n)) {
+            if (ast.isClass(n)) {
               // Check if it's inside a class component
               return classComponents.some((c) => c.node === n);
             }

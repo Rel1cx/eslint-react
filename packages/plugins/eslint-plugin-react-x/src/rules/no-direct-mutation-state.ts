@@ -1,7 +1,7 @@
-import * as AST from "@eslint-react/ast";
-import { isAssignmentToThisState, isClassComponent } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -17,9 +17,9 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return AST.isOneOf([T.FunctionDeclaration, T.FunctionExpression])(node)
-    && AST.isMethodOrProperty(node.parent)
-    && node.parent.key.type === T.Identifier
+  return ast.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
+    && ast.isMethodOrProperty(node.parent)
+    && node.parent.key.type === AST.Identifier
     && node.parent.key.name === "constructor";
 }
 
@@ -42,13 +42,13 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      if (!isAssignmentToThisState(node)) return;
+      if (!core.isAssignmentToThisState(node)) return;
       // Find the parent class of the assignment
-      const parentClass = AST.findParentNode(
+      const parentClass = ast.findParentNode(
         node,
-        AST.isOneOf([
-          T.ClassDeclaration,
-          T.ClassExpression,
+        ast.isOneOf([
+          AST.ClassDeclaration,
+          AST.ClassExpression,
         ]),
       );
       // If the assignment is not inside a class, do nothing
@@ -56,8 +56,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Report an error if 'this.state' is directly mutated in a class component
       // and the mutation is not inside the constructor
       if (
-        isClassComponent(parentClass)
-        && context.sourceCode.getScope(node).block !== AST.findParentNode(node, isConstructorFunction)
+        core.isClassComponent(parentClass)
+        && context.sourceCode.getScope(node).block !== ast.findParentNode(node, isConstructorFunction)
       ) {
         context.report({
           messageId: "noDirectMutationState",

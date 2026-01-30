@@ -2,7 +2,7 @@ import { dual, unit } from "@eslint-react/eff";
 import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import { ScopeType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import * as ASTUtils from "@typescript-eslint/utils/ast-utils";
+import * as astUtils from "@typescript-eslint/utils/ast-utils";
 
 /**
  * Get all variables from the given scope up to the global scope
@@ -24,5 +24,5 @@ export const findVariable: {
   (nameOrNode: string | TSESTree.Identifier | unit, initialScope: Scope): Variable | unit;
 } = dual(2, (nameOrNode: string | TSESTree.Identifier | unit, initialScope: Scope) => {
   if (nameOrNode == null) return unit;
-  return ASTUtils.findVariable(initialScope, nameOrNode) ?? unit;
+  return astUtils.findVariable(initialScope, nameOrNode) ?? unit;
 });

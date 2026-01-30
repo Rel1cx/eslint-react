@@ -1,8 +1,8 @@
 /* eslint-disable function/function-return-boolean */
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { dual, type unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isReactAPI {
   type ReturnType = {
@@ -25,7 +25,7 @@ export function isReactAPI(api: string): isReactAPI.ReturnType {
   {
     if (node == null) return false;
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-    const name = AST.toStringFormat(node, getText);
+    const name = ast.toStringFormat(node, getText);
     if (name === api) return true;
     if (name.substring(name.indexOf(".") + 1) === api) return true;
     return false;
@@ -48,7 +48,7 @@ export declare namespace isReactAPICall {
 export function isReactAPICall(api: string): isReactAPICall.ReturnType {
   const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
-    if (node.type !== T.CallExpression) return false;
+    if (node.type !== AST.CallExpression) return false;
     return isReactAPI(api)(context, node.callee);
   };
   return dual(2, func);

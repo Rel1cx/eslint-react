@@ -1,5 +1,5 @@
 import { type RuleContext, type RuleFeature, toRegExp } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { type CamelCase, camelCase } from "string-ts";
 
@@ -105,16 +105,16 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     JSXOpeningElement(node) {
       let nodeName: string | null = null;
       // Get the name of the component element
-      if (node.name.type === T.JSXIdentifier) {
+      if (node.name.type === AST.JSXIdentifier) {
         nodeName = node.name.name;
-      } else if (node.name.type === T.JSXNamespacedName) {
+      } else if (node.name.type === AST.JSXNamespacedName) {
         nodeName = node.name.name.name;
       }
 
       // Iterate over each attribute (prop) of the component
       for (const attr of node.attributes) {
         // Skip spread attributes
-        if (attr.type === T.JSXSpreadAttribute) {
+        if (attr.type === AST.JSXSpreadAttribute) {
           continue;
         }
         const name = attr.name.name;

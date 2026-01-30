@@ -1,6 +1,6 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 /**
  * Create a lifecycle method checker function
@@ -8,10 +8,10 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @param isStatic Whether the method is static
  */
 function createLifecycleChecker(methodName: string, isStatic = false) {
-  return (node: TSESTree.Node): node is AST.TSESTreeMethodOrProperty => (
-    AST.isMethodOrProperty(node)
+  return (node: TSESTree.Node): node is ast.TSESTreeMethodOrProperty => (
+    ast.isMethodOrProperty(node)
     && node.static === isStatic
-    && node.key.type === T.Identifier
+    && node.key.type === AST.Identifier
     && node.key.name === methodName
   );
 }

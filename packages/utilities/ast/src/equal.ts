@@ -1,6 +1,6 @@
 import { dual } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { getUnderlyingExpression } from "./expression-base";
 import { isTypeExpression } from "./is";
@@ -23,14 +23,14 @@ export const isNodeEqual: {
       return true;
     case a.type !== b.type:
       return false;
-    case a.type === T.Literal
-      && b.type === T.Literal:
+    case a.type === AST.Literal
+      && b.type === AST.Literal:
       return a.value === b.value;
-    case a.type === T.TemplateElement
-      && b.type === T.TemplateElement:
+    case a.type === AST.TemplateElement
+      && b.type === AST.TemplateElement:
       return a.value.raw === b.value.raw;
-    case a.type === T.TemplateLiteral
-      && b.type === T.TemplateLiteral: {
+    case a.type === AST.TemplateLiteral
+      && b.type === AST.TemplateLiteral: {
       if (a.quasis.length !== b.quasis.length || a.expressions.length !== b.expressions.length) {
         return false;
       }
@@ -52,17 +52,17 @@ export const isNodeEqual: {
       }
       return true;
     }
-    case a.type === T.Identifier
-      && b.type === T.Identifier:
+    case a.type === AST.Identifier
+      && b.type === AST.Identifier:
       return a.name === b.name;
-    case a.type === T.PrivateIdentifier
-      && b.type === T.PrivateIdentifier:
+    case a.type === AST.PrivateIdentifier
+      && b.type === AST.PrivateIdentifier:
       return a.name === b.name;
-    case a.type === T.MemberExpression
-      && b.type === T.MemberExpression:
+    case a.type === AST.MemberExpression
+      && b.type === AST.MemberExpression:
       return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
-    case a.type === T.JSXAttribute
-      && b.type === T.JSXAttribute: {
+    case a.type === AST.JSXAttribute
+      && b.type === AST.JSXAttribute: {
       if (a.name.name !== b.name.name) {
         return false;
       }
@@ -71,8 +71,8 @@ export const isNodeEqual: {
       }
       return isNodeEqual(a.value, b.value);
     }
-    case a.type === T.ThisExpression
-      && b.type === T.ThisExpression:
+    case a.type === AST.ThisExpression
+      && b.type === AST.ThisExpression:
       return true;
     default:
       return false;

@@ -1,5 +1,5 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -32,7 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXOpeningElement(node) {
       const props: string[] = [];
       for (const attr of node.attributes) {
-        if (attr.type === T.JSXSpreadAttribute) {
+        if (attr.type === AST.JSXSpreadAttribute) {
           continue;
         }
         const name = attr.name.name;

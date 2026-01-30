@@ -1,5 +1,5 @@
 import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import tsx from "dedent";
 import path from "node:path";
@@ -26,7 +26,7 @@ describe("get nested return statements from function", () => {
           return <div />;
         }
       `,
-      [{ type: T.ReturnStatement, argument: { type: T.JSXElement } }],
+      [{ type: AST.ReturnStatement, argument: { type: AST.JSXElement } }],
     ],
     [
       tsx`
@@ -34,7 +34,7 @@ describe("get nested return statements from function", () => {
           return Math.random() > 0.5 ? <div /> : null;
         }
       `,
-      [{ type: T.ReturnStatement, argument: { type: T.ConditionalExpression } }],
+      [{ type: AST.ReturnStatement, argument: { type: AST.ConditionalExpression } }],
     ],
     [
       tsx`
@@ -47,8 +47,8 @@ describe("get nested return statements from function", () => {
         }
       `,
       [
-        { type: T.ReturnStatement, argument: { type: T.JSXElement } },
-        { type: T.ReturnStatement, argument: { type: T.Literal } },
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal } },
       ],
     ],
     [
@@ -67,10 +67,10 @@ describe("get nested return statements from function", () => {
         }
       `,
       [
-        { type: T.ReturnStatement, argument: { type: T.JSXElement } },
-        { type: T.ReturnStatement, argument: { type: T.JSXElement } },
-        { type: T.ReturnStatement, argument: { type: T.Literal, value: 0 } },
-        { type: T.ReturnStatement, argument: { type: T.Literal, value: 0n } },
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal, value: 0 } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal, value: 0n } },
       ],
     ],
     [
@@ -86,8 +86,8 @@ describe("get nested return statements from function", () => {
         }
       `,
       [
-        { type: T.ReturnStatement, argument: { type: T.JSXElement } },
-        { type: T.ReturnStatement, argument: { type: T.Literal, value: 0n } },
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal, value: 0n } },
       ],
     ],
   ])("should return the nested return statements from %s", (code, expected) => {

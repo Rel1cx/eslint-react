@@ -1,8 +1,8 @@
 import { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { getVariableDefinitionNode } from "./get-variable-definition-node";
 
 export type ObjectType =
@@ -60,29 +60,29 @@ export function getObjectType(
 ): ObjectType | unit {
   if (node == null) return unit;
   switch (node.type) {
-    case T.JSXElement:
-    case T.JSXFragment:
+    case AST.JSXElement:
+    case AST.JSXFragment:
       return { kind: "jsx", node } as const;
-    case T.ArrayExpression:
+    case AST.ArrayExpression:
       return { kind: "array", node } as const;
-    case T.ObjectExpression:
+    case AST.ObjectExpression:
       return { kind: "plain", node } as const;
-    case T.ClassExpression:
+    case AST.ClassExpression:
       return { kind: "class", node } as const;
-    case T.NewExpression:
-    case T.ThisExpression:
+    case AST.NewExpression:
+    case AST.ThisExpression:
       return { kind: "instance", node } as const;
-    case T.FunctionDeclaration:
-    case T.FunctionExpression:
-    case T.ArrowFunctionExpression:
+    case AST.FunctionDeclaration:
+    case AST.FunctionExpression:
+    case AST.ArrowFunctionExpression:
       return { kind: "function", node } as const;
-    case T.Literal: {
+    case AST.Literal: {
       if ("regex" in node) {
         return { kind: "regexp", node } as const;
       }
       return unit;
     }
-    case T.Identifier: {
+    case AST.Identifier: {
       if (!("name" in node) || typeof node.name !== "string") {
         return unit;
       }
@@ -90,22 +90,22 @@ export function getObjectType(
       const variableNode = getVariableDefinitionNode(variable, -1);
       return getObjectType(variableNode, initialScope);
     }
-    case T.MemberExpression: {
+    case AST.MemberExpression: {
       if (!("object" in node)) return unit;
       return getObjectType(node.object, initialScope);
     }
-    case T.AssignmentExpression:
-    case T.AssignmentPattern: {
+    case AST.AssignmentExpression:
+    case AST.AssignmentPattern: {
       if (!("right" in node)) return unit;
       return getObjectType(node.right, initialScope);
     }
-    case T.LogicalExpression: {
+    case AST.LogicalExpression: {
       return getObjectType(node.right, initialScope);
     }
-    case T.ConditionalExpression: {
+    case AST.ConditionalExpression: {
       return getObjectType(node.consequent, initialScope) ?? getObjectType(node.alternate, initialScope);
     }
-    case T.SequenceExpression: {
+    case AST.SequenceExpression: {
       if (node.expressions.length === 0) {
         return unit;
       }
@@ -114,7 +114,7 @@ export function getObjectType(
         initialScope,
       );
     }
-    case T.CallExpression: {
+    case AST.CallExpression: {
       return { kind: "unknown", node, reason: "call-expression" } as const;
     }
     default: {

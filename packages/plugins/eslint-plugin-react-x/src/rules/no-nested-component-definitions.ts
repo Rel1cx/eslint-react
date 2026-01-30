@@ -1,18 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import {
-  ComponentDetectionHint,
-  findParentJsxAttribute,
-  isClassComponent,
-  isCreateElementCall,
-  isDeclaredInRenderPropLoose,
-  isDirectValueOfRenderPropertyLoose,
-  isRenderMethodLike,
-  useComponentCollector,
-  useComponentCollectorLegacy,
-} from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -43,18 +33,18 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = ComponentDetectionHint.SkipArrayMapCallback
-    | ComponentDetectionHint.SkipNullLiteral
-    | ComponentDetectionHint.SkipUndefined
-    | ComponentDetectionHint.SkipBooleanLiteral
-    | ComponentDetectionHint.SkipStringLiteral
-    | ComponentDetectionHint.SkipNumberLiteral
-    | ComponentDetectionHint.StrictLogical
-    | ComponentDetectionHint.StrictConditional;
+  const hint = core.ComponentDetectionHint.SkipArrayMapCallback
+    | core.ComponentDetectionHint.SkipNullLiteral
+    | core.ComponentDetectionHint.SkipUndefined
+    | core.ComponentDetectionHint.SkipBooleanLiteral
+    | core.ComponentDetectionHint.SkipStringLiteral
+    | core.ComponentDetectionHint.SkipNumberLiteral
+    | core.ComponentDetectionHint.StrictLogical
+    | core.ComponentDetectionHint.StrictConditional;
 
   // Collectors to find all component definitions in the code
-  const fCollector = useComponentCollector(context, { hint });
-  const cCollector = useComponentCollectorLegacy(context);
+  const fCollector = core.useComponentCollector(context, { hint });
+  const cCollector = core.useComponentCollectorLegacy(context);
 
   return defineRuleListener(
     fCollector.visitor,
@@ -65,13 +55,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const fComponents = [...fCollector.ctx.getAllComponents(program)];
         const cComponents = [...cCollector.ctx.getAllComponents(program)];
         // Helper to check if a node is a collected function component
-        const isFunctionComponent = (node: TSESTree.Node): node is AST.TSESTreeFunction => {
-          return AST.isFunction(node)
+        const isFunctionComponent = (node: TSESTree.Node): node is ast.TSESTreeFunction => {
+          return ast.isFunction(node)
             && fComponents.some((component) => component.node === node);
         };
         // Helper to check if a node is a collected class component
-        const isClassComponent = (node: TSESTree.Node): node is AST.TSESTreeClass => {
-          return AST.isClass(node)
+        const isClassComponent = (node: TSESTree.Node): node is ast.TSESTreeClass => {
+          return ast.isClass(node)
             && cComponents.some((component) => component.node === node);
         };
         // Iterate over function components to find nested definitions
@@ -79,11 +69,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Skip anonymous function components to reduce false positives
           if (name == null) continue;
           // Skip components that are directly returned from a render prop
-          if (isDirectValueOfRenderPropertyLoose(component)) continue;
+          if (core.isDirectValueOfRenderPropertyLoose(component)) continue;
           // Check if the component is defined inside a JSX attribute's value
           if (isInsideJSXAttributeValue(component)) {
             // Allow if it's part of a render prop pattern
-            if (!isDeclaredInRenderPropLoose(component)) {
+            if (!core.isDeclaredInRenderPropLoose(component)) {
               context.report({
                 messageId: "noNestedComponentDefinitions",
                 node: component,
@@ -110,14 +100,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             continue;
           }
           // Check for direct nesting inside another function component
-          const parentComponent = AST.findParentNode(component, isFunctionComponent);
-          if (parentComponent != null && !isDirectValueOfRenderPropertyLoose(parentComponent)) {
+          const parentComponent = ast.findParentNode(component, isFunctionComponent);
+          if (parentComponent != null && !core.isDirectValueOfRenderPropertyLoose(parentComponent)) {
             context.report({
               messageId: "noNestedComponentDefinitions",
               node: component,
               data: {
                 name,
-                suggestion: component.parent.type === T.Property
+                suggestion: component.parent.type === AST.Property
                   ? "Move it to the top level or pass it as a prop."
                   : "Move it to the top level.",
               },
@@ -140,7 +130,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Iterate over class components to find nested definitions
         for (const { name = "unknown", node: component } of cComponents) {
           // Find if the parent is another component
-          if (AST.findParentNode(component, (n) => isClassComponent(n) || isFunctionComponent(n)) == null) {
+          if (ast.findParentNode(component, (n) => isClassComponent(n) || isFunctionComponent(n)) == null) {
             continue;
           }
           context.report({
@@ -148,7 +138,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             node: component,
             data: {
               name,
-              suggestion: component.parent.type === T.Property
+              suggestion: component.parent.type === AST.Property
                 ? "Move it to the top level or pass it as a prop."
                 : "Move it to the top level.",
             },
@@ -164,9 +154,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param node The AST node to check
  * @returns `true` if the node is inside JSX attribute value
  */
-function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
-  return node.parent.type === T.JSXAttribute
-    || findParentJsxAttribute(node, (n) => n.value?.type === T.JSXExpressionContainer) != null;
+function isInsideJSXAttributeValue(node: ast.TSESTreeFunction) {
+  return node.parent.type === AST.JSXAttribute
+    || core.findParentJsxAttribute(node, (n) => n.value?.type === AST.JSXExpressionContainer) != null;
 }
 
 /**
@@ -176,7 +166,7 @@ function isInsideJSXAttributeValue(node: AST.TSESTreeFunction) {
  * @returns `true` if the node is inside a class component's render block
  */
 function isInsideRenderMethod(node: TSESTree.Node) {
-  return AST.findParentNode(node, (n) => isRenderMethodLike(n) && isClassComponent(n.parent.parent)) != null;
+  return ast.findParentNode(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent)) != null;
 }
 
 /**
@@ -186,10 +176,10 @@ function isInsideRenderMethod(node: TSESTree.Node) {
  * @returns `true` if the node is inside `createElement`'s props
  */
 function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node) {
-  const call = AST.findParentNode(node, isCreateElementCall(context));
+  const call = ast.findParentNode(node, core.isCreateElementCall(context));
   if (call == null) return false;
   // Check if the node is within an object expression that is the second argument (props) of createElement
-  const prop = AST.findParentNode(node, AST.is(T.ObjectExpression));
+  const prop = ast.findParentNode(node, ast.is(AST.ObjectExpression));
   if (prop == null) return false;
   return prop === call.arguments[1];
 }

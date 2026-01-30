@@ -1,4 +1,4 @@
-import { getJsxElementType, isComponentNameLoose } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       // Get the full name of the JSX element: "Foo.MyContext.Provider"
-      const fullName = getJsxElementType(context, node);
+      const fullName = core.getJsxElementType(context, node);
       const parts = fullName.split(".");
       const selfName = parts.pop();
       const contextFullName = parts.join(".");
@@ -55,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         node,
         fix(fixer) {
           // Ensure the context name is a valid component name before applying the fix
-          if (!isComponentNameLoose(contextSelfName)) return null;
+          if (!core.isComponentNameLoose(contextSelfName)) return null;
           const openingElement = node.openingElement;
           const closingElement = node.closingElement;
           // Handle self-closing elements like <MyContext.Provider value={...} />

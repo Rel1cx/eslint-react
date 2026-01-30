@@ -1,9 +1,9 @@
-import { isInitializedFromReact } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { importSource } = getSettingsFromContext(context);
 
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
-    const shouldSkipDuplicate = node.parent.type === T.ImportSpecifier
+    const shouldSkipDuplicate = node.parent.type === AST.ImportSpecifier
       && node.parent.imported === node
       && node.parent.imported.name === node.parent.local.name;
     if (shouldSkipDuplicate) return;
@@ -72,15 +72,15 @@ function isFromReact(
 ) {
   const name = node.name;
   switch (true) {
-    case node.parent.type === T.MemberExpression
+    case node.parent.type === AST.MemberExpression
       && node.parent.property === node
-      && node.parent.object.type === T.Identifier:
-      return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
-    case node.parent.type === T.JSXMemberExpression
+      && node.parent.object.type === AST.Identifier:
+      return core.isInitializedFromReact(node.parent.object.name, initialScope, importSource);
+    case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
-      && node.parent.object.type === T.JSXIdentifier:
-      return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
+      && node.parent.object.type === AST.JSXIdentifier:
+      return core.isInitializedFromReact(node.parent.object.name, initialScope, importSource);
     default:
-      return isInitializedFromReact(name, initialScope, importSource);
+      return core.isInitializedFromReact(name, initialScope, importSource);
   }
 }

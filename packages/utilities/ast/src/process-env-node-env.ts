@@ -1,5 +1,5 @@
 import type { unit } from "@eslint-react/eff";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isLiteral } from "./literal";
 
@@ -10,13 +10,13 @@ import { isLiteral } from "./literal";
  */
 export function isProcessEnvNodeEnv(node: TSESTree.Node | null | unit): node is TSESTree.MemberExpression {
   return node != null
-    && node.type === T.MemberExpression
-    && node.object.type === T.MemberExpression
-    && node.object.object.type === T.Identifier
+    && node.type === AST.MemberExpression
+    && node.object.type === AST.MemberExpression
+    && node.object.object.type === AST.Identifier
     && node.object.object.name === "process"
-    && node.object.property.type === T.Identifier
+    && node.object.property.type === AST.Identifier
     && node.object.property.name === "env"
-    && node.property.type === T.Identifier
+    && node.property.type === AST.Identifier
     && node.property.name === "NODE_ENV";
 }
 
@@ -33,7 +33,7 @@ export function isProcessEnvNodeEnvCompare(
   value: "development" | "production",
 ): node is TSESTree.BinaryExpression {
   if (node == null) return false;
-  if (node.type !== T.BinaryExpression) return false;
+  if (node.type !== AST.BinaryExpression) return false;
   if (node.operator !== operator) return false;
   if (isProcessEnvNodeEnv(node.left) && isLiteral(node.right, "string")) {
     return node.right.value === value;

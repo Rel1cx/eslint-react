@@ -1,6 +1,6 @@
 import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import type { TSESTreeFunction } from "./types";
 
@@ -75,7 +75,7 @@ export type FunctionInitPath =
   ];
 
 /**
- * Identifies the initialization path of a function node in the AST.
+ * Identifies the initialization path of a function node in the ast.
  * Determine what kind of component declaration pattern the function belongs to.
  *
  * @param node The function node to analyze
@@ -83,7 +83,7 @@ export type FunctionInitPath =
  */
 export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInitPath {
   // Function declaration is the simplest case
-  if (node.type === T.FunctionDeclaration) {
+  if (node.type === AST.FunctionDeclaration) {
     return [node] as const;
   }
 
@@ -92,34 +92,34 @@ export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInit
   // Match against various component patterns
   switch (true) {
     // Basic variable declaration: const Comp = () => {}
-    case parent.type === T.VariableDeclarator:
+    case parent.type === AST.VariableDeclarator:
       return [parent.parent, parent, node] as const;
 
     // HOC pattern: const Comp = React.memo(() => {})
-    case parent.type === T.CallExpression
-      && parent.parent.type === T.VariableDeclarator:
+    case parent.type === AST.CallExpression
+      && parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
     // Nested HOC pattern: const Comp = React.memo(React.forwardRef(() => {}))
-    case parent.type === T.CallExpression
-      && parent.parent.type === T.CallExpression
-      && parent.parent.parent.type === T.VariableDeclarator:
+    case parent.type === AST.CallExpression
+      && parent.parent.type === AST.CallExpression
+      && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 
     // Object property component: const Comps = { Nav: () => {} }
-    case parent.type === T.Property
-      && parent.parent.type === T.ObjectExpression
-      && parent.parent.parent.type === T.VariableDeclarator:
+    case parent.type === AST.Property
+      && parent.parent.type === AST.ObjectExpression
+      && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 
     // Class method component: class Comp { render() {} }
-    case parent.type === T.MethodDefinition
-      && parent.parent.parent.type === T.ClassDeclaration:
+    case parent.type === AST.MethodDefinition
+      && parent.parent.parent.type === AST.ClassDeclaration:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
     // Class property arrow function: class Comp { render = () => {} }
-    case parent.type === T.PropertyDefinition
-      && parent.parent.parent.type === T.ClassDeclaration:
+    case parent.type === AST.PropertyDefinition
+      && parent.parent.parent.type === AST.ClassDeclaration:
       return [parent.parent.parent, parent.parent, parent, node] as const;
   }
 
@@ -137,19 +137,19 @@ export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInit
  */
 export function hasCallInFunctionInitPath(callName: string, initPath: FunctionInitPath): boolean {
   return initPath.some((node) => {
-    if (node.type !== T.CallExpression) {
+    if (node.type !== AST.CallExpression) {
       return false;
     }
 
     const { callee } = node;
 
     // Check direct function calls: memo(...)
-    if (callee.type === T.Identifier) {
+    if (callee.type === AST.Identifier) {
       return callee.name === callName;
     }
 
     // Check member expressions: React.memo(...)
-    if (callee.type === T.MemberExpression && "name" in callee.property) {
+    if (callee.type === AST.MemberExpression && "name" in callee.property) {
       return callee.property.name === callName;
     }
 

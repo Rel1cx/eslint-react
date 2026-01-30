@@ -1,4 +1,4 @@
-import { getJsxAttribute } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -35,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       // Check if the element has the 'dangerouslySetInnerHTML' prop
-      const dsihProp = getJsxAttribute(context, node)(DSIH);
+      const dsihProp = core.getJsxAttribute(context, node)(DSIH);
       // If the prop is not found, do nothing
       if (dsihProp == null) return;
       // If the prop is found, report an error

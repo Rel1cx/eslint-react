@@ -1,5 +1,5 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -13,11 +13,11 @@ export type MessageID = CamelCase<typeof RULE_NAME>;
 
 // Parent AST node types that indicate the return value of `ReactDOM.render` is being used
 const banParentTypes = [
-  T.VariableDeclarator,
-  T.Property,
-  T.ReturnStatement,
-  T.ArrowFunctionExpression,
-  T.AssignmentExpression,
+  AST.VariableDeclarator,
+  AST.Property,
+  AST.ReturnStatement,
+  AST.ArrowFunctionExpression,
+  AST.AssignmentExpression,
 ];
 
 export default createRule<[], MessageID>({
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node) {
       switch (true) {
         // Handles direct calls to 'render' (e.g., from `import { render } from 'react-dom'`)
-        case node.callee.type === T.Identifier
+        case node.callee.type === AST.Identifier
           && renderNames.has(node.callee.name)
           // Check if the return value is being used
           && banParentTypes.includes(node.parent.type):
@@ -56,9 +56,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
           return;
         // Handles member expression calls like 'ReactDOM.render'
-        case node.callee.type === T.MemberExpression
-          && node.callee.object.type === T.Identifier
-          && node.callee.property.type === T.Identifier
+        case node.callee.type === AST.MemberExpression
+          && node.callee.object.type === AST.Identifier
+          && node.callee.property.type === AST.Identifier
           && node.callee.property.name === "render"
           && reactDomNames.has(node.callee.object.name)
           // Check if the return value is being used
@@ -78,15 +78,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const specifier of node.specifiers) {
         switch (specifier.type) {
           // Handles named imports like `import { render } from 'react-dom'`
-          case T.ImportSpecifier:
-            if (specifier.imported.type !== T.Identifier) continue;
+          case AST.ImportSpecifier:
+            if (specifier.imported.type !== AST.Identifier) continue;
             if (specifier.imported.name === "render") {
               renderNames.add(specifier.local.name);
             }
             continue;
           // Handles default or namespace imports like `import ReactDOM from 'react-dom'`
-          case T.ImportDefaultSpecifier:
-          case T.ImportNamespaceSpecifier:
+          case AST.ImportDefaultSpecifier:
+          case AST.ImportNamespaceSpecifier:
             reactDomNames.add(specifier.local.name);
             continue;
         }

@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import { getJsxAttribute, isChildrenToArrayCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
@@ -36,12 +36,12 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
   let inChildrenToArray = false;
 
   function check(node: TSESTree.Node): Descriptor | null {
-    if (node.type === T.JSXElement) {
-      return getJsxAttribute(ctx, node)("key") == null
+    if (node.type === AST.JSXElement) {
+      return core.getJsxAttribute(ctx, node)("key") == null
         ? { messageId: "missingKey", node }
         : null;
     }
-    if (node.type === T.JSXFragment) {
+    if (node.type === AST.JSXFragment) {
       return { messageId: "unexpectedFragmentSyntax", node };
     }
     return null;
@@ -49,12 +49,12 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
 
   function checkExpr(node: TSESTree.Expression): Descriptor | null {
     switch (node.type) {
-      case T.ConditionalExpression:
+      case AST.ConditionalExpression:
         return check(node.consequent) ?? check(node.alternate);
-      case T.LogicalExpression:
+      case AST.LogicalExpression:
         return check(node.left) ?? check(node.right);
-      case T.JSXElement:
-      case T.JSXFragment:
+      case AST.JSXElement:
+      case AST.JSXFragment:
         return check(node);
       default:
         return null;
@@ -62,7 +62,7 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
   }
 
   function checkBlock(node: TSESTree.BlockStatement): Descriptor[] {
-    return AST.getNestedReturnStatements(node)
+    return ast.getNestedReturnStatements(node)
       .filter((stmt) => stmt.argument != null)
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       .map((stmt) => check(stmt.argument!))
@@ -72,39 +72,39 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
   return {
     ArrayExpression(node) {
       if (inChildrenToArray) return;
-      const elements = node.elements.filter(AST.is(T.JSXElement));
+      const elements = node.elements.filter(ast.is(AST.JSXElement));
       if (elements.length === 0) return;
       const scope = ctx.sourceCode.getScope(node);
       for (const el of elements) {
-        if (getJsxAttribute(ctx, el, scope)("key") == null) {
+        if (core.getJsxAttribute(ctx, el, scope)("key") == null) {
           ctx.report({ messageId: "missingKey", node: el });
         }
       }
     },
     CallExpression(node) {
-      inChildrenToArray ||= isChildrenToArrayCall(ctx, node);
+      inChildrenToArray ||= core.isChildrenToArrayCall(ctx, node);
       if (inChildrenToArray) return;
-      if (node.callee.type !== T.MemberExpression) return;
-      if (node.callee.property.type !== T.Identifier) return;
+      if (node.callee.type !== AST.MemberExpression) return;
+      if (node.callee.property.type !== AST.Identifier) return;
       const name = node.callee.property.name;
       const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
       if (idx < 0) return;
       const cb = node.arguments[idx];
-      if (!AST.isFunction(cb)) return;
-      if (cb.body.type === T.BlockStatement) {
+      if (!ast.isFunction(cb)) return;
+      if (cb.body.type === AST.BlockStatement) {
         checkBlock(cb.body).forEach(report(ctx));
       } else {
         report(ctx)(checkExpr(cb.body));
       }
     },
     "CallExpression:exit"(node) {
-      if (isChildrenToArrayCall(ctx, node)) {
+      if (core.isChildrenToArrayCall(ctx, node)) {
         inChildrenToArray = false;
       }
     },
     JSXFragment(node) {
       if (inChildrenToArray) return;
-      if (node.parent.type === T.ArrayExpression) {
+      if (node.parent.type === AST.ArrayExpression) {
         ctx.report({ messageId: "unexpectedFragmentSyntax", node });
       }
     },

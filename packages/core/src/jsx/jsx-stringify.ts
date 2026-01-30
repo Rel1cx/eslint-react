@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 /**
@@ -19,28 +19,28 @@ export function stringifyJsx(
     | TSESTree.JSXText,
 ): string {
   switch (node.type) {
-    case T.JSXIdentifier:
+    case AST.JSXIdentifier:
       // Simple element names like "div" or component names like "Button"
       return node.name;
-    case T.JSXNamespacedName:
+    case AST.JSXNamespacedName:
       // XML-style namespaced elements like "svg:path"
       return `${node.namespace.name}:${node.name.name}`;
-    case T.JSXMemberExpression:
+    case AST.JSXMemberExpression:
       // Dot-notation components like "React.Fragment" or "Namespace.Component"
       return `${stringifyJsx(node.object)}.${stringifyJsx(node.property)}`;
-    case T.JSXText:
+    case AST.JSXText:
       // Text content inside JSX
       return node.value;
-    case T.JSXOpeningElement:
+    case AST.JSXOpeningElement:
       // Opening tags like "<div>"
       return `<${stringifyJsx(node.name)}>`;
-    case T.JSXClosingElement:
+    case AST.JSXClosingElement:
       // Closing tags like "</div>"
       return `</${stringifyJsx(node.name)}>`;
-    case T.JSXOpeningFragment:
+    case AST.JSXOpeningFragment:
       // Fragment opening syntax "<>"
       return "<>";
-    case T.JSXClosingFragment:
+    case AST.JSXClosingFragment:
       // Fragment closing syntax "</>"
       return "</>";
   }

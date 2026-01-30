@@ -1,4 +1,4 @@
-import { getJsxConfigFromAnnotation, getJsxConfigFromContext, isJsxFragmentElement } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -53,8 +53,8 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   // Get the rule policy from options, default to 1 (enforce shorthand)
   const policy = context.options[0] ?? defaultOptions[0];
   const jsxConfig = {
-    ...getJsxConfigFromContext(context),
-    ...getJsxConfigFromAnnotation(context),
+    ...core.getJsxConfigFromContext(context),
+    ...core.getJsxConfigFromAnnotation(context),
   };
 
   const { jsxFragmentFactory } = jsxConfig;
@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     .with(1, () => ({
       JSXElement(node: TSESTree.JSXElement) {
         // Check if the element is a Fragment component
-        if (!isJsxFragmentElement(context, node, jsxConfig)) return;
+        if (!core.isJsxFragmentElement(context, node, jsxConfig)) return;
         // Ignore if the Fragment has attributes (e.g., key)
         const hasAttributes = node.openingElement.attributes.length > 0;
         if (hasAttributes) return;

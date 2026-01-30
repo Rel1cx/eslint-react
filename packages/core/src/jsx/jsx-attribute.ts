@@ -1,7 +1,7 @@
 import type { RuleContext } from "@eslint-react/shared";
 import { findProperty, findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { getJsxAttributeName } from "./jsx-attribute-name";
@@ -24,25 +24,25 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
   return (name: string) => {
     return attributes.findLast((attr) => {
       // 1. Direct attribute: className="value"
-      if (attr.type === T.JSXAttribute) {
+      if (attr.type === AST.JSXAttribute) {
         return getJsxAttributeName(context, attr) === name;
       }
 
       switch (attr.argument.type) {
         // 2. Spread variable: {...props}
-        case T.Identifier: {
+        case AST.Identifier: {
           const variable = findVariable(attr.argument.name, scope);
           const variableNode = getVariableDefinitionNode(variable, 0);
 
           // Check if the variable resolves to an object with the target property
-          if (variableNode?.type === T.ObjectExpression) {
+          if (variableNode?.type === AST.ObjectExpression) {
             return findProperty(name, variableNode.properties, scope) != null;
           }
           return false;
         }
 
         // 3. Spread literal: {{...{prop: value}}}
-        case T.ObjectExpression:
+        case AST.ObjectExpression:
           return findProperty(name, attr.argument.properties, scope) != null;
       }
       return false;

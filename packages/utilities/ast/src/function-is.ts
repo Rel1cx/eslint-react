@@ -1,14 +1,14 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import type { TSESTreeFunction } from "./types";
 
 export function isFunctionEmpty(node: TSESTreeFunction) {
-  return node.body.type === T.BlockStatement
+  return node.body.type === AST.BlockStatement
     && node.body.body.length === 0;
 }
 
 export function isFunctionImmediatelyInvoked(node: TSESTreeFunction) {
-  return node.type !== T.FunctionDeclaration
-    && node.parent.type === T.CallExpression
+  return node.type !== AST.FunctionDeclaration
+    && node.parent.type === AST.CallExpression
     && node.parent.callee === node;
 }

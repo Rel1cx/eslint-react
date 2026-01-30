@@ -1,7 +1,7 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
@@ -50,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node) {
       switch (true) {
         // Case 1: Direct call to `hydrate()`.
-        case node.callee.type === T.Identifier
+        case node.callee.type === AST.Identifier
           && hydrateNames.has(node.callee.name):
           context.report({
             messageId: "noHydrate",
@@ -59,9 +59,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
           return;
         // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
-        case node.callee.type === T.MemberExpression
-          && node.callee.object.type === T.Identifier
-          && node.callee.property.type === T.Identifier
+        case node.callee.type === AST.MemberExpression
+          && node.callee.object.type === AST.Identifier
+          && node.callee.property.type === AST.Identifier
           && node.callee.property.name === hydrate
           && reactDomNames.has(node.callee.object.name):
           context.report({
@@ -79,15 +79,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const specifier of node.specifiers) {
         switch (specifier.type) {
           // `import { hydrate } from 'react-dom'`
-          case T.ImportSpecifier:
-            if (specifier.imported.type !== T.Identifier) continue;
+          case AST.ImportSpecifier:
+            if (specifier.imported.type !== AST.Identifier) continue;
             if (specifier.imported.name === hydrate) {
               hydrateNames.add(specifier.local.name);
             }
             continue;
           // `import ReactDOM from 'react-dom'` or `import * as ReactDOM from 'react-dom'`
-          case T.ImportDefaultSpecifier:
-          case T.ImportNamespaceSpecifier:
+          case AST.ImportDefaultSpecifier:
+          case AST.ImportNamespaceSpecifier:
             reactDomNames.add(specifier.local.name);
             continue;
         }

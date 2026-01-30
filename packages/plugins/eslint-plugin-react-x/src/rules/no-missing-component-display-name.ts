@@ -1,4 +1,4 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { ComponentFlag, DEFAULT_COMPONENT_DETECTION_HINT, useComponentCollector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       "Program:exit"(program) {
         for (const { node, displayName, flag } of ctx.getAllComponents(program)) {
-          const id = AST.getFunctionId(node);
+          const id = ast.getFunctionId(node);
           // Check if the component is wrapped with `forwardRef` or `memo`
           const isMemoOrForwardRef = (flag & (ComponentFlag.ForwardRef | ComponentFlag.Memo)) > 0n;
           // If the component is a named function, it has an implicit displayName

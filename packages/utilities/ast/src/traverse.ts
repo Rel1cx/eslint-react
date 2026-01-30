@@ -1,5 +1,5 @@
 import { unit } from "@eslint-react/eff";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Find the parent node that satisfies the test function
@@ -24,7 +24,7 @@ function findParentNode<A extends TSESTree.Node>(
 ): TSESTree.Node | A | unit {
   if (node == null) return unit;
   let parent = node.parent;
-  while (parent != null && parent.type !== T.Program) {
+  while (parent != null && parent.type !== AST.Program) {
     if (test(parent)) {
       return parent;
     }

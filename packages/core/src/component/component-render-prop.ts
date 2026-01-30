@@ -1,7 +1,7 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 /**
  * Unsafe check whether given node is a render function
@@ -15,18 +15,18 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
  * @param node The AST node to check
  * @returns `true` if node is a render function, `false` if not
  */
-export function isRenderFunctionLoose(context: RuleContext, node: TSESTree.Node): node is AST.TSESTreeFunction {
-  if (!AST.isFunction(node)) return false;
-  const id = AST.getFunctionId(node);
+export function isRenderFunctionLoose(context: RuleContext, node: TSESTree.Node): node is ast.TSESTreeFunction {
+  if (!ast.isFunction(node)) return false;
+  const id = ast.getFunctionId(node);
   switch (true) {
-    case id?.type === T.Identifier:
+    case id?.type === AST.Identifier:
       return id.name.startsWith("render");
-    case id?.type === T.MemberExpression
-      && id.property.type === T.Identifier:
+    case id?.type === AST.MemberExpression
+      && id.property.type === AST.Identifier:
       return id.property.name.startsWith("render");
-    case node.parent.type === T.JSXExpressionContainer
-      && node.parent.parent.type === T.JSXAttribute
-      && node.parent.parent.name.type === T.JSXIdentifier:
+    case node.parent.type === AST.JSXExpressionContainer
+      && node.parent.parent.type === AST.JSXAttribute
+      && node.parent.parent.name.type === AST.JSXIdentifier:
       return node.parent.parent.name.name.startsWith("render");
   }
   return false;
@@ -43,11 +43,11 @@ export function isRenderFunctionLoose(context: RuleContext, node: TSESTree.Node)
  * @returns `true` if node is a render prop, `false` if not
  */
 export function isRenderPropLoose(context: RuleContext, node: TSESTree.JSXAttribute) {
-  if (node.name.type !== T.JSXIdentifier) {
+  if (node.name.type !== AST.JSXIdentifier) {
     return false;
   }
   return node.name.name.startsWith("render")
-    && node.value?.type === T.JSXExpressionContainer
+    && node.value?.type === AST.JSXExpressionContainer
     && isRenderFunctionLoose(context, node.value.expression);
 }
 
@@ -65,8 +65,8 @@ export function isRenderPropLoose(context: RuleContext, node: TSESTree.JSXAttrib
  */
 export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
   const matching = (node: TSESTree.Node) => {
-    return node.type === T.Property
-      && node.key.type === T.Identifier
+    return node.type === AST.Property
+      && node.key.type === AST.Identifier
       && node.key.name.startsWith("render");
   };
   return matching(node) || (node.parent != null && matching(node.parent));
@@ -87,9 +87,9 @@ export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
   if (isDirectValueOfRenderPropertyLoose(node)) {
     return true;
   }
-  const parent = AST.findParentNode(node, AST.is(T.JSXExpressionContainer))?.parent;
-  if (parent?.type !== T.JSXAttribute) {
+  const parent = ast.findParentNode(node, ast.is(AST.JSXExpressionContainer))?.parent;
+  if (parent?.type !== AST.JSXAttribute) {
     return false;
   }
-  return parent.name.type === T.JSXIdentifier && parent.name.name.startsWith("render");
+  return parent.name.type === AST.JSXIdentifier && parent.name.name.startsWith("render");
 }
