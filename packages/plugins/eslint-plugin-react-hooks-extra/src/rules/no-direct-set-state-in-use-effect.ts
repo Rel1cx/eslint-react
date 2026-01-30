@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { isUseCallbackCall, isUseEffectLikeCall, isUseMemoCall, isUseStateLikeCall } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
@@ -83,13 +83,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isUseStateCall(node: TSESTree.Node) {
-    return isUseStateLikeCall(node, additionalStateHooks);
+    return core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
   function isUseEffectSetupCallback(node: TSESTree.Node) {
     return node.parent?.type === AST.CallExpression
       && node.parent.callee !== node
-      && isUseEffectLikeCall(node.parent);
+      && core.isUseEffectLikeCall(node.parent);
   }
 
   function getCallName(node: TSESTree.Node) {
@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function getCallKind(node: TSESTree.CallExpression) {
     return match<TSESTree.CallExpression, CallKind>(node)
       .when(isUseStateCall, () => "useState")
-      .when(isUseEffectLikeCall, () => "useEffect")
+      .when(core.isUseEffectLikeCall, () => "useEffect")
       .when(isSetStateCall, () => "setState")
       .when(isThenCall, () => "then")
       .otherwise(() => "other");
@@ -258,7 +258,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // const [state, setState] = useState();
           // const set = useMemo(() => setState, []);
           // useEffect(set, []);
-          if (!isUseMemoCall(parent)) {
+          if (!core.isUseMemoCall(parent)) {
             break;
           }
           const init = ast.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
@@ -274,7 +274,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // const [state, setState] = useState();
           // const set = useCallback(setState, []);
           // useEffect(set, []);
-          if (isUseCallbackCall(node.parent)) {
+          if (core.isUseCallbackCall(node.parent)) {
             const init = ast.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
             if (init != null) {
               getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
@@ -283,7 +283,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           // const [state, setState] = useState();
           // useEffect(setState);
-          if (isUseEffectLikeCall(node.parent)) {
+          if (core.isUseEffectLikeCall(node.parent)) {
             getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
           }
         }
