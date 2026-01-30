@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
-import { isForwardRefCall, isInitializedFromReact } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
@@ -49,10 +49,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     // Visitor for `forwardRef()` calls
     CallExpression(node) {
-      if (!isForwardRefCall(context, node)) {
+      if (!core.isForwardRefCall(context, node)) {
         return;
       }
-      const id = AST.getFunctionId(node);
+      const id = ast.getFunctionId(node);
       const fix = canFix(context, node) ? getFix(context, node) : null;
       context.report({
         messageId: "noForwardRef",
@@ -76,11 +76,11 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   const initialScope = context.sourceCode.getScope(node);
   // Check if the callee is `forwardRef` or `React.forwardRef`
   switch (node.callee.type) {
-    case T.Identifier:
-      return isInitializedFromReact(node.callee.name, initialScope, importSource);
-    case T.MemberExpression:
-      return node.callee.object.type === T.Identifier
-        && isInitializedFromReact(node.callee.object.name, initialScope, importSource);
+    case AST.Identifier:
+      return core.isInitializedFromReact(node.callee.name, initialScope, importSource);
+    case AST.MemberExpression:
+      return node.callee.object.type === AST.Identifier
+        && core.isInitializedFromReact(node.callee.object.name, initialScope, importSource);
     default:
       return false;
   }
@@ -95,7 +95,7 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
-    if (componentNode == null || !AST.isFunction(componentNode)) {
+    if (componentNode == null || !ast.isFunction(componentNode)) {
       return [];
     }
     return [
@@ -124,7 +124,7 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
 function getComponentPropsFixes(
   context: RuleContext,
   fixer: RuleFixer,
-  node: AST.TSESTreeFunction,
+  node: ast.TSESTreeFunction,
   typeArguments: TSESTree.TypeNode[],
 ) {
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
@@ -136,14 +136,14 @@ function getComponentPropsFixes(
   }
   // Determines how to spread or list props from the first argument
   const fixedArg0Text = match(arg0)
-    .with({ type: T.Identifier }, (n) => `...${n.name}`)
-    .with({ type: T.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
+    .with({ type: AST.Identifier }, (n) => `...${n.name}`)
+    .with({ type: AST.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
     .otherwise(() => null);
   // Determines the new `ref` prop text
   const fixedArg1Text = match(arg1)
     .with(P.nullish, () => "ref")
-    .with({ type: T.Identifier, name: "ref" }, () => "ref")
-    .with({ type: T.Identifier, name: P.string }, (n) => `ref: ${n.name}`)
+    .with({ type: AST.Identifier, name: "ref" }, () => "ref")
+    .with({ type: AST.Identifier, name: P.string }, (n) => `ref: ${n.name}`)
     .otherwise(() => null);
   if (fixedArg0Text == null || fixedArg1Text == null) {
     return [];

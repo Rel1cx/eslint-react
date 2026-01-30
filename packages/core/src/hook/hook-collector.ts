@@ -1,4 +1,4 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
@@ -11,7 +11,7 @@ const idGen = new IdGenerator("hook_");
 
 type FunctionEntry = {
   key: string;
-  node: AST.TSESTreeFunction;
+  node: ast.TSESTreeFunction;
 };
 
 export declare namespace useHookCollector {
@@ -35,8 +35,8 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
   const functionEntries: FunctionEntry[] = [];
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1);
-  const onFunctionEnter = (node: AST.TSESTreeFunction) => {
-    const id = AST.getFunctionId(node);
+  const onFunctionEnter = (node: ast.TSESTreeFunction) => {
+    const id = ast.getFunctionId(node);
     const key = idGen.next();
     functionEntries.push({ key, node });
     if (id == null || !isHookId(id)) return;
@@ -44,7 +44,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       id,
       key,
       kind: "function",
-      name: AST.toStringFormat(id, getText),
+      name: ast.toStringFormat(id, getText),
       node,
       directives: [],
       flag: 0n,

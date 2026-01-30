@@ -1,4 +1,4 @@
-import type * as AST from "@eslint-react/ast";
+import type * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -7,9 +7,9 @@ import type { SemanticNode } from "./semantic-node";
 /* eslint-disable perfectionist/sort-interfaces */
 export interface SemanticFunc extends SemanticNode {
   // The identifier of the function
-  id: AST.FunctionID | unit;
+  id: ast.FunctionID | unit;
   // The AST node of the function
-  node: AST.TSESTreeFunction;
+  node: ast.TSESTreeFunction;
   // The name of the function
   name: string | unit;
   // The return type of the function

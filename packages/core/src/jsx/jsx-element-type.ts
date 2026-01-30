@@ -1,6 +1,6 @@
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { stringifyJsx } from "./jsx-stringify";
 
 /**
@@ -13,7 +13,7 @@ import { stringifyJsx } from "./jsx-stringify";
  * @returns String representation of the element type
  */
 export function getJsxElementType(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-  if (node.type === T.JSXFragment) {
+  if (node.type === AST.JSXFragment) {
     return "";
   }
   return stringifyJsx(node.openingElement.name);

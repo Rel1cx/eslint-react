@@ -1,16 +1,16 @@
-import * as AST from "@eslint-react/ast";
-import { type Scope } from "@typescript-eslint/scope-manager";
+import * as ast from "@eslint-react/ast";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { getVariableDefinitionNodeLoose } from "./get-variable-definition-node";
 import { findVariable } from "./get-variables-from-scope";
 
 const thisBlockTypes = [
-  T.FunctionDeclaration,
-  T.FunctionExpression,
-  T.ClassBody,
-  T.Program,
+  AST.FunctionDeclaration,
+  AST.FunctionExpression,
+  AST.ClassBody,
+  AST.Program,
 ] as const;
 
 /**
@@ -28,23 +28,23 @@ export function isNodeValueEqual(
     bScope: Scope,
   ],
 ): boolean {
-  a = AST.isTypeExpression(a) ? AST.getUnderlyingExpression(a) : a;
-  b = AST.isTypeExpression(b) ? AST.getUnderlyingExpression(b) : b;
+  a = ast.isTypeExpression(a) ? ast.getUnderlyingExpression(a) : a;
+  b = ast.isTypeExpression(b) ? ast.getUnderlyingExpression(b) : b;
   const [aScope, bScope] = initialScopes;
   switch (true) {
     case a === b: {
       return true;
     }
-    case a.type === T.Literal
-      && b.type === T.Literal: {
+    case a.type === AST.Literal
+      && b.type === AST.Literal: {
       return a.value === b.value;
     }
-    case a.type === T.TemplateElement
-      && b.type === T.TemplateElement: {
+    case a.type === AST.TemplateElement
+      && b.type === AST.TemplateElement: {
       return a.value.cooked === b.value.cooked;
     }
-    case a.type === T.Identifier
-      && b.type === T.Identifier: {
+    case a.type === AST.Identifier
+      && b.type === AST.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
       const aVarNode = getVariableDefinitionNodeLoose(aVar, 0);
@@ -56,21 +56,21 @@ export function isNodeValueEqual(
       const aDefParentParent = aDef?.parent?.parent;
       const bDefParentParent = bDef?.parent?.parent;
       switch (true) {
-        case aVarNodeParent?.type === T.CallExpression
-          && bVarNodeParent?.type === T.CallExpression
-          && AST.isFunction(aVarNode)
-          && AST.isFunction(bVarNode): {
-          if (!AST.isNodeEqual(aVarNodeParent.callee, bVarNodeParent.callee)) {
+        case aVarNodeParent?.type === AST.CallExpression
+          && bVarNodeParent?.type === AST.CallExpression
+          && ast.isFunction(aVarNode)
+          && ast.isFunction(bVarNode): {
+          if (!ast.isNodeEqual(aVarNodeParent.callee, bVarNodeParent.callee)) {
             return false;
           }
           const aParams = aVarNode.params;
           const bParams = bVarNode.params;
-          const aPos = aParams.findIndex((x) => AST.isNodeEqual(x, a));
-          const bPos = bParams.findIndex((x) => AST.isNodeEqual(x, b));
+          const aPos = aParams.findIndex((x) => ast.isNodeEqual(x, a));
+          const bPos = bParams.findIndex((x) => ast.isNodeEqual(x, b));
           return aPos !== -1 && bPos !== -1 && aPos === bPos;
         }
-        case aDefParentParent?.type === T.ForOfStatement
-          && bDefParentParent?.type === T.ForOfStatement: {
+        case aDefParentParent?.type === AST.ForOfStatement
+          && bDefParentParent?.type === AST.ForOfStatement: {
           const aLeft = aDefParentParent.left;
           const bLeft = bDefParentParent.left;
           if (aLeft.type !== bLeft.type) {
@@ -78,25 +78,25 @@ export function isNodeValueEqual(
           }
           const aRight = aDefParentParent.right;
           const bRight = bDefParentParent.right;
-          return AST.isNodeEqual(aRight, bRight);
+          return ast.isNodeEqual(aRight, bRight);
         }
         default: {
           return aVar != null && bVar != null && aVar === bVar;
         }
       }
     }
-    case a.type === T.MemberExpression
-      && b.type === T.MemberExpression: {
-      return AST.isNodeEqual(a.property, b.property)
+    case a.type === AST.MemberExpression
+      && b.type === AST.MemberExpression: {
+      return ast.isNodeEqual(a.property, b.property)
         && isNodeValueEqual(a.object, b.object, initialScopes);
     }
-    case a.type === T.ThisExpression
-      && b.type === T.ThisExpression: {
+    case a.type === AST.ThisExpression
+      && b.type === AST.ThisExpression: {
       if (aScope.block === bScope.block) {
         return true;
       }
-      const aFunction = AST.findParentNode(a, AST.isOneOf(thisBlockTypes));
-      const bFunction = AST.findParentNode(b, AST.isOneOf(thisBlockTypes));
+      const aFunction = ast.findParentNode(a, ast.isOneOf(thisBlockTypes));
+      const bFunction = ast.findParentNode(b, ast.isOneOf(thisBlockTypes));
       return aFunction === bFunction;
     }
     default: {

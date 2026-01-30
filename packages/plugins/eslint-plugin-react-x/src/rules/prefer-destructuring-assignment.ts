@@ -1,6 +1,6 @@
-import { useComponentCollector } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, visitor } = useComponentCollector(context);
+  const { ctx, visitor } = core.useComponentCollector(context);
 
   return defineRuleListener(
     visitor,
@@ -39,13 +39,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (component.name == null && component.isExportDefaultDeclaration) continue;
           const [props] = component.node.params;
           if (props == null) continue;
-          if (props.type !== T.Identifier) continue;
+          if (props.type !== AST.Identifier) continue;
           const propName = props.name;
           const propVariable = context.sourceCode.getScope(component.node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
           for (const ref of propReferences) {
             const { name, parent } = ref.identifier;
-            if (parent.type !== T.MemberExpression) continue;
+            if (parent.type !== AST.MemberExpression) continue;
             context.report({
               messageId: "preferDestructuringAssignment",
               node: parent,

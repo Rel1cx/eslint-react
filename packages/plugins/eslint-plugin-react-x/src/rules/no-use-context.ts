@@ -1,8 +1,8 @@
-import { isHookCall, isUseContextCall } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import type { CamelCase } from "string-ts";
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hookCalls = new Set<TSESTree.CallExpression>();
   return {
     CallExpression(node) {
-      if (!isHookCall(node)) {
+      if (!core.isHookCall(node)) {
         return;
       }
       hookCalls.add(node);
@@ -56,10 +56,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const isUseImported = node.specifiers
-        .some(isMatching({ local: { type: T.Identifier, name: "use" } }));
+        .some(isMatching({ local: { type: AST.Identifier, name: "use" } }));
       for (const specifier of node.specifiers) {
-        if (specifier.type !== T.ImportSpecifier) continue;
-        if (specifier.imported.type !== T.Identifier) continue;
+        if (specifier.type !== AST.ImportSpecifier) continue;
+        if (specifier.imported.type !== AST.Identifier) continue;
         if (specifier.imported.name === "useContext") {
           context.report({
             messageId: "noUseContext",
@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     "Program:exit"() {
       for (const node of hookCalls) {
-        if (!isUseContextCall(node)) {
+        if (!core.isUseContextCall(node)) {
           continue;
         }
         context.report({
@@ -94,9 +94,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           node: node.callee,
           fix(fixer) {
             switch (node.callee.type) {
-              case T.Identifier:
+              case AST.Identifier:
                 return fixer.replaceText(node.callee, "use");
-              case T.MemberExpression:
+              case AST.MemberExpression:
                 return fixer.replaceText(node.callee.property, "use");
             }
             return null;

@@ -1,4 +1,4 @@
-import { isUnsafeComponentWillMount, useComponentCollectorLegacy } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `UNSAFE_componentWillMount` is not present in the file
   if (!context.sourceCode.text.includes("UNSAFE_componentWillMount")) return {};
-  const { ctx, visitor } = useComponentCollectorLegacy(context);
+  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
 
   return defineRuleListener(
     visitor,
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const { body } = component.body;
 
           for (const member of body) {
-            if (isUnsafeComponentWillMount(member)) {
+            if (core.isUnsafeComponentWillMount(member)) {
               context.report({
                 messageId: "noUnsafeComponentWillMount",
                 node: member,

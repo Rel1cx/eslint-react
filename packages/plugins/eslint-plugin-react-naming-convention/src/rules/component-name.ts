@@ -1,4 +1,4 @@
-import { useComponentCollector, useComponentCollectorLegacy } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE, defineRuleListener, toRegExp } from "@eslint-react/shared";
@@ -81,8 +81,8 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = normalizeOptions(context.options);
   const { rule } = options;
-  const fCollector = useComponentCollector(context);
-  const cCollector = useComponentCollectorLegacy(context);
+  const fCollector = core.useComponentCollector(context);
+  const cCollector = core.useComponentCollectorLegacy(context);
 
   return defineRuleListener(
     fCollector.visitor,

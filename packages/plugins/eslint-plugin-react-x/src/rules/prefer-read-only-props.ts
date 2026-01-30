@@ -1,4 +1,4 @@
-import { useComponentCollector } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint/type-utils";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
@@ -38,7 +38,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  const { ctx, visitor } = useComponentCollector(context);
+  const { ctx, visitor } = core.useComponentCollector(context);
 
   return defineRuleListener(
     visitor,

@@ -1,4 +1,4 @@
-import type * as AST from "@eslint-react/ast";
+import type * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -15,7 +15,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
    */
   id:
     | unit
-    | AST.FunctionID;
+    | ast.FunctionID;
 
   /**
    * The kind of component
@@ -25,7 +25,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The AST node of the function
    */
-  node: AST.TSESTreeFunction;
+  node: ast.TSESTreeFunction;
 
   /**
    * Flags describing the component's characteristics
@@ -47,7 +47,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
    */
   initPath:
     | unit
-    | AST.FunctionInitPath;
+    | ast.FunctionInitPath;
 
   /**
    * Indicates if the component is inside an export default declaration
@@ -96,7 +96,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
   /**
    * The AST node of the class
    */
-  node: AST.TSESTreeClass;
+  node: ast.TSESTreeClass;
 
   /**
    * Flags describing the component's characteristics
@@ -111,7 +111,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
   /**
    * List of methods and properties in the class
    */
-  methods: AST.TSESTreeMethodOrProperty[];
+  methods: ast.TSESTreeMethodOrProperty[];
 
   /**
    * The display name of the component

@@ -1,11 +1,11 @@
-import * as AST from "@eslint-react/ast";
-import { isInitializedFromReactNative } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
@@ -60,11 +60,11 @@ const defaultOptions: {
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
-    case node.callee.type === T.Identifier
+    case node.callee.type === AST.Identifier
       && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(node.callee.name):
       return node.callee.name;
-    case node.callee.type === T.MemberExpression
-      && node.callee.property.type === T.Identifier
+    case node.callee.type === AST.MemberExpression
+      && node.callee.property.type === AST.Identifier
       && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(node.callee.property.name):
       return node.callee.property.name;
     default:
@@ -72,20 +72,20 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
-function getFunctionKind(node: AST.TSESTreeFunction): FunctionKind {
+function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
 function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scope): TSESTree.Node | unit {
   if (node == null) return unit;
   switch (node.type) {
-    case T.Identifier: {
+    case AST.Identifier: {
       return getSignalValueExpression(
         getVariableDefinitionNode(findVariable(node, initialScope), 0),
         initialScope,
       );
     }
-    case T.MemberExpression:
+    case AST.MemberExpression:
       return node;
     default:
       return unit;
@@ -100,11 +100,11 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | unit,
     filter: (value: unknown) => value is A = (a): a is A => true,
   ): A | unit {
-    if (prop?.type !== T.Property) return unit;
+    if (prop?.type !== AST.Property) return unit;
     const { value } = prop;
     let v: unknown = value;
     switch (value.type) {
-      case T.Literal: {
+      case AST.Literal: {
         v = value.value;
         break;
       }
@@ -117,25 +117,25 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   }
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
-      case T.Identifier: {
+      case AST.Identifier: {
         const variable = findVariable(node, initialScope);
         const variableNode = getVariableDefinitionNode(variable, 0);
-        if (variableNode?.type === T.ObjectExpression) {
+        if (variableNode?.type === AST.ObjectExpression) {
           return getOpts(variableNode);
         }
         return defaultOptions;
       }
-      case T.Literal: {
+      case AST.Literal: {
         return { ...defaultOptions, capture: Boolean(node.value) };
       }
-      case T.ObjectExpression: {
+      case AST.ObjectExpression: {
         // const pOnce = findProp(node.properties, "once");
         // const vOnce = getPropValue(pOnce);
         const pCapture = findProp(node.properties, "capture");
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const vCapture = !!getPropValue(pCapture);
         const pSignal = findProp(node.properties, "signal");
-        const vSignal = pSignal?.type === T.Property
+        const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(pSignal.value, initialScope)
           : unit;
         return { capture: vCapture, signal: vSignal };
@@ -181,15 +181,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
+  const fEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
   const abortedSignals: TSESTree.Expression[] = [];
   function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
     switch (true) {
-      case a.type === T.MemberExpression
-        && b.type === T.MemberExpression:
-        return AST.isNodeEqual(a.object, b.object);
+      case a.type === AST.MemberExpression
+        && b.type === AST.MemberExpression:
+        return ast.isNodeEqual(a.object, b.object);
 
       // TODO: Maybe there other cases to consider here.
       default:
@@ -203,7 +203,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       return false;
     }
     return isSameObject(aCallee, rCallee)
-      && AST.isNodeEqual(aListener, rListener)
+      && ast.isNodeEqual(aListener, rListener)
       && isNodeValueEqual(aType, rType, [
         context.sourceCode.getScope(aType),
         context.sourceCode.getScope(rType),
@@ -216,7 +216,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     options: typeof defaultOptions,
   ) {
     const listener = node.arguments.at(1);
-    if (!AST.isFunction(listener)) {
+    if (!ast.isFunction(listener)) {
       return;
     }
     if (options.signal != null) {
@@ -229,7 +229,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     });
   }
   return {
-    [":function"](node: AST.TSESTreeFunction) {
+    [":function"](node: ast.TSESTreeFunction) {
       const kind = getFunctionKind(node);
       fEntries.push({ kind, node });
     },
@@ -247,9 +247,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
           // https://github.com/Rel1cx/eslint-react/issues/1323
-          const isFromReactNative = node.callee.type === T.MemberExpression
-            && node.callee.object.type === T.Identifier
-            && isInitializedFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
+          const isFromReactNative = node.callee.type === AST.MemberExpression
+            && node.callee.object.type === AST.Identifier
+            && core.isInitializedFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
           if (isFromReactNative) {
             return;
           }

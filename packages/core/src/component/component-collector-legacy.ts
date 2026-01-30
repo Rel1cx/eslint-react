@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 
 import { ComponentFlag } from "./component-flag";
 import { isClassComponent, isPureComponent } from "./component-is";
@@ -35,13 +35,13 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
   } as const;
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-  const collect = (node: AST.TSESTreeClass) => {
+  const collect = (node: ast.TSESTreeClass) => {
     if (!isClassComponent(node)) {
       return;
     }
-    const id = AST.getClassId(node);
+    const id = ast.getClassId(node);
     const key = idGen.next();
-    const name = id == null ? unit : AST.toStringFormat(id, getText);
+    const name = id == null ? unit : ast.toStringFormat(id, getText);
     const flag = isPureComponent(node)
       ? ComponentFlag.PureComponent
       : ComponentFlag.None;
@@ -79,9 +79,9 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
 export function isThisSetState(node: TSESTree.CallExpression) {
   const { callee } = node;
   return (
-    callee.type === T.MemberExpression
-    && AST.isThisExpressionLoose(callee.object)
-    && callee.property.type === T.Identifier
+    callee.type === AST.MemberExpression
+    && ast.isThisExpressionLoose(callee.object)
+    && callee.property.type === AST.Identifier
     && callee.property.name === "setState"
   );
 }
@@ -93,7 +93,7 @@ export function isThisSetState(node: TSESTree.CallExpression) {
  */
 export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
-  return left.type === T.MemberExpression
-    && AST.isThisExpressionLoose(left.object)
-    && AST.getPropertyName(left.property) === "state";
+  return left.type === AST.MemberExpression
+    && ast.isThisExpressionLoose(left.object)
+    && ast.getPropertyName(left.property) === "state";
 }

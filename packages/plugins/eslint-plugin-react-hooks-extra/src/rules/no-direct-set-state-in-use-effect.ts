@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { isUseCallbackCall, isUseEffectLikeCall, isUseMemoCall, isUseStateLikeCall } from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -54,31 +54,31 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
   const { additionalStateHooks } = getSettingsFromContext(context);
-  const functionEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
-  const setupFnRef: { current: AST.TSESTreeFunction | null } = { current: null };
+  const functionEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
+  const setupFnRef: { current: ast.TSESTreeFunction | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
 
   const trackedFnCalls: TSESTree.CallExpression[] = [];
-  const setStateCallsByFn = new WeakMap<AST.TSESTreeFunction, TSESTree.CallExpression[]>();
+  const setStateCallsByFn = new WeakMap<ast.TSESTreeFunction, TSESTree.CallExpression[]>();
   const setStateInEffectArg = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
-  const onSetupFunctionEnter = (node: AST.TSESTreeFunction) => {
+  const onSetupFunctionEnter = (node: ast.TSESTreeFunction) => {
     setupFnRef.current = node;
   };
 
-  const onSetupFunctionExit = (node: AST.TSESTreeFunction) => {
+  const onSetupFunctionExit = (node: ast.TSESTreeFunction) => {
     if (setupFnRef.current === node) {
       setupFnRef.current = null;
     }
   };
 
   function isThenCall(node: TSESTree.CallExpression) {
-    return node.callee.type === T.MemberExpression
-      && node.callee.property.type === T.Identifier
+    return node.callee.type === AST.MemberExpression
+      && node.callee.property.type === AST.Identifier
       && node.callee.property.name === "then";
   }
 
@@ -87,16 +87,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isUseEffectSetupCallback(node: TSESTree.Node) {
-    return node.parent?.type === T.CallExpression
+    return node.parent?.type === AST.CallExpression
       && node.parent.callee !== node
       && isUseEffectLikeCall(node.parent);
   }
 
   function getCallName(node: TSESTree.Node) {
-    if (node.type === T.CallExpression) {
-      return AST.toStringFormat(node.callee, getText);
+    if (node.type === AST.CallExpression) {
+      return ast.toStringFormat(node.callee, getText);
     }
-    return AST.toStringFormat(node, getText);
+    return ast.toStringFormat(node, getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {
@@ -108,15 +108,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       .otherwise(() => "other");
   }
 
-  function getFunctionKind(node: AST.TSESTreeFunction) {
-    const parent = AST.findParentNode(node, not(AST.isTypeExpression)) ?? node.parent;
+  function getFunctionKind(node: ast.TSESTreeFunction) {
+    const parent = ast.findParentNode(node, not(ast.isTypeExpression)) ?? node.parent;
     switch (true) {
       case node.async:
-      case parent.type === T.CallExpression
+      case parent.type === AST.CallExpression
         && isThenCall(parent):
         return "deferred";
-      case node.type !== T.FunctionDeclaration
-        && parent.type === T.CallExpression
+      case node.type !== AST.FunctionDeclaration
+        && parent.type === AST.CallExpression
         && parent.callee === node:
         return "immediate";
       case isUseEffectSetupCallback(node):
@@ -130,31 +130,31 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     const variable = findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
     const variableNode = getVariableDefinitionNode(variable, 0);
     if (variableNode == null) return false;
-    if (variableNode.type !== T.CallExpression) return false;
+    if (variableNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(variableNode)) return false;
     const variableNodeParent = variableNode.parent;
-    if (!("id" in variableNodeParent) || variableNodeParent.id?.type !== T.ArrayPattern) {
+    if (!("id" in variableNodeParent) || variableNodeParent.id?.type !== AST.ArrayPattern) {
       return true;
     }
     return variableNodeParent
       .id
       .elements
-      .findIndex((e) => e?.type === T.Identifier && e.name === topLevelId.name) === at;
+      .findIndex((e) => e?.type === AST.Identifier && e.name === topLevelId.name) === at;
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {
     switch (node.callee.type) {
       // const data = useState();
       // data.at(1)();
-      case T.CallExpression: {
+      case AST.CallExpression: {
         const { callee } = node.callee;
-        if (callee.type !== T.MemberExpression) {
+        if (callee.type !== AST.MemberExpression) {
           return false;
         }
         if (!("name" in callee.object)) {
           return false;
         }
-        const isAt = callee.property.type === T.Identifier && callee.property.name === "at";
+        const isAt = callee.property.type === AST.Identifier && callee.property.name === "at";
         const [index] = node.callee.arguments;
         if (!isAt || index == null) {
           return false;
@@ -165,12 +165,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       // const [data, setData] = useState();
       // setData();
-      case T.Identifier: {
+      case AST.Identifier: {
         return isIdFromUseStateCall(node.callee, 1);
       }
       // const data = useState();
       // data[1]();
-      case T.MemberExpression: {
+      case AST.MemberExpression: {
         if (!("name" in node.callee.object)) {
           return false;
         }
@@ -186,14 +186,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   return {
-    ":function"(node: AST.TSESTreeFunction) {
+    ":function"(node: ast.TSESTreeFunction) {
       const kind = getFunctionKind(node);
       functionEntries.push({ kind, node });
       if (kind === "setup") {
         onSetupFunctionEnter(node);
       }
     },
-    ":function:exit"(node: AST.TSESTreeFunction) {
+    ":function:exit"(node: ast.TSESTreeFunction) {
       const { kind } = functionEntries.at(-1) ?? {};
       if (kind === "setup") {
         onSetupFunctionExit(node);
@@ -215,7 +215,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               break;
             case pEntry.node === setupFunction:
             case pEntry.kind === "immediate"
-              && AST.findParentNode(pEntry.node, AST.isFunction) === setupFunction: {
+              && ast.findParentNode(pEntry.node, ast.isFunction) === setupFunction: {
               context.report({
                 messageId: "noDirectSetStateInUseEffect",
                 node,
@@ -226,15 +226,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               return;
             }
             default: {
-              const init = AST.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
+              const init = ast.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
               if (init == null) getOrElseUpdate(setStateCallsByFn, pEntry.node, () => []).push(node);
               else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
             }
           }
         })
         .with("useEffect", () => {
-          if (AST.isFunction(node.arguments.at(0))) return;
-          setupFnIds.push(...AST.getNestedIdentifiers(node));
+          if (ast.isFunction(node.arguments.at(0))) return;
+          setupFnIds.push(...ast.getNestedIdentifiers(node));
         })
         .with("other", () => {
           if (pEntry.node !== setupFunction) return;
@@ -243,16 +243,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(constVoid);
     },
     Identifier(node) {
-      if (node.parent.type === T.CallExpression && node.parent.callee === node) {
+      if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
         return;
       }
       if (!isIdFromUseStateCall(node, 1)) {
         return;
       }
       switch (node.parent.type) {
-        case T.ArrowFunctionExpression: {
+        case AST.ArrowFunctionExpression: {
           const parent = node.parent.parent;
-          if (parent.type !== T.CallExpression) {
+          if (parent.type !== AST.CallExpression) {
             break;
           }
           // const [state, setState] = useState();
@@ -261,13 +261,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!isUseMemoCall(parent)) {
             break;
           }
-          const init = AST.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
+          const init = ast.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
           if (init != null) {
             getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
           }
           break;
         }
-        case T.CallExpression: {
+        case AST.CallExpression: {
           if (node !== node.parent.arguments.at(0)) {
             break;
           }
@@ -275,7 +275,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // const set = useCallback(setState, []);
           // useEffect(set, []);
           if (isUseCallbackCall(node.parent)) {
-            const init = AST.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
+            const init = ast.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
             if (init != null) {
               getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
             }
@@ -296,11 +296,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
         const node = getVariableDefinitionNode(findVariable(id, initialScope), 0);
         switch (node?.type) {
-          case T.ArrowFunctionExpression:
-          case T.FunctionDeclaration:
-          case T.FunctionExpression:
+          case AST.ArrowFunctionExpression:
+          case AST.FunctionDeclaration:
+          case AST.FunctionExpression:
             return setStateCallsByFn.get(node) ?? [];
-          case T.CallExpression:
+          case AST.CallExpression:
             return setStateInHookCallbacks.get(node) ?? setStateInEffectArg.get(node) ?? [];
         }
         return [];

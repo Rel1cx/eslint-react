@@ -1,17 +1,13 @@
-import {
-  JsxEmit,
-  getJsxConfigFromAnnotation,
-  getJsxConfigFromContext,
-  getJsxElementType,
-  isJsxFragmentElement,
-} from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 import { P, match } from "ts-pattern";
 import { createRule, stringify } from "../utils";
+
+const { JsxEmit } = core;
 
 export const RULE_NAME = "jsx";
 
@@ -38,8 +34,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const jsxConfigFromContext = getJsxConfigFromContext(context);
-  const jsxConfigFromAnnotation = getJsxConfigFromAnnotation(context);
+  const jsxConfigFromContext = core.getJsxConfigFromContext(context);
+  const jsxConfigFromAnnotation = core.getJsxConfigFromAnnotation(context);
   const jsxConfig = {
     ...jsxConfigFromContext,
     ...jsxConfigFromAnnotation,
@@ -52,10 +48,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       data: {
         json: stringify({
           kind: match(node)
-            .with({ type: T.JSXElement }, (n) => isJsxFragmentElement(context, n, jsxConfig) ? "fragment" : "element")
-            .with({ type: T.JSXFragment }, () => "fragment")
+            .with(
+              { type: AST.JSXElement },
+              (n) => core.isJsxFragmentElement(context, n, jsxConfig) ? "fragment" : "element",
+            )
+            .with({ type: AST.JSXFragment }, () => "fragment")
             .exhaustive(),
-          type: getJsxElementType(context, node),
+          type: core.getJsxElementType(context, node),
           jsx: match(jsxConfig.jsx)
             .with(JsxEmit.None, () => "none")
             .with(JsxEmit.ReactJSX, () => "react-jsx")

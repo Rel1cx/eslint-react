@@ -1,9 +1,9 @@
-import type * as AST from "@eslint-react/ast";
+import type * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
 
@@ -25,7 +25,7 @@ export type JsxAttributeValue =
  * @param attribute - The JSX attribute node to resolve
  * @returns An object containing the value kind, the node (if applicable), and a `toStatic` helper
  */
-export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TSESTreeJSXAttributeLike) {
+export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TSESTreeJSXAttributeLike) {
   const initialScope = context.sourceCode.getScope(attribute);
 
   /**
@@ -44,7 +44,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
     }
     switch (node.value.type) {
       // Case 2: Literal value (e.g., className="container")
-      case T.Literal: {
+      case AST.Literal: {
         const staticValue = node.value.value;
         return {
           kind: "literal",
@@ -55,7 +55,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
         } as const satisfies JsxAttributeValue;
       }
       // Case 3: Expression container (e.g., className={variable})
-      case T.JSXExpressionContainer: {
+      case AST.JSXExpressionContainer: {
         const expr = node.value.expression;
         return {
           kind: "expression",
@@ -66,7 +66,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
         } as const satisfies JsxAttributeValue;
       }
       // Case 4: JSX Element as value (e.g., element=<JSXElement />)
-      case T.JSXElement:
+      case AST.JSXElement:
         return {
           kind: "element",
           node: node.value,
@@ -75,7 +75,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
           },
         } as const satisfies JsxAttributeValue;
       // Case 5: JSX spread children (e.g., <div>{...["Hello", " ", "spread", " ", "children"]}</div>)
-      case T.JSXSpreadChild:
+      case AST.JSXSpreadChild:
         return {
           kind: "spreadChild",
           node: node.value.expression,
@@ -106,9 +106,9 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: AST.TS
   }
 
   switch (attribute.type) {
-    case T.JSXAttribute:
+    case AST.JSXAttribute:
       return handleJsxAttribute(attribute);
-    case T.JSXSpreadAttribute:
+    case AST.JSXSpreadAttribute:
       return handleJsxSpreadAttribute(attribute);
   }
 }

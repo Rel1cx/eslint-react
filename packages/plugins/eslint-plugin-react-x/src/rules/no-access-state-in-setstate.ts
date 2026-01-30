@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import { isClassComponent, isThisSetState } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -25,9 +25,9 @@ function isKeyLiteral(
   key: TSESTree.Node,
 ) {
   return match(key)
-    .with({ type: T.Literal }, constTrue)
-    .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
-    .with({ type: T.Identifier }, () => !node.computed)
+    .with({ type: AST.Literal }, constTrue)
+    .with({ type: AST.TemplateLiteral, expressions: [] }, constTrue)
+    .with({ type: AST.Identifier }, () => !node.computed)
     .otherwise(constFalse);
 }
 
@@ -55,28 +55,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Stack to track class declarations and whether they are React components
   const classStack: [node: TSESTree.ClassDeclaration | TSESTree.ClassExpression, isComponent: boolean][] = [];
   // Stack to track method definitions and whether they are static
-  const methodStack: [node: AST.TSESTreeMethodOrProperty, isStatic: boolean][] = [];
+  const methodStack: [node: ast.TSESTreeMethodOrProperty, isStatic: boolean][] = [];
   // Stack to track `setState` call expressions
   const setStateStack: [node: TSESTree.CallExpression, hasThisState: boolean][] = [];
 
   return {
     // Push `setState` calls to the stack upon entry
     CallExpression(node) {
-      if (!isThisSetState(node)) {
+      if (!core.isThisSetState(node)) {
         return;
       }
       setStateStack.push([node, false]);
     },
     // Pop `setState` calls from the stack upon exit
     "CallExpression:exit"(node) {
-      if (!isThisSetState(node)) {
+      if (!core.isThisSetState(node)) {
         return;
       }
       setStateStack.pop();
     },
     // Push class declarations to the stack upon entry
     ClassDeclaration(node) {
-      classStack.push([node, isClassComponent(node)]);
+      classStack.push([node, core.isClassComponent(node)]);
     },
     // Pop class declarations from the stack upon exit
     "ClassDeclaration:exit"() {
@@ -84,7 +84,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     // Push class expressions to the stack upon entry
     ClassExpression(node) {
-      classStack.push([node, isClassComponent(node)]);
+      classStack.push([node, core.isClassComponent(node)]);
     },
     // Pop class expressions from the stack upon exit
     "ClassExpression:exit"() {
@@ -93,7 +93,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     // Main logic for detecting `this.state` access
     MemberExpression(node) {
       // Check for `this` expressions
-      if (!AST.isThisExpressionLoose(node.object)) {
+      if (!ast.isThisExpressionLoose(node.object)) {
         return;
       }
       // Ensure we are inside a React class component
@@ -112,7 +112,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Check if the property being accessed is `state`
-      if (AST.getPropertyName(node.property) !== "state") {
+      if (ast.getPropertyName(node.property) !== "state") {
         return;
       }
       // Report an issue if `this.state` is accessed
@@ -151,7 +151,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Check for destructuring from `this`
-      if (node.init == null || !AST.isThisExpressionLoose(node.init) || node.id.type !== T.ObjectPattern) {
+      if (node.init == null || !ast.isThisExpressionLoose(node.init) || node.id.type !== AST.ObjectPattern) {
         return;
       }
       // Check if `state` is one of the destructured properties
@@ -159,9 +159,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .id
         .properties
         .some((prop) =>
-          prop.type === T.Property
+          prop.type === AST.Property
           && isKeyLiteral(prop, prop.key)
-          && AST.getPropertyName(prop.key) === "state"
+          && ast.getPropertyName(prop.key) === "state"
         );
       if (!hasState) {
         return;

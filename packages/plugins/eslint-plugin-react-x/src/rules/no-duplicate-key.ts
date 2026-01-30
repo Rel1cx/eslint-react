@@ -1,10 +1,10 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-duplicate-key";
@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       return false;
     }
     // Compare the AST nodes of the values for equality
-    return AST.isNodeEqual(aValue, bValue);
+    return ast.isNodeEqual(aValue, bValue);
   }
   return {
     // Visitor for all JSX attributes named 'key'
@@ -63,9 +63,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Check the parent of the JSX element to determine the context
       switch (jsxElement.parent.type) {
         // Case 1: Elements in an array expression, JSX element, or JSX fragment
-        case T.ArrayExpression:
-        case T.JSXElement:
-        case T.JSXFragment: {
+        case AST.ArrayExpression:
+        case AST.JSXElement:
+        case AST.JSXFragment: {
           const root = jsxElement.parent;
           const prevKeys = keyedEntries.get(root)?.keys ?? [];
           // Check for duplicates and update the map
@@ -78,26 +78,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // Case 2: Elements created by an array's .map() call
         default: {
-          const call = AST.findParentNode(
+          const call = ast.findParentNode(
             jsxElement,
             (n): n is TSESTree.CallExpression => (
-              n.type === T.CallExpression
-              && n.callee.type === T.MemberExpression
-              && n.callee.property.type === T.Identifier
+              n.type === AST.CallExpression
+              && n.callee.type === AST.MemberExpression
+              && n.callee.property.type === AST.Identifier
               && n.callee.property.name === "map"
             ),
           );
-          const iter = AST.findParentNode(jsxElement, (n) => n === call || AST.isFunction(n));
-          if (!AST.isFunction(iter)) return;
+          const iter = ast.findParentNode(jsxElement, (n) => n === call || ast.isFunction(n));
+          if (!ast.isFunction(iter)) return;
           const arg0 = call?.arguments[0];
           if (call == null || arg0 == null) return;
           // Ensure we are inside the callback of the .map() call
-          if (AST.getUnderlyingExpression(arg0) !== iter) {
+          if (ast.getUnderlyingExpression(arg0) !== iter) {
             return;
           }
           // Flag literal keys in .map() calls as they are a common source of duplication
           keyedEntries.set(call, {
-            hasDuplicate: node.value?.type === T.Literal,
+            hasDuplicate: node.value?.type === AST.Literal,
             keys: [node],
             root: call,
           });

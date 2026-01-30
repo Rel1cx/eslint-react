@@ -1,11 +1,11 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { flow, unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -82,23 +82,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ): ReportDescriptor<MessageID> | unit {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return unit;
-    if (AST.is(T.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
-    if (AST.isJSX(node)) return unit;
-    if (AST.isTypeExpression(node)) return getReportDescriptor(node.expression);
+    if (ast.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
+    if (ast.isJSX(node)) return unit;
+    if (ast.isTypeExpression(node)) return getReportDescriptor(node.expression);
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | unit>(node)
       // Handle logical '&&' expressions
-      .with({ type: T.LogicalExpression, operator: "&&" }, ({ left, right }) => {
+      .with({ type: AST.LogicalExpression, operator: "&&" }, ({ left, right }) => {
         // If the left side is a negation, it's always a boolean, which is safe
         // Recursively check the right side
-        if (left.type === T.UnaryExpression && left.operator === "!") {
+        if (left.type === AST.UnaryExpression && left.operator === "!") {
           return getReportDescriptor(right);
         }
 
         const initialScope = context.sourceCode.getScope(left);
         // Specifically check for 'NaN', which is a falsy value that gets rendered
-        if (AST.isNaN(left) || getStaticValue(left, initialScope)?.value === "NaN") {
+        if (ast.isNaN(left) || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
             messageId: "noLeakedConditionalRendering",
             node: left,
@@ -127,15 +127,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         } as const;
       })
       // Handle ternary expressions. Recursively check both branches
-      .with({ type: T.ConditionalExpression }, ({ alternate, consequent }) => {
+      .with({ type: AST.ConditionalExpression }, ({ alternate, consequent }) => {
         return getReportDescriptor(consequent) ?? getReportDescriptor(alternate);
       })
       // Handle identifiers. Try to find their definition and check the initial value
-      .with({ type: T.Identifier }, (n) => {
+      .with({ type: AST.Identifier }, (n) => {
         const variable = findVariable(n.name, context.sourceCode.getScope(n));
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
-          .with({ init: P.select({ type: P.not(T.VariableDeclaration) }) }, getReportDescriptor)
+          .with({ init: P.select({ type: P.not(AST.VariableDeclaration) }) }, getReportDescriptor)
           .otherwise(() => unit);
       })
       // For all other node types, assume they are safe

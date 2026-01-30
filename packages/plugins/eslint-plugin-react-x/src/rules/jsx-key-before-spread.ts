@@ -1,6 +1,6 @@
-import { JsxEmit, getJsxConfigFromAnnotation, getJsxConfigFromContext } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -32,18 +32,18 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { jsx } = {
-    ...getJsxConfigFromContext(context),
-    ...getJsxConfigFromAnnotation(context),
+    ...core.getJsxConfigFromContext(context),
+    ...core.getJsxConfigFromAnnotation(context),
   };
 
   // This rule is only applicable for the new JSX transform
-  if (jsx !== JsxEmit.ReactJSX && jsx !== JsxEmit.ReactJSXDev) return {};
+  if (jsx !== core.JsxEmit.ReactJSX && jsx !== core.JsxEmit.ReactJSXDev) return {};
 
   return {
     JSXOpeningElement(node) {
       let firstSpreadPropIndex: null | number = null;
       for (const [index, prop] of node.attributes.entries()) {
-        if (prop.type === T.JSXSpreadAttribute) {
+        if (prop.type === AST.JSXSpreadAttribute) {
           firstSpreadPropIndex ??= index;
           continue;
         }

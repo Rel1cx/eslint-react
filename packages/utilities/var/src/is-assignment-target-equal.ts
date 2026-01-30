@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -11,7 +11,7 @@ export function isAssignmentTargetEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ) {
-  return AST.isNodeEqual(a, b) || isNodeValueEqual(a, b, [
+  return ast.isNodeEqual(a, b) || isNodeValueEqual(a, b, [
     context.sourceCode.getScope(a),
     context.sourceCode.getScope(b),
   ]);

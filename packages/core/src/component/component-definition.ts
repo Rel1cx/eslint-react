@@ -1,6 +1,6 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "../api";
 import { ComponentDetectionHint } from "./component-detection-hint";
@@ -21,7 +21,7 @@ import { isRenderMethodLike } from "./component-render-method";
  * }
  * ```
  */
-function isRenderMethodCallback(node: AST.TSESTreeFunction) {
+function isRenderMethodCallback(node: ast.TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
@@ -40,31 +40,31 @@ function isRenderMethodCallback(node: AST.TSESTreeFunction) {
  * @param hint Component detection hints as bit flags
  * @returns `true` if the function matches an exclusion hint
  */
-function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boolean {
+function shouldExcludeBasedOnHint(node: ast.TSESTreeFunction, hint: bigint): boolean {
   switch (true) {
     case (hint & ComponentDetectionHint.SkipObjectMethod)
-      && AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(node)
-      && node.parent.type === T.Property
-      && node.parent.parent.type === T.ObjectExpression:
+      && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+      && node.parent.type === AST.Property
+      && node.parent.parent.type === AST.ObjectExpression:
       return true;
     case (hint & ComponentDetectionHint.SkipClassMethod)
-      && AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(node)
-      && node.parent.type === T.MethodDefinition:
+      && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+      && node.parent.type === AST.MethodDefinition:
       return true;
     case (hint & ComponentDetectionHint.SkipClassProperty)
-      && AST.isOneOf([T.ArrowFunctionExpression, T.FunctionExpression])(node)
-      && node.parent.type === T.Property:
+      && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+      && node.parent.type === AST.Property:
       return true;
     case (hint & ComponentDetectionHint.SkipArrayPattern)
-      && node.parent.type === T.ArrayPattern:
+      && node.parent.type === AST.ArrayPattern:
       return true;
     case (hint & ComponentDetectionHint.SkipArrayExpression)
-      && node.parent.type === T.ArrayExpression:
+      && node.parent.type === AST.ArrayExpression:
       return true;
     case (hint & ComponentDetectionHint.SkipArrayMapCallback)
-      && node.parent.type === T.CallExpression
-      && node.parent.callee.type === T.MemberExpression
-      && node.parent.callee.property.type === T.Identifier
+      && node.parent.type === AST.CallExpression
+      && node.parent.callee.type === AST.MemberExpression
+      && node.parent.callee.property.type === AST.Identifier
       && node.parent.callee.property.name === "map":
       return true;
   }
@@ -81,7 +81,7 @@ function shouldExcludeBasedOnHint(node: AST.TSESTreeFunction, hint: bigint): boo
 function isChildrenOfCreateElement(context: RuleContext, node: TSESTree.Node): boolean {
   const parent = node.parent;
 
-  if (parent?.type !== T.CallExpression) {
+  if (parent?.type !== AST.CallExpression) {
     return false;
   }
 
@@ -105,7 +105,7 @@ function isChildrenOfCreateElement(context: RuleContext, node: TSESTree.Node): b
  */
 export function isComponentDefinition(
   context: RuleContext,
-  node: AST.TSESTreeFunction,
+  node: ast.TSESTreeFunction,
   hint: bigint,
 ) {
   // 1. Check for basic naming conventions
@@ -125,19 +125,19 @@ export function isComponentDefinition(
 
   // 4. Check if the function is embedded directly inside JSX (e.g., inline callbacks)
   // We look for the closest parent that is significant (Function, Class, or JSXContainer)
-  const significantParent = AST.findParentNode(
+  const significantParent = ast.findParentNode(
     node,
-    AST.isOneOf([
-      T.JSXExpressionContainer,
-      T.ArrowFunctionExpression,
-      T.FunctionExpression,
-      T.Property,
-      T.ClassBody,
+    ast.isOneOf([
+      AST.JSXExpressionContainer,
+      AST.ArrowFunctionExpression,
+      AST.FunctionExpression,
+      AST.Property,
+      AST.ClassBody,
     ]),
   );
 
   if (significantParent == null) return true;
   // If the immediate significant parent is a JSX expression, this is likely an event handler or a render prop, not a component definition itself
-  if (significantParent.type === T.JSXExpressionContainer) return false;
+  if (significantParent.type === AST.JSXExpressionContainer) return false;
   return true;
 }

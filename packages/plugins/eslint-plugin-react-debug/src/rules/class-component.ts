@@ -1,4 +1,4 @@
-import { useComponentCollectorLegacy } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { ctx, visitor } = useComponentCollectorLegacy(context);
+  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
   return defineRuleListener(
     visitor,
     {

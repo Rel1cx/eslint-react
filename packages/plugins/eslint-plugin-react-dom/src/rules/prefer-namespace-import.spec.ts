@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./prefer-namespace-import";
@@ -7,32 +7,32 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: `import ReactDOM from 'react-dom';`,
-      errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as ReactDOM from 'react-dom';`,
     },
     {
       code: `import ReactDom from 'react-dom';`,
-      errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as ReactDom from 'react-dom';`,
     },
     {
       code: `import REACTDOM from 'react-dom';`,
-      errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as REACTDOM from 'react-dom';`,
     },
     {
       code: `import ReactDOM from 'react-dom/client';`,
-      errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as ReactDOM from 'react-dom/client';`,
     },
     {
       code: `import ReactDom from 'react-dom/client';`,
-      errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as ReactDom from 'react-dom/client';`,
     },
     {
       code: `import REACTDOM from 'react-dom/client';`,
-      errors: [{ type: T.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
       output: `import * as REACTDOM from 'react-dom/client';`,
     },
   ],

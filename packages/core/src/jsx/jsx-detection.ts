@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 // This is a representation of React Node types for reference
@@ -56,7 +56,7 @@ export const DEFAULT_JSX_DETECTION_HINT = 0n
  */
 export function isJsxText(node: TSESTree.Node | null | unit): node is TSESTree.JSXText | TSESTree.Literal {
   if (node == null) return false;
-  return node.type === T.JSXText || node.type === T.Literal;
+  return node.type === AST.JSXText || node.type === AST.Literal;
 }
 
 /**
@@ -77,10 +77,10 @@ export function isJsxLike(
   if (node == null) return false;
 
   // Actual JSX nodes are always considered JSX-like
-  if (AST.isJSX(node)) return true;
+  if (ast.isJSX(node)) return true;
 
   switch (node.type) {
-    case T.Literal: {
+    case AST.Literal: {
       // Handle different literal types according to hint flags
       switch (typeof node.value) {
         case "boolean":
@@ -97,11 +97,11 @@ export function isJsxLike(
       }
       return false;
     }
-    case T.TemplateLiteral: {
+    case AST.TemplateLiteral: {
       // Template literals are treated like string literals
       return !(hint & JsxDetectionHint.SkipStringLiteral);
     }
-    case T.ArrayExpression: {
+    case AST.ArrayExpression: {
       // Empty arrays can be filtered with SkipEmptyArray
       if (node.elements.length === 0) {
         return !(hint & JsxDetectionHint.SkipEmptyArray);
@@ -113,7 +113,7 @@ export function isJsxLike(
       // Default: array is JSX-like if any element is JSX-like
       return node.elements.some((n) => isJsxLike(code, n, hint));
     }
-    case T.LogicalExpression: {
+    case AST.LogicalExpression: {
       // StrictLogical requires both sides to be JSX
       if (hint & JsxDetectionHint.StrictLogical) {
         return isJsxLike(code, node.left, hint) && isJsxLike(code, node.right, hint);
@@ -121,7 +121,7 @@ export function isJsxLike(
       // Default: logical expression is JSX-like if either side is JSX-like
       return isJsxLike(code, node.left, hint) || isJsxLike(code, node.right, hint);
     }
-    case T.ConditionalExpression: {
+    case AST.ConditionalExpression: {
       // Helper function to check if the consequent (then) branch has JSX
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
@@ -148,33 +148,33 @@ export function isJsxLike(
       // Default: conditional is JSX-like if either branch has JSX
       return leftHasJSX(node) || rightHasJSX(node);
     }
-    case T.SequenceExpression: {
+    case AST.SequenceExpression: {
       // For sequence expressions, only check the last expression
       const exp = node.expressions.at(-1);
       return isJsxLike(code, exp, hint);
     }
-    case T.CallExpression: {
+    case AST.CallExpression: {
       // Skip createElement calls if configured to do so
       if (hint & JsxDetectionHint.SkipCreateElement) {
         return false;
       }
       // Check for React.createElement or createElement calls
       switch (node.callee.type) {
-        case T.Identifier:
+        case AST.Identifier:
           return node.callee.name === "createElement";
-        case T.MemberExpression:
-          return node.callee.property.type === T.Identifier && node.callee.property.name === "createElement";
+        case AST.MemberExpression:
+          return node.callee.property.type === AST.Identifier && node.callee.property.name === "createElement";
       }
       return false;
     }
-    case T.Identifier: {
+    case AST.Identifier: {
       const { name } = node;
       // Handle 'undefined' identifier according to hint
       if (name === "undefined") {
         return !(hint & JsxDetectionHint.SkipUndefined);
       }
       // Check if this is a JSX tag name
-      if (AST.isJSXTagNameExpression(node)) {
+      if (ast.isJSXTagNameExpression(node)) {
         return true;
       }
       // Resolve variables to their values and check if they're JSX-like

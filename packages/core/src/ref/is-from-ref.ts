@@ -1,6 +1,6 @@
 import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 
 import { isUseRefCall } from "../hook";
 import { isRefName } from "./ref-name";
@@ -13,17 +13,17 @@ import { isRefName } from "./ref-name";
  */
 export function isInitializedFromRef(name: string, initialScope: Scope) {
   for (const { node } of findVariable(initialScope)(name)?.defs ?? []) {
-    if (node.type !== T.VariableDeclarator) continue;
+    if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
     if (init == null) continue;
     switch (true) {
       // const identifier = anotherRef.current;
-      case init.type === T.MemberExpression
-        && init.object.type === T.Identifier
+      case init.type === AST.MemberExpression
+        && init.object.type === AST.Identifier
         && isRefName(init.object.name):
         return true;
       // const identifier = useRef();
-      case init.type === T.CallExpression
+      case init.type === AST.CallExpression
         && isUseRefCall(init):
         return true;
     }

@@ -1,4 +1,4 @@
-import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -70,20 +70,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "a") return;
 
       // Get access to the component attributes
-      const findAttribute = getJsxAttribute(context, node);
+      const findAttribute = core.getJsxAttribute(context, node);
 
       // Check if target="_blank" is present
       const targetProp = findAttribute("target");
       if (targetProp == null) return;
 
-      const targetValue = resolveJsxAttributeValue(context, targetProp).toStatic("target");
+      const targetValue = core.resolveJsxAttributeValue(context, targetProp).toStatic("target");
       if (targetValue !== "_blank") return;
 
       // Check if href points to an external resource
       const hrefProp = findAttribute("href");
       if (hrefProp == null) return;
 
-      const hrefValue = resolveJsxAttributeValue(context, hrefProp).toStatic("href");
+      const hrefValue = core.resolveJsxAttributeValue(context, hrefProp).toStatic("href");
       if (!isExternalLinkLike(hrefValue)) return;
 
       // Check if rel prop exists and is secure
@@ -108,7 +108,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Check if existing rel prop is secure
-      const relValue = resolveJsxAttributeValue(context, relProp).toStatic("rel");
+      const relValue = core.resolveJsxAttributeValue(context, relProp).toStatic("rel");
       if (isSafeRel(relValue)) return;
 
       // Existing rel prop is not secure - suggest replacing it

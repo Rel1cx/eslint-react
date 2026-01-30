@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<></>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<></>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<>{}</>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -45,12 +45,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<p>moo<>foo</></p>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<>{meow}</>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<p><>{meow}</></p>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<><div/></>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -112,7 +112,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<Fragment />",
       errors: [
         {
-          type: T.JSXElement,
+          type: AST.JSXElement,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -126,7 +126,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.JSXElement,
+          type: AST.JSXElement,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -140,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<Eeee><>foo</></Eeee>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -151,12 +151,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<div><>foo</></div>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },
@@ -167,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div><>{"a"}{"b"}</></div>',
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
         </section>`,
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
@@ -199,7 +199,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
       errors: [
         {
-          type: T.JSXElement,
+          type: AST.JSXElement,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
@@ -218,13 +218,13 @@ ruleTester.run(RULE_NAME, rule, {
         </section>`,
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
           line: 3,
         },
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
           line: 7,
@@ -241,7 +241,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div>a <>{""}{""}</> a</div>',
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
         },
@@ -258,13 +258,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.JSXElement,
+          type: AST.JSXElement,
           messageId: "noUselessFragment",
           data: { reason: "placed inside a host component" },
           line: 4,
         },
         {
-          type: T.JSXElement,
+          type: AST.JSXElement,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
           line: 4,
@@ -283,7 +283,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<><Foo>{moo}</Foo></>",
       errors: [
         {
-          type: T.JSXFragment,
+          type: AST.JSXFragment,
           messageId: "noUselessFragment",
           data: { reason: "contains less than two children" },
         },

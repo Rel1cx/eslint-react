@@ -1,6 +1,6 @@
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import type { JsxConfig } from "./jsx-config";
 import { getJsxElementType } from "./jsx-element-type";
@@ -14,8 +14,8 @@ import { getJsxElementType } from "./jsx-element-type";
  * @returns boolean indicating if the element is a host element
  */
 export function isJsxHostElement(context: RuleContext, node: TSESTree.Node) {
-  return node.type === T.JSXElement
-    && node.openingElement.name.type === T.JSXIdentifier
+  return node.type === AST.JSXElement
+    && node.openingElement.name.type === AST.JSXIdentifier
     && /^[a-z]/u.test(node.openingElement.name.name);
 }
 
@@ -34,7 +34,7 @@ export function isJsxFragmentElement(
   node: TSESTree.Node,
   jsxConfig?: Pick<JsxConfig, "jsxFragmentFactory">,
 ) {
-  if (node.type !== T.JSXElement) return false;
+  if (node.type !== AST.JSXElement) return false;
   const fragment = jsxConfig?.jsxFragmentFactory?.split(".").at(-1) ?? "Fragment";
   return getJsxElementType(context, node)
     .split(".")

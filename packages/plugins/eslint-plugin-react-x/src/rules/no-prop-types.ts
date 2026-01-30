@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import { isClassComponent, isComponentNameLoose } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -38,38 +38,38 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     // Handles cases like: `MyComponent.propTypes = ...`
     AssignmentExpression(node) {
       // Ensure it's a simple assignment expression
-      if (node.operator !== "=" || node.left.type !== T.MemberExpression) {
+      if (node.operator !== "=" || node.left.type !== AST.MemberExpression) {
         return;
       }
       const { object, property } = node.left;
       // Ensure the assignment is to a property of an identifier (e.g., `MyComponent.propTypes`)
-      if (object.type !== T.Identifier) {
+      if (object.type !== AST.Identifier) {
         return;
       }
       // Ensure the property being assigned is `propTypes`
-      if (property.type !== T.Identifier || property.name !== "propTypes") {
+      if (property.type !== AST.Identifier || property.name !== "propTypes") {
         return;
       }
       // Check if the identifier's name looks like a component
-      if (!isComponentNameLoose(object.name)) {
+      if (!core.isComponentNameLoose(object.name)) {
         return;
       }
       // Find the variable declaration for the component
       const variable = findVariable(object.name, context.sourceCode.getScope(node));
       const variableNode = getVariableDefinitionNode(variable, 0);
       // If the variable is a function or class component, report the usage of propTypes
-      if (variableNode != null && (AST.isFunction(variableNode) || isClassComponent(variableNode))) {
+      if (variableNode != null && (ast.isFunction(variableNode) || core.isClassComponent(variableNode))) {
         context.report({ messageId: "noPropTypes", node: property });
       }
     },
     // Handles cases like: `static propTypes = ...` within a class component
     PropertyDefinition(node) {
       // Ensure this property is defined within a class component
-      if (!isClassComponent(node.parent.parent)) {
+      if (!core.isClassComponent(node.parent.parent)) {
         return;
       }
       // Ensure it is a static property named `propTypes`
-      if (!node.static || node.key.type !== T.Identifier || node.key.name !== "propTypes") {
+      if (!node.static || node.key.type !== AST.Identifier || node.key.name !== "propTypes") {
         return;
       }
       // Report the usage of propTypes

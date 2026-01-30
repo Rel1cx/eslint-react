@@ -1,7 +1,7 @@
-import { isClassComponent } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 
   function onClassBodyEnter(node: TSESTree.ClassBody) {
-    if (isClassComponent(node.parent)) {
+    if (core.isClassComponent(node.parent)) {
       state.isWithinClassComponent = true;
     }
   }
@@ -83,17 +83,17 @@ function getJsxAttributeValueText(context: RuleContext, node: TSESTree.JSXAttrib
   if (node == null) return null;
   switch (true) {
     // Handles string literals like ref="myRef".
-    case node.type === T.Literal
+    case node.type === AST.Literal
       && typeof node.value === "string":
       return context.sourceCode.getText(node);
     // Handles expressions with string literals like ref={"myRef"}.
-    case node.type === T.JSXExpressionContainer
-      && node.expression.type === T.Literal
+    case node.type === AST.JSXExpressionContainer
+      && node.expression.type === AST.Literal
       && typeof node.expression.value === "string":
       return context.sourceCode.getText(node.expression);
     // Handles template literals like ref={`myRef`}.
-    case node.type === T.JSXExpressionContainer
-      && node.expression.type === T.TemplateLiteral:
+    case node.type === AST.JSXExpressionContainer
+      && node.expression.type === AST.TemplateLiteral:
       return context.sourceCode.getText(node.expression);
     default:
       return null;

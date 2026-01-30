@@ -1,5 +1,5 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -37,14 +37,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const { callee } = node;
       switch (callee.type) {
         // Handles cases like `findDOMNode()`.
-        case T.Identifier:
+        case AST.Identifier:
           if (callee.name === findDOMNode) {
             context.report({ messageId: "noFindDomNode", node });
           }
           return;
         // Handles cases like `ReactDOM.findDOMNode()`.
-        case T.MemberExpression:
-          if (callee.property.type === T.Identifier && callee.property.name === findDOMNode) {
+        case AST.MemberExpression:
+          if (callee.property.type === AST.Identifier && callee.property.name === findDOMNode) {
             context.report({ messageId: "noFindDomNode", node });
           }
           return;

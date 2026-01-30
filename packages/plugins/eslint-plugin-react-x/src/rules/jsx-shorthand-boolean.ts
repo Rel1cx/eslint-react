@@ -1,8 +1,8 @@
-import { getJsxAttributeName } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -54,13 +54,13 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
   return {
     JSXAttribute(node: TSESTree.JSXAttribute) {
       const { value } = node;
-      const propName = getJsxAttributeName(context, node);
+      const propName = core.getJsxAttributeName(context, node);
 
       switch (true) {
         // Enforce shorthand syntax for boolean attributes (e.g., `prop` instead of `prop={true}`)
         case policy === 1
-          && value?.type === T.JSXExpressionContainer
-          && value.expression.type === T.Literal
+          && value?.type === AST.JSXExpressionContainer
+          && value.expression.type === AST.Literal
           && value.expression.value === true: {
           context.report({
             messageId: "jsxShorthandBoolean",

@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import { isComponentNameLoose } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -37,20 +37,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     // Visitor for assignment expressions, e.g., `Component.defaultProps = ...`
     AssignmentExpression(node) {
       // Check if it's a simple assignment (`=`) to a member expression
-      if (node.operator !== "=" || node.left.type !== T.MemberExpression) {
+      if (node.operator !== "=" || node.left.type !== AST.MemberExpression) {
         return;
       }
       const { object, property } = node.left;
       // Ensure the object being assigned to is an identifier (e.g., `Component`)
-      if (object.type !== T.Identifier) {
+      if (object.type !== AST.Identifier) {
         return;
       }
       // Ensure the property being assigned is `defaultProps`
-      if (property.type !== T.Identifier || property.name !== "defaultProps") {
+      if (property.type !== AST.Identifier || property.name !== "defaultProps") {
         return;
       }
       // Check if the identifier's name follows component naming conventions
-      if (!isComponentNameLoose(object.name)) {
+      if (!core.isComponentNameLoose(object.name)) {
         return;
       }
       // Find the variable declaration corresponding to the component identifier
@@ -60,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Ensure the variable is defined
       if (variableNode == null) return;
       // Ensure the variable is defined as a function, which components are
-      if (!AST.isFunction(variableNode)) return;
+      if (!ast.isFunction(variableNode)) return;
       // If all checks pass, report the use of `defaultProps`
       context.report({ messageId: "noDefaultProps", node: property });
     },

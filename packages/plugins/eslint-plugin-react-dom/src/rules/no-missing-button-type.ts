@@ -1,4 +1,4 @@
-import { getJsxAttribute } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature, RuleSuggest } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Check if the 'type' attribute already exists on the button element
-      if (getJsxAttribute(context, node)("type") != null) {
+      if (core.getJsxAttribute(context, node)("type") != null) {
         return;
       }
 

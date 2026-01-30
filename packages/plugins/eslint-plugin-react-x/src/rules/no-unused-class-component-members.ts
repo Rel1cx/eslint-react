@@ -1,8 +1,8 @@
-import * as AST from "@eslint-react/ast";
-import { isClassComponent } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -17,7 +17,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 type Property =
-  | AST.TSESTreeMethodOrProperty["key"]
+  | ast.TSESTreeMethodOrProperty["key"]
   | TSESTree.MemberExpression["property"];
 
 // A set of React lifecycle methods that are implicitly used and should not be flagged as unused
@@ -49,9 +49,9 @@ function isKeyLiteral(
   key: TSESTree.Node,
 ) {
   return match(key)
-    .with({ type: T.Literal }, constTrue)
-    .with({ type: T.TemplateLiteral, expressions: [] }, constTrue)
-    .with({ type: T.Identifier }, () => !node.computed)
+    .with({ type: AST.Literal }, constTrue)
+    .with({ type: AST.TemplateLiteral, expressions: [] }, constTrue)
+    .with({ type: AST.Identifier }, () => !node.computed)
     .otherwise(constFalse);
 }
 
@@ -73,18 +73,18 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // A stack to keep track of class nodes, to handle nested classes
-  const classStack: AST.TSESTreeClass[] = [];
+  const classStack: ast.TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes
-  const methodStack: AST.TSESTreeMethodOrProperty[] = [];
+  const methodStack: ast.TSESTreeMethodOrProperty[] = [];
   // Stores all defined properties and methods for each class component
-  const propertyDefs = new WeakMap<AST.TSESTreeClass, Set<Property>>();
+  const propertyDefs = new WeakMap<ast.TSESTreeClass, Set<Property>>();
   // Stores all used properties and methods for each class component
-  const propertyUsages = new WeakMap<AST.TSESTreeClass, Set<string>>();
+  const propertyUsages = new WeakMap<ast.TSESTreeClass, Set<string>>();
 
   // Called when the AST traversal enters a class declaration or expression
-  function classEnter(node: AST.TSESTreeClass) {
+  function classEnter(node: ast.TSESTreeClass) {
     classStack.push(node);
-    if (!isClassComponent(node)) {
+    if (!core.isClassComponent(node)) {
       return;
     }
     // Initialize sets for definitions and usages for the current class component
@@ -95,10 +95,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Called when the AST traversal exits a class declaration or expression
   function classExit() {
     const currentClass = classStack.pop();
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !core.isClassComponent(currentClass)) {
       return;
     }
-    const id = AST.getClassId(currentClass);
+    const id = ast.getClassId(currentClass);
     const defs = propertyDefs.get(currentClass);
     const usages = propertyUsages.get(currentClass);
     if (defs == null) {
@@ -106,7 +106,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     // Compare definitions and usages to find unused members
     for (const def of defs) {
-      const methodName = AST.getPropertyName(def);
+      const methodName = ast.getPropertyName(def);
       if (methodName == null) {
         continue;
       }
@@ -127,10 +127,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   // Called when the AST traversal enters a method or property definition
-  function methodEnter(node: AST.TSESTreeMethodOrProperty) {
+  function methodEnter(node: ast.TSESTreeMethodOrProperty) {
     methodStack.push(node);
     const currentClass = classStack.at(-1);
-    if (currentClass == null || !isClassComponent(currentClass)) {
+    if (currentClass == null || !core.isClassComponent(currentClass)) {
       return;
     }
     // Ignore static members
@@ -160,20 +160,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || currentMethod == null) {
         return;
       }
-      if (!isClassComponent(currentClass) || currentMethod.static) {
+      if (!core.isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
       // Check for expressions like `this.property`
-      if (!AST.isThisExpressionLoose(node.object) || !isKeyLiteral(node, node.property)) {
+      if (!ast.isThisExpressionLoose(node.object) || !isKeyLiteral(node, node.property)) {
         return;
       }
       // Detect assignments like `this.property = xxx` as definitions
-      if (node.parent.type === T.AssignmentExpression && node.parent.left === node) {
+      if (node.parent.type === AST.AssignmentExpression && node.parent.left === node) {
         propertyDefs.get(currentClass)?.add(node.property);
         return;
       }
       // Detect usages like `this.property()` or `x = this.property`
-      const propertyName = AST.getPropertyName(node.property);
+      const propertyName = ast.getPropertyName(node.property);
       if (propertyName != null) {
         propertyUsages.get(currentClass)?.add(propertyName);
       }
@@ -189,14 +189,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (currentClass == null || currentMethod == null) {
         return;
       }
-      if (!isClassComponent(currentClass) || currentMethod.static) {
+      if (!core.isClassComponent(currentClass) || currentMethod.static) {
         return;
       }
       // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
-      if (node.init != null && AST.isThisExpressionLoose(node.init) && node.id.type === T.ObjectPattern) {
+      if (node.init != null && ast.isThisExpressionLoose(node.init) && node.id.type === AST.ObjectPattern) {
         for (const prop of node.id.properties) {
-          if (prop.type === T.Property && isKeyLiteral(prop, prop.key)) {
-            const keyName = AST.getPropertyName(prop.key);
+          if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
+            const keyName = ast.getPropertyName(prop.key);
             if (keyName != null) {
               // Add destructured properties to the usages set
               propertyUsages.get(currentClass)?.add(keyName);

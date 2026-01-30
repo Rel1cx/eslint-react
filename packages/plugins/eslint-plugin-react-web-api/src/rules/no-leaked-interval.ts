@@ -1,8 +1,8 @@
-import type * as AST from "@eslint-react/ast";
+import type * as ast from "@eslint-react/ast";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching } from "ts-pattern";
 
@@ -36,11 +36,11 @@ type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "othe
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   switch (true) {
-    case node.callee.type === T.Identifier
+    case node.callee.type === AST.Identifier
       && isMatching(P.union("setInterval", "clearInterval"))(node.callee.name):
       return node.callee.name;
-    case node.callee.type === T.MemberExpression
-      && node.callee.property.type === T.Identifier
+    case node.callee.type === AST.MemberExpression
+      && node.callee.property.type === AST.Identifier
       && isMatching(P.union("setInterval", "clearInterval"))(node.callee.property.name):
       return node.callee.property.name;
     default:
@@ -78,14 +78,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("setInterval")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: AST.TSESTreeFunction }[] = [];
+  const fEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
   const sEntries: TimerEntry[] = [];
   const cEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
   return {
-    [":function"](node: AST.TSESTreeFunction) {
+    [":function"](node: ast.TSESTreeFunction) {
       const kind = getPhaseKindOfFunction(node) ?? "other";
       fEntries.push({ kind, node });
     },

@@ -1,6 +1,6 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { isComponentNameLoose } from "../component/component-name";
@@ -12,7 +12,7 @@ export type FindEnclosingComponentOrHookFilter = (n: TSESTree.Node, name: string
  * Find the enclosing React component or hook for a given AST node
  * @param node The AST node to start the search from
  * @param test Optional test function to customize component or hook identification
- * @returns The enclosing component or hook node, or `null` if none is found
+ * @returns The enclosing component or hook node, or `null` if none is ASAST.
  */
 export function findEnclosingComponentOrHook(
   node: TSESTree.Node | unit,
@@ -21,13 +21,13 @@ export function findEnclosingComponentOrHook(
     return isComponentNameLoose(name) || isHookName(name);
   },
 ) {
-  const enclosingNode = AST.findParentNode(node, (n) => {
-    if (!AST.isFunction(n)) return false;
-    const name = match(AST.getFunctionId(n))
-      .with({ type: T.Identifier }, (id) => id.name)
-      .with({ type: T.MemberExpression, property: { type: T.Identifier } }, (me) => me.property.name)
+  const enclosingNode = ast.findParentNode(node, (n) => {
+    if (!ast.isFunction(n)) return false;
+    const name = match(ast.getFunctionId(n))
+      .with({ type: AST.Identifier }, (id) => id.name)
+      .with({ type: AST.MemberExpression, property: { type: AST.Identifier } }, (me) => me.property.name)
       .otherwise(() => null);
     return test(n, name);
   });
-  return AST.isFunction(enclosingNode) ? enclosingNode : unit;
+  return ast.isFunction(enclosingNode) ? enclosingNode : unit;
 }

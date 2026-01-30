@@ -1,5 +1,5 @@
 import type { unit } from "@eslint-react/eff";
-import { AST_NODE_TYPES as T, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isFunction } from "./is";
 
@@ -11,10 +11,10 @@ import { isFunction } from "./is";
  */
 export function isViMock(node: TSESTree.Node | null | unit): node is TSESTree.MemberExpression {
   return node != null
-    && node.type === T.MemberExpression
-    && node.object.type === T.Identifier
+    && node.type === AST.MemberExpression
+    && node.object.type === AST.Identifier
     && node.object.name === "vi"
-    && node.property.type === T.Identifier
+    && node.property.type === AST.Identifier
     && node.property.name === "mock";
 }
 
@@ -27,7 +27,7 @@ export function isViMock(node: TSESTree.Node | null | unit): node is TSESTree.Me
 export function isViMockCallback(node: TSESTree.Node | null | unit) {
   return node != null
     && isFunction(node)
-    && node.parent.type === T.CallExpression
+    && node.parent.type === AST.CallExpression
     && isViMock(node.parent.callee)
     && node.parent.arguments[1] === node;
 }

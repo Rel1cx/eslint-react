@@ -1,4 +1,4 @@
-import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -55,14 +55,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // 2. Get the 'sandbox' attribute from the 'iframe' element
-      const sandboxProp = getJsxAttribute(context, node)("sandbox");
+      const sandboxProp = core.getJsxAttribute(context, node)("sandbox");
       // If there's no 'sandbox' attribute, there's nothing to check
       if (sandboxProp == null) {
         return;
       }
 
       // 3. Resolve the static value of the 'sandbox' attribute
-      const sandboxValue = resolveJsxAttributeValue(context, sandboxProp);
+      const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
       const sandboxValueStatic = sandboxValue.toStatic("sandbox");
 
       // 4. Check if the 'sandbox' value has the unsafe combination

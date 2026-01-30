@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(1 || getValue())`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(2 < getValue())`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(1 < 2 ? getValue() : 4)`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(a ? b : getValue())`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(getValue() ? b : c)`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(a ? (b ? getValue() : b2) : c)`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -64,7 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(getValue() && b)`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -73,11 +73,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(a() && new Foo())`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
         {
-          type: T.NewExpression,
+          type: AST.NewExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(+getValue())`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -95,7 +95,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState(getValue() + 1)`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState([getValue()])`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `import { useState } from "react"; useState({ a: getValue() })`,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],
@@ -129,7 +129,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          type: T.CallExpression,
+          type: AST.CallExpression,
           messageId: "preferUseStateLazyInitialization",
         },
       ],

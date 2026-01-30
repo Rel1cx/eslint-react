@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
-import * as AST from "@eslint-react/ast";
-import { isHookName, isUseCall, isUseStateCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       // Check if the function call is `useState`
-      if (!isUseStateCall(node)) {
+      if (!core.isUseStateCall(node)) {
         return;
       }
       // Get the first argument of `useState`
@@ -51,26 +51,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Check for `new` expressions, e.g., `new MyClass()`
-      for (const expr of AST.getNestedNewExpressions(useStateInput)) {
+      for (const expr of ast.getNestedNewExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
         // Ignore primitive wrappers like `new String('foo')`
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
         // Ignore if it's inside a `use()` call
-        if (AST.findParentNode(expr, isUseCall) != null) continue;
+        if (ast.findParentNode(expr, core.isUseCall) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,
         });
       }
       // Check for function call expressions, e.g., `myFunction()`
-      for (const expr of AST.getNestedCallExpressions(useStateInput)) {
+      for (const expr of ast.getNestedCallExpressions(useStateInput)) {
         if (!("name" in expr.callee)) continue;
         // Ignore other React hooks
-        if (isHookName(expr.callee.name)) continue;
+        if (core.isHookName(expr.callee.name)) continue;
         // Ignore primitive wrappers like `String('foo')`
         if (ALLOW_LIST.includes(expr.callee.name)) continue;
         // Ignore if it's inside a `use()` call
-        if (AST.findParentNode(expr, isUseCall) != null) continue;
+        if (ast.findParentNode(expr, core.isUseCall) != null) continue;
         context.report({
           messageId: "preferUseStateLazyInitialization",
           node: expr,

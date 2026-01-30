@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3667
-import * as AST from "@eslint-react/ast";
-import { isForwardRefCall } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -32,11 +32,11 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      if (!isForwardRefCall(context, node)) {
+      if (!core.isForwardRefCall(context, node)) {
         return;
       }
       const [component] = node.arguments;
-      if (component == null || !AST.isFunction(component)) {
+      if (component == null || !ast.isFunction(component)) {
         return;
       }
       const ref = component.params[1];

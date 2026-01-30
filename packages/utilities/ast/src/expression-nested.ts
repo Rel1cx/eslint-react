@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
 import { is, isFunction } from "./is";
@@ -12,7 +12,7 @@ import { findParentNode } from "./traverse";
  */
 export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   const identifiers: TSESTree.Identifier[] = [];
-  if (node.type === T.Identifier) {
+  if (node.type === AST.Identifier) {
     identifiers.push(node);
   }
   if ("arguments" in node) {
@@ -41,35 +41,35 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     const chunk = getNestedIdentifiers(node.right);
     identifiers.push(...chunk);
   }
-  if (node.type === T.Property) {
+  if (node.type === AST.Property) {
     const chunk = getNestedIdentifiers(node.value);
     identifiers.push(...chunk);
   }
-  if (node.type === T.SpreadElement) {
+  if (node.type === AST.SpreadElement) {
     const chunk = getNestedIdentifiers(node.argument);
     identifiers.push(...chunk);
   }
-  if (node.type === T.MemberExpression) {
+  if (node.type === AST.MemberExpression) {
     const chunk = getNestedIdentifiers(node.object);
     identifiers.push(...chunk);
   }
-  if (node.type === T.UnaryExpression) {
+  if (node.type === AST.UnaryExpression) {
     const chunk = getNestedIdentifiers(node.argument);
     identifiers.push(...chunk);
   }
-  if (node.type === T.ChainExpression) {
+  if (node.type === AST.ChainExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
-  if (node.type === T.TSNonNullExpression) {
+  if (node.type === AST.TSNonNullExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
-  if (node.type === T.TSAsExpression) {
+  if (node.type === AST.TSAsExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
-  if (node.type === T.TSSatisfiesExpression) {
+  if (node.type === AST.TSSatisfiesExpression) {
     const chunk = getNestedIdentifiers(node.expression);
     identifiers.push(...chunk);
   }
@@ -88,7 +88,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
     : findParentNode(node, isFunction);
   simpleTraverse(node, {
     enter(node) {
-      if (node.type !== T.ReturnStatement) {
+      if (node.type !== AST.ReturnStatement) {
         return;
       }
       const parentFunction = findParentNode(node, isFunction);
@@ -104,11 +104,11 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
 /**
  * Get all nested expressions of type T in an expression like node
  * @param type The type of the expression to retrieve within the node
- * @returns A partially applied function bound to a predicate of type T. The returned function can be called passing a
- * node, and it will return an array of all nested expressions of type T.
+ * @returns A partially applied function bound to a predicate of type AST. The returned function can be called passing a
+ * node, and it will return an array of all nested expressions of type AST.
  */
 // dprint-ignore
-export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
+export function getNestedExpressionsOfType<TNodeType extends AST>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
   const isNodeOfType = is(type);
   return (node) => {
     const boundGetNestedExpressionsOfType = getNestedExpressionsOfType(type);
@@ -166,35 +166,35 @@ export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType)
       const chunk = node.expressions.flatMap(boundGetNestedExpressionsOfType);
       expressions.push(...chunk);
     }
-    if (node.type === T.Property) {
+    if (node.type === AST.Property) {
       const chunk = boundGetNestedExpressionsOfType(node.value);
       expressions.push(...chunk);
     }
-    if (node.type === T.SpreadElement) {
+    if (node.type === AST.SpreadElement) {
       const chunk = boundGetNestedExpressionsOfType(node.argument);
       expressions.push(...chunk);
     }
-    if (node.type === T.MemberExpression) {
+    if (node.type === AST.MemberExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.object);
       expressions.push(...chunk);
     }
-    if (node.type === T.UnaryExpression) {
+    if (node.type === AST.UnaryExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.argument);
       expressions.push(...chunk);
     }
-    if (node.type === T.ChainExpression) {
+    if (node.type === AST.ChainExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
-    if (node.type === T.TSNonNullExpression) {
+    if (node.type === AST.TSNonNullExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
-    if (node.type === T.TSAsExpression) {
+    if (node.type === AST.TSAsExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
-    if (node.type === T.TSSatisfiesExpression) {
+    if (node.type === AST.TSSatisfiesExpression) {
       const chunk = boundGetNestedExpressionsOfType(node.expression);
       expressions.push(...chunk);
     }
@@ -208,7 +208,7 @@ export function getNestedExpressionsOfType<TNodeType extends T>(type: TNodeType)
  * @returns All nested new expressions
  */
 export const getNestedNewExpressions = getNestedExpressionsOfType(
-  T.NewExpression,
+  AST.NewExpression,
 );
 
 /**
@@ -217,5 +217,5 @@ export const getNestedNewExpressions = getNestedExpressionsOfType(
  * @returns All nested call expressions
  */
 export const getNestedCallExpressions = getNestedExpressionsOfType(
-  T.CallExpression,
+  AST.CallExpression,
 );

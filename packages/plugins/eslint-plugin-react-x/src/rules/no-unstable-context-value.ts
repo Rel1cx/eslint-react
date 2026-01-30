@@ -1,10 +1,10 @@
-import * as AST from "@eslint-react/ast";
-import { getJsxElementType, isHookCall, useComponentCollector } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, getObjectType } from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 
@@ -36,18 +36,18 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // If "use memo" directive is present in the file, skip analysis
-  if (AST.getProgramDirectives(context.sourceCode.ast).some((d) => d.value === "use memo")) return {};
+  if (ast.getProgramDirectives(context.sourceCode.ast).some((d) => d.value === "use memo")) return {};
 
   const { version } = getSettingsFromContext(context);
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, visitor } = useComponentCollector(context);
-  const constructions = new WeakMap<AST.TSESTreeFunction, ObjectType[]>();
+  const { ctx, visitor } = core.useComponentCollector(context);
+  const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
 
   return defineRuleListener(
     visitor,
     {
       JSXOpeningElement(node) {
-        const fullName = getJsxElementType(context, node.parent);
+        const fullName = core.getJsxElementType(context, node.parent);
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
@@ -56,17 +56,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const attribute = node
           .attributes
           .find((attribute) =>
-            attribute.type === T.JSXAttribute
+            attribute.type === AST.JSXAttribute
             && attribute.name.name === "value"
           );
         if (attribute == null || !("value" in attribute)) return;
         const value = attribute.value;
-        if (value?.type !== T.JSXExpressionContainer) return;
+        if (value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = value.expression;
         const initialScope = context.sourceCode.getScope(valueExpression);
         const construction = getObjectType(valueExpression, initialScope);
         if (construction == null) return;
-        if (isHookCall(construction.node)) {
+        if (core.isHookCall(construction.node)) {
           return;
         }
         getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
@@ -83,7 +83,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               messageId: "unstableContextValue",
               node: constructionNode,
               data: {
-                type: AST.toDelimiterFormat(constructionNode),
+                type: ast.toDelimiterFormat(constructionNode),
                 suggestion,
               },
             });

@@ -1,8 +1,9 @@
 import type { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getVariableDefinitionNode } from "./get-variable-definition-node";
+
 import { findVariable } from "./get-variables-from-scope";
 
 export function findProperty(
@@ -12,17 +13,17 @@ export function findProperty(
   seen = new Set<string>(),
 ): (typeof properties)[number] | unit {
   return properties.findLast((prop) => {
-    if (prop.type === T.Property) {
+    if (prop.type === AST.Property) {
       return "name" in prop.key
         && prop.key.name === name;
     }
-    if (prop.type === T.SpreadElement) {
+    if (prop.type === AST.SpreadElement) {
       switch (prop.argument.type) {
-        case T.Identifier: {
+        case AST.Identifier: {
           if (seen.has(prop.argument.name)) return false;
           const variable = findVariable(prop.argument.name, initialScope);
           const variableNode = getVariableDefinitionNode(variable, 0);
-          if (variableNode?.type === T.ObjectExpression) {
+          if (variableNode?.type === AST.ObjectExpression) {
             seen.add(prop.argument.name);
             return findProperty(
               name,
@@ -33,7 +34,7 @@ export function findProperty(
           }
           return false;
         }
-        case T.ObjectExpression: {
+        case AST.ObjectExpression: {
           return findProperty(
             name,
             prop.argument.properties,

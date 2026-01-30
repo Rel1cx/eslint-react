@@ -1,7 +1,7 @@
 /** eslint-disable jsdoc/require-param */
 import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 /**
  * Finds the enclosing assignment target (variable, property, etc.) for a given node
@@ -13,20 +13,20 @@ import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
 export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
   switch (true) {
     // Case: variable declaration (const x = new ResizeObserver())
-    case node.type === T.VariableDeclarator:
+    case node.type === AST.VariableDeclarator:
       return node.id;
 
     // Case: assignment expression (x = new ResizeObserver())
-    case node.type === T.AssignmentExpression:
+    case node.type === AST.AssignmentExpression:
       return node.left;
 
     // Case: class property definition (class X { y = new ResizeObserver() })
-    case node.type === T.PropertyDefinition:
+    case node.type === AST.PropertyDefinition:
       return node.key;
 
     // Case: reached block scope boundary or program root
-    case node.type === T.BlockStatement
-      || node.type === T.Program
+    case node.type === AST.BlockStatement
+      || node.type === AST.Program
       || node.parent === node:
       return unit;
 

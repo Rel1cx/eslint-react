@@ -1,5 +1,5 @@
 import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
@@ -26,10 +26,10 @@ describe("get class identifier from class declaration", () => {
     let n: null | TSESTreeClass = null;
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (node.type !== T.ClassDeclaration) {
+        if (node.type !== AST.ClassDeclaration) {
           return;
         }
-        expect(getClassId(node)).include({ type: T.Identifier, name: expected });
+        expect(getClassId(node)).include({ type: AST.Identifier, name: expected });
         n = node;
       },
     }, true);
@@ -47,10 +47,10 @@ describe("get class identifier from class expression", () => {
     let n: null | TSESTreeClass = null;
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (node.type !== T.ClassExpression) {
+        if (node.type !== AST.ClassExpression) {
           return;
         }
-        expect(getClassId(node)).include({ type: T.Identifier, name: expected });
+        expect(getClassId(node)).include({ type: AST.Identifier, name: expected });
         n = node;
       },
     }, true);

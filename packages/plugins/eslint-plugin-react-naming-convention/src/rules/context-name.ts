@@ -1,7 +1,7 @@
-import { isComponentName, isCreateContextCall } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { P, match } from "ts-pattern";
@@ -38,15 +38,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compare(version, "19.0.0", "<")) return {};
   return {
     CallExpression(node) {
-      if (!isCreateContextCall(context, node)) return;
+      if (!core.isCreateContextCall(context, node)) return;
       const [id, name] = match(findEnclosingAssignmentTarget(node))
         // for cases like: const ThemeContext = createContext();
-        .with({ type: T.Identifier, name: P.string }, (id) => [id, id.name] as const)
+        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
         // for cases like: ctxs.ThemeContext = createContext();
-        .with({ type: T.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
+        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
         .otherwise(() => [null, null] as const);
       if (id == null) return;
-      if (isComponentName(name) && name.endsWith("Context")) return;
+      if (core.isComponentName(name) && name.endsWith("Context")) return;
       context.report({
         messageId: "invalidContextName",
         node: id,

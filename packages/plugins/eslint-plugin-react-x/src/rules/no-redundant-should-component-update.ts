@@ -1,7 +1,7 @@
-import * as AST from "@eslint-react/ast";
-import { ComponentFlag, useComponentCollectorLegacy } from "@eslint-react/core";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -15,8 +15,8 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 export type MessageID = CamelCase<typeof RULE_NAME>;
 
 function isShouldComponentUpdate(node: TSESTree.ClassElement) {
-  return AST.isMethodOrProperty(node)
-    && node.key.type === T.Identifier
+  return ast.isMethodOrProperty(node)
+    && node.key.type === AST.Identifier
     && node.key.name === "shouldComponentUpdate";
 }
 
@@ -40,14 +40,14 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `shouldComponentUpdate` is not present in the file
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
-  const { ctx, visitor } = useComponentCollectorLegacy(context);
+  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
 
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
         for (const { name = "PureComponent", node: component, flag } of ctx.getAllComponents(program)) {
-          if ((flag & ComponentFlag.PureComponent) === 0n) {
+          if ((flag & core.ComponentFlag.PureComponent) === 0n) {
             continue;
           }
           const { body } = component.body;

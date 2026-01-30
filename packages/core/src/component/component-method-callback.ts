@@ -1,4 +1,4 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { isComponentDidMount, isComponentWillUnmount } from "./component-method-is";
@@ -9,7 +9,7 @@ import { isComponentDidMount, isComponentWillUnmount } from "./component-method-
  * @returns True if the node is a componentDidMount callback, false otherwise
  */
 export function isComponentDidMountCallback(node: TSESTree.Node) {
-  return AST.isFunction(node)
+  return ast.isFunction(node)
     && isComponentDidMount(node.parent)
     && node.parent.value === node;
 }
@@ -20,7 +20,7 @@ export function isComponentDidMountCallback(node: TSESTree.Node) {
  * @returns True if the node is a componentWillUnmount callback, false otherwise
  */
 export function isComponentWillUnmountCallback(node: TSESTree.Node) {
-  return AST.isFunction(node)
+  return ast.isFunction(node)
     && isComponentWillUnmount(node.parent)
     && node.parent.value === node;
 }

@@ -1,9 +1,9 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { IdGenerator } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import type { ComponentDetectionHint } from "./component-detection-hint";
 import type { FunctionComponentSemanticNode } from "./component-semantic-node";
@@ -57,15 +57,15 @@ export function useComponentCollector(
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1);
-  const onFunctionEnter = (node: AST.TSESTreeFunction) => {
+  const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const key = idGen.next();
-    const exp = AST.findParentNode(node, (n) => n.type === T.ExportDefaultDeclaration);
+    const exp = ast.findParentNode(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
-    const isExportDefaultDeclaration = exp != null && AST.getUnderlyingExpression(exp.declaration) === node;
+    const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
-    const name = id == null ? unit : AST.toStringFormat(id, getText);
-    const initPath = AST.getFunctionInitPath(node);
-    const directives = AST.getFunctionDirectives(node);
+    const name = id == null ? unit : ast.toStringFormat(id, getText);
+    const initPath = ast.getFunctionInitPath(node);
+    const directives = ast.getFunctionDirectives(node);
     const entry = {
       id: getFunctionComponentId(context, node),
       key,
@@ -111,7 +111,7 @@ export function useComponentCollector(
       const entry = getCurrentEntry();
       if (entry == null) return;
       const { body } = entry.node;
-      if (body.type === T.BlockStatement) return;
+      if (body.type === AST.BlockStatement) return;
       entry.rets.push(body);
       if (!entry.isComponentDefinition) return;
       if (!components.has(entry.key) && !isJsxLike(context.sourceCode, body, hint)) return;
@@ -119,10 +119,10 @@ export function useComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [AST.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: TSESTree.AssignmentExpression) {
+        [ast.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
-          if (left.type !== T.MemberExpression) return;
-          const componentName = left.object.type === T.Identifier
+          if (left.type !== AST.MemberExpression) return;
+          const componentName = left.object.type === AST.Identifier
             ? left.object.name
             : unit;
           const component = [...components.values()].findLast(({ name }) => name != null && name === componentName);

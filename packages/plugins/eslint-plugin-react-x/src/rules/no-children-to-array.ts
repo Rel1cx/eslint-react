@@ -1,4 +1,4 @@
-import { isChildrenToArray } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     MemberExpression(node) {
-      if (isChildrenToArray(context, node)) {
+      if (core.isChildrenToArray(context, node)) {
         context.report({
           messageId: "noChildrenToArray",
           node: node.property,

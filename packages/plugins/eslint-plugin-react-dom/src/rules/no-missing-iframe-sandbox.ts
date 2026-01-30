@@ -1,4 +1,4 @@
-import { getJsxAttribute, resolveJsxAttributeValue } from "@eslint-react/core";
+import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "iframe") return;
 
       // Find the 'sandbox' prop on the iframe element.
-      const sandboxProp = getJsxAttribute(context, node)("sandbox");
+      const sandboxProp = core.getJsxAttribute(context, node)("sandbox");
 
       // If the 'sandbox' prop is missing, report an error
       if (sandboxProp == null) {
@@ -63,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Resolve the value of the 'sandbox' attribute
-      const sandboxValue = resolveJsxAttributeValue(context, sandboxProp);
+      const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
       // If the value is a static string, the prop is correctly used
       if (typeof sandboxValue.toStatic("sandbox") === "string") return;
 

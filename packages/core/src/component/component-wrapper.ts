@@ -1,7 +1,7 @@
-import * as AST from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isForwardRefCall, isMemoCall } from "../api";
 import { isUseCallbackCall } from "../hook";
@@ -13,7 +13,7 @@ import { isUseCallbackCall } from "../hook";
  * @returns `true` if the node is a call expression for a component wrapper
  */
 export function isComponentWrapperCall(context: RuleContext, node: TSESTree.Node) {
-  if (node.type !== T.CallExpression) return false;
+  if (node.type !== AST.CallExpression) return false;
   return isMemoCall(context, node) || isForwardRefCall(context, node);
 }
 
@@ -24,7 +24,7 @@ export function isComponentWrapperCall(context: RuleContext, node: TSESTree.Node
  * @returns `true` if the node is a call expression for a component wrapper loosely
  */
 export function isComponentWrapperCallLoose(context: RuleContext, node: TSESTree.Node) {
-  if (node.type !== T.CallExpression) return false;
+  if (node.type !== AST.CallExpression) return false;
   return isComponentWrapperCall(context, node) || isUseCallbackCall(node);
 }
 
@@ -35,9 +35,9 @@ export function isComponentWrapperCallLoose(context: RuleContext, node: TSESTree
  * @returns `true` if the node is a callback function passed to a component wrapper
  */
 export function isComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
-  if (!AST.isFunction(node)) return false;
+  if (!ast.isFunction(node)) return false;
   const parent = node.parent;
-  if (parent.type !== T.CallExpression) return false;
+  if (parent.type !== AST.CallExpression) return false;
   return isComponentWrapperCall(context, parent);
 }
 
@@ -48,8 +48,8 @@ export function isComponentWrapperCallback(context: RuleContext, node: TSESTree.
  * @returns `true` if the node is a callback function passed to a component wrapper loosely
  */
 export function isComponentWrapperCallbackLoose(context: RuleContext, node: TSESTree.Node) {
-  if (!AST.isFunction(node)) return false;
+  if (!ast.isFunction(node)) return false;
   const parent = node.parent;
-  if (parent.type !== T.CallExpression) return false;
+  if (parent.type !== AST.CallExpression) return false;
   return isComponentWrapperCallLoose(context, parent);
 }

@@ -1,6 +1,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { CamelCase } from "string-ts";
 
@@ -42,9 +42,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    */
   const visitorFunction = (node: TSESTree.JSXElement | TSESTree.JSXFragment) => {
     for (const [index, child] of node.children.entries()) {
-      if (child.type !== T.JSXText || !child.value.endsWith("$")) continue;
+      if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;
       // Ensure the next sibling is a JSXExpressionContainer
-      if (node.children[index + 1]?.type !== T.JSXExpressionContainer) continue;
+      if (node.children[index + 1]?.type !== AST.JSXExpressionContainer) continue;
       // Skip if there are only two children (the dollar sign and the expression) it doesn't seem to be split from a template literal
       if (child.value === "$" && node.children.length === 2) continue;
       const pos = child.loc.end;

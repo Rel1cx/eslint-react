@@ -1,5 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
 import { isJSX, isOneOf } from "./is";
@@ -19,7 +19,7 @@ export function isMultiLine(node: TSESTree.Node) {
  * @returns boolean
  */
 export function isLineBreak(node: TSESTree.Node) {
-  return isOneOf([T.Literal, T.JSXText])(node)
+  return isOneOf([AST.Literal, AST.JSXText])(node)
     && typeof node.value === "string"
     && node.value.trim() === ""
     && isMultiLine(node);
@@ -43,7 +43,7 @@ function getLiteralValueType(input: bigint | boolean | null | number | string | 
  * @returns The delimiter format string
  */
 export function toDelimiterFormat(node: TSESTree.Node, delimiter = " ") {
-  if (node.type === T.Literal) {
+  if (node.type === AST.Literal) {
     if ("regex" in node) {
       return "RegExp literal";
     }
@@ -63,18 +63,18 @@ export function toDelimiterFormat(node: TSESTree.Node, delimiter = " ") {
  */
 export function toStringFormat(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
   switch (node.type) {
-    case T.Identifier:
-    case T.JSXIdentifier:
-    case T.PrivateIdentifier:
+    case AST.Identifier:
+    case AST.JSXIdentifier:
+    case AST.PrivateIdentifier:
       return node.name;
-    case T.MemberExpression:
-    case T.JSXMemberExpression:
+    case AST.MemberExpression:
+    case AST.JSXMemberExpression:
       return `${toStringFormat(node.object, getText)}.${toStringFormat(node.property, getText)}`;
-    case T.JSXNamespacedName:
+    case AST.JSXNamespacedName:
       return `${node.namespace.name}:${node.name.name}`;
-    case T.JSXText:
+    case AST.JSXText:
       return node.value;
-    case T.Literal:
+    case AST.Literal:
       return node.raw;
     default:
       return getText(node);

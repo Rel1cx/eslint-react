@@ -1,6 +1,6 @@
 import { or } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { AST_NODE_TYPES as T } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
 
 export const is = ASTUtils.isNodeOfType;
@@ -8,100 +8,100 @@ export const is = ASTUtils.isNodeOfType;
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
 export const isFunction = isOneOf([
-  T.ArrowFunctionExpression,
-  T.FunctionDeclaration,
-  T.FunctionExpression,
+  AST.ArrowFunctionExpression,
+  AST.FunctionDeclaration,
+  AST.FunctionExpression,
 ]);
 
 export const isFunctionType = isOneOf([
-  T.ArrowFunctionExpression,
-  T.FunctionDeclaration,
-  T.FunctionExpression,
-  T.TSCallSignatureDeclaration,
-  T.TSConstructSignatureDeclaration,
-  T.TSDeclareFunction,
-  T.TSEmptyBodyFunctionExpression,
-  T.TSFunctionType,
-  T.TSMethodSignature,
+  AST.ArrowFunctionExpression,
+  AST.FunctionDeclaration,
+  AST.FunctionExpression,
+  AST.TSCallSignatureDeclaration,
+  AST.TSConstructSignatureDeclaration,
+  AST.TSDeclareFunction,
+  AST.TSEmptyBodyFunctionExpression,
+  AST.TSFunctionType,
+  AST.TSMethodSignature,
 ]);
 
-export const isClass = isOneOf([T.ClassDeclaration, T.ClassExpression]);
+export const isClass = isOneOf([AST.ClassDeclaration, AST.ClassExpression]);
 
 export const isMethodOrProperty = isOneOf([
-  T.PropertyDefinition,
-  T.MethodDefinition,
+  AST.PropertyDefinition,
+  AST.MethodDefinition,
 ]);
 
 export const isProperty = isOneOf([
-  T.PropertyDefinition,
-  T.TSIndexSignature,
-  T.TSParameterProperty,
-  T.TSPropertySignature,
+  AST.PropertyDefinition,
+  AST.TSIndexSignature,
+  AST.TSParameterProperty,
+  AST.TSPropertySignature,
 ]);
 
-export const isJSXElement = is(T.JSXElement);
+export const isJSXElement = is(AST.JSXElement);
 
-export const isJSXFragment = is(T.JSXFragment);
+export const isJSXFragment = is(AST.JSXFragment);
 
 export const isJSXTagNameExpression = isOneOf([
-  T.JSXIdentifier,
-  T.JSXMemberExpression,
-  T.JSXNamespacedName,
+  AST.JSXIdentifier,
+  AST.JSXMemberExpression,
+  AST.JSXNamespacedName,
 ]);
 
 export const isJSX = isOneOf([
-  T.JSXAttribute,
-  T.JSXClosingElement,
-  T.JSXClosingFragment,
-  T.JSXElement,
-  T.JSXEmptyExpression,
-  T.JSXExpressionContainer,
-  T.JSXFragment,
-  T.JSXIdentifier,
-  T.JSXMemberExpression,
-  T.JSXNamespacedName,
-  T.JSXOpeningElement,
-  T.JSXOpeningFragment,
-  T.JSXSpreadAttribute,
-  T.JSXSpreadChild,
-  T.JSXText,
+  AST.JSXAttribute,
+  AST.JSXClosingElement,
+  AST.JSXClosingFragment,
+  AST.JSXElement,
+  AST.JSXEmptyExpression,
+  AST.JSXExpressionContainer,
+  AST.JSXFragment,
+  AST.JSXIdentifier,
+  AST.JSXMemberExpression,
+  AST.JSXNamespacedName,
+  AST.JSXOpeningElement,
+  AST.JSXOpeningFragment,
+  AST.JSXSpreadAttribute,
+  AST.JSXSpreadChild,
+  AST.JSXText,
 ]);
 
 export const isLoop = isOneOf([
-  T.DoWhileStatement,
-  T.ForInStatement,
-  T.ForOfStatement,
-  T.ForStatement,
-  T.WhileStatement,
+  AST.DoWhileStatement,
+  AST.ForInStatement,
+  AST.ForOfStatement,
+  AST.ForStatement,
+  AST.WhileStatement,
 ]);
 
 export const isControlFlow = or(
   isLoop,
   isOneOf([
-    T.IfStatement,
-    T.SwitchStatement,
+    AST.IfStatement,
+    AST.SwitchStatement,
   ]),
 );
 
 export const isConditional = or(
   isControlFlow,
   isOneOf([
-    T.LogicalExpression,
-    T.ConditionalExpression,
+    AST.LogicalExpression,
+    AST.ConditionalExpression,
   ]),
 );
 
 export const isTypeExpression = isOneOf([
-  T.TSAsExpression,
-  T.TSTypeAssertion,
-  T.TSNonNullExpression,
-  T.TSSatisfiesExpression,
-  T.TSInstantiationExpression,
+  AST.TSAsExpression,
+  AST.TSTypeAssertion,
+  AST.TSNonNullExpression,
+  AST.TSSatisfiesExpression,
+  AST.TSInstantiationExpression,
 ]);
 
 export const isTypeAssertionExpression = isOneOf([
-  T.TSAsExpression,
-  T.TSTypeAssertion,
-  T.TSNonNullExpression,
-  T.TSSatisfiesExpression,
+  AST.TSAsExpression,
+  AST.TSTypeAssertion,
+  AST.TSNonNullExpression,
+  AST.TSSatisfiesExpression,
 ]);
