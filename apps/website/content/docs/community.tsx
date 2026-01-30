@@ -11,6 +11,7 @@ export const projects = [
   { owner: "hashintel", repo: "hash" },
   { owner: "kriasoft", repo: "graphql-starter-kit" },
   { owner: "kriasoft", repo: "react-starter-kit" },
+  { owner: "langgenius", repo: "dify" },
   { owner: "letstri", repo: "permix" },
   { owner: "Nexus-Mods", repo: "Vortex" },
   { owner: "npmgraph", repo: "npmgraph" },
