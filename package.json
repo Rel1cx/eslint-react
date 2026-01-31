@@ -54,7 +54,7 @@
     "@effect/language-service": "^0.72.0",
     "@effect/platform": "^0.94.2",
     "@effect/platform-node": "^0.104.1",
-    "@eslint/compat": "^2.0.1",
+    "@eslint/compat": "^2.0.2",
     "@local/configs": "workspace:*",
     "@local/function-rules": "workspace:*",
     "@radix-ui/react-toast": "^1.2.15",
