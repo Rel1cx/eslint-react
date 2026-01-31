@@ -2,6 +2,9 @@
 
 # Interface: SemanticNode
 
+Represents a semantic node in the AST
+This is the base interface for all semantic nodes in the React semantic analysis
+
 ## Extended by
 
 - [`FunctionComponentSemanticNode`](FunctionComponentSemanticNode.md)
@@ -11,12 +14,12 @@
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="flag"></a> `flag` | `bigint` |
-| <a id="hint"></a> `hint` | `bigint` |
-| <a id="id"></a> `id` | `Node` \| `undefined` |
-| <a id="key"></a> `key` | `string` |
-| <a id="kind"></a> `kind` | `string` |
-| <a id="name"></a> `name` | `string` \| `undefined` |
-| <a id="node"></a> `node` | `Node` |
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="flag"></a> `flag` | `bigint` | The flag of the node |
+| <a id="hint"></a> `hint` | `bigint` | The hint of the node |
+| <a id="id"></a> `id` | `Node` \| `undefined` | The identifier of the node |
+| <a id="key"></a> `key` | `string` | The unique key of the node |
+| <a id="kind"></a> `kind` | `string` | The kind of the node |
+| <a id="name"></a> `name` | `string` \| `undefined` | The name of the node |
+| <a id="node"></a> `node` | `Node` | The AST node |

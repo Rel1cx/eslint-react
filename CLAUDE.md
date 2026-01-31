@@ -47,10 +47,12 @@ pnpm run update:all
 ### Packages (`/packages/`)
 
 **Core packages:**
+
 - `@eslint-react/core` - Core ESLint utility module for static analysis of React core APIs
 - `@eslint-react/shared` - Shared constants, types, and functions
 
 **Plugin packages** (`/packages/plugins/`):
+
 - `eslint-plugin` - Unified plugin combining all individual plugins
 - `eslint-plugin-react-x` - Core React rules (renderer-agnostic)
 - `eslint-plugin-react-dom` - DOM-specific rules
@@ -60,6 +62,7 @@ pnpm run update:all
 - `eslint-plugin-react-debug` - Debug utilities
 
 **Utility packages** (`/packages/utilities/`):
+
 - `@eslint-react/ast` - AST manipulation utilities
 - `@eslint-react/eff` - Effect/functional programming utilities
 - `@eslint-react/var` - Variable analysis utilities
@@ -67,6 +70,7 @@ pnpm run update:all
 ### Local Packages (`/.pkgs/`)
 
 Private workspace packages:
+
 - `@local/configs` - Shared ESLint and TypeScript configurations
 - `@local/function-rules` - Custom function-based lint rules
 

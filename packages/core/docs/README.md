@@ -17,10 +17,10 @@
 | [ClassComponentSemanticNode](interfaces/ClassComponentSemanticNode.md) | Represents a React Class Component |
 | [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React Client Function |
 | [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
-| [HookSemanticNode](interfaces/HookSemanticNode.md) | - |
+| [HookSemanticNode](interfaces/HookSemanticNode.md) | Represents a semantic hook node in the AST This interface extends SemanticNode and provides additional properties for React hook analysis |
 | [JsxConfig](interfaces/JsxConfig.md) | - |
-| [SemanticFunc](interfaces/SemanticFunc.md) | - |
-| [SemanticNode](interfaces/SemanticNode.md) | - |
+| [SemanticFunc](interfaces/SemanticFunc.md) | Represents a semantic function node in the AST This interface extends SemanticNode and provides additional properties for function analysis |
+| [SemanticNode](interfaces/SemanticNode.md) | Represents a semantic node in the AST This is the base interface for all semantic nodes in the React semantic analysis |
 | [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a React Server Function |
 
 ## Type Aliases
@@ -139,7 +139,7 @@
 | [isHook](functions/isHook.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
 | [isHookCallWithName](functions/isHookCallWithName.md) | Check if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
-| [isHookId](functions/isHookId.md) | - |
+| [isHookId](functions/isHookId.md) | Checks if the given node is a hook identifier |
 | [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
