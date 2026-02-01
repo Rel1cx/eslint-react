@@ -46,20 +46,33 @@ full: true
       Component & Hook rules enforce best practices and prevent common mistakes in React component and hook definitions.
     </Callout>
 
-    **React 19 Migrations:**
+    **Ref:**
 
-    - [`no-context-provider`](./no-context-provider) - Replaces usage of `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
+    - [`no-create-ref`](./no-create-ref) - Disallows `createRef` in function components
     - [`no-forward-ref`](./no-forward-ref) - Replaces usage of `forwardRef` with passing `ref` as a prop (🔄 Codemod, `React` >=19.0.0)
-    - [`no-use-context`](./no-use-context) - Replaces usage of `useContext` with `use` (🔄 Codemod, `React` >=19.0.0)
+    - [`no-unnecessary-use-ref`](./no-unnecessary-use-ref) - Disallows unnecessary usage of `useRef` (🧪 Experimental)
+    - [`no-useless-forward-ref`](./no-useless-forward-ref) - Disallows useless `forwardRef` calls on components that don't use `ref`s
 
-    **Props & Keys:**
+    **Key:**
 
-    - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as a prop
-    - [`no-missing-key`](./no-missing-key) - Disallows missing `key` on items in list rendering
+    - [`no-array-index-key`](./no-array-index-key) - Disallows using an item's index in the array as its key
     - [`no-duplicate-key`](./no-duplicate-key) - Prevents duplicate `key` props on sibling elements when rendering lists
     - [`no-implicit-key`](./no-implicit-key) - Prevents `key` from not being explicitly specified (e.g., spreading `key` from objects) (🧪 Experimental)
+    - [`no-missing-key`](./no-missing-key) - Disallows missing `key` on items in list rendering
     - [`no-unnecessary-key`](./no-unnecessary-key) - Disallows unnecessary `key` props on nested child elements when rendering lists (🧪 Experimental)
-    - [`no-array-index-key`](./no-array-index-key) - Disallows using an item's index in the array as its key
+
+    **Context:**
+
+    - [`no-context-provider`](./no-context-provider) - Replaces usage of `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
+    - [`no-use-context`](./no-use-context) - Replaces usage of `useContext` with `use` (🔄 Codemod, `React` >=19.0.0)
+
+    **Children:**
+
+    - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as a prop
+
+    **Rendering:**
+
+    - [`no-leaked-conditional-rendering`](./no-leaked-conditional-rendering) - Prevents problematic leaked values from being rendered
 
     **Component Structure:**
 
@@ -74,14 +87,6 @@ full: true
     - [`no-unnecessary-use-memo`](./no-unnecessary-use-memo) - Disallows unnecessary usage of `useMemo` (🧪 Experimental)
     - [`prefer-use-state-lazy-initialization`](./prefer-use-state-lazy-initialization) - Enforces wrapping function calls made inside `useState` in an `initializer function`
 
-    **Legacy State Management:**
-
-    - [`no-access-state-in-setstate`](./no-access-state-in-setstate) - Disallows accessing `this.state` inside `setState` calls
-    - [`no-direct-mutation-state`](./no-direct-mutation-state) - Disallows direct mutation of `this.state`
-    - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount) - Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks
-    - [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update) - Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks
-    - [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update) - Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks
-
     **Legacy Children APIs:**
 
     - [`no-children-count`](./no-children-count) - Disallows the use of `Children.count` from the `react` package
@@ -90,19 +95,39 @@ full: true
     - [`no-children-only`](./no-children-only) - Disallows the use of `Children.only` from the `react` package
     - [`no-children-to-array`](./no-children-to-array) - Disallows the use of `Children.toArray` from the `react` package
 
-    **Legacy & Deprecated APIs:**
+    **Legacy Component APIs:**
 
+    - [`no-access-state-in-setstate`](./no-access-state-in-setstate) - Disallows accessing `this.state` inside `setState` calls
     - [`no-class-component`](./no-class-component) - Disallows class components except for error boundaries
     - [`no-component-will-mount`](./no-component-will-mount) - Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount` (🔄 Codemod, `React` >=16.3.0)
     - [`no-component-will-receive-props`](./no-component-will-receive-props) - Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps` (🔄 Codemod)
     - [`no-component-will-update`](./no-component-will-update) - Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate` (🔄 Codemod)
+    - [`no-direct-mutation-state`](./no-direct-mutation-state) - Disallows direct mutation of `this.state`
+    - [`no-redundant-should-component-update`](./no-redundant-should-component-update) - Disallows `shouldComponentUpdate` when extending `React.PureComponent`
+    - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount) - Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks
+    - [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update) - Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks
+    - [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update) - Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks
     - [`no-unsafe-component-will-mount`](./no-unsafe-component-will-mount) - Warns about the use of `UNSAFE_componentWillMount` in class components
     - [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props) - Warns about the use of `UNSAFE_componentWillReceiveProps` in class components
     - [`no-unsafe-component-will-update`](./no-unsafe-component-will-update) - Warns about the use of `UNSAFE_componentWillUpdate` in class components
+    - [`no-unused-class-component-members`](./no-unused-class-component-members) - Warns about unused class component methods and properties
+    - [`no-unused-state`](./no-unused-state) - Warns about unused class component state
 
     **Miscellaneous**
 
+    - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as a prop
+    - [`no-default-props`](./no-default-props) - Disallows the `defaultProps` property in favor of ES6 default parameters
+    - [`no-missing-component-display-name`](./no-missing-component-display-name) - Enforces that all components have a `displayName` that can be used in DevTools
+    - [`no-missing-context-display-name`](./no-missing-context-display-name) - Enforces that all contexts have a `displayName` that can be used in DevTools (🔧 Fixable)
+    - [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack) - Prevents incorrect usage of `captureOwnerStack` (🧪 Experimental)
+    - [`no-prop-types`](./no-prop-types) - Disallows `propTypes` in favor of TypeScript or another type-checking solution
+    - [`no-string-refs`](./no-string-refs) - Replaces string refs with callback refs (🔄 Codemod, `React` >=16.3.0)
     - [`no-unnecessary-use-prefix`](./no-unnecessary-use-prefix) - Enforces that a function with the `use` prefix uses at least one Hook inside it
+    - [`no-unused-props`](./no-unused-props) - Warns about component props that are defined but never used (💭 Type Checking, 🧪 Experimental)
+    - [`no-useless-fragment`](./no-useless-fragment) - Disallows useless fragment elements (🔧 Fixable, ⚙️ Configurable)
+    - [`prefer-destructuring-assignment`](./prefer-destructuring-assignment) - Enforces destructuring assignment for component props and context
+    - [`prefer-namespace-import`](./prefer-namespace-import) - Enforces importing React via a namespace import
+    - [`prefer-read-only-props`](./prefer-read-only-props) - Enforces read-only props in components (💭 Type Checking, 🧪 Experimental)
 
     ## RSC Rules
 
@@ -239,7 +264,7 @@ full: true
     | [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack)                 | 0️⃣ 2️⃣ |    `🧪`   | Prevents incorrect usage of `captureOwnerStack`                                                                               |          |
     | [`no-nested-component-definitions`](no-nested-component-definitions)               | 2️⃣ 2️⃣ |           | Disallows nesting component definitions inside other components                                                               |          |
     | [`no-nested-lazy-component-declarations`](no-nested-lazy-component-declarations)   | 2️⃣ 2️⃣ |           | Disallows nesting lazy component declarations inside other components                                                         |          |
-    | [`no-non-async-server-functions`](no-non-async-server-functions)                   | 2️⃣ 2️⃣ |           | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                |          |
+    | [`no-non-async-server-functions`](no-non-async-server-functions)                   | 0️⃣ 0️⃣ |    `🔧`   | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                |          |
     | [`no-prop-types`](no-prop-types)                                                   | 2️⃣ 2️⃣ |           | Disallows `propTypes` in favor of TypeScript or another type-checking solution                                                |          |
     | [`no-redundant-should-component-update`](no-redundant-should-component-update)     | 2️⃣ 2️⃣ |           | Disallows `shouldComponentUpdate` when extending `React.PureComponent`                                                        |          |
     | [`no-set-state-in-component-did-mount`](no-set-state-in-component-did-mount)       | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks                                  |          |
