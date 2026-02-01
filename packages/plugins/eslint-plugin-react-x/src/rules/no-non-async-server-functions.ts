@@ -11,6 +11,7 @@ export type MessageID = "default";
 
 export const RULE_FEATURES = [
   "FIX",
+  "EXP",
 ] as const satisfies RuleFeature[];
 
 export default createRule<[], MessageID>({
