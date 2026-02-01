@@ -4,100 +4,161 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ESLint React is a high-performance ESLint plugin for React (4-7x faster than alternatives). It provides composable ESLint rules for React and related libraries. It's a monorepo with multiple specialized ESLint plugins that can be used individually or as a unified plugin.
+ESLint React is a monorepo containing composable, high-performance ESLint plugins for React and related frameworks. The project provides both a unified plugin (`@eslint-react/eslint-plugin`) and modular plugins for specific concerns (react-x, react-dom, react-web-api, react-hooks-extra, react-naming-convention).
 
-## Build System
+## Development Commands
 
-- **Package Manager**: pnpm (v10.28.2)
-- **Build Tool**: tsdown - TypeScript to JavaScript bundler
-- **Formatter**: dprint
-- **Test Runner**: vitest
-- **TypeScript**: v5.9.3 with strict configuration
-
-## Common Commands
+### Building
 
 ```bash
-# Build all packages (must be run before tests/linting)
+# Build all packages (includes update scripts, pkgs, packages, and docs)
 pnpm run build
 
+# Build internal packages used in the monorepo (.pkgs)
+pnpm run build:pkgs
+
+# Build publishable packages only
+pnpm run build:packages
+
+# Build TypeDoc documentation for all packages
+pnpm run build:docs
+
+# Build the website
+pnpm run build:website
+```
+
+### Testing
+
+```bash
 # Run all tests
-pnpm run test
+pnpm test
 
 # Run a single test file
-pnpm vitest packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key.spec.ts
+pnpm vitest packages/plugins/eslint-plugin-react-x/src/rules/[rule-name].spec.ts
 
-# Run all linting checks
-pnpm run lint
+# Run tests with heap usage logging
+pnpm test --logHeapUsage
+```
 
-# Run specific lint checks
-pnpm run lint:es      # ESLint
-pnpm run lint:ts      # TypeScript type checking
-pnpm run lint:deps    # Dependency analysis with skott
-pnpm run lint:publish # Package linting with publint
+### Linting and Formatting
 
-# Format code
+```bash
+# Format code with dprint
 pnpm run format:write
 
-# Update generated files (versions, READMEs, website docs)
-pnpm run update:all
+# Check formatting
+pnpm run format:check
+
+# Run all linting checks (deps, publish, ts, es, examples)
+pnpm run lint
+
+# Run ESLint
+pnpm run lint:es
+
+# Run TypeScript type checking
+pnpm run lint:ts
+
+# Check for circular dependencies
+pnpm run lint:deps
+
+# Verify package.json for publishing
+pnpm run lint:publish
 ```
 
-## Monorepo Structure
+### Maintenance Scripts
 
-### Packages (`/packages/`)
+```bash
+# Update version across all packages
+pnpm run update:version
 
-**Core packages:**
+# Update README files
+pnpm run update:readme
 
-- `@eslint-react/core` - Core ESLint utility module for static analysis of React core APIs
-- `@eslint-react/shared` - Shared constants, types, and functions
+# Update website documentation from package sources
+pnpm run update:website
 
-**Plugin packages** (`/packages/plugins/`):
+# Verify rule metadata consistency
+pnpm run verify:rules-metas
 
-- `eslint-plugin` - Unified plugin combining all individual plugins
-- `eslint-plugin-react-x` - Core React rules (renderer-agnostic)
-- `eslint-plugin-react-dom` - DOM-specific rules
-- `eslint-plugin-react-web-api` - Web API interaction rules
-- `eslint-plugin-react-hooks-extra` - Additional React Hooks rules
-- `eslint-plugin-react-naming-convention` - Naming convention rules
-- `eslint-plugin-react-debug` - Debug utilities
-
-**Utility packages** (`/packages/utilities/`):
-
-- `@eslint-react/ast` - AST manipulation utilities
-- `@eslint-react/eff` - Effect/functional programming utilities
-- `@eslint-react/var` - Variable analysis utilities
-
-### Local Packages (`/.pkgs/`)
-
-Private workspace packages:
-
-- `@local/configs` - Shared ESLint and TypeScript configurations
-- `@local/function-rules` - Custom function-based lint rules
-
-### Applications (`/apps/`)
-
-- `website` - Documentation website built with Next.js and Fumadocs
-
-### Examples (`/examples/`)
-
-Example projects showing integrations with Next.js, React DOM, and various parsers.
-
-## Rule Structure
-
-Each ESLint rule follows this structure:
-
+# Sort package.json files
+pnpm run sort:package-json
 ```
-packages/plugins/[plugin-name]/src/rules/
-├── rule-name.ts           # Rule implementation
-├── rule-name.spec.ts      # Test file
-└── rule-name.mdx          # Documentation
-```
+
+## Architecture
+
+### Monorepo Structure
+
+The repository is organized as a pnpm workspace with the following structure:
+
+- **`.pkgs/`** - Internal packages used within the monorepo (configs, function-rules)
+- **`packages/`** - Publishable packages organized by type:
+  - **`packages/utilities/`** - Low-level utilities (ast, eff, var)
+  - **`packages/shared/`** - Shared constants, types, and utilities
+  - **`packages/core/`** - Core React analysis utilities (component, hook, jsx detection)
+  - **`packages/plugins/`** - ESLint plugin packages
+- **`test/`** - Shared test utilities and fixtures
+- **`scripts/`** - Maintenance and build scripts
+- **`apps/`** - Applications (website)
+- **`examples/`** - Example projects
+
+### Package Dependencies
+
+The dependency hierarchy flows bottom-up:
+
+1. **`@eslint-react/eff`** - Base JavaScript/TypeScript utilities (no dependencies)
+2. **`@eslint-react/ast`** - TSESTree AST utilities (depends on: eff)
+3. **`@eslint-react/var`** - Variable and scope analysis (depends on: eff)
+4. **`@eslint-react/shared`** - Shared constants, settings, types (depends on: eff)
+5. **`@eslint-react/core`** - React-specific analysis (depends on: ast, eff, shared, var)
+6. **Plugin packages** - ESLint rules (depend on: core and lower-level packages)
+7. **`@eslint-react/eslint-plugin`** - Unified plugin (aggregates all individual plugins)
+
+### Core Package Organization
+
+The `@eslint-react/core` package provides React-specific analysis utilities organized by domain:
+
+- **`api/`** - React API detection and analysis
+- **`component/`** - Component detection, collection, and analysis
+  - Component collectors for both modern and legacy patterns
+  - Component definition detection
+  - Component naming and identification
+  - Semantic node representations
+- **`function/`** - Function analysis utilities
+- **`hierarchy/`** - Component hierarchy analysis
+- **`hook/`** - React Hook detection and analysis
+  - Hook identification and naming
+  - Hook collectors for tracking hook usage
+  - Semantic node representations for hooks
+- **`jsx/`** - JSX element and attribute analysis
+  - JSX detection and configuration
+  - Attribute value extraction
+  - Element type analysis
+- **`ref/`** - React ref analysis
+- **`semantic/`** - Semantic node type definitions
+
+### Plugin Structure
+
+Each plugin package follows a consistent structure:
+
+- **`src/rules/`** - Rule implementations (`.ts`) with co-located tests (`.spec.ts`) and documentation (`.mdx`)
+- **`src/configs/`** - Preset configurations
+- **`src/utils/`** - Plugin-specific utilities (e.g., `create-rule.ts`)
+- **`src/plugin.ts`** - Plugin definition with rule exports
+- **`src/index.ts`** - Entry point with flat config adapters
 
 ### Rule Implementation Pattern
 
-Rules are created using `createRule` from `@typescript-eslint/utils`:
+Rules follow a consistent pattern:
 
+1. Import utilities from `@eslint-react/core`, `@eslint-react/ast`, `@eslint-react/shared`, etc.
+2. Define rule metadata: `RULE_NAME`, `RULE_FEATURES`, `MessageID` type
+3. Use `createRule` from `../utils` to create the rule with TypeScript types
+4. Implement rule logic using collectors (e.g., `useComponentCollector`, `useHookCollector`)
+5. Export the rule as default
+
+Example structure:
 ```typescript
+import * as core from "@eslint-react/core";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "rule-name";
@@ -105,64 +166,84 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 export type MessageID = "messageId";
 
 export default createRule<[], MessageID>({
-  meta: {
-    type: "problem",
-    docs: { description: "..." },
-    messages: { messageId: "Error message" },
-    schema: [],
+  meta: { /* ... */ },
+  create(context) {
+    // Rule implementation
   },
-  name: RULE_NAME,
-  create,
-  defaultOptions: [],
-});
-
-export function create(ctx: RuleContext<MessageID, []>): RuleListener {
-  return {
-    // AST visitors
-  };
-}
-```
-
-### Testing Pattern
-
-Tests use the TypeScript ESLint Rule Tester with vitest:
-
-```typescript
-import { ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./rule-name";
-
-ruleTester.run(RULE_NAME, rule, {
-  invalid: [{ code: "...", errors: [{ messageId: "..." }] }],
-  valid: ["..."],
 });
 ```
 
-Use `ruleTesterWithTypes` for type-aware rules. Import test helpers from `/test`:
+### Testing
 
-```typescript
-import { allValid, ruleTester, ruleTesterWithTypes } from "../../../../../test";
-```
+- Tests use Vitest with `@typescript-eslint/rule-tester`
+- Test files are co-located with source files: `rule-name.spec.ts` next to `rule-name.ts`
+- Shared test utilities in `test/` directory:
+  - `test/rule-tester.ts` - Configured rule testers (with/without type checking)
+  - `test/fixtures/` - TypeScript configuration fixtures for different JSX modes
+  - `test/helpers.ts` - Test helper functions
+- Use `dedent` (imported as `tsx`) for formatting test code
+- Two rule testers available:
+  - `ruleTester` - For rules without type information
+  - `ruleTesterWithTypes` - For rules requiring TypeScript type information
 
-## Key Dependencies
+### Build System
 
-- `@typescript-eslint/*` - TypeScript ESLint integration
-- `effect` - Functional programming library used throughout
-- `ts-pattern` - Pattern matching library
-- `tsdown` - TypeScript bundler for building packages
+- Uses `tsdown` for building packages (configured via `tsdown.config.ts`)
+- Uses `dprint` for code formatting (configured via `dprint.json`)
+- TypeScript configuration extends from `@local/configs/tsconfig.base.json`
+- All packages target Node.js 20+ and ESM format
 
-## Adding a New Rule
+### Settings and Configuration
+
+ESLint React supports custom settings via `settings["react-x"]`:
+
+- `importSource` - Custom React import source (default: "react")
+- `polymorphicPropName` - Prop name for polymorphic components (e.g., "as")
+- `version` - React version (default: "detect")
+- `additionalStateHooks` - Regex pattern for custom state hooks
+
+Access settings in rules using `coerceSettings(context.settings)` from `@eslint-react/shared`.
+
+## Development Workflow
+
+### Adding a New Rule
 
 1. Create the rule file in the appropriate plugin's `src/rules/` directory
-2. Create the corresponding `.spec.ts` test file
-3. Export the rule in the plugin's `src/plugin.ts` entry file
-4. Add documentation as `.mdx` file with the same name
-5. Update preset configurations if the rule should be enabled by default
-6. Update the unified plugin to include the new rule
-7. Run `pnpm run build` and `pnpm run test`
+2. Implement the rule following the pattern above
+3. Create the test file (`.spec.ts`) with valid and invalid test cases
+4. Create documentation file (`.mdx`) describing the rule
+5. Export the rule in `src/plugin.ts`
+6. Add the rule to appropriate preset configs in `src/configs/`
+7. If adding to a modular plugin, update the unified plugin (`packages/plugins/eslint-plugin/`)
+8. Run `pnpm run update:website` to sync documentation
+9. Run `pnpm run verify:rules-metas` to verify metadata consistency
+10. Run tests and build to ensure everything works
 
-## Architecture Notes
+### Modifying Core Utilities
 
-- Rules use the `@eslint-react/core` package for React-specific analysis (component detection, hook analysis, JSX analysis)
-- The `@eslint-react/shared` package provides common types, settings, and reporting utilities
-- The `effect` library is used for functional programming patterns
-- Each plugin is independently publishable but the unified plugin (`@eslint-react/eslint-plugin`) combines them all
+When modifying packages in `packages/core/` or `packages/utilities/`:
+
+1. Make changes to the source files
+2. Run `pnpm run build:pkgs` if changes affect internal packages
+3. Run `pnpm run build:packages` to rebuild dependent packages
+4. Run tests to ensure no regressions
+5. Update TypeDoc comments if changing public APIs
+
+### Working with the Website
+
+The website is built from rule documentation (`.mdx` files) in plugin packages:
+
+1. Edit `.mdx` files in `packages/plugins/*/src/rules/`
+2. Run `pnpm run update:website` to sync changes to the website
+3. Run `pnpm run build:website` to build the website
+4. Website source is in `apps/website/`
+
+## Important Notes
+
+- **Never use `git add -A` or `git add .`** - Always stage specific files to avoid committing sensitive data
+- **Test files are co-located with source files** - Keep `rule-name.spec.ts` next to `rule-name.ts`
+- **Use workspace dependencies** - Reference internal packages with `workspace:*` in package.json
+- **Follow the existing patterns** - Look at similar rules for guidance on implementation
+- **Type safety is critical** - All packages use strict TypeScript settings
+- **Performance matters** - This project emphasizes performance; avoid unnecessary AST traversals
+- **Use collectors for stateful analysis** - Use `useComponentCollector`, `useHookCollector` from `@eslint-react/core` for tracking components and hooks across the AST
