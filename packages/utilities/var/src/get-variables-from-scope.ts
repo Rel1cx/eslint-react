@@ -19,6 +19,15 @@ export function getVariables(initialScope: Scope): Variable[] {
   return variables.reverse();
 }
 
+/**
+ * Find a variable by name or identifier node in the scope chain
+ * @param initialScope The scope to start searching from
+ * @returns The found variable or unit if not found
+ * @overload
+ * @param nameOrNode The variable name or identifier node to find
+ * @param initialScope The scope to start searching from
+ * @returns The found variable or unit if not found
+ */
 export const findVariable: {
   (initialScope: Scope): (nameOrNode: string | TSESTree.Identifier | unit) => Variable | unit;
   (nameOrNode: string | TSESTree.Identifier | unit, initialScope: Scope): Variable | unit;

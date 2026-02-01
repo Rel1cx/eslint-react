@@ -56,4 +56,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
   return unit;
 }
 
+/**
+ * Type representing the return type of getFunctionId
+ */
 export type FunctionID = ReturnType<typeof getFunctionId>;

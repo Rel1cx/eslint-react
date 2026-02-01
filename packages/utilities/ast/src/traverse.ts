@@ -11,6 +11,7 @@ function findParentNode<A extends TSESTree.Node>(
   node: TSESTree.Node | unit,
   test: (n: TSESTree.Node) => n is A,
 ): A | unit;
+
 /**
  * Find the parent node that satisfies the test function or `_` if not found
  * @param node The AST node

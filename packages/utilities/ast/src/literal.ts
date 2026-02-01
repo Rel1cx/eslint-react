@@ -8,6 +8,11 @@ type LiteralType =
   | "regexp"
   | "string";
 
+/**
+ * Check if a node is a literal value
+ * @param node The node to check
+ * @returns True if the node is a literal
+ */
 export function isLiteral(node: TSESTree.Node): node is TSESTree.Literal;
 export function isLiteral(node: TSESTree.Node, type: "boolean"): node is TSESTree.BooleanLiteral;
 export function isLiteral(node: TSESTree.Node, type: "null"): node is TSESTree.NullLiteral;

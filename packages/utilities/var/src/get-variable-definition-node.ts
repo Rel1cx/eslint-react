@@ -5,6 +5,12 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
+/**
+ * Get the definition node of a variable at a specific definition index
+ * @param variable The variable to get the definition node from
+ * @param at The index of the definition to retrieve (negative index supported)
+ * @returns The definition node or unit if not found
+ */
 export function getVariableDefinitionNode(variable: Variable | unit, at: number):
   | unit
   | TSESTree.ClassDeclaration
@@ -34,6 +40,13 @@ export function getVariableDefinitionNode(variable: Variable | unit, at: number)
   }
 }
 
+/**
+ * Get the definition node of a variable at a specific definition index (loose version)
+ * Also returns the function node if the definition is a parameter
+ * @param variable The variable to get the definition node from
+ * @param at The index of the definition to retrieve
+ * @returns The definition node or unit if not found
+ */
 export function getVariableDefinitionNodeLoose(variable: Variable | unit, at: number):
   | unit
   | TSESTree.ClassDeclaration

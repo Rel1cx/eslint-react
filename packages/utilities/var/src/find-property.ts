@@ -6,6 +6,15 @@ import { getVariableDefinitionNode } from "./get-variable-definition-node";
 
 import { findVariable } from "./get-variables-from-scope";
 
+/**
+ * Find a property by name in an array of properties
+ * Handles spread elements by recursively resolving the referenced object
+ * @param name The property name to find
+ * @param properties The array of properties to search
+ * @param initialScope The scope to use for variable resolution
+ * @param seen Set of already seen variable names to prevent circular references
+ * @returns The found property or unit if not found
+ */
 export function findProperty(
   name: string,
   properties: (TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement)[],

@@ -5,6 +5,9 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { getVariableDefinitionNode } from "./get-variable-definition-node";
 
+/**
+ * Represents the type classification of an object node
+ */
 export type ObjectType =
   | {
     kind: "jsx";

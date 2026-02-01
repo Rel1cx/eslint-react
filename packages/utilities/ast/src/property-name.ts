@@ -4,6 +4,12 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getUnderlyingExpression } from "./expression-base";
 import { isTypeExpression } from "./is";
 
+/**
+ * Get the name of a property from a node
+ * Handles identifiers, private identifiers, literals, and template literals
+ * @param node The node to get the property name from
+ * @returns The property name or unit if not determinable
+ */
 export function getPropertyName(node: TSESTree.Node): string | unit {
   if (isTypeExpression(node)) {
     return getPropertyName(getUnderlyingExpression(node));
