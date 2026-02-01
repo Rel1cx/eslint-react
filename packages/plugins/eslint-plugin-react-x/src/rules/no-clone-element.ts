@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -9,7 +8,7 @@ export const RULE_NAME = "no-clone-element";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'cloneElement'.",
     },
     messages: {
-      noCloneElement: "Using 'cloneElement' is uncommon and can lead to fragile code. Use alternatives instead.",
+      default: "Using 'cloneElement' is uncommon and can lead to fragile code. Use alternatives instead.",
     },
     schema: [],
   },
@@ -32,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node) {
       if (core.isCloneElementCall(context, node)) {
         context.report({
-          messageId: "noCloneElement",
+          messageId: "default",
           node,
         });
       }

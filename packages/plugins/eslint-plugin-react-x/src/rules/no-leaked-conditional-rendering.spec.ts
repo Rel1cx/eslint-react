@@ -14,7 +14,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const a = <>{"" && <Something />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "default" },
       ],
       settings: {
         "react-x": {
@@ -32,7 +32,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const a = <>{someString && <Something />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "default" },
       ],
       settings: {
         "react-x": {
@@ -50,7 +50,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const a = <>{anyString && <Something />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "default" },
       ],
       settings: {
         "react-x": {
@@ -68,8 +68,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const b = <>{NaN && <Foo />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     // Test cases for parenthesized 0 and NaN
@@ -82,8 +82,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const b = <>{(NaN) && <Foo />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" },
-        { messageId: "noLeakedConditionalRendering" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     // Test cases for numeric values; -0 and 0 are problematic
@@ -102,8 +102,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const d = <>{w && <Foo />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" }, // For y = -0
-        { messageId: "noLeakedConditionalRendering" }, // For z = 0
+        { messageId: "default" }, // For y = -0
+        { messageId: "default" }, // For z = 0
       ],
     },
     // Test cases for BigInt values; -0n and 0n are problematic
@@ -122,8 +122,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const d = <>{w && <Foo />}</>;
       `,
       errors: [
-        { messageId: "noLeakedConditionalRendering" }, // For y = -0n
-        { messageId: "noLeakedConditionalRendering" }, // For z = 0n
+        { messageId: "default" }, // For y = -0n
+        { messageId: "default" }, // For z = 0n
       ],
     },
     // Test case for 'unknown' type, which could be a falsy value that renders
@@ -136,7 +136,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
     // Test case for a variable initialized to 0
     {
@@ -148,7 +148,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
     // Test case for a variable initialized to -0
     {
@@ -160,7 +160,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
     // Test case where a falsy value (0) could be rendered in a ternary's else branch
     {
@@ -172,7 +172,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const SomeComponent = () => <div />;
         const a = <>{!!someCondition ? <SomeComponent prop1={val1} prop2={val2} /> : someCondition && <div />}</>;
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
     // Test case where a prop of type `number | undefined` could be 0
     {
@@ -192,7 +192,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
     // Test case for an optional prop of type `number | undefined` which could be 0
     {
@@ -214,7 +214,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           )
         }
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -230,7 +230,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <>{value && <div>{value}</div>}</>;
         };
       `,
-      errors: [{ messageId: "noLeakedConditionalRendering" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

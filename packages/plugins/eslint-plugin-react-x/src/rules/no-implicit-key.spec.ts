@@ -18,9 +18,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -37,9 +37,9 @@ ruleTester.run(RULE_NAME, rule, {
           };
       `,
       errors: [
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -53,9 +53,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -69,9 +69,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -89,9 +89,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -111,10 +111,10 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
-        { messageId: "noImplicitKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
   ],

@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         render(<Component />, document.getElementById("app"));
       `,
-      errors: [{ messageId: "noRender" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         ReactDOM.render(<Component />, document.getElementById("app"));
       `,
-      errors: [{ messageId: "noRender" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";
@@ -49,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         ReactDOM.render(<Component />, document.getElementById("app")!);
       `,
-      errors: [{ messageId: "noRender" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
         const rootEl = document.getElementById("app")!;
         ReactDOM.render(<Component />, rootEl);
       `,
-      errors: [{ messageId: "noRender" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
         import React from "react";

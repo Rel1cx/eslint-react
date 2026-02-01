@@ -8,7 +8,6 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule, isVariableDeclaratorFromHookCall } from "../utils";
@@ -17,7 +16,7 @@ export const RULE_NAME = "no-direct-set-state-in-use-effect";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-type MessageID = CamelCase<typeof RULE_NAME>;
+type MessageID = "default";
 
 type CallKind =
   | "useEffect"
@@ -41,7 +40,7 @@ export default createRule<[], MessageID>({
         "Disallows direct calls to the ['set' function](https://react.dev/reference/react/useState#setstate) of 'useState' in 'useEffect'.",
     },
     messages: {
-      noDirectSetStateInUseEffect: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",
+      default: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",
     },
     schema: [],
   },
@@ -217,7 +216,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             case pEntry.kind === "immediate"
               && ast.findParentNode(pEntry.node, ast.isFunction) === setupFunction: {
               context.report({
-                messageId: "noDirectSetStateInUseEffect",
+                messageId: "default",
                 node,
                 data: {
                   name: context.sourceCode.getText(node.callee),
@@ -308,7 +307,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const [, calls] of setStateInEffectSetup) {
         for (const call of calls) {
           context.report({
-            messageId: "noDirectSetStateInUseEffect",
+            messageId: "default",
             node: call,
             data: {
               name: call.name,
@@ -324,7 +323,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
         for (const setStateCall of setStateCalls) {
           context.report({
-            messageId: "noDirectSetStateInUseEffect",
+            messageId: "default",
             node: setStateCall,
             data: {
               name: getCallName(setStateCall),
@@ -336,7 +335,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
         for (const setStateCall of setStateCalls) {
           context.report({
-            messageId: "noDirectSetStateInUseEffect",
+            messageId: "default",
             node: setStateCall,
             data: {
               name: getCallName(setStateCall),

@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useToggle",
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useSorted",
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useToggle",
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useSorted",
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useClassnames",
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useClassnames",
@@ -142,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useNestedHook",
@@ -151,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useInnerHook",
@@ -174,7 +174,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useNestedHook",
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useInnerHook",
@@ -206,7 +206,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
+          messageId: "default",
           data: {
             json: stringify({
               name: "useNestedHook",

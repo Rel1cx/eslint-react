@@ -22,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenMap",
+        messageId: "default",
       }],
     },
     {
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenMap",
+        messageId: "default",
       }],
     },
     {
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenMap",
+        messageId: "default",
       }],
     },
     {
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenMap",
+        messageId: "default",
       }],
     },
   ],

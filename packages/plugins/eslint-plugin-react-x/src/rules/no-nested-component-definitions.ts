@@ -4,7 +4,6 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_NAME = "no-nested-component-definitions";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,8 +20,7 @@ export default createRule<[], MessageID>({
       description: "Disallows nesting component definitions inside other components.",
     },
     messages: {
-      noNestedComponentDefinitions:
-        "Do not nest component definitions inside other components or props. {{suggestion}}",
+      default: "Do not nest component definitions inside other components or props. {{suggestion}}",
     },
     schema: [],
   },
@@ -75,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             // Allow if it's part of a render prop pattern
             if (!core.isDeclaredInRenderPropLoose(component)) {
               context.report({
-                messageId: "noNestedComponentDefinitions",
+                messageId: "default",
                 node: component,
                 data: {
                   name,
@@ -89,7 +87,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Check if the component is defined inside the props of a `createElement` call
           if (isInsideCreateElementProps(context, component)) {
             context.report({
-              messageId: "noNestedComponentDefinitions",
+              messageId: "default",
               node: component,
               data: {
                 name,
@@ -103,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const parentComponent = ast.findParentNode(component, isFunctionComponent);
           if (parentComponent != null && !core.isDirectValueOfRenderPropertyLoose(parentComponent)) {
             context.report({
-              messageId: "noNestedComponentDefinitions",
+              messageId: "default",
               node: component,
               data: {
                 name,
@@ -118,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Check if the component is defined inside a class component's render method
           if (isInsideRenderMethod(component)) {
             context.report({
-              messageId: "noNestedComponentDefinitions",
+              messageId: "default",
               node: component,
               data: {
                 name,
@@ -134,7 +132,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             continue;
           }
           context.report({
-            messageId: "noNestedComponentDefinitions",
+            messageId: "default",
             node: component,
             data: {
               name,

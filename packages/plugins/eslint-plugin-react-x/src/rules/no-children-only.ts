@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -9,7 +8,7 @@ export const RULE_NAME = "no-children-only";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "Disallows the use of 'Children.only' from the 'react' package.",
     },
     messages: {
-      noChildrenOnly: "Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.",
+      default: "Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.",
     },
     schema: [],
   },
@@ -32,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     MemberExpression(node) {
       if (core.isChildrenOnly(context, node)) {
         context.report({
-          messageId: "noChildrenOnly",
+          messageId: "default",
           node: node.property,
         });
       }

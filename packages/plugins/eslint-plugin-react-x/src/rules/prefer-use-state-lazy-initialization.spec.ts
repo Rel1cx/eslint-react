@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -74,11 +74,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
         {
           type: AST.NewExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -87,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -96,7 +96,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -105,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -114,7 +114,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
     },
@@ -130,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
         },
       ],
       settings: {

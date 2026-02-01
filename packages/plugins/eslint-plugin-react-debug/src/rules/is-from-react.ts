@@ -5,7 +5,6 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule, stringify } from "../utils";
 
@@ -15,7 +14,7 @@ export const RULE_FEATURES = [
   "DBG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -24,7 +23,7 @@ export default createRule<[], MessageID>({
       description: "Reports all identifiers initialized from React in JSON format.",
     },
     messages: {
-      isFromReact: "{{json}}",
+      default: "{{json}}",
     },
     schema: [],
   },
@@ -45,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     const initialScope = context.sourceCode.getScope(node);
     if (!isFromReact(node, initialScope, importSource)) return;
     context.report({
-      messageId: "isFromReact",
+      messageId: "default",
       node,
       data: {
         json: stringify({

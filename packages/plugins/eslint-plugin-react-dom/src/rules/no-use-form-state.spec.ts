@@ -25,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUseFormState",
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUseFormState",
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUseFormState",
+          messageId: "default",
         },
       ],
       output: tsx`

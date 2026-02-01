@@ -3,7 +3,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -13,7 +12,7 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +22,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noStringRefs: "[Deprecated] Use callback refs instead.",
+      default: "[Deprecated] Use callback refs instead.",
     },
     schema: [],
   },
@@ -59,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (refName == null) return;
       // Report an issue if a string ref is found
       context.report({
-        messageId: "noStringRefs",
+        messageId: "default",
         node,
         // Provides a fix to replace the string ref with a callback ref
         fix(fixer) {

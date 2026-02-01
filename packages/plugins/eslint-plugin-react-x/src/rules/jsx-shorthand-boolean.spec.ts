@@ -8,7 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<input disabled={true} />`,
       errors: [{
-        messageId: "jsxShorthandBoolean",
+        messageId: "default",
         data: { message: "Omit attribute value for 'disabled'." },
       }],
       output: tsx`<input disabled />`,
@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<App foo={true} />`,
       errors: [{
-        messageId: "jsxShorthandBoolean",
+        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
       }],
       output: tsx`<App foo />`,
@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<App foo={true} bar />`,
       errors: [{
-        messageId: "jsxShorthandBoolean",
+        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
       }],
       output: tsx`<App foo bar />`,
@@ -32,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<App foo={true} bar={false} />`,
       errors: [{
-        messageId: "jsxShorthandBoolean",
+        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
       }],
       output: tsx`<App foo bar={false} />`,
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<App foo={true} bar={false} baz />`,
       errors: [{
-        messageId: "jsxShorthandBoolean",
+        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
       }],
       output: tsx`<App foo bar={false} baz />`,
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<input disabled />`,
       errors: [{
-        messageId: "jsxShorthandBoolean",
+        messageId: "default",
         data: { message: "Set attribute value for 'disabled'." },
       }],
       options: [-1],

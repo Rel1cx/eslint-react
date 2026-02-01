@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -22,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -46,12 +46,12 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -74,7 +74,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -100,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -141,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -152,12 +152,12 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],
@@ -168,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -184,7 +184,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -200,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -219,13 +219,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
           line: 3,
         },
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
           line: 7,
         },
@@ -242,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
         },
       ],
@@ -259,13 +259,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "placed inside a host component" },
           line: 4,
         },
         {
           type: AST.JSXElement,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
           line: 4,
         },
@@ -284,7 +284,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "noUselessFragment",
+          messageId: "default",
           data: { reason: "contains less than two children" },
         },
       ],

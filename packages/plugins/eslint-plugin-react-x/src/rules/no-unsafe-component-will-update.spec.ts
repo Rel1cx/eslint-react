@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnsafeComponentWillUpdate",
+          messageId: "default",
         },
       ],
     },
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnsafeComponentWillUpdate",
+          messageId: "default",
         },
       ],
     },
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnsafeComponentWillUpdate",
+          messageId: "default",
         },
       ],
     },
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnsafeComponentWillUpdate",
+          messageId: "default",
         },
       ],
     },

@@ -30,7 +30,7 @@ process.env["ESLINT_REACT_DEBUG"] === "1"
         `,
         errors: [
           {
-            messageId: "jsxUsesReact",
+            messageId: "default",
             data: { name: "React.createElement" },
           },
         ],
@@ -46,7 +46,7 @@ process.env["ESLINT_REACT_DEBUG"] === "1"
         `,
         errors: [
           {
-            messageId: "jsxUsesReact",
+            messageId: "default",
             data: { name: "Foo" },
           },
         ],

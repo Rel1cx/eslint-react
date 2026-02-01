@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noComponentWillReceiveProps",
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noComponentWillReceiveProps",
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noComponentWillReceiveProps",
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noComponentWillReceiveProps",
+          messageId: "default",
         },
       ],
       output: tsx`

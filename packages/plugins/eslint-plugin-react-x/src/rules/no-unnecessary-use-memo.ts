@@ -5,7 +5,6 @@ import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor, RuleListener, SourceCode } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
@@ -17,7 +16,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME> | "noUnnecessaryUseMemoInsideUseEffect";
+export type MessageID = "default" | "noUnnecessaryUseMemoInsideUseEffect";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,7 +25,7 @@ export default createRule<[], MessageID>({
       description: "Disallows unnecessary usage of 'useMemo'.",
     },
     messages: {
-      noUnnecessaryUseMemo: "An 'useMemo' with empty deps and no references to the component scope may be unnecessary.",
+      default: "An 'useMemo' with empty deps and no references to the component scope may be unnecessary.",
       noUnnecessaryUseMemoInsideUseEffect:
         "{{name}} is only used inside 1 useEffect, which may be unnecessary. You can move the computation into useEffect directly and merge the dependency arrays.",
     },
@@ -107,7 +106,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       if (!isReferencedToComponentScope) {
         context.report({
-          messageId: "noUnnecessaryUseMemo",
+          messageId: "default",
           node,
         });
         return;

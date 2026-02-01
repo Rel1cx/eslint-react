@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<Context.Provider />`,
       errors: [
         {
-          messageId: "noContextProvider",
+          messageId: "default",
         },
       ],
       output: tsx`<Context />`,
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<ThemeContext.Provider><App /></ThemeContext.Provider>`,
       errors: [
         {
-          messageId: "noContextProvider",
+          messageId: "default",
         },
       ],
       output: tsx`<ThemeContext><App /></ThemeContext>`,
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<Context.Provider>{children}</Context.Provider>`,
       errors: [
         {
-          messageId: "noContextProvider",
+          messageId: "default",
         },
       ],
       output: tsx`<Context>{children}</Context>`,

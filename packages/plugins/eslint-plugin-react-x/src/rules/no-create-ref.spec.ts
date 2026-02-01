@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -101,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
     {
@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCreateRef",
+        messageId: "default",
       }],
     },
   ],

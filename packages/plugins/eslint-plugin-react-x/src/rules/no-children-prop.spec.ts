@@ -7,35 +7,35 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<div children />;`, // not a valid use case but make sure we don't crash
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<div children="Children" />;',
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<div children={<div />} />;`,
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<div children={[<div />, <div />]} />;`,
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<div children="Children">Children</div>;',
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<MyComponent children="Children" />',
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<MyComponent className="class-name" children="Children" />;',
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<MyComponent {...props} children="Children" />;',
-      errors: [{ messageId: "noChildrenProp" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

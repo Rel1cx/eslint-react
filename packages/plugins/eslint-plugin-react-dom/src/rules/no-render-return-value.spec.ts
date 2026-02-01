@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`var Hello = ReactDOM.render(<div />, document.body);`,
       errors: [
         {
-          messageId: "noRenderReturnValue",
+          messageId: "default",
         },
       ],
     },
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRenderReturnValue",
+          messageId: "default",
         },
       ],
     },
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRenderReturnValue",
+          messageId: "default",
         },
       ],
     },
@@ -43,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRenderReturnValue",
+          messageId: "default",
         },
       ],
     },
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRenderReturnValue",
+          messageId: "default",
         },
       ],
     },
@@ -63,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noRenderReturnValue",
+          messageId: "default",
         },
       ],
     },

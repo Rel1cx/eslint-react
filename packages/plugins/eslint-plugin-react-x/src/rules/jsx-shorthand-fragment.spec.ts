@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<React.Fragment><div /></React.Fragment>`,
       errors: [
         {
-          messageId: "jsxShorthandFragment",
+          messageId: "default",
         },
       ],
       output: tsx`<><div /></>`,
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<Fragment><div /></Fragment>`,
       errors: [
         {
-          messageId: "jsxShorthandFragment",
+          messageId: "default",
         },
       ],
       output: tsx`<><div /></>`,
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxShorthandFragment",
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxShorthandFragment",
+          messageId: "default",
           data: { message: "Use 'Fragment' component instead of fragment shorthand syntax." },
         },
       ],

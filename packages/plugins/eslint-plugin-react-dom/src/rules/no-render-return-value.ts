@@ -1,7 +1,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -9,7 +8,7 @@ export const RULE_NAME = "no-render-return-value";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 // Parent AST node types that indicate the return value of `ReactDOM.render` is being used
 const banParentTypes = [
@@ -27,7 +26,7 @@ export default createRule<[], MessageID>({
       description: "Disallows the return value of 'ReactDOM.render'.",
     },
     messages: {
-      noRenderReturnValue: "Do not depend on the return value from 'ReactDOM.render'.",
+      default: "Do not depend on the return value from 'ReactDOM.render'.",
     },
     schema: [],
   },
@@ -51,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Check if the return value is being used
           && banParentTypes.includes(node.parent.type):
           context.report({
-            messageId: "noRenderReturnValue",
+            messageId: "default",
             node,
           });
           return;
@@ -64,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Check if the return value is being used
           && banParentTypes.includes(node.parent.type):
           context.report({
-            messageId: "noRenderReturnValue",
+            messageId: "default",
             node,
           });
           return;

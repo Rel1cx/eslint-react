@@ -3,7 +3,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -11,7 +10,7 @@ export const RULE_NAME = "jsx-no-comment-textnodes";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
         "Prevents comment strings (e.g., beginning with '//' or '/*') from being accidentally inserted into a JSX element's text nodes.",
     },
     messages: {
-      jsxNoCommentTextnodes:
+      default:
         "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
     },
     schema: [],
@@ -49,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       return;
     }
     context.report({
-      messageId: "jsxNoCommentTextnodes",
+      messageId: "default",
       node,
     });
   };

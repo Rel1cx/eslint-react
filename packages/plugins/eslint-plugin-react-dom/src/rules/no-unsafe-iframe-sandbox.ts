@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -9,7 +8,7 @@ export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 const UNSAFE_SANDBOX_VALUES = ["allow-scripts", "allow-same-origin"] as const;
 
@@ -36,7 +35,7 @@ export default createRule<[], MessageID>({
       description: "Enforces that the 'sandbox' attribute for 'iframe' elements is not set to unsafe combinations.",
     },
     messages: {
-      noUnsafeIframeSandbox: "Unsafe 'sandbox' attribute value on 'iframe' component.",
+      default: "Unsafe 'sandbox' attribute value on 'iframe' component.",
     },
     schema: [],
   },
@@ -69,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (isUnsafeSandboxCombination(sandboxValueStatic)) {
         // If it's unsafe, report an error
         context.report({
-          messageId: "noUnsafeIframeSandbox",
+          messageId: "default",
           node: sandboxValue.node ?? sandboxProp,
         });
       }

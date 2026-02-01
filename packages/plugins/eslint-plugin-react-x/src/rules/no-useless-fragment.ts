@@ -7,7 +7,6 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
-import type { CamelCase } from "string-ts";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-useless-fragment";
@@ -17,7 +16,7 @@ export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 type Options = readonly [
   {
@@ -55,7 +54,7 @@ export default createRule<Options, MessageID>({
     },
     fixable: "code",
     messages: {
-      noUselessFragment: "A fragment {{reason}} is useless.",
+      default: "A fragment {{reason}} is useless.",
     },
     schema,
   },
@@ -84,7 +83,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     // Report fragment placed inside a host component (e.g., <div><></></div>)
     if (core.isJsxHostElement(context, node.parent)) {
       context.report({
-        messageId: "noUselessFragment",
+        messageId: "default",
         node,
         data: { reason: "placed inside a host component" },
         fix: getFix(context, node),
@@ -96,7 +95,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       // https://github.com/Rel1cx/eslint-react/issues/1265
       if (allowEmptyFragment) return;
       context.report({
-        messageId: "noUselessFragment",
+        messageId: "default",
         node,
         data: { reason: "contains less than two children" },
         fix: getFix(context, node),
@@ -120,7 +119,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       case !allowExpressions
         && isChildElement: {
         context.report({
-          messageId: "noUselessFragment",
+          messageId: "default",
           node,
           data: { reason: "contains less than two children" },
           fix: getFix(context, node),
@@ -133,7 +132,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
         && !isChildElement
         && node.children.length === 1: {
         context.report({
-          messageId: "noUselessFragment",
+          messageId: "default",
           node,
           data: { reason: "contains less than two children" },
           fix: getFix(context, node),
@@ -152,7 +151,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       || (nonPaddingChildren.length === 1 && firstNonPaddingChild?.type !== AST.JSXExpressionContainer)
     ) {
       context.report({
-        messageId: "noUselessFragment",
+        messageId: "default",
         node,
         data: { reason: "contains less than two children" },
         fix: getFix(context, node),

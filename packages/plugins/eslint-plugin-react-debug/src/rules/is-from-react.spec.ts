@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({
               name: "React",
@@ -22,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({
               name: "identifier",
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({
               name: "React",
@@ -48,19 +48,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
@@ -79,25 +79,25 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
@@ -119,25 +119,25 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
@@ -158,19 +158,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
@@ -192,31 +192,31 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
@@ -239,43 +239,43 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "toArr", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "toArray", importSource: "@pika/react" }),
           },
@@ -297,31 +297,31 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "toArr", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "toArray", importSource: "@pika/react" }),
           },
@@ -340,19 +340,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
@@ -371,25 +371,25 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "identifier", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
@@ -411,25 +411,25 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
@@ -450,19 +450,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
@@ -484,31 +484,31 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Fragment", importSource: "@pika/react" }),
           },
@@ -537,43 +537,43 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "React", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "toArr", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "@pika/react" }),
           },
         },
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "toArray", importSource: "@pika/react" }),
           },
@@ -597,7 +597,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "Children", importSource: "react" }),
           },
@@ -621,7 +621,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromReact",
+          messageId: "default",
           data: {
             json: stringify({ name: "ReactChildren", importSource: "react" }),
           },

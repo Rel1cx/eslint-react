@@ -3,7 +3,6 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -11,7 +10,7 @@ export const RULE_NAME = "prefer-use-state-lazy-initialization";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 // Allow primitive wrapper types, as they are not expensive
 const ALLOW_LIST = [
@@ -28,7 +27,7 @@ export default createRule<[], MessageID>({
       description: "Enforces wrapping function calls made inside 'useState' in an 'initializer function'.",
     },
     messages: {
-      preferUseStateLazyInitialization:
+      default:
         "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'.",
     },
     schema: [],
@@ -58,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Ignore if it's inside a `use()` call
         if (ast.findParentNode(expr, core.isUseCall) != null) continue;
         context.report({
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
           node: expr,
         });
       }
@@ -72,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Ignore if it's inside a `use()` call
         if (ast.findParentNode(expr, core.isUseCall) != null) continue;
         context.report({
-          messageId: "preferUseStateLazyInitialization",
+          messageId: "default",
           node: expr,
         });
       }

@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 27,
           endColumn: 28,
           endLine: 1,
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 28,
           endColumn: 29,
           endLine: 1,
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 23,
           endColumn: 24,
           endLine: 2,
@@ -88,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 17,
           endColumn: 18,
           endLine: 2,
@@ -115,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 23,
           endColumn: 24,
           endLine: 2,
@@ -142,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 25,
           endColumn: 26,
           endLine: 2,
@@ -160,7 +160,7 @@ ruleTester.run(RULE_NAME, rule, {
           ],
         },
         {
-          messageId: "jsxDollar",
+          messageId: "default",
           column: 36,
           endColumn: 37,
           endLine: 2,

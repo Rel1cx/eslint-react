@@ -5,7 +5,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -16,7 +15,7 @@ export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 type Options = readonly [
   | unit
@@ -40,7 +39,7 @@ export default createRule<Options, MessageID>({
     },
     fixable: "code",
     messages: {
-      jsxShorthandBoolean: "{{message}}",
+      default: "{{message}}",
     },
     schema,
   },
@@ -63,7 +62,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           && value.expression.type === AST.Literal
           && value.expression.value === true: {
           context.report({
-            messageId: "jsxShorthandBoolean",
+            messageId: "default",
             node,
             data: {
               message: `Omit attribute value for '${propName}'.`,
@@ -77,7 +76,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           // eslint-disable-next-line function-rule-2/function-rule
           && value === null: {
           context.report({
-            messageId: "jsxShorthandBoolean",
+            messageId: "default",
             node: node.value ?? node,
             data: {
               message: `Set attribute value for '${propName}'.`,

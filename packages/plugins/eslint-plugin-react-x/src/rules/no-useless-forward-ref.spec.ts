@@ -12,14 +12,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         import { forwardRef } from 'react'
         forwardRef((props) => null);
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -46,14 +46,14 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         import * as React from 'react'
         React.forwardRef((props) => null);
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noUselessForwardRef" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

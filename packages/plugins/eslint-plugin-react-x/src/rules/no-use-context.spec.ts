@@ -15,8 +15,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUseContext" },
-        { messageId: "noUseContext" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
       output: tsx`
         import { use } from 'react'
@@ -42,8 +42,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUseContext" },
-        { messageId: "noUseContext" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
       output: tsx`
         import { use } from 'react'
@@ -69,8 +69,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUseContext" },
-        { messageId: "noUseContext" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
       output: tsx`
         import { use } from 'react'
@@ -96,8 +96,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUseContext" },
-        { messageId: "noUseContext" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
       output: tsx`
         import { use, useState } from 'react'
@@ -123,8 +123,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUseContext" },
-        { messageId: "noUseContext" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
       output: tsx`
         import {use,useState} from 'react'
@@ -150,7 +150,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUseContext" },
+        { messageId: "default" },
       ],
       output: tsx`
         import React from 'react'

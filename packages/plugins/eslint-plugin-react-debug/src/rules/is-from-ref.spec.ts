@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "isFromRef",
+          messageId: "default",
           data: {
             json: stringify({
               name: "myRef",
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "isFromRef",
+          messageId: "default",
           data: {
             json: stringify({
               name: "value",
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "isFromRef",
+          messageId: "default",
           data: {
             json: stringify({
               name: "myRef",
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "isFromRef",
+          messageId: "default",
           data: {
             json: stringify({
               name: "current",
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
           },
         },
         {
-          messageId: "isFromRef",
+          messageId: "default",
           data: {
             json: stringify({
               name: "value",

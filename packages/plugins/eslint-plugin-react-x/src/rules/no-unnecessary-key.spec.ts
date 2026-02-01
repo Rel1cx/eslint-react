@@ -10,34 +10,34 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         things.map(thing => <div key={thing.id}><p key='child-1' /></div>)
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
     // Invalid: redundant key on a direct child when the parent Fragment already has the key
     {
       code: tsx`
         things.map(thing => <React.Fragment key={thing.id}><div key={thing.id}>{thing.name}</div></React. Fragment>)
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
     // Invalid: multiple unnecessary keys on child elements
     {
       code: tsx`
         things.map(thing => <div key={thing.id}><p key='child-1' /><span key='child-2' /></div>)
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }, { messageId: "default" }],
     },
     {
       code: tsx`
         things.map(function(thing) { return <div key={thing.id}><i key='icon' /></div>; })
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
     // Invalid: unnecessary key in a nested map call
     {
       code: tsx`
         outers.map(outer => <div key={outer.id}>{inners.map(inner => <p key={inner.id}><span key='extra' /></p>)}</div>)
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
     // Invalid: deeply nested unnecessary keys
     {
@@ -52,14 +52,14 @@ ruleTester.run(RULE_NAME, rule, {
           </div>
         ))
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
     // Invalid: key on self-closing child element
     {
       code: tsx`
         things.map(thing => <ul key={thing.id}><li key="item" /></ul>)
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
     // Invalid: multiple levels of unnecessary keys
     {
@@ -72,14 +72,14 @@ ruleTester.run(RULE_NAME, rule, {
           </div>
         ))
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }, { messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }, { messageId: "default" }],
     },
     // Invalid: key on element inside JSX expression container
     {
       code: tsx`
         things.map(thing => <div key={thing.id}>{true && <span key="conditional-child" />}</div>)
       `,
-      errors: [{ messageId: "noUnnecessaryKey" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

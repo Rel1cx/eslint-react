@@ -2,7 +2,6 @@ import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Enforces 'key' prop placement before spread props.",
     },
     messages: {
-      jsxKeyBeforeSpread: "The 'key' prop must be placed before any spread props when using the new JSX transform.",
+      default: "The 'key' prop must be placed before any spread props when using the new JSX transform.",
     },
     schema: [],
   },
@@ -53,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // If a 'key' prop is found after a spread prop, report an error
         if (prop.name.name === "key" && index > firstSpreadPropIndex) {
           context.report({
-            messageId: "jsxKeyBeforeSpread",
+            messageId: "default",
             node: prop,
           });
         }

@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -92,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -111,7 +111,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -130,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -149,7 +149,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
     },
@@ -165,7 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -186,7 +186,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -207,7 +207,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -228,7 +228,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -249,7 +249,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -270,7 +270,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -291,7 +291,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -312,7 +312,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -333,7 +333,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -354,7 +354,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -375,7 +375,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -396,7 +396,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {
@@ -451,7 +451,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
         },
       ],
       settings: {

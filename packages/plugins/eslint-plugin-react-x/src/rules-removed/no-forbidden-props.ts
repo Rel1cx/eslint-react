@@ -1,7 +1,6 @@
 import { type RuleContext, type RuleFeature, toRegExp } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { type CamelCase, camelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,9 +11,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
-
-const messageId = camelCase(RULE_NAME);
+export type MessageID = "default";
 
 type Options = readonly [
   {
@@ -50,7 +47,7 @@ export default createRule<Options, MessageID>({
       description: "Disallows certain props on components.",
     },
     messages: {
-      [messageId]: 'Prop "{{name}}" is forbidden.',
+      default: 'Prop "{{name}}" is forbidden.',
     },
     schema: [{
       type: "object",
@@ -142,7 +139,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
           if (forbiddenPropRegExp.test(name)) {
             // Report an error if a forbidden prop is found
             context.report({
-              messageId,
+              messageId: "default",
               node: attr,
               data: { name },
             });

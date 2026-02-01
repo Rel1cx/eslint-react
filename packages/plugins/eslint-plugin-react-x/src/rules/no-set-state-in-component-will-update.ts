@@ -3,7 +3,6 @@ import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -11,7 +10,7 @@ export const RULE_NAME = "no-set-state-in-component-will-update";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -20,8 +19,7 @@ export default createRule<[], MessageID>({
       description: "Disallows calling 'this.setState' in 'componentWillUpdate' outside functions such as callbacks.",
     },
     messages: {
-      noSetStateInComponentWillUpdate:
-        "Do not call `this.setState` in `componentWillUpdate` outside functions such as callbacks.",
+      default: "Do not call `this.setState` in `componentWillUpdate` outside functions such as callbacks.",
     },
     schema: [],
   },
@@ -59,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Report an error if 'this.setState' is called directly inside 'componentWillUpdate'
       if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
         context.report({
-          messageId: "noSetStateInComponentWillUpdate",
+          messageId: "default",
           node,
         });
       }

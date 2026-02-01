@@ -3,7 +3,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -13,7 +12,7 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +22,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noContextProvider: "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>'.",
+      default: "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>'.",
     },
     schema: [],
   },
@@ -51,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Exit if there is no context name or it doesn't end with "Context"
       if (contextSelfName == null || !contextSelfName.endsWith("Context")) return;
       context.report({
-        messageId: "noContextProvider",
+        messageId: "default",
         node,
         fix(fixer) {
           // Ensure the context name is a valid component name before applying the fix

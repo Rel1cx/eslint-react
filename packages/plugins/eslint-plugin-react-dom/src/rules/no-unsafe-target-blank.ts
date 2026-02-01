@@ -2,7 +2,6 @@ import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
+export type MessageID = "default" | RuleSuggestMessageID;
 
 export type RuleSuggestMessageID = "addRelNoreferrerNoopener";
 
@@ -50,8 +49,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       addRelNoreferrerNoopener: `Add 'rel="noreferrer noopener"' to the link to prevent security risks.`,
-      noUnsafeTargetBlank:
-        `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
+      default: `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
     schema: [],
   },
@@ -92,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // No rel prop case - suggest adding one
       if (relProp == null) {
         context.report({
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           node: node.openingElement,
           suggest: [{
             messageId: "addRelNoreferrerNoopener",
@@ -113,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // Existing rel prop is not secure - suggest replacing it
       context.report({
-        messageId: "noUnsafeTargetBlank",
+        messageId: "default",
         node: relProp,
         suggest: [{
           messageId: "addRelNoreferrerNoopener",

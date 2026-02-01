@@ -4,7 +4,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -14,7 +13,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +22,7 @@ export default createRule<[], MessageID>({
       description: "Disallows unnecessary 'key' props on nested child elements when rendering lists.",
     },
     messages: {
-      noUnnecessaryKey: "Unnecessary `key` prop on this element. {{reason}}",
+      default: "Unnecessary `key` prop on this element. {{reason}}",
     },
     schema: [],
   },
@@ -71,7 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (keyedElementOrElse == null || keyedElementOrElse === mapCallback) return;
       // Otherwise, a parent element with a `key` was found, so the current `key` is unnecessary
       context.report({
-        messageId: "noUnnecessaryKey",
+        messageId: "default",
         node,
         data: { reason: "A parent element already has a `key` prop in the same list rendering context." },
       });

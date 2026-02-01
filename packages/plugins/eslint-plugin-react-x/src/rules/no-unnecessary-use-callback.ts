@@ -7,7 +7,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, RuleListener, SourceCode } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 import { createRule } from "../utils";
 
@@ -17,7 +16,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME> | "noUnnecessaryUseCallbackInsideUseEffect";
+export type MessageID = "default" | "noUnnecessaryUseCallbackInsideUseEffect";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,8 +25,7 @@ export default createRule<[], MessageID>({
       description: "Disallows unnecessary usage of 'useCallback'.",
     },
     messages: {
-      noUnnecessaryUseCallback:
-        "An 'useCallback' with empty deps and no references to the component scope may be unnecessary.",
+      default: "An 'useCallback' with empty deps and no references to the component scope may be unnecessary.",
       noUnnecessaryUseCallbackInsideUseEffect:
         "{{name}} is only used inside 1 useEffect, which may be unnecessary. You can move the computation into useEffect directly and merge the dependency arrays.",
     },
@@ -105,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       if (!isReferencedToComponentScope) {
         context.report({
-          messageId: "noUnnecessaryUseCallback",
+          messageId: "default",
           node,
         });
         return;

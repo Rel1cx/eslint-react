@@ -3,7 +3,6 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -11,7 +10,7 @@ export const RULE_NAME = "no-unnecessary-use-prefix";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 const WELL_KNOWN_HOOKS = ["useMDXComponents"];
 
@@ -33,7 +32,7 @@ export default createRule<[], MessageID>({
       description: "Enforces that a function with the 'use' prefix uses at least one Hook inside it.",
     },
     messages: {
-      noUnnecessaryUsePrefix:
+      default:
         "If your function doesn't call any Hooks, avoid the 'use' prefix. Instead, write it as a regular function without the 'use' prefix.",
     },
     schema: [],
@@ -71,7 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it
         context.report({
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           node: id ?? node,
           data: {
             name,

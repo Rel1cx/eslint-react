@@ -10,20 +10,20 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         <div snake_case="value" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "snake_case" } }],
+      errors: [{ messageId: "default", data: { name: "snake_case" } }],
     },
     {
       code: tsx`
         <Component user_name="test" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "user_name" } }],
+      errors: [{ messageId: "default", data: { name: "user_name" } }],
     },
     // String-based forbidden props
     {
       code: tsx`
         <div className="test" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "className" } }],
+      errors: [{ messageId: "default", data: { name: "className" } }],
       options: [{ forbid: ["className"] }],
     },
     // Regex-based forbidden props
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         <div data-testid="test" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "data-testid" } }],
+      errors: [{ messageId: "default", data: { name: "data-testid" } }],
       options: [{ forbid: [{ prop: "/^data-/" }] }],
     },
     // Node-specific exclusions - should still fail for non-excluded nodes
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         <div snake_case="value" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "snake_case" } }],
+      errors: [{ messageId: "default", data: { name: "snake_case" } }],
       options: [{
         forbid: [{
           excludedNodes: ["Button"],
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         <Button snake_case="value" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "snake_case" } }],
+      errors: [{ messageId: "default", data: { name: "snake_case" } }],
       options: [{
         forbid: [{
           includedNodes: ["Button"],
@@ -66,8 +66,8 @@ ruleTester.run(RULE_NAME, rule, {
         <div className="test" style={{}} />
       `,
       errors: [
-        { messageId: "noForbiddenProps", data: { name: "className" } },
-        { messageId: "noForbiddenProps", data: { name: "style" } },
+        { messageId: "default", data: { name: "className" } },
+        { messageId: "default", data: { name: "style" } },
       ],
       options: [{ forbid: ["className", "style"] }],
     },
@@ -77,8 +77,8 @@ ruleTester.run(RULE_NAME, rule, {
         <div className="test" data-testid="test" />
       `,
       errors: [
-        { messageId: "noForbiddenProps", data: { name: "className" } },
-        { messageId: "noForbiddenProps", data: { name: "data-testid" } },
+        { messageId: "default", data: { name: "className" } },
+        { messageId: "default", data: { name: "data-testid" } },
       ],
       options: [{
         forbid: [
@@ -92,14 +92,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         <ns:Element snake_case="value" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "snake_case" } }],
+      errors: [{ messageId: "default", data: { name: "snake_case" } }],
     },
     // JSXMemberExpression - should still be checked for forbidden props
     {
       code: tsx`
         <React.Component snake_case="value" />
       `,
-      errors: [{ messageId: "noForbiddenProps", data: { name: "snake_case" } }],
+      errors: [{ messageId: "default", data: { name: "snake_case" } }],
     },
   ],
   valid: [

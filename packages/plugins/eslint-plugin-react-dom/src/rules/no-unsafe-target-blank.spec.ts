@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<a href="https://react.dev" target="_blank"></a>',
       errors: [
         {
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<a href="https://react.dev" target={"_blank"}></a>',
       errors: [
         {
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<a href="https://react.dev" target="_blank" rel="noopener"></a>',
       errors: [
         {
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<PolyComponent as="a" href="https://react.dev" target="_blank"></PolyComponent>',
       errors: [
         {
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<PolyComponent component="a" href="https://react.dev" target="_blank"></PolyComponent>',
       errors: [
         {
-          messageId: "noUnsafeTargetBlank",
+          messageId: "default",
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   code: '<Link href="https://react.dev" target="_blank" rel="noopener"></Link>',
     //   errors: [
     //     {
-    //       messageId: "noUnsafeTargetBlank",
+    //       messageId: "default",
     //       suggestions: [
     //         {
     //           messageId: "addRelNoreferrerNoopener",
@@ -140,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "noUnsafeTargetBlank",
+    //       messageId: "default",
     //       suggestions: [
     //         {
     //           messageId: "addRelNoreferrerNoopener",
@@ -180,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "noUnsafeTargetBlank",
+    //       messageId: "default",
     //       suggestions: [
     //         {
     //           messageId: "addRelNoreferrerNoopener",
@@ -192,7 +192,7 @@ ruleTester.run(RULE_NAME, rule, {
     //       ],
     //     },
     //     {
-    //       messageId: "noUnsafeTargetBlank",
+    //       messageId: "default",
     //       suggestions: [
     //         {
     //           messageId: "addRelNoreferrerNoopener",
@@ -237,7 +237,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "noUnsafeTargetBlank",
+    //       messageId: "default",
     //       suggestions: [
     //         {
     //           messageId: "addRelNoreferrerNoopener",
@@ -281,7 +281,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "noUnsafeTargetBlank",
+    //       messageId: "default",
     //       suggestions: [
     //         {
     //           messageId: "addRelNoreferrerNoopener",

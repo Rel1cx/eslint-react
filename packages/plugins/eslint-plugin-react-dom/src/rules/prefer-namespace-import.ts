@@ -1,7 +1,6 @@
 import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -11,7 +10,7 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      preferNamespaceImport: "Prefer importing React DOM via a namespace import.",
+      default: "Prefer importing React DOM via a namespace import.",
     },
     schema: [],
   },
@@ -44,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!importSources.includes(importSource)) return;
       const hasOtherSpecifiers = node.parent.specifiers.length > 1;
       context.report({
-        messageId: "preferNamespaceImport",
+        messageId: "default",
         node: hasOtherSpecifiers ? node : node.parent,
         data: { importSource },
         fix(fixer) {

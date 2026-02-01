@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         forwardRef(() => null)
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { forwardRef } from 'react'
         const Component = ({ ref, ...props }) => {
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { forwardRef } from 'react'
         const Component = forwardRef((props) => null);
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { forwardRef } from 'react'
         const Component = ({ ref, ...props }) => null;
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { forwardRef } from 'react'
         const Component = function ({ ref, ...props }) {
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { forwardRef } from 'react'
         const Component = function Component({ ref, ...props }) {
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = ({ ref, ...props }) => {
@@ -120,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
         import * as React from 'react'
         const Component = React.forwardRef((props) => null);
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = ({ ref, ...props }) => null;
@@ -138,7 +138,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function ({ ref, ...props }) {
@@ -158,7 +158,7 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, ...props }) {
@@ -178,7 +178,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={ref} />;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, ...props }) {
@@ -201,7 +201,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={ref} />;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         interface ComponentProps {
@@ -224,7 +224,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={ref}>{props.foo}</div>;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, ...props }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -244,7 +244,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={ref}>{foo}</div>;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -264,7 +264,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={r}>{foo}</div>;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref: r, foo }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) {
@@ -284,7 +284,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={r}>{foo}</div>;
         });
       `,
-      errors: [{ messageId: "noForwardRef" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import * as React from 'react'
         const Component = function Component({ ref: r, foo, ...rest }: { foo: string, bar: number } & { ref?: React.RefObject<HTMLElement | null> }) {

@@ -2,7 +2,6 @@ import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -10,7 +9,7 @@ export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -19,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "Disallows DOM elements from using 'dangerouslySetInnerHTML' and 'children' at the same time.",
     },
     messages: {
-      noDangerouslySetInnerhtmlWithChildren: "A DOM component cannot use both children and 'dangerouslySetInnerHTML'.",
+      default: "A DOM component cannot use both children and 'dangerouslySetInnerHTML'.",
     },
     schema: [],
   },
@@ -65,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (childrenPropOrNode == null) return;
       // If both 'dangerouslySetInnerHTML' and children are present, report an error
       context.report({
-        messageId: "noDangerouslySetInnerhtmlWithChildren",
+        messageId: "default",
         node: childrenPropOrNode,
       });
     },

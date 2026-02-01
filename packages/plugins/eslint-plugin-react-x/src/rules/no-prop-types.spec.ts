@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         App.propTypes = {};
       `,
-      errors: [{ messageId: "noPropTypes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         Input.propTypes = {};
       `,
-      errors: [{ messageId: "noPropTypes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -35,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "noPropTypes" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

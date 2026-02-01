@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
             return <div ref="ref" />
         }
       `,
-      errors: [{ messageId: "noStringRefs" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -25,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "noStringRefs" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         class Input extends React.Component {
           focus = () => {
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "noStringRefs" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         class Input extends React.Component {
           focus = () => {
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "noStringRefs" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         class Input extends React.Component {
           focus = () => {
@@ -100,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "noStringRefs" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         class Input extends React.Component {
           focus = () => {

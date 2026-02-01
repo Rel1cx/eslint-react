@@ -5,7 +5,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import type ts from "typescript";
 
 import { createRule } from "../utils";
@@ -14,7 +13,7 @@ export const RULE_NAME = "no-unused-props";
 
 export const RULE_FEATURES = ["TSC", "EXP"] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +22,7 @@ export default createRule<[], MessageID>({
       description: "Warns about component props that are defined but never used.",
     },
     messages: {
-      noUnusedProps: "Prop `{{name}}` is declared but never used",
+      default: "Prop `{{name}}` is declared but never used",
     },
     schema: [],
   },
@@ -228,7 +227,7 @@ function reportUnusedProp(
     : declarationNode;
 
   context.report({
-    messageId: "noUnusedProps",
+    messageId: "default",
     node: nodeToReport,
     data: { name: prop.name },
   });

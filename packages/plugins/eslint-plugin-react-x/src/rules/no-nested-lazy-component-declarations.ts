@@ -4,7 +4,6 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_NAME = "no-nested-lazy-component-declarations";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Disallows nesting lazy component declarations inside other components.",
     },
     messages: {
-      noNestedLazyComponentDeclarations:
+      default:
         "Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.",
     },
     schema: [],
@@ -85,7 +84,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // If a significant parent is found, it's a nested lazy declaration, so report an error
           if (significantParent != null) {
             context.report({
-              messageId: "noNestedLazyComponentDeclarations",
+              messageId: "default",
               node: lazy,
             });
           }

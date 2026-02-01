@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
         // ...
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
     {
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
     {
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
     {
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
     {
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
     {
@@ -81,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
     {
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
         const clonedElement = cloneElement(element);
       `,
       errors: [{
-        messageId: "noCloneElement",
+        messageId: "default",
       }],
     },
   ],

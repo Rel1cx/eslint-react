@@ -10,7 +10,6 @@ import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
-import type { CamelCase } from "string-ts";
 import { unionConstituents } from "ts-api-utils";
 import { P, match } from "ts-pattern";
 
@@ -22,7 +21,7 @@ export const RULE_FEATURES = [
   "TSC",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -31,7 +30,7 @@ export default createRule<[], MessageID>({
       description: "Prevents problematic leaked values from being rendered.",
     },
     messages: {
-      noLeakedConditionalRendering:
+      default:
         "Potential leaked value {{value}} that might cause unintentionally rendered values or rendering crashes.",
     },
     schema: [],
@@ -100,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Specifically check for 'NaN', which is a falsy value that gets rendered
         if (ast.isIdentifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
-            messageId: "noLeakedConditionalRendering",
+            messageId: "default",
             node: left,
             data: { value: context.sourceCode.getText(left) },
           } as const;
@@ -121,7 +120,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         // If the left side is not valid, report an error
         return {
-          messageId: "noLeakedConditionalRendering",
+          messageId: "default",
           node: left,
           data: { value: context.sourceCode.getText(left) },
         } as const;

@@ -6,7 +6,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
-import type { CamelCase } from "string-ts";
 import { P, match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -17,7 +16,7 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -27,7 +26,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noForwardRef: "In React 19, 'forwardRef' is no longer necessary. Pass 'ref' as a prop instead.",
+      default: "In React 19, 'forwardRef' is no longer necessary. Pass 'ref' as a prop instead.",
     },
     schema: [],
   },
@@ -55,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const id = ast.getFunctionId(node);
       const fix = canFix(context, node) ? getFix(context, node) : null;
       context.report({
-        messageId: "noForwardRef",
+        messageId: "default",
         node: id ?? node,
         fix,
       });

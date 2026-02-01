@@ -4,7 +4,6 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_NAME = "no-redundant-should-component-update";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 function isShouldComponentUpdate(node: TSESTree.ClassElement) {
   return ast.isMethodOrProperty(node)
@@ -27,8 +26,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'shouldComponentUpdate' when extending 'React.PureComponent'.",
     },
     messages: {
-      noRedundantShouldComponentUpdate:
-        "'{{componentName}}' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.",
+      default: "'{{componentName}}' does not need 'shouldComponentUpdate' when extending 'React.PureComponent'.",
     },
     schema: [],
   },
@@ -54,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           for (const member of body) {
             if (isShouldComponentUpdate(member)) {
               context.report({
-                messageId: "noRedundantShouldComponentUpdate",
+                messageId: "default",
                 node: member,
                 data: {
                   componentName: name,

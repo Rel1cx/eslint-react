@@ -6,7 +6,6 @@ import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -15,7 +14,7 @@ export const RULE_NAME = "no-array-index-key";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 const REACT_CHILDREN_METHOD = ["forEach", "map"] as const;
 
@@ -127,7 +126,7 @@ export default createRule<[], MessageID>({
       description: "Disallows using an item's index in the array as its key.",
     },
     messages: {
-      noArrayIndexKey: "Do not use item index in the array as its key.",
+      default: "Do not use item index in the array as its key.",
     },
     schema: [],
   },
@@ -158,7 +157,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       case AST.Identifier: {
         if (indexParamNames.some((name) => name != null && name === node.name)) {
           return [{
-            messageId: "noArrayIndexKey",
+            messageId: "default",
             node,
           }];
         }
@@ -174,7 +173,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const expression of expressions) {
           if (isArrayIndex(expression)) {
             descriptors.push({
-              messageId: "noArrayIndexKey",
+              messageId: "default",
               node: expression,
             });
           }
@@ -190,7 +189,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             && node.callee.property.name === "toString"
             && isArrayIndex(node.callee.object): {
             return [{
-              messageId: "noArrayIndexKey",
+              messageId: "default",
               node: node.callee.object,
             }];
           }
@@ -200,7 +199,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             && node.arguments[0] != null
             && isArrayIndex(node.arguments[0]): {
             return [{
-              messageId: "noArrayIndexKey",
+              messageId: "default",
               node: node.arguments[0],
             }];
           }

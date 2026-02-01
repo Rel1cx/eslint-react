@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useClassnames",
           },
@@ -42,7 +42,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useClassnames",
           },
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useInnerHook",
           },
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useNestedHook",
           },
@@ -101,13 +101,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useNestedHook",
           },
         },
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useInnerHook",
           },
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnnecessaryUsePrefix",
+          messageId: "default",
           data: {
             name: "useNestedHook",
           },

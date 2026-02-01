@@ -4,7 +4,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_NAME = "no-default-props";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Disallows the 'defaultProps' property in favor of ES6 default parameters.",
     },
     messages: {
-      noDefaultProps: "[Deprecated] Use ES6 default parameters instead.",
+      default: "[Deprecated] Use ES6 default parameters instead.",
     },
     schema: [],
   },
@@ -62,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Ensure the variable is defined as a function, which components are
       if (!ast.isFunction(variableNode)) return;
       // If all checks pass, report the use of `defaultProps`
-      context.report({ messageId: "noDefaultProps", node: property });
+      context.report({ messageId: "default", node: property });
     },
   };
 }

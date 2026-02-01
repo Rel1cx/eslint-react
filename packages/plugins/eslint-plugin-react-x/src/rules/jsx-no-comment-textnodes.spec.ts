@@ -7,15 +7,15 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<div>// invalid</div>`,
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<>// invalid</>`,
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<div>/* invalid */</div>`,
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
         // invalid
         </div>
       `,
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
         foo
         </div>
       `,
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -43,11 +43,11 @@ ruleTester.run(RULE_NAME, rule, {
         {'foo'}
         </div>
       `,
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: "<span>/*</span>",
-      errors: [{ messageId: "jsxNoCommentTextnodes" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

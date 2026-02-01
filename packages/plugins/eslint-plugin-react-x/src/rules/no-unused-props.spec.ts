@@ -19,7 +19,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -42,7 +42,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -66,7 +66,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -89,7 +89,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -108,7 +108,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -126,7 +126,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 44,
         data: {
           name: "hello",
@@ -144,7 +144,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 27,
         data: {
           name: "abc",
@@ -153,7 +153,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endLine: 1,
         line: 1,
       }, {
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 40,
         data: {
           name: "hello",
@@ -181,7 +181,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "abc",
@@ -190,7 +190,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endLine: 3,
         line: 3,
       }, {
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -218,7 +218,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "abc",
@@ -227,7 +227,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endLine: 3,
         line: 3,
       }, {
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -255,7 +255,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "abc",
@@ -264,7 +264,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endLine: 3,
         line: 3,
       }, {
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -282,7 +282,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 48,
         data: {
           name: "hello",
@@ -301,7 +301,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -320,7 +320,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -338,7 +338,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -356,7 +356,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 44,
         data: {
           name: "hello",
@@ -374,7 +374,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 47,
         data: {
           name: "abc",
@@ -401,7 +401,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -428,7 +428,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -455,7 +455,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -482,7 +482,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -504,7 +504,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         });
       `,
       errors: [{
-        messageId: "noUnusedProps",
+        messageId: "default",
         column: 3,
         data: {
           name: "foo",
@@ -527,7 +527,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     //     };
     //   `,
     //   errors: [{
-    //     messageId: "noUnusedProps",
+    //     messageId: "default",
     //     data: {
     //       name: "ref",
     //     },

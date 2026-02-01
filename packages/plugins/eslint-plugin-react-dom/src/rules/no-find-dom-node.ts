@@ -1,7 +1,6 @@
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -9,7 +8,7 @@ export const RULE_NAME = "no-find-dom-node";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'findDOMNode'.",
     },
     messages: {
-      noFindDomNode: "[Deprecated] Use alternatives instead.",
+      default: "[Deprecated] Use alternatives instead.",
     },
     schema: [],
   },
@@ -39,13 +38,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Handles cases like `findDOMNode()`.
         case AST.Identifier:
           if (callee.name === findDOMNode) {
-            context.report({ messageId: "noFindDomNode", node });
+            context.report({ messageId: "default", node });
           }
           return;
         // Handles cases like `ReactDOM.findDOMNode()`.
         case AST.MemberExpression:
           if (callee.property.type === AST.Identifier && callee.property.name === findDOMNode) {
-            context.report({ messageId: "noFindDomNode", node });
+            context.report({ messageId: "default", node });
           }
           return;
       }

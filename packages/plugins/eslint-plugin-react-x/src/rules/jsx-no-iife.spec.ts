@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxNoIife",
+          messageId: "default",
           data: { name: "Foo" },
         },
       ],

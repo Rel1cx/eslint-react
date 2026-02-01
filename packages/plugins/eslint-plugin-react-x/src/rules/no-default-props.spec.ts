@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         App.defaultProps = {};
       `,
-      errors: [{ messageId: "noDefaultProps" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

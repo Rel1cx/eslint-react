@@ -2,7 +2,6 @@ import type * as ast from "@eslint-react/ast";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Disallows immediately-invoked function expressions in JSX.",
     },
     messages: {
-      jsxNoIife: "Avoid using immediately-invoked function expressions in JSX.",
+      default: "Avoid using immediately-invoked function expressions in JSX.",
     },
     schema: [],
   },
@@ -35,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "JSXElement :function"(node: ast.TSESTreeFunction) {
       if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
         context.report({
-          messageId: "jsxNoIife",
+          messageId: "default",
           node: node.parent,
         });
       }
@@ -43,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     "JSXFragment :function"(node: ast.TSESTreeFunction) {
       if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
         context.report({
-          messageId: "jsxNoIife",
+          messageId: "default",
           node: node.parent,
         });
       }

@@ -5,7 +5,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -14,7 +13,7 @@ export const RULE_NAME = "no-access-state-in-setstate";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 function isKeyLiteral(
   node:
@@ -38,7 +37,7 @@ export default createRule<[], MessageID>({
       description: "Disallows accessing 'this.state' inside 'setState' calls.",
     },
     messages: {
-      noAccessStateInSetstate: "Do not access 'this.state' within 'setState'. Use the update function instead.",
+      default: "Do not access 'this.state' within 'setState'. Use the update function instead.",
     },
     schema: [],
   },
@@ -116,7 +115,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Report an issue if `this.state` is accessed
-      context.report({ messageId: "noAccessStateInSetstate", node });
+      context.report({ messageId: "default", node });
     },
     // Push method definitions to the stack upon entry
     MethodDefinition(node) {
@@ -167,7 +166,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Report an issue if `state` is destructured from `this`
-      context.report({ messageId: "noAccessStateInSetstate", node });
+      context.report({ messageId: "default", node });
     },
   };
 }

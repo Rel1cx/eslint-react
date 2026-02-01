@@ -4,7 +4,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_NAME = "no-direct-mutation-state";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 function isConstructorFunction(
   node: TSESTree.Node,
@@ -30,7 +29,7 @@ export default createRule<[], MessageID>({
       description: "Disallows direct mutation of 'this.state'.",
     },
     messages: {
-      noDirectMutationState: "Do not mutate state directly. Use 'setState()' instead.",
+      default: "Do not mutate state directly. Use 'setState()' instead.",
     },
     schema: [],
   },
@@ -60,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         && context.sourceCode.getScope(node).block !== ast.findParentNode(node, isConstructorFunction)
       ) {
         context.report({
-          messageId: "noDirectMutationState",
+          messageId: "default",
           node,
         });
       }

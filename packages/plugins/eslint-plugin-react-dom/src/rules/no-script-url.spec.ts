@@ -7,27 +7,27 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: '<a href={"javascript:"}></a>',
-      errors: [{ messageId: "noScriptUrl" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<Foo href="javascript:"></Foo>',
-      errors: [{ messageId: "noScriptUrl" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<a href="javascript:"></a>',
-      errors: [{ messageId: "noScriptUrl" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<a href="javascript:void(0)"></a>',
-      errors: [{ messageId: "noScriptUrl" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<a href="j\n\n\na\rv\tascript:"></a>',
-      errors: [{ messageId: "noScriptUrl" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<Foo to="javascript:"></Foo>',
-      errors: [{ messageId: "noScriptUrl" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -37,8 +37,8 @@ ruleTester.run(RULE_NAME, rule, {
         </div>
       `,
       errors: [
-        { messageId: "noScriptUrl" },
-        { messageId: "noScriptUrl" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
   ],

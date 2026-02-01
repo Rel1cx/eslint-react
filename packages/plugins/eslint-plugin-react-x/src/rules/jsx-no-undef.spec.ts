@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxNoUndef",
+          messageId: "default",
           data: { name: "Foo" },
         },
       ],
@@ -23,11 +23,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxNoUndef",
+          messageId: "default",
           data: { name: "Foo" },
         },
         {
-          messageId: "jsxNoUndef",
+          messageId: "default",
           data: { name: "Bar" },
         },
       ],
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsxNoUndef",
+          messageId: "default",
           data: { name: "Bar" },
         },
       ],

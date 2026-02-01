@@ -7,11 +7,11 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         const div = <div {...props}>Children</div>
       `,
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -30,19 +30,19 @@ ruleTester.run(RULE_NAME, rule, {
         }
         const div = <div {...props} />
       `,
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>',
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />',
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>',
-      errors: [{ messageId: "noDangerouslySetInnerhtml" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

@@ -7,32 +7,32 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: `import ReactDOM from 'react-dom';`,
-      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "default" }],
       output: `import * as ReactDOM from 'react-dom';`,
     },
     {
       code: `import ReactDom from 'react-dom';`,
-      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "default" }],
       output: `import * as ReactDom from 'react-dom';`,
     },
     {
       code: `import REACTDOM from 'react-dom';`,
-      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "default" }],
       output: `import * as REACTDOM from 'react-dom';`,
     },
     {
       code: `import ReactDOM from 'react-dom/client';`,
-      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "default" }],
       output: `import * as ReactDOM from 'react-dom/client';`,
     },
     {
       code: `import ReactDom from 'react-dom/client';`,
-      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "default" }],
       output: `import * as ReactDom from 'react-dom/client';`,
     },
     {
       code: `import REACTDOM from 'react-dom/client';`,
-      errors: [{ type: AST.ImportDeclaration, messageId: "preferNamespaceImport" }],
+      errors: [{ type: AST.ImportDeclaration, messageId: "default" }],
       output: `import * as REACTDOM from 'react-dom/client';`,
     },
   ],

@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noDirectMutationState",
+        messageId: "default",
       }],
     },
   ],

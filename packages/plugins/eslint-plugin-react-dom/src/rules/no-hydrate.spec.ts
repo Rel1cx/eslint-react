@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         ReactDOM.hydrate(<Component />, document.getElementById("app"));
       `,
-      errors: [{ messageId: "noHydrate" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { hydrateRoot } from "react-dom/client";
         import ReactDOM from "react-dom";
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         ReactDOM.hydrate(<Component />, document.getElementById("app")!);
       `,
-      errors: [{ messageId: "noHydrate" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { hydrateRoot } from "react-dom/client";
         import React from "react";
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
         const rootEl = document.getElementById("app")!;
         ReactDOM.hydrate(<Component />, rootEl);
       `,
-      errors: [{ messageId: "noHydrate" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         import { hydrateRoot } from "react-dom/client";
         import React from "react";

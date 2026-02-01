@@ -7,11 +7,11 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`createContext();`,
-      errors: [{ messageId: "noMissingContextDisplayName" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`const ctx = createContext();`,
-      errors: [{ messageId: "noMissingContextDisplayName" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         const ctx = createContext();
         ctx.displayName = "ctx";
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
         const ctx2 = createContext();
         ctx1.displayName = "ctx";
       `,
-      errors: [{ messageId: "noMissingContextDisplayName" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         const ctx1 = createContext();
         const ctx2 = createContext();
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         const ctx = createContext();
         ctx.displayname = "ctx";
       `,
-      errors: [{ messageId: "noMissingContextDisplayName" }],
+      errors: [{ messageId: "default" }],
       output: tsx`
         const ctx = createContext();
         ctx.displayName = "ctx";
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
         createContext();
         ctx.displayName = "ctx";
       `,
-      errors: [{ messageId: "noMissingContextDisplayName" }],
+      errors: [{ messageId: "default" }],
     },
     {
       // this doesn't make sense, it's just to test the autofixer
@@ -57,8 +57,8 @@ ruleTester.run(RULE_NAME, rule, {
         const { invalid } = createContext();
       `,
       errors: [
-        { messageId: "noMissingContextDisplayName" },
-        { messageId: "noMissingContextDisplayName" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -67,8 +67,8 @@ ruleTester.run(RULE_NAME, rule, {
         const contexts = { a: createContext(), b: createContext() };
       `,
       errors: [
-        { messageId: "noMissingContextDisplayName" },
-        { messageId: "noMissingContextDisplayName" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -77,8 +77,8 @@ ruleTester.run(RULE_NAME, rule, {
         const [a, b] = [createContext(), createContext()];
       `,
       errors: [
-        { messageId: "noMissingContextDisplayName" },
-        { messageId: "noMissingContextDisplayName" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
   ],

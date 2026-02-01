@@ -7,37 +7,37 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
         ;<div {...props}>Children</div>
       `,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         const props = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
         ;<div {...props} />
       `,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
-      errors: [{ messageId: "noDangerouslySetInnerhtmlWithChildren" }],
+      errors: [{ messageId: "default" }],
     },
     {
       // https://github.com/Rel1cx/eslint-react/issues/1163
@@ -59,8 +59,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noDangerouslySetInnerhtmlWithChildren" },
-        { messageId: "noDangerouslySetInnerhtmlWithChildren" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
   ],

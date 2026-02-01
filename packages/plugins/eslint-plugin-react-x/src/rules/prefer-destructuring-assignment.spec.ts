@@ -14,10 +14,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
       ],
     },
@@ -30,10 +30,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
       ],
     },
@@ -45,10 +45,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
       ],
     },
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
       ],
     },
@@ -90,7 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
       ],
     },
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "preferDestructuringAssignment",
+          messageId: "default",
         },
       ],
     },
@@ -131,9 +131,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "preferDestructuringAssignment" },
-        { messageId: "preferDestructuringAssignment" },
-        { messageId: "preferDestructuringAssignment" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -149,7 +149,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "preferDestructuringAssignment" },
+        { messageId: "default" },
       ],
     },
   ],

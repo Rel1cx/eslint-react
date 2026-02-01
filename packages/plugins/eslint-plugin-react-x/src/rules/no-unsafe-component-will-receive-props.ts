@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -9,7 +8,7 @@ export const RULE_NAME = "no-unsafe-component-will-receive-props";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "Warns about the use of 'UNSAFE_componentWillReceiveProps' in class components.",
     },
     messages: {
-      noUnsafeComponentWillReceiveProps: "Do not use 'UNSAFE_componentWillReceiveProps'.",
+      default: "Do not use 'UNSAFE_componentWillReceiveProps'.",
     },
     schema: [],
   },
@@ -42,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           for (const member of body) {
             if (core.isUnsafeComponentWillReceiveProps(member)) {
               context.report({
-                messageId: "noUnsafeComponentWillReceiveProps",
+                messageId: "default",
                 node: member,
               });
             }

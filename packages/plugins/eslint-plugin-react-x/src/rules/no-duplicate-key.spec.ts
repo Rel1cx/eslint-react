@@ -13,19 +13,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
@@ -40,19 +40,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
@@ -99,13 +99,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="1"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="a"',
           },
@@ -122,19 +122,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="foo"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="bar"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="baz"',
           },
@@ -151,19 +151,19 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="foo"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="bar"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="baz"',
           },
@@ -180,13 +180,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="foo"',
           },
         },
         {
-          messageId: "noDuplicateKey",
+          messageId: "default",
           data: {
             value: 'key="baz"',
           },

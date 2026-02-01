@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "UnstableNestedClassComponent",
           },
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noClassComponent",
+        messageId: "default",
         data: {
           name: "UnstableNestedClassComponent",
         },
@@ -73,13 +73,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
         },
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "UnstableNestedClassComponent",
           },
@@ -106,13 +106,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
         },
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "UnstableNestedClassComponent",
           },
@@ -137,7 +137,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
@@ -162,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
@@ -187,7 +187,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
@@ -212,7 +212,7 @@ ruleTester.run(RULE_NAME, rule, {
           `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
@@ -233,7 +233,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
@@ -261,7 +261,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ParentComponent",
           },
@@ -276,7 +276,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ErrorBoundary",
           },
@@ -291,7 +291,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noClassComponent",
+          messageId: "default",
           data: {
             name: "ErrorBoundary",
           },

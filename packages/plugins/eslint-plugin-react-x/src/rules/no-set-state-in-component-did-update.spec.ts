@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noSetStateInComponentDidUpdate" },
+        { messageId: "default" },
       ],
     },
     {
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noSetStateInComponentDidUpdate" },
+        { messageId: "default" },
       ],
     },
   ],

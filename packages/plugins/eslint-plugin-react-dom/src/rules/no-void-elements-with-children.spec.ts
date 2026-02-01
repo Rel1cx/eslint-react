@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<br>Foo</br>;`,
       errors: [
         {
-          messageId: "noVoidElementsWithChildren",
+          messageId: "default",
           data: { elementType: "br" },
         },
       ],
@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<br children="Foo" />;`,
       errors: [
         {
-          messageId: "noVoidElementsWithChildren",
+          messageId: "default",
           data: { elementType: "br" },
         },
       ],
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<img {...props} children="Foo" />;`,
       errors: [
         {
-          messageId: "noVoidElementsWithChildren",
+          messageId: "default",
           data: { elementType: "img" },
         },
       ],
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="img" {...props} children="Foo" />;`,
       errors: [
         {
-          messageId: "noVoidElementsWithChildren",
+          messageId: "default",
           data: { elementType: "img" },
         },
       ],
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
-          messageId: "noVoidElementsWithChildren",
+          messageId: "default",
           data: { elementType: "br" },
         },
       ],

@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noAccessStateInSetstate",
+          messageId: "default",
         },
       ],
     },
@@ -35,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noAccessStateInSetstate",
+          messageId: "default",
         },
       ],
     },
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noAccessStateInSetstate",
+          messageId: "default",
         },
       ],
     },
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noAccessStateInSetstate",
+          messageId: "default",
         },
       ],
     },
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noAccessStateInSetstate",
+          messageId: "default",
         },
       ],
     },

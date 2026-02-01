@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenOnly",
+        messageId: "default",
       }],
     },
     {
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenOnly",
+        messageId: "default",
       }],
     },
     {
@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenOnly",
+        messageId: "default",
       }],
     },
     {
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenOnly",
+        messageId: "default",
       }],
     },
   ],

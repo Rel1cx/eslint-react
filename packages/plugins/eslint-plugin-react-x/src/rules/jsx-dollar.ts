@@ -2,7 +2,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME> | RuleSuggestMessageID;
+export type MessageID = "default" | RuleSuggestMessageID;
 
 export type RuleSuggestMessageID = "removeDollarSign";
 
@@ -25,7 +24,7 @@ export default createRule<[], MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      jsxDollar: "Possible unnecessary '$' character before expression.",
+      default: "Possible unnecessary '$' character before expression.",
       removeDollarSign: "Remove the dollar sign '$' before the expression.",
     },
     schema: [],
@@ -49,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (child.value === "$" && node.children.length === 2) continue;
       const pos = child.loc.end;
       context.report({
-        messageId: "jsxDollar",
+        messageId: "default",
         node: child,
         loc: {
           end: {

@@ -5,7 +5,6 @@ import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -15,7 +14,7 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,7 +24,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noMissingContextDisplayName: "Add missing 'displayName' for context.",
+      default: "Add missing 'displayName' for context.",
     },
     schema: [],
   },
@@ -59,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (id == null) {
           // Report an error if the context is not assigned to a variable
           context.report({
-            messageId: "noMissingContextDisplayName",
+            messageId: "default",
             node: call,
           });
           continue;
@@ -76,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // If no `displayName` is found, report an error and provide a fix
         if (!hasDisplayNameAssignment) {
           context.report({
-            messageId: "noMissingContextDisplayName",
+            messageId: "default",
             node: id,
             fix(fixer) {
               // Ensure the fix is applied correctly

@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ClassComponent" }) },
         },
       ],
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "UnstableNestedClassComponent" }) },
         },
       ],
@@ -79,11 +79,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "UnstableNestedClassComponent" }) },
         },
       ],
@@ -108,11 +108,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "UnstableNestedClassComponent" }) },
         },
       ],
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
@@ -158,7 +158,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
@@ -181,7 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
@@ -204,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
@@ -223,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],
@@ -249,7 +249,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "classComponent",
+          messageId: "default",
           data: { json: stringify({ name: "ParentComponent" }) },
         },
       ],

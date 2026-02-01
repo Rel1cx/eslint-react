@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
         const App = React.memo(() => <div>foo</div>)
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
     {
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
     {
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         const App = React.forwardRef(() => <div>foo</div>)
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
     {
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         const MemoComponent = React.memo(() => <div></div>)
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
     {
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
         const ForwardRefComponent = React.forwardRef(() => <div></div>)
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
     {
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
         const MemoForwardRefComponent = React.memo(forwardRef(() => <div></div>))
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
     {
@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
         const MemoForwardRefComponent = React.memo(React.forwardRef(() => <div></div>))
       `,
       errors: [{
-        messageId: "noMissingComponentDisplayName",
+        messageId: "default",
       }],
     },
   ],

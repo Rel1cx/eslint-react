@@ -5,7 +5,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -14,7 +13,7 @@ export const RULE_NAME = "no-unused-class-component-members";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 type Property =
   | ast.TSESTreeMethodOrProperty["key"]
@@ -62,7 +61,7 @@ export default createRule<[], MessageID>({
       description: "Warns about unused class component methods and properties.",
     },
     messages: {
-      noUnusedClassComponentMembers: "Unused method or property '{{methodName}}'' of class '{{className}}'.",
+      default: "Unused method or property '{{methodName}}'' of class '{{className}}'.",
     },
     schema: [],
   },
@@ -116,7 +115,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       // Report members that are defined but not used
       context.report({
-        messageId: "noUnusedClassComponentMembers",
+        messageId: "default",
         node: def,
         data: {
           className: id != null ? context.sourceCode.getText(id) : "Component",

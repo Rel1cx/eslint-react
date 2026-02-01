@@ -18,9 +18,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -35,9 +35,9 @@ ruleTester.run(RULE_NAME, rule, {
           };
       `,
       errors: [
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
           };
       `,
       errors: [
-        { messageId: "jsxKeyBeforeSpread" },
+        { messageId: "default" },
       ],
     },
     {
@@ -63,8 +63,8 @@ ruleTester.run(RULE_NAME, rule, {
           };
       `,
       errors: [
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
   ],
@@ -162,9 +162,9 @@ ruleTesterWithJsxAutomaticRuntime.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
-        { messageId: "jsxKeyBeforeSpread" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
   ],

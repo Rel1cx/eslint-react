@@ -8,7 +8,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<ns:testcomponent />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "ns:testcomponent",
         },
@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<ns:testComponent />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "ns:testComponent",
         },
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<ns:test_component />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "ns:test_component",
         },
@@ -35,7 +35,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<ns:TestComponent />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "ns:TestComponent",
         },
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<Ns:testcomponent />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "Ns:testcomponent",
         },
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<Ns:testComponent />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "Ns:testComponent",
         },
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<Ns:test_component />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "Ns:test_component",
         },
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<Ns:TestComponent />`,
       errors: [{
-        messageId: "noNamespace",
+        messageId: "default",
         data: {
           name: "Ns:TestComponent",
         },

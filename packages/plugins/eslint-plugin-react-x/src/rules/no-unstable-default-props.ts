@@ -7,7 +7,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -16,7 +15,7 @@ export const RULE_NAME = "no-unstable-default-props";
 
 export const RULE_FEATURES = ["CFG"] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 type Options = readonly [
   {
@@ -50,7 +49,7 @@ export default createRule<Options, MessageID>({
       description: "Prevents using referential-type values as default props in object destructuring.",
     },
     messages: {
-      noUnstableDefaultProps:
+      default:
         "A/an '{{forbiddenType}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{forbiddenType}}'.",
     },
     schema,
@@ -151,7 +150,7 @@ export function create(
           }
           const forbiddenType = ast.toDelimiterFormat(right);
           context.report({
-            messageId: "noUnstableDefaultProps",
+            messageId: "default",
             node: right,
             data: {
               forbiddenType,

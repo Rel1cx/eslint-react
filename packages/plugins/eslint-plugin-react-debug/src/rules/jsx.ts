@@ -3,7 +3,6 @@ import { flow } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 import { P, match } from "ts-pattern";
 import { createRule, stringify } from "../utils";
 
@@ -15,7 +14,7 @@ export const RULE_FEATURES = [
   "DBG",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -24,7 +23,7 @@ export default createRule<[], MessageID>({
       description: "Reports all JSX elements and fragments in JSON format.",
     },
     messages: {
-      jsx: "{{json}}",
+      default: "{{json}}",
     },
     schema: [],
   },
@@ -43,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   function getReportDescriptor(context: RuleContext) {
     return (node: TSESTree.JSXElement | TSESTree.JSXFragment) => ({
-      messageId: "jsx",
+      messageId: "default",
       node,
       data: {
         json: stringify({

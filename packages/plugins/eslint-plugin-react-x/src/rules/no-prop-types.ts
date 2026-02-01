@@ -4,13 +4,12 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-prop-types";
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -22,7 +21,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'propTypes' in favor of TypeScript or another type-checking solution.",
     },
     messages: {
-      noPropTypes: "[Deprecated] Use TypeScript or another type-checking solution instead.",
+      default: "[Deprecated] Use TypeScript or another type-checking solution instead.",
     },
     schema: [],
   },
@@ -59,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const variableNode = getVariableDefinitionNode(variable, 0);
       // If the variable is a function or class component, report the usage of propTypes
       if (variableNode != null && (ast.isFunction(variableNode) || core.isClassComponent(variableNode))) {
-        context.report({ messageId: "noPropTypes", node: property });
+        context.report({ messageId: "default", node: property });
       }
     },
     // Handles cases like: `static propTypes = ...` within a class component
@@ -73,7 +72,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Report the usage of propTypes
-      context.report({ messageId: "noPropTypes", node });
+      context.report({ messageId: "default", node });
     },
   };
 }

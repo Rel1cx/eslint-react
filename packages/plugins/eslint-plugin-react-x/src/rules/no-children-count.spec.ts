@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenCount",
+        messageId: "default",
       }],
     },
     {
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenCount",
+        messageId: "default",
       }],
     },
     {
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenCount",
+        messageId: "default",
       }],
     },
     {
@@ -70,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "noChildrenCount",
+        messageId: "default",
       }],
     },
   ],

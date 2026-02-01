@@ -2,7 +2,6 @@ import * as core from "@eslint-react/core";
 import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -10,7 +9,7 @@ export const RULE_NAME = "no-script-url";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -19,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'javascript:' URLs as attribute values.",
     },
     messages: {
-      noScriptUrl: "Using a `javascript:` URL is a security risk and should be avoided.",
+      default: "Using a `javascript:` URL is a security risk and should be avoided.",
     },
     schema: [],
   },
@@ -35,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const value = core.resolveJsxAttributeValue(context, node).toStatic();
       if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({
-          messageId: "noScriptUrl",
+          messageId: "default",
           node: node.value,
         });
       }

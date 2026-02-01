@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe sandbox="allow-scripts allow-same-origin" />;`,
       errors: [
         {
-          messageId: "noUnsafeIframeSandbox",
+          messageId: "default",
         },
       ],
     },
@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
       errors: [
         {
-          messageId: "noUnsafeIframeSandbox",
+          messageId: "default",
         },
       ],
       settings: {
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "noUnsafeIframeSandbox",
+          messageId: "default",
         },
       ],
     },

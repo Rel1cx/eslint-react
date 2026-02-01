@@ -3,7 +3,7 @@ import tsx from "dedent";
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unstable-default-props";
 
-const MESSAGE_ID = "noUnstableDefaultProps";
+const MESSAGE_ID = "default";
 
 const expectedViolations = [
   {

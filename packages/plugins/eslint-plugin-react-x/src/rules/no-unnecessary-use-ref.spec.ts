@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "noUnnecessaryUseRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "noUnnecessaryUseRef" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -70,8 +70,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noUnnecessaryUseRef" },
-        { messageId: "noUnnecessaryUseRef" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -88,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "noUnnecessaryUseRef" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [

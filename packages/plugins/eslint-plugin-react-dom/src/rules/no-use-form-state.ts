@@ -4,7 +4,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -14,7 +13,7 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -24,7 +23,7 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      noUseFormState: "[Deprecated] Use 'useActionState' from 'react' package instead.",
+      default: "[Deprecated] Use 'useActionState' from 'react' package instead.",
     },
     schema: [],
   },
@@ -53,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case node.callee.type === AST.Identifier
           && useFormStateNames.has(node.callee.name):
           context.report({
-            messageId: "noUseFormState",
+            messageId: "default",
             node,
             fix: getFix(context, node),
           });
@@ -65,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           && node.callee.property.name === "useFormState"
           && reactDomNames.has(node.callee.object.name):
           context.report({
-            messageId: "noUseFormState",
+            messageId: "default",
             node,
             fix: getFix(context, node),
           });

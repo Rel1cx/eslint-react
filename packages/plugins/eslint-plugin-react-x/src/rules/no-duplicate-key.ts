@@ -3,7 +3,6 @@ import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -13,7 +12,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 type KeyedEntry = {
   hasDuplicate: boolean;
@@ -28,7 +27,7 @@ export default createRule<[], MessageID>({
       description: "Prevents duplicate 'key' props on sibling elements when rendering lists.",
     },
     messages: {
-      noDuplicateKey: "The 'key' prop must be unique to its sibling elements.",
+      default: "The 'key' prop must be unique to its sibling elements.",
     },
     schema: [],
   },
@@ -112,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Report an error for each duplicate key found
         for (const key of keys) {
           context.report({
-            messageId: "noDuplicateKey",
+            messageId: "default",
             node: key,
             data: {
               value: context.sourceCode.getText(key),

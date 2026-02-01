@@ -4,7 +4,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -12,7 +11,7 @@ export const RULE_NAME = "no-unnecessary-use-ref";
 
 export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Disallows unnecessary usage of 'useRef'.",
     },
     messages: {
-      noUnnecessaryUseRef: "Unnecessary use of 'useRef'. Instead, co-locate the value inside the effect that uses it.",
+      default: "Unnecessary use of 'useRef'. Instead, co-locate the value inside the effect that uses it.",
     },
     schema: [],
   },
@@ -56,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       if (globalUsages > 0 || effects.size !== 1) return;
       context.report({
-        messageId: "noUnnecessaryUseRef",
+        messageId: "default",
         node: node.parent,
       });
     },

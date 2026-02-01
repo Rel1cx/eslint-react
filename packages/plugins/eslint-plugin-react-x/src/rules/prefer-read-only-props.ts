@@ -4,7 +4,6 @@ import { getConstrainedTypeAtLocation, isTypeReadonly } from "@typescript-eslint
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { getTypeImmutability, isImmutable, isReadonlyDeep, isReadonlyShallow, isUnknown } from "is-immutable-type";
-import type { CamelCase } from "string-ts";
 import { isPropertyReadonlyInType } from "ts-api-utils";
 import type ts from "typescript";
 
@@ -17,7 +16,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,7 +25,7 @@ export default createRule<[], MessageID>({
       description: "Enforces read-only props in components.",
     },
     messages: {
-      preferReadOnlyProps: "A function component's props should be read-only.",
+      default: "A function component's props should be read-only.",
     },
     schema: [],
   },
@@ -57,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (isTypeReadonlyLoose(services, propsType)) continue;
           // @see https://github.com/Rel1cx/eslint-react/issues/1326
           if (propsType.isClassOrInterface() && isClassOrInterfaceReadonlyLoose(checker, propsType)) continue;
-          context.report({ messageId: "preferReadOnlyProps", node: props });
+          context.report({ messageId: "default", node: props });
         }
       },
     },

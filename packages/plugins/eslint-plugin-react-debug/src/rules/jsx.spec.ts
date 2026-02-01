@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsx",
+          messageId: "default",
           data: {
             json: stringify({
               kind: "element",
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsx",
+          messageId: "default",
           data: {
             json: stringify({
               kind: "element",
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "jsx",
+          messageId: "default",
           data: {
             json: stringify({
               kind: "element",

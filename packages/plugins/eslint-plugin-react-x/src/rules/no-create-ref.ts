@@ -2,7 +2,6 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { CamelCase } from "string-ts";
 
 import { createRule } from "../utils";
 
@@ -10,7 +9,7 @@ export const RULE_NAME = "no-create-ref";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = CamelCase<typeof RULE_NAME>;
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -19,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "Disallows 'createRef' in function components.",
     },
     messages: {
-      noCreateRef: "[Deprecated] Use 'useRef' instead.",
+      default: "[Deprecated] Use 'useRef' instead.",
     },
     schema: [],
   },
@@ -32,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       if (core.isCreateRefCall(context, node) && ast.findParentNode(node, core.isClassComponent) == null) {
-        context.report({ messageId: "noCreateRef", node });
+        context.report({ messageId: "default", node });
       }
     },
   };
