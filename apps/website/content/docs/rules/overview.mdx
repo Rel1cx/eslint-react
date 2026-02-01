@@ -46,29 +46,25 @@ full: true
       Component & Hook rules enforce best practices and prevent common mistakes in React component and hook definitions.
     </Callout>
 
-    **Ref:**
-
-    - [`no-create-ref`](./no-create-ref) - Disallows `createRef` in function components
-    - [`no-forward-ref`](./no-forward-ref) - Replaces usage of `forwardRef` with passing `ref` as a prop (🔄 Codemod, `React` >=19.0.0)
-    - [`no-unnecessary-use-ref`](./no-unnecessary-use-ref) - Disallows unnecessary usage of `useRef` (🧪 Experimental)
-    - [`no-useless-forward-ref`](./no-useless-forward-ref) - Disallows useless `forwardRef` calls on components that don't use `ref`s
-
-    **Key:**
+    **Keys & Refs:**
 
     - [`no-array-index-key`](./no-array-index-key) - Disallows using an item's index in the array as its key
+    - [`no-create-ref`](./no-create-ref) - Disallows `createRef` in function components
     - [`no-duplicate-key`](./no-duplicate-key) - Prevents duplicate `key` props on sibling elements when rendering lists
+    - [`no-forward-ref`](./no-forward-ref) - Replaces usage of `forwardRef` with passing `ref` as a prop (🔄 Codemod, `React` >=19.0.0)
     - [`no-implicit-key`](./no-implicit-key) - Prevents `key` from not being explicitly specified (e.g., spreading `key` from objects) (🧪 Experimental)
     - [`no-missing-key`](./no-missing-key) - Disallows missing `key` on items in list rendering
     - [`no-unnecessary-key`](./no-unnecessary-key) - Disallows unnecessary `key` props on nested child elements when rendering lists (🧪 Experimental)
+    - [`no-unnecessary-use-ref`](./no-unnecessary-use-ref) - Disallows unnecessary usage of `useRef` (🧪 Experimental)
+    - [`no-useless-forward-ref`](./no-useless-forward-ref) - Disallows useless `forwardRef` calls on components that don't use `ref`s
 
-    **Context:**
-
-    - [`no-context-provider`](./no-context-provider) - Replaces usage of `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
-    - [`no-use-context`](./no-use-context) - Replaces usage of `useContext` with `use` (🔄 Codemod, `React` >=19.0.0)
-
-    **Children:**
+    **Props & Context**
 
     - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as a prop
+    - [`no-context-provider`](./no-context-provider) - Replaces usage of `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
+    - [`no-unstable-context-value`](./no-unstable-context-value) - Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`
+    - [`no-unstable-default-props`](./no-unstable-default-props) - Prevents using referential-type values as default props in object destructuring (⚙️ Configurable)
+    - [`no-use-context`](./no-use-context) - Replaces usage of `useContext` with `use` (🔄 Codemod, `React` >=19.0.0)
 
     **Rendering:**
 
@@ -81,10 +77,10 @@ full: true
 
     **Performance & Optimization:**
 
-    - [`no-unstable-context-value`](./no-unstable-context-value) - Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`
-    - [`no-unstable-default-props`](./no-unstable-default-props) - Prevents using referential-type values as default props in object destructuring (⚙️ Configurable)
     - [`no-unnecessary-use-callback`](./no-unnecessary-use-callback) - Disallows unnecessary usage of `useCallback` (🧪 Experimental)
     - [`no-unnecessary-use-memo`](./no-unnecessary-use-memo) - Disallows unnecessary usage of `useMemo` (🧪 Experimental)
+    - [`no-unstable-context-value`](./no-unstable-context-value) - Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`
+    - [`no-unstable-default-props`](./no-unstable-default-props) - Prevents using referential-type values as default props in object destructuring (⚙️ Configurable)
     - [`prefer-use-state-lazy-initialization`](./prefer-use-state-lazy-initialization) - Enforces wrapping function calls made inside `useState` in an `initializer function`
 
     **Legacy Children APIs:**
