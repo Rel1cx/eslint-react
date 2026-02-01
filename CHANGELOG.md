@@ -1,3 +1,18 @@
+## v2.8.4 (2026-02-01)
+
+### 🐞 Fixes
+
+- Change status of `jsx-shorthand-boolean` rule in migration table by @connorshea in https://github.com/Rel1cx/eslint-react/pull/1446
+- Fix rule name in docs for `debug/is-from-ref` by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1445
+- Fix rule name in docs for `no-non-async-server-functions` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1447
+- Mark `no-non-async-server-functions` as experimental by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1448
+
+## New Contributors
+
+- @connorshea made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1446
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.8.3...v2.8.4
+
 ## v2.8.3 (2026-02-01)
 
 ### ✨ New
