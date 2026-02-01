@@ -10,7 +10,7 @@ body:
         ## Feature Request
 
         > [!NOTE]
-        > If you want to request a new rule, please use the [Rule Request](https://github.com/Rel1cx/eslint-react/issues/new?template=rule_request.yml) template instead.
+        > You can use Feature Request to suggest a new rule, but compared to [Rule Request](https://github.com/Rel1cx/eslint-react/issues/new?template=rule_request.yml), it takes longer to evaluate and has a lower implementation priority.
 
         Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
   - type: textarea
