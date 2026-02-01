@@ -1,0 +1,108 @@
+---
+title: no-non-async-server-functions
+---
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```plain copy
+@eslint-react/no-non-async-server-functions.spec
+```
+
+**Full Name in `eslint-plugin-react-x`**
+
+```plain copy
+react-x/no-non-async-server-functions.spec
+```
+
+## Description
+
+Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions).
+
+## Examples
+
+### Failing
+
+```tsx
+'use server';
+
+export function serverFunction1() {
+  // ...
+}
+
+export const serverFunction2 = function() {
+  // ...
+};
+
+export const serverFunction3 = () => {
+  // ...
+};
+```
+
+```tsx
+export function Component() {
+  function serverFunction1() {
+    'use server';
+    // ...
+  }
+
+  const serverFunction2 = function() {
+    'use server';
+    // ...
+  };
+
+  const serverFunction3 = () => {
+    'use server';
+    // ...
+  };
+
+  return <div>...</div>;
+}
+```
+
+### Passing
+
+```tsx
+'use server';
+
+export async function serverFunction1() {
+  // ...
+}
+
+export const serverFunction2 = async function() {
+  // ...
+};
+
+export const serverFunction3 = async () => {
+  // ...
+};
+```
+
+```tsx
+export function Component() {
+  async function serverFunction1() {
+    'use server';
+    // ...
+  }
+
+  const serverFunction2 = async function() {
+    'use server';
+    // ...
+  };
+
+  const serverFunction3 = async () => {
+    'use server';
+    // ...
+  };
+
+  return <div>...</div>;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-non-async-server-functions.spec.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-non-async-server-functions.spec.spec.ts)
+
+## Further Reading
+
+- [Next.js Docs: Invalid "use server" Value](https://nextjs.org/docs/messages/invalid-use-server-value).
