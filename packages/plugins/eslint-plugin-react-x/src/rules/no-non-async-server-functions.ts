@@ -2,14 +2,16 @@ import * as ast from "@eslint-react/ast";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-non-async-server-functions";
 
 export type MessageID = "default";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,6 +20,7 @@ export default createRule<[], MessageID>({
       description:
         "Enforces that server functions are async. If a file has a top-level 'use server' directive, exported functions/methods must be async. Functions with their own 'use server' directive must also be async.",
     },
+    fixable: "code",
     messages: {
       default: "Server functions must be async.",
     },
@@ -41,10 +44,27 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param node The function node to check
    * @returns Whether a report was made
    */
+  function getAsyncFix(node: TSESTree.Node) {
+    // Function declarations/expressions: insert before "function" token
+    if (node.type === AST.FunctionDeclaration || node.type === AST.FunctionExpression) {
+      const fnToken = context.sourceCode.getFirstToken(node);
+      if (fnToken != null) {
+        return (fixer: RuleFixer) => fixer.insertTextBefore(fnToken, "async ");
+      }
+      return null;
+    }
+    // Arrow functions: insert before the node (before parameters)
+    if (node.type === AST.ArrowFunctionExpression) {
+      return (fixer: RuleFixer) => fixer.insertTextBefore(node, "async ");
+    }
+    // Default: no fix available
+    return null;
+  }
+
   function reportNonAsyncFunction(node: TSESTree.Node | undefined | null) {
     if (!ast.isFunction(node)) return false;
     if (!node.async) {
-      context.report({ messageId: "default", node });
+      context.report({ messageId: "default", node, fix: getAsyncFix(node) });
       return true;
     }
     return false;
@@ -73,6 +93,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ) {
     const variable = findVariable(id.name, context.sourceCode.getScope(node));
     const variableNode = getVariableDefinitionNode(variable, 0);
+    if (variableNode == null) return;
     reportNonAsyncFunction(variableNode);
   }
 

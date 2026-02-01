@@ -13,6 +13,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        'use server';
+        export async function serverFunction() {
+          return 42;
+        }
+      `,
     },
     {
       code: tsx`
@@ -22,6 +28,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        'use server';
+        export default async function serverFunction() {
+          return 42;
+        }
+      `,
     },
     {
       code: tsx`
@@ -32,15 +44,13 @@ ruleTester.run(RULE_NAME, rule, {
         export { serverFunction };
       `,
       errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
+      output: tsx`
         'use server';
-        export const serverFunction = () => {
+        async function serverFunction() {
           return 42;
         }
+        export { serverFunction };
       `,
-      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
@@ -51,6 +61,28 @@ ruleTester.run(RULE_NAME, rule, {
         export { serverFunction };
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        'use server';
+        const serverFunction = async () => {
+          return 42;
+        }
+        export { serverFunction };
+      `,
+    },
+    {
+      code: tsx`
+        'use server';
+        export const serverFunction = () => {
+          return 42;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        'use server';
+        export const serverFunction = async () => {
+          return 42;
+        }
+      `,
     },
     {
       code: tsx`
@@ -61,6 +93,13 @@ ruleTester.run(RULE_NAME, rule, {
         export default serverFunction;
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        'use server';
+        const serverFunction = async () => {
+          return 42;
+        }
+        export default serverFunction;
+      `,
     },
     {
       code: tsx`
@@ -70,6 +109,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        async function serverFunction() {
+          'use server';
+          return 42;
+        }
+      `,
     },
     {
       code: tsx`
@@ -79,6 +124,12 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        const serverFunction = async () => {
+          'use server';
+          return 42;
+        }
+      `,
     },
     {
       code: tsx`
@@ -92,6 +143,16 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        export function Component() {
+          async function serverFunction() {
+            'use server';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
     },
     {
       code: tsx`
@@ -105,6 +166,16 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        export const Component = () => {
+          async function serverFunction() {
+            'use server';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
     },
     {
       code: tsx`
@@ -118,6 +189,16 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        export function Component() {
+          const serverFunction = async () => {
+            'use server';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
     },
     {
       code: tsx`
@@ -131,6 +212,16 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "default" }],
+      output: tsx`
+        export const Component = () => {
+          const serverFunction = async () => {
+            'use server';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
     },
   ],
   valid: [
