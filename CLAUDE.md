@@ -157,6 +157,7 @@ Rules follow a consistent pattern:
 5. Export the rule as default
 
 Example structure:
+
 ```typescript
 import * as core from "@eslint-react/core";
 import { createRule } from "../utils";
@@ -166,7 +167,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 export type MessageID = "messageId";
 
 export default createRule<[], MessageID>({
-  meta: { /* ... */ },
+  meta: {/* ... */},
   create(context) {
     // Rule implementation
   },
