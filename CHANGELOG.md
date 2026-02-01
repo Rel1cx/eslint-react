@@ -1,3 +1,11 @@
+## v2.8.3 (2026-02-01)
+
+### ✨ New
+
+- feat(#1435): implements `no-non-async-server-functions` by @SukkaW in https://github.com/Rel1cx/eslint-react/pull/1443
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.8.1...v2.8.3
+
 ## v2.8.1 (2026-01-29)
 
 ### ✨ New
