@@ -17,8 +17,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that server functions are async. If a file has a top-level 'use server' directive, exported functions/methods must be async. Functions with their own 'use server' directive must also be async.",
+      description: "Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions).",
     },
     fixable: "code",
     messages: {
