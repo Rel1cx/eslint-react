@@ -134,7 +134,7 @@ full: true
       RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
     </Callout>
 
-    - [`no-non-async-server-functions`](./no-non-async-server-functions) - Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions) (🔧 Fixable)
+    - [`no-non-async-server-functions`](./no-non-async-server-functions) - Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions) (🔧 Fixable, 🧪 Experimental)
 
     ## DOM Rules
 
@@ -264,7 +264,7 @@ full: true
     | [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack)                 | 0️⃣ 2️⃣ |    `🧪`   | Prevents incorrect usage of `captureOwnerStack`                                                                               |          |
     | [`no-nested-component-definitions`](no-nested-component-definitions)               | 2️⃣ 2️⃣ |           | Disallows nesting component definitions inside other components                                                               |          |
     | [`no-nested-lazy-component-declarations`](no-nested-lazy-component-declarations)   | 2️⃣ 2️⃣ |           | Disallows nesting lazy component declarations inside other components                                                         |          |
-    | [`no-non-async-server-functions`](no-non-async-server-functions)                   | 0️⃣ 0️⃣ |    `🔧`   | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                |          |
+    | [`no-non-async-server-functions`](no-non-async-server-functions)                   | 0️⃣ 0️⃣ | `🔧` `🧪` | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                |          |
     | [`no-prop-types`](no-prop-types)                                                   | 2️⃣ 2️⃣ |           | Disallows `propTypes` in favor of TypeScript or another type-checking solution                                                |          |
     | [`no-redundant-should-component-update`](no-redundant-should-component-update)     | 2️⃣ 2️⃣ |           | Disallows `shouldComponentUpdate` when extending `React.PureComponent`                                                        |          |
     | [`no-set-state-in-component-did-mount`](no-set-state-in-component-did-mount)       | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks                                  |          |
