@@ -36,11 +36,6 @@ export default defineConfig(
 );
 ```
 
-> [!NOTE]
-> Extended hooks rules that supplement the official `eslint-plugin-react-hooks` with additional patterns.
-
-- [`no-direct-set-state-in-use-effect`](./hooks-extra-no-direct-set-state-in-use-effect) - Disallows direct `setState` calls in `useEffect` (🧪 Experimental)
-
 ## Rules
 
 <https://eslint-react.xyz/docs/rules/overview#hooks-extra-rules>

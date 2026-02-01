@@ -38,15 +38,6 @@ export default defineConfig(
 );
 ```
 
-> [!NOTE]
-> Naming convention rules enforce consistent naming patterns for `React` entities.
-
-- [`component-name`](./naming-convention-component-name) - Enforces naming conventions for components (⚙️ Configurable)
-- [`context-name`](./naming-convention-context-name) - Enforces context names ending with `Context` suffix
-- [`filename`](./naming-convention-filename) - Enforces consistent file naming (⚙️ Configurable)
-- [`filename-extension`](./naming-convention-filename-extension) - Enforces `JSX` file extensions (⚙️ Configurable)
-- [`use-state`](./naming-convention-use-state) - Enforces symmetric naming of `useState` pairs (e.g., `[value, setValue]`)
-
 ## Rules
 
 <https://eslint-react.xyz/docs/rules/overview#naming-convention-rules>
