@@ -753,9 +753,6 @@ importers:
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
-      string-ts:
-        specifier: ^2.3.1
-        version: 2.3.1
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -808,9 +805,6 @@ importers:
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
-      string-ts:
-        specifier: ^2.3.1
-        version: 2.3.1
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -863,9 +857,6 @@ importers:
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
-      string-ts:
-        specifier: ^2.3.1
-        version: 2.3.1
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -976,9 +967,6 @@ importers:
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
-      string-ts:
-        specifier: ^2.3.1
-        version: 2.3.1
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -1037,9 +1025,6 @@ importers:
       is-immutable-type:
         specifier: ^5.0.1
         version: 5.0.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      string-ts:
-        specifier: ^2.3.1
-        version: 2.3.1
       ts-api-utils:
         specifier: ^2.4.0
         version: 2.4.0(typescript@5.9.3)
