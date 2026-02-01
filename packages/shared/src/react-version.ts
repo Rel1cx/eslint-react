@@ -6,6 +6,11 @@ import { P, match } from "ts-pattern";
 
 const _require = module.createRequire(process.cwd() + path.sep);
 
+/**
+ * Gets the React version from the project's dependencies.
+ * @param fallback The fallback version to return if React is not found.
+ * @returns The detected React version or the fallback version.
+ */
 export function getReactVersion(fallback: string): string {
   try {
     return match(_require("react"))

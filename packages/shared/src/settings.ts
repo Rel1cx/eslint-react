@@ -58,7 +58,15 @@ export const ESLintSettingsSchema = z.optional(
 );
 
 // ===== Type Definitions =====
+
+/**
+ * ESLint settings type inferred from the settings schema.
+ */
 export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
+
+/**
+ * ESLint React settings type inferred from the React settings schema.
+ */
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 
 /**

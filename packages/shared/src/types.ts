@@ -51,11 +51,20 @@ export type RuleFeature =
   | "TSC" // TypeScript Type Checking
   | "EXP"; // Experimental
 
+/**
+ * The numeric policy value for a rule (severity level).
+ */
 export type RulePolicy = number;
 
+/**
+ * A suggestion for fixing a reported issue.
+ */
 export type RuleSuggest<MessageIds extends string = string> = {
+  /** The message ID for the suggestion. */
   messageId: MessageIds;
+  /** Optional data to pass to the message formatter. */
   data?: Record<string, unknown>;
+  /** The fix function to apply the suggestion. */
   fix: tseslint.ReportFixFunction;
 };
 
@@ -72,6 +81,10 @@ export interface SettingsConfig {
  * See https://github.com/typescript-eslint/typescript-eslint/issues/10899
  */
 
+/**
+ * A rule with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
+ * Intentionally wide/inaccurate for compatibility purposes.
+ */
 export interface CompatibleRule {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   meta: Record<string, any>;
@@ -79,6 +92,10 @@ export interface CompatibleRule {
   create: (...args: any[]) => any;
 }
 
+/**
+ * A plugin with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
+ * Intentionally wide/inaccurate for compatibility purposes.
+ */
 export interface CompatiblePlugin {
   meta: {
     name: string;
@@ -87,8 +104,15 @@ export interface CompatiblePlugin {
   rules: Record<string, CompatibleRule>;
 }
 
+/**
+ * A configuration object with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
+ * Intentionally wide/inaccurate for compatibility purposes.
+ */
 export interface CompatibleConfig {
+  /** Optional configuration name. */
   name?: string;
+  /** Rule configurations. */
   rules?: Record<string, RuleConfig>;
+  /** Shared settings. */
   settings?: SettingsConfig;
 }
