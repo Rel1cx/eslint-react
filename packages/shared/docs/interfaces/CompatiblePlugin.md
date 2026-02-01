@@ -2,6 +2,9 @@
 
 # Interface: CompatiblePlugin
 
+A plugin with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
+Intentionally wide/inaccurate for compatibility purposes.
+
 ## Properties
 
 | Property | Type |

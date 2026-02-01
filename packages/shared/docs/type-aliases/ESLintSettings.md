@@ -5,3 +5,5 @@
 ```ts
 type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
 ```
+
+ESLint settings type inferred from the settings schema.

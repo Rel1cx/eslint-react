@@ -5,3 +5,5 @@
 ```ts
 type RulePolicy = number;
 ```
+
+The numeric policy value for a rule (severity level).

@@ -10,6 +10,8 @@ type RuleSuggest<MessageIds> = {
 };
 ```
 
+A suggestion for fixing a reported issue.
+
 ## Type Parameters
 
 | Type Parameter | Default type |
@@ -18,8 +20,8 @@ type RuleSuggest<MessageIds> = {
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="data"></a> `data?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `unknown`\> |
-| <a id="fix"></a> `fix` | `tseslint.ReportFixFunction` |
-| <a id="messageid"></a> `messageId` | `MessageIds` |
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="data"></a> `data?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `unknown`\> | Optional data to pass to the message formatter. |
+| <a id="fix"></a> `fix` | `tseslint.ReportFixFunction` | The fix function to apply the suggestion. |
+| <a id="messageid"></a> `messageId` | `MessageIds` | The message ID for the suggestion. |

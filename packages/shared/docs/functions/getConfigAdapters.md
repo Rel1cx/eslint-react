@@ -20,12 +20,14 @@ function getConfigAdapters(pluginName: string, plugin: CompatiblePlugin): {
 };
 ```
 
+Get configuration adapters for converting between flat and legacy config formats
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `pluginName` | `string` |
-| `plugin` | [`CompatiblePlugin`](../interfaces/CompatiblePlugin.md) |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `pluginName` | `string` | The name of the plugin |
+| `plugin` | [`CompatiblePlugin`](../interfaces/CompatiblePlugin.md) | The plugin instance |
 
 ## Returns
 
@@ -46,6 +48,8 @@ function getConfigAdapters(pluginName: string, plugin: CompatiblePlugin): {
   };
 }
 ```
+
+Object with toFlatConfig and toLegacyConfig functions
 
 | Name | Type |
 | ------ | ------ |
