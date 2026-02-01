@@ -8,6 +8,7 @@ export const rules = {
   "react-debug/function-component": "warn",
   "react-debug/hook": "warn",
   "react-debug/is-from-react": "warn",
+  "react-debug/is-from-ref": "warn",
   "react-debug/jsx": "warn",
 } as const satisfies Record<string, RuleConfig>;
 

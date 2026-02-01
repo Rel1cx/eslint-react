@@ -6,13 +6,17 @@
 function report(context: RuleContext): (descriptor?: ReportDescriptor<string> | null) => void;
 ```
 
+Creates a report function for the given rule context.
+
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | [`RuleContext`](../type-aliases/RuleContext.md) |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | [`RuleContext`](../type-aliases/RuleContext.md) | The ESLint rule context. |
 
 ## Returns
+
+A function that can be used to report violations.
 
 ```ts
 (descriptor?: ReportDescriptor<string> | null): void;

@@ -10,9 +10,9 @@
 
 | Interface | Description |
 | ------ | ------ |
-| [CompatibleConfig](interfaces/CompatibleConfig.md) | - |
-| [CompatiblePlugin](interfaces/CompatiblePlugin.md) | - |
-| [CompatibleRule](interfaces/CompatibleRule.md) | - |
+| [CompatibleConfig](interfaces/CompatibleConfig.md) | A configuration object with a compatible shape for use with `defineConfig()` and `tseslint.config()`. Intentionally wide/inaccurate for compatibility purposes. |
+| [CompatiblePlugin](interfaces/CompatiblePlugin.md) | A plugin with a compatible shape for use with `defineConfig()` and `tseslint.config()`. Intentionally wide/inaccurate for compatibility purposes. |
+| [CompatibleRule](interfaces/CompatibleRule.md) | A rule with a compatible shape for use with `defineConfig()` and `tseslint.config()`. Intentionally wide/inaccurate for compatibility purposes. |
 | [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md) | Normalized ESLint React settings with processed values |
 | [SettingsConfig](interfaces/SettingsConfig.md) | A collection of settings. |
 
@@ -20,13 +20,13 @@
 
 | Type Alias | Description |
 | ------ | ------ |
-| [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | - |
-| [ESLintSettings](type-aliases/ESLintSettings.md) | - |
+| [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | ESLint React settings type inferred from the React settings schema. |
+| [ESLintSettings](type-aliases/ESLintSettings.md) | ESLint settings type inferred from the settings schema. |
 | [RegExpLike](type-aliases/RegExpLike.md) | A type represents RegExp-like object with `test` method. |
 | [RuleContext](type-aliases/RuleContext.md) | Rule context. |
 | [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
-| [RulePolicy](type-aliases/RulePolicy.md) | - |
-| [RuleSuggest](type-aliases/RuleSuggest.md) | - |
+| [RulePolicy](type-aliases/RulePolicy.md) | The numeric policy value for a rule (severity level). |
+| [RuleSuggest](type-aliases/RuleSuggest.md) | A suggestion for fixing a reported issue. |
 | [Severity](type-aliases/Severity.md) | The severity of a rule in a configuration. |
 | [SeverityLevel](type-aliases/SeverityLevel.md) | The numeric severity level for a rule. |
 | [SeverityName](type-aliases/SeverityName.md) | Rule severity. |
@@ -69,12 +69,12 @@
 | [decodeESLintSettings](functions/decodeESLintSettings.md) | Decodes and validates ESLint settings, using defaults if invalid |
 | [decodeSettings](functions/decodeSettings.md) | Decodes and validates ESLint React settings, using defaults if invalid |
 | [defineRuleListener](functions/defineRuleListener.md) | Defines a rule listener by merging multiple visitor objects |
-| [getConfigAdapters](functions/getConfigAdapters.md) | - |
-| [getReactVersion](functions/getReactVersion.md) | - |
+| [getConfigAdapters](functions/getConfigAdapters.md) | Get configuration adapters for converting between flat and legacy config formats |
+| [getReactVersion](functions/getReactVersion.md) | Gets the React version from the project's dependencies. |
 | [getSettingsFromContext](functions/getSettingsFromContext.md) | Retrieves normalized ESLint React settings from the rule context Uses caching for performance optimization |
 | [isESLintReactSettings](functions/isESLintReactSettings.md) | Check if the provided settings conform to ESLintReactSettings schema |
 | [isESLintSettings](functions/isESLintSettings.md) | Check if the provided settings conform to ESLintSettings schema |
 | [isRegExp](functions/isRegExp.md) | Check whether given string is regexp string |
 | [normalizeSettings](functions/normalizeSettings.md) | Normalizes ESLint React settings to a consistent internal format Transforms component definitions and resolves version information |
-| [report](functions/report.md) | - |
+| [report](functions/report.md) | Creates a report function for the given rule context. |
 | [toRegExp](functions/toRegExp.md) | Convert a string to the `RegExp`. Normal strings (e.g., `"foo"`) is converted to `/^foo$/` of `RegExp`. Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`. |
