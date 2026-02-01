@@ -48,8 +48,6 @@ full: true
       Component & Hook rules enforce best practices and prevent common mistakes in React component and hook definitions.
     </Callout>
 
-    **Key Rule Groups:**
-
     **React 19 Migrations:**
 
     - [`no-context-provider`](./no-context-provider) - Replaces usage of `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
@@ -154,8 +152,6 @@ full: true
       Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
     </Callout>
 
-    Implemented Rules:
-
     - [`no-leaked-event-listener`](./web-api-no-leaked-event-listener) - Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`
     - [`no-leaked-interval`](./web-api-no-leaked-interval) - Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`
     - [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer) - Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`
@@ -245,7 +241,7 @@ full: true
     | [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack)                 | 0️⃣ 2️⃣ |    `🧪`   | Prevents incorrect usage of `captureOwnerStack`                                                                               |          |
     | [`no-nested-component-definitions`](no-nested-component-definitions)               | 2️⃣ 2️⃣ |           | Disallows nesting component definitions inside other components                                                               |          |
     | [`no-nested-lazy-component-declarations`](no-nested-lazy-component-declarations)   | 2️⃣ 2️⃣ |           | Disallows nesting lazy component declarations inside other components                                                         |          |
-    | [`no-non-async-server-functions`](no-non-async-server-functions)                  | 2️⃣ 2️⃣ |           | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                 |          |
+    | [`no-non-async-server-functions`](no-non-async-server-functions)                   | 2️⃣ 2️⃣ |           | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                |          |
     | [`no-prop-types`](no-prop-types)                                                   | 2️⃣ 2️⃣ |           | Disallows `propTypes` in favor of TypeScript or another type-checking solution                                                |          |
     | [`no-redundant-should-component-update`](no-redundant-should-component-update)     | 2️⃣ 2️⃣ |           | Disallows `shouldComponentUpdate` when extending `React.PureComponent`                                                        |          |
     | [`no-set-state-in-component-did-mount`](no-set-state-in-component-did-mount)       | 1️⃣ 1️⃣ |           | Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks                                  |          |
