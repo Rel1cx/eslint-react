@@ -62,9 +62,14 @@ full: true
 
     - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as a prop
     - [`no-context-provider`](./no-context-provider) - Replaces usage of `<Context.Provider>` with `<Context>` (🔄 Codemod, `React` >=19.0.0)
+    - [`no-default-props`](./no-default-props) - Disallows the `defaultProps` property in favor of ES6 default parameters
+    - [`no-prop-types`](./no-prop-types) - Disallows `propTypes` in favor of TypeScript or another type-checking solution
     - [`no-unstable-context-value`](./no-unstable-context-value) - Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`
     - [`no-unstable-default-props`](./no-unstable-default-props) - Prevents using referential-type values as default props in object destructuring (⚙️ Configurable)
+    - [`no-unused-props`](./no-unused-props) - Warns about component props that are defined but never used (💭 Type Checking, 🧪 Experimental)
     - [`no-use-context`](./no-use-context) - Replaces usage of `useContext` with `use` (🔄 Codemod, `React` >=19.0.0)
+    - [`prefer-destructuring-assignment`](./prefer-destructuring-assignment) - Enforces destructuring assignment for component props and context
+    - [`prefer-read-only-props`](./prefer-read-only-props) - Enforces read-only props in components (💭 Type Checking, 🧪 Experimental)
 
     **Rendering:**
 
@@ -82,6 +87,10 @@ full: true
     - [`no-unstable-context-value`](./no-unstable-context-value) - Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`
     - [`no-unstable-default-props`](./no-unstable-default-props) - Prevents using referential-type values as default props in object destructuring (⚙️ Configurable)
     - [`prefer-use-state-lazy-initialization`](./prefer-use-state-lazy-initialization) - Enforces wrapping function calls made inside `useState` in an `initializer function`
+
+    **Legacy Element APIs:**
+
+    - [`no-clone-element`](./no-clone-element) - Disallows `cloneElement`
 
     **Legacy Children APIs:**
 
@@ -103,6 +112,7 @@ full: true
     - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount) - Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks
     - [`no-set-state-in-component-did-update`](./no-set-state-in-component-did-update) - Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks
     - [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update) - Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks
+    - [`no-string-refs`](./no-string-refs) - Replaces string refs with callback refs (🔄 Codemod, `React` >=16.3.0)
     - [`no-unsafe-component-will-mount`](./no-unsafe-component-will-mount) - Warns about the use of `UNSAFE_componentWillMount` in class components
     - [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props) - Warns about the use of `UNSAFE_componentWillReceiveProps` in class components
     - [`no-unsafe-component-will-update`](./no-unsafe-component-will-update) - Warns about the use of `UNSAFE_componentWillUpdate` in class components
@@ -111,19 +121,12 @@ full: true
 
     **Miscellaneous**
 
-    - [`no-children-prop`](./no-children-prop) - Disallows passing `children` as a prop
-    - [`no-default-props`](./no-default-props) - Disallows the `defaultProps` property in favor of ES6 default parameters
     - [`no-missing-component-display-name`](./no-missing-component-display-name) - Enforces that all components have a `displayName` that can be used in DevTools
     - [`no-missing-context-display-name`](./no-missing-context-display-name) - Enforces that all contexts have a `displayName` that can be used in DevTools (🔧 Fixable)
     - [`no-misused-capture-owner-stack`](no-misused-capture-owner-stack) - Prevents incorrect usage of `captureOwnerStack` (🧪 Experimental)
-    - [`no-prop-types`](./no-prop-types) - Disallows `propTypes` in favor of TypeScript or another type-checking solution
-    - [`no-string-refs`](./no-string-refs) - Replaces string refs with callback refs (🔄 Codemod, `React` >=16.3.0)
     - [`no-unnecessary-use-prefix`](./no-unnecessary-use-prefix) - Enforces that a function with the `use` prefix uses at least one Hook inside it
-    - [`no-unused-props`](./no-unused-props) - Warns about component props that are defined but never used (💭 Type Checking, 🧪 Experimental)
     - [`no-useless-fragment`](./no-useless-fragment) - Disallows useless fragment elements (🔧 Fixable, ⚙️ Configurable)
-    - [`prefer-destructuring-assignment`](./prefer-destructuring-assignment) - Enforces destructuring assignment for component props and context
     - [`prefer-namespace-import`](./prefer-namespace-import) - Enforces importing React via a namespace import
-    - [`prefer-read-only-props`](./prefer-read-only-props) - Enforces read-only props in components (💭 Type Checking, 🧪 Experimental)
 
     ## RSC Rules
 
