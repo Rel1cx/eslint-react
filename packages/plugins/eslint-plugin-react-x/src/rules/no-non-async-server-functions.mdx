@@ -14,9 +14,15 @@ title: no-non-async-server-functions
 react-x/no-non-async-server-functions.spec
 ```
 
+**Features**
+
+`🔧`
+
 ## Description
 
 Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions).
+
+If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
 
 ## Examples
 
