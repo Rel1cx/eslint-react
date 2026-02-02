@@ -6,12 +6,12 @@ title: Changelog
 
 ### ✨ New
 
-- Migrate `no-non-async-server-functions` rule to `rsc/function-definition` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1450
-- Add a new `eslint-plugin-react-rsc` sub-plugin for React Server Components (RSC) rules.
-- Add a new `rsc` preset to enable RSC rules.
-- Add a new `disable-rsc` preset to disable RSC rules.
+- Migrate `no-non-async-server-functions` rule to `rsc/function-definition` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1457
+- Add a new `eslint-plugin-react-rsc` sub-plugin for React Server Components (RSC) rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1457
+- Add a new `rsc` preset to enable RSC rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1457
+- Add a new `disable-rsc` preset to disable RSC rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1457
 
-### 🐞 Fixes
+### 🪄 Improvements
 
 - Move grouped docs from the global overview to per-plugin READMEs by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1449
 

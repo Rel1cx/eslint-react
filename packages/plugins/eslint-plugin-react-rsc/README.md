@@ -40,6 +40,6 @@ export default defineConfig(
   RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
 </Callout>
 
-- [`function-definition`](https://eslint-react.xyz/docs/rules/rsc-function-definition) - Validate and transform React Server/Client Function definitions. (🔧 Fixable, 🧪 Experimental)
+- [`function-definition`](https://eslint-react.xyz/docs/rules/rsc-function-definition) - Validate and transform React Client/Server Function definitions. (🔧 Fixable, 🧪 Experimental)
 
 <https://eslint-react.xyz/docs/rules/overview#rsc-rules>
