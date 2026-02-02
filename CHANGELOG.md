@@ -1,6 +1,6 @@
 ## v2.9.3 (2026-02-02)
 
-### ✨ New
+### 🪄 Improvements
 
 - Deprecated `no-default-props` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
 - Deprecated `no-prop-types` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
