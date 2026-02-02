@@ -14,4 +14,5 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/no-unnecessary-use-ref": "off",
   "@eslint-react/no-unused-props": "off",
   "@eslint-react/prefer-read-only-props": "off",
+  "@eslint-react/rsc-no-misused-use-server": "off",
 };

@@ -1,5 +1,5 @@
 ---
-title: no-non-async-server-functions
+title: rsc-no-misused-use-server
 ---
 
 <Callout type="warning">This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.</Callout>
@@ -7,13 +7,13 @@ title: no-non-async-server-functions
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/no-non-async-server-functions
+@eslint-react/rsc-no-misused-use-server
 ```
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
-react-x/no-non-async-server-functions
+react-x/rsc-no-misused-use-server
 ```
 
 **Features**
@@ -22,9 +22,11 @@ react-x/no-non-async-server-functions
 
 ## Description
 
-Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions).
+Checks against misused `'use server'` directive.
 
-If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
+It includes the following checks:
+
+1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
 
 ## Examples
 
@@ -108,8 +110,8 @@ export function Component() {
 
 ## Implementation
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-non-async-server-functions.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-non-async-server-functions.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/rsc-no-misused-use-server.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/rsc-no-misused-use-server.spec.ts)
 
 ## Further Reading
 

@@ -46,7 +46,6 @@ export const rules = {
   "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-nested-lazy-component-declarations": "error",
-  "@eslint-react/no-non-async-server-functions": "error",
   "@eslint-react/no-prop-types": "error",
   "@eslint-react/no-redundant-should-component-update": "error",
   "@eslint-react/no-set-state-in-component-did-mount": "warn",
@@ -72,6 +71,7 @@ export const rules = {
   "@eslint-react/prefer-namespace-import": "warn",
   "@eslint-react/prefer-read-only-props": "off",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
+  "@eslint-react/rsc-no-misused-use-server": "error",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",

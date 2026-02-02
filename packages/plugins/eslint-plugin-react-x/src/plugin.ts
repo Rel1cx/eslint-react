@@ -39,7 +39,6 @@ import noMissingKey from "./rules/no-missing-key";
 import noMisusedCaptureOwnerStack from "./rules/no-misused-capture-owner-stack";
 import noNestedComponentDefinitions from "./rules/no-nested-component-definitions";
 import noNestedLazyComponentDeclarations from "./rules/no-nested-lazy-component-declarations";
-import noNonAsyncServerFunctions from "./rules/no-non-async-server-functions";
 import noPropTypes from "./rules/no-prop-types";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
@@ -66,6 +65,7 @@ import preferDestructuringAssignment from "./rules/prefer-destructuring-assignme
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
+import noNonAsyncServerFunctions from "./rules/rsc-no-misused-use-server";
 
 import noForbiddenProps from "./rules-removed/no-forbidden-props";
 
@@ -113,7 +113,6 @@ export const plugin: CompatiblePlugin = {
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
     "no-prop-types": noPropTypes,
-    "no-non-async-server-functions": noNonAsyncServerFunctions,
     "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
@@ -139,6 +138,7 @@ export const plugin: CompatiblePlugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
+    "rsc-no-misused-use-server": noNonAsyncServerFunctions,
 
     /**
      * @deprecated Use no-restricted-syntax or type checking instead.
