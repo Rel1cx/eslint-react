@@ -1,3 +1,15 @@
+## v2.9.1 (2026-02-02)
+
+### 🐞 Fixes
+
+- Fix directives checks by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1461
+
+### 🪄 Improvements
+
+- Separate message ids for `rsc/function-definition` by @SukkaW in https://github.com/Rel1cx/eslint-react/pull/1460
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.9.0...v2.9.1
+
 ## v2.9.0 (2026-02-02)
 
 ### ✨ New
