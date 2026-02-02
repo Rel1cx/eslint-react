@@ -81,7 +81,7 @@ export function create(
 ): RuleListener {
   // If "use memo" directive is present in the file, skip analysis
   const directives = ast.getFileDirectives(context.sourceCode.ast);
-  if (directives.some((d) => d.expression.value === "use memo")) return {};
+  if (directives.some((d) => d.directive === "use memo")) return {};
 
   const { ctx, visitor } = core.useComponentCollector(context);
   const declarators = new WeakMap<

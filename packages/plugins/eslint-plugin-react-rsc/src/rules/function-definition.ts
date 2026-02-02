@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("use server")) return {};
 
   const hasFileLevelUseServerDirective = ast.getFileDirectives(context.sourceCode.ast)
-    .some((d) => d.expression.value === "use server");
+    .some((d) => d.directive === "use server");
 
   /**
    * Check if `node` is an async function, and report if not
@@ -77,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function checkLocalServerFunction(
     node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
   ) {
-    if (ast.getFunctionDirectives(node).some((d) => d.expression.value === "use server")) {
+    if (ast.getFunctionDirectives(node).some((d) => d.directive === "use server")) {
       reportNonAsyncFunction(node);
     }
   }
