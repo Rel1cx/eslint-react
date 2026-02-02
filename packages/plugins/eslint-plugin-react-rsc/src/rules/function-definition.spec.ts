@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
           return 42;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "file" }],
       output: tsx`
         'use server';
         export async function serverFunction() {
@@ -27,7 +27,7 @@ ruleTester.run(RULE_NAME, rule, {
           return 42;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "file" }],
       output: tsx`
         'use server';
         export default async function serverFunction() {
@@ -43,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         export { serverFunction };
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "file" }],
       output: tsx`
         'use server';
         async function serverFunction() {
@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         export { serverFunction };
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "file" }],
       output: tsx`
         'use server';
         const serverFunction = async () => {
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
           return 42;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "file" }],
       output: tsx`
         'use server';
         export const serverFunction = async () => {
@@ -92,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
         export default serverFunction;
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "file" }],
       output: tsx`
         'use server';
         const serverFunction = async () => {
@@ -108,7 +108,7 @@ ruleTester.run(RULE_NAME, rule, {
           return 42;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "local" }],
       output: tsx`
         async function serverFunction() {
           'use server';
@@ -123,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
           return 42;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "local" }],
       output: tsx`
         const serverFunction = async () => {
           'use server';
@@ -142,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "local" }],
       output: tsx`
         export function Component() {
           async function serverFunction() {
@@ -165,7 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "local" }],
       output: tsx`
         export const Component = () => {
           async function serverFunction() {
@@ -188,7 +188,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "local" }],
       output: tsx`
         export function Component() {
           const serverFunction = async () => {
@@ -211,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "local" }],
       output: tsx`
         export const Component = () => {
           const serverFunction = async () => {
