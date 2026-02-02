@@ -1,8 +1,10 @@
 ## v2.9.3 (2026-02-02)
 
-- Deprecated `no-default-props` rule
-- Deprecated `no-prop-types` rule
-- Deprecated `no-string-refs` rule
+### ✨ New
+
+- Deprecated `no-default-props` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
+- Deprecated `no-prop-types` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
+- Deprecated `no-string-refs` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
 
 ### 📝 Changes you should be aware of
 
