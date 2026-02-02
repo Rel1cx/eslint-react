@@ -65,7 +65,6 @@ import preferDestructuringAssignment from "./rules/prefer-destructuring-assignme
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
-import noNonAsyncServerFunctions from "./rules/rsc-no-misused-use-server";
 
 import noForbiddenProps from "./rules-removed/no-forbidden-props";
 
@@ -138,7 +137,6 @@ export const plugin: CompatiblePlugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
-    "rsc-no-misused-use-server": noNonAsyncServerFunctions,
 
     /**
      * @deprecated Use no-restricted-syntax or type checking instead.

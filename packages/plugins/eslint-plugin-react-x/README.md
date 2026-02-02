@@ -132,14 +132,6 @@ export default defineConfig(
 - [`no-unused-class-component-members`](https://eslint-react.xyz/docs/rules/no-unused-class-component-members) - Warns about unused class component methods and properties
 - [`no-unused-state`](https://eslint-react.xyz/docs/rules/no-unused-state) - Warns about unused class component state
 
-### RSC
-
-<Callout type="info">
-  RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
-</Callout>
-
-- [`rsc-no-misused-use-server`](https://eslint-react.xyz/docs/rules/rsc-no-misused-use-server) - Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions) (🔧 Fixable, 🧪 Experimental)
-
 ### Miscellaneous
 
 - [`no-missing-component-display-name`](https://eslint-react.xyz/docs/rules/no-missing-component-display-name) - Enforces that all components have a `displayName` that can be used in DevTools

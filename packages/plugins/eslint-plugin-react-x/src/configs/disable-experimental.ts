@@ -14,5 +14,4 @@ export const rules: Record<string, RuleConfig> = {
   "react-x/no-unnecessary-use-ref": "off",
   "react-x/no-unused-props": "off",
   "react-x/prefer-read-only-props": "off",
-  "react-x/rsc-no-misused-use-server": "off",
 };

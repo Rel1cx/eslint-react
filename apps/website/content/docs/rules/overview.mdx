@@ -90,7 +90,6 @@ full: true
 | [`prefer-namespace-import`](prefer-namespace-import)                               | 0️⃣ 0️⃣ |    `🔧`   | Enforces importing React via a namespace import                                                                               |          |
 | [`prefer-read-only-props`](prefer-read-only-props)                                 | 0️⃣ 0️⃣ | `💭` `🧪` | Enforces read-only props in components                                                                                        |          |
 | [`prefer-use-state-lazy-initialization`](prefer-use-state-lazy-initialization)     | 1️⃣ 1️⃣ |           | Enforces wrapping function calls made inside `useState` in an `initializer function`                                          |          |
-| [`rsc-no-misused-use-server`](rsc-no-misused-use-server)                           | 0️⃣ 0️⃣ | `🔧` `🧪` | Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions)                                |          |
 
 ## DOM Rules
 
@@ -118,6 +117,16 @@ full: true
 | [`no-use-form-state`](dom-no-use-form-state)                                                   | 2️⃣ 2️⃣ |    `🔄`   | Replaces usage of `useFormState` with `useActionState`                                        |   >=19.0.0  |
 | [`no-void-elements-with-children`](dom-no-void-elements-with-children)                         | 2️⃣ 2️⃣ |           | Disallows `children` in void DOM elements                                                     |             |
 | [`prefer-namespace-import`](dom-prefer-namespace-import)                                       | 0️⃣ 0️⃣ |    `🔧`   | Enforces importing React DOM via a namespace import                                           |             |
+
+## RSC Rules
+
+<Callout type="info">
+  RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
+</Callout>
+
+| Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                   |  `react` |
+| :--------------------------------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------------------------------------------------------------------- | :------: |
+| [`function-definition`](rsc-function-definition)                                   | 0️⃣ 0️⃣ | `🔧` `🧪` | Validate and transform React Server/Client Function definitions                                                                    | >=19.0.0  |
 
 ## Web API Rules
 

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "2.9.0-beta.0",
+  "version": "2.9.0",
   "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
   "keywords": [
     "react",
@@ -53,6 +53,7 @@
     "@typescript-eslint/types": "^8.54.0",
     "@typescript-eslint/utils": "^8.54.0",
     "eslint-plugin-react-dom": "workspace:*",
+    "eslint-plugin-react-rsc": "workspace:*",
     "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",

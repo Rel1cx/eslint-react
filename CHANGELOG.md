@@ -2,11 +2,20 @@
 
 ### ✨ New
 
-- Rename `no-non-async-server-functions` to `rsc-no-misused-use-server`
+- Migrate `no-non-async-server-functions` rule to `rsc/function-definition` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1450
+- Add a new `eslint-plugin-react-rsc` sub-plugin for React Server Components (RSC) rules.
+- Add a new `rsc` preset to enable RSC rules.
+- Add a new `disable-rsc` preset to disable RSC rules.
+
+### 🐞 Fixes
+
+- Move grouped docs from the global overview to per-plugin READMEs by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1449
 
 ### 📝 Changes you should be aware of
 
-The `no-non-async-server-functions` rule has been renamed to `rsc-no-misused-use-server`. Please update your configuration accordingly if you are using it.
+The `no-non-async-server-functions` rule has been migrated to `rsc/function-definition`. Please update your configuration accordingly if you are using it.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.8.4...v2.9.0
 
 ## v2.8.4 (2026-02-01)
 
@@ -14,8 +23,8 @@ The `no-non-async-server-functions` rule has been renamed to `rsc-no-misused-use
 
 - Change status of `jsx-shorthand-boolean` rule in migration table by @connorshea in https://github.com/Rel1cx/eslint-react/pull/1446
 - Fix rule name in docs for `debug/is-from-ref` by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1445
-- Fix rule name in docs for `rsc-no-misused-use-server` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1447
-- Mark `rsc-no-misused-use-server` as experimental by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1448
+- Fix rule name in docs for `no-non-async-server-functions` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1447
+- Mark `no-non-async-server-functions` as experimental by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1448
 
 ## New Contributors
 
@@ -27,7 +36,7 @@ The `no-non-async-server-functions` rule has been renamed to `rsc-no-misused-use
 
 ### ✨ New
 
-- feat(#1435): implements `rsc-no-misused-use-server` by @SukkaW in https://github.com/Rel1cx/eslint-react/pull/1443
+- feat(#1435): implements `no-non-async-server-functions` by @SukkaW in https://github.com/Rel1cx/eslint-react/pull/1443
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.8.1...v2.8.3
 
