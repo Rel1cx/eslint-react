@@ -15,12 +15,12 @@ import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-t
 const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.ts"];
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
-  { key: "x", heading: "Core Rules" },
+  { key: "x", heading: "X Rules" },
   { key: "dom", heading: "DOM Rules" },
   { key: "web-api", heading: "Web API Rules" },
   { key: "hooks-extra", heading: "Hooks Extra Rules" },
   { key: "naming-convention", heading: "Naming Convention Rules" },
-  // { key: "debug", heading: "Debug Rules" },
+  { key: "debug", heading: "Debug Rules" },
 ];
 
 // Convert ESLint severity config to numeric value (0=off, 1=warn, 2=error)
@@ -51,6 +51,28 @@ const getFeatureIcon = (x: unknown) =>
     .with("TSC", () => "💭")
     .with("EXP", () => "🧪")
     .otherwise(() => "");
+
+// Helper function to get plugin name from rule name based on prefix
+const getPluginNameFromRuleName = (ruleName: string) => {
+  return match(ruleName)
+    .with(P.string.startsWith("dom-"), () => "dom")
+    .with(P.string.startsWith("web-api-"), () => "web-api")
+    .with(P.string.startsWith("hooks-extra-"), () => "hooks-extra")
+    .with(P.string.startsWith("naming-convention-"), () => "naming-convention")
+    .with(P.string.startsWith("debug-"), () => "debug")
+    .otherwise(() => "x");
+};
+
+// Helper function to get short rule name (without plugin prefix)
+const getShortRuleName = (fullName: string) => {
+  const plugin = getPluginNameFromRuleName(fullName);
+  if (plugin === "x") return fullName;
+  const prefix = `${plugin}-`;
+  if (fullName.startsWith(prefix)) {
+    return fullName.slice(prefix.length);
+  }
+  return fullName;
+};
 
 // Extract metadata from a rule module (name, description, features, severities)
 const retrieveRuleMeta = Effect.fnUntraced(
@@ -149,114 +171,18 @@ const verifyDocs = Effect.gen(function*() {
   }
 });
 
-// Helper function to get domain from rule name based on prefix
-const getDomainFromRuleName = (rulename: string) => {
-  return match(rulename)
-    .with(P.string.startsWith("dom-"), () => "dom")
-    .with(P.string.startsWith("web-api-"), () => "web-api")
-    .with(P.string.startsWith("hooks-extra-"), () => "hooks-extra")
-    .with(P.string.startsWith("naming-convention-"), () => "naming-convention")
-    .with(P.string.startsWith("debug-"), () => "debug")
-    .otherwise(() => "x");
-};
-
-// Helper function to get short rule name (without domain prefix)
-const getShortRuleName = (rulename: string, domain: string) => {
-  if (domain === "x") return rulename;
-  const prefix = `${domain}-`;
-  if (rulename.startsWith(prefix)) {
-    return rulename.slice(prefix.length);
-  }
-  return rulename;
-};
-
-// Verify the overview.mdx "View by Group" entries match the actual rule metadata
-const verifyOverviewByGroup = Effect.gen(function*() {
-  const fs = yield* FileSystem.FileSystem;
-  const path = yield* Path.Path;
-  const target = path.join(...RULES_OVERVIEW_PATH);
-  const content = yield* fs.readFileString(target, "utf8");
-  const contentLines = content.split("\n");
-  const verifyIndex = contentLines.findIndex((line) => line.includes(`{/* VERIFY_VIEW_BY_GROUP */}`));
-  const verifyIndexEnd = contentLines.findIndex((line) => line.includes(`{/* VERIFY_VIEW_BY_GROUP_END */}`));
-  const relevantLines = contentLines.slice(verifyIndex + 1, verifyIndexEnd).map((line) => line.trim());
-
-  yield* Effect.log(ansis.green(`Verifying rules overview (View by Group) at ${target}...`));
-
-  // Process each rule list item in the View by Group section
-  for (const line of relevantLines) {
-    // Match list items with rule links: - [`rule-name`](./link) - description (features)
-    const match = line.match(/^- \[`([^`]+)`\]\(\.\/([^)]+)\)/);
-    if (match == null) continue;
-
-    const rulename = match[1];
-    const linkPath = match[2];
-
-    if (rulename == null || linkPath == null) {
-      yield* Effect.logError(ansis.red(`Malformed line (skipped): ${line}`));
-      continue;
-    }
-
-    // Determine domain from link path (which has the domain prefix)
-    const domain = getDomainFromRuleName(linkPath);
-    const shortRulename = getShortRuleName(linkPath, domain);
-
-    // Skip debug rules as they may not follow the same metadata pattern
-    if (domain === "debug") continue;
-
-    const meta = yield* retrieveRuleMeta(domain, shortRulename);
-
-    // Verify link path format - linkPath should end with the rulename for non-x domains
-    // or match exactly for x domain
-    const expectedLinkPath = domain === "x" ? rulename : `${domain}-${rulename}`;
-    const providedLinkPath = linkPath;
-    if (expectedLinkPath !== providedLinkPath) {
-      yield* Effect.logError(ansis.red(`Found 1 mismatched link path for rule ${rulename}`));
-      yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedLinkPath)}`);
-      yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedLinkPath)}`);
-    }
-
-    // Extract description from the line (everything after " - " up to any feature tags or version info)
-    // Matches patterns like: " - description (🔄 Codemod, `React` >=19.0.0)" or " - description (🔧 Fixable)" or just " - description"
-    const desc = line.match(/ - (.*?)(?: \(|$)/u)?.at(1);
-    // Verify the description matches the rule metadata (allow partial matches)
-    if (desc != null) {
-      const expectedDescription = meta.description.replace(/[`*]/g, "'").replace(/\.$/, "");
-      const providedDescription = desc.trim().replace(/[`*]/g, "'").replace(/\.$/, "");
-
-      if (!expectedDescription.includes(providedDescription) && !providedDescription.includes(expectedDescription)) {
-        // Allow partial matches - check if the core meaning is present
-        const normalizedExpected = expectedDescription.toLowerCase().replace(/\s+/g, " ");
-        const normalizedProvided = providedDescription.toLowerCase().replace(/\s+/g, " ");
-        if (!normalizedExpected.includes(normalizedProvided) && !normalizedProvided.includes(normalizedExpected)) {
-          yield* Effect.logError(ansis.red(`Found 1 mismatched description for rule ${rulename}`));
-          yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedDescription)}`);
-          yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedDescription)}`);
-        }
-      }
-    }
-
-    // TODO: Extract and verify feature tags in parentheses at the end
-    // if (expectedFeatureIcons !== providedFeatureIcons) {
-    //   yield* Effect.logError(ansis.red(`Found 1 mismatched feature icons for rule ${rulename}`));
-    //   yield* Effect.logError(`  Expected: ${ansis.bgGreen(expectedFeatureIcons || "(none)")}`);
-    //   yield* Effect.logError(`  Provided: ${ansis.bgYellow(providedFeatureIcons || "(none)")}`);
-    // }
-  }
-});
-
 // Verify the overview.mdx "View by Domain" table entries match the actual rule metadata
-const verifyOverviewByDomain = Effect.gen(function*() {
+const verifyOverview = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const target = path.join(...RULES_OVERVIEW_PATH);
   const content = yield* fs.readFileString(target, "utf8");
   const contentLines = content.split("\n");
-  const verifyIndex = contentLines.findIndex((line) => line.includes(`{/* VERIFY_VIEW_BY_DOMAIN */}`));
-  const verifyIndexEnd = contentLines.findIndex((line) => line.includes(`{/* VERIFY_VIEW_BY_DOMAIN_END */}`));
-  const relevantLines = contentLines.slice(verifyIndex + 1, verifyIndexEnd).map((line) => line.trim());
+  const verifyIndex = contentLines.findIndex((line) => line.startsWith(`## X Rules`));
+  const verifyIndexEnd = contentLines.findIndex((line) => line.startsWith(`## See Also`));
+  const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd).map((line) => line.trim());
 
-  yield* Effect.log(ansis.green(`Verifying rules overview (View by Domain) at ${target}...`));
+  yield* Effect.log(ansis.green(`Verifying rules overview at ${target}...`));
 
   // Process each rule domain section
   for (const { key, heading } of SECTION_HEADERS) {
@@ -336,10 +262,8 @@ const verifyOverviewByDomain = Effect.gen(function*() {
 const program = Effect.gen(function*() {
   // Verify the rules documentation matches the actual rule definitions
   yield* verifyDocs;
-  // Verify the rules overview "View by Group" matches the actual rule definitions
-  yield* verifyOverviewByGroup;
   // Verify the rules overview "View by Domain" matches the actual rule definitions
-  yield* verifyOverviewByDomain;
+  yield* verifyOverview;
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
