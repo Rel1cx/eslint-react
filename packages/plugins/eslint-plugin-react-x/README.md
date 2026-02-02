@@ -138,7 +138,7 @@ export default defineConfig(
   RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
 </Callout>
 
-- [`no-non-async-server-functions`](https://eslint-react.xyz/docs/rules/no-non-async-server-functions) - Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions) (🔧 Fixable, 🧪 Experimental)
+- [`rsc-no-misused-use-server`](https://eslint-react.xyz/docs/rules/rsc-no-misused-use-server) - Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions) (🔧 Fixable, 🧪 Experimental)
 
 ### Miscellaneous
 

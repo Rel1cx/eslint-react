@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { createRule } from "../utils";
 
-export const RULE_NAME = "no-non-async-server-functions";
+export const RULE_NAME = "rsc-no-misused-use-server";
 
 export type MessageID = "default";
 
@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows non-async [React Server Functions](https://react.dev/reference/rsc/server-functions).",
+      description: "Checks against misused `'use server'` directive.",
     },
     fixable: "code",
     messages: {
