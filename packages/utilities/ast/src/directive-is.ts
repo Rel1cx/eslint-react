@@ -1,13 +1,25 @@
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isDirectiveName } from "./directive-name";
 import { isLiteral } from "./literal";
+import type { TSESTreeDirective, TSESTreeDirectiveLike } from "./types";
 
 /**
- * Check if a node is a directive
+ * Check if a node is a directive expression statement
  * @param node The node to check
  * @returns True if the node is a directive, false otherwise
  */
-export function isDirective(node: TSESTree.Node): node is TSESTree.StringLiteral {
-  return isLiteral(node, "string") && isDirectiveName(node.value);
+export function isDirective(node: TSESTree.Node): node is TSESTreeDirective {
+  return node.type === AST.ExpressionStatement && node.directive != null;
+}
+
+/**
+ * Check if a node is a directive-like expression statement
+ * @param node The node to check
+ * @returns True if the node is a directive, false otherwise
+ */
+export function isDirectiveLike(node: TSESTree.Node): node is TSESTreeDirectiveLike {
+  return node.type === AST.ExpressionStatement
+    && isLiteral(node.expression, "string")
+    && isDirectiveName(node.expression.value);
 }

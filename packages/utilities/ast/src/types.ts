@@ -118,3 +118,18 @@ export type TSESTreeTypeAssertionExpression =
   | TSESTree.TSNonNullExpression
   | TSESTree.TSSatisfiesExpression
   | TSESTree.TSTypeAssertion;
+
+/**
+ * Represents a directive expression statement in TSESTree (e.g., "use strict";)
+ */
+export type TSESTreeDirective = TSESTree.ExpressionStatement & {
+  directive: string;
+  expression: TSESTree.StringLiteral;
+};
+
+/**
+ * Represents a directive-like expression statement in TSESTree
+ */
+export type TSESTreeDirectiveLike = TSESTree.ExpressionStatement & {
+  expression: TSESTree.StringLiteral;
+};
