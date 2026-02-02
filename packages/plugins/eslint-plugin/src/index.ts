@@ -7,6 +7,7 @@ import * as allConfig from "./configs/all";
 import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
 import * as disableDomConfig from "./configs/disable-dom";
 import * as disableExperimentalConfig from "./configs/disable-experimental";
+import * as disableRscConfig from "./configs/disable-rsc";
 import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
 import * as disableWebApiConfig from "./configs/disable-web-api";
 import * as domConfig from "./configs/dom";
@@ -15,6 +16,7 @@ import * as offConfig from "./configs/off";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
+import * as rscConfig from "./configs/rsc";
 import * as strictConfig from "./configs/strict";
 import * as strictTypeCheckedConfig from "./configs/strict-type-checked";
 import * as strictTypescriptConfig from "./configs/strict-typescript";
@@ -25,10 +27,12 @@ type ConfigName =
   | "all"
   | "disable-conflict-eslint-plugin-react"
   | "disable-dom"
+  | "disable-rsc"
   | "disable-experimental"
   | "disable-type-checked"
   | "disable-web-api"
   | "dom"
+  | "rsc"
   | "no-deprecated"
   | "off"
   | "recommended"
@@ -56,6 +60,7 @@ const plugin: CompatiblePlugin & {
     ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
     ["disable-dom"]: disableDomConfig,
     ["disable-experimental"]: disableExperimentalConfig,
+    ["disable-rsc"]: disableRscConfig,
     ["disable-type-checked"]: disableTypeCheckedConfig,
     ["disable-web-api"]: disableWebApiConfig,
     ["dom"]: domConfig,
@@ -64,6 +69,7 @@ const plugin: CompatiblePlugin & {
     ["recommended"]: recommendedConfig,
     ["recommended-type-checked"]: recommendedTypeCheckedConfig,
     ["recommended-typescript"]: recommendedTypeScriptConfig,
+    ["rsc"]: rscConfig,
     ["strict"]: strictConfig,
     ["strict-type-checked"]: strictTypeCheckedConfig,
     ["strict-typescript"]: strictTypescriptConfig,

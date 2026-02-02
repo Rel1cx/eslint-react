@@ -3,9 +3,10 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+
 import { createRule } from "../utils";
 
-export const RULE_NAME = "rsc-no-misused-use-server";
+export const RULE_NAME = "function-definition";
 
 export type MessageID = "default";
 
@@ -18,7 +19,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Checks against misused `'use server'` directive.",
+      description: "Validate and transform React Client/Server Function definitions.",
     },
     fixable: "code",
     messages: {

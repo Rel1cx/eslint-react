@@ -1,5 +1,5 @@
 ---
-title: rsc-no-misused-use-server
+title: function-definition
 ---
 
 <Callout type="warning">This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.</Callout>
@@ -7,13 +7,13 @@ title: rsc-no-misused-use-server
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/rsc-no-misused-use-server
+@eslint-react/rsc/function-definition
 ```
 
 **Full Name in `eslint-plugin-react-x`**
 
 ```plain copy
-react-x/rsc-no-misused-use-server
+react-rsc/function-definition
 ```
 
 **Features**
@@ -22,7 +22,7 @@ react-x/rsc-no-misused-use-server
 
 ## Description
 
-Checks against misused `'use server'` directive.
+Validate and transform React Server/Client Function definitions.
 
 It includes the following checks:
 
@@ -110,8 +110,8 @@ export function Component() {
 
 ## Implementation
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/rsc-no-misused-use-server.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/rsc-no-misused-use-server.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc/src/rules/rsc-function-definition.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc/src/rules/rsc-function-definition.spec.ts)
 
 ## Further Reading
 

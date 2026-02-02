@@ -71,7 +71,6 @@ export const rules = {
   "@eslint-react/prefer-namespace-import": "warn",
   "@eslint-react/prefer-read-only-props": "off",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
-  "@eslint-react/rsc-no-misused-use-server": "error",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
@@ -91,6 +90,8 @@ export const rules = {
   "@eslint-react/dom/no-use-form-state": "warn",
   "@eslint-react/dom/no-void-elements-with-children": "error",
   "@eslint-react/dom/prefer-namespace-import": "warn",
+
+  "@eslint-react/rsc/function-definition": "error",
 
   "@eslint-react/web-api/no-leaked-event-listener": "warn",
   "@eslint-react/web-api/no-leaked-interval": "warn",

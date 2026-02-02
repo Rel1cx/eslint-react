@@ -1,7 +1,14 @@
 {
-  "name": "@eslint-react/core",
+  "name": "eslint-plugin-react-rsc",
   "version": "2.9.0",
-  "description": "ESLint React's ESLint utility module for static analysis of React core APIs and patterns.",
+  "description": "ESLint React's ESLint plugin for RSC related rules.",
+  "keywords": [
+    "react",
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-rsc"
+  ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -9,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/core"
+    "directory": "packages/plugins/eslint-plugin-react-rsc"
   },
   "license": "MIT",
   "author": "Rel1cx",
@@ -30,24 +37,23 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsdown --dts-resolve",
-    "build:docs": "typedoc",
+    "build": "tsdown",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
-    "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.54.0",
     "@typescript-eslint/types": "^8.54.0",
     "@typescript-eslint/utils": "^8.54.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
     "tsdown": "^0.20.1"
   },
   "peerDependencies": {
@@ -56,5 +62,8 @@
   },
   "engines": {
     "node": ">=20.19.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

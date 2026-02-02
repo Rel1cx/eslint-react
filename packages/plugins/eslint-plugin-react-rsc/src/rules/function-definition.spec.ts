@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./rsc-no-misused-use-server";
+import rule, { RULE_NAME } from "./function-definition";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
