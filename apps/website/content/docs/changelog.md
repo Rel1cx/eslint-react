@@ -18,7 +18,7 @@ The following rules have been deprecated:
 - `no-prop-types`
 - `no-string-refs`
 
-If you are working with legacy codebases that still require these rules, you can use a [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) rule to disable them:
+If you are working with legacy codebases that still require these rules, you can use a [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) rule to enforce these restrictions:
 
 ```ts
 {
