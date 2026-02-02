@@ -18,7 +18,8 @@ If you are working with legacy codebases that still require these rules, you can
 
 ```ts
 {
-    "rules": {
+    files: ['**/*.jsx', '**/*.tsx'],
+    rules: {
         "no-restricted-syntax": [
             "error",
             {
