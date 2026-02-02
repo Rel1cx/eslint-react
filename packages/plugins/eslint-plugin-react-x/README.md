@@ -70,8 +70,6 @@ export default defineConfig(
 ### Props
 
 - [`no-children-prop`](https://eslint-react.xyz/docs/rules/no-children-prop) - Disallows passing `children` as a prop
-- [`no-default-props`](https://eslint-react.xyz/docs/rules/no-default-props) - Disallows the `defaultProps` property in favor of ES6 default parameters
-- [`no-prop-types`](https://eslint-react.xyz/docs/rules/no-prop-types) - Disallows `propTypes` in favor of TypeScript or another type-checking solution
 - [`no-unstable-default-props`](https://eslint-react.xyz/docs/rules/no-unstable-default-props) - Prevents using referential-type values as default props in object destructuring (⚙️ Configurable)
 - [`no-unused-props`](https://eslint-react.xyz/docs/rules/no-unused-props) - Warns about component props that are defined but never used (💭 Type Checking, 🧪 Experimental)
 - [`prefer-destructuring-assignment`](https://eslint-react.xyz/docs/rules/prefer-destructuring-assignment) - Enforces destructuring assignment for component props and context
@@ -125,7 +123,6 @@ export default defineConfig(
 - [`no-set-state-in-component-did-mount`](https://eslint-react.xyz/docs/rules/no-set-state-in-component-did-mount) - Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks
 - [`no-set-state-in-component-did-update`](https://eslint-react.xyz/docs/rules/no-set-state-in-component-did-update) - Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks
 - [`no-set-state-in-component-will-update`](https://eslint-react.xyz/docs/rules/no-set-state-in-component-will-update) - Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks
-- [`no-string-refs`](https://eslint-react.xyz/docs/rules/no-string-refs) - Replaces string refs with callback refs (🔄 Codemod, `React` >=16.3.0)
 - [`no-unsafe-component-will-mount`](https://eslint-react.xyz/docs/rules/no-unsafe-component-will-mount) - Warns about the use of `UNSAFE_componentWillMount` in class components
 - [`no-unsafe-component-will-receive-props`](https://eslint-react.xyz/docs/rules/no-unsafe-component-will-receive-props) - Warns about the use of `UNSAFE_componentWillReceiveProps` in class components
 - [`no-unsafe-component-will-update`](https://eslint-react.xyz/docs/rules/no-unsafe-component-will-update) - Warns about the use of `UNSAFE_componentWillUpdate` in class components
