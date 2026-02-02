@@ -2,7 +2,7 @@ import type { RuleConfig } from "@eslint-react/shared";
 
 import * as strict from "./strict";
 
-export const name = "react-x/strict-typescript";
+export const name = "react-rsc/strict-typescript";
 
 export const rules = {
   ...strict.rules,
