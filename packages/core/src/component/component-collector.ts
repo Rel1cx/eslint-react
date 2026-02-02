@@ -85,7 +85,7 @@ export function useComponentCollector(
     } as const satisfies FunctionEntry;
     functionEntries.push(entry);
     if (!entry.isComponentDefinition || !isFunctionWithLooseComponentName(context, node, false)) return;
-    if (directives.some((d) => d.value === "use memo" || d.value === "use no memo")) {
+    if (directives.some((d) => d.expression.value === "use memo" || d.expression.value === "use no memo")) {
       components.set(entry.key, entry);
     }
   };

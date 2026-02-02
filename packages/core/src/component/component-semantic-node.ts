@@ -74,7 +74,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The directives used in the function (e.g., "use strict", "use client", etc.)
    */
-  directives: TSESTree.StringLiteral[];
+  directives: ast.TSESTreeDirective[];
 }
 
 /**
