@@ -8,7 +8,7 @@ import * as strictTypeScriptConfig from "./configs/strict-typescript";
 
 import { plugin } from "./plugin";
 
-const { toFlatConfig } = getConfigAdapters("react-x", plugin);
+const { toFlatConfig } = getConfigAdapters("react-rsc", plugin);
 
 export default {
   ...plugin,
