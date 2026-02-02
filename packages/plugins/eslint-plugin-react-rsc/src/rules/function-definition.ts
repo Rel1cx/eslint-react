@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import type { RuleFixer, RuleListener, ReportFixFunction } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportFixFunction, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -23,7 +23,8 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      file: "Functions exported from files with `use server` directive are React Server Functions and therefore must be async.",
+      file:
+        "Functions exported from files with `use server` directive are React Server Functions and therefore must be async.",
       local: "Functions with `use server` directive are React Server Functions and therefore must be async.",
     },
     schema: [],

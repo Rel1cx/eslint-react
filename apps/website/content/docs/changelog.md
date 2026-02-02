@@ -2,6 +2,50 @@
 title: Changelog
 ---
 
+## v2.9.3 (2026-02-02)
+
+### ✨ New
+
+- Deprecated `no-default-props` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
+- Deprecated `no-prop-types` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
+- Deprecated `no-string-refs` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1464
+
+### 📝 Changes you should be aware of
+
+The following rules have been deprecated:
+
+- `no-default-props`
+- `no-prop-types`
+- `no-string-refs`
+
+If you are working with legacy codebases that still require these rules, you can use a [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) rule to enforce these restrictions:
+
+```ts
+{
+    "rules": {
+        "no-restricted-syntax": [
+            "error",
+            {
+                "selector": "AssignmentExpression[operator='='][left.property.name='defaultProps']",
+                "message": "[Deprecated] Use ES6 default parameters instead."
+            },
+            {
+                "selector": "AssignmentExpression[operator='='][left.property.name='propTypes']",
+                "message": "[Deprecated] Use TypeScript or another type-checking solution instead."
+            },
+            {
+                "selector": "JSXAttribute[name.name='ref'][value.type='Literal']",
+                "message": "[Deprecated] Use callback refs instead."
+            }
+        ]
+    }
+}
+```
+
+(The rules that were deprecated in this release will still be available until the next major update to avoid breaking changes.)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.9.2...v2.9.3
+
 ## v2.9.2 (2026-02-02)
 
 ### 🐞 Fixes

@@ -27,7 +27,6 @@ import noComponentWillReceiveProps from "./rules/no-component-will-receive-props
 import noComponentWillUpdate from "./rules/no-component-will-update";
 import noContextProvider from "./rules/no-context-provider";
 import noCreateRef from "./rules/no-create-ref";
-import noDefaultProps from "./rules/no-default-props";
 import noDirectMutationState from "./rules/no-direct-mutation-state";
 import noDuplicateKey from "./rules/no-duplicate-key";
 import noForwardRef from "./rules/no-forward-ref";
@@ -39,12 +38,10 @@ import noMissingKey from "./rules/no-missing-key";
 import noMisusedCaptureOwnerStack from "./rules/no-misused-capture-owner-stack";
 import noNestedComponentDefinitions from "./rules/no-nested-component-definitions";
 import noNestedLazyComponentDeclarations from "./rules/no-nested-lazy-component-declarations";
-import noPropTypes from "./rules/no-prop-types";
 import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update";
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
-import noStringRefs from "./rules/no-string-refs";
 import noUnnecessaryKey from "./rules/no-unnecessary-key";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
@@ -66,7 +63,10 @@ import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
+import noDefaultProps from "./rules-removed/no-default-props";
 import noForbiddenProps from "./rules-removed/no-forbidden-props";
+import noPropTypes from "./rules-removed/no-prop-types";
+import noStringRefs from "./rules-removed/no-string-refs";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -99,7 +99,6 @@ export const plugin: CompatiblePlugin = {
     "no-component-will-update": noComponentWillUpdate,
     "no-context-provider": noContextProvider,
     "no-create-ref": noCreateRef,
-    "no-default-props": noDefaultProps,
     "no-direct-mutation-state": noDirectMutationState,
     "no-duplicate-key": noDuplicateKey,
     "no-forward-ref": noForwardRef,
@@ -111,12 +110,10 @@ export const plugin: CompatiblePlugin = {
     "no-misused-capture-owner-stack": noMisusedCaptureOwnerStack,
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
-    "no-prop-types": noPropTypes,
     "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
-    "no-string-refs": noStringRefs,
     "no-unnecessary-key": noUnnecessaryKey,
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
@@ -139,8 +136,20 @@ export const plugin: CompatiblePlugin = {
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
 
     /**
-     * @deprecated Use no-restricted-syntax or type checking instead.
+     * @deprecated Use no-restricted-syntax or type checking instead
+     */
+    "no-default-props": noDefaultProps,
+    /**
+     * @deprecated Use no-restricted-syntax or type checking instead
      */
     "no-forbidden-props": noForbiddenProps,
+    /**
+     * @deprecated Use no-restricted-syntax or type checking instead
+     */
+    "no-prop-types": noPropTypes,
+    /**
+     * @deprecated Use no-restricted-syntax or type checking instead
+     */
+    "no-string-refs": noStringRefs,
   },
 };
