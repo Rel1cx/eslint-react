@@ -34,11 +34,12 @@ flowchart TB
 
             %% ESLint Plugins Subgraph
             subgraph "ESLint Plugins"
-                ReactX["eslint-plugin-react-x"]:::plugins
-                ReactDOM["eslint-plugin-react-dom"]:::plugins
+                X["eslint-plugin-react-x"]:::plugins
+                DOM["eslint-plugin-react-dom"]:::plugins
                 WebAPI["eslint-plugin-react-web-api"]:::plugins
                 HooksExtra["eslint-plugin-react-hooks-extra"]:::plugins
                 NamingConvention["eslint-plugin-react-naming-convention"]:::plugins
+                RSC["eslint-plugin-react-rsc"]:::plugins
                 Aggregated["Aggregated Plugin (@eslint-react/eslint-plugin)"]:::plugins
             end
         end
@@ -52,33 +53,36 @@ flowchart TB
 
     %% Relationships
     %% Plugins depend on Core and Shared
-    Core -->|"dependency"| ReactX
-    Core -->|"dependency"| ReactDOM
+    Core -->|"dependency"| X
+    Core -->|"dependency"| DOM
     Core -->|"dependency"| WebAPI
     Core -->|"dependency"| HooksExtra
     Core -->|"dependency"| NamingConvention
+    Core -->|"dependency"| RSC
 
-    Shared -->|"dependency"| ReactX
-    Shared -->|"dependency"| ReactDOM
+    Shared -->|"dependency"| X
+    Shared -->|"dependency"| DOM
     Shared -->|"dependency"| WebAPI
     Shared -->|"dependency"| HooksExtra
     Shared -->|"dependency"| NamingConvention
+    Shared -->|"dependency"| RSC
 
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
     Eff ---|"provides"| Core
     Var ---|"provides"| Core
 
-    AST ---|"provides"| ReactX
-    Eff ---|"provides"| ReactX
-    Var ---|"provides"| ReactX
+    AST ---|"provides"| X
+    Eff ---|"provides"| X
+    Var ---|"provides"| X
 
     %% Aggregation of Plugins
-    ReactX -->|"aggregated"| Aggregated
-    ReactDOM -->|"aggregated"| Aggregated
+    X -->|"aggregated"| Aggregated
+    DOM -->|"aggregated"| Aggregated
     WebAPI -->|"aggregated"| Aggregated
     HooksExtra -->|"aggregated"| Aggregated
     NamingConvention -->|"aggregated"| Aggregated
+    RSC -->|"aggregated"| Aggregated
 
     %% Website Documentation uses Core and Shared docs
     Website -->|"docs"| Core
@@ -90,11 +94,12 @@ flowchart TB
     Scripts -->|"CI/CD"| AST
     Scripts -->|"CI/CD"| Eff
     Scripts -->|"CI/CD"| Var
-    Scripts -->|"CI/CD"| ReactX
-    Scripts -->|"CI/CD"| ReactDOM
+    Scripts -->|"CI/CD"| X
+    Scripts -->|"CI/CD"| DOM
     Scripts -->|"CI/CD"| WebAPI
     Scripts -->|"CI/CD"| HooksExtra
     Scripts -->|"CI/CD"| NamingConvention
+    Scripts -->|"CI/CD"| RSC
     Scripts -->|"CI/CD"| Aggregated
     Scripts -->|"CI/CD"| Tests
 
@@ -106,8 +111,8 @@ flowchart TB
     click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/ast"
     click Eff "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/eff"
     click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/var"
-    click ReactX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
-    click ReactDOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
+    click X "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
+    click DOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
     click WebAPI "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api"
     click HooksExtra "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra"
     click NamingConvention "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention"
@@ -149,6 +154,7 @@ This section provides a summary of the packages in the monorepo.
   - `packages/plugins/eslint-plugin-react-web-api`: Web API interaction rules
   - `packages/plugins/eslint-plugin-react-hooks-extra`: Extra React Hooks rules
   - `packages/plugins/eslint-plugin-react-naming-convention`: Naming convention rules
+  - `packages/plugins/eslint-plugin-react-rsc`: React Server Components rules
   - `packages/plugins/eslint-plugin-react-debug`: Debugging rules for inspecting React patterns in code
   - `packages/plugins/eslint-plugin`: A unified plugin that combines all individual plugins into one
 

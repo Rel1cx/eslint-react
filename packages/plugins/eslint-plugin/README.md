@@ -53,6 +53,7 @@
 - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
 - [`eslint-plugin-react-hooks-extra`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-hooks-extra) - Extra React Hooks rules.
 - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
+- [`eslint-plugin-react-rsc`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc) - Rules for React Server Components.
 
 > [!NOTE]\
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
@@ -127,6 +128,8 @@ export default defineConfig(
   Enable rules for `"react-dom"`.
 - `web-api`\
   Enable rules for interacting with Web APIs.
+- `rsc`\
+- Enable rules for React Server Components.
 
 ### General Purpose
 
@@ -168,6 +171,8 @@ export default defineConfig(
   Disable rules in the `dom` preset.
 - `disable-web-api`\
   Disable rules in the `web-api` preset.
+- `disable-rsc`\
+  Disable rules in the `rsc` preset.
 - `disable-experimental`\
   Disable rules that have an "🧪 Experimental" feature flag.
 - `disable-type-checked`\

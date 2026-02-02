@@ -141,4 +141,4 @@ export default defineConfig(
 - [`no-useless-fragment`](https://eslint-react.xyz/docs/rules/no-useless-fragment) - Disallows useless fragment elements (🔧 Fixable, ⚙️ Configurable)
 - [`prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import) - Enforces importing React via a namespace import
 
-<https://eslint-react.xyz/docs/rules/overview#core-rules>
+<https://eslint-react.xyz/docs/rules/overview#x-rules>
