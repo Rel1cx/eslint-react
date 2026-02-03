@@ -11,10 +11,7 @@ npm install --save-dev eslint-plugin-react-x
 
 ## Setup
 
-```js
-// eslint.config.js
-
-// @ts-check
+```ts
 import js from "@eslint/js";
 import react from "eslint-plugin-react-x";
 import { defineConfig } from "eslint/config";
@@ -26,6 +23,7 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
+      // Add the react-x plugin recommended config below js/tseslint configs
       react.configs.recommended,
     ],
     rules: {

@@ -11,12 +11,9 @@ npm install --save-dev eslint-plugin-react-dom
 
 ## Setup
 
-```js
-// eslint.config.js
-
-// @ts-check
+```ts
 import js from "@eslint/js";
-import reactDom from "eslint-plugin-react-dom";
+import dom from "eslint-plugin-react-dom";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -26,7 +23,8 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactDom.configs.recommended,
+      // Add the react-dom plugin recommended config below js/tseslint configs
+      dom.configs.recommended,
     ],
     rules: {
       // Put rules you want to override here
