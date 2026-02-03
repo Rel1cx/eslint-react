@@ -21,7 +21,7 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      // Add the react-rsc plugin recommended config below js/tseslint configs
+      // Add this plugin's config below js/tseslint configs
       rsc.configs.recommended,
     ],
     rules: {

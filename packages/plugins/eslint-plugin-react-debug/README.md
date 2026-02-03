@@ -25,7 +25,7 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      // Add the react-debug plugin recommended config below js/tseslint configs
+      // Add this plugin's config below js/tseslint configs
       debug.configs.all,
     ],
     rules: {
