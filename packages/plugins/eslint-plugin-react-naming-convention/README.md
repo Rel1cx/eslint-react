@@ -23,6 +23,7 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
+      // Add this plugin's config after the js/tseslint configs
       namingConvention.configs.recommended,
     ],
     rules: {
