@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.9.4 (2026-02-03)
+
+### 🐞 Fixes
+
+- Fix sub-plugin's READMEs by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1465
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.9.3...v2.9.4
+
 ## v2.9.3 (2026-02-02)
 
 ### 📝 Changes you should be aware of
