@@ -11,12 +11,9 @@ npm install --save-dev eslint-plugin-react-naming-convention
 
 ## Setup
 
-```js
-// eslint.config.js
-
-// @ts-check
+```ts
 import js from "@eslint/js";
-import reactNamingConvention from "eslint-plugin-react-naming-convention";
+import namingConvention from "eslint-plugin-react-naming-convention";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -26,10 +23,9 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
+      // Add this plugin's config below js/tseslint configs
+      namingConvention.configs.recommended,
     ],
-    plugins: {
-      "react-naming-convention": reactNamingConvention,
-    },
     rules: {
       // Put rules you want to use here
       "react-naming-convention/component-name": "warn",

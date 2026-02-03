@@ -11,12 +11,9 @@ npm install --save-dev eslint-plugin-react-hooks-extra
 
 ## Setup
 
-```js
-// eslint.config.js
-
-// @ts-check
+```ts
 import js from "@eslint/js";
-import reactHooksExtra from "eslint-plugin-react-hooks-extra";
+import hooksExtra from "eslint-plugin-react-hooks-extra";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -26,7 +23,8 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooksExtra.configs.recommended,
+      // Add this plugin's config below js/tseslint configs
+      hooksExtra.configs.recommended,
     ],
     rules: {
       // Put rules you want to override here

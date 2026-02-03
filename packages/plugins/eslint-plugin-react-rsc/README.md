@@ -9,12 +9,9 @@ npm install --save-dev eslint-plugin-react-rsc
 
 ## Setup
 
-```js
-// eslint.config.js
-
-// @ts-check
+```ts
 import js from "@eslint/js";
-import react from "eslint-plugin-react-x";
+import rsc from "eslint-plugin-react-rsc";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -24,7 +21,8 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      react.configs.recommended,
+      // Add this plugin's config below js/tseslint configs
+      rsc.configs.recommended,
     ],
     rules: {
       // Put rules you want to override here
