@@ -35,11 +35,11 @@ flowchart TB
             %% ESLint Plugins Subgraph
             subgraph "ESLint Plugins"
                 X["eslint-plugin-react-x"]:::plugins
+                RSC["eslint-plugin-react-rsc"]:::plugins
                 DOM["eslint-plugin-react-dom"]:::plugins
                 WebAPI["eslint-plugin-react-web-api"]:::plugins
                 HooksExtra["eslint-plugin-react-hooks-extra"]:::plugins
                 NamingConvention["eslint-plugin-react-naming-convention"]:::plugins
-                RSC["eslint-plugin-react-rsc"]:::plugins
                 Aggregated["Aggregated Plugin (@eslint-react/eslint-plugin)"]:::plugins
             end
         end
@@ -54,18 +54,18 @@ flowchart TB
     %% Relationships
     %% Plugins depend on Core and Shared
     Core -->|"dependency"| X
+    Core -->|"dependency"| RSC
     Core -->|"dependency"| DOM
     Core -->|"dependency"| WebAPI
     Core -->|"dependency"| HooksExtra
     Core -->|"dependency"| NamingConvention
-    Core -->|"dependency"| RSC
 
     Shared -->|"dependency"| X
+    Shared -->|"dependency"| RSC
     Shared -->|"dependency"| DOM
     Shared -->|"dependency"| WebAPI
     Shared -->|"dependency"| HooksExtra
     Shared -->|"dependency"| NamingConvention
-    Shared -->|"dependency"| RSC
 
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
@@ -78,11 +78,11 @@ flowchart TB
 
     %% Aggregation of Plugins
     X -->|"aggregated"| Aggregated
+    RSC -->|"aggregated"| Aggregated
     DOM -->|"aggregated"| Aggregated
     WebAPI -->|"aggregated"| Aggregated
     HooksExtra -->|"aggregated"| Aggregated
     NamingConvention -->|"aggregated"| Aggregated
-    RSC -->|"aggregated"| Aggregated
 
     %% Website Documentation uses Core and Shared docs
     Website -->|"docs"| Core
@@ -95,11 +95,11 @@ flowchart TB
     Scripts -->|"CI/CD"| Eff
     Scripts -->|"CI/CD"| Var
     Scripts -->|"CI/CD"| X
+    Scripts -->|"CI/CD"| RSC
     Scripts -->|"CI/CD"| DOM
     Scripts -->|"CI/CD"| WebAPI
     Scripts -->|"CI/CD"| HooksExtra
     Scripts -->|"CI/CD"| NamingConvention
-    Scripts -->|"CI/CD"| RSC
     Scripts -->|"CI/CD"| Aggregated
     Scripts -->|"CI/CD"| Tests
 
@@ -150,11 +150,11 @@ This section provides a summary of the packages in the monorepo.
 
 - **ESLint Plugins**
   - `packages/plugins/eslint-plugin-react-x`: Core React rules
+  - `packages/plugins/eslint-plugin-react-rsc`: React Server Components rules
   - `packages/plugins/eslint-plugin-react-dom`: React DOM rules
   - `packages/plugins/eslint-plugin-react-web-api`: Web API interaction rules
   - `packages/plugins/eslint-plugin-react-hooks-extra`: Extra React Hooks rules
   - `packages/plugins/eslint-plugin-react-naming-convention`: Naming convention rules
-  - `packages/plugins/eslint-plugin-react-rsc`: React Server Components rules
   - `packages/plugins/eslint-plugin-react-debug`: Debugging rules for inspecting React patterns in code
   - `packages/plugins/eslint-plugin`: A unified plugin that combines all individual plugins into one
 

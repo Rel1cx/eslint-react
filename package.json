@@ -2,15 +2,15 @@
   "name": "@eslint-react/monorepo",
   "version": "2.9.4",
   "private": true,
-  "description": "Monorepo for eslint-plugin-react-[x, dom, rsc, web-api, hooks-extra, naming-convention].",
+  "description": "Monorepo for eslint-plugin-react-[x, rsc, dom, web-api, hooks-extra, naming-convention].",
   "keywords": [
     "react",
     "eslint",
     "eslint-react",
     "eslint-plugin",
     "eslint-plugin-react-x",
-    "eslint-plugin-react-dom",
     "eslint-plugin-react-rsc",
+    "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
     "eslint-plugin-react-hooks-extra",
     "eslint-plugin-react-naming-convention"
