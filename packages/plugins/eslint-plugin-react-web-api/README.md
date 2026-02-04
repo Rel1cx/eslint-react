@@ -23,7 +23,7 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      // Add this plugin's config below js/tseslint configs
+      // Add configs from eslint-plugin-react-web-api
       webApi.configs.recommended,
     ],
     rules: {

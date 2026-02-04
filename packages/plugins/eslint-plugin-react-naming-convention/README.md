@@ -23,11 +23,11 @@ export default defineConfig(
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      // Add this plugin's config below js/tseslint configs
+      // Add configs from eslint-plugin-react-naming-convention
       namingConvention.configs.recommended,
     ],
     rules: {
-      // Put rules you want to use here
+      // Put rules you want to override here
       "react-naming-convention/component-name": "warn",
     },
   },
