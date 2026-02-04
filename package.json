@@ -52,7 +52,7 @@
     "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.72.0",
+    "@effect/language-service": "^0.72.1",
     "@effect/platform": "^0.94.2",
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.2",
