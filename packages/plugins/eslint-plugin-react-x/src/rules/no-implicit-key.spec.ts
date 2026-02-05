@@ -147,5 +147,33 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <li data-slot="pagination-item" {...props} />;
       }
     `,
+    tsx`
+      import React from "react";
+
+      function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import type { ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import { type ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import { ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
   ],
 });

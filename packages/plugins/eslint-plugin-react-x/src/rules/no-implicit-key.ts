@@ -1,10 +1,8 @@
-import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { sep } from "node:path";
 import { unionConstituents } from "ts-api-utils";
-import type ts from "typescript";
 
 import { createRule } from "../utils";
 
@@ -35,16 +33,16 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { importSource } = getSettingsFromContext(context);
   const services = ESLintUtils.getParserServices(context, false);
+  const checker = services.program.getTypeChecker();
   return {
     JSXSpreadAttribute(node) {
       for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
         const key = type.getProperty("key");
         if (key == null) continue;
+        // Allow pass-through of React internal key attribute
         // https://github.com/Rel1cx/eslint-react/issues/1472
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (key.getDeclarations()?.some((decl) => getPackageNameOfDeclaration(decl) === importSource)) continue;
+        if (checker.getFullyQualifiedName(key) === "React.Attributes.key") continue;
         context.report({
           messageId: "default",
           node,
@@ -53,13 +51,4 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
-}
-
-// TODO: Use a more robust method to determine the package name
-function getPackageNameOfDeclaration(declaration: ts.Declaration) {
-  return declaration
-    .getSourceFile()
-    .fileName
-    .split(sep)
-    .at(-2);
 }
