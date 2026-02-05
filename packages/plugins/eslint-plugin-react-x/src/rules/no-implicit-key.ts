@@ -42,6 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             messageId: "default",
             node,
           });
+          break;
         }
       }
     },
