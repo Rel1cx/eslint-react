@@ -1,3 +1,15 @@
+## v2.10.0 (2026-02-05)
+
+- Refactor `no-implicit-key` rule to use type checking by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1466
+- Move `no-unnecessary-use-ref` to removed rules, closes #1417 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1471
+
+### 📝 Changes you should be aware of
+
+The `no-implicit-key` rule has been updated to use type checking and moved from `recommended` to `type-checked` presets.
+The `no-unnecessary-use-ref` rule has been moved to removed rules, because the rule is hard to get right.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.9.4...v2.10.0
+
 ## v2.9.4 (2026-02-03)
 
 ### 🐞 Fixes

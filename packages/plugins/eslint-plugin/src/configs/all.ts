@@ -10,6 +10,7 @@ import * as x from "./x";
 export const name = "@eslint-react/all";
 
 export const rules = {
+  "@eslint-react/jsx-dollar": "warn",
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
@@ -34,10 +35,8 @@ export const rules = {
   "@eslint-react/no-component-will-update": "error",
   "@eslint-react/no-context-provider": "warn",
   "@eslint-react/no-create-ref": "error",
-  "@eslint-react/no-default-props": "error",
   "@eslint-react/no-direct-mutation-state": "error",
   "@eslint-react/no-duplicate-key": "error",
-  "@eslint-react/no-forbidden-props": "off",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-leaked-conditional-rendering": "off",
   "@eslint-react/no-missing-component-display-name": "warn",
@@ -46,12 +45,10 @@ export const rules = {
   "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-nested-lazy-component-declarations": "error",
-  "@eslint-react/no-prop-types": "error",
   "@eslint-react/no-redundant-should-component-update": "error",
   "@eslint-react/no-set-state-in-component-did-mount": "warn",
   "@eslint-react/no-set-state-in-component-did-update": "warn",
   "@eslint-react/no-set-state-in-component-will-update": "warn",
-  "@eslint-react/no-string-refs": "error",
   "@eslint-react/no-unnecessary-key": "warn",
   "@eslint-react/no-unnecessary-use-callback": "warn",
   "@eslint-react/no-unnecessary-use-memo": "warn",
