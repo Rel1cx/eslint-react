@@ -6,6 +6,7 @@ export const name = "@eslint-react/recommended-type-checked";
 
 export const rules = {
   ...recommendedTypeScript.rules,
+  "@eslint-react/no-implicit-key": "error",
   "@eslint-react/no-leaked-conditional-rendering": "error",
 } as const satisfies Record<string, RuleConfig>;
 

@@ -1,14 +1,15 @@
-import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
+import { ESLintUtils } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { unionConstituents } from "ts-api-utils";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-implicit-key";
 
 export const RULE_FEATURES = [
+  "TSC",
   "EXP",
 ] as const satisfies RuleFeature[];
 
@@ -18,10 +19,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents 'key' from not being explicitly specified (e.g., spreading 'key' from objects).",
+      description: "Prevents implicitly passing the 'key' prop to components.",
     },
     messages: {
-      default: "Do not use implicit 'key' props.",
+      default:
+        "This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.",
     },
     schema: [],
   },
@@ -30,23 +32,17 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-// TODO: Rewrite the rule to use type checking
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const services = ESLintUtils.getParserServices(context, false);
   return {
-    JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
-      // Find the 'key' prop, including those from spread attributes
-      const keyProp = core.getJsxAttribute(context, node.parent)("key");
-      // Check if the 'key' prop is explicitly defined on the element
-      const isKeyPropOnElement = node.attributes
-        .some((n) =>
-          n.type === AST.JSXAttribute
-          && n.name.type === AST.JSXIdentifier
-          && n.name.name === "key"
-        );
-      // If a 'key' prop exists but is not explicitly on the element, it's implicit
-      if (keyProp != null && !isKeyPropOnElement) {
-        // Report an error for the implicit 'key'
-        context.report({ messageId: "default", node: keyProp });
+    JSXSpreadAttribute(node) {
+      for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
+        if (type.getProperty("key") != null) {
+          context.report({
+            messageId: "default",
+            node,
+          });
+        }
       }
     },
   };

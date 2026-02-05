@@ -16,21 +16,16 @@ react-x/no-implicit-key
 
 **Features**
 
-`🧪`
+`💭` `🧪`
 
 **Presets**
 
-`x`
-`recommended`
-`recommended-typescript`
 `recommended-type-checked`
-`strict`
-`strict-typescript`
 `strict-type-checked`
 
 ## Description
 
-Prevents `key` from not being explicitly specified (e.g., spreading `key` from objects).
+Prevents implicitly passing the 'key' prop to components.
 
 This makes it hard to see whether the key was passed correctly to the element or where it came from.
 
@@ -43,21 +38,17 @@ It is also proposed to be deprecated in this RFC: [Deprecate spreading key from 
 ```tsx
 import React from "react";
 
-interface MyComponentProps {
-  items: { id: string; name: string }[];
+interface Foo = { key?: string; }
+
+interface MyComponent extends Foo {
+  className: string;
+  children: React.ReactNode;
 }
 
-function MyComponent({ items }: MyComponentProps) {
-  return (
-    <ul>
-      {items.map(({ id, name, ...rest }) => {
-        const props = { key: id, ...rest };
-        return <li {...props}>{name}</li>;
-        //         ^^^^^^^^^^
-        //         - Do not use implicit 'key' props.
-      })}
-    </ul>
-  );
+function MyComponent(props: MyComponent) {
+  return <div {...props} />;
+  //          ^^^^^^^^^^
+  //          - This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
 }
 ```
 
@@ -66,18 +57,15 @@ function MyComponent({ items }: MyComponentProps) {
 ```tsx
 import React from "react";
 
-interface MyComponentProps {
-  items: { id: string; name: string }[];
+interface Foo = { key?: string; }
+
+interface MyComponent extends Foo {
+  className: string;
+  children: React.ReactNode;
 }
 
-function MyComponent({ items }: MyComponentProps) {
-  return (
-    <ul>
-      {items.map(({ id, name, ...rest }) => {
-        return <li key={id} {...rest}>{name}</li>;
-      })}
-    </ul>
-  );
+function MyComponent({ key, ...rest }) {
+  return <div {...rest} />;
 }
 ```
 

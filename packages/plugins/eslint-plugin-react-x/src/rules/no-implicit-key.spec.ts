@@ -1,9 +1,9 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../test";
+import { allValid, ruleTesterWithTypes } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-implicit-key";
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`

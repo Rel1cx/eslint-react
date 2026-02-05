@@ -6,6 +6,7 @@ export const name = "react-x/recommended-type-checked";
 
 export const rules = {
   ...recommendedTypescript.rules,
+  "react-x/no-implicit-key": "error",
   "react-x/no-leaked-conditional-rendering": "error",
 } as const satisfies Record<string, RuleConfig>;
 
