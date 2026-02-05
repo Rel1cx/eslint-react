@@ -123,19 +123,19 @@ export default defineConfig(
 ### Bare Bones
 
 - `x`\
-  Enable rules for `"react"`.
+  Enable rules for React.
+- `rsc`\
+  Enable rules for React Server Components.
 - `dom`\
-  Enable rules for `"react-dom"`.
+  Enable rules for React DOM.
 - `web-api`\
   Enable rules for interacting with Web APIs.
-- `rsc`\
-- Enable rules for React Server Components.
 
 ### General Purpose
 
 - `recommended`\
   Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
-  _This preset includes the `x`, `dom`, and `web-api` presets._
+  _This preset includes the `x`, `rsc`, `dom`, and `web-api` presets._
 
 - `strict`\
   Same as the `recommended` preset but enables additional strict rules.
@@ -167,12 +167,12 @@ export default defineConfig(
 
 ### Other
 
+- `disable-rsc`\
+  Disable rules in the `rsc` preset.
 - `disable-dom`\
   Disable rules in the `dom` preset.
 - `disable-web-api`\
   Disable rules in the `web-api` preset.
-- `disable-rsc`\
-  Disable rules in the `rsc` preset.
 - `disable-experimental`\
   Disable rules that have an "🧪 Experimental" feature flag.
 - `disable-type-checked`\

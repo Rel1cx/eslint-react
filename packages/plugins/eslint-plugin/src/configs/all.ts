@@ -107,8 +107,8 @@ export const rules = {
 
 export const plugins = {
   ...x.plugins,
-  ...dom.plugins,
   ...rsc.plugins,
+  ...dom.plugins,
   "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
   "@eslint-react/web-api": reactWebApi,

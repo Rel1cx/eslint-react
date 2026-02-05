@@ -3,6 +3,7 @@ import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 
 import * as dom from "./dom";
+import * as rsc from "./rsc";
 import * as webApi from "./web-api";
 import * as x from "./x";
 
@@ -10,6 +11,7 @@ export const name = "@eslint-react/recommended";
 
 export const rules = {
   ...x.rules,
+  ...rsc.rules,
   ...dom.rules,
   ...webApi.rules,
   "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
@@ -20,6 +22,7 @@ export const rules = {
 
 export const plugins = {
   ...x.plugins,
+  ...rsc.plugins,
   ...dom.plugins,
   ...webApi.plugins,
   "@eslint-react/hooks-extra": reactHooksExtra,
