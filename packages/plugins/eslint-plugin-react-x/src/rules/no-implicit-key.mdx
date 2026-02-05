@@ -40,12 +40,12 @@ import React from "react";
 
 interface Foo = { key?: string; }
 
-interface MyComponent extends Foo {
+interface MyComponentProps extends Foo {
   className: string;
   children: React.ReactNode;
 }
 
-function MyComponent(props: MyComponent) {
+function MyComponent(props: MyComponentProps) {
   return <div {...props} />;
   //          ^^^^^^^^^^
   //          - This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
@@ -59,7 +59,7 @@ import React from "react";
 
 interface Foo = { key?: string; }
 
-interface MyComponent extends Foo {
+interface MyComponentProps extends Foo {
   className: string;
   children: React.ReactNode;
 }
