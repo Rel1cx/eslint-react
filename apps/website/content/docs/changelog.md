@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.11.0 (2026-02-06)
+
+### ✨ New
+
+- Add RSC rules to `recommended` presets by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1475
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.10.1...v2.11.0
+
 ## v2.10.1 (2026-02-05)
 
 ### 🐞 Fixes
