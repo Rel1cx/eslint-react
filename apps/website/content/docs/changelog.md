@@ -6,7 +6,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- Relax `no-implicit-key` rule for React internal key, closes #1472 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1474
+- Relax `no-implicit-key` rule for React internally defined keys, closes #1472 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1474
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.10.0...v2.10.1
 
