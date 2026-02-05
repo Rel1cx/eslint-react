@@ -46,7 +46,6 @@
     "no-unnecessary-use-callback",
     "no-unnecessary-use-memo",
     "no-unnecessary-use-prefix",
-    "no-unnecessary-use-ref",
     "no-unsafe-component-will-mount",
     "no-unsafe-component-will-receive-props",
     "no-unsafe-component-will-update",
