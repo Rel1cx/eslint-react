@@ -34,16 +34,20 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const services = ESLintUtils.getParserServices(context, false);
+  const checker = services.program.getTypeChecker();
   return {
     JSXSpreadAttribute(node) {
       for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-        if (type.getProperty("key") != null) {
-          context.report({
-            messageId: "default",
-            node,
-          });
-          break;
-        }
+        const key = type.getProperty("key");
+        if (key == null) continue;
+        // Allow pass-through of React internal key attribute
+        // https://github.com/Rel1cx/eslint-react/issues/1472
+        if (checker.getFullyQualifiedName(key) === "React.Attributes.key") continue;
+        context.report({
+          messageId: "default",
+          node,
+        });
+        break;
       }
     },
   };

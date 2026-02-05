@@ -69,6 +69,16 @@ function MyComponent({ key, ...rest }) {
 }
 ```
 
+```tsx
+import React from "react";
+
+function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+  return <li data-slot="pagination-item" {...props} />;
+  //                                     ^^^^^^^^^^
+  //                                     - Passing-through React internal key attributes are allowed.
+}
+```
+
 ## Implementation
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key.ts)

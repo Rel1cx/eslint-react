@@ -139,5 +139,41 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return [1, 2, 3].map((item) => <div key={Math.random()}>{item}</div>)
       };
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1472
+    tsx`
+      import * as React from "react";
+
+      function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import React from "react";
+
+      function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import type { ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import { type ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    tsx`
+      import { ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: ComponentProps<"li">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
   ],
 });
