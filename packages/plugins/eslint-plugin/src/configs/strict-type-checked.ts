@@ -6,6 +6,7 @@ export const name = "@eslint-react/strict-type-checked";
 
 export const rules = {
   ...strictTypeScript.rules,
+  "@eslint-react/no-implicit-key": "error",
   "@eslint-react/no-leaked-conditional-rendering": "error",
   "@eslint-react/no-unused-props": "warn",
 } as const satisfies Record<string, RuleConfig>;

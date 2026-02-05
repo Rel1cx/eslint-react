@@ -55,7 +55,7 @@ full: true
 | [`no-direct-mutation-state`](no-direct-mutation-state)                             | 2️⃣ 2️⃣ |           | Disallows direct mutation of `this.state`                                                                                     |          |
 | [`no-duplicate-key`](no-duplicate-key)                                             | 0️⃣ 0️⃣ |    `🧪`   | Prevents duplicate `key` props on sibling elements when rendering lists                                                       |          |
 | [`no-forward-ref`](no-forward-ref)                                                 | 1️⃣ 1️⃣ |    `🔄`   | Replaces usage of `forwardRef` with passing `ref` as a prop                                                                   | >=19.0.0 |
-| [`no-implicit-key`](no-implicit-key)                                               | 1️⃣ 1️⃣ |    `🧪`   | Prevents `key` from not being explicitly specified (e.g., spreading `key` from objects)                                       |          |
+| [`no-implicit-key`](no-implicit-key)                                               | 0️⃣ 0️⃣ | `💭` `🧪` | Prevents implicitly passing the 'key' prop to components                                                                      |          |
 | [`no-leaked-conditional-rendering`](no-leaked-conditional-rendering)               | 0️⃣ 0️⃣ |    `💭`   | Prevents problematic leaked values from being rendered                                                                        |          |
 | [`no-missing-component-display-name`](no-missing-component-display-name)           | 0️⃣ 0️⃣ |           | Enforces that all components have a `displayName` that can be used in DevTools                                                |          |
 | [`no-missing-context-display-name`](no-missing-context-display-name)               | 0️⃣ 0️⃣ |    `🔧`   | Enforces that all contexts have a `displayName` that can be used in DevTools                                                  |          |
@@ -121,9 +121,9 @@ full: true
   RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
 </Callout>
 
-| Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                   |  `react` |
-| :--------------------------------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------------------------------------------------------------------- | :------: |
-| [`function-definition`](rsc-function-definition)                                   | 0️⃣ 0️⃣ | `🔧` `🧪` | Validate and transform React Client/Server Function definitions                                                                    | >=19.0.0  |
+| Rule                                             |    ✅    |     🌟    | Description                                                     |  `react` |
+| :----------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------- | :------: |
+| [`function-definition`](rsc-function-definition) | 0️⃣ 0️⃣ | `🔧` `🧪` | Validate and transform React Client/Server Function definitions | >=19.0.0 |
 
 ## Web API Rules
 
