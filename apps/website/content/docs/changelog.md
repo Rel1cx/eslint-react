@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.10.1 (2026-02-05)
+
+### 🐞 Fixes
+
+- Relax `no-implicit-key` rule for React internal key, closes #1472 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1474
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.10.0...v2.10.1
+
 ## v2.10.0 (2026-02-05)
 
 - Refactor `no-implicit-key` rule to use type checking by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1466

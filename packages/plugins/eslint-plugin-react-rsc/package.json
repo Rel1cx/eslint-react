@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-rsc",
-  "version": "2.10.1-beta.0",
+  "version": "2.10.1",
   "description": "ESLint React's ESLint plugin for RSC related rules.",
   "keywords": [
     "react",
