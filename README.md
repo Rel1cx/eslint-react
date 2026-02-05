@@ -125,7 +125,7 @@ export default defineConfig(
 - `x`\
   Enable rules for React.
 - `rsc`\
-- Enable rules for React Server Components.
+  Enable rules for React Server Components.
 - `dom`\
   Enable rules for React DOM.
 - `web-api`\
