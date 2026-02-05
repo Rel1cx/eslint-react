@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
         const key = type.getProperty("key");
         if (key == null) continue;
-        // Allow pass-through of React internal key attribute
+        // Allow pass-through of React internally defined keys
         // https://github.com/Rel1cx/eslint-react/issues/1472
         if (checker.getFullyQualifiedName(key) === "React.Attributes.key") continue;
         context.report({
