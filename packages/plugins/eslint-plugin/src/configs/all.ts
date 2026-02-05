@@ -39,7 +39,6 @@ export const rules = {
   "@eslint-react/no-duplicate-key": "error",
   "@eslint-react/no-forbidden-props": "off",
   "@eslint-react/no-forward-ref": "warn",
-  "@eslint-react/no-implicit-key": "warn",
   "@eslint-react/no-leaked-conditional-rendering": "off",
   "@eslint-react/no-missing-component-display-name": "warn",
   "@eslint-react/no-missing-context-display-name": "warn",
