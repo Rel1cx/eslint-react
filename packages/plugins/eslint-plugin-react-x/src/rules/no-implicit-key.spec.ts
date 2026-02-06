@@ -175,5 +175,13 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <li data-slot="pagination-item" {...props} />;
       }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1476
+    tsx`
+      import { ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: Omit<React.ComponentProps<"li">, "value">) {
+          return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
   ],
 });
