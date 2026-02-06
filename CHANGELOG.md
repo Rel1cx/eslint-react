@@ -1,3 +1,15 @@
+## v2.11.2 (2026-02-07)
+
+### 🐞 Fixes
+
+- Implement a more robust check to handle cases that `getFullyQualifiedName` cannot handle in `no-implicit-key`, closes #1476 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1480
+
+### 🪄 Improvements
+
+- Bump esbuild, node types, jsdoc plugin
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.11.1...v2.11.2
+
 ## v2.11.1 (2026-02-07)
 
 ### 🐞 Fixes
