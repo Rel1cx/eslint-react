@@ -43,6 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // https://github.com/Rel1cx/eslint-react/issues/1472
       if (checker.getFullyQualifiedName(key) === "React.Attributes.key") return;
       // https://github.com/Rel1cx/eslint-react/issues/1476
+      // TODO: Implement a more robust check to handle cases that getFullyQualifiedName cannot handle
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (key.declarations?.at(0)?.getText().trim().startsWith("key?: Key | null | undefined")) return;
       context.report({
