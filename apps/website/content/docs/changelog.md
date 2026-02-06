@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v2.11.1 (2026-02-07)
+
+### 🐞 Fixes
+
+- Fix React internal key checks in `no-implicit-key`, closes #1476 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1479
+- Add `no-implicit-key` rule to `disable-type-checked` config of `eslint-plugin-react-x`, closes #1477 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1478
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.11.0...v2.11.1
+
 ## v2.11.0 (2026-02-06)
 
 ### ✨ New
