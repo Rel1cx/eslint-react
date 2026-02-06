@@ -2,7 +2,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { unionConstituents } from "ts-api-utils";
 
 import { createRule } from "../utils";
 
@@ -37,18 +36,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const checker = services.program.getTypeChecker();
   return {
     JSXSpreadAttribute(node) {
-      for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-        const key = type.getProperty("key");
-        if (key == null) continue;
-        // Allow pass-through of React internally defined keys
-        // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (checker.getFullyQualifiedName(key) === "React.Attributes.key") continue;
-        context.report({
-          messageId: "default",
-          node,
-        });
-        break;
-      }
+      const type = getConstrainedTypeAtLocation(services, node.argument);
+      const key = type.getProperty("key");
+      if (key == null) return;
+      // Allow pass-through of React internally defined keys
+      // https://github.com/Rel1cx/eslint-react/issues/1472
+      if (checker.getFullyQualifiedName(key) === "React.Attributes.key") return;
+      // https://github.com/Rel1cx/eslint-react/issues/1476
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (key.declarations?.at(0)?.getText().trim().startsWith("key?: Key | null | undefined")) return;
+      context.report({
+        messageId: "default",
+        node,
+      });
     },
   };
 }
