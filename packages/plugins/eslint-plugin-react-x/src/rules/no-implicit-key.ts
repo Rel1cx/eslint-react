@@ -39,10 +39,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXSpreadAttribute(node) {
       for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
         const key = type.getProperty("key");
-        if (key == null) return;
+        if (key == null) continue;
         // Allow pass-through of React internally defined keys
         // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (getFullyQualifiedNameEx(checker, key).endsWith("React.Attributes.key")) return;
+        if (getFullyQualifiedNameEx(checker, key).startsWith("React")) continue;
         context.report({
           messageId: "default",
           node,
