@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v2.12.2 (2026-02-08)
+
+### 🐞 Fixes
+
+- Reduce the sensitivity of component detection to prevent false positives in certain rules, closes #1488 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1489
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.1...v2.12.2
+
 ## v2.12.1 (2026-02-07)
 
 ### 🐞 Fixes
