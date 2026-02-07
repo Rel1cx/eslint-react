@@ -21,14 +21,14 @@ export const ComponentDetectionHint = {
  * Default component detection hint
  */
 export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
-  | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
   | ComponentDetectionHint.DoNotIncludeJsxWithBigIntValue
   | ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+  | ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
   | ComponentDetectionHint.DoNotIncludeJsxWithStringValue
   | ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
-  | ComponentDetectionHint.RequireAllArrayElementsToBeJsx
-  | ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-  | ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern
-  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+  | ComponentDetectionHint.RequireAllArrayElementsToBeJsx
+  | ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+  | ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;

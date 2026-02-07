@@ -109,7 +109,7 @@ export function isJsxLike(
       if (node.elements.length === 0) {
         return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
       }
-      // StrictArray requires all elements to be JSX
+      // Requires all elements to be JSX
       if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
         return node.elements.every((n) => isJsxLike(code, n, hint));
       }
@@ -117,7 +117,7 @@ export function isJsxLike(
       return node.elements.some((n) => isJsxLike(code, n, hint));
     }
     case AST.LogicalExpression: {
-      // StrictLogical requires both sides to be JSX
+      // Requires both sides to be JSX
       if (hint & JsxDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx) {
         return isJsxLike(code, node.left, hint) && isJsxLike(code, node.right, hint);
       }
@@ -144,7 +144,7 @@ export function isJsxLike(
         return isJsxLike(code, node.alternate, hint);
       }
 
-      // StrictConditional requires both branches to contain JSX
+      // Requires both branches to contain JSX
       if (hint & JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx) {
         return leftHasJSX(node) && rightHasJSX(node);
       }
