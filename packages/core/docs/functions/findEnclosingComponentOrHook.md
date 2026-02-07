@@ -3,7 +3,7 @@
 # Function: findEnclosingComponentOrHook()
 
 ```ts
-function findEnclosingComponentOrHook(node: Node | undefined, test: FindEnclosingComponentOrHookFilter): 
+function findEnclosingComponentOrHook(node: Node | undefined, test?: FindEnclosingComponentOrHookFilter): 
   | ArrowFunctionExpression
   | FunctionDeclarationWithName
   | FunctionDeclarationWithOptionalName

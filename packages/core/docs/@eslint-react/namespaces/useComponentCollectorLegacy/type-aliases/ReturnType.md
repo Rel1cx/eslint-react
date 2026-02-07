@@ -15,6 +15,6 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[]; \} |
+| <a id="property-ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[]; \} |
 | `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[] |
-| <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |
+| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

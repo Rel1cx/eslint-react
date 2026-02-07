@@ -6,7 +6,7 @@
 
 | Property | Type |
 | ------ | ------ |
-| <a id="jsx"></a> `jsx?` | `number` |
-| <a id="jsxfactory"></a> `jsxFactory?` | `string` |
-| <a id="jsxfragmentfactory"></a> `jsxFragmentFactory?` | `string` |
-| <a id="jsximportsource"></a> `jsxImportSource?` | `string` |
+| <a id="property-jsx"></a> `jsx?` | `number` |
+| <a id="property-jsxfactory"></a> `jsxFactory?` | `string` |
+| <a id="property-jsxfragmentfactory"></a> `jsxFragmentFactory?` | `string` |
+| <a id="property-jsximportsource"></a> `jsxImportSource?` | `string` |

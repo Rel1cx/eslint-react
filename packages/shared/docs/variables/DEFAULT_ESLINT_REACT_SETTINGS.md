@@ -16,6 +16,6 @@ Default ESLint React settings
 
 | Name | Type | Default value |
 | ------ | ------ | ------ |
-| <a id="importsource"></a> `importSource` | `"react"` | `"react"` |
-| <a id="polymorphicpropname"></a> `polymorphicPropName` | `"as"` | `"as"` |
-| <a id="version"></a> `version` | `"detect"` | `"detect"` |
+| <a id="property-importsource"></a> `importSource` | `"react"` | `"react"` |
+| <a id="property-polymorphicpropname"></a> `polymorphicPropName` | `"as"` | `"as"` |
+| <a id="property-version"></a> `version` | `"detect"` | `"detect"` |

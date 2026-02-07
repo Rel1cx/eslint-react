@@ -31,21 +31,21 @@ Hints for component collector
 
 | Name | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| <a id="none"></a> `None` | `0n` | `0n` | - |
-| <a id="skiparrayexpression"></a> `SkipArrayExpression` | `bigint` | - | Skip function component defined in array expression |
-| <a id="skiparraymapcallback"></a> `SkipArrayMapCallback` | `bigint` | - | Skip function component defined as array map callback |
-| <a id="skiparraypattern"></a> `SkipArrayPattern` | `bigint` | - | Skip function component defined in array pattern |
-| <a id="skipbigintliteral"></a> `SkipBigIntLiteral` | `bigint` | - | - |
-| <a id="skipbooleanliteral"></a> `SkipBooleanLiteral` | `bigint` | - | - |
-| <a id="skipclassmethod"></a> `SkipClassMethod` | `bigint` | - | Skip function component defined on class method |
-| <a id="skipclassproperty"></a> `SkipClassProperty` | `bigint` | - | Skip function component defined on class property |
-| <a id="skipcreateelement"></a> `SkipCreateElement` | `bigint` | - | - |
-| <a id="skipemptyarray"></a> `SkipEmptyArray` | `bigint` | - | - |
-| <a id="skipnullliteral"></a> `SkipNullLiteral` | `bigint` | - | - |
-| <a id="skipnumberliteral"></a> `SkipNumberLiteral` | `bigint` | - | - |
-| <a id="skipobjectmethod"></a> `SkipObjectMethod` | `bigint` | - | Skip function component defined on object method |
-| <a id="skipstringliteral"></a> `SkipStringLiteral` | `bigint` | - | - |
-| <a id="skipundefined"></a> `SkipUndefined` | `bigint` | - | - |
-| <a id="strictarray"></a> `StrictArray` | `bigint` | - | - |
-| <a id="strictconditional"></a> `StrictConditional` | `bigint` | - | - |
-| <a id="strictlogical"></a> `StrictLogical` | `bigint` | - | - |
+| <a id="property-none"></a> `None` | `0n` | `0n` | - |
+| <a id="property-skiparrayexpression"></a> `SkipArrayExpression` | `bigint` | - | Skip function component defined in array expression |
+| <a id="property-skiparraymapcallback"></a> `SkipArrayMapCallback` | `bigint` | - | Skip function component defined as array map callback |
+| <a id="property-skiparraypattern"></a> `SkipArrayPattern` | `bigint` | - | Skip function component defined in array pattern |
+| <a id="property-skipbigintliteral"></a> `SkipBigIntLiteral` | `bigint` | - | - |
+| <a id="property-skipbooleanliteral"></a> `SkipBooleanLiteral` | `bigint` | - | - |
+| <a id="property-skipclassmethod"></a> `SkipClassMethod` | `bigint` | - | Skip function component defined on class method |
+| <a id="property-skipclassproperty"></a> `SkipClassProperty` | `bigint` | - | Skip function component defined on class property |
+| <a id="property-skipcreateelement"></a> `SkipCreateElement` | `bigint` | - | - |
+| <a id="property-skipemptyarray"></a> `SkipEmptyArray` | `bigint` | - | - |
+| <a id="property-skipnullliteral"></a> `SkipNullLiteral` | `bigint` | - | - |
+| <a id="property-skipnumberliteral"></a> `SkipNumberLiteral` | `bigint` | - | - |
+| <a id="property-skipobjectmethod"></a> `SkipObjectMethod` | `bigint` | - | Skip function component defined on object method |
+| <a id="property-skipstringliteral"></a> `SkipStringLiteral` | `bigint` | - | - |
+| <a id="property-skipundefined"></a> `SkipUndefined` | `bigint` | - | - |
+| <a id="property-strictarray"></a> `StrictArray` | `bigint` | - | - |
+| <a id="property-strictconditional"></a> `StrictConditional` | `bigint` | - | - |
+| <a id="property-strictlogical"></a> `StrictLogical` | `bigint` | - | - |

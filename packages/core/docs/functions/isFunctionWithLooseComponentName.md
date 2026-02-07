@@ -6,7 +6,7 @@
 function isFunctionWithLooseComponentName(
    context: RuleContext, 
    fn: TSESTreeFunction, 
-   allowNone: boolean): boolean;
+   allowNone?: boolean): boolean;
 ```
 
 Check if a function has a loose component name

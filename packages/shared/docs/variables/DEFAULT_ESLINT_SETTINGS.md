@@ -18,7 +18,7 @@ Default ESLint settings with React settings included
 
 | Name | Type | Default value |
 | ------ | ------ | ------ |
-| <a id="react-x"></a> `react-x` | \{ `importSource`: `"react"`; `polymorphicPropName`: `"as"`; `version`: `"detect"`; \} | `DEFAULT_ESLINT_REACT_SETTINGS` |
+| <a id="property-react-x"></a> `react-x` | \{ `importSource`: `"react"`; `polymorphicPropName`: `"as"`; `version`: `"detect"`; \} | `DEFAULT_ESLINT_REACT_SETTINGS` |
 | `react-x.importSource` | `"react"` | `"react"` |
 | `react-x.polymorphicPropName` | `"as"` | `"as"` |
 | `react-x.version` | `"detect"` | `"detect"` |

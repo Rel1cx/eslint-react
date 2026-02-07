@@ -3,7 +3,7 @@
 # Function: findParentJsxAttribute()
 
 ```ts
-function findParentJsxAttribute(node: Node, test: (node: JSXAttribute) => boolean): JSXAttribute | undefined;
+function findParentJsxAttribute(node: Node, test?: (node: JSXAttribute) => boolean): JSXAttribute | undefined;
 ```
 
 Traverses up the AST to find a parent JSX attribute node that matches a given test

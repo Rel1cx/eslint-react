@@ -13,5 +13,5 @@ type Options = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="collectdisplayname"></a> `collectDisplayName?` | `boolean` |
-| <a id="hint"></a> `hint?` | [`ComponentDetectionHint`](../../../../type-aliases/ComponentDetectionHint.md) |
+| <a id="property-collectdisplayname"></a> `collectDisplayName?` | `boolean` |
+| <a id="property-hint"></a> `hint?` | [`ComponentDetectionHint`](../../../../type-aliases/ComponentDetectionHint.md) |
