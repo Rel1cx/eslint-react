@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v2.12.0 (2026-02-07)
+
+### 🪄 Improvements
+
+- Upgrade ESLint to v10 across the repo by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1486
+
+### 📝 Changes you should be aware of
+
+ESLint v10 is now supported and used throughout the repository. The minimum required ESLint version remains v8.57.0, but the project now supports and is tested against ESLint v10.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.11.2...v2.12.0
+
 ## v2.11.2 (2026-02-07)
 
 ### 🐞 Fixes
