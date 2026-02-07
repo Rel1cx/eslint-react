@@ -1,12 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-/* eslint-disable */
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/tests/lib/rules/no-unknown-property.js
 
-import { allValid, ruleTester } from "../../../../../test";
+import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unknown-property";
-
-import tsx from "dedent";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [{
@@ -51,7 +46,6 @@ ruleTester.run(RULE_NAME, rule, {
     ],
   }, {
     code: '<div class="bar"></div>;',
-    output: '<div className="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -61,9 +55,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div className="bar"></div>;',
   }, {
     code: '<div for="bar"></div>;',
-    output: '<div htmlFor="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -73,9 +67,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div htmlFor="bar"></div>;',
   }, {
     code: '<div accept-charset="bar"></div>;',
-    output: '<div acceptCharset="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -85,9 +79,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div acceptCharset="bar"></div>;',
   }, {
     code: '<div http-equiv="bar"></div>;',
-    output: '<div httpEquiv="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -97,9 +91,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div httpEquiv="bar"></div>;',
   }, {
     code: '<div accesskey="bar"></div>;',
-    output: '<div accessKey="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -109,9 +103,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div accessKey="bar"></div>;',
   }, {
     code: '<div onclick="bar"></div>;',
-    output: '<div onClick="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -121,9 +115,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div onClick="bar"></div>;',
   }, {
     code: '<div onmousedown="bar"></div>;',
-    output: '<div onMouseDown="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -133,9 +127,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div onMouseDown="bar"></div>;',
   }, {
     code: '<div onMousedown="bar"></div>;',
-    output: '<div onMouseDown="bar"></div>;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -145,9 +139,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<div onMouseDown="bar"></div>;',
   }, {
     code: '<use xlink:href="bar" />;',
-    output: '<use xlinkHref="bar" />;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -157,9 +151,9 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<use xlinkHref="bar" />;',
   }, {
     code: '<rect clip-path="bar" />;',
-    output: '<rect clipPath="bar" />;',
     errors: [
       {
         messageId: "unknownPropWithStandardName",
@@ -169,6 +163,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     ],
+    output: '<rect clipPath="bar" />;',
   }, {
     code: "<script crossorigin nomodule />",
     errors: [
@@ -207,8 +202,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "crossOrigin",
-          tagName: "div",
           allowedTags: "script, img, video, audio, link, image",
+          tagName: "div",
         },
       },
     ],
@@ -219,8 +214,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "as",
-          tagName: "div",
           allowedTags: "link",
+          tagName: "div",
         },
       },
     ],
@@ -232,48 +227,48 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "onAbort",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "onDurationChange",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "onEmptied",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "onEnded",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "onResize",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "onError",
-          tagName: "div",
           allowedTags: "audio, video, img, link, source, script, picture, iframe",
+          tagName: "div",
         },
       },
     ],
@@ -284,8 +279,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "onLoad",
-          tagName: "div",
           allowedTags: "script, img, link, picture, iframe, object, source",
+          tagName: "div",
         },
       },
     ],
@@ -296,9 +291,9 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "fill",
-          tagName: "div",
           allowedTags:
             "altGlyph, circle, ellipse, g, line, marker, mask, path, polygon, polyline, rect, svg, symbol, text, textPath, tref, tspan, use, animate, animateColor, animateMotion, animateTransform, set",
+          tagName: "div",
         },
       },
     ],
@@ -310,40 +305,40 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "controls",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "loop",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "muted",
-          tagName: "div",
           allowedTags: "audio, video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "playsInline",
-          tagName: "div",
           allowedTags: "video",
+          tagName: "div",
         },
       },
       {
         messageId: "invalidPropOnTag",
         data: {
           name: "allowFullScreen",
-          tagName: "div",
           allowedTags: "iframe, video",
+          tagName: "div",
         },
       },
     ],
@@ -354,8 +349,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "download",
-          tagName: "div",
           allowedTags: "a, area",
+          tagName: "div",
         },
       },
     ],
@@ -366,8 +361,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "imageSrcSet",
-          tagName: "div",
           allowedTags: "link",
+          tagName: "div",
         },
       },
     ],
@@ -378,8 +373,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "imageSizes",
-          tagName: "div",
           allowedTags: "link",
+          tagName: "div",
         },
       },
     ],
@@ -445,8 +440,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "abbr",
-          tagName: "div",
           allowedTags: "th, td",
+          tagName: "div",
         },
       },
     ],
@@ -457,8 +452,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "webkitDirectory",
-          tagName: "div",
           allowedTags: "input",
+          tagName: "div",
         },
       },
     ],
@@ -469,8 +464,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "invalidPropOnTag",
         data: {
           name: "webkitdirectory",
-          tagName: "div",
           allowedTags: "input",
+          tagName: "div",
         },
       },
     ],
