@@ -35,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       "Program:exit"(program) {
         for (const component of ctx.getAllComponents(program)) {
-          if (component.name == null && component.isExportDefaultDeclaration) continue;
+          if (component.name == null || component.isExportDefaultDeclaration) continue;
           const [props] = component.node.params;
           if (props == null) continue;
           if (props.type !== AST.Identifier) continue;

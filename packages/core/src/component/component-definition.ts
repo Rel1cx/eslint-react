@@ -67,6 +67,12 @@ function shouldExcludeBasedOnHint(node: ast.TSESTreeFunction, hint: bigint): boo
       && node.parent.callee.property.type === AST.Identifier
       && node.parent.callee.property.name === "map":
       return true;
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback)
+      && node.parent.type === AST.CallExpression
+      && node.parent.callee.type === AST.MemberExpression
+      && node.parent.callee.property.type === AST.Identifier
+      && node.parent.callee.property.name === "flatMap":
+      return true;
   }
   return false;
 }
