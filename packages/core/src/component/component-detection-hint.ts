@@ -15,6 +15,7 @@ export const ComponentDetectionHint = {
   DoNotIncludeFunctionDefinedInArrayPattern: 1n << 67n,
   DoNotIncludeFunctionDefinedInArrayExpression: 1n << 68n,
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 69n,
+  DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 70n,
 } as const;
 
 /**
@@ -26,6 +27,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
   | ComponentDetectionHint.DoNotIncludeJsxWithStringValue
   | ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern

@@ -33,6 +33,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Configuration hints to optimize component detection accuracy and performance
   const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
     | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.ComponentDetectionHint.DoNotIncludeJsxWithNullValue
     | core.ComponentDetectionHint.DoNotIncludeJsxWithStringValue
     | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx

@@ -568,5 +568,29 @@ ruleTester.run(RULE_NAME, rule, {
         return user ? <div>{user.name}</div> : null
       }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1488
+    tsx`
+      const items = [{ property: "value" }];
+
+          items.flatMap((item) => {
+            console.log(item.property); // Reports "Use destructuring assignment for component props"
+            return null;
+          });
+
+          items.filter((item) => {
+            console.log(item.property); // Reports "Use destructuring assignment for component props"
+            return null;
+          });
+
+          items.find((item) => {
+            console.log(item.property); // Reports "Use destructuring assignment for component props"
+            return null;
+          });
+
+          items.map((item) => {
+            console.log(item.property); // Doesn't report
+            return null;
+          });
+    `,
   ],
 });
