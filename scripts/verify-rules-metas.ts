@@ -16,8 +16,8 @@ const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.ts"];
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
   { key: "x", heading: "X Rules" },
-  { key: "dom", heading: "DOM Rules" },
   { key: "rsc", heading: "RSC Rules" },
+  { key: "dom", heading: "DOM Rules" },
   { key: "web-api", heading: "Web API Rules" },
   { key: "hooks-extra", heading: "Hooks Extra Rules" },
   { key: "naming-convention", heading: "Naming Convention Rules" },
