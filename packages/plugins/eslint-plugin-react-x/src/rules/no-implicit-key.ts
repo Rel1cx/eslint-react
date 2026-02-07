@@ -3,9 +3,8 @@ import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { unionConstituents } from "ts-api-utils";
-import ts from "typescript";
 
-import { createRule } from "../utils";
+import { createRule, getFullyQualifiedNameEx } from "../utils";
 
 export const RULE_NAME = "no-implicit-key";
 
@@ -43,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (key == null) return;
         // Allow pass-through of React internally defined keys
         // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (isReactInternalKey(checker, key)) return;
+        if (getFullyQualifiedNameEx(checker, key).endsWith("React.Attributes.key")) return;
         context.report({
           messageId: "default",
           node,
@@ -51,22 +50,4 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
-}
-
-/**
- * Check if a symbol is a React internal key
- * @param checker TypeScript type checker
- * @param key Symbol to check
- * @returns True if the symbol is a React internal key, false otherwise
- */
-function isReactInternalKey(checker: ts.TypeChecker, key: ts.Symbol) {
-  if (checker.getFullyQualifiedName(key) === "React.Attributes.key") return true;
-  let parent = key.declarations?.at(0)?.parent;
-  while (parent != null && parent.kind !== ts.SyntaxKind.SourceFile) {
-    if (ts.isModuleDeclaration(parent) && ts.isIdentifier(parent.name) && parent.name.text === "React") {
-      return true;
-    }
-    parent = parent.parent;
-  }
-  return false;
 }

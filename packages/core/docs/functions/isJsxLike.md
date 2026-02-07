@@ -8,7 +8,7 @@ function isJsxLike(
   getScope: (node: Node) => Scope;
 }, 
    node: Node | null | undefined, 
-   hint: bigint): boolean;
+   hint?: bigint): boolean;
 ```
 
 Determine if a node represents JSX-like content based on heuristics

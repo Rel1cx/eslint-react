@@ -17,9 +17,9 @@ const JsxEmit: {
 
 | Name | Type | Default value |
 | ------ | ------ | ------ |
-| <a id="none"></a> `None` | `0` | `0` |
-| <a id="preserve"></a> `Preserve` | `1` | `1` |
-| <a id="react"></a> `React` | `2` | `2` |
-| <a id="reactjsx"></a> `ReactJSX` | `4` | `4` |
-| <a id="reactjsxdev"></a> `ReactJSXDev` | `5` | `5` |
-| <a id="reactnative"></a> `ReactNative` | `3` | `3` |
+| <a id="property-none"></a> `None` | `0` | `0` |
+| <a id="property-preserve"></a> `Preserve` | `1` | `1` |
+| <a id="property-react"></a> `React` | `2` | `2` |
+| <a id="property-reactjsx"></a> `ReactJSX` | `4` | `4` |
+| <a id="property-reactjsxdev"></a> `ReactJSXDev` | `5` | `5` |
+| <a id="property-reactnative"></a> `ReactNative` | `3` | `3` |

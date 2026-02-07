@@ -6,7 +6,7 @@
 function isInitializedFromReactNative(
    name: string, 
    initialScope: Scope, 
-   importSource: string): boolean;
+   importSource?: string): boolean;
 ```
 
 if a variable is initialized from React Native import

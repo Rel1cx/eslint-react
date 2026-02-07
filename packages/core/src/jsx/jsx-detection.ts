@@ -27,17 +27,17 @@ export type JsxDetectionHint = bigint;
 /* eslint-disable perfectionist/sort-objects */
 export const JsxDetectionHint = {
   None: 0n,
-  SkipUndefined: 1n << 0n, // Ignore undefined values
-  SkipNullLiteral: 1n << 1n, // Ignore null literals
-  SkipBooleanLiteral: 1n << 2n, // Ignore boolean literals
-  SkipStringLiteral: 1n << 3n, // Ignore string literals
-  SkipNumberLiteral: 1n << 4n, // Ignore number literals
-  SkipBigIntLiteral: 1n << 5n, // Ignore bigint literals
-  SkipEmptyArray: 1n << 6n, // Ignore empty arrays
-  SkipCreateElement: 1n << 7n, // Ignore React.createElement calls
-  StrictArray: 1n << 8n, // Require all array elements to be JSX
-  StrictLogical: 1n << 9n, // Require both sides of logical expr to be JSX
-  StrictConditional: 1n << 10n, // Require both branches of conditional to be JSX
+  DoNotIncludeJsxWithNullValue: 1n << 0n,
+  DoNotIncludeJsxWithNumberValue: 1n << 1n,
+  DoNotIncludeJsxWithBigIntValue: 1n << 2n,
+  DoNotIncludeJsxWithStringValue: 1n << 3n,
+  DoNotIncludeJsxWithBooleanValue: 1n << 4n,
+  DoNotIncludeJsxWithUndefinedValue: 1n << 5n,
+  DoNotIncludeJsxWithEmptyArrayValue: 1n << 6n,
+  DoNotIncludeJsxWithCreateElementValue: 1n << 7n,
+  RequireAllArrayElementsToBeJsx: 1n << 8n,
+  RequireBothSidesOfLogicalExpressionToBeJsx: 1n << 9n,
+  RequireBothBranchesOfConditionalExpressionToBeJsx: 1n << 10n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
 
@@ -46,8 +46,11 @@ export const JsxDetectionHint = {
  * Skips undefined and boolean literals (common in React)
  */
 export const DEFAULT_JSX_DETECTION_HINT = 0n
-  | JsxDetectionHint.SkipUndefined
-  | JsxDetectionHint.SkipBooleanLiteral;
+  | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
+  | JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
+  | JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
+  | JsxDetectionHint.DoNotIncludeJsxWithStringValue
+  | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue;
 
 /**
  * Check if a node is a `JSXText` or a `Literal` node
@@ -84,38 +87,38 @@ export function isJsxLike(
       // Handle different literal types according to hint flags
       switch (typeof node.value) {
         case "boolean":
-          return !(hint & JsxDetectionHint.SkipBooleanLiteral);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithBooleanValue);
         case "string":
-          return !(hint & JsxDetectionHint.SkipStringLiteral);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue);
         case "number":
-          return !(hint & JsxDetectionHint.SkipNumberLiteral);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithNumberValue);
         case "bigint":
-          return !(hint & JsxDetectionHint.SkipBigIntLiteral);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithBigIntValue);
       }
       if (node.value == null) {
-        return !(hint & JsxDetectionHint.SkipNullLiteral);
+        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithNullValue);
       }
       return false;
     }
     case AST.TemplateLiteral: {
       // Template literals are treated like string literals
-      return !(hint & JsxDetectionHint.SkipStringLiteral);
+      return !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue);
     }
     case AST.ArrayExpression: {
       // Empty arrays can be filtered with SkipEmptyArray
       if (node.elements.length === 0) {
-        return !(hint & JsxDetectionHint.SkipEmptyArray);
+        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
       }
-      // StrictArray requires all elements to be JSX
-      if (hint & JsxDetectionHint.StrictArray) {
+      // Requires all elements to be JSX
+      if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
         return node.elements.every((n) => isJsxLike(code, n, hint));
       }
       // Default: array is JSX-like if any element is JSX-like
       return node.elements.some((n) => isJsxLike(code, n, hint));
     }
     case AST.LogicalExpression: {
-      // StrictLogical requires both sides to be JSX
-      if (hint & JsxDetectionHint.StrictLogical) {
+      // Requires both sides to be JSX
+      if (hint & JsxDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx) {
         return isJsxLike(code, node.left, hint) && isJsxLike(code, node.right, hint);
       }
       // Default: logical expression is JSX-like if either side is JSX-like
@@ -126,9 +129,9 @@ export function isJsxLike(
       function leftHasJSX(node: TSESTree.ConditionalExpression) {
         if (Array.isArray(node.consequent)) {
           if (node.consequent.length === 0) {
-            return !(hint & JsxDetectionHint.SkipEmptyArray);
+            return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
           }
-          if (hint & JsxDetectionHint.StrictArray) {
+          if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
             return node.consequent.every((n: TSESTree.Expression) => isJsxLike(code, n, hint));
           }
           return node.consequent.some((n: TSESTree.Expression) => isJsxLike(code, n, hint));
@@ -141,8 +144,8 @@ export function isJsxLike(
         return isJsxLike(code, node.alternate, hint);
       }
 
-      // StrictConditional requires both branches to contain JSX
-      if (hint & JsxDetectionHint.StrictConditional) {
+      // Requires both branches to contain JSX
+      if (hint & JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx) {
         return leftHasJSX(node) && rightHasJSX(node);
       }
       // Default: conditional is JSX-like if either branch has JSX
@@ -155,7 +158,7 @@ export function isJsxLike(
     }
     case AST.CallExpression: {
       // Skip createElement calls if configured to do so
-      if (hint & JsxDetectionHint.SkipCreateElement) {
+      if (hint & JsxDetectionHint.DoNotIncludeJsxWithCreateElementValue) {
         return false;
       }
       // Check for React.createElement or createElement calls
@@ -171,7 +174,7 @@ export function isJsxLike(
       const { name } = node;
       // Handle 'undefined' identifier according to hint
       if (name === "undefined") {
-        return !(hint & JsxDetectionHint.SkipUndefined);
+        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue);
       }
       // Check if this is a JSX tag name
       if (ast.isJSXTagNameExpression(node)) {

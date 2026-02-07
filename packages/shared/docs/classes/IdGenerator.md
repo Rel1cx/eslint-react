@@ -9,7 +9,7 @@ A generator for unique ids.
 ### Constructor
 
 ```ts
-new IdGenerator(prefix: string): IdGenerator;
+new IdGenerator(prefix?: string): IdGenerator;
 ```
 
 #### Parameters
