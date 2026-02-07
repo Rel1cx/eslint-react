@@ -19,12 +19,12 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.7.1",
     "eslint-plugin-de-morgan": "^2.0.0",
     "eslint-plugin-function": "^0.5.0",
     "eslint-plugin-function-rule": "^0.5.0",
-    "eslint-plugin-jsdoc": "^62.5.2",
+    "eslint-plugin-jsdoc": "^62.5.3",
     "eslint-plugin-perfectionist": "^5.5.0",
     "eslint-plugin-regexp": "^3.0.0",
     "eslint-plugin-unicorn": "^62.0.0",
