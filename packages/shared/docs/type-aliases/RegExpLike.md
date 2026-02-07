@@ -14,4 +14,4 @@ A type represents RegExp-like object with `test` method.
 
 | Property | Type |
 | ------ | ------ |
-| <a id="test"></a> `test` | (`s`: `string`) => `boolean` |
+| <a id="property-test"></a> `test` | (`s`: `string`) => `boolean` |

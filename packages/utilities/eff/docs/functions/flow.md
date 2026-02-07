@@ -82,7 +82,7 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
+| `bc` | (`b`: `B`) => `C` | - |
 
 ### Returns
 
@@ -145,8 +145,8 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
 
 ### Returns
 
@@ -211,9 +211,9 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
-| `de` | (`d`: `D`) => `E` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
 
 ### Returns
 
@@ -280,10 +280,10 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
-| `de` | (`d`: `D`) => `E` |  |
-| `ef` | (`e`: `E`) => `F` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
 
 ### Returns
 
@@ -352,11 +352,11 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
-| `de` | (`d`: `D`) => `E` |  |
-| `ef` | (`e`: `E`) => `F` |  |
-| `fg` | (`f`: `F`) => `G` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
 
 ### Returns
 
@@ -427,12 +427,12 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
-| `de` | (`d`: `D`) => `E` |  |
-| `ef` | (`e`: `E`) => `F` |  |
-| `fg` | (`f`: `F`) => `G` |  |
-| `gh` | (`g`: `G`) => `H` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
 
 ### Returns
 
@@ -505,13 +505,13 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
-| `de` | (`d`: `D`) => `E` |  |
-| `ef` | (`e`: `E`) => `F` |  |
-| `fg` | (`f`: `F`) => `G` |  |
-| `gh` | (`g`: `G`) => `H` |  |
-| `hi` | (`h`: `H`) => `I` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
 
 ### Returns
 
@@ -586,14 +586,14 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` |  |
-| `cd` | (`c`: `C`) => `D` |  |
-| `de` | (`d`: `D`) => `E` |  |
-| `ef` | (`e`: `E`) => `F` |  |
-| `fg` | (`f`: `F`) => `G` |  |
-| `gh` | (`g`: `G`) => `H` |  |
-| `hi` | (`h`: `H`) => `I` |  |
-| `ij` | (`i`: `I`) => `J` |  |
+| `bc` | (`b`: `B`) => `C` | - |
+| `cd` | (`c`: `C`) => `D` | - |
+| `de` | (`d`: `D`) => `E` | - |
+| `ef` | (`e`: `E`) => `F` | - |
+| `fg` | (`f`: `F`) => `G` | - |
+| `gh` | (`g`: `G`) => `H` | - |
+| `hi` | (`h`: `H`) => `I` | - |
+| `ij` | (`i`: `I`) => `J` | - |
 
 ### Returns
 

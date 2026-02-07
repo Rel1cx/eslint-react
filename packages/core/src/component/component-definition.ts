@@ -42,26 +42,26 @@ function isRenderMethodCallback(node: ast.TSESTreeFunction) {
  */
 function shouldExcludeBasedOnHint(node: ast.TSESTreeFunction, hint: bigint): boolean {
   switch (true) {
-    case (hint & ComponentDetectionHint.SkipObjectMethod)
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod)
       && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.Property
       && node.parent.parent.type === AST.ObjectExpression:
       return true;
-    case (hint & ComponentDetectionHint.SkipClassMethod)
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassMethod)
       && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.MethodDefinition:
       return true;
-    case (hint & ComponentDetectionHint.SkipClassProperty)
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassProperty)
       && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.Property:
       return true;
-    case (hint & ComponentDetectionHint.SkipArrayPattern)
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern)
       && node.parent.type === AST.ArrayPattern:
       return true;
-    case (hint & ComponentDetectionHint.SkipArrayExpression)
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression)
       && node.parent.type === AST.ArrayExpression:
       return true;
-    case (hint & ComponentDetectionHint.SkipArrayMapCallback)
+    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback)
       && node.parent.type === AST.CallExpression
       && node.parent.callee.type === AST.MemberExpression
       && node.parent.callee.property.type === AST.Identifier

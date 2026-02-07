@@ -31,14 +31,15 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = core.ComponentDetectionHint.SkipArrayMapCallback
-    | core.ComponentDetectionHint.SkipNullLiteral
-    | core.ComponentDetectionHint.SkipUndefined
-    | core.ComponentDetectionHint.SkipBooleanLiteral
-    | core.ComponentDetectionHint.SkipStringLiteral
-    | core.ComponentDetectionHint.SkipNumberLiteral
-    | core.ComponentDetectionHint.StrictLogical
-    | core.ComponentDetectionHint.StrictConditional;
+  const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
+    | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.ComponentDetectionHint.DoNotIncludeJsxWithStringValue
+    | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
+    | core.ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component definitions in the code
   const fCollector = core.useComponentCollector(context, { hint });

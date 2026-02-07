@@ -22,6 +22,6 @@ A suggestion for fixing a reported issue.
 
 | Property | Type | Description |
 | ------ | ------ | ------ |
-| <a id="data"></a> `data?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `unknown`\> | Optional data to pass to the message formatter. |
-| <a id="fix"></a> `fix` | `tseslint.ReportFixFunction` | The fix function to apply the suggestion. |
-| <a id="messageid"></a> `messageId` | `MessageIds` | The message ID for the suggestion. |
+| <a id="property-data"></a> `data?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `unknown`\> | Optional data to pass to the message formatter. |
+| <a id="property-fix"></a> `fix` | `tseslint.ReportFixFunction` | The fix function to apply the suggestion. |
+| <a id="property-messageid"></a> `messageId` | `MessageIds` | The message ID for the suggestion. |

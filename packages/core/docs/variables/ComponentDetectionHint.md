@@ -4,24 +4,24 @@
 
 ```ts
 ComponentDetectionHint: {
+  DoNotIncludeFunctionDefinedAsArrayMapCallback: bigint;
+  DoNotIncludeFunctionDefinedInArrayExpression: bigint;
+  DoNotIncludeFunctionDefinedInArrayPattern: bigint;
+  DoNotIncludeFunctionDefinedOnClassMethod: bigint;
+  DoNotIncludeFunctionDefinedOnClassProperty: bigint;
+  DoNotIncludeFunctionDefinedOnObjectMethod: bigint;
+  DoNotIncludeJsxWithBigIntValue: bigint;
+  DoNotIncludeJsxWithBooleanValue: bigint;
+  DoNotIncludeJsxWithCreateElementValue: bigint;
+  DoNotIncludeJsxWithEmptyArrayValue: bigint;
+  DoNotIncludeJsxWithNullValue: bigint;
+  DoNotIncludeJsxWithNumberValue: bigint;
+  DoNotIncludeJsxWithStringValue: bigint;
+  DoNotIncludeJsxWithUndefinedValue: bigint;
   None: 0n;
-  SkipArrayExpression: bigint;
-  SkipArrayMapCallback: bigint;
-  SkipArrayPattern: bigint;
-  SkipBigIntLiteral: bigint;
-  SkipBooleanLiteral: bigint;
-  SkipClassMethod: bigint;
-  SkipClassProperty: bigint;
-  SkipCreateElement: bigint;
-  SkipEmptyArray: bigint;
-  SkipNullLiteral: bigint;
-  SkipNumberLiteral: bigint;
-  SkipObjectMethod: bigint;
-  SkipStringLiteral: bigint;
-  SkipUndefined: bigint;
-  StrictArray: bigint;
-  StrictConditional: bigint;
-  StrictLogical: bigint;
+  RequireAllArrayElementsToBeJsx: bigint;
+  RequireBothBranchesOfConditionalExpressionToBeJsx: bigint;
+  RequireBothSidesOfLogicalExpressionToBeJsx: bigint;
 };
 ```
 
@@ -29,23 +29,23 @@ Hints for component collector
 
 ## Type Declaration
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| <a id="none"></a> `None` | `0n` | `0n` | - |
-| <a id="skiparrayexpression"></a> `SkipArrayExpression` | `bigint` | - | Skip function component defined in array expression |
-| <a id="skiparraymapcallback"></a> `SkipArrayMapCallback` | `bigint` | - | Skip function component defined as array map callback |
-| <a id="skiparraypattern"></a> `SkipArrayPattern` | `bigint` | - | Skip function component defined in array pattern |
-| <a id="skipbigintliteral"></a> `SkipBigIntLiteral` | `bigint` | - | - |
-| <a id="skipbooleanliteral"></a> `SkipBooleanLiteral` | `bigint` | - | - |
-| <a id="skipclassmethod"></a> `SkipClassMethod` | `bigint` | - | Skip function component defined on class method |
-| <a id="skipclassproperty"></a> `SkipClassProperty` | `bigint` | - | Skip function component defined on class property |
-| <a id="skipcreateelement"></a> `SkipCreateElement` | `bigint` | - | - |
-| <a id="skipemptyarray"></a> `SkipEmptyArray` | `bigint` | - | - |
-| <a id="skipnullliteral"></a> `SkipNullLiteral` | `bigint` | - | - |
-| <a id="skipnumberliteral"></a> `SkipNumberLiteral` | `bigint` | - | - |
-| <a id="skipobjectmethod"></a> `SkipObjectMethod` | `bigint` | - | Skip function component defined on object method |
-| <a id="skipstringliteral"></a> `SkipStringLiteral` | `bigint` | - | - |
-| <a id="skipundefined"></a> `SkipUndefined` | `bigint` | - | - |
-| <a id="strictarray"></a> `StrictArray` | `bigint` | - | - |
-| <a id="strictconditional"></a> `StrictConditional` | `bigint` | - | - |
-| <a id="strictlogical"></a> `StrictLogical` | `bigint` | - | - |
+| Name | Type | Default value |
+| ------ | ------ | ------ |
+| <a id="property-donotincludefunctiondefinedasarraymapcallback"></a> `DoNotIncludeFunctionDefinedAsArrayMapCallback` | `bigint` | - |
+| <a id="property-donotincludefunctiondefinedinarrayexpression"></a> `DoNotIncludeFunctionDefinedInArrayExpression` | `bigint` | - |
+| <a id="property-donotincludefunctiondefinedinarraypattern"></a> `DoNotIncludeFunctionDefinedInArrayPattern` | `bigint` | - |
+| <a id="property-donotincludefunctiondefinedonclassmethod"></a> `DoNotIncludeFunctionDefinedOnClassMethod` | `bigint` | - |
+| <a id="property-donotincludefunctiondefinedonclassproperty"></a> `DoNotIncludeFunctionDefinedOnClassProperty` | `bigint` | - |
+| <a id="property-donotincludefunctiondefinedonobjectmethod"></a> `DoNotIncludeFunctionDefinedOnObjectMethod` | `bigint` | - |
+| <a id="property-donotincludejsxwithbigintvalue"></a> `DoNotIncludeJsxWithBigIntValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithbooleanvalue"></a> `DoNotIncludeJsxWithBooleanValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithcreateelementvalue"></a> `DoNotIncludeJsxWithCreateElementValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithemptyarrayvalue"></a> `DoNotIncludeJsxWithEmptyArrayValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithnullvalue"></a> `DoNotIncludeJsxWithNullValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithnumbervalue"></a> `DoNotIncludeJsxWithNumberValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithstringvalue"></a> `DoNotIncludeJsxWithStringValue` | `bigint` | - |
+| <a id="property-donotincludejsxwithundefinedvalue"></a> `DoNotIncludeJsxWithUndefinedValue` | `bigint` | - |
+| <a id="property-none"></a> `None` | `0n` | `0n` |
+| <a id="property-requireallarrayelementstobejsx"></a> `RequireAllArrayElementsToBeJsx` | `bigint` | - |
+| <a id="property-requirebothbranchesofconditionalexpressiontobejsx"></a> `RequireBothBranchesOfConditionalExpressionToBeJsx` | `bigint` | - |
+| <a id="property-requirebothsidesoflogicalexpressiontobejsx"></a> `RequireBothSidesOfLogicalExpressionToBeJsx` | `bigint` | - |

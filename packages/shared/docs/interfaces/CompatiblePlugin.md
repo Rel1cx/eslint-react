@@ -9,7 +9,7 @@ Intentionally wide/inaccurate for compatibility purposes.
 
 | Property | Type |
 | ------ | ------ |
-| <a id="meta"></a> `meta` | \{ `name`: `string`; `version`: `string`; \} |
+| <a id="property-meta"></a> `meta` | \{ `name`: `string`; `version`: `string`; \} |
 | `meta.name` | `string` |
 | `meta.version` | `string` |
-| <a id="rules"></a> `rules` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, [`CompatibleRule`](CompatibleRule.md)\> |
+| <a id="property-rules"></a> `rules` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, [`CompatibleRule`](CompatibleRule.md)\> |

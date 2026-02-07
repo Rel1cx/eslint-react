@@ -17,8 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="ctx"></a> `ctx` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `undefined`; \} |
+| <a id="property-ctx"></a> `ctx` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `undefined`; \} |
 | `ctx.getAllHooks` | [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[] |
 | `ctx.getCurrentEntries` | `FunctionEntry`[] |
 | `ctx.getCurrentEntry` | `FunctionEntry` \| `undefined` |
-| <a id="visitor"></a> `visitor` | `ESLintUtils.RuleListener` |
+| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

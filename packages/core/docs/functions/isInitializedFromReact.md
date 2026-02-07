@@ -6,7 +6,7 @@
 function isInitializedFromReact(
    name: string, 
    initialScope: Scope, 
-   importSource: string): boolean;
+   importSource?: string): boolean;
 ```
 
 Check if a variable is initialized from React import

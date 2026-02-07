@@ -16,10 +16,10 @@ This is the base interface for all semantic nodes in the React semantic analysis
 
 | Property | Type | Description |
 | ------ | ------ | ------ |
-| <a id="flag"></a> `flag` | `bigint` | The flag of the node |
-| <a id="hint"></a> `hint` | `bigint` | The hint of the node |
-| <a id="id"></a> `id` | `Node` \| `undefined` | The identifier of the node |
-| <a id="key"></a> `key` | `string` | The unique key of the node |
-| <a id="kind"></a> `kind` | `string` | The kind of the node |
-| <a id="name"></a> `name` | `string` \| `undefined` | The name of the node |
-| <a id="node"></a> `node` | `Node` | The AST node |
+| <a id="property-flag"></a> `flag` | `bigint` | The flag of the node |
+| <a id="property-hint"></a> `hint` | `bigint` | The hint of the node |
+| <a id="property-id"></a> `id` | `Node` \| `undefined` | The identifier of the node |
+| <a id="property-key"></a> `key` | `string` | The unique key of the node |
+| <a id="property-kind"></a> `kind` | `string` | The kind of the node |
+| <a id="property-name"></a> `name` | `string` \| `undefined` | The name of the node |
+| <a id="property-node"></a> `node` | `Node` | The AST node |

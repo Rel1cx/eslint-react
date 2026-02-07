@@ -9,5 +9,5 @@ Intentionally wide/inaccurate for compatibility purposes.
 
 | Property | Type |
 | ------ | ------ |
-| <a id="create"></a> `create` | (...`args`: `any`[]) => `any` |
-| <a id="meta"></a> `meta` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `any`\> |
+| <a id="property-create"></a> `create` | (...`args`: `any`[]) => `any` |
+| <a id="property-meta"></a> `meta` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `any`\> |

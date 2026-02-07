@@ -3,7 +3,7 @@
 # Function: isUseEffectLikeCall()
 
 ```ts
-function isUseEffectLikeCall(node: Node | undefined, additionalEffectHooks: RegExpLike): node is CallExpression;
+function isUseEffectLikeCall(node: Node | undefined, additionalEffectHooks?: RegExpLike): node is CallExpression;
 ```
 
 Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern

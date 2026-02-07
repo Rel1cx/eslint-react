@@ -3,7 +3,7 @@
 # Function: useComponentCollector()
 
 ```ts
-function useComponentCollector(context: RuleContext, options: Options): ReturnType;
+function useComponentCollector(context: RuleContext, options?: Options): ReturnType;
 ```
 
 Get a ctx and visitor object for the rule to collect function components

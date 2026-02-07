@@ -9,6 +9,6 @@ Intentionally wide/inaccurate for compatibility purposes.
 
 | Property | Type | Description |
 | ------ | ------ | ------ |
-| <a id="name"></a> `name?` | `string` | Optional configuration name. |
-| <a id="rules"></a> `rules?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleConfig`\<`unknown`[]\>\> | Rule configurations. |
-| <a id="settings"></a> `settings?` | [`SettingsConfig`](SettingsConfig.md) | Shared settings. |
+| <a id="property-name"></a> `name?` | `string` | Optional configuration name. |
+| <a id="property-rules"></a> `rules?` | [`Record`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)\<`string`, `RuleConfig`\<`unknown`[]\>\> | Rule configurations. |
+| <a id="property-settings"></a> `settings?` | [`SettingsConfig`](SettingsConfig.md) | Shared settings. |
