@@ -1,3 +1,11 @@
+## v2.12.1 (2026-02-07)
+
+### 🐞 Fixes
+
+- Check all union constituents and allow all types under `React` namespace in `no-implicit-key` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1487
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.0...v2.12.1
+
 ## v2.12.0 (2026-02-07)
 
 ### 🪄 Improvements
