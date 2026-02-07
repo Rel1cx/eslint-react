@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const propVariable = context.sourceCode.getScope(component.node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
           for (const ref of propReferences) {
-            const { name, parent } = ref.identifier;
+            const { parent } = ref.identifier;
             if (parent.type !== AST.MemberExpression) continue;
             context.report({
               messageId: "default",
