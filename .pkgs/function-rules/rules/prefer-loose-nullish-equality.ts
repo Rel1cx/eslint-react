@@ -1,22 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Rule } from "eslint";
-import { defineRuleListener } from "eslint-plugin-function-rule";
 
-export interface nullishComparisonOptions {
-  enforce: "eqeq" | "eqeqeq";
-}
-
-// TODO: Implement different enforce options
-export function nullishComparison(options?: nullishComparisonOptions) {
+/**
+ * Ensures that nullish equality is used instead of strict equality when possible
+ */
+export function preferLooseNullishEquality() {
   return (context: Rule.RuleContext): Rule.RuleListener => ({
     BinaryExpression(node): void {
       if (node.operator === "===" || node.operator === "!==") {
-        const offendingChild = [node.left, node.right].find(
-          (child) =>
-            (child.type === "Identifier"
-              && child.name === "undefined")
-            || (child.type === "Literal" && child.raw === "null"),
+        const offendingChild = [
+          node.left,
+          node.right,
+        ].find((n) =>
+          (n.type === "Identifier"
+            && n.name === "undefined")
+          || (n.type === "Literal" && n.raw === "null")
         );
 
         if (offendingChild == null) {

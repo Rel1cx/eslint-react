@@ -1,7 +1,8 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { type CompareOperator, compare } from "compare-versions";
 
@@ -1003,12 +1004,12 @@ function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string
 function isValidHTMLTagInJSX(childNode: TSESTree.JSXAttribute): boolean {
   const tagConvention = /^[a-z][^-]*$/;
   if (
-    childNode.parent.name.type === TSESTree.AST_NODE_TYPES.JSXIdentifier
+    childNode.parent.name.type === AST.JSXIdentifier
     && tagConvention.test(childNode.parent.name.name)
   ) {
     return !childNode.parent.attributes.some((attrNode) =>
-      attrNode.type === TSESTree.AST_NODE_TYPES.JSXAttribute
-      && attrNode.name.type === TSESTree.AST_NODE_TYPES.JSXIdentifier
+      attrNode.type === AST.JSXAttribute
+      && attrNode.name.type === AST.JSXIdentifier
       && attrNode.name.name === "is"
     );
   }
@@ -1057,7 +1058,7 @@ function isValidAriaAttribute(name: string): boolean {
  * @returns Tag name or null
  */
 function getTagName(node: TSESTree.JSXAttribute): string | null {
-  if (node.parent.name.type === TSESTree.AST_NODE_TYPES.JSXIdentifier) {
+  if (node.parent.name.type === AST.JSXIdentifier) {
     return node.parent.name.name;
   }
   return null;
@@ -1069,7 +1070,7 @@ function getTagName(node: TSESTree.JSXAttribute): string | null {
  * @returns Whether the tag name has a dot
  */
 function tagNameHasDot(node: TSESTree.JSXAttribute): boolean {
-  return node.parent.name.type === TSESTree.AST_NODE_TYPES.JSXMemberExpression;
+  return node.parent.name.type === AST.JSXMemberExpression;
 }
 
 /**
