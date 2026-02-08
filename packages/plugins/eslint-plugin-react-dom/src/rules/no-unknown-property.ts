@@ -1,13 +1,9 @@
-/* eslint-disable */
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
-// TODO: Port to TypeScript
-// @ts-nocheck
-import { report } from "@eslint-react/shared";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import type { JSXAttribute } from "@typescript-eslint/types/dist/ast-spec";
+import { TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import { compare } from "compare-versions";
+import { type CompareOperator, compare } from "compare-versions";
 
 import { createRule } from "../utils";
 
@@ -32,7 +28,7 @@ type MessageID =
   | "unknownProp"
   | "unknownPropWithStandardName";
 
-interface RuleOptions {
+interface Options {
   ignore?: string[];
   requireDataLowercase?: boolean;
 }
@@ -227,9 +223,9 @@ const ATTRIBUTE_TAGS_MAP: TagsMap = {
   noModule: ["script"],
   // Media events allowed only on audio and video tags, see https://github.com/facebook/react/blob/256aefbea1449869620fb26f6ec695536ab453f5/CHANGELOG.md#notable-enhancements
   onAbort: ["audio", "video"],
+  onCancel: ["dialog"],
   onCanPlay: ["audio", "video"],
   onCanPlayThrough: ["audio", "video"],
-  onCancel: ["dialog"],
   onClose: ["dialog"],
   onDurationChange: ["audio", "video"],
   onEmptied: ["audio", "video"],
@@ -237,9 +233,9 @@ const ATTRIBUTE_TAGS_MAP: TagsMap = {
   onEnded: ["audio", "video"],
   onError: ["audio", "video", "img", "link", "source", "script", "picture", "iframe"],
   onLoad: ["script", "img", "link", "picture", "iframe", "object", "source"],
-  onLoadStart: ["audio", "video"],
   onLoadedData: ["audio", "video"],
   onLoadedMetadata: ["audio", "video"],
+  onLoadStart: ["audio", "video"],
   onPause: ["audio", "video"],
   onPlay: ["audio", "video"],
   onPlaying: ["audio", "video"],
@@ -989,9 +985,11 @@ function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string
   }
 
   // Popover API props were added in React v19.0.0-rc.0
-  testReactVersion(context, ">=", "19.0.0-rc.0")
-    ? ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS)
-    : ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS.map((prop) => prop.toLowerCase()));
+  if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
+    ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS);
+  } else {
+    ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS.map((prop) => prop.toLowerCase()));
+  }
 
   return ALL_DOM_PROPERTY_NAMES;
 }
@@ -1002,12 +1000,15 @@ function getDOMPropertyNames(context: RuleContext<MessageID, unknown[]>): string
  * @param childNode JSX element being tested
  * @returns Whether the node is a valid HTML tag in JSX
  */
-function isValidHTMLTagInJSX(childNode: JSXAttribute): boolean {
+function isValidHTMLTagInJSX(childNode: TSESTree.JSXAttribute): boolean {
   const tagConvention = /^[a-z][^-]*$/;
-  if (tagConvention.test(childNode.parent.name.name)) {
+  if (
+    childNode.parent.name.type === TSESTree.AST_NODE_TYPES.JSXIdentifier
+    && tagConvention.test(childNode.parent.name.name)
+  ) {
     return !childNode.parent.attributes.some((attrNode) =>
-      attrNode.type === "JSXAttribute"
-      && attrNode.name.type === "JSXIdentifier"
+      attrNode.type === TSESTree.AST_NODE_TYPES.JSXAttribute
+      && attrNode.name.type === TSESTree.AST_NODE_TYPES.JSXIdentifier
       && attrNode.name.name === "is"
     );
   }
@@ -1020,7 +1021,7 @@ function isValidHTMLTagInJSX(childNode: JSXAttribute): boolean {
  * @returns Normalized attribute name
  */
 function normalizeAttributeCase(name: string): string {
-  return DOM_PROPERTIES_IGNORE_CASE.find((element) => element.toLowerCase() === name.toLowerCase()) || name;
+  return DOM_PROPERTIES_IGNORE_CASE.find((element) => element.toLowerCase() === name.toLowerCase()) ?? name;
 }
 
 /**
@@ -1055,8 +1056,8 @@ function isValidAriaAttribute(name: string): boolean {
  * @param node JSXAttribute to get tag name from
  * @returns Tag name or null
  */
-function getTagName(node: JSXAttribute): string | null {
-  if (node?.parent?.name) {
+function getTagName(node: TSESTree.JSXAttribute): string | null {
+  if (node.parent.name.type === TSESTree.AST_NODE_TYPES.JSXIdentifier) {
     return node.parent.name.name;
   }
   return null;
@@ -1067,11 +1068,8 @@ function getTagName(node: JSXAttribute): string | null {
  * @param node JSXAttribute to check
  * @returns Whether the tag name has a dot
  */
-function tagNameHasDot(node: JSXAttribute): boolean {
-  return !!(
-    node.parent?.name
-    && node.parent.name.type === "JSXMemberExpression"
-  );
+function tagNameHasDot(node: TSESTree.JSXAttribute): boolean {
+  return node.parent.name.type === TSESTree.AST_NODE_TYPES.JSXMemberExpression;
 }
 
 /**
@@ -1097,7 +1095,7 @@ function getStandardName(name: string, context: RuleContext<MessageID, unknown[]
  * @param key Key to check for
  * @returns Whether the object has the property
  */
-function has(obj: Record<string, any>, key: string): boolean {
+function has(obj: StringMap | TagsMap, key: string): boolean {
   return Object.hasOwn(obj, key);
 }
 
@@ -1107,7 +1105,10 @@ function has(obj: Record<string, any>, key: string): boolean {
  * @param node Node to get text from
  * @returns Node's text
  */
-function getText(context: RuleContext<MessageID, unknown[]>, node: any): string {
+function getText(
+  context: RuleContext<MessageID, unknown[]>,
+  node: TSESTree.JSXIdentifier | TSESTree.JSXNamespacedName,
+): string {
   return context.sourceCode.getText(node);
 }
 
@@ -1118,7 +1119,11 @@ function getText(context: RuleContext<MessageID, unknown[]>, node: any): string 
  * @param version Version to compare against
  * @returns Comparison result
  */
-function testReactVersion(context: RuleContext<MessageID, unknown[]>, comparator: string, version: string): boolean {
+function testReactVersion(
+  context: RuleContext<MessageID, unknown[]>,
+  comparator: CompareOperator,
+  version: string,
+): boolean {
   const { version: localVersion } = getSettingsFromContext(context);
   return compare(localVersion, version, comparator);
 }
@@ -1171,13 +1176,13 @@ export default createRule({
  * @param context ESLint rule context
  * @returns Rule listener
  */
-export function create(context: RuleContext<MessageID, unknown[]>): RuleListener {
+export function create(context: RuleContext<MessageID, Options[]>): RuleListener {
   /**
    * Gets the ignore configuration from rule options
    * @returns Array of attribute names to ignore
    */
   function getIgnoreConfig(): string[] {
-    return context.options[0]?.ignore || DEFAULTS.ignore;
+    return context.options[0]?.ignore ?? DEFAULTS.ignore;
   }
 
   /**
@@ -1185,13 +1190,11 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
    * @returns Whether data attributes must be lowercase
    */
   function getRequireDataLowercase(): boolean {
-    return context.options[0] && typeof context.options[0].requireDataLowercase !== "undefined"
-      ? !!context.options[0].requireDataLowercase
-      : DEFAULTS.requireDataLowercase;
+    return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
   }
 
   return {
-    JSXAttribute(node: JSXAttribute): void {
+    JSXAttribute(node): void {
       const ignoreNames: string[] = getIgnoreConfig();
       const actualName: string = getText(context, node.name);
 
@@ -1211,8 +1214,8 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       if (isValidDataAttribute(name)) {
         if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
           context.report({
-            node,
             messageId: "dataLowercaseRequired",
+            node,
             data: {
               name: actualName,
               lowerCaseName: actualName.toLowerCase(),
@@ -1234,16 +1237,16 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       if (!isValidHTMLTagInJSX(node)) return;
 
       // Check if attribute is allowed only on specific tags
-      const allowedTags: string[] | null = has(ATTRIBUTE_TAGS_MAP, name)
+      const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
         ? ATTRIBUTE_TAGS_MAP[name]
         : null;
 
-      if (tagName && allowedTags) {
+      if (tagName != null && allowedTags != null) {
         // Report if attribute is used on a tag where it's not allowed
         if (allowedTags.indexOf(tagName) === -1) {
           context.report({
-            node,
             messageId: "invalidPropOnTag",
+            node,
             data: {
               name: actualName,
               allowedTags: allowedTags.join(", "),
@@ -1257,9 +1260,8 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       // Check if the attribute name is similar to a standard property name
       const standardName: string | undefined = getStandardName(name, context);
 
-      const hasStandardNameButIsNotUsed: boolean = !!standardName && standardName !== name;
-      const usesStandardName: boolean = !!standardName && standardName === name;
-
+      const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
+      const usesStandardName = standardName != null && standardName === name;
       if (usesStandardName) {
         // Attribute name is correct, nothing to do
         return;
@@ -1268,8 +1270,8 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
       if (hasStandardNameButIsNotUsed) {
         // Suggest the correct standard name
         context.report({
-          node,
           messageId: "unknownPropWithStandardName",
+          node,
           data: {
             name: actualName,
             standardName,
@@ -1283,8 +1285,8 @@ export function create(context: RuleContext<MessageID, unknown[]>): RuleListener
 
       // Report unknown attribute
       context.report({
-        node,
         messageId: "unknownProp",
+        node,
         data: {
           name: actualName,
         },
