@@ -21,7 +21,7 @@ export function isInitializedFromRef(name: string, initialScope: Scope) {
  * Get the init expression of a ref variable
  * @param name The variable name
  * @param initialScope The initial scope
- * @returns The init expression node if the variable is derived from a ref, or null otherwise
+ * @returns The init expression node if the variable is derived from a ref, or undefined otherwise
  */
 export function getRefInit(name: string, initialScope: Scope): TSESTree.Expression | unit {
   for (const { node } of findVariable(initialScope)(name)?.defs ?? []) {
