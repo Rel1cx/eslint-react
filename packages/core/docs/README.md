@@ -157,7 +157,7 @@
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
-| [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determine if a node is the cleanup function returned by a useEffect-like hook's setup function. |
+| [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determine if a node is the cleanup function returned by a useEffect-like hook's setup function |
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern |
 | [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determine if a node is the setup function passed to a useEffect-like hook |
 | [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detect useState calls and variations (useCustomState, etc.) using a regex pattern |

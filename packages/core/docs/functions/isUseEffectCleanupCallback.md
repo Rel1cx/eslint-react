@@ -6,7 +6,7 @@
 function isUseEffectCleanupCallback(node: Node | undefined): boolean;
 ```
 
-Determine if a node is the cleanup function returned by a useEffect-like hook's setup function.
+Determine if a node is the cleanup function returned by a useEffect-like hook's setup function
 
 ## Parameters
 

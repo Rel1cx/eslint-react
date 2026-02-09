@@ -201,20 +201,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     CallExpression(node) {
       const setupFunction = setupFnRef.current;
-      const pEntry = functionEntries.at(-1);
-      if (pEntry == null || pEntry.node.async) {
+      const entry = functionEntries.at(-1);
+      if (entry == null || entry.node.async) {
         return;
       }
       match(getCallKind(node))
         .with("setState", () => {
           switch (true) {
-            case pEntry.kind === "deferred":
-            case pEntry.node.async:
+            case entry.kind === "deferred":
+            case entry.node.async:
               // do nothing, this is a deferred setState call
               break;
-            case pEntry.node === setupFunction:
-            case pEntry.kind === "immediate"
-              && ast.findParentNode(pEntry.node, ast.isFunction) === setupFunction: {
+            case entry.node === setupFunction:
+            case entry.kind === "immediate"
+              && ast.findParentNode(entry.node, ast.isFunction) === setupFunction: {
               context.report({
                 messageId: "default",
                 node,
@@ -226,7 +226,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             }
             default: {
               const init = ast.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
-              if (init == null) getOrElseUpdate(setStateCallsByFn, pEntry.node, () => []).push(node);
+              if (init == null) getOrElseUpdate(setStateCallsByFn, entry.node, () => []).push(node);
               else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
             }
           }
@@ -236,7 +236,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           setupFnIds.push(...ast.getNestedIdentifiers(node));
         })
         .with("other", () => {
-          if (pEntry.node !== setupFunction) return;
+          if (entry.node !== setupFunction) return;
           trackedFnCalls.push(node);
         })
         .otherwise(constVoid);
