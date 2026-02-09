@@ -21,7 +21,7 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "eslint-plugin-function-rule": "^0.5.1"
+    "eslint-plugin-function-rule": "^0.5.2"
   },
   "devDependencies": {
     "eslint": "^10.0.0",
