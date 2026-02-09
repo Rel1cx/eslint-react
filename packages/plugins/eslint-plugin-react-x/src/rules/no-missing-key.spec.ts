@@ -188,6 +188,146 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // createElement: array literal without key
+    {
+      code: tsx`[React.createElement('div')];`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: array literal with null props (no key)
+    {
+      code: tsx`[React.createElement('div', null)];`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: array literal with props but no key
+    {
+      code: tsx`[React.createElement('div', { className: 'foo' })];`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: multiple elements in array without key
+    {
+      code: tsx`[React.createElement('div'), React.createElement('div')];`,
+      errors: [
+        { messageId: "missingKeyWithCreateElement" },
+        { messageId: "missingKeyWithCreateElement" },
+      ],
+    },
+    // createElement: mixed JSX and createElement in array without key
+    {
+      code: tsx`[<App />, React.createElement('div')];`,
+      errors: [
+        { messageId: "missingKey" },
+        { messageId: "missingKeyWithCreateElement" },
+      ],
+    },
+    // createElement: one with key, one without key in array
+    {
+      code: tsx`[React.createElement('div', { key: '1' }), React.createElement('div')];`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: .map() expression body without key
+    {
+      code: tsx`[1, 2, 3].map(x => React.createElement('div', null));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: .map() expression body without props
+    {
+      code: tsx`[1, 2, 3].map(x => React.createElement('div'));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: .map() block body without key
+    {
+      code: tsx`[1, 2, 3].map(function(x) { return React.createElement('div', null); });`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: .map() block body with props but no key
+    {
+      code: tsx`[1, 2, 3].map(x => { return React.createElement('div', { className: 'foo' }); });`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: Array.from callback expression body without key
+    {
+      code: tsx`Array.from([1, 2, 3], x => React.createElement('div', null));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: Array.from callback block body without key
+    {
+      code: tsx`Array.from([1, 2, 3], function(x) { return React.createElement('div', null); });`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: optional chaining .map() without key
+    {
+      code: tsx`[1, 2, 3]?.map(x => React.createElement('div', null));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: conditional expression in .map(), one branch missing key
+    {
+      code: tsx`[1, 2, 3].map(x => x ? React.createElement('div', { key: x }) : React.createElement('span', null));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: conditional expression in .map(), other branch missing key
+    {
+      code: tsx`[1, 2, 3].map(x => x ? React.createElement('div', null) : React.createElement('span', { key: x }));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: logical expression in .map() without key
+    {
+      code: tsx`[1, 2, 3].map(x => x && React.createElement('div', null));`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: imported createElement in .map() without key
+    {
+      code: tsx`
+        import { createElement } from 'react';
+        [1, 2, 3].map(x => createElement('div', null));
+      `,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
+    // createElement: imported createElement in array without key
+    {
+      code: tsx`
+        import { createElement } from 'react';
+        [createElement('div'), createElement('div')];
+      `,
+      errors: [
+        { messageId: "missingKeyWithCreateElement" },
+        { messageId: "missingKeyWithCreateElement" },
+      ],
+    },
+    // createElement: block body with multiple returns, all missing key
+    {
+      code: tsx`
+        [1, 2, 3].map(item => {
+          if (item < 2) {
+            return React.createElement('div', null);
+          }
+          return React.createElement('span', null);
+        });
+      `,
+      errors: [
+        { messageId: "missingKeyWithCreateElement" },
+        { messageId: "missingKeyWithCreateElement" },
+      ],
+    },
+    // createElement: block body with if/else, mixed JSX and createElement, all missing key
+    {
+      code: tsx`
+        [1, 2, 3].map(item => {
+          if (item < 2) {
+            return <div>{item}</div>;
+          }
+          return React.createElement('span', null);
+        });
+      `,
+      errors: [
+        { messageId: "missingKey" },
+        { messageId: "missingKeyWithCreateElement" },
+      ],
+    },
+    // createElement: with undefined as props (no key)
+    {
+      code: tsx`[React.createElement('div', undefined)];`,
+      errors: [{ messageId: "missingKeyWithCreateElement" }],
+    },
     // TODO: Fix this test case
     // {
     //   code: tsx`
@@ -343,6 +483,69 @@ ruleTester.run(RULE_NAME, rule, {
        Match.when(false, () => <div>Test</div>),
        Match.exhaustive
       )}
+    `,
+    // createElement: standalone call (not in array/map context, no key needed)
+    "React.createElement('div', null);",
+    "React.createElement('div', { className: 'foo' });",
+    // createElement: array literal with key on all elements
+    "[React.createElement('div', { key: '1' }), React.createElement('div', { key: '2' })];",
+    // createElement: .map() expression body with key
+    "[1, 2, 3].map(x => React.createElement('div', { key: x }));",
+    // createElement: .map() block body with key
+    "[1, 2, 3].map(function(x) { return React.createElement('div', { key: x }); });",
+    "[1, 2, 3].map(x => { return React.createElement('div', { key: x }); });",
+    // createElement: Array.from callback with key
+    "Array.from([1, 2, 3], x => React.createElement('div', { key: x }));",
+    "Array.from([1, 2, 3], function(x) { return React.createElement('div', { key: x }); });",
+    "Array.from([1, 2, 3], (x => { return React.createElement('div', { key: x }); }));",
+    // createElement: conditional expression in .map(), both branches have key
+    "[1, 2, 3].map(x => x ? React.createElement('div', { key: x }) : React.createElement('span', { key: x }));",
+    // createElement: logical expression in .map() with key
+    "[1, 2, 3].map(x => x && React.createElement('div', { key: x }));",
+    // createElement: mixed JSX and createElement in array, all with key
+    "[<App key={0} />, React.createElement('div', { key: '1' })];",
+    // createElement: props is a variable (can't statically determine, assume key may exist)
+    "[1, 2, 3].map(x => React.createElement('div', props));",
+    // createElement: key with additional props
+    "[1, 2, 3].map(x => React.createElement('div', { key: x, className: 'foo' }));",
+    // createElement: imported createElement with key
+    tsx`
+      import { createElement } from 'react';
+      [createElement('div', { key: '1' }), createElement('div', { key: '2' })];
+    `,
+    tsx`
+      import { createElement } from 'react';
+      [1, 2, 3].map(x => createElement('div', { key: x }));
+    `,
+    // createElement: not in map-like call (e.g., .foo()), no key needed
+    "[1, 2, 3].foo(x => React.createElement('div', null));",
+    // createElement: inside Children.toArray (key not needed)
+    "React.Children.toArray([1, 2, 3].map(x => React.createElement('div', null)));",
+    tsx`
+      import { Children } from "react";
+      Children.toArray([1, 2, 3].map(x => React.createElement('div', null)));
+    `,
+    tsx`
+      import React from 'react';
+      React.Children.toArray(Array.from([1, 2, 3], x => React.createElement('div', null)));
+    `,
+    // createElement: block body with key on all return paths
+    tsx`
+      [1, 2, 3].map(item => {
+        if (item < 2) {
+          return React.createElement('div', { key: item });
+        }
+        return React.createElement('span', { key: item });
+      });
+    `,
+    // createElement: mixed JSX and createElement in block body, all with key
+    tsx`
+      [1, 2, 3].map(item => {
+        if (item < 2) {
+          return <div key={item}>{item}</div>;
+        }
+        return React.createElement('span', { key: item });
+      });
     `,
   ],
 });

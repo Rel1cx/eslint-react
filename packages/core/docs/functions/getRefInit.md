@@ -19,4 +19,4 @@ Get the init expression of a ref variable
 
 `Expression` \| `undefined`
 
-The init expression node if the variable is derived from a ref, or null otherwise
+The init expression node if the variable is derived from a ref, or undefined otherwise
