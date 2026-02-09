@@ -34,10 +34,11 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.sourceCode.getScope(node);
-    if (isFromRef(node, initialScope)) {
+    const refInit = getRefInitNode(node, initialScope);
+    if (refInit != null) {
       const json = stringify({
         name: node.name,
-        // init: TODO: Add initialization info
+        init: context.sourceCode.getText(refInit),
       });
       context.report({
         messageId: "default",
@@ -49,21 +50,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return { Identifier: visitorFunction, JSXIdentifier: visitorFunction };
 }
 
-function isFromRef(
-  node: TSESTree.Identifier | TSESTree.JSXIdentifier,
-  initialScope: Scope,
-) {
+function getRefInitNode(node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope) {
   const name = node.name;
   switch (true) {
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.Identifier:
-      return core.isInitializedFromRef(node.parent.object.name, initialScope);
+      return core.getRefInit(node.parent.object.name, initialScope);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.JSXIdentifier:
-      return core.isInitializedFromRef(node.parent.object.name, initialScope);
+      return core.getRefInit(node.parent.object.name, initialScope);
     default:
-      return core.isInitializedFromRef(name, initialScope);
+      return core.getRefInit(name, initialScope);
   }
 }

@@ -124,6 +124,7 @@
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
 | [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
 | [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
+| [getRefInit](functions/getRefInit.md) | Get the init expression of a ref variable |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
 | [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |

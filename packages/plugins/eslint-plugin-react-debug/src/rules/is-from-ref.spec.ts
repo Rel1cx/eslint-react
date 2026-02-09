@@ -22,6 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "myRef",
+              init: "React.useRef(42)",
             }),
           },
         },
@@ -30,6 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "value",
+              init: "myRef.current",
             }),
           },
         },
@@ -38,6 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "myRef",
+              init: "React.useRef(42)",
             }),
           },
         },
@@ -46,6 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "current",
+              init: "React.useRef(42)",
             }),
           },
         },
@@ -54,6 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "value",
+              init: "myRef.current",
             }),
           },
         },
