@@ -63,7 +63,7 @@ export function useComponentCollector(
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
-    const name = id == null ? unit : ast.toStringFormat(id, getText);
+    const name = id == null ? unit : ast.getFullyQualifiedName(id, getText);
     const initPath = ast.getFunctionInitPath(node);
     const directives = ast.getFunctionDirectives(node);
     const entry = {

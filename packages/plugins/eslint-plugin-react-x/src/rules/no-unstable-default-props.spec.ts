@@ -9,70 +9,70 @@ const expectedViolations = [
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "object expression",
+      kind: "object expression",
       propName: "a",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "array expression",
+      kind: "array expression",
       propName: "b",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "RegExp literal",
+      kind: "RegExp literal",
       propName: "c",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "arrow function expression",
+      kind: "arrow function expression",
       propName: "d",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "function expression",
+      kind: "function expression",
       propName: "e",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "class expression",
+      kind: "class expression",
       propName: "f",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "new expression",
+      kind: "new expression",
       propName: "g",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "JSX element",
+      kind: "JSX element",
       propName: "h",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "call expression",
+      kind: "call expression",
       propName: "i",
     },
   },
   {
     messageId: MESSAGE_ID,
     data: {
-      forbiddenType: "call expression",
+      kind: "call expression",
       propName: "j",
     },
   },
@@ -89,7 +89,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "array expression",
+          kind: "array expression",
           propName: "foo",
         },
       }],
@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "new expression",
+          kind: "new expression",
           propName: "position",
         },
       }],
@@ -117,7 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "object expression",
+          kind: "object expression",
           propName: "foo",
         },
       }],
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "array expression",
+          kind: "array expression",
           propName: "foo",
         },
       }],
@@ -186,7 +186,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "new expression",
+          kind: "new expression",
           propName: "position",
         },
       }],
@@ -204,13 +204,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "object expression",
+          kind: "object expression",
           propName: "obj",
         },
       }, {
         messageId: MESSAGE_ID,
         data: {
-          forbiddenType: "array expression",
+          kind: "array expression",
           propName: "items",
         },
       }],

@@ -50,7 +50,7 @@ export default createRule<Options, MessageID>({
     },
     messages: {
       default:
-        "A/an '{{forbiddenType}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{forbiddenType}}'.",
+        "A/an '{{kind}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{kind}}'.",
     },
     schema,
   },
@@ -143,12 +143,11 @@ export function create(
               continue;
             }
           }
-          const forbiddenType = ast.toDelimiterFormat(right);
           context.report({
             messageId: "default",
             node: right,
             data: {
-              forbiddenType,
+              kind: ast.getHumanReadableKind(right),
             },
           });
         }

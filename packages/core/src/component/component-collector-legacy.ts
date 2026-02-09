@@ -41,7 +41,7 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
     }
     const id = ast.getClassId(node);
     const key = idGen.next();
-    const name = id == null ? unit : ast.toStringFormat(id, getText);
+    const name = id == null ? unit : ast.getFullyQualifiedName(id, getText);
     const flag = isPureComponent(node)
       ? ComponentFlag.PureComponent
       : ComponentFlag.None;

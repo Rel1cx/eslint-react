@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       unstableContextValue:
-        "A/an '{{type}}' passed as the value prop to the context provider should not be constructed. It will change on every render. {{suggestion}}",
+        "A/an '{{kind}}' passed as the value prop to the context provider should not be constructed. It will change on every render. {{suggestion}}",
     },
     schema: [],
   },
@@ -83,7 +83,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               messageId: "unstableContextValue",
               node: constructionNode,
               data: {
-                type: ast.toDelimiterFormat(constructionNode),
+                kind: ast.getHumanReadableKind(constructionNode),
                 suggestion,
               },
             });

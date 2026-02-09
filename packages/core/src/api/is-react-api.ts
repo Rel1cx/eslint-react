@@ -25,7 +25,7 @@ export function isReactAPI(api: string): isReactAPI.ReturnType {
   {
     if (node == null) return false;
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-    const name = ast.toStringFormat(node, getText);
+    const name = ast.getFullyQualifiedName(node, getText);
     if (name === api) return true;
     if (name.substring(name.indexOf(".") + 1) === api) return true;
     return false;

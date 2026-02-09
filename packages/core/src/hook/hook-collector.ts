@@ -44,7 +44,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       id,
       key,
       kind: "function",
-      name: ast.toStringFormat(id, getText),
+      name: ast.getFullyQualifiedName(id, getText),
       node,
       directives: [],
       flag: 0n,

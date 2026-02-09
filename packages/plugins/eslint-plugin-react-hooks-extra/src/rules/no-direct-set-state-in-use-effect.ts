@@ -93,9 +93,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   function getCallName(node: TSESTree.Node) {
     if (node.type === AST.CallExpression) {
-      return ast.toStringFormat(node.callee, getText);
+      return ast.getFullyQualifiedName(node.callee, getText);
     }
-    return ast.toStringFormat(node, getText);
+    return ast.getFullyQualifiedName(node, getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {
