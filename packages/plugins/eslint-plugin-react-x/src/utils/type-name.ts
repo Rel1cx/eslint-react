@@ -15,60 +15,36 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
   while (parent.kind !== ts.SyntaxKind.SourceFile) {
     switch (true) {
       case ts.isInterfaceDeclaration(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isTypeAliasDeclaration(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isEnumDeclaration(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
-      case ts.isClassDeclaration(parent)
-        && parent.name != null:
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isModuleDeclaration(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isNamespaceImport(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isNamespaceExport(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isNamespaceExportDeclaration(parent):
-        name = `${parent.name.text}.${name}`;
-        break;
-      case ts.isEnumMember(parent):
-        name = `${parent.name.getText()}.${name}`;
-        break;
-      case ts.isFunctionDeclaration(parent)
-        && parent.name != null:
-        name = `${parent.name.text}.${name}`;
-        break;
-      case ts.isClassExpression(parent)
-        && parent.name != null:
         name = `${parent.name.text}.${name}`;
         break;
       case ts.isPropertySignature(parent)
         && ts.isIdentifier(parent.name):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isPropertyDeclaration(parent)
         && ts.isIdentifier(parent.name):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isMethodDeclaration(parent)
         && ts.isIdentifier(parent.name):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isMethodSignature(parent)
         && ts.isIdentifier(parent.name):
-        name = `${parent.name.text}.${name}`;
-        break;
       case ts.isPropertyAssignment(parent)
         && ts.isIdentifier(parent.name):
         name = `${parent.name.text}.${name}`;
+        break;
+      case ts.isFunctionDeclaration(parent)
+        && parent.name != null:
+      case ts.isClassExpression(parent)
+        && parent.name != null:
+      case ts.isClassDeclaration(parent)
+        && parent.name != null:
+        name = `${parent.name.text}.${name}`;
+        break;
+      case ts.isEnumMember(parent):
+        name = `${parent.name.getText()}.${name}`;
         break;
       // Skip unnamed structural type nodes (they don't contribute a name segment)
       case ts.isTypeLiteralNode(parent):
