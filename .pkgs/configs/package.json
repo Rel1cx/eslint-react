@@ -20,15 +20,15 @@
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
-    "@stylistic/eslint-plugin": "^5.7.1",
+    "@stylistic/eslint-plugin": "^5.8.0",
     "eslint-plugin-de-morgan": "^2.0.0",
-    "eslint-plugin-function": "^0.5.2",
-    "eslint-plugin-function-rule": "^0.5.2",
+    "eslint-plugin-function": "^0.5.3",
+    "eslint-plugin-function-rule": "^0.5.3",
     "eslint-plugin-jsdoc": "^62.5.4",
     "eslint-plugin-perfectionist": "^5.5.0",
     "eslint-plugin-regexp": "^3.0.0",
     "eslint-plugin-unicorn": "^62.0.0",
-    "typescript-eslint": "^8.54.0"
+    "typescript-eslint": "^8.55.0"
   },
   "peerDependencies": {
     "eslint": "^9.39.2",

@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (key == null) continue;
         // Allow pass-through of React internally defined keys
         // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (getFullyQualifiedNameEx(checker, key) === "React.Attributes.key") continue;
+        if (getFullyQualifiedNameEx(checker, key).endsWith("Attributes.key")) continue;
         context.report({
           messageId: "default",
           node,
