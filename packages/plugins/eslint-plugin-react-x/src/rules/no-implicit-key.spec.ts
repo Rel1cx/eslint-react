@@ -700,5 +700,16 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <textarea {...props} />;
       }
     `,
+    tsx`
+      import type { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react-dom";
+
+      export function PaginationItem1({ ...props }: ComponentPropsWithRef<"li">) {
+        return <li data-slot="pagination-item" {...props} />;
+      }
+
+      export function PaginationItem2({ ...props }: ComponentPropsWithoutRef<"li">) {
+        return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
   ],
 });

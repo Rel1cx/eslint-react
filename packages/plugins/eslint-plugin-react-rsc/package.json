@@ -46,8 +46,8 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.54.0",
-    "@typescript-eslint/utils": "^8.54.0",
+    "@typescript-eslint/types": "^8.55.0",
+    "@typescript-eslint/utils": "^8.55.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {

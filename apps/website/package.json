@@ -31,7 +31,7 @@
     "twoslash": "^0.3.6"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.73.0",
+    "@effect/language-service": "^0.73.1",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^10.0.1",
@@ -55,6 +55,6 @@
     "importx": "^0.5.2",
     "postcss": "^8.5.6",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0"
+    "typescript-eslint": "^8.55.0"
   }
 }

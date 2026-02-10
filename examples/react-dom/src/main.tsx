@@ -1,7 +1,14 @@
 import "./index.css";
 
+import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { root } from "./root";
+import App from "./App";
+
+export const root = (
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 ReactDOM.createRoot(document.querySelector("#root")!).render(root);

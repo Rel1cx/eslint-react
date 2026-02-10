@@ -10,6 +10,8 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
   let name = symbol.name;
   let parent = symbol.declarations?.at(0)?.parent;
   if (parent == null) return checker.getFullyQualifiedName(symbol);
+  // Find the top-level namespace export declaration like `export as namespace preact;`
+  const namespace = parent.getSourceFile().statements.find((n) => ts.isNamespaceExportDeclaration(n));
   while (parent.kind !== ts.SyntaxKind.SourceFile) {
     switch (true) {
       case ts.isInterfaceDeclaration(parent):
@@ -32,6 +34,9 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
         name = `${parent.name.text}.${name}`;
         break;
       case ts.isNamespaceExport(parent):
+        name = `${parent.name.text}.${name}`;
+        break;
+      case ts.isNamespaceExportDeclaration(parent):
         name = `${parent.name.text}.${name}`;
         break;
       case ts.isEnumMember(parent):
@@ -75,5 +80,6 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
     }
     parent = parent.parent;
   }
+  if (namespace != null) return `${namespace.name.text}.${name}`;
   return name;
 }
