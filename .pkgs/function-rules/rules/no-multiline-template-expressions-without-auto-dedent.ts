@@ -3,7 +3,7 @@ import type { Rule } from "eslint";
 /**
  * Ensures that multiline template expressions are handled by auto-dedentation tags
  */
-export function noMultilineTemplateExpressionWithoutAutoDedent() {
+export function noMultilineTemplateExpressionsWithoutAutoDedent() {
   return (context: Rule.RuleContext): Rule.RuleListener => ({
     TemplateLiteral(node) {
       // Assuming this tag supports auto-dedentation to keep it simple

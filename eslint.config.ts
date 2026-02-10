@@ -8,7 +8,7 @@ import {
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
-import { noMultilineTemplateExpressionWithoutAutoDedent, preferLooseNullishEquality } from "@local/function-rules";
+import { noMultilineTemplateExpressionsWithoutAutoDedent, preferLooseNullishEquality } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import { functionRule } from "eslint-plugin-function-rule";
 import { defineConfig } from "eslint/config";
@@ -45,7 +45,7 @@ export default defineConfig(
     // Custom function-based lint rules
     plugins: {
       "function-rule-1": functionRule(preferLooseNullishEquality()),
-      "function-rule-2": functionRule(noMultilineTemplateExpressionWithoutAutoDedent()),
+      "function-rule-2": functionRule(noMultilineTemplateExpressionsWithoutAutoDedent()),
     },
     rules: {
       "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
