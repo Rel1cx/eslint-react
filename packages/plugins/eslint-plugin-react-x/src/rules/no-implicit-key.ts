@@ -41,8 +41,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const key = type.getProperty("key");
         if (key == null) continue;
         // Allow pass-through of React internally defined keys
+        // For react and react-dom the FQN is "React.Attributes.key"
+        // For preact and preact/compat the FQN is "preact.Attributes.key"
         // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (getFullyQualifiedNameEx(checker, key).endsWith("Attributes.key")) continue;
+        if (getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
         context.report({
           messageId: "default",
           node,

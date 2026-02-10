@@ -1,8 +1,7 @@
 import "./app.css";
+import logo from "./assets/eslint-react.svg";
 
 import { useState } from "preact/hooks";
-
-import logo from "./assets/eslint-react.svg";
 
 function App() {
   const [count, setCount] = useState(0n);

@@ -2,6 +2,6 @@ import "./index.css";
 
 import { render } from "preact";
 
-import { root } from "./root";
+import App from "./app";
 
-render(root, document.querySelector("#root")!);
+render(App, document.querySelector("#root")!);

@@ -1,11 +1,7 @@
 import "./app.css";
-
-import { useState } from "preact/hooks";
-
 import logo from "./assets/eslint-react.svg";
 
-import type { ComponentProps } from "react";
-import type { ComponentPropsWithRef, ComponentPropsWithoutRef } from "react-dom";
+import { useState } from "preact/hooks";
 
 function App() {
   const [count, setCount] = useState(0n);
@@ -27,15 +23,3 @@ function App() {
 }
 
 export default App;
-
-export function PaginationItem({ ...props }: ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />;
-}
-
-export function PaginationItem2({ ...props }: ComponentPropsWithRef<"li">) {
-  return <li data-slot="pagination-item" {...props} />;
-}
-
-export function PaginationItem3({ ...props }: ComponentPropsWithoutRef<"li">) {
-  return <li data-slot="pagination-item" {...props} />;
-}
