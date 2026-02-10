@@ -2,7 +2,7 @@
 
 ### 🐞 Fixes
 
-- Fix `preact` and `preact/compat` support in `no-implicit-key` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1494
+- Fix `preact` and `preact/compat` support in `no-implicit-key` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1494
 
 ### 🪄 Improvements
 
