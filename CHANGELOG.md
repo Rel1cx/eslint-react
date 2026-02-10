@@ -1,3 +1,15 @@
+## v2.12.4 (2026-02-11)
+
+### 🐞 Fixes
+
+- Fix `preact` and `preact/compat` support in `no-implicit-key` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1494
+
+### 🪄 Improvements
+
+- Refactor `react-dom/no-unknown-property` rule to fix all ESLint and TypeScript issues by @ulrichstark in https://github.com/Rel1cx/eslint-react/pull/1490
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.2...v2.12.4
+
 ## v2.12.2 (2026-02-08)
 
 ### 🐞 Fixes
