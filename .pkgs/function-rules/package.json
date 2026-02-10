@@ -21,14 +21,14 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "eslint-plugin-function-rule": "^0.5.3"
+    "eslint-plugin-function-rule": "^0.6.0"
   },
   "devDependencies": {
     "eslint": "^10.0.0",
     "tsdown": "^0.20.3"
   },
   "peerDependencies": {
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "typescript": "^5"
   }
 }
