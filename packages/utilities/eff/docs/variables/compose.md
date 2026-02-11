@@ -102,6 +102,18 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 `C`
 
+## Param
+
+The first function to apply (or the composed function in data-last style).
+
+## Param
+
+The second function to apply.
+
+## Returns
+
+A composed function that applies both functions in sequence.
+
 ## Example
 
 ```ts

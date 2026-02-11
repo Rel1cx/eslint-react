@@ -89,6 +89,8 @@ console.log(result)
 
 `A`
 
+The result of applying all functions in sequence to the initial value.
+
 ### Since
 
 1.0.0
@@ -181,6 +183,8 @@ console.log(result)
 ### Returns
 
 `B`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -279,6 +283,8 @@ console.log(result)
 ### Returns
 
 `C`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -380,6 +386,8 @@ console.log(result)
 ### Returns
 
 `D`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -484,6 +492,8 @@ console.log(result)
 ### Returns
 
 `E`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -591,6 +601,8 @@ console.log(result)
 ### Returns
 
 `F`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -701,6 +713,8 @@ console.log(result)
 ### Returns
 
 `G`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -814,6 +828,8 @@ console.log(result)
 ### Returns
 
 `H`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -930,6 +946,8 @@ console.log(result)
 ### Returns
 
 `I`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1049,6 +1067,8 @@ console.log(result)
 ### Returns
 
 `J`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1171,6 +1191,8 @@ console.log(result)
 ### Returns
 
 `K`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1296,6 +1318,8 @@ console.log(result)
 ### Returns
 
 `L`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1424,6 +1448,8 @@ console.log(result)
 ### Returns
 
 `M`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1555,6 +1581,8 @@ console.log(result)
 ### Returns
 
 `N`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1689,6 +1717,8 @@ console.log(result)
 ### Returns
 
 `O`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1826,6 +1856,8 @@ console.log(result)
 ### Returns
 
 `P`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -1966,6 +1998,8 @@ console.log(result)
 ### Returns
 
 `Q`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -2109,6 +2143,8 @@ console.log(result)
 ### Returns
 
 `R`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -2255,6 +2291,8 @@ console.log(result)
 ### Returns
 
 `S`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 
@@ -2404,6 +2442,8 @@ console.log(result)
 ### Returns
 
 `T`
+
+The result of applying all functions in sequence to the initial value.
 
 ### Since
 

@@ -18,6 +18,8 @@ Tests if a value is a `function`.
 
 `input is Function`
 
+`true` if the input is a function, `false` otherwise.
+
 ## Example
 
 ```ts

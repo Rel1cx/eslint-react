@@ -24,15 +24,15 @@ Retrieves a value from a Map or WeakMap if the key exists, or computes and store
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `map` | [`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)\<`K`, `V`\> | The Map or WeakMap to get from or update |
-| `key` | `K` | The key to look up in the Map or WeakMap |
-| `callback` | () => `V` | The function to call to generate a new value if the key doesn't exist |
+| `map` | [`WeakMap`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)\<`K`, `V`\> | The Map or WeakMap to get from or update. |
+| `key` | `K` | The key to look up in the Map or WeakMap. |
+| `callback` | () => `V` | The function to call to generate a new value if the key doesn't exist. |
 
 ### Returns
 
 `V`
 
-The existing value for the key, or the newly computed value
+The existing value for the key, or the newly computed value.
 
 ## Call Signature
 
@@ -56,12 +56,12 @@ Retrieves a value from a Map or WeakMap if the key exists, or computes and store
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `map` | [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`K`, `V`\> | The Map or WeakMap to get from or update |
-| `key` | `K` | The key to look up in the Map or WeakMap |
-| `callback` | () => `V` | The function to call to generate a new value if the key doesn't exist |
+| `map` | [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)\<`K`, `V`\> | The Map or WeakMap to get from or update. |
+| `key` | `K` | The key to look up in the Map or WeakMap. |
+| `callback` | () => `V` | The function to call to generate a new value if the key doesn't exist. |
 
 ### Returns
 
 `V`
 
-The existing value for the key, or the newly computed value
+The existing value for the key, or the newly computed value.

@@ -25,7 +25,7 @@ A function that takes a guard function as predicate and returns a guard that neg
 
 ### Returns
 
-Function A guard function.
+A guard function that negates the given predicate.
 
 ```ts
 (data: T): data is Exclude<T, S>;
@@ -63,7 +63,7 @@ A function that takes a guard function as predicate and returns a guard that neg
 
 ### Returns
 
-Function A guard function.
+A guard function that negates the given predicate.
 
 ```ts
 (data: T): boolean;

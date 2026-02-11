@@ -23,6 +23,8 @@ Inverse function of `tupled`.
 
 ## Returns
 
+A new function that accepts spread arguments instead of a tuple.
+
 ```ts
 (...a: A): B;
 ```

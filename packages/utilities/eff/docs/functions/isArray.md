@@ -24,4 +24,4 @@ A function that checks if the passed parameter is an Array and narrows its type 
 
 `data is NarrowedTo<T, readonly unknown[]>`
 
-True if the passed input is an Array, false otherwise. s
+True if the passed input is an Array, false otherwise.

@@ -22,6 +22,8 @@ Returns a function that always returns the same value.
 
 ## Returns
 
+A function that always returns the given value.
+
 ```ts
 (): T;
 ```

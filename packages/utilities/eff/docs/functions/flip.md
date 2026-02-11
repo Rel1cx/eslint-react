@@ -24,6 +24,8 @@ Reverses the order of arguments for a curried function.
 
 ## Returns
 
+A new function with the argument order reversed.
+
 ```ts
 (...b: B): (...a: A) => C;
 ```

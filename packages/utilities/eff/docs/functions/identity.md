@@ -23,3 +23,5 @@ Returns its argument.
 ## Returns
 
 `T`
+
+The input value unchanged.

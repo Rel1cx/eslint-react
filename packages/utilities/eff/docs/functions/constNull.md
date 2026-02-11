@@ -11,3 +11,5 @@ Do nothing and return `null`.
 ## Returns
 
 `null`
+
+null

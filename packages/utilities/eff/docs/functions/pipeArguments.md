@@ -6,6 +6,9 @@
 function pipeArguments<A>(self: A, args: IArguments): unknown;
 ```
 
+Applies a pipeline of functions to a value, passing the result of each function
+to the next one in sequence.
+
 ## Type Parameters
 
 | Type Parameter |
@@ -22,6 +25,8 @@ function pipeArguments<A>(self: A, args: IArguments): unknown;
 ## Returns
 
 `unknown`
+
+The result of applying all functions in sequence.
 
 ## Since
 

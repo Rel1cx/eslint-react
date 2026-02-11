@@ -5,7 +5,7 @@
 | Type Alias | Description |
 | ------ | ------ |
 | [NarrowedTo](type-aliases/NarrowedTo.md) | An extension of Extract for type predicates which falls back to the base in order to narrow the `unknown` case. |
-| [Pretty](type-aliases/Pretty.md) | - |
+| [Pretty](type-aliases/Pretty.md) | Simplifies a complex type intersection into a flat object type for better readability in IDE tooltips and error messages. |
 | [unit](type-aliases/unit.md) | alias for `undefined`. |
 
 ## Variables
@@ -34,12 +34,12 @@
 | [identity](functions/identity.md) | Returns its argument. |
 | [isArray](functions/isArray.md) | A function that checks if the passed parameter is an Array and narrows its type accordingly. |
 | [isFunction](functions/isFunction.md) | Tests if a value is a `function`. |
-| [isObject](functions/isObject.md) | Check if the given parameter is of type `"object"` via `typeof`, excluding `null`. |
+| [isObject](functions/isObject.md) | Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`. |
 | [isTruthy](functions/isTruthy.md) | A function that checks if the passed parameter is truthy and narrows its type accordingly. |
 | [not](functions/not.md) | A function that takes a guard function as predicate and returns a guard that negates it. |
 | [or](functions/or.md) | A function that takes two guard functions as predicates and returns a guard that checks if either of them is true. |
 | [pipe](functions/pipe.md) | Pipes the value of an expression into a pipeline of functions. |
-| [pipeArguments](functions/pipeArguments.md) | - |
+| [pipeArguments](functions/pipeArguments.md) | Applies a pipeline of functions to a value, passing the result of each function to the next one in sequence. |
 | [tryAddToSet](functions/tryAddToSet.md) | Attempts to add a value to a Set, but only if it doesn't already exist. |
-| [tupled](functions/tupled.md) | Creates a version of this function: instead of `n` arguments, it accepts a single tuple argument. |
+| [tupled](functions/tupled.md) | Creates a tupled version of this function: instead of `n` arguments, it accepts a single tuple argument. |
 | [untupled](functions/untupled.md) | Inverse function of `tupled`. |

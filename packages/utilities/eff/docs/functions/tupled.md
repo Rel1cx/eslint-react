@@ -6,7 +6,7 @@
 function tupled<A, B>(f: (...a: A) => B): (a: A) => B;
 ```
 
-Creates a   version of this function: instead of `n` arguments, it accepts a single tuple argument.
+Creates a tupled version of this function: instead of `n` arguments, it accepts a single tuple argument.
 
 ## Type Parameters
 
@@ -22,6 +22,8 @@ Creates a   version of this function: instead of `n` arguments, it accepts a sin
 | `f` | (...`a`: `A`) => `B` | The function to be converted. |
 
 ## Returns
+
+A new function that accepts a single tuple argument.
 
 ```ts
 (a: A): B;

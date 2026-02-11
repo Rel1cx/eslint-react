@@ -27,6 +27,8 @@ See also [`pipe`](#pipe).
 
 ### Returns
 
+A composed function that applies all given functions in sequence.
+
 ```ts
 (...a: A): B;
 ```
@@ -82,9 +84,11 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): C;
@@ -145,10 +149,12 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): D;
@@ -211,11 +217,13 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
-| `de` | (`d`: `D`) => `E` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
+| `de` | (`d`: `D`) => `E` | The fourth function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): E;
@@ -280,12 +288,14 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
-| `de` | (`d`: `D`) => `E` | - |
-| `ef` | (`e`: `E`) => `F` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
+| `de` | (`d`: `D`) => `E` | The fourth function to apply. |
+| `ef` | (`e`: `E`) => `F` | The fifth function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): F;
@@ -352,13 +362,15 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
-| `de` | (`d`: `D`) => `E` | - |
-| `ef` | (`e`: `E`) => `F` | - |
-| `fg` | (`f`: `F`) => `G` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
+| `de` | (`d`: `D`) => `E` | The fourth function to apply. |
+| `ef` | (`e`: `E`) => `F` | The fifth function to apply. |
+| `fg` | (`f`: `F`) => `G` | The sixth function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): G;
@@ -427,14 +439,16 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
-| `de` | (`d`: `D`) => `E` | - |
-| `ef` | (`e`: `E`) => `F` | - |
-| `fg` | (`f`: `F`) => `G` | - |
-| `gh` | (`g`: `G`) => `H` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
+| `de` | (`d`: `D`) => `E` | The fourth function to apply. |
+| `ef` | (`e`: `E`) => `F` | The fifth function to apply. |
+| `fg` | (`f`: `F`) => `G` | The sixth function to apply. |
+| `gh` | (`g`: `G`) => `H` | The seventh function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): H;
@@ -505,15 +519,17 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
-| `de` | (`d`: `D`) => `E` | - |
-| `ef` | (`e`: `E`) => `F` | - |
-| `fg` | (`f`: `F`) => `G` | - |
-| `gh` | (`g`: `G`) => `H` | - |
-| `hi` | (`h`: `H`) => `I` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
+| `de` | (`d`: `D`) => `E` | The fourth function to apply. |
+| `ef` | (`e`: `E`) => `F` | The fifth function to apply. |
+| `fg` | (`f`: `F`) => `G` | The sixth function to apply. |
+| `gh` | (`g`: `G`) => `H` | The seventh function to apply. |
+| `hi` | (`h`: `H`) => `I` | The eighth function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): I;
@@ -586,16 +602,18 @@ See also [`pipe`](#pipe).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `ab` | (...`a`: `A`) => `B` | The first function to apply. |
-| `bc` | (`b`: `B`) => `C` | - |
-| `cd` | (`c`: `C`) => `D` | - |
-| `de` | (`d`: `D`) => `E` | - |
-| `ef` | (`e`: `E`) => `F` | - |
-| `fg` | (`f`: `F`) => `G` | - |
-| `gh` | (`g`: `G`) => `H` | - |
-| `hi` | (`h`: `H`) => `I` | - |
-| `ij` | (`i`: `I`) => `J` | - |
+| `bc` | (`b`: `B`) => `C` | The second function to apply. |
+| `cd` | (`c`: `C`) => `D` | The third function to apply. |
+| `de` | (`d`: `D`) => `E` | The fourth function to apply. |
+| `ef` | (`e`: `E`) => `F` | The fifth function to apply. |
+| `fg` | (`f`: `F`) => `G` | The sixth function to apply. |
+| `gh` | (`g`: `G`) => `H` | The seventh function to apply. |
+| `hi` | (`h`: `H`) => `I` | The eighth function to apply. |
+| `ij` | (`i`: `I`) => `J` | The ninth function to apply. |
 
 ### Returns
+
+A composed function that applies all given functions in sequence.
 
 ```ts
 (...a: A): J;

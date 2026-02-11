@@ -22,6 +22,8 @@ Apply a function to a given value.
 
 ## Returns
 
+A function that takes a function and applies it to the given value.
+
 ```ts
 <B>(self: (a: A) => B): B;
 ```

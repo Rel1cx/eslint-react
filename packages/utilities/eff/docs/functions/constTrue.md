@@ -11,3 +11,5 @@ Do nothing and return `true`.
 ## Returns
 
 `true`
+
+true

@@ -6,7 +6,7 @@
 function isObject<T>(data: object | T): data is NarrowedTo<T, object>;
 ```
 
-Check if the given parameter is of type `"object"` via `typeof`, excluding `null`.
+Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`.
 
 ## Type Parameters
 

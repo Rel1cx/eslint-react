@@ -27,7 +27,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 ### Returns
 
-Function A guard function.
+A guard function that checks if either predicate is true.
 
 ```ts
 (data: T): data is S | U;
@@ -67,7 +67,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 ### Returns
 
-Function A guard function.
+A guard function that checks if either predicate is true.
 
 ```ts
 (data: T): data is S;
@@ -107,7 +107,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 ### Returns
 
-Function A guard function.
+A guard function that checks if either predicate is true.
 
 ```ts
 (data: T): data is U;
@@ -146,7 +146,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 ### Returns
 
-Function A guard function.
+A guard function that checks if either predicate is true.
 
 ```ts
 (data: T): boolean;
