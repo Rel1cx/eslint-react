@@ -43,6 +43,7 @@
     "lint:ts": "pnpm m run lint:ts",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
     "prepare": "pnpm run build",
+    "snapshot": "tsx ./scripts/snapshot.ts",
     "sort:package-json": "pnpm m exec sort-package-json -q package.json && dprint fmt",
     "test": "vitest run --logHeapUsage",
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",

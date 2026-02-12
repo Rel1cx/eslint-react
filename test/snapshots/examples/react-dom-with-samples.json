@@ -1,0 +1,110 @@
+{
+  "results": [
+    {
+      "filePath": "/home/eva/Documents/code/eslint-react/examples/react-dom-with-samples/eslint.config.js",
+      "messages": [],
+      "suppressedMessages": [],
+      "errorCount": 0,
+      "fatalErrorCount": 0,
+      "warningCount": 0,
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
+      "usedDeprecatedRules": []
+    },
+    {
+      "filePath": "/home/eva/Documents/code/eslint-react/examples/react-dom-with-samples/src/App.tsx",
+      "messages": [],
+      "suppressedMessages": [],
+      "errorCount": 0,
+      "fatalErrorCount": 0,
+      "warningCount": 0,
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
+      "usedDeprecatedRules": []
+    },
+    {
+      "filePath": "/home/eva/Documents/code/eslint-react/examples/react-dom-with-samples/src/main.tsx",
+      "messages": [
+        {
+          "ruleId": "@eslint-react/prefer-namespace-import",
+          "severity": 1,
+          "message": "Prefer importing React as 'import * as React from \"react\"';",
+          "line": 3,
+          "column": 1,
+          "nodeType": "ImportDeclaration",
+          "messageId": "default",
+          "endLine": 3,
+          "endColumn": 27,
+          "fix": { "range": [23, 49], "text": "import * as React from \"react\";" }
+        },
+        {
+          "ruleId": "@eslint-react/dom/prefer-namespace-import",
+          "severity": 1,
+          "message": "Prefer importing React DOM via a namespace import.",
+          "line": 4,
+          "column": 1,
+          "nodeType": "ImportDeclaration",
+          "messageId": "default",
+          "endLine": 4,
+          "endColumn": 41,
+          "fix": { "range": [50, 90], "text": "import * as ReactDOM from \"react-dom/client\";" }
+        }
+      ],
+      "suppressedMessages": [],
+      "errorCount": 0,
+      "fatalErrorCount": 0,
+      "warningCount": 2,
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 2,
+      "source": "import \"./index.css\";\n\nimport React from \"react\";\nimport ReactDOM from \"react-dom/client\";\n\nimport App from \"./App\";\n\nexport const root = (\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);\n\nReactDOM.createRoot(document.querySelector(\"#root\")!).render(root);\n",
+      "usedDeprecatedRules": []
+    },
+    {
+      "filePath": "/home/eva/Documents/code/eslint-react/examples/react-dom-with-samples/src/samples/index.ts",
+      "messages": [],
+      "suppressedMessages": [],
+      "errorCount": 0,
+      "fatalErrorCount": 0,
+      "warningCount": 0,
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
+      "usedDeprecatedRules": []
+    },
+    {
+      "filePath": "/home/eva/Documents/code/eslint-react/examples/react-dom-with-samples/vite.config.ts",
+      "messages": [],
+      "suppressedMessages": [],
+      "errorCount": 0,
+      "fatalErrorCount": 0,
+      "warningCount": 0,
+      "fixableErrorCount": 0,
+      "fixableWarningCount": 0,
+      "usedDeprecatedRules": []
+    }
+  ],
+  "metadata": {
+    "cwd": "/home/eva/Documents/code/eslint-react/examples/react-dom-with-samples",
+    "rulesMeta": {
+      "@eslint-react/prefer-namespace-import": {
+        "type": "problem",
+        "docs": {
+          "description": "Enforces importing React via a namespace import.",
+          "url": "https://eslint-react.xyz/docs/rules/prefer-namespace-import"
+        },
+        "fixable": "code",
+        "messages": { "default": "Prefer importing React as 'import * as React from \"{{importSource}}\"';" },
+        "schema": []
+      },
+      "@eslint-react/dom/prefer-namespace-import": {
+        "type": "problem",
+        "docs": {
+          "description": "Enforces importing React DOM via a namespace import.",
+          "url": "https://eslint-react.xyz/docs/rules/dom-prefer-namespace-import"
+        },
+        "fixable": "code",
+        "messages": { "default": "Prefer importing React DOM via a namespace import." },
+        "schema": []
+      }
+    }
+  }
+}

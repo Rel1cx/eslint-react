@@ -1,0 +1,5 @@
+{
+  "eslint.rules.customizations": [
+    { "rule": "@eslint-react/debug/*", "severity": "info" }
+  ]
+}
