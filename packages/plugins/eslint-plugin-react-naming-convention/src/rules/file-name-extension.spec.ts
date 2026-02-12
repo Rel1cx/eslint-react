@@ -1,37 +1,37 @@
 import { ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./filename-extension";
+import rule, { RULE_NAME } from "./file-name-extension";
 
-const withJSXElement = "const App = () => <div><div /></div>";
-const withJSXFragment = "const App = () => <></>";
-const withoutJSX = "";
+const withJsxElement = "const App = () => <div><div /></div>";
+const withJsxFragment = "const App = () => <></>";
+const withoutJsx = "";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: withoutJSX,
+      code: withoutJsx,
       errors: [
         {
-          messageId: "unnecessaryJSXExtension",
+          messageId: "unnecessaryJsxExtension",
         },
       ],
       filename: "react.tsx",
       options: ["as-needed"],
     },
     {
-      code: withoutJSX,
+      code: withoutJsx,
       errors: [
         {
-          messageId: "unnecessaryJSXExtension",
+          messageId: "unnecessaryJsxExtension",
         },
       ],
       filename: "react.tsx",
       options: [{ allow: "as-needed" }],
     },
     {
-      code: withJSXElement,
+      code: withJsxElement,
       errors: [
         {
-          messageId: "missingJSXExtension",
+          messageId: "missingJsxExtension",
         },
       ],
       filename: "react.tsx",
@@ -45,24 +45,24 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      code: withJSXElement,
+      code: withJsxElement,
       filename: "react.tsx",
     },
     {
-      code: withJSXFragment,
+      code: withJsxFragment,
       filename: "react.tsx",
     },
     {
-      code: withoutJSX,
+      code: withoutJsx,
       filename: "file.ts",
     },
     {
-      code: withoutJSX,
+      code: withoutJsx,
       filename: "react.tsx",
       options: ["always"],
     },
     {
-      code: withoutJSX,
+      code: withoutJsx,
       filename: "react.tsx",
       options: [{ allow: "always" }],
     },

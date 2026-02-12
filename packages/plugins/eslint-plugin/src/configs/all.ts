@@ -38,7 +38,6 @@ export const rules = {
   "@eslint-react/no-direct-mutation-state": "error",
   "@eslint-react/no-duplicate-key": "error",
   "@eslint-react/no-forward-ref": "warn",
-  "@eslint-react/no-leaked-conditional-rendering": "off",
   "@eslint-react/no-missing-component-display-name": "warn",
   "@eslint-react/no-missing-context-display-name": "warn",
   "@eslint-react/no-missing-key": "error",
@@ -59,14 +58,12 @@ export const rules = {
   "@eslint-react/no-unstable-context-value": "warn",
   "@eslint-react/no-unstable-default-props": "warn",
   "@eslint-react/no-unused-class-component-members": "warn",
-  "@eslint-react/no-unused-props": "off",
   "@eslint-react/no-unused-state": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
-  "@eslint-react/prefer-read-only-props": "off",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
@@ -99,9 +96,6 @@ export const rules = {
 
   "@eslint-react/naming-convention/component-name": "warn",
   "@eslint-react/naming-convention/context-name": "warn",
-  "@eslint-react/naming-convention/filename": "off",
-  "@eslint-react/naming-convention/filename-extension": "off",
-  "@eslint-react/naming-convention/ref-name": "off",
   "@eslint-react/naming-convention/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 

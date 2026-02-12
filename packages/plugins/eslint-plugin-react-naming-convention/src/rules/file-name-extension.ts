@@ -6,15 +6,15 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "filename-extension";
+export const RULE_NAME = "file-name-extension";
 
 export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "missingJSXExtension"
-  | "unnecessaryJSXExtension";
+  | "missingJsxExtension"
+  | "unnecessaryJsxExtension";
 
 type Allow = "always" | "as-needed";
 
@@ -73,8 +73,8 @@ export default createRule<Options, MessageID>({
       description: "Enforces consistent use of the JSX file extension.",
     },
     messages: {
-      missingJSXExtension: "Use {{extensions}} file extension for JSX files.",
-      unnecessaryJSXExtension: "Do not use {{extensions}} file extension for files without JSX.",
+      missingJsxExtension: "Use {{extensions}} file extension for JSX files.",
+      unnecessaryJsxExtension: "Do not use {{extensions}} file extension for files without JSX.",
     },
     schema,
   },
@@ -106,7 +106,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       const isJSXExt = extensions.includes(fileNameExt);
       if (hasJSXNode && !isJSXExt) {
         context.report({
-          messageId: "missingJSXExtension",
+          messageId: "missingJsxExtension",
           node: program,
           data: {
             extensions: extensionsString,
@@ -126,7 +126,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         && allow === "as-needed"
       ) {
         context.report({
-          messageId: "unnecessaryJSXExtension",
+          messageId: "unnecessaryJsxExtension",
           node: program,
           data: {
             extensions: extensionsString,
