@@ -20,7 +20,7 @@ react-x/jsx-dollar
 
 ## Description
 
-Prevents unnecessary `$` symbols before JSX expressions.
+Prevents unintentional `$` sign before expression.
 
 This can happen when refactoring from a template literal to JSX and forgetting to remove the dollar sign. This results in an unintentional `$` being rendered in the output.
 
@@ -54,7 +54,7 @@ import React from "react";
 function MyComponent({ user }) {
   return <div>Hello ${user.name}</div>;
   //                ^
-  //                - Possible unnecessary '$' character before expression.
+  //                - Possible unintentional '$' sign before expression.
 }
 ```
 
@@ -64,7 +64,7 @@ import React from "react";
 function MyComponent({ user }) {
   return <div>${user.name} is your name</div>;
   //          ^
-  //          - Possible unnecessary '$' character before expression.
+  //          - Possible unintentional '$' sign before expression.
 }
 ```
 
@@ -74,8 +74,8 @@ import React from "react";
 function MyComponent({ count, total }) {
   return <div>Progress: ${count} / ${total}</div>;
   //                     ^         ^
-  //                     - Possible unnecessary '$' character before expression.
-  //                               - Possible unnecessary '$' character before expression.
+  //                     - Possible unintentional '$' sign before expression.
+  //                               - Possible unintentional '$' sign before expression.
 }
 ```
 

@@ -19,12 +19,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents unnecessary '$' symbols before JSX expressions.",
+      description: "Prevents unintentional '$' sign before expression.",
     },
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      default: "Possible unnecessary '$' character before expression.",
+      default: "Prevents unintentional '$' sign before expression.",
       removeDollarSign: "Remove the dollar sign '$' before the expression.",
     },
     schema: [],
