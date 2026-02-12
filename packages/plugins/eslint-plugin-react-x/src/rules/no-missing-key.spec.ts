@@ -7,59 +7,59 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`[<App />];`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[<App {...key} />];`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[<App key={0}/>, <App />];`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2 ,3].map(function(x) { return <App /> });`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2 ,3].map(x => <App />);`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2 ,3].map(x => x && <App x={x} />);`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} />);',
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: '[1, 2 ,3].map(x => x ? <App x={x} /> : <OtherApp x={x} key="2" />);',
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2 ,3].map(x => { return <App /> });`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`Array.from([1, 2 ,3], function(x) { return <App /> });`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`Array.from([1, 2 ,3], (x => { return <App /> }));`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`Array.from([1, 2 ,3], (x => <App />));`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2, 3]?.map(x => <BabelEslintApp />)`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2, 3]?.map(x => <TypescriptEslintApp />)`,
-      errors: [{ messageId: "missingKey" }],
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`[1, 2, 3].map(x => <>{x}</>);`,
@@ -96,8 +96,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "missingKey" },
-        { messageId: "missingKey" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -123,10 +123,10 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "missingKey" },
-        { messageId: "missingKey" },
-        { messageId: "missingKey" },
-        { messageId: "missingKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -146,9 +146,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "missingKey" },
-        { messageId: "missingKey" },
-        { messageId: "missingKey" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -181,7 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "unexpectedFragmentSyntax",
         },
         {
-          messageId: "missingKey",
+          messageId: "default",
         },
         {
           messageId: "unexpectedFragmentSyntax",
@@ -207,7 +207,7 @@ ruleTester.run(RULE_NAME, rule, {
     //     };
     //   `,
     //   errors: [
-    //     { messageId: "missingKey" },
+    //     { messageId: "default" },
     //   ],
     // },
   ],

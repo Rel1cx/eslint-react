@@ -1,17 +1,17 @@
 ---
-title: filename
+title: file-name
 ---
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/naming-convention/filename
+@eslint-react/naming-convention/file-name
 ```
 
 **Full Name in `eslint-plugin-react-naming-convention`**
 
 ```plain copy
-react-naming-convention/filename
+react-naming-convention/file-name
 ```
 
 **Features**
@@ -66,7 +66,7 @@ export default [
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { rule: "PascalCase" }],
+      "@eslint-react/naming-convention/file-name": ["warn", { rule: "PascalCase" }],
     },
   },
 ];
@@ -78,7 +78,7 @@ export default [
 
 ```text title="ESLint Output"
 src/components/component.tsx
-  1:1  error  File name `component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  @eslint-react/naming-convention/filename
+  1:1  error  File name `component.tsx` does not match `PascalCase`. Should rename to `Component.tsx`  @eslint-react/naming-convention/file-name
 
 ✖ 1 problem (1 error, 0 warnings)
 ```
@@ -102,7 +102,7 @@ export default [
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { rule: "kebab-case" }],
+      "@eslint-react/naming-convention/file-name": ["warn", { rule: "kebab-case" }],
     },
   },
 ];
@@ -117,13 +117,13 @@ export default [
   {
     files: ["src/components/**/*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { rule: "PascalCase" }],
+      "@eslint-react/naming-convention/file-name": ["warn", { rule: "PascalCase" }],
     },
   },
   {
     files: ["src/hooks/**/use*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { rule: "camelCase" }],
+      "@eslint-react/naming-convention/file-name": ["warn", { rule: "camelCase" }],
     },
   },
 ];
@@ -138,14 +138,14 @@ export default [
   {
     files: ["**/*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": ["warn", { rule: "kebab-case" }],
+      "@eslint-react/naming-convention/file-name": ["warn", { rule: "kebab-case" }],
     },
   },
   {
     // Opt out for files in the 'app' directory
     files: ["app/**/*.{ts,tsx}"],
     rules: {
-      "@eslint-react/naming-convention/filename": "off",
+      "@eslint-react/naming-convention/file-name": "off",
     },
   },
 ];
@@ -153,5 +153,5 @@ export default [
 
 ## Implementation
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/filename.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/file-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/file-name.spec.ts)

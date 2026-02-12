@@ -11,7 +11,9 @@ export const RULE_NAME = "no-missing-key";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "missingKey" | "unexpectedFragmentSyntax";
+export type MessageID =
+  | "default"
+  | "unexpectedFragmentSyntax";
 
 type Descriptor = ReportDescriptor<MessageID>;
 
@@ -22,7 +24,7 @@ export default createRule<[], MessageID>({
       description: "Disallows missing 'key' on items in list rendering.",
     },
     messages: {
-      missingKey: "Missing 'key' for element when rendering list.",
+      default: "Missing 'key' for element when rendering list.",
       unexpectedFragmentSyntax: "Use fragment component instead of '<>' because it does not support `key`.",
     },
     schema: [],
@@ -38,7 +40,7 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
   function check(node: TSESTree.Node): Descriptor | null {
     if (node.type === AST.JSXElement) {
       return core.getJsxAttribute(ctx, node)("key") == null
-        ? { messageId: "missingKey", node }
+        ? { messageId: "default", node }
         : null;
     }
     if (node.type === AST.JSXFragment) {
@@ -77,7 +79,7 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
       const scope = ctx.sourceCode.getScope(node);
       for (const el of elements) {
         if (core.getJsxAttribute(ctx, el, scope)("key") == null) {
-          ctx.report({ messageId: "missingKey", node: el });
+          ctx.report({ messageId: "default", node: el });
         }
       }
     },

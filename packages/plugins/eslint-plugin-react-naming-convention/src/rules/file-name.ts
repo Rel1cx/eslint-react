@@ -9,15 +9,15 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "filename";
+export const RULE_NAME = "file-name";
 
 export const RULE_FEATURES = [
   "CFG",
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "filenameEmpty"
-  | "filenameInvalidCase";
+  | "fileNameEmpty"
+  | "fileNameInvalidCase";
 
 type Case = "camelCase" | "kebab-case" | "PascalCase" | "snake_case";
 
@@ -81,8 +81,8 @@ export default createRule<Options, MessageID>({
       description: "Enforces consistent file-naming conventions.",
     },
     messages: {
-      filenameEmpty: "A source file must have non-empty name.",
-      filenameInvalidCase: "A source file with name '{{name}}' does not match {{rule}}. Rename it to '{{suggestion}}'.",
+      fileNameEmpty: "A source file must have non-empty name.",
+      fileNameInvalidCase: "A source file with name '{{name}}' does not match {{rule}}. Rename it to '{{suggestion}}'.",
     },
     schema,
   },
@@ -125,14 +125,14 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     Program(node) {
       const [basename = "", ...rest] = path.basename(context.filename).split(".");
       if (basename.length === 0) {
-        context.report({ messageId: "filenameEmpty", node });
+        context.report({ messageId: "fileNameEmpty", node });
         return;
       }
       if (validate(basename)) {
         return;
       }
       context.report({
-        messageId: "filenameInvalidCase",
+        messageId: "fileNameInvalidCase",
         node,
         data: {
           name: context.filename,
