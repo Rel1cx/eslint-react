@@ -1,3 +1,21 @@
+## v2.13.0 (TBD)
+
+### ✨ New
+
+- Rename `naming-convention/filename` rule to `naming-convention/file-name` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1495
+- Rename `naming-convention/filename-extension` rule to `naming-convention/file-name-extension` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1495
+
+### 🐞 Fixes
+
+- Update rules `meta.type` from `"problem"` to `"suggestion"` for naming convention rules by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1496
+
+### 📝 Changes you should be aware of
+
+1. The `naming-convention/filename` rule has been renamed to `naming-convention/file-name`.
+2. The `naming-convention/filename-extension` rule has been renamed to `naming-convention/file-name-extension`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.4...v2.12.5
+
 ## v2.12.4 (2026-02-11)
 
 ### 🐞 Fixes
@@ -6,7 +24,7 @@
 
 ### 🪄 Improvements
 
-- Refactor `react-dom/no-unknown-property` rule to fix all ESLint and TypeScript issues by @ulrichstark in https://github.com/Rel1cx/eslint-react/pull/1490
+- Refactor `dom/no-unknown-property` rule to fix all ESLint and TypeScript issues by @ulrichstark in https://github.com/Rel1cx/eslint-react/pull/1490
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.2...v2.12.4
 
@@ -581,10 +599,10 @@ The following rules have been removed from the strict and recommended presets:
   - `no-unstable-default-props`
   - `no-unused-class-component-members`
   - `no-unused-state`
-  - `react-dom/no-missing-button-type`
-  - `react-dom/no-missing-iframe-sandbox`
-  - `react-dom/no-unsafe-iframe-sandbox`
-  - `react-dom/no-unsafe-target-blank`
+  - `dom/no-missing-button-type`
+  - `dom/no-missing-iframe-sandbox`
+  - `dom/no-unsafe-iframe-sandbox`
+  - `dom/no-unsafe-target-blank`
 - Change `typescript` peer dependency version range from `^5.9.2` to `^5` by @Rel1cx
 
 ## New Contributors
@@ -668,25 +686,25 @@ The following rules have been removed from the strict and recommended presets:
 
 **Removed Rules**
 
-| Rule                                                         | Replaced by                                                                                                                                | Reason       |
-| :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :----------- |
-| `avoid-shorthand-boolean`                                    | [`jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                                       | consolidated |
-| `avoid-shorthand-fragment`                                   | [`jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                                     | consolidated |
-| `ensure-forward-ref-using-ref`                               | [`no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                                                     | renamed      |
-| `no-duplicate-props`                                         | [`jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                                                     | renamed      |
-| `no-comment-textnodes`                                       | [`jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                                                 | renamed      |
-| `no-complicated-conditional-rendering`                       |                                                                                                                                            | discontinued |
-| `no-nested-components`                                       | [`no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)                                   | renamed      |
-| `prefer-react-namespace-import`                              | [`prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                                                   | renamed      |
-| `prefer-shorthand-boolean`                                   | [`jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                                       | consolidated |
-| `prefer-shorthand-fragment`                                  | [`jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                                     | consolidated |
-| `use-jsx-vars`                                               | [`jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                                                       | renamed      |
-| `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children)                       | renamed      |
-| `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-hooks-extra/no-direct-set-state-in-use-effect`](https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect) | consolidated |
-| `react-hooks-extra/no-unnecessary-use-callback`              | [`no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                                           | relocated    |
-| `react-hooks-extra/no-unnecessary-use-memo`                  | [`no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                                                   | relocated    |
-| `react-hooks-extra/no-unnecessary-use-prefix`                | [`no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                                               | relocated    |
-| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization)                         | relocated    |
+| Rule                                                   | Replaced by                                                                                                                          | Reason       |
+| :----------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :----------- |
+| `avoid-shorthand-boolean`                              | [`jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                                 | consolidated |
+| `avoid-shorthand-fragment`                             | [`jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                               | consolidated |
+| `ensure-forward-ref-using-ref`                         | [`no-useless-forward-ref`](https://eslint-react.xyz/docs/rules/no-useless-forward-ref)                                               | renamed      |
+| `no-duplicate-props`                                   | [`jsx-no-duplicate-props`](https://eslint-react.xyz/docs/rules/jsx-no-duplicate-props)                                               | renamed      |
+| `no-comment-textnodes`                                 | [`jsx-no-comment-textnodes`](https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes)                                           | renamed      |
+| `no-complicated-conditional-rendering`                 |                                                                                                                                      | discontinued |
+| `no-nested-components`                                 | [`no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)                             | renamed      |
+| `prefer-react-namespace-import`                        | [`prefer-namespace-import`](https://eslint-react.xyz/docs/rules/prefer-namespace-import)                                             | renamed      |
+| `prefer-shorthand-boolean`                             | [`jsx-shorthand-boolean`](https://eslint-react.xyz/docs/rules/jsx-shorthand-boolean)                                                 | consolidated |
+| `prefer-shorthand-fragment`                            | [`jsx-shorthand-fragment`](https://eslint-react.xyz/docs/rules/jsx-shorthand-fragment)                                               | consolidated |
+| `use-jsx-vars`                                         | [`jsx-uses-vars`](https://eslint-react.xyz/docs/rules/jsx-uses-vars)                                                                 | renamed      |
+| `dom/no-children-in-void-dom-elements`                 | [`dom/no-void-elements-with-children`](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children)                       | renamed      |
+| `hooks-extra/no-direct-set-state-in-use-layout-effect` | [`hooks-extra/no-direct-set-state-in-use-effect`](https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect) | consolidated |
+| `hooks-extra/no-unnecessary-use-callback`              | [`no-unnecessary-use-callback`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback)                                     | relocated    |
+| `hooks-extra/no-unnecessary-use-memo`                  | [`no-unnecessary-use-memo`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo)                                             | relocated    |
+| `hooks-extra/no-unnecessary-use-prefix`                | [`no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix)                                         | relocated    |
+| `hooks-extra/prefer-use-state-lazy-initialization`     | [`prefer-use-state-lazy-initialization`](https://eslint-react.xyz/docs/rules/prefer-use-state-lazy-initialization)                   | relocated    |
 
 **Removed Presets**
 
@@ -714,8 +732,8 @@ Rules previously using these settings have been refactored to use improved heuri
 - `no-forbidden-props`: Disallows specific props on components by @reteps
 - `no-unnecessary-key`: Reports unnecessary `key` props on elements by @Rel1cx, @kachkaev
 - `no-unused-props`: Reports unused props in components by @ulrichstark
-- `react-dom/no-string-style-prop`: Disallows string values for the `style` prop by @Rel1cx, @karlhorky
-- `react-dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom` by @Rel1cx
+- `dom/no-string-style-prop`: Disallows string values for the `style` prop by @Rel1cx, @karlhorky
+- `dom/prefer-namespace-import`: Enforces using a namespace import for `react-dom` by @Rel1cx
 
 **Added the following new rule to the `recommended-type-checked` preset:**
 
@@ -736,9 +754,9 @@ Rules previously using these settings have been refactored to use improved heuri
 
 **The following rules now support suggestion fixes:**
 
-- `react-dom/no-missing-button-type` by @Rel1cx
-- `react-dom/no-missing-iframe-sandbox` by @Rel1cx
-- `react-dom/no-unsafe-target-blank` by @Rel1cx
+- `dom/no-missing-button-type` by @Rel1cx
+- `dom/no-missing-iframe-sandbox` by @Rel1cx
+- `dom/no-unsafe-target-blank` by @Rel1cx
 
 **New configuration preset added:**
 
@@ -816,7 +834,7 @@ Rules previously using these settings have been refactored to use improved heuri
 
 ### 🐞 Fixes
 
-- fix: refactor `is-from-react` utility in `react-debug/is-from-react` rule and improve `no-forward-ref` rule autofix handling, closes #1172 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1173
+- fix: refactor `is-from-react` utility in `debug/is-from-react` rule and improve `no-forward-ref` rule autofix handling, closes #1172 by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1173
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.52.4...v1.52.5
 
@@ -1090,7 +1108,7 @@ The old preset names will still be available until the next major update to avoi
 
 ### ✨ New
 
-- feat: add `react-debug/jsx` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1041
+- feat: add `debug/jsx` rule by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1041
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v1.40.4...1.41.0
 
@@ -1256,7 +1274,7 @@ No notable changes have been made in this release.
 
 The following rules have been renamed:
 
-- `react-hooks-extra/no-useless-custom-hooks` to `react-hooks-extra/no-unnecessary-use-prefix`
+- `hooks-extra/no-useless-custom-hooks` to `hooks-extra/no-unnecessary-use-prefix`
 - `@eslint-react/hooks-extra/no-useless-custom-hooks` to `@eslint-react/hooks-extra/no-unnecessary-use-prefix`
 
 The old rule names will still be available until the next major update to avoid breaking changes.
@@ -1838,7 +1856,7 @@ function useAuth() {
 - Added `web-api/no-leaked-interval` rule to prevent leaked `setInterval`
 - Added `web-api/no-leaked-event-listener` rule to prevent leaked `addEventListener`
 - Added `web-api` and `web-api-legacy` presets to enable all rules provided by `eslint-plugin-react-web-api`
-- Added `react-web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets
+- Added `web-api/no-leaked-event-listener` to `recommended` and `recommended-legacy` presets
 
 ### 🪄 Improvements
 
@@ -2290,8 +2308,8 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- Fix rule `react-dom/no-namespace` not renamed in v1.0.0
-- Fix rule `react-dom/no-void-elements-with-children` not renamed in v1.0.0
+- Fix rule `dom/no-namespace` not renamed in v1.0.0
+- Fix rule `dom/no-void-elements-with-children` not renamed in v1.0.0
 
 ### 🪄 Improvements
 
@@ -2313,17 +2331,17 @@ function useAuth() {
 
 #### All DOM related rules are moved to `react-dom` namespace
 
-- Rename rule `react/no-void-elements-with-children` to `react-dom/no-void-elements-with-children`
-- Rename rule `react/no-dangerously-set-innerhtml-with-children` to `react-dom/no-dangerously-set-innerhtml-with-children`
-- Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`
-- Rename rule `react/no-find-dom-node` to `react-dom/no-find-dom-node`
-- Rename rule `react/no-missing-button-type` to `react-dom/no-missing-button-type`
-- Rename rule `react/no-missing-iframe-sandbox` to `react-dom/no-missing-iframe-sandbox`
-- Rename rule `react/no-namespace` to `react-dom/no-namespace`
-- Rename rule `react/no-render-return-value` to `react-dom/no-render-return-value`
-- Rename rule `react/no-script-url` to `react-dom/no-script-url`
-- Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`
-- Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`
+- Rename rule `react/no-void-elements-with-children` to `dom/no-void-elements-with-children`
+- Rename rule `react/no-dangerously-set-innerhtml-with-children` to `dom/no-dangerously-set-innerhtml-with-children`
+- Rename rule `react/no-dangerously-set-innerhtml` to `dom/no-dangerously-set-innerhtml`
+- Rename rule `react/no-find-dom-node` to `dom/no-find-dom-node`
+- Rename rule `react/no-missing-button-type` to `dom/no-missing-button-type`
+- Rename rule `react/no-missing-iframe-sandbox` to `dom/no-missing-iframe-sandbox`
+- Rename rule `react/no-namespace` to `dom/no-namespace`
+- Rename rule `react/no-render-return-value` to `dom/no-render-return-value`
+- Rename rule `react/no-script-url` to `dom/no-script-url`
+- Rename rule `react/no-unsafe-iframe-sandbox` to `dom/no-unsafe-iframe-sandbox`
+- Rename rule `react/no-unsafe-target-blank` to `dom/no-unsafe-target-blank`
 
 ### ✨ New
 
@@ -2336,7 +2354,7 @@ function useAuth() {
 
 ### 🐞 Fixes
 
-- Fix the lint message for rule `react-dom/no-dangerously-set-innerhtml`
+- Fix the lint message for rule `dom/no-dangerously-set-innerhtml`
 
 ## v1.0.0-beta.3 (2024-01-26)
 
@@ -2366,14 +2384,14 @@ function useAuth() {
 
 #### All DOM related rules are moved to `react-dom` namespace
 
-- Rename rule `react/no-dangerously-set-innerhtml` to `react-dom/no-dangerously-set-innerhtml`
-- Rename rule `react/no-dangerously-set-innerhtml-with-children` to `react-dom/no-dangerously-set-innerhtml-with-children`
-- Rename rule `react/no-find-dom-node` to `react-dom/no-find-dom-node`
-- Rename rule `react/no-missing-button-type` to `react-dom/no-missing-button-type`
-- Rename rule `react/no-missing-iframe-sandbox` to `react-dom/no-missing-iframe-sandbox`
-- Rename rule `react/no-script-url` to `react-dom/no-script-url`
-- Rename rule `react/no-unsafe-iframe-sandbox` to `react-dom/no-unsafe-iframe-sandbox`
-- Rename rule `react/no-unsafe-target-blank` to `react-dom/no-unsafe-target-blank`
+- Rename rule `react/no-dangerously-set-innerhtml` to `dom/no-dangerously-set-innerhtml`
+- Rename rule `react/no-dangerously-set-innerhtml-with-children` to `dom/no-dangerously-set-innerhtml-with-children`
+- Rename rule `react/no-find-dom-node` to `dom/no-find-dom-node`
+- Rename rule `react/no-missing-button-type` to `dom/no-missing-button-type`
+- Rename rule `react/no-missing-iframe-sandbox` to `dom/no-missing-iframe-sandbox`
+- Rename rule `react/no-script-url` to `dom/no-script-url`
+- Rename rule `react/no-unsafe-iframe-sandbox` to `dom/no-unsafe-iframe-sandbox`
+- Rename rule `react/no-unsafe-target-blank` to `dom/no-unsafe-target-blank`
 
 ## v0.10.12 (2024-01-21)
 
