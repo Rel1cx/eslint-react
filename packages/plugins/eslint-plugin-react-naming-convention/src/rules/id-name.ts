@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`.",
+      description: "Enforces identifier names assigned from 'useId' calls to be either 'id' or end with 'Id'.",
     },
     messages: {
       invalidIdName: "An identifier assigned from 'useId' must be named 'id' or end with 'Id'.",
@@ -35,12 +35,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseIdCall(node)) return;
-        const [id, name] = match(findEnclosingAssignmentTarget(node))
-          // for cases like: const myId = useId();
-          .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
-          // for cases like: ctxs.myId = useId();
-          .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
-          .otherwise(() => [null, null] as const);
+      const [id, name] = match(findEnclosingAssignmentTarget(node))
+        // for cases like: const myId = useId();
+        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
+        // for cases like: ctxs.myId = useId();
+        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
+        .otherwise(() => [null, null] as const);
       if (id == null) return;
       if (name.endsWith("Id") || name === "id") return;
       context.report({

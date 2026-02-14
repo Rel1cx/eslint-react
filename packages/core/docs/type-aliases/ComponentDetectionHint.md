@@ -5,5 +5,3 @@
 ```ts
 type ComponentDetectionHint = bigint;
 ```
-
-Hints for component collector
