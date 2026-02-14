@@ -6,7 +6,7 @@ title: Changelog
 
 ### ✨ New
 
-- feat: add `naming-convention/id-name` rule for `React.useId()` by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1497
+- Add `naming-convention/id-name` rule for `React.useId()` by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1497
 - Deprecate `naming-convention/filename` and `naming-convention/filename-extension` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1498
 
 ### 🐞 Fixes
