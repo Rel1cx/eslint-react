@@ -6,7 +6,7 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "file-name-extension";
+export const RULE_NAME = "filename-extension";
 
 export const RULE_FEATURES = [
   "CFG",

@@ -9,7 +9,7 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
 
-export const RULE_NAME = "file-name";
+export const RULE_NAME = "filename";
 
 export const RULE_FEATURES = [
   "CFG",

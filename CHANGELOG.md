@@ -1,18 +1,13 @@
 ## v2.13.0 (TBD)
 
-### ✨ New
-
-- Rename `naming-convention/filename` rule to `naming-convention/file-name` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1495
-- Rename `naming-convention/filename-extension` rule to `naming-convention/file-name-extension` by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1495
-
 ### 🐞 Fixes
 
 - Update rules `meta.type` from `"problem"` to `"suggestion"` for naming convention rules by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1496
 
 ### 📝 Changes you should be aware of
 
-1. The `naming-convention/filename` rule has been renamed to `naming-convention/file-name`.
-2. The `naming-convention/filename-extension` rule has been renamed to `naming-convention/file-name-extension`.
+1. The `naming-convention/filename` rule has been deprecated and will be removed in the next major version.
+2. The `naming-convention/filename-extension` rule has been deprecated and will be removed in the next major version.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.4...v2.12.5
 

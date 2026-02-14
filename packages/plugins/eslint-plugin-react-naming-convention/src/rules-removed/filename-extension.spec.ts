@@ -1,5 +1,5 @@
 import { ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./file-name-extension";
+import rule, { RULE_NAME } from "./filename-extension";
 
 const withJsxElement = "const App = () => <div><div /></div>";
 const withJsxFragment = "const App = () => <></>";
