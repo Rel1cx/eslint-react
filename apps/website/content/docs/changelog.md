@@ -13,7 +13,7 @@ title: Changelog
 1. The `naming-convention/filename` rule has been deprecated and will be removed in the next major version.
 2. The `naming-convention/filename-extension` rule has been deprecated and will be removed in the next major version.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.4...v2.12.5
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.5...v2.13.0
 
 ## v2.12.4 (2026-02-11)
 
