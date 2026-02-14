@@ -31,6 +31,7 @@ export const projects = [
   { owner: "refined-github", repo: "refined-github" },
   { owner: "TanStack", repo: "devtools" },
   { owner: "TanStack", repo: "form" },
+  { owner: "TanStack", repo: "hotkeys" },
   { owner: "TanStack", repo: "pacer" },
   { owner: "TanStack", repo: "query" },
   { owner: "TanStack", repo: "router" },
