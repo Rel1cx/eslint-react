@@ -2,12 +2,20 @@
 
 ### 🐞 Fixes
 
-- Update rules `meta.type` from `"problem"` to `"suggestion"` for naming convention rules by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1496
+- Update rules `meta.type` from `"problem"` to `"suggestion"` for naming-convention rules by @amir-rahmanii in https://github.com/Rel1cx/eslint-react/pull/1496
 
 ### 📝 Changes you should be aware of
 
 1. The `naming-convention/filename` rule has been deprecated and will be removed in the next major version.
 2. The `naming-convention/filename-extension` rule has been deprecated and will be removed in the next major version.
+
+Modern React frameworks each come with their own naming conventions that can differ or even conflict between each other. A single framework-agnostic filename rule no longer matches real-world usage, so it’s deprecated. Please follow the official naming conventions of the specific React framework you are using.
+
+Examples (official framework file-naming conventions):
+
+- Next.js — App Router and File-system conventions: https://nextjs.org/docs/app, https://nextjs.org/docs/app/api-reference/file-conventions
+- React Router v7 — File Route Conventions: https://reactrouter.com/how-to/file-route-conventions#file-route-conventions
+- TanStack Start — TanStack Router File Naming Conventions: https://tanstack.com/router/v1/docs/framework/react/routing/file-naming-conventions
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.12.5...v2.13.0
 

@@ -5,3 +5,5 @@
 ```ts
 type ComponentFlag = bigint;
 ```
+
+Component flag constants
