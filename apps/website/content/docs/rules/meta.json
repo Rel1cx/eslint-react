@@ -94,6 +94,7 @@
     "naming-convention-context-name",
     "naming-convention-file-name",
     "naming-convention-file-name-extension",
+    "naming-convention-id-name",
     "naming-convention-ref-name",
     "naming-convention-use-state",
     "---Debug Rules---",

@@ -7,6 +7,7 @@ import contextName from "./rules/context-name";
 import fileName from "./rules/file-name";
 import fileNameExtension from "./rules/file-name-extension";
 import useRefName from "./rules/ref-name";
+import useIdName from "./rules/id-name"
 import useState from "./rules/use-state";
 
 export const plugin: CompatiblePlugin = {
@@ -21,6 +22,7 @@ export const plugin: CompatiblePlugin = {
     ["file-name-extension"]: fileNameExtension,
     ["filename"]: fileName,
     ["filename-extension"]: fileNameExtension,
+    ["id-name"]: useIdName,
     ["ref-name"]: useRefName,
     ["use-state"]: useState,
   },
