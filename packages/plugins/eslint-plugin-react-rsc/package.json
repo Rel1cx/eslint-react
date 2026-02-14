@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "tsdown": "^0.20.3"
   },
