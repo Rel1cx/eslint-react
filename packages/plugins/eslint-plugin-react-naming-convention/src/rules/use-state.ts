@@ -55,7 +55,7 @@ const schema = [
 
 export default createRule<Options, MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Enforces destructuring and symmetric naming of the 'useState' hook value and setter.",
     },
