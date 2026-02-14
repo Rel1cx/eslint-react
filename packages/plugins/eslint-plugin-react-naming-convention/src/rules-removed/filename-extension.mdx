@@ -1,17 +1,17 @@
 ---
-title: file-name-extension
+title: filename-extension
 ---
 
 **Full Name in `@eslint-react/eslint-plugin`**
 
 ```plain copy
-@eslint-react/naming-convention/file-name-extension
+@eslint-react/naming-convention/filename-extension
 ```
 
 **Full Name in `eslint-plugin-react-naming-convention`**
 
 ```plain copy
-react-naming-convention/file-name-extension
+react-naming-convention/filename-extension
 ```
 
 **Features**
@@ -73,7 +73,7 @@ export default [
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/file-name-extension": ["warn", "as-needed"]
+      "@eslint-react/naming-convention/filename-extension": ["warn", "as-needed"]
     }
   }
 ];
@@ -86,7 +86,7 @@ export default [
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/file-name-extension": ["warn", { "allow": "always" }]
+      "@eslint-react/naming-convention/filename-extension": ["warn", { "allow": "always" }]
     }
   }
 ];
@@ -99,13 +99,13 @@ export default [
   {
     files: ["**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/file-name-extension": ["warn", "always"],
+      "@eslint-react/naming-convention/filename-extension": ["warn", "always"],
     },
   },
   {
     files: ["src/**/use*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/file-name-extension": [
+      "@eslint-react/naming-convention/filename-extension": [
         "warn",
         "as-needed",
       ],
@@ -114,7 +114,7 @@ export default [
   {
     files: ["fixtures/**/*.tsx"],
     rules: {
-      "@eslint-react/naming-convention/file-name-extension": "off",
+      "@eslint-react/naming-convention/filename-extension": "off",
     },
   },
 ];
@@ -122,12 +122,5 @@ export default [
 
 ## Implementation
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/file-name-extension.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/file-name-extension.spec.ts)
-
----
-
-## See Also
-
-- [`file-name`](./naming-convention-file-name)\
-  Enforces consistent file-naming conventions.
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules-removed/filename-extension.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules-removed/filename-extension.spec.ts)

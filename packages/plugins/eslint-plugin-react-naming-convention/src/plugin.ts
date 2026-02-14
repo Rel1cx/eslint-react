@@ -4,11 +4,12 @@ import { name, version } from "../package.json";
 
 import componentName from "./rules/component-name";
 import contextName from "./rules/context-name";
-import fileName from "./rules/file-name";
-import fileNameExtension from "./rules/file-name-extension";
 import idName from "./rules/id-name";
 import refName from "./rules/ref-name";
 import useState from "./rules/use-state";
+
+import filename from "./rules-removed/filename";
+import filenameExtension from "./rules-removed/filename-extension";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -18,12 +19,12 @@ export const plugin: CompatiblePlugin = {
   rules: {
     ["component-name"]: componentName,
     ["context-name"]: contextName,
-    ["file-name"]: fileName,
-    ["file-name-extension"]: fileNameExtension,
-    ["filename"]: fileName,
-    ["filename-extension"]: fileNameExtension,
     ["id-name"]: idName,
     ["ref-name"]: refName,
     ["use-state"]: useState,
+
+    // Deprecated rules
+    ["filename"]: filename,
+    ["filename-extension"]: filenameExtension,
   },
 };

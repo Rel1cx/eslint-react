@@ -27,8 +27,8 @@
 
 | Type Alias | Description |
 | ------ | ------ |
-| [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | - |
-| [ComponentFlag](type-aliases/ComponentFlag.md) | - |
+| [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | Hints for component collector |
+| [ComponentFlag](type-aliases/ComponentFlag.md) | Component flag constants |
 | [ComponentKind](type-aliases/ComponentKind.md) | Represents the kind of a React function |
 | [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
