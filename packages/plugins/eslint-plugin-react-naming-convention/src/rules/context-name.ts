@@ -16,7 +16,7 @@ export type MessageID = "invalidContextName";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Enforces the context name to be a valid component name with the suffix 'Context'.",
     },

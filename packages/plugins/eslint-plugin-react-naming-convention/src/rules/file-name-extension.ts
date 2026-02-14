@@ -67,7 +67,7 @@ const schema = [
 
 export default createRule<Options, MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     defaultOptions: [...defaultOptions],
     docs: {
       description: "Enforces consistent use of the JSX file extension.",
