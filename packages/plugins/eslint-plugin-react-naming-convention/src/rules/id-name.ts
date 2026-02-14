@@ -21,7 +21,7 @@ export default createRule<[], MessageID>({
       description: "Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`.",
     },
     messages: {
-      invalidIdName: "A id identifier must be named 'id' or ending in 'Id'.",
+      invalidIdName: "An identifier assigned from 'useId' must be named 'id' or end with 'Id'.",
     },
     schema: [],
   },
