@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node22": "^22.0.5",
+    "@tsconfig/node24": "^24.0.4",
     "@types/picomatch": "^4.0.2",
     "tsdown": "^0.20.3"
   },

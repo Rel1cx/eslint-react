@@ -16,7 +16,7 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^10.0.1",
-    "@tsconfig/node22": "^22.0.5",
+    "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@tsconfig/vite-react": "^7.0.2",
     "@types/react": "^19.2.14",

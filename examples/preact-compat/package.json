@@ -16,7 +16,7 @@
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@preact/preset-vite": "^2.10.3",
-    "@tsconfig/node22": "^22.0.5",
+    "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.2.3",
     "eslint": "^10.0.0",
