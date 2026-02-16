@@ -58,6 +58,9 @@ describe("get function identifier from function expression", () => {
     ["class Clazz { Foo() {} }", "Foo"],
     ["class Clazz { Foo = function() {} }", "Foo"],
     ["class Clazz { Foo = () => {} }", "Foo"],
+    ["const Foo = condition ? () => {} : () => {};", "Foo"],
+    ["const Foo = condition ? function() {} : function() {};", "Foo"],
+    ["const Foo = a ? b ? () => {} : () => {} : () => {};", "Foo"],
   ])("should return the function name from %s", (code, expected) => {
     let n: null | TSESTreeFunction = null;
     simpleTraverse(parse(code).ast, {
