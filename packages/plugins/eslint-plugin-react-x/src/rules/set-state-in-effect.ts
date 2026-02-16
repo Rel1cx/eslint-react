@@ -40,7 +40,8 @@ export default createRule<[], MessageID>({
         "Validates against calling ['setState'](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance.",
     },
     messages: {
-      default: "Do not call the 'set' function '{{name}}' of 'useState' directly in 'useEffect'.",
+      default:
+        "Do not call the 'set' function '{{name}}' of 'useState' synchronously in an effect. This can lead to unnecessary re-renders and performance issues.",
     },
     schema: [],
   },
