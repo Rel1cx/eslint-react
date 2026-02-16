@@ -44,6 +44,10 @@ If you were importing `eslint-plugin-react-hooks-extra` directly, replace it wit
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
 
+### 🪄 Improvements
+
+- Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
+
 ### 📝 Changes you should be aware of
 
 1. The `eslint-plugin-react-hooks-extra` package is no longer published. Remove it from your `package.json` and update your ESLint configuration accordingly.
