@@ -3,6 +3,7 @@
     "overview",
     "---X Rules---",
     "component-hook-factories",
+    "error-boundaries",
     "exhaustive-deps",
     "jsx-dollar",
     "jsx-key-before-spread",

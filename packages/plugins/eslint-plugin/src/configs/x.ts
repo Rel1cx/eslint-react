@@ -5,7 +5,8 @@ import react from "eslint-plugin-react-x";
 export const name = "@eslint-react/x";
 
 export const rules = {
-  "@eslint-react/component-hook-factories": "warn",
+  "@eslint-react/component-hook-factories": "error",
+  "@eslint-react/error-boundaries": "error",
   "@eslint-react/exhaustive-deps": "warn",
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
