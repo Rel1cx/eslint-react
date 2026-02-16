@@ -3,6 +3,7 @@ import type { CompatiblePlugin } from "@eslint-react/shared";
 import { name, version } from "../package.json";
 
 import componentHookFactories from "./rules/component-hook-factories";
+import errorBoundaries from "./rules/error-boundaries";
 import exhaustiveDeps from "./rules/exhaustive-deps";
 import jsxDollar from "./rules/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
@@ -73,6 +74,8 @@ export const plugin: CompatiblePlugin = {
     version,
   },
   rules: {
+    "component-hook-factories": componentHookFactories,
+    "error-boundaries": errorBoundaries,
     "exhaustive-deps": exhaustiveDeps,
     "jsx-dollar": jsxDollar,
     "jsx-key-before-spread": jsxKeyBeforeSpread,
@@ -94,7 +97,6 @@ export const plugin: CompatiblePlugin = {
     "no-children-to-array": noChildrenToArray,
     "no-class-component": noClassComponent,
     "no-clone-element": noCloneElement,
-    "component-hook-factories": componentHookFactories,
     "no-component-will-mount": noComponentWillMount,
     "no-component-will-receive-props": noComponentWillReceiveProps,
     "no-component-will-update": noComponentWillUpdate,
