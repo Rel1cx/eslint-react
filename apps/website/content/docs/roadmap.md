@@ -36,7 +36,7 @@ Minimum supported versions:
       _A fast implementation of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration_
 - [x] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
       _A fast implementation of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration_
-- [ ] `react-x/static-components` - Validates that components are static, not recreated every render\
+- [x] `react-x/static-components` - Validates that components are static, not recreated every render (`no-nested-component-definitions` + `no-nested-lazy-component-declarations`)\
       _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
 - [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
       _A fast implementation of [component-hook-factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories) that doesn't require React Compiler integration_
