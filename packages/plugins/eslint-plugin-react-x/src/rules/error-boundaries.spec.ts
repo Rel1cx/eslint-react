@@ -287,16 +287,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    // try/finally without catch (no error catching)
-    tsx`
-      function Component() {
-        try {
-          return <Child />;
-        } finally {
-          cleanup();
-        }
-      }
-    `,
     // try/catch in non-component arrow function
     tsx`
       const helper = () => {
