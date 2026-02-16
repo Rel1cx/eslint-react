@@ -1,0 +1,204 @@
+---
+title: component-hook-factories
+---
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```plain copy
+@eslint-react/component-hook-factories
+```
+
+**Full Name in `eslint-plugin-react-x`**
+
+```plain copy
+react-x/component-hook-factories
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Disallows higher order functions that define components or hooks inside them. Components and hooks should be defined at the module level.
+
+Defining components or hooks inside other functions (factory pattern) creates new instances on every call. React treats each as a completely different component, destroying and recreating the entire component tree, losing all state, and causing performance problems.
+
+When a component or hook is defined inside another function:
+
+- A new function identity is created on every call
+- React cannot reconcile previous and next renders, so it unmounts and remounts
+- All internal state is lost on every parent re-render
+- It defeats memoization and optimization techniques
+- Custom hooks created inside factories capture stale closures
+
+Instead, define every component and hook at the top (module) level.
+
+## Examples
+
+### Failing
+
+```tsx
+// ❌ Factory function creating components
+function createComponent(defaultValue) {
+  return function Component() {
+    // ...
+  };
+}
+
+// ❌ Component defined inside component
+function Parent() {
+  function Child() {
+    // ...
+  }
+
+  return <Child />;
+}
+
+// ❌ Hook factory function
+function createCustomHook(endpoint) {
+  return function useData() {
+    // ...
+  };
+}
+
+// ❌ Hook defined inside a component
+function MyComponent() {
+  function useLocalState() {
+    return useState(0);
+  }
+  // ...
+}
+```
+
+### Passing
+
+```tsx
+// ✅ Component defined at module level
+function Component({ defaultValue }) {
+  // ...
+}
+
+// ✅ Custom hook at module level
+function useData(endpoint) {
+  // ...
+}
+
+// ✅ Pass props instead of using a factory
+function Button({ color, children }) {
+  return (
+    <button style={{ backgroundColor: color }}>
+      {children}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Button color="red">Red</Button>
+      <Button color="blue">Blue</Button>
+    </>
+  );
+}
+```
+
+## Troubleshooting
+
+### I need dynamic component behavior
+
+You might think you need a factory to create customized components:
+
+```tsx
+// ❌ Wrong: Factory pattern
+function makeButton(color) {
+  return function Button({ children }) {
+    return (
+      <button style={{ backgroundColor: color }}>
+        {children}
+      </button>
+    );
+  };
+}
+
+const RedButton = makeButton("red");
+const BlueButton = makeButton("blue");
+```
+
+Pass values as props instead:
+
+```tsx
+// ✅ Better: Pass values as props
+function Button({ color, children }) {
+  return (
+    <button style={{ backgroundColor: color }}>
+      {children}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Button color="red">Red</Button>
+      <Button color="blue">Blue</Button>
+    </>
+  );
+}
+```
+
+### I need a hook factory for configuration
+
+Instead of a factory that creates hooks:
+
+```tsx
+// ❌ Wrong: Hook factory
+function createUseData(endpoint) {
+  return function useData() {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+      fetch(endpoint).then((r) => r.json()).then(setData);
+    }, []);
+    return data;
+  };
+}
+```
+
+Accept configuration as hook parameters:
+
+```tsx
+// ✅ Better: Pass configuration as parameters
+function useData(endpoint) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch(endpoint).then((r) => r.json()).then(setData);
+  }, [endpoint]);
+  return data;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/component-hook-factories.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/component-hook-factories.spec.ts)
+
+## Further Reading
+
+- [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+- [React Docs: Passing props to a component](https://react.dev/learn/passing-props-to-a-component)
+- [React Docs: `no-component-hook-factories` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories)
+
+---
+
+## See Also
+
+- [`no-nested-component-definitions`](./no-nested-component-definitions)\
+  Disallows nesting component definitions inside other components.
+- [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations)\
+  Disallow nesting lazy component declarations inside other components.

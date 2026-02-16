@@ -6,6 +6,7 @@ import { plugin } from "../plugin";
 export const name = "react-x/recommended";
 
 export const rules = {
+  "react-x/component-hook-factories": "warn",
   "react-x/exhaustive-deps": "warn",
   "react-x/jsx-key-before-spread": "warn",
   "react-x/jsx-no-comment-textnodes": "warn",
