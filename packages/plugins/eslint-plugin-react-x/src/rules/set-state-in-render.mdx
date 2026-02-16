@@ -26,70 +26,112 @@ react-x/set-state-in-render
 
 ## Description
 
-Disallows unconditional calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` during render.
+Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.
 
 Calling `setState` during render unconditionally triggers another render before the current one finishes. This creates an infinite loop that crashes your app.
 
-### What counts as a violation?
+## Common Violations
 
-Unconditionally calling a `set` function directly in the body of a component function:
+### Invalid
 
 ```tsx
+// ❌ Unconditional setState directly in render
 function Component({ value }) {
   const [count, setCount] = useState(0);
-  setCount(value); // ❌ Infinite loop!
+  setCount(value); // Infinite loop!
   return <div>{count}</div>;
 }
 ```
 
-### What is allowed?
+### Valid
 
-- **Deriving values during render** instead of setting state:
+```tsx
+// ✅ Derive during render
+function Component({ items }) {
+  const sorted = [...items].sort(); // Just calculate it in render
+  return <ul>{sorted.map(/*...*/)}</ul>;
+}
+```
 
-  ```tsx
-  function Component({ items }) {
-    const sorted = [...items].sort(); // Just calculate it in render
-    return <ul>{sorted.map(/*...*/)}</ul>;
+```tsx
+// ✅ Set state in event handler
+function Component() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+// ✅ Derive from props instead of setting state
+function Component({ user }) {
+  const name = user?.name || '';
+  const email = user?.email || '';
+  return <div>{name}</div>;
+}
+```
+
+```tsx
+// ✅ Conditionally derive state from props and state from previous renders
+function Component({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  const [prevItems, setPrevItems] = useState(items);
+  if (items !== prevItems) { // This condition makes it valid
+    setPrevItems(items);
+    setSelection(null);
   }
-  ```
+  // ...
+}
+```
 
-- **Setting state in event handlers**:
+## Troubleshooting
 
-  ```tsx
-  function Component() {
-    const [count, setCount] = useState(0);
-    return (
-      <button onClick={() => setCount(count + 1)}>
-        {count}
-      </button>
-    );
+### I want to sync state to a prop
+
+A common problem is trying to "fix" state after it renders. Suppose you want to keep a counter from exceeding a `max` prop:
+
+```tsx
+// ❌ Wrong: clamps during render
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+
+  if (count > max) {
+    setCount(max);
   }
-  ```
 
-- **Deriving from props** instead of setting state:
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
 
-  ```tsx
-  function Component({ user }) {
-    const name = user?.name || '';
-    const email = user?.email || '';
-    return <div>{name}</div>;
-  }
-  ```
+As soon as `count` exceeds `max`, an infinite loop is triggered.
 
-- **Conditionally setting state** from props and state from previous renders:
+Instead, it's often better to move this logic to the event (the place where the state is first set). For example, you can enforce the maximum at the moment you update state:
 
-  ```tsx
-  function Component({ items }) {
-    const [isReverse, setIsReverse] = useState(false);
-    const [selection, setSelection] = useState(null);
-    const [prevItems, setPrevItems] = useState(items);
-    if (items !== prevItems) { // This condition makes it valid
-      setPrevItems(items);
-      setSelection(null);
-    }
-    // ...
-  }
-  ```
+```tsx
+// ✅ Clamp when updating
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(current => Math.min(current + 1, max));
+  };
+
+  return <button onClick={increment}>{count}</button>;
+}
+```
+
+Now the setter only runs in response to the click, React finishes the render normally, and `count` never crosses `max`.
+
+In rare cases, you may need to adjust state based on information from previous renders. For those, follow the pattern of [setting state conditionally](https://react.dev/reference/react/useState#storing-information-from-previous-renders).
 
 ## Examples
 
@@ -114,25 +156,6 @@ import { useState } from "react";
 function Component() {
   const [count, setCount] = useState(0);
   // ✅ Set state in event handler
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      {count}
-    </button>
-  );
-}
-```
-
-### Failing
-
-```tsx
-import { useState } from "react";
-
-function Counter({ max }) {
-  const [count, setCount] = useState(0);
-  // 🔴 Wrong: clamps during render unconditionally
-  if (count > max) {
-    setCount(max);
-  }
   return (
     <button onClick={() => setCount(count + 1)}>
       {count}
