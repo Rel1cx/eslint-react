@@ -47,6 +47,9 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
     case node.parent.type === AST.AssignmentPattern
       && node.parent.right === node:
       return node.parent.left;
+    // const MaybeComponent = condition ? () => {} : () => {};
+    case node.parent.type === AST.ConditionalExpression:
+      return getFunctionId(node.parent);
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;
     // const MaybeComponent = (() => {}) satisfies FunctionComponent;

@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "Disallows unconditional calls to the ['set' function](https://react.dev/reference/react/useState#setstate) of 'useState' during render.",
+        "Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.",
     },
     messages: {
       default:
