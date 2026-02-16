@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import reactWebApi from "eslint-plugin-react-web-api";
 
@@ -92,8 +91,6 @@ export const rules = {
   "@eslint-react/web-api/no-leaked-resize-observer": "warn",
   "@eslint-react/web-api/no-leaked-timeout": "warn",
 
-  "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
-
   "@eslint-react/naming-convention/component-name": "warn",
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/id-name": "warn",
@@ -105,7 +102,6 @@ export const plugins = {
   ...x.plugins,
   ...rsc.plugins,
   ...dom.plugins,
-  "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
   "@eslint-react/web-api": reactWebApi,
 };

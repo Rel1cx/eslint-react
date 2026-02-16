@@ -10,9 +10,9 @@ import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
-import { createRule, isVariableDeclaratorFromHookCall } from "../utils";
+import { createRule } from "../utils";
 
-export const RULE_NAME = "no-direct-set-state-in-use-effect";
+export const RULE_NAME = "set-state-in-effect";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -49,6 +49,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+// TODO: Allow setState calls in effect when the new state is from a ref value (e.g. `setState(ref.current)`)
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
@@ -345,4 +346,26 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
+}
+
+function isInitFromHookCall(init: TSESTree.Expression | null) {
+  if (init?.type !== AST.CallExpression) return false;
+  switch (init.callee.type) {
+    case AST.Identifier:
+      return core.isHookName(init.callee.name);
+    case AST.MemberExpression:
+      return init.callee.property.type === AST.Identifier
+        && core.isHookName(init.callee.property.name);
+    default:
+      return false;
+  }
+}
+
+export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
+  & TSESTree.VariableDeclarator
+  & { init: TSESTree.VariableDeclarator["init"] & {} }
+{
+  if (node.type !== AST.VariableDeclarator) return false;
+  if (node.id.type !== AST.Identifier) return false;
+  return isInitFromHookCall(node.init);
 }

@@ -8,6 +8,7 @@
     "eslint-react",
     "eslint-plugin",
     "eslint-plugin-react-x",
+    "eslint-plugin-react-rsc",
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
     "eslint-plugin-react-naming-convention"
@@ -53,7 +54,6 @@
     "@typescript-eslint/types": "^8.55.0",
     "@typescript-eslint/utils": "^8.55.0",
     "eslint-plugin-react-dom": "workspace:*",
-    "eslint-plugin-react-hooks-extra": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-rsc": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",

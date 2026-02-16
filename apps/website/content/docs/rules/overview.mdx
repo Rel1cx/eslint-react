@@ -137,16 +137,6 @@ full: true
 | [`no-leaked-resize-observer`](web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |     | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()` |
 | [`no-leaked-timeout`](web-api-no-leaked-timeout)                 | 1️⃣ 1️⃣ |     | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                            |
 
-## Hooks Extra Rules
-
-<Callout type="info">
-  This section contains rules that are not part of the official `eslint-plugin-react-hooks` plugin but are useful for specific use cases or patterns.
-</Callout>
-
-| Rule                                                                                 |    ✅    |  🌟 | Description                                                                                                                      |
-| :----------------------------------------------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------------------------------------------- |
-| [`no-direct-set-state-in-use-effect`](hooks-extra-no-direct-set-state-in-use-effect) | 1️⃣ 1️⃣ |     | Disallows direct calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` in `useEffect` |
-
 ## Naming Convention Rules
 
 <Callout type="info">

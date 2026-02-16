@@ -2,16 +2,24 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
-import { type Scope as TSScope, type Reference as TSReference, type Variable, DefinitionType } from "@typescript-eslint/scope-manager";
+import {
+  DefinitionType,
+  type Reference as TSReference,
+  type Scope as TSScope,
+  type Variable,
+} from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener, RuleFixer, RuleFix } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
 export const RULE_NAME = "exhaustive-deps";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "CFG",
+  "FIX",
+] as const satisfies RuleFeature[];
 
 type MessageID =
   | "missingDeps"
@@ -246,8 +254,7 @@ export default createRule<Options, MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that React hook dependency arrays contain all reactive values used in the callback.",
+      description: "Enforces that React hook dependency arrays contain all reactive values used in the callback.",
     },
     fixable: "code",
     messages: {

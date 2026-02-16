@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
-import rule, { RULE_NAME } from "./no-direct-set-state-in-use-effect";
+import rule, { RULE_NAME } from "./set-state-in-effect";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [

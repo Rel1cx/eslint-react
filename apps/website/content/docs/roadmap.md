@@ -14,7 +14,7 @@ Minimum supported versions:
 
 ### Removed Rules
 
-- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
+- [x] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect`
 
 ### Removed Plugins
 

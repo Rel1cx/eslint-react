@@ -21,7 +21,6 @@ const orderedCategories = [
   { key: "rsc", heading: "---RSC Rules---" },
   { key: "dom", heading: "---DOM Rules---" },
   { key: "web-api", heading: "---Web API Rules---" },
-  { key: "hooks-extra", heading: "---Hooks Extra Rules---" },
   { key: "naming-convention", heading: "---Naming Convention Rules---" },
   { key: "debug", heading: "---Debug Rules---" },
 ] as const satisfies { key: string; heading: string }[];

@@ -1,6 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
 import { createMDX } from "fumadocs-mdx/next";
-import * as migration from "./migration";
 
 const withMDX = createMDX();
 
@@ -84,7 +83,6 @@ const config = {
         destination: "/docs/rules/:wildcard",
         permanent: true,
       },
-      ...migration.redirects,
     ];
   },
 };

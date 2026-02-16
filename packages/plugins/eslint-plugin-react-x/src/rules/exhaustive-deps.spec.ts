@@ -682,5 +682,3 @@ ruleTester.run(`${RULE_NAME} (autofix)`, rule, {
   ],
   valid: [],
 });
-
-

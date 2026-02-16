@@ -35,8 +35,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces the Rules of Hooks.",
+      description: "Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).",
     },
     messages: {
       afterEarlyReturn:
