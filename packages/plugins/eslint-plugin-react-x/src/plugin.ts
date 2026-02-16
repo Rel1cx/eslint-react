@@ -2,6 +2,7 @@ import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 
+import exhaustiveDeps from "./rules/exhaustive-deps";
 import jsxDollar from "./rules/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
@@ -61,6 +62,8 @@ import preferDestructuringAssignment from "./rules/prefer-destructuring-assignme
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
+import rulesOfHooks from "./rules/rules-of-hooks";
+import setStateInEffect from "./rules/set-state-in-effect";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -68,6 +71,7 @@ export const plugin: CompatiblePlugin = {
     version,
   },
   rules: {
+    "exhaustive-deps": exhaustiveDeps,
     "jsx-dollar": jsxDollar,
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
@@ -127,5 +131,7 @@ export const plugin: CompatiblePlugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
+    "rules-of-hooks": rulesOfHooks,
+    "set-state-in-effect": setStateInEffect,
   },
 };

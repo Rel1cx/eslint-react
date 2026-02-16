@@ -1,3 +1,62 @@
+## v3.0.0 (TBD)
+
+### 💥 Breaking Changes
+
+**Removed Plugin: `eslint-plugin-react-hooks-extra`**
+
+The `eslint-plugin-react-hooks-extra` package has been removed. All of its rules have been migrated to `eslint-plugin-react-x` (or the unified `@eslint-react/eslint-plugin`). If you were using `eslint-plugin-react-hooks-extra` directly, uninstall it and update your configuration to use the new rule names under `react-x`.
+
+**Migrated Rules**
+
+| Old Rule (`react-hooks-extra`)                  | New Rule (`react-x`)                                                             | Reason              |
+| :---------------------------------------------- | :------------------------------------------------------------------------------- | :------------------ |
+| `hooks-extra/exhaustive-deps`                   | [`exhaustive-deps`](https://eslint-react.xyz/docs/rules/exhaustive-deps)         | relocated           |
+| `hooks-extra/rules-of-hooks`                    | [`rules-of-hooks`](https://eslint-react.xyz/docs/rules/rules-of-hooks)           | relocated           |
+| `hooks-extra/no-direct-set-state-in-use-effect` | [`set-state-in-effect`](https://eslint-react.xyz/docs/rules/set-state-in-effect) | relocated & renamed |
+
+**Removed Deprecated Rules**
+
+The following rules that were previously deprecated have now been fully removed:
+
+| Rule                                         | Alternative                                                                         | Deprecated since |
+| :------------------------------------------- | :---------------------------------------------------------------------------------- | :--------------- |
+| `react-x/no-default-props`                   | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) | 2.9.3            |
+| `react-x/no-prop-types`                      | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) | 2.9.3            |
+| `react-x/no-string-refs`                     | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) | 2.9.3            |
+| `react-x/no-forbidden-props`                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) | 2.3.2            |
+| `react-x/no-unnecessary-use-ref`             |                                                                                     | 2.10.0           |
+| `react-naming-convention/filename`           |                                                                                     | 2.13.0           |
+| `react-naming-convention/filename-extension` |                                                                                     | 2.13.0           |
+
+**Preset Changes**
+
+The `recommended` and `strict` presets have been updated:
+
+- **Added** `exhaustive-deps` (warn) — enforces that hook dependency arrays include all reactive values
+- **Added** `rules-of-hooks` (error) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks)
+- **Added** `set-state-in-effect` (warn) — replaces the former `hooks-extra/no-direct-set-state-in-use-effect`
+- **Removed** `no-default-props`, `no-prop-types`, `no-string-refs` — these deprecated rules are no longer shipped
+
+The `disable-experimental` preset no longer references the removed `no-unnecessary-use-ref` rule.
+
+### ✨ New
+
+- Add `exhaustive-deps` rule to `eslint-plugin-react-x` — enforces that React hook dependency arrays contain all reactive values used in the callback, with autofix support
+- Add `rules-of-hooks` rule to `eslint-plugin-react-x` — enforces the Rules of Hooks (no conditional hooks, no hooks in loops, no hooks after early returns, etc.)
+- Add `set-state-in-effect` rule to `eslint-plugin-react-x` — disallows direct calls to the `set` function of `useState` in `useEffect` (migrated and renamed from `hooks-extra/no-direct-set-state-in-use-effect`)
+
+### 📝 Changes you should be aware of
+
+1. **`eslint-plugin-react-hooks-extra` has been removed.** All hook-related rules now live in `eslint-plugin-react-x`. Update your ESLint configuration accordingly.
+
+2. **If you used `hooks-extra/no-direct-set-state-in-use-effect`**, replace it with `react-x/set-state-in-effect` (or `@eslint-react/set-state-in-effect` if using the unified plugin).
+
+3. **If you had `no-default-props`, `no-prop-types`, or `no-string-refs` enabled**, these rules no longer exist. For legacy codebases, use [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) as an alternative. See the [v2.9.3 changelog](#v293-2026-02-02) for migration examples.
+
+4. **If you used `naming-convention/filename` or `naming-convention/filename-extension`**, these rules have been removed. Please follow the official naming conventions of the specific React framework you are using.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0
+
 ## v2.13.0 (2026-02-15)
 
 ### ✨ New

@@ -11,7 +11,6 @@ export const rules: Record<string, RuleConfig> = {
   "react-x/no-unnecessary-key": "off",
   "react-x/no-unnecessary-use-callback": "off",
   "react-x/no-unnecessary-use-memo": "off",
-  "react-x/no-unnecessary-use-ref": "off",
   "react-x/no-unused-props": "off",
   "react-x/prefer-read-only-props": "off",
 };

@@ -9,6 +9,7 @@ import * as x from "./x";
 export const name = "@eslint-react/all";
 
 export const rules = {
+  "@eslint-react/exhaustive-deps": "warn",
   "@eslint-react/jsx-dollar": "warn",
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
@@ -64,6 +65,8 @@ export const rules = {
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
+  "@eslint-react/rules-of-hooks": "error",
+  "@eslint-react/set-state-in-effect": "warn",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",

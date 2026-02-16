@@ -56,14 +56,14 @@ flowchart TB
     Core -->|"dependency"| RSC
     Core -->|"dependency"| DOM
     Core -->|"dependency"| WebAPI
-    Core -->|"dependency"| HooksExtra
+
     Core -->|"dependency"| NamingConvention
 
     Shared -->|"dependency"| X
     Shared -->|"dependency"| RSC
     Shared -->|"dependency"| DOM
     Shared -->|"dependency"| WebAPI
-    Shared -->|"dependency"| HooksExtra
+
     Shared -->|"dependency"| NamingConvention
 
     %% Utilities used by Core and Plugins
@@ -80,7 +80,7 @@ flowchart TB
     RSC -->|"aggregated"| Aggregated
     DOM -->|"aggregated"| Aggregated
     WebAPI -->|"aggregated"| Aggregated
-    HooksExtra -->|"aggregated"| Aggregated
+
     NamingConvention -->|"aggregated"| Aggregated
 
     %% Website Documentation uses Core and Shared docs
@@ -97,7 +97,7 @@ flowchart TB
     Scripts -->|"CI/CD"| RSC
     Scripts -->|"CI/CD"| DOM
     Scripts -->|"CI/CD"| WebAPI
-    Scripts -->|"CI/CD"| HooksExtra
+
     Scripts -->|"CI/CD"| NamingConvention
     Scripts -->|"CI/CD"| Aggregated
     Scripts -->|"CI/CD"| Tests
