@@ -39,6 +39,7 @@ The `recommended` and `strict` presets have been updated:
 - **Added** `exhaustive-deps` (warn) — enforces that hook dependency arrays include all reactive values
 - **Added** `rules-of-hooks` (error) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks)
 - **Added** `set-state-in-effect` (warn) — replaces the former `hooks-extra/no-direct-set-state-in-use-effect`
+- **Added** `set-state-in-render` (error) — validates against calling `setState` during render, which can trigger additional renders and potential infinite render loops
 - **Removed** `no-default-props`, `no-prop-types`, `no-string-refs` — these deprecated rules are no longer shipped
 
 The `disable-experimental` preset no longer references the removed `no-unnecessary-use-ref` rule.
@@ -47,7 +48,8 @@ The `disable-experimental` preset no longer references the removed `no-unnecessa
 
 - Add `exhaustive-deps` rule to `eslint-plugin-react-x` — enforces that React hook dependency arrays contain all reactive values used in the callback, with autofix support
 - Add `rules-of-hooks` rule to `eslint-plugin-react-x` — enforces the Rules of Hooks (no conditional hooks, no hooks in loops, no hooks after early returns, etc.)
-- Add `set-state-in-effect` rule to `eslint-plugin-react-x` — disallows direct calls to the `set` function of `useState` in `useEffect` (migrated and renamed from `hooks-extra/no-direct-set-state-in-use-effect`)
+- Add `set-state-in-effect` rule to `eslint-plugin-react-x` — validates against calling ['setState'](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance
+- Add `set-state-in-render` rule to `eslint-plugin-react-x` — validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) during render, which can trigger additional renders and potential infinite render loops
 
 ### 📝 Changes you should be aware of
 

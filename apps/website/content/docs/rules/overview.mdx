@@ -88,7 +88,7 @@ full: true
 | [`prefer-read-only-props`](prefer-read-only-props)                                 | 0️⃣ 0️⃣ | `💭` `🧪` | Enforces read-only props in components                                                                                        |          |
 | [`prefer-use-state-lazy-initialization`](prefer-use-state-lazy-initialization)     | 1️⃣ 1️⃣ |           | Enforces wrapping function calls made inside `useState` in an `initializer function`                                          |          |
 | [`rules-of-hooks`](rules-of-hooks)                                                 | 2️⃣ 2️⃣ |           | Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks)                                |          |
-| [`set-state-in-effect`](set-state-in-effect)                                       | 1️⃣ 1️⃣ |           | Disallows direct calls to the 'set' function of 'useState' in 'useEffect'                                                     |          |
+| [`set-state-in-effect`](set-state-in-effect)                                       | 1️⃣ 1️⃣ |           | Validates against calling ['setState'](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance                                                     |          |
 
 ## RSC Rules
 
