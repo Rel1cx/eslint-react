@@ -10,8 +10,6 @@ The `eslint-plugin-react-hooks-extra` package has been removed. All of its rules
 
 | Old Rule (`react-hooks-extra`)                  | New Rule (`react-x`)                                                             | Reason              |
 | :---------------------------------------------- | :------------------------------------------------------------------------------- | :------------------ |
-| `hooks-extra/exhaustive-deps`                   | [`exhaustive-deps`](https://eslint-react.xyz/docs/rules/exhaustive-deps)         | relocated           |
-| `hooks-extra/rules-of-hooks`                    | [`rules-of-hooks`](https://eslint-react.xyz/docs/rules/rules-of-hooks)           | relocated           |
 | `hooks-extra/no-direct-set-state-in-use-effect` | [`set-state-in-effect`](https://eslint-react.xyz/docs/rules/set-state-in-effect) | relocated & renamed |
 
 **Removed Deprecated Rules**
@@ -32,20 +30,21 @@ The following rules that were previously deprecated have now been fully removed:
 
 The `recommended` and `strict` presets have been updated:
 
-- **Added** `exhaustive-deps` (warn) — enforces that hook dependency arrays include all reactive values
-- **Added** `rules-of-hooks` (error) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks)
-- **Added** `set-state-in-effect` (warn) — replaces the former `hooks-extra/no-direct-set-state-in-use-effect`
-- **Added** `set-state-in-render` (error) — validates against calling `setState` during render, which can trigger additional renders and potential infinite render loops
+- **Added** `exhaustive-deps` (warn)
+- **Added** `rules-of-hooks` (error)
+- **Added** `set-state-in-effect` (warn)
+- **Added** `set-state-in-render` (error)
+- **Removed** `hooks-extra/no-direct-set-state-in-use-effect` — migrated to `react-x/set-state-in-effect`
 - **Removed** `no-default-props`, `no-prop-types`, `no-string-refs` — these deprecated rules are no longer shipped
 
 The `disable-experimental` preset no longer references the removed `no-unnecessary-use-ref` rule.
 
 ### ✨ New
 
-- Add `exhaustive-deps` rule to `eslint-plugin-react-x` — enforces that React hook dependency arrays contain all reactive values used in the callback, with autofix support
-- Add `rules-of-hooks` rule to `eslint-plugin-react-x` — enforces the Rules of Hooks (no conditional hooks, no hooks in loops, no hooks after early returns, etc.)
+- Add `exhaustive-deps` rule to `eslint-plugin-react-x` — enforces that React hook dependency arrays contain all reactive values used in the callback, with autofix support by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
+- Add `rules-of-hooks` rule to `eslint-plugin-react-x` — enforces the Rules of Hooks (no conditional hooks, no hooks in loops, no hooks after early returns, etc.) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - Add `set-state-in-effect` rule to `eslint-plugin-react-x` — validates against calling ['setState'](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance
-- Add `set-state-in-render` rule to `eslint-plugin-react-x` — validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) during render, which can trigger additional renders and potential infinite render loops
+- Add `set-state-in-render` rule to `eslint-plugin-react-x` — validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
 
 ### 📝 Changes you should be aware of
 
