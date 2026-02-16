@@ -64,6 +64,7 @@ import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 import rulesOfHooks from "./rules/rules-of-hooks";
 import setStateInEffect from "./rules/set-state-in-effect";
+import setStateInRender from "./rules/set-state-in-render";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -133,5 +134,6 @@ export const plugin: CompatiblePlugin = {
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
     "rules-of-hooks": rulesOfHooks,
     "set-state-in-effect": setStateInEffect,
+    "set-state-in-render": setStateInRender,
   },
 };
