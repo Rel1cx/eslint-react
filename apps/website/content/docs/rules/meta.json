@@ -2,6 +2,7 @@
   "pages": [
     "overview",
     "---X Rules---",
+    "component-hook-factories",
     "exhaustive-deps",
     "jsx-dollar",
     "jsx-key-before-spread",

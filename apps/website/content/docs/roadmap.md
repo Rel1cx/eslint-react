@@ -38,7 +38,7 @@ Minimum supported versions:
       _A fast implementation of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration_
 - [ ] `react-x/static-components` - Validates that components are static, not recreated every render\
       _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
-- [ ] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
+- [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
       _A fast implementation of [component-hook-factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories) that doesn't require React Compiler integration_
 - [ ] `react-x/function-definition` - Validate and transform React function definitions ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
 
