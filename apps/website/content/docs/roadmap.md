@@ -34,7 +34,7 @@ Minimum supported versions:
 
 - [x] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance\
       _A fast implementation of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration_
-- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
+- [x] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
       _A fast implementation of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration_
 - [ ] `react-x/static-components` - Validates that components are static, not recreated every render\
       _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
