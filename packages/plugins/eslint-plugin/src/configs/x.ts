@@ -43,6 +43,7 @@ export const rules = {
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
   "@eslint-react/rules-of-hooks": "error",
   "@eslint-react/set-state-in-effect": "warn",
+  "@eslint-react/set-state-in-render": "error",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

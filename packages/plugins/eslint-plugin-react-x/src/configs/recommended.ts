@@ -43,6 +43,7 @@ export const rules = {
   "react-x/prefer-use-state-lazy-initialization": "warn",
   "react-x/rules-of-hooks": "error",
   "react-x/set-state-in-effect": "warn",
+  "react-x/set-state-in-render": "error",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

@@ -64,6 +64,7 @@
     "prefer-use-state-lazy-initialization",
     "rules-of-hooks",
     "set-state-in-effect",
+    "set-state-in-render",
     "---RSC Rules---",
     "rsc-function-definition",
     "---DOM Rules---",

@@ -1,0 +1,186 @@
+---
+title: set-state-in-render
+---
+
+**Full Name in `@eslint-react/eslint-plugin`**
+
+```plain copy
+@eslint-react/set-state-in-render
+```
+
+**Full Name in `eslint-plugin-react-x`**
+
+```plain copy
+react-x/set-state-in-render
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Disallows unconditional calls to the [`set` function](https://react.dev/reference/react/useState#setstate) of `useState` during render.
+
+Calling `setState` during render unconditionally triggers another render before the current one finishes. This creates an infinite loop that crashes your app.
+
+### What counts as a violation?
+
+Unconditionally calling a `set` function directly in the body of a component function:
+
+```tsx
+function Component({ value }) {
+  const [count, setCount] = useState(0);
+  setCount(value); // ❌ Infinite loop!
+  return <div>{count}</div>;
+}
+```
+
+### What is allowed?
+
+- **Deriving values during render** instead of setting state:
+
+  ```tsx
+  function Component({ items }) {
+    const sorted = [...items].sort(); // Just calculate it in render
+    return <ul>{sorted.map(/*...*/)}</ul>;
+  }
+  ```
+
+- **Setting state in event handlers**:
+
+  ```tsx
+  function Component() {
+    const [count, setCount] = useState(0);
+    return (
+      <button onClick={() => setCount(count + 1)}>
+        {count}
+      </button>
+    );
+  }
+  ```
+
+- **Deriving from props** instead of setting state:
+
+  ```tsx
+  function Component({ user }) {
+    const name = user?.name || '';
+    const email = user?.email || '';
+    return <div>{name}</div>;
+  }
+  ```
+
+- **Conditionally setting state** from props and state from previous renders:
+
+  ```tsx
+  function Component({ items }) {
+    const [isReverse, setIsReverse] = useState(false);
+    const [selection, setSelection] = useState(null);
+    const [prevItems, setPrevItems] = useState(items);
+    if (items !== prevItems) { // This condition makes it valid
+      setPrevItems(items);
+      setSelection(null);
+    }
+    // ...
+  }
+  ```
+
+## Examples
+
+### Failing
+
+```tsx
+import { useState } from "react";
+
+function Component({ value }) {
+  const [count, setCount] = useState(0);
+  // 🔴 Unconditional setState directly in render
+  setCount(value);
+  return <div>{count}</div>;
+}
+```
+
+### Passing
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+  // ✅ Set state in event handler
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+### Failing
+
+```tsx
+import { useState } from "react";
+
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+  // 🔴 Wrong: clamps during render unconditionally
+  if (count > max) {
+    setCount(max);
+  }
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+### Passing
+
+```tsx
+import { useState } from "react";
+
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+  // ✅ Clamp when updating
+  const increment = () => {
+    setCount(current => Math.min(current + 1, max));
+  };
+  return <button onClick={increment}>{count}</button>;
+}
+```
+
+### Passing
+
+```tsx
+import { useState } from "react";
+
+function Component({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  // ✅ Conditionally derive state from props and state from previous renders
+  const [prevItems, setPrevItems] = useState(items);
+  if (items !== prevItems) {
+    setPrevItems(items);
+    setSelection(null);
+  }
+  // ...
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-render.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-render.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useState` Hook](https://react.dev/reference/react/useState)
+- [React Docs: set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render)
