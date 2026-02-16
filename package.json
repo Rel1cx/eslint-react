@@ -51,7 +51,7 @@
     "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.73.1",
+    "@effect/language-service": "^0.74.0",
     "@effect/platform": "^0.94.5",
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.2",
@@ -71,7 +71,7 @@
     "dprint": "^0.51.1",
     "effect": "^3.19.17",
     "eslint": "^10.0.0",
-    "eslint-plugin-fast-import": "^1.10.0",
+    "eslint-plugin-fast-import": "^1.11.0",
     "eslint-plugin-function-rule": "^0.7.0",
     "mdxlint": "^1.0.0",
     "preact": "^10.28.3",

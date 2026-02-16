@@ -62,12 +62,6 @@ import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 
-import noDefaultProps from "./rules-removed/no-default-props";
-import noForbiddenProps from "./rules-removed/no-forbidden-props";
-import noPropTypes from "./rules-removed/no-prop-types";
-import noStringRefs from "./rules-removed/no-string-refs";
-import noUnnecessaryUseRef from "./rules-removed/no-unnecessary-use-ref";
-
 export const plugin: CompatiblePlugin = {
   meta: {
     name,
@@ -133,26 +127,5 @@ export const plugin: CompatiblePlugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
-
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-default-props": noDefaultProps,
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-forbidden-props": noForbiddenProps,
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-prop-types": noPropTypes,
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-string-refs": noStringRefs,
-    /**
-     * @deprecated
-     */
-    "no-unnecessary-use-ref": noUnnecessaryUseRef,
   },
 };

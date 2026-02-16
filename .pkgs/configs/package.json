@@ -24,7 +24,7 @@
     "eslint-plugin-de-morgan": "^2.0.0",
     "eslint-plugin-function": "^0.7.0",
     "eslint-plugin-function-rule": "^0.7.0",
-    "eslint-plugin-jsdoc": "^62.5.4",
+    "eslint-plugin-jsdoc": "^62.5.5",
     "eslint-plugin-perfectionist": "^5.5.0",
     "eslint-plugin-regexp": "^3.0.0",
     "eslint-plugin-unicorn": "^63.0.0",
