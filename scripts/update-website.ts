@@ -86,7 +86,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
         ? [
           ...acc,
           cat.heading,
-          ...[...rules].sort((a, b) => a.localeCompare(b, "en")),
+          ...rules.toSorted((a, b) => a.localeCompare(b, "en")),
         ]
         : acc;
     }, ["overview"]);

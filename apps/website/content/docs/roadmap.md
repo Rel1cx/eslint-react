@@ -26,7 +26,7 @@ Minimum supported versions:
 
 Minimum supported versions:
 
-- [ ] Node.js: 24.8.0
+- [x] Node.js: 22.0.0
 - [x] ESLint: 9.36.0
 - [x] TypeScript: 5
 
