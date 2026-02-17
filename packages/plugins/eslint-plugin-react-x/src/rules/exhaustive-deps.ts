@@ -461,7 +461,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         .filter((el): el is TSESTree.Expression => el != null && el.type !== AST.SpreadElement)
         .map((el) => getText(el))
         .filter((text) => !unnecessary.has(text));
-      const allDeps = [...existingDeps, ...missing].sort();
+      const allDeps = [...existingDeps, ...missing].toSorted();
       return fixer.replaceText(depsNode, `[${allDeps.join(", ")}]`);
     };
   }
@@ -510,7 +510,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
     // Report missing dependencies (attach fix to first report only)
     if (hasMissing) {
-      const depsList = [...missingDeps].sort().map((d) => `'${d}'`).join(", ");
+      const depsList = [...missingDeps].toSorted().map((d) => `'${d}'`).join(", ");
       context.report({
         messageId: "missingDeps",
         node: depsNode,
@@ -521,7 +521,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
     // Report unnecessary dependencies (attach fix only if no missing deps report)
     if (hasUnnecessary) {
-      const depsList = [...unnecessaryDeps].sort().map((d) => `'${d}'`).join(", ");
+      const depsList = [...unnecessaryDeps].toSorted().map((d) => `'${d}'`).join(", ");
       context.report({
         messageId: "unnecessaryDeps",
         node: depsNode,

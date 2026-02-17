@@ -66,8 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
         }
 
-        // TODO: Node 20 doesn't support Set.difference. Use it when minimum Node version is 22.
-        const unusedProps = [...totalDeclaredProps].filter((x) => !totalUsedProps.has(x));
+        const unusedProps = totalDeclaredProps.difference(totalUsedProps);
 
         for (const unusedProp of unusedProps) {
           reportUnusedProp(context, services, unusedProp);
