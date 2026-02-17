@@ -1,4 +1,5 @@
 export * from "./class-id";
+export * from "./directive-helper";
 export * from "./directive-is";
 export * from "./directive-kind";
 export * from "./directive-name";
@@ -6,8 +7,6 @@ export * from "./equal";
 export * from "./expression-base";
 export * from "./expression-is";
 export * from "./expression-nested";
-export * from "./file-directive";
-export * from "./function-directive";
 export * from "./function-id";
 export * from "./function-init-path";
 export * from "./function-is";

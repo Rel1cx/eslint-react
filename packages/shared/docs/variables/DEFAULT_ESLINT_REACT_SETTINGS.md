@@ -4,6 +4,7 @@
 
 ```ts
 const DEFAULT_ESLINT_REACT_SETTINGS: {
+  compilationMode: "annotation";
   importSource: "react";
   polymorphicPropName: "as";
   version: "detect";
@@ -16,6 +17,7 @@ Default ESLint React settings
 
 | Name | Type | Default value |
 | ------ | ------ | ------ |
+| <a id="property-compilationmode"></a> `compilationMode` | `"annotation"` | `"annotation"` |
 | <a id="property-importsource"></a> `importSource` | `"react"` | `"react"` |
 | <a id="property-polymorphicpropname"></a> `polymorphicPropName` | `"as"` | `"as"` |
 | <a id="property-version"></a> `version` | `"detect"` | `"detect"` |

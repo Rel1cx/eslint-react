@@ -5,6 +5,7 @@
 ```ts
 const DEFAULT_ESLINT_SETTINGS: {
   react-x: {
+     compilationMode: "annotation";
      importSource: "react";
      polymorphicPropName: "as";
      version: "detect";
@@ -18,7 +19,8 @@ Default ESLint settings with React settings included
 
 | Name | Type | Default value |
 | ------ | ------ | ------ |
-| <a id="property-react-x"></a> `react-x` | \{ `importSource`: `"react"`; `polymorphicPropName`: `"as"`; `version`: `"detect"`; \} | `DEFAULT_ESLINT_REACT_SETTINGS` |
+| <a id="property-react-x"></a> `react-x` | \{ `compilationMode`: `"annotation"`; `importSource`: `"react"`; `polymorphicPropName`: `"as"`; `version`: `"detect"`; \} | `DEFAULT_ESLINT_REACT_SETTINGS` |
+| `react-x.compilationMode` | `"annotation"` | `"annotation"` |
 | `react-x.importSource` | `"react"` | `"react"` |
 | `react-x.polymorphicPropName` | `"as"` | `"as"` |
 | `react-x.version` | `"detect"` | `"detect"` |
