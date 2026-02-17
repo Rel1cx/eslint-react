@@ -36,7 +36,7 @@ If you were importing `eslint-plugin-react-hooks-extra` directly, replace it wit
 **Preset changes**
 
 - Removed `react-x/no-default-props`, `react-x/no-prop-types`, and `react-x/no-string-refs` from the `recommended` and `x` presets.
-- Added `react-x/component-hook-factories` (`warn`), `react-x/exhaustive-deps` (`warn`), `react-x/rules-of-hooks` (`error`), `react-x/set-state-in-effect` (`warn`), and `react-x/set-state-in-render` (`error`) to the `recommended` and `x` presets.
+- Added `react-x/component-hook-factories` (`error`), `react-x/error-boundaries` (`error`), `react-x/exhaustive-deps` (`warn`), `react-x/rules-of-hooks` (`error`), `react-x/set-state-in-effect` (`warn`), and `react-x/set-state-in-render` (`error`) to the `recommended` and `x` presets.
 - Removed the `@eslint-react/hooks-extra` plugin and all `@eslint-react/hooks-extra/*` rules from the `recommended` and `all` presets in `@eslint-react/eslint-plugin`.
 
 ### ✨ New
@@ -48,6 +48,7 @@ If you were importing `eslint-plugin-react-hooks-extra` directly, replace it wit
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
 - `component-hook-factories`: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
+- `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
 
 ### 🪄 Improvements
 
@@ -59,7 +60,8 @@ If you were importing `eslint-plugin-react-hooks-extra` directly, replace it wit
 2. If you use the `@eslint-react/eslint-plugin` unified plugin with the `recommended` or `all` preset, the hook rules are now included automatically — no extra configuration is needed.
 3. The `set-state-in-effect` rule replaces and broadens the scope of the former `no-direct-set-state-in-use-effect` rule.
 4. The `set-state-in-render` rule is new and enabled at `error` level in all presets — it catches unconditional `setState` calls during render that can cause infinite loops.
-5. The `component-hook-factories` rule is new and enabled at `warn` level in all presets — it catches factory functions that define components or hooks inside them instead of at the module level.
+5. The `component-hook-factories` rule is new and enabled at `error` level in all presets — it catches factory functions that define components or hooks inside them instead of at the module level.
+6. The `error-boundaries` rule is new and enabled at `error` level in all presets — it catches try/catch blocks that wrap JSX return statements or `use` hook calls inside component functions, where Error Boundaries should be used instead.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0
 
