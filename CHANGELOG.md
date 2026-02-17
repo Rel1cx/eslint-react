@@ -33,6 +33,10 @@ The `no-unnecessary-key` rule has been removed. It was an experimental rule that
 | `filename`           | 2.13.0        |             |
 | `filename-extension` | 2.13.0        |             |
 
+**Minimum Node.js version raised from 20 to 22**
+
+The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
+
 **Preset changes**
 
 - Removed `react-x/no-default-props`, `react-x/no-prop-types`, and `react-x/no-string-refs` from the `recommended` and `x` presets.
@@ -54,14 +58,42 @@ The `no-unnecessary-key` rule has been removed. It was an experimental rule that
 
 - Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
 
-### 📝 Changes you should be aware of
+### ✅ Upgrade Checklist
 
-1. The `eslint-plugin-react-hooks-extra` package is no longer published. Remove it from your `package.json` and update your ESLint configuration accordingly.
-2. If you use the `@eslint-react/eslint-plugin` unified plugin with the `recommended` or `all` preset, the hook rules are now included automatically — no extra configuration is needed.
-3. The `set-state-in-effect` rule replaces and broadens the scope of the former `no-direct-set-state-in-use-effect` rule.
-4. The `set-state-in-render` rule is new and enabled at `error` level in all presets — it catches unconditional `setState` calls during render that can cause infinite loops.
-5. The `component-hook-factories` rule is new and enabled at `error` level in all presets — it catches factory functions that define components or hooks inside them instead of at the module level.
-6. The `error-boundaries` rule is new and enabled at `error` level in all presets — it catches try/catch blocks that wrap JSX return statements or `use` hook calls inside component functions, where Error Boundaries should be used instead.
+Use this checklist to upgrade from v2.x to v3.0.0:
+
+#### Node.js
+
+- [ ] Upgrade Node.js to `>=22.0.0` (previously `>=20.19.0`).
+
+#### Package changes
+
+- [ ] Remove `eslint-plugin-react-hooks-extra` from your `package.json` — this package is no longer published.
+- [ ] If you were importing `eslint-plugin-react-hooks-extra` directly, replace it with `eslint-plugin-react-x`.
+
+#### ESLint configuration
+
+- [ ] Replace `react-hooks-extra/no-direct-set-state-in-use-effect` with `react-x/set-state-in-effect` in your ESLint config.
+- [ ] Remove any `@eslint-react/hooks-extra/*` rules from your config — these have been removed from `@eslint-react/eslint-plugin`.
+- [ ] Remove references to the following deleted rules (use [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) instead if needed):
+  - `react-x/no-default-props`
+  - `react-x/no-forbidden-props`
+  - `react-x/no-prop-types`
+  - `react-x/no-string-refs`
+- [ ] Remove `react-x/no-unnecessary-use-ref` from your config if present — this rule has been deleted with no replacement.
+- [ ] Remove `react-x/no-unnecessary-key` from your config if present — this rule has been deleted with no replacement.
+- [ ] Remove `react-naming-convention/filename` and `react-naming-convention/filename-extension` from your config if present — these rules have been deleted with no replacement.
+
+#### Review new rules enabled in presets
+
+If you use the `recommended`, `x`, or `all` preset, the following rules are now included automatically. Review your codebase for new reports:
+
+- [ ] `react-x/rules-of-hooks` (`error`) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).
+- [ ] `react-x/exhaustive-deps` (`warn`) — enforces that hook dependency arrays contain all reactive values.
+- [ ] `react-x/set-state-in-effect` (`warn`) — catches synchronous `setState` calls inside effects.
+- [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
+- [ ] `react-x/component-hook-factories` (`error`) — catches factory functions that define components or hooks inside them instead of at the module level.
+- [ ] `react-x/error-boundaries` (`error`) — catches try/catch blocks wrapping JSX or `use` hook calls where [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) should be used instead.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0
 
