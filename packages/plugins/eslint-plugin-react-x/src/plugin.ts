@@ -45,7 +45,6 @@ import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-compon
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
-import noUnnecessaryKey from "./rules/no-unnecessary-key";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
@@ -117,7 +116,6 @@ export const plugin: CompatiblePlugin = {
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
-    "no-unnecessary-key": noUnnecessaryKey,
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,

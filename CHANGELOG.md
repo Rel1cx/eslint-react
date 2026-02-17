@@ -22,6 +22,10 @@ If you were importing `eslint-plugin-react-hooks-extra` directly, replace it wit
 | `no-string-refs`         | 2.9.3         | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
 | `no-unnecessary-use-ref` | 2.10.0        |                                                                                     |
 
+**Removed `no-unnecessary-key` rule from `eslint-plugin-react-x`**
+
+The `no-unnecessary-key` rule has been removed. It was an experimental rule that reported unnecessary `key` props on nested child elements when rendering lists.
+
 **Removed previously deprecated rules from `eslint-plugin-react-naming-convention`**
 
 | Rule                 | Deprecated in | Replacement |
