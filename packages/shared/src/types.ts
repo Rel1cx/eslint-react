@@ -116,3 +116,10 @@ export interface CompatibleConfig {
   /** Shared settings. */
   settings?: SettingsConfig;
 }
+
+export type CompilationMode =
+  | "off"
+  | "infer"
+  | "annotation"
+  | "syntax"
+  | "all";

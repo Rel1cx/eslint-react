@@ -54,6 +54,10 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 - `component-hook-factories`: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
 - `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
 
+**Added `compilationMode` setting:**
+
+Added support for the `compilationMode` setting under `settings["react-x"]`. This setting informs rules about the [React Compiler](https://react.dev/learn/react-compiler) compilation mode the project is using, allowing rules to understand how components and hooks will be picked up by the compiler. Accepted values are `"off"`, `"infer"`, `"annotation"`, `"syntax"`, and `"all"` (default: `"annotation"`). When set to anything other than `"off"`, the compiler is considered enabled.
+
 ### 🪄 Improvements
 
 - Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503

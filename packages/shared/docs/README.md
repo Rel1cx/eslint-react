@@ -20,6 +20,7 @@
 
 | Type Alias | Description |
 | ------ | ------ |
+| [CompilationMode](type-aliases/CompilationMode.md) | - |
 | [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | ESLint React settings type inferred from the React settings schema. |
 | [ESLintSettings](type-aliases/ESLintSettings.md) | ESLint settings type inferred from the settings schema. |
 | [RegExpLike](type-aliases/RegExpLike.md) | A type represents RegExp-like object with `test` method. |

@@ -1,4 +1,5 @@
 /* eslint-disable jsdoc/require-param */
+/* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
 import type { unit } from "@eslint-react/eff";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
@@ -9,7 +10,7 @@ import { z } from "zod/v4";
 
 import { getReactVersion } from "./react-version";
 import { type RegExpLike, toRegExp } from "./regexp";
-import type { RuleContext } from "./types";
+import type { CompilationMode, RuleContext } from "./types";
 
 // ===== Schema Definitions =====
 
@@ -25,6 +26,14 @@ export const ESLintReactSettingsSchema = z.object({
    * @example "@pika/react"
    */
   importSource: z.optional(z.string()),
+
+  /**
+   * The React Compiler compilationMode that the project is using
+   * Used to inform the rule about how components and hooks will be picked up by the compiler
+   * @default "annotation"
+   * @example "infer"
+   */
+  compilationMode: z.optional(z.enum(["off", "infer", "annotation", "syntax", "all"])),
 
   /**
    * The prop name used for polymorphic components
@@ -73,10 +82,12 @@ export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
  * Normalized ESLint React settings with processed values
  */
 export interface ESLintReactSettingsNormalized {
-  additionalStateHooks: RegExpLike;
-  importSource: string;
-  polymorphicPropName: string | unit;
   version: string;
+  importSource: string;
+  compilationMode: CompilationMode;
+  isCompilerEnabled: boolean;
+  polymorphicPropName: string | unit;
+  additionalStateHooks: RegExpLike;
 }
 
 // ===== Default Values =====
@@ -87,6 +98,7 @@ export interface ESLintReactSettingsNormalized {
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   version: "detect",
   importSource: "react",
+  compilationMode: "annotation",
   polymorphicPropName: "as",
 } as const satisfies ESLintReactSettings;
 
@@ -159,6 +171,7 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
  */
 export const normalizeSettings = ({
   importSource = "react",
+  compilationMode = "annotation",
   polymorphicPropName = "as",
   version,
   additionalStateHooks,
@@ -167,6 +180,8 @@ export const normalizeSettings = ({
   return {
     ...rest,
     importSource,
+    compilationMode,
+    isCompilerEnabled: compilationMode !== "off",
     polymorphicPropName,
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.0"))

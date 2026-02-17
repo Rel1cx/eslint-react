@@ -1,7 +1,13 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, defineRuleListener, toRegExp } from "@eslint-react/shared";
+import {
+  type RuleContext,
+  type RuleFeature,
+  defineRuleListener,
+  getSettingsFromContext,
+  toRegExp,
+} from "@eslint-react/shared";
 import { getObjectType } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -75,14 +81,9 @@ function extractIdentifier(node: TSESTree.Node): string | null {
   return null;
 }
 
-export function create(
-  context: RuleContext<MessageID, Options>,
-  [options]: Options,
-): RuleListener {
-  // If "use memo" directive is present in the file, skip analysis
-  const directives = ast.getFileDirectives(context.sourceCode.ast);
-  if (directives.some((d) => d.directive === "use memo")) return {};
-
+export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
+  const { isCompilerEnabled } = getSettingsFromContext(context);
+  if (isCompilerEnabled && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const { ctx, visitor } = core.useComponentCollector(context);
   const declarators = new WeakMap<
     ast.TSESTreeFunction,
