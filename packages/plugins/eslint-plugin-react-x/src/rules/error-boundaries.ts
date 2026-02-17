@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener } from "@eslint-react/shared";
-import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
@@ -36,10 +36,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `try` is not present in the file
   if (!context.sourceCode.text.includes("try")) return {};
 
+  const { ctx, visitor } = core.useComponentCollector(context);
+
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<TSESTree.TryStatement>();
-
-  const { ctx, visitor } = core.useComponentCollector(context);
 
   return defineRuleListener(
     visitor,

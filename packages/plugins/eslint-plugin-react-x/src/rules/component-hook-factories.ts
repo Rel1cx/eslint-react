@@ -48,6 +48,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const cCollector = core.useComponentCollectorLegacy(context);
   const hCollector = core.useHookCollector(context);
 
+  // Track already-reported nodes to avoid duplicate reports
+  const reported = new Set<ast.TSESTreeFunction>();
+
   return defineRuleListener(
     fCollector.visitor,
     cCollector.visitor,
@@ -59,27 +62,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const cComponents = [...cCollector.ctx.getAllComponents(program)];
         const hooks = [...hCollector.ctx.getAllHooks(program)];
 
-        // Track already-reported nodes to avoid duplicate reports
-        const reported = new Set<ast.TSESTreeFunction>();
-
         // Check function components defined inside any function (not at module level)
         for (const { name, node } of fComponents) {
           if (name == null) continue;
-          const parentFunction = ast.findParentNode(node, ast.isFunction);
-          if (parentFunction == null) continue;
+          if (ast.findParentNode(node, ast.isFunction) == null) continue;
           if (reported.has(node)) continue;
-          reported.add(node);
           context.report({
             messageId: "component",
             node,
             data: { name },
           });
+          reported.add(node);
         }
 
         // Check class components defined inside any function (not at module level)
         for (const { name = "unknown", node } of cComponents) {
-          const parentFunction = ast.findParentNode(node, ast.isFunction);
-          if (parentFunction == null) continue;
+          if (ast.findParentNode(node, ast.isFunction) == null) continue;
           context.report({
             messageId: "component",
             node,
@@ -89,15 +87,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         // Check hooks defined inside any function (not at module level)
         for (const { name, node } of hooks) {
-          const parentFunction = ast.findParentNode(node, ast.isFunction);
-          if (parentFunction == null) continue;
+          if (ast.findParentNode(node, ast.isFunction) == null) continue;
           if (reported.has(node)) continue;
-          reported.add(node);
           context.report({
             messageId: "hook",
             node,
             data: { name },
           });
+          reported.add(node);
         }
       },
     },
