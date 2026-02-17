@@ -50,7 +50,6 @@ export const rules = {
   "@eslint-react/no-set-state-in-component-did-mount": "warn",
   "@eslint-react/no-set-state-in-component-did-update": "warn",
   "@eslint-react/no-set-state-in-component-will-update": "warn",
-  "@eslint-react/no-unnecessary-key": "warn",
   "@eslint-react/no-unnecessary-use-callback": "warn",
   "@eslint-react/no-unnecessary-use-memo": "warn",
   "@eslint-react/no-unnecessary-use-prefix": "warn",
