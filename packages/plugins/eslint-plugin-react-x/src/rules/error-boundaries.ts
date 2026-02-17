@@ -11,7 +11,9 @@ export const RULE_NAME = "error-boundaries";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "tryCatchWithJsx" | "tryCatchWithUse";
+export type MessageID =
+  | "tryCatchWithJsx"
+  | "tryCatchWithUse";
 
 export default createRule<[], MessageID>({
   meta: {
