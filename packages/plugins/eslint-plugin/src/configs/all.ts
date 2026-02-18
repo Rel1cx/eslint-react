@@ -66,6 +66,7 @@ export const rules = {
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
+  "@eslint-react/purity": "warn",
   "@eslint-react/rules-of-hooks": "error",
   "@eslint-react/set-state-in-effect": "warn",
 

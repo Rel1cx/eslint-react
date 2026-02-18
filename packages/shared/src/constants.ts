@@ -110,3 +110,24 @@ export const RE_COMPONENT_NAME_LOOSE = /^_?[A-Z]/u;
 export const RE_HOOK_NAME = /^use/u;
 
 // #endregion
+
+// #region Impurity Detection
+
+/**
+ * Known impure member expression calls: `object.method()`
+ */
+export const IMPURE_MEMBER_CALLS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
+  ["crypto", new Set(["getRandomValues", "randomUUID"])],
+  ["Date", new Set(["now"])],
+  ["Math", new Set(["random"])],
+  ["performance", new Set(["now"])],
+]);
+
+/**
+ * Known impure global constructors used with `new`
+ */
+export const IMPURE_NEW_EXPRESSIONS: ReadonlySet<string> = new Set([
+  "Date",
+]);
+
+// #endregion
