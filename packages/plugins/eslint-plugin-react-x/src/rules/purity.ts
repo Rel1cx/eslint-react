@@ -1,8 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
-  IMPURE_MEMBER_CALLS,
-  IMPURE_NEW_EXPRESSIONS,
+  IMPURE_CONSTRUCTORS,
+  IMPURE_FUNCTIONS,
   type RuleContext,
   type RuleFeature,
   defineRuleListener,
@@ -24,14 +24,14 @@ function isImpureMemberCall(node: TSESTree.CallExpression): boolean {
   const { object, property } = node.callee;
   if (object.type !== AST.Identifier) return false;
   if (property.type !== AST.Identifier) return false;
-  const methods = IMPURE_MEMBER_CALLS.get(object.name);
+  const methods = IMPURE_FUNCTIONS.get(object.name);
   if (methods == null) return false;
   return methods.has(property.name);
 }
 
 function isImpureNewExpression(node: TSESTree.NewExpression): boolean {
   if (node.callee.type !== AST.Identifier) return false;
-  return IMPURE_NEW_EXPRESSIONS.has(node.callee.name);
+  return IMPURE_CONSTRUCTORS.has(node.callee.name);
 }
 
 function getImpureCallName(node: TSESTree.CallExpression): string | null {
@@ -65,13 +65,19 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-// TODO: Need to cover more cases of impurity
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hCollector = core.useHookCollector(context);
   const cCollector = core.useComponentCollector(context);
-  const cExprs: [name: string, expr: TSESTree.CallExpression, func: ast.TSESTreeFunction][] = [];
-  const nExprs: [name: string, expr: TSESTree.NewExpression, func: ast.TSESTreeFunction][] = [];
-
+  const cExprs: {
+    name: string;
+    node: TSESTree.CallExpression;
+    func: ast.TSESTreeFunction;
+  }[] = [];
+  const nExprs: {
+    name: string;
+    node: TSESTree.NewExpression;
+    func: ast.TSESTreeFunction;
+  }[] = [];
   return defineRuleListener(
     hCollector.visitor,
     cCollector.visitor,
@@ -82,7 +88,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (name == null) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        cExprs.push([name, node, func]);
+        cExprs.push({ name, node, func });
       },
       NewExpression(node: TSESTree.NewExpression) {
         if (!isImpureNewExpression(node)) return;
@@ -90,17 +96,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (name == null) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        nExprs.push([name, node, func]);
+        nExprs.push({ name, node, func });
       },
       "Program:exit"(node) {
         const components = cCollector.ctx.getAllComponents(node);
         const hooks = hCollector.ctx.getAllHooks(node);
         const funcs = [...components, ...hooks];
-        for (const [name, expr, func] of [...cExprs, ...nExprs]) {
+        for (const { name, node, func } of [...cExprs, ...nExprs]) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             messageId: "default",
-            node: expr,
+            node,
             data: { name },
           });
         }
