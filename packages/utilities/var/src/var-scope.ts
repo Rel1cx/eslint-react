@@ -35,3 +35,16 @@ export const findVariable: {
   if (nameOrNode == null) return unit;
   return astUtils.findVariable(initialScope, nameOrNode) ?? unit;
 });
+
+/**
+ * Get all child scopes recursively from a given scope
+ * @param scope The scope to get child scopes from
+ * @returns Array of all child scopes including the input scope
+ */
+export function getChildScopes(scope: Scope): readonly Scope[] {
+  const scopes = [scope];
+  for (const childScope of scope.childScopes) {
+    scopes.push(...getChildScopes(childScope));
+  }
+  return scopes;
+}

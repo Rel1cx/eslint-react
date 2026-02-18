@@ -2,7 +2,7 @@ import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import type { TSESTreeClass } from "./types";
+import type { TSESTreeClass } from "./node-types";
 
 /**
  * Get the class identifier of a class node

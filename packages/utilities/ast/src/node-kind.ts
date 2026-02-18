@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 
-import { isJSX } from "./is";
+import { isJSX } from "./node-is";
 
 export function getHumanReadableKind(node: TSESTree.Node, delimiter = " ") {
   if (node.type === AST.Literal) {

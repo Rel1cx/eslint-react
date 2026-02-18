@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isDirective } from "./directive-is";
-import type { TSESTreeDirective, TSESTreeFunction } from "./types";
+import type { TSESTreeDirective, TSESTreeFunction } from "./node-types";
 
 /**
  * Get all directive expression statements from the top of a program AST node

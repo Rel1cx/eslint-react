@@ -3,8 +3,9 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { getVariableDefinitionNodeLoose } from "./get-variable-definition-node";
-import { findVariable } from "./get-variables-from-scope";
+
+import { getVariableDefinitionNodeLoose } from "./var-definition";
+import { findVariable } from "./var-scope";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -20,7 +21,7 @@ const thisBlockTypes = [
  * @param initialScopes initial scopes of the two nodes
  * @returns `true` if node value equal
  */
-export function isNodeValueEqual(
+export function isNodeEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
   initialScopes: [
@@ -88,7 +89,7 @@ export function isNodeValueEqual(
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression: {
       return ast.isNodeEqual(a.property, b.property)
-        && isNodeValueEqual(a.object, b.object, initialScopes);
+        && isNodeEqual(a.object, b.object, initialScopes);
     }
     case a.type === AST.ThisExpression
       && b.type === AST.ThisExpression: {

@@ -1,7 +1,7 @@
 import type { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-import { isFunction } from "./is";
+import { isFunction } from "./node-is";
 
 /**
  * Check if the given node is a `vi.mock`.

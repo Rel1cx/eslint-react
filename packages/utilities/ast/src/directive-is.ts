@@ -1,8 +1,8 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isDirectiveName } from "./directive-name";
-import { isLiteral } from "./literal";
-import type { TSESTreeDirective, TSESTreeDirectiveLike } from "./types";
+import { isLiteral } from "./literal-is";
+import type { TSESTreeDirective, TSESTreeDirectiveLike } from "./node-types";
 
 /**
  * Check if a node is a directive expression statement

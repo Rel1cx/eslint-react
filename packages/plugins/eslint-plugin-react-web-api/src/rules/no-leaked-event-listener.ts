@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { findProperty, findVariable, getVariableDefinitionNode, isNodeValueEqual } from "@eslint-react/var";
+import { findProperty, findVariable, getVariableDefinitionNode, isNodeEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -204,7 +204,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     return isSameObject(aCallee, rCallee)
       && ast.isNodeEqual(aListener, rListener)
-      && isNodeValueEqual(aType, rType, [
+      && isNodeEqual(aType, rType, [
         context.sourceCode.getScope(aType),
         context.sourceCode.getScope(rType),
       ])

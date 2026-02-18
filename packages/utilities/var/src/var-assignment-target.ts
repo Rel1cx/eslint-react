@@ -1,7 +1,11 @@
 /** eslint-disable jsdoc/require-param */
+import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+
+import { isNodeEqual } from "./var-node-equality";
 
 /**
  * Finds the enclosing assignment target (variable, property, etc.) for a given node
@@ -40,3 +44,23 @@ export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
  * Type representing the possible assignment targets returned by `findEnclosingAssignmentTarget`
  */
 export type AssignmentTarget = ReturnType<typeof findEnclosingAssignmentTarget>;
+
+/**
+ * Check if two assignment targets are equal
+ * Compares nodes directly or by their values
+ * @param context The rule context
+ * @param a The first node to compare
+ * @param b The second node to compare
+ * @returns True if the assignment targets are equal
+ * @internal
+ */
+export function isAssignmentTargetEqual(
+  context: RuleContext,
+  a: TSESTree.Node,
+  b: TSESTree.Node,
+) {
+  return ast.isNodeEqual(a, b) || isNodeEqual(a, b, [
+    context.sourceCode.getScope(a),
+    context.sourceCode.getScope(b),
+  ]);
+}

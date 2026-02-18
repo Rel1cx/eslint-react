@@ -2,9 +2,9 @@ import type { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { getVariableDefinitionNode } from "./get-variable-definition-node";
 
-import { findVariable } from "./get-variables-from-scope";
+import { getVariableDefinitionNode } from "./var-definition";
+import { findVariable } from "./var-scope";
 
 /**
  * Find a property by name in an array of properties
