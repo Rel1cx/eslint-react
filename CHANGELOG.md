@@ -1,4 +1,4 @@
-## v3.0.0 (TBD)
+## v3.0.0 (beta)
 
 ### 💥 Breaking Changes
 
