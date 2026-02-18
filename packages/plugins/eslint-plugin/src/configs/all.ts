@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactHooksExtra from "eslint-plugin-react-hooks-extra";
 import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import reactWebApi from "eslint-plugin-react-web-api";
 
@@ -10,6 +9,9 @@ import * as x from "./x";
 export const name = "@eslint-react/all";
 
 export const rules = {
+  "@eslint-react/component-hook-factories": "error",
+  "@eslint-react/error-boundaries": "error",
+  "@eslint-react/exhaustive-deps": "warn",
   "@eslint-react/jsx-dollar": "warn",
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
@@ -48,7 +50,6 @@ export const rules = {
   "@eslint-react/no-set-state-in-component-did-mount": "warn",
   "@eslint-react/no-set-state-in-component-did-update": "warn",
   "@eslint-react/no-set-state-in-component-will-update": "warn",
-  "@eslint-react/no-unnecessary-key": "warn",
   "@eslint-react/no-unnecessary-use-callback": "warn",
   "@eslint-react/no-unnecessary-use-memo": "warn",
   "@eslint-react/no-unnecessary-use-prefix": "warn",
@@ -65,6 +66,8 @@ export const rules = {
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
+  "@eslint-react/rules-of-hooks": "error",
+  "@eslint-react/set-state-in-effect": "warn",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
@@ -92,8 +95,6 @@ export const rules = {
   "@eslint-react/web-api/no-leaked-resize-observer": "warn",
   "@eslint-react/web-api/no-leaked-timeout": "warn",
 
-  "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "warn",
-
   "@eslint-react/naming-convention/component-name": "warn",
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/id-name": "warn",
@@ -105,7 +106,6 @@ export const plugins = {
   ...x.plugins,
   ...rsc.plugins,
   ...dom.plugins,
-  "@eslint-react/hooks-extra": reactHooksExtra,
   "@eslint-react/naming-convention": reactNamingConvention,
   "@eslint-react/web-api": reactWebApi,
 };

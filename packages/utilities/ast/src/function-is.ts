@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import type { TSESTreeFunction } from "./types";
+import type { TSESTreeFunction } from "./node-types";
 
 /**
  * Check if a function is empty

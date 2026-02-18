@@ -21,7 +21,6 @@ const orderedCategories = [
   { key: "rsc", heading: "---RSC Rules---" },
   { key: "dom", heading: "---DOM Rules---" },
   { key: "web-api", heading: "---Web API Rules---" },
-  { key: "hooks-extra", heading: "---Hooks Extra Rules---" },
   { key: "naming-convention", heading: "---Naming Convention Rules---" },
   { key: "debug", heading: "---Debug Rules---" },
 ] as const satisfies { key: string; heading: string }[];
@@ -87,7 +86,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
         ? [
           ...acc,
           cat.heading,
-          ...[...rules].sort((a, b) => a.localeCompare(b, "en")),
+          ...rules.toSorted((a, b) => a.localeCompare(b, "en")),
         ]
         : acc;
     }, ["overview"]);

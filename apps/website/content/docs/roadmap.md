@@ -14,11 +14,11 @@ Minimum supported versions:
 
 ### Removed Rules
 
-- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
+- [x] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect`
 
 ### Removed Plugins
 
-- [ ] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by [new introduced rules from `eslint-plugin-react-hooks`](https://react.dev/reference/eslint-plugin-react-hooks) (TBD)
+- [x] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by [new introduced rules from `eslint-plugin-react-hooks`](https://react.dev/reference/eslint-plugin-react-hooks)
 
 ## Milestone 3.0 (TBD)
 
@@ -26,25 +26,25 @@ Minimum supported versions:
 
 Minimum supported versions:
 
-- [ ] Node.js: 24.8.0
+- [x] Node.js: 22.0.0
 - [x] ESLint: 9.36.0
 - [x] TypeScript: 5
 
 ### New Rules
 
-- [ ] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance\
+- [x] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance\
       _A fast implementation of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration_
-- [ ] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
+- [x] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
       _A fast implementation of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration_
-- [ ] `react-x/static-components` - Validates that components are static, not recreated every render\
+- [x] `react-x/static-components` - Validates that components are static, not recreated every render (`no-nested-component-definitions` + `no-nested-lazy-component-declarations`)\
       _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
-- [ ] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
+- [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
       _A fast implementation of [component-hook-factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories) that doesn't require React Compiler integration_
 - [ ] `react-x/function-definition` - Validate and transform React function definitions ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
 
 ### Deprecated Rules
 
-- [ ] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect` (TBD)
+- [x] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect`
 
 ## Milestone 2.0 (2025-09-26)
 
@@ -65,7 +65,7 @@ Minimum supported versions:
 - [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
-- [x] `eslint-plugin-react-hooks-extra` - Extra Hooks rules for React
+- [x] ~~`eslint-plugin-react-hooks-extra`~~ - Extra Hooks rules for React (removed in 2.14.0, rules migrated to `eslint-plugin-react-x`)
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
 - ... (Free to combine with other plugins from the community)
 

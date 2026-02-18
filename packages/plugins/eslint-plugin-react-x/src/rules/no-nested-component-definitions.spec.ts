@@ -7,6 +7,56 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        // ❌ Component defined inside component
+        function Parent() {
+          const ChildComponent = () => { // New component every render!
+            const [count, setCount] = useState(0);
+            return <button onClick={() => setCount(count + 1)}>{count}</button>;
+          };
+
+          return <ChildComponent />; // State resets every render
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          data: {
+            name: "ChildComponent",
+            suggestion: "Move it to the top level.",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
+        // ❌ Dynamic component creation
+        function Parent({type}) {
+          const Component = type === 'button'
+            ? () => <button>Click</button>
+            : () => <div>Text</div>;
+
+          return <Component />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          data: {
+            name: "Component",
+            suggestion: "Move it to the top level.",
+          },
+        },
+        {
+          messageId: "default",
+          data: {
+            name: "Component",
+            suggestion: "Move it to the top level.",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
         function ParentComponent() {
           function UnstableNestedFunctionComponent() {
             return <div />;

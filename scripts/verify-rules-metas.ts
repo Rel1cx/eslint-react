@@ -19,7 +19,6 @@ const SECTION_HEADERS = [
   { key: "rsc", heading: "RSC Rules" },
   { key: "dom", heading: "DOM Rules" },
   { key: "web-api", heading: "Web API Rules" },
-  { key: "hooks-extra", heading: "Hooks Extra Rules" },
   { key: "naming-convention", heading: "Naming Convention Rules" },
   { key: "debug", heading: "Debug Rules" },
 ];
@@ -58,7 +57,6 @@ const getPluginNameFromRuleName = (ruleName: string) => {
   return match(ruleName)
     .with(P.string.startsWith("dom-"), () => "dom")
     .with(P.string.startsWith("web-api-"), () => "web-api")
-    .with(P.string.startsWith("hooks-extra-"), () => "hooks-extra")
     .with(P.string.startsWith("naming-convention-"), () => "naming-convention")
     .with(P.string.startsWith("debug-"), () => "debug")
     .otherwise(() => "x");

@@ -35,10 +35,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // If "use memo" directive is present in the file, skip analysis
-  if (ast.getFileDirectives(context.sourceCode.ast).some((d) => d.directive === "use memo")) return {};
-
-  const { version } = getSettingsFromContext(context);
+  const { isCompilerEnabled, version } = getSettingsFromContext(context);
+  if (isCompilerEnabled && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { ctx, visitor } = core.useComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
@@ -53,6 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!isContextName(selfName, isReact18OrBelow)) return;
         const functionEntry = ctx.getCurrentEntry();
         if (functionEntry == null) return;
+        if (isCompilerEnabled && ast.isDirectiveInFunction(functionEntry.node, "use memo")) return;
         const attribute = node
           .attributes
           .find((attribute) =>

@@ -6,13 +6,20 @@ import { Link } from "next-view-transitions";
 const properties = {
   version: {
     type: "string",
-    description: <Link href="#version">React version to perform the analysis</Link>,
+    description: <Link href="#version">React version for semantic analysis</Link>,
     default: '"detect"',
   },
   importSource: {
     type: "string",
     description: <Link href="#importsource">The source where React is imported from</Link>,
     default: '"react"',
+  },
+  compilationMode: {
+    type: "string",
+    description: (
+      <Link href="#compilationmode">The [React Compiler](https://react.dev/learn/react-compiler) compilation mode</Link>
+    ),
+    default: '"annotation"',
   },
   polymorphicPropName: {
     type: "string",

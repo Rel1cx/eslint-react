@@ -2,7 +2,7 @@ import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import type { TSESTreeFunction } from "./types";
+import type { TSESTreeFunction } from "./node-types";
 
 /**
  * Represents various AST paths for React component function declarations

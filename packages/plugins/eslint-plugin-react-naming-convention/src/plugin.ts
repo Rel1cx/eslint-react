@@ -8,9 +8,6 @@ import idName from "./rules/id-name";
 import refName from "./rules/ref-name";
 import useState from "./rules/use-state";
 
-import filename from "./rules-removed/filename";
-import filenameExtension from "./rules-removed/filename-extension";
-
 export const plugin: CompatiblePlugin = {
   meta: {
     name,
@@ -22,9 +19,5 @@ export const plugin: CompatiblePlugin = {
     ["id-name"]: idName,
     ["ref-name"]: refName,
     ["use-state"]: useState,
-
-    // Deprecated rules
-    ["filename"]: filename,
-    ["filename-extension"]: filenameExtension,
   },
 };

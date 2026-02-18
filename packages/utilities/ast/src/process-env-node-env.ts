@@ -1,7 +1,7 @@
 import type { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-import { isLiteral } from "./literal";
+import { isLiteral } from "./literal-is";
 
 /**
  * Check if the given node is a member expression that accesses `process.env.NODE_ENV`

@@ -8,10 +8,8 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/no-duplicate-key": "off",
   "@eslint-react/no-implicit-key": "off",
   "@eslint-react/no-misused-capture-owner-stack": "off",
-  "@eslint-react/no-unnecessary-key": "off",
   "@eslint-react/no-unnecessary-use-callback": "off",
   "@eslint-react/no-unnecessary-use-memo": "off",
-  "@eslint-react/no-unnecessary-use-ref": "off",
   "@eslint-react/no-unused-props": "off",
   "@eslint-react/prefer-read-only-props": "off",
 

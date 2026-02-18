@@ -1734,6 +1734,39 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        const Component = type === 'button'
+          ? () => <button>Click</button>
+          : () => <div>Text</div>;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          data: {
+            json: stringify({
+              name: "Component",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+        },
+        {
+          messageId: "default",
+          data: {
+            json: stringify({
+              name: "Component",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+        },
+      ],
+    },
   ],
   valid: [
     ...allFunctions,

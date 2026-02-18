@@ -8,8 +8,8 @@ import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../../test";
 
 import { getFunctionId } from "./function-id";
-import { isFunction } from "./is";
-import type { TSESTreeFunction } from "./types";
+import { isFunction } from "./node-is";
+import type { TSESTreeFunction } from "./node-types";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -58,6 +58,9 @@ describe("get function identifier from function expression", () => {
     ["class Clazz { Foo() {} }", "Foo"],
     ["class Clazz { Foo = function() {} }", "Foo"],
     ["class Clazz { Foo = () => {} }", "Foo"],
+    ["const Foo = condition ? () => {} : () => {};", "Foo"],
+    ["const Foo = condition ? function() {} : function() {};", "Foo"],
+    ["const Foo = a ? b ? () => {} : () => {} : () => {};", "Foo"],
   ])("should return the function name from %s", (code, expected) => {
     let n: null | TSESTreeFunction = null;
     simpleTraverse(parse(code).ast, {

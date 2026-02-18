@@ -38,8 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `use server` is not present in the entire file for performance
   if (!context.sourceCode.text.includes("use server")) return {};
 
-  const hasFileLevelUseServerDirective = ast.getFileDirectives(context.sourceCode.ast)
-    .some((d) => d.directive === "use server");
+  const hasFileLevelUseServerDirective = ast.isDirectiveInFile(context.sourceCode.ast, "use server");
 
   /**
    * Check if `node` is an async function, and report if not

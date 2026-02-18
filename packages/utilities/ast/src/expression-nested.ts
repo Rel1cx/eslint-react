@@ -2,8 +2,8 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
-import { is, isFunction } from "./is";
-import { findParentNode } from "./traverse";
+import { is, isFunction } from "./node-is";
+import { findParentNode } from "./node-traverse";
 
 /**
  * Get all nested identifiers in a expression like node

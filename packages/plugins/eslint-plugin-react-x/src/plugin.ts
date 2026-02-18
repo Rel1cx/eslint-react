@@ -2,6 +2,9 @@ import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 
+import componentHookFactories from "./rules/component-hook-factories";
+import errorBoundaries from "./rules/error-boundaries";
+import exhaustiveDeps from "./rules/exhaustive-deps";
 import jsxDollar from "./rules/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
@@ -42,7 +45,6 @@ import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-compon
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update";
-import noUnnecessaryKey from "./rules/no-unnecessary-key";
 import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback";
 import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix";
@@ -61,12 +63,9 @@ import preferDestructuringAssignment from "./rules/prefer-destructuring-assignme
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
-
-import noDefaultProps from "./rules-removed/no-default-props";
-import noForbiddenProps from "./rules-removed/no-forbidden-props";
-import noPropTypes from "./rules-removed/no-prop-types";
-import noStringRefs from "./rules-removed/no-string-refs";
-import noUnnecessaryUseRef from "./rules-removed/no-unnecessary-use-ref";
+import rulesOfHooks from "./rules/rules-of-hooks";
+import setStateInEffect from "./rules/set-state-in-effect";
+import setStateInRender from "./rules/set-state-in-render";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -74,6 +73,9 @@ export const plugin: CompatiblePlugin = {
     version,
   },
   rules: {
+    "component-hook-factories": componentHookFactories,
+    "error-boundaries": errorBoundaries,
+    "exhaustive-deps": exhaustiveDeps,
     "jsx-dollar": jsxDollar,
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
@@ -114,7 +116,6 @@ export const plugin: CompatiblePlugin = {
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
-    "no-unnecessary-key": noUnnecessaryKey,
     "no-unnecessary-use-callback": noUnnecessaryUseCallback,
     "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
@@ -133,26 +134,8 @@ export const plugin: CompatiblePlugin = {
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
     "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
-
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-default-props": noDefaultProps,
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-forbidden-props": noForbiddenProps,
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-prop-types": noPropTypes,
-    /**
-     * @deprecated Use no-restricted-syntax or type checking instead
-     */
-    "no-string-refs": noStringRefs,
-    /**
-     * @deprecated
-     */
-    "no-unnecessary-use-ref": noUnnecessaryUseRef,
+    "rules-of-hooks": rulesOfHooks,
+    "set-state-in-effect": setStateInEffect,
+    "set-state-in-render": setStateInRender,
   },
 };

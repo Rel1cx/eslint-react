@@ -1,8 +1,8 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "2.14.0-beta.0",
+  "version": "3.0.0-next.0",
   "private": true,
-  "description": "Monorepo for eslint-plugin-react-[x, rsc, dom, web-api, hooks-extra, naming-convention].",
+  "description": "Monorepo for eslint-plugin-react-[x, rsc, dom, web-api, naming-convention].",
   "keywords": [
     "react",
     "eslint",
@@ -12,7 +12,6 @@
     "eslint-plugin-react-rsc",
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
-    "eslint-plugin-react-hooks-extra",
     "eslint-plugin-react-naming-convention"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
@@ -52,7 +51,7 @@
     "verify:rules-metas": "tsx ./scripts/verify-rules-metas.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.73.1",
+    "@effect/language-service": "^0.74.0",
     "@effect/platform": "^0.94.5",
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.2",
@@ -64,15 +63,15 @@
     "@types/node": "^25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/parser": "^8.55.0",
-    "@typescript-eslint/rule-tester": "^8.55.0",
-    "@typescript-eslint/types": "^8.55.0",
+    "@typescript-eslint/parser": "^8.56.0",
+    "@typescript-eslint/rule-tester": "^8.56.0",
+    "@typescript-eslint/types": "^8.56.0",
     "ansis": "^4.2.0",
     "dedent": "^1.7.1",
     "dprint": "^0.51.1",
-    "effect": "^3.19.17",
+    "effect": "^3.19.18",
     "eslint": "^10.0.0",
-    "eslint-plugin-fast-import": "^1.10.0",
+    "eslint-plugin-fast-import": "^1.11.0",
     "eslint-plugin-function-rule": "^0.7.0",
     "mdxlint": "^1.0.0",
     "preact": "^10.28.3",
@@ -92,11 +91,11 @@
     "typedoc-plugin-markdown": "^4.10.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.55.0",
+    "typescript-eslint": "^8.56.0",
     "vitest": "^4.0.18"
   },
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@10.30.0",
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=22.0.0"
   }
 }
