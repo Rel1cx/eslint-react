@@ -6,9 +6,9 @@
 
 The `jsx-no-iife` rule has been removed. Its IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
 
-| Old Rule (`react-x/`) | New Rule (`react-x/`) | Change          |
-| :-------------------- | :-------------------- | :-------------- |
-| `jsx-no-iife`         | `unsupported-syntax`  | merged, renamed |
+| Old Rule (`react-x/`) | New Rule (`react-x/`) | Change       |
+| :-------------------- | :-------------------- | :----------- |
+| `jsx-no-iife`         | `unsupported-syntax`  | consolidated |
 
 If you had `jsx-no-iife` enabled in your configuration, replace it with `unsupported-syntax`:
 
@@ -64,7 +64,6 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 | Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`                           |
 | Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`                          |
-| Removed (rule)           | `react-x/refs`                                                          | `recommended`, `x`                                      | moved to experimental            |
 | Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`                           |
 | Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/unsupported-syntax`                                            | `recommended`, `x`                                      | `error`                          |
