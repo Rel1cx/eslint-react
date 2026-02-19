@@ -3,7 +3,5 @@
 # Type Alias: ComponentKind
 
 ```ts
-type ComponentKind = "client-function" | "server-function";
+type ComponentKind = "class-component" | "pure-component" | "function-component";
 ```
-
-Represents the kind of a React function

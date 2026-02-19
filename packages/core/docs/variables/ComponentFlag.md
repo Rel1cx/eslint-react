@@ -3,7 +3,7 @@
 # Variable: ComponentFlag
 
 ```ts
-ComponentFlag: {
+const ComponentFlag: {
   CreateElement: bigint;
   ForwardRef: bigint;
   Memo: bigint;

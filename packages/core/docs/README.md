@@ -28,10 +28,10 @@
 | Type Alias | Description |
 | ------ | ------ |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | Hints for component collector |
-| [ComponentFlag](type-aliases/ComponentFlag.md) | Component flag constants |
-| [ComponentKind](type-aliases/ComponentKind.md) | Represents the kind of a React function |
+| [ComponentKind](type-aliases/ComponentKind.md) | - |
 | [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
 | [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
+| [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a React function |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |

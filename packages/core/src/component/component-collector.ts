@@ -5,18 +5,20 @@ import { IdGenerator } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import type { ComponentDetectionHint } from "./component-detection-hint";
-import type { FunctionComponentSemanticNode } from "./component-semantic-node";
 
 import { isHookCall } from "../hook";
 import { isJsxLike } from "../jsx";
-import { isComponentDefinition } from "./component-definition";
-import { DEFAULT_COMPONENT_DETECTION_HINT } from "./component-detection-hint";
+import {
+  type ComponentDetectionHint,
+  DEFAULT_COMPONENT_DETECTION_HINT,
+  isComponentDefinition,
+} from "./component-detection";
+import { getComponentFlagFromInitPath } from "./component-flag";
 import { getFunctionComponentId } from "./component-id";
-import { getComponentFlagFromInitPath } from "./component-init-path";
 import { isFunctionWithLooseComponentName } from "./component-name";
+import type { FunctionComponentSemanticNode } from "./component-semantic-node";
 
-const idGen = new IdGenerator("function_component_");
+const idGen = new IdGenerator("function-component:");
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
   isComponentDefinition: boolean;

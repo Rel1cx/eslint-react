@@ -5,10 +5,10 @@ import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 
 import { ComponentFlag } from "./component-flag";
-import { isClassComponent, isPureComponent } from "./component-is";
+import { isClassComponent, isPureComponent } from "./component-kind";
 import type { ClassComponentSemanticNode } from "./component-semantic-node";
 
-const idGen = new IdGenerator("class_component_");
+const idGen = new IdGenerator("class-component:");
 
 export declare namespace useComponentCollectorLegacy {
   type ReturnType = {

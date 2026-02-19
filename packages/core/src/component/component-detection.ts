@@ -1,15 +1,49 @@
 import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "../api";
-import { ComponentDetectionHint } from "./component-detection-hint";
-import { isClassComponent } from "./component-is";
+import { JsxDetectionHint } from "../jsx";
+import { isClassComponent } from "./component-kind";
 import { isFunctionWithLooseComponentName } from "./component-name";
 import { isRenderMethodLike } from "./component-render-method";
 
+export type ComponentDetectionHint = bigint;
+
 /**
- * Check if the given node is a function within a render method of a class component.
+ * Hints for component collector
+ */
+export const ComponentDetectionHint = {
+  ...JsxDetectionHint,
+  DoNotIncludeFunctionDefinedOnObjectMethod: 1n << 11n,
+  DoNotIncludeFunctionDefinedOnClassMethod: 1n << 12n,
+  DoNotIncludeFunctionDefinedOnClassProperty: 1n << 13n,
+  DoNotIncludeFunctionDefinedInArrayPattern: 1n << 14n,
+  DoNotIncludeFunctionDefinedInArrayExpression: 1n << 15n,
+  DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 16n,
+  DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 17n,
+} as const;
+
+/**
+ * Default component detection hint
+ */
+export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
+  | ComponentDetectionHint.DoNotIncludeJsxWithBigIntValue
+  | ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+  | ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
+  | ComponentDetectionHint.DoNotIncludeJsxWithStringValue
+  | ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern
+  | ComponentDetectionHint.RequireAllArrayElementsToBeJsx
+  | ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+  | ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
+
+/**
+ * Check if the given node is a function within a render method of a class component
  *
  * @param node The AST node to check
  * @returns `true` if the node is a render function inside a class component
@@ -40,39 +74,32 @@ function isRenderMethodCallback(node: ast.TSESTreeFunction) {
  * @param hint Component detection hints as bit flags
  * @returns `true` if the function matches an exclusion hint
  */
-function shouldExcludeBasedOnHint(node: ast.TSESTreeFunction, hint: bigint): boolean {
+function shouldExcludeBasedOnHint(node: ast.TSESTreeFunction, hint: bigint) {
   switch (true) {
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod)
-      && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.Property
       && node.parent.parent.type === AST.ObjectExpression:
-      return true;
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassMethod)
-      && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod);
+    case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.MethodDefinition:
-      return true;
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassProperty)
-      && ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassMethod);
+    case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.Property:
-      return true;
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern)
-      && node.parent.type === AST.ArrayPattern:
-      return true;
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression)
-      && node.parent.type === AST.ArrayExpression:
-      return true;
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback)
-      && node.parent.type === AST.CallExpression
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassProperty);
+    case node.parent.type === AST.ArrayPattern:
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern);
+    case node.parent.type === AST.ArrayExpression:
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression);
+    case node.parent.type === AST.CallExpression
       && node.parent.callee.type === AST.MemberExpression
       && node.parent.callee.property.type === AST.Identifier
       && node.parent.callee.property.name === "map":
-      return true;
-    case (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback)
-      && node.parent.type === AST.CallExpression
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback);
+    case node.parent.type === AST.CallExpression
       && node.parent.callee.type === AST.MemberExpression
       && node.parent.callee.property.type === AST.Identifier
       && node.parent.callee.property.name === "flatMap":
-      return true;
+      return !!(hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback);
   }
   return false;
 }

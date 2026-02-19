@@ -2,6 +2,11 @@ import type * as ast from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
+export type ComponentKind =
+  | "class-component"
+  | "pure-component"
+  | "function-component";
+
 /**
  * Check if a node is a React class component
  * @param node The AST node to check

@@ -3,8 +3,6 @@ import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticNode } from "../semantic";
-import type { ComponentDetectionHint } from "./component-detection-hint";
-import type { ComponentFlag } from "./component-flag";
 
 /**
  * Represents a React Function Component
@@ -30,12 +28,12 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * Flags describing the component's characteristics
    */
-  flag: ComponentFlag;
+  flag: bigint;
 
   /**
    * Hint for how the component was detected
    */
-  hint: ComponentDetectionHint;
+  hint: bigint;
 
   /**
    * List of expressions returned by the component
@@ -101,12 +99,12 @@ export interface ClassComponentSemanticNode extends SemanticNode {
   /**
    * Flags describing the component's characteristics
    */
-  flag: ComponentFlag;
+  flag: bigint;
 
   /**
    * Hint for how the component was detected
    */
-  hint: ComponentDetectionHint;
+  hint: bigint;
 
   /**
    * List of methods and properties in the class

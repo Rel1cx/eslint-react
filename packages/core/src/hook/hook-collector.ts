@@ -7,7 +7,7 @@ import type { HookSemanticNode } from "./hook-semantic-node";
 import { isHookId } from "./hook-id";
 import { isHookCall } from "./hook-is";
 
-const idGen = new IdGenerator("hook_");
+const idGen = new IdGenerator("hook:");
 
 type FunctionEntry = {
   key: string;
