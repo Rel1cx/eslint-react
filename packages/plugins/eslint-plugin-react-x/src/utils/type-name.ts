@@ -10,8 +10,6 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
   let name = symbol.name;
   let parent = symbol.declarations?.at(0)?.parent;
   if (parent == null) return checker.getFullyQualifiedName(symbol);
-  // Find the top-level namespace export declaration like `export as namespace preact;`
-  const namespace = parent.getSourceFile().statements.find((n) => ts.isNamespaceExportDeclaration(n));
   while (parent.kind !== ts.SyntaxKind.SourceFile) {
     switch (true) {
       case ts.isInterfaceDeclaration(parent):
@@ -53,9 +51,16 @@ export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symb
       case ts.isIntersectionTypeNode(parent):
       case ts.isUnionTypeNode(parent):
         break;
+      default:
+        break;
     }
     parent = parent.parent;
   }
-  if (namespace != null) return `${namespace.name.text}.${name}`;
-  return name;
+  // Find the top-level namespace export declaration like `export as namespace preact;`
+  const namespace = parent.getSourceFile().statements.find((n) => ts.isNamespaceExportDeclaration(n))?.name.text;
+  // If there's no namespace export declaration, return the name as is. Otherwise, prepend the namespace to the name.
+  if (namespace == null) return name;
+  // If the name already starts with the namespace, don't prepend it again (Prevent duplication like "React.React.Attributes.key")
+  if (name.startsWith(`${namespace}.`)) return name;
+  return `${namespace}.${name}`;
 }
