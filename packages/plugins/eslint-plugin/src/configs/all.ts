@@ -16,7 +16,6 @@ export const rules = {
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
-  "@eslint-react/jsx-no-iife": "warn",
   "@eslint-react/jsx-no-undef": "error",
   "@eslint-react/jsx-shorthand-boolean": "warn",
   "@eslint-react/jsx-shorthand-fragment": "warn",

@@ -2,6 +2,21 @@
 
 ### 💥 Breaking Changes
 
+**Removed `jsx-no-iife` rule from `eslint-plugin-react-x`**
+
+The `jsx-no-iife` rule has been removed. Its IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
+
+| Old Rule (`react-x/`) | New Rule (`react-x/`) | Change          |
+| :-------------------- | :-------------------- | :-------------- |
+| `jsx-no-iife`         | `unsupported-syntax`  | merged, renamed |
+
+If you had `jsx-no-iife` enabled in your configuration, replace it with `unsupported-syntax`:
+
+```diff
+- "react-x/jsx-no-iife": "error",
++ "react-x/unsupported-syntax": "error",
+```
+
 **Removed `eslint-plugin-react-hooks-extra` package**
 
 The `eslint-plugin-react-hooks-extra` package has been removed. All of its rules have been migrated into `eslint-plugin-react-x` (and `@eslint-react/eslint-plugin`):
@@ -39,18 +54,20 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 
 **Preset changes**
 
-| Change type              | Rule / Plugin                                                           | Presets affected                                        | Severity / Notes |
-| :----------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------ | :--------------- |
-| Removed (rule)           | `react-x/no-default-props`                                              | `recommended`, `x`                                      | removed          |
-| Removed (rule)           | `react-x/no-prop-types`                                                 | `recommended`, `x`                                      | removed          |
-| Removed (rule)           | `react-x/no-string-refs`                                                | `recommended`, `x`                                      | removed          |
-| Removed (plugin & rules) | `@eslint-react/hooks-extra` and all `@eslint-react/hooks-extra/*` rules | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed          |
-| Added (rule)             | `react-x/component-hook-factories`                                      | `recommended`, `x`                                      | `error`          |
-| Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`          |
-| Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`           |
-| Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`          |
-| Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`           |
-| Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`          |
+| Change type              | Rule / Plugin                                                           | Presets affected                                        | Severity / Notes                 |
+| :----------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------ | :------------------------------- |
+| Removed (rule)           | `react-x/no-default-props`                                              | `recommended`, `x`                                      | removed                          |
+| Removed (rule)           | `react-x/no-prop-types`                                                 | `recommended`, `x`                                      | removed                          |
+| Removed (rule)           | `react-x/no-string-refs`                                                | `recommended`, `x`                                      | removed                          |
+| Removed (plugin & rules) | `@eslint-react/hooks-extra` and all `@eslint-react/hooks-extra/*` rules | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed                          |
+| Added (rule)             | `react-x/component-hook-factories`                                      | `recommended`, `x`                                      | `error`                          |
+| Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`                          |
+| Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`                           |
+| Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`                          |
+| Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`                           |
+| Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
+| Added (rule)             | `react-x/unsupported-syntax`                                            | `recommended`, `x`                                      | `error`                          |
+| Removed (rule)           | `react-x/jsx-no-iife`                                                   | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax` |
 
 ### ✨ New
 
@@ -63,6 +80,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
+- `unsupported-syntax`: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX (previously covered by `jsx-no-iife`)
 
 **Added `compilationMode` setting:**
 

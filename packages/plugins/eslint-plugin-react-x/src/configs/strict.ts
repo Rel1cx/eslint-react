@@ -5,7 +5,6 @@ export const name = "react-x/strict";
 
 export const rules = {
   ...recommended.rules,
-  "react-x/jsx-no-iife": "error",
   "react-x/no-children-prop": "error",
   "react-x/no-class-component": "error",
   "react-x/no-misused-capture-owner-stack": "error",

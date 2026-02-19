@@ -6,7 +6,6 @@ export const name = "@eslint-react/strict";
 
 export const rules = {
   ...recommended.rules,
-  "@eslint-react/jsx-no-iife": "error",
   "@eslint-react/no-children-prop": "error",
   "@eslint-react/no-class-component": "error",
   "@eslint-react/no-misused-capture-owner-stack": "error",

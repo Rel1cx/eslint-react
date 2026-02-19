@@ -34,7 +34,6 @@ full: true
 | [`jsx-key-before-spread`](jsx-key-before-spread)                                   | 1️⃣ 1️⃣ |    `🧪`   | Enforces `key` prop placement before spread props                                                                                       |          |
 | [`jsx-no-comment-textnodes`](jsx-no-comment-textnodes)                             | 1️⃣ 1️⃣ |           | Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes           |          |
 | [`jsx-no-duplicate-props`](jsx-no-duplicate-props)                                 | 0️⃣ 0️⃣ |           | Disallows duplicate props in JSX elements                                                                                               |          |
-| [`jsx-no-iife`](jsx-no-iife)                                                       | 0️⃣ 2️⃣ |    `🧪`   | Disallows immediately-invoked function expressions in JSX                                                                               |          |
 | [`jsx-no-undef`](jsx-no-undef)                                                     | 0️⃣ 0️⃣ |           | Prevents using variables in JSX that are not defined in the scope                                                                       |          |
 | [`jsx-shorthand-boolean`](jsx-shorthand-boolean)                                   | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for boolean props                                                                                             |          |
 | [`jsx-shorthand-fragment`](jsx-shorthand-fragment)                                 | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for fragment elements                                                                                         |          |
@@ -92,6 +91,7 @@ full: true
 | [`rules-of-hooks`](rules-of-hooks)                                                 | 2️⃣ 2️⃣ |           | Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks)                                          |          |
 | [`set-state-in-effect`](set-state-in-effect)                                       | 1️⃣ 1️⃣ |           | Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance                       |          |
 | [`set-state-in-render`](set-state-in-render)                                       | 2️⃣ 2️⃣ |           | Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops |          |
+| [`unsupported-syntax`](unsupported-syntax)                                         | 2️⃣ 2️⃣ |           | Validates against syntax that React Compiler does not support                                                                           |          |
 
 ## RSC Rules
 
