@@ -136,7 +136,8 @@ export default {
 
 ```ts title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
-import { compilationMode } from "./babel.config.js";
+
+import { compilationMode } from "./babel.config.ts";
 
 export default [
   {
@@ -145,7 +146,7 @@ export default [
       "react-x": {
         version: "19.2.0",
         importSource: "react",
-        compilationMode, // Use the same compilationMode as the React Compiler config
+        compilationMode, // Use the same compilationMode as the React Compiler config for consistent analysis
         polymorphicPropName: "as",
         additionalStateHooks: "/^(useMyState|useCustomState)$/u",
       },
