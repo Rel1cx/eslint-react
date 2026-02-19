@@ -47,6 +47,7 @@ export const rules = {
   "react-x/rules-of-hooks": "error",
   "react-x/set-state-in-effect": "warn",
   "react-x/set-state-in-render": "error",
+  "react-x/unsupported-syntax": "error",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

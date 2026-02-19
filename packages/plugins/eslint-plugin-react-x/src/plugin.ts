@@ -9,7 +9,6 @@ import jsxDollar from "./rules/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
-import jsxNoIife from "./rules/jsx-no-iife";
 import jsxNoUndef from "./rules/jsx-no-undef";
 import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean";
 import jsxShorthandFragment from "./rules/jsx-shorthand-fragment";
@@ -67,6 +66,7 @@ import purity from "./rules/purity";
 import rulesOfHooks from "./rules/rules-of-hooks";
 import setStateInEffect from "./rules/set-state-in-effect";
 import setStateInRender from "./rules/set-state-in-render";
+import unsupportedSyntax from "./rules/unsupported-syntax";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -81,7 +81,6 @@ export const plugin: CompatiblePlugin = {
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
-    "jsx-no-iife": jsxNoIife,
     "jsx-no-undef": jsxNoUndef,
     "jsx-shorthand-boolean": jsxShorthandBoolean,
     "jsx-shorthand-fragment": jsxShorthandFragment,
@@ -139,5 +138,6 @@ export const plugin: CompatiblePlugin = {
     "rules-of-hooks": rulesOfHooks,
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
+    "unsupported-syntax": unsupportedSyntax,
   },
 };
