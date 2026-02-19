@@ -114,7 +114,7 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 - [ ] `react-x/set-state-in-effect` (`warn`) — catches synchronous `setState` calls inside effects.
 - [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...main
 
 ## v2.13.0 (2026-02-15)
 
