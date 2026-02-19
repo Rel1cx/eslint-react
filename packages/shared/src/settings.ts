@@ -184,7 +184,7 @@ export const normalizeSettings = ({
     isCompilerEnabled: compilationMode !== "off",
     polymorphicPropName,
     version: match(version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.0"))
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.4"))
       .otherwise(identity),
     additionalStateHooks: toRegExp(additionalStateHooks),
   } as const satisfies ESLintReactSettingsNormalized;
