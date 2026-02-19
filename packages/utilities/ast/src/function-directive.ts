@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isDirective } from "./directive-is";
 import type { TSESTreeDirective, TSESTreeFunction } from "./node-types";

@@ -16,13 +16,13 @@ export type ComponentDetectionHint = bigint;
  */
 export const ComponentDetectionHint = {
   ...JsxDetectionHint,
-  DoNotIncludeFunctionDefinedOnObjectMethod: 1n << 11n,
+  DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 17n,
+  DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 16n,
+  DoNotIncludeFunctionDefinedInArrayExpression: 1n << 15n,
+  DoNotIncludeFunctionDefinedInArrayPattern: 1n << 14n,
   DoNotIncludeFunctionDefinedOnClassMethod: 1n << 12n,
   DoNotIncludeFunctionDefinedOnClassProperty: 1n << 13n,
-  DoNotIncludeFunctionDefinedInArrayPattern: 1n << 14n,
-  DoNotIncludeFunctionDefinedInArrayExpression: 1n << 15n,
-  DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 16n,
-  DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 17n,
+  DoNotIncludeFunctionDefinedOnObjectMethod: 1n << 11n,
 } as const;
 
 /**

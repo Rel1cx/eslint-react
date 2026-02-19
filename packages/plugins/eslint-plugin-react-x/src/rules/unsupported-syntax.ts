@@ -24,10 +24,10 @@ export default createRule<[], MessageID>({
     messages: {
       eval:
         "Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.",
-      with:
-        "Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.",
       iife:
         "Do not use immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.",
+      with:
+        "Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.",
     },
     schema: [],
   },
@@ -65,11 +65,6 @@ export function create(context: RuleContext<MessageID, []>) {
         if (func == null) return;
         evalCalls.push({ node, func });
       },
-      WithStatement(node: TSESTree.WithStatement) {
-        const func = ast.findParentNode(node, ast.isFunction);
-        if (func == null) return;
-        withStmts.push({ node, func });
-      },
       "JSXElement :function"(node: ast.TSESTreeFunction) {
         if (isIifeCall(node)) {
           context.report({
@@ -104,6 +99,11 @@ export function create(context: RuleContext<MessageID, []>) {
             node,
           });
         }
+      },
+      WithStatement(node: TSESTree.WithStatement) {
+        const func = ast.findParentNode(node, ast.isFunction);
+        if (func == null) return;
+        withStmts.push({ node, func });
       },
     },
   );

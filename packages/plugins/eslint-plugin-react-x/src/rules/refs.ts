@@ -1,7 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 
@@ -19,7 +18,6 @@ export type MessageID = "readDuringRender" | "writeDuringRender";
 
 function isWriteAccess(node: TSESTree.MemberExpression): boolean {
   const { parent } = node;
-  if (parent == null) return false;
   if (parent.type === AST.AssignmentExpression && parent.left === node) return true;
   if (parent.type === AST.UpdateExpression && parent.argument === node) return true;
   return false;
@@ -50,6 +48,9 @@ function isInsideNestedFunction(
  * Inverted (with early return):
  *   if (ref.current !== null) { return ...; }
  *   ref.current = computeValue();
+ * @param node The MemberExpression node for ref.current
+ * @param isWrite Whether this access is a write (assignment/update) or a read
+ * @returns true if this access is part of a lazy initialization pattern and should be allowed during render
  */
 function isPartOfLazyInitialization(node: TSESTree.MemberExpression, isWrite: boolean): boolean {
   if (node.object.type !== AST.Identifier) return false;
@@ -69,6 +70,9 @@ function isNullCheckOperator(operator: string): boolean {
 
 /**
  * Check if a test expression is a null check on `ref.current` for a given ref name.
+ * @param test The test expression to check
+ * @param refName The name of the ref variable (e.g. "myRef") to check against
+ * @returns true if the test is of the form `ref.current === null` or `null === ref.current`
  */
 function isRefCurrentNullCheck(test: TSESTree.Expression, refName: string): boolean {
   if (test.type !== AST.BinaryExpression) return false;
@@ -81,26 +85,31 @@ function isRefCurrentNullCheck(test: TSESTree.Expression, refName: string): bool
     && side.property.type === AST.Identifier
     && side.property.name === "current";
   const isNullSide = (side: TSESTree.Expression | TSESTree.PrivateIdentifier) =>
-    side.type === AST.Literal && side.value === null;
+    side.type === AST.Literal && side.value == null;
   return (isRefSide(left) && isNullSide(right))
     || (isRefSide(right) && isNullSide(left));
 }
 
 /**
  * Check if the node is the operand of a `ref.current === null` test inside an IfStatement.
+ * @param node The MemberExpression node for ref.current
+ * @returns true if the node is part of a null check test in an if statement
  */
 function isInNullCheckTest(node: TSESTree.MemberExpression): boolean {
   const { parent } = node;
-  if (parent?.type !== AST.BinaryExpression) return false;
+  if (parent.type !== AST.BinaryExpression) return false;
   if (!isNullCheckOperator(parent.operator)) return false;
   const otherSide = parent.left === node ? parent.right : parent.left;
-  if (!(otherSide.type === AST.Literal && otherSide.value === null)) return false;
-  return parent.parent?.type === AST.IfStatement && parent.parent.test === parent;
+  if (otherSide.type !== AST.Literal || otherSide.value != null) return false;
+  return parent.parent.type === AST.IfStatement && parent.parent.test === parent;
 }
 
 /**
  * Walk up from the node to find a containing IfStatement whose test is a null-check
  * on `ref.current` with the given ref name.
+ * @param node The MemberExpression node for ref.current
+ * @param refName The name of the ref variable (e.g. "myRef") to check against
+ * @returns the enclosing IfStatement node if found, or null if not found
  */
 function findEnclosingRefNullCheckIf(
   node: TSESTree.Node,
@@ -140,6 +149,9 @@ function findEnclosingRefNullCheckIf(
  *
  *   if (ref.current !== null) { return ...; }
  *   ref.current = value; // ← this write
+ * @param node The MemberExpression node for ref.current being written to
+ * @param refName The name of the ref variable (e.g. "myRef") to check against
+ * @returns true if there is a preceding sibling if-statement that null-checks the same ref
  */
 function isWriteAfterNullCheckIf(
   node: TSESTree.MemberExpression,
