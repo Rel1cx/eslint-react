@@ -29,7 +29,7 @@
     "globals": "^17.3.0",
     "ts-blank-eslint-parser": "^0.4.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.0",
+    "typescript-eslint": "canary",
     "vite": "^7.3.1"
   },
   "engines": {

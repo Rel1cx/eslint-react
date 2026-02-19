@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@eslint-react/eff": "workspace:*",
-    "@typescript-eslint/types": "^8.56.0",
-    "@typescript-eslint/typescript-estree": "^8.56.0",
-    "@typescript-eslint/utils": "^8.56.0",
+    "@typescript-eslint/types": "canary",
+    "@typescript-eslint/typescript-estree": "canary",
+    "@typescript-eslint/utils": "canary",
     "string-ts": "^2.3.1"
   },
   "devDependencies": {

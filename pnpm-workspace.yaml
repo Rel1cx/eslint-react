@@ -10,11 +10,9 @@ onlyBuiltDependencies:
   - esbuild
   - sharp
 overrides:
-  "@eslint/js": "9.39.2"
   "@types/react": "^19.2.14"
   "@types/react-dom": "^19.2.3"
   "esbuild": "^0.27.3"
-  "eslint": "9.39.2"
   "lodash": "^4.17.23"
   "minimatch": "^10.2.1" # https://github.com/Rel1cx/eslint-react/security/dependabot/64
   "next": "^16.1.6"
