@@ -1,12 +1,11 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { not } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -39,7 +38,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { additionalStateHooks } = getSettingsFromContext(context);
   const functionEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
   const componentFnRef: { current: ast.TSESTreeFunction | null } = { current: null };
@@ -160,59 +159,61 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return "other";
   }
 
-  return {
-    ":function"(node: ast.TSESTreeFunction) {
-      const kind = getFunctionKind(node);
-      functionEntries.push({ kind, node });
-      if (kind === "component") {
-        componentFnRef.current = node;
-        componentHasEarlyReturn.current = false;
-      }
+  return defineRuleListener(
+    {
+      ":function"(node: ast.TSESTreeFunction) {
+        const kind = getFunctionKind(node);
+        functionEntries.push({ kind, node });
+        if (kind === "component") {
+          componentFnRef.current = node;
+          componentHasEarlyReturn.current = false;
+        }
+      },
+      ":function:exit"(node: ast.TSESTreeFunction) {
+        const entry = functionEntries.at(-1);
+        if (entry?.kind === "component" && componentFnRef.current === node) {
+          componentFnRef.current = null;
+          componentHasEarlyReturn.current = false;
+        }
+        functionEntries.pop();
+      },
+      CallExpression(node) {
+        const componentFn = componentFnRef.current;
+        if (componentFn == null) return;
+        if (!isSetStateCall(node)) return;
+        // Allow setState inside nested functions (event handlers, callbacks, etc.)
+        if (isInsideEventHandler(node, componentFn)) return;
+        // Allow setState inside conditional blocks
+        if (isInsideConditional(node, componentFn)) return;
+        // Allow setState after an early return (it is conditionally guarded by the early return)
+        if (componentHasEarlyReturn.current) return;
+        context.report({
+          messageId: "default",
+          node,
+          data: {
+            name: context.sourceCode.getText(node.callee),
+          },
+        });
+      },
+      ReturnStatement(node: TSESTree.ReturnStatement) {
+        const componentFn = componentFnRef.current;
+        if (componentFn == null) return;
+        // Only track early returns that belong directly to the component function
+        const entry = functionEntries.at(-1);
+        if (entry == null || entry.node !== componentFn) return;
+        if (componentFn.body.type !== AST.BlockStatement) return;
+        const body = componentFn.body.body;
+        // Walk up from the return statement to find the direct child statement of the function body
+        let stmt: TSESTree.Node = node;
+        while (stmt.parent !== componentFn.body) {
+          if (stmt.parent == null) return;
+          stmt = stmt.parent;
+        }
+        const idx = body.indexOf(stmt as TSESTree.Statement);
+        if (idx !== -1 && idx < body.length - 1) {
+          componentHasEarlyReturn.current = true;
+        }
+      },
     },
-    ":function:exit"(node: ast.TSESTreeFunction) {
-      const entry = functionEntries.at(-1);
-      if (entry?.kind === "component" && componentFnRef.current === node) {
-        componentFnRef.current = null;
-        componentHasEarlyReturn.current = false;
-      }
-      functionEntries.pop();
-    },
-    CallExpression(node) {
-      const componentFn = componentFnRef.current;
-      if (componentFn == null) return;
-      if (!isSetStateCall(node)) return;
-      // Allow setState inside nested functions (event handlers, callbacks, etc.)
-      if (isInsideEventHandler(node, componentFn)) return;
-      // Allow setState inside conditional blocks
-      if (isInsideConditional(node, componentFn)) return;
-      // Allow setState after an early return (it is conditionally guarded by the early return)
-      if (componentHasEarlyReturn.current) return;
-      context.report({
-        messageId: "default",
-        node,
-        data: {
-          name: context.sourceCode.getText(node.callee),
-        },
-      });
-    },
-    ReturnStatement(node: TSESTree.ReturnStatement) {
-      const componentFn = componentFnRef.current;
-      if (componentFn == null) return;
-      // Only track early returns that belong directly to the component function
-      const entry = functionEntries.at(-1);
-      if (entry == null || entry.node !== componentFn) return;
-      if (componentFn.body.type !== AST.BlockStatement) return;
-      const body = componentFn.body.body;
-      // Walk up from the return statement to find the direct child statement of the function body
-      let stmt: TSESTree.Node = node;
-      while (stmt.parent !== componentFn.body) {
-        if (stmt.parent == null) return;
-        stmt = stmt.parent;
-      }
-      const idx = body.indexOf(stmt as TSESTree.Statement);
-      if (idx !== -1 && idx < body.length - 1) {
-        componentHasEarlyReturn.current = true;
-      }
-    },
-  };
+  );
 }

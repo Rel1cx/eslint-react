@@ -1,13 +1,14 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
-import type { ReportDescriptor, RuleListener, SourceCode } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-callback";
@@ -36,81 +37,83 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `useCallback` is not present in the file
   if (!context.sourceCode.text.includes("useCallback")) return {};
 
-  return {
-    VariableDeclarator(node) {
-      const { id, init } = node;
-      if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseCallbackCall(init)) return;
-      const [cbk, ...rest] = context.sourceCode.getDeclaredVariables(node);
-      // Skip non-standard `useCallback()` usages to prevent false positives
-      if (cbk == null || rest.length > 0) return;
+  return defineRuleListener(
+    {
+      VariableDeclarator(node) {
+        const { id, init } = node;
+        if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseCallbackCall(init)) return;
+        const [cbk, ...rest] = context.sourceCode.getDeclaredVariables(node);
+        // Skip non-standard `useCallback()` usages to prevent false positives
+        if (cbk == null || rest.length > 0) return;
 
-      const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, init);
+        const checkForUsageInsideUseEffectReport = checkForUsageInsideUseEffect(context.sourceCode, init);
 
-      const scope = context.sourceCode.getScope(init);
-      const component = context.sourceCode.getScope(init).block;
+        const scope = context.sourceCode.getScope(init);
+        const component = context.sourceCode.getScope(init).block;
 
-      if (!ast.isFunction(component)) {
-        return;
-      }
-      const [arg0, arg1] = init.arguments;
-      if (arg0 == null || arg1 == null) {
-        return;
-      }
+        if (!ast.isFunction(component)) {
+          return;
+        }
+        const [arg0, arg1] = init.arguments;
+        if (arg0 == null || arg1 == null) {
+          return;
+        }
 
-      const hasEmptyDeps = match(arg1)
-        .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
-        .with({ type: AST.Identifier }, (n) => {
-          const variable = findVariable(n.name, scope);
-          const variableNode = getVariableDefinitionNode(variable, 0);
-          if (variableNode?.type !== AST.ArrayExpression) {
-            return false;
-          }
-          return variableNode.elements.length === 0;
-        })
-        .otherwise(() => false);
+        const hasEmptyDeps = match(arg1)
+          .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
+          .with({ type: AST.Identifier }, (n) => {
+            const variable = findVariable(n.name, scope);
+            const variableNode = getVariableDefinitionNode(variable, 0);
+            if (variableNode?.type !== AST.ArrayExpression) {
+              return false;
+            }
+            return variableNode.elements.length === 0;
+          })
+          .otherwise(() => false);
 
-      if (!hasEmptyDeps) {
+        if (!hasEmptyDeps) {
+          report(context)(checkForUsageInsideUseEffectReport);
+          return;
+        }
+
+        const arg0Node = match(arg0)
+          .with({ type: AST.ArrowFunctionExpression }, (n) => {
+            if (n.body.type === AST.ArrowFunctionExpression) {
+              return n.body;
+            }
+            return n;
+          })
+          .with({ type: AST.FunctionExpression }, identity)
+          .with({ type: AST.Identifier }, (n) => {
+            const variable = findVariable(n.name, scope);
+            const variableNode = getVariableDefinitionNode(variable, 0);
+            if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
+              return null;
+            }
+            return variableNode;
+          })
+          .otherwise(() => null);
+        if (arg0Node == null) return;
+
+        const arg0NodeScope = context.sourceCode.getScope(arg0Node);
+        const arg0NodeReferences = getChildScopes(arg0NodeScope).flatMap((x) => x.references);
+        const isReferencedToComponentScope = arg0NodeReferences.some((x) => x.resolved?.scope.block === component);
+
+        if (!isReferencedToComponentScope) {
+          context.report({
+            messageId: "default",
+            node,
+          });
+          return;
+        }
         report(context)(checkForUsageInsideUseEffectReport);
-        return;
-      }
-
-      const arg0Node = match(arg0)
-        .with({ type: AST.ArrowFunctionExpression }, (n) => {
-          if (n.body.type === AST.ArrowFunctionExpression) {
-            return n.body;
-          }
-          return n;
-        })
-        .with({ type: AST.FunctionExpression }, identity)
-        .with({ type: AST.Identifier }, (n) => {
-          const variable = findVariable(n.name, scope);
-          const variableNode = getVariableDefinitionNode(variable, 0);
-          if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
-            return null;
-          }
-          return variableNode;
-        })
-        .otherwise(() => null);
-      if (arg0Node == null) return;
-
-      const arg0NodeScope = context.sourceCode.getScope(arg0Node);
-      const arg0NodeReferences = getChildScopes(arg0NodeScope).flatMap((x) => x.references);
-      const isReferencedToComponentScope = arg0NodeReferences.some((x) => x.resolved?.scope.block === component);
-
-      if (!isReferencedToComponentScope) {
-        context.report({
-          messageId: "default",
-          node,
-        });
-        return;
-      }
-      report(context)(checkForUsageInsideUseEffectReport);
+      },
     },
-  };
+  );
 }
 
 function checkForUsageInsideUseEffect(

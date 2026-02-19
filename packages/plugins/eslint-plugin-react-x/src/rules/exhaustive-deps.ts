@@ -1,6 +1,12 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import {
+  type RuleContext,
+  type RuleFeature,
+  type RuleFix,
+  type RuleFixer,
+  defineRuleListener,
+} from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import {
   DefinitionType,
@@ -10,7 +16,6 @@ import {
 } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -282,7 +287,7 @@ export default createRule<Options, MessageID>({
   defaultOptions: [{}],
 });
 
-export function create(context: RuleContext<MessageID, Options>): RuleListener {
+export function create(context: RuleContext<MessageID, Options>) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- options[0] may be undefined at runtime when defaultOptions is not applied
   const additionalHooks = context.options[0]?.additionalHooks;
   const additionalHooksRegex = additionalHooks != null && additionalHooks.length > 0
@@ -531,42 +536,44 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
     }
   }
 
-  return {
-    CallExpression(node: TSESTree.CallExpression) {
-      if (!isHookWithDeps(node)) return;
+  return defineRuleListener(
+    {
+      CallExpression(node: TSESTree.CallExpression) {
+        if (!isHookWithDeps(node)) return;
 
-      const hookName = getHookName(node);
-      if (hookName == null) return;
+        const hookName = getHookName(node);
+        if (hookName == null) return;
 
-      const result = extractCallbackAndDeps(node, hookName);
-      if (result == null) return;
+        const result = extractCallbackAndDeps(node, hookName);
+        if (result == null) return;
 
-      const { callback, depsArgNode, depsNode } = result;
+        const { callback, depsArgNode, depsNode } = result;
 
-      // 4.5: If the dependency argument is not an array literal, report and skip
-      if (depsNode == null && depsArgNode != null) {
-        context.report({
-          messageId: "nonLiteralDeps",
-          node: depsArgNode,
-          data: { hookName },
+        // 4.5: If the dependency argument is not an array literal, report and skip
+        if (depsNode == null && depsArgNode != null) {
+          context.report({
+            messageId: "nonLiteralDeps",
+            node: depsArgNode,
+            data: { hookName },
+          });
+          return;
+        }
+
+        // Collect for analysis
+        collectedHookCalls.push({
+          node,
+          callback,
+          depsArgNode,
+          depsNode,
+          hookName,
         });
-        return;
-      }
-
-      // Collect for analysis
-      collectedHookCalls.push({
-        node,
-        callback,
-        depsArgNode,
-        depsNode,
-        hookName,
-      });
+      },
+      "Program:exit"() {
+        // Analyze all collected hook calls
+        for (const hookCall of collectedHookCalls) {
+          analyzeHookCall(hookCall);
+        }
+      },
     },
-    "Program:exit"() {
-      // Analyze all collected hook calls
-      for (const hookCall of collectedHookCalls) {
-        analyzeHookCall(hookCall);
-      }
-    },
-  };
+  );
 }

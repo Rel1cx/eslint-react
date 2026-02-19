@@ -1,6 +1,5 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -35,61 +34,63 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Sets to track imported names for 'ReactDOM' and 'render'
   const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
   const renderNames = new Set<string>();
 
-  return {
-    // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
-    CallExpression(node) {
-      switch (true) {
-        // Handles direct calls to 'render' (e.g., from `import { render } from 'react-dom'`)
-        case node.callee.type === AST.Identifier
-          && renderNames.has(node.callee.name)
-          // Check if the return value is being used
-          && banParentTypes.includes(node.parent.type):
-          context.report({
-            messageId: "default",
-            node,
-          });
-          return;
-        // Handles member expression calls like 'ReactDOM.render'
-        case node.callee.type === AST.MemberExpression
-          && node.callee.object.type === AST.Identifier
-          && node.callee.property.type === AST.Identifier
-          && node.callee.property.name === "render"
-          && reactDomNames.has(node.callee.object.name)
-          // Check if the return value is being used
-          && banParentTypes.includes(node.parent.type):
-          context.report({
-            messageId: "default",
-            node,
-          });
-          return;
-      }
-    },
-    // Tracks imports from 'react-dom' to identify 'ReactDOM' and 'render' related identifiers
-    ImportDeclaration(node) {
-      // Check if the import source is 'react-dom' or 'react-dom/client'
-      const [baseSource] = node.source.value.split("/");
-      if (baseSource !== "react-dom") return;
-      for (const specifier of node.specifiers) {
-        switch (specifier.type) {
-          // Handles named imports like `import { render } from 'react-dom'`
-          case AST.ImportSpecifier:
-            if (specifier.imported.type !== AST.Identifier) continue;
-            if (specifier.imported.name === "render") {
-              renderNames.add(specifier.local.name);
-            }
-            continue;
-          // Handles default or namespace imports like `import ReactDOM from 'react-dom'`
-          case AST.ImportDefaultSpecifier:
-          case AST.ImportNamespaceSpecifier:
-            reactDomNames.add(specifier.local.name);
-            continue;
+  return defineRuleListener(
+    {
+      // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
+      CallExpression(node) {
+        switch (true) {
+          // Handles direct calls to 'render' (e.g., from `import { render } from 'react-dom'`)
+          case node.callee.type === AST.Identifier
+            && renderNames.has(node.callee.name)
+            // Check if the return value is being used
+            && banParentTypes.includes(node.parent.type):
+            context.report({
+              messageId: "default",
+              node,
+            });
+            return;
+          // Handles member expression calls like 'ReactDOM.render'
+          case node.callee.type === AST.MemberExpression
+            && node.callee.object.type === AST.Identifier
+            && node.callee.property.type === AST.Identifier
+            && node.callee.property.name === "render"
+            && reactDomNames.has(node.callee.object.name)
+            // Check if the return value is being used
+            && banParentTypes.includes(node.parent.type):
+            context.report({
+              messageId: "default",
+              node,
+            });
+            return;
         }
-      }
+      },
+      // Tracks imports from 'react-dom' to identify 'ReactDOM' and 'render' related identifiers
+      ImportDeclaration(node) {
+        // Check if the import source is 'react-dom' or 'react-dom/client'
+        const [baseSource] = node.source.value.split("/");
+        if (baseSource !== "react-dom") return;
+        for (const specifier of node.specifiers) {
+          switch (specifier.type) {
+            // Handles named imports like `import { render } from 'react-dom'`
+            case AST.ImportSpecifier:
+              if (specifier.imported.type !== AST.Identifier) continue;
+              if (specifier.imported.name === "render") {
+                renderNames.add(specifier.local.name);
+              }
+              continue;
+            // Handles default or namespace imports like `import ReactDOM from 'react-dom'`
+            case AST.ImportDefaultSpecifier:
+            case AST.ImportNamespaceSpecifier:
+              reactDomNames.add(specifier.local.name);
+              continue;
+          }
+        }
+      },
     },
-  };
+  );
 }

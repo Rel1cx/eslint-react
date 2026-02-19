@@ -1,7 +1,6 @@
-import { type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -30,11 +29,12 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { importSource } = getSettingsFromContext(context);
-  return {
-    // dprint-ignore
-    [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
+  return defineRuleListener(
+    {
+      // dprint-ignore
+      [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
       const hasOtherSpecifiers = node.parent.specifiers.length > 1;
       context.report({
         messageId: "default",
@@ -66,5 +66,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         },
       });
     },
-  };
+    },
+  );
 }

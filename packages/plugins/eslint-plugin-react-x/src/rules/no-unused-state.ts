@@ -2,10 +2,9 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { constFalse, constTrue } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -47,7 +46,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Stacks to keep track of the current AST traversal context
   const classStack: ast.TSESTreeClass[] = [];
   const methodStack: ast.TSESTreeMethodOrProperty[] = [];
@@ -125,102 +124,104 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     constructorStack.pop();
   }
 
-  return {
-    AssignmentExpression(node) {
-      // Detect state definition in constructor (`this.state = ...`)
-      if (!core.isAssignmentToThisState(node)) {
-        return;
-      }
-      const currentClass = classStack.at(-1);
-      if (currentClass == null || !core.isClassComponent(currentClass)) {
-        return;
-      }
-      // Ensure the assignment is within the constructor of the current class
-      const currentConstructor = constructorStack.at(-1);
-      if (
-        currentConstructor == null
-        || !currentClass.body.body.includes(currentConstructor)
-      ) {
-        return;
-      }
-      // Record the state definition node
-      const isUsed = stateDefs.get(currentClass)?.isUsed ?? false;
-      stateDefs.set(currentClass, { node: node.left, isUsed });
-    },
-    ClassDeclaration: classEnter,
-    "ClassDeclaration:exit": classExit,
-    ClassExpression: classEnter,
-    "ClassExpression:exit": classExit,
-    MemberExpression(node) {
-      // Detect state usage (`this.state`)
-      if (!ast.isThisExpressionLoose(node.object)) {
-        return;
-      }
-      if (ast.getPropertyName(node.property) !== "state") {
-        return;
-      }
-      const currentClass = classStack.at(-1);
-      if (currentClass == null || !core.isClassComponent(currentClass)) {
-        return;
-      }
-      // Ensure the usage is within a method of the current class
-      const currentMethod = methodStack.at(-1);
-      if (currentMethod == null || currentMethod.static) {
-        return;
-      }
-      // Ignore usage in constructor, as it's a definition
-      if (currentMethod === constructorStack.at(-1)) {
-        return;
-      }
-      if (!currentClass.body.body.includes(currentMethod)) {
-        return;
-      }
-      // Mark state as used
-      const defNode = stateDefs.get(currentClass)?.node;
-      stateDefs.set(currentClass, { node: defNode, isUsed: true });
-    },
-    MethodDefinition: methodEnter,
-    "MethodDefinition:exit": methodExit,
-    "MethodDefinition[key.name='constructor']": constructorEnter,
-    "MethodDefinition[key.name='constructor']:exit": constructorExit,
-    PropertyDefinition: methodEnter,
-    "PropertyDefinition:exit": methodExit,
-    VariableDeclarator(node) {
-      const currentClass = classStack.at(-1);
-      if (currentClass == null || !core.isClassComponent(currentClass)) {
-        return;
-      }
-      const currentMethod = methodStack.at(-1);
-      if (currentMethod == null || currentMethod.static) {
-        return;
-      }
-      // Ignore usage in constructor
-      if (currentMethod === constructorStack.at(-1)) {
-        return;
-      }
-      if (!currentClass.body.body.includes(currentMethod)) {
-        return;
-      }
-      // Detect state usage via destructuring (`const { state } = this`)
-      if (
-        node.init == null
-        || !ast.isThisExpressionLoose(node.init)
-        || node.id.type !== AST.ObjectPattern
-      ) {
-        return;
-      }
-      const hasState = node.id.properties.some((prop) => {
-        if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
-          return ast.getPropertyName(prop.key) === "state";
+  return defineRuleListener(
+    {
+      AssignmentExpression(node) {
+        // Detect state definition in constructor (`this.state = ...`)
+        if (!core.isAssignmentToThisState(node)) {
+          return;
         }
-        return false;
-      });
-      if (!hasState) {
-        return;
-      }
-      // Mark state as used
-      const defNode = stateDefs.get(currentClass)?.node;
-      stateDefs.set(currentClass, { node: defNode, isUsed: true });
+        const currentClass = classStack.at(-1);
+        if (currentClass == null || !core.isClassComponent(currentClass)) {
+          return;
+        }
+        // Ensure the assignment is within the constructor of the current class
+        const currentConstructor = constructorStack.at(-1);
+        if (
+          currentConstructor == null
+          || !currentClass.body.body.includes(currentConstructor)
+        ) {
+          return;
+        }
+        // Record the state definition node
+        const isUsed = stateDefs.get(currentClass)?.isUsed ?? false;
+        stateDefs.set(currentClass, { node: node.left, isUsed });
+      },
+      ClassDeclaration: classEnter,
+      "ClassDeclaration:exit": classExit,
+      ClassExpression: classEnter,
+      "ClassExpression:exit": classExit,
+      MemberExpression(node) {
+        // Detect state usage (`this.state`)
+        if (!ast.isThisExpressionLoose(node.object)) {
+          return;
+        }
+        if (ast.getPropertyName(node.property) !== "state") {
+          return;
+        }
+        const currentClass = classStack.at(-1);
+        if (currentClass == null || !core.isClassComponent(currentClass)) {
+          return;
+        }
+        // Ensure the usage is within a method of the current class
+        const currentMethod = methodStack.at(-1);
+        if (currentMethod == null || currentMethod.static) {
+          return;
+        }
+        // Ignore usage in constructor, as it's a definition
+        if (currentMethod === constructorStack.at(-1)) {
+          return;
+        }
+        if (!currentClass.body.body.includes(currentMethod)) {
+          return;
+        }
+        // Mark state as used
+        const defNode = stateDefs.get(currentClass)?.node;
+        stateDefs.set(currentClass, { node: defNode, isUsed: true });
+      },
+      MethodDefinition: methodEnter,
+      "MethodDefinition:exit": methodExit,
+      "MethodDefinition[key.name='constructor']": constructorEnter,
+      "MethodDefinition[key.name='constructor']:exit": constructorExit,
+      PropertyDefinition: methodEnter,
+      "PropertyDefinition:exit": methodExit,
+      VariableDeclarator(node) {
+        const currentClass = classStack.at(-1);
+        if (currentClass == null || !core.isClassComponent(currentClass)) {
+          return;
+        }
+        const currentMethod = methodStack.at(-1);
+        if (currentMethod == null || currentMethod.static) {
+          return;
+        }
+        // Ignore usage in constructor
+        if (currentMethod === constructorStack.at(-1)) {
+          return;
+        }
+        if (!currentClass.body.body.includes(currentMethod)) {
+          return;
+        }
+        // Detect state usage via destructuring (`const { state } = this`)
+        if (
+          node.init == null
+          || !ast.isThisExpressionLoose(node.init)
+          || node.id.type !== AST.ObjectPattern
+        ) {
+          return;
+        }
+        const hasState = node.id.properties.some((prop) => {
+          if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
+            return ast.getPropertyName(prop.key) === "state";
+          }
+          return false;
+        });
+        if (!hasState) {
+          return;
+        }
+        // Mark state as used
+        const defNode = stateDefs.get(currentClass)?.node;
+        stateDefs.set(currentClass, { node: defNode, isUsed: true });
+      },
     },
-  };
+  );
 }

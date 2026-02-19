@@ -1,6 +1,5 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../utils";
 
@@ -28,20 +27,22 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
   if (!context.sourceCode.text.includes(DSIH)) return {};
-  return {
-    JSXElement(node) {
-      // Check if the element has the 'dangerouslySetInnerHTML' prop
-      const dsihProp = core.getJsxAttribute(context, node)(DSIH);
-      // If the prop is not found, do nothing
-      if (dsihProp == null) return;
-      // If the prop is found, report an error
-      context.report({
-        messageId: "default",
-        node: dsihProp,
-      });
+  return defineRuleListener(
+    {
+      JSXElement(node) {
+        // Check if the element has the 'dangerouslySetInnerHTML' prop
+        const dsihProp = core.getJsxAttribute(context, node)(DSIH);
+        // If the prop is not found, do nothing
+        if (dsihProp == null) return;
+        // If the prop is found, report an error
+        context.report({
+          messageId: "default",
+          node: dsihProp,
+        });
+      },
     },
-  };
+  );
 }

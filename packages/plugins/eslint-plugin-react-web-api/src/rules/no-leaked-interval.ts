@@ -1,9 +1,8 @@
 import type * as ast from "@eslint-react/ast";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching } from "ts-pattern";
 
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "../types";
@@ -73,7 +72,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `setInterval` is not present in the file
   if (!context.sourceCode.text.includes("setInterval")) {
     return {};
@@ -84,94 +83,96 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
-  return {
-    [":function"](node: ast.TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
-      fEntries.push({ kind, node });
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
-    ["CallExpression"](node) {
-      switch (getCallKind(node)) {
-        case "setInterval": {
-          const fEntry = fEntries.findLast((x) => x.kind !== "other");
-          if (fEntry == null) {
-            break;
-          }
-          if (!ComponentPhaseRelevance.has(fEntry.kind)) {
-            break;
-          }
-          const intervalIdNode = findEnclosingAssignmentTarget(node);
-          if (intervalIdNode == null) {
-            context.report({
-              messageId: "expectedIntervalId",
+  return defineRuleListener(
+    {
+      [":function"](node: ast.TSESTreeFunction) {
+        const kind = getPhaseKindOfFunction(node) ?? "other";
+        fEntries.push({ kind, node });
+      },
+      [":function:exit"]() {
+        fEntries.pop();
+      },
+      ["CallExpression"](node) {
+        switch (getCallKind(node)) {
+          case "setInterval": {
+            const fEntry = fEntries.findLast((x) => x.kind !== "other");
+            if (fEntry == null) {
+              break;
+            }
+            if (!ComponentPhaseRelevance.has(fEntry.kind)) {
+              break;
+            }
+            const intervalIdNode = findEnclosingAssignmentTarget(node);
+            if (intervalIdNode == null) {
+              context.report({
+                messageId: "expectedIntervalId",
+                node,
+              });
+              break;
+            }
+            sEntries.push({
+              kind: "interval",
               node,
+              callee: node.callee,
+              phase: fEntry.kind,
+              timerId: intervalIdNode,
             });
             break;
           }
-          sEntries.push({
-            kind: "interval",
-            node,
-            callee: node.callee,
-            phase: fEntry.kind,
-            timerId: intervalIdNode,
-          });
-          break;
-        }
-        case "clearInterval": {
-          const fEntry = fEntries.findLast((x) => x.kind !== "other");
-          if (fEntry == null) {
-            break;
-          }
-          if (!ComponentPhaseRelevance.has(fEntry.kind)) {
-            break;
-          }
-          const [intervalIdNode] = node.arguments;
-          if (intervalIdNode == null) {
-            break;
-          }
-          cEntries.push({
-            kind: "interval",
-            node,
-            callee: node.callee,
-            phase: fEntry.kind,
-            timerId: intervalIdNode,
-          });
-          break;
-        }
-      }
-    },
-    ["Program:exit"]() {
-      for (const sEntry of sEntries) {
-        if (cEntries.some((cEntry) => isInverseEntry(sEntry, cEntry))) {
-          continue;
-        }
-        switch (sEntry.phase) {
-          case "setup":
-          case "cleanup":
-            context.report({
-              messageId: "expectedClearIntervalInCleanup",
-              node: sEntry.node,
-              data: {
-                kind: "useEffect",
-              },
+          case "clearInterval": {
+            const fEntry = fEntries.findLast((x) => x.kind !== "other");
+            if (fEntry == null) {
+              break;
+            }
+            if (!ComponentPhaseRelevance.has(fEntry.kind)) {
+              break;
+            }
+            const [intervalIdNode] = node.arguments;
+            if (intervalIdNode == null) {
+              break;
+            }
+            cEntries.push({
+              kind: "interval",
+              node,
+              callee: node.callee,
+              phase: fEntry.kind,
+              timerId: intervalIdNode,
             });
+            break;
+          }
+        }
+      },
+      ["Program:exit"]() {
+        for (const sEntry of sEntries) {
+          if (cEntries.some((cEntry) => isInverseEntry(sEntry, cEntry))) {
             continue;
-          case "mount":
-          case "unmount":
-            context.report({
-              messageId: "expectedClearIntervalInUnmount",
-              node: sEntry.node,
-              data: {
-                kind: "componentDidMount",
-              },
-            });
-            continue;
+          }
+          switch (sEntry.phase) {
+            case "setup":
+            case "cleanup":
+              context.report({
+                messageId: "expectedClearIntervalInCleanup",
+                node: sEntry.node,
+                data: {
+                  kind: "useEffect",
+                },
+              });
+              continue;
+            case "mount":
+            case "unmount":
+              context.report({
+                messageId: "expectedClearIntervalInUnmount",
+                node: sEntry.node,
+                data: {
+                  kind: "componentDidMount",
+                },
+              });
+              continue;
+          }
         }
-      }
+      },
     },
-  };
+  );
 }
 
 // #endregion

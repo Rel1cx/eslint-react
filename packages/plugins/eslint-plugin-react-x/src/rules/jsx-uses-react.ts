@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -27,7 +26,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const jsxConfig = {
     ...core.getJsxConfigFromContext(context),
     ...core.getJsxConfigFromAnnotation(context),
@@ -50,11 +49,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     debugReport(context, node, jsxFragmentFactory);
   }
 
-  return {
-    JSXFragment: handleJsxFragment,
-    JSXOpeningElement: handleJsxElement,
-    JSXOpeningFragment: handleJsxElement,
-  };
+  return defineRuleListener(
+    {
+      JSXFragment: handleJsxFragment,
+      JSXOpeningElement: handleJsxElement,
+      JSXOpeningFragment: handleJsxElement,
+    },
+  );
 }
 
 function debugReport(context: RuleContext, node: TSESTree.Node, name: string) {

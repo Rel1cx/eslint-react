@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -47,26 +46,28 @@ function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
   return !isFormattingWhitespace;
 }
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: if the file doesn't contain `dangerouslySetInnerHTML`, we don't need to do anything
   if (!context.sourceCode.text.includes(DSIH)) {
     return {};
   }
 
-  return {
-    JSXElement(node) {
-      const findJsxAttribute = core.getJsxAttribute(context, node);
-      // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
-      if (findJsxAttribute(DSIH) == null) return;
-      // Check for a 'children' prop or actual child nodes that are not just whitespace
-      const childrenPropOrNode = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
-      // If no children are found, the rule passes
-      if (childrenPropOrNode == null) return;
-      // If both 'dangerouslySetInnerHTML' and children are present, report an error
-      context.report({
-        messageId: "default",
-        node: childrenPropOrNode,
-      });
+  return defineRuleListener(
+    {
+      JSXElement(node) {
+        const findJsxAttribute = core.getJsxAttribute(context, node);
+        // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
+        if (findJsxAttribute(DSIH) == null) return;
+        // Check for a 'children' prop or actual child nodes that are not just whitespace
+        const childrenPropOrNode = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
+        // If no children are found, the rule passes
+        if (childrenPropOrNode == null) return;
+        // If both 'dangerouslySetInnerHTML' and children are present, report an error
+        context.report({
+          messageId: "default",
+          node: childrenPropOrNode,
+        });
+      },
     },
-  };
+  );
 }

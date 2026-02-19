@@ -1,6 +1,5 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -26,28 +25,30 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    JSXOpeningElement(node) {
-      switch (node.name.type) {
-        case AST.JSXIdentifier: {
-          // Skip JsxIntrinsicElements (e.g., `<div>`)
-          if (/^[a-z]/u.test(node.name.name)) {
-            return;
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      JSXOpeningElement(node) {
+        switch (node.name.type) {
+          case AST.JSXIdentifier: {
+            // Skip JsxIntrinsicElements (e.g., `<div>`)
+            if (/^[a-z]/u.test(node.name.name)) {
+              return;
+            }
+            // Mark custom components (e.g., `<Component />`) as used
+            context.sourceCode.markVariableAsUsed(node.name.name, node);
+            break;
           }
-          // Mark custom components (e.g., `<Component />`) as used
-          context.sourceCode.markVariableAsUsed(node.name.name, node);
-          break;
-        }
-        case AST.JSXMemberExpression: {
-          const { object } = node.name;
-          if (object.type === AST.JSXIdentifier) {
-            // Mark the base of member expressions (e.g., `React` in `<React.Fragment />`) as used
-            context.sourceCode.markVariableAsUsed(object.name, node);
+          case AST.JSXMemberExpression: {
+            const { object } = node.name;
+            if (object.type === AST.JSXIdentifier) {
+              // Mark the base of member expressions (e.g., `React` in `<React.Fragment />`) as used
+              context.sourceCode.markVariableAsUsed(object.name, node);
+            }
+            break;
           }
-          break;
         }
-      }
+      },
     },
-  };
+  );
 }

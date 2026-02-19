@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(ctx: RuleContext<MessageID, []>): RuleListener {
+export function create(ctx: RuleContext<MessageID, []>) {
   let inChildrenToArray = false;
 
   function check(node: TSESTree.Node): Descriptor | null {
@@ -71,44 +71,46 @@ export function create(ctx: RuleContext<MessageID, []>): RuleListener {
       .filter((d): d is Descriptor => d != null);
   }
 
-  return {
-    ArrayExpression(node) {
-      if (inChildrenToArray) return;
-      const elements = node.elements.filter(ast.is(AST.JSXElement));
-      if (elements.length === 0) return;
-      const scope = ctx.sourceCode.getScope(node);
-      for (const el of elements) {
-        if (core.getJsxAttribute(ctx, el, scope)("key") == null) {
-          ctx.report({ messageId: "default", node: el });
+  return defineRuleListener(
+    {
+      ArrayExpression(node) {
+        if (inChildrenToArray) return;
+        const elements = node.elements.filter(ast.is(AST.JSXElement));
+        if (elements.length === 0) return;
+        const scope = ctx.sourceCode.getScope(node);
+        for (const el of elements) {
+          if (core.getJsxAttribute(ctx, el, scope)("key") == null) {
+            ctx.report({ messageId: "default", node: el });
+          }
         }
-      }
+      },
+      CallExpression(node) {
+        inChildrenToArray ||= core.isChildrenToArrayCall(ctx, node);
+        if (inChildrenToArray) return;
+        if (node.callee.type !== AST.MemberExpression) return;
+        if (node.callee.property.type !== AST.Identifier) return;
+        const name = node.callee.property.name;
+        const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
+        if (idx < 0) return;
+        const cb = node.arguments[idx];
+        if (!ast.isFunction(cb)) return;
+        if (cb.body.type === AST.BlockStatement) {
+          checkBlock(cb.body).forEach(report(ctx));
+        } else {
+          report(ctx)(checkExpr(cb.body));
+        }
+      },
+      "CallExpression:exit"(node) {
+        if (core.isChildrenToArrayCall(ctx, node)) {
+          inChildrenToArray = false;
+        }
+      },
+      JSXFragment(node) {
+        if (inChildrenToArray) return;
+        if (node.parent.type === AST.ArrayExpression) {
+          ctx.report({ messageId: "unexpectedFragmentSyntax", node });
+        }
+      },
     },
-    CallExpression(node) {
-      inChildrenToArray ||= core.isChildrenToArrayCall(ctx, node);
-      if (inChildrenToArray) return;
-      if (node.callee.type !== AST.MemberExpression) return;
-      if (node.callee.property.type !== AST.Identifier) return;
-      const name = node.callee.property.name;
-      const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
-      if (idx < 0) return;
-      const cb = node.arguments[idx];
-      if (!ast.isFunction(cb)) return;
-      if (cb.body.type === AST.BlockStatement) {
-        checkBlock(cb.body).forEach(report(ctx));
-      } else {
-        report(ctx)(checkExpr(cb.body));
-      }
-    },
-    "CallExpression:exit"(node) {
-      if (core.isChildrenToArrayCall(ctx, node)) {
-        inChildrenToArray = false;
-      }
-    },
-    JSXFragment(node) {
-      if (inChildrenToArray) return;
-      if (node.parent.type === AST.ArrayExpression) {
-        ctx.report({ messageId: "unexpectedFragmentSyntax", node });
-      }
-    },
-  };
+  );
 }

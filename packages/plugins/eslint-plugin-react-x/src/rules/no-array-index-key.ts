@@ -1,11 +1,11 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { coerceSettings } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -135,7 +135,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // A stack to keep track of index parameter names from nested map calls
   const indexParamNames: Array<string | unit> = [];
 
@@ -209,57 +209,59 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return [];
   }
 
-  return {
-    CallExpression(node) {
-      // Push the index parameter name (if any) to the stack
-      indexParamNames.push(getMapIndexParamName(context, node));
-      if (node.arguments.length === 0) {
-        return;
-      }
-      // Check for array index usage in `createElement` and `cloneElement` calls
-      if (!isCreateOrCloneElementCall(node)) {
-        return;
-      }
-      const [, props] = node.arguments;
-      if (props?.type !== AST.ObjectExpression) {
-        return;
-      }
-      for (const prop of props.properties) {
-        // Find the 'key' prop
-        if (!isMatching({ key: { name: "key" } })(prop)) {
-          continue;
+  return defineRuleListener(
+    {
+      CallExpression(node) {
+        // Push the index parameter name (if any) to the stack
+        indexParamNames.push(getMapIndexParamName(context, node));
+        if (node.arguments.length === 0) {
+          return;
         }
-        if (!("value" in prop)) {
-          continue;
+        // Check for array index usage in `createElement` and `cloneElement` calls
+        if (!isCreateOrCloneElementCall(node)) {
+          return;
         }
-        // Check its value and report if it uses an array index
-        for (const descriptor of getReportDescriptors(prop.value)) {
+        const [, props] = node.arguments;
+        if (props?.type !== AST.ObjectExpression) {
+          return;
+        }
+        for (const prop of props.properties) {
+          // Find the 'key' prop
+          if (!isMatching({ key: { name: "key" } })(prop)) {
+            continue;
+          }
+          if (!("value" in prop)) {
+            continue;
+          }
+          // Check its value and report if it uses an array index
+          for (const descriptor of getReportDescriptors(prop.value)) {
+            report(context)(descriptor);
+          }
+        }
+      },
+      // When exiting a CallExpression, pop the index name from the stack to manage scope
+      "CallExpression:exit"() {
+        indexParamNames.pop();
+      },
+      // Handles JSX attributes
+      JSXAttribute(node) {
+        // Check only for the 'key' attribute
+        if (node.name.name !== "key") {
+          return;
+        }
+        // Ignore if we are not inside a map-like call
+        if (indexParamNames.length === 0) {
+          return;
+        }
+        // The key's value must be an expression container (e.g., key={...})
+        if (node.value?.type !== AST.JSXExpressionContainer) {
+          return;
+        }
+        // Check the expression and report if it uses an array index
+        for (const descriptor of getReportDescriptors(node.value.expression)) {
           report(context)(descriptor);
         }
-      }
+      },
     },
-    // When exiting a CallExpression, pop the index name from the stack to manage scope
-    "CallExpression:exit"() {
-      indexParamNames.pop();
-    },
-    // Handles JSX attributes
-    JSXAttribute(node) {
-      // Check only for the 'key' attribute
-      if (node.name.name !== "key") {
-        return;
-      }
-      // Ignore if we are not inside a map-like call
-      if (indexParamNames.length === 0) {
-        return;
-      }
-      // The key's value must be an expression container (e.g., key={...})
-      if (node.value?.type !== AST.JSXExpressionContainer) {
-        return;
-      }
-      // Check the expression and report if it uses an array index
-      for (const descriptor of getReportDescriptors(node.value.expression)) {
-        report(context)(descriptor);
-      }
-    },
-  };
+  );
 }

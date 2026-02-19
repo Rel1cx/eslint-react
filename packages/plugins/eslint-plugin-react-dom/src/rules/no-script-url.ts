@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
-import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature } from "@eslint-react/shared";
+import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -27,17 +26,19 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    JSXAttribute(node) {
-      if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
-      const value = core.resolveJsxAttributeValue(context, node).toStatic();
-      if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
-        context.report({
-          messageId: "default",
-          node: node.value,
-        });
-      }
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      JSXAttribute(node) {
+        if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
+        const value = core.resolveJsxAttributeValue(context, node).toStatic();
+        if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
+          context.report({
+            messageId: "default",
+            node: node.value,
+          });
+        }
+      },
     },
-  };
+  );
 }

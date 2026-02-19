@@ -1,11 +1,11 @@
 /* eslint-disable jsdoc/require-param */
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -63,7 +63,7 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
+export function create(context: RuleContext<MessageID, Options>, [option]: Options) {
   const { allowEmptyFragment = false, allowExpressions = true } = option;
 
   const jsxConfig = {
@@ -194,17 +194,19 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       .some((child) => (core.isJsxText(child) && !isWhiteSpace(child)) || ast.is(AST.JSXExpressionContainer)(child));
   }
 
-  return {
-    // Check JSX elements that might be fragments
-    JSXElement(node) {
-      if (!core.isJsxFragmentElement(context, node, jsxConfig)) return;
-      checkNode(context, node);
+  return defineRuleListener(
+    {
+      // Check JSX elements that might be fragments
+      JSXElement(node) {
+        if (!core.isJsxFragmentElement(context, node, jsxConfig)) return;
+        checkNode(context, node);
+      },
+      // Check JSX fragments
+      JSXFragment(node) {
+        checkNode(context, node);
+      },
     },
-    // Check JSX fragments
-    JSXFragment(node) {
-      checkNode(context, node);
-    },
-  };
+  );
 }
 
 // ----- Helper Functions -----

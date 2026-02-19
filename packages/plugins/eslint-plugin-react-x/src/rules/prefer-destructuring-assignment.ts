@@ -1,8 +1,6 @@
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
 import { createRule } from "../utils";
 
 export const RULE_NAME = "prefer-destructuring-assignment";
@@ -27,7 +25,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { ctx, visitor } = core.useComponentCollector(context);
 
   return defineRuleListener(

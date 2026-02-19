@@ -1,8 +1,7 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature, RuleFixer } from "@eslint-react/shared";
+import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 
 import { createRule } from "../utils";
@@ -34,7 +33,7 @@ export default createRule<[], MessageID>({
 
 const hydrate = "hydrate";
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `hydrate` is not present in the file
   if (!context.sourceCode.text.includes(hydrate)) return {};
   const settings = getSettingsFromContext(context);
@@ -45,54 +44,56 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const reactDomNames = new Set<string>(); // For `import ReactDOM from 'react-dom'`
   const hydrateNames = new Set<string>(); // For `import { hydrate } from 'react-dom'`
 
-  return {
-    CallExpression(node) {
-      switch (true) {
-        // Case 1: Direct call to `hydrate()`.
-        case node.callee.type === AST.Identifier
-          && hydrateNames.has(node.callee.name):
-          context.report({
-            messageId: "default",
-            node,
-            fix: getFix(context, node),
-          });
-          return;
-        // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
-        case node.callee.type === AST.MemberExpression
-          && node.callee.object.type === AST.Identifier
-          && node.callee.property.type === AST.Identifier
-          && node.callee.property.name === hydrate
-          && reactDomNames.has(node.callee.object.name):
-          context.report({
-            messageId: "default",
-            node,
-            fix: getFix(context, node),
-          });
-          return;
-      }
-    },
-    ImportDeclaration(node) {
-      const [baseSource] = node.source.value.split("/");
-      // We only care about imports from 'react-dom'
-      if (baseSource !== "react-dom") return;
-      for (const specifier of node.specifiers) {
-        switch (specifier.type) {
-          // `import { hydrate } from 'react-dom'`
-          case AST.ImportSpecifier:
-            if (specifier.imported.type !== AST.Identifier) continue;
-            if (specifier.imported.name === hydrate) {
-              hydrateNames.add(specifier.local.name);
-            }
-            continue;
-          // `import ReactDOM from 'react-dom'` or `import * as ReactDOM from 'react-dom'`
-          case AST.ImportDefaultSpecifier:
-          case AST.ImportNamespaceSpecifier:
-            reactDomNames.add(specifier.local.name);
-            continue;
+  return defineRuleListener(
+    {
+      CallExpression(node) {
+        switch (true) {
+          // Case 1: Direct call to `hydrate()`.
+          case node.callee.type === AST.Identifier
+            && hydrateNames.has(node.callee.name):
+            context.report({
+              messageId: "default",
+              node,
+              fix: getFix(context, node),
+            });
+            return;
+          // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
+          case node.callee.type === AST.MemberExpression
+            && node.callee.object.type === AST.Identifier
+            && node.callee.property.type === AST.Identifier
+            && node.callee.property.name === hydrate
+            && reactDomNames.has(node.callee.object.name):
+            context.report({
+              messageId: "default",
+              node,
+              fix: getFix(context, node),
+            });
+            return;
         }
-      }
+      },
+      ImportDeclaration(node) {
+        const [baseSource] = node.source.value.split("/");
+        // We only care about imports from 'react-dom'
+        if (baseSource !== "react-dom") return;
+        for (const specifier of node.specifiers) {
+          switch (specifier.type) {
+            // `import { hydrate } from 'react-dom'`
+            case AST.ImportSpecifier:
+              if (specifier.imported.type !== AST.Identifier) continue;
+              if (specifier.imported.name === hydrate) {
+                hydrateNames.add(specifier.local.name);
+              }
+              continue;
+            // `import ReactDOM from 'react-dom'` or `import * as ReactDOM from 'react-dom'`
+            case AST.ImportDefaultSpecifier:
+            case AST.ImportNamespaceSpecifier:
+              reactDomNames.add(specifier.local.name);
+              continue;
+          }
+        }
+      },
     },
-  };
+  );
 }
 
 function getFix(context: RuleContext, node: TSESTree.CallExpression) {

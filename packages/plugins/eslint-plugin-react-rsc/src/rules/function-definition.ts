@@ -1,8 +1,13 @@
 import * as ast from "@eslint-react/ast";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import {
+  type ReportFixFunction,
+  type RuleContext,
+  type RuleFeature,
+  type RuleFixer,
+  defineRuleListener,
+} from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import type { ReportFixFunction, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -34,7 +39,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `use server` is not present in the entire file for performance
   if (!context.sourceCode.text.includes("use server")) return {};
 
@@ -98,57 +103,59 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     reportNonAsyncFunction(variableNode, "file");
   }
 
-  return {
-    ArrowFunctionExpression(node) {
-      checkLocalServerFunction(node);
-    },
-    ExportDefaultDeclaration(node) {
-      if (!hasFileLevelUseServerDirective) {
-        return;
-      }
+  return defineRuleListener(
+    {
+      ArrowFunctionExpression(node) {
+        checkLocalServerFunction(node);
+      },
+      ExportDefaultDeclaration(node) {
+        if (!hasFileLevelUseServerDirective) {
+          return;
+        }
 
-      const decl = node.declaration;
-      // export default function foo() {}
-      if (reportNonAsyncFunction(decl, "file")) {
-        return;
-      }
-      if (ast.isIdentifier(decl)) {
-        findAndCheckExportedFunctionDeclarations(decl, node);
-      }
-    },
-    // Handle exported declarations like `export const foo = () => {}` or `export class A {}`
-    ExportNamedDeclaration(node) {
-      if (!hasFileLevelUseServerDirective) {
-        return;
-      }
-      // Handle named export
-      if (node.declaration != null) {
         const decl = node.declaration;
-        // export function foo() {}
+        // export default function foo() {}
         if (reportNonAsyncFunction(decl, "file")) {
           return;
         }
-        // export const foo = () => {}
-        // export const foo = function() {}
-        if (decl.type === AST.VariableDeclaration) {
-          for (const declarator of decl.declarations) {
-            reportNonAsyncFunction(declarator.init, "file");
+        if (ast.isIdentifier(decl)) {
+          findAndCheckExportedFunctionDeclarations(decl, node);
+        }
+      },
+      // Handle exported declarations like `export const foo = () => {}` or `export class A {}`
+      ExportNamedDeclaration(node) {
+        if (!hasFileLevelUseServerDirective) {
+          return;
+        }
+        // Handle named export
+        if (node.declaration != null) {
+          const decl = node.declaration;
+          // export function foo() {}
+          if (reportNonAsyncFunction(decl, "file")) {
+            return;
+          }
+          // export const foo = () => {}
+          // export const foo = function() {}
+          if (decl.type === AST.VariableDeclaration) {
+            for (const declarator of decl.declarations) {
+              reportNonAsyncFunction(declarator.init, "file");
+            }
+          }
+          return;
+        }
+        // Handle `export { foo }` (local binding)
+        if (node.source == null && node.specifiers.length > 0) {
+          for (const spec of node.specifiers) {
+            findAndCheckExportedFunctionDeclarations(spec.local, node);
           }
         }
-        return;
-      }
-      // Handle `export { foo }` (local binding)
-      if (node.source == null && node.specifiers.length > 0) {
-        for (const spec of node.specifiers) {
-          findAndCheckExportedFunctionDeclarations(spec.local, node);
-        }
-      }
+      },
+      FunctionDeclaration(node) {
+        checkLocalServerFunction(node);
+      },
+      FunctionExpression(node) {
+        checkLocalServerFunction(node);
+      },
     },
-    FunctionDeclaration(node) {
-      checkLocalServerFunction(node);
-    },
-    FunctionExpression(node) {
-      checkLocalServerFunction(node);
-    },
-  };
+  );
 }

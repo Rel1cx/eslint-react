@@ -1,11 +1,10 @@
 import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { snakeCase } from "string-ts";
 import { match } from "ts-pattern";
 
@@ -72,81 +71,83 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>): RuleListener {
+export function create(context: RuleContext<MessageID, Options>) {
   const options = context.options[0] ?? defaultOptions[0];
   const { enforceAssignment = false, enforceSetterName = true } = options;
 
-  return {
-    CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isUseStateCall(node)) {
-        return;
-      }
-      if (node.parent.type !== AST.VariableDeclarator) {
-        if (!enforceAssignment) return;
-        context.report({
-          messageId: "invalidAssignment",
-          node,
-        });
-        return;
-      }
-      const id = findEnclosingAssignmentTarget(node);
-      if (id?.type !== AST.ArrayPattern) {
-        if (!enforceAssignment) return;
-        context.report({
-          messageId: "invalidAssignment",
-          node: id ?? node,
-        });
-        return;
-      }
-      const [value, setter] = id.elements;
-      if (value == null) {
-        if (!enforceAssignment) return;
-        context.report({
-          messageId: "invalidAssignment",
-          node: id,
-        });
-        return;
-      }
-      // https://github.com/Rel1cx/eslint-react/issues/1352
-      if (setter == null || !enforceSetterName) {
-        return;
-      }
-      const setterName = match(setter)
-        .with({ type: AST.Identifier }, (id) => id.name)
-        .otherwise(() => null);
-      if (setterName == null || !setterName.startsWith("set")) {
-        context.report({
-          messageId: "invalidSetterName",
-          node: setter,
-        });
-        return;
-      }
-      const valueName = match(value)
-        .with({ type: AST.Identifier }, ({ name }) => snakeCase(name))
-        .with({ type: AST.ObjectPattern }, ({ properties }) => {
-          const values = properties.reduce<string[]>((acc, prop) => {
-            if (prop.type === AST.Property && prop.key.type === AST.Identifier) {
-              return [...acc, prop.key.name];
-            }
-            return acc;
-          }, []);
-          return values.join("_");
-        })
-        .otherwise(() => null);
-      if (valueName == null) {
-        context.report({
-          messageId: "invalidSetterName",
-          node: value,
-        });
-        return;
-      }
-      if (snakeCase(setterName) !== `set_${valueName}`) {
-        context.report({
-          messageId: "invalidSetterName",
-          node: setter,
-        });
-        return;
-      }
+  return defineRuleListener(
+    {
+      CallExpression(node: TSESTree.CallExpression) {
+        if (!core.isUseStateCall(node)) {
+          return;
+        }
+        if (node.parent.type !== AST.VariableDeclarator) {
+          if (!enforceAssignment) return;
+          context.report({
+            messageId: "invalidAssignment",
+            node,
+          });
+          return;
+        }
+        const id = findEnclosingAssignmentTarget(node);
+        if (id?.type !== AST.ArrayPattern) {
+          if (!enforceAssignment) return;
+          context.report({
+            messageId: "invalidAssignment",
+            node: id ?? node,
+          });
+          return;
+        }
+        const [value, setter] = id.elements;
+        if (value == null) {
+          if (!enforceAssignment) return;
+          context.report({
+            messageId: "invalidAssignment",
+            node: id,
+          });
+          return;
+        }
+        // https://github.com/Rel1cx/eslint-react/issues/1352
+        if (setter == null || !enforceSetterName) {
+          return;
+        }
+        const setterName = match(setter)
+          .with({ type: AST.Identifier }, (id) => id.name)
+          .otherwise(() => null);
+        if (setterName == null || !setterName.startsWith("set")) {
+          context.report({
+            messageId: "invalidSetterName",
+            node: setter,
+          });
+          return;
+        }
+        const valueName = match(value)
+          .with({ type: AST.Identifier }, ({ name }) => snakeCase(name))
+          .with({ type: AST.ObjectPattern }, ({ properties }) => {
+            const values = properties.reduce<string[]>((acc, prop) => {
+              if (prop.type === AST.Property && prop.key.type === AST.Identifier) {
+                return [...acc, prop.key.name];
+              }
+              return acc;
+            }, []);
+            return values.join("_");
+          })
+          .otherwise(() => null);
+        if (valueName == null) {
+          context.report({
+            messageId: "invalidSetterName",
+            node: value,
+          });
+          return;
+        }
+        if (snakeCase(setterName) !== `set_${valueName}`) {
+          context.report({
+            messageId: "invalidSetterName",
+            node: setter,
+          });
+          return;
+        }
+      },
     },
-  };
+  );
 }

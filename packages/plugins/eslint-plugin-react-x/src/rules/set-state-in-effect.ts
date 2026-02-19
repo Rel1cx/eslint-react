@@ -1,12 +1,11 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
@@ -51,7 +50,7 @@ export default createRule<[], MessageID>({
 });
 
 // TODO: Allow setState calls in effect when the new state is from a ref value (e.g. `setState(ref.current)`)
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
   const { additionalStateHooks } = getSettingsFromContext(context);
@@ -186,167 +185,169 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
 
-  return {
-    ":function"(node: ast.TSESTreeFunction) {
-      const kind = getFunctionKind(node);
-      functionEntries.push({ kind, node });
-      if (kind === "setup") {
-        onSetupFunctionEnter(node);
-      }
-    },
-    ":function:exit"(node: ast.TSESTreeFunction) {
-      const { kind } = functionEntries.at(-1) ?? {};
-      if (kind === "setup") {
-        onSetupFunctionExit(node);
-      }
-      functionEntries.pop();
-    },
-    CallExpression(node) {
-      const setupFunction = setupFnRef.current;
-      const entry = functionEntries.at(-1);
-      if (entry == null || entry.node.async) {
-        return;
-      }
-      match(getCallKind(node))
-        .with("setState", () => {
-          switch (true) {
-            case entry.kind === "deferred":
-            case entry.node.async:
-              // do nothing, this is a deferred setState call
-              break;
-            case entry.node === setupFunction:
-            case entry.kind === "immediate"
-              && ast.findParentNode(entry.node, ast.isFunction) === setupFunction: {
-              context.report({
-                messageId: "default",
-                node,
-                data: {
-                  name: context.sourceCode.getText(node.callee),
-                },
-              });
-              return;
-            }
-            default: {
-              const init = ast.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
-              if (init == null) getOrElseUpdate(setStateCallsByFn, entry.node, () => []).push(node);
-              else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
-            }
-          }
-        })
-        .with("useEffect", () => {
-          if (ast.isFunction(node.arguments.at(0))) return;
-          setupFnIds.push(...ast.getNestedIdentifiers(node));
-        })
-        .with("other", () => {
-          if (entry.node !== setupFunction) return;
-          trackedFnCalls.push(node);
-        })
-        .otherwise(constVoid);
-    },
-    Identifier(node) {
-      if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
-        return;
-      }
-      if (!isIdFromUseStateCall(node, 1)) {
-        return;
-      }
-      switch (node.parent.type) {
-        case AST.ArrowFunctionExpression: {
-          const parent = node.parent.parent;
-          if (parent.type !== AST.CallExpression) {
-            break;
-          }
-          // const [state, setState] = useState();
-          // const set = useMemo(() => setState, []);
-          // useEffect(set, []);
-          if (!core.isUseMemoCall(parent)) {
-            break;
-          }
-          const init = ast.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
-          if (init != null) {
-            getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
-          }
-          break;
+  return defineRuleListener(
+    {
+      ":function"(node: ast.TSESTreeFunction) {
+        const kind = getFunctionKind(node);
+        functionEntries.push({ kind, node });
+        if (kind === "setup") {
+          onSetupFunctionEnter(node);
         }
-        case AST.CallExpression: {
-          if (node !== node.parent.arguments.at(0)) {
-            break;
-          }
-          // const [state, setState] = useState();
-          // const set = useCallback(setState, []);
-          // useEffect(set, []);
-          if (core.isUseCallbackCall(node.parent)) {
-            const init = ast.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
+      },
+      ":function:exit"(node: ast.TSESTreeFunction) {
+        const { kind } = functionEntries.at(-1) ?? {};
+        if (kind === "setup") {
+          onSetupFunctionExit(node);
+        }
+        functionEntries.pop();
+      },
+      CallExpression(node) {
+        const setupFunction = setupFnRef.current;
+        const entry = functionEntries.at(-1);
+        if (entry == null || entry.node.async) {
+          return;
+        }
+        match(getCallKind(node))
+          .with("setState", () => {
+            switch (true) {
+              case entry.kind === "deferred":
+              case entry.node.async:
+                // do nothing, this is a deferred setState call
+                break;
+              case entry.node === setupFunction:
+              case entry.kind === "immediate"
+                && ast.findParentNode(entry.node, ast.isFunction) === setupFunction: {
+                context.report({
+                  messageId: "default",
+                  node,
+                  data: {
+                    name: context.sourceCode.getText(node.callee),
+                  },
+                });
+                return;
+              }
+              default: {
+                const init = ast.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
+                if (init == null) getOrElseUpdate(setStateCallsByFn, entry.node, () => []).push(node);
+                else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
+              }
+            }
+          })
+          .with("useEffect", () => {
+            if (ast.isFunction(node.arguments.at(0))) return;
+            setupFnIds.push(...ast.getNestedIdentifiers(node));
+          })
+          .with("other", () => {
+            if (entry.node !== setupFunction) return;
+            trackedFnCalls.push(node);
+          })
+          .otherwise(constVoid);
+      },
+      Identifier(node) {
+        if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
+          return;
+        }
+        if (!isIdFromUseStateCall(node, 1)) {
+          return;
+        }
+        switch (node.parent.type) {
+          case AST.ArrowFunctionExpression: {
+            const parent = node.parent.parent;
+            if (parent.type !== AST.CallExpression) {
+              break;
+            }
+            // const [state, setState] = useState();
+            // const set = useMemo(() => setState, []);
+            // useEffect(set, []);
+            if (!core.isUseMemoCall(parent)) {
+              break;
+            }
+            const init = ast.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
             if (init != null) {
               getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
             }
             break;
           }
-          // const [state, setState] = useState();
-          // useEffect(setState);
-          if (core.isUseEffectLikeCall(node.parent)) {
-            getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
+          case AST.CallExpression: {
+            if (node !== node.parent.arguments.at(0)) {
+              break;
+            }
+            // const [state, setState] = useState();
+            // const set = useCallback(setState, []);
+            // useEffect(set, []);
+            if (core.isUseCallbackCall(node.parent)) {
+              const init = ast.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
+              if (init != null) {
+                getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
+              }
+              break;
+            }
+            // const [state, setState] = useState();
+            // useEffect(setState);
+            if (core.isUseEffectLikeCall(node.parent)) {
+              getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
+            }
           }
         }
-      }
+      },
+      "Program:exit"() {
+        const getSetStateCalls = (
+          id: string | TSESTree.Identifier,
+          initialScope: Scope.Scope,
+        ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
+          const node = getVariableDefinitionNode(findVariable(id, initialScope), 0);
+          switch (node?.type) {
+            case AST.ArrowFunctionExpression:
+            case AST.FunctionDeclaration:
+            case AST.FunctionExpression:
+              return setStateCallsByFn.get(node) ?? [];
+            case AST.CallExpression:
+              return setStateInHookCallbacks.get(node) ?? setStateInEffectArg.get(node) ?? [];
+          }
+          return [];
+        };
+        for (const [, calls] of setStateInEffectSetup) {
+          for (const call of calls) {
+            context.report({
+              messageId: "default",
+              node: call,
+              data: {
+                name: call.name,
+              },
+            });
+          }
+        }
+        for (const { callee } of trackedFnCalls) {
+          if (!("name" in callee)) {
+            continue;
+          }
+          const { name } = callee;
+          const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
+          for (const setStateCall of setStateCalls) {
+            context.report({
+              messageId: "default",
+              node: setStateCall,
+              data: {
+                name: getCallName(setStateCall),
+              },
+            });
+          }
+        }
+        for (const id of setupFnIds) {
+          const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
+          for (const setStateCall of setStateCalls) {
+            context.report({
+              messageId: "default",
+              node: setStateCall,
+              data: {
+                name: getCallName(setStateCall),
+              },
+            });
+          }
+        }
+      },
     },
-    "Program:exit"() {
-      const getSetStateCalls = (
-        id: string | TSESTree.Identifier,
-        initialScope: Scope.Scope,
-      ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-        const node = getVariableDefinitionNode(findVariable(id, initialScope), 0);
-        switch (node?.type) {
-          case AST.ArrowFunctionExpression:
-          case AST.FunctionDeclaration:
-          case AST.FunctionExpression:
-            return setStateCallsByFn.get(node) ?? [];
-          case AST.CallExpression:
-            return setStateInHookCallbacks.get(node) ?? setStateInEffectArg.get(node) ?? [];
-        }
-        return [];
-      };
-      for (const [, calls] of setStateInEffectSetup) {
-        for (const call of calls) {
-          context.report({
-            messageId: "default",
-            node: call,
-            data: {
-              name: call.name,
-            },
-          });
-        }
-      }
-      for (const { callee } of trackedFnCalls) {
-        if (!("name" in callee)) {
-          continue;
-        }
-        const { name } = callee;
-        const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
-        for (const setStateCall of setStateCalls) {
-          context.report({
-            messageId: "default",
-            node: setStateCall,
-            data: {
-              name: getCallName(setStateCall),
-            },
-          });
-        }
-      }
-      for (const id of setupFnIds) {
-        const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
-        for (const setStateCall of setStateCalls) {
-          context.report({
-            messageId: "default",
-            node: setStateCall,
-            data: {
-              name: getCallName(setStateCall),
-            },
-          });
-        }
-      }
-    },
-  };
+  );
 }
 
 function isInitFromHookCall(init: TSESTree.Expression | null) {

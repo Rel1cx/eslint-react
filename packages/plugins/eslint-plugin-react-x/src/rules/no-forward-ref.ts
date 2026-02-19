@@ -1,10 +1,10 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { P, match } from "ts-pattern";
 
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `forwardRef` is not present in the file
   if (!context.sourceCode.text.includes("forwardRef")) {
     return {};
@@ -45,21 +45,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (compare(version, "19.0.0", "<")) {
     return {};
   }
-  return {
-    // Visitor for `forwardRef()` calls
-    CallExpression(node) {
-      if (!core.isForwardRefCall(context, node)) {
-        return;
-      }
-      const id = ast.getFunctionId(node);
-      const fix = canFix(context, node) ? getFix(context, node) : null;
-      context.report({
-        messageId: "default",
-        node: id ?? node,
-        fix,
-      });
+  return defineRuleListener(
+    {
+      // Visitor for `forwardRef()` calls
+      CallExpression(node) {
+        if (!core.isForwardRefCall(context, node)) {
+          return;
+        }
+        const id = ast.getFunctionId(node);
+        const fix = canFix(context, node) ? getFix(context, node) : null;
+        context.report({
+          messageId: "default",
+          node: id ?? node,
+          fix,
+        });
+      },
     },
-  };
+  );
 }
 
 /**

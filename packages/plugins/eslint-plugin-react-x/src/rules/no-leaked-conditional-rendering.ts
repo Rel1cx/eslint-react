@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import { flow, unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -8,7 +8,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
 import { P, match } from "ts-pattern";
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: if the file does not contain '&&', there is no need to run this rule
   if (!context.sourceCode.text.includes("&&")) return {};
   const { version } = getSettingsFromContext(context);
@@ -140,7 +140,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // For all other node types, assume they are safe
       .otherwise(() => unit);
   }
-  return {
-    JSXExpressionContainer: flow(getReportDescriptor, report(context)),
-  };
+  return defineRuleListener(
+    {
+      JSXExpressionContainer: flow(getReportDescriptor, report(context)),
+    },
+  );
 }

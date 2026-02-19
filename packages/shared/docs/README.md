@@ -14,6 +14,8 @@
 | [CompatiblePlugin](interfaces/CompatiblePlugin.md) | A plugin with a compatible shape for use with `defineConfig()` and `tseslint.config()`. Intentionally wide/inaccurate for compatibility purposes. |
 | [CompatibleRule](interfaces/CompatibleRule.md) | A rule with a compatible shape for use with `defineConfig()` and `tseslint.config()`. Intentionally wide/inaccurate for compatibility purposes. |
 | [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md) | Normalized ESLint React settings with processed values |
+| [RuleFix](interfaces/RuleFix.md) | - |
+| [RuleFixer](interfaces/RuleFixer.md) | - |
 | [SettingsConfig](interfaces/SettingsConfig.md) | A collection of settings. |
 
 ## Type Aliases
@@ -24,6 +26,7 @@
 | [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | ESLint React settings type inferred from the React settings schema. |
 | [ESLintSettings](type-aliases/ESLintSettings.md) | ESLint settings type inferred from the settings schema. |
 | [RegExpLike](type-aliases/RegExpLike.md) | A type represents RegExp-like object with `test` method. |
+| [ReportFixFunction](type-aliases/ReportFixFunction.md) | - |
 | [RuleContext](type-aliases/RuleContext.md) | Rule context. |
 | [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
 | [RulePolicy](type-aliases/RulePolicy.md) | The numeric policy value for a rule (severity level). |
