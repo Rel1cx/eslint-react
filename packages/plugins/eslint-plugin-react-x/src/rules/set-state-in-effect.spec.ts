@@ -6,6 +6,7 @@ import rule, { RULE_NAME } from "./set-state-in-effect";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      name: "setState in useEffect",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -27,6 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState with custom hook",
       code: tsx`
         function Component() {
           const [data, setData] = useSta(0);
@@ -51,6 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
+      name: "setState with regex-matched custom hook",
       code: tsx`
         function Component() {
           const [data, setData] = useSta1(0);
@@ -75,13 +78,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
+      name: "setState via array index",
       code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
           const data = useState(0);
           useEffect(() => {
-            data[1]();
+            data[1](1);
           }, []);
           return null;
         }
@@ -96,13 +100,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via .at() method",
       code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
           const data = useState(0);
           useEffect(() => {
-            data.at(1)();
+            data.at(1)(1);
           }, []);
           return null;
         }
@@ -117,6 +122,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via .at() with variable",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -124,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           const data = useState(0);
           useEffect(() => {
-            data.at(index)();
+            data.at(index)(1);
           }, []);
           return null;
         }
@@ -139,6 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via bracket notation with variable",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -146,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           const data = useState(0);
           useEffect(() => {
-            data[index]();
+            data[index](1);
           }, []);
           return null;
         }
@@ -161,6 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "conditional setState in effect",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -184,14 +192,15 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState in inner function",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           useEffect(() => {
           const onLoad = () => {
-            setData();
+            setData(1);
           };
           onLoad();
           }, []);
@@ -208,15 +217,16 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "multiple setState calls",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data1, setData1] = useState();
-          const [data2, setData2] = useState();
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
           const setAll = () => {
-            setData1();
-            setData2();
+            setData1(1);
+            setData2(1);
           }
           useEffect(() => {
             setAll();
@@ -236,15 +246,16 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via useCallback",
       code: tsx`
         import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
-          const [data1, setData1] = useState();
-          const [data2, setData2] = useState();
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
           const setAll = useCallback(() => {
-            setData1();
-            setData2();
+            setData1(1);
+            setData2(1);
           })
           useEffect(() => {
             setAll();
@@ -264,13 +275,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState in IIFE",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           useEffect(() => {
-              (() => { setData() })();
+              (() => { setData(1) })();
           }, []);
           return null;
         }
@@ -280,14 +292,15 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState in named IIFE",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           useEffect(() => {
             !(function onLoad() {
-              setData()
+              setData(1)
             })();
           }, []);
           return null;
@@ -303,14 +316,15 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState in local function",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           useEffect(() => {
             const setAll = () => {
-              setData();
+              setData(1);
             }
             setAll()
           }, []);
@@ -327,12 +341,13 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via useCallback passed to effect",
       code: tsx`
         import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
-          const setAll = useCallback(() => setData(), []);
+          const [data, setData] = useState(0);
+          const setAll = useCallback(() => setData(0), []);
           useEffect(() => {
             setAll()
           }, []);
@@ -349,12 +364,13 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via useMemo function",
       code: tsx`
         import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
-          const setAll = useMemo(() => () => setData(), []);
+          const [data, setData] = useState(0);
+          const setAll = useMemo(() => () => setData(1), []);
           useEffect(() => {
             setAll()
           }, []);
@@ -371,14 +387,15 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState directly passed to useCallback",
       code: tsx`
         import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           const setAll = useCallback(setData, []);
           useEffect(() => {
-            setAll()
+            setAll(1)
           }, []);
           return null;
         }
@@ -393,14 +410,15 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState directly passed to useMemo",
       code: tsx`
         import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           const setAll = useMemo(() => setData, []);
           useEffect(() => {
-            setAll()
+            setAll(1)
           }, []);
           return null;
         }
@@ -415,11 +433,12 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState callback directly passed to useEffect",
       code: tsx`
         import { useEffect, useState, useMemo } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           const setAll = useMemo(() => setData, []);
           useEffect(setAll, []);
           return null;
@@ -489,12 +508,13 @@ ruleTester.run(RULE_NAME, rule, {
     //   ],
     // },
     {
+      name: "setState in arrow function passed to useEffect",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
-          useEffect(() => setData(), []);
+          const [data, setData] = useState(0);
+          useEffect(() => setData(1), []);
           return null;
         }
       `,
@@ -508,11 +528,12 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState function directly passed to useEffect",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           useEffect(setData, []);
           return null;
         }
@@ -527,13 +548,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via external arrow function",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           const setupFunction = () => {
-            setData()
+            setData(1)
           }
           useEffect(setupFunction, []);
           return null;
@@ -549,13 +571,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via external function declaration",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           function setupFunction() {
-            setData()
+            setData(1)
           }
           useEffect(setupFunction, []);
           return null;
@@ -571,14 +594,15 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via hoisted function",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           useEffect(setupFunction, []);
           function setupFunction() {
-            setData()
+            setData(1)
           }
           return null;
         }
@@ -593,13 +617,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState via external function in multiple components",
       code: tsx`
         import { useEffect, useState } from "react";
 
         const Component1 = () => {
-          const [data, setData] = useState();
+          const [data, setData] = useState(0);
           const setupFunction = () => {
-            setData()
+            setData(1)
           }
           useEffect(setupFunction, []);
           return null;
@@ -631,6 +656,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // https://github.com/Rel1cx/eslint-react/issues/1117
     {
+      name: "setState from callback used in effect",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -656,6 +682,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState from regular function used in effect",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -681,6 +708,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState in custom hook effect",
       code: tsx`
         import { useEffect, useState } from "react";
 
@@ -769,230 +797,530 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    tsx`
-      import { useEffect, useState } from "react";
+    {
+      name: "setState with no arguments in effect (invalid usage but not reported by this rule)",
+      code: tsx`
+        import { useEffect, useState } from "react";
 
-      function Component() {
-        const [fn] = useState(() => () => "Function");
-        // ...
-        useEffect(() => {
-          fn();
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      function Component() {
-        const [data, setData] = useState(0);
-        useEffect(() => {
-          const handler = () => setData(1);
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      function Component() {
-        const [data, setData] = useState(0);
-        useEffect(() => {
-          fetch().then(() => setData());
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      const Component = () => {
-        const [data, setData] = useState();
-        useEffect(() => {
-        const onLoad = () => {
-          setData();
-        };
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      const index = 0;
-      function Component() {
-        const data = useState(() => 0);
-        useEffect(() => {
-          data.at(index)();
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      const index = 0;
-      function Component() {
-        const [data, setData] = useState(() => 0);
-        useEffect(() => {
-          void async function () {
-            const ret = await fetch("https://eslint-react.xyz");
-            setData(ret);
-          }()
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      const Component = () => {
-        const [data1, setData1] = useState();
-        const [data2, setData2] = useState();
-        const setAll = () => {
-          setData1();
-          setData2();
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData();
+          }, []);
+          return null;
         }
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
+      `,
+    },
+    // setState with ref values should be allowed in effects
+    {
+      name: "setState with ref.current (direct member expression from useRef)",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
 
-      const Component = () => {
-        const [data1, setData1] = useState();
-        const [data2, setData2] = useState();
-        const setAll = () => {
-          setData1();
-          setData2();
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            setData(ref.current);
+          }, []);
+          return null;
         }
-        const handler = () => {
-          setAll();
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const scrollRef = useRef(null);
+          const [data, setData] = useState(0);
+          const val = scrollRef.current;
+          useEffect(() => {
+            setData(val);
+          }, []);
+          return null;
         }
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
+      `,
+    },
+    {
+      name: "setState with ref identifier directly from useRef",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
 
-      const Component = () => {
-        const [data1, setData1] = useState();
-        const [data2, setData2] = useState();
-        function handler() {
-          setAll();
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(ref);
+          }, []);
+          return null;
         }
-        function setAll() {
-          setData1();
-          setData2();
+      `,
+    },
+    {
+      name: "setState with ref value inside a function call argument",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(Number(ref.current));
+          }, []);
+          return null;
         }
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
+      `,
+    },
+    {
+      name: "setState with ref value via updater function referencing ref in scope",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
 
-      const Component1 = () => {
-        const [data, setData] = useState();
-        const setupFunction = () => {
-          setData()
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(() => ref.current);
+          }, []);
+          return null;
         }
-        return null;
-      }
+      `,
+    },
+    {
+      name: "setState with ref value via function expression referencing ref in scope",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
 
-      const Component2 = () => {
-        const [data, setData] = useState();
-        useEffect(setupFunction, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
-
-      const Component1 = () => {
-        const [data, setData] = useState();
-        const setAll = () => {
-          setData();
+        function Component() {
+          const myRef = useRef(null);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(function() { return myRef.current; });
+          }, []);
+          return null;
         }
-        return null;
-      }
+      `,
+    },
+    {
+      name: "setState with ref.current in IIFE inside effect",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
 
-      const Component2 = () => {
-        const [data, setData] = useState();
-        useEffect(() => {
-          setAll();
-        }, []);
-        return null;
-      }
-    `,
-    tsx`
-      import { useEffect, useState } from "react";
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            (() => { setData(ref.current) })();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref-like named variable (nameRef pattern)",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
 
-      function useCustomHook() {
-        const [data, setData] = useState();
-        const handlerWatcher = () => {
+        function Component() {
+          const scrollPositionRef = useRef(0);
+          const [position, setPosition] = useState(0);
+          useEffect(() => {
+            setPosition(scrollPositionRef.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current via member access",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(el);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current via call expression",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [rect, setRect] = useState({ width: 0, height: 0 });
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(el.getBoundingClientRect());
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current via call expression with member access",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(el.getBoundingClientRect().width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current via call expression with member access in set function",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(() => el.getBoundingClientRect().width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name:
+        "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(() => {
+              return el.getBoundingClientRect().width;
+            });
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name:
+        "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(function() {
+              return el.getBoundingClientRect().width;
+            });
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name:
+        "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          const el = containerRef.current;
+          useEffect(() => {
+            setWidth(function() {
+            const rect = el.getBoundingClientRect();
+            return rect.width;
+            });
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "calling function from useState in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [fn] = useState(() => () => "Function");
+          // ...
+          useEffect(() => {
+            fn();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in uninvoked handler",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            const handler = () => setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in promise callback",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            fetch().then(() => setData());
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "uninvoked function in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+          const onLoad = () => {
+            setData();
+          };
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "calling setter at index 0",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const index = 0;
+        function Component() {
+          const data = useState(() => 0);
+          useEffect(() => {
+            data.at(index)();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in async IIFE",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const index = 0;
+        function Component() {
+          const [data, setData] = useState(() => 0);
+          useEffect(() => {
+            void async function () {
+              const ret = await fetch("https://eslint-react.xyz");
+              setData(ret);
+            }()
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in uninvoked function outside effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          const setAll = () => {
+            setData1(1);
+            setData2(1);
+          }
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in nested uninvoked function",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          const setAll = () => {
+            setData1(1);
+            setData2(1);
+          }
+          const handler = () => {
+            setAll();
+          }
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in function declaration outside effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          function handler() {
+            setAll();
+          }
+          function setAll() {
+            setData1(1);
+            setData2(1);
+          }
+          return null;
+        }
+      `,
+    },
+    {
+      name: "external function from different component scope",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [data, setData] = useState();
+          const setupFunction = () => {
             setData()
+          }
+          return null;
         }
-        useEffect(() => {
-            const abortController = new AbortController()
-            new MutationObserverWatcher(searchAvatarMetaSelector())
-                .addListener('onChange', handlerWatcher)
-                .startWatch(
-                    {
-                        childList: true,
-                        subtree: true,
-                        attributes: true,
-                        attributeFilter: ['src'],
-                    },
-                    abortController.signal,
-                )
-            return () => abortController.abort()
-        }, [handlerWatcher])
-      }
-    `,
+
+        const Component2 = () => {
+          const [data, setData] = useState();
+          useEffect(setupFunction, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "function defined in different component not detected",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [data, setData] = useState(0);
+          const setAll = () => {
+            setData(1);
+          }
+          return null;
+        }
+
+        const Component2 = () => {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setAll(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in uninvoked callback in custom hook",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function useCustomHook() {
+          const [data, setData] = useState(0);
+          const handlerWatcher = () => {
+              setData(1)
+          }
+          useEffect(() => {
+              const abortController = new AbortController()
+              new MutationObserverWatcher(searchAvatarMetaSelector())
+                  .addListener('onChange', handlerWatcher)
+                  .startWatch(
+                      {
+                          childList: true,
+                          subtree: true,
+                          attributes: true,
+                          attributeFilter: ['src'],
+                      },
+                      abortController.signal,
+                  )
+              return () => abortController.abort()
+          }, [handlerWatcher])
+        }
+      `,
+    },
     // https://github.com/Rel1cx/eslint-react/issues/967
-    tsx`
-      import { useEffect, useState, useCallback } from "react";
+    {
+      name: "setState in IIFE inside callback (not directly in effect)",
+      code: tsx`
+        import { useEffect, useState, useCallback } from "react";
 
-      function useCustomHook() {
-        const [something, setSomething] = useState('');
+        function useCustomHook() {
+          const [something, setSomething] = useState('');
 
-        const test = useCallback(() => {
-          setSomething('') // doesn't trigger the rules
+          const test = useCallback(() => {
+            setSomething('') // doesn't trigger the rules
 
-          ;(() => {
-            setSomething('') // trigger the rules
-          })()
-        }, [])
-      }
-    `,
-    tsx`
-      import { useEffect, useState, useCallback } from "react";
+            ;(() => {
+              setSomething('') // trigger the rules
+            })()
+          }, [])
+        }
+      `,
+    },
+    {
+      name: "navigation.setOptions in useLayoutEffect",
+      code: tsx`
+        import { useEffect, useState, useCallback } from "react";
 
-      function useCustomHook() {
-          useLayoutEffect(() => {
-          navigation.setOptions({
-            headerLeft: () => <CloseButtonHeader disabled={submitting} onPress={onBack} />,
-            headerRight: () => (
-              <NewPostSaveButton
-                disabled={submitting || loading}
-                isEdit={!!post}
-                onPress={onPressSave}
-                title={
-                  post
-                    ? t({
-                        message: 'Save',
-                        context: 'action'
-                      })
-                    : t({
-                        message: 'Post',
-                        context: 'action'
-                      })
-                }
-              />
-            )
-          });
-        }, [loading, navigation, onBack, onPressSave, post, submitting, t]);
-      }
-    `,
+        function useCustomHook() {
+            useLayoutEffect(() => {
+            navigation.setOptions({
+              headerLeft: () => <CloseButtonHeader disabled={submitting} onPress={onBack} />,
+              headerRight: () => (
+                <NewPostSaveButton
+                  disabled={submitting || loading}
+                  isEdit={!!post}
+                  onPress={onPressSave}
+                  title={
+                    post
+                      ? t({
+                          message: 'Save',
+                          context: 'action'
+                        })
+                      : t({
+                          message: 'Post',
+                          context: 'action'
+                        })
+                  }
+                />
+              )
+            });
+          }, [loading, navigation, onBack, onPressSave, post, submitting, t]);
+        }
+      `,
+    },
   ],
 });
