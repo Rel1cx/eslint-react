@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
-import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
+import { findVariable, getVariableInitializer } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -181,7 +181,7 @@ export function isJsxLike(
         return true;
       }
       // Resolve variables to their values and check if they're JSX-like
-      return isJsxLike(code, getVariableDefinitionNode(findVariable(name, code.getScope(node)), 0), hint);
+      return isJsxLike(code, getVariableInitializer(findVariable(name, code.getScope(node)), 0), hint);
     }
   }
   return false;

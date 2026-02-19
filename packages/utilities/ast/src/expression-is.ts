@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { getUnderlyingExpression } from "./expression-base";
+import { getUnderlyingExpression } from "./node-unwrap";
 
 /**
  * Check if the given expression is a 'this' expression

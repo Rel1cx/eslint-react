@@ -6,12 +6,12 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 /**
- * Get the definition node of a variable at a specific definition index
- * @param variable The variable to get the definition node from
- * @param at The index of the definition to retrieve (negative index supported)
- * @returns The definition node or unit if not found
+ * Get the initializer expression or statement of a variable definition at a specified index
+ * @param variable The variable to get the initializer from
+ * @param at The index of the variable definition to get the initializer from
+ * @returns The initializer expression or statement of the variable definition at the specified index, or unit if not found
  */
-export function getVariableDefinitionNode(variable: Variable | unit, at: number):
+export function getVariableInitializer(variable: Variable | unit, at: number):
   | unit
   | TSESTree.ClassDeclaration
   | TSESTree.ClassDeclarationWithName
@@ -41,13 +41,12 @@ export function getVariableDefinitionNode(variable: Variable | unit, at: number)
 }
 
 /**
- * Get the definition node of a variable at a specific definition index (loose version)
- * Also returns the function node if the definition is a parameter
- * @param variable The variable to get the definition node from
- * @param at The index of the definition to retrieve
- * @returns The definition node or unit if not found
+ * Get the initializer expression or statement of a variable definition at a specified index, or the function declaration if the variable is a parameter of a function
+ * @param variable The variable to get the initializer from
+ * @param at The index of the variable definition to get the initializer from
+ * @returns The initializer expression or statement of the variable definition at the specified index, or the function declaration if the variable is a parameter of a function, or unit if not found
  */
-export function getVariableDefinitionNodeLoose(variable: Variable | unit, at: number):
+export function getVariableInitializerLoose(variable: Variable | unit, at: number):
   | unit
   | TSESTree.ClassDeclaration
   | TSESTree.ClassDeclarationWithName
@@ -58,7 +57,7 @@ export function getVariableDefinitionNodeLoose(variable: Variable | unit, at: nu
   | TSESTree.FunctionDeclarationWithOptionalName
 {
   if (variable == null) return unit;
-  const node = getVariableDefinitionNode(variable, at);
+  const node = getVariableInitializer(variable, at);
   if (node != null) return node;
   const def = variable.defs.at(at);
   if (def?.type === DefinitionType.Parameter && ast.isFunction(def.node)) return def.node;

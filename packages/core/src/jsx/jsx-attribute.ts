@@ -1,5 +1,5 @@
 import type { RuleContext } from "@eslint-react/shared";
-import { findProperty, findVariable, getVariableDefinitionNode } from "@eslint-react/var";
+import { findProperty, findVariable, getVariableInitializer } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -32,7 +32,7 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
         // 2. Spread variable: {...props}
         case AST.Identifier: {
           const variable = findVariable(attr.argument.name, scope);
-          const variableNode = getVariableDefinitionNode(variable, 0);
+          const variableNode = getVariableInitializer(variable, 0);
 
           // Check if the variable resolves to an object with the target property
           if (variableNode?.type === AST.ObjectExpression) {

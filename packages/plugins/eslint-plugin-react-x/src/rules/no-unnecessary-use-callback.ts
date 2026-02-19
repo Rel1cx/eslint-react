@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
-import { findVariable, getChildScopes, getVariableDefinitionNode } from "@eslint-react/var";
+import { findVariable, getChildScopes, getVariableInitializer } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
           .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
           .with({ type: AST.Identifier }, (n) => {
             const variable = findVariable(n.name, scope);
-            const variableNode = getVariableDefinitionNode(variable, 0);
+            const variableNode = getVariableInitializer(variable, 0);
             if (variableNode?.type !== AST.ArrayExpression) {
               return false;
             }
@@ -90,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>) {
           .with({ type: AST.FunctionExpression }, identity)
           .with({ type: AST.Identifier }, (n) => {
             const variable = findVariable(n.name, scope);
-            const variableNode = getVariableDefinitionNode(variable, 0);
+            const variableNode = getVariableInitializer(variable, 0);
             if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
               return null;
             }
