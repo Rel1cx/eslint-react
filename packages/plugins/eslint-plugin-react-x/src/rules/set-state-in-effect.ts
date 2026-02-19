@@ -49,7 +49,6 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-// TODO: Allow setState calls in effect when the new state is from a ref value (e.g. `setState(ref.current)`)
 export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
@@ -217,6 +216,11 @@ export function create(context: RuleContext<MessageID, []>) {
               case entry.node === setupFunction:
               case entry.kind === "immediate"
                 && ast.findParentNode(entry.node, ast.isFunction) === setupFunction: {
+                const args0 = node.arguments.at(0);
+                // setState() without arguments, which is invalid but other tools will report it
+                if (args0 == null) return;
+                // Check if the setState call is using a ref value, which is safe to use in an effect (e.g. `setState(ref.current.scrollTop)`)
+                if (isSetterUsingRefValue(context, args0)) return;
                 context.report({
                   messageId: "default",
                   node,
@@ -350,6 +354,26 @@ export function create(context: RuleContext<MessageID, []>) {
   );
 }
 
+function isSetterUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
+  const isUsingRefValue = (n: TSESTree.Node): boolean => {
+    switch (n.type) {
+      case AST.Identifier:
+        return core.isInitializedFromRef(n.name, context.sourceCode.getScope(n));
+      case AST.MemberExpression:
+        return isUsingRefValue(n.object);
+      case AST.CallExpression:
+        return isUsingRefValue(n.callee) || ast.getNestedIdentifiers(n).some(isUsingRefValue);
+      default:
+        return false;
+    }
+  };
+  if (isUsingRefValue(node)) return true;
+  return ast.isFunction(node) && context.sourceCode
+    .getScope(node.body)
+    .references
+    .some((r) => isUsingRefValue(r.identifier));
+}
+
 function isInitFromHookCall(init: TSESTree.Expression | null) {
   if (init?.type !== AST.CallExpression) return false;
   switch (init.callee.type) {
@@ -363,7 +387,7 @@ function isInitFromHookCall(init: TSESTree.Expression | null) {
   }
 }
 
-export function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
+function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
   & TSESTree.VariableDeclarator
   & { init: TSESTree.VariableDeclarator["init"] & {} }
 {
