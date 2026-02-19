@@ -84,6 +84,24 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 - `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats) usage.
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
+  > **Note:** Compared to the old `no-direct-set-state-in-use-effect` rule, the new `set-state-in-effect` rule allows `setState` calls when the new state is derived from refs (e.g., `setState(ref.current)`). All other behaviors remain the same.
+  >
+  > The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
+  >
+  > ```tsx
+  > import { useLayoutEffect, useRef, useState } from "react";
+  >
+  > function Tooltip() {
+  >   const ref = useRef(null);
+  >   const [tooltipHeight, setTooltipHeight] = useState(0);
+  >
+  >   useLayoutEffect(() => {
+  >     const { height } = ref.current.getBoundingClientRect();
+  >     setTooltipHeight(height);
+  >   }, []);
+  >   // ...
+  > }
+  > ```
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
 - `unsupported-syntax`: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX (previously covered by `jsx-no-iife`)
 
