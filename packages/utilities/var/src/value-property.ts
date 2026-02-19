@@ -3,8 +3,8 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { getVariableDefinitionNode } from "./var-definition";
-import { findVariable } from "./var-scope";
+import { getVariableInitializer } from "./binding-initializer";
+import { findVariable } from "./scope";
 
 /**
  * Find a property by name in an array of properties
@@ -31,7 +31,7 @@ export function findProperty(
         case AST.Identifier: {
           if (seen.has(prop.argument.name)) return false;
           const variable = findVariable(prop.argument.name, initialScope);
-          const variableNode = getVariableDefinitionNode(variable, 0);
+          const variableNode = getVariableInitializer(variable, 0);
           if (variableNode?.type === AST.ObjectExpression) {
             seen.add(prop.argument.name);
             return findProperty(

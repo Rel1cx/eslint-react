@@ -7,7 +7,6 @@ import { isCreateElementCall } from "../api";
 import { JsxDetectionHint } from "../jsx";
 import { isClassComponent } from "./component-kind";
 import { isFunctionWithLooseComponentName } from "./component-name";
-import { isRenderMethodLike } from "./component-render-method";
 
 export type ComponentDetectionHint = bigint;
 
@@ -43,6 +42,25 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
 
 /**
+ * Check whether given node is a render method of a class component
+ * @example
+ * ```tsx
+ * class Component extends React.Component {
+ *   renderHeader = () => <div />;
+ *   renderFooter = () => <div />;
+ * }
+ * ```
+ * @param node The AST node to check
+ * @returns `true` if node is a render function, `false` if not
+ */
+export function isRenderMethodLike(node: TSESTree.Node): node is ast.TSESTreeMethodOrProperty {
+  return ast.isMethodOrProperty(node)
+    && node.key.type === AST.Identifier
+    && node.key.name.startsWith("render")
+    && node.parent.parent.type === AST.ClassDeclaration;
+}
+
+/**
  * Check if the given node is a function within a render method of a class component
  *
  * @param node The AST node to check
@@ -65,6 +83,97 @@ function isRenderMethodCallback(node: ast.TSESTreeFunction) {
     && isRenderMethodLike(parent)
     && isClassComponent(greatGrandparent)
   );
+}
+
+/**
+ * Unsafe check whether given node is a render function
+ * ```tsx
+ * const renderRow = () => <div />
+ * `                 ^^^^^^^^^^^^`
+ * _ = <Component renderRow={() => <div />} />
+ * `                         ^^^^^^^^^^^^^   `
+ * ```
+ * @param context The rule context
+ * @param node The AST node to check
+ * @returns `true` if node is a render function, `false` if not
+ */
+export function isRenderFunctionLoose(context: RuleContext, node: TSESTree.Node): node is ast.TSESTreeFunction {
+  if (!ast.isFunction(node)) return false;
+  const id = ast.getFunctionId(node);
+  switch (true) {
+    case id?.type === AST.Identifier:
+      return id.name.startsWith("render");
+    case id?.type === AST.MemberExpression
+      && id.property.type === AST.Identifier:
+      return id.property.name.startsWith("render");
+    case node.parent.type === AST.JSXExpressionContainer
+      && node.parent.parent.type === AST.JSXAttribute
+      && node.parent.parent.name.type === AST.JSXIdentifier:
+      return node.parent.parent.name.name.startsWith("render");
+  }
+  return false;
+}
+
+/**
+ * Unsafe check whether given JSXAttribute is a render prop
+ * ```tsx
+ * _ = <Component renderRow={() => <div />} />
+ * `              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
+ * ```
+ * @param context The rule context
+ * @param node The AST node to check
+ * @returns `true` if node is a render prop, `false` if not
+ */
+export function isRenderPropLoose(context: RuleContext, node: TSESTree.JSXAttribute) {
+  if (node.name.type !== AST.JSXIdentifier) {
+    return false;
+  }
+  return node.name.name.startsWith("render")
+    && node.value?.type === AST.JSXExpressionContainer
+    && isRenderFunctionLoose(context, node.value.expression);
+}
+
+/**
+ * Unsafe check whether given node is declared directly inside a render property
+ * ```tsx
+ * const rows = { render: () => <div /> }
+ * `                      ^^^^^^^^^^^^^ `
+ * _ = <Component rows={ [{ render: () => <div /> }] } />
+ * `                                ^^^^^^^^^^^^^       `
+ *  ```
+ * @internal
+ * @param node The AST node to check
+ * @returns `true` if component is declared inside a render property, `false` if not
+ */
+export function isDirectValueOfRenderPropertyLoose(node: TSESTree.Node) {
+  const matching = (node: TSESTree.Node) => {
+    return node.type === AST.Property
+      && node.key.type === AST.Identifier
+      && node.key.name.startsWith("render");
+  };
+  return matching(node) || (node.parent != null && matching(node.parent));
+}
+
+/**
+ * Unsafe check whether given node is declared inside a render prop
+ * ```tsx
+ * _ = <Component renderRow={"node"} />
+ * `                         ^^^^^^   `
+ * _ = <Component rows={ [{ render: "node" }] } />
+ * `                                ^^^^^^       `
+ * ```
+ * @param node The AST node to check
+ * @returns `true` if component is declared inside a render prop, `false` if not
+ */
+export function isDeclaredInRenderPropLoose(node: TSESTree.Node) {
+  if (isDirectValueOfRenderPropertyLoose(node)) {
+    return true;
+  }
+  const parent = ast.findParentNode(node, ast.is(AST.JSXExpressionContainer))?.parent;
+  if (parent?.type !== AST.JSXAttribute) {
+    return false;
+  }
+  return parent.name.type === AST.JSXIdentifier && parent.name.name.startsWith("render");
 }
 
 /**

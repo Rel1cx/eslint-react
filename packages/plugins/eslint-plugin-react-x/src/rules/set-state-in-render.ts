@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
-import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
+import { findVariable, getVariableInitializer } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -50,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
     const variable = findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
-    const variableNode = getVariableDefinitionNode(variable, 0);
+    const variableNode = getVariableInitializer(variable, 0);
     if (variableNode == null) return false;
     if (variableNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(variableNode)) return false;

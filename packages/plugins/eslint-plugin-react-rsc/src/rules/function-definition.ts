@@ -6,7 +6,7 @@ import {
   type RuleFixer,
   defineRuleListener,
 } from "@eslint-react/shared";
-import { findVariable, getVariableDefinitionNode } from "@eslint-react/var";
+import { findVariable, getVariableInitializer } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
@@ -98,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
   ) {
     const variable = findVariable(id.name, context.sourceCode.getScope(node));
-    const variableNode = getVariableDefinitionNode(variable, 0);
+    const variableNode = getVariableInitializer(variable, 0);
     if (variableNode == null) return;
     reportNonAsyncFunction(variableNode, "file");
   }

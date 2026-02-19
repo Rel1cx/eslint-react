@@ -4,8 +4,8 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
-import { getVariableDefinitionNodeLoose } from "./var-definition";
-import { findVariable } from "./var-scope";
+import { getVariableInitializerLoose } from "./binding-initializer";
+import { findVariable } from "./scope";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -21,7 +21,7 @@ const thisBlockTypes = [
  * @param initialScopes initial scopes of the two nodes
  * @returns `true` if node value equal
  */
-export function isNodeEqual(
+export function isValueEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
   initialScopes: [
@@ -48,8 +48,8 @@ export function isNodeEqual(
       && b.type === AST.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
-      const aVarNode = getVariableDefinitionNodeLoose(aVar, 0);
-      const bVarNode = getVariableDefinitionNodeLoose(bVar, 0);
+      const aVarNode = getVariableInitializerLoose(aVar, 0);
+      const bVarNode = getVariableInitializerLoose(bVar, 0);
       const aVarNodeParent = aVarNode?.parent;
       const bVarNodeParent = bVarNode?.parent;
       const aDef = aVar?.defs.at(0);
@@ -89,7 +89,7 @@ export function isNodeEqual(
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression: {
       return ast.isNodeEqual(a.property, b.property)
-        && isNodeEqual(a.object, b.object, initialScopes);
+        && isValueEqual(a.object, b.object, initialScopes);
     }
     case a.type === AST.ThisExpression
       && b.type === AST.ThisExpression: {

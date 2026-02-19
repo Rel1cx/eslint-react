@@ -2,8 +2,8 @@ import { dual } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { getUnderlyingExpression } from "./expression-base";
 import { isTypeExpression } from "./node-is";
+import { getUnderlyingExpression } from "./node-unwrap";
 
 /**
  * Check if two nodes are equal

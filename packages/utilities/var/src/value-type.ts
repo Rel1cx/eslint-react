@@ -3,7 +3,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { getVariableDefinitionNode } from "./var-definition";
+import { getVariableInitializer } from "./binding-initializer";
 
 /**
  * Represents the type classification of an object node
@@ -90,7 +90,7 @@ export function getObjectType(
         return unit;
       }
       const variable = initialScope.set.get(node.name);
-      const variableNode = getVariableDefinitionNode(variable, -1);
+      const variableNode = getVariableInitializer(variable, -1);
       return getObjectType(variableNode, initialScope);
     }
     case AST.MemberExpression: {

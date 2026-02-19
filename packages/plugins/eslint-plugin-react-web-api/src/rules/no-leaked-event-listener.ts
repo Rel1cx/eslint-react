@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findProperty, findVariable, getVariableDefinitionNode, isNodeEqual } from "@eslint-react/var";
+import { findProperty, findVariable, getVariableInitializer, isValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -80,7 +80,7 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
   switch (node.type) {
     case AST.Identifier: {
       return getSignalValueExpression(
-        getVariableDefinitionNode(findVariable(node, initialScope), 0),
+        getVariableInitializer(findVariable(node, initialScope), 0),
         initialScope,
       );
     }
@@ -99,7 +99,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
     switch (node.type) {
       case AST.Identifier: {
         const variable = findVariable(node, initialScope);
-        const variableNode = getVariableDefinitionNode(variable, 0);
+        const variableNode = getVariableInitializer(variable, 0);
         if (variableNode?.type === AST.ObjectExpression) {
           return getOpts(variableNode);
         }
@@ -190,7 +190,7 @@ export function create(context: RuleContext<MessageID, []>) {
     }
     return isSameObject(aCallee, rCallee)
       && ast.isNodeEqual(aListener, rListener)
-      && isNodeEqual(aType, rType, [
+      && isValueEqual(aType, rType, [
         context.sourceCode.getScope(aType),
         context.sourceCode.getScope(rType),
       ])

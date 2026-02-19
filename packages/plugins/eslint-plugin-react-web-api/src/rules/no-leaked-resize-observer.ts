@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import {
   findEnclosingAssignmentTarget,
   findVariable,
-  getVariableDefinitionNode,
+  getVariableInitializer,
   isAssignmentTargetEqual,
 } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -51,7 +51,7 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
   switch (true) {
     case node.type === AST.Identifier: {
       const initialScope = context.sourceCode.getScope(node);
-      const object = getVariableDefinitionNode(findVariable(node, initialScope), 0);
+      const object = getVariableInitializer(findVariable(node, initialScope), 0);
       return isNewResizeObserver(object);
     }
     case node.type === AST.MemberExpression:
