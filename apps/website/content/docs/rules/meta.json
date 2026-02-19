@@ -63,6 +63,7 @@
     "prefer-namespace-import",
     "prefer-read-only-props",
     "prefer-use-state-lazy-initialization",
+    "purity",
     "rules-of-hooks",
     "set-state-in-effect",
     "set-state-in-render",

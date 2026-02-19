@@ -43,6 +43,7 @@ export const rules = {
   "react-x/no-use-context": "warn",
   "react-x/no-useless-forward-ref": "warn",
   "react-x/prefer-use-state-lazy-initialization": "warn",
+  "react-x/purity": "warn",
   "react-x/rules-of-hooks": "error",
   "react-x/set-state-in-effect": "warn",
   "react-x/set-state-in-render": "error",

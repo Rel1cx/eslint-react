@@ -40,6 +40,8 @@
 | [DEFAULT\_ESLINT\_SETTINGS](variables/DEFAULT_ESLINT_SETTINGS.md) | Default ESLint settings with React settings included |
 | [defineSettings](variables/defineSettings.md) | Helper function for defining typed settings for "react-x" in JavaScript files Provides type checking without runtime transformation |
 | [GITHUB\_URL](variables/GITHUB_URL.md) | The GitHub repository for this project. |
+| [IMPURE\_CONSTRUCTORS](variables/IMPURE_CONSTRUCTORS.md) | Known impure global constructors used with `new` |
+| [IMPURE\_FUNCTIONS](variables/IMPURE_FUNCTIONS.md) | Known impure functions |
 | [NPM\_SCOPE](variables/NPM_SCOPE.md) | The NPM scope for this project. |
 | [RE\_ANNOTATION\_JSX](variables/RE_ANNOTATION_JSX.md) | Regular expression for matching a `@jsx` annotation comment. |
 | [RE\_ANNOTATION\_JSX\_FRAG](variables/RE_ANNOTATION_JSX_FRAG.md) | Regular expression for matching a `@jsxFrag` annotation comment. |
