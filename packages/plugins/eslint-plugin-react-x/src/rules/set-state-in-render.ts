@@ -107,7 +107,7 @@ export function create(context: RuleContext<MessageID, []>) {
     }
   }
 
-  function isInsideConditional(node: TSESTree.Node, stopAt: ast.TSESTreeFunction): boolean {
+  function isInsideConditional(node: TSESTree.Node, stopAt: ast.TSESTreeFunction) {
     let current: TSESTree.Node | undefined = node.parent;
     while (current != null && current !== stopAt) {
       switch (current.type) {
@@ -125,7 +125,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  function isInsideEventHandler(node: TSESTree.Node, stopAt: ast.TSESTreeFunction): boolean {
+  function isInsideEventHandler(node: TSESTree.Node, stopAt: ast.TSESTreeFunction) {
     let current: TSESTree.Node | undefined = node.parent;
     while (current != null && current !== stopAt) {
       if (ast.isFunction(current) && current !== stopAt) {
@@ -136,7 +136,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  function isComponentLikeFunction(node: ast.TSESTreeFunction): boolean {
+  function isComponentLikeFunction(node: ast.TSESTreeFunction) {
     const id = ast.getFunctionId(node);
     if (id == null) return false;
     if (id.type === AST.Identifier) {

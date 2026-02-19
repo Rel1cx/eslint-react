@@ -18,7 +18,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
 
-function isImpureMemberCall(node: TSESTree.CallExpression): boolean {
+function isImpureMemberCall(node: TSESTree.CallExpression) {
   if (node.callee.type !== AST.MemberExpression) return false;
   const { object, property } = node.callee;
   if (object.type !== AST.Identifier) return false;
@@ -28,12 +28,12 @@ function isImpureMemberCall(node: TSESTree.CallExpression): boolean {
   return methods.has(property.name);
 }
 
-function isImpureNewExpression(node: TSESTree.NewExpression): boolean {
+function isImpureNewExpression(node: TSESTree.NewExpression) {
   if (node.callee.type !== AST.Identifier) return false;
   return IMPURE_CONSTRUCTORS.has(node.callee.name);
 }
 
-function getImpureCallName(node: TSESTree.CallExpression): string | null {
+function getImpureCallName(node: TSESTree.CallExpression) {
   if (node.callee.type !== AST.MemberExpression) return null;
   const { object, property } = node.callee;
   if (object.type !== AST.Identifier) return null;
@@ -41,7 +41,7 @@ function getImpureCallName(node: TSESTree.CallExpression): string | null {
   return `${object.name}.${property.name}()`;
 }
 
-function getImpureNewName(node: TSESTree.NewExpression): string | null {
+function getImpureNewName(node: TSESTree.NewExpression) {
   if (node.callee.type !== AST.Identifier) return null;
   return `new ${node.callee.name}()`;
 }

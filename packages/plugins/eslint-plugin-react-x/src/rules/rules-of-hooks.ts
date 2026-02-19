@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -97,14 +98,14 @@ function getFunctionEntryKind(node: ast.TSESTreeFunction): FunctionEntryKind {
   return "other";
 }
 
-function isConditionalNode(node: TSESTree.Node): boolean {
+function isConditionalNode(node: TSESTree.Node) {
   return node.type === AST.IfStatement
     || node.type === AST.SwitchStatement
     || node.type === AST.ConditionalExpression
     || node.type === AST.LogicalExpression;
 }
 
-function isLoopNode(node: TSESTree.Node): boolean {
+function isLoopNode(node: TSESTree.Node) {
   return node.type === AST.ForStatement
     || node.type === AST.ForInStatement
     || node.type === AST.ForOfStatement
@@ -112,14 +113,14 @@ function isLoopNode(node: TSESTree.Node): boolean {
     || node.type === AST.DoWhileStatement;
 }
 
-function isTryCatchNode(node: TSESTree.Node): boolean {
+function isTryCatchNode(node: TSESTree.Node) {
   return node.type === AST.TryStatement;
 }
 
 export function create(context: RuleContext<MessageID, []>) {
   const functionStack: FunctionEntry[] = [];
 
-  function findEnclosingComponentOrHook(): FunctionEntry | undefined {
+  function findEnclosingComponentOrHook(): FunctionEntry | unit {
     for (let i = functionStack.length - 1; i >= 0; i--) {
       const entry = functionStack[i];
       if (entry == null) continue;
@@ -130,7 +131,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return undefined;
   }
 
-  function checkHookCall(node: TSESTree.CallExpression): void {
+  function checkHookCall(node: TSESTree.CallExpression) {
     const hookName = getHookName(node);
     const isUse = isUseCall(node);
 
@@ -175,7 +176,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
     // Walk ancestors from the hook call up to the boundary function
     // checking for conditionals, loops, nested functions, try/catch, and classes
-    let current: TSESTree.Node | undefined = node.parent;
+    let current: TSESTree.Node | unit = node.parent;
     while (current != null && current !== boundary.node) {
       // Class detection
       if (ast.isClass(current)) {

@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.CallExpression;
     func: ast.TSESTreeFunction;
   }[] = [];
-  const withStatements: {
+  const withStmts: {
     node: TSESTree.WithStatement;
     func: ast.TSESTreeFunction;
   }[] = [];
@@ -68,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>) {
       WithStatement(node: TSESTree.WithStatement) {
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        withStatements.push({ node, func });
+        withStmts.push({ node, func });
       },
       "JSXElement :function"(node: ast.TSESTreeFunction) {
         if (isIifeCall(node)) {
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
             node,
           });
         }
-        for (const { node, func } of withStatements) {
+        for (const { node, func } of withStmts) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             messageId: "with",
