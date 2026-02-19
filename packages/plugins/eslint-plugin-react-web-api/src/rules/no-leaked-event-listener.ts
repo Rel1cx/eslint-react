@@ -179,8 +179,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       case a.type === AST.MemberExpression
         && b.type === AST.MemberExpression:
         return ast.isNodeEqual(a.object, b.object);
-
-      // TODO: Maybe there other cases to consider here.
       default:
         return false;
     }
