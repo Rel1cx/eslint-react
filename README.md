@@ -28,6 +28,7 @@
 - [Rules](#rules)
 - [Benchmark](#benchmark)
 - [FAQ](#faq)
+- [Changelog](#changelog)
 - [Roadmap](#roadmap)
 - [Disclaimer](#disclaimer)
 - [Contributing](#contributing)
@@ -194,6 +195,10 @@ export default defineConfig(
 ## FAQ
 
 [Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
+
+## Changelog
+
+[Changelog ↗](https://www.eslint-react.xyz/docs/changelog)
 
 ## Roadmap
 
