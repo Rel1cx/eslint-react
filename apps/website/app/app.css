@@ -194,6 +194,10 @@ button {
       white-space: nowrap;
     }
   }
+
+  blockquote {
+    font-style: normal
+  }
 }
 
 .prose>p>code {
