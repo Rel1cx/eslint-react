@@ -1,6 +1,5 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -46,34 +45,36 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return {
-    JSXElement(node) {
-      const { domElementType } = resolver.resolve(node);
-      // If the element is not a void element, do nothing
-      if (!voidElements.has(domElementType)) {
-        return;
-      }
+  return defineRuleListener(
+    {
+      JSXElement(node) {
+        const { domElementType } = resolver.resolve(node);
+        // If the element is not a void element, do nothing
+        if (!voidElements.has(domElementType)) {
+          return;
+        }
 
-      const findJsxAttribute = core.getJsxAttribute(context, node);
+        const findJsxAttribute = core.getJsxAttribute(context, node);
 
-      // Check if the element has a 'children' prop
-      const hasChildrenProp = findJsxAttribute("children") != null;
-      // Check if the element has a 'dangerouslySetInnerHTML' prop
-      const hasDangerouslySetInnerHTML = findJsxAttribute("dangerouslySetInnerHTML") != null;
+        // Check if the element has a 'children' prop
+        const hasChildrenProp = findJsxAttribute("children") != null;
+        // Check if the element has a 'dangerouslySetInnerHTML' prop
+        const hasDangerouslySetInnerHTML = findJsxAttribute("dangerouslySetInnerHTML") != null;
 
-      // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
-      if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
-        context.report({
-          messageId: "default",
-          node,
-          data: {
-            elementType: domElementType,
-          },
-        });
-      }
+        // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
+        if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
+          context.report({
+            messageId: "default",
+            node,
+            data: {
+              elementType: domElementType,
+            },
+          });
+        }
+      },
     },
-  };
+  );
 }

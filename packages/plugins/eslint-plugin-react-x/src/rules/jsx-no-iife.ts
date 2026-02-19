@@ -1,7 +1,6 @@
 import type * as ast from "@eslint-react/ast";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -29,23 +28,25 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    "JSXElement :function"(node: ast.TSESTreeFunction) {
-      if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
-        context.report({
-          messageId: "default",
-          node: node.parent,
-        });
-      }
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      "JSXElement :function"(node: ast.TSESTreeFunction) {
+        if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
+          context.report({
+            messageId: "default",
+            node: node.parent,
+          });
+        }
+      },
+      "JSXFragment :function"(node: ast.TSESTreeFunction) {
+        if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
+          context.report({
+            messageId: "default",
+            node: node.parent,
+          });
+        }
+      },
     },
-    "JSXFragment :function"(node: ast.TSESTreeFunction) {
-      if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
-        context.report({
-          messageId: "default",
-          node: node.parent,
-        });
-      }
-    },
-  };
+  );
 }

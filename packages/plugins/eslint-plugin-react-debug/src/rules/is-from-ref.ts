@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.sourceCode.getScope(node);
     const refInit = getRefInitNode(node, initialScope);
@@ -47,7 +47,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     }
   }
-  return { Identifier: visitorFunction, JSXIdentifier: visitorFunction };
+  return defineRuleListener(
+    { Identifier: visitorFunction, JSXIdentifier: visitorFunction },
+  );
 }
 
 function getRefInitNode(node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope) {

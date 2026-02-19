@@ -1,10 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-misused-capture-owner-stack";
@@ -36,39 +34,41 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `captureOwnerStack` is not present in the file
   if (!context.sourceCode.text.includes("captureOwnerStack")) return {};
   const { importSource } = getSettingsFromContext(context);
 
-  return {
-    CallExpression(node) {
-      // Check if the call is to `captureOwnerStack`
-      if (!core.isCaptureOwnerStackCall(context, node)) return;
-      // Check if the call is wrapped in a development-only conditional block
-      if (ast.findParentNode(node, isDevelopmentOnlyCheck) == null) {
-        context.report({
-          messageId: "missingDevelopmentOnlyCheck",
-          node,
-        });
-      }
-    },
-    ImportDeclaration(node) {
-      // Check if the import is from the configured source
-      if (node.source.value !== importSource) return;
-      // Iterate over import specifiers to find named imports of `captureOwnerStack`
-      for (const specifier of node.specifiers) {
-        if (specifier.type !== AST.ImportSpecifier) continue;
-        if (specifier.imported.type !== AST.Identifier) continue;
-        if (specifier.imported.name === "captureOwnerStack") {
+  return defineRuleListener(
+    {
+      CallExpression(node) {
+        // Check if the call is to `captureOwnerStack`
+        if (!core.isCaptureOwnerStackCall(context, node)) return;
+        // Check if the call is wrapped in a development-only conditional block
+        if (ast.findParentNode(node, isDevelopmentOnlyCheck) == null) {
           context.report({
-            messageId: "useNamespaceImport",
-            node: specifier,
+            messageId: "missingDevelopmentOnlyCheck",
+            node,
           });
         }
-      }
+      },
+      ImportDeclaration(node) {
+        // Check if the import is from the configured source
+        if (node.source.value !== importSource) return;
+        // Iterate over import specifiers to find named imports of `captureOwnerStack`
+        for (const specifier of node.specifiers) {
+          if (specifier.type !== AST.ImportSpecifier) continue;
+          if (specifier.imported.type !== AST.Identifier) continue;
+          if (specifier.imported.name === "captureOwnerStack") {
+            context.report({
+              messageId: "useNamespaceImport",
+              node: specifier,
+            });
+          }
+        }
+      },
     },
-  };
+  );
 }
 
 // Helper function to check if a node is a development-only `if` statement

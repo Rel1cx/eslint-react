@@ -1,10 +1,9 @@
 import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature, RulePolicy } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, type RulePolicy, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -48,44 +47,46 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>): RuleListener {
+export function create(context: RuleContext<MessageID, Options>) {
   const policy = context.options[0] ?? defaultOptions[0];
-  return {
-    JSXAttribute(node: TSESTree.JSXAttribute) {
-      const { value } = node;
-      const propName = core.getJsxAttributeName(context, node);
+  return defineRuleListener(
+    {
+      JSXAttribute(node: TSESTree.JSXAttribute) {
+        const { value } = node;
+        const propName = core.getJsxAttributeName(context, node);
 
-      switch (true) {
-        // Enforce shorthand syntax for boolean attributes (e.g., `prop` instead of `prop={true}`)
-        case policy === 1
-          && value?.type === AST.JSXExpressionContainer
-          && value.expression.type === AST.Literal
-          && value.expression.value === true: {
-          context.report({
-            messageId: "default",
-            node,
-            data: {
-              message: `Omit attribute value for '${propName}'.`,
-            },
-            fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
-          });
-          break;
+        switch (true) {
+          // Enforce shorthand syntax for boolean attributes (e.g., `prop` instead of `prop={true}`)
+          case policy === 1
+            && value?.type === AST.JSXExpressionContainer
+            && value.expression.type === AST.Literal
+            && value.expression.value === true: {
+            context.report({
+              messageId: "default",
+              node,
+              data: {
+                message: `Omit attribute value for '${propName}'.`,
+              },
+              fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+            });
+            break;
+          }
+          // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
+          case policy === -1
+            // eslint-disable-next-line function-rule-1/function-rule
+            && value === null: {
+            context.report({
+              messageId: "default",
+              node: node.value ?? node,
+              data: {
+                message: `Set attribute value for '${propName}'.`,
+              },
+              fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
+            });
+            break;
+          }
         }
-        // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
-        case policy === -1
-          // eslint-disable-next-line function-rule-1/function-rule
-          && value === null: {
-          context.report({
-            messageId: "default",
-            node: node.value ?? node,
-            data: {
-              message: `Set attribute value for '${propName}'.`,
-            },
-            fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
-          });
-          break;
-        }
-      }
+      },
     },
-  };
+  );
 }

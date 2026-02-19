@@ -1,9 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -117,7 +116,7 @@ function isTryCatchNode(node: TSESTree.Node): boolean {
   return node.type === AST.TryStatement;
 }
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const functionStack: FunctionEntry[] = [];
 
   function findEnclosingComponentOrHook(): FunctionEntry | undefined {
@@ -224,41 +223,43 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
 
-  return {
-    ":function"(node: ast.TSESTreeFunction) {
-      const kind = getFunctionEntryKind(node);
-      functionStack.push({
-        kind,
-        node,
-        hasEarlyReturn: false,
-        isAsync: node.async,
-      });
+  return defineRuleListener(
+    {
+      ":function"(node: ast.TSESTreeFunction) {
+        const kind = getFunctionEntryKind(node);
+        functionStack.push({
+          kind,
+          node,
+          hasEarlyReturn: false,
+          isAsync: node.async,
+        });
+      },
+      ":function:exit"() {
+        functionStack.pop();
+      },
+      CallExpression(node: TSESTree.CallExpression) {
+        if (!core.isHookCall(node)) return;
+        checkHookCall(node);
+      },
+      ReturnStatement(node: TSESTree.ReturnStatement) {
+        if (functionStack.length === 0) return;
+        const entry = functionStack.at(-1);
+        if (entry == null) return;
+        // Check if this return is not the last statement in the function body
+        const fnNode = entry.node;
+        if (fnNode.body.type !== AST.BlockStatement) return;
+        const body = fnNode.body.body;
+        // Find the parent statement that is a direct child of the function body
+        let stmt: TSESTree.Node = node;
+        while (stmt.parent !== fnNode.body) {
+          if (stmt.parent == null) return;
+          stmt = stmt.parent;
+        }
+        const idx = body.indexOf(stmt as TSESTree.Statement);
+        if (idx !== -1 && idx < body.length - 1) {
+          entry.hasEarlyReturn = true;
+        }
+      },
     },
-    ":function:exit"() {
-      functionStack.pop();
-    },
-    CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isHookCall(node)) return;
-      checkHookCall(node);
-    },
-    ReturnStatement(node: TSESTree.ReturnStatement) {
-      if (functionStack.length === 0) return;
-      const entry = functionStack.at(-1);
-      if (entry == null) return;
-      // Check if this return is not the last statement in the function body
-      const fnNode = entry.node;
-      if (fnNode.body.type !== AST.BlockStatement) return;
-      const body = fnNode.body.body;
-      // Find the parent statement that is a direct child of the function body
-      let stmt: TSESTree.Node = node;
-      while (stmt.parent !== fnNode.body) {
-        if (stmt.parent == null) return;
-        stmt = stmt.parent;
-      }
-      const idx = body.indexOf(stmt as TSESTree.Statement);
-      if (idx !== -1 && idx < body.length - 1) {
-        entry.hasEarlyReturn = true;
-      }
-    },
-  };
+  );
 }

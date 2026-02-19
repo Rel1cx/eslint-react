@@ -9,7 +9,6 @@ import {
 } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -65,7 +64,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.useHookCollector(context);
   const cCollector = core.useComponentCollector(context);
   const cExprs: {

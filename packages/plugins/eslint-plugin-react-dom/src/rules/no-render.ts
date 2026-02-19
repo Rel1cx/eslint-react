@@ -1,8 +1,7 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleContext, RuleFeature, RuleFixer } from "@eslint-react/shared";
+import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 
 import { createRule } from "../utils";
@@ -32,7 +31,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `render` is not present in the file
   if (!context.sourceCode.text.includes("render")) return {};
   const settings = getSettingsFromContext(context);
@@ -44,55 +43,57 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Tracks imported names for the `render` function
   const renderNames = new Set<string>();
 
-  return {
-    // Visitor for call expressions, e.g., render() or ReactDOM.render()
-    CallExpression(node) {
-      switch (true) {
-        // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
-        case node.callee.type === AST.Identifier
-          && renderNames.has(node.callee.name):
-          context.report({
-            messageId: "default",
-            node,
-            fix: getFix(context, node),
-          });
-          return;
-        // Case 2: Member expression call, e.g., `ReactDOM.render()`
-        case node.callee.type === AST.MemberExpression
-          && node.callee.object.type === AST.Identifier
-          && node.callee.property.type === AST.Identifier
-          && node.callee.property.name === "render"
-          && reactDomNames.has(node.callee.object.name):
-          context.report({
-            messageId: "default",
-            node,
-            fix: getFix(context, node),
-          });
-          return;
-      }
-    },
-    ImportDeclaration(node) {
-      const [baseSource] = node.source.value.split("/");
-      // Only consider imports from 'react-dom'
-      if (baseSource !== "react-dom") return;
-      for (const specifier of node.specifiers) {
-        switch (specifier.type) {
-          // Handles: import { render } from 'react-dom'
-          case AST.ImportSpecifier:
-            if (specifier.imported.type !== AST.Identifier) continue;
-            if (specifier.imported.name === "render") {
-              renderNames.add(specifier.local.name);
-            }
-            continue;
-          // Handles: import ReactDOM from 'react-dom' or import * as ReactDOM from 'react-dom'
-          case AST.ImportDefaultSpecifier:
-          case AST.ImportNamespaceSpecifier:
-            reactDomNames.add(specifier.local.name);
-            continue;
+  return defineRuleListener(
+    {
+      // Visitor for call expressions, e.g., render() or ReactDOM.render()
+      CallExpression(node) {
+        switch (true) {
+          // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
+          case node.callee.type === AST.Identifier
+            && renderNames.has(node.callee.name):
+            context.report({
+              messageId: "default",
+              node,
+              fix: getFix(context, node),
+            });
+            return;
+          // Case 2: Member expression call, e.g., `ReactDOM.render()`
+          case node.callee.type === AST.MemberExpression
+            && node.callee.object.type === AST.Identifier
+            && node.callee.property.type === AST.Identifier
+            && node.callee.property.name === "render"
+            && reactDomNames.has(node.callee.object.name):
+            context.report({
+              messageId: "default",
+              node,
+              fix: getFix(context, node),
+            });
+            return;
         }
-      }
+      },
+      ImportDeclaration(node) {
+        const [baseSource] = node.source.value.split("/");
+        // Only consider imports from 'react-dom'
+        if (baseSource !== "react-dom") return;
+        for (const specifier of node.specifiers) {
+          switch (specifier.type) {
+            // Handles: import { render } from 'react-dom'
+            case AST.ImportSpecifier:
+              if (specifier.imported.type !== AST.Identifier) continue;
+              if (specifier.imported.name === "render") {
+                renderNames.add(specifier.local.name);
+              }
+              continue;
+            // Handles: import ReactDOM from 'react-dom' or import * as ReactDOM from 'react-dom'
+            case AST.ImportDefaultSpecifier:
+            case AST.ImportNamespaceSpecifier:
+              reactDomNames.add(specifier.local.name);
+              continue;
+          }
+        }
+      },
     },
-  };
+  );
 }
 
 /**

@@ -1,7 +1,6 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { unionConstituents } from "ts-api-utils";
 
 import { createRule, getFullyQualifiedNameEx } from "../utils";
@@ -32,24 +31,26 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  return {
-    JSXSpreadAttribute(node) {
-      for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-        const key = type.getProperty("key");
-        if (key == null) continue;
-        // Allow pass-through of React internally defined keys
-        // For react and react-dom the FQN is "React.Attributes.key"
-        // For preact and preact/compat the FQN is "preact.Attributes.key"
-        // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
-        context.report({
-          messageId: "default",
-          node,
-        });
-      }
+  return defineRuleListener(
+    {
+      JSXSpreadAttribute(node) {
+        for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
+          const key = type.getProperty("key");
+          if (key == null) continue;
+          // Allow pass-through of React internally defined keys
+          // For react and react-dom the FQN is "React.Attributes.key"
+          // For preact and preact/compat the FQN is "preact.Attributes.key"
+          // https://github.com/Rel1cx/eslint-react/issues/1472
+          if (getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
+          context.report({
+            messageId: "default",
+            node,
+          });
+        }
+      },
     },
-  };
+  );
 }

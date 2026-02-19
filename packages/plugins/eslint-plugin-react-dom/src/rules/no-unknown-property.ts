@@ -1,9 +1,8 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { type CompareOperator, compare } from "compare-versions";
 
 import { createRule } from "../utils";
@@ -1177,7 +1176,7 @@ export default createRule({
  * @param context ESLint rule context
  * @returns Rule listener
  */
-export function create(context: RuleContext<MessageID, Options[]>): RuleListener {
+export function create(context: RuleContext<MessageID, Options[]>) {
   /**
    * Gets the ignore configuration from rule options
    * @returns Array of attribute names to ignore
@@ -1194,104 +1193,106 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
     return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
   }
 
-  return {
-    JSXAttribute(node): void {
-      const ignoreNames: string[] = getIgnoreConfig();
-      const actualName: string = getText(context, node.name);
+  return defineRuleListener(
+    {
+      JSXAttribute(node): void {
+        const ignoreNames: string[] = getIgnoreConfig();
+        const actualName: string = getText(context, node.name);
 
-      // Skip checking if the attribute name is in the ignore list
-      if (ignoreNames.indexOf(actualName) >= 0) {
-        return;
-      }
+        // Skip checking if the attribute name is in the ignore list
+        if (ignoreNames.indexOf(actualName) >= 0) {
+          return;
+        }
 
-      const name: string = normalizeAttributeCase(actualName);
+        const name: string = normalizeAttributeCase(actualName);
 
-      // Ignore tags like <Foo.bar />
-      if (tagNameHasDot(node)) {
-        return;
-      }
+        // Ignore tags like <Foo.bar />
+        if (tagNameHasDot(node)) {
+          return;
+        }
 
-      // Handle data-* attributes
-      if (isValidDataAttribute(name)) {
-        if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
+        // Handle data-* attributes
+        if (isValidDataAttribute(name)) {
+          if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
+            context.report({
+              messageId: "dataLowercaseRequired",
+              node,
+              data: {
+                name: actualName,
+                lowerCaseName: actualName.toLowerCase(),
+              },
+            });
+          }
+          return;
+        }
+
+        // Handle ARIA attributes
+        if (isValidAriaAttribute(name)) return;
+
+        const tagName: string | null = getTagName(node);
+
+        // Special case for fbt/fbs nodes
+        if (tagName === "fbt" || tagName === "fbs") return;
+
+        // Only validate HTML/DOM elements, not React components
+        if (!isValidHTMLTagInJSX(node)) return;
+
+        // Check if attribute is allowed only on specific tags
+        const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
+          ? ATTRIBUTE_TAGS_MAP[name]
+          : null;
+
+        if (tagName != null && allowedTags != null) {
+          // Report if attribute is used on a tag where it's not allowed
+          if (allowedTags.indexOf(tagName) === -1) {
+            context.report({
+              messageId: "invalidPropOnTag",
+              node,
+              data: {
+                name: actualName,
+                allowedTags: allowedTags.join(", "),
+                tagName,
+              },
+            });
+          }
+          return;
+        }
+
+        // Check if the attribute name is similar to a standard property name
+        const standardName: string | undefined = getStandardName(name, context);
+
+        const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
+        const usesStandardName = standardName != null && standardName === name;
+        if (usesStandardName) {
+          // Attribute name is correct, nothing to do
+          return;
+        }
+
+        if (hasStandardNameButIsNotUsed) {
+          // Suggest the correct standard name
           context.report({
-            messageId: "dataLowercaseRequired",
+            messageId: "unknownPropWithStandardName",
             node,
             data: {
               name: actualName,
-              lowerCaseName: actualName.toLowerCase(),
+              standardName,
+            },
+            fix(fixer) {
+              return fixer.replaceText(node.name, standardName);
             },
           });
+          return;
         }
-        return;
-      }
 
-      // Handle ARIA attributes
-      if (isValidAriaAttribute(name)) return;
-
-      const tagName: string | null = getTagName(node);
-
-      // Special case for fbt/fbs nodes
-      if (tagName === "fbt" || tagName === "fbs") return;
-
-      // Only validate HTML/DOM elements, not React components
-      if (!isValidHTMLTagInJSX(node)) return;
-
-      // Check if attribute is allowed only on specific tags
-      const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
-        ? ATTRIBUTE_TAGS_MAP[name]
-        : null;
-
-      if (tagName != null && allowedTags != null) {
-        // Report if attribute is used on a tag where it's not allowed
-        if (allowedTags.indexOf(tagName) === -1) {
-          context.report({
-            messageId: "invalidPropOnTag",
-            node,
-            data: {
-              name: actualName,
-              allowedTags: allowedTags.join(", "),
-              tagName,
-            },
-          });
-        }
-        return;
-      }
-
-      // Check if the attribute name is similar to a standard property name
-      const standardName: string | undefined = getStandardName(name, context);
-
-      const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
-      const usesStandardName = standardName != null && standardName === name;
-      if (usesStandardName) {
-        // Attribute name is correct, nothing to do
-        return;
-      }
-
-      if (hasStandardNameButIsNotUsed) {
-        // Suggest the correct standard name
+        // Report unknown attribute
         context.report({
-          messageId: "unknownPropWithStandardName",
+          messageId: "unknownProp",
           node,
           data: {
             name: actualName,
-            standardName,
-          },
-          fix(fixer) {
-            return fixer.replaceText(node.name, standardName);
           },
         });
-        return;
-      }
-
-      // Report unknown attribute
-      context.report({
-        messageId: "unknownProp",
-        node,
-        data: {
-          name: actualName,
-        },
-      });
+      },
     },
-  };
+  );
 }

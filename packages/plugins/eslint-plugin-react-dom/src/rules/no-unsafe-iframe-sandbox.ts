@@ -1,6 +1,5 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -44,34 +43,36 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return {
-    JSXElement(node) {
-      // 1. Resolve the JSX element to see if it's a DOM 'iframe'. If not, we don't need to check it
-      if (resolver.resolve(node).domElementType !== "iframe") {
-        return;
-      }
-      // 2. Get the 'sandbox' attribute from the 'iframe' element
-      const sandboxProp = core.getJsxAttribute(context, node)("sandbox");
-      // If there's no 'sandbox' attribute, there's nothing to check
-      if (sandboxProp == null) {
-        return;
-      }
+  return defineRuleListener(
+    {
+      JSXElement(node) {
+        // 1. Resolve the JSX element to see if it's a DOM 'iframe'. If not, we don't need to check it
+        if (resolver.resolve(node).domElementType !== "iframe") {
+          return;
+        }
+        // 2. Get the 'sandbox' attribute from the 'iframe' element
+        const sandboxProp = core.getJsxAttribute(context, node)("sandbox");
+        // If there's no 'sandbox' attribute, there's nothing to check
+        if (sandboxProp == null) {
+          return;
+        }
 
-      // 3. Resolve the static value of the 'sandbox' attribute
-      const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
-      const sandboxValueStatic = sandboxValue.toStatic("sandbox");
+        // 3. Resolve the static value of the 'sandbox' attribute
+        const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
+        const sandboxValueStatic = sandboxValue.toStatic("sandbox");
 
-      // 4. Check if the 'sandbox' value has the unsafe combination
-      if (isUnsafeSandboxCombination(sandboxValueStatic)) {
-        // If it's unsafe, report an error
-        context.report({
-          messageId: "default",
-          node: sandboxValue.node ?? sandboxProp,
-        });
-      }
+        // 4. Check if the 'sandbox' value has the unsafe combination
+        if (isUnsafeSandboxCombination(sandboxValueStatic)) {
+          // If it's unsafe, report an error
+          context.report({
+            messageId: "default",
+            node: sandboxValue.node ?? sandboxProp,
+          });
+        }
+      },
     },
-  };
+  );
 }

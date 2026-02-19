@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import type { unit } from "@eslint-react/eff";
 import { or } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import {
   findEnclosingAssignmentTarget,
   findVariable,
@@ -10,7 +10,6 @@ import {
 } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching, match } from "ts-pattern";
 
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "../types";
@@ -108,7 +107,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `ResizeObserver` is not present in the file
   if (!context.sourceCode.text.includes("ResizeObserver")) {
     return {};
@@ -123,114 +122,117 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
-  return {
-    [":function"](node: ast.TSESTreeFunction) {
-      const kind = getFunctionKind(node);
-      fEntries.push({ kind, node });
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
-    ["CallExpression"](node) {
-      if (node.callee.type !== AST.MemberExpression) {
-        return;
-      }
-      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-      if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
-        return;
-      }
-      const { object } = node.callee;
-      match(getCallKind(context, node))
-        .with("disconnect", () => {
-          dEntries.push({
-            kind: "ResizeObserver",
+  return defineRuleListener(
+    {
+      [":function"](node: ast.TSESTreeFunction) {
+        const kind = getFunctionKind(node);
+        fEntries.push({ kind, node });
+      },
+      [":function:exit"]() {
+        fEntries.pop();
+      },
+      ["CallExpression"](node) {
+        if (node.callee.type !== AST.MemberExpression) {
+          return;
+        }
+        const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
+        if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
+          return;
+        }
+        const { object } = node.callee;
+        match(getCallKind(context, node))
+          .with("disconnect", () => {
+            dEntries.push({
+              kind: "ResizeObserver",
+              node,
+              callee: node.callee,
+              method: "disconnect",
+              observer: object,
+              phase: fKind,
+            });
+          })
+          .with("observe", () => {
+            const [element] = node.arguments;
+            if (element == null) {
+              return;
+            }
+            oEntries.push({
+              kind: "ResizeObserver",
+              node,
+              callee: node.callee,
+              element,
+              method: "observe",
+              observer: object,
+              phase: fKind,
+            });
+          })
+          .with("unobserve", () => {
+            const [element] = node.arguments;
+            if (element == null) {
+              return;
+            }
+            uEntries.push({
+              kind: "ResizeObserver",
+              node,
+              callee: node.callee,
+              element,
+              method: "unobserve",
+              observer: object,
+              phase: fKind,
+            });
+          })
+          .otherwise(() => null);
+      },
+      ["NewExpression"](node) {
+        const fEntry = fEntries.findLast((x) => x.kind !== "other");
+        if (fEntry == null) return;
+        if (!ComponentPhaseRelevance.has(fEntry.kind)) {
+          return;
+        }
+        if (!isNewResizeObserver(node)) {
+          return;
+        }
+        const id = findEnclosingAssignmentTarget(node);
+        if (id == null) {
+          context.report({
+            messageId: "unexpectedFloatingInstance",
             node,
-            callee: node.callee,
-            method: "disconnect",
-            observer: object,
-            phase: fKind,
           });
-        })
-        .with("observe", () => {
-          const [element] = node.arguments;
-          if (element == null) {
-            return;
-          }
-          oEntries.push({
-            kind: "ResizeObserver",
-            node,
-            callee: node.callee,
-            element,
-            method: "observe",
-            observer: object,
-            phase: fKind,
-          });
-        })
-        .with("unobserve", () => {
-          const [element] = node.arguments;
-          if (element == null) {
-            return;
-          }
-          uEntries.push({
-            kind: "ResizeObserver",
-            node,
-            callee: node.callee,
-            element,
-            method: "unobserve",
-            observer: object,
-            phase: fKind,
-          });
-        })
-        .otherwise(() => null);
-    },
-    ["NewExpression"](node) {
-      const fEntry = fEntries.findLast((x) => x.kind !== "other");
-      if (fEntry == null) return;
-      if (!ComponentPhaseRelevance.has(fEntry.kind)) {
-        return;
-      }
-      if (!isNewResizeObserver(node)) {
-        return;
-      }
-      const id = findEnclosingAssignmentTarget(node);
-      if (id == null) {
-        context.report({
-          messageId: "unexpectedFloatingInstance",
+          return;
+        }
+        observers.push({
+          id,
           node,
+          phase: fEntry.kind,
+          phaseNode: fEntry.node,
         });
-        return;
-      }
-      observers.push({
-        id,
-        node,
-        phase: fEntry.kind,
-        phaseNode: fEntry.node,
-      });
-    },
-    ["Program:exit"]() {
-      for (const { id, node, phaseNode } of observers) {
-        if (dEntries.some((e) => isAssignmentTargetEqual(context, e.observer, id))) {
-          continue;
-        }
-        const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | unit) => node?.type === AST.CallExpression || ast.isConditional(node);
-        const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
-        const hasDynamicallyAdded = oentries
-          .some((e) => !isPhaseNode(ast.findParentNode(e.node, or(isDynamic, isPhaseNode))));
-        if (hasDynamicallyAdded) {
-          context.report({ messageId: "expectedDisconnectInControlFlow", node });
-          continue;
-        }
-        for (const oEntry of oentries) {
-          if (uentries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
+      },
+      ["Program:exit"]() {
+        for (const { id, node, phaseNode } of observers) {
+          if (dEntries.some((e) => isAssignmentTargetEqual(context, e.observer, id))) {
             continue;
           }
-          context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });
+          const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+          const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+          const isDynamic = (node: TSESTree.Node | unit) =>
+            node?.type === AST.CallExpression || ast.isConditional(node);
+          const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
+          const hasDynamicallyAdded = oentries
+            .some((e) => !isPhaseNode(ast.findParentNode(e.node, or(isDynamic, isPhaseNode))));
+          if (hasDynamicallyAdded) {
+            context.report({ messageId: "expectedDisconnectInControlFlow", node });
+            continue;
+          }
+          for (const oEntry of oentries) {
+            if (uentries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
+              continue;
+            }
+            context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });
+          }
         }
-      }
+      },
     },
-  };
+  );
 }
 
 // #endregion

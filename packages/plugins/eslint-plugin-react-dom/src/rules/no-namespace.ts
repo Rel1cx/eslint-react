@@ -1,6 +1,5 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../utils";
 
@@ -26,20 +25,22 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    JSXElement(node) {
-      const name = core.getJsxElementType(context, node);
-      if (typeof name !== "string" || !name.includes(":")) {
-        return;
-      }
-      context.report({
-        messageId: "default",
-        node: node.openingElement.name,
-        data: {
-          name,
-        },
-      });
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      JSXElement(node) {
+        const name = core.getJsxElementType(context, node);
+        if (typeof name !== "string" || !name.includes(":")) {
+          return;
+        }
+        context.report({
+          messageId: "default",
+          node: node.openingElement.name,
+          data: {
+            name,
+          },
+        });
+      },
     },
-  };
+  );
 }

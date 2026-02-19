@@ -3,7 +3,6 @@ import type { unit } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { RE_CONSTANT_CASE, RE_PASCAL_CASE, defineRuleListener, toRegExp } from "@eslint-react/shared";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -78,7 +77,7 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>): RuleListener {
+export function create(context: RuleContext<MessageID, Options>) {
   const options = normalizeOptions(context.options);
   const { rule } = options;
   const fCollector = core.useComponentCollector(context);

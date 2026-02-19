@@ -1,8 +1,7 @@
 import * as ast from "@eslint-react/ast";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -30,7 +29,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
     // If the node is within a JSX attribute or expression container, it's not a text node comment
     if (ast.isOneOf([AST.JSXAttribute, AST.JSXExpressionContainer])(node.parent)) {
@@ -52,8 +51,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       node,
     });
   };
-  return {
-    JSXText: visitorFunction,
-    Literal: visitorFunction,
-  };
+  return defineRuleListener(
+    {
+      JSXText: visitorFunction,
+      Literal: visitorFunction,
+    },
+  );
 }

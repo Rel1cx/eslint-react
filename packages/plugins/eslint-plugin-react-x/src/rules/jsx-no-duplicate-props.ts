@@ -1,6 +1,5 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -26,27 +25,29 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    JSXOpeningElement(node) {
-      const props: string[] = [];
-      for (const attr of node.attributes) {
-        if (attr.type === AST.JSXSpreadAttribute) {
-          continue;
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      JSXOpeningElement(node) {
+        const props: string[] = [];
+        for (const attr of node.attributes) {
+          if (attr.type === AST.JSXSpreadAttribute) {
+            continue;
+          }
+          const name = attr.name.name;
+          if (typeof name !== "string") {
+            continue;
+          }
+          if (!props.includes(name)) {
+            props.push(name);
+            continue;
+          }
+          context.report({
+            messageId: "default",
+            node: attr,
+          });
         }
-        const name = attr.name.name;
-        if (typeof name !== "string") {
-          continue;
-        }
-        if (!props.includes(name)) {
-          props.push(name);
-          continue;
-        }
-        context.report({
-          messageId: "default",
-          node: attr,
-        });
-      }
+      },
     },
-  };
+  );
 }

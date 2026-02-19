@@ -56,6 +56,8 @@ export type RuleFeature =
  */
 export type RulePolicy = number;
 
+export type { ReportFixFunction, RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
+
 /**
  * A suggestion for fixing a reported issue.
  */

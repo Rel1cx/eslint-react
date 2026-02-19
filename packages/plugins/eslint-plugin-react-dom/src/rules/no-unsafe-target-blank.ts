@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createJsxElementResolver, createRule } from "../utils";
 
@@ -58,68 +57,70 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return {
-    JSXElement(node: TSESTree.JSXElement) {
-      // Only process anchor tags (<a>)
-      const { domElementType } = resolver.resolve(node);
-      if (domElementType !== "a") return;
+  return defineRuleListener(
+    {
+      JSXElement(node: TSESTree.JSXElement) {
+        // Only process anchor tags (<a>)
+        const { domElementType } = resolver.resolve(node);
+        if (domElementType !== "a") return;
 
-      // Get access to the component attributes
-      const findAttribute = core.getJsxAttribute(context, node);
+        // Get access to the component attributes
+        const findAttribute = core.getJsxAttribute(context, node);
 
-      // Check if target="_blank" is present
-      const targetProp = findAttribute("target");
-      if (targetProp == null) return;
+        // Check if target="_blank" is present
+        const targetProp = findAttribute("target");
+        if (targetProp == null) return;
 
-      const targetValue = core.resolveJsxAttributeValue(context, targetProp).toStatic("target");
-      if (targetValue !== "_blank") return;
+        const targetValue = core.resolveJsxAttributeValue(context, targetProp).toStatic("target");
+        if (targetValue !== "_blank") return;
 
-      // Check if href points to an external resource
-      const hrefProp = findAttribute("href");
-      if (hrefProp == null) return;
+        // Check if href points to an external resource
+        const hrefProp = findAttribute("href");
+        if (hrefProp == null) return;
 
-      const hrefValue = core.resolveJsxAttributeValue(context, hrefProp).toStatic("href");
-      if (!isExternalLinkLike(hrefValue)) return;
+        const hrefValue = core.resolveJsxAttributeValue(context, hrefProp).toStatic("href");
+        if (!isExternalLinkLike(hrefValue)) return;
 
-      // Check if rel prop exists and is secure
-      const relProp = findAttribute("rel");
+        // Check if rel prop exists and is secure
+        const relProp = findAttribute("rel");
 
-      // No rel prop case - suggest adding one
-      if (relProp == null) {
+        // No rel prop case - suggest adding one
+        if (relProp == null) {
+          context.report({
+            messageId: "default",
+            node: node.openingElement,
+            suggest: [{
+              messageId: "addRelNoreferrerNoopener",
+              fix(fixer) {
+                return fixer.insertTextAfter(
+                  node.openingElement.name,
+                  ` rel="noreferrer noopener"`,
+                );
+              },
+            }],
+          });
+          return;
+        }
+
+        // Check if existing rel prop is secure
+        const relValue = core.resolveJsxAttributeValue(context, relProp).toStatic("rel");
+        if (isSafeRel(relValue)) return;
+
+        // Existing rel prop is not secure - suggest replacing it
         context.report({
           messageId: "default",
-          node: node.openingElement,
+          node: relProp,
           suggest: [{
             messageId: "addRelNoreferrerNoopener",
             fix(fixer) {
-              return fixer.insertTextAfter(
-                node.openingElement.name,
-                ` rel="noreferrer noopener"`,
-              );
+              return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
             },
           }],
         });
-        return;
-      }
-
-      // Check if existing rel prop is secure
-      const relValue = core.resolveJsxAttributeValue(context, relProp).toStatic("rel");
-      if (isSafeRel(relValue)) return;
-
-      // Existing rel prop is not secure - suggest replacing it
-      context.report({
-        messageId: "default",
-        node: relProp,
-        suggest: [{
-          messageId: "addRelNoreferrerNoopener",
-          fix(fixer) {
-            return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
-          },
-        }],
-      });
+      },
     },
-  };
+  );
 }

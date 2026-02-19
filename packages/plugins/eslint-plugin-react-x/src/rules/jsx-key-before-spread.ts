@@ -1,7 +1,6 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -29,7 +28,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { jsx } = {
     ...core.getJsxConfigFromContext(context),
     ...core.getJsxConfigFromAnnotation(context),
@@ -38,25 +37,27 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // This rule is only applicable for the new JSX transform
   if (jsx !== core.JsxEmit.ReactJSX && jsx !== core.JsxEmit.ReactJSXDev) return {};
 
-  return {
-    JSXOpeningElement(node) {
-      let firstSpreadPropIndex: null | number = null;
-      for (const [index, prop] of node.attributes.entries()) {
-        if (prop.type === AST.JSXSpreadAttribute) {
-          firstSpreadPropIndex ??= index;
-          continue;
+  return defineRuleListener(
+    {
+      JSXOpeningElement(node) {
+        let firstSpreadPropIndex: null | number = null;
+        for (const [index, prop] of node.attributes.entries()) {
+          if (prop.type === AST.JSXSpreadAttribute) {
+            firstSpreadPropIndex ??= index;
+            continue;
+          }
+          if (firstSpreadPropIndex == null) {
+            continue;
+          }
+          // If a 'key' prop is found after a spread prop, report an error
+          if (prop.name.name === "key" && index > firstSpreadPropIndex) {
+            context.report({
+              messageId: "default",
+              node: prop,
+            });
+          }
         }
-        if (firstSpreadPropIndex == null) {
-          continue;
-        }
-        // If a 'key' prop is found after a spread prop, report an error
-        if (prop.name.name === "key" && index > firstSpreadPropIndex) {
-          context.report({
-            messageId: "default",
-            node: prop,
-          });
-        }
-      }
+      },
     },
-  };
+  );
 }

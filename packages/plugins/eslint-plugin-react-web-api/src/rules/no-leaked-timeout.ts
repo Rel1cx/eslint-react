@@ -1,9 +1,8 @@
 import type * as ast from "@eslint-react/ast";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, isMatching } from "ts-pattern";
 
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "../types";
@@ -72,7 +71,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `setTimeout` is not present in the file
   if (!context.sourceCode.text.includes("setTimeout")) {
     return {};
@@ -83,84 +82,86 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
-  return {
-    [":function"](node: ast.TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
-      fEntries.push({ kind, node });
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
-    ["CallExpression"](node) {
-      const fEntry = fEntries.findLast((f) => f.kind !== "other");
-      if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
-        return;
-      }
-      switch (getCallKind(node)) {
-        case "setTimeout": {
-          const timeoutIdNode = findEnclosingAssignmentTarget(node);
-          if (timeoutIdNode == null) {
-            context.report({
-              messageId: "expectedTimeoutId",
+  return defineRuleListener(
+    {
+      [":function"](node: ast.TSESTreeFunction) {
+        const kind = getPhaseKindOfFunction(node) ?? "other";
+        fEntries.push({ kind, node });
+      },
+      [":function:exit"]() {
+        fEntries.pop();
+      },
+      ["CallExpression"](node) {
+        const fEntry = fEntries.findLast((f) => f.kind !== "other");
+        if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
+          return;
+        }
+        switch (getCallKind(node)) {
+          case "setTimeout": {
+            const timeoutIdNode = findEnclosingAssignmentTarget(node);
+            if (timeoutIdNode == null) {
+              context.report({
+                messageId: "expectedTimeoutId",
+                node,
+              });
+              break;
+            }
+            sEntries.push({
+              kind: "timeout",
               node,
+              callee: node.callee,
+              phase: fEntry.kind,
+              timerId: timeoutIdNode,
             });
             break;
           }
-          sEntries.push({
-            kind: "timeout",
-            node,
-            callee: node.callee,
-            phase: fEntry.kind,
-            timerId: timeoutIdNode,
-          });
-          break;
-        }
-        case "clearTimeout": {
-          const [timeoutIdNode] = node.arguments;
-          if (timeoutIdNode == null) {
+          case "clearTimeout": {
+            const [timeoutIdNode] = node.arguments;
+            if (timeoutIdNode == null) {
+              break;
+            }
+            rEntries.push({
+              kind: "timeout",
+              node,
+              callee: node.callee,
+              phase: fEntry.kind,
+              timerId: timeoutIdNode,
+            });
             break;
           }
-          rEntries.push({
-            kind: "timeout",
-            node,
-            callee: node.callee,
-            phase: fEntry.kind,
-            timerId: timeoutIdNode,
-          });
-          break;
         }
-      }
-    },
-    ["Program:exit"]() {
-      for (const sEntry of sEntries) {
-        if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
-          continue;
-        }
-        switch (sEntry.phase) {
-          case "setup":
-          case "cleanup":
-            context.report({
-              messageId: "expectedClearTimeoutInCleanup",
-              node: sEntry.node,
-              data: {
-                kind: "useEffect",
-              },
-            });
+      },
+      ["Program:exit"]() {
+        for (const sEntry of sEntries) {
+          if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
             continue;
-          case "mount":
-          case "unmount":
-            context.report({
-              messageId: "expectedClearTimeoutInUnmount",
-              node: sEntry.node,
-              data: {
-                kind: "componentDidMount",
-              },
-            });
-            continue;
+          }
+          switch (sEntry.phase) {
+            case "setup":
+            case "cleanup":
+              context.report({
+                messageId: "expectedClearTimeoutInCleanup",
+                node: sEntry.node,
+                data: {
+                  kind: "useEffect",
+                },
+              });
+              continue;
+            case "mount":
+            case "unmount":
+              context.report({
+                messageId: "expectedClearTimeoutInUnmount",
+                node: sEntry.node,
+                data: {
+                  kind: "componentDidMount",
+                },
+              });
+              continue;
+          }
         }
-      }
+      },
     },
-  };
+  );
 }
 
 // #endregion

@@ -1,9 +1,8 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -30,23 +29,25 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("useId")) return {};
-  return {
-    CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isUseIdCall(node)) return;
-      const [id, name] = match(findEnclosingAssignmentTarget(node))
-        // for cases like: const myId = useId();
-        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
-        // for cases like: ctxs.myId = useId();
-        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
-        .otherwise(() => [null, null] as const);
-      if (id == null) return;
-      if (name.endsWith("Id") || name === "id") return;
-      context.report({
-        messageId: "invalidIdName",
-        node: id,
-      });
+  return defineRuleListener(
+    {
+      CallExpression(node: TSESTree.CallExpression) {
+        if (!core.isUseIdCall(node)) return;
+        const [id, name] = match(findEnclosingAssignmentTarget(node))
+          // for cases like: const myId = useId();
+          .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
+          // for cases like: ctxs.myId = useId();
+          .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
+          .otherwise(() => [null, null] as const);
+        if (id == null) return;
+        if (name.endsWith("Id") || name === "id") return;
+        context.report({
+          messageId: "invalidIdName",
+          node: id,
+        });
+      },
     },
-  };
+  );
 }

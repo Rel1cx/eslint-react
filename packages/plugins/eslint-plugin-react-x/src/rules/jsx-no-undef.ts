@@ -1,7 +1,6 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -28,26 +27,28 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    JSXOpeningElement(node) {
-      const name = match(node.name)
-        .with({ type: AST.JSXIdentifier }, (n) => n.name)
-        .with({ type: AST.JSXMemberExpression, object: { type: AST.JSXIdentifier } }, (n) => n.object.name)
-        .otherwise(() => null);
-      if (name == null) return;
-      if (name === "this") return;
-      // Skip JsxIntrinsicElements
-      if (/^[a-z]/u.test(name)) return;
-      if (findVariable(name, context.sourceCode.getScope(node)) == null) {
-        context.report({
-          messageId: "default",
-          node,
-          data: {
-            name,
-          },
-        });
-      }
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      JSXOpeningElement(node) {
+        const name = match(node.name)
+          .with({ type: AST.JSXIdentifier }, (n) => n.name)
+          .with({ type: AST.JSXMemberExpression, object: { type: AST.JSXIdentifier } }, (n) => n.object.name)
+          .otherwise(() => null);
+        if (name == null) return;
+        if (name === "this") return;
+        // Skip JsxIntrinsicElements
+        if (/^[a-z]/u.test(name)) return;
+        if (findVariable(name, context.sourceCode.getScope(node)) == null) {
+          context.report({
+            messageId: "default",
+            node,
+            data: {
+              name,
+            },
+          });
+        }
+      },
     },
-  };
+  );
 }

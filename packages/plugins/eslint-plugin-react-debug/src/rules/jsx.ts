@@ -1,8 +1,7 @@
 import * as core from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { P, match } from "ts-pattern";
 import { createRule, stringify } from "../utils";
 
@@ -32,7 +31,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const jsxConfigFromContext = core.getJsxConfigFromContext(context);
   const jsxConfigFromAnnotation = core.getJsxConfigFromAnnotation(context);
   const jsxConfig = {
@@ -72,7 +71,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
     } as const);
   }
-  return {
-    "JSXElement, JSXFragment": flow(getReportDescriptor(context), report(context)),
-  };
+  return defineRuleListener(
+    {
+      "JSXElement, JSXFragment": flow(getReportDescriptor(context), report(context)),
+    },
+  );
 }

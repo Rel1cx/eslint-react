@@ -1,6 +1,5 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../utils";
 
@@ -26,32 +25,34 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  return {
-    JSXElement(node) {
-      // This rule only applies to host elements (e.g., <div />, <span />), not custom components
-      if (!core.isJsxHostElement(context, node)) {
-        return;
-      }
+export function create(context: RuleContext<MessageID, []>) {
+  return defineRuleListener(
+    {
+      JSXElement(node) {
+        // This rule only applies to host elements (e.g., <div />, <span />), not custom components
+        if (!core.isJsxHostElement(context, node)) {
+          return;
+        }
 
-      // Find the 'style' prop on the element
-      const styleProp = core.getJsxAttribute(context, node)("style");
-      if (styleProp == null) {
-        return;
-      }
+        // Find the 'style' prop on the element
+        const styleProp = core.getJsxAttribute(context, node)("style");
+        if (styleProp == null) {
+          return;
+        }
 
-      // Resolve the static value of the 'style' prop
-      const styleValue = core.resolveJsxAttributeValue(context, styleProp);
-      const staticValue = styleValue.toStatic();
+        // Resolve the static value of the 'style' prop
+        const styleValue = core.resolveJsxAttributeValue(context, styleProp);
+        const staticValue = styleValue.toStatic();
 
-      // If the resolved value is a string, report an error
-      // e.g., <div style="color: red;" />
-      if (typeof staticValue === "string") {
-        context.report({
-          messageId: "default",
-          node: styleValue.node ?? styleProp,
-        });
-      }
+        // If the resolved value is a string, report an error
+        // e.g., <div style="color: red;" />
+        if (typeof staticValue === "string") {
+          context.report({
+            messageId: "default",
+            node: styleValue.node ?? styleProp,
+          });
+        }
+      },
     },
-  };
+  );
 }

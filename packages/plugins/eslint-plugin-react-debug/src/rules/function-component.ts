@@ -1,6 +1,5 @@
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule, stringify } from "../utils";
 
@@ -29,7 +28,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { ctx, visitor } = core.useComponentCollector(
     context,
     {

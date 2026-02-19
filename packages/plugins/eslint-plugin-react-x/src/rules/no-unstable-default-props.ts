@@ -12,7 +12,6 @@ import { getObjectType } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -81,7 +80,7 @@ function extractIdentifier(node: TSESTree.Node): string | null {
   return null;
 }
 
-export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
+export function create(context: RuleContext<MessageID, Options>, [options]: Options) {
   const { isCompilerEnabled } = getSettingsFromContext(context);
   if (isCompilerEnabled && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const { ctx, visitor } = core.useComponentCollector(context);

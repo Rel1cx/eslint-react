@@ -1,8 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -28,39 +27,43 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `componentWillUpdate` is not present in the file
   if (!context.sourceCode.text.includes("componentWillUpdate")) return {};
-  return {
-    CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isThisSetState(node)) {
-        return;
-      }
-      // Find the enclosing class component
-      const enclosingClassNode = ast.findParentNode(node, core.isClassComponent);
-      // Find the enclosing 'componentWillUpdate' method
-      const enclosingMethodNode = ast.findParentNode(
-        node,
-        (n) => n === enclosingClassNode || core.isComponentWillUpdate(n),
-      );
-
-      // Ensure 'this.setState' is inside a 'componentWillUpdate' method within a class component
-      if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
-        return;
-      }
-
-      // Get the scope of the 'componentWillUpdate' method
-      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
-      // Get the scope where 'this.setState' is called
-      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
-
-      // Report an error if 'this.setState' is called directly inside 'componentWillUpdate'
-      if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
-        context.report({
-          messageId: "default",
+  return defineRuleListener(
+    {
+      CallExpression(node: TSESTree.CallExpression) {
+        if (!core.isThisSetState(node)) {
+          return;
+        }
+        // Find the enclosing class component
+        const enclosingClassNode = ast.findParentNode(node, core.isClassComponent);
+        // Find the enclosing 'componentWillUpdate' method
+        const enclosingMethodNode = ast.findParentNode(
           node,
-        });
-      }
+          (n) => n === enclosingClassNode || core.isComponentWillUpdate(n),
+        );
+
+        // Ensure 'this.setState' is inside a 'componentWillUpdate' method within a class component
+        if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
+          return;
+        }
+
+        // Get the scope of the 'componentWillUpdate' method
+        const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
+        // Get the scope where 'this.setState' is called
+        const setStateCallParentScope = context.sourceCode.getScope(node).upper;
+
+        // Report an error if 'this.setState' is called directly inside 'componentWillUpdate'
+        if (
+          enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope
+        ) {
+          context.report({
+            messageId: "default",
+            node,
+          });
+        }
+      },
     },
-  };
+  );
 }

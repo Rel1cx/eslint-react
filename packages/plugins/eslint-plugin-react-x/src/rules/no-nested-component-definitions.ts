@@ -3,8 +3,6 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-nested-component-definitions";
@@ -29,7 +27,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Configuration hints to optimize component detection accuracy and performance
   const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
     | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue

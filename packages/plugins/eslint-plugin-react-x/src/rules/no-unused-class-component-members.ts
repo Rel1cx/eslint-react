@@ -1,10 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { constFalse, constTrue } from "@eslint-react/eff";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
 import { createRule } from "../utils";
@@ -70,7 +69,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // A stack to keep track of class nodes, to handle nested classes
   const classStack: ast.TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes
@@ -147,62 +146,64 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     methodStack.pop();
   }
 
-  return {
-    ClassDeclaration: classEnter,
-    "ClassDeclaration:exit": classExit,
-    ClassExpression: classEnter,
-    "ClassExpression:exit": classExit,
-    // Visitor for MemberExpression to track property usages and definitions
-    MemberExpression(node) {
-      const currentClass = classStack.at(-1);
-      const currentMethod = methodStack.at(-1);
-      if (currentClass == null || currentMethod == null) {
-        return;
-      }
-      if (!core.isClassComponent(currentClass) || currentMethod.static) {
-        return;
-      }
-      // Check for expressions like `this.property`
-      if (!ast.isThisExpressionLoose(node.object) || !isKeyLiteral(node, node.property)) {
-        return;
-      }
-      // Detect assignments like `this.property = xxx` as definitions
-      if (node.parent.type === AST.AssignmentExpression && node.parent.left === node) {
-        propertyDefs.get(currentClass)?.add(node.property);
-        return;
-      }
-      // Detect usages like `this.property()` or `x = this.property`
-      const propertyName = ast.getPropertyName(node.property);
-      if (propertyName != null) {
-        propertyUsages.get(currentClass)?.add(propertyName);
-      }
-    },
-    MethodDefinition: methodEnter,
-    "MethodDefinition:exit": methodExit,
-    PropertyDefinition: methodEnter,
-    "PropertyDefinition:exit": methodExit,
-    // Visitor for VariableDeclarator to track property usages via destructuring
-    VariableDeclarator(node) {
-      const currentClass = classStack.at(-1);
-      const currentMethod = methodStack.at(-1);
-      if (currentClass == null || currentMethod == null) {
-        return;
-      }
-      if (!core.isClassComponent(currentClass) || currentMethod.static) {
-        return;
-      }
-      // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
-      if (node.init != null && ast.isThisExpressionLoose(node.init) && node.id.type === AST.ObjectPattern) {
-        for (const prop of node.id.properties) {
-          if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
-            const keyName = ast.getPropertyName(prop.key);
-            if (keyName != null) {
-              // Add destructured properties to the usages set
-              propertyUsages.get(currentClass)?.add(keyName);
+  return defineRuleListener(
+    {
+      ClassDeclaration: classEnter,
+      "ClassDeclaration:exit": classExit,
+      ClassExpression: classEnter,
+      "ClassExpression:exit": classExit,
+      // Visitor for MemberExpression to track property usages and definitions
+      MemberExpression(node) {
+        const currentClass = classStack.at(-1);
+        const currentMethod = methodStack.at(-1);
+        if (currentClass == null || currentMethod == null) {
+          return;
+        }
+        if (!core.isClassComponent(currentClass) || currentMethod.static) {
+          return;
+        }
+        // Check for expressions like `this.property`
+        if (!ast.isThisExpressionLoose(node.object) || !isKeyLiteral(node, node.property)) {
+          return;
+        }
+        // Detect assignments like `this.property = xxx` as definitions
+        if (node.parent.type === AST.AssignmentExpression && node.parent.left === node) {
+          propertyDefs.get(currentClass)?.add(node.property);
+          return;
+        }
+        // Detect usages like `this.property()` or `x = this.property`
+        const propertyName = ast.getPropertyName(node.property);
+        if (propertyName != null) {
+          propertyUsages.get(currentClass)?.add(propertyName);
+        }
+      },
+      MethodDefinition: methodEnter,
+      "MethodDefinition:exit": methodExit,
+      PropertyDefinition: methodEnter,
+      "PropertyDefinition:exit": methodExit,
+      // Visitor for VariableDeclarator to track property usages via destructuring
+      VariableDeclarator(node) {
+        const currentClass = classStack.at(-1);
+        const currentMethod = methodStack.at(-1);
+        if (currentClass == null || currentMethod == null) {
+          return;
+        }
+        if (!core.isClassComponent(currentClass) || currentMethod.static) {
+          return;
+        }
+        // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
+        if (node.init != null && ast.isThisExpressionLoose(node.init) && node.id.type === AST.ObjectPattern) {
+          for (const prop of node.id.properties) {
+            if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
+              const keyName = ast.getPropertyName(prop.key);
+              if (keyName != null) {
+                // Add destructured properties to the usages set
+                propertyUsages.get(currentClass)?.add(keyName);
+              }
             }
           }
         }
-      }
+      },
     },
-  };
+  );
 }

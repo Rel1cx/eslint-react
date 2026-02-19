@@ -1,7 +1,6 @@
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -34,7 +33,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   /**
    * Visitor function for JSXElement and JSXFragment nodes
    * @param node The JSXElement or JSXFragment node to be checked
@@ -71,5 +70,5 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     }
   };
-  return { JSXElement: visitorFunction, JSXFragment: visitorFunction };
+  return defineRuleListener({ JSXElement: visitorFunction, JSXFragment: visitorFunction });
 }

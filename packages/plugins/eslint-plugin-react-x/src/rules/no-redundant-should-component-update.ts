@@ -2,8 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";
 
@@ -35,7 +34,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `shouldComponentUpdate` is not present in the file
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
   const { ctx, visitor } = core.useComponentCollectorLegacy(context);

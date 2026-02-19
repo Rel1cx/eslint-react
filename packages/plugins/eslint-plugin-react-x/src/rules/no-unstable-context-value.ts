@@ -5,7 +5,6 @@ import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, getObjectType } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 
 import { createRule } from "../utils";
@@ -34,7 +33,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { isCompilerEnabled, version } = getSettingsFromContext(context);
   if (isCompilerEnabled && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");

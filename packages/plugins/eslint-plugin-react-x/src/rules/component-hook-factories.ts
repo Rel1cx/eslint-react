@@ -1,7 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../utils";
 
@@ -32,7 +31,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   // Configuration hints to optimize component detection accuracy and performance
   const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
     | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue

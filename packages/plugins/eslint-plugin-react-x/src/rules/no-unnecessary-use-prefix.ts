@@ -2,8 +2,6 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-unnecessary-use-prefix";
@@ -42,7 +40,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RuleContext<MessageID, []>) {
   const { ctx, visitor } = core.useHookCollector(context);
 
   return defineRuleListener(visitor, {
