@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "Validates against calling ['setState'](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance.",
+        "Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.",
     },
     messages: {
       default:

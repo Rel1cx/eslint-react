@@ -33,6 +33,7 @@ React components must be pure functions — given the same props, they should al
 ## Common Violations
 
 In general, any API that returns a different value for the same inputs violates this rule. Usual examples include:
+
 - `Math.random()`
 - `Date.now()` / `new Date()`
 - `crypto.randomUUID()` / `crypto.getRandomValues()`

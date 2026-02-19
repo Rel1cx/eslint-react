@@ -26,7 +26,7 @@ react-x/set-state-in-effect
 
 ## Description
 
-Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance.
+Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.
 
 Setting state immediately inside an effect forces React to restart the entire render cycle. When you update state in an effect, React must re-render your component, apply changes to the DOM, and then run effects again. This creates an extra render pass that could have been avoided by transforming data directly during render or deriving state from props. Transform data at the top level of your component instead. This code will naturally re-run when props or state change without triggering additional render cycles.
 
@@ -340,3 +340,10 @@ function List({ items }) {
 - [React Docs: `useEffect` Hook](https://react.dev/reference/react/useEffect)
 - [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 - [React Docs: `set-state-in-effect` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect)
+
+---
+
+## See Also
+
+- [`set-state-in-render`](./set-state-in-render)\
+  Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.
