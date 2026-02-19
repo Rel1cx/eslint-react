@@ -43,20 +43,30 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 
 **Preset changes**
 
-- Removed `react-x/no-default-props`, `react-x/no-prop-types`, and `react-x/no-string-refs` from the `recommended` and `x` presets.
-- Added `react-x/component-hook-factories` (`error`), `react-x/error-boundaries` (`error`), `react-x/exhaustive-deps` (`warn`), `react-x/rules-of-hooks` (`error`), `react-x/set-state-in-effect` (`warn`), and `react-x/set-state-in-render` (`error`) to the `recommended` and `x` presets.
-- Removed the `@eslint-react/hooks-extra` plugin and all `@eslint-react/hooks-extra/*` rules from the `recommended` and `all` presets in `@eslint-react/eslint-plugin`.
+| Change type              | Rule / Plugin                                                           | Presets affected                                        | Severity / Notes |
+| :----------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------ | :--------------- |
+| Removed (rule)           | `react-x/no-default-props`                                              | `recommended`, `x`                                      | removed          |
+| Removed (rule)           | `react-x/no-prop-types`                                                 | `recommended`, `x`                                      | removed          |
+| Removed (rule)           | `react-x/no-string-refs`                                                | `recommended`, `x`                                      | removed          |
+| Removed (plugin & rules) | `@eslint-react/hooks-extra` and all `@eslint-react/hooks-extra/*` rules | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed          |
+| Added (rule)             | `react-x/component-hook-factories`                                      | `recommended`, `x`                                      | `error`          |
+| Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`          |
+| Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`           |
+| Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`          |
+| Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`           |
+| Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`          |
 
 ### ✨ New
 
 **Added the following new rules to `eslint-plugin-react-x`:**
 
+- `component-hook-factories`: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
+- `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
 - `exhaustive-deps`: Enforces that React hook dependency arrays contain all reactive values used in the callback by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
+- `purity`: Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
-- `component-hook-factories`: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
-- `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
 
 **Added `compilationMode` setting:**
 
@@ -96,12 +106,13 @@ Use this checklist to upgrade from v2.x to v3.0.0:
 
 If you use the `recommended`, `x`, or `all` preset, the following rules are now included automatically. Review your codebase for new reports:
 
-- [ ] `react-x/rules-of-hooks` (`error`) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).
-- [ ] `react-x/exhaustive-deps` (`warn`) — enforces that hook dependency arrays contain all reactive values.
-- [ ] `react-x/set-state-in-effect` (`warn`) — catches synchronous `setState` calls inside effects.
-- [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 - [ ] `react-x/component-hook-factories` (`error`) — catches factory functions that define components or hooks inside them instead of at the module level.
 - [ ] `react-x/error-boundaries` (`error`) — catches try/catch blocks wrapping JSX or `use` hook calls where [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) should be used instead.
+- [ ] `react-x/exhaustive-deps` (`warn`) — enforces that hook dependency arrays contain all reactive values.
+- [ ] `react-x/purity` (`warn`) — Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+- [ ] `react-x/rules-of-hooks` (`error`) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).
+- [ ] `react-x/set-state-in-effect` (`warn`) — catches synchronous `setState` calls inside effects.
+- [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0
 
