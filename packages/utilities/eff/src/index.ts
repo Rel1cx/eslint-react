@@ -58,6 +58,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/unified-signatures */
+/* eslint-disable function-rule-1/function-rule */
 /* eslint-disable jsdoc/check-param-names */
 /* eslint-disable prefer-rest-params */
 

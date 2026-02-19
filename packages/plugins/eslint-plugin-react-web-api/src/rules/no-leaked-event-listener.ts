@@ -96,25 +96,6 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   function findProp(properties: TSESTree.ObjectExpression["properties"], propName: string) {
     return findProperty(propName, properties, initialScope);
   }
-  function getPropValue<A>(
-    prop: TSESTree.Property | TSESTree.RestElement | TSESTree.SpreadElement | unit,
-    filter: (value: unknown) => value is A = (a): a is A => true,
-  ): A | unit {
-    if (prop?.type !== AST.Property) return unit;
-    const { value } = prop;
-    let v: unknown = value;
-    switch (value.type) {
-      case AST.Literal: {
-        v = value.value;
-        break;
-      }
-      default: {
-        v = getStaticValue(value, initialScope)?.value;
-        break;
-      }
-    }
-    return filter(v) ? v : unit;
-  }
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
@@ -129,11 +110,19 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         return { ...defaultOptions, capture: Boolean(node.value) };
       }
       case AST.ObjectExpression: {
-        // const pOnce = findProp(node.properties, "once");
-        // const vOnce = getPropValue(pOnce);
         const pCapture = findProp(node.properties, "capture");
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        const vCapture = !!getPropValue(pCapture);
+        const vCapture = match(pCapture)
+          .with(P.nullish, () => false)
+          .with({ type: AST.Property }, (prop) => {
+            const value = prop.value;
+            switch (value.type) {
+              case AST.Literal:
+                return Boolean(value.value);
+              default:
+                return Boolean(getStaticValue(value, initialScope)?.value);
+            }
+          })
+          .otherwise(() => false);
         const pSignal = findProp(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(pSignal.value, initialScope)
