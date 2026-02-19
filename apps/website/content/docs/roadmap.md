@@ -40,6 +40,8 @@ Minimum supported versions:
       _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
 - [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
       _A fast implementation of [component-hook-factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories) that doesn't require React Compiler integration_
+- [ ] `react-x/refs` - (Experimental) Validates correct usage of refs by checking that `ref.current` is not read or written during render\
+      _A fast implementation of [refs](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs) that doesn't require React Compiler integration_
 - [ ] `react-x/function-definition` - Validate and transform React function definitions ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
 
 ### Deprecated Rules

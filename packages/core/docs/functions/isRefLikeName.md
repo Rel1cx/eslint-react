@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isRefName
+[@eslint-react/core](../README.md) / isRefLikeName
 
-# Function: isRefName()
+# Function: isRefLikeName()
 
 ```ts
-function isRefName(name: string): boolean;
+function isRefLikeName(name: string): boolean;
 ```
 
 Check if a given name corresponds to a ref name
