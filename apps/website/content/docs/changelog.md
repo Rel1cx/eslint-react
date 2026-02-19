@@ -68,6 +68,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 | Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`                           |
 | Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`                          |
+| Removed (rule)           | `react-x/refs`                                                          | `recommended`, `x`                                      | moved to experimental            |
 | Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`                           |
 | Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/unsupported-syntax`                                            | `recommended`, `x`                                      | `error`                          |
@@ -81,6 +82,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 - `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
 - `exhaustive-deps`: Enforces that React hook dependency arrays contain all reactive values used in the callback by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `purity`: Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+- `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats) usage.
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501

@@ -3,7 +3,6 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule, stringify } from "../utils";
 

@@ -5,7 +5,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 
 import { isUseRefCall } from "../hook";
-import { isRefName } from "./ref-name";
+import { isRefLikeName } from "./ref-name";
 
 /**
  * Check if the variable with the given name is initialized or derived from a ref
@@ -32,7 +32,7 @@ export function getRefInit(name: string, initialScope: Scope): TSESTree.Expressi
       // const identifier = anotherRef.current;
       case init.type === AST.MemberExpression
         && init.object.type === AST.Identifier
-        && isRefName(init.object.name):
+        && isRefLikeName(init.object.name):
         return init;
       // const identifier = useRef();
       case init.type === AST.CallExpression

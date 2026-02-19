@@ -153,7 +153,8 @@
 | [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
 | [isReactAPI](functions/isReactAPI.md) | Check if the node is a React API identifier or member expression |
 | [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |
-| [isRefName](functions/isRefName.md) | Check if a given name corresponds to a ref name |
+| [isRefId](functions/isRefId.md) | - |
+| [isRefLikeName](functions/isRefLikeName.md) | Check if a given name corresponds to a ref name |
 | [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |

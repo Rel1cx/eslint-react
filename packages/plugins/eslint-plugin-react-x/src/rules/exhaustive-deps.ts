@@ -23,6 +23,7 @@ export const RULE_NAME = "exhaustive-deps";
 
 export const RULE_FEATURES = [
   "CFG",
+  "EXP",
   "FIX",
 ] as const satisfies RuleFeature[];
 
