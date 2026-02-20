@@ -34,8 +34,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { isCompilerEnabled, version } = getSettingsFromContext(context);
-  if (isCompilerEnabled && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
+  const { compilationMode, version } = getSettingsFromContext(context);
+  if (compilationMode === "infer" || compilationMode === "all") return {};
+  if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { ctx, visitor } = core.useComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
@@ -50,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!isContextName(selfName, isReact18OrBelow)) return;
         const functionEntry = ctx.getCurrentEntry();
         if (functionEntry == null) return;
-        if (isCompilerEnabled && ast.isDirectiveInFunction(functionEntry.node, "use memo")) return;
+        if (compilationMode === "annotation" && ast.isDirectiveInFunction(functionEntry.node, "use memo")) return;
         const attribute = node
           .attributes
           .find((attribute) =>
