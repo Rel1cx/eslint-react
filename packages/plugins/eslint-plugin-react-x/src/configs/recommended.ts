@@ -30,6 +30,8 @@ export const rules = {
   "react-x/no-direct-mutation-state": "error",
   "react-x/no-forward-ref": "warn",
   "react-x/no-missing-key": "error",
+  "react-x/use-memo": "error",
+  "react-x/use-state": "warn",
   "react-x/no-nested-component-definitions": "error",
   "react-x/no-nested-lazy-component-declarations": "error",
   "react-x/no-redundant-should-component-update": "error",

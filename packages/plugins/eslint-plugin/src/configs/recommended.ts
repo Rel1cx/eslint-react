@@ -16,7 +16,7 @@ export const rules = {
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/id-name": "warn",
   "@eslint-react/naming-convention/ref-name": "warn",
-  "@eslint-react/naming-convention/use-state": "warn",
+  "@eslint-react/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

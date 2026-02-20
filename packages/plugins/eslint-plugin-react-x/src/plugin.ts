@@ -68,6 +68,8 @@ import rulesOfHooks from "./rules/rules-of-hooks";
 import setStateInEffect from "./rules/set-state-in-effect";
 import setStateInRender from "./rules/set-state-in-render";
 import unsupportedSyntax from "./rules/unsupported-syntax";
+import useMemo from "./rules/use-memo";
+import useState from "./rules/use-state";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -110,6 +112,7 @@ export const plugin: CompatiblePlugin = {
     "no-missing-component-display-name": noMissingComponentDisplayName,
     "no-missing-context-display-name": noMissingContextDisplayName,
     "no-missing-key": noMissingKey,
+    "use-memo": useMemo,
     "no-misused-capture-owner-stack": noMisusedCaptureOwnerStack,
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
@@ -141,5 +144,6 @@ export const plugin: CompatiblePlugin = {
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
     "unsupported-syntax": unsupportedSyntax,
+    "use-state": useState,
   },
 };

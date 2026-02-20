@@ -67,6 +67,8 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 | Added (rule)             | `react-x/component-hook-factories`                                      | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`                           |
+| Added (rule)             | `react-x/use-memo`                                                      | `recommended`, `x`                                      | `error`                          |
+| Moved (rule)             | `react-naming-convention/use-state` → `react-x/use-state`               | `recommended`, `x`                                      | `warn`                           |
 | Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`                           |
 | Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
@@ -102,6 +104,8 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
   >   // ...
   > }
   > ```
+- `use-memo`: Validates that `useMemo` is called with a callback that returns a value. `useMemo` is designed for computing and caching values — without a return value it always returns `undefined`, which defeats its purpose. This rule also catches `useMemo` calls whose return value is discarded (not assigned to a variable), which indicates a side-effect misuse that should use `useEffect` instead. Mirrors the [`use-memo`](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo) lint rule described in the React docs.
+- `use-state`: Enforces destructuring and symmetric naming of the `useState` hook value and setter (e.g. `count` / `setCount`). Moved from `eslint-plugin-react-naming-convention` into `eslint-plugin-react-x` so that all hook-usage rules live in one package.
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
 - `unsupported-syntax`: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX (previously covered by `jsx-no-iife`)
 
@@ -129,6 +133,7 @@ Use this checklist to upgrade from v2.x to v3.0.0:
 #### ESLint configuration
 
 - [ ] Replace `react-hooks-extra/no-direct-set-state-in-use-effect` with `react-x/set-state-in-effect` in your ESLint config.
+- [ ] Replace `react-naming-convention/use-state` (or `@eslint-react/naming-convention/use-state`) with `react-x/use-state` (or `@eslint-react/use-state`) in your ESLint config.
 - [ ] Remove any `@eslint-react/hooks-extra/*` rules from your config — these have been removed from `@eslint-react/eslint-plugin`.
 - [ ] Remove references to the following deleted rules (use [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) instead if needed):
   - `react-x/no-default-props`
@@ -149,6 +154,8 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 - [ ] `react-x/purity` (`warn`) — Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - [ ] `react-x/rules-of-hooks` (`error`) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).
 - [ ] `react-x/set-state-in-effect` (`warn`) — catches synchronous `setState` calls inside effects.
+- [ ] `react-x/use-memo` (`error`) — catches `useMemo` calls where the callback has no return value, or where the `useMemo` return value is discarded.
+- [ ] `react-x/use-state` (`warn`) — enforces destructuring and symmetric naming of `useState` pairs (previously `react-naming-convention/use-state`).
 - [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 - [ ] `react-x/unsupported-syntax` (`error`) — catches usage of syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.
 

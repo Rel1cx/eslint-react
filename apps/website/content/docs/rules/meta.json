@@ -68,6 +68,8 @@
     "set-state-in-effect",
     "set-state-in-render",
     "unsupported-syntax",
+    "use-memo",
+    "use-state",
     "---RSC Rules---",
     "rsc-function-definition",
     "---DOM Rules---",

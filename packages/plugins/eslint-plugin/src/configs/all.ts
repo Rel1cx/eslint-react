@@ -42,6 +42,8 @@ export const rules = {
   "@eslint-react/no-missing-component-display-name": "warn",
   "@eslint-react/no-missing-context-display-name": "warn",
   "@eslint-react/no-missing-key": "error",
+  "@eslint-react/use-memo": "error",
+  "@eslint-react/use-state": "warn",
   "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-nested-lazy-component-declarations": "error",
@@ -102,7 +104,6 @@ export const rules = {
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/id-name": "warn",
   "@eslint-react/naming-convention/ref-name": "warn",
-  "@eslint-react/naming-convention/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
