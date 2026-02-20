@@ -231,6 +231,24 @@ function findComponentOrHookScope(node: TSESTree.Node): ast.TSESTreeFunction | n
 }
 
 /**
+ * Check if a variable's definition is contained within a given AST node.
+ * Used to exclude callback-local variables from the reactive deps list —
+ * a variable declared inside the effect/memo callback is a local, not a dep.
+ * @param variable - the variable to check
+ * @param node - the node that must NOT contain the variable's definition
+ */
+function isDefinedInsideNode(variable: Variable, node: TSESTree.Node): boolean {
+  for (const def of variable.defs) {
+    let current: TSESTree.Node = def.name;
+    while (current.parent != null) {
+      current = current.parent;
+      if (current === node) return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Check if a variable is defined within the given function scope (reactive).
  * @param variable - the variable to check
  * @param scopeNode - the function scope to check against
@@ -378,6 +396,8 @@ export function create(context: RuleContext<MessageID, Options>) {
         if (variable == null) continue;
         if (isStableVariable(variable)) continue;
         if (!isDefinedInScope(variable, componentScope)) continue;
+        // Skip variables declared inside the callback — they are locals, not reactive deps
+        if (isDefinedInsideNode(variable, callbackNode)) continue;
         reactiveDeps.add(memberExprText);
         continue;
       }
@@ -387,6 +407,8 @@ export function create(context: RuleContext<MessageID, Options>) {
       if (variable == null) continue;
       if (isStableVariable(variable)) continue;
       if (!isDefinedInScope(variable, componentScope)) continue;
+      // Skip variables declared inside the callback — they are locals, not reactive deps
+      if (isDefinedInsideNode(variable, callbackNode)) continue;
       reactiveDeps.add(identifier.name);
     }
 
@@ -451,6 +473,38 @@ export function create(context: RuleContext<MessageID, Options>) {
   }
 
   /**
+   * Check if a reactive dependency is covered by a declared dependency.
+   * A declared dep covers a reactive dep if they are equal, or if the
+   * declared dep is a prefix ancestor (e.g. `array` covers `array.map`,
+   * `obj` covers `obj.a?.toString`).
+   */
+  function isCoveredByDeclaredDep(reactiveDep: string, declaredDeps: Set<string>): boolean {
+    if (declaredDeps.has(reactiveDep)) return true;
+    for (const declared of declaredDeps) {
+      if (reactiveDep.startsWith(`${declared}.`) || reactiveDep.startsWith(`${declared}?.`)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Check if a declared dependency covers at least one reactive dependency.
+   * A declared dep is considered necessary if it equals a reactive dep, or if
+   * it is a prefix ancestor of any reactive dep (e.g. `array` is necessary
+   * when `array.map` is reactive).
+   */
+  function declaredDepCoversAny(declaredDep: string, reactiveDeps: Set<string>): boolean {
+    if (reactiveDeps.has(declaredDep)) return true;
+    for (const reactive of reactiveDeps) {
+      if (reactive.startsWith(`${declaredDep}.`) || reactive.startsWith(`${declaredDep}?.`)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Generate a fix that produces a corrected dependency array.
    * Removes unnecessary deps, adds missing deps, and sorts all alphabetically.
    * @param depsNode - the dependency array node
@@ -490,18 +544,18 @@ export function create(context: RuleContext<MessageID, Options>) {
     // Get declared dependencies
     const declaredDeps = getDeclaredDeps(depsNode);
 
-    // Find missing dependencies (reactive but not declared)
+    // Find missing dependencies (reactive but not declared, and not covered by a declared ancestor)
     const missingDeps = new Set<string>();
     for (const dep of reactiveDeps) {
-      if (!declaredDeps.has(dep)) {
+      if (!isCoveredByDeclaredDep(dep, declaredDeps)) {
         missingDeps.add(dep);
       }
     }
 
-    // Find unnecessary dependencies (declared but not reactive)
+    // Find unnecessary dependencies (declared but not reactive and not covering any reactive dep)
     const unnecessaryDeps = new Set<string>();
     for (const dep of declaredDeps) {
-      if (!reactiveDeps.has(dep)) {
+      if (!declaredDepCoversAny(dep, reactiveDeps)) {
         unnecessaryDeps.add(dep);
       }
     }
