@@ -64,10 +64,13 @@ export const rules = {
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
+  "@eslint-react/refs": "error",
   "@eslint-react/prefer-use-state-lazy-initialization": "warn",
   "@eslint-react/purity": "warn",
   "@eslint-react/rules-of-hooks": "error",
   "@eslint-react/set-state-in-effect": "warn",
+  "@eslint-react/set-state-in-render": "error",
+  "@eslint-react/unsupported-syntax": "error",
 
   "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
   "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",

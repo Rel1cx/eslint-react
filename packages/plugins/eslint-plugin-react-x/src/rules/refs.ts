@@ -183,7 +183,8 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Validates correct usage of refs by checking that ref.current is not read or written during render.",
+      description:
+        "Validates correct usage of refs by checking that 'ref.current' is not read or written during render.",
     },
     messages: {
       readDuringRender:

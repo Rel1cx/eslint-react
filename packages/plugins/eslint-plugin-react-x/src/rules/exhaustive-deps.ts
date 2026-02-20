@@ -23,8 +23,8 @@ export const RULE_NAME = "exhaustive-deps";
 
 export const RULE_FEATURES = [
   "CFG",
-  "EXP",
   "FIX",
+  "EXP",
 ] as const satisfies RuleFeature[];
 
 type MessageID =
