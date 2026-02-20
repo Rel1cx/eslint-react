@@ -176,59 +176,150 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+          function App() {
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      errors: [
+        {
+          messageId: "unstableContextValue",
+          data: {
+            kind: "object expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
+          },
+        },
+      ],
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
   ],
   valid: [
     ...allValid,
-    tsx`
-        function App() {
-          const foo = useMemo(() => ({}), [])
-          return <Context.Provider value={foo}></Context.Provider>
-      }
-    `,
-    tsx`
-        function App() {
+    {
+      code: tsx`
+          function App() {
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "all",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            const foo = useMemo(() => ({}), [])
+            return <Context.Provider value={foo}></Context.Provider>
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            "use memo";
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
           "use memo";
+          function App() {
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            const foo = useMemo(() => [], [])
+            return <Context.Provider value={foo}></Context.Provider>
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
           const foo = {}
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    tsx`
-        "use memo";
-        function App() {
-          const foo = {}
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    tsx`
-        function App() {
-          const foo = useMemo(() => [], [])
-          return <Context.Provider value={foo}></Context.Provider>
-      }
-    `,
-    tsx`
-        const foo = {}
-        function App() {
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    tsx`
-        const foo = []
-        function App() {
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    tsx`
-        const foo = new Object()
-        function App() {
-          return <Context.Provider value={foo}></Context.Provider>;
-      }
-    `,
-    tsx`
-      const foo = () => {}
+          function App() {
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          const foo = []
+          function App() {
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          const foo = new Object()
+          function App() {
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+        const foo = () => {}
               function App() {
                   return <Context.Provider value={foo}></Context.Provider>;
               }
-    `,
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
     {
       code: tsx`
           function App() {
@@ -238,6 +329,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         "react-x": {
+          compilationMode: "annotation",
           version: "18.0.0",
         },
       },
@@ -251,6 +343,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         "react-x": {
+          compilationMode: "annotation",
           version: "18.0.0",
         },
       },
@@ -264,6 +357,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         "react-x": {
+          compilationMode: "annotation",
           version: "18.0.0",
         },
       },
@@ -277,28 +371,43 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         "react-x": {
+          compilationMode: "annotation",
           version: "18.0.0",
         },
       },
     },
-    tsx`
-      const Provider = ({foo, children}: {foo: {}, children: React.ReactNode}) => {
-        return <Context value={foo}>{children}</Context>;
-      };
-    `,
-    tsx`
-      const MyContext = React.createContext<string>("");
+    {
+      code: tsx`
+        const Provider = ({foo, children}: {foo: {}, children: React.ReactNode}) => {
+          return <Context value={foo}>{children}</Context>;
+        };
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+        const MyContext = React.createContext<string>("");
 
-      export function MyFunctionComponent({ children, x }: { children: React.ReactNode; x: string }) {
-        return <MyContext value={x}>{children}</MyContext>;
-      }
+        export function MyFunctionComponent({ children, x }: { children: React.ReactNode; x: string }) {
+          return <MyContext value={x}>{children}</MyContext>;
+        }
 
-      export const MyConstComponent: React.FunctionComponent<{
-        children: React.ReactNode;
-        x: string;
-      }> = ({ children, x }) => {
-        return <MyContext value={x}>{children}</MyContext>;
-      };
-    `,
+        export const MyConstComponent: React.FunctionComponent<{
+          children: React.ReactNode;
+          x: string;
+        }> = ({ children, x }) => {
+          return <MyContext value={x}>{children}</MyContext>;
+        };
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
   ],
 });

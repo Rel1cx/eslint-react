@@ -30,10 +30,9 @@ export const ESLintReactSettingsSchema = z.object({
   /**
    * The React Compiler compilationMode that the project is using
    * Used to inform the rule about how components and hooks will be picked up by the compiler
-   * @default "annotation"
    * @example "infer"
    */
-  compilationMode: z.optional(z.enum(["off", "infer", "annotation", "syntax", "all"])),
+  compilationMode: z.optional(z.enum(["infer", "annotation", "syntax", "all"])),
 
   /**
    * The prop name used for polymorphic components
@@ -84,7 +83,7 @@ export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 export interface ESLintReactSettingsNormalized {
   version: string;
   importSource: string;
-  compilationMode: CompilationMode;
+  compilationMode: CompilationMode | "off";
   polymorphicPropName: string | unit;
   additionalStateHooks: RegExpLike;
 }
@@ -97,7 +96,6 @@ export interface ESLintReactSettingsNormalized {
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   version: "detect",
   importSource: "react",
-  compilationMode: "annotation",
   polymorphicPropName: "as",
 } as const satisfies ESLintReactSettings;
 
@@ -170,7 +168,7 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
  */
 export const normalizeSettings = ({
   importSource = "react",
-  compilationMode = "annotation",
+  compilationMode,
   polymorphicPropName = "as",
   version,
   additionalStateHooks,
@@ -179,7 +177,7 @@ export const normalizeSettings = ({
   return {
     ...rest,
     importSource,
-    compilationMode,
+    compilationMode: compilationMode ?? "off",
     polymorphicPropName,
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.4"))

@@ -19,7 +19,6 @@ const properties = {
     description: (
       <Link href="#compilationmode">The [React Compiler](https://react.dev/learn/react-compiler) compilation mode</Link>
     ),
-    default: '"annotation"',
   },
   polymorphicPropName: {
     type: "string",

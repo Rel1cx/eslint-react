@@ -3,5 +3,5 @@
 # Type Alias: CompilationMode
 
 ```ts
-type CompilationMode = "off" | "infer" | "annotation" | "syntax" | "all";
+type CompilationMode = "infer" | "annotation" | "syntax" | "all";
 ```

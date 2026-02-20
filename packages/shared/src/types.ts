@@ -120,7 +120,6 @@ export interface CompatibleConfig {
 }
 
 export type CompilationMode =
-  | "off"
   | "infer"
   | "annotation"
   | "syntax"
