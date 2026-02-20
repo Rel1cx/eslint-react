@@ -85,7 +85,6 @@ export interface ESLintReactSettingsNormalized {
   version: string;
   importSource: string;
   compilationMode: CompilationMode;
-  isCompilerEnabled: boolean;
   polymorphicPropName: string | unit;
   additionalStateHooks: RegExpLike;
 }
@@ -181,7 +180,6 @@ export const normalizeSettings = ({
     ...rest,
     importSource,
     compilationMode,
-    isCompilerEnabled: compilationMode !== "off",
     polymorphicPropName,
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.4"))

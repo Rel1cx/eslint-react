@@ -13,7 +13,6 @@ function normalizeSettings(__namedParameters: {
   additionalStateHooks: RegExpLike;
   compilationMode: "off" | "infer" | "annotation" | "syntax" | "all";
   importSource: string;
-  isCompilerEnabled: boolean;
   polymorphicPropName: string;
   version: string;
 };
@@ -40,7 +39,6 @@ Transforms component definitions and resolves version information
   additionalStateHooks: RegExpLike;
   compilationMode: "off" | "infer" | "annotation" | "syntax" | "all";
   importSource: string;
-  isCompilerEnabled: boolean;
   polymorphicPropName: string;
   version: string;
 }
@@ -51,6 +49,5 @@ Transforms component definitions and resolves version information
 | `additionalStateHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
 | `compilationMode` | `"off"` \| `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` |
 | `importSource` | `string` |
-| `isCompilerEnabled` | `boolean` |
 | `polymorphicPropName` | `string` |
 | `version` | `string` |

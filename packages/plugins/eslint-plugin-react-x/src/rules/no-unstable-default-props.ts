@@ -81,8 +81,9 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 }
 
 export function create(context: RuleContext<MessageID, Options>, [options]: Options) {
-  const { isCompilerEnabled } = getSettingsFromContext(context);
-  if (isCompilerEnabled && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
+  const { compilationMode } = getSettingsFromContext(context);
+  if (compilationMode === "infer" || compilationMode === "all") return {};
+  if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const { ctx, visitor } = core.useComponentCollector(context);
   const declarators = new WeakMap<
     ast.TSESTreeFunction,
