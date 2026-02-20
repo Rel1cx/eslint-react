@@ -70,7 +70,7 @@
     "dedent": "^1.7.1",
     "dprint": "^0.51.1",
     "effect": "^3.19.18",
-    "eslint": "^10.0.0",
+    "eslint": "^10.0.1",
     "eslint-plugin-fast-import": "^1.11.0",
     "eslint-plugin-function-rule": "^0.7.0",
     "mdxlint": "^1.0.0",
@@ -94,7 +94,7 @@
     "typescript-eslint": "canary",
     "vitest": "^4.0.18"
   },
-  "packageManager": "pnpm@10.30.0",
+  "packageManager": "pnpm@10.30.1",
   "engines": {
     "node": ">=22.0.0"
   }
