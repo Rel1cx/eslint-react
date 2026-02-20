@@ -32,47 +32,46 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const services = ESLintUtils.getParserServices(context, false);
+  const checker = services.program.getTypeChecker();
   const { ctx, visitor } = core.useComponentCollector(context);
 
-  return defineRuleListener(
-    visitor,
-    {
-      "Program:exit"(program) {
-        const checker = services.program.getTypeChecker();
-        const totalDeclaredProps = new Set<ts.Symbol>();
-        const totalUsedProps = new Set<ts.Symbol>();
+  return defineRuleListener(visitor, {
+    "Program:exit"(program) {
+      const totalDeclaredProps = new Set<ts.Symbol>();
+      const totalUsedProps = new Set<ts.Symbol>();
 
-        for (const component of ctx.getAllComponents(program)) {
-          const [props] = component.node.params;
-          if (props == null) continue;
+      for (const component of ctx.getAllComponents(program)) {
+        const [props] = component.node.params;
+        if (props == null) continue;
 
-          const usedPropKeys = new Set<string>();
-          const couldFindAllUsedPropKeys = collectUsedPropKeysOfParameter(context, usedPropKeys, props);
-          if (!couldFindAllUsedPropKeys) {
-            // unable to determine all used prop keys => bail out to avoid false positives
-            continue;
-          }
+        const usedPropKeys = new Set<string>();
+        const couldFindAllUsedPropKeys = collectUsedPropKeysOfParameter(
+          context,
+          usedPropKeys,
+          props,
+        );
+        // Unable to determine all used prop keys — bail out to avoid false positives
+        if (!couldFindAllUsedPropKeys) continue;
 
-          const tsNode = services.esTreeNodeToTSNodeMap.get(props);
-          const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
+        const tsNode = services.esTreeNodeToTSNodeMap.get(props);
+        const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
 
-          for (const declaredProp of declaredProps) {
-            totalDeclaredProps.add(declaredProp);
+        for (const declaredProp of declaredProps) {
+          totalDeclaredProps.add(declaredProp);
 
-            if (usedPropKeys.has(declaredProp.name)) {
-              totalUsedProps.add(declaredProp);
-            }
+          if (usedPropKeys.has(declaredProp.name)) {
+            totalUsedProps.add(declaredProp);
           }
         }
+      }
 
-        const unusedProps = totalDeclaredProps.difference(totalUsedProps);
+      const unusedProps = totalDeclaredProps.difference(totalUsedProps);
 
-        for (const unusedProp of unusedProps) {
-          reportUnusedProp(context, services, unusedProp);
-        }
-      },
+      for (const unusedProp of unusedProps) {
+        reportUnusedProp(context, services, unusedProp);
+      }
     },
-  );
+  });
 }
 
 function collectUsedPropKeysOfParameter(
@@ -85,7 +84,11 @@ function collectUsedPropKeysOfParameter(
       return collectUsedPropKeysOfIdentifier(context, usedPropKeys, parameter);
     }
     case AST.ObjectPattern: {
-      return collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parameter);
+      return collectUsedPropKeysOfObjectPattern(
+        context,
+        usedPropKeys,
+        parameter,
+      );
     }
     default: {
       return false;
@@ -125,7 +128,11 @@ function collectUsedPropsOfRestElement(
 ): boolean {
   switch (restElement.argument.type) {
     case AST.Identifier: {
-      return collectUsedPropKeysOfIdentifier(context, usedPropKeys, restElement.argument);
+      return collectUsedPropKeysOfIdentifier(
+        context,
+        usedPropKeys,
+        restElement.argument,
+      );
     }
     default: {
       return false;
@@ -143,11 +150,12 @@ function collectUsedPropKeysOfIdentifier(
   if (variable == null) return false;
 
   for (const ref of variable.references) {
-    if (ref.identifier === identifier) {
-      continue;
-    }
+    // Skip the declaration site itself
+    if (ref.identifier === identifier) continue;
 
-    if (!collectUsedPropKeysOfReference(context, usedPropKeys, identifier, ref)) {
+    if (
+      !collectUsedPropKeysOfReference(context, usedPropKeys, identifier, ref)
+    ) {
       return false;
     }
   }
@@ -165,6 +173,7 @@ function collectUsedPropKeysOfReference(
 
   switch (parent.type) {
     case AST.MemberExpression: {
+      // Handle `props.foo` or `props["foo"]`
       if (
         parent.object.type === AST.Identifier
         && parent.object.name === identifier.name
@@ -177,11 +186,16 @@ function collectUsedPropKeysOfReference(
       break;
     }
     case AST.VariableDeclarator: {
+      // Handle `const { foo, bar } = props`
       if (
         parent.id.type === AST.ObjectPattern
         && parent.init === ref.identifier
       ) {
-        return collectUsedPropKeysOfObjectPattern(context, usedPropKeys, parent.id);
+        return collectUsedPropKeysOfObjectPattern(
+          context,
+          usedPropKeys,
+          parent.id,
+        );
       }
       break;
     }
@@ -201,6 +215,7 @@ function getKeyOfExpression(
       if (typeof expr.value === "string") {
         return expr.value;
       }
+      break;
     }
   }
 

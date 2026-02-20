@@ -68,10 +68,7 @@ function extractIdentifier(node: TSESTree.Node): string | null {
   if (node.type === AST.NewExpression && node.callee.type === AST.Identifier) {
     return node.callee.name;
   }
-  if (
-    node.type === AST.CallExpression
-    && node.callee.type === AST.MemberExpression
-  ) {
+  if (node.type === AST.CallExpression && node.callee.type === AST.MemberExpression) {
     const { object } = node.callee;
     if (object.type === AST.Identifier) {
       return object.name;
@@ -85,17 +82,12 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const { ctx, visitor } = core.useComponentCollector(context);
-  const declarators = new WeakMap<
-    ast.TSESTreeFunction,
-    ast.ObjectDestructuringVariableDeclarator[]
-  >();
+  const declarators = new WeakMap<ast.TSESTreeFunction, ast.ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return defineRuleListener(visitor, {
-    [ast.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](
-      node: ast.ObjectDestructuringVariableDeclarator,
-    ) {
+    [ast.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ast.ObjectDestructuringVariableDeclarator) {
       const functionEntry = ctx.getCurrentEntry();
       if (functionEntry == null) return;
       getOrElseUpdate(declarators, functionEntry.node, () => []).push(node);
@@ -110,19 +102,14 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
         const properties = match(props)
           .with({ type: AST.ObjectPattern }, ({ properties }) => properties)
           .with({ type: AST.Identifier }, ({ name }) => {
-            return (
-              declarators
-                .get(component)
-                ?.filter((d) => d.init.name === name)
-                .flatMap((d) => d.id.properties) ?? []
-            );
+            return declarators
+              .get(component)
+              ?.filter((d) => d.init.name === name)
+              .flatMap((d) => d.id.properties) ?? [];
           })
           .otherwise(() => []);
         for (const prop of properties) {
-          if (
-            prop.type !== AST.Property
-            || prop.value.type !== AST.AssignmentPattern
-          ) {
+          if (prop.type !== AST.Property || prop.value.type !== AST.AssignmentPattern) {
             continue;
           }
           const { value } = prop;
@@ -137,10 +124,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           if (safePatterns.length > 0) {
             const identifier = extractIdentifier(right);
-            if (
-              identifier != null
-              && safePatterns.some((pattern) => pattern.test(identifier))
-            ) {
+            if (identifier != null && safePatterns.some((pattern) => pattern.test(identifier))) {
               continue;
             }
           }
