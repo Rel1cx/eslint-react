@@ -445,6 +445,84 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Issue #1528: variables declared inside the callback are locals, not deps
+    {
+      name: "variable declared inside callback is not a dep (issue #1528 reproduction)",
+      code: tsx`
+        declare function getSomeData(): unknown;
+        function Component() {
+          useEffect(() => {
+            const data = getSomeData();
+            console.log(data);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "multiple variables declared inside callback are not deps",
+      code: tsx`
+        function Component() {
+          useEffect(() => {
+            const x = 1;
+            const y = 2;
+            console.log(x + y);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "callback-local variable used in nested function inside callback is not a dep",
+      code: tsx`
+        function Component() {
+          useEffect(() => {
+            const items = [1, 2, 3];
+            items.forEach((item) => {
+              console.log(item);
+            });
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "callback-local and component-level deps coexist correctly",
+      code: tsx`
+        function Component({ id }) {
+          useEffect(() => {
+            const result = id * 2;
+            console.log(result);
+          }, [id]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "callback-local variable member access is not a dep",
+      code: tsx`
+        declare function fetchUser(): { name: string };
+        function Component() {
+          useEffect(() => {
+            const user = fetchUser();
+            console.log(user.name);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "useMemo callback-local variable is not a dep",
+      code: tsx`
+        function Component({ multiplier }) {
+          const value = useMemo(() => {
+            const base = 10;
+            return base * multiplier;
+          }, [multiplier]);
+          return null;
+        }
+      `,
+    },
   ],
 });
 
@@ -680,5 +758,103 @@ ruleTester.run(`${RULE_NAME} (autofix)`, rule, {
       ],
     },
   ],
-  valid: [],
+  valid: [
+    // Issue #1529: whole object/array declared as dep should cover member access paths
+    {
+      name: "array declared as dep covers array method access (array.map)",
+      code: tsx`
+        function Component() {
+          const number = 5;
+          const array = useMemo(() => [number], [number]);
+          useEffect(() => {
+            console.log(array.map((x) => x * 2));
+          }, [array]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "object declared as dep covers optional chained property access (object.a?.toString)",
+      code: tsx`
+        function Component() {
+          const number = 5;
+          const object = useMemo((): Record<string, number | null> => ({ a: null, b: number }), [number]);
+          useEffect(() => {
+            console.log(object.a?.toString());
+          }, [object]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "whole object/array covers both member and method accesses together (issue #1529 reproduction)",
+      code: tsx`
+        function Component() {
+          const number = 5;
+          const array = useMemo(() => [number], [number]);
+          const object = useMemo((): Record<string, number | null> => ({ a: null, b: number }), [number]);
+          useEffect(() => {
+            console.log("Array:", array.map((x) => x * 2));
+            console.log("Object:", object.a?.toString());
+          }, [array, object]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "parent prop dep covers deeply nested member expression (config.settings.theme)",
+      code: tsx`
+        function Component({ config }) {
+          useEffect(() => {
+            console.log(config.settings.theme);
+          }, [config]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "parent prop dep covers multiple member expressions on same object",
+      code: tsx`
+        function Component({ data }) {
+          useEffect(() => {
+            console.log(data.firstName, data.lastName);
+          }, [data]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "partial ancestor dep covers deeper member expression (foo.bar covers foo.bar.baz)",
+      code: tsx`
+        function Component({ foo }) {
+          useEffect(() => {
+            console.log(foo.bar.baz);
+          }, [foo.bar]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "object dep covers optional chained access at root (user?.profile?.name)",
+      code: tsx`
+        function Component({ user }) {
+          useEffect(() => {
+            console.log(user?.profile?.name);
+          }, [user]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "object dep covers mixed dot and optional-chain access",
+      code: tsx`
+        function Component({ settings }) {
+          useEffect(() => {
+            console.log(settings.theme?.primary, settings.locale);
+          }, [settings]);
+          return null;
+        }
+      `,
+    },
+  ],
 });
