@@ -44,7 +44,6 @@ export const rules = {
   "@eslint-react/no-unused-class-component-members": "warn",
   "@eslint-react/no-use-context": "warn",
   "@eslint-react/no-useless-forward-ref": "warn",
-  "@eslint-react/prefer-use-state-lazy-initialization": "warn",
   "@eslint-react/purity": "warn",
   "@eslint-react/rules-of-hooks": "error",
   "@eslint-react/set-state-in-effect": "warn",

@@ -2,6 +2,27 @@
 
 ### 💥 Breaking Changes
 
+**Merged `prefer-use-state-lazy-initialization` rule into `use-state`**
+
+The standalone `prefer-use-state-lazy-initialization` rule has been removed. Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
+
+| Old Rule (`react-x/`)                  | New Rule (`react-x/`) | Change       |
+| :------------------------------------- | :-------------------- | :----------- |
+| `prefer-use-state-lazy-initialization` | `use-state`           | consolidated |
+
+If you had `prefer-use-state-lazy-initialization` enabled in your configuration, remove it — the behavior is now covered by `use-state` automatically:
+
+```diff
+- "react-x/prefer-use-state-lazy-initialization": "warn",
+  "react-x/use-state": "warn",
+```
+
+To disable only the lazy-initialization check while keeping the other `use-state` checks, pass the option explicitly:
+
+```js
+"react-x/use-state": ["warn", { enforceLazyInitialization: false }]
+```
+
 **Removed `jsx-no-iife` rule from `eslint-plugin-react-x`**
 
 The `jsx-no-iife` rule has been removed. Its IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
@@ -70,6 +91,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 | Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/unsupported-syntax`                                            | `recommended`, `x`                                      | `error`                          |
 | Removed (rule)           | `react-x/jsx-no-iife`                                                   | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax` |
+| Removed (rule)           | `react-x/prefer-use-state-lazy-initialization`                          | `recommended`, `x`, `all`                               | merged into `use-state`          |
 
 ### ✨ New
 
@@ -101,7 +123,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
   > }
   > ```
 - `use-memo`: Validates that `useMemo` is called with a callback that returns a value. `useMemo` is designed for computing and caching values — without a return value it always returns `undefined`, which defeats its purpose. This rule also catches `useMemo` calls whose return value is discarded (not assigned to a variable), which indicates a side-effect misuse that should use `useEffect` instead. Mirrors the [`use-memo`](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo) lint rule described in the React docs.
-- `use-state`: Enforces destructuring and symmetric naming of the `useState` hook value and setter (e.g. `count` / `setCount`). Moved from `eslint-plugin-react-naming-convention` into `eslint-plugin-react-x` so that all hook-usage rules live in one package.
+- `use-state`: Enforces correct usage of the `useState` hook — destructuring, symmetric naming of the value and setter (e.g. `count` / `setCount`), and lazy initialization of expensive initial state. Moved from `eslint-plugin-react-naming-convention` into `eslint-plugin-react-x` so that all hook-usage rules live in one package. The lazy-initialization behavior (previously `prefer-use-state-lazy-initialization`) is now also part of this rule and controlled by the `enforceLazyInitialization` option (default: `true`).
 - `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
 - `unsupported-syntax`: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX (previously covered by `jsx-no-iife`)
 

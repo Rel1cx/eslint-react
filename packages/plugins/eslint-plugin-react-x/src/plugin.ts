@@ -61,7 +61,6 @@ import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
-import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 import purity from "./rules/purity";
 import refs from "./rules/refs";
 import rulesOfHooks from "./rules/rules-of-hooks";
@@ -137,7 +136,6 @@ export const plugin: CompatiblePlugin = {
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
-    "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
     purity: purity,
     refs: refs,
     "rules-of-hooks": rulesOfHooks,

@@ -66,7 +66,6 @@ export const rules = {
   "@eslint-react/no-useless-fragment": "warn",
   "@eslint-react/prefer-destructuring-assignment": "warn",
   "@eslint-react/prefer-namespace-import": "warn",
-  "@eslint-react/prefer-use-state-lazy-initialization": "warn",
   "@eslint-react/purity": "warn",
   "@eslint-react/refs": "error",
   "@eslint-react/rules-of-hooks": "error",

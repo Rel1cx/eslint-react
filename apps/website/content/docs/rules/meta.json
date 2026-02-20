@@ -61,7 +61,6 @@
     "prefer-destructuring-assignment",
     "prefer-namespace-import",
     "prefer-read-only-props",
-    "prefer-use-state-lazy-initialization",
     "purity",
     "refs",
     "rules-of-hooks",
