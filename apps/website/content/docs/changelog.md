@@ -84,7 +84,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 - `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats) usage.
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
-  > **Note:** Compared to the old `no-direct-set-state-in-use-effect` rule, the new `set-state-in-effect` rule allows `setState` calls when the new state is derived from refs (e.g., `setState(ref.current)`). All other behaviors remain the same.
+  > Compared to the old `no-direct-set-state-in-use-effect` rule, the new `set-state-in-effect` rule allow setting state in effects if the value is from a ref. All other behaviors remain the same.
   >
   > The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
   >

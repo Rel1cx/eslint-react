@@ -367,11 +367,14 @@ function isSetterUsingRefValue(context: RuleContext, node: TSESTree.CallExpressi
         return false;
     }
   };
+  // Case 1: setState(ref.current.scrollTop);
   if (isUsingRefValue(node)) return true;
-  return ast.isFunction(node) && context.sourceCode
-    .getScope(node.body)
-    .references
-    .some((r) => isUsingRefValue(r.identifier));
+  // Case 2: setState(() => ref.current.scrollTop);
+  return ast.isFunction(node)
+    && context.sourceCode
+      .getScope(node.body)
+      .references
+      .some((r) => isUsingRefValue(r.identifier));
 }
 
 function isInitFromHookCall(init: TSESTree.Expression | null) {
