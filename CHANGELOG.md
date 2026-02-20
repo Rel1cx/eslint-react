@@ -2,9 +2,24 @@
 
 ### 💥 Breaking Changes
 
-**Merged `prefer-use-state-lazy-initialization` rule into `use-state`**
+**Removed `jsx-no-iife` rule from `eslint-plugin-react-x`**
 
-The standalone `prefer-use-state-lazy-initialization` rule has been removed. Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
+The `jsx-no-iife` rule has been removed. Its IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
+
+| Old Rule (`react-x/`) | New Rule (`react-x/`) | Change       |
+| :-------------------- | :-------------------- | :----------- |
+| `jsx-no-iife`         | `unsupported-syntax`  | consolidated |
+
+If you had `jsx-no-iife` enabled in your configuration, replace it with `unsupported-syntax`:
+
+```diff
+- "react-x/jsx-no-iife": "error",
++ "react-x/unsupported-syntax": "error",
+```
+
+**Removed `prefer-use-state-lazy-initialization` rule from `eslint-plugin-react-x`**
+
+The `prefer-use-state-lazy-initialization` rule has been removed. Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
 
 | Old Rule (`react-x/`)                  | New Rule (`react-x/`) | Change       |
 | :------------------------------------- | :-------------------- | :----------- |
@@ -21,21 +36,6 @@ To disable only the lazy-initialization check while keeping the other `use-state
 
 ```js
 "react-x/use-state": ["warn", { enforceLazyInitialization: false }]
-```
-
-**Removed `jsx-no-iife` rule from `eslint-plugin-react-x`**
-
-The `jsx-no-iife` rule has been removed. Its IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
-
-| Old Rule (`react-x/`) | New Rule (`react-x/`) | Change       |
-| :-------------------- | :-------------------- | :----------- |
-| `jsx-no-iife`         | `unsupported-syntax`  | consolidated |
-
-If you had `jsx-no-iife` enabled in your configuration, replace it with `unsupported-syntax`:
-
-```diff
-- "react-x/jsx-no-iife": "error",
-+ "react-x/unsupported-syntax": "error",
 ```
 
 **Removed `eslint-plugin-react-hooks-extra` package**
