@@ -56,7 +56,6 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
     functionEntries.pop();
   };
   const ctx = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getAllHooks(node: TSESTree.Program) {
       return [...hooks.values()];
     },

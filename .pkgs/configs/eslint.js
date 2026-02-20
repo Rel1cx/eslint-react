@@ -1,5 +1,4 @@
 import { includeIgnoreFile } from "@eslint/compat";
-import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
 import pluginFunction from "eslint-plugin-function";
@@ -108,21 +107,21 @@ export function buildIgnoreConfig(gitignore, extra) {
         ]),
     ];
 }
-export const strictTypeChecked = defineConfig({
-    ignores: GLOB_JS,
-}, {
-    extends: [
-        js.configs.recommended,
-        ...tseslint.configs.strict,
-    ],
+export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
     files: GLOB_TS,
+    languageOptions: {
+        parser: tseslint.parser,
+        parserOptions: {
+            project: false,
+            projectService: false,
+        },
+    },
     rules: {
         eqeqeq: ["error", "smart"],
         "no-console": "error",
         "no-else-return": "error",
         "no-fallthrough": ["error", { commentPattern: ".*intentional fallthrough.*" }],
         "no-implicit-coercion": ["error", { allow: ["!!"] }],
-        "prefer-object-has-own": "error",
         "no-restricted-syntax": [
             "error",
             {
@@ -130,40 +129,7 @@ export const strictTypeChecked = defineConfig({
                 selector: "ImportDeclaration[source.value='typescript'] ImportSpecifier",
             },
         ],
-        "@typescript-eslint/ban-ts-comment": [
-            "error",
-            {
-                "ts-check": false,
-                "ts-expect-error": "allow-with-description",
-                "ts-ignore": true,
-                "ts-nocheck": true,
-            },
-        ],
-        "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/consistent-type-assertions": "error",
-        "@typescript-eslint/consistent-type-exports": "error",
-        "@typescript-eslint/consistent-type-imports": ["error", {
-                disallowTypeAnnotations: true,
-                fixStyle: "separate-type-imports",
-                prefer: "type-imports",
-            }],
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-confusing-void-expression": "off",
-        "@typescript-eslint/no-empty-object-type": "off",
-        "@typescript-eslint/no-misused-promises": "warn",
-        "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-        "@typescript-eslint/no-unused-vars": ["warn", { caughtErrors: "all" }],
-        "@typescript-eslint/strict-boolean-expressions": ["error", {
-                allowAny: false,
-                allowNullableBoolean: false,
-                allowNullableEnum: false,
-                allowNullableNumber: false,
-                allowNullableObject: false,
-                allowNullableString: false,
-                allowNumber: true,
-                allowString: false,
-            }],
+        "prefer-object-has-own": "error",
     },
 }, {
     extends: [
@@ -179,7 +145,6 @@ export const strictTypeChecked = defineConfig({
         ["unicorn"]: pluginUnicorn,
     },
     rules: {
-        "function/function-return-boolean": ["error", { pattern: "/^(is|has|can|should)/" }],
         "@stylistic/arrow-parens": ["warn", "always"],
         "@stylistic/no-multi-spaces": ["warn"],
         "@stylistic/operator-linebreak": "off",
@@ -228,9 +193,7 @@ export const disableTypeChecked = defineConfig({
     extends: [
         tseslint.configs.disableTypeChecked,
     ],
-    rules: {
-        "function/function-return-boolean": "off",
-    },
+    rules: {},
 });
 /**
  * Common ESLint JS rules to disable that are problematic when using TypeScript.

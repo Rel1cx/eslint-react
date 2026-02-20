@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { findVariable, getChildScopes, getVariableInitializer } from "@eslint-react/var";
@@ -119,7 +120,7 @@ export function create(context: RuleContext<MessageID, []>) {
 function checkForUsageInsideUseEffect(
   sourceCode: Readonly<SourceCode>,
   node: TSESTree.CallExpression,
-): ReportDescriptor<MessageID> | undefined {
+): ReportDescriptor<MessageID> | unit {
   if (!/use\w*Effect/u.test(sourceCode.text)) return;
 
   if (!isVariableDeclarator(node.parent)) {

@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import { not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable, getVariableInitializer } from "@eslint-react/var";
@@ -110,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isInsideConditional(node: TSESTree.Node, stopAt: ast.TSESTreeFunction) {
-    let current: TSESTree.Node | undefined = node.parent;
+    let current: TSESTree.Node | unit = node.parent;
     while (current != null && current !== stopAt) {
       switch (current.type) {
         case AST.IfStatement:
@@ -128,7 +129,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isInsideEventHandler(node: TSESTree.Node, stopAt: ast.TSESTreeFunction) {
-    let current: TSESTree.Node | undefined = node.parent;
+    let current: TSESTree.Node | unit = node.parent;
     while (current != null && current !== stopAt) {
       if (ast.isFunction(current) && current !== stopAt) {
         return true;

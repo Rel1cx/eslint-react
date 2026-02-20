@@ -64,11 +64,14 @@ export function create(ctx: RuleContext<MessageID, []>) {
   }
 
   function checkBlock(node: TSESTree.BlockStatement): Descriptor[] {
-    return ast.getNestedReturnStatements(node)
-      .filter((stmt) => stmt.argument != null)
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      .map((stmt) => check(stmt.argument!))
-      .filter((d): d is Descriptor => d != null);
+    const descriptors: Descriptor[] = [];
+    for (const stmt of ast.getNestedReturnStatements(node)) {
+      if (stmt.argument == null) continue;
+      const desc = check(stmt.argument);
+      if (desc == null) continue;
+      descriptors.push(desc);
+    }
+    return descriptors;
   }
 
   return defineRuleListener(

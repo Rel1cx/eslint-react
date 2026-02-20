@@ -50,7 +50,6 @@ export function isHookCall(node: TSESTree.Node | unit): node is TSESTree.CallExp
  * @param node The AST node to check
  * @returns A function that takes a hook name and returns boolean
  */
-/* eslint-disable function/function-return-boolean */
 export function isHookCallWithName(node: TSESTree.Node | unit) {
   if (node == null || node.type !== AST.CallExpression) return constFalse;
   return (name: string) => {

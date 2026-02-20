@@ -1,4 +1,5 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/tests/lib/rules/no-unknown-property.js
+import tsx from "dedent";
 
 import { ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./no-unknown-property";
@@ -470,11 +471,11 @@ ruleTester.run(RULE_NAME, rule, {
       },
     ],
   }, {
-    code: `
-        <div className="App" data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c="customValue">
-          Hello, world!
-        </div>
-      `,
+    code: tsx`
+      <div className="App" data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c="customValue">
+        Hello, world!
+      </div>
+    `,
     errors: [
       {
         messageId: "unknownProp",
@@ -615,7 +616,7 @@ ruleTester.run(RULE_NAME, rule, {
     { code: '<marker fill="#000" />' },
     { code: '<dialog onClose={handler} open id="dialog" returnValue="something" onCancel={handler2} />' },
     {
-      code: `
+      code: tsx`
         <table align="top">
           <caption align="top">Table Caption</caption>
           <colgroup valign="top" align="top">
@@ -638,14 +639,14 @@ ruleTester.run(RULE_NAME, rule, {
     { code: '<fbs desc="foo" doNotExtract />;' },
     { code: '<math displaystyle="true" />;' },
     {
-      code: `
+      code: tsx`
         <div className="App" data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash="customValue">
           Hello, world!
         </div>
       `,
     },
     {
-      code: `
+      code: tsx`
         <div>
           <button popovertarget="my-popover" popovertargetaction="toggle">Open Popover</button>
 
@@ -659,7 +660,7 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: `
+      code: tsx`
         <div>
           <button popoverTarget="my-popover" popoverTargetAction="toggle">Open Popover</button>
 

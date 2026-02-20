@@ -1,7 +1,0 @@
-{
-  "title": "Using Custom Parsers (Experimental)",
-  "pages": [
-    "babel-eslint-parser",
-    "ts-blank-eslint-parser"
-  ]
-}

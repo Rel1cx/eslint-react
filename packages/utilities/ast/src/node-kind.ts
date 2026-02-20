@@ -9,7 +9,7 @@ export function getHumanReadableKind(node: TSESTree.Node, delimiter = " ") {
     if ("regex" in node) {
       return "RegExp literal";
     }
-    // eslint-disable-next-line function-rule-1/function-rule
+    // tsl-ignore dx/nullish
     if (node.value === null) {
       return "null literal" as const;
     }

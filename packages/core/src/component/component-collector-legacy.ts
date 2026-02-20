@@ -28,7 +28,6 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
   const components = new Map<string, ClassComponentSemanticNode>();
 
   const ctx = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getAllComponents(node: TSESTree.Program) {
       return [...components.values()];
     },

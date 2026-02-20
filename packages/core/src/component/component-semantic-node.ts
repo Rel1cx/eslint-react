@@ -11,9 +11,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The identifier or identifier sequence of the component
    */
-  id:
-    | unit
-    | ast.FunctionID;
+  id: ast.FunctionID;
 
   /**
    * The kind of component

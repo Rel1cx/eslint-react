@@ -1,8 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
-import { coerceSettings } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, coerceSettings, defineRuleListener, report } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -101,12 +100,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
 
 // Recursively collects all identifiers from a binary expression
 // e.g., for `a + b + c`, it returns identifiers for a, b, and c
-function getIdentifiersFromBinaryExpression(
-  side:
-    | TSESTree.BinaryExpression
-    | TSESTree.BinaryExpression["left"]
-    | TSESTree.BinaryExpression["right"],
-): readonly TSESTree.Identifier[] {
+function getIdentifiersFromBinaryExpression(side: TSESTree.BinaryExpression["left"]): readonly TSESTree.Identifier[] {
   if (side.type === AST.Identifier) {
     return [side];
   }

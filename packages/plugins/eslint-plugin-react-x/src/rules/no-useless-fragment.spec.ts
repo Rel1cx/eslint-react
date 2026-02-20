@@ -92,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: "<div/>",
     },
     {
-      code: `
+      code: tsx`
         <>
           <div/>
         </>
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: { reason: "contains less than two children" },
         },
       ],
-      output: `
+      output: tsx`
         <div/>
       `,
     },
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
+      code: tsx`
         <React.Fragment>
           <Foo />
         </React.Fragment>
@@ -131,7 +131,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: { reason: "contains less than two children" },
         },
       ],
-      output: `
+      output: tsx`
         <Foo />
       `,
     },
@@ -175,12 +175,13 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<div>{"a"}{"b"}</div>',
     },
     {
-      code: `
+      code: tsx`
         <section>
           <Eeee />
           <Eeee />
           <>{"a"}{"b"}</>
-        </section>`,
+        </section>
+      `,
       errors: [
         {
           type: AST.JSXFragment,
@@ -188,12 +189,13 @@ ruleTester.run(RULE_NAME, rule, {
           data: { reason: "placed inside a host component" },
         },
       ],
-      output: `
+      output: tsx`
         <section>
           <Eeee />
           <Eeee />
           {"a"}{"b"}
-        </section>`,
+        </section>
+      `,
     },
     {
       code: '<div><Fragment>{"a"}{"b"}</Fragment></div>',
@@ -208,34 +210,34 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       // whitespace tricky case
-      code: `
+      code: tsx`
         <section>
           git<>
             <b>hub</b>.
           </>
 
           git<> <b>hub</b></>
-        </section>`,
+        </section>
+      `,
       errors: [
         {
           type: AST.JSXFragment,
           messageId: "default",
           data: { reason: "placed inside a host component" },
-          line: 3,
         },
         {
           type: AST.JSXFragment,
           messageId: "default",
           data: { reason: "placed inside a host component" },
-          line: 7,
         },
       ],
-      output: `
+      output: tsx`
         <section>
           git<b>hub</b>.
 
           git <b>hub</b>
-        </section>`,
+        </section>
+      `,
     },
     {
       code: '<div>a <>{""}{""}</> a</div>',
@@ -249,7 +251,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<div>a {""}{""} a</div>',
     },
     {
-      code: `
+      code: tsx`
         const Comp = () => (
           <html>
             <React.Fragment />
@@ -261,16 +263,14 @@ ruleTester.run(RULE_NAME, rule, {
           type: AST.JSXElement,
           messageId: "default",
           data: { reason: "placed inside a host component" },
-          line: 4,
         },
         {
           type: AST.JSXElement,
           messageId: "default",
           data: { reason: "contains less than two children" },
-          line: 4,
         },
       ],
-      output: `
+      output: tsx`
         const Comp = () => (
           <html>
             ${/* the trailing whitespace here is intentional */ ""}

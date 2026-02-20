@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -27,7 +28,7 @@ function isInsideNestedFunction(
   node: TSESTree.Node,
   boundary: ast.TSESTreeFunction,
 ): boolean {
-  let current: TSESTree.Node | undefined = node.parent;
+  let current: TSESTree.Node | unit = node.parent;
   while (current != null && current !== boundary) {
     if (ast.isFunction(current)) return true;
     current = current.parent;
@@ -115,7 +116,7 @@ function findEnclosingRefNullCheckIf(
   node: TSESTree.Node,
   refName: string,
 ): TSESTree.IfStatement | null {
-  let current: TSESTree.Node | undefined = node.parent;
+  let current: TSESTree.Node | unit = node.parent;
   while (current != null) {
     if (current.type === AST.IfStatement) {
       return isRefCurrentNullCheck(current.test, refName) ? current : null;

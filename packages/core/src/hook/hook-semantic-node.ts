@@ -1,5 +1,4 @@
 import type * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticNode } from "../semantic";
@@ -11,7 +10,7 @@ import type { SemanticNode } from "../semantic";
  */
 export interface HookSemanticNode extends SemanticNode {
   /** The identifier of the hook */
-  id: ast.FunctionID | unit;
+  id: ast.FunctionID;
   /** The AST node of the hook */
   node: ast.TSESTreeFunction;
   /** The name of the hook */

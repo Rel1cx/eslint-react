@@ -1,7 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";

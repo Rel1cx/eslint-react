@@ -1,5 +1,4 @@
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../utils";

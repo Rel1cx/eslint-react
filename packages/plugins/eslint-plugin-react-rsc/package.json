@@ -39,10 +39,11 @@
   "scripts": {
     "build": "tsdown",
     "lint:publish": "publint",
-    "lint:ts": "tsc --noEmit",
+    "lint:ts": "tsl",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
+    "@eslint-react/eff": "workspace:*",
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",

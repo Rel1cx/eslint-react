@@ -1,6 +1,5 @@
 import type * as ast from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
-import { identity } from "@eslint-react/eff";
+import { identity, unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";

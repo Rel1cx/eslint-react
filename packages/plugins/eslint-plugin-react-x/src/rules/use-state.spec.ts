@@ -122,77 +122,76 @@ ruleTester.run(RULE_NAME, rule, {
     // --- Lazy initialization ---
     {
       code: `import { useState } from "react"; useState(1 || getValue())`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(2 < getValue())`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(1 < 2 ? getValue() : 4)`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(a ? b : getValue())`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(getValue() ? b : c)`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(a ? (b ? getValue() : b2) : c)`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(getValue() && b)`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(a() && new Foo())`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
@@ -203,46 +202,47 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(+getValue())`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState(getValue() + 1)`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState([getValue()])`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: `import { useState } from "react"; useState({ a: getValue() })`,
-      options: [{ enforceAssignment: false }],
       errors: [
         {
           type: AST.CallExpression,
           messageId: "invalidInitialization",
         },
       ],
+      options: [{ enforceAssignment: false }],
     },
     {
       code: tsx`

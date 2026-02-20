@@ -21,6 +21,7 @@ function findParentNode<A extends TSESTree.Node>(
 function findParentNode(node: TSESTree.Node | unit, test: (node: TSESTree.Node) => boolean): TSESTree.Node | unit;
 function findParentNode<A extends TSESTree.Node>(
   node: TSESTree.Node | unit,
+  // tsl-ignore core/noRedundantTypeConstituents
   test: ((node: TSESTree.Node) => boolean) | ((n: TSESTree.Node) => n is A),
 ): TSESTree.Node | A | unit {
   if (node == null) return unit;

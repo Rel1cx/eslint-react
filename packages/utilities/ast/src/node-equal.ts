@@ -42,9 +42,7 @@ export const isNodeEqual: {
       }
       i = a.expressions.length;
       while (i--) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const exprA = a.expressions[i]!;
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const exprB = b.expressions[i]!;
         if (!isNodeEqual(exprA, exprB)) {
           return false;

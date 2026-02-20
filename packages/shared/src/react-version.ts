@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import module from "node:module";
 import path from "node:path";
 

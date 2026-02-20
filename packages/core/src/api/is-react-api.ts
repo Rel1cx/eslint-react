@@ -1,4 +1,3 @@
-/* eslint-disable function/function-return-boolean */
 import * as ast from "@eslint-react/ast";
 import { dual, type unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";

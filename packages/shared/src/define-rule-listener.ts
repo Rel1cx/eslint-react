@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 /**
@@ -20,6 +19,7 @@ export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]):
   for (const r of rest) {
     for (const key in r) {
       const existing = base[key];
+      // tsl-ignore core/strictBooleanExpressions
       base[key] = existing
         ? (...args) => {
           existing(...args);

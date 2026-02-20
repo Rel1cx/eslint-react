@@ -30,8 +30,6 @@ export const rules = {
   "react-x/no-direct-mutation-state": "error",
   "react-x/no-forward-ref": "warn",
   "react-x/no-missing-key": "error",
-  "react-x/use-memo": "error",
-  "react-x/use-state": "warn",
   "react-x/no-nested-component-definitions": "error",
   "react-x/no-nested-lazy-component-declarations": "error",
   "react-x/no-redundant-should-component-update": "error",
@@ -49,6 +47,8 @@ export const rules = {
   "react-x/set-state-in-effect": "warn",
   "react-x/set-state-in-render": "error",
   "react-x/unsupported-syntax": "error",
+  "react-x/use-memo": "error",
+  "react-x/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
