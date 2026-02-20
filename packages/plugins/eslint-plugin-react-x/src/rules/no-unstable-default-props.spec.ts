@@ -219,24 +219,31 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     ...allValid,
-    tsx`
-      "use memo";
-      const App = ({
-          a = {},
-          b = ['one', 'two'],
-          c = /regex/i,
-          d = () => {},
-          e = function() {},
-          f = class {},
-          g = new Thing(),
-          h = <Thing />,
-          i = Symbol('foo'),
-          j = unknownFunction(),
-          k = window.name
-      }) => {
-          return null
-      }
-    `,
+    {
+      code: tsx`
+        "use memo";
+        const App = ({
+            a = {},
+            b = ['one', 'two'],
+            c = /regex/i,
+            d = () => {},
+            e = function() {},
+            f = class {},
+            g = new Thing(),
+            h = <Thing />,
+            i = Symbol('foo'),
+            j = unknownFunction(),
+            k = window.name
+        }) => {
+            return null
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
     {
       code: tsx`
         function MyComponent({ position = new Vector3(0, 0, 0) }) {

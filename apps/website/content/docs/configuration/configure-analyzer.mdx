@@ -49,7 +49,7 @@ import React from "@pika/react";
 
 Specifies the React Compiler [`compilationMode`](https://react.dev/reference/react-compiler/compilationMode) used in your React Compiler config.
 
-This allows rules to align their behavior with the React Compiler's optimization strategies. Set this to the same value as your React Compiler config (e.g., `"off"`, `"infer"`, `"annotation"`, `"syntax"`, or `"all"`).
+This allows rules to align their behavior with the React Compiler's optimization strategies. Set this to the same value as your React Compiler config (e.g., `"infer"`, `"annotation"`, `"syntax"`, or `"all"`).
 
 ## Advanced Configuration
 
@@ -90,7 +90,6 @@ export default [
       "react-x": {
         version: "19.2.4", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
         importSource: "react", // Customize the import source for the React module (defaults to "react")
-        compilationMode: "off", // Specify the React Compiler compilation mode (e.g., "off", "infer", "annotation", "syntax", "all")
       },
     },
   },
@@ -109,7 +108,6 @@ export default [
       "react-x": {
         version: "19.2.4",
         importSource: "react",
-        compilationMode: "off",
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
       },
@@ -121,7 +119,7 @@ export default [
 ## Advanced Configuration Example with React Compiler
 
 ```ts title="babel.config.ts"
-export const compilationMode = "infer";
+export const compilationMode = "annotation";
 
 export default {
   plugins: [

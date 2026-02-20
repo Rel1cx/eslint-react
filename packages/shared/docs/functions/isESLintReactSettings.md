@@ -3,7 +3,7 @@
 # Function: isESLintReactSettings()
 
 ```ts
-function isESLintReactSettings(settings: unknown): settings is { additionalStateHooks?: string; compilationMode?: "off" | "infer" | "annotation" | "syntax" | "all"; importSource?: string; polymorphicPropName?: string; version?: string };
+function isESLintReactSettings(settings: unknown): settings is { additionalStateHooks?: string; compilationMode?: "infer" | "annotation" | "syntax" | "all"; importSource?: string; polymorphicPropName?: string; version?: string };
 ```
 
 Check if the provided settings conform to ESLintReactSettings schema
@@ -16,4 +16,4 @@ Check if the provided settings conform to ESLintReactSettings schema
 
 ## Returns
 
-settings is \{ additionalStateHooks?: string; compilationMode?: "off" \| "infer" \| "annotation" \| "syntax" \| "all"; importSource?: string; polymorphicPropName?: string; version?: string \}
+settings is \{ additionalStateHooks?: string; compilationMode?: "infer" \| "annotation" \| "syntax" \| "all"; importSource?: string; polymorphicPropName?: string; version?: string \}

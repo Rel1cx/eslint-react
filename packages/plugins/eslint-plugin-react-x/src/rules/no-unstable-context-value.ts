@@ -72,8 +72,8 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       "Program:exit"(program) {
         for (const { node: component, directives } of ctx.getAllComponents(program)) {
+          if (compilationMode === "annotation" && directives.some((d) => d.directive === "use memo")) continue;
           for (const construction of constructions.get(component) ?? []) {
-            if (directives.some((d) => d.directive === "use memo")) return;
             const { kind, node: constructionNode } = construction;
             const suggestion = kind === "function"
               ? "Consider wrapping it in a useCallback hook."
