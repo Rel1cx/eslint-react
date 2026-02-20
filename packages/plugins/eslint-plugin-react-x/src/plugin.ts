@@ -111,7 +111,6 @@ export const plugin: CompatiblePlugin = {
     "no-missing-component-display-name": noMissingComponentDisplayName,
     "no-missing-context-display-name": noMissingContextDisplayName,
     "no-missing-key": noMissingKey,
-    "use-memo": useMemo,
     "no-misused-capture-owner-stack": noMisusedCaptureOwnerStack,
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
@@ -142,6 +141,7 @@ export const plugin: CompatiblePlugin = {
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
     "unsupported-syntax": unsupportedSyntax,
+    "use-memo": useMemo,
     "use-state": useState,
   },
 };

@@ -1,3 +1,4 @@
+import type { unit } from "@eslint-react/eff";
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
@@ -1078,7 +1079,7 @@ function tagNameHasDot(node: TSESTree.JSXAttribute): boolean {
  * @param context ESLint context
  * @returns Standard name or undefined
  */
-function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | undefined {
+function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | unit {
   if (has(DOM_ATTRIBUTE_NAMES, name)) {
     return DOM_ATTRIBUTE_NAMES[name];
   }
@@ -1200,7 +1201,7 @@ export function create(context: RuleContext<MessageID, Options[]>) {
         const actualName: string = getText(context, node.name);
 
         // Skip checking if the attribute name is in the ignore list
-        if (ignoreNames.indexOf(actualName) >= 0) {
+        if (ignoreNames.includes(actualName)) {
           return;
         }
 
@@ -1244,7 +1245,7 @@ export function create(context: RuleContext<MessageID, Options[]>) {
 
         if (tagName != null && allowedTags != null) {
           // Report if attribute is used on a tag where it's not allowed
-          if (allowedTags.indexOf(tagName) === -1) {
+          if (!allowedTags.includes(tagName)) {
             context.report({
               messageId: "invalidPropOnTag",
               node,
@@ -1259,7 +1260,7 @@ export function create(context: RuleContext<MessageID, Options[]>) {
         }
 
         // Check if the attribute name is similar to a standard property name
-        const standardName: string | undefined = getStandardName(name, context);
+        const standardName: string | unit = getStandardName(name, context);
 
         const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
         const usesStandardName = standardName != null && standardName === name;

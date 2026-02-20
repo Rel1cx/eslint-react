@@ -1,7 +1,12 @@
 import * as ast from "@eslint-react/ast";
 import { flow, unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import {
+  type RuleContext,
+  type RuleFeature,
+  defineRuleListener,
+  getSettingsFromContext,
+  report,
+} from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -75,7 +80,6 @@ export function create(context: RuleContext<MessageID, []>) {
   function getReportDescriptor(
     node:
       | unit
-      | TSESTree.Expression
       | TSESTree.JSXExpressionContainer
       | TSESTree.JSXExpressionContainer["expression"],
   ): ReportDescriptor<MessageID> | unit {

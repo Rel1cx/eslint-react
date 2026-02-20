@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import type { unit } from "@eslint-react/eff";
 import {
   type RuleContext,
   type RuleFeature,
@@ -32,9 +33,12 @@ type MessageID =
   | "unnecessaryDeps"
   | "nonLiteralDeps";
 
-type Options = [{
-  additionalHooks?: string;
-}];
+type Options = readonly [
+  | unit
+  | {
+    additionalHooks?: string;
+  },
+];
 
 /**
  * Built-in hooks that accept dependency arrays.
@@ -136,7 +140,7 @@ function isModuleLevelVariable(variable: Variable): boolean {
   for (const def of variable.defs) {
     const defScope = def.name.parent;
     // Walk up to find the scope — check if the definition is inside a function
-    let node: TSESTree.Node | undefined = defScope;
+    let node: TSESTree.Node | unit = defScope;
     while (node != null) {
       if (ast.isFunction(node)) return false;
       node = node.parent;
@@ -210,7 +214,7 @@ function isStableVariable(variable: Variable): boolean {
  * @param node - the node to start searching from
  */
 function findComponentOrHookScope(node: TSESTree.Node): ast.TSESTreeFunction | null {
-  let current: TSESTree.Node | undefined = node.parent;
+  let current: TSESTree.Node | unit = node.parent;
   while (current != null) {
     if (ast.isFunction(current)) {
       const id = ast.getFunctionId(current);
@@ -307,7 +311,6 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- options[0] may be undefined at runtime when defaultOptions is not applied
   const additionalHooks = context.options[0]?.additionalHooks;
   const additionalHooksRegex = additionalHooks != null && additionalHooks.length > 0
     ? new RegExp(additionalHooks)
@@ -477,6 +480,8 @@ export function create(context: RuleContext<MessageID, Options>) {
    * A declared dep covers a reactive dep if they are equal, or if the
    * declared dep is a prefix ancestor (e.g. `array` covers `array.map`,
    * `obj` covers `obj.a?.toString`).
+   * @param reactiveDep
+   * @param declaredDeps
    */
   function isCoveredByDeclaredDep(reactiveDep: string, declaredDeps: Set<string>): boolean {
     if (declaredDeps.has(reactiveDep)) return true;
@@ -493,6 +498,8 @@ export function create(context: RuleContext<MessageID, Options>) {
    * A declared dep is considered necessary if it equals a reactive dep, or if
    * it is a prefix ancestor of any reactive dep (e.g. `array` is necessary
    * when `array.map` is reactive).
+   * @param declaredDep
+   * @param reactiveDeps
    */
   function declaredDepCoversAny(declaredDep: string, reactiveDeps: Set<string>): boolean {
     if (reactiveDeps.has(declaredDep)) return true;

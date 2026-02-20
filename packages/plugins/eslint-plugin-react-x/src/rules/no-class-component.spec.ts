@@ -195,21 +195,21 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: `
-            class ParentComponent extends React.Component {
-              render() {
-                const UnstableNestedClassComponent = () => {
-                  return React.createElement("div", null);
-                }
-
-                return React.createElement(
-                  "div",
-                  null,
-                  React.createElement(UnstableNestedClassComponent, null)
-                );
-              }
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            const UnstableNestedClassComponent = () => {
+              return React.createElement("div", null);
             }
-          `,
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
       errors: [
         {
           messageId: "default",

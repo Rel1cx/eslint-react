@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { unit } from "@eslint-react/eff";
+import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -130,7 +130,7 @@ export function create(context: RuleContext<MessageID, []>) {
         return entry;
       }
     }
-    return undefined;
+    return unit;
   }
 
   function checkHookCall(node: TSESTree.CallExpression) {

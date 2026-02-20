@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";

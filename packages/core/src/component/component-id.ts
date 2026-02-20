@@ -14,7 +14,7 @@ import { isComponentWrapperCallLoose } from "./component-wrapper";
 export function getFunctionComponentId(
   context: RuleContext,
   node: ast.TSESTreeFunction,
-): ast.FunctionID | unit {
+): ast.FunctionID {
   const functionId = ast.getFunctionId(node);
   if (functionId != null) {
     return functionId;

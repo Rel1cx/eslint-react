@@ -1,16 +1,13 @@
 import {
   GLOB_CONFIGS,
   GLOB_SCRIPTS,
-  GLOB_TESTS,
   GLOB_TS,
   buildIgnoreConfig,
   disableProblematicEslintJsRules,
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
-import { noMultilineTemplateExpressionWithoutAutoDedent, preferLooseNullishEquality } from "@local/function-rules";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
-import { functionRule } from "eslint-plugin-function-rule";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
@@ -29,7 +26,6 @@ export default defineConfig(
   // Main TypeScript configuration with strict type checking
   {
     extends: [
-      tseslint.configs.strictTypeChecked,
       strictTypeChecked,
       // @ts-expect-error - types issue
       fastImportRecommended({ rootDir: import.meta.dirname }),
@@ -42,16 +38,9 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    // Custom function-based lint rules
-    plugins: {
-      "function-rule-1": functionRule(preferLooseNullishEquality()),
-      "function-rule-2": functionRule(noMultilineTemplateExpressionWithoutAutoDedent()),
-    },
     rules: {
       "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
       "fast-import/no-unused-exports": "off",
-      "function-rule-1/function-rule": "warn",
-      "function-rule-2/function-rule": "error",
     },
   },
   // Relaxed config for scripts and config files (no type checking)
@@ -68,15 +57,6 @@ export default defineConfig(
     },
     rules: {
       "no-console": "off",
-    },
-  },
-  // Test files:  allow empty arrow functions, disable custom rules
-  {
-    files: GLOB_TESTS,
-    rules: {
-      "@typescript-eslint/no-empty-function": ["error", { allow: ["arrowFunctions"] }],
-      "function-rule-1/function-rule": "off",
-      "function-rule-2/function-rule": "off",
     },
   },
   // Disable ESLint core rules that conflict with TypeScript

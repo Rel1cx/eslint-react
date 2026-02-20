@@ -72,9 +72,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             break;
           }
           // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
-          case policy === -1
-            // eslint-disable-next-line function-rule-1/function-rule
-            && value === null: {
+          case policy === -1 && value == null: {
             context.report({
               messageId: "default",
               node: node.value ?? node,

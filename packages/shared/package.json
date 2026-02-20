@@ -33,7 +33,7 @@
     "build": "tsdown --dts-resolve",
     "build:docs": "typedoc",
     "lint:publish": "publint",
-    "lint:ts": "tsc --noEmit",
+    "lint:ts": "tsl",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^25.3.0",
     "@types/picomatch": "^4.0.2",
     "tsdown": "^0.20.3"
   },

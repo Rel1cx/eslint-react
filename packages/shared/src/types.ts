@@ -88,9 +88,7 @@ export interface SettingsConfig {
  * Intentionally wide/inaccurate for compatibility purposes.
  */
 export interface CompatibleRule {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   meta: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   create: (...args: any[]) => any;
 }
 

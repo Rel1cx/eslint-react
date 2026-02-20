@@ -14,12 +14,8 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 export function getVariableInitializer(variable: Variable | unit, at: number):
   | unit
   | TSESTree.ClassDeclaration
-  | TSESTree.ClassDeclarationWithName
-  | TSESTree.ClassDeclarationWithOptionalName
   | TSESTree.Expression
   | TSESTree.FunctionDeclaration
-  | TSESTree.FunctionDeclarationWithName
-  | TSESTree.FunctionDeclarationWithOptionalName
 {
   if (variable == null) return unit;
   const def = variable.defs.at(at);
@@ -49,12 +45,8 @@ export function getVariableInitializer(variable: Variable | unit, at: number):
 export function getVariableInitializerLoose(variable: Variable | unit, at: number):
   | unit
   | TSESTree.ClassDeclaration
-  | TSESTree.ClassDeclarationWithName
-  | TSESTree.ClassDeclarationWithOptionalName
   | TSESTree.Expression
   | TSESTree.FunctionDeclaration
-  | TSESTree.FunctionDeclarationWithName
-  | TSESTree.FunctionDeclarationWithOptionalName
 {
   if (variable == null) return unit;
   const node = getVariableInitializer(variable, at);

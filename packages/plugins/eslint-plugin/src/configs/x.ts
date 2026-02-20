@@ -29,8 +29,6 @@ export const rules = {
   "@eslint-react/no-direct-mutation-state": "error",
   "@eslint-react/no-forward-ref": "warn",
   "@eslint-react/no-missing-key": "error",
-  "@eslint-react/use-memo": "error",
-  "@eslint-react/use-state": "warn",
   "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-nested-lazy-component-declarations": "error",
   "@eslint-react/no-redundant-should-component-update": "error",
@@ -49,6 +47,8 @@ export const rules = {
   "@eslint-react/set-state-in-effect": "warn",
   "@eslint-react/set-state-in-render": "error",
   "@eslint-react/unsupported-syntax": "error",
+  "@eslint-react/use-memo": "error",
+  "@eslint-react/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

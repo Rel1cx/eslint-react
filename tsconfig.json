@@ -28,9 +28,7 @@
     "apps",
     "examples",
     "node_modules",
-    "packages/*/dist",
     "packages/*/src",
-    "packages/*/*/dist",
     "packages/*/*/src"
   ]
 }

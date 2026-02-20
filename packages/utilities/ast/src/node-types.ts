@@ -62,21 +62,12 @@ export type TSESTreeJSX =
   | TSESTree.JSXChild
   | TSESTree.JSXClosingElement
   | TSESTree.JSXClosingFragment
-  | TSESTree.JSXElement
   | TSESTree.JSXEmptyExpression
-  | TSESTree.JSXExpression
-  | TSESTree.JSXExpressionContainer
-  | TSESTree.JSXFragment
-  | TSESTree.JSXIdentifier
   | TSESTree.JSXIdentifierToken
-  | TSESTree.JSXMemberExpression
-  | TSESTree.JSXNamespacedName
   | TSESTree.JSXOpeningElement
   | TSESTree.JSXOpeningFragment
   | TSESTree.JSXSpreadAttribute
-  | TSESTree.JSXSpreadChild
   | TSESTree.JSXTagNameExpression
-  | TSESTree.JSXText
   | TSESTree.JSXTextToken;
 
 /**

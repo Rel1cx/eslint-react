@@ -16,7 +16,6 @@ const ruleTester = new RuleTester({
   },
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 process.env["ESLINT_REACT_DEBUG"] === "1"
   ? ruleTester.run(RULE_NAME, rule, {
     invalid: [

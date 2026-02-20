@@ -11,7 +11,7 @@ import type { SemanticNode } from "./semantic-node";
  */
 export interface SemanticFunc extends SemanticNode {
   /** The identifier of the function */
-  id: ast.FunctionID | unit;
+  id: ast.FunctionID;
   /** The AST node of the function */
   node: ast.TSESTreeFunction;
   /** The name of the function */

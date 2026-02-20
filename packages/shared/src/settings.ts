@@ -3,7 +3,7 @@
 /* eslint-disable perfectionist/sort-objects */
 import type { unit } from "@eslint-react/eff";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
-import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
 
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";

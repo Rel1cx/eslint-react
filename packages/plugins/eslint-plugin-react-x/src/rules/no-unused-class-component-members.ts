@@ -14,9 +14,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
 
-type Property =
-  | ast.TSESTreeMethodOrProperty["key"]
-  | TSESTree.MemberExpression["property"];
+type Property = ast.TSESTreeMethodOrProperty["key"];
 
 // A set of React lifecycle methods that are implicitly used and should not be flagged as unused
 const LIFECYCLE_METHODS = new Set([
