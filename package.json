@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "3.0.0-next.19",
+  "version": "3.0.0-beta.19",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, rsc, dom, web-api, naming-convention].",
   "keywords": [
