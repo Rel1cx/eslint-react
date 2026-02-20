@@ -61,13 +61,14 @@ import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
 import preferReadOnlyProps from "./rules/prefer-read-only-props";
-import preferUseStateLazyInitialization from "./rules/prefer-use-state-lazy-initialization";
 import purity from "./rules/purity";
 import refs from "./rules/refs";
 import rulesOfHooks from "./rules/rules-of-hooks";
 import setStateInEffect from "./rules/set-state-in-effect";
 import setStateInRender from "./rules/set-state-in-render";
 import unsupportedSyntax from "./rules/unsupported-syntax";
+import useMemo from "./rules/use-memo";
+import useState from "./rules/use-state";
 
 export const plugin: CompatiblePlugin = {
   meta: {
@@ -110,6 +111,7 @@ export const plugin: CompatiblePlugin = {
     "no-missing-component-display-name": noMissingComponentDisplayName,
     "no-missing-context-display-name": noMissingContextDisplayName,
     "no-missing-key": noMissingKey,
+    "use-memo": useMemo,
     "no-misused-capture-owner-stack": noMisusedCaptureOwnerStack,
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
@@ -134,12 +136,12 @@ export const plugin: CompatiblePlugin = {
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
     "prefer-read-only-props": preferReadOnlyProps,
-    "prefer-use-state-lazy-initialization": preferUseStateLazyInitialization,
     purity: purity,
     refs: refs,
     "rules-of-hooks": rulesOfHooks,
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
     "unsupported-syntax": unsupportedSyntax,
+    "use-state": useState,
   },
 };
