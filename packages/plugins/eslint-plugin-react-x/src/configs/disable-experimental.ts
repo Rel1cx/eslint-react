@@ -14,4 +14,5 @@ export const rules: Record<string, RuleConfig> = {
   "react-x/prefer-read-only-props": "off",
   "react-x/refs": "off",
   "react-x/rules-of-hooks": "off",
+  "react-x/set-state-in-render": "off",
 };

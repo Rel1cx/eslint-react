@@ -14,6 +14,7 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/prefer-read-only-props": "off",
   "@eslint-react/refs": "off",
   "@eslint-react/rules-of-hooks": "off",
+  "@eslint-react/set-state-in-render": "off",
 
   "@eslint-react/rsc/function-definition": "off",
 };
