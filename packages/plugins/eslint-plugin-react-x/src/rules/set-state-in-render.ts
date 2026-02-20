@@ -11,7 +11,9 @@ import { createRule } from "../utils";
 
 export const RULE_NAME = "set-state-in-render";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "EXP",
+] as const satisfies RuleFeature[];
 
 type MessageID = "default";
 
