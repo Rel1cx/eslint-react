@@ -28,6 +28,25 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState } from "react";
 
+        function useHook({ value }) {
+          const [count, setCount] = useState(0);
+          setCount(value);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          data: {
+            name: "setCount",
+          },
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
         function Component() {
           const [count, setCount] = useState(0);
           setCount(1);
@@ -242,6 +261,19 @@ ruleTester.run(RULE_NAME, rule, {
         function Component({ items }) {
           const sorted = [...items].sort();
           return <ul>{sorted.map(item => <li key={item}>{item}</li>)}</ul>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function useHook() {
+          const [count, setCount] = useState(0);
+          const handleClick = () => {
+            setCount(c => c + 1);
+          };
+          return null;
         }
       `,
     },

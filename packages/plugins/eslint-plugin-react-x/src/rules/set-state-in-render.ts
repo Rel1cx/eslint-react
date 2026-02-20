@@ -136,20 +136,20 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  function isComponentLikeFunction(node: ast.TSESTreeFunction) {
+  function isComponentOrHookLikeFunction(node: ast.TSESTreeFunction) {
     const id = ast.getFunctionId(node);
     if (id == null) return false;
     if (id.type === AST.Identifier) {
-      return core.isComponentName(id.name);
+      return core.isComponentName(id.name) || core.isHookName(id.name);
     }
     if (id.type === AST.MemberExpression && id.property.type === AST.Identifier) {
-      return core.isComponentName(id.property.name);
+      return core.isComponentName(id.property.name) || core.isHookName(id.property.name);
     }
     return false;
   }
 
   function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
-    if (isComponentLikeFunction(node)) {
+    if (isComponentOrHookLikeFunction(node)) {
       return "component";
     }
     const parent = ast.findParentNode(node, not(ast.isTypeExpression)) ?? node.parent;
