@@ -184,6 +184,22 @@ export function create(context: RuleContext<MessageID, []>) {
     }
   }
 
+  function isHookDecl(node: TSESTree.Node): node is TSESTree.VariableDeclarator & { init: TSESTree.CallExpression } {
+    if (node.type !== AST.VariableDeclarator) return false;
+    if (node.id.type !== AST.Identifier) return false;
+    const init = node.init;
+    if (init == null || init.type !== AST.CallExpression) return false;
+    switch (init.callee.type) {
+      case AST.Identifier:
+        return core.isHookName(init.callee.name);
+      case AST.MemberExpression:
+        return init.callee.property.type === AST.Identifier
+          && core.isHookName(init.callee.property.name);
+      default:
+        return false;
+    }
+  }
+
   return defineRuleListener(
     {
       ":function"(node: ast.TSESTreeFunction) {
@@ -220,7 +236,29 @@ export function create(context: RuleContext<MessageID, []>) {
                 // setState() without arguments, which is invalid but other tools will report it
                 if (args0 == null) return;
                 // Check if the setState call is using a ref value, which is safe to use in an effect (e.g. `setState(ref.current.scrollTop)`)
-                if (isSetterUsingRefValue(context, args0)) return;
+                function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
+                  const isUsingRefValue = (n: TSESTree.Node): boolean => {
+                    switch (n.type) {
+                      case AST.Identifier:
+                        return core.isInitializedFromRef(n.name, context.sourceCode.getScope(n));
+                      case AST.MemberExpression:
+                        return isUsingRefValue(n.object);
+                      case AST.CallExpression:
+                        return isUsingRefValue(n.callee) || ast.getNestedIdentifiers(n).some(isUsingRefValue);
+                      default:
+                        return false;
+                    }
+                  };
+                  // Case 1: setState(ref.current.scrollTop);
+                  if (isUsingRefValue(node)) return true;
+                  // Case 2: setState(() => ref.current.scrollTop);
+                  return ast.isFunction(node)
+                    && context.sourceCode
+                      .getScope(node.body)
+                      .references
+                      .some((r) => isUsingRefValue(r.identifier));
+                }
+                if (isArgumentUsingRefValue(context, args0)) return;
                 context.report({
                   messageId: "default",
                   node,
@@ -231,7 +269,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 return;
               }
               default: {
-                const init = ast.findParentNode(node, isVariableDeclaratorFromHookCall)?.init;
+                const init = ast.findParentNode(node, isHookDecl)?.init;
                 if (init == null) getOrElseUpdate(setStateCallsByFn, entry.node, () => []).push(node);
                 else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
               }
@@ -266,7 +304,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (!core.isUseMemoCall(parent)) {
               break;
             }
-            const init = ast.findParentNode(parent, isVariableDeclaratorFromHookCall)?.init;
+            const init = ast.findParentNode(parent, isHookDecl)?.init;
             if (init != null) {
               getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
             }
@@ -280,7 +318,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (core.isUseCallbackCall(node.parent)) {
-              const init = ast.findParentNode(node.parent, isVariableDeclaratorFromHookCall)?.init;
+              const init = ast.findParentNode(node.parent, isHookDecl)?.init;
               if (init != null) {
                 getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
               }
@@ -352,49 +390,4 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
-}
-
-function isSetterUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
-  const isUsingRefValue = (n: TSESTree.Node): boolean => {
-    switch (n.type) {
-      case AST.Identifier:
-        return core.isInitializedFromRef(n.name, context.sourceCode.getScope(n));
-      case AST.MemberExpression:
-        return isUsingRefValue(n.object);
-      case AST.CallExpression:
-        return isUsingRefValue(n.callee) || ast.getNestedIdentifiers(n).some(isUsingRefValue);
-      default:
-        return false;
-    }
-  };
-  // Case 1: setState(ref.current.scrollTop);
-  if (isUsingRefValue(node)) return true;
-  // Case 2: setState(() => ref.current.scrollTop);
-  return ast.isFunction(node)
-    && context.sourceCode
-      .getScope(node.body)
-      .references
-      .some((r) => isUsingRefValue(r.identifier));
-}
-
-function isInitFromHookCall(init: TSESTree.Expression | null) {
-  if (init?.type !== AST.CallExpression) return false;
-  switch (init.callee.type) {
-    case AST.Identifier:
-      return core.isHookName(init.callee.name);
-    case AST.MemberExpression:
-      return init.callee.property.type === AST.Identifier
-        && core.isHookName(init.callee.property.name);
-    default:
-      return false;
-  }
-}
-
-function isVariableDeclaratorFromHookCall(node: TSESTree.Node): node is
-  & TSESTree.VariableDeclarator
-  & { init: TSESTree.VariableDeclarator["init"] & {} }
-{
-  if (node.type !== AST.VariableDeclarator) return false;
-  if (node.id.type !== AST.Identifier) return false;
-  return isInitFromHookCall(node.init);
 }
