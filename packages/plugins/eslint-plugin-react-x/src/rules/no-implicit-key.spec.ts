@@ -660,7 +660,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div {...props} />;
       }
     `,
-    // Valid: spreading with Omit<> that removes key
+    // Valid: import type from a diffent source
     tsx`
       import type { Attributes } from "@rbxts/react";
 
