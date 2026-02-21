@@ -23,6 +23,13 @@ const ignoreConfig = buildIgnoreConfig(path.join(import.meta.dirname, ".gitignor
 
 export default defineConfig(
   ...ignoreConfig,
+  // Skip ESLint checks for rules ported directly from upstream
+  {
+    ignores: [
+      "packages/plugins/eslint-plugin-react-x/src/rules/exhaustive-deps.ts",
+      "packages/plugins/eslint-plugin-react-x/src/rules/rules-of-hooks.ts",
+    ],
+  },
   // Main TypeScript configuration with strict type checking
   {
     extends: [

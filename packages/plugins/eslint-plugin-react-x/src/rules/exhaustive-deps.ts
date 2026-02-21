@@ -1,3 +1,4 @@
+// @ts-nocheck
 // -----------------------------------------------------------------------------
 // THIS FILE IS PORTED FROM eslint-plugin-react-hooks
 // Source: https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/ExhaustiveDeps.ts
@@ -7,16 +8,14 @@
 //   - `getAdditionalEffectHooksFromSettings` replaced by `getSettingsFromContext`
 //     from `@eslint-react/shared`, reading `additionalEffectHooks` from
 //     the `react-x` settings namespace.
+//
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+//
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+//
 // -----------------------------------------------------------------------------
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/* eslint-disable */
-/* tsl-ignore */
-// @ts-nocheck
+
 import { type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Rule, Scope } from "eslint";
