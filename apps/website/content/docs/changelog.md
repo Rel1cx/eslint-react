@@ -6,76 +6,41 @@ title: Changelog
 
 ### 💥 Breaking Changes
 
-**Removed `jsx-no-iife` rule from `eslint-plugin-react-x`**
+**Minimum Node.js version raised from 20 to 22**
 
-The `jsx-no-iife` rule has been removed. Its IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
+The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 
-| Old Rule (`react-x/`) | New Rule (`react-x/`) | Change       |
-| :-------------------- | :-------------------- | :----------- |
-| `jsx-no-iife`         | `unsupported-syntax`  | consolidated |
-
-If you had `jsx-no-iife` enabled in your configuration, replace it with `unsupported-syntax`:
-
-```diff
-- "react-x/jsx-no-iife": "error",
-+ "react-x/unsupported-syntax": "error",
-```
-
-**Removed `prefer-use-state-lazy-initialization` rule from `eslint-plugin-react-x`**
-
-The `prefer-use-state-lazy-initialization` rule has been removed. Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
+**Consolidated and removed rules in `eslint-plugin-react-x`**
 
 | Old Rule (`react-x/`)                  | New Rule (`react-x/`) | Change       |
 | :------------------------------------- | :-------------------- | :----------- |
+| `jsx-no-iife`                          | `unsupported-syntax`  | consolidated |
 | `prefer-use-state-lazy-initialization` | `use-state`           | consolidated |
+| `no-unnecessary-key`                   | —                     | removed      |
 
-If you had `prefer-use-state-lazy-initialization` enabled in your configuration, remove it — the behavior is now covered by `use-state` automatically:
+- `jsx-no-iife`: The IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
+- `prefer-use-state-lazy-initialization`: Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
+- `no-unnecessary-key`: The experimental rule has been removed.
 
-```diff
-- "react-x/prefer-use-state-lazy-initialization": "warn",
-  "react-x/use-state": "warn",
-```
+**Removed previously deprecated rules**
 
-To disable only the lazy-initialization check while keeping the other `use-state` checks, pass the option explicitly:
-
-```js
-"react-x/use-state": ["warn", { enforceLazyInitialization: false }]
-```
+| Rule                     | Deprecated in | Package                                 | Replacement                                                                         |
+| :----------------------- | :------------ | :-------------------------------------- | :---------------------------------------------------------------------------------- |
+| `no-default-props`       | 2.9.3         | `eslint-plugin-react-x`                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
+| `no-forbidden-props`     | 2.3.2         | `eslint-plugin-react-x`                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
+| `no-prop-types`          | 2.9.3         | `eslint-plugin-react-x`                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
+| `no-string-refs`         | 2.9.3         | `eslint-plugin-react-x`                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
+| `no-unnecessary-use-ref` | 2.10.0        | `eslint-plugin-react-x`                 |                                                                                     |
+| `filename`               | 2.13.0        | `eslint-plugin-react-naming-convention` |                                                                                     |
+| `filename-extension`     | 2.13.0        | `eslint-plugin-react-naming-convention` |                                                                                     |
 
 **Removed `eslint-plugin-react-hooks-extra` package**
 
-The `eslint-plugin-react-hooks-extra` package has been removed. All of its rules have been migrated into `eslint-plugin-react-x` (and `@eslint-react/eslint-plugin`):
+All rules have been migrated into `eslint-plugin-react-x`:
 
 | Old Rule (`react-hooks-extra/`)     | New Rule (`react-x/`) | Change             |
 | :---------------------------------- | :-------------------- | :----------------- |
 | `no-direct-set-state-in-use-effect` | `set-state-in-effect` | relocated, renamed |
-
-If you were importing `eslint-plugin-react-hooks-extra` directly, replace it with `eslint-plugin-react-x`. If you were using `@eslint-react/eslint-plugin`, the `@eslint-react/hooks-extra/*` namespace has been removed — use the equivalent `@eslint-react/*` rules instead.
-
-**Removed previously deprecated rules from `eslint-plugin-react-x`**
-
-| Rule                     | Deprecated in | Replacement                                                                         |
-| :----------------------- | :------------ | :---------------------------------------------------------------------------------- |
-| `no-default-props`       | 2.9.3         | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
-| `no-forbidden-props`     | 2.3.2         | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
-| `no-prop-types`          | 2.9.3         | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
-| `no-string-refs`         | 2.9.3         | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) |
-| `no-unnecessary-use-ref` | 2.10.0        |                                                                                     |
-
-**Removed `no-unnecessary-key` rule from `eslint-plugin-react-x`**
-
-The `no-unnecessary-key` rule has been removed. It was an experimental rule that reported unnecessary `key` props on nested child elements when rendering lists.
-
-**Removed previously deprecated rules from `eslint-plugin-react-naming-convention`**
-
-| Rule                 | Deprecated in | Replacement |
-| :------------------- | :------------ | :---------- |
-| `filename`           | 2.13.0        |             |
-| `filename-extension` | 2.13.0        |             |
-
-**Minimum Node.js version raised from 20 to 22**
-
-The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 
 **Preset changes**
 
