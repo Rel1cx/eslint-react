@@ -660,6 +660,14 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div {...props} />;
       }
     `,
+    // Valid: spreading with Omit<> that removes key
+    tsx`
+      import type { Attributes } from "@rbxts/react";
+
+      function MyDiv({ ...props }: Attributes) {
+        return <div {...props} />;
+      }
+    `,
     // Valid: spreading from Pick<> that doesn't include key
     tsx`
       type Props = { key: string; id: string; className: string };
