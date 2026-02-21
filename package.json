@@ -57,6 +57,7 @@
     "@eslint/compat": "^2.0.2",
     "@local/configs": "workspace:*",
     "@radix-ui/react-toast": "^1.2.15",
+    "@rbxts/react": "^17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.3.0",
