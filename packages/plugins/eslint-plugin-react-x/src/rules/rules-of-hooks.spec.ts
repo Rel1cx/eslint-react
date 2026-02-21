@@ -5,7 +5,7 @@ import tsx from "dedent";
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./rules-of-hooks";
 
-ruleTester.run(RULE_NAME, rule as never, {
+ruleTester.run(RULE_NAME, rule, {
   invalid: [
     // Hook in conditional
     {
@@ -450,6 +450,16 @@ ruleTester.run(RULE_NAME, rule as never, {
             useState();
           }
         };
+      `,
+    },
+    // Hook like function in test file (should not be flagged)
+    {
+      code: tsx`
+        import { test, vi } from "vitest";
+
+        test("", () => {
+          vi.useFakeTimers();
+        });
       `,
     },
   ],
