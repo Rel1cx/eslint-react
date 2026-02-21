@@ -4,6 +4,7 @@
 
 ```ts
 function decodeSettings(settings: unknown): {
+  additionalEffectHooks?: string;
   additionalStateHooks?: string;
   compilationMode?: "infer" | "annotation" | "syntax" | "all";
   importSource?: string;
@@ -24,6 +25,7 @@ Decodes and validates ESLint React settings, using defaults if invalid
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
+| `additionalEffectHooks?` | `string` | Regex pattern matching custom hooks that should be treated as effect hooks **Example** `"useMyEffect|useCustomEffect"` |
 | `additionalStateHooks?` | `string` | Regex pattern matching custom hooks that should be treated as state hooks **Example** `"useMyState|useCustomState"` |
 | `compilationMode?` | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` | The React Compiler compilationMode that the project is using Used to inform the rule about how components and hooks will be picked up by the compiler **Example** `"infer"` |
 | `importSource?` | `string` | The source where React is imported from Allows specifying a custom import location for React **Default** `"react"` **Example** `"@pika/react"` |

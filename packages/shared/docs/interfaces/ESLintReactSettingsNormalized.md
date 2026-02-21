@@ -8,6 +8,7 @@ Normalized ESLint React settings with processed values
 
 | Property | Type |
 | ------ | ------ |
+| <a id="property-additionaleffecthooks"></a> `additionalEffectHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
 | <a id="property-additionalstatehooks"></a> `additionalStateHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
 | <a id="property-compilationmode"></a> `compilationMode` | `"off"` \| [`CompilationMode`](../type-aliases/CompilationMode.md) |
 | <a id="property-importsource"></a> `importSource` | `string` |
