@@ -250,6 +250,560 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidContext", data: { name: "useState", funcName: "regularFunction" } }],
     },
+    // Additional test cases from ESLintRulesOfHooks-test.js
+    {
+      name: "hook inside a nested callback (useEffect callback)",
+      code: tsx`
+        function ComponentWithHookInsideCallback() {
+          useEffect(() => {
+            useHookInsideCallback();
+          });
+        }
+      `,
+      errors: [{ messageId: "nestedHook", data: { name: "useHookInsideCallback" } }],
+    },
+    {
+      name: "hook inside a named nested function",
+      code: tsx`
+        function ComponentWithHookInsideCallback() {
+          function handleClick() {
+            useState();
+          }
+        }
+      `,
+      errors: [{ messageId: "nestedHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hook inside do-while loop condition",
+      code: tsx`
+        function ComponentWithHookInsideLoop() {
+          do {
+            foo();
+          } while (useHookInsideLoop());
+        }
+      `,
+      errors: [{ messageId: "loopHook", data: { name: "useHookInsideLoop" } }],
+    },
+    {
+      name: "hook inside a loop with continue",
+      code: tsx`
+        function useHookInLoops() {
+          while (a) {
+            useHook1();
+            if (b) continue;
+            useHook2();
+          }
+        }
+      `,
+      errors: [
+        { messageId: "loopHook", data: { name: "useHook1" } },
+        { messageId: "loopHook", data: { name: "useHook2" } },
+      ],
+    },
+    {
+      name: "hook inside labeled block with conditional break",
+      code: tsx`
+        function useLabeledBlock() {
+          label: {
+            if (a) break label;
+            useHook();
+          }
+        }
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useHook" } }],
+    },
+    {
+      name: "hook inside try block (non-use hook)",
+      code: tsx`
+        function useHook() {
+          try {
+            f();
+            useState();
+          } catch {}
+        }
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hooks in logical assignment expressions",
+      code: tsx`
+        function useHook({ bar }) {
+          let foo1 = bar && useState();
+          let foo2 = bar || useState();
+          let foo3 = bar ?? useState();
+        }
+      `,
+      errors: [
+        { messageId: "conditionalHook", data: { name: "useState" } },
+        { messageId: "conditionalHook", data: { name: "useState" } },
+        { messageId: "conditionalHook", data: { name: "useState" } },
+      ],
+    },
+    {
+      name: "hook in ternary at top level of component",
+      code: tsx`
+        function ComponentWithTernaryHook() {
+          cond ? useTernaryHook() : null;
+        }
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useTernaryHook" } }],
+    },
+    {
+      name: "hook in nested function returning component",
+      code: tsx`
+        function createComponent() {
+          return function ComponentWithConditionalHook() {
+            if (cond) {
+              useConditionalHook();
+            }
+          }
+        }
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useConditionalHook" } }],
+    },
+    {
+      name: "hook in nested hook function",
+      code: tsx`
+        function createHook() {
+          return function useHookWithConditionalHook() {
+            if (cond) {
+              useConditionalHook();
+            }
+          }
+        }
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useConditionalHook" } }],
+    },
+    {
+      name: "hook with early return before it",
+      code: tsx`
+        function useHook() {
+          if (a) return;
+          useState();
+        }
+      `,
+      errors: [{ messageId: "afterEarlyReturn", data: { name: "useState" } }],
+    },
+    {
+      name: "hook after early return with else branch",
+      code: tsx`
+        function useHook() {
+          if (a) return;
+          if (b) {
+            console.log('true');
+          } else {
+            console.log('false');
+          }
+          useState();
+        }
+      `,
+      errors: [{ messageId: "afterEarlyReturn", data: { name: "useState" } }],
+    },
+    {
+      name: "hook in regular function starting with use but not a hook",
+      code: tsx`
+        function normalFunctionWithHook() {
+          useHookInsideNormalFunction();
+        }
+      `,
+      errors: [{
+        messageId: "invalidContext",
+        data: { name: "useHookInsideNormalFunction", funcName: "normalFunctionWithHook" },
+      }],
+    },
+    {
+      name: "hook in function with underscore prefix",
+      code: tsx`
+        function _normalFunctionWithHook() {
+          useHookInsideNormalFunction();
+        }
+        function _useNotAHook() {
+          useHookInsideNormalFunction();
+        }
+      `,
+      errors: [
+        {
+          messageId: "invalidContext",
+          data: { name: "useHookInsideNormalFunction", funcName: "_normalFunctionWithHook" },
+        },
+        { messageId: "invalidContext", data: { name: "useHookInsideNormalFunction", funcName: "_useNotAHook" } },
+      ],
+    },
+    {
+      name: "hook in conditional regular function",
+      code: tsx`
+        function normalFunctionWithConditionalHook() {
+          if (cond) {
+            useHookInsideNormalFunction();
+          }
+        }
+      `,
+      errors: [{
+        messageId: "invalidContext",
+        data: { name: "useHookInsideNormalFunction", funcName: "normalFunctionWithConditionalHook" },
+      }],
+    },
+    {
+      name: "multiple hooks in loops",
+      code: tsx`
+        function useHookInLoops() {
+          while (a) {
+            useHook1();
+            if (b) return;
+            useHook2();
+          }
+          while (c) {
+            useHook3();
+            if (d) return;
+            useHook4();
+          }
+        }
+      `,
+      errors: [
+        { messageId: "loopHook", data: { name: "useHook1" } },
+        { messageId: "loopHook", data: { name: "useHook2" } },
+        { messageId: "loopHook", data: { name: "useHook3" } },
+        { messageId: "loopHook", data: { name: "useHook4" } },
+      ],
+    },
+    {
+      name: "hooks in do-while loops with multiple hooks",
+      code: tsx`
+        function useHookInLoops() {
+          do {
+            useHook1();
+            if (a) return;
+            useHook2();
+          } while (b);
+          do {
+            useHook3();
+            if (c) return;
+            useHook4();
+          } while (d)
+        }
+      `,
+      errors: [
+        { messageId: "loopHook", data: { name: "useHook1" } },
+        { messageId: "loopHook", data: { name: "useHook2" } },
+        { messageId: "loopHook", data: { name: "useHook3" } },
+        { messageId: "loopHook", data: { name: "useHook4" } },
+      ],
+    },
+    {
+      name: "hook in various non-component function expressions",
+      code: tsx`
+        function a() { useState(); }
+        const whatever = function b() { useState(); };
+        const c = () => { useState(); };
+        let d = () => useState();
+        e = () => { useState(); };
+        ({f: () => { useState(); }});
+        ({g() { useState(); }});
+        const {j = () => { useState(); }} = {};
+        ({k = () => { useState(); }} = {});
+      `,
+      errors: [
+        { messageId: "invalidContext", data: { name: "useState", funcName: "a" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "b" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "c" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "d" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "e" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "f" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "g" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "j" } },
+        { messageId: "invalidContext", data: { name: "useState", funcName: "k" } },
+      ],
+    },
+    // Top level hooks
+    {
+      name: "hook at top level - Hook.useState",
+      code: tsx`
+        Hook.useState();
+        Hook._useState();
+        Hook.use42();
+        Hook.useHook();
+        Hook.use_hook();
+      `,
+      errors: [
+        { messageId: "topLevelHook", data: { name: "useState" } },
+        { messageId: "topLevelHook", data: { name: "use42" } },
+        { messageId: "topLevelHook", data: { name: "useHook" } },
+      ],
+    },
+    {
+      name: "multiple hooks at top level",
+      code: tsx`
+        useState();
+        if (foo) {
+          const foo = React.useCallback(() => {});
+        }
+        useCustomHook();
+      `,
+      errors: [
+        { messageId: "topLevelHook", data: { name: "useState" } },
+        { messageId: "topLevelHook", data: { name: "useCallback" } },
+        { messageId: "topLevelHook", data: { name: "useCustomHook" } },
+      ],
+    },
+    {
+      name: "use at top level",
+      code: tsx`
+        const text = use(promise);
+        function App() {
+          return <Text text={text} />
+        }
+      `,
+      errors: [{ messageId: "topLevelHook", data: { name: "use" } }],
+    },
+    // Async hooks
+    {
+      name: "hook in async function component",
+      code: tsx`
+        async function AsyncComponent() {
+          useState();
+        }
+      `,
+      errors: [{ messageId: "asyncHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hook in async hook",
+      code: tsx`
+        async function useAsyncHook() {
+          useState();
+        }
+      `,
+      errors: [{ messageId: "asyncHook", data: { name: "useState" } }],
+    },
+    {
+      name: "useId in async function component",
+      code: tsx`
+        async function Page() {
+          useId();
+          React.useId();
+        }
+      `,
+      errors: [
+        { messageId: "asyncHook", data: { name: "useId" } },
+        { messageId: "asyncHook", data: { name: "useId" } },
+      ],
+    },
+    {
+      name: "useId in async hook",
+      code: tsx`
+        async function useAsyncHook() {
+          useId();
+        }
+      `,
+      errors: [{ messageId: "asyncHook", data: { name: "useId" } }],
+    },
+    {
+      name: "use in async function component",
+      code: tsx`
+        async function AsyncComponent() {
+          use();
+        }
+      `,
+      errors: [{ messageId: "asyncHook", data: { name: "use" } }],
+    },
+    {
+      name: "useId in non-hook async function",
+      code: tsx`
+        async function notAHook() {
+          useId();
+        }
+      `,
+      errors: [{ messageId: "invalidContext", data: { name: "useId", funcName: "notAHook" } }],
+    },
+    // Class component hooks
+    {
+      name: "hook in class method",
+      code: tsx`
+        class C {
+          m() {
+            This.useHook();
+            Super.useHook();
+          }
+        }
+      `,
+      errors: [
+        { messageId: "classHook", data: { name: "useHook" } },
+        { messageId: "classHook", data: { name: "useHook" } },
+      ],
+    },
+    {
+      name: "hook in class component render method",
+      code: tsx`
+        class Foo extends Component {
+          render() {
+            if (cond) {
+              FooStore.useFeatureFlag();
+            }
+          }
+        }
+      `,
+      errors: [{ messageId: "classHook", data: { name: "useFeatureFlag" } }],
+    },
+    {
+      name: "React.useState in class component",
+      code: tsx`
+        class ClassComponentWithHook extends React.Component {
+          render() {
+            React.useState();
+          }
+        }
+      `,
+      errors: [{ messageId: "classHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hook in class with arrow property",
+      code: tsx`
+        (class {useHook = () => { useState(); }});
+      `,
+      errors: [{ messageId: "classHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hook in class method shorthand",
+      code: tsx`
+        (class {useHook() { useState(); }});
+      `,
+      errors: [{ messageId: "classHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hook in class with arrow property (non-use name)",
+      code: tsx`
+        (class {h = () => { useState(); }});
+      `,
+      errors: [{ messageId: "classHook", data: { name: "useState" } }],
+    },
+    {
+      name: "hook in class method (non-use name)",
+      code: tsx`
+        (class {i() { useState(); }});
+      `,
+      errors: [{ messageId: "classHook", data: { name: "useState" } }],
+    },
+    {
+      name: "use in class method",
+      code: tsx`
+        class C {
+          m() {
+            use(promise);
+          }
+        }
+      `,
+      errors: [{ messageId: "classHook", data: { name: "use" } }],
+    },
+    // use() in try/catch
+    {
+      name: "use in try block",
+      code: tsx`
+        function App({p1, p2}) {
+          try {
+            use(p1);
+          } catch (error) {
+            console.error(error);
+          }
+          use(p2);
+          return <div>App</div>;
+        }
+      `,
+      errors: [{ messageId: "useInTryCatch", data: { name: "use" } }],
+    },
+    {
+      name: "use in catch block",
+      code: tsx`
+        function App({p1, p2}) {
+          try {
+            doSomething();
+          } catch {
+            use(p1);
+          }
+          use(p2);
+          return <div>App</div>;
+        }
+      `,
+      errors: [{ messageId: "useInTryCatch", data: { name: "use" } }],
+    },
+    // Additional edge cases
+    {
+      name: "hook in component returned from function",
+      code: tsx`
+        function createComponent() {
+          return function ComponentWithConditionalHook() {
+            if (cond) {
+              useConditionalHook();
+            }
+          }
+        }
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useConditionalHook" } }],
+    },
+    {
+      name: "hook in callback - forwardRef with condition",
+      code: tsx`
+        const FancyButton = React.forwardRef((props, ref) => {
+          if (props.fancy) {
+            useCustomHook();
+          }
+          return <button ref={ref}>{props.children}</button>;
+        });
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useCustomHook" } }],
+    },
+    {
+      name: "hook in callback - forwardRef with condition (function keyword)",
+      code: tsx`
+        const FancyButton = forwardRef(function(props, ref) {
+          if (props.fancy) {
+            useCustomHook();
+          }
+          return <button ref={ref}>{props.children}</button>;
+        });
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useCustomHook" } }],
+    },
+    {
+      name: "hook in callback - memo with condition",
+      code: tsx`
+        const MemoizedButton = memo(function(props) {
+          if (props.fancy) {
+            useCustomHook();
+          }
+          return <button>{props.children}</button>;
+        });
+      `,
+      errors: [{ messageId: "conditionalHook", data: { name: "useCustomHook" } }],
+    },
+    {
+      name: "hook in named callback function",
+      code: tsx`
+        React.unknownFunction(function notAComponent(foo, bar) {
+          useProbablyAHook(bar)
+        });
+      `,
+      errors: [{ messageId: "nestedHook", data: { name: "useProbablyAHook" } }],
+    },
+    {
+      name: "use in non-component function",
+      code: tsx`
+        function notAComponent() {
+          use(promise);
+        }
+      `,
+      errors: [{ messageId: "invalidContext", data: { name: "use", funcName: "notAComponent" } }],
+    },
+    {
+      name: "hook in nested function used as callback",
+      code: tsx`
+        function renderItem() {
+          useState();
+        }
+        function List(props) {
+          return props.items.map(renderItem);
+        }
+      `,
+      errors: [{ messageId: "invalidContext", data: { name: "useState", funcName: "renderItem" } }],
+    },
   ],
   valid: [
     ...allValid,
@@ -405,6 +959,307 @@ ruleTester.run(RULE_NAME, rule, {
           React.useState(0);
           React.useEffect(() => {}, []);
           return null;
+        }
+      `,
+    },
+    // Additional valid cases from ESLintRulesOfHooks-test.js
+    {
+      name: "hook in component returning component",
+      code: tsx`
+        function createComponentWithHook() {
+          return function ComponentWithHook() {
+            useHook();
+          };
+        }
+      `,
+    },
+    {
+      name: "hook in hook returning hook",
+      code: tsx`
+        function createHook() {
+          return function useHookWithHook() {
+            useHook();
+          }
+        }
+      `,
+    },
+    {
+      name: "multiple hook forms",
+      code: tsx`
+        function useHook() { useState(); }
+        const whatever = function useHook() { useState(); };
+        const useHook1 = () => { useState(); };
+        let useHook2 = () => useState();
+        useHook2 = () => { useState(); };
+        ({useHook: () => { useState(); }});
+        ({useHook() { useState(); }});
+        const {useHook3 = () => { useState(); }} = {};
+        ({useHook = () => { useState(); }} = {});
+        Namespace.useHook = () => { useState(); };
+      `,
+    },
+    {
+      name: "multiple hooks in custom hook",
+      code: tsx`
+        function useHook() {
+          useHook1();
+          useHook2();
+        }
+      `,
+    },
+    {
+      name: "hooks in returned custom hook",
+      code: tsx`
+        function createHook() {
+          return function useHook() {
+            useHook1();
+            useHook2();
+          };
+        }
+      `,
+    },
+    {
+      name: "hook in logical expression return",
+      code: tsx`
+        function useHook() {
+          useState() && a;
+        }
+      `,
+    },
+    {
+      name: "hooks in arithmetic return",
+      code: tsx`
+        function useHook() {
+          return useHook1() + useHook2();
+        }
+      `,
+    },
+    {
+      name: "hook as function argument",
+      code: tsx`
+        function useHook() {
+          return useHook1(useHook2());
+        }
+      `,
+    },
+    {
+      name: "hook in forwardRef arrow function",
+      code: tsx`
+        const FancyButton = React.forwardRef((props, ref) => {
+          useHook();
+          return <button {...props} ref={ref} />
+        });
+      `,
+    },
+    {
+      name: "hook in forwardRef anonymous function",
+      code: tsx`
+        const FancyButton = React.forwardRef(function (props, ref) {
+          useHook();
+          return <button {...props} ref={ref} />
+        });
+      `,
+    },
+    {
+      name: "hook in forwardRef (bare import)",
+      code: tsx`
+        const FancyButton = forwardRef(function (props, ref) {
+          useHook();
+          return <button {...props} ref={ref} />
+        });
+      `,
+    },
+    {
+      name: "hook in memo arrow function",
+      code: tsx`
+        const MemoizedFunction = React.memo(props => {
+          useHook();
+          return <button {...props} />
+        });
+      `,
+    },
+    {
+      name: "hook in memo anonymous function",
+      code: tsx`
+        const MemoizedFunction = memo(function (props) {
+          useHook();
+          return <button {...props} />
+        });
+      `,
+    },
+    {
+      name: "this.useHook in class is allowed",
+      code: tsx`
+        class C {
+          m() {
+            this.useHook();
+            super.useHook();
+          }
+        }
+      `,
+    },
+    {
+      name: "jest lifecycle hooks are allowed",
+      code: tsx`
+        jest.useFakeTimers();
+        beforeEach(() => {
+          jest.useRealTimers();
+        })
+      `,
+    },
+    {
+      name: "non-hook use* functions are allowed",
+      code: tsx`
+        fooState();
+        _use();
+        _useState();
+        use_hook();
+        jest.useFakeTimer()
+      `,
+    },
+    {
+      name: "regression test for internal code pattern",
+      code: tsx`
+        function makeListener(instance) {
+          each(pixelsWithInferredEvents, pixel => {
+            if (useExtendedSelector(pixel.id) && extendedButton) {
+              foo();
+            }
+          });
+        }
+      `,
+    },
+    {
+      name: "use-prefixed functions in unnamed callbacks are not hooks",
+      code: tsx`
+        React.unknownFunction((foo, bar) => {
+          if (foo) {
+            useNotAHook(bar)
+          }
+        });
+      `,
+    },
+    {
+      name: "use-prefixed functions in unnamed function args are not hooks",
+      code: tsx`
+        unknownFunction(function(foo, bar) {
+          if (foo) {
+            useNotAHook(bar)
+          }
+        });
+      `,
+    },
+    {
+      name: "ternary expression before hook is valid",
+      code: tsx`
+        function RegressionTest() {
+          const foo = cond ? a : b;
+          useState();
+        }
+      `,
+    },
+    {
+      name: "throw before hook is valid",
+      code: tsx`
+        function RegressionTest() {
+          if (page == null) {
+            throw new Error('oh no!');
+          }
+          useState();
+        }
+      `,
+    },
+    {
+      name: "loop that does not affect hook order is valid",
+      code: tsx`
+        function RegressionTest() {
+          const res = [];
+          const additionalCond = true;
+          for (let i = 0; i !== 10 && additionalCond; ++i ) {
+            res.push(i);
+          }
+          React.useLayoutEffect(() => {});
+        }
+      `,
+    },
+    {
+      name: "use hook at top level of component",
+      code: tsx`
+        function App() {
+          const text = use(Promise.resolve('A'));
+          return <Text text={text} />
+        }
+      `,
+    },
+    {
+      name: "use hook in conditional (allowed for use)",
+      code: tsx`
+        import * as React from 'react';
+        function App() {
+          if (shouldShowText) {
+            const text = use(query);
+            const data = React.use(thing);
+            const data2 = react.use(thing2);
+            return <Text text={text} />
+          }
+          return <Text text={shouldFetchBackupText ? use(backupQuery) : "Nothing to see here"} />
+        }
+      `,
+    },
+    {
+      name: "use hook in for-of loop (allowed for use)",
+      code: tsx`
+        function App() {
+          let data = [];
+          for (const query of queries) {
+            const text = use(item);
+            data.push(text);
+          }
+          return <Child data={data} />
+        }
+      `,
+    },
+    {
+      name: "use hook in callback (allowed for use)",
+      code: tsx`
+        function App() {
+          const data = someCallback((x) => use(x));
+          return <Child data={data} />
+        }
+      `,
+    },
+    {
+      name: "loop after hook is valid",
+      code: tsx`
+        const Component = () => {
+          const [state, setState] = useState(0);
+          for (let i = 0; i < 10; i++) {
+            console.log(i);
+          }
+          return <div></div>;
+        };
+      `,
+    },
+    {
+      name: "hook before for-in loop with condition inside",
+      code: tsx`
+        function App(props) {
+          const someObject = {propA: true};
+          for (const propName in someObject) {
+            if (propName === true) {
+            } else {
+            }
+          }
+          const [myState, setMyState] = useState(null);
+        }
+      `,
+    },
+    {
+      name: "hook in unreachable code (after return)",
+      code: tsx`
+        function useUnreachable() {
+          return;
+          useHook();
         }
       `,
     },
