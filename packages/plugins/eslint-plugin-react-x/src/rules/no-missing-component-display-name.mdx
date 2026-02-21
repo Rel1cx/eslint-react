@@ -28,16 +28,14 @@ When defining a React component, if you specify its component name in a way that
 import React from "react";
 
 const Button = React.memo(() => <div />);
-//                        ^^^^^^^^^^^^^
-//                        - Add missing 'displayName' for component.
+//                        ^^^ Add missing 'displayName' for component.
 ```
 
 ```tsx
 import React from "react";
 
 const Button = React.forwardRef(() => <div />);
-//                              ^^^^^^^^^^^^^
-//                              - Add missing 'displayName' for component.
+//                              ^^^ Add missing 'displayName' for component.
 ```
 
 (Not supported yet)
@@ -46,8 +44,7 @@ const Button = React.forwardRef(() => <div />);
 import React from "react";
 
 export default () => <div />;
-//             ^^^^^^^^^^^^^
-//             - Add missing 'displayName' for component.
+//             ^^^ Add missing 'displayName' for component.
 ```
 
 ### Passing

@@ -45,8 +45,7 @@ function MyComponent({ items }: MyComponentProps) {
   return (
     <ul>
       {items.map((item, index) => (
-        //              ^^^^^
-        //              - Do not use an item's index in the array as its key.
+        //              ^^^ Do not use an item's index in the array as its key.
         <li key={index}>{item.name}</li>
       ))}
     </ul>

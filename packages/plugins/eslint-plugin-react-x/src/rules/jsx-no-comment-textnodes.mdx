@@ -39,14 +39,12 @@ import React from "react";
 
 function MyComponent1() {
   return <div>// empty div</div>;
-  //          ^^^^^^^^^^^^
-  //          - Possible misused comment in text node. Comments inside the children section of a tag should be placed inside braces.
+  //          ^^^ Possible misused comment in text node. Comments inside the children section of a tag should be placed inside braces.
 }
 
 function MyComponent2() {
   return <div>/* empty div */</div>;
-  //          ^^^^^^^^^^^^^^^
-  //          - Possible misused comment in text node. Comments inside the children section of a tag should be placed inside braces.
+  //          ^^^ Possible misused comment in text node. Comments inside the children section of a tag should be placed inside braces.
 }
 ```
 

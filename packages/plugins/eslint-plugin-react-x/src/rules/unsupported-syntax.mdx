@@ -246,9 +246,7 @@ function MyComponent() {
 ```tsx
 function Component({ code }) {
   const result = eval(code);
-  //             ^^^^^^^^^^
-  //             - Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed
-  //               and is not supported by React Compiler.
+  //             ^^^ Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.
   return <div>{result}</div>;
 }
 ```
@@ -256,9 +254,7 @@ function Component({ code }) {
 ```tsx
 function Component() {
   with (Math) {
-  // ^^^^^^^^^^
-  // - Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically
-  //   and is not supported by React Compiler.
+  // ^^^ Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.
     return <div>{sin(PI / 2)}</div>;
   }
 }
@@ -267,9 +263,7 @@ function Component() {
 ```tsx
 function useMyHook(code) {
   const result = eval(code);
-  //             ^^^^^^^^^^
-  //             - Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed
-  //               and is not supported by React Compiler.
+  //             ^^^ Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.
   return result;
 }
 ```
@@ -279,9 +273,7 @@ function MyComponent() {
   return (
     <SomeJsx>
       {(() => {
-      // ^^^^^^^
-      // - Avoid using immediately-invoked function expressions in JSX. IIFEs will not be optimized
-      //   by React Compiler.
+      // ^^^ Avoid using immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.
         const filteredThings = things.filter(callback);
 
         if (filteredThings.length === 0) {

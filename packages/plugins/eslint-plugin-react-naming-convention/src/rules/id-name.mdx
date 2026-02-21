@@ -33,20 +33,17 @@ Enforces identifier names assigned from `useId` calls to be either `id` or end w
 
 ```tsx
 const value = useId();
-//    ^^^^^
-//    - A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ```tsx
 const unique = useId();
-//    ^^^^^^
-//    - A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ```tsx
 const foo = useId();
-//    ^^^
-//    - A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+//    ^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ### Passing

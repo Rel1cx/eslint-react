@@ -49,8 +49,7 @@ import { useEffect } from "react";
 function MyComponent({ userId }) {
   useEffect(() => {
     fetchUser(userId);
-    //        ^^^^^^
-    //        - 'userId' is missing from the dependency array.
+    //        ^^^ 'userId' is missing from the dependency array.
   }, []); // Missing 'userId'
 }
 ```
@@ -61,8 +60,7 @@ import { useMemo } from "react";
 function MyComponent({ items, sortOrder }) {
   const sorted = useMemo(() => {
     return items.sort(sortOrder);
-    //                ^^^^^^^^^
-    //                - 'sortOrder' is missing from the dependency array.
+    //                ^^^ 'sortOrder' is missing from the dependency array.
   }, [items]); // Missing 'sortOrder'
 }
 ```
@@ -73,8 +71,7 @@ import { useCallback } from "react";
 function MyComponent({ onSave, value }) {
   const handleClick = useCallback(() => {
     onSave(value);
-    //     ^^^^^
-    //     - 'value' is missing from the dependency array.
+    //     ^^^ 'value' is missing from the dependency array.
   }, [onSave]); // Missing 'value'
 }
 ```

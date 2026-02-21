@@ -47,8 +47,7 @@ interface MyComponentProps extends Foo {
 
 function MyComponent(props: MyComponentProps) {
   return <div {...props} />;
-  //          ^^^^^^^^^^
-  //          - This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
+  //          ^^^ This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
 }
 ```
 
@@ -74,8 +73,7 @@ import React from "react";
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
-  //                                     ^^^^^^^^^^
-  //                                     - Passing-through React internally defined keys are allowed.
+  //                                     ^^^ Passing-through React internally defined keys are allowed.
 }
 ```
 

@@ -158,10 +158,7 @@ function Component() {
 function Component() {
   const ref = useRef(0);
   const value = ref.current;
-  //            ^^^^^^^^^^^
-  //            - Do not read 'ref.current' during render. Refs are not available during rendering
-  //              and their values may be stale or inconsistent. Move this read into an effect or
-  //              event handler.
+  //            ^^^ Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.
   return <div>{value}</div>;
 }
 ```
@@ -170,9 +167,7 @@ function Component() {
 function Component({ value }) {
   const ref = useRef(null);
   ref.current = value;
-  // ^^^^^^^^^^^
-  // - Do not write to 'ref.current' during render. Refs should only be mutated in effects
-  //   or event handlers. Move this write into an effect or event handler.
+  // ^^^ Do not write to 'ref.current' during render. Refs should only be mutated in effects or event handlers. Move this write into an effect or event handler.
   return <div />;
 }
 ```
@@ -181,8 +176,7 @@ function Component({ value }) {
 function Component() {
   const ref = useRef(0);
   return <div>{ref.current}</div>;
-  //          ^^^^^^^^^^^
-  //          - Do not read 'ref.current' during render.
+  //          ^^^ Do not read 'ref.current' during render.
 }
 ```
 
@@ -190,8 +184,7 @@ function Component() {
 function useMyHook() {
   const ref = useRef(0);
   const value = ref.current;
-  //            ^^^^^^^^^^^
-  //            - Do not read 'ref.current' during render.
+  //            ^^^ Do not read 'ref.current' during render.
   return value;
 }
 ```

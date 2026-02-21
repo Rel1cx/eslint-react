@@ -51,8 +51,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   render() {
     return (
       <button onClick={() => this.setState({ foo: this.state.foo + 1 })} />
-      //                                          ^^^^^^^^^^^^^^
-      //                                          - Do not access 'this.state' within 'setState'. Use the update function instead.
+      //                                          ^^^ Do not access 'this.state' within 'setState'. Use the update function instead.
     );
   }
 }

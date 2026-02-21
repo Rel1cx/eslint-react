@@ -46,9 +46,7 @@ React relies on the order in which hooks are called to correctly preserve state 
 function MyComponent({ isLoggedIn }) {
   if (isLoggedIn) {
     const [user, setUser] = useState(null);
-    //    ^^^^
-    //    - React Hook "useState" is called conditionally.
-    //      React Hooks must be called in the exact same order in every component render.
+    //    ^^^ React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
   }
 }
 ```
@@ -59,9 +57,7 @@ function MyComponent({ data }) {
   if (!data) return <Loading />;
 
   const [processed, setProcessed] = useState(data);
-  //    ^^^^^^^^^
-  //    - React Hook "useState" is called conditionally.
-  //      React Hooks must be called in the exact same order in every component render.
+  //    ^^^ React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
 }
 ```
 
@@ -72,9 +68,7 @@ function MyComponent() {
     <button
       onClick={() => {
         const [clicked, setClicked] = useState(false);
-        //    ^^^^^^^
-        //    - React Hook "useState" cannot be called inside a callback.
-        //      React Hooks must be called in a React function component or a custom React Hook function.
+        //    ^^^ React Hook "useState" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function.
       }}
     />
   );
@@ -86,10 +80,7 @@ function MyComponent() {
 function MyComponent({ items }) {
   for (const item of items) {
     const [selected, setSelected] = useState(false);
-    //    ^^^^^^^^
-    //    - React Hook "useState" may be executed more than once.
-    //      Possibly because it is called in a loop.
-    //      React Hooks must be called in the exact same order in every component render.
+    //    ^^^ React Hook "useState" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.
   }
 }
 ```
@@ -99,9 +90,7 @@ function MyComponent({ items }) {
 function MyComponent({ promise }) {
   try {
     const data = use(promise);
-    //           ^^^
-    //           - React Hook "use" cannot be called from a try block.
-    //             Call it outside of the try block.
+    //           ^^^ React Hook "use" cannot be called from a try block. Call it outside of the try block.
   } catch (e) {
     // error handling
   }

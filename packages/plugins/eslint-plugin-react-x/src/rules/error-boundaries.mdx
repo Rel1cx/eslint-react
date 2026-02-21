@@ -45,8 +45,7 @@ Similarly, the `use` hook doesn't throw errors in the traditional sense — it s
 function Parent() {
   try {
     return <ChildComponent />;
-    //      ^^^^^^^^^^^^^^
-    //      - Use an Error Boundary to catch errors in child components.
+    //      ^^^ Use an Error Boundary to catch errors in child components.
   } catch (error) {
     return <div>Error occurred</div>;
   }
@@ -58,8 +57,7 @@ function Parent() {
 function Component({ promise }) {
   try {
     const data = use(promise);
-    //           ^^^^^^^^^^^^
-    //           - Use an Error Boundary instead of try/catch around the 'use' hook.
+    //           ^^^ Use an Error Boundary instead of try/catch around the 'use' hook.
     return <div>{data}</div>;
   } catch (error) {
     return <div>Failed to load</div>;

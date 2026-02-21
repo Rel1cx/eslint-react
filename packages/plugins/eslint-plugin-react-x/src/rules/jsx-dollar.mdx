@@ -53,8 +53,7 @@ import React from "react";
 
 function MyComponent({ user }) {
   return <div>Hello ${user.name}</div>;
-  //                ^
-  //                - Possible unintentional '$' sign before expression.
+  //                ^ Possible unintentional '$' sign before expression.
 }
 ```
 
@@ -63,8 +62,7 @@ import React from "react";
 
 function MyComponent({ user }) {
   return <div>${user.name} is your name</div>;
-  //          ^
-  //          - Possible unintentional '$' sign before expression.
+  //          ^ Possible unintentional '$' sign before expression.
 }
 ```
 
@@ -73,9 +71,7 @@ import React from "react";
 
 function MyComponent({ count, total }) {
   return <div>Progress: ${count} / ${total}</div>;
-  //                     ^         ^
-  //                     - Possible unintentional '$' sign before expression.
-  //                               - Possible unintentional '$' sign before expression.
+  //                     ^         ^ Possible unintentional '$' sign before expression.
 }
 ```
 

@@ -34,8 +34,7 @@ Props are read-only snapshots in time: every render receives a new version of pr
 import React from "react";
 
 function MyComponent(props: { name: string }) {
-  //                 ^^^^^^^^^^^^^^^^^^^^^^^
-  //                 - A function component's props should be read-only.
+  //                 ^^^ A function component's props should be read-only.
   return <div>{props.name}</div>;
 }
 ```
@@ -48,8 +47,7 @@ interface Props {
 }
 
 function MyComponent(props: Props) {
-  //                 ^^^^^^^^^^^^
-  //                 - A function component's props should be read-only.
+  //                 ^^^ A function component's props should be read-only.
   return <div>{props.name}</div>;
 }
 ```

@@ -43,8 +43,7 @@ function MyComponent() {
   useEffect(() => {
     if (!ref.current) return;
     const ro = new ResizeObserver(() => console.log("resize"));
-    //         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //         - A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
+    //         ^^^ A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
     ro.observe(ref.current);
   }, []);
 

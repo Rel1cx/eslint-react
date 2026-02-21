@@ -37,8 +37,7 @@ function MyComponent () {
   return [
     <li key="1">Item 1</li>
     <li key="1">Item 2</li>
-    //  ^^^^^^^
-    //  - The 'key' prop must be unique to its sibling elements.
+    //  ^^^ The 'key' prop must be unique to its sibling elements.
   ]
 };
 ```
@@ -51,8 +50,7 @@ function MyComponent() {
     <ul>
       <li key="1">Item 1</li>
       <li key="1">Item 2</li>
-      {/* ^^^^^^^ */}
-      {/* - The 'key' prop must be unique to its sibling elements. */}
+      {/* ^^^ The 'key' prop must be unique to its sibling elements. */}
     </ul>
   );
 }
@@ -67,8 +65,7 @@ function MyComponent() {
       {["a", "b"].map((id) => <li key="1">{id}</li>)}
     </ul>
   );
-  //                                     ^^^^^^^
-  //                                     - The 'key' prop must be unique to its sibling elements.
+  //                                     ^^^ The 'key' prop must be unique to its sibling elements.
 }
 ```
 

@@ -42,8 +42,7 @@ function MyComponent() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => console.log(count), 1000);
-    //                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //                - A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
+    //                ^^^ A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
   }, []);
 
   return null;

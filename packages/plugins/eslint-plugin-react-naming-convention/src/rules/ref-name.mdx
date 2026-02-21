@@ -33,20 +33,17 @@ Enforces identifier names assigned from `useRef` calls to be either `ref` or end
 
 ```tsx
 const count = useRef(0);
-//    ^^^^^^^^
-//    - A ref identifier must be named 'ref' or end in 'Ref'.
+//    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
 ```tsx
 const input = useRef<HTMLInputElement>(null);
-//    ^^^^^
-//    - A ref identifier must be named 'ref' or end in 'Ref'.
+//    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
 ```tsx
 const value = useRef(null);
-//    ^^^^^
-//    - A ref identifier must be named 'ref' or end in 'Ref'.
+//    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
 ### Passing

@@ -39,8 +39,7 @@ import React, { createRef } from "react";
 
 function MyComponent() {
   const ref = React.createRef<HTMLDivElement>();
-  //          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  //          - [Deprecated] Use 'useRef' instead.
+  //          ^^^ [Deprecated] Use 'useRef' instead.
 
   return <div ref={ref} />;
 }

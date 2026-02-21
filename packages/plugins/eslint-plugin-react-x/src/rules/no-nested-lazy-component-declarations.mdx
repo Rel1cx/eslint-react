@@ -47,8 +47,7 @@ import { lazy } from "react";
 function Editor() {
   // 🔴 Bad: This will cause all state to be reset on re-renders
   const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
-  //    ^^^^^^^^^^^^^^^
-  //    - Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.
+  //    ^^^ Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.
   // ...
 }
 ```

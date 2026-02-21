@@ -84,9 +84,7 @@ import { useState } from "react";
 
 function Counter() {
   const [count, updateCount] = useState(0);
-  //            ^^^^^^^^^^^
-  //            - The setter should be named 'set' followed by the capitalized state
-  //              variable name, e.g. 'setCount' for 'count'.
+  //            ^^^ The setter should be named 'set' followed by the capitalized state variable name, e.g. 'setCount' for 'count'.
   return <div>{count}</div>;
 }
 ```
@@ -107,9 +105,7 @@ import { useState } from "react";
 
 function Counter() {
   const count = useState(0);
-  //    ^^^^^
-  //    - useState should be destructured into a value and setter pair,
-  //      e.g. const [state, setState] = useState(...).
+  //    ^^^ useState should be destructured into a value and setter pair, e.g. const [state, setState] = useState(...).
   return <div>{count}</div>;
 }
 ```
@@ -120,9 +116,7 @@ import { useState } from "react";
 
 function MyComponent() {
   const [value, setValue] = useState(generateTodos());
-  //                                 ^^^^^^^^^^^^^^^
-  //                                 - To prevent re-computation, consider using lazy
-  //                                   initial state. Ex: 'useState(() => getValue())'.
+  //                                 ^^^ To prevent re-computation, consider using lazy initial state. Ex: 'useState(() => getValue())'.
   return null;
 }
 

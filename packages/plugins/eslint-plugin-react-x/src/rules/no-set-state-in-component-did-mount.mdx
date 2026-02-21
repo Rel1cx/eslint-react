@@ -46,8 +46,7 @@ interface MyComponentState {
 class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   componentDidMount() {
     this.setState({ name: "John" });
-    //   ^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //   - Do not call `this.setState` in `componentDidMount` outside functions such as callbacks.
+    //   ^^^ Do not call `this.setState` in `componentDidMount` outside functions such as callbacks.
   }
 
   render() {
