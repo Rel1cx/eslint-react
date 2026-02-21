@@ -11,12 +11,16 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 | Old Rule (`react-x/`)                  | New Rule (`react-x/`) | Change       |
 | :------------------------------------- | :-------------------- | :----------- |
 | `jsx-no-iife`                          | `unsupported-syntax`  | consolidated |
-| `prefer-use-state-lazy-initialization` | `use-state`           | consolidated |
+| `jsx-no-undef`                         | —                     | removed      |
 | `no-unnecessary-key`                   | —                     | removed      |
+| `no-useless-forward-ref`               | `no-forward-ref`      | consolidated |
+| `prefer-use-state-lazy-initialization` | `use-state`           | consolidated |
 
 - `jsx-no-iife`: The IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
-- `prefer-use-state-lazy-initialization`: Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
+- `jsx-no-undef`: ESLint v10.0.0 now tracks JSX references natively, making this rule redundant. The `no-undef` rule now correctly handles JSX element references.
 - `no-unnecessary-key`: The experimental rule has been removed.
+- `no-useless-forward-ref`: Consolidated into `no-forward-ref`. Since React 19, `forwardRef` is no longer necessary as `ref` can be passed as a prop. The `no-forward-ref` rule now covers all `forwardRef` usage patterns.
+- `prefer-use-state-lazy-initialization`: Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
 
 **Removed previously deprecated rules**
 
@@ -56,6 +60,8 @@ All rules have been migrated into `eslint-plugin-react-x`:
 | Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
 | Added (rule)             | `react-x/unsupported-syntax`                                            | `recommended`, `x`                                      | `error`                          |
 | Removed (rule)           | `react-x/jsx-no-iife`                                                   | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax` |
+| Removed (rule)           | `react-x/jsx-no-undef`                                                  | `all`                                                   | ESLint v10.0.0+ native support   |
+| Removed (rule)           | `react-x/no-useless-forward-ref`                                        | `recommended`, `x`, `all`                               | merged into `no-forward-ref`     |
 | Removed (rule)           | `react-x/prefer-use-state-lazy-initialization`                          | `recommended`, `x`, `all`                               | merged into `use-state`          |
 
 ### ✨ New

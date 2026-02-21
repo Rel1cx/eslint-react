@@ -21,7 +21,6 @@ const conflictingRules = [
   "react/jsx-no-leaked-render",
   "react/jsx-no-script-url",
   "react/jsx-no-target-blank",
-  "react/jsx-no-undef",
   "react/jsx-no-useless-fragment",
   "react/jsx-pascal-case",
   "react/jsx-uses-react",
