@@ -100,7 +100,6 @@
     "naming-convention-context-name",
     "naming-convention-id-name",
     "naming-convention-ref-name",
-    "naming-convention-use-state",
     "---Debug Rules---",
     "debug-class-component",
     "debug-function-component",

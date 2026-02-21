@@ -62,7 +62,7 @@ const rule = {
   meta: {
     type: "suggestion",
     docs: {
-      description: "verifies the list of dependencies for Hooks like useEffect and similar",
+      description: "Verifies the list of dependencies for Hooks like 'useEffect' and similar.",
       recommended: true,
       url: "https://github.com/facebook/react/issues/14920",
     },

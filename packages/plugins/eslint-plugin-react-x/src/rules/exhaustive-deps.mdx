@@ -29,7 +29,7 @@ react-x/exhaustive-deps
 
 ## Description
 
-Validates that dependency arrays for React hooks contain all necessary dependencies.
+Verifies the list of dependencies for Hooks like `useEffect` and similar.
 
 React hooks like `useEffect`, `useMemo`, and `useCallback` accept dependency arrays. When a value referenced inside these hooks is not included in the dependency array, React won't re-run the effect or recalculate the value when that dependency changes. This causes stale closures where the hook uses outdated values.
 

@@ -212,7 +212,7 @@ const rule = {
   meta: {
     type: "problem",
     docs: {
-      description: "enforces the Rules of Hooks",
+      description: "Enforces the Rules of Hooks.",
       recommended: true,
       url: "https://react.dev/reference/rules/rules-of-hooks",
     },
