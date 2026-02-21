@@ -9,7 +9,6 @@ import jsxDollar from "./rules/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props";
-import jsxNoUndef from "./rules/jsx-no-undef";
 import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean";
 import jsxShorthandFragment from "./rules/jsx-shorthand-fragment";
 import jsxUsesReact from "./rules/jsx-uses-react";
@@ -56,7 +55,6 @@ import noUnusedClassComponentMembers from "./rules/no-unused-class-component-mem
 import noUnusedProps from "./rules/no-unused-props";
 import noUnusedState from "./rules/no-unused-state";
 import noUseContext from "./rules/no-use-context";
-import noUselessForwardRef from "./rules/no-useless-forward-ref";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
@@ -83,7 +81,6 @@ export const plugin: CompatiblePlugin = {
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
-    "jsx-no-undef": jsxNoUndef,
     "jsx-shorthand-boolean": jsxShorthandBoolean,
     "jsx-shorthand-fragment": jsxShorthandFragment,
     "jsx-uses-react": jsxUsesReact,
@@ -130,7 +127,6 @@ export const plugin: CompatiblePlugin = {
     "no-unused-props": noUnusedProps,
     "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
-    "no-useless-forward-ref": noUselessForwardRef,
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,

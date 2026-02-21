@@ -9,16 +9,9 @@ import {
 
 export default defineConfig({
   ignore: [
-    ...globSync(
-      [
-        "**/*.d.ts",
-        "**/dist/**",
-        "**/build/**",
-        "src/rules/exhaustive-deps.ts",
-        "src/rules/rules-of-hooks.ts",
-      ],
-      { ignore: ["**/node_modules/**"] },
-    ),
+    ...globSync(["**/*.d.ts", "**/dist/**", "**/build/**"], { ignore: ["**/node_modules/**"] }),
+    "src/rules/exhaustive-deps.ts",
+    "src/rules/rules-of-hooks.ts",
   ],
   rules: [
     ...core.all(),

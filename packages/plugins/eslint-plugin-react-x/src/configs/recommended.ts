@@ -41,7 +41,6 @@ export const rules = {
   "react-x/no-unsafe-component-will-receive-props": "warn",
   "react-x/no-unsafe-component-will-update": "warn",
   "react-x/no-use-context": "warn",
-  "react-x/no-useless-forward-ref": "warn",
   "react-x/purity": "warn",
   "react-x/rules-of-hooks": "error",
   "react-x/set-state-in-effect": "warn",
