@@ -43,8 +43,8 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/eff": "workspace:*",
     "@eslint-react/ast": "workspace:*",
+    "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/types": "canary",

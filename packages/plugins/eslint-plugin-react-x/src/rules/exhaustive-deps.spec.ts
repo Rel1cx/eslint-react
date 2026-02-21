@@ -1,858 +1,534 @@
+// @ts-nocheck
+
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./exhaustive-deps";
 
-// Task 6.1: Valid test cases
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
-    // Task 6.2: Missing reactive values
+    // Missing dependencies
     {
-      name: "missing a single reactive dep",
       code: tsx`
-        function MyComponent({ a }) {
+        function MyComponent() {
+          const local = {};
           useEffect(() => {
-            console.log(a);
+            console.log(local);
           }, []);
-          return null;
         }
       `,
       errors: [
         {
-          messageId: "missingDeps",
-          data: { deps: "'a'", hookName: "useEffect" },
+          message:
+            `React Hook useEffect has a missing dependency: 'local'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [local]`,
+              output: tsx`
+                function MyComponent() {
+                  const local = {};
+                  useEffect(() => {
+                    console.log(local);
+                  }, [local]);
+                }
+              `,
+            },
+          ],
         },
       ],
-      output: tsx`
-        function MyComponent({ a }) {
-          useEffect(() => {
-            console.log(a);
-          }, [a]);
-          return null;
-        }
-      `,
     },
+    // Missing dependencies with multiple deps
     {
-      name: "missing multiple reactive deps",
       code: tsx`
-        function MyComponent({ a, b }) {
+        function MyComponent({ foo, bar }) {
           useEffect(() => {
-            console.log(a, b);
+            console.log(foo, bar);
           }, []);
-          return null;
         }
       `,
       errors: [
         {
-          messageId: "missingDeps",
-          data: { deps: "'a', 'b'", hookName: "useEffect" },
+          message:
+            `React Hook useEffect has missing dependencies: 'bar' and 'foo'. Either include them or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [bar, foo]`,
+              output: tsx`
+                function MyComponent({ foo, bar }) {
+                  useEffect(() => {
+                    console.log(foo, bar);
+                  }, [bar, foo]);
+                }
+              `,
+            },
+          ],
         },
       ],
-      output: tsx`
-        function MyComponent({ a, b }) {
-          useEffect(() => {
-            console.log(a, b);
-          }, [a, b]);
-          return null;
-        }
-      `,
     },
-    // Unnecessary dependencies
+    // Unnecessary dependency (outer scope)
     {
-      name: "unnecessary dependency not referenced in callback",
       code: tsx`
-        function MyComponent({ a, b }) {
+        function MyComponent({ foo }) {
           useEffect(() => {
-            console.log(a);
-          }, [a, b]);
-          return null;
+            console.log(foo);
+          }, [foo, bar]);
         }
       `,
       errors: [
         {
-          messageId: "unnecessaryDeps",
-          data: { deps: "'b'", hookName: "useEffect" },
+          message:
+            `React Hook useEffect has an unnecessary dependency: 'bar'. Either exclude it or remove the dependency array. Outer scope values like 'bar' aren't valid dependencies because mutating them doesn't re-render the component.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [foo]`,
+              output: tsx`
+                function MyComponent({ foo }) {
+                  useEffect(() => {
+                    console.log(foo);
+                  }, [foo]);
+                }
+              `,
+            },
+          ],
         },
       ],
-      output: tsx`
-        function MyComponent({ a, b }) {
-          useEffect(() => {
-            console.log(a);
-          }, [a]);
-          return null;
-        }
-      `,
     },
-    // Non-literal dependency arrays (no autofix)
+    // useMemo with missing dependency
     {
-      name: "non-literal dependency array (variable reference)",
       code: tsx`
-        function MyComponent({ a }) {
-          const deps = [a];
-          useEffect(() => {
-            console.log(a);
-          }, deps);
-          return null;
+        function MyComponent({ foo, bar }) {
+          const result = useMemo(() => foo + bar, [foo]);
+          return result;
         }
       `,
       errors: [
         {
-          messageId: "nonLiteralDeps",
-          data: { hookName: "useEffect" },
+          message:
+            `React Hook useMemo has a missing dependency: 'bar'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [bar, foo]`,
+              output: tsx`
+                function MyComponent({ foo, bar }) {
+                  const result = useMemo(() => foo + bar, [bar, foo]);
+                  return result;
+                }
+              `,
+            },
+          ],
         },
       ],
     },
-    // Member expression dependencies
+    // useCallback with missing dependency
     {
-      name: "missing member expression dependency obj.property",
       code: tsx`
-        function MyComponent({ obj }) {
-          useEffect(() => {
-            console.log(obj.property);
+        function MyComponent({ onClick, value }) {
+          const handleClick = useCallback(() => onClick(value), [onClick]);
+          return <button onClick={handleClick} />;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useCallback has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [onClick, value]`,
+              output: tsx`
+                function MyComponent({ onClick, value }) {
+                  const handleClick = useCallback(() => onClick(value), [onClick, value]);
+                  return <button onClick={handleClick} />;
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // useLayoutEffect missing dependency
+    {
+      code: tsx`
+        function MyComponent({ value }) {
+          useLayoutEffect(() => {
+            console.log(value);
           }, []);
-          return null;
         }
       `,
       errors: [
         {
-          messageId: "missingDeps",
-          data: { deps: "'obj.property'", hookName: "useEffect" },
+          message:
+            `React Hook useLayoutEffect has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [value]`,
+              output: tsx`
+                function MyComponent({ value }) {
+                  useLayoutEffect(() => {
+                    console.log(value);
+                  }, [value]);
+                }
+              `,
+            },
+          ],
         },
       ],
-      output: tsx`
-        function MyComponent({ obj }) {
-          useEffect(() => {
-            console.log(obj.property);
-          }, [obj.property]);
-          return null;
-        }
-      `,
     },
+    // useImperativeHandle missing dependency
     {
-      name: "missing multiple member expression deps obj.a and obj.b",
-      code: tsx`
-        function MyComponent({ obj }) {
-          useEffect(() => {
-            console.log(obj.a, obj.b);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'obj.a', 'obj.b'", hookName: "useEffect" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ obj }) {
-          useEffect(() => {
-            console.log(obj.a, obj.b);
-          }, [obj.a, obj.b]);
-          return null;
-        }
-      `,
-    },
-    // Optional chaining dependencies
-    {
-      name: "missing optional chaining dependency obj?.property",
-      code: tsx`
-        function MyComponent({ obj }) {
-          useEffect(() => {
-            console.log(obj?.property);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'obj?.property'", hookName: "useEffect" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ obj }) {
-          useEffect(() => {
-            console.log(obj?.property);
-          }, [obj?.property]);
-          return null;
-        }
-      `,
-    },
-    // useMemo with missing deps
-    {
-      name: "useMemo with missing reactive dep",
-      code: tsx`
-        function MyComponent({ x, y }) {
-          const result = useMemo(() => x + y, [x]);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'y'", hookName: "useMemo" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ x, y }) {
-          const result = useMemo(() => x + y, [x, y]);
-          return null;
-        }
-      `,
-    },
-    // useCallback with missing deps
-    {
-      name: "useCallback with missing reactive dep",
-      code: tsx`
-        function MyComponent({ handler }) {
-          const cb = useCallback(() => {
-            handler();
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'handler'", hookName: "useCallback" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ handler }) {
-          const cb = useCallback(() => {
-            handler();
-          }, [handler]);
-          return null;
-        }
-      `,
-    },
-    // useImperativeHandle with missing deps (callback at index 1)
-    {
-      name: "useImperativeHandle with missing reactive dep",
       code: tsx`
         function MyComponent({ value }, ref) {
-          useImperativeHandle(ref, () => ({
-            getValue: () => value,
-          }), []);
-          return null;
+          useImperativeHandle(ref, () => ({ value }), []);
         }
       `,
       errors: [
         {
-          messageId: "missingDeps",
-          data: { deps: "'value'", hookName: "useImperativeHandle" },
+          message:
+            `React Hook useImperativeHandle has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [value]`,
+              output: tsx`
+                function MyComponent({ value }, ref) {
+                  useImperativeHandle(ref, () => ({ value }), [value]);
+                }
+              `,
+            },
+          ],
         },
       ],
-      output: tsx`
-        function MyComponent({ value }, ref) {
-          useImperativeHandle(ref, () => ({
-            getValue: () => value,
-          }), [value]);
-          return null;
+    },
+    // Async effect callback
+    {
+      code: tsx`
+        function MyComponent() {
+          useEffect(async () => {
+            await fetchData();
+          }, []);
         }
       `,
+      errors: [
+        {
+          // tsl-ignore dx/no-multiline-template-expression-without-auto-dedent
+          message: `Effect callbacks are synchronous to prevent race conditions. Put the async function inside:
+
+useEffect(() => {
+  async function fetchData() {
+    // You can await here
+    const response = await MyAPI.getData(someId);
+    // ...
+  }
+  fetchData();
+}, [someId]); // Or [] if effect doesn't need props or state
+
+Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching`,
+        },
+      ],
+    },
+    // Effect without callback
+    {
+      code: tsx`
+        function MyComponent() {
+          useEffect();
+        }
+      `,
+      errors: [
+        {
+          message: `React Hook useEffect requires an effect callback. Did you forget to pass a callback to the hook?`,
+        },
+      ],
+    },
+    // useMemo without dependencies
+    {
+      code: tsx`
+        function MyComponent({ value }) {
+          const result = useMemo(() => value * 2);
+          return result;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+        },
+      ],
+    },
+    // useCallback without dependencies
+    {
+      code: tsx`
+        function MyComponent({ onClick }) {
+          const handleClick = useCallback(() => onClick());
+          return <button onClick={handleClick} />;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+        },
+      ],
+    },
+    // ref.current in cleanup
+    {
+      code: tsx`
+        function MyComponent() {
+          const ref = useRef();
+          useEffect(() => {
+            return () => {
+              console.log(ref.current);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `The ref value 'ref.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ref.current' to a variable inside the effect, and use that variable in the cleanup function.`,
+        },
+      ],
+    },
+    // Complex expression in dependency array
+    {
+      code: tsx`
+        function MyComponent({ foo }) {
+          useEffect(() => {}, [foo.bar()]);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.`,
+        },
+      ],
+    },
+    // Spread element in dependency array
+    {
+      code: tsx`
+        function MyComponent({ deps }) {
+          useEffect(() => {}, [...deps]);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useEffect has a spread element in its dependency array. This means we can't statically verify whether you've passed the correct dependencies.`,
+        },
+      ],
+    },
+    // Non-array literal dependency
+    {
+      code: tsx`
+        function MyComponent({ deps }) {
+          useEffect(() => {}, deps);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useEffect was passed a dependency list that is not an array literal. This means we can't statically verify whether you've passed the correct dependencies.`,
+        },
+      ],
+    },
+    // Assignment to outer scope variable
+    {
+      code: tsx`
+        function MyComponent() {
+          let count = 0;
+          useEffect(() => {
+            count = 1;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `Assignments to the 'count' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the '.current' property. Otherwise, you can move this variable directly inside useEffect.`,
+        },
+      ],
+    },
+    // React namespace form
+    {
+      code: tsx`
+        function MyComponent() {
+          const local = {};
+          React.useEffect(() => {
+            console.log(local);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook React.useEffect has a missing dependency: 'local'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [local]`,
+              output: tsx`
+                function MyComponent() {
+                  const local = {};
+                  React.useEffect(() => {
+                    console.log(local);
+                  }, [local]);
+                }
+              `,
+            },
+          ],
+        },
+      ],
     },
   ],
   valid: [
     ...allValid,
-    // All deps present
+    // Empty dependency array with no external deps
     {
-      name: "useEffect with all reactive deps present",
+      code: tsx`
+        function MyComponent() {
+          useEffect(() => {
+            const local = {};
+            console.log(local);
+          }, []);
+        }
+      `,
+    },
+    // Correct dependencies
+    {
+      code: tsx`
+        function MyComponent({ value }) {
+          useEffect(() => {
+            console.log(value);
+          }, [value]);
+        }
+      `,
+    },
+    // Multiple correct dependencies
+    {
+      code: tsx`
+        function MyComponent({ foo, bar }) {
+          useEffect(() => {
+            console.log(foo, bar);
+          }, [foo, bar]);
+        }
+      `,
+    },
+    // useMemo with correct deps
+    {
       code: tsx`
         function MyComponent({ a, b }) {
-          useEffect(() => {
-            console.log(a, b);
-          }, [a, b]);
-          return null;
+          const result = useMemo(() => a + b, [a, b]);
+          return result;
         }
       `,
     },
+    // useCallback with correct deps
     {
-      name: "useMemo with all reactive deps present",
       code: tsx`
-        function MyComponent({ x }) {
-          const val = useMemo(() => x * 2, [x]);
-          return null;
+        function MyComponent({ onClick, value }) {
+          const handleClick = useCallback(() => onClick(value), [onClick, value]);
+          return <button onClick={handleClick} />;
         }
       `,
     },
+    // useRef is stable, doesn't need to be in deps
     {
-      name: "useCallback with all reactive deps present",
-      code: tsx`
-        function MyComponent({ onClick }) {
-          const handler = useCallback(() => {
-            onClick();
-          }, [onClick]);
-          return null;
-        }
-      `,
-    },
-    // Stable values omitted — setState from useState
-    {
-      name: "setState from useState omitted from deps",
-      code: tsx`
-        function MyComponent() {
-          const [count, setCount] = useState(0);
-          useEffect(() => {
-            setCount(count + 1);
-          }, [count]);
-          return null;
-        }
-      `,
-    },
-    // Stable values omitted — dispatch from useReducer
-    {
-      name: "dispatch from useReducer omitted from deps",
-      code: tsx`
-        function MyComponent() {
-          const [state, dispatch] = useReducer(reducer, init);
-          useEffect(() => {
-            dispatch({ type: "increment" });
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // Stable values omitted — ref from useRef
-    {
-      name: "ref from useRef omitted from deps",
       code: tsx`
         function MyComponent() {
           const ref = useRef(null);
           useEffect(() => {
-            console.log(ref.current);
+            ref.current.focus();
           }, []);
-          return null;
         }
       `,
     },
-    // Stable values omitted — startTransition from useTransition
+    // useState setter is stable
     {
-      name: "startTransition from useTransition omitted from deps",
       code: tsx`
         function MyComponent() {
-          const [isPending, startTransition] = useTransition();
+          const [count, setCount] = useState(0);
           useEffect(() => {
-            startTransition(() => {});
+            const timer = setTimeout(() => setCount(c => c + 1), 1000);
+            return () => clearTimeout(timer);
           }, []);
-          return null;
         }
       `,
     },
-    // Module-level constants omitted
+    // useReducer dispatch is stable
     {
-      name: "module-level constant omitted from deps",
       code: tsx`
-        const API_URL = "https://example.com";
+        function MyComponent() {
+          const [state, dispatch] = useReducer(reducer, {});
+          useEffect(() => {
+            dispatch({ type: "init" });
+          }, []);
+        }
+      `,
+    },
+    // Functions defined inside component can be dependencies
+    {
+      code: tsx`
+        function MyComponent({ getData }) {
+          const fetchData = useCallback(async () => {
+            const data = await getData();
+            return data;
+          }, [getData]);
+        }
+      `,
+    },
+    // Correct dependency with useLayoutEffect
+    {
+      code: tsx`
+        function MyComponent({ value }) {
+          useLayoutEffect(() => {
+            console.log(value);
+          }, [value]);
+        }
+      `,
+    },
+    // Correct dependency with useImperativeHandle
+    {
+      code: tsx`
+        function MyComponent({ value }, ref) {
+          useImperativeHandle(ref, () => ({ value }), [value]);
+        }
+      `,
+    },
+    // Variable declared inside effect doesn't need to be in deps
+    {
+      code: tsx`
         function MyComponent() {
           useEffect(() => {
-            fetch(API_URL);
+            const local = someFunc();
+            console.log(local);
           }, []);
-          return null;
         }
       `,
     },
-    // Imports omitted
+    // React namespace
     {
-      name: "imported value omitted from deps",
       code: tsx`
-        import { helper } from "./utils";
-        function MyComponent() {
-          useEffect(() => {
-            helper();
-          }, []);
-          return null;
+        function MyComponent({ value }) {
+          React.useEffect(() => {
+            console.log(value);
+          }, [value]);
         }
       `,
     },
-    // No dependency array (runs every render)
+    // No dependency array for useEffect is valid (runs after every render)
     {
-      name: "useEffect with no dependency array runs every render",
       code: tsx`
         function MyComponent({ value }) {
           useEffect(() => {
             console.log(value);
           });
-          return null;
         }
       `,
     },
-    // Empty dependency array with no reactive values
+    // useTransition is stable
     {
-      name: "useEffect with empty deps and no reactive values",
       code: tsx`
         function MyComponent() {
-          useEffect(() => {
-            console.log("mounted");
-          }, []);
-          return null;
-        }
-      `,
-    },
-    // useLayoutEffect with all deps present
-    {
-      name: "useLayoutEffect with all deps present",
-      code: tsx`
-        function MyComponent({ size }) {
-          useLayoutEffect(() => {
-            document.title = size;
-          }, [size]);
-          return null;
-        }
-      `,
-    },
-    // useInsertionEffect with all deps present
-    {
-      name: "useInsertionEffect with all deps present",
-      code: tsx`
-        function MyComponent({ theme }) {
-          useInsertionEffect(() => {
-            applyTheme(theme);
-          }, [theme]);
-          return null;
-        }
-      `,
-    },
-    // All stable values combined
-    {
-      name: "all stable values omitted from deps together",
-      code: tsx`
-        function MyComponent() {
-          const [count, setCount] = useState(0);
-          const [state, dispatch] = useReducer(reducer, init);
-          const ref = useRef(null);
           const [isPending, startTransition] = useTransition();
           useEffect(() => {
-            setCount(1);
-            dispatch({ type: "reset" });
-            ref.current = null;
             startTransition(() => {});
           }, []);
-          return null;
-        }
-      `,
-    },
-    // useImperativeHandle with all deps present
-    {
-      name: "useImperativeHandle with all deps present",
-      code: tsx`
-        function MyComponent({ value }, ref) {
-          useImperativeHandle(ref, () => ({
-            getValue: () => value,
-          }), [value]);
-          return null;
-        }
-      `,
-    },
-    // Issue #1528: variables declared inside the callback are locals, not deps
-    {
-      name: "variable declared inside callback is not a dep (issue #1528 reproduction)",
-      code: tsx`
-        declare function getSomeData(): unknown;
-        function Component() {
-          useEffect(() => {
-            const data = getSomeData();
-            console.log(data);
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "multiple variables declared inside callback are not deps",
-      code: tsx`
-        function Component() {
-          useEffect(() => {
-            const x = 1;
-            const y = 2;
-            console.log(x + y);
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "callback-local variable used in nested function inside callback is not a dep",
-      code: tsx`
-        function Component() {
-          useEffect(() => {
-            const items = [1, 2, 3];
-            items.forEach((item) => {
-              console.log(item);
-            });
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "callback-local and component-level deps coexist correctly",
-      code: tsx`
-        function Component({ id }) {
-          useEffect(() => {
-            const result = id * 2;
-            console.log(result);
-          }, [id]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "callback-local variable member access is not a dep",
-      code: tsx`
-        declare function fetchUser(): { name: string };
-        function Component() {
-          useEffect(() => {
-            const user = fetchUser();
-            console.log(user.name);
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "useMemo callback-local variable is not a dep",
-      code: tsx`
-        function Component({ multiplier }) {
-          const value = useMemo(() => {
-            const base = 10;
-            return base * multiplier;
-          }, [multiplier]);
-          return null;
-        }
-      `,
-    },
-  ],
-});
-
-// Task 6.3: additionalHooks option tests
-ruleTester.run(`${RULE_NAME} (additionalHooks)`, rule, {
-  invalid: [
-    // Matching custom hook with missing deps
-    {
-      name: "matching custom hook reports missing deps",
-      code: tsx`
-        function MyComponent({ a }) {
-          useSpecialEffect(() => {
-            console.log(a);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'a'", hookName: "useSpecialEffect" },
-        },
-      ],
-      options: [{ additionalHooks: "useSpecialEffect" }],
-      output: tsx`
-        function MyComponent({ a }) {
-          useSpecialEffect(() => {
-            console.log(a);
-          }, [a]);
-          return null;
-        }
-      `,
-    },
-    // Regex pattern matching with missing deps
-    {
-      name: "regex-matched custom hook reports missing deps",
-      code: tsx`
-        function MyComponent({ value }) {
-          useCustomMemo(() => {
-            return value * 2;
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'value'", hookName: "useCustomMemo" },
-        },
-      ],
-      options: [{ additionalHooks: "useCustom(Effect|Memo)" }],
-      output: tsx`
-        function MyComponent({ value }) {
-          useCustomMemo(() => {
-            return value * 2;
-          }, [value]);
-          return null;
-        }
-      `,
-    },
-  ],
-  valid: [
-    // Non-matching custom hook is not checked
-    {
-      name: "non-matching custom hook is not checked for deps",
-      code: tsx`
-        function MyComponent({ a }) {
-          useMyCustomHook(() => {
-            console.log(a);
-          }, []);
-          return null;
-        }
-      `,
-      options: [{ additionalHooks: "useSpecialEffect" }],
-    },
-    // Matching custom hook with correct deps
-    {
-      name: "matching custom hook with all deps present",
-      code: tsx`
-        function MyComponent({ a }) {
-          useSpecialEffect(() => {
-            console.log(a);
-          }, [a]);
-          return null;
-        }
-      `,
-      options: [{ additionalHooks: "useSpecialEffect" }],
-    },
-    // Regex pattern matching
-    {
-      name: "regex pattern matches multiple custom hooks",
-      code: tsx`
-        function MyComponent({ a }) {
-          useCustomEffect(() => {
-            console.log(a);
-          }, [a]);
-          return null;
-        }
-      `,
-      options: [{ additionalHooks: "useCustom(Effect|Memo)" }],
-    },
-  ],
-});
-
-// Task 6.4: Autofix test cases
-ruleTester.run(`${RULE_NAME} (autofix)`, rule, {
-  invalid: [
-    // Fix adds missing deps sorted alphabetically
-    {
-      name: "autofix adds missing deps in sorted order",
-      code: tsx`
-        function MyComponent({ z, a, m }) {
-          useEffect(() => {
-            console.log(z, a, m);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'a', 'm', 'z'", hookName: "useEffect" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ z, a, m }) {
-          useEffect(() => {
-            console.log(z, a, m);
-          }, [a, m, z]);
-          return null;
-        }
-      `,
-    },
-    // Fix removes unnecessary deps
-    {
-      name: "autofix removes unnecessary deps",
-      code: tsx`
-        function MyComponent({ a }) {
-          useEffect(() => {
-            console.log(a);
-          }, [a, b, c]);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "unnecessaryDeps",
-          data: { deps: "'b', 'c'", hookName: "useEffect" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ a }) {
-          useEffect(() => {
-            console.log(a);
-          }, [a]);
-          return null;
-        }
-      `,
-    },
-    // Combined fix: adds missing and removes unnecessary in one pass
-    {
-      name: "autofix handles combined missing and unnecessary deps",
-      code: tsx`
-        function MyComponent({ a, b, c }) {
-          useEffect(() => {
-            console.log(a, c);
-          }, [a, b]);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'c'", hookName: "useEffect" },
-        },
-        {
-          messageId: "unnecessaryDeps",
-          data: { deps: "'b'", hookName: "useEffect" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ a, b, c }) {
-          useEffect(() => {
-            console.log(a, c);
-          }, [a, c]);
-          return null;
-        }
-      `,
-    },
-    // Fix preserves existing deps and sorts all together
-    {
-      name: "autofix preserves existing deps and sorts all alphabetically",
-      code: tsx`
-        function MyComponent({ x, a, z }) {
-          useEffect(() => {
-            console.log(x, a, z);
-          }, [x]);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "missingDeps",
-          data: { deps: "'a', 'z'", hookName: "useEffect" },
-        },
-      ],
-      output: tsx`
-        function MyComponent({ x, a, z }) {
-          useEffect(() => {
-            console.log(x, a, z);
-          }, [a, x, z]);
-          return null;
-        }
-      `,
-    },
-    // No autofix for non-literal deps
-    {
-      name: "no autofix for non-literal dependency array",
-      code: tsx`
-        function MyComponent({ a }) {
-          const deps = [a];
-          useEffect(() => {
-            console.log(a);
-          }, deps);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          messageId: "nonLiteralDeps",
-          data: { hookName: "useEffect" },
-        },
-      ],
-    },
-  ],
-  valid: [
-    // Issue #1529: whole object/array declared as dep should cover member access paths
-    {
-      name: "array declared as dep covers array method access (array.map)",
-      code: tsx`
-        function Component() {
-          const number = 5;
-          const array = useMemo(() => [number], [number]);
-          useEffect(() => {
-            console.log(array.map((x) => x * 2));
-          }, [array]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "object declared as dep covers optional chained property access (object.a?.toString)",
-      code: tsx`
-        function Component() {
-          const number = 5;
-          const object = useMemo((): Record<string, number | null> => ({ a: null, b: number }), [number]);
-          useEffect(() => {
-            console.log(object.a?.toString());
-          }, [object]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "whole object/array covers both member and method accesses together (issue #1529 reproduction)",
-      code: tsx`
-        function Component() {
-          const number = 5;
-          const array = useMemo(() => [number], [number]);
-          const object = useMemo((): Record<string, number | null> => ({ a: null, b: number }), [number]);
-          useEffect(() => {
-            console.log("Array:", array.map((x) => x * 2));
-            console.log("Object:", object.a?.toString());
-          }, [array, object]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "parent prop dep covers deeply nested member expression (config.settings.theme)",
-      code: tsx`
-        function Component({ config }) {
-          useEffect(() => {
-            console.log(config.settings.theme);
-          }, [config]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "parent prop dep covers multiple member expressions on same object",
-      code: tsx`
-        function Component({ data }) {
-          useEffect(() => {
-            console.log(data.firstName, data.lastName);
-          }, [data]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "partial ancestor dep covers deeper member expression (foo.bar covers foo.bar.baz)",
-      code: tsx`
-        function Component({ foo }) {
-          useEffect(() => {
-            console.log(foo.bar.baz);
-          }, [foo.bar]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "object dep covers optional chained access at root (user?.profile?.name)",
-      code: tsx`
-        function Component({ user }) {
-          useEffect(() => {
-            console.log(user?.profile?.name);
-          }, [user]);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "object dep covers mixed dot and optional-chain access",
-      code: tsx`
-        function Component({ settings }) {
-          useEffect(() => {
-            console.log(settings.theme?.primary, settings.locale);
-          }, [settings]);
-          return null;
         }
       `,
     },

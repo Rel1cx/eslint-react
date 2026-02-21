@@ -53,6 +53,11 @@ export const ESLintReactSettingsSchema = z.object({
    * @example "useMyState|useCustomState"
    */
   additionalStateHooks: z.optional(z.string()),
+  /**
+   * Regex pattern matching custom hooks that should be treated as effect hooks
+   * @example "useMyEffect|useCustomEffect"
+   */
+  additionalEffectHooks: z.optional(z.string()),
 });
 
 /**
@@ -86,6 +91,7 @@ export interface ESLintReactSettingsNormalized {
   compilationMode: CompilationMode | "off";
   polymorphicPropName: string | unit;
   additionalStateHooks: RegExpLike;
+  additionalEffectHooks: RegExpLike;
 }
 
 // ===== Default Values =====
@@ -172,6 +178,7 @@ export const normalizeSettings = ({
   polymorphicPropName = "as",
   version,
   additionalStateHooks,
+  additionalEffectHooks,
   ...rest
 }: ESLintReactSettings) => {
   return {
@@ -183,6 +190,7 @@ export const normalizeSettings = ({
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.4"))
       .otherwise(identity),
     additionalStateHooks: toRegExp(additionalStateHooks),
+    additionalEffectHooks: toRegExp(additionalEffectHooks),
   } as const satisfies ESLintReactSettingsNormalized;
 };
 

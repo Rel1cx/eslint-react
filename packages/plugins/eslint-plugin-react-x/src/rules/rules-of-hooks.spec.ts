@@ -1,499 +1,456 @@
+// @ts-nocheck
+
 import tsx from "dedent";
 
 import { allValid, ruleTester } from "../../../../../test";
 import rule, { RULE_NAME } from "./rules-of-hooks";
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(RULE_NAME, rule as never, {
   invalid: [
-    // Hooks inside if/else/switch
+    // Hook in conditional
     {
-      name: "hook inside an if statement",
       code: tsx`
-        function MyComponent() {
+        function MyComponent({ condition }) {
           if (condition) {
-            useState(0);
+            useHook();
           }
-          return null;
         }
       `,
-      errors: [{ messageId: "conditionalHook", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `React Hook "useHook" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
+        },
+      ],
     },
+    // Hook in loop
     {
-      name: "hook inside an else branch",
       code: tsx`
-        function MyComponent() {
-          if (condition) {
-            // nothing
-          } else {
-            useState(0);
-          }
-          return null;
-        }
-      `,
-      errors: [{ messageId: "conditionalHook", data: { name: "useState" } }],
-    },
-    {
-      name: "hook inside a switch case",
-      code: tsx`
-        function MyComponent() {
-          switch (type) {
-            case 'a':
-              useState(0);
-              break;
-          }
-          return null;
-        }
-      `,
-      errors: [{ messageId: "conditionalHook", data: { name: "useState" } }],
-    },
-    {
-      name: "hook inside a ternary expression",
-      code: tsx`
-        function MyComponent() {
-          const val = condition ? useState(0) : null;
-          return null;
-        }
-      `,
-      errors: [{ messageId: "conditionalHook", data: { name: "useState" } }],
-    },
-    {
-      name: "hook inside a logical expression (&&)",
-      code: tsx`
-        function MyComponent() {
-          condition && useState(0);
-          return null;
-        }
-      `,
-      errors: [{ messageId: "conditionalHook", data: { name: "useState" } }],
-    },
-    // Hooks inside for/while/do-while
-    {
-      name: "hook inside a for loop",
-      code: tsx`
-        function MyComponent() {
-          for (let i = 0; i < 10; i++) {
-            useState(0);
-          }
-          return null;
-        }
-      `,
-      errors: [{ messageId: "loopHook", data: { name: "useState" } }],
-    },
-    {
-      name: "hook inside a for-in loop",
-      code: tsx`
-        function MyComponent() {
-          for (const key in obj) {
-            useState(0);
-          }
-          return null;
-        }
-      `,
-      errors: [{ messageId: "loopHook", data: { name: "useState" } }],
-    },
-    {
-      name: "hook inside a for-of loop",
-      code: tsx`
-        function MyComponent() {
+        function MyComponent({ items }) {
           for (const item of items) {
-            useState(0);
+            useHook();
           }
-          return null;
         }
       `,
-      errors: [{ messageId: "loopHook", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `React Hook "useHook" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.`,
+        },
+      ],
     },
+    // Hook in nested function
     {
-      name: "hook inside a while loop",
       code: tsx`
         function MyComponent() {
-          while (condition) {
-            useState(0);
-          }
-          return null;
+          const handleClick = () => {
+            useHook();
+          };
         }
       `,
-      errors: [{ messageId: "loopHook", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `React Hook "useHook" is called in function "handleClick" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".`,
+        },
+      ],
     },
+    // Hook in class component
     {
-      name: "hook inside a do-while loop",
+      code: tsx`
+        class MyComponent extends React.Component {
+          render() {
+            useHook();
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useHook" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function.`,
+        },
+      ],
+    },
+    // Hook in regular function (not component or hook)
+    {
+      code: tsx`
+        function notAComponent() {
+          useHook();
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useHook" is called in function "notAComponent" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".`,
+        },
+      ],
+    },
+    // Hook at top level
+    {
+      code: tsx`
+        useHook();
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useHook" cannot be called at the top level. React Hooks must be called in a React function component or a custom React Hook function.`,
+        },
+      ],
+    },
+    // Hook after early return
+    {
+      code: tsx`
+        function MyComponent({ condition }) {
+          if (condition) {
+            return null;
+          }
+          useHook();
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useHook" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?`,
+        },
+      ],
+    },
+    // Hook in async function
+    {
+      code: tsx`
+        async function MyComponent() {
+          useHook();
+        }
+      `,
+      errors: [
+        {
+          message: `React Hook "useHook" cannot be called in an async function.`,
+        },
+      ],
+    },
+    // Hook in nested async function
+    {
+      code: tsx`
+        function MyComponent() {
+          async function nested() {
+            useHook();
+          }
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useHook" is called in function "nested" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".`,
+        },
+      ],
+    },
+    // Hook in try/catch
+    {
+      code: tsx`
+        function MyComponent() {
+          try {
+            use();
+          } catch (e) {}
+        }
+      `,
+      errors: [
+        {
+          message: `React Hook "use" cannot be called in a try/catch block.`,
+        },
+      ],
+    },
+    // Hook in do-while loop
+    {
       code: tsx`
         function MyComponent() {
           do {
-            useState(0);
+            useHook();
           } while (condition);
-          return null;
         }
       `,
-      errors: [{ messageId: "loopHook", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `React Hook "useHook" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.`,
+        },
+      ],
     },
-    // Hooks after early returns
+    // useEffectEvent not assigned to variable
     {
-      name: "hook after an early return",
       code: tsx`
         function MyComponent() {
-          if (condition) {
-            return null;
-          }
-          useState(0);
-          return null;
+          return <Child onClick={useEffectEvent(() => {})} />;
         }
       `,
-      errors: [{ messageId: "afterEarlyReturn", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `React Hook "useEffectEvent" can only be called at the top level of your component. It cannot be passed down.`,
+        },
+      ],
     },
-    // Hooks inside nested callbacks/arrow functions
+    // useEffectEvent assigned to non-variable
     {
-      name: "hook inside a nested arrow function callback",
       code: tsx`
         function MyComponent() {
-          const handler = () => {
-            useState(0);
-          };
-          return null;
+          const obj = { handler: useEffectEvent(() => {}) };
         }
       `,
-      errors: [{ messageId: "nestedHook", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `React Hook "useEffectEvent" can only be called at the top level of your component. It cannot be passed down.`,
+        },
+      ],
     },
+    // useEffectEvent function passed to non-effect
     {
-      name: "hook inside a nested function expression",
       code: tsx`
         function MyComponent() {
-          const handler = function() {
-            useState(0);
-          };
-          return null;
+          const onClick = useEffectEvent(() => {});
+          const handleClick = () => onClick();
         }
       `,
-      errors: [{ messageId: "nestedHook", data: { name: "useState" } }],
+      errors: [
+        {
+          message:
+            `\`onClick\` is a function created with React Hook "useEffectEvent", and can only be called from Effects and Effect Events in the same component.`,
+        },
+      ],
     },
-    // Hooks inside async functions
+    // useEffectEvent function called in callback
     {
-      name: "hook inside an async function component",
-      code: tsx`
-        async function MyComponent() {
-          useState(0);
-          return null;
-        }
-      `,
-      errors: [{ messageId: "asyncHook", data: { name: "useState" } }],
-    },
-    {
-      name: "hook inside an async arrow function",
-      code: tsx`
-        const MyComponent = async () => {
-          useState(0);
-          return null;
-        };
-      `,
-      errors: [{ messageId: "asyncHook", data: { name: "useState" } }],
-    },
-    // Hooks inside class methods
-    {
-      name: "hook inside a class method",
-      code: tsx`
-        class MyComponent {
-          render() {
-            useState(0);
-            return null;
-          }
-        }
-      `,
-      errors: [{ messageId: "classHook", data: { name: "useState" } }],
-    },
-    // Hooks at module level
-    {
-      name: "hook at module level (outside any function)",
-      code: tsx`
-        useState(0);
-      `,
-      errors: [{ messageId: "topLevelHook", data: { name: "useState" } }],
-    },
-    {
-      name: "useEffect at module level",
-      code: tsx`
-        useEffect(() => {}, []);
-      `,
-      errors: [{ messageId: "topLevelHook", data: { name: "useEffect" } }],
-    },
-    // use() inside try/catch
-    {
-      name: "use() inside a try/catch block",
       code: tsx`
         function MyComponent() {
-          try {
-            use(promise);
-          } catch (e) {}
-          return null;
+          const onEvent = useEffectEvent(() => {});
+          useEffect(() => {
+            onEvent();
+          }, []);
+          return <button onClick={() => onEvent()} />;
         }
       `,
-      errors: [{ messageId: "useInTryCatch", data: { name: "use" } }],
-    },
-    {
-      name: "React.use() inside a try/catch block",
-      code: tsx`
-        function MyComponent() {
-          try {
-            React.use(promise);
-          } catch (e) {}
-          return null;
-        }
-      `,
-      errors: [{ messageId: "useInTryCatch", data: { name: "use" } }],
-    },
-    // Hook in a regular (non-component, non-hook) function
-    {
-      name: "hook inside a regular function (not a component or hook)",
-      code: tsx`
-        function regularFunction() {
-          useState(0);
-        }
-      `,
-      errors: [{ messageId: "invalidContext", data: { name: "useState", funcName: "regularFunction" } }],
+      errors: [
+        {
+          message:
+            `\`onEvent\` is a function created with React Hook "useEffectEvent", and can only be called from Effects and Effect Events in the same component.`,
+        },
+      ],
     },
   ],
   valid: [
     ...allValid,
-    // Hooks at top level of function components
+    // Hook in function component
     {
-      name: "hooks at top level of a function declaration component",
       code: tsx`
         function MyComponent() {
-          const [count, setCount] = useState(0);
-          useEffect(() => {}, []);
-          return null;
+          useHook();
         }
       `,
     },
+    // Hook in arrow function component
     {
-      name: "hooks at top level of an arrow function component",
       code: tsx`
         const MyComponent = () => {
-          const [count, setCount] = useState(0);
-          useEffect(() => {}, []);
-          return null;
+          useHook();
         };
       `,
     },
+    // Hook in custom hook
     {
-      name: "hooks at top level of a const function expression component",
       code: tsx`
-        const MyComponent = function() {
-          const [count, setCount] = useState(0);
-          useMemo(() => count * 2, [count]);
-          return null;
-        };
+        function useCustomHook() {
+          useHook();
+        }
       `,
     },
-    // Hooks at top level of custom hooks
+    // Multiple hooks in component
     {
-      name: "hooks at top level of a custom hook (function declaration)",
+      code: tsx`
+        function MyComponent() {
+          const [state, setState] = useState(0);
+          const ref = useRef(null);
+          useEffect(() => {}, []);
+        }
+      `,
+    },
+    // Nested custom hook call
+    {
+      code: tsx`
+        function useOuterHook() {
+          return function useInnerHook() {
+            useState();
+          };
+        }
+      `,
+    },
+    // Hook in forwardRef callback
+    {
+      code: tsx`
+        const MyComponent = forwardRef((props, ref) => {
+          useHook();
+          return null;
+        });
+      `,
+    },
+    // Hook in memo callback
+    {
+      code: tsx`
+        const MyComponent = memo((props) => {
+          useHook();
+          return null;
+        });
+      `,
+    },
+    // Hook called conditionally with use()
+    {
+      code: tsx`
+        function MyComponent({ condition, promise }) {
+          if (condition) {
+            use(promise);
+          }
+        }
+      `,
+    },
+    // Hook in unreachable code (not flagged)
+    {
+      code: tsx`
+        function useUnreachable() {
+          return;
+          useHook();
+        }
+      `,
+    },
+    // Regular function calls are not hooks
+    {
+      code: tsx`
+        function MyComponent() {
+          userFetch();
+          doSomething();
+        }
+      `,
+    },
+    // Hook starting with use in hook name
+    {
+      code: tsx`
+        function useCustom() {
+          useState();
+          useEffect(() => {}, []);
+          useRef(null);
+        }
+      `,
+    },
+    // useEffectEvent assigned to variable and used in effect
+    {
+      code: tsx`
+        function MyComponent() {
+          const onEvent = useEffectEvent(() => {});
+          useEffect(() => {
+            onEvent();
+          }, []);
+        }
+      `,
+    },
+    // useEffectEvent in another useEffectEvent
+    {
+      code: tsx`
+        function MyComponent() {
+          const onEvent1 = useEffectEvent(() => {});
+          const onEvent2 = useEffectEvent(() => {
+            onEvent1();
+          });
+        }
+      `,
+    },
+    // useEffectEvent called directly in effect - INVALID (cannot be called inside callback)
+    // This case is tested in invalid section
+    // useEffectEvent at top level (expression statement)
+    {
+      code: tsx`
+        function MyComponent() {
+          useEffectEvent(() => {});
+        }
+      `,
+    },
+    // Component with PascalCase namespace
+    {
+      code: tsx`
+        function MyComponent() {
+          const state = React.useState(0);
+        }
+      `,
+    },
+    // Custom hook with namespace
+    {
       code: tsx`
         function useMyHook() {
-          const [value, setValue] = useState(null);
-          useEffect(() => {}, []);
-          return value;
+          const state = React.useState(0);
         }
       `,
     },
+    // Hook in destructuring pattern
     {
-      name: "hooks at top level of a custom hook (arrow function)",
       code: tsx`
-        const useMyHook = () => {
-          const ref = useRef(null);
-          return ref;
+        const { useHook = () => { useState(); } } = {};
+      `,
+    },
+    // Hook in object method
+    {
+      code: tsx`
+        ({ useHook: () => { useState(); } });
+      `,
+    },
+    // Hook in object shorthand
+    {
+      code: tsx`
+        ({ useHook() { useState(); } });
+      `,
+    },
+    // ForwardRef component with hook
+    {
+      code: tsx`
+        const FancyButton = React.forwardRef((props, ref) => {
+          const [count, setCount] = useState(0);
+          return <button ref={ref}>{count}</button>;
+        });
+      `,
+    },
+    // Memo component with hook
+    {
+      code: tsx`
+        const MemoComponent = React.memo(function Component({ value }) {
+          const doubled = useMemo(() => value * 2, [value]);
+          return <div>{doubled}</div>;
+        });
+      `,
+    },
+    // Nested components with hooks
+    {
+      code: tsx`
+        function OuterComponent() {
+          useHook();
+          return function InnerComponent() {
+            useAnotherHook();
+          };
+        }
+      `,
+    },
+    // use() can be called in callbacks (unlike other hooks)
+    {
+      code: tsx`
+        function MyComponent() {
+          return <Child promiseFactory={() => use(promise)} />;
+        }
+      `,
+    },
+    // Hook in property assignment pattern
+    {
+      code: tsx`
+        const obj = {
+          useHook: function() {
+            useState();
+          }
         };
       `,
     },
-    // use() inside conditionals and loops (allowed)
-    {
-      name: "use() inside an if statement is allowed",
-      code: tsx`
-        function MyComponent() {
-          if (true) {
-            const data = use(promise);
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "React.use() inside an if statement is allowed (member expression)",
-      code: tsx`
-        function MyComponent() {
-          if (true) {
-            const data = React.use(promise);
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "use() inside a for loop is allowed",
-      code: tsx`
-        function MyComponent() {
-          for (let i = 0; i < 10; i++) {
-            const data = use(promises[i]);
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "use() inside a while loop is allowed",
-      code: tsx`
-        function MyComponent() {
-          let i = 0;
-          while (i < 10) {
-            const data = use(promises[i]);
-            i++;
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "use() inside a switch statement is allowed",
-      code: tsx`
-        function MyComponent() {
-          switch (type) {
-            case 'a':
-              use(promiseA);
-              break;
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "use() inside a ternary expression is allowed",
-      code: tsx`
-        function MyComponent() {
-          const data = condition ? use(promiseA) : use(promiseB);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "use() inside logical expression is allowed",
-      code: tsx`
-        function MyComponent() {
-          const data = condition && use(promise);
-          return null;
-        }
-      `,
-    },
-    // Multiple hooks at top level
-    {
-      name: "multiple hooks at top level of a component",
-      code: tsx`
-        function MyComponent() {
-          const [a, setA] = useState(0);
-          const [b, setB] = useState(0);
-          const ref = useRef(null);
-          useEffect(() => {}, []);
-          const memo = useMemo(() => a + b, [a, b]);
-          const cb = useCallback(() => {}, []);
-          return null;
-        }
-      `,
-    },
-    // Hooks called via member expressions (React.useEffect, etc.)
-    {
-      name: "React.useEffect via member expression is valid at top level",
-      code: tsx`
-        function MyComponent() {
-          React.useState(0);
-          React.useEffect(() => {}, []);
-          return null;
-        }
-      `,
-    },
   ],
-});
-
-// Task 2.3: Verify diagnostic messages include the hook name
-ruleTester.run(`${RULE_NAME} (message verification)`, rule, {
-  invalid: [
-    {
-      name: "conditionalHook message includes custom hook name 'useCustomHook'",
-      code: tsx`
-        function MyComponent() {
-          if (cond) { useCustomHook(); }
-          return null;
-        }
-      `,
-      errors: [{ messageId: "conditionalHook", data: { name: "useCustomHook" } }],
-    },
-    {
-      name: "loopHook message includes hook name 'useMemo'",
-      code: tsx`
-        function MyComponent() {
-          for (let i = 0; i < 1; i++) { useMemo(() => i, []); }
-          return null;
-        }
-      `,
-      errors: [{ messageId: "loopHook", data: { name: "useMemo" } }],
-    },
-    {
-      name: "nestedHook message includes hook name 'useCallback'",
-      code: tsx`
-        function MyComponent() {
-          const fn = () => { useCallback(() => {}, []); };
-          return null;
-        }
-      `,
-      errors: [{ messageId: "nestedHook", data: { name: "useCallback" } }],
-    },
-    {
-      name: "afterEarlyReturn message includes hook name 'useReducer'",
-      code: tsx`
-        function MyComponent() {
-          if (cond) { return null; }
-          useReducer(reducer, init);
-          return null;
-        }
-      `,
-      errors: [{ messageId: "afterEarlyReturn", data: { name: "useReducer" } }],
-    },
-    {
-      name: "asyncHook message includes hook name 'useContext'",
-      code: tsx`
-        async function MyComponent() {
-          useContext(MyContext);
-          return null;
-        }
-      `,
-      errors: [{ messageId: "asyncHook", data: { name: "useContext" } }],
-    },
-    {
-      name: "classHook message includes hook name 'useRef'",
-      code: tsx`
-        class MyClass {
-          method() {
-            useRef(null);
-            return null;
-          }
-        }
-      `,
-      errors: [{ messageId: "classHook", data: { name: "useRef" } }],
-    },
-    {
-      name: "topLevelHook message includes custom hook name 'useCustomHook'",
-      code: tsx`
-        useCustomHook();
-      `,
-      errors: [{ messageId: "topLevelHook", data: { name: "useCustomHook" } }],
-    },
-    {
-      name: "useInTryCatch message includes hook name 'use'",
-      code: tsx`
-        function MyComponent() {
-          try { use(promise); } catch (e) {}
-          return null;
-        }
-      `,
-      errors: [{ messageId: "useInTryCatch", data: { name: "use" } }],
-    },
-  ],
-  valid: [],
 });

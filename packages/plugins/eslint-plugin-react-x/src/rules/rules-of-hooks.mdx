@@ -2,10 +2,6 @@
 title: rules-of-hooks
 ---
 
-<Callout type="warning">
-  This rule is currently in beta and only available in v3.0.0 beta releases.
-</Callout>
-
 **Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/beta)**
 
 ```plain copy
@@ -20,11 +16,10 @@ react-x/rules-of-hooks
 
 **Features**
 
-`🧪`
+`⚙️` `🔧`
 
 **Presets**
 
-`x`
 `recommended`
 `recommended-typescript`
 `recommended-type-checked`
@@ -34,159 +29,212 @@ react-x/rules-of-hooks
 
 ## Description
 
-Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).
+Validates that components and hooks follow the Rules of Hooks.
 
-React Hooks must be called at the top level of a React function component or a custom Hook. They must not be called inside conditions, loops, nested functions, after early returns, in async functions, in class components, or at module level.
-
-The special `use()` hook is an exception — it is allowed inside conditionals and loops, but not inside try/catch blocks.
+React relies on the order in which hooks are called to correctly preserve state between renders. Each time your component renders, React expects the exact same hooks to be called in the exact same order. When hooks are called conditionally or in loops, React loses track of which state corresponds to which hook call, leading to bugs like state mismatches and "Rendered fewer/more hooks than expected" errors.
 
 ## Examples
 
-### Passing
+### Failing
 
 ```tsx
-import { useState, useEffect } from "react";
+// ❌ Hook in condition
+function MyComponent({ isLoggedIn }) {
+  if (isLoggedIn) {
+    const [user, setUser] = useState(null);
+    //    ^^^^
+    //    - React Hook "useState" is called conditionally.
+    //      React Hooks must be called in the exact same order in every component render.
+  }
+}
+```
 
+```tsx
+// ❌ Hook after early return
+function MyComponent({ data }) {
+  if (!data) return <Loading />;
+
+  const [processed, setProcessed] = useState(data);
+  //    ^^^^^^^^^
+  //    - React Hook "useState" is called conditionally.
+  //      React Hooks must be called in the exact same order in every component render.
+}
+```
+
+```tsx
+// ❌ Hook in callback
 function MyComponent() {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    console.log(count);
-  }, [count]);
-  return <div>{count}</div>;
+  return (
+    <button
+      onClick={() => {
+        const [clicked, setClicked] = useState(false);
+        //    ^^^^^^^
+        //    - React Hook "useState" cannot be called inside a callback.
+        //      React Hooks must be called in a React function component or a custom React Hook function.
+      }}
+    />
+  );
 }
 ```
 
-### Passing
-
 ```tsx
-import { useState } from "react";
-
-function useCustomHook() {
-  const [value, setValue] = useState("");
-  return [value, setValue] as const;
-}
-```
-
-### Passing
-
-```tsx
-import { use } from "react";
-
-function MyComponent({ shouldFetch, promise }) {
-  if (shouldFetch) {
-    const data = use(promise);
-    return <div>{data}</div>;
-  }
-  return <div>No data</div>;
-}
-```
-
-### Failing
-
-```tsx
-import { useState } from "react";
-
-function MyComponent({ condition }) {
-  // 🔴 React Hook 'useState' is called conditionally.
-  if (condition) {
-    const [value, setValue] = useState("");
-  }
-  return null;
-}
-```
-
-### Failing
-
-```tsx
-import { useEffect } from "react";
-
+// ❌ Hook in loop
 function MyComponent({ items }) {
-  // 🔴 React Hook 'useEffect' may be executed more than once.
   for (const item of items) {
-    useEffect(() => {
-      console.log(item);
-    }, [item]);
-  }
-  return null;
-}
-```
-
-### Failing
-
-```tsx
-import { useState, useEffect } from "react";
-
-function MyComponent({ condition }) {
-  if (condition) {
-    return null;
-  }
-  // 🔴 React Hook 'useState' is called after an early return.
-  const [value, setValue] = useState("");
-  return <div>{value}</div>;
-}
-```
-
-### Failing
-
-```tsx
-import { useState } from "react";
-
-function MyComponent() {
-  const handleClick = () => {
-    // 🔴 React Hook 'useState' is called in a nested function.
-    const [value, setValue] = useState("");
-  };
-  return <button onClick={handleClick}>Click</button>;
-}
-```
-
-### Failing
-
-```tsx
-import { useState } from "react";
-
-// 🔴 React Hook 'useState' is called in an async function.
-async function useAsyncHook() {
-  const [value, setValue] = useState("");
-  return value;
-}
-```
-
-### Failing
-
-```tsx
-import { useState } from "react";
-
-class MyComponent {
-  render() {
-    // 🔴 React Hook 'useState' cannot be called in a class component.
-    const [value, setValue] = useState("");
-    return null;
+    const [selected, setSelected] = useState(false);
+    //    ^^^^^^^^
+    //    - React Hook "useState" may be executed more than once.
+    //      Possibly because it is called in a loop.
+    //      React Hooks must be called in the exact same order in every component render.
   }
 }
 ```
 
-### Failing
-
 ```tsx
-import { useState } from "react";
-
-// 🔴 React Hook 'useState' cannot be called at the top level.
-const [value, setValue] = useState("");
-```
-
-### Failing
-
-```tsx
-import { use } from "react";
-
+// ❌ `use` in try/catch
 function MyComponent({ promise }) {
   try {
-    // 🔴 React Hook 'use' cannot be called inside a try/catch block.
     const data = use(promise);
-    return <div>{data}</div>;
+    //           ^^^
+    //           - React Hook "use" cannot be called from a try block.
+    //             Call it outside of the try block.
   } catch (e) {
-    return <div>Error</div>;
+    // error handling
+  }
+}
+```
+
+### Passing
+
+```tsx
+// ✅ Hooks at top level
+function MyComponent({ isSpecial, shouldFetch, fetchPromise }) {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
+
+  if (!isSpecial) {
+    return null;
+  }
+
+  if (shouldFetch) {
+    // ✅ `use` can be conditional
+    const data = use(fetchPromise);
+    return <div>{data}</div>;
+  }
+
+  return (
+    <div>
+      {name}: {count}
+    </div>
+  );
+}
+```
+
+```tsx
+// ✅ Custom hook calling other hooks at top level
+function useUserData(userId) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetchUser(userId).then(setUser);
+  }, [userId]);
+
+  return user;
+}
+```
+
+## Troubleshooting
+
+### I want to fetch data based on some condition
+
+You're trying to conditionally call `useEffect`:
+
+```tsx
+// ❌ Conditional hook
+function MyComponent({ isLoggedIn }) {
+  if (isLoggedIn) {
+    useEffect(() => {
+      fetchUserData();
+    }, []);
+  }
+}
+```
+
+Call the hook unconditionally, and check the condition inside:
+
+```tsx
+// ✅ Condition inside hook
+function MyComponent({ isLoggedIn }) {
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserData();
+    }
+  }, [isLoggedIn]);
+}
+```
+
+### I need different state for different scenarios
+
+You're trying to conditionally initialize state:
+
+```tsx
+// ❌ Conditional state
+function MyComponent({ userType, adminPerms, userPerms }) {
+  if (userType === "admin") {
+    const [permissions, setPermissions] = useState(adminPerms);
+  } else {
+    const [permissions, setPermissions] = useState(userPerms);
+  }
+}
+```
+
+Always call `useState` unconditionally, and set the initial value conditionally:
+
+```tsx
+// ✅ Conditional initial value
+function MyComponent({ userType, adminPerms, userPerms }) {
+  const [permissions, setPermissions] = useState(
+    userType === "admin" ? adminPerms : userPerms,
+  );
+}
+```
+
+## Options
+
+### Rule Options
+
+This rule accepts an optional configuration object:
+
+```ts
+type Options = {
+  additionalHooks?: string;
+};
+```
+
+```json
+{
+  "react-x/rules-of-hooks": ["error", {
+    "additionalHooks": "(useMyCustomHook|useAnotherHook)"
+  }]
+}
+```
+
+#### `additionalHooks`
+
+A regex string matching custom hook names that should be validated under the same rules as built-in React hooks.
+
+**Note:** When this rule-level option is specified, it takes precedence over the shared `settings` configuration described below.
+
+### Shared Settings
+
+Custom effect hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalEffectHooks": "(useMyEffect|useCustomEffect)"
+    }
   }
 }
 ```
@@ -198,12 +246,8 @@ function MyComponent({ promise }) {
 
 ## Further Reading
 
-- [React Docs: Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks)
-- [React Docs: `use` Hook](https://react.dev/reference/react/use)
-
----
-
-## See Also
-
-- [`exhaustive-deps`](./exhaustive-deps)\
-  Enforces that React hook dependency arrays contain all reactive values used in the callback.
+- [React Docs: `rules-of-hooks` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/rules-of-hooks)
+- [React Docs: Rules of Hooks](https://react.dev/reference/rules/rules-of-hooks)
+- [React Docs: `useState`](https://react.dev/reference/react/useState)
+- [React Docs: `useEffect`](https://react.dev/reference/react/useEffect)
+- [React Docs: `use`](https://react.dev/reference/react/use)
