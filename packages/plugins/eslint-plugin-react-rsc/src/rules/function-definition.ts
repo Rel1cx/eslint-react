@@ -99,9 +99,9 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
   ) {
     const variable = findVariable(id.name, context.sourceCode.getScope(node));
-    const variableNode = getVariableInitializer(variable, 0);
-    if (variableNode == null) return;
-    reportNonAsyncFunction(variableNode, "file");
+    const initNode = getVariableInitializer(variable, 0);
+    if (initNode == null) return;
+    reportNonAsyncFunction(initNode, "file");
   }
 
   return defineRuleListener(

@@ -31,12 +31,12 @@ export function findProperty(
         case AST.Identifier: {
           if (seen.has(prop.argument.name)) return false;
           const variable = findVariable(prop.argument.name, initialScope);
-          const variableNode = getVariableInitializer(variable, 0);
-          if (variableNode?.type === AST.ObjectExpression) {
+          const initNode = getVariableInitializer(variable, 0);
+          if (initNode?.type === AST.ObjectExpression) {
             seen.add(prop.argument.name);
             return findProperty(
               name,
-              variableNode.properties,
+              initNode.properties,
               initialScope,
               seen,
             ) != null;

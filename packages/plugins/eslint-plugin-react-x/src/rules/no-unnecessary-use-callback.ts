@@ -68,11 +68,11 @@ export function create(context: RuleContext<MessageID, []>) {
           .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
           .with({ type: AST.Identifier }, (n) => {
             const variable = findVariable(n.name, scope);
-            const variableNode = getVariableInitializer(variable, 0);
-            if (variableNode?.type !== AST.ArrayExpression) {
+            const initNode = getVariableInitializer(variable, 0);
+            if (initNode?.type !== AST.ArrayExpression) {
               return false;
             }
-            return variableNode.elements.length === 0;
+            return initNode.elements.length === 0;
           })
           .otherwise(() => false);
 
@@ -91,11 +91,11 @@ export function create(context: RuleContext<MessageID, []>) {
           .with({ type: AST.FunctionExpression }, identity)
           .with({ type: AST.Identifier }, (n) => {
             const variable = findVariable(n.name, scope);
-            const variableNode = getVariableInitializer(variable, 0);
-            if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
+            const initNode = getVariableInitializer(variable, 0);
+            if (initNode?.type !== AST.ArrowFunctionExpression && initNode?.type !== AST.FunctionExpression) {
               return null;
             }
-            return variableNode;
+            return initNode;
           })
           .otherwise(() => null);
         if (arg0Node == null) return;

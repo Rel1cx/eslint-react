@@ -5,6 +5,7 @@ import { name, version } from "../package.json";
 import componentHookFactories from "./rules/component-hook-factories";
 import errorBoundaries from "./rules/error-boundaries";
 import exhaustiveDeps from "./rules/exhaustive-deps";
+import immutability from "./rules/immutability";
 import jsxDollar from "./rules/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes";
@@ -58,7 +59,6 @@ import noUseContext from "./rules/no-use-context";
 import noUselessFragment from "./rules/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import";
-import preferReadOnlyProps from "./rules/prefer-read-only-props";
 import purity from "./rules/purity";
 import refs from "./rules/refs";
 import rulesOfHooks from "./rules/rules-of-hooks";
@@ -77,6 +77,7 @@ export const plugin: CompatiblePlugin = {
     "component-hook-factories": componentHookFactories,
     "error-boundaries": errorBoundaries,
     "exhaustive-deps": exhaustiveDeps,
+    immutability: immutability,
     "jsx-dollar": jsxDollar,
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
@@ -130,7 +131,6 @@ export const plugin: CompatiblePlugin = {
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
-    "prefer-read-only-props": preferReadOnlyProps,
     purity: purity,
     refs: refs,
     "rules-of-hooks": rulesOfHooks,

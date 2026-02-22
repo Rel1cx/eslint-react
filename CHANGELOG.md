@@ -14,12 +14,14 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 | `jsx-no-undef`                         | —                     | removed      |
 | `no-unnecessary-key`                   | —                     | removed      |
 | `no-useless-forward-ref`               | `no-forward-ref`      | consolidated |
+| `prefer-read-only-props`               | `immutability`        | consolidated |
 | `prefer-use-state-lazy-initialization` | `use-state`           | consolidated |
 
 - `jsx-no-iife`: The IIFE-in-JSX check has been merged into the new `unsupported-syntax` rule, which also covers `eval` and `with` statements.
 - `jsx-no-undef`: ESLint v10.0.0 now tracks JSX references natively, making this rule redundant. The `no-undef` rule now correctly handles JSX element references.
 - `no-unnecessary-key`: The experimental rule has been removed.
 - `no-useless-forward-ref`: Consolidated into `no-forward-ref`. Since React 19, `forwardRef` is no longer necessary as `ref` can be passed as a prop. The `no-forward-ref` rule now covers all `forwardRef` usage patterns.
+- `prefer-read-only-props`: The TypeScript-based read-only props enforcement has been consolidated into the new `immutability` rule, which covers a broader set of immutability violations including in-place array mutations and direct property assignments on state and props.
 - `prefer-use-state-lazy-initialization`: Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
 
 **Removed previously deprecated rules**
@@ -62,6 +64,7 @@ All rules have been migrated into `eslint-plugin-react-x`:
 | Removed (rule)           | `react-x/jsx-no-iife`                                                   | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax` |
 | Removed (rule)           | `react-x/jsx-no-undef`                                                  | `all`                                                   | ESLint v10.0.0+ native support   |
 | Removed (rule)           | `react-x/no-useless-forward-ref`                                        | `recommended`, `x`, `all`                               | merged into `no-forward-ref`     |
+| Removed (rule)           | `react-x/prefer-read-only-props`                                        | `disable-experimental`, `disable-type-checked`          | consolidated into `immutability` |
 | Removed (rule)           | `react-x/prefer-use-state-lazy-initialization`                          | `recommended`, `x`, `all`                               | merged into `use-state`          |
 
 ### ✨ New
@@ -71,6 +74,7 @@ All rules have been migrated into `eslint-plugin-react-x`:
 - `component-hook-factories`: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
 - `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
 - `exhaustive-deps`: Enforces that React hook dependency arrays contain all reactive values used in the callback by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
+- `immutability` (Experimental): Validates against mutating props, state, and other values that are immutable. Detects in-place array mutations (e.g. `push`, `sort`, `splice`) and direct property assignments on state variables from `useState` and props objects. Mirrors the [`immutability`](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability) lint rule described in the React docs.
 - `purity`: Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats) usage.
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
@@ -129,8 +133,13 @@ Use this checklist to upgrade from v2.x to v3.0.0:
   - `react-x/no-forbidden-props`
   - `react-x/no-prop-types`
   - `react-x/no-string-refs`
-- [ ] Remove `react-x/no-unnecessary-use-ref` from your config if present — this rule has been deleted with no replacement.
+- [ ] Remove `react-x/jsx-no-iife` from your config if present — this rule has been consolidated into `react-x/unsupported-syntax`.
+- [ ] Remove `react-x/jsx-no-undef` from your config if present — this rule has been removed since ESLint v10.0.0 now tracks JSX references natively.
 - [ ] Remove `react-x/no-unnecessary-key` from your config if present — this rule has been deleted with no replacement.
+- [ ] Remove `react-x/no-unnecessary-use-ref` from your config if present — this rule has been deleted with no replacement.
+- [ ] Remove `react-x/no-useless-forward-ref` from your config if present — this rule has been consolidated into `react-x/no-forward-ref`.
+- [ ] Remove `react-x/prefer-read-only-props` from your config if present — this rule has been consolidated into `react-x/immutability`.
+- [ ] Remove `react-x/prefer-use-state-lazy-initialization` from your config if present — this rule has been consolidated into `react-x/use-state` and its lazy initialization checks are now controlled by the `enforceLazyInitialization` option.
 - [ ] Remove `react-naming-convention/filename` and `react-naming-convention/filename-extension` from your config if present — these rules have been deleted with no replacement.
 
 #### Review new rules enabled in presets
