@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "push", name: "items" },
+        data: { name: "items", method: "push" },
       }],
     },
     {
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "sort", name: "items" },
+        data: { name: "items", method: "sort" },
       }],
     },
     {
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "shift", name: "items" },
+        data: { name: "items", method: "shift" },
       }],
     },
     {
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "pop", name: "items" },
+        data: { name: "items", method: "pop" },
       }],
     },
     {
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "splice", name: "items" },
+        data: { name: "items", method: "splice" },
       }],
     },
     {
@@ -112,7 +112,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "reverse", name: "items" },
+        data: { name: "items", method: "reverse" },
       }],
     },
     {
@@ -130,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "unshift", name: "items" },
+        data: { name: "items", method: "unshift" },
       }],
     },
     {
@@ -148,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "fill", name: "items" },
+        data: { name: "items", method: "fill" },
       }],
     },
     {
@@ -166,7 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "copyWithin", name: "items" },
+        data: { name: "items", method: "copyWithin" },
       }],
     },
     // -------------------------------------------------------------------------
@@ -265,7 +265,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "sort", name: "items" },
+        data: { name: "items", method: "sort" },
       }],
     },
     // -------------------------------------------------------------------------
@@ -286,7 +286,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "push", name: "items" },
+        data: { name: "items", method: "push" },
       }],
     },
     // -------------------------------------------------------------------------
@@ -315,7 +315,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "push", name: "props.items" },
+        data: { name: "props.items", method: "push" },
       }],
     },
     {
@@ -362,7 +362,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "push", name: "items" },
+        data: { name: "items", method: "push" },
       }],
     },
     // -------------------------------------------------------------------------
@@ -385,7 +385,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "mutatingArrayMethod",
-        data: { method: "sort", name: "items" },
+        data: { name: "items", method: "sort" },
       }],
     },
     // -------------------------------------------------------------------------
@@ -408,11 +408,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "mutatingArrayMethod",
-          data: { method: "push", name: "items" },
+          data: { name: "items", method: "push" },
         },
         {
           messageId: "mutatingArrayMethod",
-          data: { method: "sort", name: "items" },
+          data: { name: "items", method: "sort" },
         },
       ],
     },

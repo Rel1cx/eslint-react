@@ -38,6 +38,8 @@ const MUTATING_ARRAY_METHODS = new Set([
 /**
  * Get the root identifier of a (possibly nested) member expression.
  * For `a.b.c`, returns the `a` Identifier node.
+ * @param node The expression to analyze
+ * @returns The root Identifier node, or null if it cannot be determined (e.g. non-identifier root)
  */
 function getRootIdentifier(
   node: TSESTree.Expression | TSESTree.PrivateIdentifier,
@@ -99,6 +101,8 @@ export function create(context: RuleContext<MessageID, []>) {
   /**
    * Return true when `id` is the *value* variable (index 0) produced by a
    * `useState(…)` call, i.e. the first element of `const [value, setter] = useState(…)`.
+   * @param id The identifier to check. May be a reference to the state variable, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
+   * @returns True if `id` is a state variable, false otherwise.
    */
   function isStateValue(id: TSESTree.Identifier): boolean {
     const scope = context.sourceCode.getScope(id);
@@ -136,6 +140,8 @@ export function create(context: RuleContext<MessageID, []>) {
    *       props.items.push(4); // ← props resolved via scope to Component's param
    *     };
    *   }
+   * @param id The identifier to check. May be a reference to the props parameter, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
+   * @returns True if `id` is a props parameter, false otherwise.
    */
   function isPropsObject(id: TSESTree.Identifier): boolean {
     const scope = context.sourceCode.getScope(id);
@@ -166,6 +172,7 @@ export function create(context: RuleContext<MessageID, []>) {
        *     callee: MemberExpression
        *       object: <state or props identifier>
        *       property: <mutating method name>
+       * @param node The CallExpression node to analyze.
        */
       CallExpression(node: TSESTree.CallExpression) {
         if (node.callee.type !== AST.MemberExpression) return;
@@ -189,8 +196,8 @@ export function create(context: RuleContext<MessageID, []>) {
           messageId: "mutatingArrayMethod",
           node,
           data: {
-            method: property.name,
             name: context.sourceCode.getText(object),
+            method: property.name,
           },
           func: enclosingFn,
         });
@@ -203,6 +210,7 @@ export function create(context: RuleContext<MessageID, []>) {
        *   AssignmentExpression
        *     left: MemberExpression
        *       object: <state or props identifier (or deeper chain)>
+       * @param node The AssignmentExpression node to analyze.
        */
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.left.type !== AST.MemberExpression) return;
@@ -230,6 +238,7 @@ export function create(context: RuleContext<MessageID, []>) {
       /**
        * At the end of the program, filter collected violations to only those
        * that appear inside a component or hook function, then report them.
+       * @param program The Program node of the entire file.
        */
       "Program:exit"(program) {
         const components = cCollector.ctx.getAllComponents(program);
