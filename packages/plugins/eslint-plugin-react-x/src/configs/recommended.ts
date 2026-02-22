@@ -40,6 +40,7 @@ export const rules = {
   "react-x/no-unsafe-component-will-mount": "warn",
   "react-x/no-unsafe-component-will-receive-props": "warn",
   "react-x/no-unsafe-component-will-update": "warn",
+  "react-x/no-unused-class-component-members": "warn",
   "react-x/no-use-context": "warn",
   "react-x/purity": "warn",
   "react-x/rules-of-hooks": "error",
