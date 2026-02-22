@@ -83,9 +83,7 @@ All rules have been migrated into `eslint-plugin-react-x`:
 - `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats).
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks). Contributed by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
 - `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance. Contributed by @Rel1cx
-  > Compared to the old `no-direct-set-state-in-use-effect` rule, the new `set-state-in-effect` rule allows setting state in effects if the value is from a ref. All other behaviors remain the same.
-  >
-  > The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
+  > Compared to the old `no-direct-set-state-in-use-effect` rule, the following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
   >
   > ```tsx
   > import { useLayoutEffect, useRef, useState } from "react";
@@ -108,7 +106,7 @@ All rules have been migrated into `eslint-plugin-react-x`:
 
 **Added `compilationMode` setting:**
 
-Added support for the `compilationMode` setting under `settings["react-x"]`. This setting informs rules about the [React Compiler](https://react.dev/learn/react-compiler) compilation mode the project is using, allowing rules to understand how components and hooks will be picked up by the compiler. Accepted values are `"off"`, `"infer"`, `"annotation"`, `"syntax"`, and `"all"` (default: `"annotation"`). When set to anything other than `"off"`, the compiler is considered enabled.
+Added support for the `compilationMode` setting under `settings["react-x"]`. This setting informs rules about the [React Compiler](https://react.dev/learn/react-compiler) compilation mode the project is using, allowing rules to understand how components and hooks will be optimized by the compiler.
 
 ### 🪄 Improvements
 
@@ -169,27 +167,6 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 - [ ] `react-x/use-state` (`warn`) — Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter (previously `react-naming-convention/use-state`), and wrapping expensive initializers in a lazy initializer function (previously `prefer-use-state-lazy-initialization`).
 
 ### 📘 Migration Guide: From `eslint-plugin-react-hooks`
-
-ESLint React now provides direct equivalents for the core rules in `eslint-plugin-react-hooks`, including both the classic hooks linting rules (`exhaustive-deps`, `rules-of-hooks`) and many of the newer React Compiler diagnostic rules.
-
-| `eslint-plugin-react-hooks` Rule | ESLint React Equivalent                   | Status |
-| :------------------------------- | :---------------------------------------- | :----- |
-| `exhaustive-deps`                | `react-x/exhaustive-deps`                 | 🔧     |
-| `rules-of-hooks`                 | `react-x/rules-of-hooks`                  | 🔧     |
-| `component-hook-factories`       | `react-x/component-hook-factories`        | ✅     |
-| `error-boundaries`               | `react-x/error-boundaries`                | ✅     |
-| `immutability`                   | `react-x/immutability`                    | 🟡 🧪  |
-| `purity`                         | `react-x/purity`                          | 🟡 🧪  |
-| `refs`                           | `react-x/refs`                            | 🟡 🧪  |
-| `set-state-in-effect`            | `react-x/set-state-in-effect`             | ✅     |
-| `set-state-in-render`            | `react-x/set-state-in-render`             | 🧪     |
-| `static-components`              | `react-x/no-nested-component-definitions` | ✅     |
-| `unsupported-syntax`             | `react-x/unsupported-syntax`              | ✅     |
-| `use-memo`                       | `react-x/use-memo`                        | ✅     |
-
-Legend: 🔧 Fully supported with auto-fix — ✅ Mostly supported — 🟡 Partial support — 🧪 Experimental
-
-**Note**: React Compiler-specific rules (`config`, `gating`, `globals`, `incompatible-library`, `preserve-manual-memoization`) do not have equivalents in ESLint React, as they validate compiler-specific configuration and behavior.
 
 See the [complete migration guide](https://www.eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks) for more details.
 
