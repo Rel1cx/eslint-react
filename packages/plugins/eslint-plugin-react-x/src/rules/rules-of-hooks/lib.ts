@@ -2194,6 +2194,6 @@ class CodePathAnalyzer {
   }
 }
 
-export default CodePathAnalyzer;
+export { CodePathAnalyzer };
 
 // #endregion

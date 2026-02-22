@@ -19,7 +19,7 @@ import { type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Rule, Scope } from "eslint";
 
-import CodePathAnalyzer from "./code-path-analyzer.mjs";
+import { CodePathAnalyzer } from "./lib";
 
 type CallExpression = TSESTree.CallExpression;
 type CatchClause = TSESTree.CatchClause;

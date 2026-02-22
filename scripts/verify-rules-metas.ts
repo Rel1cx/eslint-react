@@ -112,7 +112,9 @@ const retrieveRuleMeta = Effect.fnUntraced(
 const verifyDocs = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const files = glob(RULES_GLOB).filter((file) => !file.endsWith(".spec.ts"));
+  const files = glob(RULES_GLOB)
+    .filter((file) => !file.endsWith(".spec.ts") && !file.endsWith(".test.ts"))
+    .filter((file) => file.split(path.sep).at(-1) !== "lib.ts"); // Exclude lib.ts helper files
 
   for (const file of files) {
     // Extract domain and rule name from file path
