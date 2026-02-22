@@ -90,8 +90,8 @@ export function getObjectType(
         return unit;
       }
       const variable = initialScope.set.get(node.name);
-      const variableNode = getVariableInitializer(variable, -1);
-      return getObjectType(variableNode, initialScope);
+      const initNode = getVariableInitializer(variable, -1);
+      return getObjectType(initNode, initialScope);
     }
     case AST.MemberExpression: {
       if (!("object" in node)) return unit;

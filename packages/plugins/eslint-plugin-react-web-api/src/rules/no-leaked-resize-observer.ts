@@ -50,9 +50,10 @@ function isNewResizeObserver(node: TSESTree.Node | unit) {
 function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
   switch (true) {
     case node.type === AST.Identifier: {
-      const initialScope = context.sourceCode.getScope(node);
-      const object = getVariableInitializer(findVariable(node, initialScope), 0);
-      return isNewResizeObserver(object);
+      const scope = context.sourceCode.getScope(node);
+      const variable = findVariable(node, scope);
+      const initNode = getVariableInitializer(variable, 0);
+      return isNewResizeObserver(initNode);
     }
     case node.type === AST.MemberExpression:
       return isFromObserver(context, node.object);

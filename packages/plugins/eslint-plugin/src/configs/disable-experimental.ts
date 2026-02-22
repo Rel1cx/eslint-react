@@ -11,7 +11,6 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/no-unnecessary-use-callback": "off",
   "@eslint-react/no-unnecessary-use-memo": "off",
   "@eslint-react/no-unused-props": "off",
-  "@eslint-react/prefer-read-only-props": "off",
   "@eslint-react/refs": "off",
   "@eslint-react/rules-of-hooks": "off",
   "@eslint-react/set-state-in-render": "off",

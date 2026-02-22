@@ -32,11 +32,11 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
         // 2. Spread variable: {...props}
         case AST.Identifier: {
           const variable = findVariable(attr.argument.name, scope);
-          const variableNode = getVariableInitializer(variable, 0);
+          const initNode = getVariableInitializer(variable, 0);
 
           // Check if the variable resolves to an object with the target property
-          if (variableNode?.type === AST.ObjectExpression) {
-            return findProperty(name, variableNode.properties, scope) != null;
+          if (initNode?.type === AST.ObjectExpression) {
+            return findProperty(name, initNode.properties, scope) != null;
           }
           return false;
         }

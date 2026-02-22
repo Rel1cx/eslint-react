@@ -53,15 +53,15 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
     const variable = findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
-    const variableNode = getVariableInitializer(variable, 0);
-    if (variableNode == null) return false;
-    if (variableNode.type !== AST.CallExpression) return false;
-    if (!isUseStateCall(variableNode)) return false;
-    const variableNodeParent = variableNode.parent;
-    if (!("id" in variableNodeParent) || variableNodeParent.id?.type !== AST.ArrayPattern) {
+    const initNode = getVariableInitializer(variable, 0);
+    if (initNode == null) return false;
+    if (initNode.type !== AST.CallExpression) return false;
+    if (!isUseStateCall(initNode)) return false;
+    const initNodeParent = initNode.parent;
+    if (!("id" in initNodeParent) || initNodeParent.id?.type !== AST.ArrayPattern) {
       return true;
     }
-    return variableNodeParent
+    return initNodeParent
       .id
       .elements
       .findIndex((e) => e?.type === AST.Identifier && e.name === topLevelId.name) === at;
