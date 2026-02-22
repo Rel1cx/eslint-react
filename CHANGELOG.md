@@ -1,4 +1,4 @@
-## v3.0.0 (beta)
+## v3.0.0-beta.33 (2026-02-22)
 
 ### 💥 Breaking Changes
 
@@ -21,7 +21,7 @@ The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
 - `jsx-no-undef`: ESLint v10.0.0 now tracks JSX references natively, making this rule redundant. The `no-undef` rule now correctly handles JSX element references.
 - `no-unnecessary-key`: The experimental rule has been removed.
 - `no-useless-forward-ref`: Consolidated into `no-forward-ref`. Since React 19, `forwardRef` is no longer necessary as `ref` can be passed as a prop. The `no-forward-ref` rule now covers all `forwardRef` usage patterns.
-- `prefer-read-only-props`: The TypeScript-based read-only props enforcement has been consolidated into the new `immutability` rule, which covers a broader set of immutability violations including in-place array mutations and direct property assignments on state and props.
+- `prefer-read-only-props`: The TypeScript-based read-only props enforcement has been consolidated into the new `immutability` rule, which covers a broader set of immutability violations, including in-place array mutations and direct property assignments on state and props.
 - `prefer-use-state-lazy-initialization`: Its lazy-initialization checks are now part of the `use-state` rule and controlled by the new `enforceLazyInitialization` option (default: `true`).
 
 **Removed previously deprecated rules**
@@ -71,15 +71,15 @@ All rules have been migrated into `eslint-plugin-react-x`:
 
 **Added the following new rules to `eslint-plugin-react-x`:**
 
-- `component-hook-factories`: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
-- `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
-- `exhaustive-deps`: Enforces that React hook dependency arrays contain all reactive values used in the callback by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
-- `immutability` (Experimental): Validates against mutating props, state, and other values that are immutable. Detects in-place array mutations (e.g. `push`, `sort`, `splice`) and direct property assignments on state variables from `useState` and props objects. Mirrors the [`immutability`](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability) lint rule described in the React docs.
-- `purity`: Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
-- `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats) usage.
-- `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks) by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
-- `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance by @Rel1cx
-  > Compared to the old `no-direct-set-state-in-use-effect` rule, the new `set-state-in-effect` rule allow setting state in effects if the value is from a ref. All other behaviors remain the same.
+- `component-hook-factories`: Validates against higher-order functions defining nested components or hooks. Components and hooks should be defined at the module level.
+- `error-boundaries`: Validates usage of Error Boundaries instead of try/catch for errors in child components. Try/catch blocks can't catch errors during React's rendering process — only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1506
+- `exhaustive-deps`: Enforces that React hook dependency arrays contain all reactive values used in the callback. Contributed by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
+- `immutability` (Experimental): Validates against mutating props, state, and other values that are immutable. Detects in-place array mutations (e.g., `push`, `sort`, `splice`) and direct property assignments on state variables from `useState` and props objects. Mirrors the [`immutability`](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability) lint rule described in the React docs.
+- `purity` (Experimental): Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+- `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats).
+- `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks). Contributed by @TrevorBurnham in https://github.com/Rel1cx/eslint-react/pull/1499
+- `set-state-in-effect`: Validates against calling [`setState`](https://react.dev/reference/react/useState#setstate) synchronously in an effect, which can lead to re-renders that degrade performance. Contributed by @Rel1cx
+  > Compared to the old `no-direct-set-state-in-use-effect` rule, the new `set-state-in-effect` rule allows setting state in effects if the value is from a ref. All other behaviors remain the same.
   >
   > The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
   >
@@ -98,9 +98,9 @@ All rules have been migrated into `eslint-plugin-react-x`:
   > }
   > ```
 - `use-memo`: Validates that `useMemo` is called with a callback that returns a value. `useMemo` is designed for computing and caching values — without a return value it always returns `undefined`, which defeats its purpose. This rule also catches `useMemo` calls whose return value is discarded (not assigned to a variable), which indicates a side-effect misuse that should use `useEffect` instead. Mirrors the [`use-memo`](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo) lint rule described in the React docs.
-- `use-state`: Enforces correct usage of the `useState` hook — destructuring, symmetric naming of the value and setter (e.g. `count` / `setCount`), and lazy initialization of expensive initial state. Moved from `eslint-plugin-react-naming-convention` into `eslint-plugin-react-x` so that all hook-usage rules live in one package. The lazy-initialization behavior (previously `prefer-use-state-lazy-initialization`) is now also part of this rule and controlled by the `enforceLazyInitialization` option (default: `true`).
-- `set-state-in-render`: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
-- `unsupported-syntax`: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX (previously covered by `jsx-no-iife`)
+- `use-state`: Enforces correct usage of the `useState` hook — destructuring, symmetric naming of the value and setter (e.g., `count` / `setCount`), and lazy initialization of expensive initial state. Moved from `eslint-plugin-react-naming-convention` into `eslint-plugin-react-x` so that all hook-usage rules live in one package. The lazy-initialization behavior (previously `prefer-use-state-lazy-initialization`) is now also part of this rule and controlled by the `enforceLazyInitialization` option (default: `true`).
+- `set-state-in-render` (Experimental): Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1501
+- `unsupported-syntax`: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX (previously covered by `jsx-no-iife`).
 
 **Added `compilationMode` setting:**
 
@@ -108,14 +108,14 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
 
 ### 🪄 Improvements
 
-- Adopted `tsl` for type checking across the monorepo, improving linting performance by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1532
-- Directly ported `eslint-plugin-react-hooks` rules (`rules-of-hooks` and `exhaustive-deps`) with code path analysis for more accurate hook validation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1535
-- Improved `set-state-in-effect` rule to allow `setState` calls when the new state is derived from refs (aligning with React's recommended patterns) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1521
-- Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
-- Refactored core modules to use `defineRuleListener` helper for more consistent rule listener definitions across all rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1517
-- Restructured and consolidated component detection modules for better maintainability and accuracy by @Rel1cx
-- Restructured core, var, and ast utility modules for improved code organization by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1520
-- Updated documentation with standardized "See Also" sections and unified "Further Reading" sections across all rule documentation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1536, https://github.com/Rel1cx/eslint-react/pull/1537
+- Adopted `tsl` for type checking across the monorepo, improving linting performance. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1532
+- Directly ported `eslint-plugin-react-hooks` rules (`rules-of-hooks` and `exhaustive-deps`) with code-path analysis for more accurate hook validation. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1535
+- Improved `set-state-in-effect` rule to allow `setState` calls when the new state is derived from refs (aligning with React's recommended patterns). Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1521
+- Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
+- Refactored core modules to use `defineRuleListener` helper for more consistent rule listener definitions across all rules. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1517
+- Restructured and consolidated component detection modules for better maintainability and accuracy. Contributed by @Rel1cx
+- Restructured core, var, and ast utility modules for improved code organization. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1520
+- Updated documentation with standardized "See Also" sections and unified "Further Reading" sections across all rule documentation. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1536 and https://github.com/Rel1cx/eslint-react/pull/1537
 
 ### ✅ Upgrade Checklist
 
@@ -146,7 +146,7 @@ Use this checklist to upgrade from v2.x to v3.0.0:
 - [ ] Remove `react-x/no-unnecessary-use-ref` from your config if present — this rule has been deleted with no replacement.
 - [ ] Remove `react-x/no-useless-forward-ref` from your config if present — this rule has been consolidated into `react-x/no-forward-ref`.
 - [ ] Remove `react-x/prefer-read-only-props` from your config if present — this rule has been consolidated into `react-x/immutability`.
-- [ ] Remove `react-x/prefer-use-state-lazy-initialization` from your config if present — this rule has been consolidated into `react-x/use-state` and its lazy initialization checks are now controlled by the `enforceLazyInitialization` option.
+- [ ] Remove `react-x/prefer-use-state-lazy-initialization` from your config if present — this rule has been consolidated into `react-x/use-state` and its lazy-initialization checks are now controlled by the `enforceLazyInitialization` option.
 - [ ] Remove `react-naming-convention/filename` and `react-naming-convention/filename-extension` from your config if present — these rules have been deleted with no replacement.
 
 #### Review new rules enabled in presets
@@ -156,13 +156,13 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 - [ ] `react-x/component-hook-factories` (`error`) — catches factory functions that define components or hooks inside them instead of at the module level.
 - [ ] `react-x/error-boundaries` (`error`) — catches try/catch blocks wrapping JSX or `use` hook calls where [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) should be used instead.
 - [ ] `react-x/exhaustive-deps` (`warn`) — enforces that hook dependency arrays contain all reactive values.
-- [ ] `react-x/purity` (`warn`) — Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+- [ ] `react-x/purity` (`warn`) — validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - [ ] `react-x/rules-of-hooks` (`error`) — enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks).
 - [ ] `react-x/set-state-in-effect` (`warn`) — catches synchronous `setState` calls inside effects.
-- [ ] `react-x/use-memo` (`error`) — catches `useMemo` calls where the callback has no return value, or where the `useMemo` return value is discarded.
-- [ ] `react-x/use-state` (`warn`) — enforces destructuring and symmetric naming of `useState` pairs (previously `react-naming-convention/use-state`).
 - [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 - [ ] `react-x/unsupported-syntax` (`error`) — catches usage of syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.
+- [ ] `react-x/use-memo` (`error`) — catches `useMemo` calls where the callback has no return value or where the `useMemo` return value is discarded.
+- [ ] `react-x/use-state` (`warn`) — Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter (previously `react-naming-convention/use-state`), and wrapping expensive initializers in a lazy initializer function (previously `prefer-use-state-lazy-initialization`).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-beta.33
 

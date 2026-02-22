@@ -6,7 +6,7 @@ packages:
   - examples/*
 
 onlyBuiltDependencies:
-  - '@parcel/watcher'
+  - "@parcel/watcher"
   - core-js
   - dprint
   - esbuild
@@ -14,8 +14,8 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
-  '@types/react': ^19.2.14
-  '@types/react-dom': ^19.2.3
+  "@types/react": ^19.2.14
+  "@types/react-dom": ^19.2.3
   esbuild: ^0.27.3
   lodash: ^4.17.23
   minimatch: ^10.2.2
