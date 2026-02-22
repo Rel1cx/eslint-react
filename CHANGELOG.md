@@ -164,7 +164,7 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 - [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 - [ ] `react-x/unsupported-syntax` (`error`) — catches usage of syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-beta
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-beta.33
 
 ## v2.13.0 (2026-02-15)
 
