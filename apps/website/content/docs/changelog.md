@@ -113,11 +113,11 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
 ### 🪄 Improvements
 
 - Adopted `tsl` for type checking across the monorepo, improving linting performance. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1532
-- Directly ported `eslint-plugin-react-hooks` rules (`rules-of-hooks` and `exhaustive-deps`) with code-path analysis for more accurate hook validation. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1535
+- Ported `eslint-plugin-react-hooks` rules (`rules-of-hooks` and `exhaustive-deps`) _verbatim_ with code-path analysis for more accurate hook validation. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1535
 - Improved `set-state-in-effect` rule to allow `setState` calls when the new state is derived from refs (aligning with React's recommended patterns). Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1521
-- Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
-- Refactored core modules to use `defineRuleListener` helper for more consistent rule listener definitions across all rules. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1517
-- Restructured and consolidated component detection modules for better maintainability and accuracy. Contributed by @Rel1cx
+- Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in the `function-component` and `no-nested-component-definitions` rules. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
+- Refactored core modules to use the `defineRuleListener` helper for more consistent rule listener definitions across all rules. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1517
+- Restructured and consolidated component-detection modules for better maintainability and accuracy. Contributed by @Rel1cx
 - Restructured core, var, and ast utility modules for improved code organization. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1520
 - Updated documentation with standardized "See Also" sections and unified "Further Reading" sections across all rule documentation. Contributed by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1536 and https://github.com/Rel1cx/eslint-react/pull/1537
 
