@@ -50,26 +50,26 @@ All rules have been migrated into `eslint-plugin-react-x`:
 
 **Preset changes**
 
-| Change type              | Rule / Plugin                                                           | Presets affected                                        | Severity / Notes                 |
-| :----------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------ | :------------------------------- |
-| Removed (rule)           | `react-x/no-default-props`                                              | `recommended`, `x`                                      | removed                          |
-| Removed (rule)           | `react-x/no-prop-types`                                                 | `recommended`, `x`                                      | removed                          |
-| Removed (rule)           | `react-x/no-string-refs`                                                | `recommended`, `x`                                      | removed                          |
-| Removed (plugin & rules) | `@eslint-react/hooks-extra` and all `@eslint-react/hooks-extra/*` rules | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed                          |
-| Added (rule)             | `react-x/component-hook-factories`                                      | `recommended`, `x`                                      | `error`                          |
-| Added (rule)             | `react-x/error-boundaries`                                              | `recommended`, `x`                                      | `error`                          |
-| Added (rule)             | `react-x/exhaustive-deps`                                               | `recommended`, `x`                                      | `warn`                           |
-| Added (rule)             | `react-x/use-memo`                                                      | `recommended`, `x`                                      | `error`                          |
-| Moved (rule)             | `react-naming-convention/use-state` → `react-x/use-state`               | `recommended`, `x`                                      | `warn`                           |
-| Added (rule)             | `react-x/rules-of-hooks`                                                | `recommended`, `x`                                      | `error`                          |
-| Added (rule)             | `react-x/set-state-in-effect`                                           | `recommended`, `x`                                      | `warn`                           |
-| Added (rule)             | `react-x/set-state-in-render`                                           | `recommended`, `x`                                      | `error`                          |
-| Added (rule)             | `react-x/unsupported-syntax`                                            | `recommended`, `x`                                      | `error`                          |
-| Removed (rule)           | `react-x/jsx-no-iife`                                                   | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax` |
-| Removed (rule)           | `react-x/jsx-no-undef`                                                  | `all`                                                   | ESLint v10.0.0+ native support   |
-| Removed (rule)           | `react-x/no-useless-forward-ref`                                        | `recommended`, `x`, `all`                               | merged into `no-forward-ref`     |
-| Removed (rule)           | `react-x/prefer-read-only-props`                                        | `disable-experimental`, `disable-type-checked`          | consolidated into `immutability` |
-| Removed (rule)           | `react-x/prefer-use-state-lazy-initialization`                          | `recommended`, `x`, `all`                               | merged into `use-state`          |
+| Change  | Rule                                                      | Presets affected                                        | Severity / Notes                 |
+| :------ | :-------------------------------------------------------- | :------------------------------------------------------ | :------------------------------- |
+| Removed | `react-x/no-default-props`                                | `recommended`, `x`                                      | removed                          |
+| Removed | `react-x/no-prop-types`                                   | `recommended`, `x`                                      | removed                          |
+| Removed | `react-x/no-string-refs`                                  | `recommended`, `x`                                      | removed                          |
+| Removed | `@eslint-react/hooks-extra/*`                             | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed                          |
+| Added   | `react-x/component-hook-factories`                        | `recommended`, `x`                                      | `error`                          |
+| Added   | `react-x/error-boundaries`                                | `recommended`, `x`                                      | `error`                          |
+| Added   | `react-x/exhaustive-deps`                                 | `recommended`, `x`                                      | `warn`                           |
+| Added   | `react-x/use-memo`                                        | `recommended`, `x`                                      | `error`                          |
+| Moved   | `react-naming-convention/use-state` → `react-x/use-state` | `recommended`, `x`                                      | `warn`                           |
+| Added   | `react-x/rules-of-hooks`                                  | `recommended`, `x`                                      | `error`                          |
+| Added   | `react-x/set-state-in-effect`                             | `recommended`, `x`                                      | `warn`                           |
+| Added   | `react-x/set-state-in-render`                             | `recommended`, `x`                                      | `error`                          |
+| Added   | `react-x/unsupported-syntax`                              | `recommended`, `x`                                      | `error`                          |
+| Removed | `react-x/jsx-no-iife`                                     | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax` |
+| Removed | `react-x/jsx-no-undef`                                    | `all`                                                   | ESLint v10.0.0+ native support   |
+| Removed | `react-x/no-useless-forward-ref`                          | `recommended`, `x`, `all`                               | merged into `no-forward-ref`     |
+| Removed | `react-x/prefer-read-only-props`                          | `disable-experimental`, `disable-type-checked`          | consolidated into `immutability` |
+| Removed | `react-x/prefer-use-state-lazy-initialization`            | `recommended`, `x`, `all`                               | merged into `use-state`          |
 
 ### ✨ New
 
@@ -112,7 +112,14 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
 
 ### 🪄 Improvements
 
+- Adopted `tsl` for type checking across the monorepo, improving linting performance by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1532
+- Directly ported `eslint-plugin-react-hooks` rules (`rules-of-hooks` and `exhaustive-deps`) with code path analysis for more accurate hook validation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1535
+- Improved `set-state-in-effect` rule to allow `setState` calls when the new state is derived from refs (aligning with React's recommended patterns) by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1521
 - Improved detection of React components created via conditional (ternary) expressions (e.g., `const Component = condition ? () => <A/> : () => <B/>`) in `function-component` and `no-nested-component-definitions` rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1503
+- Refactored core modules to use `defineRuleListener` helper for more consistent rule listener definitions across all rules by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1517
+- Restructured and consolidated component detection modules for better maintainability and accuracy by @Rel1cx
+- Restructured core, var, and ast utility modules for improved code organization by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1520
+- Updated documentation with standardized "See Also" sections and unified "Further Reading" sections across all rule documentation by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1536, https://github.com/Rel1cx/eslint-react/pull/1537
 
 ### ✅ Upgrade Checklist
 
@@ -161,7 +168,7 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 - [ ] `react-x/set-state-in-render` (`error`) — catches unconditional `setState` calls during render that can cause infinite loops.
 - [ ] `react-x/unsupported-syntax` (`error`) — catches usage of syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...main
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-beta
 
 ## v2.13.0 (2026-02-15)
 
