@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "../api";
 import { JsxDetectionHint } from "../jsx";
-import { isClassComponent } from "./component-kind";
+import { isRenderMethodCallback } from "./component-detection-legacy";
 import { isFunctionWithLooseComponentName } from "./component-name";
 
 export type ComponentDetectionHint = bigint;
@@ -40,50 +40,6 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | ComponentDetectionHint.RequireAllArrayElementsToBeJsx
   | ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
   | ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
-
-/**
- * Check whether given node is a render method of a class component
- * @example
- * ```tsx
- * class Component extends React.Component {
- *   renderHeader = () => <div />;
- *   renderFooter = () => <div />;
- * }
- * ```
- * @param node The AST node to check
- * @returns `true` if node is a render function, `false` if not
- */
-export function isRenderMethodLike(node: TSESTree.Node): node is ast.TSESTreeMethodOrProperty {
-  return ast.isMethodOrProperty(node)
-    && node.key.type === AST.Identifier
-    && node.key.name.startsWith("render")
-    && node.parent.parent.type === AST.ClassDeclaration;
-}
-
-/**
- * Check if the given node is a function within a render method of a class component
- *
- * @param node The AST node to check
- * @returns `true` if the node is a render function inside a class component
- *
- * @example
- * ```tsx
- * class Component extends React.Component {
- *   renderHeader = () => <div />; // Returns true
- * }
- * ```
- */
-function isRenderMethodCallback(node: ast.TSESTreeFunction) {
-  const parent = node.parent;
-  const grandparent = parent.parent;
-  const greatGrandparent = grandparent?.parent;
-
-  return (
-    greatGrandparent != null
-    && isRenderMethodLike(parent)
-    && isClassComponent(greatGrandparent)
-  );
-}
 
 /**
  * Unsafe check whether given node is a render function

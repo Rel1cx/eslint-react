@@ -2,7 +2,6 @@ import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 
 import { ComponentFlag } from "./component-flag";
 import { isClassComponent, isPureComponent } from "./component-kind";
@@ -68,31 +67,4 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
   } as const satisfies ESLintUtils.RuleListener;
 
   return { ctx, visitor } as const;
-}
-
-/**
- * Check whether the given node is a this.setState() call
- * @param node The node to check
- * @internal
- */
-export function isThisSetState(node: TSESTree.CallExpression) {
-  const { callee } = node;
-  return (
-    callee.type === AST.MemberExpression
-    && ast.isThisExpressionLoose(callee.object)
-    && callee.property.type === AST.Identifier
-    && callee.property.name === "setState"
-  );
-}
-
-/**
- * Check whether the given node is an assignment to this.state
- * @param node The node to check
- * @internal
- */
-export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
-  const { left } = node;
-  return left.type === AST.MemberExpression
-    && ast.isThisExpressionLoose(left.object)
-    && ast.getPropertyName(left.property) === "state";
 }
