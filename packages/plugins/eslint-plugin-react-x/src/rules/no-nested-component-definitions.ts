@@ -3,6 +3,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+
 import { createRule } from "../utils";
 
 export const RULE_NAME = "no-nested-component-definitions";
@@ -52,16 +53,14 @@ export function create(context: RuleContext<MessageID, []>) {
         // Gather all function and class components found by the collectors
         const fComponents = [...fCollector.ctx.getAllComponents(program)];
         const cComponents = [...cCollector.ctx.getAllComponents(program)];
-        // Helper to check if a node is a collected function component
-        const isFunctionComponent = (node: TSESTree.Node): node is ast.TSESTreeFunction => {
-          return ast.isFunction(node)
-            && fComponents.some((component) => component.node === node);
-        };
-        // Helper to check if a node is a collected class component
-        const isClassComponent = (node: TSESTree.Node): node is ast.TSESTreeClass => {
-          return ast.isClass(node)
-            && cComponents.some((component) => component.node === node);
-        };
+        // Helper to find the enclosing component of a node
+        function findEnclosingComponent(node: TSESTree.Node) {
+          return ast.findParentNode(node, (n) => {
+            if (ast.isFunction(n)) return fComponents.some((c) => c.node === n);
+            if (ast.isClass(n)) return cComponents.some((c) => c.node === n);
+            return false;
+          });
+        }
         // Iterate over function components to find nested definitions
         for (const { name, node: component } of fComponents) {
           // Skip anonymous function components to reduce false positives
@@ -98,8 +97,8 @@ export function create(context: RuleContext<MessageID, []>) {
             continue;
           }
           // Check for direct nesting inside another function component
-          const parentComponent = ast.findParentNode(component, isFunctionComponent);
-          if (parentComponent != null && !core.isDirectValueOfRenderPropertyLoose(parentComponent)) {
+          const enclosingComponent = findEnclosingComponent(component);
+          if (enclosingComponent != null && !core.isDirectValueOfRenderPropertyLoose(enclosingComponent)) {
             context.report({
               messageId: "default",
               node: component,
@@ -128,9 +127,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Iterate over class components to find nested definitions
         for (const { name = "unknown", node: component } of cComponents) {
           // Find if the parent is another component
-          if (ast.findParentNode(component, (n) => isClassComponent(n) || isFunctionComponent(n)) == null) {
-            continue;
-          }
+          if (findEnclosingComponent(component) == null) continue;
           context.report({
             messageId: "default",
             node: component,
