@@ -45,7 +45,7 @@ pnpm run build:website
 pnpm run test
 
 # Run a single test file
-pnpm vitest packages/plugins/eslint-plugin-react-x/src/rules/[rule-name].spec.ts
+pnpm vitest packages/plugins/eslint-plugin-react-x/src/rules/[rule-name]/[rule-name].spec.ts
 ```
 
 ### Code Linting and Formatting
@@ -62,7 +62,7 @@ pnpm run lint
 
 ### Testing
 
-- Test files coexist with source files: `src/rules/[rule-name].spec.ts`.
+- Test files coexist with source files: `src/rules/[rule-name]/[rule-name].spec.ts`.
 - Uses `TypeScript ESLint Rule Tester`.
 - Provides separate test setups for type-aware and non-type-aware rules.
 - Test fixtures support multiple TypeScript configurations (e.g., JSX variants).

@@ -1,0 +1,114 @@
+---
+title: prefer-destructuring-assignment
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/prefer-destructuring-assignment
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/prefer-destructuring-assignment
+```
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Enforces destructuring assignment for component props and context.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent(props: MyComponentProps) {
+  const items = props.items;
+  //            ^^^ Use destructuring assignment for component props.
+
+  return <div>{items}</div>;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent(props: MyComponentProps) {
+  return <div>{props.items}</div>;
+  //           ^^^ Use destructuring assignment for component props.
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent(props: MyComponentProps) {
+  const { items } = props;
+
+  return <div>{items}</div>;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items}</div>;
+}
+```
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items, ...rest }: MyComponentProps) {
+  return <div {...rest}>{items}</div>;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment/prefer-destructuring-assignment.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment/prefer-destructuring-assignment.spec.ts)
+
+## Further Reading
+
+- [MDN: Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+- [React Docs: Passing props to a component](https://react.dev/learn/passing-props-to-a-component#step-2-read-props-inside-the-child-component)
+
+---
+
+## See Also
+
+- [`no-unused-props`](./no-unused-props)\
+  Warns about component props that are defined but never used.

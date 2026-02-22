@@ -1,0 +1,89 @@
+---
+title: no-missing-key
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-missing-key
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-missing-key
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Disallows missing `key` on items in list rendering.
+
+React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: { id: number; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((todo) => <Todo {...todo} />)}
+    </ul>
+  );
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  items: { id: number; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((todo) => <Todo key={todo.id} {...todo} />)}
+    </ul>
+  );
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key/no-missing-key.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key/no-missing-key.spec.ts)
+
+## Further Reading
+
+- [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+
+---
+
+## See Also
+
+- [`no-duplicate-key`](./no-duplicate-key)\
+  Prevents duplicate `key` props on sibling elements when rendering lists.
+- [`no-implicit-key`](./no-implicit-key)\
+  Prevents implicitly passing the 'key' prop to components.
+- [`no-array-index-key`](./no-array-index-key)\
+  Warns when an array `index` is used as a `key` prop.

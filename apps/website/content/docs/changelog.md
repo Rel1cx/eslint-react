@@ -172,20 +172,20 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 
 ESLint React now provides direct equivalents for the core rules in `eslint-plugin-react-hooks`, including both the classic hooks linting rules (`exhaustive-deps`, `rules-of-hooks`) and many of the newer React Compiler diagnostic rules.
 
-| `eslint-plugin-react-hooks` Rule | ESLint React Equivalent | Status |
-| :------------------------------- | :---------------------- | :----- |
-| `exhaustive-deps` | `react-x/exhaustive-deps` | 🔧 Auto-fixable |
-| `rules-of-hooks` | `react-x/rules-of-hooks` | 🔧 Auto-fixable |
-| `component-hook-factories` | `react-x/component-hook-factories` | ✅ Supported |
-| `error-boundaries` | `react-x/error-boundaries` | ✅ Supported |
-| `immutability` | `react-x/immutability` | 🟡 🧪 Experimental |
-| `purity` | `react-x/purity` | 🟡 🧪 Experimental |
-| `refs` | `react-x/refs` | 🟡 🧪 Experimental |
-| `set-state-in-effect` | `react-x/set-state-in-effect` | ✅ Supported |
-| `set-state-in-render` | `react-x/set-state-in-render` | 🧪 Experimental |
-| `static-components` | `react-x/no-nested-component-definitions` | ✅ Supported |
-| `unsupported-syntax` | `react-x/unsupported-syntax` | ✅ Supported |
-| `use-memo` | `react-x/use-memo` | ✅ Supported |
+| `eslint-plugin-react-hooks` Rule | ESLint React Equivalent                   | Status             |
+| :------------------------------- | :---------------------------------------- | :----------------- |
+| `exhaustive-deps`                | `react-x/exhaustive-deps`                 | 🔧 Auto-fixable    |
+| `rules-of-hooks`                 | `react-x/rules-of-hooks`                  | 🔧 Auto-fixable    |
+| `component-hook-factories`       | `react-x/component-hook-factories`        | ✅ Supported       |
+| `error-boundaries`               | `react-x/error-boundaries`                | ✅ Supported       |
+| `immutability`                   | `react-x/immutability`                    | 🟡 🧪 Experimental |
+| `purity`                         | `react-x/purity`                          | 🟡 🧪 Experimental |
+| `refs`                           | `react-x/refs`                            | 🟡 🧪 Experimental |
+| `set-state-in-effect`            | `react-x/set-state-in-effect`             | ✅ Supported       |
+| `set-state-in-render`            | `react-x/set-state-in-render`             | 🧪 Experimental    |
+| `static-components`              | `react-x/no-nested-component-definitions` | ✅ Supported       |
+| `unsupported-syntax`             | `react-x/unsupported-syntax`              | ✅ Supported       |
+| `use-memo`                       | `react-x/use-memo`                        | ✅ Supported       |
 
 Legend: 🔧 Fully supported with auto-fix — ✅ Mostly supported — 🟡 Partial support — 🧪 Experimental
 

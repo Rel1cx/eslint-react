@@ -2,7 +2,7 @@ import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 
-import functionDefinition from "./rules/function-definition";
+import functionDefinition from "./rules/function-definition/function-definition";
 
 export const plugin: CompatiblePlugin = {
   meta: {

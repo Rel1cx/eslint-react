@@ -1,0 +1,80 @@
+---
+title: no-use-context
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-use-context
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-use-context
+```
+
+**Features**
+
+`🔄`
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Replaces usage of `useContext` with `use`.
+
+In React 19, `use` is preferred over `useContext` because it is more flexible.
+
+In addition, enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
+
+## Examples
+
+### Before
+
+```tsx
+import { useContext } from "react";
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  // ...
+}
+```
+
+### After
+
+```tsx
+import { use } from "react";
+
+function Button() {
+  const theme = use(ThemeContext);
+  // ...
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-use-context/no-use-context.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-use-context/no-use-context.spec.ts)
+
+## Further Reading
+
+- [React Docs: Blog: New feature `use`](https://react.dev/blog/2024/12/05/react-19#new-feature-use)
+- [React Docs: Reading context with `use`](https://react.dev/reference/react/use#reading-context-with-use)
+
+---
+
+## See Also
+
+- [`no-context-provider`](./no-context-provider)\
+  Replaces usage of `<Context.Provider>` with `<Context>`.
+- [`naming-convention/context-name`](./naming-convention-context-name)\
+  Enforces consistent naming conventions for contexts.

@@ -1,0 +1,130 @@
+---
+title: function-definition
+---
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/rsc/function-definition
+```
+
+**Full Name in `eslint-plugin-react-rsc`**
+
+```plain copy
+react-rsc/function-definition
+```
+
+**Features**
+
+`🔧` `🧪`
+
+**Presets**
+
+`rsc`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Validate and transform React Client/Server Function definitions.
+
+It includes the following checks:
+
+1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
+
+## Examples
+
+### Failing
+
+```tsx
+'use server';
+
+export function serverFunction1() {
+  // ...
+}
+
+export const serverFunction2 = function() {
+  // ...
+};
+
+export const serverFunction3 = () => {
+  // ...
+};
+```
+
+```tsx
+export function Component() {
+  function serverFunction1() {
+    'use server';
+    // ...
+  }
+
+  const serverFunction2 = function() {
+    'use server';
+    // ...
+  };
+
+  const serverFunction3 = () => {
+    'use server';
+    // ...
+  };
+
+  return <div>...</div>;
+}
+```
+
+### Passing
+
+```tsx
+'use server';
+
+export async function serverFunction1() {
+  // ...
+}
+
+export const serverFunction2 = async function() {
+  // ...
+};
+
+export const serverFunction3 = async () => {
+  // ...
+};
+```
+
+```tsx
+export function Component() {
+  async function serverFunction1() {
+    'use server';
+    // ...
+  }
+
+  const serverFunction2 = async function() {
+    'use server';
+    // ...
+  };
+
+  const serverFunction3 = async () => {
+    'use server';
+    // ...
+  };
+
+  return <div>...</div>;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc/src/rules/function-definition/function-definition.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc/src/rules/function-definition/function-definition.spec.ts)
+
+## Further Reading
+
+- [Next.js Docs: Invalid "use server" Value](https://nextjs.org/docs/messages/invalid-use-server-value).

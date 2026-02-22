@@ -1,0 +1,104 @@
+---
+title: component-name
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/naming-convention/component-name
+```
+
+**Full Name in `eslint-plugin-react-naming-convention`**
+
+```plain copy
+react-naming-convention/component-name
+```
+
+**Features**
+
+`⚙️`
+
+**Presets**
+
+-
+
+## Description
+
+Enforces naming conventions for components.
+
+## Rule Options
+
+```ts
+type Options = {
+  rule?: "PascalCase" | "CONSTANT_CASE";
+  excepts?: string[];
+  allowAllCaps?: boolean;
+};
+```
+
+### `rule`
+
+The naming-convention rule to enforce for component names.
+
+Default: `"PascalCase"`
+
+### `excepts`
+
+An array of component names that are exempt from this rule.
+
+Default: `[]`
+
+### `allowAllCaps`
+
+When set to `true`, component names that are entirely uppercase are allowed.
+
+Default: `false`
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+function My_component() {
+  //     ^^^ Expected component name to be in 'PascalCase'.
+  return null;
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return null;
+}
+```
+
+## Examples with `allowAllCaps: true`
+
+```tsx
+import React from "react";
+
+function API() {
+  return null;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name/component-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name/component-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: Component](https://react.dev/learn/your-first-component)
+
+---
+
+## See Also
+
+- [`context-name`](./naming-convention-context-name)\
+  Enforces context names to be valid component names with the suffix `Context`.

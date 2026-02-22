@@ -7,7 +7,7 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
-const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.mdx"];
+const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 
 interface RuleMeta {
   name: string;

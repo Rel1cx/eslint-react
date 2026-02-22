@@ -12,7 +12,7 @@ import { glob } from "./lib/glob";
 import * as config0 from "../packages/plugins/eslint-plugin/src/configs/recommended-typescript";
 import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-typescript";
 
-const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*.ts"];
+const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
   { key: "x", heading: "X Rules" },
@@ -76,7 +76,7 @@ const getShortRuleName = (fullName: string) => {
 // Extract metadata from a rule module (name, description, features, severities)
 const retrieveRuleMeta = Effect.fnUntraced(
   function*(domain: string, name: string) {
-    const filename = `packages/plugins/eslint-plugin-react-${domain}/src/rules/${name}.ts`;
+    const filename = `packages/plugins/eslint-plugin-react-${domain}/src/rules/${name}/${name}.ts`;
     const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(`../${filename}`));
 
     // Extract description from the rule's meta.docs

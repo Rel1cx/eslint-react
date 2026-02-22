@@ -1,0 +1,79 @@
+---
+title: id-name
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/naming-convention/id-name
+```
+
+**Full Name in `eslint-plugin-react-naming-convention`**
+
+```plain copy
+react-naming-convention/id-name
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`.
+
+## Examples
+
+### Failing
+
+```tsx
+const value = useId();
+//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+```
+
+```tsx
+const unique = useId();
+//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+```
+
+```tsx
+const foo = useId();
+//    ^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+```
+
+### Passing
+
+```tsx
+const id = useId();
+```
+
+```tsx
+const inputId = useId();
+```
+
+```tsx
+const dialogTitleId = useId();
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/id-name/id-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/id-name/id-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useId`](https://react.dev/reference/react/useId)
+
+---
+
+## See Also
+
+- [`ref-name`](./naming-convention-ref-name)\
+  Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref`.
+- [`context-name`](./naming-convention-context-name)\
+  Enforces context names to be valid component names with the suffix `Context`.
