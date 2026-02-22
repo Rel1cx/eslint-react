@@ -64,6 +64,7 @@ export const rules = {
   "@eslint-react/prefer-namespace-import": "warn",
   "@eslint-react/purity": "warn",
   "@eslint-react/refs": "error",
+  "@eslint-react/immutability": "error",
   "@eslint-react/rules-of-hooks": "error",
   "@eslint-react/set-state-in-effect": "warn",
   "@eslint-react/set-state-in-render": "error",

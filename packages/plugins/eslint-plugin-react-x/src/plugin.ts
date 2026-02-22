@@ -136,7 +136,6 @@ export const plugin: CompatiblePlugin = {
     "rules-of-hooks": rulesOfHooks,
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
-    "static-components": noNestedComponentDefinitions,
     "unsupported-syntax": unsupportedSyntax,
     "use-memo": useMemo,
     "use-state": useState,
