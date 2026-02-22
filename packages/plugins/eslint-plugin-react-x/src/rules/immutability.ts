@@ -6,7 +6,6 @@ import { findVariable, getVariableInitializer } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { P, isMatching } from "ts-pattern";
 
 import { createRule } from "../utils";
 
