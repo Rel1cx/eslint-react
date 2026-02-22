@@ -1,0 +1,359 @@
+---
+title: unsupported-syntax
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/unsupported-syntax
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/unsupported-syntax
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Validates against syntax that React Compiler does not support. If you need to, you can still use this syntax outside of React, such as in a standalone utility function.
+
+React Compiler needs to statically analyze your code to apply optimizations. Features like `eval`, `with`, and immediately-invoked function expressions (IIFEs) in JSX make it impossible or impractical for the compiler to statically understand what the code does at compile time, so the compiler can't optimize components that use them.
+
+This rule checks for the following unsupported patterns:
+
+- **`eval`** — Dynamic code evaluation cannot be statically analyzed.
+- **`with` statements** — Dynamically changes scope, preventing static analysis.
+- **IIFEs in JSX** — Immediately-invoked function expressions within JSX elements or fragments will not be optimized by React Compiler.
+
+### Invalid
+
+```tsx
+// ❌ Using eval in component
+function Component({ code }) {
+  const result = eval(code); // Can't be analyzed
+  return <div>{result}</div>;
+}
+```
+
+```tsx
+// ❌ Using with statement
+function Component() {
+  with (Math) { // Changes scope dynamically
+    return <div>{sin(PI / 2)}</div>;
+  }
+}
+```
+
+```tsx
+// ❌ Dynamic property access with eval
+function Component({ propName }) {
+  const value = eval(`props.${propName}`);
+  return <div>{value}</div>;
+}
+```
+
+```tsx
+// ❌ IIFE in JSX
+function MyComponent() {
+  return (
+    <SomeJsx>
+      {(() => {
+        const filteredThings = things.filter(callback);
+
+        if (filteredThings.length === 0) {
+          return <Empty />;
+        }
+
+        return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
+      })()}
+    </SomeJsx>
+  );
+}
+```
+
+### Valid
+
+```tsx
+// ✅ Use normal property access
+function Component({ propName, props }) {
+  const value = props[propName]; // Analyzable
+  return <div>{value}</div>;
+}
+```
+
+```tsx
+// ✅ Use standard Math methods
+function Component() {
+  return <div>{Math.sin(Math.PI / 2)}</div>;
+}
+```
+
+```tsx
+// ✅ eval outside of components and hooks is fine
+function notAComponent() {
+  const result = eval("1 + 2");
+  return result;
+}
+```
+
+```tsx
+// ✅ Extract IIFE logic into a variable before JSX
+function MyComponent() {
+  const thingsList = (() => {
+    const filteredThings = things.filter(callback);
+
+    if (filteredThings.length === 0) {
+      return <Empty />;
+    }
+
+    return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
+  })();
+
+  return (
+    <SomeJsx>
+      {thingsList}
+    </SomeJsx>
+  );
+}
+```
+
+```tsx
+// ✅ Use useMemo instead of IIFE
+function MyComponent() {
+  const thingsList = useMemo(() => {
+    const filteredThings = things.filter(callback);
+
+    if (filteredThings.length === 0) {
+      return <Empty />;
+    }
+
+    return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
+  }, [things, callback]);
+
+  return (
+    <SomeJsx>
+      {thingsList}
+    </SomeJsx>
+  );
+}
+```
+
+## Troubleshooting
+
+### I need to evaluate dynamic code
+
+You might need to evaluate user-provided code:
+
+```tsx
+// ❌ Wrong: eval in component
+function Calculator({ expression }) {
+  const result = eval(expression); // Unsafe and unoptimizable
+  return <div>Result: {result}</div>;
+}
+```
+
+Use a safe expression parser instead:
+
+```tsx
+// ✅ Better: Use a safe parser
+import { evaluate } from 'mathjs'; // or similar library
+
+function Calculator({ expression }) {
+  const [result, setResult] = useState(null);
+  const calculate = () => {
+    try {
+      // Safe mathematical expression evaluation
+      setResult(evaluate(expression));
+    } catch (error) {
+      setResult('Invalid expression');
+    }
+  };
+  return (
+    <div>
+      <button onClick={calculate}>Calculate</button>
+      {result && <div>Result: {result}</div>}
+    </div>
+  );
+}
+```
+
+> **Note:** Never use `eval` with user input — it's a security risk. Use dedicated parsing libraries for specific use cases like mathematical expressions, JSON parsing, or template evaluation.
+
+### I need conditional rendering logic in JSX
+
+You might be using an IIFE in JSX to handle complex conditional rendering:
+
+```tsx
+// ❌ Wrong: IIFE in JSX
+function MyComponent() {
+  return (
+    <div>
+      {(() => {
+        if (loading) return <Spinner />;
+        if (error) return <Error />;
+        return <Content />;
+      })()}
+    </div>
+  );
+}
+```
+
+Extract the logic into a variable before the return statement, or use a helper component:
+
+```tsx
+// ✅ Better: Extract into a variable
+function MyComponent() {
+  const content = (() => {
+    if (loading) return <Spinner />;
+    if (error) return <Error />;
+    return <Content />;
+  })();
+
+  return <div>{content}</div>;
+}
+```
+
+```tsx
+// ✅ Even better: Use ternary or logical expressions
+function MyComponent() {
+  return (
+    <div>
+      {loading ? <Spinner /> : error ? <Error /> : <Content />}
+    </div>
+  );
+}
+```
+
+## Examples
+
+### Failing
+
+```tsx
+function Component({ code }) {
+  const result = eval(code);
+  //             ^^^ Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.
+  return <div>{result}</div>;
+}
+```
+
+```tsx
+function Component() {
+  with (Math) {
+  // ^^^ Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.
+    return <div>{sin(PI / 2)}</div>;
+  }
+}
+```
+
+```tsx
+function useMyHook(code) {
+  const result = eval(code);
+  //             ^^^ Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.
+  return result;
+}
+```
+
+```tsx
+function MyComponent() {
+  return (
+    <SomeJsx>
+      {(() => {
+      // ^^^ Avoid using immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.
+        const filteredThings = things.filter(callback);
+
+        if (filteredThings.length === 0) {
+          return <Empty />;
+        }
+
+        return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
+      })()}
+    </SomeJsx>
+  );
+}
+```
+
+### Passing
+
+```tsx
+function Component({ propName, props }) {
+  const value = props[propName];
+  return <div>{value}</div>;
+}
+```
+
+```tsx
+function Component() {
+  return <div>{Math.sin(Math.PI / 2)}</div>;
+}
+```
+
+```tsx
+function Component() {
+  const handleClick = () => {
+    eval("something");
+  };
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+```tsx
+function Component() {
+  useEffect(() => {
+    eval("something");
+  }, []);
+  return <div>Content</div>;
+}
+```
+
+```tsx
+function MyComponent() {
+  const thingsList = useMemo(() => {
+    const filteredThings = things.filter(callback);
+
+    if (filteredThings.length === 0) {
+      return <Empty />;
+    }
+
+    return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
+  }, [things, callback]);
+
+  return (
+    <SomeJsx>
+      {thingsList}
+    </SomeJsx>
+  );
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unsupported-syntax/unsupported-syntax.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unsupported-syntax/unsupported-syntax.spec.ts)
+
+## Further Reading
+
+- [React Docs: `unsupported-syntax` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/unsupported-syntax)
+
+---
+
+## See Also
+
+- [`purity`](./purity)\
+  Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+- [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
+  Disallows unnecessary usage of `useMemo`.

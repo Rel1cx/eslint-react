@@ -1,0 +1,100 @@
+---
+title: no-access-state-in-setstate
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-access-state-in-setstate
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-access-state-in-setstate
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Disallows accessing `this.state` inside `setState` calls.
+
+Using `this.state` inside `setState` calls might result in errors when two state updates are batched, causing references to the old state rather than the current state.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {}
+
+interface MyComponentState {
+  foo: number;
+}
+
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+  state = {
+    foo: 1,
+  };
+
+  render() {
+    return (
+      <button onClick={() => this.setState({ foo: this.state.foo + 1 })} />
+      //                                          ^^^ Do not access 'this.state' within 'setState'. Use the update function instead.
+    );
+  }
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {}
+
+interface MyComponentState {
+  foo: number;
+}
+
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+  state = {
+    foo: 1,
+  };
+
+  render() {
+    return (
+      <button
+        onClick={() => this.setState((state) => ({ foo: state.foo + 1 }))}
+      />
+    );
+  }
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.spec.ts)
+
+---
+
+## See Also
+
+- [`no-direct-mutation-state`](./no-direct-mutation-state)\
+  Disallows direct mutation of `this.state`.
+- [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount)\
+  Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks.
+- [`no-unused-state`](./no-unused-state)\
+  Warns about unused class component state.

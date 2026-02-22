@@ -1,0 +1,130 @@
+---
+title: use-memo
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/use-memo
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/use-memo
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Validates that `useMemo` is called with a callback that returns a value.
+
+`useMemo` is designed for computing and caching expensive values between renders. Without a return value, `useMemo` always returns `undefined`, which defeats its purpose and likely indicates the wrong hook is being used.
+
+There are two violations this rule catches:
+
+1. **Missing return value** — the callback passed to `useMemo` does not return a value (implicitly returns `undefined`).
+2. **Result not assigned** — the return value of `useMemo` is discarded (not assigned to a variable), which means the memoized value is never used.
+
+If you need to run side effects when dependencies change, use `useEffect` instead.
+
+## Examples
+
+### Failing
+
+```tsx
+// ❌ No return value in the callback
+function Component({ data }) {
+  const processed = useMemo(() => {
+    data.forEach(item => console.log(item));
+    // Missing return!
+  }, [data]);
+  return <div>{processed}</div>; // Always undefined
+}
+```
+
+```tsx
+// ❌ useMemo result not assigned to a variable (side-effect usage)
+function Component({ user }) {
+  useMemo(() => {
+    analytics.track("UserViewed", { userId: user.id });
+  }, [user.id]);
+  return <div />;
+}
+```
+
+```tsx
+// ❌ useMemo result not assigned even when callback has a return
+function Component({ user }) {
+  useMemo(() => {
+    return analytics.track("UserViewed", { userId: user.id });
+  }, [user.id]);
+  return <div />;
+}
+```
+
+### Passing
+
+```tsx
+// ✅ Returns a computed value
+function Component({ data }) {
+  const processed = useMemo(() => {
+    return data.map(item => item * 2);
+  }, [data]);
+  return <div>{processed}</div>;
+}
+```
+
+```tsx
+// ✅ Arrow function with concise body (implicitly returns)
+function Component({ items }) {
+  const sorted = useMemo(() => [...items].sort(), [items]);
+  return <div>{sorted.join(", ")}</div>;
+}
+```
+
+```tsx
+// ✅ Use useEffect for side effects instead
+function Component({ user }) {
+  useEffect(() => {
+    analytics.track("UserViewed", { userId: user.id });
+  }, [user.id]);
+  return <div />;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useMemo`](https://react.dev/reference/react/useMemo)
+- [React Docs: `use-memo` lint rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo)
+
+---
+
+## See Also
+
+- [`use-state`](./use-state)\
+  Enforces correct usage of the `useState` hook.
+- [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
+  Disallows unnecessary usage of `useMemo`.
+- [`exhaustive-deps`](./exhaustive-deps)\
+  Validates that dependency arrays for React hooks contain all necessary dependencies.
+- [`rules-of-hooks`](./rules-of-hooks)\
+  Validates that components and hooks follow the Rules of Hooks.

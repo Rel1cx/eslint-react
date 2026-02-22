@@ -1,0 +1,87 @@
+---
+title: function-component
+---
+
+**Full Name in `eslint-plugin-react-debug`**
+
+```plain copy
+react-debug/function-component
+```
+
+**Features**
+
+`🐞`
+
+**Presets**
+
+-
+
+## Description
+
+Reports all function components in JSON format. Useful for debugging. This rule should only be used for debugging purposes; otherwise leave it off.
+
+## Examples
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return <button />;
+}
+```
+
+```tsx
+import React from "react";
+
+const MyComponent = () => <button />;
+```
+
+```tsx
+import React from "react";
+
+const MyComponent = React.memo(() => <button />);
+```
+
+```tsx
+import React from "react";
+
+const MyComponent = React.forwardRef(() => <button />);
+```
+
+```tsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {}}, []);
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  "use memo";
+}
+```
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  "use no memo";
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component/function-component.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component/function-component.spec.ts)
+
+---
+
+## See Also
+
+- [`class-component`](./debug-class-component)\
+  Reports all class components.
+- [`hook`](./debug-hook)\
+  Reports all Hooks.

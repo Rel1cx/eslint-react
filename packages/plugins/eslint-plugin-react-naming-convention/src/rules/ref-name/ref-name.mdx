@@ -1,0 +1,84 @@
+---
+title: ref-name
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/naming-convention/ref-name
+```
+
+**Full Name in `eslint-plugin-react-naming-convention`**
+
+```plain copy
+react-naming-convention/ref-name
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref`.
+
+## Examples
+
+### Failing
+
+```tsx
+const count = useRef(0);
+//    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
+```
+
+```tsx
+const input = useRef<HTMLInputElement>(null);
+//    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
+```
+
+```tsx
+const value = useRef(null);
+//    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
+```
+
+### Passing
+
+```tsx
+const ref = useRef(0);
+```
+
+```tsx
+const countRef = useRef(0);
+```
+
+```tsx
+const inputRef = useRef<HTMLInputElement>(null);
+```
+
+```tsx
+const valueRef = useRef(null);
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/ref-name/ref-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/ref-name/ref-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useRef`](https://react.dev/reference/react/useRef)
+- [React Docs: Plain Object `.current`](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs#plain-object-current)
+
+---
+
+## See Also
+
+- [`id-name`](./naming-convention-id-name)\
+  Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`.
+- [`component-name`](./naming-convention-component-name)\
+  Enforces naming conventions for components.

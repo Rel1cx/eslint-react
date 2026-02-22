@@ -1,0 +1,210 @@
+---
+title: use-state
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/use-state
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/use-state
+```
+
+**Features**
+
+`⚙️`
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.
+
+This rule covers three concerns:
+
+1. The return value of `useState` must be destructured into a `[value, setter]` array pattern. Bare assignments or unassigned calls are reported.
+2. The setter must be named symmetrically — `set` followed by the capitalized value name (e.g. `count` → `setCount`). The state value must be a plain identifier; destructured patterns (`ObjectPattern`, `ArrayPattern`, etc.) are reported as an invalid assignment form.
+3. Function calls passed directly as the initial state argument are reported. Wrapping them in an initializer function (e.g. `() => getValue()`) avoids re-invoking the function on every render.
+
+> Lazy initialization behavior was previously a standalone `prefer-use-state-lazy-initialization` rule. That rule has been merged into `use-state` and removed.
+
+## Options
+
+```ts
+type Options = {
+  enforceAssignment?: boolean;       // default: true
+  enforceSetterName?: boolean;       // default: true
+  enforceLazyInitialization?: boolean; // default: true
+};
+```
+
+### `enforceAssignment`
+
+When `true`, requires `useState` to be destructured into a `[value, setter]` array pattern. Bare assignments (e.g. `const state = useState(0)`) or calls without any assignment are reported.
+
+Default: `true`
+
+### `enforceSetterName`
+
+When `true`, requires the setter to be named `set` + capitalized value name (e.g. `setCount` for `count`). Snake-case and object-pattern state names are normalized before comparison.
+
+Default: `true`
+
+### `enforceLazyInitialization`
+
+When `true`, reports function calls passed directly as the initial state argument to `useState`. React calls the initializer on every render and discards the result after the first — wrapping expensive calls in an [initializer function](https://react.dev/reference/react/useState#avoiding-recreating-the-initial-state) avoids this overhead.
+
+Primitive wrapper calls (`Boolean(...)`, `String(...)`, `Number(...)`) and React hook calls (including `use(...)`) are always allowed.
+
+Default: `true`
+
+## Examples
+
+### Failing
+
+```tsx
+// ❌ Setter name does not match value name
+import { useState } from "react";
+
+function Counter() {
+  const [count, updateCount] = useState(0);
+  //            ^^^ The setter should be named 'set' followed by the capitalized state variable name, e.g. 'setCount' for 'count'.
+  return <div>{count}</div>;
+}
+```
+
+```tsx
+// ❌ Setter prefix is correct but capitalization is wrong
+import { useState } from "react";
+
+function Counter() {
+  const [count, setcount] = useState(0);
+  return <div>{count}</div>;
+}
+```
+
+```tsx
+// ❌ Not destructured (enforceAssignment: true)
+import { useState } from "react";
+
+function Counter() {
+  const count = useState(0);
+  //    ^^^ useState should be destructured into a value and setter pair, e.g. const [state, setState] = useState(...).
+  return <div>{count}</div>;
+}
+```
+
+```tsx
+// ❌ Function call passed directly as initial state (enforceLazyInitialization: true)
+import { useState } from "react";
+
+function MyComponent() {
+  const [value, setValue] = useState(generateTodos());
+  //                                 ^^^ To prevent re-computation, consider using lazy initial state. Ex: 'useState(() => getValue())'.
+  return null;
+}
+
+declare function generateTodos(): string[];
+```
+
+### Passing
+
+```tsx
+// ✅ Symmetric camelCase naming
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return <div>{count}</div>;
+}
+```
+
+```tsx
+// ✅ Snake_case value and setter
+import { useState } from "react";
+
+function Counter() {
+  const [foo_bar, set_foo_bar] = useState(0);
+  return <div>{foo_bar}</div>;
+}
+```
+
+```tsx
+// ✅ Object state stored under a plain identifier
+import { useState } from "react";
+
+function Form() {
+  const [form, setForm] = useState({ foo: "a", bar: "b" });
+  return <div>{form.foo}</div>;
+}
+```
+
+```tsx
+// ✅ Only value destructured — setter omitted (enforceSetterName skipped)
+import { useState } from "react";
+
+function Component() {
+  const [value] = useState(() => expensiveSetup());
+  return <div>{value}</div>;
+}
+```
+
+```tsx
+// ✅ Lazy initializer wrapping an expensive function call
+import { useState } from "react";
+
+function MyComponent() {
+  const [value, setValue] = useState(() => generateTodos());
+  return null;
+}
+
+declare function generateTodos(): string[];
+```
+
+```tsx
+// ✅ use() calls are always allowed as initial state
+import { useState, use } from "react";
+
+function Component({ promise }) {
+  const [data, setData] = useState(use(promise));
+  return null;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-state/use-state.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-state/use-state.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useState`](https://react.dev/reference/react/useState)
+- [React Docs: Avoiding recreating the initial state](https://react.dev/reference/react/useState#avoiding-recreating-the-initial-state)
+- [React Docs: State naming conventions](https://react.dev/learn/state-a-components-memory#meet-your-first-hook)
+
+---
+
+## See Also
+
+- [`use-memo`](./use-memo)\
+  Validates that `useMemo` is called with a callback that returns a value.
+- [`rules-of-hooks`](./rules-of-hooks)\
+  Validates that components and hooks follow the Rules of Hooks.
+- [`exhaustive-deps`](./exhaustive-deps)\
+  Validates that dependency arrays for React hooks contain all necessary dependencies.

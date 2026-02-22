@@ -2,12 +2,12 @@ import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 
-import classComponent from "./rules/class-component";
-import functionComponent from "./rules/function-component";
-import hook from "./rules/hook";
-import isFromReact from "./rules/is-from-react";
-import isFromRef from "./rules/is-from-ref";
-import jsx from "./rules/jsx";
+import classComponent from "./rules/class-component/class-component";
+import functionComponent from "./rules/function-component/function-component";
+import hook from "./rules/hook/hook";
+import isFromReact from "./rules/is-from-react/is-from-react";
+import isFromRef from "./rules/is-from-ref/is-from-ref";
+import jsx from "./rules/jsx/jsx";
 
 export const plugin: CompatiblePlugin = {
   meta: {

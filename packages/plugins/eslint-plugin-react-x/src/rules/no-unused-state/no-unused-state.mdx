@@ -1,0 +1,78 @@
+---
+title: no-unused-state
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-unused-state
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-unused-state
+```
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Warns about unused class component state.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+class MyComponent extends React.Component {
+  // Unused
+  state = {
+    foo: 1,
+  };
+
+  render() {
+    return null;
+  }
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+class MyComponent extends React.Component {
+  state = {
+    foo: 1,
+  };
+
+  render() {
+    return this.state.foo;
+  }
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-state/no-unused-state.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-state/no-unused-state.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `Component`](https://react.dev/reference/react/Component)
+
+---
+
+## See Also
+
+- [`no-unused-props`](./no-unused-props)\
+  Warns about component props that are defined but never used.
+- [`no-unused-class-component-members`](./no-unused-class-component-members)\
+  Warns about unused class component methods and properties.

@@ -1,0 +1,73 @@
+---
+title: jsx-shorthand-boolean
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/jsx-shorthand-boolean
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/jsx-shorthand-boolean
+```
+
+**Features**
+
+`🔧` `⚙️`
+
+**Presets**
+
+-
+
+## Description
+
+Enforces shorthand syntax for boolean props.
+
+## Rule Options
+
+This rule has a single integer option with the following values:
+
+- `1` (Default): Always use shorthand syntax for boolean attributes.
+- `-1`: Never use shorthand syntax for boolean attributes.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return <button disabled={true} />;
+  //             ^^^ Omit the `=true` for boolean attributes.
+}
+```
+
+### Passing
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  return <button disabled />;
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-shorthand-boolean/jsx-shorthand-boolean.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-shorthand-boolean/jsx-shorthand-boolean.spec.ts)
+
+## Further Reading
+
+- [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
+
+---
+
+## See Also
+
+- [`jsx-shorthand-fragment`](./jsx-shorthand-fragment)\
+  Enforces the use of shorthand syntax for fragments.

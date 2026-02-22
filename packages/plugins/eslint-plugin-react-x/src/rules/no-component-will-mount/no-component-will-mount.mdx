@@ -1,0 +1,87 @@
+---
+title: no-component-will-mount
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-component-will-mount
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-component-will-mount
+```
+
+**Features**
+
+`🔄`
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount`.
+
+This API was renamed from `componentWillMount` to `UNSAFE_componentWillMount`. The old name has been deprecated. In a future major version of React, only the new name will work.
+
+## Examples
+
+### Before
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  name: string;
+}
+
+class MyComponent extends React.Component<MyComponentProps> {
+  componentWillMount() {
+    // ...
+  }
+}
+```
+
+### After
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  name: string;
+}
+
+class MyComponent extends React.Component<MyComponentProps> {
+  UNSAFE_componentWillMount() {
+    // ...
+  }
+}
+```
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-component-will-mount/no-component-will-mount.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-component-will-mount/no-component-will-mount.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `componentWillMount`](https://react.dev/reference/react/Component#componentwillmount)
+
+---
+
+## See Also
+
+- [no-component-will-receive-props](./no-component-will-receive-props)\
+  Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
+- [no-component-will-update](./no-component-will-update)\
+  Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.

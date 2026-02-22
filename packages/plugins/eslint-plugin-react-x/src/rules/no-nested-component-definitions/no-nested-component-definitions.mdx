@@ -1,0 +1,89 @@
+---
+title: no-nested-component-definitions
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-nested-component-definitions
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-nested-component-definitions
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Disallows nesting component definitions inside other components.
+
+Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
+
+When a component is defined inside another component:
+
+- It gets recreated on every render of the parent component
+- It loses its internal state when the parent re-renders
+- It defeats prop memoization and optimization techniques
+- It creates new function references on every render
+
+Instead, define every component at the top level.
+
+## Examples
+
+### Failing
+
+```tsx
+import React from "react";
+
+function Gallery() {
+  // 🔴 Never define a component inside another component!
+  function Profile() {
+    /* ... */
+  }
+  // ...
+}
+```
+
+### Passing
+
+```tsx
+// ✅ Declare components at the top level
+function Gallery() {
+  // ...
+}
+function Profile() {
+  /* ... */
+}
+```
+
+When a child component needs data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions/no-nested-component-definitions.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions/no-nested-component-definitions.spec.ts)
+
+## Further Reading
+
+- [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+- [React Docs: `static-components` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components)
+
+---
+
+## See Also
+
+- [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations)\
+  Disallow nesting lazy component declarations inside other components.
+- [`component-hook-factories`](./component-hook-factories)\
+  Disallows higher order functions that define components or hooks inside them. Components and hooks should be defined at the module level.

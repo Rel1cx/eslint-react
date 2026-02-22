@@ -1,0 +1,153 @@
+---
+title: error-boundaries
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/error-boundaries
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/error-boundaries
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Description
+
+Validates usage of Error Boundaries instead of try/catch for errors in child components.
+
+Try/catch blocks can't catch errors that happen during React's rendering process. Errors thrown in rendering methods or lifecycle hooks bubble up through the component tree. Only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors.
+
+Similarly, the `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a rejected promise, only Error Boundaries (and Suspense boundaries) can handle these cases. A catch block around `use` would never run.
+
+## Examples
+
+### Failing
+
+```tsx
+// ❌ Try/catch won't catch render errors from child components
+function Parent() {
+  try {
+    return <ChildComponent />;
+    //      ^^^ Use an Error Boundary to catch errors in child components.
+  } catch (error) {
+    return <div>Error occurred</div>;
+  }
+}
+```
+
+```tsx
+// ❌ Try/catch around `use` hook
+function Component({ promise }) {
+  try {
+    const data = use(promise);
+    //           ^^^ Use an Error Boundary instead of try/catch around the 'use' hook.
+    return <div>{data}</div>;
+  } catch (error) {
+    return <div>Failed to load</div>;
+  }
+}
+```
+
+### Passing
+
+```tsx
+// ✅ Using an Error Boundary to catch rendering errors
+function Parent() {
+  return (
+    <ErrorBoundary fallback={<div>Error occurred</div>}>
+      <ChildComponent />
+    </ErrorBoundary>
+  );
+}
+```
+
+```tsx
+// ✅ Error Boundary with Suspense for async data
+function App() {
+  return (
+    <ErrorBoundary fallback={<div>Failed to load</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <DataComponent promise={fetchData()} />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+```
+
+```tsx
+// ✅ Try/catch is fine for non-rendering operations
+function Component() {
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch (e) {
+    data = null;
+  }
+  return <div>{data}</div>;
+}
+```
+
+```tsx
+// ✅ Try/catch is fine inside event handlers and effects
+function Component() {
+  const handleClick = () => {
+    try {
+      doSomething();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+## Troubleshooting
+
+### Why is the linter telling me not to wrap JSX in try/catch?
+
+React's rendering is declarative. When you write `return <ChildComponent />`, you're describing what the UI should look like — you're not imperatively executing `ChildComponent`. If `ChildComponent` throws during rendering, React handles that error propagation internally through the component tree, bypassing any try/catch in JavaScript's call stack. Only an Error Boundary (a class component with `componentDidCatch` or `getDerivedStateFromError`) can intercept these errors.
+
+### Why is the linter telling me not to wrap `use` in try/catch?
+
+The `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, it suspends the component and lets React show a fallback. When the promise rejects, React propagates the error through the component tree to the nearest Error Boundary. The linter warns against try/catch around `use` because the catch block would never run.
+
+### What about try/catch for non-rendering logic?
+
+Try/catch is perfectly valid for synchronous operations like `JSON.parse`, `localStorage` access, or data transformations that happen _before_ JSX is returned. The rule only flags try/catch blocks that wrap JSX return statements or `use` hook calls inside component functions.
+
+## Implementation
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/error-boundaries/error-boundaries.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/error-boundaries/error-boundaries.spec.ts)
+
+## Further Reading
+
+- [React Docs: Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
+- [React Docs: `use`](https://react.dev/reference/react/use)
+- [React Docs: `error-boundaries` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/error-boundaries)
+
+---
+
+## See Also
+
+- [`no-class-component`](./no-class-component)\
+  Disallows class components except for error boundaries.
+- [`rules-of-hooks`](./rules-of-hooks)\
+  Validates that components and hooks follow the Rules of Hooks.

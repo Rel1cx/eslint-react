@@ -2,10 +2,10 @@ import type { CompatiblePlugin } from "@eslint-react/shared";
 
 import { name, version } from "../package.json";
 
-import noLeakedEventListener from "./rules/no-leaked-event-listener";
-import noLeakedInterval from "./rules/no-leaked-interval";
-import noLeakedResizeObserver from "./rules/no-leaked-resize-observer";
-import noLeakedTimeout from "./rules/no-leaked-timeout";
+import noLeakedEventListener from "./rules/no-leaked-event-listener/no-leaked-event-listener";
+import noLeakedInterval from "./rules/no-leaked-interval/no-leaked-interval";
+import noLeakedResizeObserver from "./rules/no-leaked-resize-observer/no-leaked-resize-observer";
+import noLeakedTimeout from "./rules/no-leaked-timeout/no-leaked-timeout";
 
 export const plugin: CompatiblePlugin = {
   meta: {

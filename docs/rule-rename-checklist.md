@@ -13,9 +13,9 @@ Used as reference when:
 
 ### A1. Source Files
 
-- [ ] Rename `src/rules/<old-name>.ts` → `src/rules/<new-name>.ts`
-- [ ] Rename `src/rules/<old-name>.spec.ts` → `src/rules/<new-name>.spec.ts`
-- [ ] Rename `src/rules/<old-name>.mdx` → `src/rules/<new-name>.mdx`
+- [ ] Rename `src/rules/<old-name>/<old-name>.ts` → `src/rules/<new-name>/<new-name>.ts`
+- [ ] Rename `src/rules/<old-name>/<old-name>.spec.ts` → `src/rules/<new-name>/<new-name>.spec.ts`
+- [ ] Rename `src/rules/<old-name>/<old-name>.mdx` → `src/rules/<new-name>/<new-name>.mdx`
 
 ### A2. Rule Implementation (`<new-name>.ts`)
 
@@ -28,7 +28,7 @@ Used as reference when:
 
 - [ ] Update the import path
   ```ts
-  import rule, { RULE_NAME } from "./<new-name>";
+  import rule, { RULE_NAME } from "./<new-name>/<new-name>";
   ```
 
 ### A4. Documentation (`<new-name>.mdx`)
@@ -43,9 +43,9 @@ Used as reference when:
 - [ ] Rename the `import` statement (variable name + module path)
   ```ts
   // before
-  import oldName from "./rules/<old-name>";
+  import oldName from "./rules/<old-name>/<old-name>";
   // after
-  import newName from "./rules/<new-name>";
+  import newName from "./rules/<new-name>/<new-name>";
   ```
 - [ ] Rename the key in the `rules` map
   ```ts
@@ -89,7 +89,7 @@ Update the rule key (prefixed `@eslint-react/`) in every config that includes th
   ```
 - [ ] All tests pass
   ```sh
-  pnpm vitest run src/rules/<new-name>.spec.ts
+  pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts
   ```
 - [ ] No leftover references to the old name
   ```sh
@@ -107,23 +107,23 @@ Update the rule key (prefixed `@eslint-react/`) in every config that includes th
 
 ### B2. New Source Files (in `eslint-plugin-react-x`)
 
-- [ ] Create `src/rules/<rule-name>.ts`
+- [ ] Create `src/rules/<rule-name>/<rule-name>.ts`
   - Copy implementation from the source plugin
   - Update `import { createRule } from "../utils"` to point to the react-x utils
   - Add a fast-path skip guard if applicable:
     ```ts
     if (!context.sourceCode.text.includes("<hookName>")) return {};
     ```
-- [ ] Create `src/rules/<rule-name>.spec.ts`
+- [ ] Create `src/rules/<rule-name>/<rule-name>.spec.ts`
   - Copy tests from the source plugin
-  - Update the import to `from "./<rule-name>"`
+  - Update the import to `from "./<rule-name>/<rule-name>"`
   - Adjust test helpers if needed (e.g. `allFunctions` vs `allValid`)
-- [ ] Create `src/rules/<rule-name>.mdx`
+- [ ] Create `src/rules/<rule-name>/<rule-name>.mdx`
   - Follow the `use-memo.mdx` style (see template below)
 
 ### B3. Plugin Registration (`eslint-plugin-react-x/src/plugin.ts`)
 
-- [ ] Add `import <camelName> from "./rules/<rule-name>";`
+- [ ] Add `import <camelName> from "./rules/<rule-name>/<rule-name>";`
 - [ ] Add `"<rule-name>": <camelName>` to the `rules` map
 
 ### B4. Preset Configs (`eslint-plugin-react-x`)
@@ -164,7 +164,7 @@ Add the rule to every applicable preset:
   ```
 - [ ] All tests pass
   ```sh
-  pnpm vitest run src/rules/<rule-name>.spec.ts
+  pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts
   ```
 - [ ] No stale references to the old namespaced rule name
   ```sh
@@ -237,8 +237,8 @@ Document each option with its name, effect, and default value.
 
 ## Implementation
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/<rule-name>.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/<rule-name>.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts)
 
 ## Further Reading
 
