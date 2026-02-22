@@ -1,4 +1,4 @@
-## v3.0.0-beta.33 (2026-02-22)
+## v3.0.0-beta.37 (2026-02-22)
 
 ### 💥 Breaking Changes
 
@@ -168,20 +168,20 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 
 ESLint React now provides direct equivalents for the core rules in `eslint-plugin-react-hooks`, including both the classic hooks linting rules (`exhaustive-deps`, `rules-of-hooks`) and many of the newer React Compiler diagnostic rules.
 
-| `eslint-plugin-react-hooks` Rule | ESLint React Equivalent                   | Status             |
-| :------------------------------- | :---------------------------------------- | :----------------- |
-| `exhaustive-deps`                | `react-x/exhaustive-deps`                 | 🔧 Auto-fixable    |
-| `rules-of-hooks`                 | `react-x/rules-of-hooks`                  | 🔧 Auto-fixable    |
-| `component-hook-factories`       | `react-x/component-hook-factories`        | ✅ Supported       |
-| `error-boundaries`               | `react-x/error-boundaries`                | ✅ Supported       |
-| `immutability`                   | `react-x/immutability`                    | 🟡 🧪 Experimental |
-| `purity`                         | `react-x/purity`                          | 🟡 🧪 Experimental |
-| `refs`                           | `react-x/refs`                            | 🟡 🧪 Experimental |
-| `set-state-in-effect`            | `react-x/set-state-in-effect`             | ✅ Supported       |
-| `set-state-in-render`            | `react-x/set-state-in-render`             | 🧪 Experimental    |
-| `static-components`              | `react-x/no-nested-component-definitions` | ✅ Supported       |
-| `unsupported-syntax`             | `react-x/unsupported-syntax`              | ✅ Supported       |
-| `use-memo`                       | `react-x/use-memo`                        | ✅ Supported       |
+| `eslint-plugin-react-hooks` Rule | ESLint React Equivalent                   | Status |
+| :------------------------------- | :---------------------------------------- | :----- |
+| `exhaustive-deps`                | `react-x/exhaustive-deps`                 | 🔧     |
+| `rules-of-hooks`                 | `react-x/rules-of-hooks`                  | 🔧     |
+| `component-hook-factories`       | `react-x/component-hook-factories`        | ✅     |
+| `error-boundaries`               | `react-x/error-boundaries`                | ✅     |
+| `immutability`                   | `react-x/immutability`                    | 🟡 🧪  |
+| `purity`                         | `react-x/purity`                          | 🟡 🧪  |
+| `refs`                           | `react-x/refs`                            | 🟡 🧪  |
+| `set-state-in-effect`            | `react-x/set-state-in-effect`             | ✅     |
+| `set-state-in-render`            | `react-x/set-state-in-render`             | 🧪     |
+| `static-components`              | `react-x/no-nested-component-definitions` | ✅     |
+| `unsupported-syntax`             | `react-x/unsupported-syntax`              | ✅     |
+| `use-memo`                       | `react-x/use-memo`                        | ✅     |
 
 Legend: 🔧 Fully supported with auto-fix — ✅ Mostly supported — 🟡 Partial support — 🧪 Experimental
 
@@ -189,7 +189,7 @@ Legend: 🔧 Fully supported with auto-fix — ✅ Mostly supported — 🟡 Par
 
 See the [complete migration guide](https://www.eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks) for more details.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-beta.33
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-beta.37
 
 ## v2.13.0 (2026-02-15)
 
