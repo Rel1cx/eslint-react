@@ -116,7 +116,7 @@ export const RE_HOOK_NAME = /^use/u;
 /**
  * Known impure functions
  */
-export const IMPURE_FUNCTIONS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
+export const IMPURE_FUNCS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
   [
     "Atomics",
     new Set([
@@ -437,7 +437,7 @@ export const IMPURE_FUNCTIONS: ReadonlyMap<string, ReadonlySet<string>> = new Ma
 /**
  * Known impure global constructors used with `new`
  */
-export const IMPURE_CONSTRUCTORS: ReadonlySet<string> = new Set([
+export const IMPURE_CTORS: ReadonlySet<string> = new Set([
   "AbortController",
   "Audio",
   "AudioContext",

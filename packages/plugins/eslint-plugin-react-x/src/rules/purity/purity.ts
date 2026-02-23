@@ -1,8 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
-  IMPURE_CONSTRUCTORS,
-  IMPURE_FUNCTIONS,
+  IMPURE_CTORS,
+  IMPURE_FUNCS,
   type RuleContext,
   type RuleFeature,
   defineRuleListener,
@@ -17,34 +17,6 @@ export const RULE_NAME = "purity";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-function isImpureMemberCall(node: TSESTree.CallExpression) {
-  if (node.callee.type !== AST.MemberExpression) return false;
-  const { object, property } = node.callee;
-  if (object.type !== AST.Identifier) return false;
-  if (property.type !== AST.Identifier) return false;
-  const methods = IMPURE_FUNCTIONS.get(object.name);
-  if (methods == null) return false;
-  return methods.has(property.name);
-}
-
-function isImpureNewExpression(node: TSESTree.NewExpression) {
-  if (node.callee.type !== AST.Identifier) return false;
-  return IMPURE_CONSTRUCTORS.has(node.callee.name);
-}
-
-function getImpureCallName(node: TSESTree.CallExpression) {
-  if (node.callee.type !== AST.MemberExpression) return null;
-  const { object, property } = node.callee;
-  if (object.type !== AST.Identifier) return null;
-  if (property.type !== AST.Identifier) return null;
-  return `${object.name}.${property.name}()`;
-}
-
-function getImpureNewName(node: TSESTree.NewExpression) {
-  if (node.callee.type !== AST.Identifier) return null;
-  return `new ${node.callee.name}()`;
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -68,12 +40,10 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.useHookCollector(context);
   const cCollector = core.useComponentCollector(context);
   const cExprs: {
-    name: string;
     node: TSESTree.CallExpression;
     func: ast.TSESTreeFunction;
   }[] = [];
   const nExprs: {
-    name: string;
     node: TSESTree.NewExpression;
     func: ast.TSESTreeFunction;
   }[] = [];
@@ -82,31 +52,38 @@ export function create(context: RuleContext<MessageID, []>) {
     cCollector.visitor,
     {
       CallExpression(node: TSESTree.CallExpression) {
-        if (!isImpureMemberCall(node)) return;
-        const name = getImpureCallName(node);
-        if (name == null) return;
+        if (node.callee.type !== AST.MemberExpression) return;
+        const expr = ast.getUnderlyingExpression(node.callee);
+        if (expr.type !== AST.MemberExpression) return;
+        if (expr.object.type !== AST.Identifier) return;
+        if (expr.property.type !== AST.Identifier) return;
+        const objectName = expr.object.name;
+        const propertyName = expr.property.name;
+        if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        cExprs.push({ name, node, func });
+        cExprs.push({ node, func });
       },
       NewExpression(node: TSESTree.NewExpression) {
-        if (!isImpureNewExpression(node)) return;
-        const name = getImpureNewName(node);
-        if (name == null) return;
+        const expr = ast.getUnderlyingExpression(node.callee);
+        if (expr.type !== AST.Identifier) return;
+        if (!IMPURE_CTORS.has(expr.name)) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        nExprs.push({ name, node, func });
+        nExprs.push({ node, func });
       },
       "Program:exit"(node) {
         const components = cCollector.ctx.getAllComponents(node);
         const hooks = hCollector.ctx.getAllHooks(node);
         const funcs = [...components, ...hooks];
-        for (const { name, node, func } of [...cExprs, ...nExprs]) {
+        for (const { node, func } of [...cExprs, ...nExprs]) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             messageId: "default",
             node,
-            data: { name },
+            data: {
+              name: context.sourceCode.getText(node),
+            },
           });
         }
       },
