@@ -1,9 +1,5 @@
 # Rule Relations Table
 
-Generated at: 2026-02-23T08:18:58.370Z
-
-Total rules with See Also: 162
-
 ## Forward References (Rule -> See Also)
 
 | Rule                                       | Plugin                                | References                                                                                                                                                                                  |
@@ -444,110 +440,108 @@ Total rules with See Also: 162
 | use-memo                                   | use-state                                  | Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function |
 | use-memo                                   | no-unnecessary-use-memo                    | Disallows unnecessary usage of `useMemo`                                                                                                                                    |
 | use-memo                                   | exhaustive-deps                            | Verifies the list of dependencies for Hooks like `useEffect` and similar                                                                                                    |
-| use-memo                                   | rules-of-hooks                             | Enforces the Rules of Hooks                                                                                                                                                 |
 | use-state                                  | use-memo                                   | Validates that `useMemo` is called with a callback that returns a value                                                                                                     |
-| use-state                                  | rules-of-hooks                             | Enforces the Rules of Hooks                                                                                                                                                 |
 | use-state                                  | exhaustive-deps                            | Verifies the list of dependencies for Hooks like `useEffect` and similar                                                                                                    |
 
 ## Reverse References (Who references this rule)
 
-| Rule                                       | Referenced By |
-| ------------------------------------------ | ------------- |
-| class-component                            | -             |
-| component-hook-factories                   | -             |
-| component-name                             | -             |
-| context-name                               | -             |
-| dom/prefer-namespace-import                | -             |
-| error-boundaries                           | -             |
-| exhaustive-deps                            | -             |
-| function-component                         | -             |
-| hook                                       | -             |
-| id-name                                    | -             |
-| immutability                               | -             |
-| is-from-react                              | -             |
-| is-from-ref                                | -             |
-| jsx                                        | -             |
-| jsx-dollar                                 | -             |
-| jsx-key-before-spread                      | -             |
-| jsx-no-comment-textnodes                   | -             |
-| jsx-no-duplicate-props                     | -             |
-| jsx-shorthand-boolean                      | -             |
-| jsx-shorthand-fragment                     | -             |
-| jsx-uses-react                             | -             |
-| jsx-uses-vars                              | -             |
-| naming-convention/context-name             | -             |
-| naming-convention/ref-name                 | -             |
-| no-access-state-in-setstate                | -             |
-| no-array-index-key                         | -             |
-| no-children-count                          | -             |
-| no-children-for-each                       | -             |
-| no-children-map                            | -             |
-| no-children-only                           | -             |
-| no-children-to-array                       | -             |
-| no-class-component                         | -             |
-| no-component-will-mount                    | -             |
-| no-component-will-receive-props            | -             |
-| no-component-will-update                   | -             |
-| no-context-provider                        | -             |
-| no-create-ref                              | -             |
-| no-dangerously-set-innerhtml               | -             |
-| no-dangerously-set-innerhtml-with-children | -             |
-| no-direct-mutation-state                   | -             |
-| no-duplicate-key                           | -             |
-| no-find-dom-node                           | -             |
-| no-flush-sync                              | -             |
-| no-forward-ref                             | -             |
-| no-hydrate                                 | -             |
-| no-implicit-key                            | -             |
-| no-leaked-event-listener                   | -             |
-| no-leaked-interval                         | -             |
-| no-leaked-resize-observer                  | -             |
-| no-leaked-timeout                          | -             |
-| no-missing-button-type                     | -             |
-| no-missing-component-display-name          | -             |
-| no-missing-context-display-name            | -             |
-| no-missing-iframe-sandbox                  | -             |
-| no-missing-key                             | -             |
-| no-namespace                               | -             |
-| no-nested-component-definitions            | -             |
-| no-nested-lazy-component-declarations      | -             |
-| no-redundant-should-component-update       | -             |
-| no-render                                  | -             |
-| no-script-url                              | -             |
-| no-set-state-in-component-did-mount        | -             |
-| no-set-state-in-component-did-update       | -             |
-| no-set-state-in-component-will-update      | -             |
-| no-string-style-prop                       | -             |
-| no-unknown-property                        | -             |
-| no-unnecessary-use-callback                | -             |
-| no-unnecessary-use-memo                    | -             |
-| no-unnecessary-use-prefix                  | -             |
-| no-unsafe-component-will-mount             | -             |
-| no-unsafe-component-will-receive-props     | -             |
-| no-unsafe-component-will-update            | -             |
-| no-unsafe-iframe-sandbox                   | -             |
-| no-unsafe-target-blank                     | -             |
-| no-unstable-context-value                  | -             |
-| no-unstable-default-props                  | -             |
-| no-unused-class-component-members          | -             |
-| no-unused-props                            | -             |
-| no-unused-state                            | -             |
-| no-use-context                             | -             |
-| no-use-form-state                          | -             |
-| no-useless-fragment                        | -             |
-| no-void-elements-with-children             | -             |
-| prefer-destructuring-assignment            | -             |
-| prefer-namespace-import                    | -             |
-| prefer-read-only-props                     | -             |
-| purity                                     | -             |
-| ref-name                                   | -             |
-| refs                                       | -             |
-| rules-of-hooks                             | -             |
-| set-state-in-effect                        | -             |
-| set-state-in-render                        | -             |
-| unsupported-syntax                         | -             |
-| use-memo                                   | -             |
-| use-state                                  | -             |
+| Rule                                       | Referenced By                                                                                                                                                                                                                                       |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| class-component                            | function-component, hook, is-from-ref, jsx                                                                                                                                                                                                          |
+| component-hook-factories                   | no-nested-component-definitions, no-nested-lazy-component-declarations                                                                                                                                                                              |
+| component-name                             | context-name, ref-name                                                                                                                                                                                                                              |
+| context-name                               | component-name, id-name, naming-convention/context-name                                                                                                                                                                                             |
+| dom/prefer-namespace-import                | prefer-namespace-import                                                                                                                                                                                                                             |
+| error-boundaries                           | -                                                                                                                                                                                                                                                   |
+| exhaustive-deps                            | rules-of-hooks, use-memo, use-state                                                                                                                                                                                                                 |
+| function-component                         | class-component, hook, is-from-react, jsx                                                                                                                                                                                                           |
+| hook                                       | class-component, function-component, is-from-react                                                                                                                                                                                                  |
+| id-name                                    | ref-name                                                                                                                                                                                                                                            |
+| immutability                               | -                                                                                                                                                                                                                                                   |
+| is-from-react                              | is-from-ref, jsx                                                                                                                                                                                                                                    |
+| is-from-ref                                | is-from-react                                                                                                                                                                                                                                       |
+| jsx                                        | is-from-ref                                                                                                                                                                                                                                         |
+| jsx-dollar                                 | jsx-no-comment-textnodes                                                                                                                                                                                                                            |
+| jsx-key-before-spread                      | no-implicit-key                                                                                                                                                                                                                                     |
+| jsx-no-comment-textnodes                   | jsx-dollar                                                                                                                                                                                                                                          |
+| jsx-no-duplicate-props                     | jsx-uses-react, jsx-uses-vars                                                                                                                                                                                                                       |
+| jsx-shorthand-boolean                      | jsx-shorthand-fragment                                                                                                                                                                                                                              |
+| jsx-shorthand-fragment                     | jsx-shorthand-boolean, no-useless-fragment                                                                                                                                                                                                          |
+| jsx-uses-react                             | jsx-no-duplicate-props, jsx-uses-vars                                                                                                                                                                                                               |
+| jsx-uses-vars                              | jsx-no-duplicate-props, jsx-uses-react                                                                                                                                                                                                              |
+| naming-convention/context-name             | no-context-provider, no-use-context                                                                                                                                                                                                                 |
+| naming-convention/ref-name                 | no-create-ref, refs                                                                                                                                                                                                                                 |
+| no-access-state-in-setstate                | no-direct-mutation-state                                                                                                                                                                                                                            |
+| no-array-index-key                         | no-duplicate-key, no-implicit-key, no-missing-key                                                                                                                                                                                                   |
+| no-children-count                          | no-children-for-each, no-children-map, no-children-only, no-children-to-array                                                                                                                                                                       |
+| no-children-for-each                       | no-children-count, no-children-map, no-children-only, no-children-to-array                                                                                                                                                                          |
+| no-children-map                            | no-children-count, no-children-for-each, no-children-only, no-children-to-array                                                                                                                                                                     |
+| no-children-only                           | no-children-count, no-children-for-each, no-children-map, no-children-to-array                                                                                                                                                                      |
+| no-children-to-array                       | no-children-count, no-children-for-each, no-children-map, no-children-only                                                                                                                                                                          |
+| no-class-component                         | error-boundaries, no-redundant-should-component-update, no-component-will-mount, no-component-will-receive-props, no-component-will-update, no-unsafe-component-will-mount, no-unsafe-component-will-receive-props, no-unsafe-component-will-update |
+| no-component-will-mount                    | no-class-component, no-redundant-should-component-update                                                                                                                                                                                            |
+| no-component-will-receive-props            | no-class-component, no-redundant-should-component-update                                                                                                                                                                                            |
+| no-component-will-update                   | no-class-component, no-redundant-should-component-update                                                                                                                                                                                            |
+| no-context-provider                        | no-use-context                                                                                                                                                                                                                                      |
+| no-create-ref                              | refs                                                                                                                                                                                                                                                |
+| no-dangerously-set-innerhtml               | no-dangerously-set-innerhtml-with-children, no-void-elements-with-children, no-script-url                                                                                                                                                           |
+| no-dangerously-set-innerhtml-with-children | no-dangerously-set-innerhtml, no-void-elements-with-children, no-script-url                                                                                                                                                                         |
+| no-direct-mutation-state                   | no-access-state-in-setstate, no-unused-state, immutability, no-set-state-in-component-did-mount                                                                                                                                                     |
+| no-duplicate-key                           | no-implicit-key, no-missing-key, no-array-index-key                                                                                                                                                                                                 |
+| no-find-dom-node                           | no-flush-sync, no-render                                                                                                                                                                                                                            |
+| no-flush-sync                              | -                                                                                                                                                                                                                                                   |
+| no-forward-ref                             | no-create-ref, refs                                                                                                                                                                                                                                 |
+| no-hydrate                                 | no-find-dom-node, no-use-form-state, no-render                                                                                                                                                                                                      |
+| no-implicit-key                            | jsx-key-before-spread, no-missing-key, no-duplicate-key, no-array-index-key                                                                                                                                                                         |
+| no-leaked-event-listener                   | no-leaked-resize-observer                                                                                                                                                                                                                           |
+| no-leaked-interval                         | no-leaked-event-listener, no-leaked-resize-observer                                                                                                                                                                                                 |
+| no-leaked-resize-observer                  | no-leaked-event-listener, no-leaked-interval                                                                                                                                                                                                        |
+| no-leaked-timeout                          | no-leaked-event-listener, no-leaked-resize-observer                                                                                                                                                                                                 |
+| no-missing-button-type                     | no-missing-iframe-sandbox                                                                                                                                                                                                                           |
+| no-missing-component-display-name          | no-missing-context-display-name                                                                                                                                                                                                                     |
+| no-missing-context-display-name            | no-missing-component-display-name                                                                                                                                                                                                                   |
+| no-missing-iframe-sandbox                  | no-missing-button-type, no-unsafe-iframe-sandbox                                                                                                                                                                                                    |
+| no-missing-key                             | no-duplicate-key, no-implicit-key, no-array-index-key                                                                                                                                                                                               |
+| no-namespace                               | no-string-style-prop, no-unknown-property                                                                                                                                                                                                           |
+| no-nested-component-definitions            | no-nested-lazy-component-declarations, component-hook-factories                                                                                                                                                                                     |
+| no-nested-lazy-component-declarations      | no-nested-component-definitions, component-hook-factories                                                                                                                                                                                           |
+| no-redundant-should-component-update       | -                                                                                                                                                                                                                                                   |
+| no-render                                  | no-find-dom-node, no-flush-sync, no-hydrate, no-use-form-state                                                                                                                                                                                      |
+| no-script-url                              | -                                                                                                                                                                                                                                                   |
+| no-set-state-in-component-did-mount        | no-access-state-in-setstate, no-set-state-in-component-did-update, no-set-state-in-component-will-update                                                                                                                                            |
+| no-set-state-in-component-did-update       | no-set-state-in-component-did-mount, no-set-state-in-component-will-update                                                                                                                                                                          |
+| no-set-state-in-component-will-update      | no-set-state-in-component-did-mount, no-set-state-in-component-did-update                                                                                                                                                                           |
+| no-string-style-prop                       | no-unknown-property                                                                                                                                                                                                                                 |
+| no-unknown-property                        | no-string-style-prop                                                                                                                                                                                                                                |
+| no-unnecessary-use-callback                | no-unnecessary-use-memo                                                                                                                                                                                                                             |
+| no-unnecessary-use-memo                    | no-unnecessary-use-callback, unsupported-syntax, use-memo                                                                                                                                                                                           |
+| no-unnecessary-use-prefix                  | -                                                                                                                                                                                                                                                   |
+| no-unsafe-component-will-mount             | no-class-component, no-unsafe-component-will-receive-props, no-unsafe-component-will-update                                                                                                                                                         |
+| no-unsafe-component-will-receive-props     | no-class-component, no-unsafe-component-will-mount, no-unsafe-component-will-update                                                                                                                                                                 |
+| no-unsafe-component-will-update            | no-class-component, no-unsafe-component-will-mount, no-unsafe-component-will-receive-props                                                                                                                                                          |
+| no-unsafe-iframe-sandbox                   | no-missing-iframe-sandbox, no-unsafe-target-blank                                                                                                                                                                                                   |
+| no-unsafe-target-blank                     | no-unsafe-iframe-sandbox, no-script-url                                                                                                                                                                                                             |
+| no-unstable-context-value                  | no-unstable-default-props                                                                                                                                                                                                                           |
+| no-unstable-default-props                  | no-unstable-context-value                                                                                                                                                                                                                           |
+| no-unused-class-component-members          | no-unused-state                                                                                                                                                                                                                                     |
+| no-unused-props                            | prefer-destructuring-assignment, no-unused-state                                                                                                                                                                                                    |
+| no-unused-state                            | no-unused-props, no-unused-class-component-members, no-direct-mutation-state, no-access-state-in-setstate, immutability                                                                                                                             |
+| no-use-context                             | no-context-provider                                                                                                                                                                                                                                 |
+| no-use-form-state                          | -                                                                                                                                                                                                                                                   |
+| no-useless-fragment                        | -                                                                                                                                                                                                                                                   |
+| no-void-elements-with-children             | no-dangerously-set-innerhtml, no-dangerously-set-innerhtml-with-children                                                                                                                                                                            |
+| prefer-destructuring-assignment            | no-unused-props                                                                                                                                                                                                                                     |
+| prefer-namespace-import                    | dom/prefer-namespace-import                                                                                                                                                                                                                         |
+| prefer-read-only-props                     | no-unused-props                                                                                                                                                                                                                                     |
+| purity                                     | immutability                                                                                                                                                                                                                                        |
+| ref-name                                   | id-name                                                                                                                                                                                                                                             |
+| refs                                       | no-create-ref                                                                                                                                                                                                                                       |
+| rules-of-hooks                             | error-boundaries, exhaustive-deps, no-unnecessary-use-prefix, purity                                                                                                                                                                                |
+| set-state-in-effect                        | set-state-in-render                                                                                                                                                                                                                                 |
+| set-state-in-render                        | set-state-in-effect                                                                                                                                                                                                                                 |
+| unsupported-syntax                         | purity                                                                                                                                                                                                                                              |
+| use-memo                                   | no-unnecessary-use-memo, use-state                                                                                                                                                                                                                  |
+| use-state                                  | use-memo, immutability                                                                                                                                                                                                                              |
 
 ## Bidirectional Relations
 
@@ -561,8 +555,6 @@ Pairs of rules that reference each other:
 | component-hook-factories                   | no-nested-lazy-component-declarations      |
 | component-name                             | context-name                               |
 | exhaustive-deps                            | rules-of-hooks                             |
-| exhaustive-deps                            | use-memo                                   |
-| exhaustive-deps                            | use-state                                  |
 | function-component                         | hook                                       |
 | id-name                                    | ref-name                                   |
 | is-from-react                              | is-from-ref                                |
