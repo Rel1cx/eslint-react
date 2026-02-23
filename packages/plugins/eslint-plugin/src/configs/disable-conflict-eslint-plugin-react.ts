@@ -46,7 +46,6 @@ const conflictingRules = [
   "react/no-unused-class-component-members",
   "react/no-unused-state",
   "react/no-will-update-set-state",
-  "react/prefer-read-only-props",
   "react/prop-types",
   "react/void-dom-elements-no-children",
 ];
