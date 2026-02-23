@@ -2,49 +2,7 @@
 
 ## Forward References
 
-| Rule                                                   | See Also                                                                                                            |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `debug/class-component`                                | `debug/function-component`, `debug/hook`                                                                            |
-| `debug/function-component`                             | `debug/class-component`, `debug/hook`, `debug/is-from-react`, `debug/jsx`                                           |
-| `debug/hook`                                           | `debug/class-component`, `debug/function-component`, `debug/is-from-react`                                          |
-| `debug/is-from-react`                                  | `debug/function-component`, `debug/hook`, `debug/jsx`                                                               |
-| `debug/is-from-ref`                                    | `debug/class-component`                                                                                             |
-| `debug/jsx`                                            | `debug/class-component`, `debug/function-component`, `debug/is-from-react`                                          |
-| `dom/no-missing-button-type`                           | `dom/no-unnecessary-button-type`                                                                                    |
-| `dom/no-void-elements-with-children`                   | `dom/no-children-in-void-dom-elements`                                                                              |
-| `hooks-extra/no-direct-set-state-in-use-effect`        | `hooks-extra/no-direct-set-state-in-use-layout-effect`                                                              |
-| `hooks-extra/no-direct-set-state-in-use-layout-effect` | `hooks-extra/no-direct-set-state-in-use-effect`                                                                     |
-| `hooks-extra/no-redundant-custom-hook`                 | `hooks-extra/prefer-use-state-lazy-initialization`                                                                  |
-| `hooks-extra/prefer-use-state-lazy-initialization`     | `hooks-extra/no-redundant-custom-hook`                                                                              |
-| `naming-convention/filename`                           | `naming-convention/filename-extension`                                                                              |
-| `naming-convention/filename-extension`                 | `naming-convention/filename`                                                                                        |
-| `no-array-index-key`                                   | `no-create-ref`                                                                                                     |
-| `no-children-for-each`                                 | `no-nested-components`, `no-unstable-context-value`                                                                 |
-| `no-children-only`                                     | `no-children-for-each`, `no-nested-components`, `no-unstable-context-value`                                         |
-| `no-children-to-array`                                 | `no-nested-components`, `no-unstable-context-value`                                                                 |
-| `no-class-instance-methods`                            | `no-unused-class-component-methods`                                                                                 |
-| `no-clone-element`                                     | `no-nested-components`, `no-unstable-context-value`                                                                 |
-| `no-component-will-mount`                              | `no-component-will-update`, `no-unsafe`                                                                             |
-| `no-component-will-receive-props`                      | `no-unsafe`                                                                                                         |
-| `no-component-will-update`                             | `no-component-will-mount`, `no-unsafe`                                                                              |
-| `no-context-provider`                                  | `no-use-context`                                                                                                    |
-| `no-create-ref`                                        | `no-array-index-key`                                                                                                |
-| `no-default-props`                                     | `no-unused-default-props`                                                                                           |
-| `no-missing-context-display-name`                      | `no-use-context`                                                                                                    |
-| `no-nested-components`                                 | `no-children-for-each`, `no-children-only`, `no-children-to-array`, `no-clone-element`, `no-unstable-context-value` |
-| `no-redundant-should-component-update`                 | `prefer-pure-component`                                                                                             |
-| `no-restricted-hooks`                                  | `no-unused-class-component-methods`                                                                                 |
-| `no-set-state-in-component-did-mount`                  | `no-set-state-in-component-did-update`                                                                              |
-| `no-set-state-in-component-did-update`                 | `no-set-state-in-component-did-mount`                                                                               |
-| `no-unsafe`                                            | `no-component-will-mount`, `no-component-will-receive-props`, `no-component-will-update`                            |
-| `no-unstable-context-value`                            | `no-children-for-each`, `no-children-only`, `no-children-to-array`, `no-clone-element`, `no-nested-components`      |
-| `no-unused-class-component-methods`                    | `no-class-instance-methods`, `no-restricted-hooks`                                                                  |
-| `no-unused-default-props`                              | `no-default-props`                                                                                                  |
-| `no-use-context`                                       | `no-context-provider`, `no-missing-context-display-name`                                                            |
-| `prefer-pure-component`                                | `no-redundant-should-component-update`                                                                              |
-| `web-api/no-leaked-event-listener`                     | `web-api/no-leaked-interval`, `web-api/no-leaked-timeout`                                                           |
-| `web-api/no-leaked-interval`                           | `web-api/no-leaked-event-listener`                                                                                  |
-| `web-api/no-leaked-timeout`                            | `web-api/no-leaked-event-listener`                                                                                  |
+TODO
 
 ## Reverse References (Who references this rule)
 
