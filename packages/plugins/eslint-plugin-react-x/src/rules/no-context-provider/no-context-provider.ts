@@ -10,17 +10,19 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default";
+export type MessageID = "default" | "replace";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Replaces usage of '<Context.Provider>' with '<Context>'.",
     },
     fixable: "code",
+    hasSuggestions: true,
     messages: {
       default: "In React 19, you can render '<Context>' as a provider instead of '<Context.Provider>'.",
+      replace: "Replace '<Context.Provider>' with '<Context>'.",
     },
     schema: [],
   },
@@ -51,21 +53,26 @@ export function create(context: RuleContext<MessageID, []>) {
         context.report({
           messageId: "default",
           node,
-          fix(fixer) {
-            // Ensure the context name is a valid component name before applying the fix
-            if (!core.isComponentNameLoose(contextSelfName)) return null;
-            const openingElement = node.openingElement;
-            const closingElement = node.closingElement;
-            // Handle self-closing elements like <MyContext.Provider value={...} />
-            if (closingElement == null) {
-              return fixer.replaceText(openingElement.name, contextFullName);
-            }
-            // Handle elements with children like <MyContext.Provider value={...}>...</MyContext.Provider>
-            return [
-              fixer.replaceText(openingElement.name, contextFullName),
-              fixer.replaceText(closingElement.name, contextFullName),
-            ];
-          },
+          suggest: [
+            {
+              messageId: "replace",
+              fix(fixer) {
+                // Ensure the context name is a valid component name before applying the fix
+                if (!core.isComponentNameLoose(contextSelfName)) return null;
+                const openingElement = node.openingElement;
+                const closingElement = node.closingElement;
+                // Handle self-closing elements like <MyContext.Provider value={...} />
+                if (closingElement == null) {
+                  return fixer.replaceText(openingElement.name, contextFullName);
+                }
+                // Handle elements with children like <MyContext.Provider value={...}>...</MyContext.Provider>
+                return [
+                  fixer.replaceText(openingElement.name, contextFullName),
+                  fixer.replaceText(closingElement.name, contextFullName),
+                ];
+              },
+            },
+          ],
         });
       },
     },

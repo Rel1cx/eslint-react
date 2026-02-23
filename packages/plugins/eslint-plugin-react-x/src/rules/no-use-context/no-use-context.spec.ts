@@ -15,125 +15,23 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "default" },
-        { messageId: "default" },
-      ],
-      output: tsx`
-        import { use } from 'react'
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { useContext } from 'react'
 
-        export const Component = () => {
-          const value = use(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
+                export const Component = () => {
+                  const value = use(MyContext)
+                  return <div>{value}</div>
+                }
+              `,
+            },
+          ],
         },
-      },
-    },
-    {
-      code: tsx`
-        import { useContext } from 'react'
-
-        export const Component = () => {
-          const value = useContext<MyContext>(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-        { messageId: "default" },
       ],
-      output: tsx`
-        import { use } from 'react'
-
-        export const Component = () => {
-          const value = use<MyContext>(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import { use, useContext } from 'react'
-
-        export const Component = () => {
-          const value = useContext(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-        { messageId: "default" },
-      ],
-      output: tsx`
-        import { use } from 'react'
-
-        export const Component = () => {
-          const value = use(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import { use, useContext, useState } from 'react'
-
-        export const Component = () => {
-          const value = useContext(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-        { messageId: "default" },
-      ],
-      output: tsx`
-        import { use, useState } from 'react'
-
-        export const Component = () => {
-          const value = use(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import {use,useContext,useState} from 'react'
-
-        export const Component = () => {
-          const value = useContext(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-        { messageId: "default" },
-      ],
-      output: tsx`
-        import {use,useState} from 'react'
-
-        export const Component = () => {
-          const value = use(MyContext)
-          return <div>{value}</div>
-        }
-      `,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -150,16 +48,23 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "default" },
-      ],
-      output: tsx`
-        import React from 'react'
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import React from 'react'
 
-        export const Component = () => {
-          const value = React.use(MyContext)
-          return <div>{value}</div>
-        }
-      `,
+                export const Component = () => {
+                  const value = React.use(MyContext)
+                  return <div>{value}</div>
+                }
+              `,
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           version: "19.0.0",

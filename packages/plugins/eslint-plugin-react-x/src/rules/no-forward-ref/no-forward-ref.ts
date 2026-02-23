@@ -15,17 +15,19 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default";
+export type MessageID = "default" | "replace";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Replaces usage of 'forwardRef' with passing 'ref' as a prop.",
     },
     fixable: "code",
+    hasSuggestions: true,
     messages: {
       default: "In React 19, 'forwardRef' is no longer necessary. Pass 'ref' as a prop instead.",
+      replace: "Replace 'forwardRef' with passing 'ref' as a prop.",
     },
     schema: [],
   },
@@ -52,11 +54,18 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         const id = ast.getFunctionId(node);
-        const fix = canFix(context, node) ? getFix(context, node) : null;
+        const suggest = canFix(context, node)
+          ? [
+            {
+              messageId: "replace" as const,
+              fix: getFix(context, node),
+            },
+          ]
+          : [];
         context.report({
           messageId: "default",
           node: id ?? node,
-          fix,
+          suggest,
         });
       },
     },

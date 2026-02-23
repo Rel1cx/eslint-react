@@ -10,9 +10,14 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`<Context />`,
+            },
+          ],
         },
       ],
-      output: tsx`<Context />`,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -24,9 +29,14 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`<ThemeContext><App /></ThemeContext>`,
+            },
+          ],
         },
       ],
-      output: tsx`<ThemeContext><App /></ThemeContext>`,
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -38,9 +48,14 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`<Context>{children}</Context>`,
+            },
+          ],
         },
       ],
-      output: tsx`<Context>{children}</Context>`,
       settings: {
         "react-x": {
           version: "19.0.0",
