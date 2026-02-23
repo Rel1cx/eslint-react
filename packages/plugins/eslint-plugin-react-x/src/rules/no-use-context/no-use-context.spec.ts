@@ -6,6 +6,23 @@ import rule, { RULE_NAME } from "./no-use-context";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      // Not safe to fix because the import source is "use-context-selector"
+      code: tsx`
+        import { useContext } from 'use-context-selector'
+
+        export const Component = () => {
+          const value = useContext(MyContext)
+          return <div>{value}</div>
+        }
+      `,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
       code: tsx`
         import { useContext } from 'react'
 

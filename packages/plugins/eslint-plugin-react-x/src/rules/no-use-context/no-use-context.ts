@@ -2,10 +2,11 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { isMatching } from "ts-pattern";
 
-import { createRule } from "../../utils";
+import { createRule, isCallFromReact } from "../../utils";
 
 export const RULE_NAME = "no-use-context";
 
@@ -87,23 +88,28 @@ export function create(context: RuleContext<MessageID, []>) {
           if (!core.isUseContextCall(node)) {
             continue;
           }
+          const fix = isCallFromReact(context, node) ? getFix(node) : null;
           context.report({
             messageId: "default",
             node: node.callee,
-            fix(fixer) {
-              switch (node.callee.type) {
-                case AST.Identifier:
-                  return fixer.replaceText(node.callee, "use");
-                case AST.MemberExpression:
-                  return fixer.replaceText(node.callee.property, "use");
-              }
-              return null;
-            },
+            fix,
           });
         }
       },
     },
   );
+}
+
+function getFix(node: TSESTree.CallExpression) {
+  return (fixer: RuleFixer) => {
+    switch (node.callee.type) {
+      case AST.Identifier:
+        return fixer.replaceText(node.callee, "use");
+      case AST.MemberExpression:
+        return fixer.replaceText(node.callee.property, "use");
+    }
+    return null;
+  };
 }
 
 function getCorrelativeTokens(context: RuleContext, node: TSESTree.Node) {

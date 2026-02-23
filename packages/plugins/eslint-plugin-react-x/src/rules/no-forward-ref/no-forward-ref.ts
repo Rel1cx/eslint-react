@@ -7,7 +7,7 @@ import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { P, match } from "ts-pattern";
 
-import { createRule } from "../../utils";
+import { createRule, isCallFromReact } from "../../utils";
 
 export const RULE_NAME = "no-forward-ref";
 
@@ -52,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         const id = ast.getFunctionId(node);
-        const fix = canFix(context, node) ? getFix(context, node) : null;
+        const fix = isCallFromReact(context, node) ? getFix(context, node) : null;
         context.report({
           messageId: "default",
           node: id ?? node,
@@ -61,29 +61,6 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
-}
-
-/**
- * Determine whether the given CallExpression can be safely auto-fixed by replacing
- * the usage of `forwardRef` with passing `ref` as a prop
- *
- * @param context The rule context object
- * @param node The CallExpression node to check
- * @returns True if the call can be auto-fixed, false otherwise
- */
-function canFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const { importSource } = getSettingsFromContext(context);
-  const initialScope = context.sourceCode.getScope(node);
-  // Check if the callee is `forwardRef` or `React.forwardRef`
-  switch (node.callee.type) {
-    case AST.Identifier:
-      return core.isInitializedFromReact(node.callee.name, initialScope, importSource);
-    case AST.MemberExpression:
-      return node.callee.object.type === AST.Identifier
-        && core.isInitializedFromReact(node.callee.object.name, initialScope, importSource);
-    default:
-      return false;
-  }
 }
 
 /**
