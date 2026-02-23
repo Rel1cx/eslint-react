@@ -1,1 +1,0 @@
-// TODO: Improve this script to update the "See also" section in the documentation based on the content of a table in the markdown files. This will help keep the documentation up-to-date and relevant.
