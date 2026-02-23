@@ -32,7 +32,7 @@ react-x/exhaustive-deps
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Verifies the list of dependencies for Hooks like `useEffect` and similar.
 
@@ -40,9 +40,7 @@ React hooks like `useEffect`, `useMemo`, and `useCallback` accept dependency arr
 
 If you find yourself fighting with this rule, you likely need to restructure your code rather than suppress the warning. See [Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies) to learn how.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { useEffect } from "react";
@@ -77,7 +75,7 @@ function MyComponent({ onSave, value }) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import { useEffect } from "react";
@@ -240,7 +238,7 @@ Custom effect hooks can also be configured via shared ESLint settings, which app
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/exhaustive-deps/exhaustive-deps.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/exhaustive-deps/exhaustive-deps.spec.ts)
@@ -258,8 +256,8 @@ Custom effect hooks can also be configured via shared ESLint settings, which app
 ## See Also
 
 - [`rules-of-hooks`](./rules-of-hooks)\
-  Validates that components and hooks follow the Rules of Hooks.
+  Enforces the Rules of Hooks
 - [`use-memo`](./use-memo)\
-  Validates that `useMemo` is called with a callback that returns a value.
+  Validates that  is called with a callback that returns a value
 - [`use-state`](./use-state)\
-  Enforces correct usage of the `useState` hook.
+  Enforces correct usage of , including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function

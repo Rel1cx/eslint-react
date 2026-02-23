@@ -24,15 +24,13 @@ react-x/no-children-for-each
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows the use of `Children.forEach` from the `react` package.
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { Children } from "react";
@@ -51,7 +49,7 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-for-each/no-children-for-each.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-for-each/no-children-for-each.spec.ts)
@@ -65,10 +63,10 @@ function MyComponent({ children }: MyComponentProps) {
 ## See Also
 
 - [`no-children-count`](./no-children-count)\
-  Prevents the use of `Children.count` from the `react` package.
+  Disallows the use of  from the  package
 - [`no-children-map`](./no-children-map)\
-  Prevents the use of `Children.map` from the `react` package.
+  Disallows the use of  from the  package
 - [`no-children-only`](./no-children-only)\
-  Prevents the use of `Children.only` from the `react` package.
+  Disallows the use of  from the  package
 - [`no-children-to-array`](./no-children-to-array)\
-  Prevents the use of `Children.toArray` from the `react` package.
+  Disallows the use of  from the  package

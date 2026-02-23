@@ -24,15 +24,13 @@ react-x/no-create-ref
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows `createRef` in function components.
 
 `createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { createRef } from "react";
@@ -45,7 +43,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React, { useRef } from "react";
@@ -66,7 +64,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-create-ref/no-create-ref.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-create-ref/no-create-ref.spec.ts)
@@ -80,8 +78,8 @@ class MyComponent extends React.Component {
 ## See Also
 
 - [`no-forward-ref`](./no-forward-ref)\
-  Replaces usage of `forwardRef` with passing `ref` as a prop.
+  Replaces usage of  with passing  as a prop
 - [`refs`](./refs)\
-  Validates correct usage of refs by checking that `ref.current` is not read or written during render.
+  Validates correct usage of refs by checking that  is not read or written during render
 - [`naming-convention/ref-name`](./naming-convention-ref-name)\
-  Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref`.
+  Enforces identifier names assigned from  calls to be either  or end with

@@ -24,15 +24,13 @@ react-web-api/no-leaked-event-listener
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`.
 
 Adding an event listener without removing it can lead to memory leaks and unexpected behavior because the event listener will continue to exist even after the component or hook is unmounted.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { Component } from "react";
@@ -117,7 +115,33 @@ function useCustomHook() {
 }
 ```
 
-### Passing
+```tsx
+import { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    if (!el) {
+      return;
+    }
+    // The following cases are intentionally considered possible leaks:
+    for (const [name, handler] of Object.entries(handlers)) {
+      //                          ^^^ The entries are not guaranteed to be the same as those in the effect cleanup function.
+      el.addEventListener(name, handler);
+    }
+
+    return () => {
+      for (const [name, handler] of Object.entries(handlers)) {
+        //                          ^^^ The entries are not guaranteed to be the same as those in the effect setup function.
+        el.removeEventListener(name, handler);
+      }
+    };
+  }, [el]);
+
+  return null;
+}
+```
+
+## Non Triggering Examples
 
 ```tsx
 import React, { Component } from "react";
@@ -251,36 +275,6 @@ function useCustomHook() {
 }
 ```
 
-### Failing
-
-```tsx
-import { useEffect } from "react";
-
-function MyComponent() {
-  useEffect(() => {
-    if (!el) {
-      return;
-    }
-    // The following cases are intentionally considered possible leaks:
-    for (const [name, handler] of Object.entries(handlers)) {
-      //                          ^^^ The entries are not guaranteed to be the same as those in the effect cleanup function.
-      el.addEventListener(name, handler);
-    }
-
-    return () => {
-      for (const [name, handler] of Object.entries(handlers)) {
-        //                          ^^^ The entries are not guaranteed to be the same as those in the effect setup function.
-        el.removeEventListener(name, handler);
-      }
-    };
-  }, [el]);
-
-  return null;
-}
-```
-
-### Passing
-
 ```tsx
 import { useEffect } from "react";
 
@@ -307,7 +301,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener/no-leaked-event-listener.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-event-listener/no-leaked-event-listener.spec.ts)
@@ -323,9 +317,9 @@ function MyComponent() {
 
 ## See Also
 
-- [`no-leaked-interval`](./web-api-no-leaked-interval)\
-  Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`.
-- [`no-leaked-timeout`](./web-api-no-leaked-timeout)\
-  Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`.
-- [`no-leaked-resize-observer`](./web-api-no-leaked-resize-observer)\
-  Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`.
+- [`no-leaked-interval`](./no-leaked-interval)\
+  Enforces that every  in a component or custom hook has a corresponding
+- [`no-leaked-timeout`](./no-leaked-timeout)\
+  Enforces that every  in a component or custom hook has a corresponding
+- [`no-leaked-resize-observer`](./no-leaked-resize-observer)\
+  Enforces that every  created in a component or custom hook has a corresponding

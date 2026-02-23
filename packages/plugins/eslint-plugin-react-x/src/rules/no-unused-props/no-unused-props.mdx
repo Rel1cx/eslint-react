@@ -26,7 +26,7 @@ react-x/no-unused-props
 
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Warns about component props that are defined but never used.
 
@@ -37,9 +37,7 @@ This is the TypeScript-only version of [`eslint-plugin-react/no-unused-prop-type
 - doesn't support the legacy propTypes syntax
 - combines the used props of one type definition declared by multiple components
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 // 'onClick' is defined in 'ButtonProps' but never used in the 'Button' component.
@@ -65,7 +63,7 @@ function UserProfile({ username }: UserProfileProps) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // All props are used.
@@ -114,7 +112,7 @@ function ProfileAvatar({ theme }: ProfileProps) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props/no-unused-props.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props/no-unused-props.spec.ts)
@@ -124,10 +122,10 @@ function ProfileAvatar({ theme }: ProfileProps) {
 ## See Also
 
 - [`prefer-destructuring-assignment`](./prefer-destructuring-assignment)\
-  Enforces destructuring assignment for component props and context.
+  Enforces destructuring assignment for component props and context
 - [`prefer-read-only-props`](./prefer-read-only-props)\
-  Enforces read-only props in components.
+  Enforces read-only props in components
 - [`no-unused-class-component-members`](./no-unused-class-component-members)\
-  Warns about unused class component methods and properties.
+  Warns about unused class component methods and properties
 - [`no-unused-state`](./no-unused-state)\
-  Warns about unused class component state.
+  Warns about unused class component state

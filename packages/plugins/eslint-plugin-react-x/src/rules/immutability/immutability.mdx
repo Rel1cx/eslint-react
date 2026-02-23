@@ -30,7 +30,7 @@ react-x/immutability
 
 -
 
-## Description
+## Rule Description
 
 Validates against mutating props, state, and other values that are immutable.
 
@@ -223,9 +223,7 @@ function SortedList() {
 }
 ```
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { useState } from "react";
@@ -263,7 +261,7 @@ function Component(props) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import { useState } from "react";
@@ -301,7 +299,7 @@ function Component() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/immutability/immutability.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/immutability/immutability.spec.ts)
@@ -317,8 +315,8 @@ function Component() {
 ## See Also
 
 - [`no-direct-mutation-state`](./no-direct-mutation-state)\
-  Disallows direct mutation of `this.state` in class components.
+  Disallows direct mutation of
 - [`purity`](./purity)\
-  Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+  Validates that components and hooks are pure by checking that they do not call known-impure functions during render
 - [`use-state`](./use-state)\
-  Enforces correct usage of `useState`, including destructuring and symmetric naming.
+  Enforces correct usage of , including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function

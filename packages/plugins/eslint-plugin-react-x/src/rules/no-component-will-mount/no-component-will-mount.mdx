@@ -28,15 +28,13 @@ react-x/no-component-will-mount
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount`.
 
 This API was renamed from `componentWillMount` to `UNSAFE_componentWillMount`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
-## Examples
-
-### Before
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -52,7 +50,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 }
 ```
 
-### After
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -68,7 +66,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-component-will-mount/no-component-will-mount.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-component-will-mount/no-component-will-mount.spec.ts)

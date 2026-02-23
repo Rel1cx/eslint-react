@@ -24,7 +24,7 @@ react-x/no-nested-lazy-component-declarations
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows nesting lazy component declarations inside other components.
 
@@ -37,9 +37,7 @@ When a component is defined inside another component:
 - It defeats props memoization and optimization techniques
 - It creates new function references on every render
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { lazy } from "react";
@@ -52,7 +50,7 @@ function Editor() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import { lazy } from "react";
@@ -65,7 +63,7 @@ function Editor() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-lazy-component-declarations/no-nested-lazy-component-declarations.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-lazy-component-declarations/no-nested-lazy-component-declarations.spec.ts)
@@ -81,6 +79,6 @@ function Editor() {
 ## See Also
 
 - [`no-nested-component-definitions`](./no-nested-component-definitions)\
-  Disallow nesting component definitions inside other components.
+  Disallows nesting component definitions inside other components
 - [`component-hook-factories`](./component-hook-factories)\
-  Disallows higher order functions that define components or hooks inside them. Components and hooks should be defined at the module level.
+  Disallows higher order functions that define components or hooks inside them

@@ -28,13 +28,11 @@ react-dom/no-render
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`.
 
-## Examples
-
-### Before
+## Triggering Examples
 
 ```tsx
 import Component from "Component";
@@ -43,7 +41,7 @@ import ReactDOM from "react-dom";
 ReactDOM.render(<Component />, document.getElementById("app"));
 ```
 
-### After
+## Non Triggering Examples
 
 ```tsx
 import Component from "Component";
@@ -52,7 +50,7 @@ import { createRoot } from "react-dom/client";
 createRoot(document.getElementById("app")).render(<Component />);
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.spec.ts)

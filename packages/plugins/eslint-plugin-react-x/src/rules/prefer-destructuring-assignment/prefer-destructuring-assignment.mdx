@@ -20,13 +20,11 @@ react-x/prefer-destructuring-assignment
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces destructuring assignment for component props and context.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -56,7 +54,7 @@ function MyComponent(props: MyComponentProps) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -96,7 +94,7 @@ function MyComponent({ items, ...rest }: MyComponentProps) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment/prefer-destructuring-assignment.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-destructuring-assignment/prefer-destructuring-assignment.spec.ts)
@@ -111,4 +109,4 @@ function MyComponent({ items, ...rest }: MyComponentProps) {
 ## See Also
 
 - [`no-unused-props`](./no-unused-props)\
-  Warns about component props that are defined but never used.
+  Warns about component props that are defined but never used

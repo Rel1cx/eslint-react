@@ -16,11 +16,9 @@ react-debug/jsx
 
 -
 
-## Description
+## Rule Description
 
 Reports all JSX elements and fragments in JSON format. Useful for debugging. This rule should be used only for debugging purposes; otherwise leave it off.
-
-## Examples
 
 ```json title="tsconfig.json"
 {
@@ -54,7 +52,7 @@ const element = <div>Hello World</div>;
 //              - [jsx element] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxRuntime: 'classic', jsxImportSource: 'preact'
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/jsx/jsx.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/jsx/jsx.spec.ts)
@@ -63,9 +61,9 @@ const element = <div>Hello World</div>;
 
 ## See Also
 
-- [`is-from-react`](./debug-is-from-react)\
-  Reports all identifiers initialized from React in JSON format.
-- [`function-component`](./debug-function-component)\
-  Reports all function components.
-- [`class-component`](./debug-class-component)\
-  Reports all class components.
+- [`is-from-react`](./is-from-react)\
+  Reports all identifiers initialized from React in JSON format
+- [`function-component`](./function-component)\
+  Reports all function components in JSON format in JSON format
+- [`class-component`](./class-component)\
+  Reports all class components in JSON format

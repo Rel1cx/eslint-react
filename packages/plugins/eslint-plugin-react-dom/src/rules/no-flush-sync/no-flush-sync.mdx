@@ -24,7 +24,7 @@ react-dom/no-flush-sync
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows `flushSync`.
 
@@ -32,9 +32,7 @@ Disallows `flushSync`.
 
 Most of the time, `flushSync` can be avoided, so use `flushSync` as a last resort.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { flushSync } from "react-dom";
@@ -44,7 +42,7 @@ flushSync(() => {
 });
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-flush-sync/no-flush-sync.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-flush-sync/no-flush-sync.spec.ts)
@@ -58,6 +56,6 @@ flushSync(() => {
 ## See Also
 
 - [`no-render`](./no-render)\
-  Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`.
+  Replaces usage of  with
 - [`no-find-dom-node`](./no-find-dom-node)\
-  Disallows `findDOMNode`.
+  Disallows

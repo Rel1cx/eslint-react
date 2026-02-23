@@ -28,7 +28,7 @@ react-x/use-memo
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Validates that `useMemo` is called with a callback that returns a value.
 
@@ -41,9 +41,7 @@ There are two violations this rule catches:
 
 If you need to run side effects when dependencies change, use `useEffect` instead.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 // ❌ No return value in the callback
@@ -76,7 +74,7 @@ function Component({ user }) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // ✅ Returns a computed value
@@ -106,7 +104,7 @@ function Component({ user }) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.spec.ts)
@@ -121,10 +119,10 @@ function Component({ user }) {
 ## See Also
 
 - [`use-state`](./use-state)\
-  Enforces correct usage of the `useState` hook.
+  Enforces correct usage of , including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function
 - [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
-  Disallows unnecessary usage of `useMemo`.
+  Disallows unnecessary usage of
 - [`exhaustive-deps`](./exhaustive-deps)\
-  Validates that dependency arrays for React hooks contain all necessary dependencies.
+  Verifies the list of dependencies for Hooks like  and similar
 - [`rules-of-hooks`](./rules-of-hooks)\
-  Validates that components and hooks follow the Rules of Hooks.
+  Enforces the Rules of Hooks

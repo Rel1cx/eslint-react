@@ -28,7 +28,7 @@ react-x/component-hook-factories
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows higher order functions that define components or hooks inside them. Components and hooks should be defined at the module level.
 
@@ -44,9 +44,7 @@ When a component or hook is defined inside another function:
 
 Instead, define every component and hook at the top (module) level.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 // ❌ Factory function creating components
@@ -81,7 +79,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // ✅ Component defined at module level
@@ -187,7 +185,7 @@ function useData(endpoint) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/component-hook-factories/component-hook-factories.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/component-hook-factories/component-hook-factories.spec.ts)
@@ -203,6 +201,6 @@ function useData(endpoint) {
 ## See Also
 
 - [`no-nested-component-definitions`](./no-nested-component-definitions)\
-  Disallows nesting component definitions inside other components.
+  Disallows nesting component definitions inside other components
 - [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations)\
-  Disallow nesting lazy component declarations inside other components.
+  Disallows nesting lazy component declarations inside other components

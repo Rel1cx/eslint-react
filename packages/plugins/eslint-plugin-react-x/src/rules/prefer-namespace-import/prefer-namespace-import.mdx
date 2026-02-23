@@ -22,13 +22,11 @@ react-x/prefer-namespace-import
 
 -
 
-## Description
+## Rule Description
 
 Enforces importing React via a namespace import.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -40,7 +38,7 @@ import React, { useState } from "react";
 import type React, { useState } from "react";
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import * as React from "react";
@@ -52,7 +50,7 @@ import { useState } from "react";
 import type { useState } from "react";
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-namespace-import/prefer-namespace-import.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-namespace-import/prefer-namespace-import.spec.ts)
@@ -62,4 +60,4 @@ import type { useState } from "react";
 ## See Also
 
 - [`dom/prefer-namespace-import`](./dom-prefer-namespace-import)\
-  Enforces importing React DOM via a namespace import.
+  Enforces importing React DOM via a namespace import

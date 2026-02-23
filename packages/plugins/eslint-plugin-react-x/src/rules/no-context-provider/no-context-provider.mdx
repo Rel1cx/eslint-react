@@ -28,7 +28,7 @@ react-x/no-context-provider
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Replaces usage of `<Context.Provider>` with `<Context>`.
 
@@ -38,9 +38,7 @@ In React 19, you can render `<Context>` as a provider instead of `<Context.Provi
   This rule works best in codebases that follow the [`naming-convention/context-name`](./naming-convention-context-name) rule.
 </Callout>
 
-## Examples
-
-### Before
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -55,7 +53,7 @@ function App({ children }) {
 }
 ```
 
-### After
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -70,7 +68,7 @@ function App({ children }) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-context-provider/no-context-provider.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-context-provider/no-context-provider.spec.ts)
@@ -84,6 +82,6 @@ function App({ children }) {
 ## See Also
 
 - [`no-use-context`](./no-use-context)\
-  Replaces usage of `useContext` with `use`.
+  Replaces usage of  with
 - [`naming-convention/context-name`](./naming-convention-context-name)\
-  Enforces consistent naming conventions for contexts.
+  Enforces the context name to be a valid component name with the suffix

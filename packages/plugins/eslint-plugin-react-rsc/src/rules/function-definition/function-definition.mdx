@@ -32,7 +32,7 @@ react-rsc/function-definition
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Validate and transform React Client/Server Function definitions.
 
@@ -40,9 +40,7 @@ It includes the following checks:
 
 1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 'use server';
@@ -81,7 +79,7 @@ export function Component() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 'use server';
@@ -120,7 +118,7 @@ export function Component() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc/src/rules/function-definition/function-definition.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc/src/rules/function-definition/function-definition.spec.ts)

@@ -22,7 +22,7 @@ react-naming-convention/component-name
 
 -
 
-## Description
+## Rule Description
 
 Enforces naming conventions for components.
 
@@ -54,9 +54,7 @@ When set to `true`, component names that are entirely uppercase are allowed.
 
 Default: `false`
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -67,7 +65,7 @@ function My_component() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -87,7 +85,7 @@ function API() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name/component-name.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/component-name/component-name.spec.ts)
@@ -100,5 +98,5 @@ function API() {
 
 ## See Also
 
-- [`context-name`](./naming-convention-context-name)\
-  Enforces context names to be valid component names with the suffix `Context`.
+- [`context-name`](./context-name)\
+  Enforces the context name to be a valid component name with the suffix

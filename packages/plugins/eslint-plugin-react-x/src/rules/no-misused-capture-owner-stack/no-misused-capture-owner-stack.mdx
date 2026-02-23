@@ -28,7 +28,7 @@ react-x/no-misused-capture-owner-stack
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Prevents incorrect usage of `captureOwnerStack`.
 
@@ -38,9 +38,7 @@ Prevents incorrect usage of `captureOwnerStack`.
 2. Conditionally accessed within an `if (process.env.NODE_ENV !== 'production') { ... }` block to prevent execution in production environments.
 3. Called inside a React-controlled function (**not implemented yet**).
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 // Failing: Using a named import directly
@@ -62,7 +60,7 @@ const ownerStack = React.captureOwnerStack();
 console.log(ownerStack);
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // Passing: Correct namespace import with environment check
@@ -74,7 +72,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-misused-capture-owner-stack/no-misused-capture-owner-stack.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-misused-capture-owner-stack/no-misused-capture-owner-stack.spec.ts)

@@ -20,13 +20,11 @@ react-x/no-unused-class-component-members
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Warns about unused class component methods and properties.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -39,7 +37,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -58,7 +56,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members/no-unused-class-component-members.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members/no-unused-class-component-members.spec.ts)
@@ -72,4 +70,4 @@ class MyComponent extends React.Component {
 ## See Also
 
 - [`no-unused-state`](./no-unused-state)\
-  Warns about unused class component state.
+  Warns about unused class component state

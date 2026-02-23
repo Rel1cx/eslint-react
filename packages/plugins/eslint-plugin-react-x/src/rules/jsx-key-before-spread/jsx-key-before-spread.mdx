@@ -27,7 +27,7 @@ react-x/jsx-key-before-spread
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces `key` prop placement before spread props.
 
@@ -35,16 +35,14 @@ When using the JSX automatic runtime, `key` is a special prop in the JSX transfo
 
 If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler uses `createElement` instead and passes `key` as a regular prop.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 <div {...props} key="2" />;
 //              ^^^ The 'key' prop must be placed before any spread props when using the new JSX transform.
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 <div key="1" {...props} />;
@@ -52,7 +50,7 @@ If the `key` prop is before any spread props, it is passed as the `key` argument
 <div className="" key="3" />;
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-key-before-spread/jsx-key-before-spread.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-key-before-spread/jsx-key-before-spread.spec.ts)
@@ -68,4 +66,4 @@ If the `key` prop is before any spread props, it is passed as the `key` argument
 ## See Also
 
 - [`no-implicit-key`](./no-implicit-key)\
-  Prevents implicitly passing the `key` prop to components.
+  Prevents implicitly passing the  prop to components

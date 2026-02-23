@@ -28,13 +28,11 @@ react-dom/no-use-form-state
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Replaces usage of `useFormState` with `useActionState`.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { useFormState } from "react-dom";
@@ -54,7 +52,7 @@ function StatefulForm({}) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import { useActionState } from "react";
@@ -74,7 +72,7 @@ function StatefulForm({}) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-use-form-state/no-use-form-state.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-use-form-state/no-use-form-state.spec.ts)
@@ -88,6 +86,6 @@ function StatefulForm({}) {
 ## See Also
 
 - [`no-render`](./no-render)\
-  Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`.
+  Replaces usage of  with
 - [`no-hydrate`](./no-hydrate)\
-  Replaces usage of `ReactDOM.hydrate()` with `createRoot(node).hydrate()`.
+  Replaces usage of  with

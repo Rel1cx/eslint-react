@@ -24,15 +24,13 @@ react-x/no-redundant-should-component-update
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows `shouldComponentUpdate` when extending `React.PureComponent`.
 
 While having `shouldComponentUpdate` still works, it becomes pointless to extend `React.PureComponent`.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -50,7 +48,7 @@ class MyComponent extends React.PureComponent {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -67,7 +65,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-redundant-should-component-update/no-redundant-should-component-update.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-redundant-should-component-update/no-redundant-should-component-update.spec.ts)
@@ -77,10 +75,10 @@ class MyComponent extends React.Component {
 ## See Also
 
 - [`no-class-component`](./no-class-component)\
-  Disallows class components except for error boundaries.
+  Disallows class components except for error boundaries
 - [`no-component-will-mount`](./no-component-will-mount)\
-  Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount`.
+  Replaces usage of  with
 - [`no-component-will-receive-props`](./no-component-will-receive-props)\
-  Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
+  Replaces usage of  with
 - [`no-component-will-update`](./no-component-will-update)\
-  Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
+  Replaces usage of  with

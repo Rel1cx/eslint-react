@@ -20,7 +20,7 @@ react-x/no-class-component
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows class components except for error boundaries.
 
@@ -28,11 +28,7 @@ Component is the base class for React components defined as JavaScript classes. 
 
 We recommend defining components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
 
-## Examples
-
-This rule aims to prevent the use of class components in React.
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -48,7 +44,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -87,7 +83,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component/no-class-component.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component/no-class-component.spec.ts)
@@ -101,14 +97,14 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 ## See Also
 
 - [`no-component-will-mount`](./no-component-will-mount)\
-  Replaces usage of `componentWillMount` with `UNSAFE_componentWillMount`.
+  Replaces usage of  with
 - [`no-component-will-receive-props`](./no-component-will-receive-props)\
-  Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
+  Replaces usage of  with
 - [`no-component-will-update`](./no-component-will-update)\
-  Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
+  Replaces usage of  with
 - [`no-unsafe-component-will-mount`](./no-unsafe-component-will-mount)\
-  Prevents usage of `UNSAFE_componentWillMount` in class components.
+  Warns about the use of  in class components
 - [`no-unsafe-component-will-receive-props`](./no-unsafe-component-will-receive-props)\
-  Prevents usage of `UNSAFE_componentWillReceiveProps` in class components.
+  Warns about the use of  in class components
 - [`no-unsafe-component-will-update`](./no-unsafe-component-will-update)\
-  Prevents usage of `UNSAFE_componentWillUpdate` in class components.
+  Warns about the use of  in class components

@@ -32,15 +32,13 @@ react-x/rules-of-hooks
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces the Rules of Hooks.
 
 React relies on the order in which hooks are called to correctly preserve state between renders. Each time your component renders, React expects the exact same hooks to be called in the exact same order. When hooks are called conditionally or in loops, React loses track of which state corresponds to which hook call, leading to bugs like state mismatches and "Rendered fewer/more hooks than expected" errors.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 // ❌ Hook in condition
@@ -98,7 +96,7 @@ function MyComponent({ promise }) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // ✅ Hooks at top level
@@ -233,7 +231,7 @@ Custom effect hooks can also be configured via shared ESLint settings, which app
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/rules-of-hooks/rules-of-hooks.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/rules-of-hooks/rules-of-hooks.spec.ts)
@@ -251,10 +249,10 @@ Custom effect hooks can also be configured via shared ESLint settings, which app
 ## See Also
 
 - [`exhaustive-deps`](./exhaustive-deps)\
-  Validates that dependency arrays for React hooks contain all necessary dependencies.
+  Verifies the list of dependencies for Hooks like  and similar
 - [`no-unnecessary-use-prefix`](./no-unnecessary-use-prefix)\
-  Enforces that a function with the 'use' prefix uses at least one Hook inside it.
+  Enforces that a function with the  prefix uses at least one Hook inside it
 - [`use-state`](./use-state)\
-  Enforces correct usage of the `useState` hook.
-- [`use-memo`](./use-state)\
-  Validates that `useMemo` is called with a callback that returns a value.
+  Enforces correct usage of , including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function
+- [`use-memo`](./use-memo)\
+  Validates that  is called with a callback that returns a value

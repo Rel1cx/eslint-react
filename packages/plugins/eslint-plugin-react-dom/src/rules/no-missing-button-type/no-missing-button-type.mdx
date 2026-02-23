@@ -24,7 +24,7 @@ react-dom/no-missing-button-type
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces an explicit `type` attribute for `button` elements.
 
@@ -32,9 +32,7 @@ The default `type` of a button is `submit`, which causes the submission of a for
 
 Allowed button types are `submit`, `button`, or `reset`.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -45,7 +43,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -55,7 +53,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-missing-button-type/no-missing-button-type.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-missing-button-type/no-missing-button-type.spec.ts)
@@ -68,5 +66,5 @@ function MyComponent() {
 
 ## See Also
 
-- [`no-missing-iframe-sandbox`](./dom-no-missing-iframe-sandbox)\
-  Enforces an explicit `sandbox` attribute for `iframe` elements.
+- [`no-missing-iframe-sandbox`](./no-missing-iframe-sandbox)\
+  Enforces an explicit  attribute for  elements

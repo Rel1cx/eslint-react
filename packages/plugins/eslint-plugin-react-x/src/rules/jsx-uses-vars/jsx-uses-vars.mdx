@@ -20,22 +20,20 @@ react-x/jsx-uses-vars
 `recommended`
 `strict`
 
-## Description
+## Rule Description
 
 Marks JSX element variables as used.
 
 Since 0.17.0, the ESLint `no-unused-vars` rule does not detect variables used in JSX (see details). This rule finds variables used in JSX and marks them as used.
 This rule only has an effect when the `no-unused-vars` rule is enabled.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import Hello from "./Hello";
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import Hello from "./Hello";
@@ -43,7 +41,7 @@ import Hello from "./Hello";
 <Hello name="John" />;
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-vars/jsx-uses-vars.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-uses-vars/jsx-uses-vars.spec.ts)
@@ -58,6 +56,6 @@ import Hello from "./Hello";
 ## See Also
 
 - [`jsx-uses-react`](./jsx-uses-react)\
-  Marks React variables as used when JSX is present.
+  Marks React variables as used when JSX is present
 - [`jsx-no-duplicate-props`](./jsx-no-duplicate-props)\
-  Disallows duplicate props in JSX elements.
+  Disallows duplicate props in JSX elements

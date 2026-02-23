@@ -23,7 +23,7 @@ react-x/no-implicit-key
 `recommended-type-checked`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Prevents implicitly passing the 'key' prop to components.
 
@@ -31,9 +31,7 @@ This makes it hard to see whether the key was passed correctly to the element or
 
 It is also proposed to be deprecated in this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149).
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -51,7 +49,7 @@ function MyComponent(props: MyComponentProps) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -77,7 +75,7 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key/no-implicit-key.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key/no-implicit-key.spec.ts)
@@ -92,10 +90,10 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 ## See Also
 
 - [`jsx-key-before-spread`](./jsx-key-before-spread)\
-  Enforces that the `key` attribute is placed before the spread attribute in JSX elements.
+  Enforces  prop placement before spread props
 - [`no-missing-key`](./no-missing-key)\
-  Prevents missing `key` on items in list rendering.
+  Disallows missing  on items in list rendering
 - [`no-duplicate-key`](./no-duplicate-key)\
-  Prevents duplicate `key` props on sibling elements when rendering lists.
+  Prevents duplicate  props on sibling elements when rendering lists
 - [`no-array-index-key`](./no-array-index-key)\
-  Warns when an array `index` is used as a `key` prop.
+  Disallows using an item's index in the array as its key

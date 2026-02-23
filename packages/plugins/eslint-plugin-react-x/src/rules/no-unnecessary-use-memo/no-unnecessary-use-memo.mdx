@@ -28,15 +28,13 @@ react-x/no-unnecessary-use-memo
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows unnecessary usage of `useMemo`.
 
 The React Hook `useMemo` with an empty dependencies array, as in the examples, is unnecessary. The hook can be removed, and its value can be calculated in the component body or hoisted to the outer scope of the component. If the calculated variable is used only inside one `useEffect`, the calculation can be moved inside the `useEffect` function.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { Button, MantineTheme } from "@mantine/core";
@@ -72,7 +70,7 @@ function MyComponent({ someNumbers }: { someNumbers: number[] }) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import { Button, MantineTheme } from "@mantine/core";
@@ -102,7 +100,7 @@ function MyComponent({ someNumbers }: { someNumbers: number[] }) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-memo/no-unnecessary-use-memo.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-memo/no-unnecessary-use-memo.spec.ts)
@@ -117,4 +115,4 @@ function MyComponent({ someNumbers }: { someNumbers: number[] }) {
 ## See Also
 
 - [`no-unnecessary-use-callback`](./no-unnecessary-use-callback)\
-  Disallows unnecessary usage of `useCallback`.
+  Disallows unnecessary usage of
