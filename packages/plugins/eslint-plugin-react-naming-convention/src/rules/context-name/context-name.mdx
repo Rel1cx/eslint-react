@@ -23,15 +23,13 @@ react-naming-convention/context-name
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces the context name to be a valid component name with the suffix `Context`.
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`. This rule enforces that the context has a valid component name with the suffix `Context`.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 const theme = createContext("");
@@ -49,13 +47,13 @@ const themecontext = createContext("");
 const themeContext = createContext("");
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 const ThemeContext = createContext("");
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/context-name/context-name.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/context-name/context-name.spec.ts)
@@ -69,5 +67,5 @@ const ThemeContext = createContext("");
 
 ## See Also
 
-- [`component-name`](./naming-convention-component-name)\
-  Enforces naming conventions for components.
+- [`component-name`](./component-name)\
+  Enforces naming conventions for components

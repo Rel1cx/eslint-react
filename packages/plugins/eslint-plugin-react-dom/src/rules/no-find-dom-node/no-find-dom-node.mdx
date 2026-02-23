@@ -24,15 +24,13 @@ react-dom/no-find-dom-node
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows `findDOMNode`.
 
 This API will be removed in a future major version of React. [See the alternatives](https://react.dev/reference/react-dom/findDOMNode#alternatives).
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { Component } from "react";
@@ -52,7 +50,7 @@ class AutoSelectingInput extends Component {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React, { Component } from "react";
@@ -71,7 +69,7 @@ class AutoSelectingInput extends Component {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-find-dom-node/no-find-dom-node.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-find-dom-node/no-find-dom-node.spec.ts)
@@ -85,6 +83,6 @@ class AutoSelectingInput extends Component {
 ## See Also
 
 - [`no-render`](./no-render)\
-  Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`.
+  Replaces usage of  with
 - [`no-hydrate`](./no-hydrate)\
-  Replaces usage of `ReactDOM.hydrate()` with `createRoot(node).hydrate()`.
+  Replaces usage of  with

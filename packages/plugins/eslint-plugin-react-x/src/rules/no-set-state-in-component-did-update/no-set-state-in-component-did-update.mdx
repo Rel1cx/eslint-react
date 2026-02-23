@@ -24,15 +24,13 @@ react-x/no-set-state-in-component-did-update
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows calling `this.setState` in `componentDidUpdate` outside functions such as callbacks.
 
 Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -55,7 +53,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update.spec.ts)
@@ -70,6 +68,6 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 ## See Also
 
 - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount)\
-  Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks.
+  Disallows calling  in  outside functions such as callbacks
 - [`no-set-state-in-component-will-update`](./no-set-state-in-component-will-update)\
-  Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks.
+  Disallows calling  in  outside functions such as callbacks

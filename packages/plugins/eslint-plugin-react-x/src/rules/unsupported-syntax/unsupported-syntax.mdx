@@ -28,7 +28,7 @@ react-x/unsupported-syntax
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Validates against syntax that React Compiler does not support. If you need to, you can still use this syntax outside of React, such as in a standalone utility function.
 
@@ -239,9 +239,7 @@ function MyComponent() {
 }
 ```
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 function Component({ code }) {
@@ -287,7 +285,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 function Component({ propName, props }) {
@@ -340,7 +338,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unsupported-syntax/unsupported-syntax.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unsupported-syntax/unsupported-syntax.spec.ts)
@@ -354,6 +352,6 @@ function MyComponent() {
 ## See Also
 
 - [`purity`](./purity)\
-  Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+  Validates that components and hooks are pure by checking that they do not call known-impure functions during render
 - [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
-  Disallows unnecessary usage of `useMemo`.
+  Disallows unnecessary usage of

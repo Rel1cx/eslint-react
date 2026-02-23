@@ -24,15 +24,13 @@ react-web-api/no-leaked-interval
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`.
 
 Scheduling an interval within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setInterval` callback executions and may also result in using stale values captured by previous renders’ effects after each subsequent re-render.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { useEffect, useState } from "react";
@@ -49,7 +47,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React, { useEffect, useState } from "react";
@@ -66,7 +64,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval/no-leaked-interval.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval/no-leaked-interval.spec.ts)

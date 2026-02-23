@@ -24,15 +24,13 @@ react-x/no-missing-key
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows missing `key` on items in list rendering.
 
 React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -50,7 +48,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -68,7 +66,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key/no-missing-key.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-key/no-missing-key.spec.ts)
@@ -82,8 +80,8 @@ function MyComponent({ items }: MyComponentProps) {
 ## See Also
 
 - [`no-duplicate-key`](./no-duplicate-key)\
-  Prevents duplicate `key` props on sibling elements when rendering lists.
+  Prevents duplicate  props on sibling elements when rendering lists
 - [`no-implicit-key`](./no-implicit-key)\
-  Prevents implicitly passing the 'key' prop to components.
+  Prevents implicitly passing the  prop to components
 - [`no-array-index-key`](./no-array-index-key)\
-  Warns when an array `index` is used as a `key` prop.
+  Disallows using an item's index in the array as its key

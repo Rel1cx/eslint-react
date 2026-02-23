@@ -24,7 +24,7 @@ react-x/no-useless-fragment
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows useless fragment elements.
 
@@ -53,9 +53,7 @@ When set to `true`, allows fragments that contain a single expression child.
 
 Default: `true`
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 <><Foo /></>
@@ -72,7 +70,7 @@ Default: `true`
 </section>
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 {foo}
@@ -106,7 +104,7 @@ const cat = <>meow</>
 
 ## Examples with `allowExpressions: false`
 
-### Failing
+## Triggering Examples
 
 ```tsx
 <><Foo /></>
@@ -140,7 +138,7 @@ const cat = <>meow</>
 </SomeComponent>
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 {foo}
@@ -169,7 +167,7 @@ const cat = <>meow</>
 <Fragment>{foo}</Fragment>
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-useless-fragment/no-useless-fragment.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-useless-fragment/no-useless-fragment.spec.ts)
@@ -185,4 +183,4 @@ const cat = <>meow</>
 ## See Also
 
 - [`jsx-shorthand-fragment`](./jsx-shorthand-fragment)\
-  Enforces the use of shorthand syntax for fragments.
+  Enforces shorthand syntax for fragment elements

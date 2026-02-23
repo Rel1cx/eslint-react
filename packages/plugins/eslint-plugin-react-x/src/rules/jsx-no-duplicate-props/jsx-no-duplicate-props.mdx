@@ -20,25 +20,23 @@ react-x/jsx-no-duplicate-props
 `recommended`
 `strict`
 
-## Description
+## Rule Description
 
 Disallows duplicate props in JSX elements.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 <Hello name="John" name="Doe" />;
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 <Hello name="John" />;
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-duplicate-props/jsx-no-duplicate-props.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-duplicate-props/jsx-no-duplicate-props.spec.ts)
@@ -52,6 +50,6 @@ Disallows duplicate props in JSX elements.
 ## See Also
 
 - [`jsx-uses-vars`](./jsx-uses-vars)\
-  Marks variables used in JSX elements as used.
+  Marks JSX element variables as used
 - [`jsx-uses-react`](./jsx-uses-react)\
-  Marks React variables as used when JSX is present.
+  Marks React variables as used when JSX is present

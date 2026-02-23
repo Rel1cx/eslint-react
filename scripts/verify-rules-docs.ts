@@ -130,7 +130,7 @@ const verifyDocs = Effect.gen(function*() {
 
     // Verify the description section matches the rule metadata
     const expectedDescription = rulemeta.description;
-    const descriptionIndex = contentLines.findIndex((line) => line.startsWith("## Description"));
+    const descriptionIndex = contentLines.findIndex((line) => line.startsWith("## Rule Description"));
     if (descriptionIndex === -1) {
       yield* Effect.logError(ansis.red(`  Missing description line in documentation for rule ${rulename}`));
       continue;
@@ -168,7 +168,51 @@ const verifyDocs = Effect.gen(function*() {
       yield* Effect.logError(ansis.red(`  Missing presets line in documentation for rule ${rulename}`));
       continue;
     }
-    // TODO: Verify presets content if needed
+
+    // Verify the resources section contains correct Rule Source and Test Source links
+    const resourcesIndex = contentLines.findIndex((line) => line.startsWith("## Resources"));
+    if (resourcesIndex === -1) {
+      yield* Effect.logError(ansis.red(`  Missing resources line in documentation for rule ${rulename}`));
+      continue;
+    }
+
+    // Find the next section after Resources to limit our search
+    const nextSectionIndex = contentLines.findIndex((line, index) => index > resourcesIndex && line.startsWith("## "));
+    const resourcesSection = contentLines.slice(resourcesIndex, nextSectionIndex === -1 ? undefined : nextSectionIndex);
+
+    // Verify Rule Source link
+    const ruleSourceLine = resourcesSection.find((line) => line.includes("[Rule Source]"));
+    const expectedRuleSource =
+      `https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.ts`;
+    if (ruleSourceLine == null) {
+      yield* Effect.logError(ansis.red(`  Missing Rule Source link in documentation for rule ${rulename}`));
+    } else {
+      const providedRuleSource = ruleSourceLine.match(/\[Rule Source\]\(([^)]+)\)/)?.[1];
+      if (providedRuleSource !== expectedRuleSource) {
+        yield* Effect.logError(
+          ansis.red(`  Found 1 mismatched Rule Source link in documentation for rule ${rulename}`),
+        );
+        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedRuleSource)}`);
+        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedRuleSource)}`);
+      }
+    }
+
+    // Verify Test Source link
+    const testSourceLine = resourcesSection.find((line) => line.includes("[Test Source]"));
+    const expectedTestSource =
+      `https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
+    if (testSourceLine == null) {
+      yield* Effect.logError(ansis.red(`  Missing Test Source link in documentation for rule ${rulename}`));
+    } else {
+      const providedTestSource = testSourceLine.match(/\[Test Source\]\(([^)]+)\)/)?.[1];
+      if (providedTestSource !== expectedTestSource) {
+        yield* Effect.logError(
+          ansis.red(`  Found 1 mismatched Test Source link in documentation for rule ${rulename}`),
+        );
+        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedTestSource)}`);
+        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedTestSource)}`);
+      }
+    }
   }
 });
 

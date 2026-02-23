@@ -28,16 +28,14 @@ react-x/no-unnecessary-use-callback
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows unnecessary usage of `useCallback`.
 
 The React Hook `useCallback` with an empty dependency array, as in the examples, is unnecessary. The hook can be removed and its value can be created in the component body or hoisted to the outer scope of the component.
 If the calculated function is only used inside one `useEffect`, the calculation can be moved inside the `useEffect` function.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { useCallback } from "react";
@@ -66,7 +64,7 @@ function MyComponent({items}: {items: string[]}) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -93,7 +91,7 @@ function MyComponent({items}: {items: string[]}) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-callback/no-unnecessary-use-callback.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-callback/no-unnecessary-use-callback.spec.ts)
@@ -108,4 +106,4 @@ function MyComponent({items}: {items: string[]}) {
 ## See Also
 
 - [`no-unnecessary-use-memo`](./no-unnecessary-use-memo)\
-  Disallows unnecessary usage of `useMemo`.
+  Disallows unnecessary usage of

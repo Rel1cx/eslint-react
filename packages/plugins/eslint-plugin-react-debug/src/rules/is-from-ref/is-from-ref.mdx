@@ -16,11 +16,9 @@ react-debug/is-from-ref
 
 -
 
-## Description
+## Rule Description
 
 Reports all identifiers initialized or derived from refs in JSON format. Useful for debugging. This rule should only be used for debugging purposes; otherwise, leave it off.
-
-## Examples
 
 ```tsx
 import React from "react";
@@ -37,7 +35,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/is-from-ref/is-from-ref.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/is-from-ref/is-from-ref.spec.ts)
@@ -46,9 +44,9 @@ function MyComponent() {
 
 ## See Also
 
-- [`is-from-react`](./debug-is-from-react)\
-  Reports all identifiers initialized from React in JSON format.
-- [`jsx`](./debug-jsx)\
-  Reports all JSX elements and fragments in JSON format.
-- [`class-component`](./debug-class-component)\
-  Reports all class components.
+- [`is-from-react`](./is-from-react)\
+  Reports all identifiers initialized from React in JSON format
+- [`jsx`](./jsx)\
+  Reports all JSX elements and fragments in JSON format
+- [`class-component`](./class-component)\
+  Reports all class components in JSON format

@@ -24,15 +24,13 @@ react-web-api/no-leaked-resize-observer
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`.
 
 Creating a `ResizeObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { useEffect, useRef } from "react";
@@ -51,7 +49,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React, { useEffect, useRef } from "react";
@@ -70,7 +68,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer/no-leaked-resize-observer.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer/no-leaked-resize-observer.spec.ts)
@@ -84,9 +82,9 @@ function MyComponent() {
 
 ## See Also
 
-- [`no-leaked-event-listener`](./web-api-no-leaked-event-listener)\
-  Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`.
-- [`no-leaked-interval`](./web-api-no-leaked-interval)\
-  Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`.
-- [`no-leaked-timeout`](./web-api-no-leaked-timeout)\
-  Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`.
+- [`no-leaked-event-listener`](./no-leaked-event-listener)\
+  Enforces that every  in a component or custom hook has a corresponding
+- [`no-leaked-interval`](./no-leaked-interval)\
+  Enforces that every  in a component or custom hook has a corresponding
+- [`no-leaked-timeout`](./no-leaked-timeout)\
+  Enforces that every  in a component or custom hook has a corresponding

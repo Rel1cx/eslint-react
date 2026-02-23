@@ -22,7 +22,7 @@ react-dom/no-unknown-property
 
 -
 
-## Description
+## Rule Description
 
 Disallows unknown `DOM` properties.
 
@@ -65,9 +65,7 @@ Now the following code passes:
 const StyledDiv = <div css={{ color: "pink" }}></div>;
 ```
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 const Hello = <div class="hello">Hello World</div>;
@@ -77,7 +75,7 @@ const Alphabet = <div abc="something">Alphabet</div>;
 const IconButton = <div aria-foo="bar" />;
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 const Hello = <div className="hello">Hello World</div>;
@@ -99,7 +97,7 @@ const MyElem = <div class="foo" is="my-elem"></div>;
 const AtomPanel = <atom-panel class="foo"></atom-panel>;
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property/no-unknown-property.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property/no-unknown-property.spec.ts)
@@ -109,6 +107,6 @@ const AtomPanel = <atom-panel class="foo"></atom-panel>;
 ## See Also
 
 - [`no-string-style-prop`](./no-string-style-prop)\
-  Disallows the use of string style prop in JSX.
+  Disallows the use of string style prop in JSX
 - [`no-namespace`](./no-namespace)\
-  Enforces the absence of a `namespace` in React elements.
+  Enforces the absence of a  in React elements

@@ -32,7 +32,7 @@ react-x/use-state
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.
 
@@ -74,9 +74,7 @@ Primitive wrapper calls (`Boolean(...)`, `String(...)`, `Number(...)`) and React
 
 Default: `true`
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 // ❌ Setter name does not match value name
@@ -123,7 +121,7 @@ function MyComponent() {
 declare function generateTodos(): string[];
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // ✅ Symmetric camelCase naming
@@ -187,7 +185,7 @@ function Component({ promise }) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-state/use-state.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/use-state/use-state.spec.ts)
@@ -203,8 +201,8 @@ function Component({ promise }) {
 ## See Also
 
 - [`use-memo`](./use-memo)\
-  Validates that `useMemo` is called with a callback that returns a value.
+  Validates that  is called with a callback that returns a value
 - [`rules-of-hooks`](./rules-of-hooks)\
-  Validates that components and hooks follow the Rules of Hooks.
+  Enforces the Rules of Hooks
 - [`exhaustive-deps`](./exhaustive-deps)\
-  Validates that dependency arrays for React hooks contain all necessary dependencies.
+  Verifies the list of dependencies for Hooks like  and similar

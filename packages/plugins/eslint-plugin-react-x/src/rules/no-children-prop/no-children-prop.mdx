@@ -20,7 +20,7 @@ react-x/no-children-prop
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows passing `children` as a prop.
 
@@ -28,9 +28,7 @@ Most of the time, `children` should be actual children, not passed in as a prop.
 
 When using JSX, `children` should be nested between the opening and closing tags. When not using JSX, `children` should be passed as additional arguments to `React.createElement`.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -45,7 +43,7 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -59,7 +57,7 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-prop/no-children-prop.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-prop/no-children-prop.spec.ts)

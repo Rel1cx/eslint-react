@@ -28,7 +28,7 @@ react-x/no-forward-ref
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Replaces usage of `forwardRef` with passing `ref` as a prop.
 
@@ -36,9 +36,7 @@ In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 
 `forwardRef` will be deprecated in a future release. Learn more [here](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop).
 
-## Examples
-
-### Before
+## Triggering Examples
 
 ```tsx
 import React, { forwardRef } from "react";
@@ -69,7 +67,7 @@ const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(
 );
 ```
 
-### After
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -96,7 +94,7 @@ function MyInput({
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-forward-ref/no-forward-ref.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-forward-ref/no-forward-ref.spec.ts)

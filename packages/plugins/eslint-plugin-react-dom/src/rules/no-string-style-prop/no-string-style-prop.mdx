@@ -20,13 +20,11 @@ react-dom/no-string-style-prop
 `recommended`
 `strict`
 
-## Description
+## Rule Description
 
 Disallows the use of string style prop in JSX. Use an object instead.
 
-## Examples
-
-### Before
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -36,7 +34,7 @@ function MyComponent() {
 }
 ```
 
-### After
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -46,7 +44,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.spec.ts)
@@ -56,6 +54,6 @@ function MyComponent() {
 ## See Also
 
 - [`no-unknown-property`](./no-unknown-property)\
-  Disallows unknown `DOM` properties.
+  Disallows unknown  properties
 - [`no-namespace`](./no-namespace)\
-  Enforces the absence of a `namespace` in React elements.
+  Enforces the absence of a  in React elements

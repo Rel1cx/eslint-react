@@ -16,11 +16,9 @@ react-debug/function-component
 
 -
 
-## Description
+## Rule Description
 
 Reports all function components in JSON format. Useful for debugging. This rule should only be used for debugging purposes; otherwise leave it off.
-
-## Examples
 
 ```tsx
 import React from "react";
@@ -72,7 +70,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component/function-component.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component/function-component.spec.ts)
@@ -81,7 +79,7 @@ function MyComponent() {
 
 ## See Also
 
-- [`class-component`](./debug-class-component)\
-  Reports all class components.
-- [`hook`](./debug-hook)\
-  Reports all Hooks.
+- [`class-component`](./class-component)\
+  Reports all class components in JSON format
+- [`hook`](./hook)\
+  Reports all React Hooks in JSON format

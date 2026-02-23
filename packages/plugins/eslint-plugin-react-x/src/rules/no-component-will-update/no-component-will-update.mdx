@@ -28,15 +28,13 @@ react-x/no-component-will-update
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
 
 This API was renamed from `componentWillUpdate` to `UNSAFE_componentWillUpdate`. The old name is deprecated. In a future major version of React, only the new name will work.
 
-## Examples
-
-### Before
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -48,7 +46,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### After
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -60,7 +58,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-component-will-update/no-component-will-update.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-component-will-update/no-component-will-update.spec.ts)

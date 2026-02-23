@@ -22,13 +22,11 @@ react-dom/prefer-namespace-import
 
 -
 
-## Description
+## Rule Description
 
 Enforces importing React DOM via a namespace import.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import ReactDOM from "react-dom/client";
@@ -36,14 +34,14 @@ import ReactDOM from "react-dom/client";
 import type ReactDOM from "react-dom/client";
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import * as ReactDOM from "react-dom/client";
 import type * as ReactDOM from "react-dom/client";
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/prefer-namespace-import/prefer-namespace-import.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/prefer-namespace-import/prefer-namespace-import.spec.ts)
@@ -53,4 +51,4 @@ import type * as ReactDOM from "react-dom/client";
 ## See Also
 
 - [`prefer-namespace-import`](./prefer-namespace-import)\
-  Enforces importing React via a namespace import.
+  Enforces importing React via a namespace import

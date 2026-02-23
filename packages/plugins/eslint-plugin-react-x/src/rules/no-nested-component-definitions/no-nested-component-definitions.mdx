@@ -24,7 +24,7 @@ react-x/no-nested-component-definitions
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows nesting component definitions inside other components.
 
@@ -39,9 +39,7 @@ When a component is defined inside another component:
 
 Instead, define every component at the top level.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -55,7 +53,7 @@ function Gallery() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 // ✅ Declare components at the top level
@@ -69,7 +67,7 @@ function Profile() {
 
 When a child component needs data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions/no-nested-component-definitions.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions/no-nested-component-definitions.spec.ts)
@@ -84,6 +82,6 @@ When a child component needs data from a parent, [pass it by props](https://reac
 ## See Also
 
 - [`no-nested-lazy-component-declarations`](./no-nested-lazy-component-declarations)\
-  Disallow nesting lazy component declarations inside other components.
+  Disallows nesting lazy component declarations inside other components
 - [`component-hook-factories`](./component-hook-factories)\
-  Disallows higher order functions that define components or hooks inside them. Components and hooks should be defined at the module level.
+  Disallows higher order functions that define components or hooks inside them

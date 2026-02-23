@@ -28,7 +28,7 @@ react-x/set-state-in-effect
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.
 
@@ -79,9 +79,7 @@ The rule does not flag indirect calls, such as:
   }, []);
   ```
 
-## Examples
-
-### Passing
+## Non Triggering Examples
 
 The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
 
@@ -102,8 +100,6 @@ function Tooltip() {
 
 The following cases are common valid use cases because they do not call the `set` function directly in `useEffect`:
 
-### Passing
-
 ```tsx
 import { useEffect, useState } from "react";
 
@@ -119,8 +115,6 @@ export default function Counter() {
   return <h1>{count}</h1>;
 }
 ```
-
-### Passing
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -138,8 +132,6 @@ export default function Counter() {
   return <h1>{count}</h1>;
 }
 ```
-
-### Passing
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -168,56 +160,6 @@ export default function RemoteContent() {
   If you need to fetch remote data within the component, consider using libraries like [TanStack Query](https://tanstack.com/query/v3/) or [SWR](https://swr.vercel.app/). They handle caching, re-fetching, and state management for you, making your code cleaner and more efficient.
 </Callout>
 
-The following examples are derived from the [React Docs: `set-state-in-effect`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) and the [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect):
-
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Synchronous setState in effect
-function Component({ data }) {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    setItems(data); // Extra render, use initial state instead
-  }, [data]);
-}
-```
-
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Setting loading state synchronously
-function Component() {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true); // Synchronous, causes extra render
-    fetchData().then(() => setLoading(false));
-  }, []);
-}
-```
-
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Transforming data in effect
-function Component({ rawData }) {
-  const [processed, setProcessed] = useState([]);
-
-  useEffect(() => {
-    setProcessed(rawData.map(transform)); // Should derive in render
-  }, [rawData]);
-}
-```
-
-### Passing
-
 ```tsx
 import { useMemo, useState } from "react";
 
@@ -228,23 +170,6 @@ function Component({ rawData }) {
 }
 ```
 
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Deriving state from props
-function Component({ selectedId, items }) {
-  const [selected, setSelected] = useState(null);
-
-  useEffect(() => {
-    setSelected(items.find((i) => i.id === selectedId));
-  }, [selectedId, items]);
-}
-```
-
-### Passing
-
 ```tsx
 // ✅ Calculate during render
 function Component({ selectedId, items }) {
@@ -252,24 +177,6 @@ function Component({ selectedId, items }) {
   return <div>{selected?.name}</div>;
 }
 ```
-
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-export default function ProfilePage({ userId }) {
-  const [comment, setComment] = useState("");
-
-  // 🔴 Avoid: Resetting state on prop change in an Effect
-  useEffect(() => {
-    setComment("");
-  }, [userId]);
-  // ...
-}
-```
-
-### Passing
 
 ```tsx
 import { useState } from "react";
@@ -284,25 +191,6 @@ function Profile({ userId }) {
   // ...
 }
 ```
-
-### Failing
-
-```tsx
-import { useEffect, useState } from "react";
-
-function List({ items }) {
-  const [isReverse, setIsReverse] = useState(false);
-  const [selection, setSelection] = useState(null);
-
-  // 🔴 Avoid: Adjusting state on prop change in an Effect
-  useEffect(() => {
-    setSelection(null);
-  }, [items]);
-  // ...
-}
-```
-
-### Passing
 
 ```tsx
 import { useState } from "react";
@@ -333,7 +221,93 @@ function List({ items }) {
 }
 ```
 
-## Implementation
+## Triggering Examples
+
+The following examples are derived from the [React Docs: `set-state-in-effect`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) and the [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect):
+
+```tsx
+import { useEffect, useState } from "react";
+
+// ❌ Synchronous setState in effect
+function Component({ data }) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(data); // Extra render, use initial state instead
+  }, [data]);
+}
+```
+
+```tsx
+import { useEffect, useState } from "react";
+
+// ❌ Setting loading state synchronously
+function Component() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true); // Synchronous, causes extra render
+    fetchData().then(() => setLoading(false));
+  }, []);
+}
+```
+
+```tsx
+import { useEffect, useState } from "react";
+
+// ❌ Transforming data in effect
+function Component({ rawData }) {
+  const [processed, setProcessed] = useState([]);
+
+  useEffect(() => {
+    setProcessed(rawData.map(transform)); // Should derive in render
+  }, [rawData]);
+}
+```
+
+```tsx
+import { useEffect, useState } from "react";
+
+// ❌ Deriving state from props
+function Component({ selectedId, items }) {
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    setSelected(items.find((i) => i.id === selectedId));
+  }, [selectedId, items]);
+}
+```
+
+```tsx
+import { useEffect, useState } from "react";
+
+export default function ProfilePage({ userId }) {
+  const [comment, setComment] = useState("");
+
+  // 🔴 Avoid: Resetting state on prop change in an Effect
+  useEffect(() => {
+    setComment("");
+  }, [userId]);
+  // ...
+}
+```
+
+```tsx
+import { useEffect, useState } from "react";
+
+function List({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  // 🔴 Avoid: Adjusting state on prop change in an Effect
+  useEffect(() => {
+    setSelection(null);
+  }, [items]);
+  // ...
+}
+```
+
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-effect/set-state-in-effect.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-effect/set-state-in-effect.spec.ts)
@@ -350,4 +324,4 @@ function List({ items }) {
 ## See Also
 
 - [`set-state-in-render`](./set-state-in-render)\
-  Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.
+  Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops

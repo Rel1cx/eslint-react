@@ -26,15 +26,13 @@ react-x/no-duplicate-key
 
 -
 
-## Description
+## Rule Description
 
 Prevents duplicate `key` props on sibling elements when rendering lists.
 
 React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from 'react';
@@ -75,7 +73,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from 'react';
@@ -113,7 +111,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-duplicate-key/no-duplicate-key.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-duplicate-key/no-duplicate-key.spec.ts)
@@ -127,8 +125,8 @@ function MyComponent() {
 ## See Also
 
 - [`no-missing-key`](./no-missing-key)\
-  Prevents missing `key` on items in list rendering.
+  Disallows missing  on items in list rendering
 - [`no-implicit-key`](./no-implicit-key)\
-  Prevents implicitly passing the 'key' prop to components.
+  Prevents implicitly passing the  prop to components
 - [`no-array-index-key`](./no-array-index-key)\
-  Warns when an array `index` is used as a `key` prop.
+  Disallows using an item's index in the array as its key

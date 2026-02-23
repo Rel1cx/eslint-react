@@ -24,15 +24,13 @@ react-x/jsx-no-comment-textnodes
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes.
 
 This could be a mistake during code editing or a misunderstanding of how JSX works. Either way, it's probably not what you intended.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -48,7 +46,7 @@ function MyComponent2() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -71,7 +69,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-comment-textnodes/jsx-no-comment-textnodes.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-comment-textnodes/jsx-no-comment-textnodes.spec.ts)
@@ -85,4 +83,4 @@ function MyComponent() {
 ## See Also
 
 - [`jsx-dollar`](./jsx-dollar)\
-  Prevents unnecessary dollar signs (`$`) from being inserted before an expression in JSX.
+  Prevents unintentional  sign before expression

@@ -23,50 +23,13 @@ react-x/no-leaked-conditional-rendering
 `recommended-type-checked`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Prevents problematic leaked values from being rendered.
 
 Using the `&&` operator to render an element conditionally in JSX can cause unexpected values to be rendered or even crash the rendering.
 
-## Examples
-
-In React, you might end up rendering unexpected values like `0` or `NaN`. In React Native, your render method will even crash if you render these values:
-
-```tsx
-import React from "react";
-
-function MyComponent() {
-  return <>{0 && <view />}</>;
-  //        ^ Possible unexpected value will be rendered (React DOM: renders undesired '0', React Native: crashes 💥).
-}
-```
-
-```tsx
-import React from "react";
-
-function MyComponent() {
-  return <>{NaN && <div />}</>;
-  //        ^^^ Possible unexpected value will be rendered (React DOM: renders undesired 'NaN', React Native: crashes 💥).
-}
-```
-
-```tsx
-import React from "react";
-
-function MyComponent() {
-  return <>{"" && <div />}</>;
-  //        ^^ Possible unexpected value will be rendered (React DOM: renders nothing; React Native, with React below 18: crashes 💥).
-}
-```
-
-This can be avoided by:
-
-- Coercing the value to a boolean: `{!!someValue && <Component />}`
-- Using a ternary: `{someValue ? <Component /> : null}`
-- Using comparisons: `{someValue > 0 && <Component />}`
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -123,7 +86,7 @@ function MyComponent({ numberA, numberB }: MyComponentProps) {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -237,7 +200,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering/no-leaked-conditional-rendering.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering/no-leaked-conditional-rendering.spec.ts)

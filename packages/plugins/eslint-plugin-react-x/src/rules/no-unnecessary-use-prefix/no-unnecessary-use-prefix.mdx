@@ -23,7 +23,7 @@ react-x/no-unnecessary-use-prefix
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Enforces that a function with the 'use' prefix uses at least one Hook inside it.
 
@@ -78,9 +78,7 @@ function useAuth() {
 
 Then components won’t be able to call it conditionally. This will become important when you actually add Hook calls inside. If you don’t plan to use Hooks inside it (now or later), don’t make it a Hook.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 function useSorted(items) {
@@ -95,7 +93,7 @@ function useAuth() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 function getSorted(items) {
@@ -125,7 +123,7 @@ export function useMDXComponents(components) {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-prefix/no-unnecessary-use-prefix.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unnecessary-use-prefix/no-unnecessary-use-prefix.spec.ts)
@@ -139,4 +137,4 @@ export function useMDXComponents(components) {
 ## See Also
 
 - [`rules-of-hooks`](./rules-of-hooks)\
-  Validates that components and hooks follow the Rules of Hooks.
+  Enforces the Rules of Hooks

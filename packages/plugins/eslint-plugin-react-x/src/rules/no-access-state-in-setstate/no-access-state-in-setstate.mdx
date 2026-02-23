@@ -24,15 +24,13 @@ react-x/no-access-state-in-setstate
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows accessing `this.state` inside `setState` calls.
 
 Using `this.state` inside `setState` calls might result in errors when two state updates are batched, causing references to the old state rather than the current state.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -57,7 +55,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -83,7 +81,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.spec.ts)
@@ -93,8 +91,8 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 ## See Also
 
 - [`no-direct-mutation-state`](./no-direct-mutation-state)\
-  Disallows direct mutation of `this.state`.
+  Disallows direct mutation of
 - [`no-set-state-in-component-did-mount`](./no-set-state-in-component-did-mount)\
-  Disallows calling `this.setState` in `componentDidMount` outside functions such as callbacks.
+  Disallows calling  in  outside functions such as callbacks
 - [`no-unused-state`](./no-unused-state)\
-  Warns about unused class component state.
+  Warns about unused class component state

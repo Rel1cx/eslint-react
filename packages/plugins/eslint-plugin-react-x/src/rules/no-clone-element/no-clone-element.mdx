@@ -24,15 +24,13 @@ react-x/no-clone-element
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Disallows `cloneElement`.
 
 Using `cloneElement` is uncommon and can lead to fragile code. It also makes it harder to trace data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import { cloneElement } from "react";
@@ -46,7 +44,7 @@ const clonedElement = cloneElement(
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-clone-element/no-clone-element.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-clone-element/no-clone-element.spec.ts)

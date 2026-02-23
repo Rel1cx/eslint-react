@@ -22,7 +22,7 @@ react-x/jsx-shorthand-fragment
 
 -
 
-## Description
+## Rule Description
 
 Enforces shorthand syntax for fragment elements.
 
@@ -33,9 +33,7 @@ This rule has a single integer option with the following values:
 - `1` (default): Always use shorthand syntax for fragments.
 - `-1`: Never use shorthand syntax for fragments.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React, { Fragment } from "react";
@@ -50,7 +48,7 @@ function MyComponent() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React from "react";
@@ -65,7 +63,7 @@ function MyComponent() {
 }
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-shorthand-fragment/jsx-shorthand-fragment.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-shorthand-fragment/jsx-shorthand-fragment.spec.ts)
@@ -79,4 +77,4 @@ function MyComponent() {
 ## See Also
 
 - [`jsx-shorthand-boolean`](./jsx-shorthand-boolean)\
-  Enforces the use of shorthand syntax for boolean attributes.
+  Enforces shorthand syntax for boolean props

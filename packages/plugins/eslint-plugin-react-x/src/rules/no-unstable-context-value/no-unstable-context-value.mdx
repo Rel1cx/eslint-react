@@ -20,15 +20,13 @@ react-x/no-unstable-context-value
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Description
 
 Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`.
 
 React will re-render all consumers of a context whenever the context value changes, and if the value is not stable this can lead to unnecessary re-renders.
 
-## Examples
-
-### Failing
+## Triggering Examples
 
 ```tsx
 import React from "react";
@@ -46,7 +44,7 @@ function MyComponentProvider() {
 }
 ```
 
-### Passing
+## Non Triggering Examples
 
 ```tsx
 import React, { useMemo } from "react";
@@ -85,7 +83,7 @@ React Context and all its child nodes and consumers are re-rendered whenever the
 
 This can be a large performance hit because not only will it cause the context providers and consumers to re-render with all the elements in their subtree, the processing for the tree scan React does to render the provider and find consumers is also wasted.
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value/no-unstable-context-value.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unstable-context-value/no-unstable-context-value.spec.ts)
@@ -100,4 +98,4 @@ This can be a large performance hit because not only will it cause the context p
 ## See Also
 
 - [`no-unstable-default-props`](./no-unstable-default-props)\
-  Prevents usage of referential-type values as default props in object destructuring.
+  Prevents using referential-type values as default props in object destructuring
