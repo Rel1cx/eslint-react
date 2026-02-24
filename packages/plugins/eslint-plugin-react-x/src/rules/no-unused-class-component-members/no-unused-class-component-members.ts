@@ -53,7 +53,7 @@ function isKeyLiteral(
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Warns about unused class component methods and properties.",
     },

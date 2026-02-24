@@ -11,7 +11,7 @@ export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Enforces that all components have a 'displayName' that can be used in DevTools.",
     },

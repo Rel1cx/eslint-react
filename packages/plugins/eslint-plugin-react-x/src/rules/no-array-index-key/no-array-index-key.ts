@@ -115,7 +115,7 @@ function getIdentifiersFromBinaryExpression(side: TSESTree.BinaryExpression["lef
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Disallows using an item's index in the array as its key.",
     },

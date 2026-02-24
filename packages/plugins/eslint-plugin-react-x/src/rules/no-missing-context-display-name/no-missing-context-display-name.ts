@@ -17,7 +17,7 @@ export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Enforces that all contexts have a 'displayName' that can be used in DevTools.",
     },
